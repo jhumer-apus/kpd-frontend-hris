@@ -3,15 +3,16 @@ import styles from './LoginForm.module.scss';
 
 interface LoginFormProps {
   onLogin: (email: string, password: string) => void;
+  error: string | null; 
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+const LoginForm: React.FC<LoginFormProps> = ({ onLogin, error }) => {
+  const [stateEmail, setStateEmail] = React.useState('');
+  const [statePassword, setStatePassword] = React.useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onLogin(email, password);
+    onLogin(stateEmail, statePassword);
   };
 
   return (
@@ -20,15 +21,16 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
       <input
         type="email"
         placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        value={stateEmail}
+        onChange={(e) => setStateEmail(e.target.value)}
       />
       <input
         type="password"
         placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        value={statePassword}
+        onChange={(e) => setStatePassword(e.target.value)}
       />
+      {error && <p className={styles.error}>{error}</p>}
       <button type="submit">Login</button>
     </form>
   );

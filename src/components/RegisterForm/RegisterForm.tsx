@@ -1,5 +1,5 @@
 import React from 'react';
-import './RegisterForm.scss';
+import './RegisterForm.module.scss';
 
 interface RegisterFormProps {
   onRegister: (email: string, password: string) => void;
