@@ -23,7 +23,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 250px 300px 300px 300px;
+    // padding: 250px 300px 300px 300px; //prev design
     border-radius: 100px 344px 100px 344px / 344px 100px 344px 100px;
     .companyBrand{
         // height: 100px;
@@ -50,7 +50,7 @@
         }
     }
     .error{
-
+        color: #fff;
     }
     .loginButton{
         border-radius: 100px 344px 100px 344px / 344px 100px 344px 100px;
