@@ -1,28 +1,53 @@
-import React from 'react';
-import logo from './logo.svg';
+// import React from 'react';
+// import logo from './logo.svg';
+import { useState, useEffect } from 'react';
 import './App.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { RootState } from './store/reducers';
 import LoginRegisterPage from './pages/LoginRegisterPage/LoginRegisterPage';
+import Dashboard from './pages/Dashboard/Dashboard';
+import Loading from './components/Loading/Loading';
+import Cookies from 'js-cookie';
+import { userLoginSuccess } from './store/actions/auth';
 
-function App() {
+
+const App: React.FC = () => {
+  const dispatch = useDispatch();
+  const { isAuthenticated, token } = useSelector((state: RootState) => state.auth);
+  const [loading, setLoading] = useState(true);
+
+  // useEffect(() => {
+  //   if (token === null) {
+  //     setTimeout(() => {
+  //       setLoading(false);
+  //     }, 1000);
+  //   }
+  // }, [token]);
+  useEffect(() => {
+    const tokenFromCookie = Cookies.get('token');
+    if (tokenFromCookie) {
+      dispatch(userLoginSuccess(tokenFromCookie));
+    }
+    setLoading(false);
+  }, [dispatch]);
+
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <div className="App">
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
-      <section>
+      {/* <section>
       <LoginRegisterPage/>
-      </section>
+      </section> */}
+    <Router>
+      <Routes>
+        <Route path="/" element={ isAuthenticated ? <Navigate to="/dashboard" /> : <LoginRegisterPage /> }/>
+        <Route path="/dashboard" element={ isAuthenticated ? <Dashboard /> : <Navigate to="/" />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+      {/* {token === null && isAuthenticated === false && <Loading />} */}
+    </Router>
     </div>
   );
 }
