@@ -17,46 +17,18 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, error }) => {
     e.preventDefault();
     onLogin(stateEmail, statePassword);
   };
+  const companyLogo = `${process.env.PUBLIC_URL}/assets/silicon-valley-logo.png`;
 
   return (
     <form className={styles.loginWrapper} onSubmit={handleSubmit}>
-      <h2>Login</h2>
-      <input
-        type="email"
-        placeholder="Email"
-        value={stateEmail}
-        onChange={(e) => setStateEmail(e.target.value)}
-      />
-      {/* <input
-        type={showPassword ? "text" : "password"}
-        placeholder="Password"
-        value={statePassword}
-        onChange={(e) => setStatePassword(e.target.value)}
-      />
-      <div>
-        <input
-          type="checkbox"
-          id="showPassword"
-          checked={showPassword}
-          onChange={(e) => setShowPassword(e.target.checked)}
-        />
-        <label htmlFor="showPassword">Show Password</label>
-      </div> */}
+      <img className={styles.companyBrand} src={companyLogo} alt={'Company Logo'}></img> 
+      <input className={styles.emailInput} type="email" placeholder="Email" value={stateEmail} onChange={(e) => setStateEmail(e.target.value)}/>
       <div className={styles.passwordInput}>
-        <input
-          type={showPassword ? 'text' : 'password'}
-          placeholder="Password"
-          value={statePassword}
-          onChange={(e) => setStatePassword(e.target.value)}
-        />
-        <FontAwesomeIcon
-          icon={showPassword ? faEyeSlash : faEye}
-          className={styles.eyeIcon}
-          onClick={() => setShowPassword(!showPassword)}
-        />
+        <input type={showPassword ? 'text' : 'password'} placeholder="Password" value={statePassword} onChange={(e) => setStatePassword(e.target.value)}/>
+        <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} className={styles.eyeIcon} onClick={() => setShowPassword(!showPassword)}/>
       </div>
       {error && <p className={styles.error}>{error}</p>}
-      <button type="submit">Login</button>
+      <button className={styles.loginButton} type="submit">Login</button>
     </form>
   );
 };
