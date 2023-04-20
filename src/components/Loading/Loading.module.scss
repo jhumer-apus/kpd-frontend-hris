@@ -3,17 +3,28 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 115vh;
   width: 100vw;
   background-color: #000;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;
+  transform: translateY(-100%);
+  transition: transform 0.5s;
+  border-radius: 0 0 380px 380px/ 0 0 160px 160px;
+  &.animateDown {
+    transform: translateY(0%);
+  }
   .message{
     color: #fff;
   }
 }
+
+.noAnimation {
+  animation: none !important;
+}
+
 
 .spinner {
     animation: spin infinite 700ms linear;
@@ -30,5 +41,23 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
   }
 }
