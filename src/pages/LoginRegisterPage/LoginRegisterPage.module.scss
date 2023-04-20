@@ -1,0 +1,66 @@
+.loginRegisterPage {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    height: 95vh; 
+    // background-color: #ffffff; // Default 
+    // For Silicon Valley Value:
+    background-color: unset;
+    .loginGirlWrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 95vw;
+        height: 100vh;
+    }
+    .loginFormWrap{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // height: 69%; //prev design
+        height: 100%;
+    }
+}
+  
+
+//   .loginFormWrap {
+//     // Add any necessary styles for the loginFormWrap container
+//   }
+
+
+@media only screen and (min-width: 1200px) and (max-width: 2700px) {
+    .loginGirlWrap{
+        width: 50% !important;
+    }
+    .loginFormWrap{
+        width: 50% !important;
+    }
+}
+
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+    .loginGirlWrap{
+        width: 50% !important;
+    }
+    .loginFormWrap{
+        width: 50% !important;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .loginRegisterPage{
+        flex-direction: column;
+        .loginFormWrap{
+            position: absolute;
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) {
+}
+
+@media only screen and (max-width: 575px) {
+}
+
+@media only screen and (max-width: 460px) {
+}
