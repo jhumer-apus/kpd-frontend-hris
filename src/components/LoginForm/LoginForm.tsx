@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './LoginForm.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 interface LoginFormProps {
   onLogin: (email: string, password: string) => void;
@@ -9,6 +11,7 @@ interface LoginFormProps {
 const LoginForm: React.FC<LoginFormProps> = ({ onLogin, error }) => {
   const [stateEmail, setStateEmail] = React.useState('');
   const [statePassword, setStatePassword] = React.useState('');
+  const [showPassword, setShowPassword] = React.useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,12 +27,34 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, error }) => {
         value={stateEmail}
         onChange={(e) => setStateEmail(e.target.value)}
       />
-      <input
-        type="password"
+      {/* <input
+        type={showPassword ? "text" : "password"}
         placeholder="Password"
         value={statePassword}
         onChange={(e) => setStatePassword(e.target.value)}
       />
+      <div>
+        <input
+          type="checkbox"
+          id="showPassword"
+          checked={showPassword}
+          onChange={(e) => setShowPassword(e.target.checked)}
+        />
+        <label htmlFor="showPassword">Show Password</label>
+      </div> */}
+      <div className={styles.passwordInput}>
+        <input
+          type={showPassword ? 'text' : 'password'}
+          placeholder="Password"
+          value={statePassword}
+          onChange={(e) => setStatePassword(e.target.value)}
+        />
+        <FontAwesomeIcon
+          icon={showPassword ? faEyeSlash : faEye}
+          className={styles.eyeIcon}
+          onClick={() => setShowPassword(!showPassword)}
+        />
+      </div>
       {error && <p className={styles.error}>{error}</p>}
       <button type="submit">Login</button>
     </form>
