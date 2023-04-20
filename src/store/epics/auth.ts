@@ -2,6 +2,7 @@ import { ofType } from 'redux-observable';
 import { map, catchError, switchMap, mergeMap } from 'rxjs/operators';
 import { of, from } from 'rxjs';
 import axios from 'axios';
+import Cookies from 'js-cookie'
 import { userLogin, userLoginSuccess, userLoginFailure } from '../actions/auth';
 // import { RootState } from '../reducers/index';
 import { Epic } from 'redux-observable';
@@ -45,6 +46,11 @@ export const authEpic: Epic = (action$, state$) =>
       from(
         loginApiCall(action.payload.email, action.payload.password, action.payload.twoFactorToken)
       ).pipe(
+        map((data) => {
+          // Save the token in a secure cookie with an expiration time of 1 hour
+          Cookies.set('token', data.token, { expires: 1 / 24, secure: true });
+          return userLoginSuccess(data.token);
+        }),
         catchError((error) => {
           console.log(error.response);
           if (error.response && error.response.data && error.response.data.error) {
