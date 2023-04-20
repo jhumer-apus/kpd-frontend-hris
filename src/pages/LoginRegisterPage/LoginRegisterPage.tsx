@@ -23,7 +23,7 @@ const LoginRegisterPage: React.FC = () => {
   return (
     <div className="login-register-page">
       <LoginForm onLogin={handleLogin} error={error}/>
-      <RegisterForm onRegister={handleRegister} />
+      {/* <RegisterForm onRegister={handleRegister} /> */}
     </div>
   );
 };
