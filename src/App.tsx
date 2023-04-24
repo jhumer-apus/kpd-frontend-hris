@@ -10,6 +10,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import Loading from './components/Loading/Loading';
 import Cookies from 'js-cookie';
 import { userLoginSuccess } from './store/actions/auth';
+import AllFreeSvg from './components/AllFreeSvg/AllFreeSvg';
 
 
 const App: React.FC = () => {
@@ -34,7 +35,8 @@ const App: React.FC = () => {
     <Router>
       <Routes>
         <Route path="/" element={ isAuthenticated ? <Navigate to="/dashboard" /> : <LoginRegisterPage /> }/>
-        <Route path="/dashboard" element={ isAuthenticated ? <Dashboard /> : <Navigate to="/" />} />
+        <Route path="/dashboard/*" element={ isAuthenticated ? <Dashboard /> : <Navigate to="/" />} />
+        <Route path="/svgs" element={ <AllFreeSvg />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
