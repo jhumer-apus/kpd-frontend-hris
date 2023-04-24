@@ -5,19 +5,19 @@
   align-items: center;
   height: 115vh;
   width: 100vw;
-  background-color: #000;
+  background-color: #f5f4f4;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;
   transform: translateY(-100%);
-  transition: transform 0.5s;
+  transition: transform 1s;
   border-radius: 0 0 380px 380px/ 0 0 160px 160px;
   &.animateDown {
     transform: translateY(0%);
   }
   .message{
-    color: #fff;
+    color: #1c0c79;
   }
 }
 
@@ -28,7 +28,7 @@
 
 .spinner {
     animation: spin infinite 700ms linear;
-    color:#fff;
+    color:#000000;
     height: 30px;
     width: 30px;
     /*You can increase or decrease the timer (5s) to 
