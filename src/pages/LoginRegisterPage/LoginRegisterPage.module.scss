@@ -2,7 +2,7 @@
     display: flex;
     align-items: center; 
     justify-content: center; 
-    height: 95vh; 
+    height: 100vh; 
     // background-color: #ffffff; // Default 
     // For Silicon Valley Value:
     background-color: unset;
@@ -12,6 +12,7 @@
         justify-content: center;
         width: 95vw;
         height: 100vh;
+        // background: rgb(6, 12, 29);
     }
     .loginFormWrap{
         display: flex;
@@ -19,6 +20,7 @@
         align-items: center;
         // height: 69%; //prev design
         height: 100%;
+        // width: 15%;
     }
 }
   
@@ -30,10 +32,10 @@
 
 @media only screen and (min-width: 1200px) and (max-width: 2700px) {
     .loginGirlWrap{
-        width: 50% !important;
+        width: 55% !important;
     }
     .loginFormWrap{
-        width: 50% !important;
+        width: 45% !important;
     }
 }
 
