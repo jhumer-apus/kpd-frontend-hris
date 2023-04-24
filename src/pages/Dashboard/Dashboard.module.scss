@@ -1,0 +1,8 @@
+.dashboardWrap{
+    opacity: 0;
+    color: #fff;
+    transition: opacity 0.5s ease;
+    &.dashboardLoaded{
+        opacity: 1;
+    }
+}
