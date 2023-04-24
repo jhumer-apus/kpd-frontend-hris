@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import { RootState } from './store/reducers';
 import LoginRegisterPage from './pages/LoginRegisterPage/LoginRegisterPage';
 import Dashboard from './pages/Dashboard/Dashboard';
@@ -13,17 +13,11 @@ import { userLoginSuccess } from './store/actions/auth';
 
 
 const App: React.FC = () => {
+  // const location = useLocation();
   const dispatch = useDispatch();
   const { isAuthenticated, token } = useSelector((state: RootState) => state.auth);
   const [loading, setLoading] = useState(true);
-
-  // useEffect(() => {
-  //   if (token === null) {
-  //     setTimeout(() => {
-  //       setLoading(false);
-  //     }, 1000);
-  //   }
-  // }, [token]);
+  // console.log(location, "meowwww");
   useEffect(() => {
     const tokenFromCookie = Cookies.get('token');
     if (tokenFromCookie) {
@@ -37,16 +31,12 @@ const App: React.FC = () => {
   }
   return (
     <div className="App">
-      {/* <section>
-      <LoginRegisterPage/>
-      </section> */}
     <Router>
       <Routes>
         <Route path="/" element={ isAuthenticated ? <Navigate to="/dashboard" /> : <LoginRegisterPage /> }/>
         <Route path="/dashboard" element={ isAuthenticated ? <Dashboard /> : <Navigate to="/" />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-      {/* {token === null && isAuthenticated === false && <Loading />} */}
     </Router>
     </div>
   );

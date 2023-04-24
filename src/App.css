@@ -1,5 +1,15 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-rendering: optimizeLegibility;
+}
+
+
 .App {
   text-align: center;
+  height: 100vh;
+  background: rgb(6, 12, 29);
 }
 
 .App-logo {
