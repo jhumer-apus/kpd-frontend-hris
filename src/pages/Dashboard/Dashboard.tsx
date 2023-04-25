@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store/reducers';
 import Loading from '../../components/Loading/Loading';
 import style from './Dashboard.module.scss';
+import SideNavBar from '../../components/SideNavBar/SideNavBar';
 
 const Dashboard: React.FC = () => {
     const [loading, setLoading] = useState(true);
@@ -29,6 +30,7 @@ const Dashboard: React.FC = () => {
       }
     return (
         <div className={`${style.dashboardWrap} ${dashboardLoaded ? style.dashboardLoaded: ''}`}>
+            <SideNavBar />
             <h1>Dashboard Page</h1>
             <h1>Dashboard Page</h1>
             <h1>Dashboard Page</h1>
