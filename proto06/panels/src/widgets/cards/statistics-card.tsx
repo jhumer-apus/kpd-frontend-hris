@@ -6,24 +6,27 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import PropTypes from "prop-types";
-import Chart from "react-apexcharts";
 
-export function StatisticsChart({ color, chart, title, description, footer }) {
+export function StatisticsCard({ color, icon, title, value, footer }) {
   return (
     <Card>
-      <CardHeader variant="gradient" color={color}>
-        <Chart {...chart} />
+      <CardHeader
+        variant="gradient"
+        color={color}
+        className="absolute -mt-4 grid h-16 w-16 place-items-center"
+      >
+        {icon}
       </CardHeader>
-      <CardBody className="p-6">
-        <Typography variant="h6" color="blue-gray">
+      <CardBody className="p-4 text-right">
+        <Typography variant="small" className="font-normal text-blue-gray-600">
           {title}
         </Typography>
-        <Typography variant="small" className="font-normal text-blue-gray-600">
-          {description}
+        <Typography variant="h4" color="blue-gray">
+          {value}
         </Typography>
       </CardBody>
       {footer && (
-        <CardFooter className="border-t border-blue-gray-50 px-6 py-5">
+        <CardFooter className="border-t border-blue-gray-50 p-4">
           {footer}
         </CardFooter>
       )}
@@ -31,12 +34,12 @@ export function StatisticsChart({ color, chart, title, description, footer }) {
   );
 }
 
-StatisticsChart.defaultProps = {
+StatisticsCard.defaultProps = {
   color: "blue",
   footer: null,
 };
 
-StatisticsChart.propTypes = {
+StatisticsCard.propTypes = {
   color: PropTypes.oneOf([
     "white",
     "blue-gray",
@@ -59,12 +62,12 @@ StatisticsChart.propTypes = {
     "pink",
     "red",
   ]),
-  chart: PropTypes.object.isRequired,
+  icon: PropTypes.node.isRequired,
   title: PropTypes.node.isRequired,
-  description: PropTypes.node.isRequired,
+  value: PropTypes.node.isRequired,
   footer: PropTypes.node,
 };
 
-StatisticsChart.displayName = "/src/widgets/charts/statistics-chart.jsx";
+StatisticsCard.displayName = "/src/widgets/cards/statistics-card.tsx";
 
-export default StatisticsChart;
+export default StatisticsCard;
