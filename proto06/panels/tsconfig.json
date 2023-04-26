@@ -16,7 +16,17 @@
       "noEmit": true,
       "sourceMap": true,
       "resolveJsonModule": true,
-      "baseUrl": "./src"
+      "baseUrl": "./src",
+      "paths": {
+        "@/widgets/*": ["widgets/*"],
+        "@/routes": ["routes.tsx"],
+        "@/pages/*": ["pages/*"],
+        "@/data/*": ["data/*"],
+        "@/context": ["context/index.tsx"],
+        "@/types/*": ["types/*"],
+        "@/*": ["./*"]
+
+      }
     },
     "include": ["src"]
   }
