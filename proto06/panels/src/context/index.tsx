@@ -1,10 +1,28 @@
-import React from "react";
+import React, { Dispatch } from "react";
 import PropTypes from "prop-types";
 
-export const MaterialTailwind = React.createContext(null);
+export const MaterialTailwind = React.createContext<[State, Dispatch<Action>]>(null as any);
 MaterialTailwind.displayName = "MaterialTailwindContext";
 
-export function reducer(state, action) {
+interface State {
+  openSidenav: boolean;
+  sidenavColor: string;
+  sidenavType: string;
+  transparentNavbar: boolean;
+  fixedNavbar: boolean;
+  openConfigurator: boolean;
+}
+
+interface Action {
+  type: string;
+  value: any;
+}
+
+interface MaterialTailwindControllerProviderProps {
+  children: React.ReactNode;
+}
+
+export function reducer(state: State, action: Action) {
   switch (action.type) {
     case "OPEN_SIDENAV": {
       return { ...state, openSidenav: action.value };
@@ -30,7 +48,7 @@ export function reducer(state, action) {
   }
 }
 
-export function MaterialTailwindControllerProvider({ children }) {
+export function MaterialTailwindControllerProvider({ children } : MaterialTailwindControllerProviderProps)  {
   const initialState = {
     openSidenav: false,
     sidenavColor: "blue",
@@ -41,7 +59,7 @@ export function MaterialTailwindControllerProvider({ children }) {
   };
 
   const [controller, dispatch] = React.useReducer(reducer, initialState);
-  const value = React.useMemo(
+  const value = React.useMemo<[State, Dispatch<Action>]>(
     () => [controller, dispatch],
     [controller, dispatch]
   );
@@ -65,21 +83,21 @@ export function useMaterialTailwindController() {
   return context;
 }
 
-MaterialTailwindControllerProvider.displayName = "/src/context/index.jsx";
+MaterialTailwindControllerProvider.displayName = "/src/context/index.tsx";
 
 MaterialTailwindControllerProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export const setOpenSidenav = (dispatch, value) =>
+export const setOpenSidenav = (dispatch: Dispatch<Action>, value: boolean) =>
   dispatch({ type: "OPEN_SIDENAV", value });
-export const setSidenavType = (dispatch, value) =>
+export const setSidenavType = (dispatch: Dispatch<Action>, value: string) =>
   dispatch({ type: "SIDENAV_TYPE", value });
-export const setSidenavColor = (dispatch, value) =>
+export const setSidenavColor = (dispatch: Dispatch<Action>, value: string) =>
   dispatch({ type: "SIDENAV_COLOR", value });
-export const setTransparentNavbar = (dispatch, value) =>
+export const setTransparentNavbar = (dispatch: Dispatch<Action>, value: boolean) =>
   dispatch({ type: "TRANSPARENT_NAVBAR", value });
-export const setFixedNavbar = (dispatch, value) =>
+export const setFixedNavbar = (dispatch: Dispatch<Action>, value: boolean) =>
   dispatch({ type: "FIXED_NAVBAR", value });
-export const setOpenConfigurator = (dispatch, value) =>
+export const setOpenConfigurator = (dispatch: Dispatch<Action>, value: boolean) =>
   dispatch({ type: "OPEN_CONFIGURATOR", value });

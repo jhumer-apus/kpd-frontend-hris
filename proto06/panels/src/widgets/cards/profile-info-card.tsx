@@ -5,8 +5,12 @@ import {
   CardBody,
   Typography,
 } from "@material-tailwind/react";
+import { ProfileInfoCardProps, Details } from "@/types/types-widgets";
 
-export function ProfileInfoCard({ title, description, details, action }) {
+export function ProfileInfoCard({ title, description, details, action } : ProfileInfoCardProps) {
+  function isDetailsKey(key: string, details: Details): key is keyof Details {
+    return key in details;
+  }
   return (
     <Card color="transparent" shadow={false}>
       <CardHeader
@@ -34,27 +38,34 @@ export function ProfileInfoCard({ title, description, details, action }) {
         ) : null}
         {details && (
           <ul className="flex flex-col gap-4 p-0">
-            {Object.keys(details).map((el, key) => (
-              <li key={key} className="flex items-center gap-4">
-                <Typography
-                  variant="small"
-                  color="blue-gray"
-                  className="font-semibold capitalize"
-                >
-                  {el}:
-                </Typography>
-                {typeof details[el] === "string" ? (
-                  <Typography
-                    variant="small"
-                    className="font-normal text-blue-gray-500"
-                  >
-                    {details[el]}
-                  </Typography>
-                ) : (
-                  details[el]
-                )}
-              </li>
-            ))}
+            {Object.keys(details).map((el, key) => {
+              console.log(details, "meowwwww");
+              if (isDetailsKey(el, details)){
+                return (
+                  <li key={key} className="flex items-center gap-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-semibold capitalize"
+                    >
+                      {el}:
+                    </Typography>
+                    {typeof details[el] === "string" ? (
+                      <Typography
+                        variant="small"
+                        className="font-normal text-blue-gray-500"
+                      >
+                        {details[el]}
+                      </Typography>
+                    ) : (
+                      details[el]
+                    )}
+                  </li>
+                  )
+              } else {
+                return null
+              }
+            })}
           </ul>
         )}
       </CardBody>
