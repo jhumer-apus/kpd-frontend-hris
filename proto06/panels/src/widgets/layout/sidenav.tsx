@@ -1,3 +1,4 @@
+import { Fragment, useState } from "react";
 import PropTypes from "prop-types";
 import { Link, NavLink } from "react-router-dom";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -8,11 +9,22 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { useMaterialTailwindController, setOpenSidenav } from "@/context";
+import { SideNavProps } from "@/types/index";
 
-export function Sidenav({ brandImg, brandName, routes }) {
+export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
+  const [expandedItems, setExpandedItems] = useState<Record<number, boolean>>({});
+
+  const toggleExpandedItem = (itemId: number) => {
+    setExpandedItems((prevExpandedItems) => ({
+      ...prevExpandedItems,
+      [itemId]: !prevExpandedItems[itemId],
+    }));
+  };
+
+  console.log(expandedItems, "haloo");
   const [controller, dispatch] = useMaterialTailwindController();
   const { sidenavColor, sidenavType, openSidenav } = controller;
-  const sidenavTypes = {
+  const sidenavTypes: Record<string, string> = {
     dark: "bg-gradient-to-br from-blue-gray-800 to-blue-gray-900",
     white: "bg-white shadow-lg",
     transparent: "bg-transparent",
@@ -22,7 +34,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
     <aside
       className={`${sidenavTypes[sidenavType]} ${
         openSidenav ? "translate-x-0" : "-translate-x-80"
-      } fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0`}
+      } fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0 overflow-y-scroll`}
     >
       <div
         className={`relative border-b ${
@@ -49,7 +61,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
           <XMarkIcon strokeWidth={2.5} className="h-5 w-5 text-white" />
         </IconButton>
       </div>
-      <div className="m-4">
+      <div className="m-4" data-name="list">
         {routes.map(({ layout, title, pages }, key) => (
           <ul key={key} className="mb-4 flex flex-col gap-1">
             {title && (
@@ -63,34 +75,110 @@ export function Sidenav({ brandImg, brandName, routes }) {
                 </Typography>
               </li>
             )}
-            {pages.map(({ icon, name, path }) => (
-              <li key={name}>
-                <NavLink to={`/${layout}${path}`}>
-                  {({ isActive }) => (
-                    <Button
-                      variant={isActive ? "gradient" : "text"}
-                      color={
-                        isActive
-                          ? sidenavColor
-                          : sidenavType === "dark"
-                          ? "white"
-                          : "blue-gray"
-                      }
-                      className="flex items-center gap-4 px-4 capitalize"
-                      fullWidth
-                    >
-                      {icon}
-                      <Typography
-                        color="inherit"
-                        className="font-medium capitalize"
-                      >
-                        {name}
-                      </Typography>
-                    </Button>
-                  )}
-                </NavLink>
-              </li>
-            ))}
+            {pages.map(({ id, icon, name, path, hasSubItems, subItems }) => 
+            {
+              if(hasSubItems){
+                return(
+                  <Fragment>
+                    <NavLink to={`/${layout}${path}`}>
+                    {({ isActive }) => (
+                      <li key={name} onClick={()=> toggleExpandedItem(id)}>
+                        <Button
+                          variant={isActive ? "gradient" : "text"}
+                          color={
+                            isActive
+                              ? sidenavColor
+                              : sidenavType === "dark"
+                              ? "white"
+                              : "blue-gray"
+                          }
+                          className="flex items-center gap-4 px-4 capitalize"
+                          fullWidth
+                        >
+                          {icon}
+                          <Typography
+                            color="inherit"
+                            className="font-medium capitalize"
+                          >
+                            {name}
+                          </Typography>
+                        </Button>
+                      </li>
+                    )}
+                    </NavLink>
+                    {expandedItems[id] && subItems?.map(({ icon, name, path }) => (
+                      <NavLink to={`/${layout}${path}`}>
+                      {({ isActive }) => (
+                        <li key={name}>
+                          <Button
+                            variant={isActive ? "gradient" : "text"}
+                            color={
+                              isActive
+                                ? sidenavColor
+                                : sidenavType === "dark"
+                                ? "white"
+                                : "blue-gray"
+                            }
+                            className="flex items-center gap-4 px-4 capitalize"
+                            fullWidth
+                          >
+                            {icon}
+                            <Typography
+                              color="inherit"
+                              className="font-medium capitalize"
+                            >
+                              {name}
+                            </Typography>
+                          </Button>
+                        </li>
+                      )}
+                      </NavLink>
+                    ))}
+                  </Fragment>
+                  )
+              } else {
+                return(
+                  <li key={name}>
+                    <NavLink to={`/${layout}${path}`}>
+                      {({ isActive }) => (
+                        <>
+                          {/* <div className="flex items-center gap-4 px-4 capitalize" data-att={isActive}>
+                            {icon}
+                            <Typography
+                              color="inherit"
+                              className="font-medium capitalize"
+                            >
+                              {name}
+                            </Typography>
+                          </div> */}
+                          <Button
+                            variant={isActive ? "gradient" : "text"}
+                            color={
+                              isActive
+                                ? sidenavColor
+                                : sidenavType === "dark"
+                                ? "white"
+                                : "blue-gray"
+                            }
+                            className="flex items-center gap-4 px-4 capitalize"
+                            fullWidth
+                          >
+                            {icon}
+                            <Typography
+                              color="inherit"
+                              className="font-medium capitalize"
+                            >
+                              {name}
+                            </Typography>
+                          </Button>
+                        </>
+                      )}
+                    </NavLink>
+                  </li>
+                  )
+              }
+            }
+            )}
           </ul>
         ))}
       </div>
