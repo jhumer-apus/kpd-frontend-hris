@@ -1,12 +1,13 @@
 import React, { Dispatch } from "react";
 import PropTypes from "prop-types";
+import { color } from "@material-tailwind/react/types/components/button";
 
 export const MaterialTailwind = React.createContext<[State, Dispatch<Action>]>(null as any);
 MaterialTailwind.displayName = "MaterialTailwindContext";
 
 interface State {
   openSidenav: boolean;
-  sidenavColor: string;
+  sidenavColor: color;
   sidenavType: string;
   transparentNavbar: boolean;
   fixedNavbar: boolean;
