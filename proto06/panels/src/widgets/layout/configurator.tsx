@@ -46,7 +46,7 @@ export function Configurator() {
     controller;
   const [stars, setStars] = React.useState(0);
 
-  const sidenavColors = {
+  const sidenavColors: Record<string, string> = {
     blue: "from-blue-400 to-blue-600",
     "blue-gray": "from-blue-gray-800 to-blue-gray-900",
     green: "from-green-400 to-green-600",
