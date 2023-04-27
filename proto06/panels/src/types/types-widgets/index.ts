@@ -1,4 +1,4 @@
-
+import { IRoute } from "..";
 export interface MessageCardProps {
     img: string;
     name: string;
@@ -21,3 +21,10 @@ export interface ProfileInfoCardProps {
     details: Details;
     action?: React.ReactNode;
 }
+
+export interface SideNavProps {
+    brandImg: string;
+    brandName: string;
+    routes: Array<IRoute>;
+}
+
