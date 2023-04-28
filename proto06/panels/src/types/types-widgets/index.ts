@@ -1,4 +1,6 @@
+import { SVGProps } from "react";
 import { IRoute } from "..";
+import { color } from "@material-tailwind/react/types/components/card";
 export interface MessageCardProps {
     img: string;
     name: string;
@@ -28,3 +30,33 @@ export interface SideNavProps {
     routes: Array<IRoute>;
 }
 
+
+
+export interface EasyAccessCardProps {
+    key?: string;
+    color: color | string;
+    icon: React.ReactNode;
+    title: NonNullable<React.ReactNode>;
+    value: string;
+    redirection?: string;
+    footer: NonNullable<React.ReactNode>;
+}
+
+export interface CelebrantsDataProps {
+    id: number,
+    name: string,
+    profilePic: string,
+    daysToBirthday: number,
+    department?: string,
+}
+
+
+export interface AnniversaryDataProps {
+    id: number,
+    name: string,
+    profilePic: string,
+    dateOfAnniversary: string,
+    dateHired: string,
+    totalYears: number,
+    department?: string,
+}

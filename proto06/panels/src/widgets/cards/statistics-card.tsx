@@ -6,16 +6,21 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import PropTypes from "prop-types";
+import styles from './custom-styles/StatisticsCard.module.scss'; // Custom-Styles is created when Tailwind fails to work. 当Tailwind无法工作时，就会创建自定义样式
+import { EasyAccessCardProps } from "@/types/types-widgets";
+// import './custom-styles/StatisticsCard.css'
 
-export function StatisticsCard({ color, icon, title, value, footer }) {
+export function StatisticsCard({ color, icon, title, value, footer }: EasyAccessCardProps) {
   return (
-    <Card>
+    <Card className={styles.cardWrap}>
       <CardHeader
         variant="gradient"
-        color={color}
+        // color={color}
         className="absolute -mt-4 grid h-16 w-16 place-items-center"
+        style={{background: "linear-gradient(87deg, #5e72e4 0, #825ee4 100%)"}}
+        data-name={'iconwrap'}
       >
-        {icon}
+        <span className={styles.cardIcon}>{icon}</span>
       </CardHeader>
       <CardBody className="p-4 text-right">
         <Typography variant="small" className="font-normal text-blue-gray-600">
