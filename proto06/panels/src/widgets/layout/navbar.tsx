@@ -83,14 +83,15 @@ export function Navbar({ brandName, routes, action }) {
 }
 
 Navbar.defaultProps = {
-  brandName: "Material Tailwind React",
+  brandName: "Bitverse HRIS",
   action: (
     <a
-      href="https://www.creative-tim.com/product/material-tailwind-dashboard-react"
+      href="https://site.bitverseph.com/contact-us"
+      // href="https://www.creative-tim.com/product/material-tailwind-dashboard-react"
       target="_blank"
     >
       <Button variant="gradient" size="sm" fullWidth>
-        free download
+        BOOK A DEMO
       </Button>
     </a>
   ),
