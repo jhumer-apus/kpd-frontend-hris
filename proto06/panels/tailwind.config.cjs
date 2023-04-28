@@ -6,5 +6,10 @@ module.exports = withMT({
   theme: {
     extend: {},
   },
+  variants: {
+    extend: {
+      scale: ["hover"],
+    },
+  },
   plugins: [],
 });
