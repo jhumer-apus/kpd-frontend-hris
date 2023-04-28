@@ -3,51 +3,76 @@ import {
   UserPlusIcon,
   UserIcon,
   ChartBarIcon,
+  Cog8ToothIcon,
+  ClockIcon,
 } from "@heroicons/react/24/solid";
+
 
 export const statisticsCardsData = [
   {
     color: "blue",
     icon: BanknotesIcon,
-    title: "Today's Money",
-    value: "$53k",
+    title: "Employees",
+    value: "201 Data",
     footer: {
       color: "text-green-500",
-      value: "+55%",
-      label: "than last week",
+      value: "<",
+      label: "201, Appraisal, etc.",
     },
   },
   {
     color: "pink",
     icon: UserIcon,
-    title: "Today's Users",
-    value: "2,300",
+    title: "Daily Time Record",
+    value: "DTR",
     footer: {
       color: "text-green-500",
-      value: "+3%",
-      label: "than last month",
+      value: "<",
+      label: "OT, Leaves, UA, etc.",
     },
   },
   {
     color: "green",
     icon: UserPlusIcon,
-    title: "New Clients",
-    value: "3,462",
+    title: "Overall Reports",
+    value: "Files",
     footer: {
-      color: "text-red-500",
-      value: "-2%",
-      label: "than yesterday",
+      color: "text-green-500",
+      value: "<",
+      label: "Summaries, etc.",
     },
   },
   {
     color: "orange",
     icon: ChartBarIcon,
-    title: "Sales",
-    value: "$103,430",
+    title: "Payroll Division",
+    value: "Info",
     footer: {
       color: "text-green-500",
-      value: "+5%",
-      label: "than yesterday",
+      value: "<",
+      label: "Payslips, Tax, etc.",
+    },
+  },
+  {
+    color: "orange",
+    icon: Cog8ToothIcon,
+    title: "Table Maintenance",
+    value: "Settings",
+    footer: {
+      color: "text-green-500",
+      value: "<",
+      label: "Pages, Tables, etc.",
+    },
+  },
+  {
+    color: "pink",
+    icon: ClockIcon,
+    title: "Schedule Approval",
+    value: "Employees",
+    footer: {
+      color: "text-green-500",
+      value: "<",
+      label: "Modification, etc.",
     },
   },
 ];
