@@ -16,9 +16,9 @@ export function Footer({ brandName, brandLink, routes }) {
             target="_blank"
             className="transition-colors hover:text-blue-500"
           >
-            {brandName}
+            {brandName}.
           </a>{" "}
-          for a better web.
+          {/* for a better web. */} All Rights Reserved.
         </Typography>
         <ul className="flex items-center gap-4">
           {routes.map(({ name, path }) => (
