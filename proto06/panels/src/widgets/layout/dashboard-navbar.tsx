@@ -30,8 +30,9 @@ export function DashboardNavbar() {
   const [controller, dispatch] = useMaterialTailwindController();
   const { fixedNavbar, openSidenav } = controller;
   const { pathname } = useLocation();
-  const [layout, page] = pathname.split("/").filter((el) => el !== "");
-
+  const [layout, page, innermostpage] = pathname.split("/").filter((el) => el !== "");
+  console.log(pathname, "meowww", pathname.split("/").filter((el) => el !== ""), innermostpage, "aaa");
+  
   return (
     <Navbar
       color={fixedNavbar ? "white" : "transparent"}
@@ -59,13 +60,32 @@ export function DashboardNavbar() {
                 {layout}
               </Typography>
             </Link>
-            <Typography
-              variant="small"
-              color="blue-gray"
-              className="font-normal"
-            >
-              {page}
-            </Typography>
+            {page ? 
+            <Link to={`/${layout}/${page}`}>
+              <Typography
+                variant="small"
+                color="blue-gray"
+                className="font-normal"
+              >
+                {page}
+              </Typography>
+            </Link>
+            :
+            null
+            }
+            {innermostpage ? 
+            <Link to={`/${layout}/${page}/${innermostpage}`}>
+                <Typography
+                  variant="small"
+                  color="blue-gray"
+                  className="font-normal"
+                >
+                  {innermostpage}
+                </Typography>
+            </Link>
+            :
+            null
+            }
           </Breadcrumbs>
           <Typography variant="h6" color="blue-gray">
             {page}
@@ -90,7 +110,7 @@ export function DashboardNavbar() {
               className="hidden items-center gap-1 px-4 xl:flex"
             >
               <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
-              Sign In
+              Welcome, User
             </Button>
             <IconButton
               variant="text"
