@@ -148,29 +148,29 @@ export function Configurator() {
           <hr />
           <div className="my-8 flex flex-col gap-4">
             <a
-              href="https://www.creative-tim.com/product/material-tailwind-dashboard-react?rel=mtdr"
+              href="https://site.bitverseph.com/contact-us"
               target="_black"
             >
               <Button variant="gradient" fullWidth>
-                Free Download
+                Contact Us
               </Button>
             </a>
-            <a
+            {/* <a
               href="https://www.material-tailwind.com/docs/react/installation?rel=mtdr"
               target="_black"
             >
               <Button variant="outlined" color="blue-gray" fullWidth>
                 View Documentation
               </Button>
-            </a>
-            <a
+            </a> */}
+            {/* <a
               href="https://www.material-tailwind.com/blocks/react?rel=mtdr"
               target="_black"
             >
               <Button variant="outlined" color="blue-gray" fullWidth>
                 Material Tailwind PRO
               </Button>
-            </a>
+            </a> */}
           </div>
           <a
             className="mx-auto flex items-center justify-center gap-2"
@@ -179,7 +179,8 @@ export function Configurator() {
             rel="noreferrer"
           >
             <Chip
-              value={`${stars} - Stars`}
+              // value={`${stars} - Stars`}
+              value={`Contribute`}
               icon={
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -208,7 +209,7 @@ export function Configurator() {
         </div>
         <div className="text-center">
           <Typography variant="h6" color="blue-gray">
-            Thank you for sharing ❤️
+            Follow Us on Social Media
           </Typography>
           <div className="mt-4 flex justify-center gap-2">
             <Button
