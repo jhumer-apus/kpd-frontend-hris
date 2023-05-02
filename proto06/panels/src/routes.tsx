@@ -316,29 +316,29 @@ export const routes: Array<IRoute> = [
     ],
   },
 
-  // {
-  //   // title: "auth pages",
-  //   id: 2000,
-  //   layout: "auth",
-  //   pages: [
-  //     {
-  //       id: 2100,
-  //       icon: <ArrowRightOnRectangleIcon {...icon} />,
-  //       name: "sign in",
-  //       path: "/sign-in",
-  //       element: <SignIn />,
-  //       hasSubItems: false,
-  //     },
-  //     {
-  //       id: 2200,
-  //       icon: <UserPlusIcon {...icon} />,
-  //       name: "sign up",
-  //       path: "/sign-up",
-  //       element: <SignUp />,
-  //       hasSubItems: false,
-  //     },
-  //   ],
-  // },
+  {
+    // title: "auth pages",
+    id: 2000,
+    layout: "auth",
+    pages: [
+      {
+        id: 2100,
+        icon: <ArrowRightOnRectangleIcon {...icon} />,
+        name: "sign in",
+        path: "/sign-in",
+        element: <SignIn />,
+        hasSubItems: false,
+      },
+      {
+        id: 2200,
+        icon: <UserPlusIcon {...icon} />,
+        name: "sign up",
+        path: "/sign-up",
+        element: <SignUp />,
+        hasSubItems: false,
+      },
+    ],
+  },
 ];
 
 export default routes;

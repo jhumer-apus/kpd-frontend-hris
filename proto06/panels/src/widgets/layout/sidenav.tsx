@@ -20,8 +20,6 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
       [itemId]: !prevExpandedItems[itemId],
     }));
   };
-
-  console.log(expandedItems, "haloo");
   const [controller, dispatch] = useMaterialTailwindController();
   const { sidenavColor, sidenavType, openSidenav } = controller;
   const sidenavTypes: Record<string, string> = {
@@ -62,7 +60,10 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
         </IconButton>
       </div>
       <div className="m-4" data-name="list">
-        {routes.map(({ layout, title, pages }, key) => (
+        {routes.map(({ layout, title, pages }, key) => 
+        {
+          if (layout === "auth") return null;
+          return(
           <ul key={key} className="mb-4 flex flex-col gap-1">
             {title && (
               <li className="mx-3.5 mt-4 mb-2">
@@ -180,7 +181,9 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
             }
             )}
           </ul>
-        ))}
+          )
+        }
+        )}
       </div>
     </aside>
   );
