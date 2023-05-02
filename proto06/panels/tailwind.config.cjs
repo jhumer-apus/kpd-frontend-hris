@@ -12,6 +12,7 @@ module.exports = withMT({
   variants: {
     extend: {
       scale: ["hover"],
+      textColor: ["hover"],
     },
   },
   plugins: [],
