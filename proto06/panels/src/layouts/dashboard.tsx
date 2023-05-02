@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Cog6ToothIcon } from "@heroicons/react/24/solid";
 import { IconButton } from "@material-tailwind/react";
@@ -9,6 +10,7 @@ import {
 } from "@/widgets/layout";
 import routes from "@/routes";
 import { useMaterialTailwindController, setOpenConfigurator } from "@/context";
+import { Profile } from "@/pages/dashboard";
 
 export function Dashboard() {
   const [controller, dispatch] = useMaterialTailwindController();
@@ -22,7 +24,7 @@ export function Dashboard() {
           sidenavType === "dark" ? "/img/logo-ct.png" : "/img/logo-ct-dark.png"
         }
       />
-      <div className="p-4 xl:ml-80">
+      <div className="p-4 xl:ml-80" style={{height: '90vh'}}>
         <DashboardNavbar />
         <Configurator />
         <IconButton
@@ -37,11 +39,31 @@ export function Dashboard() {
         <Routes>
           {routes.map(
             ({ layout, pages }) =>
-              layout === "dashboard" &&
-              pages.map(({ path, element }) => (
-                <Route path={path} element={element} />
-              ))
+              layout !== "auth" &&
+              pages.map(({ path: parentPath, element: parentElement, hasSubItems, subItems }) => 
+              {
+                if(hasSubItems){
+                  return (subItems?.map(({ path: childPath, element: childElement }) => {
+                    // console.log("haloo", childPath);
+                    return(
+                    <Fragment>
+                    <Route path={parentPath} element={parentElement} />
+                    <Route path={childPath} element={childElement} />
+                    </Fragment>
+                    )}
+                    ))
+                }else if (!hasSubItems) {
+                  // console.log('hadu',parentPath)
+                  return (
+                    <Route path={parentPath} element={parentElement} />
+                  )
+                }
+                
+              }
+              )
           )}
+          <Route path="/" element={<strong style={{height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">HOME PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>} />
+          <Route path="/profile" element={<Profile/>} />
         </Routes>
         <div className="text-blue-gray-600">
           <Footer />
