@@ -3,10 +3,10 @@ export * from "@/types/types-data/index";
 
 export interface IPage {
     id: number;
-    icon: React.ReactNode;
+    icon?: React.ReactNode;
     name: string;
     path: string;
-    element: React.ReactNode;
+    element?: React.ReactNode;
     hasSubItems: boolean;
     subItems?: Array<IPage> | undefined;
 }
