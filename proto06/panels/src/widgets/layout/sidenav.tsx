@@ -10,10 +10,11 @@ import {
 } from "@material-tailwind/react";
 import { useMaterialTailwindController, setOpenSidenav } from "@/context";
 import { SideNavProps } from "@/types/index";
+import styles from './custom-styles/sideNav.module.scss';
 
 export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
   const [expandedItems, setExpandedItems] = useState<Record<number, boolean>>({});
-
+  console.log(expandedItems, "maaaw")
   const toggleExpandedItem = (itemId: number) => {
     setExpandedItems((prevExpandedItems) => ({
       ...prevExpandedItems,
@@ -59,7 +60,7 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
           <XMarkIcon strokeWidth={2.5} className="h-5 w-5 text-white" />
         </IconButton>
       </div>
-      <div className="m-4" data-name="list">
+      <div className={styles.sideNavItemsWrap} style={{margin: '1rem'}}data-name="list">
         {routes.map(({ layout, title, pages }, key) => 
         {
           if (layout === "auth") return null;
@@ -107,10 +108,13 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
                       </li>
                     )}
                     </NavLink>
-                    {expandedItems[id] && subItems?.map(({ icon, name, path }) => (
-                      <NavLink to={`/${layout}${path}`}>
+                    {expandedItems[id] 
+                    
+                    // {/* {  true  */}
+                    && subItems?.map(({ icon, name, path }) => (
+                      <NavLink to={`/${layout}${path}`} className={styles.toggleableItem} data-toggle={expandedItems[id] ? "toggled" : ""}>
                       {({ isActive }) => (
-                        <li key={name}>
+                        <li key={name} className="ml-4">
                           <Button
                             variant={isActive ? "gradient" : "text"}
                             color={
@@ -122,11 +126,12 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
                             }
                             className="flex items-center gap-4 px-4 capitalize"
                             fullWidth
+                            button-toggle="toggleable"
                           >
                             {icon}
                             <Typography
                               color="inherit"
-                              className="font-medium capitalize"
+                              className="font-medium capitalize text-start"
                             >
                               {name}
                             </Typography>
