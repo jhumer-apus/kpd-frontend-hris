@@ -19,6 +19,7 @@ import {
   ClockIcon,
   CreditCardIcon,
   Bars3Icon,
+  UserIcon,
 } from "@heroicons/react/24/solid";
 import {
   useMaterialTailwindController,
@@ -31,7 +32,7 @@ export function DashboardNavbar() {
   const { fixedNavbar, openSidenav } = controller;
   const { pathname } = useLocation();
   const [layout, page, innermostpage] = pathname.split("/").filter((el) => el !== "");
-  console.log(pathname, "meowww", pathname.split("/").filter((el) => el !== ""), innermostpage, "aaa");
+  // console.log(pathname, "meowww", pathname.split("/").filter((el) => el !== ""), innermostpage, "aaa");
   
   return (
     <Navbar
@@ -67,7 +68,7 @@ export function DashboardNavbar() {
                 color="blue-gray"
                 className="font-normal"
               >
-                {page}
+                {page.replace("-", " ")}
               </Typography>
             </Link>
             :
@@ -80,7 +81,7 @@ export function DashboardNavbar() {
                   color="blue-gray"
                   className="font-normal"
                 >
-                  {innermostpage}
+                  {innermostpage?.replace("-", " ")}
                 </Typography>
             </Link>
             :
@@ -88,7 +89,7 @@ export function DashboardNavbar() {
             }
           </Breadcrumbs>
           <Typography variant="h6" color="blue-gray">
-            {page}
+            {innermostpage ? innermostpage?.replace("-", " ") : page?.replace("-", " ")}
           </Typography>
         </div>
         <div className="flex items-center">
@@ -103,7 +104,94 @@ export function DashboardNavbar() {
           >
             <Bars3Icon strokeWidth={3} className="h-6 w-6 text-blue-gray-500" />
           </IconButton>
-          <Link to="/auth/sign-in">
+          <Menu>
+            <MenuHandler>
+              <Button variant="text" color="blue-gray" className="hidden items-center gap-1 px-4 xl:flex">
+                <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
+                Welcome, User
+              </Button>
+            </MenuHandler>
+            <MenuList className="w-max border-0">
+              <Link to="/home/profile">
+                <MenuItem className="flex items-center gap-3">
+                  {/* <Avatar
+                    src="/img/team-2.jpeg"
+                    alt="item-1"
+                    size="sm"
+                    variant="circular"
+                  /> */}
+                  <UserIcon className="h-8 w-8 text-blue-gray-500" />
+                  <div>
+
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="mb-1 font-normal"
+                    >
+                      Profile
+                      {/* <strong>Profile</strong> Page */}
+                    </Typography>
+
+                    {/* <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="flex items-center gap-1 text-xs font-normal opacity-60"
+                    >
+                      <ClockIcon className="h-3.5 w-3.5" /> 13 minutes ago
+                    </Typography> */}
+                  </div>
+                </MenuItem>
+              </Link>
+              {/* <MenuItem className="flex items-center gap-4">
+                <Avatar
+                  src="/img/logo-spotify.svg"
+                  alt="item-1"
+                  size="sm"
+                  variant="circular"
+                />
+                <div>
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="mb-1 font-normal"
+                  >
+                    <strong>New album</strong> by Travis Scott
+                  </Typography>
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="flex items-center gap-1 text-xs font-normal opacity-60"
+                  >
+                    <ClockIcon className="h-3.5 w-3.5" /> 1 day ago
+                  </Typography>
+                </div>
+              </MenuItem> */}
+              <Link to="/auth/sign-in">
+                <MenuItem className="flex items-center gap-4">
+                  <div className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-tr from-blue-gray-800 to-blue-gray-900">
+                    <CreditCardIcon className="h-4 w-4 text-white" />
+                  </div>
+                  <div>
+                    
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="mb-1 font-normal"
+                    >Logout
+                    </Typography>
+                    {/* <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="flex items-center gap-1 text-xs font-normal opacity-60"
+                    >
+                      <ClockIcon className="h-3.5 w-3.5" /> 2 days ago
+                    </Typography> */}
+                  </div>
+                </MenuItem>
+              </Link>
+            </MenuList>
+          </Menu>
+          {/* <Link to="/auth/sign-in">
             <Button
               variant="text"
               color="blue-gray"
@@ -119,7 +207,7 @@ export function DashboardNavbar() {
             >
               <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
             </IconButton>
-          </Link>
+          </Link> */}
           <IconButton
             variant="text"
             color="blue-gray"
