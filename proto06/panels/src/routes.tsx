@@ -21,22 +21,32 @@ const icon = {
 export const routes: Array<IRoute> = [
   {
     id: 1000,
-    layout: "dashboard",
+    layout: "home",
     pages: [
       {
         id: 1100,
         icon: <HomeIcon {...icon} />,
-        name: "dashboard",
-        path: "/home",
+        name: "HRIS Dashboard",
+        path: "/HRIS-Dashboard",
         element: <Home />,
-        hasSubItems: false,
+        hasSubItems: true,
+        subItems: [
+          {
+            id: 1110,
+            icon: <HomeIcon {...icon} />,
+            name: "Admin Portal",
+            path: "/Admin-Dashboard",
+            element: <strong style={{height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px'}} className="text-red-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">ADMIN DASHBOARD ELEMENTS UNDER DEVELOPMENT</strong>,
+            hasSubItems: false,
+          },
+        ]
       },
       {
         id: 1200,
         icon: <UserCircleIcon {...icon} />,
         name: "Employee",
-        path: "/profile",
-        element: <Profile />,
+        path: "/employee",
+        element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-orange-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">EMPLOYEE ELEMENTS UNDER DEVELOPMENT</strong>,
         hasSubItems: true,
         subItems: [
           {
@@ -44,7 +54,7 @@ export const routes: Array<IRoute> = [
             icon: <UserCircleIcon {...icon} />,
             name: "201 Files",
             path: "/employee/201-files",
-            element: <Profile />,
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-blue-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">201 FILES PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
           {
@@ -52,7 +62,7 @@ export const routes: Array<IRoute> = [
             icon: <UserCircleIcon {...icon} />,
             name: "Appraisal",
             path: "/employee/appraisal",
-            element: <Profile />,
+            element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">APPRAISAL PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
         ]
@@ -62,7 +72,7 @@ export const routes: Array<IRoute> = [
         icon: <TableCellsIcon {...icon} />,
         name: "DTR",
         path: "/tables",
-        element: <Tables />,
+        element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-pink-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">DTR PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
         hasSubItems: true,
         subItems: [
           {
@@ -70,7 +80,7 @@ export const routes: Array<IRoute> = [
             icon: <TableCellsIcon {...icon} />,
             name: "Scheduler",
             path: "/tables/scheduler",
-            element: <Tables />,
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">SCHEDULER PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
           {
@@ -78,7 +88,7 @@ export const routes: Array<IRoute> = [
             icon: <TableCellsIcon {...icon} />,
             name: "Timekeeping",
             path: "/tables/timekeeping",
-            element: <Tables />,
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">TIMEKEEPING PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
           {
@@ -86,7 +96,7 @@ export const routes: Array<IRoute> = [
             icon: <TableCellsIcon {...icon} />,
             name: "Biometrics Data",
             path: "/tables/biometrics-data",
-            element: <Tables />,
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">BIOMETRICS DATA PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
           {
@@ -94,7 +104,7 @@ export const routes: Array<IRoute> = [
             icon: <TableCellsIcon {...icon} />,
             name: "DTR Summary",
             path: "/tables/dtr-summary",
-            element: <Tables />,
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">DTR SUMMARY PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
           {
@@ -102,7 +112,7 @@ export const routes: Array<IRoute> = [
             icon: <TableCellsIcon {...icon} />,
             name: "Leaves",
             path: "/tables/leaves",
-            element: <Tables />,
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">LEAVES FILING PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
           {
@@ -110,7 +120,7 @@ export const routes: Array<IRoute> = [
             icon: <TableCellsIcon {...icon} />,
             name: "Overtime",
             path: "/tables/overtime",
-            element: <Tables />,
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">OVERTIME FILING PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
           {
@@ -118,7 +128,7 @@ export const routes: Array<IRoute> = [
             icon: <TableCellsIcon {...icon} />,
             name: "Official Business Trip",
             path: "/tables/offical-business-trip",
-            element: <Tables />,
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">OFFICIAL BUSINESS TRIP FILING PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
           {
@@ -126,7 +136,7 @@ export const routes: Array<IRoute> = [
             icon: <TableCellsIcon {...icon} />,
             name: "U.A",
             path: "/tables/unaccounted-attendance",
-            element: <Tables />,
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">UNACCOUNTED ATTENDANCE FILING PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
           {
@@ -134,7 +144,7 @@ export const routes: Array<IRoute> = [
             icon: <TableCellsIcon {...icon} />,
             name: "Maternity",
             path: "/tables/maternity",
-            element: <Tables />,
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">MATERNITY FILING PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
         ]
@@ -143,8 +153,8 @@ export const routes: Array<IRoute> = [
         id: 1400,
         icon: <BellIcon {...icon} />,
         name: "Reports",
-        path: "/notifactions",
-        element: <Notifications />,
+        path: "/reports",
+        element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">REPORTS PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
         hasSubItems: false,
       },
       {
@@ -152,15 +162,15 @@ export const routes: Array<IRoute> = [
         icon: <TableCellsIcon {...icon} />,
         name: "Forms",
         path: "/forms",
-        element: <Tables />,
+        element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">FORMS PRINTING PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
         hasSubItems: true,
         subItems: [
           {
             id: 1510,
             icon: <TableCellsIcon {...icon} />,
             name: "COE",
-            path: "/forms/coe",
-            element: <Tables />,
+            path: "/forms/COE",
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">CERTIFICATE OF EMPLOYMENT FILING AND PRINTING PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
         ]
@@ -170,7 +180,7 @@ export const routes: Array<IRoute> = [
         icon: <DocumentIcon {...icon} />,
         name: "Payroll",
         path: "/payroll",
-        element: <Tables />,
+        element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">PAYROLL PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
         hasSubItems: true,
         subItems: [
           {
@@ -178,7 +188,7 @@ export const routes: Array<IRoute> = [
             icon: <DocumentIcon {...icon} />,
             name: "Payroll Register",
             path: "/payroll/payroll-register",
-            element: <Tables />,
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">PAYROLL REGISTER PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
           {
@@ -186,7 +196,7 @@ export const routes: Array<IRoute> = [
             icon: <DocumentIcon {...icon} />,
             name: "Print Payslip",
             path: "/payroll/print-payslip",
-            element: <Tables />,
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">PRINT PAYSLIP PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
           {
@@ -194,7 +204,7 @@ export const routes: Array<IRoute> = [
             icon: <DocumentIcon {...icon} />,
             name: "Bonus",
             path: "/payroll/bonus",
-            element: <Tables />,
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">BONUS INFORMATION PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
           {
@@ -202,7 +212,7 @@ export const routes: Array<IRoute> = [
             icon: <DocumentIcon {...icon} />,
             name: "13th Month",
             path: "/payroll/13th-month",
-            element: <Tables />,
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">13TH MONTH PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
           {
@@ -210,7 +220,7 @@ export const routes: Array<IRoute> = [
             icon: <DocumentIcon {...icon} />,
             name: "Compensation",
             path: "/payroll/compensation",
-            element: <Tables />,
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">COMPENSATIONS PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
           {
@@ -218,7 +228,7 @@ export const routes: Array<IRoute> = [
             icon: <DocumentIcon {...icon} />,
             name: "Adjustment Others",
             path: "/payroll/adjustment-others",
-            element: <Tables />,
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">ADJUSTMENTS PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
           {
@@ -226,7 +236,7 @@ export const routes: Array<IRoute> = [
             icon: <DocumentIcon {...icon} />,
             name: "Tax Refund",
             path: "/payroll/tax-refund",
-            element: <Tables />,
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">TAX REFUND PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
           {
@@ -234,7 +244,7 @@ export const routes: Array<IRoute> = [
             icon: <DocumentIcon {...icon} />,
             name: "Government Deduction",
             path: "/payroll/government-deduction",
-            element: <Tables />,
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">GOVERNMENT DEDUCTION PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
           {
@@ -242,7 +252,7 @@ export const routes: Array<IRoute> = [
             icon: <DocumentIcon {...icon} />,
             name: "Other Deduction",
             path: "/payroll/other-deduction",
-            element: <Tables />,
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">OTHER DEDUCTIONS PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
           {
@@ -250,7 +260,7 @@ export const routes: Array<IRoute> = [
             icon: <DocumentIcon {...icon} />,
             name: "SSS Loan",
             path: "/payroll/sss-loan",
-            element: <Tables />,
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">SSS LOAN PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
           {
@@ -258,7 +268,7 @@ export const routes: Array<IRoute> = [
             icon: <DocumentIcon {...icon} />,
             name: "Payroll Summary",
             path: "/payroll/payroll-summary",
-            element: <Tables />,
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">PAYROLL SUMMARY PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
           {
@@ -266,7 +276,7 @@ export const routes: Array<IRoute> = [
             icon: <TableCellsIcon {...icon} />,
             name: "Net Pay Bank Summary",
             path: "/payroll/net-pay-bank-summary",
-            element: <Tables />,
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">NET PAY BANK SUMMARY PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
           {
@@ -274,7 +284,7 @@ export const routes: Array<IRoute> = [
             icon: <TableCellsIcon {...icon} />,
             name: "Allowance Summary",
             path: "/payroll/allowance-summary",
-            element: <Tables />,
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">ALLOWANCE SUMMARY PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
           {
@@ -282,7 +292,7 @@ export const routes: Array<IRoute> = [
             icon: <TableCellsIcon {...icon} />,
             name: "Alpha List",
             path: "/payroll/alpha-list",
-            element: <Tables />,
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">ALPHA LIST PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
         ]
@@ -292,7 +302,7 @@ export const routes: Array<IRoute> = [
         icon: <SpeakerWaveIcon {...icon} />,
         name: "Announcement",
         path: "/announcements",
-        element: <Tables />,
+        element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">ANNOUNCEMENT PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
         hasSubItems: true,
         subItems: [
           {
@@ -300,7 +310,7 @@ export const routes: Array<IRoute> = [
             icon: <SpeakerWaveIcon {...icon} />,
             name: "Post Announcements",
             path: "/announcements/post-announcements",
-            element: <Tables />,
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">POST ANNOUNCEMENT PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
         ]
@@ -310,19 +320,18 @@ export const routes: Array<IRoute> = [
         icon: <QuestionMarkCircleIcon {...icon} />,
         name: "Help",
         path: "/help",
-        element: <Tables />,
+        element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">HELP PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
         hasSubItems: false,
       },
     ],
   },
-
   {
     // title: "auth pages",
-    id: 2000,
+    id: 9000,
     layout: "auth",
     pages: [
       {
-        id: 2100,
+        id: 9100,
         icon: <ArrowRightOnRectangleIcon {...icon} />,
         name: "sign in",
         path: "/sign-in",
@@ -330,7 +339,7 @@ export const routes: Array<IRoute> = [
         hasSubItems: false,
       },
       {
-        id: 2200,
+        id: 9200,
         icon: <UserPlusIcon {...icon} />,
         name: "sign up",
         path: "/sign-up",
