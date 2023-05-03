@@ -1,0 +1,20 @@
+
+
+.section {
+  overflow: hidden;
+  transition: height 0.3s ease-out;
+  height: auto;
+}
+
+// .container {
+//   border: 3px solid #ffeb3b;
+//   margin: 0 auto;
+//   max-width: 300px;
+//   border-radius: 3px;
+// }
+
+.sectionContent {
+  overflow: hidden;
+  transition: height 0.4s ease-out;
+  height: auto;
+}
