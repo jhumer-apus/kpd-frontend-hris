@@ -10,7 +10,8 @@ import {
   SpeakerWaveIcon,
   QuestionMarkCircleIcon
 } from "@heroicons/react/24/solid";
-import { Home, Profile, Tables, Notifications } from "@/pages/dashboard";
+import { ChooseDashboard, Profile, Tables, Notifications } from "@/pages";
+import HRISDashboard from "./pages/dashboard/hris-portal/hris";
 import { SignIn, SignUp } from "@/pages/auth";
 import { IRoute } from "./types";
 
@@ -26,16 +27,32 @@ export const routes: Array<IRoute> = [
       {
         id: 1100,
         icon: <HomeIcon {...icon} />,
-        name: "HRIS Dashboard",
-        path: "/HRIS-Dashboard",
-        element: <Home />,
+        name: "Dashboards",
+        path: "/Dashboards",
+        element: <ChooseDashboard />,
         hasSubItems: true,
         subItems: [
           {
             id: 1110,
             icon: <HomeIcon {...icon} />,
+            name: "HRIS Dashboard",
+            path: "/Dashboards/HRIS-Dashboard",
+            element: <HRISDashboard />,
+            hasSubItems: false,
+          },
+          {
+            id: 1120,
+            icon: <HomeIcon {...icon} />,
             name: "Admin Portal",
-            path: "/Admin-Dashboard",
+            path: "/Dashboards/Admin-Dashboard",
+            element: <strong style={{height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px'}} className="text-red-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">ADMIN DASHBOARD ELEMENTS UNDER DEVELOPMENT</strong>,
+            hasSubItems: false,
+          },
+          {
+            id: 1130,
+            icon: <HomeIcon {...icon} />,
+            name: "Employee Portal",
+            path: "/Dashboards/Employee-Dashboard",
             element: <strong style={{height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px'}} className="text-red-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">ADMIN DASHBOARD ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
