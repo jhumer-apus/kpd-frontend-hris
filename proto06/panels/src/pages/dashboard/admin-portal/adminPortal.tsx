@@ -14,10 +14,12 @@ import {
   Progress,
 } from "@material-tailwind/react";
 import {
-  ClockIcon,
-  CheckIcon,
-  EllipsisVerticalIcon,
-  ArrowUpIcon,
+    KeyIcon,
+    UserGroupIcon,
+    ClockIcon,
+    ClipboardDocumentIcon,
+    ComputerDesktopIcon,
+    Cog6ToothIcon
 } from "@heroicons/react/24/outline";
 import { EasyAccessCard } from "@/widgets/cards";
 import { StatisticsChart } from "@/widgets/charts";
@@ -30,13 +32,13 @@ import {
 import BirthdayCard from "@/widgets/cards/upcoming-birthday-card";
 import { celebrantsData, anniversaryData } from "@/data/widgets-data";
 import UpcomingAnniversary from "@/widgets/cards/upcoming-anniversary-card";
+import { adminPortalData } from "@/data/pages-data/dashboard-data/admin-portal-data";
 
-
-export function ChooseDashboard() {
+export function AdminPortal() {
   return (
     <div className="mt-12">
       <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4">
-        {statisticsCardsData.map(({ icon, title, footer, ...rest }) => (
+        {adminPortalData.map(({ icon, title, footer, ...rest }) => (
           <EasyAccessCard
             key={title}
             {...rest}
@@ -319,4 +321,4 @@ export function ChooseDashboard() {
   );
 }
 
-export default ChooseDashboard;
+export default AdminPortal;

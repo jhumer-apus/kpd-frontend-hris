@@ -24,7 +24,7 @@ export function Dashboard() {
           sidenavType === "dark" ? "/img/logo-ct.png" : "/img/logo-ct-dark.png"
         }
       />
-      <div className="p-4 xl:ml-80" style={{height: '90vh'}}>
+      <div className="p-4 xl:ml-80">
         <DashboardNavbar />
         <Configurator />
         <IconButton
@@ -44,7 +44,6 @@ export function Dashboard() {
               {
                 if(hasSubItems){
                   return (subItems?.map(({ path: childPath, element: childElement }) => {
-                    // console.log("haloo", childPath);
                     return(
                     <Fragment>
                     <Route path={parentPath} element={parentElement} />
@@ -53,7 +52,6 @@ export function Dashboard() {
                     )}
                     ))
                 }else if (!hasSubItems) {
-                  // console.log('hadu',parentPath)
                   return (
                     <Route path={parentPath} element={parentElement} />
                   )

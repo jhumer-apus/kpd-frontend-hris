@@ -32,7 +32,7 @@ import { celebrantsData, anniversaryData } from "@/data/widgets-data";
 import UpcomingAnniversary from "@/widgets/cards/upcoming-anniversary-card";
 
 
-export function ChooseDashboard() {
+export function HRISDashboard() {
   return (
     <div className="mt-12">
       <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4">
@@ -70,7 +70,7 @@ export function ChooseDashboard() {
           />
         ))}
       </div> */}
-      {/* <div className="mb-4 grid grid-cols-1 gap-6 xl:grid-cols-3">
+      <div className="mb-4 grid grid-cols-1 gap-6 xl:grid-cols-3">
         <Card className="overflow-hidden xl:col-span-2">
           <CardHeader
             floated={false}
@@ -312,11 +312,12 @@ export function ChooseDashboard() {
             )}
           </CardBody>
         </Card>
+        {/* CHAT GPT Insert the Birthday Celebrants card here */}
         <BirthdayCard celebrants={celebrantsData} />
         <UpcomingAnniversary celebrants={anniversaryData}/>
-      </div> */}
+      </div>
     </div>
   );
 }
 
-export default ChooseDashboard;
+export default HRISDashboard;
