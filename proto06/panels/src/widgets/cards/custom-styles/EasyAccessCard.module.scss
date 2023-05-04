@@ -1,0 +1,16 @@
+
+.cardWrap{
+  transition: all 0.3s ease-in-out;
+  &:hover{
+    transform: scale(1.05);
+    cursor: pointer;
+    
+    p, h4{
+      color: rgb(104,129,141);}
+    &>div[data-name="iconwrap"]{
+      box-shadow: 2px 8px 10px lightblue;
+    }
+  }
+}
+
+
