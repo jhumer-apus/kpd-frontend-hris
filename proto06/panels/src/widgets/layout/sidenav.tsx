@@ -82,68 +82,70 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
             { if(hasSubItems){
               return(
                 <Fragment>
-                  <NavLink to={`/${layout}${path}`}>
-                  {({ isActive }) => (
+                  {/* <NavLink to={`/${layout}${path}`}>
+                    {({ isActive }) => ( */}
                     <li key={name}>
-                      <CollapsibleSection
-                        header={
-                          <Button
-                            variant={isActive ? "gradient" : "text"}
-                            color={
-                              isActive
-                                ? sidenavColor
-                                : sidenavType === "dark"
-                                ? "white"
-                                : "blue-gray"
-                            }
-                            className="flex items-center gap-4 px-4 capitalize"
-                            fullWidth
-                          >
-                            {icon}
-                            <Typography
-                              color="inherit"
-                              className="font-medium capitalize"
+                        <CollapsibleSection
+                          header={
+                            <Button
+                              variant={ "gradient" }
+                              color={
+                                // isActive
+                                //   ? 
+                                //   sidenavColor
+                                //   : 
+                                  sidenavType === "dark"
+                                  ? "indigo"
+                                  : "blue-gray"
+                              }
+                              className="flex items-center gap-4 px-4 capitalize"
+                              fullWidth
                             >
-                              {name}
-                            </Typography>
-                          </Button>
-                        }
-                    >
-                          {
-                          subItems?.map(({ icon, name, path }) => (
-                            <NavLink to={`/${layout}${path}`} className={styles.toggleableItem}>
-                            {({ isActive }) => (
-                              <li key={name} className="ml-4">
-                                <Button
-                                  variant={isActive ? "gradient" : "text"}
-                                  color={
-                                    isActive
-                                      ? sidenavColor
-                                      : sidenavType === "dark"
-                                      ? "white"
-                                      : "blue-gray"
-                                  }
-                                  className="flex items-center gap-4 px-4 capitalize"
-                                  fullWidth
-                                  button-toggle="toggleable"
-                                >
-                                  {icon}
-                                  <Typography
-                                    color="inherit"
-                                    className="font-medium capitalize text-start"
+                              {icon}
+                              <Typography
+                                color="inherit"
+                                className="font-medium capitalize"
+                              >
+                                {name}
+                              </Typography>
+                            </Button>
+                          }
+                        >
+                            {
+                            subItems?.map(({ icon, name, path }) => (
+                              <NavLink to={`/${layout}${path}`} className={styles.toggleableItem}>
+                              {({ isActive }) => (
+                                <li key={name} >
+                                  <Button
+                                    variant={isActive ? "gradient" : "text"}
+                                    color={
+                                      isActive
+                                        ? sidenavColor
+                                        : sidenavType === "dark"
+                                        ? "white"
+                                        : "blue-gray"
+                                    }
+                                    className="flex items-center gap-4 px-4 capitalize"
+                                    fullWidth
+                                    button-toggle="toggleable"
                                   >
-                                    {name}
-                                    </Typography>
-                              </Button>
-                            </li>
-                          )}
-                          </NavLink>
-                        ))
-                      }
-                      </CollapsibleSection>
-                  </li>
-                )}
-                </NavLink>
+                                    {icon}
+                                    <Typography
+                                      color="inherit"
+                                      className="font-medium capitalize text-start"
+                                    >
+                                      {name}
+                                      </Typography>
+                                </Button>
+                              </li>
+                            )}
+                            </NavLink>
+                          ))
+                        }
+                        </CollapsibleSection>
+                    </li>
+                  {/* )}
+                  </NavLink> */}
               </Fragment>
               )
           } else {
