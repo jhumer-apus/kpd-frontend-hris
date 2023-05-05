@@ -10,17 +10,17 @@ import styles from './custom-styles/EasyAccessCard.module.scss'; // Custom-Style
 import { EasyAccessCardProps } from "@/types/types-widgets";
 // import './custom-styles/StatisticsCard.css'
 
-export function EasyAccessCard({ color, icon, title, value, footer }: EasyAccessCardProps) {
+export function EasyAccessCard({ color, icon, title, value, footer, custom }: EasyAccessCardProps) {
   return (
     <Card className={styles.cardWrap}>
       <CardHeader
         variant="gradient"
         // color={color}
         className="absolute -mt-4 grid h-16 w-16 place-items-center"
-        style={{background: "linear-gradient(87deg, #5e72e4 0, #825ee4 100%)"}}
+        style={ custom !== undefined ? {background: `${custom}`} : {background: "linear-gradient(87deg, #5e72e4 0, #825ee4 100%)"}}
         data-name={'iconwrap'}
       >
-        <span className={styles.cardIcon}>{icon}</span>
+        <span className={styles.cardIcon} >{icon}</span>
       </CardHeader>
       <CardBody className="p-4 text-right">
         <Typography variant="small" className="font-normal text-blue-gray-600">
