@@ -37,7 +37,7 @@ import { adminPortalData } from "@/data/pages-data/dashboard-data/admin-portal-d
 export function AdminPortal() {
   return (
     <div className="mt-12">
-      <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4">
+      <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-3">
         {adminPortalData.map(({ icon, title, footer, ...rest }) => (
           <EasyAccessCard
             key={title}
@@ -55,7 +55,7 @@ export function AdminPortal() {
           />
         ))}
       </div>
-      {/* <div className="mb-6 grid grid-cols-1 gap-y-12 gap-x-6 md:grid-cols-2 xl:grid-cols-3">
+      <div className="mb-6 grid grid-cols-1 gap-y-12 gap-x-6 md:grid-cols-2 xl:grid-cols-3">
         {statisticsChartsData.map((props) => (
           <StatisticsChart
             key={props.title}
@@ -71,7 +71,7 @@ export function AdminPortal() {
             }
           />
         ))}
-      </div> */}
+      </div>
       {/* <div className="mb-4 grid grid-cols-1 gap-6 xl:grid-cols-3">
         <Card className="overflow-hidden xl:col-span-2">
           <CardHeader
