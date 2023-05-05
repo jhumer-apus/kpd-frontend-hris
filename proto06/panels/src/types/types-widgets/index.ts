@@ -40,6 +40,7 @@ export interface EasyAccessCardProps {
     value: string;
     redirection?: string;
     footer: NonNullable<React.ReactNode>;
+    custom?: string;
 }
 
 export interface CelebrantsDataProps {
