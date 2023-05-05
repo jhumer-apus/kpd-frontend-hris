@@ -61,16 +61,25 @@ export function DashboardNavbar() {
                 {layout}
               </Typography>
             </Link>
-            {page ? 
+            {page && !innermostpage? 
             <Link to={`/${layout}/${page}`}>
               <Typography
                 variant="small"
                 color="blue-gray"
                 className="font-normal"
               >
-                {page.replace("-", " ")}
+                {page?.replace("-", " ")}
               </Typography>
             </Link>
+            :
+            page ? 
+            <Typography
+              variant="small"
+              color="blue-gray"
+              className="font-normal"
+            >
+              {page?.replace("-", " ")}
+            </Typography>
             :
             null
             }
