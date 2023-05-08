@@ -11,6 +11,7 @@ import {
 import routes from "@/routes";
 import { useMaterialTailwindController, setOpenConfigurator } from "@/context";
 import { Profile } from "@/pages/dashboard";
+// import Auth from "./auth";
 
 export function Dashboard() {
   const [controller, dispatch] = useMaterialTailwindController();
@@ -62,6 +63,7 @@ export function Dashboard() {
           )}
           <Route path="/" element={<strong style={{height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">HOME PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>} />
           <Route path="/profile" element={<Profile/>} />
+          {/* <Route path="/auth/*" element={<Auth/>} /> */}
         </Routes>
         <div className="text-blue-gray-600">
           <Footer />
