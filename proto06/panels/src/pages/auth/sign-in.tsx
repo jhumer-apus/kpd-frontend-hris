@@ -9,8 +9,20 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogin } from "@/store/actions/auth";
 
 export function SignIn() {
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  function handleSignIn(passedEmail: string, passedPassword: string) {
+    // Implement your login logic here
+    dispatch(userLogin({username: passedEmail, password: passedPassword}));
+  }
   return (
     <>
       <img
@@ -30,14 +42,14 @@ export function SignIn() {
             </Typography>
           </CardHeader>
           <CardBody className="flex flex-col gap-4">
-            <Input type="email" label="Email" size="lg" />
-            <Input type="password" label="Password" size="lg" />
-            <div className="-ml-2.5">
-              <Checkbox label="Remember Me" />
+            <Input type="text" label="Username" size="lg" value={email} onChange={(e)=> setEmail(e.target.value)}/>
+            <Input type={showPassword ? "text" : "password" } label="Password" size="lg" value={password} onChange={(e)=> setPassword(e.target.value)}/>
+            <div className="-ml-2.5" onClick={() => setShowPassword(!showPassword)}>
+              <Checkbox label="Show Password" />
             </div>
           </CardBody>
           <CardFooter className="pt-0">
-            <Button variant="gradient" fullWidth>
+            <Button variant="gradient" fullWidth onClick={()=> handleSignIn(email, password)}>
               Sign In
             </Button>
             <Typography variant="small" className="mt-6 flex justify-center">
