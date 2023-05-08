@@ -27,13 +27,31 @@ import {
   setOpenSidenav,
 } from "@/context";
 
+//Functionalities for Logout
+import { useDispatch } from "react-redux";
+import { userLogout } from "@/store/actions/auth";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+
 export function DashboardNavbar() {
+  const navigate = useNavigate();
+  const dispatchV2 = useDispatch();
+
   const [controller, dispatch] = useMaterialTailwindController();
   const { fixedNavbar, openSidenav } = controller;
   const { pathname } = useLocation();
   const [layout, page, innermostpage] = pathname.split("/").filter((el) => el !== "");
   // console.log(pathname, "meowww", pathname.split("/").filter((el) => el !== ""), innermostpage, "aaa");
   
+
+  const handleLogout = () => {
+    // Perform logout actions here
+    Cookies.remove('token');
+    dispatchV2(userLogout());
+
+    navigate('/'); // Navigate to the desired route after logout
+  };
+
   return (
     <Navbar
       color={fixedNavbar ? "white" : "transparent"}
@@ -175,29 +193,26 @@ export function DashboardNavbar() {
                   </Typography>
                 </div>
               </MenuItem> */}
-              <Link to="/auth/sign-in">
-                <MenuItem className="flex items-center gap-4">
-                  <div className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-tr from-blue-gray-800 to-blue-gray-900">
-                    <CreditCardIcon className="h-4 w-4 text-white" />
-                  </div>
-                  <div>
-                    
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="mb-1 font-normal"
-                    >Logout
-                    </Typography>
-                    {/* <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="flex items-center gap-1 text-xs font-normal opacity-60"
-                    >
-                      <ClockIcon className="h-3.5 w-3.5" /> 2 days ago
-                    </Typography> */}
-                  </div>
-                </MenuItem>
-              </Link>
+              <MenuItem className="flex items-center gap-4" onClick={handleLogout}>
+                <div className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-tr from-blue-gray-800 to-blue-gray-900">
+                  <CreditCardIcon className="h-4 w-4 text-white" />
+                </div>
+                <div>
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="mb-1 font-normal"
+                  >Logout
+                  </Typography>
+                  {/* <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="flex items-center gap-1 text-xs font-normal opacity-60"
+                  >
+                    <ClockIcon className="h-3.5 w-3.5" /> 2 days ago
+                  </Typography> */}
+                </div>
+              </MenuItem>
             </MenuList>
           </Menu>
           {/* <Link to="/auth/sign-in">
