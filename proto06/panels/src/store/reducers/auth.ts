@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { userLogin, userLoginSuccess, userLoginFailure } from '../actions/auth';
+import { userLogin, userLoginSuccess, userLoginFailure, userLogout } from '../actions/auth';
 
 interface AuthState {
   isAuthenticated: boolean;
@@ -33,6 +33,11 @@ export const authSlice = createSlice({
         state.isAuthenticated = false;
         state.token = null;
         state.error = action.payload;
+      })
+      .addCase(userLogout, (state) => {
+        state.isAuthenticated = false;
+        state.token = null;
+        state.error = null;
       });
   },
 });
