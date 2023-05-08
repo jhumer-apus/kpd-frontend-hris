@@ -1,0 +1,57 @@
+export interface UserType {
+    id: Number;
+    is_superuser: Boolean;
+    first_name: String;
+    last_name: String;
+    email: String;
+    is_staff: Boolean;
+    date_joined: Date;
+    username: String;
+    role: Number;
+    is_active: Boolean;
+    is_locked: Boolean;
+    is_logged_in: Boolean;
+    date_added: Date;
+    date_deleted?: Date;
+    failed_login_attempts: Number;
+    last_login: Date;
+    old_password: String;
+    date_password_changed?: Date;
+    employee_number: Number;
+    groups: Array<Number>;
+    user_permissions: Array<Number>;
+};
+
+
+export interface EmployeeDetailsType {
+    id: Number;
+    employee_number: Number;
+    first_name: String;
+    middle_name: String;
+    last_name: String;
+    suffix?: String;
+    birthdate: Date;
+    birth_place?: String;
+    civil_status: Number;
+    gender: String;
+    address: String;
+    provincial_address?: String;
+    mobile_phone: String;
+    email: String;
+    date_hired: Date;
+    date_resigned?: Date;
+    approver: Number;
+    date_added: Date;
+    date_deleted?: Date;
+    branch_code: String;
+    department_code?: String;
+    division_code?: String;
+    payroll_group_code?: String;
+    position_code?: String;
+    rank_code?: String;
+    tax_code?: String;
+    city_code?: String;
+    pagibig_code?: String;
+    sssid_code?: String;
+    philhealth_code?: String;
+};
