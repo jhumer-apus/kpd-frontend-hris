@@ -24,6 +24,8 @@
         "@/data/*": ["data/*"],
         "@/context": ["context/index.tsx"],
         "@/types/*": ["types/*"],
+        "@/utils/*": ["utils/*"],
+        "@/store/*": ["store/*"],
         "@/*": ["./*"]
 
       }
