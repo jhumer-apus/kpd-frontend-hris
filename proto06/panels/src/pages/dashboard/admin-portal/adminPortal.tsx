@@ -33,8 +33,13 @@ import BirthdayCard from "@/widgets/cards/upcoming-birthday-card";
 import { celebrantsData, anniversaryData } from "@/data/widgets-data";
 import UpcomingAnniversary from "@/widgets/cards/upcoming-anniversary-card";
 import { adminPortalData } from "@/data/pages-data/dashboard-data/admin-portal-data";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/reducers";
 
 export function AdminPortal() {
+  // let's connect to the store using useSelector
+  const state = useSelector((state: RootState) => state);
+  // console.log(state, "meow22")
   return (
     <div className="mt-12">
       <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-3">
