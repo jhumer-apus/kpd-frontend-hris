@@ -30,7 +30,8 @@ export const authEpic: Epic = (action$, state$) =>
         map((data) => {
           // Save the token in a secure cookie with an expiration time of 1 hour
           Cookies.set('token', data.jwt, { expires: 1 / 24, secure: true });
-          return userLoginSuccess(data.jwt);
+          // console.log(data, "hallo", userLoginSuccess(data.jwt, data.user, data.employee_details))
+          return userLoginSuccess(data.jwt, data.user, data.employee_details);
         }),
         catchError((error) => {
           // console.log(error.response, "maeeeeee111owww");
