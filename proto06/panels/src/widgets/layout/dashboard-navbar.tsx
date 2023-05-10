@@ -46,9 +46,11 @@ export function DashboardNavbar() {
 
   const handleLogout = () => {
     // Perform logout actions here
-    Cookies.remove('token');
+    const removals = ['token', 'user', 'employee_details'];
+    removals.forEach((el) => {
+      Cookies.remove(el);
+    });
     dispatchV2(userLogout());
-
     navigate('/'); // Navigate to the desired route after logout
   };
 
