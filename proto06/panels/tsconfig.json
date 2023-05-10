@@ -26,6 +26,7 @@
         "@/types/*": ["types/*"],
         "@/utils/*": ["utils/*"],
         "@/store/*": ["store/*"],
+        "@/custom-hooks/*": ["custom-hooks/*"],
         "@/*": ["./*"]
 
       }
