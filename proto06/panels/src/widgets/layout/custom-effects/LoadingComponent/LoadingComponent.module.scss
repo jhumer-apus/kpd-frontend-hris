@@ -1,0 +1,65 @@
+// style our loading component with css modules
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 115vh;
+    width: 100vw;
+    background-color: #f5f4f4;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    // transform: translateY(-100%);
+    transform: translateY(0%);
+    transition: transform 1s;
+    border-radius: 0 0 380px 380px/ 0 0 160px 160px;
+    font-size: 40px;
+    &.animateDown {
+      transform: translateY(0%);
+    }
+    .message{
+      color: #1c0c79;
+    }
+  }
+  
+  .noAnimation {
+    animation: none !important;
+  }
+  
+  
+  .spinner {
+      animation: spin infinite 2000ms linear;
+      color:#1c0c79;
+      height: 80px;
+      width: 80px;
+      /*You can increase or decrease the timer (5s) to 
+       increase or decrease the speed of the spinner*/
+    }
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes slideDown {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideUp {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-100%);
+    }
+  }
