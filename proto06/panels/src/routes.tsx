@@ -30,7 +30,7 @@ export const routes: Array<IRoute> = [
         icon: <HomeIcon {...icon} />,
         name: "Dashboards",
         path: "/Dashboards",
-        element: <ChooseDashboard />,
+        element: <strong style={{height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px'}} className="text-red-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">YOU SHALL NOT PASS!!</strong>,
         hasSubItems: true,
         subItems: [
           {
