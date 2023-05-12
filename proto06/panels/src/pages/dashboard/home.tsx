@@ -30,12 +30,16 @@ import {
 import BirthdayCard from "@/widgets/cards/upcoming-birthday-card";
 import { celebrantsData, anniversaryData } from "@/data/widgets-data";
 import UpcomingAnniversary from "@/widgets/cards/upcoming-anniversary-card";
+import styles from './custom-styles/home.module.scss';
+import CarouselUI from "@/widgets/banner/banner";
+
 
 
 export function ChooseDashboard() {
+
   return (
     <div className="mt-12">
-      <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4">
+      {/* <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-1 xl:grid-cols-1">
         {statisticsCardsData.map(({ icon, title, footer, ...rest }) => (
           <EasyAccessCard
             key={title}
@@ -52,8 +56,23 @@ export function ChooseDashboard() {
             }
           />
         ))}
+          <EasyAccessCard
+            key={"Employees"}
+            // {...rest}
+            value={"201 Data"}
+            title={"Employees"}
+            icon={React.createElement(Avatar, {
+              className: "w-6 h-6 text-white",
+            })}
+            footer={
+              <Typography className="font-normal text-blue-gray-600">
+                <strong className={"text-green-500"}>{"<"}</strong>
+                &nbsp;{"201, Appraisal, etc."}
+              </Typography>
+            }
+          />
       </div>
-      {/* <div className="mb-6 grid grid-cols-1 gap-y-12 gap-x-6 md:grid-cols-2 xl:grid-cols-3">
+      <div className="mb-6 grid grid-cols-1 gap-y-12 gap-x-6 md:grid-cols-2 xl:grid-cols-3">
         {statisticsChartsData.map((props) => (
           <StatisticsChart
             key={props.title}
@@ -70,8 +89,28 @@ export function ChooseDashboard() {
           />
         ))}
       </div> */}
-      {/* <div className="mb-4 grid grid-cols-1 gap-6 xl:grid-cols-3">
-        <Card className="overflow-hidden xl:col-span-2">
+      <div className={styles.homeWrap}>
+        <Card className={styles.greetingsBar}>
+          {/* <EasyAccessCard
+            key={"Employees"}
+            // {...rest}
+            value={"201 Data"}
+            title={"Employees"}
+            icon={React.createElement(Avatar, {
+              className: "w-6 h-6 text-white",
+            })}
+            footer={
+              <Typography className="font-normal text-blue-gray-600">
+                <strong className={"text-green-500"}>{"<"}</strong>
+                &nbsp;{"201, Appraisal, etc."}
+              </Typography>
+            }
+          /> */}
+          <CarouselUI className={styles.greetingsBar}/>
+        </Card>
+
+
+        <Card className={styles.requestsBar}>
           <CardHeader
             floated={false}
             shadow={false}
@@ -198,7 +237,7 @@ export function ChooseDashboard() {
             </table>
           </CardBody>
         </Card>
-        <Card>
+        <Card className={styles.announcementBar}>
           <CardHeader
             floated={false}
             shadow={false}
@@ -255,7 +294,10 @@ export function ChooseDashboard() {
             )}
           </CardBody>
         </Card>
-        <Card>
+      </div>
+
+      {/* <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-1 xl:grid-cols-3">
+      <Card>
           <CardHeader
             floated={false}
             shadow={false}
