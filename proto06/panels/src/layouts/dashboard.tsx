@@ -10,7 +10,8 @@ import {
 } from "@/widgets/layout";
 import routes from "@/routes";
 import { useMaterialTailwindController, setOpenConfigurator } from "@/context";
-import { Profile } from "@/pages/dashboard";
+import { ChooseDashboard, Profile } from "@/pages/dashboard";
+import HomePageBanner from "@/widgets/banner/banner";
 // import Auth from "./auth";
 
 export function Dashboard() {
@@ -61,7 +62,7 @@ export function Dashboard() {
               }
               )
           )}
-          <Route path="/" element={<strong style={{height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">HOME PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>} />
+          <Route path="/" element={<ChooseDashboard/>} />
           <Route path="/profile" element={<Profile/>} />
           {/* <Route path="/auth/*" element={<Auth/>} /> */}
         </Routes>
