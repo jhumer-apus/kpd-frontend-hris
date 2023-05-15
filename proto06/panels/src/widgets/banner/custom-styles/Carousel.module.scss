@@ -4,6 +4,26 @@
 }
 
 
+// Todo: Mobile view not yet optimized
+
+@media (max-width: 1680px) {
+    .exampleWrap{
+        .wholeCarouselWrap{
+            // height: 300px;
+            .rightSide{
+                right: -106px;
+                iframe{
+                    width: 619px;
+                    height: 560px;
+                }
+                // .planet{
+                //     height: 50px;
+                // }
+            }
+        }
+    }
+}
+
 .wholeCarouselWrap{
     height: 385px;
     margin: auto;
@@ -24,10 +44,18 @@
         justify-content: center;
         position: absolute;
         top: 0;
-        left: 40%;
+        right: -120px;
+        overflow: hidden;
         iframe{
             width: 751px;
             height: 520px;
+        }
+        .planet{
+            // outline: 1px solid red;
+            position: absolute;
+            top: -21px;
+            right: 75px;
+            height: 66px;
         }
     }
     .greetingsBar{

@@ -32,11 +32,16 @@ import { useDispatch } from "react-redux";
 import { userLogout } from "@/store/actions/auth";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/reducers";
+
 
 export function DashboardNavbar() {
   const navigate = useNavigate();
   const dispatchV2 = useDispatch();
-
+  //let's connect to the store
+  const { employee_detail }= useSelector((state: RootState) => state.auth);
+  // console.log(employee_detail, "meow1111")
   const [controller, dispatch] = useMaterialTailwindController();
   const { fixedNavbar, openSidenav } = controller;
   const { pathname } = useLocation();
@@ -46,7 +51,7 @@ export function DashboardNavbar() {
 
   const handleLogout = () => {
     // Perform logout actions here
-    const removals = ['token', 'user', 'employee_details'];
+    const removals = ['token', 'user', 'employee_detail'];
     removals.forEach((el) => {
       Cookies.remove(el);
     });
@@ -137,7 +142,7 @@ export function DashboardNavbar() {
             <MenuHandler>
               <Button variant="text" color="blue-gray" className="hidden items-center gap-1 px-4 xl:flex">
                 <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
-                Welcome, User
+                Welcome, {employee_detail?.first_name}
               </Button>
             </MenuHandler>
             <MenuList className="w-max border-0">
