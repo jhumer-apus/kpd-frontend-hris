@@ -12,12 +12,14 @@ import {
   Avatar,
   Tooltip,
   Progress,
+  Button,
 } from "@material-tailwind/react";
 import {
   ClockIcon,
   CheckIcon,
   EllipsisVerticalIcon,
   ArrowUpIcon,
+  BriefcaseIcon
 } from "@heroicons/react/24/outline";
 import { EasyAccessCard } from "@/widgets/cards";
 import { StatisticsChart } from "@/widgets/charts";
@@ -119,15 +121,15 @@ export function ChooseDashboard() {
           >
             <div>
               <Typography variant="h6" color="blue-gray" className="mb-1">
-                Projects
+                FILED REQUESTS
               </Typography>
-              <Typography
+              {/* <Typography
                 variant="small"
                 className="flex items-center gap-1 font-normal text-blue-gray-600"
               >
                 <CheckIcon strokeWidth={3} className="h-4 w-4 text-blue-500" />
                 <strong>30 done</strong> this month
-              </Typography>
+              </Typography> */}
             </div>
             <Menu placement="left-start">
               <MenuHandler>
@@ -150,7 +152,7 @@ export function ChooseDashboard() {
             <table className="w-full min-w-[640px] table-auto">
               <thead>
                 <tr>
-                  {["companies", "members", "budget", "completion"].map(
+                  {["File-Type", "Approvers", "Date", "Status"].map(
                     (el) => (
                       <th
                         key={el}
@@ -180,7 +182,8 @@ export function ChooseDashboard() {
                       <tr key={name}>
                         <td className={className}>
                           <div className="flex items-center gap-4">
-                            <Avatar src={img} alt={name} size="sm" />
+                            <BriefcaseIcon style={{height: "36px", width: "36px"}}/>
+                            {/* <Avatar src={<BriefcaseIcon/>} alt={name} size="sm" /> */}
                             <Typography
                               variant="small"
                               color="blue-gray"
@@ -218,15 +221,17 @@ export function ChooseDashboard() {
                             <Typography
                               variant="small"
                               className="mb-1 block text-xs font-medium text-blue-gray-600"
+                              style={{color: completion?.includes("Approved") ? "darkgreen": completion?.includes("Rejected") ? "maroon" : "orange"}}
                             >
-                              {completion}%
+                              {completion}
                             </Typography>
-                            <Progress
+                            {/* <Progress
                               value={completion}
                               variant="gradient"
                               color={completion === 100 ? "green" : "blue"}
                               className="h-1"
-                            />
+                            /> */}
+                            
                           </div>
                         </td>
                       </tr>
@@ -245,7 +250,7 @@ export function ChooseDashboard() {
             className="m-0 p-6"
           >
             <Typography variant="h6" color="blue-gray" className="mb-2">
-              Orders Overview
+              EASY ACCESS PANEL
             </Typography>
             <Typography
               variant="small"
@@ -255,7 +260,7 @@ export function ChooseDashboard() {
                 strokeWidth={3}
                 className="h-3.5 w-3.5 text-green-500"
               />
-              <strong>24%</strong> this month
+              For your easy access <strong>convenience</strong>
             </Typography>
           </CardHeader>
           <CardBody className="pt-0">
@@ -273,22 +278,32 @@ export function ChooseDashboard() {
                       className: `!w-5 !h-5 ${color}`,
                     })}
                   </div>
+
                   <div>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="block font-medium"
-                    >
-                      {title}
-                    </Typography>
-                    <Typography
-                      as="span"
-                      variant="small"
-                      className="text-xs font-medium text-blue-gray-500"
-                    >
-                      {description}
-                    </Typography>
+                    <span>
+
+                    </span>
+                    <Button color="purple">
+                      <div>
+                        <Typography
+                          variant="small"
+                          color="white"
+                          className="block font-medium"
+                        >
+                          {title}
+                        </Typography>
+                        <Typography
+                          as="span"
+                          variant="small"
+                          className="text-xs font-medium text-blue-gray-500"
+                        >
+                          {description}
+                        </Typography>
+                      </div>
+                    </Button>
                   </div>
+
+                  
                 </div>
               )
             )}
