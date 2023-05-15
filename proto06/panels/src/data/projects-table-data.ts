@@ -1,65 +1,66 @@
 export const projectsTableData = [
   {
     img: "/img/logo-xd.svg",
-    name: "Material XD Version",
+    name: "Leave Request",
     members: [
       { img: "/img/team-1.jpeg", name: "Romina Hadid" },
       { img: "/img/team-2.jpeg", name: "Ryan Tompson" },
       { img: "/img/team-3.jpeg", name: "Jessica Doe" },
       { img: "/img/team-4.jpeg", name: "Alexander Smith" },
     ],
-    budget: "$14,000",
-    completion: 60,
+    budget: "05/15/2023",
+    completion: "Approved",
   },
   {
     img: "/img/logo-atlassian.svg",
-    name: "Add Progress Track",
+    name: "UA Request",
     members: [
       { img: "/img/team-2.jpeg", name: "Ryan Tompson" },
       { img: "/img/team-4.jpeg", name: "Alexander Smith" },
     ],
-    budget: "$3,000",
-    completion: 10,
+    budget: "05/10/2023",
+    completion: "Pending",
   },
   {
     img: "/img/logo-slack.svg",
-    name: "Fix Platform Errors",
+    name: "Material Request",
     members: [
       { img: "/img/team-3.jpeg", name: "Jessica Doe" },
       { img: "/img/team-1.jpeg", name: "Romina Hadid" },
     ],
-    budget: "Not set",
-    completion: 100,
+    budget: "05/05/2023",
+    completion: "Pending",
   },
   {
     img: "/img/logo-spotify.svg",
-    name: "Launch our Mobile App",
+    name: "Budget Request",
     members: [
       { img: "/img/team-4.jpeg", name: "Alexander Smith" },
       { img: "/img/team-3.jpeg", name: "Jessica Doe" },
       { img: "/img/team-2.jpeg", name: "Ryan Tompson" },
       { img: "/img/team-1.jpeg", name: "Romina Hadid" },
     ],
-    budget: "$20,500",
-    completion: 100,
+    budget: "05/02/2023",
+    completion: "Rejected",
   },
   {
     img: "/img/logo-jira.svg",
-    name: "Add the New Pricing Page",
+    name: "Leave Request",
     members: [{ img: "/img/team-4.jpeg", name: "Alexander Smith" }],
-    budget: "$500",
-    completion: 25,
+    budget: "04/25/2023",
+    completion: "Rejected",
   },
   {
     img: "/img/logo-invision.svg",
-    name: "Redesign New Online Shop",
+    name: "Training Request",
     members: [
       { img: "/img/team-1.jpeg", name: "Romina Hadid" },
       { img: "/img/team-4.jpeg", name: "Alexander Smith" },
     ],
-    budget: "$2,000",
-    completion: 40,
+    budget: "04/22/2023",
+    completion: "Approved",
   },
+  
 ];
 
 export default projectsTableData;
