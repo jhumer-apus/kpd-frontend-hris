@@ -6,14 +6,14 @@ import { userLoginSuccess, userLogout } from '@/store/actions/auth';
 
 export function useAuth() {
   const dispatch = useDispatch();
-  const { isAuthenticated, user, employee_details }= useSelector((state:RootState) => state.auth);
+  const { isAuthenticated, user, employee_detail }= useSelector((state:RootState) => state.auth);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const token = Cookies.get('token');
     const userCookie = JSON.parse(Cookies.get('user') || '{}');
-    const employeeCookie = '{}';
-    console.log(user, "m11", employee_details, "ahaha", employeeCookie, userCookie)
+    const employeeCookie = JSON.parse(Cookies.get('employee_detail') || '{}');
+    // console.log(user, "m11", employee_detail, "ahaha", employeeCookie, userCookie)
     if (token) {
       dispatch(userLoginSuccess(token, userCookie, employeeCookie));
     } else {
