@@ -10,5 +10,5 @@ export const userLoginFailure = createAction<string>('USER_LOGIN_FAILURE');
 export const userLogout = createAction('USER_LOGOUT');
 export const userLoginSuccess = createAction(
     "USER_LOGIN_SUCCESS",
-    (jwt: string, user: UserType, employee_details: EmployeeDetailsType) => ({ payload: { jwt, user, employee_details } })
+    (jwt: string, user: UserType, employee_detail: EmployeeDetailsType) => ({ payload: { jwt, user, employee_detail } })
   );

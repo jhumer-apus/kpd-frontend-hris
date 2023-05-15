@@ -7,7 +7,7 @@ interface AuthState {
   isAuthenticated: boolean;
   token: string | null;
   user: UserType | null; // Add user and employee fields
-  employee_details: EmployeeDetailsType | null;
+  employee_detail: EmployeeDetailsType | null;
   error: string | null;
 }
 
@@ -15,7 +15,7 @@ const initialState: AuthState = {
   isAuthenticated: false,
   token: null,
   user: null, // Initialize user and employee fields
-  employee_details: null,
+  employee_detail: null,
   error: null,
 };
 
@@ -36,7 +36,7 @@ export const authSlice = createSlice({
         state.isAuthenticated = true;
         state.token = action.payload.jwt; // Update this line to access the JWT from the payload
         state.user = action.payload.user; // Store user and employee details
-        state.employee_details = action.payload.employee_details;
+        state.employee_detail = action.payload.employee_detail;
         state.error = null;
       }
       
