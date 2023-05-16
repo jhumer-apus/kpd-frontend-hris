@@ -140,9 +140,9 @@ export function DashboardNavbar() {
           </IconButton>
           <Menu>
             <MenuHandler>
-              <Button variant="text" color="blue-gray" className="hidden items-center gap-1 px-4 xl:flex">
+              <Button variant="text" color="blue-gray" className="items-center gap-1 px-4 xl:flex">
                 <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
-                Welcome, {employee_detail?.first_name}
+                 <p className="hidden xl:flex"> Welcome, {employee_detail?.first_name} </p>
               </Button>
             </MenuHandler>
             <MenuList className="w-max border-0">
