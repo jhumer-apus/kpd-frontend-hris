@@ -13,6 +13,7 @@ import {
 import { ChooseDashboard, Profile, Tables, Notifications } from "@/pages";
 import HRISDashboard from "./pages/dashboard/hris-portal/hrisPortal";
 import AdminPortal from "./pages/dashboard/admin-portal/adminPortal";
+import DataTable from "./pages/employee/Employee201";
 import { SignIn, SignUp } from "@/pages/auth";
 import { IRoute } from "./types";
 
@@ -72,7 +73,7 @@ export const routes: Array<IRoute> = [
             icon: <UserCircleIcon {...icon} />,
             name: "201 Files",
             path: "/employee/201-files",
-            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-blue-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">201 FILES PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+            element: <DataTable/>, 
             hasSubItems: false,
           },
           {
