@@ -34,6 +34,7 @@ import { celebrantsData, anniversaryData } from "@/data/widgets-data";
 import UpcomingAnniversary from "@/widgets/cards/upcoming-anniversary-card";
 import styles from './custom-styles/home.module.scss';
 import CarouselUI from "@/widgets/banner/banner";
+import employeeEasyAccessData from "@/data/employee-easy-access-data";
 
 
 
@@ -263,11 +264,11 @@ export function ChooseDashboard() {
               For your easy access <strong>convenience</strong>
             </Typography>
           </CardHeader>
-          <CardBody className="pt-0">
-            {ordersOverviewData.map(
+          <CardBody className="pt-0 flex flex-wrap justify-around" >
+            {employeeEasyAccessData.map(
               ({ icon, color, title, description }, key) => (
                 <div key={title} className="flex items-start gap-4 py-3">
-                  <div
+                  {/* <div
                     className={`relative p-1 after:absolute after:-bottom-6 after:left-2/4 after:w-0.5 after:-translate-x-2/4 after:bg-blue-gray-50 after:content-[''] ${
                       key === ordersOverviewData.length - 1
                         ? "after:h-0"
@@ -277,33 +278,38 @@ export function ChooseDashboard() {
                     {React.createElement(icon, {
                       className: `!w-5 !h-5 ${color}`,
                     })}
-                  </div>
+                  </div> */}
 
-                  <div>
-                    <span>
-
-                    </span>
-                    <Button color="purple">
+                  <div style={{position: "relative"}} >
+                    <Button variant={"text"} color="indigo" style={{height: "76px", width: "120px", padding: "unset", display: "flex", flexDirection: "column", justifyContent: "space-around", alignItems: "center", background:"rgba(235, 237, 247)" }}>
+                    {/* background: "linear-gradient(to top right, #3949ab, #5c6bc0)"} */}
+                    <span style={{background: "transparent"}}>
+                        {React.createElement(icon, {
+                        className: `!w-5 !h-5 ${color}`,
+                        })}
+                      </span>
+                      <Tooltip key={title} content={description}>
                       <div>
                         <Typography
                           variant="small"
-                          color="white"
-                          className="block font-medium"
+                          color="gray"
+                          className="block font-medium text-start"
                         >
                           {title}
                         </Typography>
-                        <Typography
+                        {/* <Typography
                           as="span"
                           variant="small"
-                          className="text-xs font-medium text-blue-gray-500"
+                          className="text-xs font-medium text-blue-gray-500 text-start"
                         >
                           {description}
-                        </Typography>
+                        </Typography> */}
                       </div>
+
+                      </Tooltip>
+
                     </Button>
                   </div>
-
-                  
                 </div>
               )
             )}
