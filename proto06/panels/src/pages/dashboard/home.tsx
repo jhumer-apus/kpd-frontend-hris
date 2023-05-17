@@ -35,6 +35,7 @@ import UpcomingAnniversary from "@/widgets/cards/upcoming-anniversary-card";
 import styles from './custom-styles/home.module.scss';
 import CarouselUI from "@/widgets/banner/banner";
 import employeeEasyAccessData from "@/data/employee-easy-access-data";
+import filedRequestsData from "@/data/filed-requests-data";
 
 
 
@@ -171,7 +172,7 @@ export function ChooseDashboard() {
                 </tr>
               </thead>
               <tbody>
-                {projectsTableData.map(
+                {filedRequestsData.map(
                   ({ img, name, members, budget, completion }, key) => {
                     const className = `py-3 px-5 ${
                       key === projectsTableData.length - 1
