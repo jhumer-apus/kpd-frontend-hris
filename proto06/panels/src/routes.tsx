@@ -50,14 +50,14 @@ export const routes: Array<IRoute> = [
             element: <AdminPortal/>,
             hasSubItems: false,
           },
-          {
-            id: 1130,
-            icon: <HomeIcon {...icon} />,
-            name: "Employee Portal",
-            path: "/Dashboards/Employee-Dashboard",
-            element: <strong style={{height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px'}} className="text-red-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">ADMIN DASHBOARD ELEMENTS UNDER DEVELOPMENT</strong>,
-            hasSubItems: false,
-          },
+          // {
+          //   id: 1130,
+          //   icon: <HomeIcon {...icon} />,
+          //   name: "Employee Portal",
+          //   path: "/Dashboards/Employee-Dashboard",
+          //   element: <strong style={{height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px'}} className="text-red-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">ADMIN DASHBOARD ELEMENTS UNDER DEVELOPMENT</strong>,
+          //   hasSubItems: false,
+          // },
         ]
       },
       {
