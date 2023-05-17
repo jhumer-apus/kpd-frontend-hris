@@ -1,66 +1,65 @@
 export const projectsTableData = [
   {
     img: "/img/logo-xd.svg",
-    name: "Leave Request",
+    name: "Material XD Version",
     members: [
       { img: "/img/team-1.jpeg", name: "Romina Hadid" },
       { img: "/img/team-2.jpeg", name: "Ryan Tompson" },
       { img: "/img/team-3.jpeg", name: "Jessica Doe" },
       { img: "/img/team-4.jpeg", name: "Alexander Smith" },
     ],
-    budget: "05/15/2023",
-    completion: "Approved",
+    budget: "$14,000",
+    completion: 60,
   },
   {
     img: "/img/logo-atlassian.svg",
-    name: "UA Request",
+    name: "Add Progress Track",
     members: [
       { img: "/img/team-2.jpeg", name: "Ryan Tompson" },
       { img: "/img/team-4.jpeg", name: "Alexander Smith" },
     ],
-    budget: "05/10/2023",
-    completion: "Pending",
+    budget: "$3,000",
+    completion: 10,
   },
   {
     img: "/img/logo-slack.svg",
-    name: "Material Request",
+    name: "Fix Platform Errors",
     members: [
       { img: "/img/team-3.jpeg", name: "Jessica Doe" },
       { img: "/img/team-1.jpeg", name: "Romina Hadid" },
     ],
-    budget: "05/05/2023",
-    completion: "Pending",
+    budget: "Not set",
+    completion: 100,
   },
   {
     img: "/img/logo-spotify.svg",
-    name: "Budget Request",
+    name: "Launch our Mobile App",
     members: [
       { img: "/img/team-4.jpeg", name: "Alexander Smith" },
       { img: "/img/team-3.jpeg", name: "Jessica Doe" },
       { img: "/img/team-2.jpeg", name: "Ryan Tompson" },
       { img: "/img/team-1.jpeg", name: "Romina Hadid" },
     ],
-    budget: "05/02/2023",
-    completion: "Rejected",
+    budget: "$20,500",
+    completion: 100,
   },
   {
     img: "/img/logo-jira.svg",
-    name: "Leave Request",
+    name: "Add the New Pricing Page",
     members: [{ img: "/img/team-4.jpeg", name: "Alexander Smith" }],
-    budget: "04/25/2023",
-    completion: "Rejected",
+    budget: "$500",
+    completion: 25,
   },
   {
     img: "/img/logo-invision.svg",
-    name: "Training Request",
+    name: "Redesign New Online Shop",
     members: [
       { img: "/img/team-1.jpeg", name: "Romina Hadid" },
       { img: "/img/team-4.jpeg", name: "Alexander Smith" },
     ],
-    budget: "04/22/2023",
-    completion: "Approved",
+    budget: "$2,000",
+    completion: 40,
   },
-  
 ];
 
 export default projectsTableData;
