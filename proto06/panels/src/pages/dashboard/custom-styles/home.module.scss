@@ -16,3 +16,33 @@
         grid-row: 1 / 5;
     }
 }
+
+
+
+// let's make media query with max width
+
+
+@media screen and (max-width: 939px) {
+    .homeWrap{
+        display: flex;
+        flex-direction: column;
+        // grid-template-columns: 100%;
+        // grid-template-rows: 40% 10% 10% 30% 5%;
+        // I want my grid to overflow to the next row
+        // grid-auto-rows: minmax(100px, auto);
+        // gap: 20px;
+        .greetingsBar{
+            // grid-column: 1 / 1;
+            // grid-row: 1 / 1;
+        }
+        .requestsBar{
+            // grid-column: 1 / 4;
+            // grid-row: 2 / 5;
+        }
+        .announcementBar{
+            // grid-column: 4 / 6;
+            // grid-row: 1 / 5;
+        }
+    }
+    
+}
