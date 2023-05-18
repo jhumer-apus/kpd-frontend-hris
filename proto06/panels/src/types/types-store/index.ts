@@ -25,25 +25,28 @@ export interface UserType {
 
 export interface EmployeeDetailsType {
     id: Number;
-    employee_number: Number;
+    employee_image?: String;
+    emp_no: Number;
     first_name: String;
-    middle_name: String;
+    middle_name?: String;
     last_name: String;
     suffix?: String;
     birthdate: Date;
     birth_place?: String;
-    civil_status: Number;
+    civil_status: String;
     gender: String;
     address: String;
     provincial_address?: String;
     mobile_phone: String;
-    email: String;
+    email_address?: String;
     date_hired: Date;
     date_resigned?: Date;
     approver: Number;
     date_added: Date;
     date_deleted?: Date;
-    branch_code: String;
+    philhealth_code?: String;
+    bio_id?: String;
+    branch_code?: String;
     department_code?: String;
     division_code?: String;
     payroll_group_code?: String;
@@ -53,5 +56,48 @@ export interface EmployeeDetailsType {
     city_code?: String;
     pagibig_code?: String;
     sssid_code?: String;
+};
+
+
+export interface GetEmployeesListsType {
+    id: Number;
+    employee_image?: String;
+    emp_no: Number;
+    first_name: String;
+    middle_name?: String;
+    last_name: String;
+    suffix?: String;
+    birthdate: Date;
+    birth_place?: String;
+    civil_status: String;
+    gender: String;
+    address: String;
+    provincial_address?: String;
+    mobile_phone: String;
+    email_address?: String;
+    date_hired: Date;
+    date_resigned?: Date;
+    approver: Number;
+    date_added: Date;
+    date_deleted?: Date;
     philhealth_code?: String;
+    bio_id?: String;
+    branch_code?: String;
+    department_code?: String;
+    division_code?: String;
+    payroll_group_code?: String;
+    position_code?: String;
+    rank_code?: String;
+    tax_code?: String;
+    city_code?: String;
+    pagibig_code?: String;
+    sssid_code?: String;
+    user?: Array<{
+        emp_no: Number;
+        is_active: Boolean;
+        is_locked: Boolean;
+        is_logged_in: Boolean;
+        last_login: Date;
+        role: Number;
+    }>
 };
