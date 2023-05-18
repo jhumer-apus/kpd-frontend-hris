@@ -1,36 +1,12 @@
-import { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Dashboard, Auth } from "@/layouts";
-import { Profile } from "./pages/dashboard";
-
 // Authentication Related Imports
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from "./store/reducers";
-import Cookies from 'js-cookie';
-import { userLoginSuccess } from "./store/actions/auth";
 import useAuth from "./custom-hooks/use-auth";
 import LoadingComponent from "./widgets/layout/custom-effects/LoadingComponent/LoadingComponent";
 
 
-
 function App() {
-  const dispatch = useDispatch();
-  // const { isAuthenticated, token } = useSelector((state: RootState) => state.auth);
-  console.log(useSelector((state: RootState) => state), "mwoooww");
-  // const [loading, setLoading] = useState(true);
   const { isAuthenticated, loading } = useAuth();
-  console.log(isAuthenticated, loading, "app tsx")
-
-  // useEffect(() => {
-  //   const token = Cookies.get('token');
-  //   const userCookie = JSON.parse(Cookies.get('user') || '{}');
-  //   console.log(userCookie, "m11", typeof userCookie, "ahaha")
-  //   if (token) {
-  //     dispatch(userLoginSuccess(token));
-  //   }
-  //   // setLoading(false);
-  // }, [dispatch]);
-
   if (loading) {
     return <LoadingComponent />;
   }
