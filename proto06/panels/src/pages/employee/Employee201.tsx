@@ -24,7 +24,21 @@ import {
   LockClosedIcon,
 } from "@heroicons/react/24/solid";
 import {
-  UserIcon
+  UserIcon,
+  FingerPrintIcon,
+  AcademicCapIcon,
+  TvIcon,
+  UserGroupIcon,
+  WindowIcon,
+  ShieldCheckIcon,
+  LockClosedIcon as LockClosedOutline,
+  XCircleIcon,
+  CheckCircleIcon,
+  LockOpenIcon,
+  MapIcon,
+  UserPlusIcon,
+  XMarkIcon,
+  TagIcon,
 } from "@heroicons/react/24/outline";
 
 const columns: GridColDef[] = [
@@ -81,6 +95,7 @@ export default function DataTable() {
     return dispatch(getSpecificEmployeeInfo({employee_id: employee_number}));   
   }
   console.log(specific_employee_info, "eto un tae", employees_list, "eto un list");
+  console.log(specific_employee_info?.user?.is_superuser, "eto un tae", employees_list, "eto un list");
   const [open, setOpen] = useState(false);
   const [modalEntranceDelay, setModalEntranceDelay] = useState(false);
   const [secondOptionModalEntranceDelay, setSecondOptionModalEntranceDelay] = useState(false);
@@ -94,7 +109,7 @@ export default function DataTable() {
   const countries = [{name: "Philippines"}, {name: "United States"}, {name: "Canada"}, {name: "Australia"}];
   const [type, setType] = useState("card");
   
-
+  
   useEffect(()=>{
     if(open){
       setTimeout(()=>{
@@ -145,8 +160,8 @@ export default function DataTable() {
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box sx={{ ...style, width: "90%", maxHeight: "90%", overflowY: "auto",  background: "#e9bcb7", backgroundImage: "linear-gradient(315deg, #e9bcb7 0%, #29524a 74%)" }}>
-          <Card className="w-full max-w-[100rem] ml-auto mr-auto">
+        <Box sx={{ ...style, width:"100%", maxHeight: "80%", overflowY: "auto",  background: "#e9bcb7", backgroundImage: "linear-gradient(315deg, #e9bcb7 0%, #29524a 74%)" }}>
+          <Card className="w-full max-w-[120rem] xl:max-w-[100rem] ml-auto mr-auto">
             <CardHeader
               color="teal"
               variant="gradient"
@@ -165,11 +180,11 @@ export default function DataTable() {
               Registered Employee #: {specific_employee_info?.emp_no}
               </Typography>
             </CardHeader>
-            <CardBody id="parent-modal-description">
+            <CardBody id="parent-modal-description" className="p-4 sm:p-6 xl:p-36">
               <Tabs value={type} className="overflow-visible">
                 <TabsHeader className="relative z-0 ">
                 <Tab value="card" onClick={() => setType("card")}>
-                Basic Information
+                Static Information
                 </Tab>
                 <Tab value="paypal" onClick={() => setType("paypal")}>
                 Personal Information
@@ -195,102 +210,193 @@ export default function DataTable() {
                 </Box>
                 <TabPanel value="card" className="p-0">
                   <form className="mt-12 flex flex-col gap-4">
-                  <div className="my-4 flex flex-wrap md:flex-nowrap items-center gap-4">
-                    <div style={{width: "100%"}}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="mb-4 font-medium"
-                        >
-                        HR System Details
-                        </Typography>
-                        <div className="my-4 flex items-center gap-4">
-                          <Input type="text" containerProps={{ className: "min-w-[72px]" }} labelProps={{style: {color: true? "unset" : ''}}} label="Database ID" {...true ? {disabled: true}: null} value={`${specific_employee_info?.id}`}/>
-                          <Input type="text" containerProps={{ className: "min-w-[72px] focused" }} data-attribute="meowmow" label="Biometric IDss" {...true ? {disabled: true}: null} value={ specific_employee_info?.bio_id? `Biometric ID: ${specific_employee_info?.bio_id}` : ''}/>
-                        </div>
-                        <Input type="email" className="" label="Email Address" {...true? {disabled: true}: null} value={ true ? `Email Address: ${specific_employee_info?.email_address}` : ''}/>
+                    <div className="my-4 flex flex-wrap md:flex-nowrap items-center gap-4">
+                      <div style={{width: "100%"}}>
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="mb-4 font-medium"
+                          >
+                          HR System Details
+                          </Typography>
+                          <div className="my-4 flex items-center gap-4">
+                            <Input 
+                              type="text" 
+                              containerProps={{ className: "min-w-[72px]" }} 
+                              labelProps={{style: {color: true? "unset" : ''}}} 
+                              label="Database ID" 
+                              {...true ? {disabled: true}: null} 
+                              value={`${specific_employee_info?.id ? specific_employee_info?.id : ''}`}
+                              icon={
+                                <TagIcon className="h-5 w-5 text-blue-gray-300" />
+                              }
+                            />
+                            <Input 
+                              type="text" 
+                              containerProps={{ className: "min-w-[72px] focused" }} 
+                              labelProps={{style: {color: true? "unset" : ''}}} 
+                              label="Biometric ID" 
+                              {...true ? {disabled: true}: null} 
+                              icon={
+                                <FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />
+                              }
+                              value={`${specific_employee_info?.bio_id ? specific_employee_info?.bio_id : ''}` }
+                            />
+                          </div>
+                          <div className="flex items-center gap-4">
+                            <Input 
+                              type="text" 
+                              containerProps={{ className: "min-w-[72px] focused" }} 
+                              labelProps={{style: {color: true? "unset" : ''}}} 
+                              label="Superuser" 
+                              {...true ? {disabled: true}: null} 
+                              value={`${specific_employee_info?.user?.is_superuser}`}
+                              icon={
+                                <AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />
+                              }
+                            />
+                            <Input 
+                              type="text" 
+                              containerProps={{ className: "min-w-[72px] focused" }} 
+                              labelProps={{style: {color: true? "unset" : ''}}} 
+                              label="Active" 
+                              {...true ? {disabled: true}: null} 
+                              value={`${specific_employee_info?.user?.is_active}`}
+                              icon={
+                                <WindowIcon className="h-5 w-5 text-blue-gray-300" />
+                              }
+                            />
+                          </div>
+                      </div>
+                      <div style={{width: "100%"}}>
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="mb-4 font-medium"
+                          >
+                          Technical Details
+                          </Typography>
+                          <div className="my-4 flex items-center gap-4">
+                            <Input 
+                              type="text" 
+                              containerProps={{ className: "min-w-[72px]" }} 
+                              label="Emp #" 
+                              labelProps={{style: {color: true? "unset" : ''}}} 
+                              {...true ? {disabled: true}: null} 
+                              value={`${specific_employee_info?.emp_no}`} 
+                            />
+                            <Input 
+                              type="text" 
+                              containerProps={{ className: "min-w-[72px] focused" }} 
+                              labelProps={{style: {color: true? "unset" : ''}}} 
+                              label="Username" 
+                              {...true ? {disabled: true}: null} 
+                              icon={
+                                <TagIcon className="h-5 w-5 text-blue-gray-300" />
+                              }
+                              value={ `${specific_employee_info?.user?.username}`}
+                            />
+                            <Input 
+                              type="text" 
+                              containerProps={{ className: "min-w-[72px]" }} 
+                              label="Role #" 
+                              labelProps={{style: {color: true? "unset" : ''}}} 
+                              {...true ? {disabled: true}: null} 
+                              icon={
+                                <UserGroupIcon className="h-5 w-5 text-blue-gray-300" />
+                              }
+                              value={ `${specific_employee_info?.user?.role ? specific_employee_info?.user?.role : ''}`}
+                            />
+                          </div>
+                          <Input 
+                            type="email" 
+                            className="" 
+                            label="Email Address" 
+                            labelProps={{style: {color: true? "unset" : ''}}} 
+                            {...true? {disabled: true}: null} 
+                            value={ true ? `${specific_employee_info?.email_address}` : ''}
+                          />
+                      </div>
                     </div>
-                    <div style={{width: "100%"}}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="mb-4 font-medium"
-                        >
-                        Technical Details
-                        </Typography>
-                        <div className="my-4 flex items-center gap-4">
-                          <Input type="text" containerProps={{ className: "min-w-[72px]" }} label="Employee Number" labelProps={{style: {color: true? "unset" : ''}}} {...true ? {disabled: true}: null} value={`${specific_employee_info?.emp_no}`} />
-                          <Input type="text" containerProps={{ className: "min-w-[72px]" }} label="Biometric ID" labelProps={{style: {color: true? "unset" : ''}}} {...true ? {disabled: true}: null} value={ `${specific_employee_info?.bio_id}`}/>
-                        </div>
-                        <Input type="email" className="" label="Email Address" labelProps={{style: {color: true? "unset" : ''}}} {...true? {disabled: true}: null} value={ true ? `${specific_employee_info?.email_address}` : ''}/>
-                    </div>
-                  </div>
-
                     <div className="my-6">
                       <Typography
                         variant="small"
                         color="blue-gray"
                         className="mb-4 font-medium"
                       >
-                      Basic Info Details
+                      Static Info Details
                       </Typography>
-                      <div className="my-4 flex flex-wrap items-center gap-4">
+                      <div className="my-4 flex flex-wrap xl:flex-nowrap items-center gap-4">
                         <Input
-                          label="First Name"
-                          {...true? {disabled: true}: null} value={ true ? `First Name: ${specific_employee_info?.first_name}` : ''}
-                          // label="Card Number"
-                          // maxLength={19}
-                          // value={formatCardNumber(cardNumber)}
-                          // onChange={(event) => setCardNumber(event.target.value)}
+                          label="Account Lock Status:"
+                          labelProps={{style: {color: true? "unset" : ''}}}
+                          {...true? {disabled: true}: null} 
+                          value={`${specific_employee_info?.user?.is_locked}`}
                           icon={
-                            <UserIcon className="h-5 w-5 text-blue-gray-300" />
+                            <LockClosedOutline className="h-5 w-5 text-blue-gray-300" />
                           }
                         />
                         <Input
-                          label="Middle Name"
-                          {...true? {disabled: true}: null} value={ specific_employee_info?.middle_name ? `Middle Name: ${specific_employee_info?.middle_name}` : ``}
-                          // label="Card Number"
-                          // maxLength={19}
-                          // value={formatCardNumber(cardNumber)}
-                          // onChange={(event) => setCardNumber(event.target.value)}
-                          icon={
-                            <UserIcon className="h-5 w-5 text-blue-gray-300" />
+                          label="Last Login:"
+                          labelProps={{style: {color: true? "unset" : ''}}}
+                          {...true? {disabled: true}: null} value={`${specific_employee_info?.user?.last_login? specific_employee_info?.user?.last_login : ''}`}
+                          icon={ 
+                            <CheckCircleIcon className="h-5 w-5 text-blue-gray-300" />
                           }
                         />
                         <Input
-                          label="Last Name"
-                          {...true? {disabled: true}: null} value={ specific_employee_info?.last_name ? `Last Name: ${specific_employee_info?.last_name}` : `Middle Name: -`}
-                          // maxLength={19}
-                          // value={formatCardNumber(cardNumber)}
-                          // onChange={(event) => setCardNumber(event.target.value)}
+                          label="Old Password:"
+                          labelProps={{style: {color: true? "unset" : ''}}}
+                          {...true? {disabled: true}: null} 
+                          value={`${specific_employee_info?.user?.old_password ? specific_employee_info?.user?.old_password :''}`}
+                          icon={ 
+                            <LockOpenIcon className="h-5 w-5 text-blue-gray-300" />
+                          }
+                        />
+                        <Input
+                          label="Date Added:"
+                          labelProps={{style: {color: true? "unset" : ''}}}
+                          {...true? {disabled: true}: null} 
+                          value={`${specific_employee_info?.user?.date_added}`}
+                          icon={
+                            <UserPlusIcon className="h-5 w-5 text-blue-gray-300" />
+                          }
+                        />
+                        <Input
+                          label="Date Deleted:"
+                          labelProps={{style: {color: true? "unset" : ''}}}
+                          {...true? {disabled: true}: null} 
+                          value={`${specific_employee_info?.user?.date_deleted ? specific_employee_info?.user?.date_deleted : ''}`}
+                          icon={
+                            <XMarkIcon className="h-5 w-5 text-blue-gray-300" />
+                          }
+                        />
+                      </div>
+                      <div className="my-4 flex flex-wrap md:flex-nowrap items-center gap-4">
+                        <Input
+                          label="Failed Login Attempts"
+                          labelProps={{style: {color: true? "unset" : ''}}}
+                          {...true? {disabled: true}: null} 
+                          value={`${specific_employee_info?.user?.failed_login_attempts}`}
+                          icon={
+                            <XCircleIcon className="h-5 w-5 text-blue-gray-300" />
+                          }
+                        />
+                        <Input
+                          label="Date Password Changed:"
+                          labelProps={{style: {color: true? "unset" : ''}}}
+                          {...true? {disabled: true}: null} 
+                          value={`${specific_employee_info?.suffix}`}
                           icon={ null
                             // <CreditCardIcon className="h-5 w-5 text-blue-gray-300" />
                           }
                         />
                       </div>
-
-                      <div className="my-4 flex items-center gap-4">
-                        <Input
-                          label="Expires"
-                          // label="Expires"
-                          // maxLength={5}
-                          // value={formatExpires(cardExpires)}
-                          // onChange={(event) => setCardExpires(event.target.value)}
-                          containerProps={{ className: "min-w-[72px]" }}
-                        />
-                        <Input
-                          label="CVC"
-                          maxLength={4}
-                          containerProps={{ className: "min-w-[72px]" }}
-                        />
-                      </div>
-                      <Input label="Holder Name" />
                     </div>
                     <div className="my-4 flex items-center gap-4">
-                    <Button color={"teal"} variant={'outlined'} size="lg" className="w-full">Edit</Button>
-                    <Button color={"teal"} size="lg" className="w-full">Save</Button>
+                      <Button color={"teal"} variant={'outlined'} size="lg" className="w-full">Edit</Button>
+                      <Button color={"teal"} size="lg" className="w-full">Save</Button>
                     </div>
-
                     <Typography
                       variant="small"
                       color="gray"
@@ -302,84 +408,203 @@ export default function DataTable() {
                   </form>
                 </TabPanel>
                 <TabPanel value="paypal" className="p-0">
-                  <form className="mt-12 flex flex-col gap-4">
-                    <div>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="mb-4 font-medium"
-                      >
-                      Technical Details
-                      </Typography>
-                      <div className="my-1 flex flex-wrap sm:flex-nowrap items-center gap-4">
-                      <Input type="text" label="Database ID" {...true? {disabled: true}: null} value={ true? `Database ID:sd 0000` : ''}/>
-                      ss<Input type="email" className=" " label="Email Address" {...true? {disabled: true}: null} value={ true ? `Email Address: juandelacruz11@gmail.com` : ''}/>
-                      </div>
-
+                <form className="mt-12 flex flex-col gap-4">
+                  <div className="my-4 flex flex-wrap md:flex-nowrap items-center gap-4">
+                    <div style={{width: "100%"}}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="mb-4 font-medium"
+                        >
+                        HR System Details
+                        </Typography>
+                        <div className="my-4 flex items-center gap-4">
+                          <Input 
+                            type="text" 
+                            containerProps={{ className: "min-w-[72px]" }} 
+                            labelProps={{style: {color: true? "unset" : ''}}} 
+                            label="Database ID" 
+                            {...true ? {disabled: true}: null} 
+                            value={`${specific_employee_info?.id ? specific_employee_info?.id : ''}`}
+                            icon={
+                              <TagIcon className="h-5 w-5 text-blue-gray-300" />
+                            }
+                          />
+                          <Input 
+                            type="text" 
+                            containerProps={{ className: "min-w-[72px] focused" }} 
+                            labelProps={{style: {color: true? "unset" : ''}}} 
+                            label="Biometric ID" 
+                            {...true ? {disabled: true}: null} 
+                            icon={
+                              <FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />
+                            }
+                            value={`${specific_employee_info?.bio_id ? specific_employee_info?.bio_id : ''}` }
+                          />
+                        </div>
+                        <div className="flex items-center gap-4">
+                          <Input 
+                            type="text" 
+                            containerProps={{ className: "min-w-[72px] focused" }} 
+                            labelProps={{style: {color: true? "unset" : ''}}} 
+                            label="Superuser" 
+                            {...true ? {disabled: true}: null} 
+                            value={`${specific_employee_info?.user?.is_superuser}`}
+                            icon={
+                              <AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />
+                            }
+                          />
+                          <Input 
+                            type="text" 
+                            containerProps={{ className: "min-w-[72px] focused" }} 
+                            labelProps={{style: {color: true? "unset" : ''}}} 
+                            label="Active" 
+                            {...true ? {disabled: true}: null} 
+                            value={`${specific_employee_info?.user?.is_active}`}
+                            icon={
+                              <WindowIcon className="h-5 w-5 text-blue-gray-300" />
+                            }
+                          />
+                        </div>
                     </div>
-                    <div className="my-6">
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="mb-4 font-medium"
-                      >
-                      Basic Info Details
-                      </Typography>
-                      <div className="my-4 flex items-center gap-4">
-                        <Input
-                          label="First Name"
-                          {...true? {disabled: true}: null} value={ true ? `First Name: Juan` : ''}
-                          // label="Card Number"
-                          // maxLength={19}
-                          // value={formatCardNumber(cardNumber)}
-                          // onChange={(event) => setCardNumber(event.target.value)}
-                          icon={
-                            <UserIcon className="h-5 w-5 text-blue-gray-300" />
-                          }
+                    <div style={{width: "100%"}}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="mb-4 font-medium"
+                        >
+                        Technical Details
+                        </Typography>
+                        <div className="my-4 flex items-center gap-4">
+                          <Input 
+                            type="text" 
+                            containerProps={{ className: "min-w-[72px]" }} 
+                            label="Emp #" 
+                            labelProps={{style: {color: true? "unset" : ''}}} 
+                            {...true ? {disabled: true}: null} 
+                            value={`${specific_employee_info?.emp_no}`} 
+                          />
+                          <Input 
+                            type="text" 
+                            containerProps={{ className: "min-w-[72px] focused" }} 
+                            labelProps={{style: {color: true? "unset" : ''}}} 
+                            label="Username" 
+                            {...true ? {disabled: true}: null} 
+                            icon={
+                              <TagIcon className="h-5 w-5 text-blue-gray-300" />
+                            }
+                            value={ `${specific_employee_info?.user?.username}`}
+                          />
+                          <Input 
+                            type="text" 
+                            containerProps={{ className: "min-w-[72px]" }} 
+                            label="Role #" 
+                            labelProps={{style: {color: true? "unset" : ''}}} 
+                            {...true ? {disabled: true}: null} 
+                            icon={
+                              <UserGroupIcon className="h-5 w-5 text-blue-gray-300" />
+                            }
+                            value={ `${specific_employee_info?.user?.role ? specific_employee_info?.user?.role : ''}`}
+                          />
+                        </div>
+                        <Input 
+                          type="email" 
+                          className="" 
+                          label="Email Address" 
+                          labelProps={{style: {color: true? "unset" : ''}}} 
+                          {...true? {disabled: true}: null} 
+                          value={ true ? `${specific_employee_info?.email_address}` : ''}
                         />
-                        <Input
-                          label="Last Name"
-                          {...true? {disabled: true}: null} value={ true ? `Last Name: De La Cruz` : ''}
-                          // maxLength={19}
-                          // value={formatCardNumber(cardNumber)}
-                          // onChange={(event) => setCardNumber(event.target.value)}
-                          icon={ null
-                            // <CreditCardIcon className="h-5 w-5 text-blue-gray-300" />
-                          }
-                        />
-                      </div>
-
-                      <div className="my-4 flex items-center gap-4">
-                        <Input
-                          label="Expires"
-                          // label="Expires"
-                          // maxLength={5}
-                          // value={formatExpires(cardExpires)}
-                          // onChange={(event) => setCardExpires(event.target.value)}
-                          containerProps={{ className: "min-w-[72px]" }}
-                        />
-                        <Input
-                          label="CVC"
-                          maxLength={4}
-                          containerProps={{ className: "min-w-[72px]" }}
-                        />
-                      </div>
-                      <Input label="Holder Name" />
                     </div>
-                    <div className="my-4 flex items-center gap-4">
-                    <Button color={"teal"} variant={'outlined'} size="lg" className="w-full">Edit</Button>
-                    <Button color={"teal"} size="lg" className="w-full">Save</Button>
-                    </div>
-
+                  </div>
+                  <div className="my-6">
                     <Typography
                       variant="small"
-                      color="gray"
-                      className="mt-2 flex items-center justify-center gap-2 font-normal opacity-60"
+                      color="blue-gray"
+                      className="mb-4 font-medium"
                     >
-                      <LockClosedIcon className="-mt-0.5 h-4 w-4" /> Information are
-                      secure and encrypted
+                    Static Info Details
                     </Typography>
-                  </form>
+                    <div className="my-4 flex flex-wrap xl:flex-nowrap items-center gap-4">
+                      <Input
+                        label="Account Lock Status:"
+                        labelProps={{style: {color: true? "unset" : ''}}}
+                        {...true? {disabled: true}: null} 
+                        value={`${specific_employee_info?.user?.is_locked}`}
+                        icon={
+                          <LockClosedOutline className="h-5 w-5 text-blue-gray-300" />
+                        }
+                      />
+                      <Input
+                        label="Last Login:"
+                        labelProps={{style: {color: true? "unset" : ''}}}
+                        {...true? {disabled: true}: null} value={`${specific_employee_info?.user?.last_login? specific_employee_info?.user?.last_login : ''}`}
+                        icon={ 
+                          <CheckCircleIcon className="h-5 w-5 text-blue-gray-300" />
+                        }
+                      />
+                      <Input
+                        label="Old Password:"
+                        labelProps={{style: {color: true? "unset" : ''}}}
+                        {...true? {disabled: true}: null} 
+                        value={`${specific_employee_info?.user?.old_password ? specific_employee_info?.user?.old_password :''}`}
+                        icon={ 
+                          <LockOpenIcon className="h-5 w-5 text-blue-gray-300" />
+                        }
+                      />
+                      <Input
+                        label="Date Added:"
+                        labelProps={{style: {color: true? "unset" : ''}}}
+                        {...true? {disabled: true}: null} 
+                        value={`${specific_employee_info?.user?.date_added}`}
+                        icon={
+                          <UserPlusIcon className="h-5 w-5 text-blue-gray-300" />
+                        }
+                      />
+                      <Input
+                        label="Date Deleted:"
+                        labelProps={{style: {color: true? "unset" : ''}}}
+                        {...true? {disabled: true}: null} 
+                        value={`${specific_employee_info?.user?.date_deleted ? specific_employee_info?.user?.date_deleted : ''}`}
+                        icon={
+                          <XMarkIcon className="h-5 w-5 text-blue-gray-300" />
+                        }
+                      />
+                    </div>
+                    <div className="my-4 flex flex-wrap md:flex-nowrap items-center gap-4">
+                      <Input
+                        label="Failed Login Attempts"
+                        labelProps={{style: {color: true? "unset" : ''}}}
+                        {...true? {disabled: true}: null} 
+                        value={`${specific_employee_info?.user?.failed_login_attempts}`}
+                        icon={
+                          <XCircleIcon className="h-5 w-5 text-blue-gray-300" />
+                        }
+                      />
+                      <Input
+                        label="Date Password Changed:"
+                        labelProps={{style: {color: true? "unset" : ''}}}
+                        {...true? {disabled: true}: null} 
+                        value={`${specific_employee_info?.suffix}`}
+                        icon={ null
+                          // <CreditCardIcon className="h-5 w-5 text-blue-gray-300" />
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="my-4 flex items-center gap-4">
+                    <Button color={"teal"} variant={'outlined'} size="lg" className="w-full">Edit</Button>
+                    <Button color={"teal"} size="lg" className="w-full">Save</Button>
+                  </div>
+                  <Typography
+                    variant="small"
+                    color="gray"
+                    className="mt-2 flex items-center justify-center gap-2 font-normal opacity-60"
+                  >
+                    <LockClosedIcon className="-mt-0.5 h-4 w-4" /> Information are
+                    secure and encrypted
+                  </Typography>
+                </form>
                 </TabPanel>
                 <TabPanel value="crypto" className="p-0">
                   <form className="mt-12 flex flex-col gap-4">
