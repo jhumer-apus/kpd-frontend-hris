@@ -11,7 +11,7 @@ import {
 
 interface AuthState {
   employees_list: Array<GetEmployeesListsType> | null;
-  specific_employee_info: EmployeeDetailsType | null;
+  specific_employee_info: GetEmployeesListsType | null;
   error: String | null;
 }
 
