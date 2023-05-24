@@ -92,12 +92,21 @@ export interface GetEmployeesListsType {
     city_code?: String;
     pagibig_code?: String;
     sssid_code?: String;
-    user?: Array<{
-        emp_no: Number;
-        is_active: Boolean;
-        is_locked: Boolean;
-        is_logged_in: Boolean;
-        last_login: Date;
+    user?: {
+        is_superuser: Boolean;
+        username: String;
         role: Number;
-    }>
+        is_active: Boolean;
+        is_logged_in: Boolean;
+        is_locked: Boolean;
+        failed_login_attempts: Number;
+        last_login: Date;
+        old_password: String;
+        date_password_changed?: Date; 
+        date_added: Date;
+        date_deleted?: Date;
+        emp_no: Number;
+        groups: Array<String>;
+        user_permissions: Array<String>;
+    }
 };
