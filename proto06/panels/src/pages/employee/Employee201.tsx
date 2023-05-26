@@ -75,7 +75,7 @@ const style = {
   px: 4,
   pb: 3,
 };
-
+import { UserProfile } from './forms/AddEmployee';
 
 export default function DataTable() {
   const { employees_list, specific_employee_info } = useSelector((state: RootState) => state.employees);
@@ -126,7 +126,24 @@ export default function DataTable() {
   return (
     <>
     <div className="my-4 flex flex-wrap items-center gap-4">
-    <Button className='mb-4'>+ Add Employee</Button>
+    <Button 
+      className='mb-4'
+      onClick={()=>{handleOpen2()}}
+    >
+    + Add Employee
+    </Button>
+    <Modal
+        open={open2}
+        onClose={
+          handleClose2
+        }
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
+      >
+        <Box sx={{ ...style, width:"80%", height: "80%", overflowY: "auto",  background: "#fff", backgroundImage: "#fff" }}>
+        <UserProfile/>
+        </Box>
+    </Modal>
     </div>
     <div style={{ height: 800, width: '100%' }}>
       <DataGrid
@@ -143,7 +160,7 @@ export default function DataTable() {
           handleOpen()
           setModalEntranceDelay(true)
           setSecondOptionModalEntranceDelay(true)
-          console.log(e, dispatchSpecificEmployeeInfo(e.row.emp_no))
+          console.log(e, dispatchSpecificEmployeeInfo(e.row?.emp_no))
         }}
         style={{ cursor: 'pointer'}}
       />
