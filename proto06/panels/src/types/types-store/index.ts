@@ -60,6 +60,7 @@ export interface EmployeeDetailsType {
 
 
 export interface GetEmployeesListsType {
+    [key: string]: any;
     id: Number;
     employee_image?: String;
     emp_no: Number;
