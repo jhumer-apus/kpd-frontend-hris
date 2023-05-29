@@ -101,8 +101,7 @@ export function HRISDashboard() {
         ))}
 
       </div>
-      <Card className="w-full max-w-[60rem] ml-auto mr-auto">
-      {/* <Card className="w-full max-w-[30rem]"> */}
+      {/* <Card className="w-full max-w-[60rem] ml-auto mr-auto">
         <CardHeader
           color="teal"
           variant="gradient"
@@ -372,7 +371,7 @@ export function HRISDashboard() {
             </TabsBody>
           </Tabs>
         </CardBody>
-      </Card>
+      </Card> */}
       {/* <div className="mb-6 grid grid-cols-1 gap-y-12 gap-x-6 md:grid-cols-2 xl:grid-cols-3">
         {statisticsChartsData.map((props) => (
           <StatisticsChart
