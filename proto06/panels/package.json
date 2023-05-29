@@ -32,7 +32,8 @@
     "redux-observable": "^2.0.0",
     "rxjs": "^7.8.1",
     "sass-loader": "^13.2.2",
-    "styled-components": "^5.3.10"
+    "styled-components": "^5.3.10",
+    "tailwind-merge": "^1.12.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",
