@@ -46,6 +46,7 @@ import {
   TagIcon,
   ArrowUpTrayIcon,
 } from "@heroicons/react/24/outline";
+import { SpecificEmployee } from './forms/SpecificEmployee';
 
 const columns: GridColDef[] = [
   // { field: 'id', headerName: 'ID', width: 70 },
@@ -139,7 +140,7 @@ export default function DataTable() {
   }
 
   // Console Tests
-  console.log(specific_employee_info, "eto un tae", employees_list, "eto un list");
+  console.log(specific_employee_info, "eto un taeaaaaaaa", employees_list, "eto un list");
   console.log(specific_employee_info?.user?.is_superuser, "eto un tae", employees_list, "eto un list");
 
   // const countries = [{name: "Philippines"}, {name: "United States"}, {name: "Canada"}, {name: "Australia"}];
@@ -228,7 +229,7 @@ export default function DataTable() {
           aria-describedby="parent-modal-description"
         >
           <Box sx={{ ...style, width:"100%", maxHeight: "80%", overflowY: "auto",  background: "#e9bcb7", backgroundImage: "linear-gradient(315deg, #e9bcb7 0%, #29524a 74%)" }}>
-            <Card className="w-full max-w-[120rem] xl:max-w-[100rem] ml-auto mr-auto">
+            {/* <Card className="w-full max-w-[120rem] xl:max-w-[100rem] ml-auto mr-auto">
               <CardHeader
                 color="teal"
                 variant="gradient"
@@ -297,17 +298,6 @@ export default function DataTable() {
                                   <TagIcon className="h-5 w-5 text-blue-gray-300" />
                                 }
                               />
-                              {/* <Input 
-                                type="date" 
-                                containerProps={{ className: "min-w-[72px]" }} 
-                                labelProps={{style: {color: true? "unset" : ''}}} 
-                                label="Database ID:" 
-                                {...true ? {disabled: true}: null} 
-                                value={dateInput}
-                                icon={
-                                  <TagIcon className="h-5 w-5 text-blue-gray-300" />
-                                }
-                              /> */}
                               <Input 
                                 type="text" 
                                 containerProps={{ className: "min-w-[72px] focused" }} 
@@ -796,7 +786,8 @@ export default function DataTable() {
                   </TabsBody>
                 </Tabs>
               </CardBody>
-            </Card>
+            </Card> */}
+            <SpecificEmployee modalEntranceDelay={modalEntranceDelay} secondOptionModalEntranceDelay={secondOptionModalEntranceDelay}/>
           </Box>
         </Modal>
       </div>
