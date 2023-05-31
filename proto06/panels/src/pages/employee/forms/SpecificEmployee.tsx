@@ -1,7 +1,5 @@
-import { GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
-import { Box, CircularProgress } from '@mui/material';
+import { Box, CircularProgress, Avatar } from '@mui/material';
 import axios from 'axios';
-
 import {
   Card,
   CardHeader,
@@ -30,214 +28,128 @@ import {
   XMarkIcon,
   TagIcon,
 } from "@heroicons/react/24/outline";
-
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState, forwardRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { TextField, Button } from '@mui/material';
 import { Input, Typography } from '@material-tailwind/react';
-// import { TextField, Button } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
-// import { fetchUserData, updateUserData } from './userDataActions'; // import your actions
-import { getSpecificEmployeeInfo } from '@/store/actions/employees';
 import { RootState } from '@/store/configureStore';
 import { GetEmployeesListsType } from '@/types/types-store';
+import FormData from 'form-data';
 
+// Snackbar Implementation
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
-type FormData = {
-  firstName: string;
-  lastName: string;
-  middleName: string;
-  age: number;
-  email: string;
-  password: string;
-};
 
 type initialState = {
     secondOptionModalEntranceDelay?: Boolean;
     modalEntranceDelay?: Boolean;
+    loadingEffect: () => void;
 }
 
+const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
+    props,
+    ref,
+  ) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+
 export const SpecificEmployee = (props: initialState) => {
-    const {modalEntranceDelay, secondOptionModalEntranceDelay} = props;
+    const [file, setFile] = useState<File | null>(null);
+    const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setFile(event.target.files ? event.target.files[0] : null);
+    };
+    console.log(file, "mamaw")
+    const {modalEntranceDelay, secondOptionModalEntranceDelay, loadingEffect} = props;
     const { register, handleSubmit, setValue, formState: { errors } } = useForm<GetEmployeesListsType>();
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const userData = useSelector((state: RootState) => state.employees.specific_employee_info);
     const [editMode, setEditMode] = useState(false);
     const [editMode2, setEditMode2] = useState(false);
     const [editMode3, setEditMode3] = useState(false);
-
     const [type, setType] = useState("staticInfo");
-//   const [modalEntranceDelay, setModalEntranceDelay] = useState(false);
-//   const [secondOptionModalEntranceDelay, setSecondOptionModalEntranceDelay] = useState(false);
-    console.log(userData, "maasd")
 
-    useEffect(() => {
-        // dispatch(getSpecificEmployeeInfo({employee_id: 33333}));
-    }, [dispatch]);
 
-    // useEffect(() => {
-    //     // update form values when userData changes
-    //     for (const key in userData) {
-    //     setValue(key as keyof FormData, userData[key]  );
-    //     }
-    // }, [userData, setValue]);
+    const [open, setOpen] = useState(false);
 
+    const handleClick = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+  
+      setOpen(false);
+    };
+
+    // Side Effects
     useEffect(() => {
         // update form values when userData changes
         if (userData) {
         for (const key in userData) {
-            setValue(key as keyof FormData, userData[key]);
+            setValue(key, userData[key]);
         }
         }
     }, [userData, setValue]);
 
-    // const onSubmit = (data: FormData) => {
-    //     console.log(data, "mamamama")
-    //     // dispatch(updateUserData(data));
-    //     setEditMode(false);
-    // };
-
-    const onSubmit = async (data: GetEmployeesListsType) => {
+    const fetchData = async function (formData: FormData) {
+        try {
+            const response = await axios.put(
+              `http://172.16.168.155:8000/api/employees/${userData?.emp_no}/`,
+              formData,
+              {
+                headers: {
+                  'Content-Type': 'multipart/form-data',
+                },
+              }
+            );
+            console.log(response.data);
+            loadingEffect();
+          } catch (err) {
+            console.error(err);
+          }
+    };
+    const onSubmit = async (data: GetEmployeesListsType, type: string) => {
         const formData = new FormData();
         console.log("appending file:sss ", data)
-    
-        // if(data.file) {
-        //     formData.append('file', data.file[0].name);
-        //     console.log("appending file: ", data.file[0])
-        //     console.log("formData111: ", formData);
-        // }
-        // for (const key in data) {
-        //     // formData.append(key, data[key as keyof FormData]);
-        //     if (data[key as keyof ImportEmployee]) {
-        //         formData.append(key, data[key as keyof ImportEmployee], data[key as keyof ImportEmployee].name);
-        //     }
-        //     // formData.append(key, data[key as keyof ImportEmployee], data[key as keyof ImportEmployee].name);
-        // }
-        console.log("formData: ", formData);
-        // try {
-        //     const response = await axios.put(
-        //       `http://172.16.168.155:8000/api/import_employee/`,
-        //       formData,
-        //       {
-        //         headers: {
-        //           'Content-Type': 'multipart/form-data',
-        //         },
-        //       }
-        //     );
         
-        //     console.log(response.data);
-        //     // setTimeout(()=>{
-        //     //     location.reload();
-        //     // }, 1000)
-        //   } catch (err) {
-        //     console.error(err);
-        //   }
+        const keyChecker = (key: string) => {
+            console.log(key,"aaaaa1111")
+            const keyProcessed: { [key: string]: () => void } = {
+                "type1": () => setEditMode(false),
+                "type2": () => setEditMode2(false),
+                "type3": () => setEditMode3(false),
+                "default": () => {}
+            }
+            if (key in keyProcessed) {
+                return keyProcessed[key]();
+              } else {
+                return keyProcessed['default'](); 
+            }
+        }
+        
+        keyChecker(type)
     
-        // dispatch(updateUserData(data));
-        // setEditMode(false);
-    
-        };
+        for (const key in data) {
+            const value = data[key];
+            if (value !== null && value !== undefined && value !== "") {
+                if(key === "employee_image" && file){
+                    formData.append(key, file);
+                }else {
+                    formData.append(key, value);
+                }
+            }
+        }
+        console.log("formData: ", formData);
+        await fetchData(formData);
+    };
 
     return (
         <Fragment>
-            {/* <form onSubmit={handleSubmit(onSubmit)}>
-                <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="mb-4 font-medium"
-                >
-                    Add New Employee
-                </Typography>   
-                <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="mb-4 font-medium"
-                >
-                    Personal Information
-                </Typography>    
-                <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6">
-                    <div style={{position: 'relative', width: '100%'}}>
-                    <Input
-                        {...register('first_name', { required: true })}
-                        label="First Name:*"
-                        disabled={!editMode}
-                    />
-                    {errors.first_name && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>First name is required.</sub>}
-                    </div>
-
-                    <Input
-                    {...register('middle_name')}
-                    label="Middle Name:"
-                    disabled={!editMode}
-                    />
-                    <div style={{position: 'relative', width: '100%'}}>
-                    <Input
-                        {...register('last_name', { required: true })}
-                        label="Last Name:*"
-                        disabled={!editMode}
-                    />
-                    {errors.last_name && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Last name is required.</sub>}
-                    </div>
-                    <Input
-                    {...register('suffix')}
-                    label="Suffix:"
-                    disabled={!editMode}
-                    />
-                    <Input
-                    {...register('gender')}
-                    label="Gender:"
-                    containerProps={{ className: "min-w-[20px]" }} 
-                    disabled={!editMode}
-                    />
-                </div>
-                <div className="my-4 flex flex-wrap xl:flex-nowrap items-center gap-4">
-                    <Input
-                        {...register('address')}
-                        label="Address:"
-                        disabled={!editMode}
-                    />
-                    <Input
-                    {...register('provincial_address')}
-                    label="Provincial Address:"
-                    disabled={!editMode}
-                    />
-                    <Input
-                    {...register('email_address')}
-                    label="Email Address:"
-                    disabled={!editMode}
-                    />
-                </div>
-                <div className="my-4 flex flex-wrap xl:flex-nowrap items-center gap-4">
-                    <Input
-                        {...register('mobile_phone')}
-                        label="Mobile Phone #:"
-                        disabled={!editMode}
-                    />
-                    <Input
-                    {...register('birthday')}
-                    label="Birthday"
-                    disabled={!editMode}
-                    />
-                    <Input
-                    {...register('email_address')}
-                    label="Email Address"
-                    disabled={!editMode}
-                    />
-                </div>
-                {editMode ? (
-                    <Button variant="contained" color="primary" type="submit">
-                        Submit
-                    </Button>
-                    ) : (
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        onClick={() => setEditMode(true)}
-                    >
-                        Edit
-                    </Button>
-                )}
-            </form> */}
             <Card className="w-full max-w-[120rem] xl:max-w-[100rem] ml-auto mr-auto">
                     <CardHeader
                         color="teal"
@@ -248,8 +160,13 @@ export const SpecificEmployee = (props: initialState) => {
                         className="m-0 grid place-items-center rounded-b-none py-8 px-4 text-center"
                     >
                         <div className="mb-4 rounded-full border border-white/10 bg-white/10 p-6 text-white">
-                        <UserIcon className="h-10 w-10" />
+                        {!userData?.employee_image ? 
+                        
+                        <UserIcon className="h-10 w-10" />:
+                        <Avatar sx={{ width: 100, height: 100, objectFit: 'contain' }} src={`http://172.16.168.155:8000${userData?.employee_image}`}/>
+                        }
                         </div>
+                        {/* <Avatar className="h-10 w-10" src={`http://172.16.168.155:8000${userData?.employee_image}`}/> */}
                         <Typography variant="h4" color="white">
                         Full Name: {userData?.first_name} {userData?.middle_name} {userData?.last_name}
                         </Typography>
@@ -285,7 +202,7 @@ export const SpecificEmployee = (props: initialState) => {
                             <span style={{marginLeft: "50%", marginTop: "20%"}}><CircularProgress /></span>
                         </Box>
                         <TabPanel value="staticInfo" className="p-0">
-                            <form className="mt-12 flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+                            <form className="mt-12 flex flex-col gap-4" onSubmit={handleSubmit((data) => onSubmit(data, "type1"))}>
                             <div className="my-4 flex flex-wrap md:flex-nowrap items-center gap-4">
                                 <div style={{width: "100%"}}>
                                     <Typography
@@ -298,19 +215,18 @@ export const SpecificEmployee = (props: initialState) => {
                                     <div className="my-4 flex items-center gap-4">
                                     <Input 
                                         {...register('id')}
-                                        type="text" 
+                                        type="number" 
                                         containerProps={{ className: "min-w-[72px]" }} 
                                         labelProps={{style: {color: true? "unset" : ''}}} 
                                         label="Database ID:" 
                                         disabled={true} 
-                                        // value={`${userData?.id ? userData?.id : ''}`}
                                         icon={
                                         <TagIcon className="h-5 w-5 text-blue-gray-300" />
                                         }
                                     />
                                     <Input 
                                         {...register('bio_id')}
-                                        type="text" 
+                                        type="number" 
                                         containerProps={{ className: "min-w-[72px] focused" }} 
                                         labelProps={{style: {color: true? "unset" : ''}}} 
                                         label="Biometric ID:" 
@@ -318,7 +234,6 @@ export const SpecificEmployee = (props: initialState) => {
                                         icon={
                                         <FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />
                                         }
-                                        value={`${userData?.bio_id ? userData?.bio_id : ''}` }
                                     />
                                     </div>
                                     <div className="flex items-center gap-4">
@@ -327,9 +242,8 @@ export const SpecificEmployee = (props: initialState) => {
                                         type="text" 
                                         containerProps={{ className: "min-w-[72px] focused" }} 
                                         labelProps={{style: {color: true? "unset" : ''}}} 
-                                        label="Account Superuser:" 
-                                        disabled={!editMode} 
-                                        // value={`${!!userData?.user?.is_superuser}`}
+                                        label="Account Superuser(?):" 
+                                        disabled={true} 
                                         icon={
                                         <AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />
                                         }
@@ -339,9 +253,8 @@ export const SpecificEmployee = (props: initialState) => {
                                         type="text" 
                                         containerProps={{ className: "min-w-[72px] focused" }} 
                                         labelProps={{style: {color: true? "unset" : ''}}} 
-                                        label="Account Active:" 
-                                        disabled={!editMode} 
-                                        // value={`${!!userData?.user?.is_active}`}
+                                        label="Account Active(?):" 
+                                        disabled={true} 
                                         icon={
                                         <WindowIcon className="h-5 w-5 text-blue-gray-300" />
                                         }
@@ -363,8 +276,7 @@ export const SpecificEmployee = (props: initialState) => {
                                         containerProps={{ className: "min-w-[72px]" }} 
                                         label="Emp #:" 
                                         labelProps={{style: {color: true? "unset" : ''}}} 
-                                        disabled={!editMode} 
-                                        // value={`${userData?.emp_no}`} 
+                                        disabled={!editMode}
                                     />
                                     <Input
                                         {...register('user.username')} 
@@ -372,33 +284,29 @@ export const SpecificEmployee = (props: initialState) => {
                                         containerProps={{ className: "min-w-[72px] focused" }} 
                                         labelProps={{style: {color: true? "unset" : ''}}} 
                                         label="Username:" 
-                                        disabled={!editMode} 
+                                        disabled={true} 
                                         icon={
                                         <TagIcon className="h-5 w-5 text-blue-gray-300" />
-                                        }
-                                        // value={ `${userData?.user?.username ? userData?.user?.username : ''}`}
-                                    />
+                                        }                                    />
                                     <Input
                                         {...register('user.role')} 
-                                        type="text" 
+                                        type="number" 
                                         containerProps={{ className: "min-w-[72px]" }} 
                                         label="Role #:" 
                                         labelProps={{style: {color: true? "unset" : ''}}} 
-                                        disabled={!editMode} 
+                                        disabled={true} 
                                         icon={
                                         <UserGroupIcon className="h-5 w-5 text-blue-gray-300" />
                                         }
-                                        // value={ `${userData?.user?.role ? userData?.user?.role : ''}`}
                                     />
                                     </div>
                                     <Input
-                                        {...register('user.role')} 
+                                        {...register('email_address')} 
                                         type="email" 
                                         className="" 
                                         label="Email Address:" 
                                         labelProps={{style: {color: true? "unset" : ''}}} 
                                         disabled={!editMode}
-                                        // value={ true ? `${userData?.email_address}` : ''}
                                     />
                                 </div>
                             </div>
@@ -416,7 +324,6 @@ export const SpecificEmployee = (props: initialState) => {
                                     label="Account Lock Status:"
                                     labelProps={{style: {color: true? "unset" : ''}}}
                                     disabled={true}
-                                    // value={`${userData?.user?.is_locked !== undefined ? userData?.user?.is_locked: ''}`}
                                     icon={
                                     <LockClosedOutline className="h-5 w-5 text-blue-gray-300" />
                                     }
@@ -426,17 +333,16 @@ export const SpecificEmployee = (props: initialState) => {
                                     label="Last Login:"
                                     labelProps={{style: {color: true? "unset" : ''}}}
                                     disabled={true}
-                                    // value={`${userData?.user?.last_login? userData?.user?.last_login : ''}`}
                                     icon={ 
                                     <CheckCircleIcon className="h-5 w-5 text-blue-gray-300" />
                                     }
                                 />
                                 <Input
                                     {...register('user.old_password')}
+                                    type="password"
                                     label="Old Password:"
                                     labelProps={{style: {color: true? "unset" : ''}}}
                                     disabled={true}
-                                    // value={`${userData?.user?.old_password ? userData?.user?.old_password :''}`}
                                     icon={ 
                                     <LockOpenIcon className="h-5 w-5 text-blue-gray-300" />
                                     }
@@ -446,7 +352,6 @@ export const SpecificEmployee = (props: initialState) => {
                                     label="Date Added:"
                                     labelProps={{style: {color: true? "unset" : ''}}}
                                     disabled={true}
-                                    // value={`${userData?.user?.date_added !== undefined ? userData?.user?.date_added : ''}`}
                                     icon={
                                     <UserPlusIcon className="h-5 w-5 text-blue-gray-300" />
                                     }
@@ -457,7 +362,6 @@ export const SpecificEmployee = (props: initialState) => {
                                     containerProps={{ className: "min-w-[72px]" }} 
                                     labelProps={{style: {color: true? "unset" : ''}}}
                                     disabled={true}
-                                    // value={`${userData?.user?.date_deleted ? userData?.user?.date_deleted : ''}`}
                                     icon={
                                     <XMarkIcon className="h-5 w-5 text-blue-gray-300" />
                                     }
@@ -468,8 +372,7 @@ export const SpecificEmployee = (props: initialState) => {
                                     {...register('user.failed_login_attempts')}
                                     label="Failed Login Attempts:"
                                     labelProps={{style: {color: true? "unset" : ''}}}
-                                    disabled={!editMode}
-                                    // value={`${userData?.user?.failed_login_attempts !== undefined ? userData?.user?.failed_login_attempts : ''}`}
+                                    disabled={true}
                                     icon={
                                     <XCircleIcon className="h-5 w-5 text-blue-gray-300" />
                                     }
@@ -478,8 +381,7 @@ export const SpecificEmployee = (props: initialState) => {
                                     {...register('user.date_password_changed')}
                                     label="Date Password Changed:"
                                     labelProps={{style: {color: true? "unset" : ''}}}
-                                    disabled={!editMode}
-                                    // value={`${userData?.user?.date_password_changed ? userData?.user?.date_password_changed : ''}`}
+                                    disabled={true}
                                     icon={ null
                                     // <CreditCardIcon className="h-5 w-5 text-blue-gray-300" />
                                     }
@@ -488,7 +390,8 @@ export const SpecificEmployee = (props: initialState) => {
                             </div>
                             <div className="my-4 flex items-center gap-4">
                                 <Button2 
-                                    color={"teal"} 
+                                    disabled={editMode}
+                                    color={editMode? "gray" :"teal"} 
                                     variant={'outlined'} 
                                     size="lg" 
                                     className="w-full"
@@ -496,14 +399,16 @@ export const SpecificEmployee = (props: initialState) => {
                                 >
                                     Edit
                                 </Button2>
-                                <Button2 
-                                    type="submit" 
+                                {editMode && <Button2 
+                                    type="submit"
                                     color={"teal"} 
                                     size="lg" 
                                     className="w-full"
                                 >
                                     Save
-                                </Button2>
+                                </Button2>  }
+  
+
                             </div>
                             <Typography
                                 variant="small"
@@ -516,7 +421,7 @@ export const SpecificEmployee = (props: initialState) => {
                             </form>
                         </TabPanel>
                         <TabPanel value="personalInfo" className="p-0">
-                            <form className="mt-12 flex flex-col gap-4">
+                            <form className="mt-12 flex flex-col gap-4" onSubmit={handleSubmit((data)=> onSubmit(data, "type2"))}>
                             <div className="my-0 flex flex-wrap md:flex-nowrap items-center gap-4">
                                 <div style={{width: "100%"}}>
                                     <Typography
@@ -524,8 +429,9 @@ export const SpecificEmployee = (props: initialState) => {
                                     color="blue-gray"
                                     className="mb-4 font-medium"
                                     >
-                                    Full Name Details
+                                    Profile Details
                                     </Typography>
+                                    <input disabled={!editMode2} type="file" accept="image/*" {...register('employee_image')} onChange={onFileChange} />
                                     <div className="my-4 flex items-center gap-4">
                                     <Input
                                         {...register('first_name')} 
@@ -533,8 +439,7 @@ export const SpecificEmployee = (props: initialState) => {
                                         containerProps={{ className: "min-w-[72px]" }} 
                                         labelProps={{style: {color: true? "unset" : ''}}} 
                                         label="First Name:" 
-                                        disabled={!editMode} 
-                                        // value={`${userData?.birthdate ? userData?.birthdate : ''}`}
+                                        disabled={!editMode2} 
                                         icon={
                                         <TagIcon className="h-5 w-5 text-blue-gray-300" />
                                         }
@@ -545,11 +450,10 @@ export const SpecificEmployee = (props: initialState) => {
                                         containerProps={{ className: "min-w-[72px] focused" }} 
                                         labelProps={{style: {color: true? "unset" : ''}}} 
                                         label="Middle Name:" 
-                                        disabled={!editMode} 
+                                        disabled={!editMode2} 
                                         icon={
                                         <FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />
                                         }
-                                        // value={`${userData?.birth_place ? userData?.birth_place : ''}` }
                                     />
                                     </div>
                                     <div className="flex items-center gap-4">
@@ -559,8 +463,7 @@ export const SpecificEmployee = (props: initialState) => {
                                         containerProps={{ className: "min-w-[72px] focused" }} 
                                         labelProps={{style: {color: true? "unset" : ''}}} 
                                         label="Last Name:" 
-                                        disabled={!editMode} 
-                                        // value={`${userData?.mobile_phone ? userData?.mobile_phone : ''}`}
+                                        disabled={!editMode2} 
                                         icon={
                                         <AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />
                                         }
@@ -571,8 +474,7 @@ export const SpecificEmployee = (props: initialState) => {
                                         containerProps={{ className: "min-w-[72px] focused" }} 
                                         labelProps={{style: {color: true? "unset" : ''}}} 
                                         label="Suffix:" 
-                                        disabled={!editMode} 
-                                        value={`${userData?.approver ? userData?.approver : ''}`}
+                                        disabled={!editMode2} 
                                         icon={
                                         <WindowIcon className="h-5 w-5 text-blue-gray-300" />
                                         }
@@ -596,8 +498,7 @@ export const SpecificEmployee = (props: initialState) => {
                                         containerProps={{ className: "min-w-[72px]" }} 
                                         labelProps={{style: {color: true? "unset" : ''}}} 
                                         label="Birthday:" 
-                                        disabled={!editMode} 
-                                        // value={`${userData?.birthdate ? userData?.birthdate : ''}`}
+                                        disabled={!editMode2} 
                                         icon={
                                         <TagIcon className="h-5 w-5 text-blue-gray-300" />
                                         }
@@ -608,11 +509,10 @@ export const SpecificEmployee = (props: initialState) => {
                                         containerProps={{ className: "min-w-[72px] focused" }} 
                                         labelProps={{style: {color: true? "unset" : ''}}} 
                                         label="Birthplace:" 
-                                        disabled={!editMode} 
+                                        disabled={!editMode2} 
                                         icon={
                                         <FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />
                                         }
-                                        // value={`${userData?.birth_place ? userData?.birth_place : ''}` }
                                     />
                                     </div>
                                     <div className="flex items-center gap-4">
@@ -622,8 +522,7 @@ export const SpecificEmployee = (props: initialState) => {
                                         containerProps={{ className: "min-w-[72px] focused" }} 
                                         labelProps={{style: {color: true? "unset" : ''}}} 
                                         label="Mobile Phone:" 
-                                        disabled={!editMode} 
-                                        // value={`${userData?.mobile_phone ? userData?.mobile_phone : ''}`}
+                                        disabled={!editMode2} 
                                         icon={
                                         <AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />
                                         }
@@ -634,7 +533,7 @@ export const SpecificEmployee = (props: initialState) => {
                                         containerProps={{ className: "min-w-[72px] focused" }} 
                                         labelProps={{style: {color: true? "unset" : ''}}} 
                                         label="Approver:" 
-                                        disabled={!editMode} 
+                                        disabled={!editMode2} 
                                         value={`${userData?.approver ? userData?.approver : ''}`}
                                         icon={
                                         <WindowIcon className="h-5 w-5 text-blue-gray-300" />
@@ -657,8 +556,7 @@ export const SpecificEmployee = (props: initialState) => {
                                         containerProps={{ className: "min-w-[72px]" }} 
                                         label="Civil Status:" 
                                         labelProps={{style: {color: true? "unset" : ''}}} 
-                                        disabled={!editMode} 
-                                        // value={`${userData?.civil_status ? userData?.civil_status : ''}`} 
+                                        disabled={!editMode2} 
                                     />
                                     <Input
                                         {...register('gender')} 
@@ -666,21 +564,19 @@ export const SpecificEmployee = (props: initialState) => {
                                         containerProps={{ className: "min-w-[72px] focused" }} 
                                         labelProps={{style: {color: true? "unset" : ''}}} 
                                         label="Gender:" 
-                                        disabled={!editMode} 
+                                        disabled={!editMode2} 
                                         icon={
                                         <TagIcon className="h-5 w-5 text-blue-gray-300" />
                                         }
-                                        // value={ `${userData?.gender ? userData?.gender : ''}`}
                                     />
                                     </div>
                                     <Input
                                         {...register('address')} 
-                                        type="email" 
+                                        type="text" 
                                         className="" 
                                         label="Present Address:" 
                                         labelProps={{style: {color: true? "unset" : ''}}} 
-                                        disabled={!editMode}
-                                        // value={`${userData?.address ? userData?.address : ''}`}
+                                        disabled={!editMode2}
                                     />
                                 </div>
                             </div>
@@ -690,8 +586,7 @@ export const SpecificEmployee = (props: initialState) => {
                                     {...register('provincial_address')}
                                     label="Provincial Address:"
                                     labelProps={{style: {color: true? "unset" : ''}}}
-                                    disabled={!editMode}
-                                    // value={`${userData?.provincial_address ? userData?.provincial_address : ''}`}
+                                    disabled={!editMode2}
                                     icon={
                                     <LockClosedOutline className="h-5 w-5 text-blue-gray-300" />
                                     }
@@ -699,8 +594,24 @@ export const SpecificEmployee = (props: initialState) => {
                                 </div>
                             </div>
                             <div className="my-4 flex items-center gap-4">
-                                <Button2 color={"teal"} variant={'outlined'} size="lg" className="w-full">Edit</Button2>
-                                <Button2 color={"teal"} size="lg" className="w-full">Save</Button2>
+                                <Button2 
+                                    disabled={editMode2}
+                                    color={editMode2? "gray" :"teal"} 
+                                    variant={'outlined'} 
+                                    size="lg" 
+                                    className="w-full"
+                                    onClick={()=> setEditMode2(true)}
+                                >
+                                    Edit
+                                </Button2>
+                                {editMode2 && <Button2 
+                                    type="submit"
+                                    color={"teal"} 
+                                    size="lg" 
+                                    className="w-full"
+                                >
+                                    Save
+                                </Button2>  }
                             </div>
                             <Typography
                                 variant="small"
@@ -713,7 +624,7 @@ export const SpecificEmployee = (props: initialState) => {
                             </form>
                         </TabPanel>
                         <TabPanel value="employmentDetails" className="p-0">
-                            <form className="mt-12 flex flex-col gap-4">
+                            <form className="mt-12 flex flex-col gap-4" onSubmit={handleSubmit((data)=>onSubmit(data, "type3"))}>
                                 <div className="my-4 flex flex-wrap md:flex-nowrap items-center gap-4">
                                 <div style={{width: "100%"}}>
                                     <Typography
@@ -730,7 +641,7 @@ export const SpecificEmployee = (props: initialState) => {
                                             containerProps={{ className: "min-w-[72px]" }} 
                                             labelProps={{style: {color: true? "unset" : ''}}} 
                                             label="Date Hired:" 
-                                            disabled={!editMode} 
+                                            disabled={!editMode3} 
                                             // value={`${userData?.date_hired ? userData?.date_hired : ''}`}
                                             icon={
                                                 <TagIcon className="h-5 w-5 text-blue-gray-300" />
@@ -742,11 +653,10 @@ export const SpecificEmployee = (props: initialState) => {
                                             containerProps={{ className: "min-w-[72px] focused" }} 
                                             labelProps={{style: {color: true? "unset" : ''}}} 
                                             label="Date Resigned:" 
-                                            disabled={!editMode} 
+                                            disabled={!editMode3} 
                                             icon={
                                                 <FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />
                                             }
-                                            // value={`${userData?.date_resigned ? userData?.date_resigned : ''}` }
                                         />
                                     </div>
                                     <div className="flex items-center gap-4">
@@ -756,8 +666,7 @@ export const SpecificEmployee = (props: initialState) => {
                                             containerProps={{ className: "min-w-[72px] focused" }} 
                                             labelProps={{style: {color: true? "unset" : ''}}} 
                                             label="Division Code:" 
-                                            disabled={!editMode} 
-                                            // value={`${userData?.division_code ? userData?.division_code : ''}`}
+                                            disabled={!editMode3} 
                                             icon={
                                                 <AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />
                                             }
@@ -768,8 +677,7 @@ export const SpecificEmployee = (props: initialState) => {
                                             containerProps={{ className: "min-w-[72px] focused" }} 
                                             labelProps={{style: {color: true? "unset" : ''}}} 
                                             label="Position Code:" 
-                                            disabled={!editMode} 
-                                            // value={`${userData?.position_code ? userData?.position_code : ''}`}
+                                            disabled={!editMode3} 
                                             icon={
                                                 <WindowIcon className="h-5 w-5 text-blue-gray-300" />
                                             }
@@ -791,8 +699,7 @@ export const SpecificEmployee = (props: initialState) => {
                                             containerProps={{ className: "min-w-[72px]" }} 
                                             label="City Code:" 
                                             labelProps={{style: {color: true? "unset" : ''}}} 
-                                            disabled={!editMode} 
-                                            // value={`${userData?.city_code ? userData?.city_code : ''}`} 
+                                            disabled={!editMode3} 
                                         />
                                         <Input
                                             {...register('branch_code')} 
@@ -800,11 +707,10 @@ export const SpecificEmployee = (props: initialState) => {
                                             containerProps={{ className: "min-w-[72px] focused" }} 
                                             labelProps={{style: {color: true? "unset" : '', textOverflow: 'ellipsis', overflow: 'hidden'}}} 
                                             label="Branch Code:" 
-                                            disabled={!editMode} 
+                                            disabled={!editMode3} 
                                             icon={
                                                 <TagIcon className="h-5 w-5 text-blue-gray-300" />
                                             }
-                                            // value={ `${userData?.branch_code ? userData?.branch_code : ''}`}
                                         />
                                         <Input
                                             {...register('department_code')} 
@@ -812,11 +718,10 @@ export const SpecificEmployee = (props: initialState) => {
                                             containerProps={{ className: "min-w-[72px]" }} 
                                             label="Department Code:" 
                                             labelProps={{style: {color: true? "unset" : '', textOverflow: 'ellipsis', overflow: 'hidden'}}} 
-                                            disabled={!editMode} 
+                                            disabled={!editMode3} 
                                             icon={
                                                 <UserGroupIcon className="h-5 w-5 text-blue-gray-300" />
                                             }
-                                            // value={ `${userData?.department_code ? userData?.department_code : ''}`}
                                         />
                                     </div>
                                     <div className="my-0 flex items-center gap-4">
@@ -826,8 +731,7 @@ export const SpecificEmployee = (props: initialState) => {
                                             containerProps={{ className: "min-w-[72px]" }} 
                                             label="Rank Code:" 
                                             labelProps={{style: {color: true? "unset" : ''}}} 
-                                            disabled={!editMode} 
-                                            // value={`${userData?.rank_code ? userData?.rank_code : ''}`} 
+                                            disabled={!editMode3} 
                                         />
                                         <Input 
                                             {...register('payroll_group_code')}
@@ -835,11 +739,10 @@ export const SpecificEmployee = (props: initialState) => {
                                             containerProps={{ className: "min-w-[72px] focused" }} 
                                             labelProps={{style: {color: true? "unset" : '', textOverflow: 'ellipsis', overflow: 'hidden'}}} 
                                             label="Payroll Group Code:" 
-                                            disabled={!editMode} 
+                                            disabled={!editMode3} 
                                             icon={
                                                 <TagIcon className="h-5 w-5 text-blue-gray-300" />
                                             }
-                                            // value={ `${userData?.payroll_group_code ? userData?.payroll_group_code : ''}`}
                                         />
                                     </div>
                                 </div>
@@ -857,8 +760,7 @@ export const SpecificEmployee = (props: initialState) => {
                                         {...register('tax_code')}
                                         label="Tax Identification #:"
                                         labelProps={{style: {color: true? "unset" : ''}}}
-                                        disabled={!editMode}
-                                        // value={`${userData?.tax_code ? userData?.tax_code : ''}`}
+                                        disabled={!editMode3}
                                         icon={
                                             <LockClosedOutline className="h-5 w-5 text-blue-gray-300" />
                                         }
@@ -867,8 +769,7 @@ export const SpecificEmployee = (props: initialState) => {
                                         {...register('pagibig_code')}
                                         label="HDMF Pagibig:"
                                         labelProps={{style: {color: true? "unset" : ''}}}
-                                        disabled={!editMode}
-                                        // value={`${userData?.pagibig_code ? userData?.pagibig_code : ''}`}
+                                        disabled={!editMode3}
                                         icon={ 
                                             <CheckCircleIcon className="h-5 w-5 text-blue-gray-300" />
                                         }
@@ -877,8 +778,7 @@ export const SpecificEmployee = (props: initialState) => {
                                         {...register('sssid_code')}
                                         label="SSS ID:"
                                         labelProps={{style: {color: true? "unset" : ''}}}
-                                        disabled={!editMode}
-                                        // value={`${userData?.sssid_code ? userData?.sssid_code :''}`}
+                                        disabled={!editMode3}
                                         icon={ 
                                             <LockOpenIcon className="h-5 w-5 text-blue-gray-300" />
                                         }
@@ -887,8 +787,7 @@ export const SpecificEmployee = (props: initialState) => {
                                         {...register('philhealth_code')}
                                         label="Philhealth #:"
                                         labelProps={{style: {color: true? "unset" : ''}}}
-                                        disabled={!editMode}
-                                        // value={`${userData?.philhealth_code ? userData?.philhealth_code : ''}`}
+                                        disabled={!editMode3}
                                         icon={
                                             <UserPlusIcon className="h-5 w-5 text-blue-gray-300" />
                                         }
@@ -896,8 +795,24 @@ export const SpecificEmployee = (props: initialState) => {
                                 </div>
                                 </div>
                                 <div className="my-4 flex items-center gap-4">
-                                <Button2 color={"teal"} variant={'outlined'} size="lg" className="w-full">Edit</Button2>
-                                <Button2 color={"teal"} size="lg" className="w-full">Save</Button2>
+                                <Button2 
+                                    disabled={editMode3}
+                                    color={editMode3? "gray" :"teal"} 
+                                    variant={'outlined'} 
+                                    size="lg" 
+                                    className="w-full"
+                                    onClick={()=> setEditMode3(true)}
+                                >
+                                    Edit
+                                </Button2>
+                                {editMode3 && <Button2 
+                                    type="submit"
+                                    color={"teal"} 
+                                    size="lg" 
+                                    className="w-full"
+                                >
+                                    Save
+                                </Button2>  }
                                 </div>
                                 <Typography
                                 variant="small"
@@ -913,6 +828,20 @@ export const SpecificEmployee = (props: initialState) => {
                         </Tabs>
                     </CardBody>
             </Card>
+            {/* <Stack spacing={2} sx={{ width: '100%' }}>
+                <Button variant="outlined" onClick={handleClick}>
+                    Open success snackbar
+                </Button>
+                <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+                    <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    This is a success message!
+                    </Alert>
+                </Snackbar>
+                <Alert severity="error">This is an error message!</Alert>
+                <Alert severity="warning">This is a warning message!</Alert>
+                <Alert severity="info">This is an information message!</Alert>
+                <Alert severity="success">This is a success message!</Alert>
+            </Stack> */}
         </Fragment>
 
     );
