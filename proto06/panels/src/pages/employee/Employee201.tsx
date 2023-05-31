@@ -147,17 +147,25 @@ export default function DataTable() {
   // const [dateInput, setDateInput] = useState('');
 
   // Side Effects
-  useEffect(()=>{
-    if(open){
-      setTimeout(()=>{
-        setModalEntranceDelay(false)
-      }, 1000)
-      setTimeout(()=>{
-        setSecondOptionModalEntranceDelay(false)
-      }, 1200)
+  const handleModalEntranceDelay = () => {
+    setModalEntranceDelay(true);
+    setSecondOptionModalEntranceDelay(true);
+    setTimeout(() => {
+      setModalEntranceDelay(false);
+    }, 1000);
+    setTimeout(() => {
+      setSecondOptionModalEntranceDelay(false);
+    }, 1200);
+  };
 
-    }
-  }, [open])
+  useEffect(()=>{
+      setTimeout(() => {
+        setModalEntranceDelay(false);
+      }, 1000);
+      setTimeout(() => {
+        setSecondOptionModalEntranceDelay(false);
+      }, 1200);
+  }, [specific_employee_info])
 
   return (
     <Fragment>
@@ -787,7 +795,7 @@ export default function DataTable() {
                 </Tabs>
               </CardBody>
             </Card> */}
-            <SpecificEmployee modalEntranceDelay={modalEntranceDelay} secondOptionModalEntranceDelay={secondOptionModalEntranceDelay}/>
+            <SpecificEmployee modalEntranceDelay={modalEntranceDelay} secondOptionModalEntranceDelay={secondOptionModalEntranceDelay} loadingEffect={handleModalEntranceDelay}/>
           </Box>
         </Modal>
       </div>
