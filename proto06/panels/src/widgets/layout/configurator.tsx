@@ -44,7 +44,7 @@ export function Configurator() {
   const [controller, dispatch] = useMaterialTailwindController();
   const { openConfigurator, sidenavColor, sidenavType, fixedNavbar } =
     controller;
-  const [stars, setStars] = React.useState(0);
+  const [stars, setStars] = React.useState(1);
 
   const sidenavColors: Record<string, string> = {
     blue: "from-blue-400 to-blue-600",
@@ -55,13 +55,13 @@ export function Configurator() {
     pink: "from-pink-400 to-pink-600",
   };
 
-  React.useEffect(() => {
-    const stars = fetch(
-      "https://api.github.com/repos/creativetimofficial/material-tailwind-dashboard-react"
-    )
-      .then((response) => response.json())
-      .then((data) => setStars(formatNumber(data.stargazers_count, 1)));
-  }, []);
+  // React.useEffect(() => {
+  //   const stars = fetch(
+  //     "https://api.github.com/repos/creativetimofficial/material-tailwind-dashboard-react"
+  //   )
+  //     .then((response) => response.json())
+  //     .then((data) => setStars(formatNumber(data.stargazers_count, 1)));
+  // }, []);
 
   return (
     <aside
@@ -174,7 +174,7 @@ export function Configurator() {
           </div>
           <a
             className="mx-auto flex items-center justify-center gap-2"
-            href="https://github.com/creativetimofficial/material-tailwind-dashboard-react"
+            // href="https://github.com/creativetimofficial/material-tailwind-dashboard-react"
             target="_blank"
             rel="noreferrer"
           >
