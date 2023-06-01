@@ -58,8 +58,22 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 export const SpecificEmployee = (props: initialState) => {
     const [file, setFile] = useState<File | null>(null);
+    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+    
     const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFile(event.target.files ? event.target.files[0] : null);
+        // setFile(event.target.files ? event.target.files[0] : null);
+        const selectedFile = event.target.files ? event.target.files[0] : null;
+        setFile(selectedFile);
+    
+        if (selectedFile) {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            setPreviewUrl(reader.result as string);
+          };
+          reader.readAsDataURL(selectedFile);
+        } else {
+          setPreviewUrl(null);
+        }
     };
     console.log(file, "mamaw")
     const {modalEntranceDelay, secondOptionModalEntranceDelay, loadingEffect} = props;
@@ -160,13 +174,16 @@ export const SpecificEmployee = (props: initialState) => {
                         className="m-0 grid place-items-center rounded-b-none py-8 px-4 text-center"
                     >
                         <div className="mb-4 rounded-full border border-white/10 bg-white/10 p-6 text-white">
-                        {!userData?.employee_image ? 
+                        {!userData?.employee_image && !previewUrl ? 
                         
-                        <UserIcon className="h-10 w-10" />:
-                        <Avatar sx={{ width: 100, height: 100, objectFit: 'contain' }} src={`http://172.16.168.155:8000${userData?.employee_image}`}/>
+                        <UserIcon className="h-10 w-10" />
+                        :
+                        previewUrl ? 
+                        <Avatar sx={{ width: 100, height: 100, objectFit: 'contain' }} src={`${previewUrl}`} alt="Preview"/>
+                        :
+                        <Avatar sx={{ width: 100, height: 100, objectFit: 'contain' }} src={`http://172.16.168.155:8000${userData?.employee_image}`} alt="Avatar"/>
                         }
                         </div>
-                        {/* <Avatar className="h-10 w-10" src={`http://172.16.168.155:8000${userData?.employee_image}`}/> */}
                         <Typography variant="h4" color="white">
                         Full Name: {userData?.first_name} {userData?.middle_name} {userData?.last_name}
                         </Typography>
