@@ -41,7 +41,7 @@ export function DashboardNavbar() {
   const dispatchV2 = useDispatch();
   //let's connect to the store
   const { employee_detail }= useSelector((state: RootState) => state.auth);
-  // console.log(employee_detail, "meow1111")
+  console.log(employee_detail, "meow1111")
   const [controller, dispatch] = useMaterialTailwindController();
   const { fixedNavbar, openSidenav } = controller;
   const { pathname } = useLocation();
@@ -141,7 +141,11 @@ export function DashboardNavbar() {
           <Menu>
             <MenuHandler>
               <Button variant="text" color="blue-gray" className="items-center gap-1 px-4 xl:flex">
-                <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
+                 {!employee_detail?.employee_image ? 
+                 <UserCircleIcon className="h-7 w-7 text-blue-gray-500" /> 
+                  :
+                  <img className="h-7 w-7 text-blue-gray-500" src={`http://172.16.168.155:8000${employee_detail?.employee_image}`} style={{borderRadius: "10px", objectFit: "cover", border: "1px solid white", marginRight: "2px", boxShadow: "1px 1px 1px gray"}}/> 
+                } 
                  <p className="hidden xl:flex"> Welcome, {employee_detail?.first_name} </p>
               </Button>
             </MenuHandler>
