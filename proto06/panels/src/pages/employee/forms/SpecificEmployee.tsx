@@ -123,6 +123,11 @@ export const SpecificEmployee = (props: initialState) => {
             );
             console.log(response.data);
             loadingEffect();
+            if(file){
+                setTimeout(()=> {
+                    location.reload();
+                }, 1500)
+            }
           } catch (err) {
             console.error(err);
           }
@@ -176,7 +181,7 @@ export const SpecificEmployee = (props: initialState) => {
                         <div className="mb-4 rounded-full border border-white/10 bg-white/10 p-6 text-white">
                         {!userData?.employee_image && !previewUrl ? 
                         
-                        <UserIcon className="h-10 w-10" />
+                        <UserIcon className="h-24 w-24" />
                         :
                         previewUrl ? 
                         <Avatar sx={{ width: 100, height: 100, objectFit: 'contain' }} src={`${previewUrl}`} alt="Preview"/>
