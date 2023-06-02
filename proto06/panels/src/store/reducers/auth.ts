@@ -1,5 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { userLogin, userLoginSuccess, userLoginFailure, userLogout } from '../actions/auth';
+import { 
+  userLogin, 
+  userLoginSuccess, 
+  userLoginFailure, 
+  userLogout,
+  // fetchUserData,
+  fetchUserDataSuccess,
+  // fetchUserDataFailure,
+} from '../actions/auth';
 import { UserType, EmployeeDetailsType } from '@/types/types-store';
 
 
@@ -31,15 +39,13 @@ export const authSlice = createSlice({
         state.error = null;
       })
       .addCase(userLoginSuccess, (state, action) => 
-      
-      { console.log(action.payload, "mamawww223232");
+      { 
         state.isAuthenticated = true;
         state.token = action.payload.jwt; // Update this line to access the JWT from the payload
         state.user = action.payload.user; // Store user and employee details
         state.employee_detail = action.payload.employee_detail;
         state.error = null;
       }
-      
       )
       .addCase(userLoginFailure, (state, action) => {
         state.isAuthenticated = false;
@@ -50,6 +56,13 @@ export const authSlice = createSlice({
         state.isAuthenticated = false;
         state.token = null;
         state.error = null;
+        state.employee_detail = null; 
+      })
+      // .addCase(fetchUserData, (state) => {
+      //   state.employee_detail = null; 
+      // })
+      .addCase(fetchUserDataSuccess, (state, action) => {
+        state.employee_detail = action.payload.employee_detail;
       });
   },
 });
