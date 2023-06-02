@@ -29,26 +29,35 @@ import {
 
 //Functionalities for Logout
 import { useDispatch } from "react-redux";
-import { userLogout } from "@/store/actions/auth";
+import { fetchUserData, userLogout } from "@/store/actions/auth";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/reducers";
+import { useEffect } from "react";
 
 
 export function DashboardNavbar() {
   const navigate = useNavigate();
-  const dispatchV2 = useDispatch();
-  //let's connect to the store
+  const dispatchV2 = useDispatch();  
   const { employee_detail }= useSelector((state: RootState) => state.auth);
-  console.log(employee_detail, "meow1111")
+  // const hello = useSelector((state: RootState)=> state);
+
+  useEffect(()=>{
+    if(employee_detail?.emp_no){
+      dispatchV2(fetchUserData({emp_no: employee_detail?.emp_no}))
+    }
+  }, [])
+  // "/media/image/prof6_2wAfFr1.jpg"
+
+  // console.log(hello, "meow1111")
   const [controller, dispatch] = useMaterialTailwindController();
   const { fixedNavbar, openSidenav } = controller;
   const { pathname } = useLocation();
   const [layout, page, innermostpage] = pathname.split("/").filter((el) => el !== "");
   // console.log(pathname, "meowww", pathname.split("/").filter((el) => el !== ""), innermostpage, "aaa");
   
-
+  const updatedImage = employee_detail?.employee_image;
   const handleLogout = () => {
     // Perform logout actions here
     const removals = ['token', 'user', 'employee_detail'];
@@ -144,7 +153,7 @@ export function DashboardNavbar() {
                  {!employee_detail?.employee_image ? 
                  <UserCircleIcon className="h-7 w-7 text-blue-gray-500" /> 
                   :
-                  <img className="h-7 w-7 text-blue-gray-500" src={`http://172.16.168.155:8000${employee_detail?.employee_image}`} style={{borderRadius: "10px", objectFit: "cover", border: "1px solid white", marginRight: "2px", boxShadow: "1px 1px 1px gray"}}/> 
+                  <img className="h-7 w-7 text-blue-gray-500" src={`http://172.16.168.155:8000${updatedImage}`} style={{borderRadius: "10px", objectFit: "cover", border: "1px solid white", marginRight: "2px", boxShadow: "1px 1px 1px gray"}}/> 
                 } 
                  <p className="hidden xl:flex"> Welcome, {employee_detail?.first_name} </p>
               </Button>
