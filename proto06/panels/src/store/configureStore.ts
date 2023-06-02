@@ -3,7 +3,7 @@ import { createEpicMiddleware } from 'redux-observable';
 import { combineEpics } from 'redux-observable';
 import { authReducer } from './reducers/auth';
 import { employeesReducer } from './reducers/employees';
-import { authEpic } from './epics/auth';
+import { authEpic, fetchUserDataEpic } from './epics/auth';
 import { employeesListEpic, employeesSpecificEpic } from './epics/employees';
 
 const epicMiddleware = createEpicMiddleware();
@@ -18,7 +18,7 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(epicMiddleware),
 });
 
-epicMiddleware.run(combineEpics(authEpic, employeesListEpic, employeesSpecificEpic));
+epicMiddleware.run(combineEpics(authEpic, fetchUserDataEpic, employeesListEpic, employeesSpecificEpic));
 
 export type RootState = ReturnType<typeof rootReducer>;
 export default store;
