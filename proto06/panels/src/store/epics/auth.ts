@@ -1,5 +1,5 @@
 import { ofType } from 'redux-observable';
-import { map, catchError, switchMap, mergeMap } from 'rxjs/operators';
+import { map, catchError, switchMap, mergeMap, tap } from 'rxjs/operators';
 import { of, from } from 'rxjs';
 import axios from 'axios';
 import Cookies from 'js-cookie'
@@ -11,7 +11,7 @@ const loginApiCall = async (username: string, password: string, twoFactorToken?:
 
     // const response = await axios.post("https://bitverse-api.herokuapp.com/login", {
     // const response = await axios.post("http://172.16.168.144:8888/login", {
-    const response = await axios.post("http://172.16.168.155:8000/api/login/", {
+    const response = await axios.post(`http://172.16.168.155:8000/api/login/`, {
     username,
     password,
     ...(twoFactorToken ? { twoFactorToken } : {}),
@@ -46,3 +46,38 @@ export const authEpic: Epic = (action$, state$) =>
       )
     )
 );
+
+import { fetchUserData, fetchUserDataSuccess, fetchUserDataFailure, } from '../actions/auth';
+
+
+// New API call function
+const fetchUserDataApiCall = async (emp_no: Number) => {
+  // console.log("paaa?")
+  const response = await axios.get(`http://172.16.168.155:8000/api/employees/${emp_no}`);
+  // console.log(response, emp_no, "halelujah")
+  return response.data;
+};
+
+// New Epic
+export const fetchUserDataEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(fetchUserData.type),
+    // tap(action => console.log('Received action in Epic:', action)), // Console logger
+    switchMap((action: ReturnType<typeof fetchUserData>) =>
+      from(fetchUserDataApiCall(action.payload.emp_no)).pipe(
+        map((data) => {
+          console.log(data, "cookies to")
+          // Cookies.set('user', JSON.stringify(data.user), { expires: 1 / 24, secure: true });
+          Cookies.set('employee_detail', JSON.stringify(data), { expires: 1 / 24, secure: true });
+          return fetchUserDataSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data.error) {
+            return of(fetchUserDataFailure(error.response.data.error)); 
+          } else {
+            return of(fetchUserDataFailure(error.message)); 
+          }
+        })
+      )
+    )
+  );
