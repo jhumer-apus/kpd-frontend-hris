@@ -157,7 +157,10 @@ export const SpecificEmployee = (props: initialState) => {
             const value = data[key];
             if (value !== null && value !== undefined && value !== "") {
                 if(key === "employee_image" && file){
+                    // console.log("nandtio ba?")
                     formData.append(key, file);
+                }else if(key==="employee_image" && !file){
+                    return
                 }else {
                     formData.append(key, value);
                 }
@@ -451,9 +454,29 @@ export const SpecificEmployee = (props: initialState) => {
                                     color="blue-gray"
                                     className="mb-4 font-medium"
                                     >
-                                    Profile Details
+                                    Profile Details 
                                     </Typography>
-                                    <input disabled={!editMode2} type="file" accept="image/*" {...register('employee_image')} onChange={onFileChange} />
+                                    <Typography variant="small" className="mb-1">
+                                    Profile Picture *accepts PNG file only
+                                    </Typography>
+                                    <input 
+                                        {...register('employee_image')}
+                                        disabled={!editMode2} 
+                                        type="file" 
+                                        accept=".png"  
+                                        className="mb-3"
+                                        onChange={e => {
+                                            if (e.target.files && e.target.files.length > 0) {
+                                                const file = e.target.files[0];
+                                                if (file && file.size < 100000) { // size in bytes
+                                                    onFileChange(e);
+                                                } else {
+                                                    alert('File should be .png and less than 5MB');
+                                                    e.target.value = ''; // clear the selected file
+                                                }
+                                            }
+                                        }} 
+                                    />
                                     <div className="my-4 flex items-center gap-4">
                                     <Input
                                         {...register('first_name')} 
