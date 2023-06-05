@@ -16,6 +16,7 @@ import AdminPortal from "./pages/dashboard/admin-portal/adminPortal";
 import DataTable from "./pages/employee/Employee201";
 import { SignIn, SignUp } from "@/pages/auth";
 import { IRoute } from "./types";
+import Timekeeping from "./pages/dtr/timekeeping/Timekeeping";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -107,7 +108,7 @@ export const routes: Array<IRoute> = [
             icon: <TableCellsIcon {...icon} />,
             name: "Timekeeping",
             path: "/DTR/timekeeping",
-            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">TIMEKEEPING PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+            element: <Timekeeping/>,
             hasSubItems: false,
           },
           {
