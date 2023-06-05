@@ -457,7 +457,7 @@ export const SpecificEmployee = (props: initialState) => {
                                     Profile Details 
                                     </Typography>
                                     <Typography variant="small" className="mb-1">
-                                    Profile Picture *accepts PNG file only
+                                    Profile Picture *accepts PNG file only, max 1MB size
                                     </Typography>
                                     <input 
                                         {...register('employee_image')}
