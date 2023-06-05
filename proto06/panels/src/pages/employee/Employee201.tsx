@@ -185,11 +185,40 @@ export default function DataTable() {
       }, 1200);
   }, [specific_employee_info])
 
+  const data = employees_list;
+  function convertToCSV(data: GetEmployeesListsType[]) {
+    const replacer = (key: string, value: any) => value === null ? '' : value;
+    const header = Object.keys(data[0]);
+    const csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
+    console.log(csv, "step1", csv.unshift(header.join(',')), "step2", csv.join('\r\n'), "step3");
+    csv.unshift(header.join(','));
+    return csv.join('\r\n');
+  };
+  function downloadCSV(csv: string, filename: string) {
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+  const handleDownload = () => {
+    if(!data){
+      return; //Todo: Error Handling 
+    }
+    const csv = convertToCSV(data);
+    downloadCSV(csv, 'EmployeesList.csv');
+  };
+
   return (
     <Fragment>
       <div className="my-4 flex flex-wrap items-center gap-4">
         <Button 
           className='mb-4'
+          variant='gradient'
+          color='indigo'
           onClick={()=>{handleOpen2()}}
         >
         + Add Employee
@@ -208,11 +237,20 @@ export default function DataTable() {
         </Modal>
         <Button 
           className='mb-4 flex gap-2'
+          color='indigo'
+          variant='gradient'
+          onClick={handleDownload}>
+        
+        <ArrowUpTrayIcon style={{height: '15px'}}/> Export / Download as CSV
+        </Button>
+        <Button 
+          className='mb-4 flex gap-2'
           variant='outlined'
+          color='indigo'
           // icon={<ArrowUpTrayIcon/>}
           onClick={()=>{handleOpen3()}}
         >
-        <ArrowUpTrayIcon style={{height: '15px'}}/> Import TSV File Employee
+        <ArrowUpTrayIcon style={{height: '15px'}}/> Import / Bulk Entry Employee CSV 
         </Button>
         <Modal
             open={open3}
@@ -226,6 +264,7 @@ export default function DataTable() {
             <ImportEmployee/>
             </Box>
         </Modal>
+
       </div>
       <div style={{ height: 800, width: '100%' }}>
         <DataGrid
