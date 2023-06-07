@@ -10,6 +10,11 @@ import {
   SpeakerWaveIcon,
   QuestionMarkCircleIcon
 } from "@heroicons/react/24/solid";
+import PunchClockOutlinedIcon from '@mui/icons-material/PunchClockOutlined';
+import SummarizeIcon from '@mui/icons-material/Summarize';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+import MergeIcon from '@mui/icons-material/Merge';
+import TableViewIcon from '@mui/icons-material/TableView';
 import { ChooseDashboard, Profile, Tables, Notifications } from "@/pages";
 import HRISDashboard from "./pages/dashboard/hris-portal/hrisPortal";
 import AdminPortal from "./pages/dashboard/admin-portal/adminPortal";
@@ -89,7 +94,7 @@ export const routes: Array<IRoute> = [
       },
       {
         id: 1300,
-        icon: <TableCellsIcon {...icon} />,
+        icon: <PunchClockOutlinedIcon {...icon} />,
         name: "DTR",
         path: "/DTR",
         element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-pink-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">DTR PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
@@ -97,76 +102,76 @@ export const routes: Array<IRoute> = [
         subItems: [
           {
             id: 1310,
-            icon: <TableCellsIcon {...icon} />,
-            name: "Scheduler",
-            path: "/DTR/scheduler",
-            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">SCHEDULER PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
-            hasSubItems: false,
-          },
-          {
-            id: 1320,
-            icon: <TableCellsIcon {...icon} />,
-            name: "Timekeeping",
-            path: "/DTR/timekeeping",
+            icon: <SummarizeIcon {...icon} />,
+            name: "View DTR Reports",
+            path: "/DTR/View-DTR",
             element: <Timekeeping/>,
             hasSubItems: false,
           },
           {
+            id: 1320,
+            icon: <UploadFileIcon {...icon} />,
+            name: "Upload DTR Logs",
+            path: "/DTR/upload-logs",
+            element: <div>Coming soon</div>,
+            hasSubItems: false,
+          },
+          {
             id: 1330,
-            icon: <TableCellsIcon {...icon} />,
-            name: "Biometrics Data",
-            path: "/DTR/biometrics-data",
-            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">BIOMETRICS DATA PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+            icon: <MergeIcon {...icon} />,
+            name: "Merge DTR Logs",
+            path: "/DTR/Merge-DTR",
+            element: <div>Coming Soon</div>,
             hasSubItems: false,
           },
           {
             id: 1340,
-            icon: <TableCellsIcon {...icon} />,
-            name: "DTR Summary",
-            path: "/DTR/dtr-summary",
-            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">DTR SUMMARY PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+            icon: <TableViewIcon {...icon} />,
+            name: "Create DTR Summary",
+            path: "/DTR/create-summary",
+            element: <div>Coming Soon</div>,
             hasSubItems: false,
           },
-          {
-            id: 1350,
-            icon: <TableCellsIcon {...icon} />,
-            name: "Leaves",
-            path: "/DTR/leaves",
-            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">LEAVES FILING PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
-            hasSubItems: false,
-          },
-          {
-            id: 1360,
-            icon: <TableCellsIcon {...icon} />,
-            name: "Overtime",
-            path: "/DTR/overtime",
-            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">OVERTIME FILING PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
-            hasSubItems: false,
-          },
-          {
-            id: 1370,
-            icon: <TableCellsIcon {...icon} />,
-            name: "Official Business Trip",
-            path: "/DTR/offical-business-trip",
-            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">OFFICIAL BUSINESS TRIP FILING PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
-            hasSubItems: false,
-          },
-          {
-            id: 1380,
-            icon: <TableCellsIcon {...icon} />,
-            name: "U.A",
-            path: "/DTR/unaccounted-attendance",
-            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">UNACCOUNTED ATTENDANCE FILING PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
-            hasSubItems: false,
-          },
-          {
-            id: 1390,
-            icon: <TableCellsIcon {...icon} />,
-            name: "Maternity",
-            path: "/DTR/maternity",
-            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">MATERNITY FILING PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
-            hasSubItems: false,
-          },
+          // {
+          //   id: 1350,
+          //   icon: <TableCellsIcon {...icon} />,
+          //   name: "Leaves",
+          //   path: "/DTR/leaves",
+          //   element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">LEAVES FILING PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+          //   hasSubItems: false,
+          // },
+          // {
+          //   id: 1360,
+          //   icon: <TableCellsIcon {...icon} />,
+          //   name: "Overtime",
+          //   path: "/DTR/overtime",
+          //   element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">OVERTIME FILING PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+          //   hasSubItems: false,
+          // },
+          // {
+          //   id: 1370,
+          //   icon: <TableCellsIcon {...icon} />,
+          //   name: "Official Business Trip",
+          //   path: "/DTR/offical-business-trip",
+          //   element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">OFFICIAL BUSINESS TRIP FILING PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+          //   hasSubItems: false,
+          // },
+          // {
+          //   id: 1380,
+          //   icon: <TableCellsIcon {...icon} />,
+          //   name: "U.A",
+          //   path: "/DTR/unaccounted-attendance",
+          //   element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">UNACCOUNTED ATTENDANCE FILING PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+          //   hasSubItems: false,
+          // },
+          // {
+          //   id: 1390,
+          //   icon: <TableCellsIcon {...icon} />,
+          //   name: "Maternity",
+          //   path: "/DTR/maternity",
+          //   element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">MATERNITY FILING PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+          //   hasSubItems: false,
+          // },
         ]
       },
       {

@@ -1,0 +1,73 @@
+DTR raw data view Page - Displaying the data from TBL_DTR_ENTRY from 
+GET DTR Entries
+'172.16.168.155:8000/api/dtr'
+
+
+DTR Summary Page for Employees from TBL_DTR_SUMMARY
+DTR summary Page with DTR card layout for individual viewing. From TBL_DTR_SUMMARY
+
+
+
+View DTR Records' Page 
+
+View All DTR Logs/Entries => Split Different Component ('172.16.168.155:8000/api/dtr')
+Explanation: You can view all raw and unmerged logs of employees here. Sortable and filterable by (Entry ID, Emp. No, Name, Entry Type, Entry Time, Entry Date, Branch Code, Processed)
+
+ {
+    "id": 447, == Entry ID
+    "datetime_bio": "2023-05-17T08:05:23", = 
+    "flag1_in_out": false,
+    "flag2_lout_lin": null,
+    "entry_type": "DIN",
+    "date_uploaded": "2023-06-02T11:36:01.843028",
+    "is_processed": false,
+    "emp_no": 9990,
+    "bio_id": 123,
+    "branch_code": 1,
+    "schedule_daily_code": 2
+  },
+
+
+View Merged DTR Logs => Split Different Component ('172.16.168.155:8000/api/dtr_summary/')
+Explanation: You can view merged logs of all employees here, showing the total hours and details of each logs. Sortable and filterable by (Entry ID, Business Date, Emp. No, Name, Time In, Time Out, Total Hours)
+
+  {
+    "id": 461,
+    "business_date": "2023-05-16",
+    "shift_name": "Morning Shift",
+    "duty_in": "2023-05-16T07:55:00",
+    "duty_out": "2023-05-16T17:00:23",
+    "sched_timein": "08:00:00",
+    "sched_timeout": "17:00:00",
+    "is_sched_restday": false,
+    "lunch_out": null,
+    "lunch_in": null,
+    "is_paid_leave": false,
+    "paid_leave_type": null,
+    "reg_ot_total": 0,
+    "nd_ot_total": 0,
+    "is_obt": false,
+    "is_sp_holiday": false,
+    "is_reg_holiday": false,
+    "is_ua": false,
+    "is_absent": false,
+    "overbreak": null,
+    "lates": 0,
+    "undertime": 0,
+    "total_hours": 480,
+    "adjusted_timein": null,
+    "adjusted_timeout": null,
+    "is_computed": false,
+    "emp_no": 9990,
+    "cutoff_code": 1
+  },
+
+View Cutoff DTR Summary => Split Different Component ('172.16.168.155:8000/api/dtr_summary/')
+Explanation: You can view merged logs of all employees here, showing the total hours and details of each logs. Sortable and filterable by (Entry ID, Business Date, Emp. No, Name, Time In, Time Out, Total Hours)
+
+
+
+
+
+View Employee Specific DTR => Split Different Component ('172.16.168.155:8000/api/dtr_cutoff_summary/')
+Explanation: You can view merged logs of all employees here, showing the total hours and details of each logs. Sortable and filterable by (Entry ID, Business Date, Emp. No, Name, Time In, Time Out, Total Hours)

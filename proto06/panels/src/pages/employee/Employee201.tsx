@@ -275,7 +275,7 @@ export default function DataTable() {
               paginationModel: { page: 0, pageSize: 25 },
             },
           }}
-          pageSizeOptions={[25, 30]}
+          pageSizeOptions={[25, 30, 35, 40]}
           // checkboxSelection
           onRowClick={(e) => {
             handleOpen()
