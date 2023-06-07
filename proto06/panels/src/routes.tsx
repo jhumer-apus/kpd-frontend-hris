@@ -21,7 +21,8 @@ import AdminPortal from "./pages/dashboard/admin-portal/adminPortal";
 import DataTable from "./pages/employee/Employee201";
 import { SignIn, SignUp } from "@/pages/auth";
 import { IRoute } from "./types";
-import Timekeeping from "./pages/dtr/timekeeping/Timekeeping";
+import ViewDtrReports from "./pages/dtr/view-dtr-reports/view-dtr-reports";
+// import Timekeeping from "./pages/dtr/timekeeping/Timekeeping";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -105,7 +106,7 @@ export const routes: Array<IRoute> = [
             icon: <SummarizeIcon {...icon} />,
             name: "View DTR Reports",
             path: "/DTR/View-DTR",
-            element: <Timekeeping/>,
+            element: <ViewDtrReports/>,
             hasSubItems: false,
           },
           {
