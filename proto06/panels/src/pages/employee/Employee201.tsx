@@ -55,7 +55,7 @@ const columns: GridColDef[] = [
     headerName: 'Prof Pic',
     width: 150,
     renderCell: (params: GridCellParams) => {
-      console.log(params, "maoaoa");
+      // console.log(params, "maoaoa");
       if (params.value){
         return(
           
@@ -158,8 +158,8 @@ export default function DataTable() {
   }
 
   // Console Tests
-  console.log(specific_employee_info, "eto un taeaaaaaaa", employees_list, "eto un list");
-  console.log(specific_employee_info?.user?.is_superuser, "eto un tae", employees_list, "eto un list");
+  // console.log(specific_employee_info, "eto un taeaaaaaaa", employees_list, "eto un list");
+  // console.log(specific_employee_info?.user?.is_superuser, "eto un tae", employees_list, "eto un list");
 
   // const countries = [{name: "Philippines"}, {name: "United States"}, {name: "Canada"}, {name: "Australia"}];
   // const [dateInput, setDateInput] = useState('');
@@ -190,7 +190,7 @@ export default function DataTable() {
     const replacer = (key: string, value: any) => value === null ? '' : value;
     const header = Object.keys(data[0]);
     const csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
-    console.log(csv, "step1", csv.unshift(header.join(',')), "step2", csv.join('\r\n'), "step3");
+    // console.log(csv, "step1", csv.unshift(header.join(',')), "step2", csv.join('\r\n'), "step3");
     csv.unshift(header.join(','));
     return csv.join('\r\n');
   };
@@ -281,7 +281,8 @@ export default function DataTable() {
             handleOpen()
             setModalEntranceDelay(true)
             setSecondOptionModalEntranceDelay(true)
-            console.log(e, dispatchSpecificEmployeeInfo(e.row?.emp_no))
+            dispatchSpecificEmployeeInfo(e.row?.emp_no)
+            // console.log(e, dispatchSpecificEmployeeInfo(e.row?.emp_no))
           }}
           style={{ cursor: 'pointer'}}
         />

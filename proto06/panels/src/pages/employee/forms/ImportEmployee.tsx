@@ -31,7 +31,7 @@ export const ImportEmployee = () => {
     const dispatch = useDispatch();
     const userData = useSelector((state: RootState) => state.employees.specific_employee_info);
     const [editMode, setEditMode] = useState(true);
-    console.log(userData, "maasd")
+    // console.log(userData, "maasd")
 
 
     useEffect(() => {
