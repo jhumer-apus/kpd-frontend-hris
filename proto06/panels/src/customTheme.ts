@@ -4,9 +4,10 @@ import { createTheme } from '@mui/material/styles';
 
 const customTheme = createTheme({
   palette: {
-    // "myCustomColor": {
-    //   main: '#ff69b4', // pink color
-    // },
+    primary: {
+      main: "#ff69b4",
+      dark: "#053e85",
+    },
   },
 });
 
@@ -14,4 +15,4 @@ export const myCustomColor = {
     main: "ff69b4"
 }
 
-export default myCustomColor;
+export default customTheme;
