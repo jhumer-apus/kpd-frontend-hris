@@ -66,7 +66,7 @@ export const fetchUserDataEpic: Epic = (action$, state$) =>
     switchMap((action: ReturnType<typeof fetchUserData>) =>
       from(fetchUserDataApiCall(action.payload.emp_no)).pipe(
         map((data) => {
-          console.log(data, "cookies to")
+          // console.log(data, "cookies to")
           // Cookies.set('user', JSON.stringify(data.user), { expires: 1 / 24, secure: true });
           Cookies.set('employee_detail', JSON.stringify(data), { expires: 1 / 24, secure: true });
           return fetchUserDataSuccess(data);

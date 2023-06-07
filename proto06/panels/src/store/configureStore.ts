@@ -5,12 +5,14 @@ import { authReducer } from './reducers/auth';
 import { employeesReducer } from './reducers/employees';
 import { authEpic, fetchUserDataEpic } from './epics/auth';
 import { employeesListEpic, employeesSpecificEpic } from './epics/employees';
+import { dtrReducer } from './reducers/dtr';
 
 const epicMiddleware = createEpicMiddleware();
 
 const rootReducer = combineReducers({
   auth: authReducer,
   employees: employeesReducer,
+  dtr: dtrReducer,
 });
 
 const store = configureStore({
