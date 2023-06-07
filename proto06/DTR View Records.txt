@@ -62,10 +62,29 @@ Explanation: You can view merged logs of all employees here, showing the total h
     "cutoff_code": 1
   },
 
-View Cutoff DTR Summary => Split Different Component ('172.16.168.155:8000/api/dtr_summary/')
+View Cutoff DTR Summary => Split Different Component ('172.16.168.155:8000/api/dtr_cutoff_summary/')
 Explanation: You can view merged logs of all employees here, showing the total hours and details of each logs. Sortable and filterable by (Entry ID, Business Date, Emp. No, Name, Time In, Time Out, Total Hours)
 
-
+{
+        "id": 63,
+        "business_date_from": "2023-05-16",
+        "business_date_to": "2023-05-31",
+        "paid_leaves_total": 0,
+        "reg_ot_total": 300,
+        "nd_ot_total": 0,
+        "sp_holiday_total": 0,
+        "reg_holiday_total": 1,
+        "absent_total": 0,
+        "leaves_type_used": null,
+        "overbreak_total": null,
+        "lates_total": 220,
+        "undertime_total": 548,
+        "total_hours": 10273,
+        "is_processed": false,
+        "date_deleted": null,
+        "emp_no": 9990,
+        "cutoff_code": 1
+    },
 
 
 
