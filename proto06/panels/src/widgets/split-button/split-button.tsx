@@ -22,7 +22,7 @@ interface SplitButtonProps {
 export default function SplitButton(props?:SplitButtonProps) {
   const dispatch = useDispatch();
   const viewDTRRecordsState = useSelector((state: RootState)=> state.dtr);
-  const defaultViewRecords = viewDTRRecordsState?.index || 0;
+  const defaultViewRecords = viewDTRRecordsState?.viewDtrReports?.splitButton?.spButtonIndex || 0;
   // console.log(magad, "checking")
   const options = props?.options || ['Create a merge commit', 'Squash and merge', 'Rebase and merge'];
   const [open, setOpen] = React.useState(false);
