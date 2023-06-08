@@ -177,3 +177,6 @@ export interface ViewCutoffDtrSummaryType {
     emp_no: number,
     cutoff_code: number,
 };
+
+
+export type DtrData = Array<ViewAllDtrLogsType> | Array<ViewMergedDtrLogsType> | Array<ViewCutoffDtrSummaryType> | null;
