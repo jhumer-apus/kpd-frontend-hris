@@ -6,6 +6,7 @@ import { employeesReducer } from './reducers/employees';
 import { authEpic, fetchUserDataEpic } from './epics/auth';
 import { employeesListEpic, employeesSpecificEpic } from './epics/employees';
 import { dtrReducer } from './reducers/dtr';
+import { viewAllDtrLogsEpic, viewMergedDtrLogsEpic, viewCutoffDtrSummaryEpic } from './epics/dtr';
 
 const epicMiddleware = createEpicMiddleware();
 
@@ -20,7 +21,15 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(epicMiddleware),
 });
 
-epicMiddleware.run(combineEpics(authEpic, fetchUserDataEpic, employeesListEpic, employeesSpecificEpic));
+epicMiddleware.run(combineEpics(
+  authEpic, 
+  fetchUserDataEpic, 
+  employeesListEpic, 
+  employeesSpecificEpic,
+  viewAllDtrLogsEpic, 
+  viewMergedDtrLogsEpic, 
+  viewCutoffDtrSummaryEpic,
+));
 
 export type RootState = ReturnType<typeof rootReducer>;
 export default store;
