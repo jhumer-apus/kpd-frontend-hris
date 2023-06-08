@@ -12,85 +12,49 @@ import { ImportEmployee } from './forms/ImportEmployee';
 
 import {
   Typography,
-  Card,
-  CardHeader,
-  CardBody,
-  Input,
-  Button,
-  Tabs,
-  Tab,
-  TabsHeader,
-  TabsBody,
-  TabPanel,
-  Select,
-  Option,
+  // Card,
+  // CardHeader,
+  // CardBody,
+  // Input,
+  // Button,
+  // Tabs,
+  // Tab,
+  // TabsHeader,
+  // TabsBody,
+  // TabPanel,
+  // Select,
+  // Option,
 } from "@material-tailwind/react";
-import {
-  LockClosedIcon,
-} from "@heroicons/react/24/solid";
-import {
-  UserIcon,
-  FingerPrintIcon,
-  AcademicCapIcon,
-  TvIcon,
-  UserGroupIcon,
-  WindowIcon,
-  ShieldCheckIcon,
-  LockClosedIcon as LockClosedOutline,
-  XCircleIcon,
-  CheckCircleIcon,
-  LockOpenIcon,
-  MapIcon,
-  UserPlusIcon,
-  XMarkIcon,
-  TagIcon,
-  ArrowUpTrayIcon,
-} from "@heroicons/react/24/outline";
+// import {
+//   LockClosedIcon,
+// } from "@heroicons/react/24/solid";
+// import {
+//   UserIcon,
+//   FingerPrintIcon,
+//   AcademicCapIcon,
+//   TvIcon,
+//   UserGroupIcon,
+//   WindowIcon,
+//   ShieldCheckIcon,
+//   LockClosedIcon as LockClosedOutline,
+//   XCircleIcon,
+//   CheckCircleIcon,
+//   LockOpenIcon,
+//   MapIcon,
+//   UserPlusIcon,
+//   XMarkIcon,
+//   TagIcon,
+//   ArrowUpTrayIcon,
+// } from "@heroicons/react/24/outline";
 import { SpecificEmployee } from './forms/SpecificEmployee';
+
 
 // import {Buttonicon as Button2} from '@mui/material/Button';
 import SplitButton from '@/widgets/split-button/split-button';
 import { viewDTROptions, viewDTRDescriptions } from '@/data/pages-data/dtr-data/view-dtr-reports';
-
-
-const columns: GridColDef[] = [
-  // { field: 'id', headerName: 'ID', width: 70 },
-//   {
-//     field: 'employee_image',
-//     headerName: 'Prof Pic',
-//     width: 150,
-//     renderCell: (params: GridCellParams) => {
-//       console.log(params, "maoaoa");
-//       if (params.value){
-//         return(
-          
-//           <img src={`http://172.16.168.155:8000${params.value as string}`} alt="" width="50" height="50" style={{borderRadius: "10px", height: "40px", width: "40px", objectFit: "cover", border: "1px solid white", boxShadow: "1px 1px 10px gray"}}/>
-//           )
-//       } else {
-//         return (
-//           null
-//         )    
-//       }
-//     },
-//   },
-  { field: 'emp_no', headerName: 'Employee #', width: 120 },
-  { field: 'first_name', headerName: 'First Name', width: 150 },
-  { field: 'last_name', headerName: 'Last Name', width: 150 },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params: GridValueGetterParams) =>
-      `${params.row.first_name || ''} ${params.row.last_name || ''}`,
-  },
-//   { field: 'date_hired', headerName: 'Date Hired', width: 150 },
-  { field: 'branch_code', headerName: 'Branch Code', width: 150 },
-//   { field: 'mobile_phone', headerName: 'Mobile Number', width: 150 },
-//   { field: `user`, headerName: 'Has HRIS Access', width: 150, valueGetter: (params: GridValueGetterParams) => `${params.row.user?.is_active ? 'Active' : 'No Access'}` },
-//   { field: 'bio_id', headerName: 'Biometrics ID', width: 150 },
-];
+import useDtrState from '@/custom-hooks/use-dtr-state';
+import { dynamicDTRColumns } from '@/data/pages-data/dtr-data/view-dtr-reports';
+import { viewAllDtrLogs, viewCutoffDtrSummary, viewMergedDtrLogs } from '@/store/actions/dtr';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -111,8 +75,10 @@ export default function ViewDtrReports() {
   const dispatch = useDispatch();
   const { register, handleSubmit, setValue, formState: { errors } } = useForm<GetEmployeesListsType>();
   const { employees_list, specific_employee_info } = useSelector((state: RootState) => state.employees);
-  const { index, str } = useSelector((state: RootState) => state.dtr);
+  const { spButtonIndex, spButtonStr, spButtonError, dtrStatus, dtrError, dtrData } = useDtrState();
   const [type, setType] = useState("staticInfo");
+
+  console.log(dtrStatus, "testing?")
 
   // Specific Employee Modal Form 
   // States: 
@@ -159,6 +125,15 @@ export default function ViewDtrReports() {
     dispatch(getEmployeesList());
   }, []);
 
+  useEffect(() => {
+    if(spButtonIndex !== null && spButtonIndex === 1 ){
+      dispatch(viewMergedDtrLogs());
+    } else if (spButtonIndex !== null && spButtonIndex === 2 ){
+      dispatch(viewCutoffDtrSummary());
+    } else {
+      dispatch(viewAllDtrLogs());
+    }
+  }, [spButtonIndex]);
   function dispatchSpecificEmployeeInfo(employee_number: number){
     return dispatch(getSpecificEmployeeInfo({employee_id: employee_number}));   
   }
@@ -166,14 +141,6 @@ export default function ViewDtrReports() {
   function dispatchSpecificEmployeeDTRSummary(employee_number: number){
     return dispatch(getSpecificEmployeeInfo({employee_id: employee_number}));   
   }
-
-
-  // Console Tests
-  // console.log(specific_employee_info, "eto un taeaaaaaaa", employees_list, "eto un list");
-  // console.log(specific_employee_info?.user?.is_superuser, "eto un tae", employees_list, "eto un list");
-
-  // const countries = [{name: "Philippines"}, {name: "United States"}, {name: "Canada"}, {name: "Australia"}];
-  // const [dateInput, setDateInput] = useState('');
 
   // Side Effects
   const handleModalEntranceDelay = () => {
@@ -276,14 +243,14 @@ export default function ViewDtrReports() {
             </Box>
         </Modal> */}
         <SplitButton options={viewDTROptions}/>
-        <Typography style={{width: "32%", fontSize: "12px", fontWeight: "400"}}>
-          <i>{viewDTRDescriptions[index === null ? 0 : index]}</i>
+        <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400"}}>
+          <i>{viewDTRDescriptions[spButtonIndex === null ? 0 : spButtonIndex]}</i>
         </Typography>
       </div>
       <div style={{ height: 800, width: '100%' }}>
         <DataGrid
-          rows={employees_list ?? []}
-          columns={columns}
+          rows={dtrData ?? []}
+          columns={dynamicDTRColumns[spButtonIndex === null ? 0 : spButtonIndex]}
           initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 25 },
