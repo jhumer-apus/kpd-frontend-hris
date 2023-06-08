@@ -14,14 +14,14 @@ export const viewDTRDescriptions = [
   "Nondescript"
 ];
 
-const dynamicDTRColumns: Array<GridColDef[]> = 
+export const dynamicDTRColumns: Array<GridColDef[]> = 
 [
   [
     { field: 'id', headerName: 'Entry ID', width: 120 },
-    { field: 'emp_no', headerName: 'Employee Number', width: 120 },
+    { field: 'emp_no', headerName: 'Employee #', width: 120 },
     { field: 'entry_type', headerName: 'Entry Type', width: 120 },
     {
-      field: 'datetime_bio',
+      field: 'datetime_bio_date',
       headerName: 'Entry Date',
       width: 150,
       valueGetter: (params: GridValueGetterParams) => {
@@ -30,12 +30,14 @@ const dynamicDTRColumns: Array<GridColDef[]> =
       },
     },
     {
-      field: 'datetime_bio',
+      field: 'datetime_bio_time',
       headerName: 'Entry Time',
       width: 150,
       valueGetter: (params: GridValueGetterParams) => {
-        const date = new Date(params.row.datetime_bio);
-        return date.toLocaleTimeString();
+        const shio = new Date(params.row.datetime_bio);
+        console.log(shio, "is there???")
+        return shio.toLocaleTimeString();
+        // return new Intl.DateTimeFormat('default', { hour: 'numeric', minute: 'numeric', hour12: true }).format(shio);
       },
     },
     { field: 'bio_id', headerName: 'Biometrics ID', width: 140 },
@@ -44,7 +46,7 @@ const dynamicDTRColumns: Array<GridColDef[]> =
   ],
   [
     { field: 'id', headerName: 'Entry ID', width: 120 },
-    { field: 'emp_no', headerName: 'Employee Number', width: 120 },
+    { field: 'emp_no', headerName: 'Employee #', width: 120 },
     { field: 'business_date', headerName: 'Business Date', width: 120 },
     {
       field: 'duty_in',
@@ -78,6 +80,78 @@ const dynamicDTRColumns: Array<GridColDef[]> =
     { field: 'shift_name', headerName: 'Shift Name', width: 130 },
     { field: 'sched_timein', headerName: 'Scheduled In', width: 130 },
     { field: 'sched_timeout', headerName: 'Scheduled Out', width: 130 },
+  ],
+  [
+    { field: 'id', headerName: 'Data ID', width: 100 },
+    { field: 'emp_no', headerName: 'Emp. #', width: 100 },
+    { field: 'business_date_from', headerName: 'Cutoff From', width: 120 },
+    { field: 'business_date_to', headerName: 'Cutoff To', width: 120 },
+    { 
+      field: 'paid_leaves_total', 
+      headerName: 'Paid Leaves',
+      valueGetter: (params: GridValueGetterParams) => {
+        return `${params.row.paid_leaves_total} day(s)`;
+      },  
+      width: 110 
+    },
+    { 
+      field: 'reg_ot_total', 
+      headerName: 'Reg. OT',
+      valueGetter: (params: GridValueGetterParams) => {
+        // const convertedMinsToHours = parseFloat((params.row.reg_ot_total / 60).toFixed(2));
+        return `${params.row.reg_ot_total} min(s)`;
+      }, 
+      width: 120 
+    },
+    { 
+      field: 'sp_holiday_total', 
+      headerName: 'SP. Holidays', 
+      valueGetter: (params: GridValueGetterParams) => {
+        return `${params.row.sp_holiday_total} day(s)`;
+      }, 
+      width: 120 
+    },
+    { 
+      field: 'reg_holiday_total', 
+      headerName: 'REG. Holidays', 
+      valueGetter: (params: GridValueGetterParams) => {
+        return `${params.row.reg_holiday_total} day(s)`;
+      }, 
+      width: 120 
+    },
+    { 
+      field: 'lates_total', 
+      headerName: 'Lates', 
+      valueGetter: (params: GridValueGetterParams) => {
+        return `${params.row.lates_total} min(s)`;
+      }, 
+      width: 110 
+    },
+    { 
+      field: 'undertime_total', 
+      headerName: 'Undertime', 
+      valueGetter: (params: GridValueGetterParams) => {
+        return `${params.row.undertime_total} min(s)`;
+      }, 
+      width: 110 
+    },
+    { 
+      field: 'absent_total', 
+      headerName: 'Absences', 
+      valueGetter: (params: GridValueGetterParams) => {
+        return `${params.row.absent_total} day(s)`;
+      }, 
+      width: 110 
+    },
+    { 
+      field: 'total_hours', 
+      headerName: 'Total Hrs', 
+      valueGetter: (params: GridValueGetterParams) => {
+        return `${params.row.total_hours} min(s)`;
+      }, 
+      width: 110 
+    },
+    { field: 'is_processed', headerName: 'Processed', width: 110 },
   ],
 ];
 
@@ -116,11 +190,7 @@ const columns: GridColDef[] =
     valueGetter: (params: GridValueGetterParams) =>
       `${params.row.first_name || ''} ${params.row.last_name || ''}`,
   },
-//   { field: 'date_hired', headerName: 'Date Hired', width: 150 },
   { field: 'branch_code', headerName: 'Branch Code', width: 150 },
-//   { field: 'mobile_phone', headerName: 'Mobile Number', width: 150 },
-//   { field: `user`, headerName: 'Has HRIS Access', width: 150, valueGetter: (params: GridValueGetterParams) => `${params.row.user?.is_active ? 'Active' : 'No Access'}` },
-//   { field: 'bio_id', headerName: 'Biometrics ID', width: 150 },
 ];
 
 
@@ -128,6 +198,7 @@ const columns: GridColDef[] =
   
 export default {
   viewDTROptions,
-  viewDTRDescriptions
+  viewDTRDescriptions,
+  dynamicDTRColumns
 };
   
