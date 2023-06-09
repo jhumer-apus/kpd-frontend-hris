@@ -247,7 +247,7 @@ export default function ViewDtrReports() {
           <i>{viewDTRDescriptions[spButtonIndex === null ? 0 : spButtonIndex]}</i>
         </Typography>
       </div>
-      <div style={{ height: 800, width: '100%' }}>
+      <div style={{ height: 600, width: '100%' }}>
         <DataGrid
           rows={dtrData ?? []}
           columns={dynamicDTRColumns[spButtonIndex === null ? 0 : spButtonIndex]}

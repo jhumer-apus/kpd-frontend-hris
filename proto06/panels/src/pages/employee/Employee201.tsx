@@ -266,7 +266,7 @@ export default function DataTable() {
         </Modal>
 
       </div>
-      <div style={{ height: 800, width: '100%' }}>
+      <div style={{ height: 600, width: '100%' }}>
         <DataGrid
           rows={employees_list ?? []}
           columns={columns}
