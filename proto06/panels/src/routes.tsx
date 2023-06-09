@@ -22,6 +22,7 @@ import DataTable from "./pages/employee/Employee201";
 import { SignIn, SignUp } from "@/pages/auth";
 import { IRoute } from "./types";
 import ViewDtrReports from "./pages/dtr/view-dtr-reports/view-dtr-reports";
+import UploadDtrLogs from "./pages/dtr/upload-dtr-logs/upload-dtr-logs";
 // import Timekeeping from "./pages/dtr/timekeeping/Timekeeping";
 
 const icon = {
@@ -114,7 +115,7 @@ export const routes: Array<IRoute> = [
             icon: <UploadFileIcon {...icon} />,
             name: "Upload DTR Logs",
             path: "/DTR/upload-logs",
-            element: <div>Coming soon</div>,
+            element: <UploadDtrLogs/>,
             hasSubItems: false,
           },
           {
