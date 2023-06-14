@@ -8,15 +8,17 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { UploadDTRComponent } from './stepper/upload-dtr-component';
+
 
 const PaperStyle = {
     padding: "20px",
-    height: "400px"
+    height: "500px"
 }
 
 const steps = [
-    'Upload DTR TSV File',
-    'Preview Result',
+    'Upload',
+    'Preview',
     'Submit',
 ];
 const Grid = styled(MuiGrid)(({ theme }) => ({
@@ -89,11 +91,12 @@ export default function UploadDtrLogs() {
     };
   return (
     <Fragment>
+        {/* <div style={{height: '200px'}}>haha</div> */}
         <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
             <Grid item xs>
                 <Paper elevation={3} style={PaperStyle}>
                     {/* {content} */}
-                    <Box sx={{ width: '100%'}}>
+                    <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                         <Stepper activeStep={activeStep}>
                             {steps.map((label, index) => {
                             const stepProps: { completed?: boolean } = {};
@@ -122,12 +125,28 @@ export default function UploadDtrLogs() {
                                 </Typography>
                                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                                     <Box sx={{ flex: '1 1 auto' }} />
-                                    <Button onClick={handleReset}>Reset</Button>
+                                    <Button onClick={handleReset}>Back to Upload</Button>
                                 </Box>
                                 </Fragment>
                             ) : (
                                 <Fragment>
-                                <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
+                                <Typography sx={{ mt: 2, mb: 1 }}>
+                                    {activeStep=== 0 && 
+                                    <div> 
+                                        <UploadDTRComponent/>
+                                    </div>
+                                    }
+                                    {activeStep=== 1 && 
+                                    <div> 
+                                        File Instruction Preview, and Notes
+                                    </div>
+                                    }
+                                    {activeStep=== 2 && 
+                                    <div> 
+                                        Oka?
+                                    </div>
+                                    }
+                                </Typography>
                                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                                     <Button
                                     color="inherit"
@@ -144,7 +163,7 @@ export default function UploadDtrLogs() {
                                     </Button>
                                     )}
                                     <Button onClick={handleNext}>
-                                    {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                                    {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
                                     </Button>
                                 </Box>
                                 </Fragment>
