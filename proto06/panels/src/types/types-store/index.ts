@@ -113,6 +113,7 @@ export interface GetEmployeesListsType {
 };
 
 export interface ViewAllDtrLogsType {
+    [key: string]: any;
     id: number,
     datetime_bio: Date,
     flag1_in_out?: boolean,
@@ -127,6 +128,7 @@ export interface ViewAllDtrLogsType {
 };
 
 export interface ViewMergedDtrLogsType {
+    [key: string]: any;
     id: number,
     business_date: Date,
     shift_name: string,
@@ -158,6 +160,7 @@ export interface ViewMergedDtrLogsType {
 };
 
 export interface ViewCutoffDtrSummaryType {
+    [key: string]: any;
     id: number,
     business_date_from: Date,
     business_date_to: Date,
