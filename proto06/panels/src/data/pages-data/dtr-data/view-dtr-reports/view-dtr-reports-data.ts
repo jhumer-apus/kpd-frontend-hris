@@ -154,47 +154,6 @@ export const dynamicDTRColumns: Array<GridColDef[]> =
     { field: 'is_processed', headerName: 'Processed', width: 110 },
   ],
 ];
-
-
-
-const columns: GridColDef[] = 
-[
-  // { field: 'id', headerName: 'ID', width: 70 },
-//   {
-//     field: 'employee_image',
-//     headerName: 'Prof Pic',
-//     width: 150,
-//     renderCell: (params: GridCellParams) => {
-//       console.log(params, "maoaoa");
-//       if (params.value){
-//         return(
-          
-//           <img src={`http://172.16.168.155:8000${params.value as string}`} alt="" width="50" height="50" style={{borderRadius: "10px", height: "40px", width: "40px", objectFit: "cover", border: "1px solid white", boxShadow: "1px 1px 10px gray"}}/>
-//           )
-//       } else {
-//         return (
-//           null
-//         )    
-//       }
-//     },
-//   },
-  { field: 'emp_no', headerName: 'Employee #', width: 120 },
-  { field: 'first_name', headerName: 'First Name', width: 150 },
-  { field: 'last_name', headerName: 'Last Name', width: 150 },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params: GridValueGetterParams) =>
-      `${params.row.first_name || ''} ${params.row.last_name || ''}`,
-  },
-  { field: 'branch_code', headerName: 'Branch Code', width: 150 },
-];
-
-
-  
   
 export default {
   viewDTROptions,
