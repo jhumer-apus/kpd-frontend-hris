@@ -209,7 +209,7 @@ export default function DataTable() {
       return; //Todo: Error Handling 
     }
     const csv = convertToCSV(data);
-    downloadCSV(csv, 'EmployeesList.csv');
+    downloadCSV(csv, `${window.prompt("File Name", "export_file_name")}`);
   };
 
   return (
