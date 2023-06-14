@@ -7,8 +7,11 @@ import { getSpecificEmployeeInfo } from '@/store/actions/employees';
 import { Modal, Box, CircularProgress } from '@mui/material';
 import { UserProfile } from './forms/AddEmployee';
 import { useForm } from 'react-hook-form';
-import { GetEmployeesListsType } from '@/types/types-store';
-import { ImportEmployee } from './forms/ImportEmployee';
+import { GetEmployeesListsType, ViewAllDtrLogsType } from '@/types/types-store';
+// import { Button } from '@mui/material';
+import {Button} from '@material-tailwind/react';
+import { DtrData } from '@/types/types-store';
+
 
 import {
   Typography,
@@ -163,14 +166,18 @@ export default function ViewDtrReports() {
       }, 1200);
   }, [specific_employee_info])
 
-  const data = employees_list;
-  function convertToCSV(data: GetEmployeesListsType[]) {
+  const data = dtrData;
+  function convertToCSV(data: DtrData) {
     const replacer = (key: string, value: any) => value === null ? '' : value;
-    const header = Object.keys(data[0]);
-    const csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
-    // console.log(csv, "step1", csv.unshift(header.join(',')), "step2", csv.join('\r\n'), "step3");
-    csv.unshift(header.join(','));
-    return csv.join('\r\n');
+    if(data){
+      const header = Object.keys(data[0]);
+      const csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
+      // console.log(csv, "step1", csv.unshift(header.join(',')), "step2", csv.join('\r\n'), "step3");
+      csv.unshift(header.join(','));
+      return csv.join('\r\n');
+    }else {
+      window.alert("No Data is Found")
+    }
   };
   function downloadCSV(csv: string, filename: string) {
     const blob = new Blob([csv], { type: 'text/csv' });
@@ -187,77 +194,62 @@ export default function ViewDtrReports() {
       return; //Todo: Error Handling 
     }
     const csv = convertToCSV(data);
-    downloadCSV(csv, 'EmployeesList.csv');
+    if(csv){
+      downloadCSV(csv, `${window.prompt("Enter the file name", "default_name")}`);
+    }
   };
+
+  const [printing, setIsPrinting] = useState(false);
+  
+  function handlePrint(){
+    setIsPrinting(true)
+    setTimeout(()=> {
+      window.print();
+      setIsPrinting(false)
+    }, 1500)
+  };
+
+  function printableArea(){
+    // Calculate px; solves printable area bug, Do not easily modify
+    if(dtrData?.length && dtrData?.length >= 11){
+      return dtrData?.length / 25 * 1450
+    } else {
+      return 700
+    }
+  }
 
   return (
     <Fragment>
-      <div className="my-10 flex flex-wrap items-start gap-6">
-        {/* <Button 
-          className='mb-4'
-          variant='gradient'
-          color='indigo'
-          onClick={()=>{handleOpen2()}}
-        >
-        + Add Employee
-        </Button>
-        <Modal
-            open={open2}
-            onClose={
-              handleClose2
-            }
-            aria-labelledby="parent-modal-title"
-            aria-describedby="parent-modal-description"
-          >
-            <Box sx={{ ...style, width:"80%", height: "80%", overflowY: "auto",  background: "#fff", backgroundImage: "#fff" }}>
-            <UserProfile/>
-            </Box>
-        </Modal>
-        <Button 
-          className='mb-4 flex gap-2'
-          color='indigo'
-          variant='gradient'
-          onClick={handleDownload}>
-        
-        <ArrowUpTrayIcon style={{height: '15px'}}/> Export / Download as CSV
-        </Button>
-        <Button 
-          className='mb-4 flex gap-2'
-          variant='outlined'
-          color='indigo'
-          // icon={<ArrowUpTrayIcon/>}
-          onClick={()=>{handleOpen3()}}
-        >
-        <ArrowUpTrayIcon style={{height: '15px'}}/> Import / Bulk Entry Employee CSV 
-        </Button>
-        <Modal
-            open={open3}
-            onClose={
-              handleClose3
-            }
-            aria-labelledby="parent-modal-title"
-            aria-describedby="parent-modal-description"
-          >
-            <Box sx={{ ...style, width:"80%", height: "80%", overflowY: "auto",  background: "#fff", backgroundImage: "#fff", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <ImportEmployee/>
-            </Box>
-        </Modal> */}
+      <div className="my-10 flex flex-wrap justify-between items-start gap-6">
+        <div>
         <SplitButton options={viewDTROptions}/>
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400"}}>
           <i>{viewDTRDescriptions[spButtonIndex === null ? 0 : spButtonIndex]}</i>
         </Typography>
+        </div>
+        <div className='flex justify-between gap-6'>
+        <Button 
+          className='gap-2'
+          color='indigo'
+          variant='gradient'
+          onClick={handleDownload}>
+        Export / Download as CSV
+        </Button>
+        <Button variant="gradient" color="indigo" style={{marginRight: "6px"}} onClick={handlePrint}>Print Table</Button>
+        </div>
+
       </div>
-      <div style={{ height: 600, width: '100%' }}>
+      <div style={{ height: `${printing? `${printableArea()}px` : '660px'}`, width: '100%' }} id="printable-area">
         <DataGrid
           rows={dtrData ?? []}
           columns={dynamicDTRColumns[spButtonIndex === null ? 0 : spButtonIndex]}
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 25 },
+              paginationModel: { page: 0, pageSize: 100 },
             },
           }}
         //   checkboxSelection
-          pageSizeOptions={[25, 30]}
+          pageSizeOptions={[25, 50, 75, 100]}
           // checkboxSelection
           onRowClick={(e) => {
             handleOpen()
