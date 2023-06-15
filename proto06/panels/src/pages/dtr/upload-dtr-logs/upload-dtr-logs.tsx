@@ -1,4 +1,4 @@
-import { Fragment, useState }from 'react';
+import { ChangeEvent, Fragment, useState }from 'react';
 import { styled } from '@mui/material/styles';
 import MuiGrid from '@mui/material/Grid';
 import { Divider, Paper, Box, useTheme, useMediaQuery } from '@mui/material';
@@ -8,12 +8,14 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { UploadDTRComponent } from './stepper/upload-dtr-component';
-
+import { UploadDTRComponent } from './local-components/upload-dtr-component';
+import PreviewDtr from './local-components/preview-dtr-component';
+import { previewDtrCsvItem } from '@/types/types-pages';
 
 const PaperStyle = {
     padding: "20px",
-    height: "500px"
+    height: "500px",
+    overflow: 'auto'
 }
 
 const steps = [
@@ -89,9 +91,46 @@ export default function UploadDtrLogs() {
     const handleReset = () => {
         setActiveStep(0);
     };
+
+    const [csvData, setCsvData] = useState<previewDtrCsvItem[]>([]);
+    const [fileName, setFileName] = useState("");
+    const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
+      if (!e.target.files) {
+        return;
+      }
+      const file = e.target.files[0];
+      const { name } = file;
+      setFileName(name);
+    
+      const reader = new FileReader();
+      reader.onload = (evt) => {
+        if (!evt?.target?.result) {
+          return;
+        }
+        const { result } = evt.target;
+        const lines = (result as string).split('\n').filter(line => line.trim() !== '');
+      //   const records = lines.map(line => {
+      //     const [id, value] = line.split(',');
+      //     return { id: id.trim(), value: value.trim() };
+      //   });
+      const records = lines.map(line => {
+          const values = line.split('\t');
+          const emp_no = values[0].trim();
+          const date_time = values[1].trim();
+          const time_in = values[2].trim();
+          const time_out = values[3].trim();
+          const branch = values[6].trim();
+          return { id: emp_no, emp_no, date_time, time_in, time_out, branch};
+      });
+        setCsvData(records);
+      };
+      reader.readAsText(file);
+    };
+
   return (
     <Fragment>
         {/* <div style={{height: '200px'}}>haha</div> */}
+        <form>
         <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
             <Grid item xs>
                 <Paper elevation={3} style={PaperStyle}>
@@ -130,10 +169,10 @@ export default function UploadDtrLogs() {
                                 </Fragment>
                             ) : (
                                 <Fragment>
-                                <Typography sx={{ mt: 2, mb: 1 }}>
+                                <div className={"mt-2 mb-1"}>
                                     {activeStep=== 0 && 
-                                    <div> 
-                                        <UploadDTRComponent/>
+                                    <div className="flex justify-center"> 
+                                        <UploadDTRComponent handleFileUpload={handleFileUpload}/>
                                     </div>
                                     }
                                     {activeStep=== 1 && 
@@ -146,7 +185,7 @@ export default function UploadDtrLogs() {
                                         Oka?
                                     </div>
                                     }
-                                </Typography>
+                                </div>
                                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                                     <Button
                                     color="inherit"
@@ -162,8 +201,8 @@ export default function UploadDtrLogs() {
                                         Skip
                                     </Button>
                                     )}
-                                    <Button onClick={handleNext}>
-                                    {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
+                                    <Button onClick={handleNext} >
+                                    {activeStep === steps.length - 1 ? 'Submit' : activeStep === 0 ? 'Preview' : 'Next'}
                                     </Button>
                                 </Box>
                                 </Fragment>
@@ -176,10 +215,13 @@ export default function UploadDtrLogs() {
             </Divider>
             <Grid item xs>
                 <Paper elevation={3} style={PaperStyle}>
-                    {content}
+                    {/* {content}sds */}
+                    <PreviewDtr csvData={csvData} fileName={fileName}/>
                 </Paper>
             </Grid>
         </Grid>
+        </form>
+
     </Fragment>
   );
 }
