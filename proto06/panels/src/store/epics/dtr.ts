@@ -45,7 +45,7 @@ export const viewAllDtrLogsEpic: Epic = (action$, state$) =>
           // Cookies.set('token', data.jwt, { expires: 1 / 24, secure: true });
           // Cookies.set('user', JSON.stringify(data.user), { expires: 1 / 24, secure: true });
           // Cookies.set('employee_detail', JSON.stringify(data.employee_detail), { expires: 1 / 24, secure: true });
-          console.log(data, "viewAllDtrLogsSuccess");
+          // console.log(data, "viewAllDtrLogsSuccess");
           return viewAllDtrLogsSuccess(data);
         }),
         catchError((error) => {

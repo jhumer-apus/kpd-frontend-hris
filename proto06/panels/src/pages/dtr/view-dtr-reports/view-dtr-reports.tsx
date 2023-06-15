@@ -81,7 +81,7 @@ export default function ViewDtrReports() {
   const { spButtonIndex, spButtonStr, spButtonError, dtrStatus, dtrError, dtrData } = useDtrState();
   const [type, setType] = useState("staticInfo");
 
-  console.log(dtrStatus, "testing?")
+  // console.log(dtrStatus, "testing?")
 
   // Specific Employee Modal Form 
   // States: 
