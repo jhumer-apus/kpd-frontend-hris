@@ -44,7 +44,7 @@ export default function TsvFileHelp() {
             onClose={handlePopoverClose}
             disableRestoreFocus
         >
-            <Typography variant={"caption"} sx={{ p: 1 }}>
+            <Typography variant={"overline"} sx={{ p: 1 }}>
             CSV [Comma-Separated-Value] is different from TSV, &nbsp; <br/> &nbsp;
             you can ask for your admin's help on what file is available.  
             </Typography>
