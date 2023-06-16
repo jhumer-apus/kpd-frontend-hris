@@ -2,7 +2,6 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Button } from '@mui/material';
 import { Typography } from '@material-tailwind/react';
-import './ImportEmployee.scss';
 
 type ImportEmployee = {
   file: any;
