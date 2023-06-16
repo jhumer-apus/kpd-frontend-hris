@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, SetStateAction, useState } from 'react';
 import axios from 'axios';
 import { Button } from '@mui/material';
 import { Typography } from '@material-tailwind/react';
@@ -18,53 +18,55 @@ interface UploadDtrComponentProps {
   fileName?: string,
   setFileName?: (key: string) => void,
   handleFileUpload: (e: ChangeEvent<HTMLInputElement>) => void,
+  // setFile?: (e: SetStateAction<File | null>) => void, 
+  onFileChange: (e: ChangeEvent<HTMLInputElement>) => void,
 }
 
 export const UploadDTRComponent = (props: UploadDtrComponentProps) => {
-    const {handleFileUpload} = props;
+    const {handleFileUpload, onFileChange} = props;
 
-    const [file, setFile] = useState<File | null>(null);
-    const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFile(event.target.files ? event.target.files[0] : null);
-    };
-    const [editMode, setEditMode] = useState(true);
+    // const [file, setFile] = useState<File | null>(null);
+    // const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     setFile(event.target.files ? event.target.files[0] : null);
+    // };
+
     
-    const onSubmit = async (event: React.FormEvent) => {
-        event.preventDefault();
+    // const onSubmit = async (event: React.FormEvent) => {
+    //     event.preventDefault();
     
-        if (!file) {
-          return;
-        }
+    //     if (!file) {
+    //       return;
+    //     }
     
-        const formData = new FormData();
-        formData.append('file', file);
+    //     const formData = new FormData();
+    //     formData.append('file', file);
     
-        try {
-          const response = await axios.post(
-            'http://172.16.168.155:8000/api/import_employee/',
-            formData,
-            {
-              headers: {
-                'Content-Type': 'multipart/form-data',
-              },
-            }
-          );
+    //     try {
+    //       const response = await axios.post(
+    //         'http://172.16.168.155:8000/api/upload_dtr_logs/',
+    //         formData,
+    //         {
+    //           headers: {
+    //             'Content-Type': 'multipart/form-data',
+    //           },
+    //         }
+    //       );
     
-          console.log(response.data);
-          setTimeout(() => {
-            location.reload();
-          }, 1000);
-        } catch (err) {
-          console.error(err);
-        }
-    };
+    //       console.log(response.data);
+    //       // setTimeout(() => {
+    //       //   location.reload();
+    //       // }, 1000);
+    //     } catch (err) {
+    //       console.error(err);
+    //     }
+    // };
     const onFileChangeAndUpload = (e: ChangeEvent<HTMLInputElement>) => {
       onFileChange(e);
       handleFileUpload(e);
     };
+    // const [editMode, setEditMode] = useState(true);
   return (
-    <form 
-        onSubmit={onSubmit} 
+    <div 
         className="flex flex-col justify-center items-start h-52" 
         style={{}}
     >
@@ -111,6 +113,6 @@ export const UploadDTRComponent = (props: UploadDtrComponentProps) => {
         {/* <Button variant="contained" color="primary" type="submit">
             Submit
         </Button> */}
-    </form>
+    </div>
   );
 };
