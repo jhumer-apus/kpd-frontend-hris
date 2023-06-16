@@ -23,6 +23,7 @@ import { SignIn, SignUp } from "@/pages/auth";
 import { IRoute } from "./types";
 import ViewDtrReports from "./pages/dtr/view-dtr-reports/view-dtr-reports";
 import UploadDtrLogs from "./pages/dtr/upload-dtr-logs/upload-dtr-logs";
+import MergeDtrLogs from "./pages/dtr/merge-dtr-logs/merge-dtr-logs";
 // import Timekeeping from "./pages/dtr/timekeeping/Timekeeping";
 
 const icon = {
@@ -123,7 +124,7 @@ export const routes: Array<IRoute> = [
             icon: <MergeIcon {...icon} />,
             name: "Merge DTR Logs",
             path: "/DTR/Merge-DTR",
-            element: <div>Coming Soon</div>,
+            element: <MergeDtrLogs/>,
             hasSubItems: false,
           },
           {

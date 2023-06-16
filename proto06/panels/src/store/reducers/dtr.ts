@@ -9,8 +9,12 @@ import {
   viewCutoffDtrSummary,
   viewCutoffDtrSummarySuccess,
   viewCutoffDtrSummaryFailure,
+  getCutoffList,
+  getCutoffListSuccess,
+  getCutoffListFailure,
 } from '../actions/dtr';
 import { DtrData } from '@/types/types-store';
+import { DTRCutoffListType } from '@/types/types-pages';
 
 interface DtrState {
   viewDtrReports: {
@@ -25,6 +29,11 @@ interface DtrState {
       dtrData: DtrData;
     };
   };
+  getCutoffList: {
+    status: string | null;
+    cutoffList: DTRCutoffListType[] | null;
+    error: string | null; 
+  }
 }
 
 const initialState: DtrState = {
@@ -40,12 +49,23 @@ const initialState: DtrState = {
       dtrData: null,
     },
   },
+  getCutoffList: {
+    status: null,
+    cutoffList: null,
+    error: null,
+  }
 };
 
 const setLoadingState = (state: DtrState) => {
-  state.viewDtrReports.currentView.dtrStatus = 'loading';
-  state.viewDtrReports.currentView.dtrError = null;
-  state.viewDtrReports.currentView.dtrData = null;
+    state.viewDtrReports.currentView.dtrStatus = 'loading';
+    state.viewDtrReports.currentView.dtrError = null;
+    state.viewDtrReports.currentView.dtrData = null;
+};
+
+const setGetListLoadingState = (state: DtrState) => {
+  state.getCutoffList.status = 'loading';
+  state.getCutoffList.cutoffList = null;
+  state.getCutoffList.error = null;
 };
 
 const setSuccessState = (state: DtrState, payload: DtrData) => {
@@ -54,10 +74,22 @@ const setSuccessState = (state: DtrState, payload: DtrData) => {
   state.viewDtrReports.currentView.dtrData = payload;
 };
 
+const setGetListSuccessState = (state: DtrState, payload: DTRCutoffListType[]) => {
+  state.getCutoffList.status = 'succeeded';
+  state.getCutoffList.cutoffList = payload;
+  state.getCutoffList.error = null;
+};
+
 const setFailureState = (state: DtrState, payload: string) => {
   state.viewDtrReports.currentView.dtrStatus = 'failed';
   state.viewDtrReports.currentView.dtrError = payload;
   state.viewDtrReports.currentView.dtrData = null;
+};
+
+const setGetListFailureState = (state: DtrState, payload: string) => {
+  state.getCutoffList.status = 'failed';
+  state.getCutoffList.cutoffList = null;
+  state.getCutoffList.error = payload;
 };
 
 const dtrSlice = createSlice({
@@ -79,7 +111,10 @@ const dtrSlice = createSlice({
       .addCase(viewMergedDtrLogsFailure, (state, action) => setFailureState(state, action.payload))
       .addCase(viewCutoffDtrSummary, setLoadingState)
       .addCase(viewCutoffDtrSummarySuccess, (state, action) => setSuccessState(state, action.payload.allCutoffDtrSummary))
-      .addCase(viewCutoffDtrSummaryFailure, (state, action) => setFailureState(state, action.payload));
+      .addCase(viewCutoffDtrSummaryFailure, (state, action) => setFailureState(state, action.payload))
+      .addCase(getCutoffList, setGetListLoadingState)
+      .addCase(getCutoffListSuccess, (state, action) => setGetListSuccessState(state, action.payload.DTRCutoffList))
+      .addCase(getCutoffListFailure, (state, action) => setGetListFailureState(state, action.payload));
   },
 });
 

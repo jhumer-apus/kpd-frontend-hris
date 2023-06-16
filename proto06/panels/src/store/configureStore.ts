@@ -6,7 +6,7 @@ import { employeesReducer } from './reducers/employees';
 import { authEpic, fetchUserDataEpic } from './epics/auth';
 import { employeesListEpic, employeesSpecificEpic } from './epics/employees';
 import { dtrReducer } from './reducers/dtr';
-import { viewAllDtrLogsEpic, viewMergedDtrLogsEpic, viewCutoffDtrSummaryEpic } from './epics/dtr';
+import { viewAllDtrLogsEpic, viewMergedDtrLogsEpic, viewCutoffDtrSummaryEpic, getCutoffDTRListEpic } from './epics/dtr';
 
 const epicMiddleware = createEpicMiddleware();
 
@@ -29,6 +29,7 @@ epicMiddleware.run(combineEpics(
   viewAllDtrLogsEpic, 
   viewMergedDtrLogsEpic, 
   viewCutoffDtrSummaryEpic,
+  getCutoffDTRListEpic
 ));
 
 export type RootState = ReturnType<typeof rootReducer>;

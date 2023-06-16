@@ -12,7 +12,10 @@ import {
   viewMergedDtrLogsFailure,
   viewCutoffDtrSummary,
   viewCutoffDtrSummarySuccess,
-  viewCutoffDtrSummaryFailure 
+  viewCutoffDtrSummaryFailure,
+  getCutoffList,
+  getCutoffListSuccess,
+  getCutoffListFailure,
 } from '../actions/dtr';
 
 import { Epic } from 'redux-observable';
@@ -31,6 +34,13 @@ const viewCutoffDtrSummaryApiCall = async () => {
     const response = await axios.get("http://172.16.168.155:8000/api/dtr_cutoff_summary/");
     return response.data;
 };
+
+const getCutoffDTRListApiCall = async () => {
+  const response = await axios.get("http://172.16.168.155:8000/api/cutoff_period/");
+  return response.data;
+};
+
+
 
 export const viewAllDtrLogsEpic: Epic = (action$, state$) =>
   action$.pipe(
@@ -99,6 +109,28 @@ export const viewCutoffDtrSummaryEpic: Epic = (action$, state$) =>
             return of(viewCutoffDtrSummaryFailure(error.response.data.error)); // Extract error message from the response
           } else {
             return of(viewCutoffDtrSummaryFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+export const getCutoffDTRListEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(getCutoffList.type),
+    switchMap(() =>
+      from(
+        getCutoffDTRListApiCall()
+      ).pipe(
+        map((data) => {
+          return getCutoffListSuccess(data);
+        }),
+        catchError((error) => {
+          // console.log(error.response, "maeeeeee111owww");
+          if (error.response && error.response.data && error.response.data.error) {
+            return of(getCutoffListFailure(error.response.data.error)); // Extract error message from the response
+          } else {
+            return of(getCutoffListFailure(error.message)); // If there is no custom error message, use the default one
           }
         })
       )
