@@ -1,4 +1,4 @@
-import { ChangeEvent, Fragment, useState }from 'react';
+import { ChangeEvent, Fragment, SyntheticEvent, useState }from 'react';
 import { styled } from '@mui/material/styles';
 import MuiGrid from '@mui/material/Grid';
 import { Divider, Paper, Box, useTheme, useMediaQuery } from '@mui/material';
@@ -11,12 +11,17 @@ import Typography from '@mui/material/Typography';
 import { UploadDTRComponent } from './local-components/upload-dtr-component';
 import PreviewDtr from './local-components/preview-dtr-component';
 import { previewDtrCsvItem } from '@/types/types-pages';
+import axios from 'axios';
+import { useNavigate }  from 'react-router-dom';
 
 const PaperStyle = {
     padding: "20px",
-    height: "500px",
+    height: "700px",
     overflow: 'auto'
 }
+
+
+
 
 const steps = [
     'Upload',
@@ -33,19 +38,14 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
 }));
 
 export default function UploadDtrLogs() {
-    const content = (
-        <div>
-            {`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id dignissim justo.
-        Nulla ut facilisis ligula. Interdum et malesuada fames ac ante ipsum primis in faucibus.
-        Sed malesuada lobortis pretium. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id dignissim justo.
-        Nulla ut facilisis ligula. Interdum et malesuada fames ac ante ipsum primis in faucibus.
-        Sed malesuada lobortis pretium. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id dignissim justo.
-        Nulla ut facilisis ligula. Interdum et malesuada fames ac ante ipsum primis in faucibus.
-        Sed malesuada lobortis pretium.`}
-        </div>
-    );
-      const theme = useTheme();
-      const matches = useMediaQuery(theme.breakpoints.down('lg'));
+    const navigate = useNavigate();
+
+    const handleNavigate = () => {
+        navigate('/home/DTR/View-DTR');
+    };
+
+    const theme = useTheme();
+    const matches = useMediaQuery(theme.breakpoints.down('lg'));
 
     const [activeStep, setActiveStep] = useState(0);
     const [skipped, setSkipped] = useState(new Set<number>());
@@ -58,14 +58,46 @@ export default function UploadDtrLogs() {
         return skipped.has(step);
     };
 
-    const handleNext = () => {
+    const handleNext = async (e: SyntheticEvent) => {
+        e.preventDefault();
         let newSkipped = skipped;
         if (isStepSkipped(activeStep)) {
         newSkipped = new Set(newSkipped.values());
         newSkipped.delete(activeStep);
         }
-
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        if (activeStep === steps.length - 1){
+            if (!file) {
+                return;
+              }
+          
+              const formData = new FormData();
+              formData.append('file', file);
+          
+              try {
+                const response = await axios.post(
+                  'http://172.16.168.155:8000/api/upload_dtr_logs/',
+                  formData,
+                  {
+                    headers: {
+                      'Content-Type': 'multipart/form-data',
+                    },
+                  }
+                );
+          
+                console.log(response.data , "this is upload dtr!!");
+                // setTimeout(() => {
+                //   location.reload();
+                // }, 1000);
+                setActiveStep((prevActiveStep) => prevActiveStep + 1);
+                window.alert(`${response.data}`);
+              } catch (err) {
+                console.error(err);
+                window.alert(`DTR Logs Error in Upload ${err}`);
+                setActiveStep((prevActiveStep) => prevActiveStep - 2);
+              }
+        }else {
+            setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        }
         setSkipped(newSkipped);
     };
 
@@ -75,7 +107,6 @@ export default function UploadDtrLogs() {
 
     const handleSkip = () => {
         if (!isStepOptional(activeStep)) {
-        // You probably want to guard against something like this,
         // it should never occur unless someone's actively trying to break something.
         throw new Error("You can't skip a step that isn't optional.");
         }
@@ -115,26 +146,29 @@ export default function UploadDtrLogs() {
       //   });
       const records = lines.map(line => {
           const values = line.split('\t');
-          const emp_no = values[0].trim();
+          const bio_id = values[0].trim();
           const date_time = values[1].trim();
           const time_in = values[2].trim();
           const time_out = values[3].trim();
           const branch = values[6].trim();
-          return { id: emp_no, emp_no, date_time, time_in, time_out, branch};
+          return { id: `${bio_id}${Math.random()}`, bio_id, date_time, time_in, time_out, branch};
       });
         setCsvData(records);
       };
       reader.readAsText(file);
     };
+    const [file, setFile] = useState<File | null>(null);
+
+    const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setFile(event.target.files ? event.target.files[0] : null);
+    };
 
   return (
     <Fragment>
-        {/* <div style={{height: '200px'}}>haha</div> */}
         <form>
         <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
             <Grid item xs>
                 <Paper elevation={3} style={PaperStyle}>
-                    {/* {content} */}
                     <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                         <Stepper activeStep={activeStep}>
                             {steps.map((label, index) => {
@@ -159,8 +193,9 @@ export default function UploadDtrLogs() {
                         </Stepper>
                             {activeStep === steps.length ? (
                                 <Fragment>
-                                <Typography sx={{ mt: 2, mb: 1 }}>
-                                    All steps completed - you&apos;re finished
+                                <Typography sx={{ mt: 2, mb: 1 , textAlign: 'center', display: 'flex', flexDirection: 'column'}}>
+                                    All steps completed - you&apos;re finished!!
+                                    <Button onClick={handleNavigate}>View Uploaded DTR Logs</Button>
                                 </Typography>
                                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                                     <Box sx={{ flex: '1 1 auto' }} />
@@ -172,17 +207,41 @@ export default function UploadDtrLogs() {
                                 <div className={"mt-2 mb-1"}>
                                     {activeStep=== 0 && 
                                     <div className="flex justify-center"> 
-                                        <UploadDTRComponent handleFileUpload={handleFileUpload}/>
+                                        <UploadDTRComponent 
+                                            handleFileUpload={handleFileUpload}
+                                            onFileChange={onFileChange}
+                                        />
                                     </div>
                                     }
                                     {activeStep=== 1 && 
                                     <div> 
-                                        File Instruction Preview, and Notes
+                                        <ul className='text-center'>
+                                            <li>
+                                                Preview the <b>result</b> before submitting.
+                                            </li>
+                                            <li>
+                                                Make sure the entries' result mirrors exactly.
+                                            </li>
+                                            <li>
+                                                Check the dates, logs, and make sure that
+                                            </li>
+                                            <li>
+                                                there are no immediate discrepancies. <br></br>
+                                            </li>
+                                        </ul>
+                                        
                                     </div>
                                     }
                                     {activeStep=== 2 && 
                                     <div> 
-                                        Oka?
+                                        <ul className='text-center'>
+                                            <li>
+                                                Click <b style={{color: 'rgb(14, 165, 233)'}}>submit</b> to proceed.
+                                            </li>
+                                            <li>
+                                                Otherwise, <b style={{color: 'rgb(14, 165, 233)'}}>back</b> to rescind.
+                                            </li>
+                                        </ul>
                                     </div>
                                     }
                                 </div>
@@ -201,7 +260,7 @@ export default function UploadDtrLogs() {
                                         Skip
                                     </Button>
                                     )}
-                                    <Button onClick={handleNext} >
+                                    <Button onClick={handleNext}>
                                     {activeStep === steps.length - 1 ? 'Submit' : activeStep === 0 ? 'Preview' : 'Next'}
                                     </Button>
                                 </Box>
@@ -215,7 +274,6 @@ export default function UploadDtrLogs() {
             </Divider>
             <Grid item xs>
                 <Paper elevation={3} style={PaperStyle}>
-                    {/* {content}sds */}
                     <PreviewDtr csvData={csvData} fileName={fileName}/>
                 </Paper>
             </Grid>
