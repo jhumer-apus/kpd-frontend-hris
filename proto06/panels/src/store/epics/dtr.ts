@@ -16,9 +16,15 @@ import {
   getCutoffList,
   getCutoffListSuccess,
   getCutoffListFailure,
+  getCutoffListEmployee,
+  getCutoffListEmployeeSuccess,
+  getCutoffListEmployeeFailure,
+  mergeCutoffListAndEmployee,
+  mergeCutoffListAndEmployeeSuccess,
+  mergeCutoffListAndEmployeeFailure
 } from '../actions/dtr';
-
 import { Epic } from 'redux-observable';
+import { CutoffListMergeSelectionState } from '@/types/types-pages';
 
 const viewAllDtrLogsApiCall = async () => {
     const response = await axios.get("http://172.16.168.155:8000/api/dtr");
@@ -40,6 +46,46 @@ const getCutoffDTRListApiCall = async () => {
   return response.data;
 };
 
+const getCutoffDTRListEmployeeApiCall = async (cutoff_code: number) => {
+  // console.log(cutoff_code, "haaaaa?")
+  if(Number.isNaN(cutoff_code)){
+    return;
+  }
+  const response = await axios.get(`http://172.16.168.155:8000/api/cutoff_period/${cutoff_code}`
+  , {
+    onDownloadProgress: (progressEvent) => {
+      if(progressEvent.total){
+        const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+        console.log(progress, "maattttyy", progressEvent.loaded, "ma?", progressEvent.total)
+      }
+    }
+  }
+  );
+  console.log(response, "ajajaja?")
+  return response.data;
+};
+
+const mergeCutoffListAndEmployeeApiCall = async ( {emp_no, cutoff_code} : CutoffListMergeSelectionState ) => {
+
+  // const response = await axios.post("https://bitverse-api.herokuapp.com/login", {
+  // const response = await axios.post("http://172.16.168.144:8888/login", {
+  const response = await axios.post(`http://172.16.168.155:8000/api/mergedtr/`, {
+  emp_no,
+  cutoff_code,
+  }
+  ,
+  {
+    onDownloadProgress: (progressEvent) => {
+      if(progressEvent.total){
+        const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+        console.log("Merge progress:", progress, "Loaded:", progressEvent.loaded, "Total:", progressEvent.total)
+      }
+    }
+  }
+);
+// console.log(response, "aaa");
+return response.data.message;
+};
 
 
 export const viewAllDtrLogsEpic: Epic = (action$, state$) =>
@@ -131,6 +177,50 @@ export const getCutoffDTRListEpic: Epic = (action$, state$) =>
             return of(getCutoffListFailure(error.response.data.error)); // Extract error message from the response
           } else {
             return of(getCutoffListFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+export const getCutoffDTRListEmployeeEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(getCutoffListEmployee.type),
+    switchMap((action: ReturnType<typeof getCutoffListEmployee>) =>
+      from(
+        getCutoffDTRListEmployeeApiCall(action?.payload?.cutoff_period)
+      ).pipe(
+        map((data) => {
+          return getCutoffListEmployeeSuccess(data);
+        }),
+        catchError((error) => {
+          // console.log(error.response, "maeeeeee111owww");
+          if (error.response && error.response.data && error.response.data.error) {
+            return of(getCutoffListEmployeeFailure(error.response.data.error)); // Extract error message from the response
+          } else {
+            return of(getCutoffListEmployeeFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+export const mergeCutoffListAndEmployeeEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(mergeCutoffListAndEmployee.type),
+    switchMap((action: ReturnType<typeof mergeCutoffListAndEmployee>) =>
+      from(
+        mergeCutoffListAndEmployeeApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return mergeCutoffListAndEmployeeSuccess(data);
+        }),
+        catchError((error) => {
+          // console.log(error.response, "maeeeeee111owww");
+          if (error.response && error.response.data && error.response.data.error) {
+            return of(mergeCutoffListAndEmployeeFailure(error.response.data.error)); // Extract error message from the response
+          } else {
+            return of(mergeCutoffListAndEmployeeFailure(error.message)); // If there is no custom error message, use the default one
           }
         })
       )

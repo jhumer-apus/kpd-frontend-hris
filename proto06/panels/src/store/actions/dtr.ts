@@ -5,7 +5,7 @@ import {
     ViewCutoffDtrSummaryType,
  } from '@/types/types-store';
 
- import { DTRCutoffListType } from '@/types/types-pages';
+ import { DTRCutoffListType, DTRCutoffListEmployees } from '@/types/types-pages';
 
 
 export const viewAllDtrLogs = createAction("VIEW_ALL_DTR_LOGS");
@@ -39,6 +39,23 @@ export const getCutoffListFailure = createAction<string>("GET_CUTOFF_LIST_FAILUR
 
 
 
+export const getCutoffListEmployee = createAction<{cutoff_period: number}>("GET_CUTOFF_LIST_EMPLOYEE");
+export const getCutoffListEmployeeSuccess = createAction("GET_CUTOFF_LIST_EMPLOYEE_SUCCESS", (DTRCutoffListEmployees: Array<DTRCutoffListEmployees>) => { 
+    // console.log
+    return({ payload: {DTRCutoffListEmployees} })});
+export const getCutoffListEmployeeFailure = createAction<string>("GET_CUTOFF_LIST_EMPLOYEE_FAILURE");
+
+
 // export const getSpecificEmployeeInfo = createAction<{employee_id: number}>("GET_SPECIFIC_EMPLOYEE_INFO");
 // export const getSpecificEmployeeInfoSuccess = createAction("GET_SPECIFIC_EMPLOYEE_INFO_SUCCESS", (list: EmployeeDetailsType) => ({ payload: {list} }));
 // export const getSpecificEmployeeInfoFailure = createAction<String>("GET_SPECIFIC_EMPLOYEE_INFO_FAILURE");
+
+
+
+
+
+export const mergeCutoffListAndEmployee = createAction<{emp_no: number[], cutoff_code: number}>("MERGE_CUTOFF_LIST_AND_EMPLOYEE");
+export const mergeCutoffListAndEmployeeSuccess = createAction("MERGE_CUTOFF_LIST_AND_EMPLOYEE_SUCCESS", (SuccessMessage: string) => { 
+    // console.log
+    return({ payload: {SuccessMessage} })});
+export const mergeCutoffListAndEmployeeFailure = createAction<string>("MERGE_CUTOFF_LIST_AND_EMPLOYEE_FAILURE");

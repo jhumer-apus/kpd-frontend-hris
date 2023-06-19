@@ -1,56 +1,120 @@
-import { useEffect } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { Box } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridCallbackDetails, GridRowSelectionModel, GridValueGetterParams } from "@mui/x-data-grid";
 import { previewDtrCsvItem } from "@/types/types-pages";
+import { useSelector, useDispatch } from "react-redux";
+import { getCutoffList } from "@/store/actions/dtr";
+import MergeDTRHelp from "../local-popovers/merge-dtr-help";
+import {Button} from "@mui/material";
+import { DTRCutoffListType } from "@/types/types-pages";
+import { RootState } from "@/store/configureStore";
+import { CutoffListMergeSelectionState } from "@/types/types-pages";
 
 const columns = [
   {
-    field: "bio_id",
-    headerName: "Bio ID"
+    field: "id",
+    headerName: "Cutoff ID",
+    width: 80,
   },
   {
-    field: "date_time",
-    headerName: "Date & Time",
+    field: "co_name",
+    headerName: "Cutoff Name",
     width: 142,
   },
   {
-    field: "time_in",
-    headerName: "Time In"
+    field: "co_date_from",
+    headerName: "From",
+    valueGetter: (params: GridValueGetterParams) => {
+      const date = new Date(params.row.co_date_from);
+      return date.toLocaleDateString();
+    }
   },
   {
-    field: "time_out",
-    headerName: "Time Out"
+    field: "co_date_to",
+    headerName: "Until",
+    valueGetter: (params: GridValueGetterParams) => {
+      const date = new Date(params.row.co_date_to);
+      return date.toLocaleDateString();
+    }
   },
   {
-    field: "branch",
-    headerName: "Branch"
+    field: "reg_days_total",
+    headerName: "Reg. Days"
+  },
+  {
+    field: "credit_date",
+    headerName: "Credit Date"
+  },
+  {
+    field: "payroll_group_code",
+    headerName: "PG Code",
+    width: 80,
+  },
+  {
+    field: "division_code",
+    headerName: "Div Code",
+    width: 80,
+  },
+  {
+    field: "co_is_processed",
+    headerName: "Processed"
   },
 ];
 
-interface PreviewDtrType {
-    csvData: previewDtrCsvItem[],
-    setCsvData?: (key: previewDtrCsvItem[]) => void,
-    fileName: string,
-    setFileName?: (key: string) => void,
+interface CutOffListTable {
+    selectedRows: CutoffListMergeSelectionState,
+    setSelectedRows: (value: SetStateAction<CutoffListMergeSelectionState>) => void,
 }
 
-export default function PreviewDtr(props: PreviewDtrType) {
-  const {csvData, setCsvData, fileName, setFileName} = props; 
+export default function CutOffListTable(props: CutOffListTable) {
+  const {selectedRows, setSelectedRows} = props;
+  const dispatch = useDispatch();
+  const {cutoffList} = useSelector((state: RootState)=> state.dtr.getCutoffList);
+  // console.log(selectedRows, "hahaha>?")
+
+  useEffect(()=>{
+    dispatch(getCutoffList());
+  }, [])
+
+  const handleSelection = (newSelection: GridRowSelectionModel, details: GridCallbackDetails) => {
+
+    if (newSelection.length > 1) {
+      alert('You can only select one cutoff at a time. Please uncheck the current selection or make sure you have only one per request.');
+      return;
+    }
+    if (newSelection.length > 0) {
+      setSelectedRows((prevState) => ({
+        ...prevState,
+        cutoff_code: newSelection[0] as number,
+      }));
+    } else {
+      setSelectedRows((prevState) => ({
+        ...prevState,
+        cutoff_code: NaN,
+      }));
+    }
+  };
+
   return (
     <>
-      <b>Current File Previewing:</b><i><Box>{fileName? fileName: 'No File Chosen'}</Box></i>
+      <div className='flex justify-between'>
+      <b className="flex items-center">Merge DTR Logs to Cutoff:<MergeDTRHelp/></b>
+      <Button style={{color: 'gray'}}disabled variant={'outlined'} disableElevation={true} disableFocusRipple={true} > Choose to Get Employees List</Button>
+      </div>
       <div style={{ height: '600px' , width: '100%' }}>
       <DataGrid
-        // autoHeight
-        rows={csvData}
+        rows={cutoffList? cutoffList : []}
         columns={columns}
-        // hideFooter
         sx={{ mt: 1 }}
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 25 },
           },
         }}
+        checkboxSelection
+        onRowSelectionModelChange={handleSelection}
+        rowSelectionModel={ Number.isNaN(selectedRows.cutoff_code) ? [] : selectedRows.cutoff_code}
+        localeText={{ noRowsLabel: 'No cutoff lists found. Contact your administrator/developers.' }}
         pageSizeOptions={[25, 50, 75, 100]}
       />
       </div>

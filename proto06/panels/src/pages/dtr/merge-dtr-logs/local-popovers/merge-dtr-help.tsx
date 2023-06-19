@@ -4,7 +4,7 @@ import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import HelpIcon from '@mui/icons-material/Help';
 
-export default function TsvFileHelp() {
+export default function MergeDTRHelp() {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -23,9 +23,9 @@ export default function TsvFileHelp() {
         aria-haspopup="true"
         onMouseEnter={handlePopoverOpen}
         onMouseLeave={handlePopoverClose}
-        sx={{marginTop: "4px"}}
+        sx={{marginTop: "-2px"}}
       >
-        <HelpIcon color="primary"/>
+        <HelpIcon color="primary" style={{height: '20px'}}/>
         <Popover
             id="mouse-over-popover"
             sx={{
@@ -45,8 +45,11 @@ export default function TsvFileHelp() {
             disableRestoreFocus
         >
             <Typography variant={"overline"} sx={{ p: 1 }}>
-            CSV [Comma-Separated-Value] is different from TSV, &nbsp; <br/> &nbsp;
-            you can ask for your admin's help on what file is available.  
+            Choose only <b>1 Cutoff List</b> you want to merge, then get the list  &nbsp; <br/> &nbsp;
+            and then choose the employees you want to merge with it. <br/>&nbsp;
+            The result would be DTR Logs of selected employees will be <br/>&nbsp;
+            computed based on how much hours/time they entered daily. <br/>&nbsp;
+            <b>Lates, undertimes, and OBT</b> will be included in the merge as well.
             </Typography>
         </Popover>
       </Typography>

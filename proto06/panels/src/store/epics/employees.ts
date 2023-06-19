@@ -19,12 +19,8 @@ const getEmployeesListApiCall = async () => {
 };
 
 const getSpecificEmployeesInfoApiCall = async (employee_id: number) => {
-console.log(employee_id, "employee_id123")
-  // const response = await axios.post("https://bitverse-api.herokuapp.com/login", {
-  // const response = await axios.post("http://172.16.168.144:8888/login", {
-const response = await axios.get(`http://172.16.168.155:8000/api/employees/${employee_id}/`);
-// console.log(response, "bbb");
-return response.data;
+  const response = await axios.get(`http://172.16.168.155:8000/api/employees/${employee_id}/`);
+  return response.data;
 };
 
 export const employeesListEpic: Epic = (action$, state$) =>
@@ -46,9 +42,9 @@ export const employeesListEpic: Epic = (action$, state$) =>
         catchError((error) => {
           // console.log(error.response, "maeeeeee111owww");
           if (error.response && error.response.data && error.response.data.error) {
-            return of(getEmployeesListFailure(error.response.data.error)); // Extract error message from the response
+            return of(getEmployeesListFailure(error.response.data.error)); 
           } else {
-            return of(getEmployeesListFailure(error.message)); // If there is no custom error message, use the default one
+            return of(getEmployeesListFailure(error.message)); 
           }
         })
       )
@@ -74,9 +70,9 @@ export const employeesSpecificEpic: Epic = (action$, state$) =>
         catchError((error) => {
           // console.log(error.response, "maeeeeee111owww");
           if (error.response && error.response.data && error.response.data.error) {
-            return of(getSpecificEmployeeInfoFailure(error.response.data.error)); // Extract error message from the response
+            return of(getSpecificEmployeeInfoFailure(error.response.data.error)); 
           } else {
-            return of(getSpecificEmployeeInfoFailure(error.message)); // If there is no custom error message, use the default one
+            return of(getSpecificEmployeeInfoFailure(error.message)); 
           }
         })
       )
