@@ -30,7 +30,7 @@ export default function SplitButton(props?:SplitButtonProps) {
   const [selectedIndex, setSelectedIndex] = React.useState(defaultViewRecords);
 
   const handleClick = () => {
-    console.info(`You clicked ${options[selectedIndex]}`);
+    console.info(`You clicked ${options[selectedIndex]} ${selectedIndex}`);
     dispatch(saveIndexAndString({index: selectedIndex, str: `${options[selectedIndex]}` }))
     // console.log(magad, "checking default")
   };
