@@ -60,20 +60,21 @@ const columns = [
 ];
 
 interface CutOffListEmployees {
-  status: string | null,
+  // status: string | null,
   employees: DTRCutoffListEmployees[] | null,
-  error: string | null,
+  // error: string | null,
   selectedRows: CutoffListMergeSelectionState,
   setSelectedRows: (value: SetStateAction<CutoffListMergeSelectionState>) => void,
 }
 
 
 export default function CutOffListEmployees(props: CutOffListEmployees) { 
-  const {status, employees, error, selectedRows, setSelectedRows} = props;
+  const {employees, selectedRows, setSelectedRows} = props;
   const dispatch = useDispatch();
-  const {cutoffList} = useSelector((state: RootState)=> state.dtr.getCutoffList);
+  
+  const {status}= useSelector((state: RootState)=> state.dtr.getCutoffListEmployees);
 
-  console.log(employees, "aaaaasss" , selectedRows)
+  // console.log(stass, "aaaaasss" , selectedRows)
   const handleSelection = (newSelection: GridRowSelectionModel, details: GridCallbackDetails) => {
     let emp_no_locale = [] as Array<number>;
     newSelection.forEach((id) => {
@@ -138,6 +139,7 @@ export default function CutOffListEmployees(props: CutOffListEmployees) {
         onRowSelectionModelChange={handleSelection}
         // rowSelectionModel={ !selectedRows?.emp_no ? selectedRows?.emp_no : [] }
         pageSizeOptions={[25, 50, 75, 100]}
+        localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'Choose a cutoff period to display employee list': 'SUCCEEDED...'}` }}
       />
       </div>
     </>
