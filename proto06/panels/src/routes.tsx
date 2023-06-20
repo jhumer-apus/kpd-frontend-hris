@@ -24,6 +24,7 @@ import { IRoute } from "./types";
 import ViewDtrReports from "./pages/dtr/view-dtr-reports/view-dtr-reports";
 import UploadDtrLogs from "./pages/dtr/upload-dtr-logs/upload-dtr-logs";
 import MergeDtrLogs from "./pages/dtr/merge-dtr-logs/merge-dtr-logs";
+import CreateSummaryPage from "./pages/dtr/create-summary/create-summary";
 // import Timekeeping from "./pages/dtr/timekeeping/Timekeeping";
 
 const icon = {
@@ -132,7 +133,7 @@ export const routes: Array<IRoute> = [
             icon: <TableViewIcon {...icon} />,
             name: "Create DTR Summary",
             path: "/DTR/create-summary",
-            element: <div>Coming Soon</div>,
+            element: <CreateSummaryPage/>,
             hasSubItems: false,
           },
           // {
