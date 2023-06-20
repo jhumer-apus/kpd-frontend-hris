@@ -2,7 +2,7 @@ import { ofType } from 'redux-observable';
 import { map, catchError, switchMap, mergeMap } from 'rxjs/operators';
 import { of, from } from 'rxjs';
 import axios from 'axios';
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
 import { 
   viewAllDtrLogs, 
   viewAllDtrLogsSuccess, 
@@ -21,10 +21,12 @@ import {
   getCutoffListEmployeeFailure,
   mergeCutoffListAndEmployee,
   mergeCutoffListAndEmployeeSuccess,
+  mergeCutoffListAndEmployeeProgress,
   mergeCutoffListAndEmployeeFailure
 } from '../actions/dtr';
 import { Epic } from 'redux-observable';
 import { CutoffListMergeSelectionState } from '@/types/types-pages';
+import store from '../configureStore';
 
 const viewAllDtrLogsApiCall = async () => {
     const response = await axios.get("http://172.16.168.155:8000/api/dtr");
@@ -79,6 +81,7 @@ const mergeCutoffListAndEmployeeApiCall = async ( {emp_no, cutoff_code} : Cutoff
       if(progressEvent.total){
         const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
         console.log("Merge progress:", progress, "Loaded:", progressEvent.loaded, "Total:", progressEvent.total)
+        store.dispatch(mergeCutoffListAndEmployeeProgress(progress))
       }
     }
   }

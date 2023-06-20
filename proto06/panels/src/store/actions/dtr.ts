@@ -58,4 +58,7 @@ export const mergeCutoffListAndEmployee = createAction<{emp_no: number[], cutoff
 export const mergeCutoffListAndEmployeeSuccess = createAction("MERGE_CUTOFF_LIST_AND_EMPLOYEE_SUCCESS", (SuccessMessage: string) => { 
     // console.log
     return({ payload: {SuccessMessage} })});
+export const mergeCutoffListAndEmployeeProgress = createAction<number>('MERGE_CUTOFF_LIST_AND_EMPLOYEE_PROGRESS');
+export const mergeCutoffListAndEmployeeResetProgress = createAction<number>('MERGE_CUTOFF_LIST_AND_EMPLOYEE_RESET_PROGRESS');
 export const mergeCutoffListAndEmployeeFailure = createAction<string>("MERGE_CUTOFF_LIST_AND_EMPLOYEE_FAILURE");
+

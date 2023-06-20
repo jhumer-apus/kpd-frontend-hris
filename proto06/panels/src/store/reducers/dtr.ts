@@ -17,6 +17,7 @@ import {
   getCutoffListEmployeeFailure,
   mergeCutoffListAndEmployee,
   mergeCutoffListAndEmployeeSuccess,
+  mergeCutoffListAndEmployeeProgress,
   mergeCutoffListAndEmployeeFailure
 } from '../actions/dtr';
 import { DtrData } from '@/types/types-store';
@@ -49,6 +50,7 @@ interface DtrState {
     status: string | null;
     message: string | null;
     error: string | null;
+    progress: number; 
   }
 }
 
@@ -78,7 +80,8 @@ const initialState: DtrState = {
   mergeCutoffListAndEmployee: {
     status: null,
     message: null,
-    error: null
+    error: null,
+    progress: 0,
   }
 };
 
@@ -105,6 +108,7 @@ const setMergeListEmployeeLoadingState = (state: DtrState) => {
   state.mergeCutoffListAndEmployee.status = 'loading';
   state.mergeCutoffListAndEmployee.message = null;
   state.mergeCutoffListAndEmployee.error = null;
+  state.mergeCutoffListAndEmployee.progress = 0;
 };
 
 const setSuccessState = (state: DtrState, payload: DtrData) => {
@@ -184,7 +188,10 @@ const dtrSlice = createSlice({
       .addCase(getCutoffListEmployeeFailure, (state, action) => setGetListEmployeeFailureState(state, action.payload))
       .addCase(mergeCutoffListAndEmployee, setMergeListEmployeeLoadingState)
       .addCase(mergeCutoffListAndEmployeeSuccess, (state, action) => setMergeListEmployeeSuccessState(state, action.payload.SuccessMessage))
-      .addCase(mergeCutoffListAndEmployeeFailure, (state, action) => setMergeListEmployeeFailureState(state, action.payload));
+      .addCase(mergeCutoffListAndEmployeeFailure, (state, action) => setMergeListEmployeeFailureState(state, action.payload))
+      .addCase(mergeCutoffListAndEmployeeProgress, (state, action) => {
+        state.mergeCutoffListAndEmployee.progress = action.payload;
+      })
   },
 });
 
