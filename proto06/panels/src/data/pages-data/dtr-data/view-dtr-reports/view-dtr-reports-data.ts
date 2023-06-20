@@ -4,7 +4,7 @@ export const viewDTROptions = [
   "View All DTR Logs/Entries",
   "View Merged DTR Logs",
   "View Cutoff DTR Summary",
-  "View Employee Specific DTR"
+  // "View Employee Specific DTR"
 ];
 
 export const viewDTRDescriptions = [
