@@ -1,63 +1,28 @@
 import { Fragment, useEffect, useState } from 'react';
-import { DataGrid, GridColDef, GridValueGetterParams, GridCellParams } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridValueGetterParams, GridCellParams, GridRowParams } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
 import { getEmployeesList } from '@/store/actions/employees';
 import { RootState } from '@/store/reducers';
 import { getSpecificEmployeeInfo } from '@/store/actions/employees';
-import { Modal, Box, CircularProgress } from '@mui/material';
-import { UserProfile } from './forms/AddEmployee';
+import { Modal, Box, } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import { GetEmployeesListsType, ViewAllDtrLogsType } from '@/types/types-store';
-// import { Button } from '@mui/material';
+import { GetEmployeesListsType } from '@/types/types-store';
 import {Button} from '@material-tailwind/react';
 import { DtrData } from '@/types/types-store';
 
 
 import {
   Typography,
-  // Card,
-  // CardHeader,
-  // CardBody,
-  // Input,
-  // Button,
-  // Tabs,
-  // Tab,
-  // TabsHeader,
-  // TabsBody,
-  // TabPanel,
-  // Select,
-  // Option,
 } from "@material-tailwind/react";
-// import {
-//   LockClosedIcon,
-// } from "@heroicons/react/24/solid";
-// import {
-//   UserIcon,
-//   FingerPrintIcon,
-//   AcademicCapIcon,
-//   TvIcon,
-//   UserGroupIcon,
-//   WindowIcon,
-//   ShieldCheckIcon,
-//   LockClosedIcon as LockClosedOutline,
-//   XCircleIcon,
-//   CheckCircleIcon,
-//   LockOpenIcon,
-//   MapIcon,
-//   UserPlusIcon,
-//   XMarkIcon,
-//   TagIcon,
-//   ArrowUpTrayIcon,
-// } from "@heroicons/react/24/outline";
+
 import { SpecificEmployee } from './forms/SpecificEmployee';
-
-
-// import {Buttonicon as Button2} from '@mui/material/Button';
 import SplitButton from '@/widgets/split-button/split-button';
 import { viewDTROptions, viewDTRDescriptions } from '@/data/pages-data/dtr-data/view-dtr-reports';
 import useDtrState from '@/custom-hooks/use-dtr-state';
 import { dynamicDTRColumns } from '@/data/pages-data/dtr-data/view-dtr-reports';
 import { viewAllDtrLogs, viewCutoffDtrSummary, viewMergedDtrLogs } from '@/store/actions/dtr';
+import PrintTableButton from './local-components/print-table-button';
+import ExportToCsvButton from './local-components/export-to-csv-button';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -75,13 +40,13 @@ const style = {
 
 
 export default function ViewDtrReports() {
+  const [printing, setIsPrinting] = useState(false);
   const dispatch = useDispatch();
   const { register, handleSubmit, setValue, formState: { errors } } = useForm<GetEmployeesListsType>();
   const { employees_list, specific_employee_info } = useSelector((state: RootState) => state.employees);
   const { spButtonIndex, spButtonStr, spButtonError, dtrStatus, dtrError, dtrData } = useDtrState();
   const [type, setType] = useState("staticInfo");
 
-  // console.log(dtrStatus, "testing?")
 
   // Specific Employee Modal Form 
   // States: 
@@ -166,57 +131,21 @@ export default function ViewDtrReports() {
       }, 1200);
   }, [specific_employee_info])
 
-  const data = dtrData;
-  function convertToCSV(data: DtrData) {
-    const replacer = (key: string, value: any) => value === null ? '' : value;
-    if(data){
-      const header = Object.keys(data[0]);
-      const csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
-      // console.log(csv, "step1", csv.unshift(header.join(',')), "step2", csv.join('\r\n'), "step3");
-      csv.unshift(header.join(','));
-      return csv.join('\r\n');
-    }else {
-      window.alert("No Data is Found")
-    }
-  };
-  function downloadCSV(csv: string, filename: string) {
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-  const handleDownload = () => {
-    if(!data){
-      return; //Todo: Error Handling 
-    }
-    const csv = convertToCSV(data);
-    if(csv){
-      downloadCSV(csv, `${window.prompt("Enter the file name", "default_name")}`);
-    }
-  };
-
-  const [printing, setIsPrinting] = useState(false);
-  
-  function handlePrint(){
-    setIsPrinting(true)
-    setTimeout(()=> {
-      window.print();
-      setIsPrinting(false)
-    }, 1500)
-  };
-
-  function printableArea(){
+  const printableArea = () => {
     // Calculate px; solves printable area bug, Do not easily modify
     if(dtrData?.length && dtrData?.length >= 11){
-      return dtrData?.length / 25 * 1450
+      return dtrData?.length / 25 * 1400
     } else {
       return 700
     }
-  }
+  };
+
+  const gridRowClick = (e: GridRowParams) => {
+    handleOpen()
+    setModalEntranceDelay(true)
+    setSecondOptionModalEntranceDelay(true)
+    dispatchSpecificEmployeeInfo(e.row?.emp_no)
+  };
 
   return (
     <Fragment>
@@ -228,16 +157,9 @@ export default function ViewDtrReports() {
         </Typography>
         </div>
         <div className='flex justify-between gap-6'>
-        <Button 
-          className='gap-2'
-          color='indigo'
-          variant='gradient'
-          onClick={handleDownload}>
-        Export / Download as CSV
-        </Button>
-        <Button variant="gradient" color="indigo" style={{marginRight: "6px"}} onClick={handlePrint}>Print Table</Button>
+        <ExportToCsvButton data={dtrData} />
+        <PrintTableButton setIsPrinting={setIsPrinting}/>
         </div>
-
       </div>
       <div style={{ height: `${printing? `${printableArea()}px` : '660px'}`, width: '100%' }} id="printable-area">
         <DataGrid
@@ -248,17 +170,12 @@ export default function ViewDtrReports() {
               paginationModel: { page: 0, pageSize: 100 },
             },
           }}
-        //   checkboxSelection
           pageSizeOptions={[25, 50, 75, 100]}
-          // checkboxSelection
           onRowClick={(e) => {
-            handleOpen()
-            setModalEntranceDelay(true)
-            setSecondOptionModalEntranceDelay(true)
-            dispatchSpecificEmployeeInfo(e.row?.emp_no)
-            // console.log(e, dispatchSpecificEmployeeInfo(e.row?.emp_no))
+            spButtonIndex === 2 ? gridRowClick(e) : null
           }}
-          style={{ cursor: 'pointer'}}
+          style={{ cursor: spButtonIndex === 2 ? 'pointer': 'default'}}
+          localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? 'Choose a cutoff period to display employee list': 'SUCCEEDED...'}` }}
         />
         <Modal
           open={open}
