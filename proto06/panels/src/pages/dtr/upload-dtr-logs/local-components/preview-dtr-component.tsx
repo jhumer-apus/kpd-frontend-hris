@@ -40,10 +40,8 @@ export default function PreviewDtr(props: PreviewDtrType) {
       <b>Current File Previewing:</b><i><Box>{fileName? fileName: 'No File Chosen'}</Box></i>
       <div style={{ height: '600px' , width: '100%' }}>
       <DataGrid
-        // autoHeight
         rows={csvData}
         columns={columns}
-        // hideFooter
         sx={{ mt: 1 }}
         initialState={{
           pagination: {
@@ -51,6 +49,7 @@ export default function PreviewDtr(props: PreviewDtrType) {
           },
         }}
         pageSizeOptions={[25, 50, 75, 100]}
+        localeText={{ noRowsLabel: `${fileName? 'Awaiting File Preview...': 'TSV file automatically previews here.'}` }}
       />
       </div>
     </>
