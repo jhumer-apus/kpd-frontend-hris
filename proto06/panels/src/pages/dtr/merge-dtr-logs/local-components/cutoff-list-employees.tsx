@@ -8,6 +8,7 @@ import MergeDTRHelp from "../local-popovers/merge-dtr-help";
 import {Button} from "@mui/material";
 import { RootState } from "@/store/configureStore";
 import { CutoffListMergeSelectionState } from "@/types/types-pages";
+import CircularStatic from "../local-progress/circular-progress";
 
 const columns = [
   {
@@ -105,6 +106,7 @@ export default function CutOffListEmployees(props: CutOffListEmployees) {
     }));
   };
   function initializeMerge(){
+    
     if(!Number.isNaN(selectedRows.cutoff_code)){
       dispatch(mergeCutoffListAndEmployee(selectedRows))
     } else {
@@ -113,9 +115,12 @@ export default function CutOffListEmployees(props: CutOffListEmployees) {
   };
   return (
     <>
-      <div className='flex justify-between'>
-      <b className="flex">Merge DTR Logs to Cutoff:<MergeDTRHelp/></b>
+      <div className='flex justify-between items-center'>
+      <b className="flex items-center">Choose Employees to Merge:</b>
+      <div className="flex justify-between">
+      <CircularStatic/>
       <Button onClick={initializeMerge} variant={'contained'}> Initialize Merge</Button>
+      </div>
       </div>
       <div style={{ height: '600px' , width: '100%' }}>
       <DataGrid
