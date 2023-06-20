@@ -18,12 +18,17 @@ import {
   mergeCutoffListAndEmployee,
   mergeCutoffListAndEmployeeSuccess,
   mergeCutoffListAndEmployeeProgress,
-  mergeCutoffListAndEmployeeFailure
+  mergeCutoffListAndEmployeeFailure,
+  summarizeCutoffListAndEmployee,
+  summarizeCutoffListAndEmployeeSuccess,
+  summarizeCutoffListAndEmployeeFailure,
+  summarizeCutoffListAndEmployeeProgress
 } from '../actions/dtr';
-import { DtrData } from '@/types/types-store';
+import { DtrData, ViewAllDtrLogsType, ViewCutoffDtrSummaryType } from '@/types/types-store';
 import { DTRCutoffListType, DTRCutoffListEmployees } from '@/types/types-pages';
 
 interface DtrState {
+  [key: string]: any; // To do, can improve this...
   viewDtrReports: {
     splitButton: {
       spButtonIndex: number | null;
@@ -47,6 +52,12 @@ interface DtrState {
     error: string | null; 
   },
   mergeCutoffListAndEmployee: {
+    status: string | null;
+    message: string | null;
+    error: string | null;
+    progress: number; 
+  }
+  summarizeCutoffListAndEmployee: {
     status: string | null;
     message: string | null;
     error: string | null;
@@ -82,6 +93,12 @@ const initialState: DtrState = {
     message: null,
     error: null,
     progress: 0,
+  },
+  summarizeCutoffListAndEmployee: {
+    status: null,
+    message: null,
+    error: null,
+    progress: 0,
   }
 };
 
@@ -111,6 +128,14 @@ const setMergeListEmployeeLoadingState = (state: DtrState) => {
   state.mergeCutoffListAndEmployee.progress = 0;
 };
 
+const setSummarizeListEmployeeLoadingState = (state: DtrState) => {
+  state.summarizeCutoffListAndEmployee.status = 'loading';
+  state.summarizeCutoffListAndEmployee.message = null;
+  state.summarizeCutoffListAndEmployee.error = null;
+  state.summarizeCutoffListAndEmployee.progress = 0;
+};
+
+
 const setSuccessState = (state: DtrState, payload: DtrData) => {
   state.viewDtrReports.currentView.dtrStatus = 'succeeded';
   state.viewDtrReports.currentView.dtrError = null;
@@ -124,8 +149,8 @@ const setGetListSuccessState = (state: DtrState, payload: DTRCutoffListType[]) =
 };
 
 const setGetListEmployeeSuccessState = (state: DtrState, payload: DTRCutoffListEmployees[]) => {
-  state.getCutoffListEmployees.status = 'succeeded';
-  state.getCutoffListEmployees.employees = payload;
+  state.getCutoffListEmployees.status = payload? 'succeeded' : null;
+  state.getCutoffListEmployees.employees = payload ? payload : null;
   state.getCutoffListEmployees.error = null;
 };
 
@@ -135,6 +160,11 @@ const setMergeListEmployeeSuccessState = (state: DtrState, payload: string) => {
   state.mergeCutoffListAndEmployee.error = null;
 };
 
+const setSummarizeListEmployeeSuccessState = (state: DtrState, payload: string) => {
+  state.summarizeCutoffListAndEmployee.status = 'succeeded';
+  state.summarizeCutoffListAndEmployee.message = payload;
+  state.summarizeCutoffListAndEmployee.error = null;
+};
 
 const setFailureState = (state: DtrState, payload: string) => {
   state.viewDtrReports.currentView.dtrStatus = 'failed';
@@ -159,6 +189,32 @@ const setMergeListEmployeeFailureState = (state: DtrState, payload: string) => {
   state.mergeCutoffListAndEmployee.message = null;
   state.mergeCutoffListAndEmployee.error = payload;
 };
+
+const setSummarizeListEmployeeFailureState = (state: DtrState, payload: string) => {
+  state.summarizeCutoffListAndEmployee.status = 'failed';
+  state.summarizeCutoffListAndEmployee.message = null;
+  state.summarizeCutoffListAndEmployee.error = payload;
+};
+
+// To do: improvement for the static typing
+// const set1LoadingState = (path: string) => (state: DtrState) => {
+//   state[path].status = 'loading';
+//   state[path].data = null;
+//   state[path].error = null;
+// };
+
+// const set1SuccessState = (path: string) => (state: DtrState, { payload }: any ) => {
+//   state[path].status = 'succeeded';
+//   state[path].data = payload;
+//   state[path].error = null;
+// };
+
+// const set1FailureState = (path: string) => (state: DtrState, { payload }: any) => {
+//   state[path].status = 'failed';
+//   state[path].data = null;
+//   state[path].error = payload;
+// };
+
 
 const dtrSlice = createSlice({
   name: 'dtr',
@@ -191,6 +247,12 @@ const dtrSlice = createSlice({
       .addCase(mergeCutoffListAndEmployeeFailure, (state, action) => setMergeListEmployeeFailureState(state, action.payload))
       .addCase(mergeCutoffListAndEmployeeProgress, (state, action) => {
         state.mergeCutoffListAndEmployee.progress = action.payload;
+      })
+      .addCase(summarizeCutoffListAndEmployee, setSummarizeListEmployeeLoadingState)
+      .addCase(summarizeCutoffListAndEmployeeSuccess, (state, action) => setSummarizeListEmployeeSuccessState(state, action.payload.SuccessMessage))
+      .addCase(summarizeCutoffListAndEmployeeFailure, (state, action) => setSummarizeListEmployeeFailureState(state, action.payload))
+      .addCase(summarizeCutoffListAndEmployeeProgress, (state, action) => {
+        state.summarizeCutoffListAndEmployee.progress = action.payload;
       })
   },
 });
