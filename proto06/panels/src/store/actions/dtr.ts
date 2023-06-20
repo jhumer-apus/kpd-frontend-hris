@@ -50,15 +50,17 @@ export const getCutoffListEmployeeFailure = createAction<string>("GET_CUTOFF_LIS
 // export const getSpecificEmployeeInfoSuccess = createAction("GET_SPECIFIC_EMPLOYEE_INFO_SUCCESS", (list: EmployeeDetailsType) => ({ payload: {list} }));
 // export const getSpecificEmployeeInfoFailure = createAction<String>("GET_SPECIFIC_EMPLOYEE_INFO_FAILURE");
 
-
-
-
-
 export const mergeCutoffListAndEmployee = createAction<{emp_no: number[], cutoff_code: number}>("MERGE_CUTOFF_LIST_AND_EMPLOYEE");
 export const mergeCutoffListAndEmployeeSuccess = createAction("MERGE_CUTOFF_LIST_AND_EMPLOYEE_SUCCESS", (SuccessMessage: string) => { 
     // console.log
     return({ payload: {SuccessMessage} })});
 export const mergeCutoffListAndEmployeeProgress = createAction<number>('MERGE_CUTOFF_LIST_AND_EMPLOYEE_PROGRESS');
-export const mergeCutoffListAndEmployeeResetProgress = createAction<number>('MERGE_CUTOFF_LIST_AND_EMPLOYEE_RESET_PROGRESS');
 export const mergeCutoffListAndEmployeeFailure = createAction<string>("MERGE_CUTOFF_LIST_AND_EMPLOYEE_FAILURE");
 
+
+export const summarizeCutoffListAndEmployee = createAction<{emp_no: number[], cutoff_code: number}>("SUMMARIZE_CUTOFF_LIST_AND_EMPLOYEE");
+export const summarizeCutoffListAndEmployeeSuccess = createAction("SUMMARIZE_CUTOFF_LIST_AND_EMPLOYEE_SUCCESS", (SuccessMessage: string) => { 
+    // console.log
+    return({ payload: {SuccessMessage} })});
+export const summarizeCutoffListAndEmployeeProgress = createAction<number>('SUMMARIZE_CUTOFF_LIST_AND_EMPLOYEE_PROGRESS');
+export const summarizeCutoffListAndEmployeeFailure = createAction<string>("SUMMARIZE_CUTOFF_LIST_AND_EMPLOYEE_FAILURE");
