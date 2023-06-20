@@ -69,7 +69,7 @@ interface CutOffListTable {
 export default function CutOffListTable(props: CutOffListTable) {
   const {selectedRows, setSelectedRows} = props;
   const dispatch = useDispatch();
-  const {cutoffList} = useSelector((state: RootState)=> state.dtr.getCutoffList);
+  const {cutoffList, status} = useSelector((state: RootState)=> state.dtr.getCutoffList);
   // console.log(selectedRows, "hahaha>?")
 
   useEffect(()=>{
@@ -114,7 +114,7 @@ export default function CutOffListTable(props: CutOffListTable) {
         checkboxSelection
         onRowSelectionModelChange={handleSelection}
         rowSelectionModel={ Number.isNaN(selectedRows.cutoff_code) ? [] : selectedRows.cutoff_code}
-        localeText={{ noRowsLabel: 'No cutoff lists found. Contact your administrator/developers.' }}
+        localeText={{ noRowsLabel: `${status === 'loading' || status !== 'failed'? `${status?.toUpperCase()}...` : 'No cutoff lists found. Contact your administrator/support.'}` }}
         pageSizeOptions={[25, 50, 75, 100]}
       />
       </div>
