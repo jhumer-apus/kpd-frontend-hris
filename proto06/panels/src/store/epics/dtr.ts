@@ -22,7 +22,11 @@ import {
   mergeCutoffListAndEmployee,
   mergeCutoffListAndEmployeeSuccess,
   mergeCutoffListAndEmployeeProgress,
-  mergeCutoffListAndEmployeeFailure
+  mergeCutoffListAndEmployeeFailure,
+  summarizeCutoffListAndEmployee,
+  summarizeCutoffListAndEmployeeFailure,
+  summarizeCutoffListAndEmployeeSuccess,
+  summarizeCutoffListAndEmployeeProgress
 } from '../actions/dtr';
 import { Epic } from 'redux-observable';
 import { CutoffListMergeSelectionState } from '@/types/types-pages';
@@ -90,6 +94,28 @@ const mergeCutoffListAndEmployeeApiCall = async ( {emp_no, cutoff_code} : Cutoff
 return response.data.message;
 };
 
+
+const summarizeCutoffListAndEmployeeApiCall = async ( {emp_no, cutoff_code} : CutoffListMergeSelectionState ) => {
+
+  console.log(emp_no, cutoff_code, "haha????")
+  const response = await axios.post(`http://172.16.168.155:8000/api/create_summary/`, {
+  emp_no,
+  cutoff_code,
+  }
+  ,
+  {
+    onDownloadProgress: (progressEvent) => {
+      if(progressEvent.total){
+        const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+        console.log("Merge progress:", progress, "Loaded:", progressEvent.loaded, "Total:", progressEvent.total)
+        store.dispatch(summarizeCutoffListAndEmployeeProgress(progress))
+      }
+    }
+  }
+);
+// console.log(response, "aaa");
+return response.data.message;
+};
 
 export const viewAllDtrLogsEpic: Epic = (action$, state$) =>
   action$.pipe(
@@ -224,6 +250,28 @@ export const mergeCutoffListAndEmployeeEpic: Epic = (action$, state$) =>
             return of(mergeCutoffListAndEmployeeFailure(error.response.data.error)); // Extract error message from the response
           } else {
             return of(mergeCutoffListAndEmployeeFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+export const summarizeCutoffListAndEmployeeEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(summarizeCutoffListAndEmployee.type),
+    switchMap((action: ReturnType<typeof mergeCutoffListAndEmployee>) =>
+      from(
+        summarizeCutoffListAndEmployeeApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return summarizeCutoffListAndEmployeeSuccess(data);
+        }),
+        catchError((error) => {
+          // console.log(error.response, "maeeeeee111owww");
+          if (error.response && error.response.data && error.response.data.error) {
+            return of(summarizeCutoffListAndEmployeeFailure(error.response.data.error)); // Extract error message from the response
+          } else {
+            return of(summarizeCutoffListAndEmployeeFailure(error.message)); // If there is no custom error message, use the default one
           }
         })
       )
