@@ -96,8 +96,6 @@ return response.data.message;
 
 
 const summarizeCutoffListAndEmployeeApiCall = async ( {emp_no, cutoff_code} : CutoffListMergeSelectionState ) => {
-
-  console.log(emp_no, cutoff_code, "haha????")
   const response = await axios.post(`http://172.16.168.155:8000/api/create_summary/`, {
   emp_no,
   cutoff_code,
