@@ -1,15 +1,9 @@
 import { Fragment, useEffect, useState } from 'react';
-import { DataGrid, GridColDef, GridValueGetterParams, GridCellParams, GridRowParams } from '@mui/x-data-grid';
+import { DataGrid, GridRowParams } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
-import { getEmployeesList } from '@/store/actions/employees';
 import { RootState } from '@/store/reducers';
 import { getSpecificEmployeeInfo } from '@/store/actions/employees';
 import { Modal, Box, } from '@mui/material';
-import { useForm } from 'react-hook-form';
-import { GetEmployeesListsType } from '@/types/types-store';
-import {Button} from '@material-tailwind/react';
-import { DtrData } from '@/types/types-store';
-
 
 import {
   Typography,
@@ -42,8 +36,7 @@ const style = {
 export default function ViewDtrReports() {
   const [printing, setIsPrinting] = useState(false);
   const dispatch = useDispatch();
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm<GetEmployeesListsType>();
-  const { employees_list, specific_employee_info } = useSelector((state: RootState) => state.employees);
+  const { specific_employee_info } = useSelector((state: RootState) => state.employees);
   const { spButtonIndex, spButtonStr, spButtonError, dtrStatus, dtrError, dtrData } = useDtrState();
   const [type, setType] = useState("staticInfo");
 
@@ -53,7 +46,6 @@ export default function ViewDtrReports() {
   const [open, setOpen] = useState(false);
   const [modalEntranceDelay, setModalEntranceDelay] = useState(false);
   const [secondOptionModalEntranceDelay, setSecondOptionModalEntranceDelay] = useState(false);
-  const [editMode, setEditMode] = useState(false);
   function handleOpen(){
     setOpen(true);
   };
@@ -63,35 +55,6 @@ export default function ViewDtrReports() {
     setType("staticInfo");
   };
 
-  // Add Employee Modal Form
-  // States:
-  const [open2, setOpen2] = useState(false);
-  const [modalEntranceDelay2, setModalEntranceDelay2] = useState(false);
-  const [secondOptionModalEntranceDelay2, setSecondOptionModalEntranceDelay2] = useState(false);
-  function handleOpen2(){
-    setOpen2(true);
-  };
-
-  function handleClose2(){
-    setOpen2(false);
-  };
-
-  // Import Employee Modal Form
-  // States:
-  const [open3, setOpen3] = useState(false);
-  const [modalEntranceDelay3, setModalEntranceDelay3] = useState(false);
-  const [secondOptionModalEntranceDelay3, setSecondOptionModalEntranceDelay3] = useState(false);
-  function handleOpen3(){
-    setOpen3(true);
-  };
-
-  function handleClose3(){
-    setOpen3(false);
-  };
-
-  useEffect(() => {
-    dispatch(getEmployeesList());
-  }, []);
 
   useEffect(() => {
     if(spButtonIndex !== null && spButtonIndex === 1 ){
@@ -103,10 +66,6 @@ export default function ViewDtrReports() {
     }
   }, [spButtonIndex]);
   function dispatchSpecificEmployeeInfo(employee_number: number){
-    return dispatch(getSpecificEmployeeInfo({employee_id: employee_number}));   
-  }
-
-  function dispatchSpecificEmployeeDTRSummary(employee_number: number){
     return dispatch(getSpecificEmployeeInfo({employee_id: employee_number}));   
   }
 
