@@ -38,7 +38,6 @@ export default function MergeDtrLogs() {
       dispatch(getCutoffListEmployee({cutoff_period:selectedRows?.cutoff_code}));
   }, [selectedRows?.cutoff_code])
   
-  console.log(employees, "mamama??", selectedRows)
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.down('lg'));
 
