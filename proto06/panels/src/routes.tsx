@@ -230,6 +230,14 @@ export const routes: Array<IRoute> = [
             hasSubItems: false,
           },
           // {
+          //   id: 1630,
+          //   icon: <DocumentIcon {...icon} />,
+          //   name: "Generate Payslip",
+          //   path: "/payroll/generate-payslip",
+          //   element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">PAYROLL REGISTER PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
+          //   hasSubItems: false,
+          // },
+          // {
           //   id: 1610,
           //   icon: <DocumentIcon {...icon} />,
           //   name: "Payroll Register",

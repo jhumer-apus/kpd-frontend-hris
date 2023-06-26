@@ -4,7 +4,6 @@ import { of, from } from 'rxjs';
 import axios from 'axios';
 import Cookies from 'js-cookie'
 import { userLogin, userLoginSuccess, userLoginFailure } from '../actions/auth';
-// import { RootState } from '../reducers/index';
 import { Epic } from 'redux-observable';
 
 const loginApiCall = async (username: string, password: string, twoFactorToken?: string) => {

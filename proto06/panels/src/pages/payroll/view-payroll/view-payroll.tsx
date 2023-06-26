@@ -1,7 +1,8 @@
 import { Fragment, useEffect, useState } from 'react';
 import { DataGrid, GridRowParams } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '@/store/reducers';
+// import { RootState } from '@/store/reducers';
+import { RootState } from '@/store/configureStore';
 import { getSpecificEmployeeInfo } from '@/store/actions/employees';
 import { Modal, Box, } from '@mui/material';
 
@@ -17,6 +18,11 @@ import { dynamicDTRColumns } from '@/data/pages-data/dtr-data/view-dtr-reports';
 import { viewAllDtrLogs, viewCutoffDtrSummary, viewMergedDtrLogs } from '@/store/actions/dtr';
 import PrintTableButton from './local-components/print-table-button';
 import ExportToCsvButton from './local-components/export-to-csv-button';
+import { dynamicPayrollColumns } from '@/data/pages-data/view-payroll-data/view-dtr-reports';
+import { viewPayrollList } from '@/store/actions/payroll';
+import GeneratePayslipMultiple from './local-components/generate-payslip-multiple';
+import FadeModalDialog from './local-components/new-modal';
+import GeneratePayslipSingle from './local-components/generate-payslip-single';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -39,7 +45,12 @@ export default function ViewPayroll() {
   const { specific_employee_info } = useSelector((state: RootState) => state.employees);
   const { spButtonIndex, spButtonStr, spButtonError, dtrStatus, dtrError, dtrData } = useDtrState();
   const [type, setType] = useState("staticInfo");
+  const { status: payrollStatus, data: payrollData, progress: payrollProgress, error: payrollError} = useSelector((state: RootState) => state.payroll.viewPayroll);
+  const [singlePayslipOpen, setSinglePayslipOpen] = useState<boolean>(false);
 
+  useEffect(()=> {
+    dispatch(viewPayrollList())
+  }, [])
 
   // Specific Employee Modal Form 
   // States: 
@@ -65,6 +76,7 @@ export default function ViewPayroll() {
       dispatch(viewAllDtrLogs());
     }
   }, [spButtonIndex]);
+  
   function dispatchSpecificEmployeeInfo(employee_number: number){
     return dispatch(getSpecificEmployeeInfo({employee_id: employee_number}));   
   }
@@ -92,8 +104,8 @@ export default function ViewPayroll() {
 
   const printableArea = () => {
     // Calculate px; solves printable area bug, Do not easily modify
-    if(dtrData?.length && dtrData?.length >= 11){
-      return dtrData?.length / 25 * 1400
+    if(payrollData?.length && payrollData?.length >= 11){
+      return payrollData?.length / 25 * 1400
     } else {
       return 700
     }
@@ -110,20 +122,22 @@ export default function ViewPayroll() {
     <Fragment>
       <div className="my-10 flex flex-wrap justify-between items-start gap-6">
         <div>
-        <SplitButton options={viewDTROptions}/>
-        <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400"}}>
+          <GeneratePayslipSingle singlePayslipOpen={singlePayslipOpen} setSinglePayslipOpen={setSinglePayslipOpen}/>
+          <GeneratePayslipMultiple />
+        {/* <SplitButton options={viewDTROptions}/> */}
+        {/* <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400"}}>
           <i>{viewDTRDescriptions[spButtonIndex === null ? 0 : spButtonIndex]}</i>
-        </Typography>
+        </Typography> */}
         </div>
         <div className='flex justify-between gap-6'>
-        <ExportToCsvButton data={dtrData} />
-        <PrintTableButton setIsPrinting={setIsPrinting}/>
+          <ExportToCsvButton data={dtrData} />
+          <PrintTableButton setIsPrinting={setIsPrinting}/>
         </div>
       </div>
       <div style={{ height: `${printing? `${printableArea()}px` : '660px'}`, width: '100%' }} id="printable-area">
         <DataGrid
-          rows={dtrData ?? []}
-          columns={dynamicDTRColumns[spButtonIndex === null ? 0 : spButtonIndex]}
+          rows={payrollData? payrollData: []}
+          columns={dynamicPayrollColumns[0]}
           initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 100 },
@@ -131,8 +145,12 @@ export default function ViewPayroll() {
           }}
           pageSizeOptions={[25, 50, 75, 100]}
           onRowClick={(e) => {
-            spButtonIndex === 2 ? gridRowClick(e) : null
+            setSinglePayslipOpen(true);
+            // spButtonIndex === 2 ? gridRowClick(e) : null
           }}
+          checkboxSelection
+          disableRowSelectionOnClick
+          // disableSelectionOnClick 
           style={{ cursor: spButtonIndex === 2 ? 'pointer': 'default'}}
           localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? 'Choose a cutoff period to display employee list': 'SUCCEEDED...'}` }}
         />

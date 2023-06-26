@@ -5,7 +5,6 @@ import {
   CreditCardIcon,
   LockOpenIcon,
   BanknotesIcon,
-  CircleStackIcon,
   ArchiveBoxIcon,
   AcademicCapIcon,
   ClockIcon,
