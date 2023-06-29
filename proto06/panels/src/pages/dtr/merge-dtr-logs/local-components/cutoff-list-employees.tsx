@@ -60,7 +60,7 @@ const columns = [
 ];
 
 interface CutOffListEmployees {
-  // status: string | null,
+  status: string | null,
   employees: DTRCutoffListEmployees[] | null,
   // error: string | null,
   selectedRows: CutoffListMergeSelectionState,
@@ -69,18 +69,13 @@ interface CutOffListEmployees {
 
 
 export default function CutOffListEmployees(props: CutOffListEmployees) { 
-  const {employees, selectedRows, setSelectedRows} = props;
+  const {employees, selectedRows, setSelectedRows, status} = props;
   const dispatch = useDispatch();
-  
-  const {status}= useSelector((state: RootState)=> state.dtr.getCutoffListEmployees);
-
-  // console.log(stass, "aaaaasss" , selectedRows)
   const handleSelection = (newSelection: GridRowSelectionModel, details: GridCallbackDetails) => {
     let emp_no_locale = [] as Array<number>;
     newSelection.forEach((id) => {
       const row = employees?.find((row) => row.id === id);
       if (row) {
-        console.log(row.emp_no, "haduken", newSelection, "mama?");  // or whatever property you're interested in
         emp_no_locale.push(row.emp_no);
       }
     });
