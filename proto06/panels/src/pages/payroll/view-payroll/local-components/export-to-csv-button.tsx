@@ -1,22 +1,31 @@
 import React from 'react';
 import { DtrData } from '@/types/types-store';
+import { ViewPayrollPayPerEmployee } from '@/types/types-pages';
 import {Button} from '@material-tailwind/react';
+import { flattenObject } from '@/helpers/utils';
 
 
 interface ExportToCsvButtonInterface {
-    data: DtrData
+    data: ViewPayrollPayPerEmployee[]
+}
+
+interface CsvIndex extends ViewPayrollPayPerEmployee{
+  [key: string]: any
 }
 
 function ExportToCsvButton(props: ExportToCsvButtonInterface)  {
     const {data} = props;
 
-    const convertToCSV = (data: DtrData) => {
+    const convertToCSV = (data: CsvIndex[]) => {
+      console.log(data, "first step");
         const replacer = (key: string, value: any) => value === null ? '' : value;
         if(data){
-          const header = Object.keys(data[0]);
-          const csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
+          const flattenedData = data.map(item => flattenObject(item));
+          const header = Object.keys(flattenedData[0]);
+          const csv = flattenedData.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
           // console.log(csv, "step1", csv.unshift(header.join(',')), "step2", csv.join('\r\n'), "step3");
           csv.unshift(header.join(','));
+          console.log(csv.join('\r\n'), "second step");
           return csv.join('\r\n');
         }else {
           window.alert("No Data is Found")
