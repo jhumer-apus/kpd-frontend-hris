@@ -11,52 +11,21 @@ import ModalClose from '@mui/joy/ModalClose';
 import Typography from '@mui/joy/Typography';
 import Stack from '@mui/joy/Stack';
 import { Transition } from 'react-transition-group';
+import { ViewPayrollPayPerEmployee } from '@/types/types-pages';
+import { GridRowParams } from '@mui/x-data-grid';
+import SinglePayslip from './payslips/single-payslip';
 
 interface SinglePayslipInterface {
     singlePayslipOpen: boolean; 
     setSinglePayslipOpen: (key: boolean) => void;
+    singlePayslipData: GridRowParams<ViewPayrollPayPerEmployee> | null;
 }
 
 export default function GeneratePayslipSingle(props: SinglePayslipInterface) {
-    const {singlePayslipOpen, setSinglePayslipOpen} = props;
-//   const [layout, setLayout] = React.useState<ModalDialogProps['layout'] | undefined>(
-//     undefined,
-//   );
+    const {singlePayslipOpen, setSinglePayslipOpen, singlePayslipData} = props;
   const [scroll, setScroll] = React.useState<boolean>(true);
-//   const [singlePayslipOpen, setSinglePayslipOpen] = React.useState<boolean>(false);
   return (
     <React.Fragment>
-      {/* <Stack direction="row" spacing={1}>
-        <Button
-          variant="solid"
-          color="neutral"
-          onClick={() => {
-            setLayout('center');
-            setOpen(true);
-          }}
-        >
-          Center
-        </Button>
-        <Button
-          variant="solid"
-          color="neutral"
-          onClick={() => {
-            setLayout('fullscreen');
-            setOpen(true);
-          }}
-        >
-          Full screen
-        </Button>
-      </Stack> */}
-      {/* <Button
-          variant="solid"
-          color="neutral"
-          onClick={() => {
-            setOpen(true);
-          }}
-        >
-          GENERATE PAYSLIP - MULTIPLE
-        </Button> */}
       <Transition in={singlePayslipOpen} timeout={400}>
       {(state: string) => (
       <Modal
@@ -68,6 +37,7 @@ export default function GeneratePayslipSingle(props: SinglePayslipInterface) {
         slotProps={{
             backdrop: {
               sx: {
+
                 opacity: 0,
                 backdropFilter: 'none',
                 transition: `opacity 400ms, backdrop-filter 400ms`,
@@ -86,6 +56,7 @@ export default function GeneratePayslipSingle(props: SinglePayslipInterface) {
             aria-labelledby="dialog-vertical-scroll-title" 
             layout={'center'}
             sx={{
+              ...paySlipArea,
                 opacity: 0,
                 transition: `opacity 300ms`,
                 ...{
@@ -95,41 +66,7 @@ export default function GeneratePayslipSingle(props: SinglePayslipInterface) {
                 border: '1px solid red'
             }}
         >
-          
-          <Typography id="dialog-vertical-scroll-title" component="h2">
-            Payslip
-            <ModalClose />
-          </Typography>
-          <FormControl
-            orientation="horizontal"
-            sx={{ bgcolor: 'background.level3', p: 1, borderRadius: 'sm' }}
-          >
-            <FormLabel>Print</FormLabel>
-            <Switch
-              checked={scroll}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                setScroll(event.target.checked)
-              }
-              sx={{ ml: 'auto' }}
-            />
-          </FormControl>
-          <List
-            sx={{
-            //   overflow: scroll ? 'scroll' : 'initial',
-              mx: 'calc(-1 * var(--ModalDialog-padding))',
-              px: 'var(--ModalDialog-padding)',
-            }}
-          >
-            <div>asds?</div>
-            {/* {[...Array(10)].map((item, index) => {
-                return(
-                    <React.Fragment>
-                        <div>asds?</div>
-                        <ListItem key={index}> I&apos;m in a scrollable area. Pneumonoultramicroscopic keke keme keme. Hello all?</ListItem>
-                    </React.Fragment>
-      
-            )})} */}
-          </List>
+          <SinglePayslip scroll={scroll} setScroll={setScroll}/>
         </ModalDialog>
       </Modal>
         )}
@@ -137,3 +74,14 @@ export default function GeneratePayslipSingle(props: SinglePayslipInterface) {
     </React.Fragment>
   );
 }
+
+
+// Styles
+const paySlipArea = {
+  height: '148.5mm',
+  width: '210mm',
+  margin: '0 auto',
+  background: 'white',
+  boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.1)',
+  overflow: 'hidden',
+};
