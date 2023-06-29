@@ -63,7 +63,7 @@ Explanation: You can view merged logs of all employees here, showing the total h
   },
 
 View Cutoff DTR Summary => Split Different Component ('172.16.168.155:8000/api/dtr_cutoff_summary/')
-Explanation: You can view merged logs of all employees here, showing the total hours and details of each logs. Sortable and filterable by (Entry ID, Business Date, Emp. No, Name, Time In, Time Out, Total Hours)
+Explanation: You can view merged logs of all employees here, showing the total hours and details of each logs. Sortable and filterable by (Entry ID, Emp. No, Cutoff From, Cutoff To, Name, Time In, Time Out, Total Hours)
 
 {
         "id": 63,
@@ -85,7 +85,6 @@ Explanation: You can view merged logs of all employees here, showing the total h
         "emp_no": 9990,
         "cutoff_code": 1
     },
-
 
 
 View Employee Specific DTR => Split Different Component ('172.16.168.155:8000/api/dtr_cutoff_summary/')
