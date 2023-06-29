@@ -23,84 +23,22 @@ import { viewPayrollList } from '@/store/actions/payroll';
 import GeneratePayslipMultiple from './local-components/generate-payslip-multiple';
 import FadeModalDialog from './local-components/new-modal';
 import GeneratePayslipSingle from './local-components/generate-payslip-single';
-
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  pt: 2,
-  px: 4,
-  pb: 3,
-};
-
+import { ViewPayrollPayPerEmployee } from '@/types/types-pages';
 
 export default function ViewPayroll() {
   const [printing, setIsPrinting] = useState(false);
-  const dispatch = useDispatch();
-  const { specific_employee_info } = useSelector((state: RootState) => state.employees);
-  const { spButtonIndex, spButtonStr, spButtonError, dtrStatus, dtrError, dtrData } = useDtrState();
-  const [type, setType] = useState("staticInfo");
-  const { status: payrollStatus, data: payrollData, progress: payrollProgress, error: payrollError} = useSelector((state: RootState) => state.payroll.viewPayroll);
   const [singlePayslipOpen, setSinglePayslipOpen] = useState<boolean>(false);
+  const [singlePayslipData, setSinglePayslipData] = useState<GridRowParams<ViewPayrollPayPerEmployee> | null>(null);
+  const dispatch = useDispatch();
+  const { spButtonIndex, dtrStatus, dtrData } = useDtrState();
+  
+  const { status: payrollStatus, data: payrollData, progress: payrollProgress, error: payrollError} = useSelector((state: RootState) => state.payroll.viewPayroll);
+  
+
 
   useEffect(()=> {
     dispatch(viewPayrollList())
   }, [])
-
-  // Specific Employee Modal Form 
-  // States: 
-  const [open, setOpen] = useState(false);
-  const [modalEntranceDelay, setModalEntranceDelay] = useState(false);
-  const [secondOptionModalEntranceDelay, setSecondOptionModalEntranceDelay] = useState(false);
-  function handleOpen(){
-    setOpen(true);
-  };
-
-  function handleClose(){
-    setOpen(false);
-    setType("staticInfo");
-  };
-
-
-  useEffect(() => {
-    if(spButtonIndex !== null && spButtonIndex === 1 ){
-      dispatch(viewMergedDtrLogs());
-    } else if (spButtonIndex !== null && spButtonIndex === 2 ){
-      dispatch(viewCutoffDtrSummary());
-    } else {
-      dispatch(viewAllDtrLogs());
-    }
-  }, [spButtonIndex]);
-  
-  function dispatchSpecificEmployeeInfo(employee_number: number){
-    return dispatch(getSpecificEmployeeInfo({employee_id: employee_number}));   
-  }
-
-  // Side Effects
-  const handleModalEntranceDelay = () => {
-    setModalEntranceDelay(true);
-    setSecondOptionModalEntranceDelay(true);
-    setTimeout(() => {
-      setModalEntranceDelay(false);
-    }, 1000);
-    setTimeout(() => {
-      setSecondOptionModalEntranceDelay(false);
-    }, 1200);
-  };
-
-  useEffect(()=>{
-      setTimeout(() => {
-        setModalEntranceDelay(false);
-      }, 1000);
-      setTimeout(() => {
-        setSecondOptionModalEntranceDelay(false);
-      }, 1200);
-  }, [specific_employee_info])
 
   const printableArea = () => {
     // Calculate px; solves printable area bug, Do not easily modify
@@ -111,18 +49,11 @@ export default function ViewPayroll() {
     }
   };
 
-  const gridRowClick = (e: GridRowParams) => {
-    handleOpen()
-    setModalEntranceDelay(true)
-    setSecondOptionModalEntranceDelay(true)
-    dispatchSpecificEmployeeInfo(e.row?.emp_no)
-  };
-
   return (
     <Fragment>
       <div className="my-10 flex flex-wrap justify-between items-start gap-6">
         <div>
-          <GeneratePayslipSingle singlePayslipOpen={singlePayslipOpen} setSinglePayslipOpen={setSinglePayslipOpen}/>
+          <GeneratePayslipSingle singlePayslipData={singlePayslipData} singlePayslipOpen={singlePayslipOpen} setSinglePayslipOpen={setSinglePayslipOpen}/>
           <GeneratePayslipMultiple />
         {/* <SplitButton options={viewDTROptions}/> */}
         {/* <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400"}}>
@@ -130,7 +61,7 @@ export default function ViewPayroll() {
         </Typography> */}
         </div>
         <div className='flex justify-between gap-6'>
-          <ExportToCsvButton data={dtrData} />
+          <ExportToCsvButton data={payrollData} />
           <PrintTableButton setIsPrinting={setIsPrinting}/>
         </div>
       </div>
@@ -145,6 +76,8 @@ export default function ViewPayroll() {
           }}
           pageSizeOptions={[25, 50, 75, 100]}
           onRowClick={(e) => {
+            setSinglePayslipData(e);
+            console.log(e, "this is pancit")
             setSinglePayslipOpen(true);
             // spButtonIndex === 2 ? gridRowClick(e) : null
           }}
@@ -154,18 +87,6 @@ export default function ViewPayroll() {
           style={{ cursor: spButtonIndex === 2 ? 'pointer': 'default'}}
           localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? 'Choose a cutoff period to display employee list': 'SUCCEEDED...'}` }}
         />
-        <Modal
-          open={open}
-          onClose={
-            handleClose
-          }
-          aria-labelledby="parent-modal-title"
-          aria-describedby="parent-modal-description"
-        >
-          <Box sx={{ ...style, width:"100%", maxHeight: "80%", overflowY: "auto",  background: "#e9bcb7", backgroundImage: "linear-gradient(315deg, #e9bcb7 0%, #29524a 74%)" }}>
-            <SpecificEmployee modalEntranceDelay={modalEntranceDelay} secondOptionModalEntranceDelay={secondOptionModalEntranceDelay} loadingEffect={handleModalEntranceDelay}/>
-          </Box>
-        </Modal>
       </div>
     </Fragment>
 
