@@ -88,6 +88,7 @@ export type CutoffListMergeSelectionState = {
 export type ViewPayrollPayPerEmployee = {
     id: number;
     cutoff: DTRCutoffListType[];
+    dtr_cutoff: DTRCutoffSummaryType[];
     emp_cname: string;
     run_date: string;
     accnt_no: string;
