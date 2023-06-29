@@ -1,7 +1,8 @@
 import { Fragment, useEffect, useState } from 'react';
 import { DataGrid, GridRowParams } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '@/store/reducers';
+// import { RootState } from '@/store/reducers';
+import { RootState } from '@/store/configureStore';
 import { getSpecificEmployeeInfo } from '@/store/actions/employees';
 import { Modal, Box, } from '@mui/material';
 
