@@ -95,7 +95,7 @@ export default function GeneratePayslipMultiple() {
             orientation="horizontal"
             sx={{ bgcolor: 'background.level3', p: 1, borderRadius: 'sm' }}
           >
-            <FormLabel>Container overflow</FormLabel>
+            <FormLabel>Print Multiple Payslip</FormLabel>
             <Switch
               checked={scroll}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
@@ -104,7 +104,7 @@ export default function GeneratePayslipMultiple() {
               sx={{ ml: 'auto' }}
             />
           </FormControl>
-          <List
+          {/* <List
             sx={{
               overflow: scroll ? 'scroll' : 'initial',
               mx: 'calc(-1 * var(--ModalDialog-padding))',
@@ -115,7 +115,7 @@ export default function GeneratePayslipMultiple() {
                 return(
               <ListItem key={index}>I&apos;m in a scrollable area.</ListItem>
             )})}
-          </List>
+          </List> */}
         </ModalDialog>
       </Modal>
         )}
