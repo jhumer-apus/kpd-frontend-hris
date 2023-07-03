@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Cookies from 'js-cookie';
-import { RootState } from '@/store/reducers';
+import { RootState } from '@/store/configureStore';
 import { userLoginSuccess, userLogout } from '@/store/actions/auth';
 
 export function useAuth() {
