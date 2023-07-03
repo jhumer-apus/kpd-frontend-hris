@@ -12,33 +12,13 @@ import Typography from '@mui/joy/Typography';
 import Stack from '@mui/joy/Stack';
 import { Transition } from 'react-transition-group';
 
+import MultiplePayslip from './payslips/multiple-payslip';
+
 export default function GeneratePayslipMultiple() {
   const [scroll, setScroll] = React.useState<boolean>(true);
   const [open, setOpen] = React.useState<boolean>(false);
   return (
     <React.Fragment>
-      {/* <Stack direction="row" spacing={1}>
-        <Button
-          variant="solid"
-          color="neutral"
-          onClick={() => {
-            setLayout('center');
-            setOpen(true);
-          }}
-        >
-          Center
-        </Button>
-        <Button
-          variant="solid"
-          color="neutral"
-          onClick={() => {
-            setLayout('fullscreen');
-            setOpen(true);
-          }}
-        >
-          Full screen
-        </Button>
-      </Stack> */}
       <Button
           variant="solid"
           color="neutral"
@@ -47,7 +27,7 @@ export default function GeneratePayslipMultiple() {
           }}
         >
           GENERATE PAYSLIP - MULTIPLE
-        </Button>
+      </Button>
       <Transition in={open} timeout={400}>
       {(state: string) => (
       <Modal
@@ -86,36 +66,7 @@ export default function GeneratePayslipMultiple() {
                 border: '1px solid red'
             }}
         >
-          
-          <Typography id="dialog-vertical-scroll-title" component="h2">
-            You have chosen
-            <ModalClose />
-          </Typography>
-          <FormControl
-            orientation="horizontal"
-            sx={{ bgcolor: 'background.level3', p: 1, borderRadius: 'sm' }}
-          >
-            <FormLabel>Print Multiple Payslip</FormLabel>
-            <Switch
-              checked={scroll}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                setScroll(event.target.checked)
-              }
-              sx={{ ml: 'auto' }}
-            />
-          </FormControl>
-          {/* <List
-            sx={{
-              overflow: scroll ? 'scroll' : 'initial',
-              mx: 'calc(-1 * var(--ModalDialog-padding))',
-              px: 'var(--ModalDialog-padding)',
-            }}
-          >
-            {[...Array(100)].map((item, index) => {
-                return(
-              <ListItem key={index}>I&apos;m in a scrollable area.</ListItem>
-            )})}
-          </List> */}
+          <MultiplePayslip/>
         </ModalDialog>
       </Modal>
         )}
