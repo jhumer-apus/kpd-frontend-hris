@@ -30,18 +30,18 @@ interface OverallPayrollState {
   generatePayslip: generatePayslip,
 }
 
-const initialState = {
+const initialState: OverallPayrollState = {
   viewPayroll: {
-      status: null,
+      status: '',
       progress: 0,
       data: [],
-      error: null,
+      error: '',
   },
   generatePayslip: {
-    status: null,
+    status: '',
     progress: 0,
     data: [],
-    error: null,
+    error: '',
   }
 };
 

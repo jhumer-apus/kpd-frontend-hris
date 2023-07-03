@@ -1,4 +1,4 @@
-import React, {useState, MutableRefObject} from 'react';
+import React, {useState, MutableRefObject, JSXElementConstructor, Fragment} from 'react';
 import {Button} from '@material-tailwind/react';
 import {Typography, Popover} from '@mui/material';
 import ReactToPrint from 'react-to-print';
@@ -6,6 +6,7 @@ import ReactToPrint from 'react-to-print';
 interface PrintTableButton {
     setIsPrinting?: (value: React.SetStateAction<boolean>) => void,
     content: MutableRefObject<HTMLDivElement | null>,
+    multiplePayslipMode?: boolean,
 }
 
 
@@ -22,15 +23,34 @@ function PrintPayslipButton(props: PrintTableButton) {
 
     const popoverOpen = Boolean(anchorEl);
 
+    const modalDesc = (): JSX.Element =>{
+
+      if(props.multiplePayslipMode){
+        return(
+          <Fragment>
+          Print Preview Multiple Payslips. 
+          </Fragment>
+        )
+      } else {
+          return (
+          <Fragment>
+          Print Single Payslip is only available <b>For this Individual's Payslip.</b> <br/> &nbsp;
+          If you wish to generate multiple individuals, go back to the table <br/>&nbsp;
+          and check the checkboxes you wanted to generate payslips for. <br/>&nbsp;
+          For more information and UX customization, please contact your administrator <br/>&nbsp;
+          <b>for a developer's analysis.</b>
+          </Fragment>
+        )
+      }
+    }
+
     return (
-        <Typography
+        <div
           aria-owns={popoverOpen ? 'mouse-over-popover' : undefined}
           aria-haspopup='true'
-          onMouseEnter={handlePopoverOpen}
-          onMouseLeave={handlePopoverClose}
         >
         <ReactToPrint
-            trigger={() => <Button variant="gradient" color="indigo" style={{marginRight: "6px"}}>Print Single Payslip</Button>}
+            trigger={() => <Button onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose} variant="gradient" color="indigo" style={{marginRight: "6px"}}>Print Preview {props.multiplePayslipMode ? 'Multiple' : 'Single'} Payslip</Button>}
             content={() => content.current}
             />
         <Popover
@@ -52,14 +72,10 @@ function PrintPayslipButton(props: PrintTableButton) {
             disableRestoreFocus
         >
             <Typography variant={"overline"} sx={{ p: 1 }}>
-            Print function is only available <b>100 item rows at a time.</b> For the next 100 items &nbsp; <br/> &nbsp;
-            you'd print, you'd have to view the 101st item in the table first <br/>&nbsp;
-            and then press print to have it reflected. For customization of designs <br/>&nbsp;
-            of the printables, with logo, and etc. Please contact your administrator <br/>&nbsp;
-            <b>for a developer's analysis.</b>
+            {modalDesc()}
             </Typography>
         </Popover>
-        </Typography>
+        </div>
     );
 }
 

@@ -15,6 +15,7 @@ export type DTRCutoffSummaryType = {
     reg_ot_total: number;
     nd_ot_total: number;
     sp_holiday_total: number;
+    sp_holiday_total_hours: number;
     reg_holiday_total: number;
     absent_total: number;
     leaves_type_used?: string | null;
@@ -87,8 +88,8 @@ export type CutoffListMergeSelectionState = {
 
 export type ViewPayrollPayPerEmployee = {
     id: number;
-    cutoff: DTRCutoffListType[];
-    dtr_cutoff: DTRCutoffSummaryType[];
+    cutoff: DTRCutoffListType;
+    dtr_cutoff: DTRCutoffSummaryType;
     emp_cname: string;
     run_date: string;
     accnt_no: string;
@@ -127,4 +128,80 @@ export type ViewPayrollPayPerEmployee = {
     pr_cutoff_code: number;
     emp_no: number;
     cutoff_summary_code: number;
+}
+
+
+export const PaySlipDataInitialState: ViewPayrollPayPerEmployee = {
+    id: 0,
+    cutoff: {
+        id: 0,
+        co_name: '',
+        co_description: '',
+        co_date_from: '',
+        co_date_to: '',
+        reg_days_total: 0,
+        co_is_processed: false,
+        credit_date: '',
+        payroll_group_code: 0,
+        division_code: 0,
+    },
+    dtr_cutoff: {
+        id: 0,
+        business_date_from: '',
+        business_date_to: '',
+        paid_leaves_total: 0,
+        reg_ot_total: 0,
+        nd_ot_total: 0,
+        sp_holiday_total: 0,
+        sp_holiday_total_hours: 0,
+        reg_holiday_total: 0,
+        absent_total: 0,
+        leaves_type_used: '',
+        overbreak_total: '',
+        lates_total: 0,
+        undertime_total: 0,
+        total_hours: 0,
+        is_processed: false,
+        date_deleted: '',
+        emp_no: 0,
+        cutoff_code: 0,
+    },
+    emp_cname: '',
+    run_date: '',
+    accnt_no: '',
+    salary_basic: 0,
+    salary_allowance: 0,
+    salary_other: 0,
+    salary_type: '',
+    work_days_total: 0,
+    daily_salary_basic: 0,
+    daily_salary_allowance: 0,
+    daily_salary_other: 0,
+    leaves_amount_a: 0,
+    ot_amount_a: 0,
+    nd_amount_a: 0,
+    reg_holiday_amount_a: 0,
+    sp_holiday_amount_a: 0,
+    lates_amount_d: 0,
+    utime_amount_d: 0,
+    sssc_amount_d: 0,
+    sss_cashloan_d: 0,
+    sss_calloan_d: 0,
+    pagibigc_amount_d: 0,
+    pagibig_cloan_d: 0,
+    pagibig_hloan_d: 0,
+    pagibig_calloan_d: 0,
+    philhealthc_amount_d: 0,
+    cash_advance_amount_d: 0,
+    insurance_d: 0,
+    other_d: 0,
+    gross_pay: 0,
+    tax_amount_d: 0,
+    net_pay: 0,
+    absent_amount: 0,
+    date_deleted: '',
+    is_payslip_printed: false,
+    pr_cutoff_code: 0,
+    emp_no: 0,
+    cutoff_summary_code: 0,
 }
