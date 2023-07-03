@@ -1,44 +1,44 @@
 import { Fragment, useEffect, useState } from 'react';
-import { DataGrid, GridRowParams } from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
 // import { RootState } from '@/store/reducers';
 import { RootState } from '@/store/configureStore';
-import { getSpecificEmployeeInfo } from '@/store/actions/employees';
-import { Modal, Box, } from '@mui/material';
-
 import {
   Typography,
 } from "@material-tailwind/react";
-
-import { SpecificEmployee } from './forms/SpecificEmployee';
-import SplitButton from '@/widgets/split-button/split-button';
-import { viewDTROptions, viewDTRDescriptions } from '@/data/pages-data/dtr-data/view-dtr-reports';
+import { viewDTRDescriptions } from '@/data/pages-data/dtr-data/view-dtr-reports';
 import useDtrState from '@/custom-hooks/use-dtr-state';
-import { dynamicDTRColumns } from '@/data/pages-data/dtr-data/view-dtr-reports';
-import { viewAllDtrLogs, viewCutoffDtrSummary, viewMergedDtrLogs } from '@/store/actions/dtr';
 import PrintTableButton from './local-components/print-table-button';
 import ExportToCsvButton from './local-components/export-to-csv-button';
 import { dynamicPayrollColumns } from '@/data/pages-data/view-payroll-data/view-dtr-reports';
 import { viewPayrollList } from '@/store/actions/payroll';
 import GeneratePayslipMultiple from './local-components/generate-payslip-multiple';
-import FadeModalDialog from './local-components/new-modal';
 import GeneratePayslipSingle from './local-components/generate-payslip-single';
 import { ViewPayrollPayPerEmployee } from '@/types/types-pages';
+import { PaySlipDataInitialState } from '@/types/types-pages';
+import jsPDF from 'jspdf';
+import GeneratePDFButton from './local-components/generate-pdf-button';
+import { flattenObject } from '@/helpers/utils';
+
 
 export default function ViewPayroll() {
   const [printing, setIsPrinting] = useState(false);
   const [singlePayslipOpen, setSinglePayslipOpen] = useState<boolean>(false);
-  const [singlePayslipData, setSinglePayslipData] = useState<GridRowParams<ViewPayrollPayPerEmployee> | null>(null);
+  const [singlePayslipData, setSinglePayslipData] = useState<ViewPayrollPayPerEmployee>(PaySlipDataInitialState);
   const dispatch = useDispatch();
   const { spButtonIndex, dtrStatus, dtrData } = useDtrState();
   
   const { status: payrollStatus, data: payrollData, progress: payrollProgress, error: payrollError} = useSelector((state: RootState) => state.payroll.viewPayroll);
-  
-
 
   useEffect(()=> {
     dispatch(viewPayrollList())
-  }, [])
+  }, []);
+
+  const handleGeneratePDF = () => {
+    const doc = new jsPDF();
+    doc.text('Hello, PDF!', 10, 10); // Modify the content of the PDF as needed
+    doc.save('document.pdf');
+  };
 
   const printableArea = () => {
     // Calculate px; solves printable area bug, Do not easily modify
@@ -48,6 +48,7 @@ export default function ViewPayroll() {
       return 700
     }
   };
+  console.log(payrollData, "aaa???")
 
   return (
     <Fragment>
@@ -56,9 +57,9 @@ export default function ViewPayroll() {
           <GeneratePayslipSingle singlePayslipData={singlePayslipData} singlePayslipOpen={singlePayslipOpen} setSinglePayslipOpen={setSinglePayslipOpen}/>
           <GeneratePayslipMultiple />
         {/* <SplitButton options={viewDTROptions}/> */}
-        {/* <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400"}}>
+        <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400"}}>
           <i>{viewDTRDescriptions[spButtonIndex === null ? 0 : spButtonIndex]}</i>
-        </Typography> */}
+        </Typography>
         </div>
         <div className='flex justify-between gap-6'>
           <ExportToCsvButton data={payrollData} />
@@ -76,17 +77,18 @@ export default function ViewPayroll() {
           }}
           pageSizeOptions={[25, 50, 75, 100]}
           onRowClick={(e) => {
-            setSinglePayslipData(e);
-            console.log(e, "this is pancit")
+            setSinglePayslipData(e.row);
+            // console.log(e, "this is pancit")
             setSinglePayslipOpen(true);
             // spButtonIndex === 2 ? gridRowClick(e) : null
           }}
-          checkboxSelection
+          // checkboxSelection
           disableRowSelectionOnClick
           // disableSelectionOnClick 
           style={{ cursor: spButtonIndex === 2 ? 'pointer': 'default'}}
           localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? 'Choose a cutoff period to display employee list': 'SUCCEEDED...'}` }}
         />
+        <GeneratePDFButton data={payrollData} columns={dynamicPayrollColumns[0]} />
       </div>
     </Fragment>
 
