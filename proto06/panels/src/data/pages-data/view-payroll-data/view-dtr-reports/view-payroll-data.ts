@@ -17,7 +17,7 @@ export const viewPayrollDescriptions = [
 export const dynamicPayrollColumns: Array<GridColDef[]> = 
 [
   [
-    { field: 'id', headerName: 'Trans ID', width: 80 },
+    // { field: 'id', headerName: 'Trans ID', width: 80 },
     {
       field: 'credit_date',
       headerName: 'Credit Date',
