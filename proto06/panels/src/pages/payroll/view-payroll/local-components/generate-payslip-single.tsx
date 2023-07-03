@@ -14,11 +14,12 @@ import { Transition } from 'react-transition-group';
 import { ViewPayrollPayPerEmployee } from '@/types/types-pages';
 import { GridRowParams } from '@mui/x-data-grid';
 import SinglePayslip from './payslips/single-payslip';
+import { flattenObject } from '@/helpers/utils';
 
 interface SinglePayslipInterface {
     singlePayslipOpen: boolean; 
     setSinglePayslipOpen: (key: boolean) => void;
-    singlePayslipData: GridRowParams<ViewPayrollPayPerEmployee> | null;
+    singlePayslipData: ViewPayrollPayPerEmployee;
 }
 
 export default function GeneratePayslipSingle(props: SinglePayslipInterface) {
@@ -37,7 +38,6 @@ export default function GeneratePayslipSingle(props: SinglePayslipInterface) {
         slotProps={{
             backdrop: {
               sx: {
-
                 opacity: 0,
                 backdropFilter: 'none',
                 transition: `opacity 400ms, backdrop-filter 400ms`,
@@ -63,10 +63,9 @@ export default function GeneratePayslipSingle(props: SinglePayslipInterface) {
                   entering: { opacity: 1 },
                   entered: { opacity: 1 },
                 }[state],
-                border: '1px solid red'
             }}
         >
-          <SinglePayslip scroll={scroll} setScroll={setScroll}/>
+          <SinglePayslip singlePayslipData={singlePayslipData} scroll={scroll} setScroll={setScroll}/>
         </ModalDialog>
       </Modal>
         )}
