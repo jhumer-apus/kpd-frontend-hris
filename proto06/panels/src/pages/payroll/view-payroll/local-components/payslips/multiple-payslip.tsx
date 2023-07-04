@@ -39,9 +39,9 @@ const MultiplePayslip = ((props:MultiplePayslip) => {
 
     return (
         <Fragment>
-            <PrintPayslipButton content={componentRef}/>
+            <PrintPayslipButton content={componentRef} multiplePayslipMode/>
             <ModalClose />
-            <div className={`flex m-2 border border-black overflow-auto flex-wrap`} style={{justifyContent: isSmallScreen ? '' : 'space-around'}}>
+            <div className={`flex m-2 border border-gray overflow-auto flex-wrap`} style={{justifyContent: isSmallScreen ? '' : 'space-around'}}>
                 <GenerateList setMultiplePayslipsData={setMultiplePayslipsData}/>
                 <MultiplePreview multiplePayslipData={multiplePayslipsData} printRef={componentRef}/>
             </div>
