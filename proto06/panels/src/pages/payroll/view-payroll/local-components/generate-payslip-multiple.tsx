@@ -63,7 +63,7 @@ export default function GeneratePayslipMultiple() {
                   entering: { opacity: 1 },
                   entered: { opacity: 1 },
                 }[state],
-                border: '1px solid red'
+                // border: '1px solid red'
             }}
         >
           <MultiplePayslip/>
