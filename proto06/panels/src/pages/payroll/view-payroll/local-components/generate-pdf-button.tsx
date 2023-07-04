@@ -23,7 +23,7 @@ const GeneratePDFButton = ({ data, columns }) => {
     doc.save('document.pdf');
   };
 
-  return <button onClick={handleGeneratePDF}>Generate PDF</button>;
+  return <button onClick={handleGeneratePDF} className='invisible'>Generate PDF</button>;
 };
 
 export default GeneratePDFButton;
