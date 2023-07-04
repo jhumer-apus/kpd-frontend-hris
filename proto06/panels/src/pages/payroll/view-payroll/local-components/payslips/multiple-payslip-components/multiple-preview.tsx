@@ -70,7 +70,7 @@ export default MultiplePreview;
 
 
 const A4Paper: CSSProperties = {
-    height: '297mm',
+    height: '298mm',
     width: '210mm',
     margin: '30px auto',
     background: 'white',
