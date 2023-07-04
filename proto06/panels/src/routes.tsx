@@ -26,6 +26,7 @@ import UploadDtrLogs from "./pages/dtr/upload-dtr-logs/upload-dtr-logs";
 import MergeDtrLogs from "./pages/dtr/merge-dtr-logs/merge-dtr-logs";
 import CreateSummaryPage from "./pages/dtr/create-summary/create-summary";
 import ViewPayroll from "./pages/payroll/view-payroll/view-payroll";
+import ProcessPayrollPage from "./pages/payroll/process-payroll/process-payroll";
 // import Timekeeping from "./pages/dtr/timekeeping/Timekeeping";
 
 const icon = {
@@ -226,7 +227,7 @@ export const routes: Array<IRoute> = [
             icon: <DocumentIcon {...icon} />,
             name: "Process Payroll",
             path: "/payroll/process-payroll",
-            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">PAYROLL REGISTER PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
+            element: <ProcessPayrollPage/>,
             hasSubItems: false,
           },
           // {
