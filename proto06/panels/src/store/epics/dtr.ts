@@ -257,7 +257,7 @@ export const mergeCutoffListAndEmployeeEpic: Epic = (action$, state$) =>
 export const summarizeCutoffListAndEmployeeEpic: Epic = (action$, state$) =>
   action$.pipe(
     ofType(summarizeCutoffListAndEmployee.type),
-    switchMap((action: ReturnType<typeof mergeCutoffListAndEmployee>) =>
+    switchMap((action: ReturnType<typeof summarizeCutoffListAndEmployee>) =>
       from(
         summarizeCutoffListAndEmployeeApiCall(action?.payload)
       ).pipe(
