@@ -39,8 +39,6 @@ export const UserProfile = () => {
       } catch (err) {
         console.error(err);
       }
-    
-      setEditMode(false);
     setEditMode(false);
   };
 
