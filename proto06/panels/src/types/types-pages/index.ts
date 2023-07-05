@@ -205,3 +205,18 @@ export const PaySlipDataInitialState: ViewPayrollPayPerEmployee = {
     emp_no: 0,
     cutoff_summary_code: 0,
 }
+
+export type ProcessPayroll = {
+    emp_no: number[] | null,
+    cutoff_code: number,
+    is_disabled_loan: boolean,
+    is_ca: boolean,
+    is_pagibig_house: boolean,
+    is_pagibig_cal: boolean,
+    is_pagibig_cash: boolean,
+    is_sss_cal: boolean,
+    is_sss_cash: boolean,
+    is_disabled_deduction: boolean,
+    is_30: boolean,
+    is_70: boolean,
+}

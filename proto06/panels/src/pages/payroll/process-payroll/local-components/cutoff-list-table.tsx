@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getCutoffList } from "@/store/actions/dtr";
 import {Button} from "@mui/material";
 import { RootState } from "@/store/configureStore";
-import { CutoffListMergeSelectionState } from "@/types/types-pages";
+import { CutoffListMergeSelectionState, ProcessPayroll } from "@/types/types-pages";
 import CreatePayrollHelp from "../local-popovers/create-payroll-help";
 
 const columns = [
@@ -59,8 +59,8 @@ const columns = [
 ];
 
 interface CutOffListTable {
-    selectedRows: CutoffListMergeSelectionState,
-    setSelectedRows: (value: SetStateAction<CutoffListMergeSelectionState>) => void,
+    selectedRows: ProcessPayroll,
+    setSelectedRows: (value: SetStateAction<ProcessPayroll>) => void,
 }
 
 export default function CutOffListTable(props: CutOffListTable) {

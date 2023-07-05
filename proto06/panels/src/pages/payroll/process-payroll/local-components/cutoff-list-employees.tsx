@@ -1,7 +1,7 @@
 import { useEffect, SetStateAction } from "react";
 import { Box } from "@mui/material";
 import { DataGrid, GridValueGetterParams, GridRowSelectionModel, GridCallbackDetails } from "@mui/x-data-grid";
-import { DTRCutoffListEmployees, previewDtrCsvItem } from "@/types/types-pages";
+import { DTRCutoffListEmployees, ProcessPayroll, previewDtrCsvItem } from "@/types/types-pages";
 import { useSelector, useDispatch } from "react-redux";
 import { getCutoffList, mergeCutoffListAndEmployee, summarizeCutoffListAndEmployee } from "@/store/actions/dtr";
 import MergeDTRHelp from "../local-popovers/create-payroll-help";
@@ -9,6 +9,7 @@ import {Button} from "@mui/material";
 import { RootState } from "@/store/configureStore";
 import { CutoffListMergeSelectionState } from "@/types/types-pages";
 import CircularStatic from "../local-progress/circular-progress";
+import { processPayroll } from "@/store/actions/payroll";
 
 const columns = [
   {
@@ -63,8 +64,8 @@ interface CutOffListEmployees {
   // status: string | null,
   employees: DTRCutoffListEmployees[] | null,
   // error: string | null,
-  selectedRows: CutoffListMergeSelectionState,
-  setSelectedRows: (value: SetStateAction<CutoffListMergeSelectionState>) => void,
+  selectedRows: ProcessPayroll,
+  setSelectedRows: (value: SetStateAction<ProcessPayroll>) => void,
 }
 
 
@@ -88,11 +89,13 @@ export default function CutOffListEmployees(props: CutOffListEmployees) {
   };
 
   function initializeMerge(){
-    // if(!Number.isNaN(selectedRows.cutoff_code)){
-    //   dispatch(summarizeCutoffListAndEmployee(selectedRows))
-    // } else {
-    //   alert("There is no selected cutoff period. Make sure to select one.")
-    // }
+    console.log('pumasok?', selectedRows.cutoff_code)
+    if(!Number.isNaN(selectedRows.cutoff_code)){
+      console.log(dispatch(processPayroll(selectedRows)), "pumasok?")
+      dispatch(processPayroll(selectedRows))
+    } else {
+      alert("There is no selected cutoff period. Make sure to select one.")
+    }
   };
   return (
     <>

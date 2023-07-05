@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { ViewPayrollPayPerEmployee } from '@/types/types-pages';
+import { ViewPayrollPayPerEmployee, ProcessPayroll } from '@/types/types-pages';
 
 
 export const viewPayrollList = createAction("VIEW_PAYROLL_LIST");
@@ -29,7 +29,7 @@ export const generatePayslipMultiple = createAction("GENERATE_PAYSLIP_MULTIPLE",
 // export const processPayrollFailure = createAction("PROCESS_PAYROLL_FAILURE");
 
 
-export const processPayroll = createAction<{emp_no: number[], cutoff_code: number}>("PROCESS_PAYROLL");
+export const processPayroll = createAction<ProcessPayroll>("PROCESS_PAYROLL");
 export const processPayrollSuccess = createAction("PROCESS_PAYROLL_SUCCESS", (SuccessMessage: string) => { 
     // console.log
     return({ payload: {SuccessMessage} })});

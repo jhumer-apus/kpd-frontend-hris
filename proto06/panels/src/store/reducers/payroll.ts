@@ -4,11 +4,15 @@ import {
     viewPayrollListProgress,
     viewPayrollListSuccess,
     viewPayrollListFailure,
-    generatePayslipMultiple
+    generatePayslipMultiple,
+    processPayroll,
+    processPayrollSuccess,
+    processPayrollProgress,
+    processPayrollFailure
 } from '../actions/payroll';
 import { ViewPayrollPayPerEmployee } from '@/types/types-pages';
 
-type PayrollPayloads = ViewPayrollPayPerEmployee[] | number[];
+type PayrollPayloads = ViewPayrollPayPerEmployee[] | string;
 
 interface CommonPayrollState {
   status: string | null;
@@ -20,14 +24,14 @@ interface ViewPayrollState extends CommonPayrollState{
   data: ViewPayrollPayPerEmployee[];
 }
 
-interface generatePayslip extends CommonPayrollState{
-  data: number[];
+interface processPayrollInterface extends CommonPayrollState{
+  data: string;
 }
 
 interface OverallPayrollState {
-  [key: string]: ViewPayrollState | generatePayslip,
+  [key: string]: ViewPayrollState | processPayrollInterface,
   viewPayroll: ViewPayrollState,
-  generatePayslip: generatePayslip,
+  processPayroll: processPayrollInterface,
 }
 
 const initialState: OverallPayrollState = {
@@ -37,10 +41,10 @@ const initialState: OverallPayrollState = {
       data: [],
       error: '',
   },
-  generatePayslip: {
+  processPayroll: {
     status: '',
     progress: 0,
-    data: [],
+    data: '',
     error: '',
   }
 };
@@ -79,7 +83,10 @@ const payrollSlice = createSlice({
       .addCase(viewPayrollListSuccess, (state, action) => setSuccessState(state, action.payload, "viewPayroll"))
       .addCase(viewPayrollListProgress, (state, action) => setProgressState(state, action.payload, "viewPayroll"))
       .addCase(viewPayrollListFailure, (state, action) => setFailureState(state, action.payload, "viewPayroll"))
-      .addCase(generatePayslipMultiple, (state, action) => setSuccessState(state, action.payload, "viewPayroll"))
+      .addCase(processPayroll, setLoadingState("processPayroll"))
+      .addCase(processPayrollSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "processPayroll"))
+      .addCase(processPayrollProgress, (state, action) => setProgressState(state, action.payload, "processPayroll"))
+      .addCase(processPayrollFailure, (state, action) => setFailureState(state, action.payload, "processPayroll"))
   },
 });
 

@@ -7,8 +7,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCutoffListEmployee } from '@/store/actions/dtr';
 import CutOffListTable from './local-components/cutoff-list-table';
 import CutOffListEmployees from './local-components/cutoff-list-employees';
-import { CutoffListMergeSelectionState } from '@/types/types-pages';
+import { CutoffListMergeSelectionState, ProcessPayroll } from '@/types/types-pages';
 import { RootState } from '@/store/configureStore';
+import Checkbox from '@mui/joy/Checkbox';
 
 
 const PaperStyle = {
@@ -28,11 +29,21 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
 
 export default function ProcessPayrollPage() {
   const dispatch = useDispatch();
-  const [selectedRows, setSelectedRows] = useState<CutoffListMergeSelectionState>({
-    emp_no: [],
-    cutoff_code: NaN
+  const [selectedRows, setSelectedRows] = useState<ProcessPayroll>({
+    emp_no: null,
+    cutoff_code: NaN,
+    is_disabled_loan: false,
+    is_ca: false,
+    is_pagibig_house: false,
+    is_pagibig_cal: false,
+    is_pagibig_cash: false,
+    is_sss_cal: false,
+    is_sss_cash: false,
+    is_disabled_deduction: false,
+    is_30: false,
+    is_70: false,
   });
-  const {status: cutOffStatus, employees, error} = useSelector((state: RootState) => state.dtr.getCutoffListEmployees);
+  const { employees } = useSelector((state: RootState) => state.dtr.getCutoffListEmployees);
 
   useEffect(()=> {
       dispatch(getCutoffListEmployee({cutoff_period:selectedRows?.cutoff_code}));
@@ -41,11 +52,33 @@ export default function ProcessPayrollPage() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('lg'));
 
+
+  const handleCheckboxChange = (event) => {
+    const { name, checked } = event.target;
+    setSelectedRows((prevSelectedRows) => ({
+      ...prevSelectedRows,
+      [name]: checked,
+    }));
+  };
+
   return (
     <Fragment>
         <form>
         <div>
-          sdsd
+        {Object.entries(selectedRows).map(([key, value]) => {
+        if (typeof value === 'boolean') {
+          return (
+            <Checkbox
+              key={key}
+              checked={value}
+              onChange={handleCheckboxChange}
+              name={key}
+              color="primary"
+            />
+          );
+        }
+        return null;
+      })}
         </div>
         <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
             <Grid item xs={6}>
