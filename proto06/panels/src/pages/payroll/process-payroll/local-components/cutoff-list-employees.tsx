@@ -1,4 +1,4 @@
-import { useEffect, SetStateAction } from "react";
+import { useEffect, useState, SetStateAction } from "react";
 import { Box } from "@mui/material";
 import { DataGrid, GridValueGetterParams, GridRowSelectionModel, GridCallbackDetails } from "@mui/x-data-grid";
 import { DTRCutoffListEmployees, ProcessPayroll, previewDtrCsvItem } from "@/types/types-pages";
@@ -10,6 +10,9 @@ import { RootState } from "@/store/configureStore";
 import { CutoffListMergeSelectionState } from "@/types/types-pages";
 import CircularStatic from "../local-progress/circular-progress";
 import { processPayroll } from "@/store/actions/payroll";
+
+import Modal from '@mui/material/Modal';
+import Typography from '@mui/material/Typography';
 
 const columns = [
   {
@@ -73,6 +76,16 @@ export default function CutOffListEmployees(props: CutOffListEmployees) {
   const { employees, selectedRows, setSelectedRows} = props;
   const dispatch = useDispatch();
   const {status} = useSelector((state: RootState)=> state.dtr.getCutoffListEmployees);
+  
+  const booleanValues = Object.values(selectedRows).filter(
+    value => typeof value === 'boolean'
+  );
+  const isAllFalse = booleanValues.every(value => typeof value === 'boolean' && value === false);
+  const isAtLeastOneTrue = booleanValues.some(value => typeof value === 'boolean' && value === true);
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const handleSelection = (newSelection: GridRowSelectionModel, details: GridCallbackDetails) => {
     let emp_no_locale = [] as Array<number>;
@@ -90,13 +103,16 @@ export default function CutOffListEmployees(props: CutOffListEmployees) {
 
   function initializeMerge(){
     console.log('pumasok?', selectedRows.cutoff_code)
-    if(!Number.isNaN(selectedRows.cutoff_code)){
+    if(!Number.isNaN(selectedRows.cutoff_code) && isAtLeastOneTrue){
       console.log(dispatch(processPayroll(selectedRows)), "pumasok?")
       dispatch(processPayroll(selectedRows))
-    } else {
+    } else if(!Number.isNaN(selectedRows.cutoff_code) && isAllFalse){
+      handleOpen();
+    } else if(Number.isNaN(selectedRows.cutoff_code) && isAllFalse) {
       alert("There is no selected cutoff period. Make sure to select one.")
     }
   };
+
   return (
     <>
       <div className='flex justify-between items-center'>
@@ -122,6 +138,35 @@ export default function CutOffListEmployees(props: CutOffListEmployees) {
         pageSizeOptions={[25, 50, 75, 100]}
       />
       </div>
+      <Modal
+        keepMounted
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="keep-mounted-modal-title"
+        aria-describedby="keep-mounted-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
+            Text in a modal
+          </Typography>
+          <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
+            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          </Typography>
+        </Box>
+      </Modal>
     </>
   );
 }
+
+
+const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
