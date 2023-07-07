@@ -1,7 +1,6 @@
 import { Fragment, useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
-// import { RootState } from '@/store/reducers';
 import { RootState } from '@/store/configureStore';
 import {
   Typography,
@@ -18,8 +17,6 @@ import { ViewPayrollPayPerEmployee } from '@/types/types-pages';
 import { PaySlipDataInitialState } from '@/types/types-pages';
 import jsPDF from 'jspdf';
 import GeneratePDFButton from './local-components/generate-pdf-button';
-import { flattenObject } from '@/helpers/utils';
-
 
 export default function ViewPayroll() {
   const [printing, setIsPrinting] = useState(false);
@@ -48,7 +45,7 @@ export default function ViewPayroll() {
       return 700
     }
   };
-  console.log(payrollData, "aaa???")
+  // console.log(payrollData, "aaa???")
 
   return (
     <Fragment>
@@ -56,7 +53,6 @@ export default function ViewPayroll() {
         <div>
           <GeneratePayslipSingle singlePayslipData={singlePayslipData} singlePayslipOpen={singlePayslipOpen} setSinglePayslipOpen={setSinglePayslipOpen}/>
           <GeneratePayslipMultiple />
-        {/* <SplitButton options={viewDTROptions}/> */}
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400"}}>
           <i>{viewDTRDescriptions[spButtonIndex === null ? 0 : spButtonIndex]}</i>
         </Typography>
@@ -78,13 +74,9 @@ export default function ViewPayroll() {
           pageSizeOptions={[25, 50, 75, 100]}
           onRowClick={(e) => {
             setSinglePayslipData(e.row);
-            // console.log(e, "this is pancit")
             setSinglePayslipOpen(true);
-            // spButtonIndex === 2 ? gridRowClick(e) : null
           }}
-          // checkboxSelection
-          disableRowSelectionOnClick
-          // disableSelectionOnClick 
+          disableRowSelectionOnClick 
           style={{ cursor: spButtonIndex === 2 ? 'pointer': 'default'}}
           localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? 'Choose a cutoff period to display employee list': 'SUCCEEDED...'}` }}
         />

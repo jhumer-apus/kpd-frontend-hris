@@ -78,9 +78,10 @@ export const processPayrollEpic: Epic = (action$, state$) =>
           return processPayrollSuccess(data);
         }),
         catchError((error) => {
+          // console.log(error, "123092138")
           // console.log(error.response, "maeeeeee111owww");
-          if (error.response && error.response.data && error.response.data.error) {
-            return of(processPayrollFailure(error.response.data.error)); // Extract error message from the response
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(processPayrollFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
             return of(processPayrollFailure(error.message)); // If there is no custom error message, use the default one
           }

@@ -10,6 +10,7 @@ import { RootState } from "@/store/configureStore";
 import { CutoffListMergeSelectionState } from "@/types/types-pages";
 import CircularStatic from "../local-progress/circular-progress";
 import { processPayroll } from "@/store/actions/payroll";
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
@@ -147,11 +148,23 @@ export default function CutOffListEmployees(props: CutOffListEmployees) {
       >
         <Box sx={style}>
           <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
-            Text in a modal
+            PAYROLL DEDUCTIONS <ErrorOutlineIcon/>
           </Typography>
           <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            There is no chosen deductions for this payroll process, are you sure you want to proceed?
           </Typography>
+          <div className="mt-6">
+          <Button sx={{marginRight: '6px'}} variant="contained" onClick={()=> {
+            dispatch(processPayroll(selectedRows))
+            handleClose()
+          }
+        }>
+            Proceed
+          </Button>
+          <Button onClick={handleClose}>
+            Cancel
+          </Button>
+          </div>
         </Box>
       </Modal>
     </>
@@ -166,7 +179,8 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: 400,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
+  borderRadius: '10px',
+  // border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 };
