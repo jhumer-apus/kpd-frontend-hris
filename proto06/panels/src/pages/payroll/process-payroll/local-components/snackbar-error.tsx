@@ -5,6 +5,8 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
+import { useDispatch } from 'react-redux';
+import { processPayrollFailureCleanup } from '@/store/actions/payroll';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -14,6 +16,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 });
 
 export default function CustomizedSnackbars() {
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const state = useSelector((state: RootState) => state.payroll);
   const handleClick = () => {
@@ -31,6 +34,9 @@ export default function CustomizedSnackbars() {
   React.useEffect(()=>{
     if(state.processPayroll.error || state.viewPayroll.error){
         handleClick();
+        setTimeout(()=> {
+          dispatch(processPayrollFailureCleanup());
+        }, 4000);
     }
   },[state.processPayroll.error])
 
@@ -40,7 +46,7 @@ export default function CustomizedSnackbars() {
       {/* <Button variant="outlined" onClick={handleClick}>
         Open success snackbar
       </Button> */}
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
           {state.viewPayroll.error || state.processPayroll.error}
         </Alert>
