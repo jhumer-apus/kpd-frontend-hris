@@ -89,7 +89,7 @@ export default function UploadDtrLogs() {
                 //   location.reload();
                 // }, 1000);
                 setActiveStep((prevActiveStep) => prevActiveStep + 1);
-                window.alert(`${response.data}`);
+                window.alert(`${response.data.message}`);
               } catch (err) {
                 console.error(err);
                 window.alert(`DTR Logs Error in Upload ${err}`);
