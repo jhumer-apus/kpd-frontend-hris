@@ -34,25 +34,14 @@ function CircularProgressWithLabel(
         >{`${Math.round(props.value)}%`}</Typography>
       </Box>
     </Box>
-    <span style={{textAlign: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', padding: '10px', opacity: props.value=== 100 ? 1 : 0, transition: 'opacity 500ms ease'}}>Summarize done!</span>
+    <span style={{textAlign: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', padding: '10px', opacity: props.value=== 100 ? 1 : 0, transition: 'opacity 500ms ease'}}>Process done!</span>
     </>
 
   );
 }
 
 export default function CircularStatic() {
-    const progress = useSelector ((state: RootState)=> state?.dtr?.summarizeCutoffListAndEmployee?.progress);
-    // const [progress, setProgress] = React.useState(10);
-
-
-    // React.useEffect(() => {
-    //     const timer = setInterval(() => {
-    //     setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 10));
-    //     }, 800);
-    //     return () => {
-    //     clearInterval(timer);
-    //     };
-    // }, []);
+    const progress = useSelector ((state: RootState)=> state?.payroll?.processPayroll?.progress);
 
     return <CircularProgressWithLabel value={progress} />;
 }
