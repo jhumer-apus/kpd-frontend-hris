@@ -414,7 +414,7 @@ export const SpecificEmployee = (props: initialState) => {
                                 </div>
                             </div>
                             <div className="my-4 flex items-center gap-4">
-                                <Button2 
+                                {/* <Button2 
                                     disabled={editMode}
                                     color={editMode? "gray" :"teal"} 
                                     variant={'outlined'} 
@@ -431,7 +431,7 @@ export const SpecificEmployee = (props: initialState) => {
                                     className="w-full"
                                 >
                                     Save
-                                </Button2>  }
+                                </Button2>  } */}
   
 
                             </div>
@@ -639,7 +639,7 @@ export const SpecificEmployee = (props: initialState) => {
                                 </div>
                             </div>
                             <div className="my-4 flex items-center gap-4">
-                                <Button2 
+                                {/* <Button2 
                                     disabled={editMode2}
                                     color={editMode2? "gray" :"teal"} 
                                     variant={'outlined'} 
@@ -656,7 +656,7 @@ export const SpecificEmployee = (props: initialState) => {
                                     className="w-full"
                                 >
                                     Save
-                                </Button2>  }
+                                </Button2>  } */}
                             </div>
                             <Typography
                                 variant="small"
@@ -840,7 +840,7 @@ export const SpecificEmployee = (props: initialState) => {
                                 </div>
                                 </div>
                                 <div className="my-4 flex items-center gap-4">
-                                <Button2 
+                                {/* <Button2 
                                     disabled={editMode3}
                                     color={editMode3? "gray" :"teal"} 
                                     variant={'outlined'} 
@@ -857,7 +857,7 @@ export const SpecificEmployee = (props: initialState) => {
                                     className="w-full"
                                 >
                                     Save
-                                </Button2>  }
+                                </Button2>  } */}
                                 </div>
                                 <Typography
                                 variant="small"
@@ -873,20 +873,6 @@ export const SpecificEmployee = (props: initialState) => {
                         </Tabs>
                     </CardBody>
             </Card>
-            {/* <Stack spacing={2} sx={{ width: '100%' }}>
-                <Button variant="outlined" onClick={handleClick}>
-                    Open success snackbar
-                </Button>
-                <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-                    <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                    This is a success message!
-                    </Alert>
-                </Snackbar>
-                <Alert severity="error">This is an error message!</Alert>
-                <Alert severity="warning">This is a warning message!</Alert>
-                <Alert severity="info">This is an information message!</Alert>
-                <Alert severity="success">This is a success message!</Alert>
-            </Stack> */}
         </Fragment>
 
     );
