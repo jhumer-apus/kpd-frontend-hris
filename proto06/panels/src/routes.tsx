@@ -10,12 +10,10 @@ import {
   SpeakerWaveIcon,
   QuestionMarkCircleIcon
 } from "@heroicons/react/24/solid";
-import PunchClockOutlinedIcon from '@mui/icons-material/PunchClockOutlined';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import MergeIcon from '@mui/icons-material/Merge';
 import TableViewIcon from '@mui/icons-material/TableView';
-import { ChooseDashboard, Profile, Tables, Notifications } from "@/pages";
 import HRISDashboard from "./pages/dashboard/hris-portal/hrisPortal";
 import AdminPortal from "./pages/dashboard/admin-portal/adminPortal";
 import DataTable from "./pages/employee/Employee201";
@@ -27,7 +25,16 @@ import MergeDtrLogs from "./pages/dtr/merge-dtr-logs/merge-dtr-logs";
 import CreateSummaryPage from "./pages/dtr/create-summary/create-summary";
 import ViewPayroll from "./pages/payroll/view-payroll/view-payroll";
 import ProcessPayrollPage from "./pages/payroll/process-payroll/process-payroll";
-// import Timekeeping from "./pages/dtr/timekeeping/Timekeeping";
+import ApprovalOutlinedIcon from '@mui/icons-material/ApprovalOutlined';
+import AlarmOnOutlinedIcon from '@mui/icons-material/AlarmOnOutlined';
+import AppRegistrationOutlinedIcon from '@mui/icons-material/AppRegistrationOutlined';
+import AppsOutageOutlinedIcon from '@mui/icons-material/AppsOutageOutlined';
+import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
+import AssignmentIndOutlinedIcon from '@mui/icons-material/AssignmentIndOutlined';
+import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined';
+import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
+import SurfingOutlinedIcon from '@mui/icons-material/SurfingOutlined';
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -35,11 +42,11 @@ const icon = {
 
 export const routes: Array<IRoute> = [
   {
-    id: 1000,
+    id: 10000,
     layout: "home",
     pages: [
       {
-        id: 1100,
+        id: 11000,
         icon: null,
         name: "Dashboards",
         path: "/Dashboards",
@@ -47,7 +54,7 @@ export const routes: Array<IRoute> = [
         hasSubItems: true,
         subItems: [
           {
-            id: 1110,
+            id: 11100,
             icon: <HomeIcon {...icon} />,
             name: "HRIS Dashboard",
             path: "/Dashboards/HRIS-Dashboard",
@@ -55,7 +62,7 @@ export const routes: Array<IRoute> = [
             hasSubItems: false,
           },
           {
-            id: 1120,
+            id: 11200,
             icon: <HomeIcon {...icon} />,
             name: "Admin Portal",
             path: "/Dashboards/Admin-Dashboard",
@@ -63,7 +70,7 @@ export const routes: Array<IRoute> = [
             hasSubItems: false,
           },
           // {
-          //   id: 1130,
+          //   id: 11300,
           //   icon: <HomeIcon {...icon} />,
           //   name: "Employee Portal",
           //   path: "/Dashboards/Employee-Dashboard",
@@ -73,7 +80,7 @@ export const routes: Array<IRoute> = [
         ]
       },
       {
-        id: 1200,
+        id: 12000,
         icon: null,
         name: "Employee",
         path: "/employee",
@@ -81,7 +88,7 @@ export const routes: Array<IRoute> = [
         hasSubItems: true,
         subItems: [
           {
-            id: 1210,
+            id: 12100,
             icon: <UserCircleIcon {...icon} />,
             name: "201 Files",
             path: "/employee/201-files",
@@ -89,7 +96,7 @@ export const routes: Array<IRoute> = [
             hasSubItems: false,
           },
           {
-            id: 1220,
+            id: 12200,
             icon: <UserCircleIcon {...icon} />,
             name: "Appraisal",
             path: "/employee/appraisal",
@@ -99,7 +106,97 @@ export const routes: Array<IRoute> = [
         ]
       },
       {
-        id: 1300,
+        id: 13000,
+        icon: null,
+        name: "Procedurals",
+        path: "/procedurals",
+        element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-orange-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">EMPLOYEE ELEMENTS UNDER DEVELOPMENT</strong>,
+        hasSubItems: true,
+        subItems: [
+          {
+            id: 13100,
+            icon: <SurfingOutlinedIcon {...icon}/>,
+            name: "Holidays",
+            path: "/procedurals/holidays",
+            element: <DataTable/>, 
+            hasSubItems: false,
+          },
+          {
+            id: 13200,
+            icon: <ApprovalOutlinedIcon  {...icon} />,
+            name: "OBT",
+            path: "/procedurals/obt",
+            element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">APPRAISAL PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+            hasSubItems: false,
+          },
+          {
+            id: 13300,
+            icon: <AlarmOnOutlinedIcon  {...icon} />,
+            name: "Overtime",
+            path: "/procedurals/overtime",
+            element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">APPRAISAL PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+            hasSubItems: false,
+          },
+          {
+            id: 13400,
+            icon: <AppRegistrationOutlinedIcon {...icon} />,
+            name: "Leaves",
+            path: "/procedurals/leaves",
+            element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">APPRAISAL PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+            hasSubItems: false,
+          },
+          {
+            id: 13500,
+            icon: <AppsOutageOutlinedIcon {...icon} />,
+            name: "Leave Credits",
+            path: "/procedurals/leave-credits",
+            element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">APPRAISAL PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+            hasSubItems: false,
+          },
+          {
+            id: 13600,
+            icon: <AppsOutlinedIcon {...icon} />,
+            name: "Leave Types",
+            path: "/procedurals/leave-types",
+            element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">APPRAISAL PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+            hasSubItems: false,
+          },
+          {
+            id: 13700,
+            icon: <AssignmentIndOutlinedIcon {...icon} />,
+            name: "Cutoff Periods",
+            path: "/procedurals/cutoff-periods",
+            element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">APPRAISAL PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+            hasSubItems: false,
+          },
+          {
+            id: 13800,
+            icon: <BadgeOutlinedIcon {...icon} />,
+            name: "Unaccounted Attendances",
+            path: "/procedurals/unaccounted-attendances",
+            element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">APPRAISAL PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+            hasSubItems: false,
+          },
+          {
+            id: 13900,
+            icon: <CalendarTodayOutlinedIcon {...icon} />,
+            name: "Schedule Shifts",
+            path: "/procedurals/schedule-shifts",
+            element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">APPRAISAL PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+            hasSubItems: false,
+          },
+          {
+            id: 13110,
+            icon: <CalendarMonthOutlinedIcon {...icon} />,
+            name: "Schedule Dailies",
+            path: "/procedurals/schedule-dailies",
+            element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">APPRAISAL PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+            hasSubItems: false,
+          },
+        ]
+      },
+      {
+        id: 14000,
         icon: null,
         name: "DTR",
         path: "/DTR",
@@ -107,7 +204,7 @@ export const routes: Array<IRoute> = [
         hasSubItems: true,
         subItems: [
           {
-            id: 1310,
+            id: 14100,
             icon: <SummarizeIcon {...icon} />,
             name: "View DTR Reports",
             path: "/DTR/View-DTR",
@@ -115,7 +212,7 @@ export const routes: Array<IRoute> = [
             hasSubItems: false,
           },
           {
-            id: 1320,
+            id: 14200,
             icon: <UploadFileIcon {...icon} />,
             name: "Upload DTR Logs",
             path: "/DTR/upload-logs",
@@ -123,7 +220,7 @@ export const routes: Array<IRoute> = [
             hasSubItems: false,
           },
           {
-            id: 1330,
+            id: 14300,
             icon: <MergeIcon {...icon} />,
             name: "Merge DTR Logs",
             path: "/DTR/Merge-DTR",
@@ -131,7 +228,7 @@ export const routes: Array<IRoute> = [
             hasSubItems: false,
           },
           {
-            id: 1340,
+            id: 14400,
             icon: <TableViewIcon {...icon} />,
             name: "Create DTR Summary",
             path: "/DTR/create-summary",
@@ -139,7 +236,7 @@ export const routes: Array<IRoute> = [
             hasSubItems: false,
           },
           // {
-          //   id: 1350,
+          //   id: 14500,
           //   icon: <TableCellsIcon {...icon} />,
           //   name: "Leaves",
           //   path: "/DTR/leaves",
@@ -147,7 +244,7 @@ export const routes: Array<IRoute> = [
           //   hasSubItems: false,
           // },
           // {
-          //   id: 1360,
+          //   id: 14600,
           //   icon: <TableCellsIcon {...icon} />,
           //   name: "Overtime",
           //   path: "/DTR/overtime",
@@ -155,7 +252,7 @@ export const routes: Array<IRoute> = [
           //   hasSubItems: false,
           // },
           // {
-          //   id: 1370,
+          //   id: 14700,
           //   icon: <TableCellsIcon {...icon} />,
           //   name: "Official Business Trip",
           //   path: "/DTR/offical-business-trip",
@@ -163,7 +260,7 @@ export const routes: Array<IRoute> = [
           //   hasSubItems: false,
           // },
           // {
-          //   id: 1380,
+          //   id: 14800,
           //   icon: <TableCellsIcon {...icon} />,
           //   name: "U.A",
           //   path: "/DTR/unaccounted-attendance",
@@ -171,7 +268,7 @@ export const routes: Array<IRoute> = [
           //   hasSubItems: false,
           // },
           // {
-          //   id: 1390,
+          //   id: 14900,
           //   icon: <TableCellsIcon {...icon} />,
           //   name: "Maternity",
           //   path: "/DTR/maternity",
@@ -181,7 +278,7 @@ export const routes: Array<IRoute> = [
         ]
       },
       {
-        id: 1400,
+        id: 15000,
         icon: null,
         name: "Reports",
         path: "/reports",
@@ -189,7 +286,7 @@ export const routes: Array<IRoute> = [
         hasSubItems: false,
       },
       {
-        id: 1500,
+        id: 16000,
         icon: null,
         name: "Forms",
         path: "/forms",
@@ -197,7 +294,7 @@ export const routes: Array<IRoute> = [
         hasSubItems: true,
         subItems: [
           {
-            id: 1510,
+            id: 16100,
             icon: <TableCellsIcon {...icon} />,
             name: "COE",
             path: "/forms/COE",
@@ -207,7 +304,7 @@ export const routes: Array<IRoute> = [
         ]
       },
       {
-        id: 1600,
+        id: 17000,
         icon: null,
         name: "Payroll",
         path: "/payroll",
@@ -215,7 +312,7 @@ export const routes: Array<IRoute> = [
         hasSubItems: true,
         subItems: [
           {
-            id: 1610,
+            id: 17100,
             icon: <DocumentIcon {...icon} />,
             name: "View Payroll",
             path: "/payroll/view-payroll",
@@ -223,7 +320,7 @@ export const routes: Array<IRoute> = [
             hasSubItems: false,
           },
           {
-            id: 1620,
+            id: 17200,
             icon: <DocumentIcon {...icon} />,
             name: "Process Payroll",
             path: "/payroll/process-payroll",
@@ -231,7 +328,7 @@ export const routes: Array<IRoute> = [
             hasSubItems: false,
           },
           // {
-          //   id: 1630,
+          //   id: 17300,
           //   icon: <DocumentIcon {...icon} />,
           //   name: "Generate Payslip",
           //   path: "/payroll/generate-payslip",
@@ -239,7 +336,7 @@ export const routes: Array<IRoute> = [
           //   hasSubItems: false,
           // },
           // {
-          //   id: 1610,
+          //   id: 17400,
           //   icon: <DocumentIcon {...icon} />,
           //   name: "Payroll Register",
           //   path: "/payroll/payroll-register",
@@ -247,7 +344,7 @@ export const routes: Array<IRoute> = [
           //   hasSubItems: false,
           // },
           // {
-          //   id: 1620,
+          //   id: 17500,
           //   icon: <DocumentIcon {...icon} />,
           //   name: "Print Payslip",
           //   path: "/payroll/print-payslip",
@@ -255,7 +352,7 @@ export const routes: Array<IRoute> = [
           //   hasSubItems: false,
           // },
           // {
-          //   id: 1630,
+          //   id: 17600,
           //   icon: <DocumentIcon {...icon} />,
           //   name: "Bonus",
           //   path: "/payroll/bonus",
@@ -263,7 +360,7 @@ export const routes: Array<IRoute> = [
           //   hasSubItems: false,
           // },
           // {
-          //   id: 1640,
+          //   id: 17700,
           //   icon: <DocumentIcon {...icon} />,
           //   name: "13th Month",
           //   path: "/payroll/13th-month",
@@ -271,7 +368,7 @@ export const routes: Array<IRoute> = [
           //   hasSubItems: false,
           // },
           // {
-          //   id: 1650,
+          //   id: 17800,
           //   icon: <DocumentIcon {...icon} />,
           //   name: "Compensation",
           //   path: "/payroll/compensation",
@@ -279,7 +376,7 @@ export const routes: Array<IRoute> = [
           //   hasSubItems: false,
           // },
           // {
-          //   id: 1660,
+          //   id: 17900,
           //   icon: <DocumentIcon {...icon} />,
           //   name: "Adjustment Others",
           //   path: "/payroll/adjustment-others",
@@ -287,7 +384,7 @@ export const routes: Array<IRoute> = [
           //   hasSubItems: false,
           // },
           // {
-          //   id: 1670,
+          //   id: 17100,
           //   icon: <DocumentIcon {...icon} />,
           //   name: "Tax Refund",
           //   path: "/payroll/tax-refund",
@@ -295,7 +392,7 @@ export const routes: Array<IRoute> = [
           //   hasSubItems: false,
           // },
           // {
-          //   id: 1680,
+          //   id: 17110,
           //   icon: <DocumentIcon {...icon} />,
           //   name: "Government Deduction",
           //   path: "/payroll/government-deduction",
@@ -303,7 +400,7 @@ export const routes: Array<IRoute> = [
           //   hasSubItems: false,
           // },
           // {
-          //   id: 1690,
+          //   id: 17120,
           //   icon: <DocumentIcon {...icon} />,
           //   name: "Other Deduction",
           //   path: "/payroll/other-deduction",
@@ -311,7 +408,7 @@ export const routes: Array<IRoute> = [
           //   hasSubItems: false,
           // },
           // {
-          //   id: 1691,
+          //   id: 17130,
           //   icon: <DocumentIcon {...icon} />,
           //   name: "SSS Loan",
           //   path: "/payroll/sss-loan",
@@ -319,7 +416,7 @@ export const routes: Array<IRoute> = [
           //   hasSubItems: false,
           // },
           // {
-          //   id: 1692,
+          //   id: 17140,
           //   icon: <DocumentIcon {...icon} />,
           //   name: "Payroll Summary",
           //   path: "/payroll/payroll-summary",
@@ -327,7 +424,7 @@ export const routes: Array<IRoute> = [
           //   hasSubItems: false,
           // },
           // {
-          //   id: 1693,
+          //   id: 17150,
           //   icon: <TableCellsIcon {...icon} />,
           //   name: "Net Pay Bank Summary",
           //   path: "/payroll/net-pay-bank-summary",
@@ -335,7 +432,7 @@ export const routes: Array<IRoute> = [
           //   hasSubItems: false,
           // },
           // {
-          //   id: 1694,
+          //   id: 17160,
           //   icon: <TableCellsIcon {...icon} />,
           //   name: "Allowance Summary",
           //   path: "/payroll/allowance-summary",
@@ -343,7 +440,7 @@ export const routes: Array<IRoute> = [
           //   hasSubItems: false,
           // },
           // {
-          //   id: 1695,
+          //   id: 17170,
           //   icon: <TableCellsIcon {...icon} />,
           //   name: "Alpha List",
           //   path: "/payroll/alpha-list",
@@ -353,7 +450,7 @@ export const routes: Array<IRoute> = [
         ]
       },
       {
-        id: 1700,
+        id: 18000,
         icon: null,
         name: "Announcement",
         path: "/announcements",
@@ -361,7 +458,7 @@ export const routes: Array<IRoute> = [
         hasSubItems: true,
         subItems: [
           {
-            id: 1710,
+            id: 18100,
             icon: <SpeakerWaveIcon {...icon} />,
             name: "Post Announcements",
             path: "/announcements/post-announcements",
@@ -371,7 +468,7 @@ export const routes: Array<IRoute> = [
         ]
       },
       {
-        id: 1800,
+        id: 18200,
         icon: null,
         name: "Help",
         path: "/help",
