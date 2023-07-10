@@ -187,7 +187,7 @@ function PayslipUI(props: PaySlipUI) {
                             </div>
                             <div>
                                 <p className='text-start pr-1 font-bold italic my-1'>Employer's Copy</p>
-                                <p className='text-start pr-1 mb-1'>{ThisProps?.emp_cname || `...`}</p>
+                                <p className='text-start pr-1 mb-1'>{ThisProps?.emp_no || `...`}</p>
                                 <p className='text-start pr-1 mb-1'>{ThisProps?.cutoff?.division_code !== undefined? ThisProps?.cutoff?.division_code : `...`} <p className='hidden'>_to request as division string</p></p>
                                 <p className='text-start pr-1 mb-1'>{ThisProps?.salary_type || `...`}</p>
                                 <p className='text-start pr-1 mb-1'>{ThisProps?.cutoff?.division_code || `...`}</p>

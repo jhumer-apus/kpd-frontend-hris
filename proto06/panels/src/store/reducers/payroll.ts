@@ -8,7 +8,8 @@ import {
     processPayroll,
     processPayrollSuccess,
     processPayrollProgress,
-    processPayrollFailure
+    processPayrollFailure,
+    processPayrollFailureCleanup
 } from '../actions/payroll';
 import { ViewPayrollPayPerEmployee } from '@/types/types-pages';
 
@@ -73,6 +74,13 @@ const setFailureState = (state: OverallPayrollState, payload: string, path: stri
 };
 
 
+const setRefreshedState = (state: OverallPayrollState, payload: string, path: string) => {
+  state[path].status = 'refreshed';
+  state[path].data = [];
+  state[path].error = null;
+};
+
+
 const payrollSlice = createSlice({
   name: 'payroll',
   initialState,
@@ -87,6 +95,7 @@ const payrollSlice = createSlice({
       .addCase(processPayrollSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "processPayroll"))
       .addCase(processPayrollProgress, (state, action) => setProgressState(state, action.payload, "processPayroll"))
       .addCase(processPayrollFailure, (state, action) => setFailureState(state, action.payload, "processPayroll"))
+      .addCase(processPayrollFailureCleanup, setLoadingState("processPayroll"))
   },
 });
 

@@ -35,3 +35,4 @@ export const processPayrollSuccess = createAction("PROCESS_PAYROLL_SUCCESS", (Su
     return({ payload: {SuccessMessage} })});
 export const processPayrollProgress = createAction<number>('PROCESS_PAYROLL_PROGRESS');
 export const processPayrollFailure = createAction<string>("PROCESS_PAYROLL_FAILURE");
+export const processPayrollFailureCleanup = createAction("PROCESS_PAYROLL_FAILURE_CLEANUP");

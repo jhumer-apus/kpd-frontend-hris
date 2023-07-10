@@ -1,20 +1,10 @@
 import * as React from 'react';
-import Button from '@mui/joy/Button';
-import List from '@mui/joy/List';
-import ListItem from '@mui/joy/ListItem';
-import FormControl from '@mui/joy/FormControl';
-import FormLabel from '@mui/joy/FormLabel';
-import Switch from '@mui/joy/Switch';
 import Modal from '@mui/joy/Modal';
-import ModalDialog, { ModalDialogProps } from '@mui/joy/ModalDialog';
-import ModalClose from '@mui/joy/ModalClose';
-import Typography from '@mui/joy/Typography';
-import Stack from '@mui/joy/Stack';
+import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
 import { ViewPayrollPayPerEmployee } from '@/types/types-pages';
-import { GridRowParams } from '@mui/x-data-grid';
 import SinglePayslip from './payslips/single-payslip';
-import { flattenObject } from '@/helpers/utils';
+
 
 interface SinglePayslipInterface {
     singlePayslipOpen: boolean; 

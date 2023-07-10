@@ -78,11 +78,10 @@ export default function ViewPayroll() {
           }}
           disableRowSelectionOnClick 
           style={{ cursor: spButtonIndex === 2 ? 'pointer': 'default'}}
-          localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? 'Choose a cutoff period to display employee list': 'SUCCEEDED...'}` }}
+          localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? 'There is no payslip to generate. Create a cutoff summary first then process payroll': 'There is no payslip to generate. Create a cutoff summary first then process payroll'}` }}
         />
         <GeneratePDFButton data={payrollData} columns={dynamicPayrollColumns[0]} />
       </div>
     </Fragment>
-
   );
 }
