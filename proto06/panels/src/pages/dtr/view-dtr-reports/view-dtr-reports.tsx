@@ -106,7 +106,7 @@ export default function ViewDtrReports() {
     setSecondOptionModalEntranceDelay(true)
     dispatchSpecificEmployeeInfo(e.row?.emp_no)
   };
-
+  // console.log(dtrStatus, "this is the page:", dtrData);
   return (
     <Fragment>
       <div className="my-10 flex flex-wrap justify-between items-start gap-6">
@@ -135,7 +135,7 @@ export default function ViewDtrReports() {
             spButtonIndex === 2 ? gridRowClick(e) : null
           }}
           style={{ cursor: spButtonIndex === 2 ? 'pointer': 'default'}}
-          localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? 'Choose a cutoff period to display employee list': 'SUCCEEDED...'}` }}
+          localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? 'Choose a cutoff period to display employee list': 'No Cutoff Summary found, please create DTR Summary first.'}` }}
         />
         <Modal
           open={open}
@@ -151,6 +151,5 @@ export default function ViewDtrReports() {
         </Modal>
       </div>
     </Fragment>
-
   );
 }
