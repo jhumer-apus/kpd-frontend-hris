@@ -35,6 +35,7 @@ import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import SurfingOutlinedIcon from '@mui/icons-material/SurfingOutlined';
+import HolidaysPage from "./pages/procedurals/holidays/holidays-page";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -118,7 +119,7 @@ export const routes: Array<IRoute> = [
             icon: <SurfingOutlinedIcon {...icon}/>,
             name: "Holidays",
             path: "/procedurals/holidays",
-            element: <DataTable/>, 
+            element: <HolidaysPage date={new Date()}/>, 
             hasSubItems: false,
           },
           {
