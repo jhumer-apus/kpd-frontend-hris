@@ -220,3 +220,14 @@ export type ProcessPayroll = {
     is_30: boolean,
     is_70: boolean,
 }
+
+
+export type HolidayLocationType = 'city' | 'City' | 'province' | 'Province' | 'national' | 'National' | '' | string;
+
+export type HolidayGetType = {
+    id?: number,
+    holiday_date: string | null,
+    holiday_description: string | null,
+    holiday_type: string,
+    holiday_location: HolidayLocationType,
+};
