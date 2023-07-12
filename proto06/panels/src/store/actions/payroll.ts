@@ -18,17 +18,6 @@ export const generatePayslipMultiple = createAction("GENERATE_PAYSLIP_MULTIPLE",
 // export const viewPayrollListFailure = createAction<string>("VIEW_PAYROLL_LIST_FAILURE");
 
 
-// /* 
-
-// */
-// export const processPayroll = createAction("PROCESS_PAYROLL");
-// export const processPayrollSuccess = createAction("PROCESS_PAYROLL_SUCCESS", (data: number[]) => {
-// return ({payload: data})    
-// });                               
-// export const processPayrollProgress = createAction("PROCESS_PAYROLL_PROGRESS");
-// export const processPayrollFailure = createAction("PROCESS_PAYROLL_FAILURE");
-
-
 export const processPayroll = createAction<ProcessPayroll>("PROCESS_PAYROLL");
 export const processPayrollSuccess = createAction("PROCESS_PAYROLL_SUCCESS", (SuccessMessage: string) => { 
     // console.log
