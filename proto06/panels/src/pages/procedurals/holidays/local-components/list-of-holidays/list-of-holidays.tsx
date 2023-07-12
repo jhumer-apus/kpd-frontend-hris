@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { EasyAccessCard } from '@/widgets/cards';
 import { KeyIcon } from '@heroicons/react/24/solid';
-import { Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
+import dayjs from 'dayjs';
+import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
+import AvTimerOutlinedIcon from '@mui/icons-material/AvTimerOutlined';
+
+import EditCalendarOutlinedIcon from '@mui/icons-material/EditCalendarOutlined';
+import { HighlightedCalendarInterface } from '../highlighted-calendar/highlighted-calendar';
+
 
 import {
     Card,
@@ -9,209 +16,79 @@ import {
     CardBody,
     CardFooter,
   } from "@material-tailwind/react";
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/store/configureStore';
+import { HolidaysGet } from '@/store/actions/procedurals';
 
 
-const style1 = [
-    {
-        // color: "red",
-        type: 2,
-        icon: KeyIcon,
-        title: "Role Management",
-        value: "RM",
-        footer: {
-        color: "text-green-500",
-        value: "<",
-        label: "Manage Roles, etc.",
-        },
-        custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
-    },
-    {
-        // color: "red",
-        type: 2,
-        icon: KeyIcon,
-        title: "Role Management",
-        value: "RM",
-        footer: {
-        color: "text-green-500",
-        value: "<",
-        label: "Manage Roles, etc.",
-        },
-        custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
-    },
-    {
-        // color: "red",
-        type: 2,
-        icon: KeyIcon,
-        title: "Role Management",
-        value: "RM",
-        footer: {
-        color: "text-green-500",
-        value: "<",
-        label: "Manage Roles, etc.",
-        },
-        custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
-    },
-    {
-        // color: "red",
-        type: 2,
-        icon: KeyIcon,
-        title: "Role Management",
-        value: "RM",
-        footer: {
-        color: "text-green-500",
-        value: "<",
-        label: "Manage Roles, etc.",
-        },
-        custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
-    },
-    {
-        // color: "red",
-        type: 2,
-        icon: KeyIcon,
-        title: "Role Management",
-        value: "RM",
-        footer: {
-        color: "text-green-500",
-        value: "<",
-        label: "Manage Roles, etc.",
-        },
-        custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
-    },
-    {
-        // color: "red",
-        type: 2,
-        icon: KeyIcon,
-        title: "Role Management",
-        value: "RM",
-        footer: {
-        color: "text-green-500",
-        value: "<",
-        label: "Manage Roles, etc.",
-        },
-        custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
-    },
-    {
-        // color: "red",
-        type: 2,
-        icon: KeyIcon,
-        title: "Role Management",
-        value: "RM",
-        footer: {
-        color: "text-green-500",
-        value: "<",
-        label: "Manage Roles, etc.",
-        },
-        custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
-    },
-    {
-        // color: "red",
-        type: 2,
-        icon: KeyIcon,
-        title: "Role Management",
-        value: "RM",
-        footer: {
-        color: "text-green-500",
-        value: "<",
-        label: "Manage Roles, etc.",
-        },
-        custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
-    },
-    {
-        // color: "red",
-        type: 2,
-        icon: KeyIcon,
-        title: "Role Management",
-        value: "RM",
-        footer: {
-        color: "text-green-500",
-        value: "<",
-        label: "Manage Roles, etc.",
-        },
-        custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
-    }
-]
+export enum HolidayColor {
+    _legal = 'linear-gradient(0deg, rgba(34,195,193,1) 0%, rgba(38,199,133,1) 50%)',
+    _special = 'linear-gradient(0deg, rgba(195,147,34,1) 0%, rgba(253,187,45,1) 100%)',
+    _legal_hex = '#26C785',
+    _special_hex = '#FDBB2D'
+}
 
-const mockHolidayJsonList = [
-    {
-      "id": 1,
-      "holiday_date": "2023-05-31",
-      "holiday_description": null,
-      "holiday_type": "LH",
-      "holiday_location": "national"
-    },
-    {
-      "id": 2,
-      "holiday_date": "2023-05-30",
-      "holiday_description": null,
-      "holiday_type": "SH",
-      "holiday_location": "national"
-    },
-    {
-      "id": 7,
-      "holiday_date": "2023-04-06",
-      "holiday_description": "Maundy Thursday",
-      "holiday_type": "LH",
-      "holiday_location": "national"
-    },
-    {
-      "id": 8,
-      "holiday_date": "2023-04-07",
-      "holiday_description": "Good Friday",
-      "holiday_type": "LH",
-      "holiday_location": "national"
-    },
-    {
-      "id": 9,
-      "holiday_date": "2023-04-10",
-      "holiday_description": "Day of Valor | Araw ng Kagitingan",
-      "holiday_type": "LH",
-      "holiday_location": "national"
-    },
-    {
-      "id": 10,
-      "holiday_date": "2023-04-21",
-      "holiday_description": "Eid Al-Ftr",
-      "holiday_type": "LH",
-      "holiday_location": "national"
-    }
-]
+function ListOfHolidaysComponent(props: HighlightedCalendarInterface) {
+    const dispatch = useDispatch();
+    const ListOfHolidaysState = useSelector((state: RootState)=> state.procedurals.HolidaysGet);
+    // let sortedDates = [];
 
-
-function ListOfHolidaysComponent() {
+    useEffect(()=>{
+        dispatch(HolidaysGet());
+        // setTimeout(()=>{
+        //     ListOfHolidaysState.data.forEach((value: HolidayGetType) => {
+        //         if(value.holiday_date){
+        //             const dateValue = new Date(value.holiday_date);
+        //             return sortedDates.push(dateValue)
+        //         } else {
+        //             console.error('No holiday date for this value');
+        //         }
+        //     })
+        // }, 1000);
+    }, [])
+    console.log(ListOfHolidaysState.data, "haha?")
+    const {setValue} = props;
     return (
-        <div style={{height: '80%', overflowY: 'auto', padding: '6px'}}>
-        <ul>
-        {mockHolidayJsonList.map(({ holiday_date, holiday_description, holiday_type, holiday_location }) => (
-            <li>
-                <Card style={{marginTop: '20px'}}>
+        <div style={{height: '90%', overflowY: 'auto', padding: '6px'}}>
+        <ul className='flex flex-col items-center justify-center'>
+        {ListOfHolidaysState.data.map(({ holiday_date, holiday_description, holiday_type, holiday_location }) => (
+            <li style={{width: '95%'}}>
+                <Card 
+                    style={{marginTop: '20px', padding: '0px', cursor: 'pointer', transition: 'transform 0.3s ease', boxShadow: `2px 2px 7px ${holiday_type === 'SH'? HolidayColor._special_hex : HolidayColor._legal_hex}`}} 
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'scale(1.05)';
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'scale(1)';
+                    }}
+                    onClick={() => setValue(dayjs(holiday_date))}
+                >
                     <CardHeader
                         floated={false}
                         variant="gradient"
                         // color={b}
                         className="absolute mt-4 grid h-16 w-16 place-items-center"
-                        style={{background: "linear-gradient(87deg, #5e72e4 0, #825ee4 100%)"}}
+                        style={{background: holiday_type === 'SH'? HolidayColor._special : HolidayColor._legal}}
                         data-name={'iconwrap'}
                     >
-                        <span><KeyIcon/></span>
+                        <span>{React.createElement( holiday_type === 'SH'? AvTimerOutlinedIcon : AccountBalanceOutlinedIcon , {className: 'w-6 h-6 text-white'})}</span>
                     </CardHeader>
                     <CardBody className="p-4 text-right">
                         <Typography variant="body2" className="font-normal text-blue-gray-600">
-                        {holiday_description}
+                        {holiday_description ? holiday_description + ' - ' : ''}{holiday_type === 'SH' ? 'Special Holiday': 'Legal Holiday'}
                         </Typography>
                         <Typography variant="h4" color="blue-gray">
                         {holiday_type}
                         </Typography>
                     </CardBody>
-
-                    <CardFooter className="border-t border-blue-gray-50 p-4">
-                    {holiday_date} - {holiday_location}
+                    <CardFooter className="border-t flex justify-between border-blue-gray-50 p-4">
+                        <span>{dayjs(holiday_date).locale('en').format('MMMM D, YYYY')} - {`${holiday_location.charAt(0).toUpperCase()}${holiday_location.slice(1)}`}</span>
+                        <span style={{zoom: 0.8}}>{React.createElement(EditCalendarOutlinedIcon, {style: {color: holiday_type === 'SH'? HolidayColor._special_hex: HolidayColor._legal_hex}})}</span>
                     </CardFooter>
                 </Card>
             </li>
         ))}
-
         </ul>
-
         </div>
     );
 }
