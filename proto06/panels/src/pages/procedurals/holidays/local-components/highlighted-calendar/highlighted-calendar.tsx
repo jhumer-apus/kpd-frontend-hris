@@ -11,14 +11,13 @@ import { StaticDatePicker, PickersShortcutsItem } from '@mui/x-date-pickers';
 import './highlighted-calendar.scss';
 
 
-// const initialValue2 = dayjs('2022-04-17');
-// const initialValue = dayjs().startOf('month');
+export interface HighlightedCalendarInterface {
+  value: dayjs.Dayjs | null,
+  setValue: React.Dispatch<React.SetStateAction<dayjs.Dayjs | null>>
+}
+
 const initialValue = dayjs();
-
-console.log(initialValue, "test1");
-
 function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[], holidayTypes?: Record<string, string>, pipi?: string }) {
-console.log(props, "mama1212")
   const { highlightedDays = [], holidayTypes = {}, pipi, day, outsideCurrentMonth, ...other } = props;
   const isSelected = !props.outsideCurrentMonth && highlightedDays.includes(props.day.date());
   const holidayType = holidayTypes[day.format('YYYY-MM-DD')];
@@ -40,23 +39,24 @@ console.log(props, "mama1212")
       <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} />
     </Badge>
   );
-}
+};
   
 
-export default function HighlightedCalendar() {
+export default function HighlightedCalendar(props: HighlightedCalendarInterface) {
+  const { value } = props;
   const requestAbortController = React.useRef<CancelTokenSource  | null>(null);
-  const [shortcutsItems, setShortcutsItems] = React.useState<PickersShortcutsItem<Dayjs>[]>([]);
+  // const [shortcutsItems, setShortcutsItems] = React.useState<PickersShortcutsItem<Dayjs>[]>([]);
   const [isLoading, setIsLoading] = React.useState(false);
 //   const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15]);
   const [highlightedDays, setHighlightedDays] = React.useState<number[]>([]);
   const [holidayTypes, setHolidayTypes] = React.useState<Record<string, string>>({}); // Add this line to declare the state variable
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs());
-  const createShortcutItems = (data: any[]): PickersShortcutsItem<Dayjs>[] => {
-    return data.map((holiday: any) => ({
-      label: holiday.holiday_description || '', // Use holiday_description as label
-      getValue: () => dayjs(holiday.holiday_date),
-    }));
-  };
+
+  // const createShortcutItems = (data: any[]): PickersShortcutsItem<Dayjs>[] => {
+  //   return data.map((holiday: any) => ({
+  //     label: holiday.holiday_description || '', // Use holiday_description as label
+  //     getValue: () => dayjs(holiday.holiday_date),
+  //   }));
+  // };
   const fetchHighlightedDays = (date: Dayjs) => {
 
     // requestAbortController.current = controller;
@@ -72,6 +72,7 @@ export default function HighlightedCalendar() {
       cancelToken: requestAbortController.current.token,
     })
       .then((response) => {
+        // console.log(response.data, "haha??22")
         //Added this to filter the data from the response
         const filteredData = response.data.filter((holiday: any) => {
             const holidayDate = dayjs(holiday.holiday_date);
@@ -93,7 +94,7 @@ export default function HighlightedCalendar() {
         setHighlightedDays(daysToHighlight);
         setHolidayTypes(holidayTypes); // Set the holidayTypes state
         setIsLoading(false);
-        setShortcutsItems(createShortcutItems(filteredData)); // Update shortcutsItems
+        // setShortcutsItems(createShortcutItems(filteredData)); // Update shortcutsItems
       })
       .catch((error) => {
         if (axios.isCancel(error)) {
