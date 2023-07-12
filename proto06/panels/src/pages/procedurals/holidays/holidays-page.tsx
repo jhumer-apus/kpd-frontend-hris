@@ -11,12 +11,15 @@ import { CutoffListMergeSelectionState, ProcessPayroll } from '@/types/types-pag
 import { RootState } from '@/store/configureStore';
 import { Typography } from '@material-tailwind/react';
 import ListOfHolidaysComponent from './local-components/list-of-holidays/list-of-holidays';
+import { HolidayColor } from './local-components/list-of-holidays/list-of-holidays';
+import dayjs from 'dayjs';
+import CreateHolidayModal from './local-components/create-holiday-modal/create-holiday-modal';
 
 
 const PaperStyle: CSSProperties = {
   padding: "20px",
   height: "800px",
-  overflowY: 'auto'
+  // overflowY: 'auto'
 }
 
 const Grid = styled(MuiGrid)(({ theme }) => ({
@@ -35,7 +38,12 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
 
 export default function HolidaysPage() {
   const theme = useTheme();
-const matches = useMediaQuery(theme.breakpoints.down('lg'));
+  const [value, setValue] = React.useState<dayjs.Dayjs | null>(dayjs());
+  const matches = useMediaQuery(theme.breakpoints.down('lg'));
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
 
     return (
         <Fragment>
@@ -46,30 +54,36 @@ const matches = useMediaQuery(theme.breakpoints.down('lg'));
                       HRIS Calendar of Holidays
                     </Typography>
                     <div className='flex justify-center align-center'>
-                      <HighlightedCalendar/>
+                      <HighlightedCalendar value={value} setValue={setValue}/>
                     </div>
                     <div className='flex justify-around'>
                     <Typography variant={'paragraph'}>
-                      <p>Click the date to view</p>
+                      <p>Click the list to view date</p>
                       <p>or + Create Holiday to add</p>
                     </Typography>
                     <Typography>
-                      <Button variant='contained'>
+                      <Button variant='contained' onClick={handleOpen}>
                         + Create Holiday
                       </Button>
+                      <CreateHolidayModal open={open} setOpen={setOpen} handleOpen={handleOpen} handleClose={handleClose}/>
                     </Typography>
                     </div>
                 </Paper>
             </Grid>
             <Grid item xs={6}>
                 <Paper elevation={3} style={PaperStyle}>
-                    <div>List of Holidays</div>
-                    <ListOfHolidaysComponent/>
-                    {/* <CutOffListEmployees employees={employees} selectedRows={selectedRows} setSelectedRows={setSelectedRows}/> */}
+                    <div className='flex justify-between'>
+                    <Typography variant={'h6'} style={{alignItems: 'center', display: 'flex', paddingLeft: '10px'}}>List of Holidays</Typography>
+                    <div>
+                      {/* <Typography>Legends</Typography> */}
+                      <Typography className='flex my-2'><p style={{background: HolidayColor._legal, borderRadius: '100px', width: '25px'}}></p>&nbsp;&nbsp;Legal Holiday</Typography>
+                      <Typography className='flex mb-2'><p style={{background: HolidayColor._special, borderRadius: '100px', width: '25px'}}></p>&nbsp;&nbsp;Special Holiday</Typography>  
+                    </div>
+                    </div>
+                    <ListOfHolidaysComponent value={value} setValue={setValue}/>
                 </Paper>
             </Grid>
         </Grid>
-          
         </Fragment>
     );
 }
