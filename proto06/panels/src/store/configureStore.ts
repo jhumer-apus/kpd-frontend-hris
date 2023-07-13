@@ -9,7 +9,39 @@ import { dtrReducer } from './reducers/dtr';
 import { viewAllDtrLogsEpic, viewMergedDtrLogsEpic, viewCutoffDtrSummaryEpic, getCutoffDTRListEpic, getCutoffDTRListEmployeeEpic, mergeCutoffListAndEmployeeEpic, summarizeCutoffListAndEmployeeEpic } from './epics/dtr';
 import { payrollReducer } from './reducers/payroll';
 import { processPayrollEpic, viewPayrollListEpic } from './epics/payroll';
-import { HolidayCreateEpic, HolidayEditSubmitEpic, HolidaysGetEpic } from './epics/procedurals';
+import { 
+  HolidayCreateEpic, 
+  HolidayEditSubmitEpic, 
+  HolidaysGetEpic, 
+  //OBT SECTION
+  OBTCreateEpic, 
+  OBTEditEpic, 
+  OBTViewEpic, 
+  OBTViewFilterApproverEpic, 
+  OBTViewFilterEmployeeAndOBTEpic, 
+  OBTViewFilterEmployeeEpic,
+  //OVERTIME SECTION
+  OVERTIMECreateEpic, 
+  OVERTIMEEditEpic, 
+  OVERTIMEViewEpic, 
+  OVERTIMEViewFilterApproverEpic, 
+  OVERTIMEViewFilterEmployeeAndOVERTIMEEpic, 
+  OVERTIMEViewFilterEmployeeEpic,
+  //LEAVE SECTION
+  LEAVECreateEpic, 
+  LEAVEEditEpic, 
+  LEAVEViewEpic, 
+  LEAVEViewFilterApproverEpic, 
+  LEAVEViewFilterEmployeeAndLEAVEEpic, 
+  LEAVEViewFilterEmployeeEpic,
+  //UA SECTION
+  UACreateEpic, 
+  UAEditEpic, 
+  UAViewEpic, 
+  UAViewFilterApproverEpic, 
+  UAViewFilterEmployeeAndUAEpic, 
+  UAViewFilterEmployeeEpic 
+} from './epics/procedurals';
 import { proceduralsReducer } from './reducers/procedurals';
 
 const epicMiddleware = createEpicMiddleware();
@@ -43,7 +75,35 @@ epicMiddleware.run(combineEpics(
   processPayrollEpic,
   HolidayCreateEpic,
   HolidaysGetEpic,
-  HolidayEditSubmitEpic
+  HolidayEditSubmitEpic,
+  //OBT SECTION
+  OBTViewEpic,
+  OBTViewFilterEmployeeEpic,
+  OBTViewFilterEmployeeAndOBTEpic,
+  OBTViewFilterApproverEpic,
+  OBTCreateEpic,
+  OBTEditEpic,
+  //OVERTIME SECTION
+  OVERTIMEViewEpic,
+  OVERTIMEViewFilterEmployeeEpic,
+  OVERTIMEViewFilterEmployeeAndOVERTIMEEpic,
+  OVERTIMEViewFilterApproverEpic,
+  OVERTIMECreateEpic,
+  OVERTIMEEditEpic,
+  //LEAVE SECTION
+  LEAVEViewEpic,
+  LEAVEViewFilterEmployeeEpic,
+  LEAVEViewFilterEmployeeAndLEAVEEpic,
+  LEAVEViewFilterApproverEpic,
+  LEAVECreateEpic,
+  LEAVEEditEpic,
+  //UA SECTION
+  UAViewEpic,
+  UAViewFilterEmployeeEpic,
+  UAViewFilterEmployeeAndUAEpic,
+  UAViewFilterApproverEpic,
+  UACreateEpic,
+  UAEditEpic,
 ));
 
 export type RootState = ReturnType<typeof rootReducer>;
