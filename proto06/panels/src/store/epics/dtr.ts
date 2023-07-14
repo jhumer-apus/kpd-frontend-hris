@@ -57,7 +57,7 @@ const getCutoffDTRListEmployeeApiCall = async (cutoff_code: number) => {
   if(Number.isNaN(cutoff_code)){
     return;
   }
-  const response = await axios.get(`http://172.16.168.155:8000/api/cutoff_period/${cutoff_code}`
+  const response = await axios.get(`http://172.16.168.155:8000/api/dtr_summary/cutoff_period/${cutoff_code}`
   , {
     onDownloadProgress: (progressEvent) => {
       if(progressEvent.total){

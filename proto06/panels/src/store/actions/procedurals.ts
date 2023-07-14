@@ -13,6 +13,21 @@ import {
     UACreateInterface, 
     UAEditInterface, 
     UAViewInterface, 
+    LEAVECREDITCreateInterface, 
+    LEAVECREDITEditInterface, 
+    LEAVECREDITViewInterface, 
+    LEAVETYPECreateInterface, 
+    LEAVETYPEEditInterface, 
+    LEAVETYPEViewInterface, 
+    CUTOFFPERIODCreateInterface, 
+    CUTOFFPERIODEditInterface, 
+    CUTOFFPERIODViewInterface, 
+    SCHEDULESHIFTCreateInterface, 
+    SCHEDULESHIFTEditInterface, 
+    SCHEDULESHIFTViewInterface, 
+    SCHEDULEDAILYCreateInterface, 
+    SCHEDULEDAILYEditInterface, 
+    SCHEDULEDAILYViewInterface, 
 } from '@/types/types-pages';
 
 
@@ -268,3 +283,209 @@ export const UAEditActionSuccess = createAction("UA_EDIT_ACTION_SUCCESS", (Succe
 export const UAEditActionProgress = createAction<number>("UA_EDIT_ACTION_PROGRESS");
 export const UAEditActionFailure = createAction<string>("UA_EDIT_ACTION_FAILURE");
 export const UAEditActionFailureCleanup = createAction("UA_EDIT_ACTION_FAILURE_CLEANUP");
+
+
+
+// LEAVECREDIT SECTION // LEAVECREDIT SECTION // LEAVECREDIT SECTION // LEAVECREDIT SECTION // LEAVECREDIT SECTION // LEAVECREDIT SECTION
+export const LEAVECREDITViewAction = createAction("LEAVECREDIT_VIEW_ACTION");
+export const LEAVECREDITViewActionSuccess = createAction("LEAVECREDIT_VIEW_ACTION_SUCCESS", (SuccessMessage: LEAVECREDITViewInterface[]) => { 
+    // console.log
+    return({ payload: {SuccessMessage} })});
+export const LEAVECREDITViewActionProgress = createAction<number>("LEAVECREDIT_VIEW_ACTION_PROGRESS");
+export const LEAVECREDITViewActionFailure = createAction<string>("LEAVECREDIT_VIEW_ACTION_FAILURE");
+export const LEAVECREDITViewActionFailureCleanup = createAction("LEAVECREDIT_VIEW_ACTION_FAILURE_CLEANUP");
+
+
+export const LEAVECREDITViewFilterEmployeeAction = createAction<{emp_no: number}>("LEAVECREDIT_VIEW_FILTER_EMPLOYEE_ACTION");
+export const LEAVECREDITViewFilterEmployeeActionSuccess = createAction("LEAVECREDIT_VIEW_FILTER_EMPLOYEE_ACTION_SUCCESS", (SuccessMessage: LEAVECREDITViewInterface[]) => { 
+    // console.log
+    return({ payload: {SuccessMessage} })});
+export const LEAVECREDITViewFilterEmployeeActionProgress = createAction<number>("LEAVECREDIT_VIEW_FILTER_EMPLOYEE_ACTION_PROGRESS");
+export const LEAVECREDITViewFilterEmployeeActionFailure = createAction<string>("LEAVECREDIT_VIEW_FILTER_EMPLOYEE_ACTION_FAILURE");
+export const LEAVECREDITViewFilterEmployeeActionFailureCleanup = createAction("LEAVECREDIT_VIEW_FILTER_EMPLOYEE_ACTION_FAILURE_CLEANUP");
+
+
+export const LEAVECREDITCreateAction = createAction<LEAVECREDITCreateInterface>("LEAVECREDIT_CREATE_ACTION");
+export const LEAVECREDITCreateActionSuccess = createAction("LEAVECREDIT_CREATE_ACTION_SUCCESS", (SuccessMessage: LEAVECREDITCreateInterface) => { 
+    // console.log
+    return({ payload: {SuccessMessage} })
+});
+export const LEAVECREDITCreateActionProgress = createAction<number>("LEAVECREDIT_CREATE_ACTION_PROGRESS");
+export const LEAVECREDITCreateActionFailure = createAction<string>("LEAVECREDIT_CREATE_ACTION_FAILURE");
+export const LEAVECREDITCreateActionFailureCleanup = createAction("LEAVECREDIT_CREATE_ACTION_FAILURE_CLEANUP");
+
+export const LEAVECREDITEditAction = createAction<LEAVECREDITViewInterface>("LEAVECREDIT_EDIT_ACTION");
+export const LEAVECREDITEditActionSuccess = createAction("LEAVECREDIT_EDIT_ACTION_SUCCESS", (SuccessMessage: LEAVECREDITEditInterface) => { 
+    // console.log
+    return({ payload: {SuccessMessage} })
+});
+export const LEAVECREDITEditActionProgress = createAction<number>("LEAVECREDIT_EDIT_ACTION_PROGRESS");
+export const LEAVECREDITEditActionFailure = createAction<string>("LEAVECREDIT_EDIT_ACTION_FAILURE");
+export const LEAVECREDITEditActionFailureCleanup = createAction("LEAVECREDIT_EDIT_ACTION_FAILURE_CLEANUP");
+
+
+// LEAVETYPE SECTION // LEAVETYPE SECTION // LEAVETYPE SECTION // LEAVETYPE SECTION // LEAVETYPE SECTION // LEAVETYPE SECTION
+export const LEAVETYPEViewAction = createAction("LEAVETYPE_VIEW_ACTION");
+export const LEAVETYPEViewActionSuccess = createAction("LEAVETYPE_VIEW_ACTION_SUCCESS", (SuccessMessage: LEAVETYPEViewInterface[]) => { 
+    // console.log
+    return({ payload: {SuccessMessage} })});
+export const LEAVETYPEViewActionProgress = createAction<number>("LEAVETYPE_VIEW_ACTION_PROGRESS");
+export const LEAVETYPEViewActionFailure = createAction<string>("LEAVETYPE_VIEW_ACTION_FAILURE");
+export const LEAVETYPEViewActionFailureCleanup = createAction("LEAVETYPE_VIEW_ACTION_FAILURE_CLEANUP");
+
+
+export const LEAVETYPEViewFilterEmployeeAction = createAction<{emp_no: number}>("LEAVETYPE_VIEW_FILTER_EMPLOYEE_ACTION");
+export const LEAVETYPEViewFilterEmployeeActionSuccess = createAction("LEAVETYPE_VIEW_FILTER_EMPLOYEE_ACTION_SUCCESS", (SuccessMessage: LEAVETYPEViewInterface[]) => { 
+    // console.log
+    return({ payload: {SuccessMessage} })});
+export const LEAVETYPEViewFilterEmployeeActionProgress = createAction<number>("LEAVETYPE_VIEW_FILTER_EMPLOYEE_ACTION_PROGRESS");
+export const LEAVETYPEViewFilterEmployeeActionFailure = createAction<string>("LEAVETYPE_VIEW_FILTER_EMPLOYEE_ACTION_FAILURE");
+export const LEAVETYPEViewFilterEmployeeActionFailureCleanup = createAction("LEAVETYPE_VIEW_FILTER_EMPLOYEE_ACTION_FAILURE_CLEANUP");
+
+
+export const LEAVETYPECreateAction = createAction<LEAVETYPECreateInterface>("LEAVETYPE_CREATE_ACTION");
+export const LEAVETYPECreateActionSuccess = createAction("LEAVETYPE_CREATE_ACTION_SUCCESS", (SuccessMessage: LEAVETYPECreateInterface) => { 
+    // console.log
+    return({ payload: {SuccessMessage} })
+});
+export const LEAVETYPECreateActionProgress = createAction<number>("LEAVETYPE_CREATE_ACTION_PROGRESS");
+export const LEAVETYPECreateActionFailure = createAction<string>("LEAVETYPE_CREATE_ACTION_FAILURE");
+export const LEAVETYPECreateActionFailureCleanup = createAction("LEAVETYPE_CREATE_ACTION_FAILURE_CLEANUP");
+
+export const LEAVETYPEEditAction = createAction<LEAVETYPEViewInterface>("LEAVETYPE_EDIT_ACTION");
+export const LEAVETYPEEditActionSuccess = createAction("LEAVETYPE_EDIT_ACTION_SUCCESS", (SuccessMessage: LEAVETYPEEditInterface) => { 
+    // console.log
+    return({ payload: {SuccessMessage} })
+});
+export const LEAVETYPEEditActionProgress = createAction<number>("LEAVETYPE_EDIT_ACTION_PROGRESS");
+export const LEAVETYPEEditActionFailure = createAction<string>("LEAVETYPE_EDIT_ACTION_FAILURE");
+export const LEAVETYPEEditActionFailureCleanup = createAction("LEAVETYPE_EDIT_ACTION_FAILURE_CLEANUP");
+
+// CUTOFFPERIOD SECTION // CUTOFFPERIOD SECTION // CUTOFFPERIOD SECTION // CUTOFFPERIOD SECTION // CUTOFFPERIOD SECTION // CUTOFFPERIOD SECTION
+export const CUTOFFPERIODViewAction = createAction("CUTOFFPERIOD_VIEW_ACTION");
+export const CUTOFFPERIODViewActionSuccess = createAction("CUTOFFPERIOD_VIEW_ACTION_SUCCESS", (SuccessMessage: CUTOFFPERIODViewInterface[]) => { 
+    // console.log
+    return({ payload: {SuccessMessage} })});
+export const CUTOFFPERIODViewActionProgress = createAction<number>("CUTOFFPERIOD_VIEW_ACTION_PROGRESS");
+export const CUTOFFPERIODViewActionFailure = createAction<string>("CUTOFFPERIOD_VIEW_ACTION_FAILURE");
+export const CUTOFFPERIODViewActionFailureCleanup = createAction("CUTOFFPERIOD_VIEW_ACTION_FAILURE_CLEANUP");
+
+
+export const CUTOFFPERIODViewFilterCUTOFFPERIODAction = createAction<{co_id: number}>("CUTOFFPERIOD_VIEW_FILTER_EMPLOYEE_ACTION");
+export const CUTOFFPERIODViewFilterCUTOFFPERIODActionSuccess = createAction("CUTOFFPERIOD_VIEW_FILTER_EMPLOYEE_ACTION_SUCCESS", (SuccessMessage: CUTOFFPERIODViewInterface[]) => { 
+    // console.log
+    return({ payload: {SuccessMessage} })});
+export const CUTOFFPERIODViewFilterCUTOFFPERIODActionProgress = createAction<number>("CUTOFFPERIOD_VIEW_FILTER_EMPLOYEE_ACTION_PROGRESS");
+export const CUTOFFPERIODViewFilterCUTOFFPERIODActionFailure = createAction<string>("CUTOFFPERIOD_VIEW_FILTER_EMPLOYEE_ACTION_FAILURE");
+export const CUTOFFPERIODViewFilterCUTOFFPERIODActionFailureCleanup = createAction("CUTOFFPERIOD_VIEW_FILTER_EMPLOYEE_ACTION_FAILURE_CLEANUP");
+
+
+export const CUTOFFPERIODCreateAction = createAction<CUTOFFPERIODCreateInterface>("CUTOFFPERIOD_CREATE_ACTION");
+export const CUTOFFPERIODCreateActionSuccess = createAction("CUTOFFPERIOD_CREATE_ACTION_SUCCESS", (SuccessMessage: CUTOFFPERIODCreateInterface) => { 
+    // console.log
+    return({ payload: {SuccessMessage} })
+});
+export const CUTOFFPERIODCreateActionProgress = createAction<number>("CUTOFFPERIOD_CREATE_ACTION_PROGRESS");
+export const CUTOFFPERIODCreateActionFailure = createAction<string>("CUTOFFPERIOD_CREATE_ACTION_FAILURE");
+export const CUTOFFPERIODCreateActionFailureCleanup = createAction("CUTOFFPERIOD_CREATE_ACTION_FAILURE_CLEANUP");
+
+export const CUTOFFPERIODEditAction = createAction<CUTOFFPERIODViewInterface>("CUTOFFPERIOD_EDIT_ACTION");
+export const CUTOFFPERIODEditActionSuccess = createAction("CUTOFFPERIOD_EDIT_ACTION_SUCCESS", (SuccessMessage: CUTOFFPERIODEditInterface) => { 
+    // console.log
+    return({ payload: {SuccessMessage} })
+});
+export const CUTOFFPERIODEditActionProgress = createAction<number>("CUTOFFPERIOD_EDIT_ACTION_PROGRESS");
+export const CUTOFFPERIODEditActionFailure = createAction<string>("CUTOFFPERIOD_EDIT_ACTION_FAILURE");
+export const CUTOFFPERIODEditActionFailureCleanup = createAction("CUTOFFPERIOD_EDIT_ACTION_FAILURE_CLEANUP");
+
+// SCHEDULESHIFT SECTION // SCHEDULESHIFT SECTION // SCHEDULESHIFT SECTION // SCHEDULESHIFT SECTION // SCHEDULESHIFT SECTION // SCHEDULESHIFT SECTION
+export const SCHEDULESHIFTViewAction = createAction("SCHEDULESHIFT_VIEW_ACTION");
+export const SCHEDULESHIFTViewActionSuccess = createAction("SCHEDULESHIFT_VIEW_ACTION_SUCCESS", (SuccessMessage: SCHEDULESHIFTViewInterface[]) => { 
+    // console.log
+    return({ payload: {SuccessMessage} })});
+export const SCHEDULESHIFTViewActionProgress = createAction<number>("SCHEDULESHIFT_VIEW_ACTION_PROGRESS");
+export const SCHEDULESHIFTViewActionFailure = createAction<string>("SCHEDULESHIFT_VIEW_ACTION_FAILURE");
+export const SCHEDULESHIFTViewActionFailureCleanup = createAction("SCHEDULESHIFT_VIEW_ACTION_FAILURE_CLEANUP");
+
+
+export const SCHEDULESHIFTViewFilterSCHEDULESHIFTAction = createAction<{ss_id: number}>("SCHEDULESHIFT_VIEW_FILTER_EMPLOYEE_ACTION");
+export const SCHEDULESHIFTViewFilterSCHEDULESHIFTActionSuccess = createAction("SCHEDULESHIFT_VIEW_FILTER_EMPLOYEE_ACTION_SUCCESS", (SuccessMessage: SCHEDULESHIFTViewInterface[]) => { 
+    // console.log
+    return({ payload: {SuccessMessage} })});
+export const SCHEDULESHIFTViewFilterSCHEDULESHIFTActionProgress = createAction<number>("SCHEDULESHIFT_VIEW_FILTER_EMPLOYEE_ACTION_PROGRESS");
+export const SCHEDULESHIFTViewFilterSCHEDULESHIFTActionFailure = createAction<string>("SCHEDULESHIFT_VIEW_FILTER_EMPLOYEE_ACTION_FAILURE");
+export const SCHEDULESHIFTViewFilterSCHEDULESHIFTActionFailureCleanup = createAction("SCHEDULESHIFT_VIEW_FILTER_EMPLOYEE_ACTION_FAILURE_CLEANUP");
+
+
+export const SCHEDULESHIFTCreateAction = createAction<SCHEDULESHIFTCreateInterface>("SCHEDULESHIFT_CREATE_ACTION");
+export const SCHEDULESHIFTCreateActionSuccess = createAction("SCHEDULESHIFT_CREATE_ACTION_SUCCESS", (SuccessMessage: SCHEDULESHIFTCreateInterface) => { 
+    // console.log
+    return({ payload: {SuccessMessage} })
+});
+export const SCHEDULESHIFTCreateActionProgress = createAction<number>("SCHEDULESHIFT_CREATE_ACTION_PROGRESS");
+export const SCHEDULESHIFTCreateActionFailure = createAction<string>("SCHEDULESHIFT_CREATE_ACTION_FAILURE");
+export const SCHEDULESHIFTCreateActionFailureCleanup = createAction("SCHEDULESHIFT_CREATE_ACTION_FAILURE_CLEANUP");
+
+export const SCHEDULESHIFTEditAction = createAction<SCHEDULESHIFTViewInterface>("SCHEDULESHIFT_EDIT_ACTION");
+export const SCHEDULESHIFTEditActionSuccess = createAction("SCHEDULESHIFT_EDIT_ACTION_SUCCESS", (SuccessMessage: SCHEDULESHIFTEditInterface) => { 
+    // console.log
+    return({ payload: {SuccessMessage} })
+});
+export const SCHEDULESHIFTEditActionProgress = createAction<number>("SCHEDULESHIFT_EDIT_ACTION_PROGRESS");
+export const SCHEDULESHIFTEditActionFailure = createAction<string>("SCHEDULESHIFT_EDIT_ACTION_FAILURE");
+export const SCHEDULESHIFTEditActionFailureCleanup = createAction("SCHEDULESHIFT_EDIT_ACTION_FAILURE_CLEANUP");
+
+export const SCHEDULESHIFTDeleteAction = createAction<{ss_id: number}>("SCHEDULESHIFT_DELETE_ACTION");
+export const SCHEDULESHIFTDeleteActionSuccess = createAction("SCHEDULESHIFT_DELETE_ACTION_SUCCESS", (SuccessMessage: string) => { 
+    // console.log
+    return({ payload: {SuccessMessage} })
+});
+export const SCHEDULESHIFTDeleteActionProgress = createAction<number>("SCHEDULESHIFT_DELETE_ACTION_PROGRESS");
+export const SCHEDULESHIFTDeleteActionFailure = createAction<string>("SCHEDULESHIFT_DELETE_ACTION_FAILURE");
+export const SCHEDULESHIFTDeleteActionFailureCleanup = createAction("SCHEDULESHIFT_DELETE_ACTION_FAILURE_CLEANUP");
+
+// SCHEDULEDAILY SECTION // SCHEDULEDAILY SECTION // SCHEDULEDAILY SECTION // SCHEDULEDAILY SECTION // SCHEDULEDAILY SECTION // SCHEDULEDAILY SECTION
+export const SCHEDULEDAILYViewAction = createAction("SCHEDULEDAILY_VIEW_ACTION");
+export const SCHEDULEDAILYViewActionSuccess = createAction("SCHEDULEDAILY_VIEW_ACTION_SUCCESS", (SuccessMessage: SCHEDULEDAILYViewInterface[]) => { 
+    // console.log
+    return({ payload: {SuccessMessage} })});
+export const SCHEDULEDAILYViewActionProgress = createAction<number>("SCHEDULEDAILY_VIEW_ACTION_PROGRESS");
+export const SCHEDULEDAILYViewActionFailure = createAction<string>("SCHEDULEDAILY_VIEW_ACTION_FAILURE");
+export const SCHEDULEDAILYViewActionFailureCleanup = createAction("SCHEDULEDAILY_VIEW_ACTION_FAILURE_CLEANUP");
+
+
+export const SCHEDULEDAILYViewFilterEmployeeAction = createAction<{emp_no: number}>("SCHEDULEDAILY_VIEW_FILTER_EMPLOYEE_ACTION");
+export const SCHEDULEDAILYViewFilterEmployeeActionSuccess = createAction("SCHEDULEDAILY_VIEW_FILTER_EMPLOYEE_ACTION_SUCCESS", (SuccessMessage: SCHEDULEDAILYViewInterface[]) => { 
+    // console.log
+    return({ payload: {SuccessMessage} })});
+export const SCHEDULEDAILYViewFilterEmployeeActionProgress = createAction<number>("SCHEDULEDAILY_VIEW_FILTER_EMPLOYEE_ACTION_PROGRESS");
+export const SCHEDULEDAILYViewFilterEmployeeActionFailure = createAction<string>("SCHEDULEDAILY_VIEW_FILTER_EMPLOYEE_ACTION_FAILURE");
+export const SCHEDULEDAILYViewFilterEmployeeActionFailureCleanup = createAction("SCHEDULEDAILY_VIEW_FILTER_EMPLOYEE_ACTION_FAILURE_CLEANUP");
+
+
+export const SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYAction = createAction<{emp_no: number, sd_id: number}>("SCHEDULEDAILY_VIEW_FILTER_EMPLOYEE_AND_SCHEDULEDAILY_ACTION");
+export const SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionSuccess = createAction("SCHEDULEDAILY_VIEW_FILTER_EMPLOYEE_AND_SCHEDULEDAILY_ACTION_SUCCESS", (SuccessMessage: SCHEDULEDAILYViewInterface) => { 
+    // console.log
+    return({ payload: {SuccessMessage} })});
+export const SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionProgress = createAction<number>("SCHEDULEDAILY_VIEW_FILTER_EMPLOYEE_AND_SCHEDULEDAILY_ACTION_PROGRESS");
+export const SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionFailure = createAction<string>("SCHEDULEDAILY_VIEW_FILTER_EMPLOYEE_AND_SCHEDULEDAILY_ACTION_FAILURE");
+export const SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionFailureCleanup = createAction("SCHEDULEDAILY_VIEW_FILTER_EMPLOYEE_AND_SCHEDULEDAILY_ACTION_FAILURE_CLEANUP");
+
+
+export const SCHEDULEDAILYCreateAction = createAction<SCHEDULEDAILYCreateInterface>("SCHEDULEDAILY_CREATE_ACTION");
+export const SCHEDULEDAILYCreateActionSuccess = createAction("SCHEDULEDAILY_CREATE_ACTION_SUCCESS", (SuccessMessage: SCHEDULEDAILYCreateInterface) => { 
+    // console.log
+    return({ payload: {SuccessMessage} })
+});
+export const SCHEDULEDAILYCreateActionProgress = createAction<number>("SCHEDULEDAILY_CREATE_ACTION_PROGRESS");
+export const SCHEDULEDAILYCreateActionFailure = createAction<string>("SCHEDULEDAILY_CREATE_ACTION_FAILURE");
+export const SCHEDULEDAILYCreateActionFailureCleanup = createAction("SCHEDULEDAILY_CREATE_ACTION_FAILURE_CLEANUP");
+
+export const SCHEDULEDAILYEditAction = createAction<SCHEDULEDAILYViewInterface>("SCHEDULEDAILY_EDIT_ACTION");
+export const SCHEDULEDAILYEditActionSuccess = createAction("SCHEDULEDAILY_EDIT_ACTION_SUCCESS", (SuccessMessage: SCHEDULEDAILYEditInterface) => { 
+    // console.log
+    return({ payload: {SuccessMessage} })
+});
+export const SCHEDULEDAILYEditActionProgress = createAction<number>("SCHEDULEDAILY_EDIT_ACTION_PROGRESS");
+export const SCHEDULEDAILYEditActionFailure = createAction<string>("SCHEDULEDAILY_EDIT_ACTION_FAILURE");
+export const SCHEDULEDAILYEditActionFailureCleanup = createAction("SCHEDULEDAILY_EDIT_ACTION_FAILURE_CLEANUP");

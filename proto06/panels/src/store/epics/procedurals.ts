@@ -138,7 +138,122 @@ import {
     UAViewFilterEmployeeAndUAActionFailure,
     UAViewFilterEmployeeAndUAActionFailureCleanup,
     UAViewFilterEmployeeAndUAActionProgress,
-    UAViewFilterEmployeeAndUAActionSuccess
+    UAViewFilterEmployeeAndUAActionSuccess,
+    //LEAVECREDIT SECTION,
+    LEAVECREDITCreateAction,
+    LEAVECREDITCreateActionFailure,
+    LEAVECREDITCreateActionFailureCleanup,
+    LEAVECREDITCreateActionProgress,
+    LEAVECREDITCreateActionSuccess,
+    LEAVECREDITEditAction,
+    LEAVECREDITEditActionFailure,
+    LEAVECREDITEditActionFailureCleanup,
+    LEAVECREDITEditActionProgress,
+    LEAVECREDITEditActionSuccess,
+    LEAVECREDITViewAction,
+    LEAVECREDITViewActionFailure,
+    LEAVECREDITViewActionFailureCleanup,
+    LEAVECREDITViewActionProgress,
+    LEAVECREDITViewActionSuccess,
+    LEAVECREDITViewFilterEmployeeAction,
+    LEAVECREDITViewFilterEmployeeActionFailure,
+    LEAVECREDITViewFilterEmployeeActionFailureCleanup,
+    LEAVECREDITViewFilterEmployeeActionProgress,
+    LEAVECREDITViewFilterEmployeeActionSuccess,
+    //LEAVETYPE SECTION,
+    LEAVETYPECreateAction,
+    LEAVETYPECreateActionFailure,
+    LEAVETYPECreateActionFailureCleanup,
+    LEAVETYPECreateActionProgress,
+    LEAVETYPECreateActionSuccess,
+    LEAVETYPEEditAction,
+    LEAVETYPEEditActionFailure,
+    LEAVETYPEEditActionFailureCleanup,
+    LEAVETYPEEditActionProgress,
+    LEAVETYPEEditActionSuccess,
+    LEAVETYPEViewAction,
+    LEAVETYPEViewActionFailure,
+    LEAVETYPEViewActionFailureCleanup,
+    LEAVETYPEViewActionProgress,
+    LEAVETYPEViewActionSuccess,
+    LEAVETYPEViewFilterEmployeeAction,
+    LEAVETYPEViewFilterEmployeeActionFailure,
+    LEAVETYPEViewFilterEmployeeActionFailureCleanup,
+    LEAVETYPEViewFilterEmployeeActionProgress,
+    LEAVETYPEViewFilterEmployeeActionSuccess,
+    //CUTOFFPERIOD SECTION,
+    CUTOFFPERIODCreateAction,
+    CUTOFFPERIODCreateActionFailure,
+    CUTOFFPERIODCreateActionFailureCleanup,
+    CUTOFFPERIODCreateActionProgress,
+    CUTOFFPERIODCreateActionSuccess,
+    CUTOFFPERIODEditAction,
+    CUTOFFPERIODEditActionFailure,
+    CUTOFFPERIODEditActionFailureCleanup,
+    CUTOFFPERIODEditActionProgress,
+    CUTOFFPERIODEditActionSuccess,
+    CUTOFFPERIODViewAction,
+    CUTOFFPERIODViewActionFailure,
+    CUTOFFPERIODViewActionFailureCleanup,
+    CUTOFFPERIODViewActionProgress,
+    CUTOFFPERIODViewActionSuccess,
+    CUTOFFPERIODViewFilterCUTOFFPERIODAction,
+    CUTOFFPERIODViewFilterCUTOFFPERIODActionFailure,
+    CUTOFFPERIODViewFilterCUTOFFPERIODActionFailureCleanup,
+    CUTOFFPERIODViewFilterCUTOFFPERIODActionProgress,
+    CUTOFFPERIODViewFilterCUTOFFPERIODActionSuccess,
+    //SCHEDULESHIFT SECTION,
+    SCHEDULESHIFTCreateAction,
+    SCHEDULESHIFTCreateActionFailure,
+    SCHEDULESHIFTCreateActionFailureCleanup,
+    SCHEDULESHIFTCreateActionProgress,
+    SCHEDULESHIFTCreateActionSuccess,
+    SCHEDULESHIFTEditAction,
+    SCHEDULESHIFTEditActionFailure,
+    SCHEDULESHIFTEditActionFailureCleanup,
+    SCHEDULESHIFTEditActionProgress,
+    SCHEDULESHIFTEditActionSuccess,
+    SCHEDULESHIFTViewAction,
+    SCHEDULESHIFTViewActionFailure,
+    SCHEDULESHIFTViewActionFailureCleanup,
+    SCHEDULESHIFTViewActionProgress,
+    SCHEDULESHIFTViewActionSuccess,
+    SCHEDULESHIFTViewFilterSCHEDULESHIFTAction,
+    SCHEDULESHIFTViewFilterSCHEDULESHIFTActionFailure,
+    SCHEDULESHIFTViewFilterSCHEDULESHIFTActionFailureCleanup,
+    SCHEDULESHIFTViewFilterSCHEDULESHIFTActionProgress,
+    SCHEDULESHIFTViewFilterSCHEDULESHIFTActionSuccess,
+    SCHEDULESHIFTDeleteAction,
+    SCHEDULESHIFTDeleteActionFailure,
+    SCHEDULESHIFTDeleteActionFailureCleanup,
+    SCHEDULESHIFTDeleteActionProgress,
+    SCHEDULESHIFTDeleteActionSuccess,
+    //SCHEDULEDAILY SECTION,
+    SCHEDULEDAILYCreateAction,
+    SCHEDULEDAILYCreateActionFailure,
+    SCHEDULEDAILYCreateActionFailureCleanup,
+    SCHEDULEDAILYCreateActionProgress,
+    SCHEDULEDAILYCreateActionSuccess,
+    SCHEDULEDAILYEditAction,
+    SCHEDULEDAILYEditActionFailure,
+    SCHEDULEDAILYEditActionFailureCleanup,
+    SCHEDULEDAILYEditActionProgress,
+    SCHEDULEDAILYEditActionSuccess,
+    SCHEDULEDAILYViewAction,
+    SCHEDULEDAILYViewActionFailure,
+    SCHEDULEDAILYViewActionFailureCleanup,
+    SCHEDULEDAILYViewActionProgress,
+    SCHEDULEDAILYViewActionSuccess,
+    SCHEDULEDAILYViewFilterEmployeeAction,
+    SCHEDULEDAILYViewFilterEmployeeActionFailure,
+    SCHEDULEDAILYViewFilterEmployeeActionFailureCleanup,
+    SCHEDULEDAILYViewFilterEmployeeActionProgress,
+    SCHEDULEDAILYViewFilterEmployeeActionSuccess,
+    SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYAction,
+    SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionFailure,
+    SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionFailureCleanup,
+    SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionProgress,
+    SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionSuccess,
 } from '../actions/procedurals';
 import { Epic } from 'redux-observable';
 import store from '../configureStore';
@@ -156,6 +271,21 @@ import {
   UACreateInterface, 
   UAEditInterface, 
   UAViewInterface, 
+  LEAVECREDITCreateInterface, 
+  LEAVECREDITEditInterface, 
+  LEAVECREDITViewInterface, 
+  LEAVETYPECreateInterface, 
+  LEAVETYPEEditInterface, 
+  LEAVETYPEViewInterface, 
+  CUTOFFPERIODCreateInterface, 
+  CUTOFFPERIODEditInterface, 
+  CUTOFFPERIODViewInterface, 
+  SCHEDULESHIFTCreateInterface, 
+  SCHEDULESHIFTEditInterface, 
+  SCHEDULESHIFTViewInterface, 
+  SCHEDULEDAILYCreateInterface, 
+  SCHEDULEDAILYEditInterface, 
+  SCHEDULEDAILYViewInterface, 
 } from '@/types/types-pages';
 
 
@@ -1130,6 +1260,797 @@ export const UAEditEpic: Epic = (action$, state$) =>
             return of(UAEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
             return of(UAEditActionFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+// LEAVECREDIT API SECTION // LEAVECREDIT API SECTION // LEAVECREDIT API SECTION // LEAVECREDIT API SECTION // LEAVECREDIT API SECTION
+const LEAVECREDITEditApiCall = async (payload: LEAVECREDITEditInterface) => {
+  const response = await axios.put(`http://172.16.168.155:8000/api/leave_credit/${payload.id}/`,
+  payload,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(LEAVECREDITEditActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+const LEAVECREDITCreateApiCall = async (payload: LEAVECREDITCreateInterface) => {
+  const response = await axios.post(`http://172.16.168.155:8000/api/leave_credit/`,
+  payload,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(LEAVECREDITCreateActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+const LEAVECREDITViewFilterEmployeeApiCall = async (payload: {emp_no: number}) => {
+  const response = await axios.get(`http://172.16.168.155:8000/api/leave_credit/${payload.emp_no}/`,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(LEAVECREDITViewFilterEmployeeActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+
+const LEAVECREDITViewApiCall = async () => {
+  const response = await axios.get("http://172.16.168.155:8000/api/leave_credit/",
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(LEAVECREDITViewActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+export const LEAVECREDITViewEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(LEAVECREDITViewAction.type),
+    switchMap(() =>
+      from(
+        LEAVECREDITViewApiCall()
+      ).pipe(
+        map((data) => {
+          return LEAVECREDITViewActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(LEAVECREDITViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(LEAVECREDITViewActionFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+export const LEAVECREDITViewFilterEmployeeEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(LEAVECREDITViewFilterEmployeeAction.type),
+    switchMap((action: ReturnType<typeof LEAVECREDITViewFilterEmployeeAction>) =>
+      from(
+        LEAVECREDITViewFilterEmployeeApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return LEAVECREDITViewFilterEmployeeActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(LEAVECREDITViewFilterEmployeeActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(LEAVECREDITViewFilterEmployeeActionFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+export const LEAVECREDITCreateEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(LEAVECREDITCreateAction.type),
+    switchMap((action: ReturnType<typeof LEAVECREDITCreateAction>) =>
+      from(
+        LEAVECREDITCreateApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return LEAVECREDITCreateActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(LEAVECREDITCreateActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(LEAVECREDITCreateActionFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+export const LEAVECREDITEditEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(LEAVECREDITEditAction.type),
+    switchMap((action: ReturnType<typeof LEAVECREDITEditAction>) =>
+      from(
+        LEAVECREDITEditApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return LEAVECREDITEditActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(LEAVECREDITEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(LEAVECREDITEditActionFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+// LEAVETYPE API SECTION // LEAVETYPE API SECTION // LEAVETYPE API SECTION // LEAVETYPE API SECTION // LEAVETYPE API SECTION
+const LEAVETYPEEditApiCall = async (payload: LEAVETYPEEditInterface) => {
+  const response = await axios.put(`http://172.16.168.155:8000/api/leave_type/${payload.id}/`,
+  payload,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(LEAVETYPEEditActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+const LEAVETYPECreateApiCall = async (payload: LEAVETYPECreateInterface) => {
+  const response = await axios.post(`http://172.16.168.155:8000/api/leave_type/`,
+  payload,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(LEAVETYPECreateActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+const LEAVETYPEViewFilterEmployeeApiCall = async (payload: {emp_no: number}) => {
+  const response = await axios.get(`http://172.16.168.155:8000/api/leave_type/${payload.emp_no}/`,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(LEAVETYPEViewFilterEmployeeActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+
+const LEAVETYPEViewApiCall = async () => {
+  const response = await axios.get("http://172.16.168.155:8000/api/leave_type/",
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(LEAVETYPEViewActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+export const LEAVETYPEViewEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(LEAVETYPEViewAction.type),
+    switchMap(() =>
+      from(
+        LEAVETYPEViewApiCall()
+      ).pipe(
+        map((data) => {
+          return LEAVETYPEViewActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(LEAVETYPEViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(LEAVETYPEViewActionFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+export const LEAVETYPEViewFilterEmployeeEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(LEAVETYPEViewFilterEmployeeAction.type),
+    switchMap((action: ReturnType<typeof LEAVETYPEViewFilterEmployeeAction>) =>
+      from(
+        LEAVETYPEViewFilterEmployeeApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return LEAVETYPEViewFilterEmployeeActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(LEAVETYPEViewFilterEmployeeActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(LEAVETYPEViewFilterEmployeeActionFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+export const LEAVETYPECreateEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(LEAVETYPECreateAction.type),
+    switchMap((action: ReturnType<typeof LEAVETYPECreateAction>) =>
+      from(
+        LEAVETYPECreateApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return LEAVETYPECreateActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(LEAVETYPECreateActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(LEAVETYPECreateActionFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+export const LEAVETYPEEditEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(LEAVETYPEEditAction.type),
+    switchMap((action: ReturnType<typeof LEAVETYPEEditAction>) =>
+      from(
+        LEAVETYPEEditApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return LEAVETYPEEditActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(LEAVETYPEEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(LEAVETYPEEditActionFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+
+// CUTOFFPERIOD API SECTION // CUTOFFPERIOD API SECTION // CUTOFFPERIOD API SECTION // CUTOFFPERIOD API SECTION // CUTOFFPERIOD API SECTION
+const CUTOFFPERIODEditApiCall = async (payload: CUTOFFPERIODEditInterface) => {
+  const response = await axios.put(`http://172.16.168.155:8000/api/cutoff_period/${payload.id}/`,
+  payload,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(CUTOFFPERIODEditActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+const CUTOFFPERIODCreateApiCall = async (payload: CUTOFFPERIODCreateInterface) => {
+  const response = await axios.post(`http://172.16.168.155:8000/api/cutoff_period/`,
+  payload,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(CUTOFFPERIODCreateActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+const CUTOFFPERIODViewFilterCUTOFFPERIODApiCall = async (payload: {co_id: number}) => {
+  const response = await axios.get(`http://172.16.168.155:8000/api/cutoff_period/${payload.co_id}/`,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(CUTOFFPERIODViewFilterCUTOFFPERIODActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+
+const CUTOFFPERIODViewApiCall = async () => {
+  const response = await axios.get("http://172.16.168.155:8000/api/cutoff_period/",
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(CUTOFFPERIODViewActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+export const CUTOFFPERIODViewEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(CUTOFFPERIODViewAction.type),
+    switchMap(() =>
+      from(
+        CUTOFFPERIODViewApiCall()
+      ).pipe(
+        map((data) => {
+          return CUTOFFPERIODViewActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(CUTOFFPERIODViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(CUTOFFPERIODViewActionFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+export const CUTOFFPERIODViewFilterCUTOFFPERIODEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(CUTOFFPERIODViewFilterCUTOFFPERIODAction.type),
+    switchMap((action: ReturnType<typeof CUTOFFPERIODViewFilterCUTOFFPERIODAction>) =>
+      from(
+        CUTOFFPERIODViewFilterCUTOFFPERIODApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return CUTOFFPERIODViewFilterCUTOFFPERIODActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(CUTOFFPERIODViewFilterCUTOFFPERIODActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(CUTOFFPERIODViewFilterCUTOFFPERIODActionFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+export const CUTOFFPERIODCreateEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(CUTOFFPERIODCreateAction.type),
+    switchMap((action: ReturnType<typeof CUTOFFPERIODCreateAction>) =>
+      from(
+        CUTOFFPERIODCreateApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return CUTOFFPERIODCreateActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(CUTOFFPERIODCreateActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(CUTOFFPERIODCreateActionFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+export const CUTOFFPERIODEditEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(CUTOFFPERIODEditAction.type),
+    switchMap((action: ReturnType<typeof CUTOFFPERIODEditAction>) =>
+      from(
+        CUTOFFPERIODEditApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return CUTOFFPERIODEditActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(CUTOFFPERIODEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(CUTOFFPERIODEditActionFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+// SCHEDULESHIFT API SECTION // SCHEDULESHIFT API SECTION // SCHEDULESHIFT API SECTION // SCHEDULESHIFT API SECTION // SCHEDULESHIFT API SECTION
+const SCHEDULESHIFTDeleteApiCall = async (payload: {ss_id: number}) => {
+  const response = await axios.delete(`http://172.16.168.155:8000/api/schedule_shift/${payload.ss_id}/`,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(SCHEDULESHIFTDeleteActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+const SCHEDULESHIFTEditApiCall = async (payload: SCHEDULESHIFTEditInterface) => {
+  const response = await axios.put(`http://172.16.168.155:8000/api/schedule_shift/${payload.id}/`,
+  payload,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(SCHEDULESHIFTEditActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+const SCHEDULESHIFTCreateApiCall = async (payload: SCHEDULESHIFTCreateInterface) => {
+  const response = await axios.post(`http://172.16.168.155:8000/api/schedule_shift/`,
+  payload,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(SCHEDULESHIFTCreateActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+const SCHEDULESHIFTViewFilterSCHEDULESHIFTApiCall = async (payload: {ss_id: number}) => {
+  const response = await axios.get(`http://172.16.168.155:8000/api/schedule_shift/${payload.ss_id}/`,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(SCHEDULESHIFTViewFilterSCHEDULESHIFTActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+
+const SCHEDULESHIFTViewApiCall = async () => {
+  const response = await axios.get("http://172.16.168.155:8000/api/schedule_shift/",
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(SCHEDULESHIFTViewActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+export const SCHEDULESHIFTViewEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(SCHEDULESHIFTViewAction.type),
+    switchMap(() =>
+      from(
+        SCHEDULESHIFTViewApiCall()
+      ).pipe(
+        map((data) => {
+          return SCHEDULESHIFTViewActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(SCHEDULESHIFTViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(SCHEDULESHIFTViewActionFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+export const SCHEDULESHIFTViewFilterSCHEDULESHIFTEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(SCHEDULESHIFTViewFilterSCHEDULESHIFTAction.type),
+    switchMap((action: ReturnType<typeof SCHEDULESHIFTViewFilterSCHEDULESHIFTAction>) =>
+      from(
+        SCHEDULESHIFTViewFilterSCHEDULESHIFTApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return SCHEDULESHIFTViewFilterSCHEDULESHIFTActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(SCHEDULESHIFTViewFilterSCHEDULESHIFTActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(SCHEDULESHIFTViewFilterSCHEDULESHIFTActionFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+export const SCHEDULESHIFTCreateEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(SCHEDULESHIFTCreateAction.type),
+    switchMap((action: ReturnType<typeof SCHEDULESHIFTCreateAction>) =>
+      from(
+        SCHEDULESHIFTCreateApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return SCHEDULESHIFTCreateActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(SCHEDULESHIFTCreateActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(SCHEDULESHIFTCreateActionFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+export const SCHEDULESHIFTEditEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(SCHEDULESHIFTEditAction.type),
+    switchMap((action: ReturnType<typeof SCHEDULESHIFTEditAction>) =>
+      from(
+        SCHEDULESHIFTEditApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return SCHEDULESHIFTEditActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(SCHEDULESHIFTEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(SCHEDULESHIFTEditActionFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+export const SCHEDULESHIFTDeleteEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(SCHEDULESHIFTDeleteAction.type),
+    switchMap((action: ReturnType<typeof SCHEDULESHIFTDeleteAction>) =>
+      from(
+        SCHEDULESHIFTDeleteApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return SCHEDULESHIFTDeleteActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(SCHEDULESHIFTDeleteActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(SCHEDULESHIFTDeleteActionFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+// SCHEDULEDAILY API SECTION // SCHEDULEDAILY API SECTION // SCHEDULEDAILY API SECTION // SCHEDULEDAILY API SECTION // SCHEDULEDAILY API SECTION
+const SCHEDULEDAILYEditApiCall = async (payload: SCHEDULEDAILYEditInterface) => {
+  const response = await axios.put(`http://172.16.168.155:8000/api/schedule_daily/${payload.emp_no}/${payload.id}/`,
+  payload,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(SCHEDULEDAILYEditActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+const SCHEDULEDAILYCreateApiCall = async (payload: SCHEDULEDAILYCreateInterface) => {
+  const response = await axios.post(`http://172.16.168.155:8000/api/schedule_daily/`,
+  payload,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(SCHEDULEDAILYCreateActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+const SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYApiCall = async (payload: {emp_no: number, sd_id: number}) => {
+  const response = await axios.get(`http://172.16.168.155:8000/api/schedule_daily/${payload.emp_no}/${payload.sd_id}`,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+const SCHEDULEDAILYViewFilterEmployeeApiCall = async (payload: {emp_no: number}) => {
+  const response = await axios.get(`http://172.16.168.155:8000/api/schedule_daily/${payload.emp_no}/`,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(SCHEDULEDAILYViewFilterEmployeeActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+
+const SCHEDULEDAILYViewApiCall = async () => {
+  const response = await axios.get("http://172.16.168.155:8000/api/schedule_daily/",
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(SCHEDULEDAILYViewActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+export const SCHEDULEDAILYViewEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(SCHEDULEDAILYViewAction.type),
+    switchMap(() =>
+      from(
+        SCHEDULEDAILYViewApiCall()
+      ).pipe(
+        map((data) => {
+          return SCHEDULEDAILYViewActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(SCHEDULEDAILYViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(SCHEDULEDAILYViewActionFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+export const SCHEDULEDAILYViewFilterEmployeeEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(SCHEDULEDAILYViewFilterEmployeeAction.type),
+    switchMap((action: ReturnType<typeof SCHEDULEDAILYViewFilterEmployeeAction>) =>
+      from(
+        SCHEDULEDAILYViewFilterEmployeeApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return SCHEDULEDAILYViewFilterEmployeeActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(SCHEDULEDAILYViewFilterEmployeeActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(SCHEDULEDAILYViewFilterEmployeeActionFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+export const SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYAction.type),
+    switchMap((action: ReturnType<typeof SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYAction>) =>
+      from(
+        SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+export const SCHEDULEDAILYCreateEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(SCHEDULEDAILYCreateAction.type),
+    switchMap((action: ReturnType<typeof SCHEDULEDAILYCreateAction>) =>
+      from(
+        SCHEDULEDAILYCreateApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return SCHEDULEDAILYCreateActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(SCHEDULEDAILYCreateActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(SCHEDULEDAILYCreateActionFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+export const SCHEDULEDAILYEditEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(SCHEDULEDAILYEditAction.type),
+    switchMap((action: ReturnType<typeof SCHEDULEDAILYEditAction>) =>
+      from(
+        SCHEDULEDAILYEditApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return SCHEDULEDAILYEditActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(SCHEDULEDAILYEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(SCHEDULEDAILYEditActionFailure(error.message)); // If there is no custom error message, use the default one
           }
         })
       )

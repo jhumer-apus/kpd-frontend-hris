@@ -35,7 +35,7 @@ function PayslipUI(props: PaySlipUI) {
                             </div>
                             <div className='gap-2'>
                                 <p className='text-start pr-1'>{ThisProps?.emp_cname || `...`}</p>
-                                <p className='text-start pr-1'>{ThisProps?.work_days_total.toFixed(2) || `...`}</p>
+                                <p className='text-start pr-1'>{ThisProps?.work_days_total?.toFixed(2) || `...`}</p>
                             </div>
                         </div>
                         <div className='flex border-black border-l justify-between border-t border-b'>

@@ -40,7 +40,34 @@ import {
   UAViewEpic, 
   UAViewFilterApproverEpic, 
   UAViewFilterEmployeeAndUAEpic, 
-  UAViewFilterEmployeeEpic 
+  UAViewFilterEmployeeEpic,
+  //LEAVECREDIT SECTION
+  LEAVECREDITCreateEpic, 
+  LEAVECREDITEditEpic, 
+  LEAVECREDITViewEpic, 
+  LEAVECREDITViewFilterEmployeeEpic,
+  //LEAVETYPE SECTION
+  LEAVETYPECreateEpic, 
+  LEAVETYPEEditEpic, 
+  LEAVETYPEViewEpic, 
+  LEAVETYPEViewFilterEmployeeEpic,
+  //CUTOFFPERIOD SECTION
+  CUTOFFPERIODCreateEpic, 
+  CUTOFFPERIODEditEpic, 
+  CUTOFFPERIODViewEpic, 
+  CUTOFFPERIODViewFilterCUTOFFPERIODEpic,
+  //SCHEDULESHIFT SECTION
+  SCHEDULESHIFTCreateEpic, 
+  SCHEDULESHIFTEditEpic, 
+  SCHEDULESHIFTViewEpic, 
+  SCHEDULESHIFTViewFilterSCHEDULESHIFTEpic,
+  SCHEDULESHIFTDeleteEpic,  
+  //SCHEDULEDAILY SECTION
+  SCHEDULEDAILYCreateEpic, 
+  SCHEDULEDAILYEditEpic, 
+  SCHEDULEDAILYViewEpic, 
+  SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYEpic, 
+  SCHEDULEDAILYViewFilterEmployeeEpic,
 } from './epics/procedurals';
 import { proceduralsReducer } from './reducers/procedurals';
 
@@ -104,6 +131,33 @@ epicMiddleware.run(combineEpics(
   UAViewFilterApproverEpic,
   UACreateEpic,
   UAEditEpic,
+  //LEAVECREDIT SECTION
+  LEAVECREDITViewEpic,
+  LEAVECREDITViewFilterEmployeeEpic,
+  LEAVECREDITCreateEpic,
+  LEAVECREDITEditEpic,
+  //LEAVETYPE SECTION
+  LEAVETYPEViewEpic,
+  LEAVETYPEViewFilterEmployeeEpic,
+  LEAVETYPECreateEpic,
+  LEAVETYPEEditEpic,
+  //CUTOFFPERIOD SECTION
+  CUTOFFPERIODViewEpic,
+  CUTOFFPERIODViewFilterCUTOFFPERIODEpic,
+  CUTOFFPERIODCreateEpic,
+  CUTOFFPERIODEditEpic,
+  //SCHEDULESHIFT SECTION
+  SCHEDULESHIFTViewEpic,
+  SCHEDULESHIFTViewFilterSCHEDULESHIFTEpic,
+  SCHEDULESHIFTCreateEpic,
+  SCHEDULESHIFTEditEpic,
+  SCHEDULESHIFTDeleteEpic,
+  //SCHEDULEDAILY SECTION
+  SCHEDULEDAILYViewEpic,
+  SCHEDULEDAILYViewFilterEmployeeEpic,
+  SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYEpic,
+  SCHEDULEDAILYCreateEpic,
+  SCHEDULEDAILYEditEpic,
 ));
 
 export type RootState = ReturnType<typeof rootReducer>;

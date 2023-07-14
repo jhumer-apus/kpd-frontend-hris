@@ -237,7 +237,7 @@ export interface OBTCreateInterface {
     obt_date_filed: string;
     obt_type: string;
     obt_location: string;
-    obt_remarks: string;
+    obt_remarks: string | null;
     obt_date_from: string;
     obt_date_to: string;
     obt_approval_status: string;
@@ -249,13 +249,33 @@ export interface OBTCreateInterface {
 }
 
 export interface OBTViewInterface extends OBTCreateInterface { 
+    [key: string]: string | number | null;
     id: number,
     obt_reason_disapproval: string | null,
-    obt_date_approved1: string;
+    obt_date_approved1: string | null;
     obt_date_approved2: string | null,
 }
 
 export interface OBTEditInterface extends OBTViewInterface {}
+
+export const OBTViewFilterEmployeeInitialState: OBTViewInterface = {
+    id: 0,
+    obt_reason_disapproval: null,
+    obt_date_approved1: null,
+    obt_date_approved2: null,
+    obt_date_filed: '',
+    obt_type: '',
+    obt_location: '',
+    obt_remarks: null,
+    obt_date_from: '',
+    obt_date_to: '',
+    obt_approval_status: '',
+    obt_total_hour: 0,
+    obt_approver1_empno: null,
+    obt_approver2_empno: null,
+    emp_no: 0,
+    cutoff_code: 0,
+}
 
 
 export interface OVERTIMECreateInterface {
@@ -391,3 +411,94 @@ export interface UAEditInterface extends UAViewInterface {}
 // ua_reason_disapproval: string; ** if NULL remark, meaning, approver 1 APPROVED and approver 2 is NULL** Yes UI Frontend Edit Access **
 // ua_date_approved1: string | null; ** if has STRING - Meaning approver1 APPROVED ** YES UI Frontend Edit Access **
 // ua_date_approved2: string | null; ** remains null because - NO APPROVER2 ** YES UI Frontend Edit Access **
+
+
+
+
+export interface LEAVECREDITCreateInterface {
+    allowed_days: number,
+    credit_used: number,
+    credit_remaining: number,
+    expiry: string,
+    is_converted: boolean,
+    date_added: string,
+    emp_no: number,
+    leave_type_code: number,
+}
+
+export interface LEAVECREDITViewInterface extends LEAVECREDITCreateInterface { 
+    id: number;
+    leave_name: string;
+    date_deleted: string | null;
+}
+
+export interface LEAVECREDITEditInterface extends LEAVECREDITViewInterface {}
+
+
+
+export interface LEAVETYPECreateInterface {
+    name: string,
+    is_paid: boolean,
+}
+
+export interface LEAVETYPEViewInterface extends LEAVETYPECreateInterface { 
+    id: number;
+    date_added: string;
+    date_deleted: string | null;
+}
+
+export interface LEAVETYPEEditInterface extends LEAVETYPEViewInterface {}
+
+
+
+
+export interface CUTOFFPERIODCreateInterface {
+    co_name: string;
+    co_description: string;
+    co_date_from: string;
+    co_date_to: string;
+    reg_days_total: number;
+    co_is_processed: boolean;
+    credit_date: string;
+    payroll_group_code: number;
+    division_code: number;
+}
+
+export interface CUTOFFPERIODViewInterface extends CUTOFFPERIODCreateInterface { 
+    id: number;
+}
+
+export interface CUTOFFPERIODEditInterface extends CUTOFFPERIODViewInterface {}
+
+
+export interface SCHEDULESHIFTCreateInterface {
+    name: string;
+    time_in: string;
+    time_out: string;
+    grace_period: number;
+    with_overtime: boolean;
+    is_night_shift: boolean;
+    date_deleted: string | null;
+}
+
+export interface SCHEDULESHIFTViewInterface extends SCHEDULESHIFTCreateInterface { 
+    id: number;
+}
+
+export interface SCHEDULESHIFTEditInterface extends SCHEDULESHIFTViewInterface {}
+
+
+export interface SCHEDULEDAILYCreateInterface {
+    schedule_shift_code: number | SCHEDULESHIFTViewInterface; // Frontend UX Form number only; View is Object
+    business_date: string;
+    is_processed: boolean | null; // Frontend UX non-inclusive
+    emp_no: number;
+    sched_default: boolean | null;
+}
+
+export interface SCHEDULEDAILYViewInterface extends SCHEDULEDAILYCreateInterface { 
+    id: number;
+    is_restday: boolean;   
+}
+
+export interface SCHEDULEDAILYEditInterface extends SCHEDULEDAILYViewInterface {}

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { 
+    // Holiday SECTION
     HolidayCreate,
     HolidayCreateFailure,
     HolidayCreateFailureCleanup,
@@ -15,6 +16,7 @@ import {
     HolidayEditSubmitFailureCleanup,
     HolidayEditSubmitProgress,
     HolidayEditSubmitSuccess,
+    // OBT SECTION
     OBTViewAction,
     OBTViewActionSuccess,
     OBTViewActionFailure,
@@ -137,7 +139,123 @@ import {
     UAViewFilterEmployeeAndUAActionFailure,
     UAViewFilterEmployeeAndUAActionFailureCleanup,
     UAViewFilterEmployeeAndUAActionProgress,
-    UAViewFilterEmployeeAndUAActionSuccess
+    UAViewFilterEmployeeAndUAActionSuccess,
+    // LEAVECREDIT SECTION
+    LEAVECREDITCreateAction,
+    LEAVECREDITCreateActionFailure,
+    LEAVECREDITCreateActionFailureCleanup,
+    LEAVECREDITCreateActionProgress,
+    LEAVECREDITCreateActionSuccess,
+    LEAVECREDITEditAction,
+    LEAVECREDITEditActionFailure,
+    LEAVECREDITEditActionFailureCleanup,
+    LEAVECREDITEditActionProgress,
+    LEAVECREDITEditActionSuccess,
+    LEAVECREDITViewAction,
+    LEAVECREDITViewActionFailure,
+    LEAVECREDITViewActionFailureCleanup,
+    LEAVECREDITViewActionProgress,
+    LEAVECREDITViewActionSuccess,
+    LEAVECREDITViewFilterEmployeeAction,
+    LEAVECREDITViewFilterEmployeeActionFailure,
+    LEAVECREDITViewFilterEmployeeActionFailureCleanup,
+    LEAVECREDITViewFilterEmployeeActionProgress,
+    LEAVECREDITViewFilterEmployeeActionSuccess,
+    // LEAVETYPE SECTION
+    LEAVETYPECreateAction,
+    LEAVETYPECreateActionFailure,
+    LEAVETYPECreateActionFailureCleanup,
+    LEAVETYPECreateActionProgress,
+    LEAVETYPECreateActionSuccess,
+    LEAVETYPEEditAction,
+    LEAVETYPEEditActionFailure,
+    LEAVETYPEEditActionFailureCleanup,
+    LEAVETYPEEditActionProgress,
+    LEAVETYPEEditActionSuccess,
+    LEAVETYPEViewAction,
+    LEAVETYPEViewActionFailure,
+    LEAVETYPEViewActionFailureCleanup,
+    LEAVETYPEViewActionProgress,
+    LEAVETYPEViewActionSuccess,
+    LEAVETYPEViewFilterEmployeeAction,
+    LEAVETYPEViewFilterEmployeeActionFailure,
+    LEAVETYPEViewFilterEmployeeActionFailureCleanup,
+    LEAVETYPEViewFilterEmployeeActionProgress,
+    LEAVETYPEViewFilterEmployeeActionSuccess,
+    // CUTOFFPERIOD SECTION
+    CUTOFFPERIODCreateAction,
+    CUTOFFPERIODCreateActionFailure,
+    CUTOFFPERIODCreateActionFailureCleanup,
+    CUTOFFPERIODCreateActionProgress,
+    CUTOFFPERIODCreateActionSuccess,
+    CUTOFFPERIODEditAction,
+    CUTOFFPERIODEditActionFailure,
+    CUTOFFPERIODEditActionFailureCleanup,
+    CUTOFFPERIODEditActionProgress,
+    CUTOFFPERIODEditActionSuccess,
+    CUTOFFPERIODViewAction,
+    CUTOFFPERIODViewActionFailure,
+    CUTOFFPERIODViewActionFailureCleanup,
+    CUTOFFPERIODViewActionProgress,
+    CUTOFFPERIODViewActionSuccess,
+    CUTOFFPERIODViewFilterCUTOFFPERIODAction,
+    CUTOFFPERIODViewFilterCUTOFFPERIODActionFailure,
+    CUTOFFPERIODViewFilterCUTOFFPERIODActionFailureCleanup,
+    CUTOFFPERIODViewFilterCUTOFFPERIODActionProgress,
+    CUTOFFPERIODViewFilterCUTOFFPERIODActionSuccess,
+    // SCHEDULESHIFT SECTION
+    SCHEDULESHIFTCreateAction,
+    SCHEDULESHIFTCreateActionFailure,
+    SCHEDULESHIFTCreateActionFailureCleanup,
+    SCHEDULESHIFTCreateActionProgress,
+    SCHEDULESHIFTCreateActionSuccess,
+    SCHEDULESHIFTEditAction,
+    SCHEDULESHIFTEditActionFailure,
+    SCHEDULESHIFTEditActionFailureCleanup,
+    SCHEDULESHIFTEditActionProgress,
+    SCHEDULESHIFTEditActionSuccess,
+    SCHEDULESHIFTViewAction,
+    SCHEDULESHIFTViewActionFailure,
+    SCHEDULESHIFTViewActionFailureCleanup,
+    SCHEDULESHIFTViewActionProgress,
+    SCHEDULESHIFTViewActionSuccess,
+    SCHEDULESHIFTViewFilterSCHEDULESHIFTAction,
+    SCHEDULESHIFTViewFilterSCHEDULESHIFTActionFailure,
+    SCHEDULESHIFTViewFilterSCHEDULESHIFTActionFailureCleanup,
+    SCHEDULESHIFTViewFilterSCHEDULESHIFTActionProgress,
+    SCHEDULESHIFTViewFilterSCHEDULESHIFTActionSuccess,
+    SCHEDULESHIFTDeleteAction,
+    SCHEDULESHIFTDeleteActionFailure,
+    SCHEDULESHIFTDeleteActionFailureCleanup,
+    SCHEDULESHIFTDeleteActionProgress,
+    SCHEDULESHIFTDeleteActionSuccess,
+    // SCHEDULEDAILY SECTION
+    SCHEDULEDAILYCreateAction,
+    SCHEDULEDAILYCreateActionFailure,
+    SCHEDULEDAILYCreateActionFailureCleanup,
+    SCHEDULEDAILYCreateActionProgress,
+    SCHEDULEDAILYCreateActionSuccess,
+    SCHEDULEDAILYEditAction,
+    SCHEDULEDAILYEditActionFailure,
+    SCHEDULEDAILYEditActionFailureCleanup,
+    SCHEDULEDAILYEditActionProgress,
+    SCHEDULEDAILYEditActionSuccess,
+    SCHEDULEDAILYViewAction,
+    SCHEDULEDAILYViewActionFailure,
+    SCHEDULEDAILYViewActionFailureCleanup,
+    SCHEDULEDAILYViewActionProgress,
+    SCHEDULEDAILYViewActionSuccess,
+    SCHEDULEDAILYViewFilterEmployeeAction,
+    SCHEDULEDAILYViewFilterEmployeeActionFailure,
+    SCHEDULEDAILYViewFilterEmployeeActionFailureCleanup,
+    SCHEDULEDAILYViewFilterEmployeeActionProgress,
+    SCHEDULEDAILYViewFilterEmployeeActionSuccess,
+    SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYAction,
+    SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionFailure,
+    SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionFailureCleanup,
+    SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionProgress,
+    SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionSuccess,
+    
 } from '../actions/procedurals';
 // import '../actions/procedurals.ts'; // TO DO: Optimize importing all from one ts file. 
 import { 
@@ -154,9 +272,25 @@ import {
   UACreateInterface, 
   UAEditInterface, 
   UAViewInterface, 
+  LEAVECREDITCreateInterface, 
+  LEAVECREDITEditInterface, 
+  LEAVECREDITViewInterface, 
+  LEAVETYPECreateInterface, 
+  LEAVETYPEEditInterface, 
+  LEAVETYPEViewInterface, 
+  CUTOFFPERIODCreateInterface, 
+  CUTOFFPERIODEditInterface, 
+  CUTOFFPERIODViewInterface, 
+  SCHEDULESHIFTCreateInterface, 
+  SCHEDULESHIFTEditInterface, 
+  SCHEDULESHIFTViewInterface, 
+  SCHEDULEDAILYCreateInterface, 
+  SCHEDULEDAILYEditInterface, 
+  SCHEDULEDAILYViewInterface, 
 } from '@/types/types-pages';
 
 type ProceduralsPayloads = 
+string |
 HolidayGetType[] | 
 HolidayGetType | 
 OBTViewInterface[] | 
@@ -170,13 +304,32 @@ LEAVEViewInterface |
 LEAVECreateInterface |
 UAViewInterface[] | 
 UAViewInterface | 
-UACreateInterface
+UACreateInterface | 
+LEAVECREDITViewInterface[] | 
+LEAVECREDITViewInterface | 
+LEAVECREDITCreateInterface |
+LEAVETYPEViewInterface[] | 
+LEAVETYPEViewInterface | 
+LEAVETYPECreateInterface | 
+CUTOFFPERIODViewInterface[] | 
+CUTOFFPERIODViewInterface | 
+CUTOFFPERIODCreateInterface | 
+SCHEDULESHIFTViewInterface[] | 
+SCHEDULESHIFTViewInterface | 
+SCHEDULESHIFTCreateInterface |
+SCHEDULEDAILYViewInterface[] | 
+SCHEDULEDAILYViewInterface | 
+SCHEDULEDAILYCreateInterface
 ;
 
 interface CommonProceduralState {
   status: string | null;
   progress: number;
   error: string | null; 
+}
+
+interface CommonProceduralDataStringState {
+  data: string | null;
 }
 
 interface HolidaysGetState extends CommonProceduralState{
@@ -243,6 +396,74 @@ interface UAEditState extends CommonProceduralState {
   data: UAViewState | null;
 }
 
+// LEAVECREDIT SECTION // LEAVECREDIT SECTION // LEAVECREDIT SECTION // LEAVECREDIT SECTION
+interface LEAVECREDITViewState extends CommonProceduralState{
+  data: LEAVECREDITViewInterface[] | null | [] | LEAVECREDITViewInterface;
+}
+
+interface LEAVECREDITCreateState extends CommonProceduralState{
+  data: LEAVECREDITCreateInterface | null | {};
+}
+
+interface LEAVECREDITEditState extends CommonProceduralState {
+  data: LEAVECREDITViewState | null;
+}
+
+// LEAVETYPE SECTION // LEAVETYPE SECTION // LEAVETYPE SECTION // LEAVETYPE SECTION
+interface LEAVETYPEViewState extends CommonProceduralState{
+  data: LEAVETYPEViewInterface[] | null | [] | LEAVETYPEViewInterface;
+}
+
+interface LEAVETYPECreateState extends CommonProceduralState{
+  data: LEAVETYPECreateInterface | null | {};
+}
+
+interface LEAVETYPEEditState extends CommonProceduralState {
+  data: LEAVETYPEViewState | null;
+}
+
+// CUTOFFPERIOD SECTION // CUTOFFPERIOD SECTION // CUTOFFPERIOD SECTION // CUTOFFPERIOD SECTION
+interface CUTOFFPERIODViewState extends CommonProceduralState{
+  data: CUTOFFPERIODViewInterface[] | null | [] | CUTOFFPERIODViewInterface;
+}
+
+interface CUTOFFPERIODCreateState extends CommonProceduralState{
+  data: CUTOFFPERIODCreateInterface | null | {};
+}
+
+interface CUTOFFPERIODEditState extends CommonProceduralState {
+  data: CUTOFFPERIODViewState | null;
+}
+
+// SCHEDULESHIFT SECTION // SCHEDULESHIFT SECTION // SCHEDULESHIFT SECTION // SCHEDULESHIFT SECTION
+interface SCHEDULESHIFTViewState extends CommonProceduralState{
+  data: SCHEDULESHIFTViewInterface[] | null | [] | SCHEDULESHIFTViewInterface;
+}
+
+interface SCHEDULESHIFTCreateState extends CommonProceduralState{
+  data: SCHEDULESHIFTCreateInterface | null | {};
+}
+
+interface SCHEDULESHIFTEditState extends CommonProceduralState {
+  data: SCHEDULESHIFTViewState | null;
+}
+
+interface SCHEDULESHIFTDeleteState extends CommonProceduralState, CommonProceduralDataStringState {}
+
+// SCHEDULEDAILY SECTION // SCHEDULEDAILY SECTION // SCHEDULEDAILY SECTION // SCHEDULEDAILY SECTION
+interface SCHEDULEDAILYViewState extends CommonProceduralState{
+  data: SCHEDULEDAILYViewInterface[] | null | [] | SCHEDULEDAILYViewInterface;
+}
+
+interface SCHEDULEDAILYCreateState extends CommonProceduralState{
+  data: SCHEDULEDAILYCreateInterface | null | {};
+}
+
+interface SCHEDULEDAILYEditState extends CommonProceduralState {
+  data: SCHEDULEDAILYViewState | null;
+}
+
+
 interface OverallProceduralState {
   [key: string]: 
   HolidaysGetState | 
@@ -255,7 +476,26 @@ interface OverallProceduralState {
   OVERTIMEEditState |
   LEAVEViewState | 
   LEAVECreateState | 
-  LEAVEEditState,
+  LEAVEEditState |
+  UAViewState | 
+  UACreateState | 
+  UAEditState |
+  LEAVECREDITViewState | 
+  LEAVECREDITCreateState | 
+  LEAVECREDITEditState | 
+  LEAVETYPEViewState | 
+  LEAVETYPECreateState | 
+  LEAVETYPEEditState | 
+  CUTOFFPERIODViewState | 
+  CUTOFFPERIODCreateState | 
+  CUTOFFPERIODEditState | 
+  SCHEDULESHIFTViewState | 
+  SCHEDULESHIFTCreateState | 
+  SCHEDULESHIFTEditState | 
+  SCHEDULESHIFTDeleteState | 
+  SCHEDULEDAILYViewState | 
+  SCHEDULEDAILYCreateState | 
+  SCHEDULEDAILYEditState,
   HolidaysGet: HolidaysGetState,
   HolidayCreate: HolidayCreateState,
   HolidayEditSubmit: HolidayEditSubmitState,
@@ -287,6 +527,33 @@ interface OverallProceduralState {
   UAViewFilterApprover: UAViewState,
   UACreate: UACreateState,
   UAEdit: UAEditState,
+  //LEAVECREDIT SECTION
+  LEAVECREDITView: LEAVECREDITViewState,
+  LEAVECREDITViewFilterEmployee: LEAVECREDITViewState,
+  LEAVECREDITCreate: LEAVECREDITCreateState,
+  LEAVECREDITEdit: LEAVECREDITEditState,
+  //LEAVETYPE SECTION
+  LEAVETYPEView: LEAVETYPEViewState,
+  LEAVETYPEViewFilterEmployee: LEAVETYPEViewState,
+  LEAVETYPECreate: LEAVETYPECreateState,
+  LEAVETYPEEdit: LEAVETYPEEditState,
+  //CUTOFFPERIOD SECTION
+  CUTOFFPERIODView: CUTOFFPERIODViewState,
+  CUTOFFPERIODViewFilterEmployee: CUTOFFPERIODViewState,
+  CUTOFFPERIODCreate: CUTOFFPERIODCreateState,
+  CUTOFFPERIODEdit: CUTOFFPERIODEditState,
+  //SCHEDULESHIFT SECTION
+  SCHEDULESHIFTView: SCHEDULESHIFTViewState,
+  SCHEDULESHIFTViewFilterEmployee: SCHEDULESHIFTViewState,
+  SCHEDULESHIFTCreate: SCHEDULESHIFTCreateState,
+  SCHEDULESHIFTEdit: SCHEDULESHIFTEditState,
+  SCHEDULESHIFTDelete: SCHEDULESHIFTDeleteState,
+  //SCHEDULEDAILY SECTION
+  SCHEDULEDAILYView: SCHEDULEDAILYViewState,
+  SCHEDULEDAILYViewFilterEmployee: SCHEDULEDAILYViewState,
+  SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILY: SCHEDULEDAILYViewState,
+  SCHEDULEDAILYCreate: SCHEDULEDAILYCreateState,
+  SCHEDULEDAILYEdit: SCHEDULEDAILYEditState,
 }
 
 const initialState: OverallProceduralState = {
@@ -455,7 +722,144 @@ const initialState: OverallProceduralState = {
     progress: 0,
     data: null,
     error: '',
-  }
+  },
+  //LEAVECREDIT SECTION
+  LEAVECREDITView: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  LEAVECREDITViewFilterEmployee: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  LEAVECREDITCreate: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  LEAVECREDITEdit: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  //LEAVETYPE SECTION
+  LEAVETYPEView: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  LEAVETYPEViewFilterEmployee: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  LEAVETYPECreate: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  LEAVETYPEEdit: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  //CUTOFFPERIOD SECTION
+  CUTOFFPERIODView: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  CUTOFFPERIODViewFilterEmployee: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  CUTOFFPERIODCreate: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  CUTOFFPERIODEdit: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  //SCHEDULESHIFT SECTION
+  SCHEDULESHIFTView: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  SCHEDULESHIFTViewFilterEmployee: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  SCHEDULESHIFTCreate: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  SCHEDULESHIFTEdit: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  SCHEDULESHIFTDelete: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  //SCHEDULEDAILY SECTION
+  SCHEDULEDAILYView: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  SCHEDULEDAILYViewFilterEmployee: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILY: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  SCHEDULEDAILYCreate: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  SCHEDULEDAILYEdit: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
 };
 
 const setLoadingState = (path: string) => (state: OverallProceduralState) => {
@@ -607,6 +1011,99 @@ const proceduralsSlice = createSlice({
       .addCase(UAEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "UAEdit"))
       .addCase(UAEditActionProgress, (state, action) => setProgressState(state, action.payload, "UAEdit"))
       .addCase(UAEditActionFailure, (state, action) => setFailureState(state, action.payload, "UAEdit"))
+      //LEAVECREDIT SECTION
+      .addCase(LEAVECREDITViewAction, setLoadingState("LEAVECREDITView"))
+      .addCase(LEAVECREDITViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "LEAVECREDITView"))
+      .addCase(LEAVECREDITViewActionProgress, (state, action) => setProgressState(state, action.payload, "LEAVECREDITView"))
+      .addCase(LEAVECREDITViewActionFailure, (state, action) => setFailureState(state, action.payload, "LEAVECREDITView"))
+      .addCase(LEAVECREDITViewFilterEmployeeAction, setLoadingState("LEAVECREDITViewFilterEmployee"))
+      .addCase(LEAVECREDITViewFilterEmployeeActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "LEAVECREDITViewFilterEmployee"))
+      .addCase(LEAVECREDITViewFilterEmployeeActionProgress, (state, action) => setProgressState(state, action.payload, "LEAVECREDITViewFilterEmployee"))
+      .addCase(LEAVECREDITViewFilterEmployeeActionFailure, (state, action) => setFailureState(state, action.payload, "LEAVECREDITViewFilterEmployee"))
+      .addCase(LEAVECREDITCreateAction, setLoadingState("LEAVECREDITCreate"))
+      .addCase(LEAVECREDITCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "LEAVECREDITCreate"))
+      .addCase(LEAVECREDITCreateActionProgress, (state, action) => setProgressState(state, action.payload, "LEAVECREDITCreate"))
+      .addCase(LEAVECREDITCreateActionFailure, (state, action) => setFailureState(state, action.payload, "LEAVECREDITCreate"))
+      .addCase(LEAVECREDITEditAction, setLoadingState("LEAVECREDITEdit"))
+      .addCase(LEAVECREDITEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "LEAVECREDITEdit"))
+      .addCase(LEAVECREDITEditActionProgress, (state, action) => setProgressState(state, action.payload, "LEAVECREDITEdit"))
+      .addCase(LEAVECREDITEditActionFailure, (state, action) => setFailureState(state, action.payload, "LEAVECREDITEdit"))
+      //LEAVETYPE SECTION
+      .addCase(LEAVETYPEViewAction, setLoadingState("LEAVETYPEView"))
+      .addCase(LEAVETYPEViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "LEAVETYPEView"))
+      .addCase(LEAVETYPEViewActionProgress, (state, action) => setProgressState(state, action.payload, "LEAVETYPEView"))
+      .addCase(LEAVETYPEViewActionFailure, (state, action) => setFailureState(state, action.payload, "LEAVETYPEView"))
+      .addCase(LEAVETYPEViewFilterEmployeeAction, setLoadingState("LEAVETYPEViewFilterEmployee"))
+      .addCase(LEAVETYPEViewFilterEmployeeActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "LEAVETYPEViewFilterEmployee"))
+      .addCase(LEAVETYPEViewFilterEmployeeActionProgress, (state, action) => setProgressState(state, action.payload, "LEAVETYPEViewFilterEmployee"))
+      .addCase(LEAVETYPEViewFilterEmployeeActionFailure, (state, action) => setFailureState(state, action.payload, "LEAVETYPEViewFilterEmployee"))
+      .addCase(LEAVETYPECreateAction, setLoadingState("LEAVETYPECreate"))
+      .addCase(LEAVETYPECreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "LEAVETYPECreate"))
+      .addCase(LEAVETYPECreateActionProgress, (state, action) => setProgressState(state, action.payload, "LEAVETYPECreate"))
+      .addCase(LEAVETYPECreateActionFailure, (state, action) => setFailureState(state, action.payload, "LEAVETYPECreate"))
+      .addCase(LEAVETYPEEditAction, setLoadingState("LEAVETYPEEdit"))
+      .addCase(LEAVETYPEEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "LEAVETYPEEdit"))
+      .addCase(LEAVETYPEEditActionProgress, (state, action) => setProgressState(state, action.payload, "LEAVETYPEEdit"))
+      .addCase(LEAVETYPEEditActionFailure, (state, action) => setFailureState(state, action.payload, "LEAVETYPEEdit"))
+      //CUTOFFPERIOD SECTION
+      .addCase(CUTOFFPERIODViewAction, setLoadingState("CUTOFFPERIODView"))
+      .addCase(CUTOFFPERIODViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "CUTOFFPERIODView"))
+      .addCase(CUTOFFPERIODViewActionProgress, (state, action) => setProgressState(state, action.payload, "CUTOFFPERIODView"))
+      .addCase(CUTOFFPERIODViewActionFailure, (state, action) => setFailureState(state, action.payload, "CUTOFFPERIODView"))
+      .addCase(CUTOFFPERIODViewFilterCUTOFFPERIODAction, setLoadingState("CUTOFFPERIODViewFilterCUTOFFPERIOD"))
+      .addCase(CUTOFFPERIODViewFilterCUTOFFPERIODActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "CUTOFFPERIODViewFilterCUTOFFPERIOD"))
+      .addCase(CUTOFFPERIODViewFilterCUTOFFPERIODActionProgress, (state, action) => setProgressState(state, action.payload, "CUTOFFPERIODViewFilterCUTOFFPERIOD"))
+      .addCase(CUTOFFPERIODViewFilterCUTOFFPERIODActionFailure, (state, action) => setFailureState(state, action.payload, "CUTOFFPERIODViewFilterCUTOFFPERIOD"))
+      .addCase(CUTOFFPERIODCreateAction, setLoadingState("CUTOFFPERIODCreate"))
+      .addCase(CUTOFFPERIODCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "CUTOFFPERIODCreate"))
+      .addCase(CUTOFFPERIODCreateActionProgress, (state, action) => setProgressState(state, action.payload, "CUTOFFPERIODCreate"))
+      .addCase(CUTOFFPERIODCreateActionFailure, (state, action) => setFailureState(state, action.payload, "CUTOFFPERIODCreate"))
+      .addCase(CUTOFFPERIODEditAction, setLoadingState("CUTOFFPERIODEdit"))
+      .addCase(CUTOFFPERIODEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "CUTOFFPERIODEdit"))
+      .addCase(CUTOFFPERIODEditActionProgress, (state, action) => setProgressState(state, action.payload, "CUTOFFPERIODEdit"))
+      .addCase(CUTOFFPERIODEditActionFailure, (state, action) => setFailureState(state, action.payload, "CUTOFFPERIODEdit"))
+      //SCHEDULESHIFT SECTION
+      .addCase(SCHEDULESHIFTViewAction, setLoadingState("SCHEDULESHIFTView"))
+      .addCase(SCHEDULESHIFTViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "SCHEDULESHIFTView"))
+      .addCase(SCHEDULESHIFTViewActionProgress, (state, action) => setProgressState(state, action.payload, "SCHEDULESHIFTView"))
+      .addCase(SCHEDULESHIFTViewActionFailure, (state, action) => setFailureState(state, action.payload, "SCHEDULESHIFTView"))
+      .addCase(SCHEDULESHIFTViewFilterSCHEDULESHIFTAction, setLoadingState("SCHEDULESHIFTViewFilterSCHEDULESHIFT"))
+      .addCase(SCHEDULESHIFTViewFilterSCHEDULESHIFTActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "SCHEDULESHIFTViewFilterSCHEDULESHIFT"))
+      .addCase(SCHEDULESHIFTViewFilterSCHEDULESHIFTActionProgress, (state, action) => setProgressState(state, action.payload, "SCHEDULESHIFTViewFilterSCHEDULESHIFT"))
+      .addCase(SCHEDULESHIFTViewFilterSCHEDULESHIFTActionFailure, (state, action) => setFailureState(state, action.payload, "SCHEDULESHIFTViewFilterSCHEDULESHIFT"))
+      .addCase(SCHEDULESHIFTCreateAction, setLoadingState("SCHEDULESHIFTCreate"))
+      .addCase(SCHEDULESHIFTCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "SCHEDULESHIFTCreate"))
+      .addCase(SCHEDULESHIFTCreateActionProgress, (state, action) => setProgressState(state, action.payload, "SCHEDULESHIFTCreate"))
+      .addCase(SCHEDULESHIFTCreateActionFailure, (state, action) => setFailureState(state, action.payload, "SCHEDULESHIFTCreate"))
+      .addCase(SCHEDULESHIFTEditAction, setLoadingState("SCHEDULESHIFTEdit"))
+      .addCase(SCHEDULESHIFTEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "SCHEDULESHIFTEdit"))
+      .addCase(SCHEDULESHIFTEditActionProgress, (state, action) => setProgressState(state, action.payload, "SCHEDULESHIFTEdit"))
+      .addCase(SCHEDULESHIFTEditActionFailure, (state, action) => setFailureState(state, action.payload, "SCHEDULESHIFTEdit"))
+      .addCase(SCHEDULESHIFTDeleteAction, setLoadingState("SCHEDULESHIFTDelete"))
+      .addCase(SCHEDULESHIFTDeleteActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "SCHEDULESHIFTDelete"))
+      .addCase(SCHEDULESHIFTDeleteActionProgress, (state, action) => setProgressState(state, action.payload, "SCHEDULESHIFTDelete"))
+      .addCase(SCHEDULESHIFTDeleteActionFailure, (state, action) => setFailureState(state, action.payload, "SCHEDULESHIFTDelete"))
+      //SCHEDULEDAILY SECTION
+      .addCase(SCHEDULEDAILYViewAction, setLoadingState("SCHEDULEDAILYView"))
+      .addCase(SCHEDULEDAILYViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "SCHEDULEDAILYView"))
+      .addCase(SCHEDULEDAILYViewActionProgress, (state, action) => setProgressState(state, action.payload, "SCHEDULEDAILYView"))
+      .addCase(SCHEDULEDAILYViewActionFailure, (state, action) => setFailureState(state, action.payload, "SCHEDULEDAILYView"))
+      .addCase(SCHEDULEDAILYViewFilterEmployeeAction, setLoadingState("SCHEDULEDAILYViewFilterEmployee"))
+      .addCase(SCHEDULEDAILYViewFilterEmployeeActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "SCHEDULEDAILYViewFilterEmployee"))
+      .addCase(SCHEDULEDAILYViewFilterEmployeeActionProgress, (state, action) => setProgressState(state, action.payload, "SCHEDULEDAILYViewFilterEmployee"))
+      .addCase(SCHEDULEDAILYViewFilterEmployeeActionFailure, (state, action) => setFailureState(state, action.payload, "SCHEDULEDAILYViewFilterEmployee"))
+      .addCase(SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYAction, setLoadingState("SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILY"))
+      .addCase(SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILY"))
+      .addCase(SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionProgress, (state, action) => setProgressState(state, action.payload, "SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILY"))
+      .addCase(SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionFailure, (state, action) => setFailureState(state, action.payload, "SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILY"))
+      .addCase(SCHEDULEDAILYCreateAction, setLoadingState("SCHEDULEDAILYCreate"))
+      .addCase(SCHEDULEDAILYCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "SCHEDULEDAILYCreate"))
+      .addCase(SCHEDULEDAILYCreateActionProgress, (state, action) => setProgressState(state, action.payload, "SCHEDULEDAILYCreate"))
+      .addCase(SCHEDULEDAILYCreateActionFailure, (state, action) => setFailureState(state, action.payload, "SCHEDULEDAILYCreate"))
+      .addCase(SCHEDULEDAILYEditAction, setLoadingState("SCHEDULEDAILYEdit"))
+      .addCase(SCHEDULEDAILYEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "SCHEDULEDAILYEdit"))
+      .addCase(SCHEDULEDAILYEditActionProgress, (state, action) => setProgressState(state, action.payload, "SCHEDULEDAILYEdit"))
+      .addCase(SCHEDULEDAILYEditActionFailure, (state, action) => setFailureState(state, action.payload, "SCHEDULEDAILYEdit"))
   },
 });
 
