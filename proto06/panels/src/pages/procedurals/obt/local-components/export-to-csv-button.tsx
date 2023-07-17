@@ -1,12 +1,12 @@
 import React from 'react';
 import { DtrData } from '@/types/types-store';
-import { ViewPayrollPayPerEmployee } from '@/types/types-pages';
+import { OBTViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
 import {Button} from '@material-tailwind/react';
 import { flattenObject } from '@/helpers/utils';
 
 
 interface ExportToCsvButtonInterface {
-    data: ViewPayrollPayPerEmployee[]
+    data: OBTViewInterface[]
 }
 
 interface CsvIndex extends ViewPayrollPayPerEmployee{
@@ -16,7 +16,7 @@ interface CsvIndex extends ViewPayrollPayPerEmployee{
 function ExportToCsvButton(props: ExportToCsvButtonInterface)  {
     const {data} = props;
 
-    const convertToCSV = (data: CsvIndex[]) => {
+    const convertToCSV = (data: OBTViewInterface[]) => {
       console.log(data, "first step");
         const replacer = (key: string, value: any) => value === null ? '' : value;
         if(data){

@@ -10,10 +10,11 @@ interface SinglePayslipInterface {
     singleOBTOpenModal: boolean; 
     setSingleOBTOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
     singleOBTDetailsData: OBTViewInterface;
+    setSingleOBTDetailsData: React.Dispatch<React.SetStateAction<OBTViewInterface>>;
 }
 
 export default function GeneratePayslipSingle(props: SinglePayslipInterface) {
-    const {singleOBTOpenModal, setSingleOBTOpenModal, singleOBTDetailsData} = props;
+    const {singleOBTOpenModal, setSingleOBTOpenModal, setSingleOBTDetailsData, singleOBTDetailsData} = props;
   const [scroll, setScroll] = React.useState<boolean>(true);
   return (
     <React.Fragment>
@@ -53,9 +54,10 @@ export default function GeneratePayslipSingle(props: SinglePayslipInterface) {
                   entering: { opacity: 1 },
                   entered: { opacity: 1 },
                 }[state],
+                overflow: 'auto',
             }}
         >
-          <SinglePayslip singleOBTDetailsData={singleOBTDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <SinglePayslip setSingleOBTDetailsData={setSingleOBTDetailsData} singleOBTDetailsData={singleOBTDetailsData} scroll={scroll} setScroll={setScroll}/>
         </ModalDialog>
       </Modal>
         )}
@@ -67,7 +69,7 @@ export default function GeneratePayslipSingle(props: SinglePayslipInterface) {
 
 // Styles
 const paySlipArea = {
-  height: '148.5mm',
+  height: '208.5mm',
   width: '210mm',
   margin: '0 auto',
   background: 'white',

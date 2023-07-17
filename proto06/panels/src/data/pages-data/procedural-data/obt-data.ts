@@ -28,6 +28,38 @@ export const ProceduralOBTPageColumns: GridColDef[] =
   },
   { field: 'emp_no', headerName: 'Filed By:', width: 120 },
   { field: 'obt_approval_status', headerName: 'Status', width: 100 },
+  {
+    field: 'obt_approval_status1',
+    headerName: 'Prof Pic',
+    width: 150,
+    renderCell: (params: GridCellParams) => {
+      console.log(params, "maoaoa");
+      const status = params.value as string;
+
+      let cellColor = '';
+      if (status === 'P1') {
+        cellColor = 'green'; // Set the desired color for 'P1' status
+      } else {
+        cellColor = 'red'; // Set the desired color for other statuses
+      }
+
+      return(
+        `<div style={{ backgroundColor: cellColor, height: '100%', width: '100%' }}>
+        {status}
+      </div>`
+      );
+      // if (params. === 'P1'){
+      //   return(
+          
+      //     <img src={`http://172.16.168.155:8000${params.value as string}`} alt="" width="50" height="50" style={{borderRadius: "10px", height: "40px", width: "40px", objectFit: "cover", border: "1px solid white", boxShadow: "1px 1px 10px gray"}}/>
+      //     )
+      // } else {
+      //   return (
+      //     null
+      //   )    
+      // }
+    },
+  },
   { field: 'obt_approver1_empno', headerName: 'Approver #1', width: 120 },
   {
     field: 'obt_date_approved1',

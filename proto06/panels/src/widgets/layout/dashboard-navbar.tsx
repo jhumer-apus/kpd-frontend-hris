@@ -33,7 +33,8 @@ import { fetchUserData, userLogout } from "@/store/actions/auth";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState } from "@/store/reducers";
+// import { RootState } from "@/store/reducers";
+import { RootState } from "@/store/configureStore";
 import { useEffect } from "react";
 
 
