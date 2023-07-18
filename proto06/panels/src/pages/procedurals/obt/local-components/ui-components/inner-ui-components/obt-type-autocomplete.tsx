@@ -40,7 +40,7 @@ export default function OBTTypeAutoComplete(props: OBTTypeAutoCompleteInterface)
 }
 
 const OBTTypeOptions = [
-    '1 - On Client Meeting',
-    '2 - On-Site Project',
-    '3 - Others'
+    'On Client Meeting',
+    'On-Site Project',
+    'Others'
 ]
