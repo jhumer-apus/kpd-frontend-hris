@@ -35,18 +35,7 @@ function ListOfHolidaysComponent(props: HighlightedCalendarInterface) {
 
     useEffect(()=>{
         dispatch(HolidaysGet());
-        // setTimeout(()=>{
-        //     ListOfHolidaysState.data.forEach((value: HolidayGetType) => {
-        //         if(value.holiday_date){
-        //             const dateValue = new Date(value.holiday_date);
-        //             return sortedDates.push(dateValue)
-        //         } else {
-        //             console.error('No holiday date for this value');
-        //         }
-        //     })
-        // }, 1000);
     }, [])
-    console.log(ListOfHolidaysState.data, "haha?")
     const {setValue} = props;
     return (
         <div style={{height: '90%', overflowY: 'auto', padding: '6px'}}>

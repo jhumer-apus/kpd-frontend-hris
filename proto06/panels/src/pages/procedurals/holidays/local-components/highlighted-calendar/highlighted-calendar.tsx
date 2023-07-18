@@ -66,13 +66,9 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
     requestAbortController.current = axios.CancelToken.source();
   
     axios.get('http://172.16.168.155:8000/api/holiday/', {
-    //   params: {
-    //     month: formattedDate,
-    //   },
       cancelToken: requestAbortController.current.token,
     })
       .then((response) => {
-        // console.log(response.data, "haha??22")
         //Added this to filter the data from the response
         const filteredData = response.data.filter((holiday: any) => {
             const holidayDate = dayjs(holiday.holiday_date);
@@ -81,7 +77,6 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
               holidayDate.isSame(date, 'month')
             );
         });
-        console.log(filteredData, 'filteredData', response)
         const holidayTypes = filteredData.reduce((types: Record<string, string>, holiday: any) => {
             const holidayDate = dayjs(holiday.holiday_date).format('YYYY-MM-DD');
             types[holidayDate] = holiday.holiday_type;

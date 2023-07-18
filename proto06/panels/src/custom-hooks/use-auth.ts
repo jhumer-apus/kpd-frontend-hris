@@ -13,7 +13,6 @@ export function useAuth() {
     const token = Cookies.get('token');
     const userCookie = JSON.parse(Cookies.get('user') || '{}');
     const employeeCookie = JSON.parse(Cookies.get('employee_detail') || '{}');
-    // console.log(user, "m11", employee_detail, "ahaha", employeeCookie, userCookie)
     if (token) {
       dispatch(userLoginSuccess(token, userCookie, employeeCookie));
     } else {

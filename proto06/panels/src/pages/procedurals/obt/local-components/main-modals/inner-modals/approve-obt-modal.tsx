@@ -3,7 +3,7 @@ import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
 import { OBTViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
-import SinglePayslip from './payslips/single-payslip';
+import SinglePayslip from './obt-modal-component';
 import { Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
@@ -28,7 +28,7 @@ export default function ApproveOBTModal(props: ApproveOBTModalInterface) {
   const approveOBT = () => { 
     const DateNow = new Date();
     const approvedDate = dayjs(DateNow).format('YYYY-MM-DDTHH:mm:ss');
-    if((true)){
+    if(state?.emp_no === singleOBTDetailsData.obt_approver1_empno){
       setSingleOBTDetailsData((prevState)=> {
         dispatch(OBTEditAction({
           ...prevState,
@@ -39,11 +39,21 @@ export default function ApproveOBTModal(props: ApproveOBTModalInterface) {
           obt_date_approved1: approvedDate
         })
       })
+    } else if(state?.emp_no === singleOBTDetailsData.obt_approver2_empno){
+      setSingleOBTDetailsData((prevState)=> {
+        dispatch(OBTEditAction({
+          ...prevState,
+          obt_date_approved2: approvedDate
+        }))
+        return({
+          ...prevState,
+          obt_date_approved2: approvedDate
+        })
+      })
+    } else {
+      window.alert('You are not one of the approvers.')
     }
-    // setTimeout(()=>{
-    //   dispatch(OBTEditAction(singleOBTDetailsData));
-    // }, 800)
-    // console.log(singleOBTDetailsData, "mama?")
+
   }
 
   React.useEffect(()=>{

@@ -53,7 +53,6 @@ const getCutoffDTRListApiCall = async () => {
 };
 
 const getCutoffDTRListEmployeeApiCall = async (cutoff_code: number) => {
-  // console.log(cutoff_code, "haaaaa?")
   if(Number.isNaN(cutoff_code)){
     return;
   }
@@ -62,12 +61,10 @@ const getCutoffDTRListEmployeeApiCall = async (cutoff_code: number) => {
     onDownloadProgress: (progressEvent) => {
       if(progressEvent.total){
         const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-        console.log(progress, "maattttyy", progressEvent.loaded, "ma?", progressEvent.total)
       }
     }
   }
   );
-  console.log(response, "ajajaja?")
   return response.data;
 };
 
@@ -84,13 +81,11 @@ const mergeCutoffListAndEmployeeApiCall = async ( {emp_no, cutoff_code} : Cutoff
     onDownloadProgress: (progressEvent) => {
       if(progressEvent.total){
         const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-        console.log("Merge progress:", progress, "Loaded:", progressEvent.loaded, "Total:", progressEvent.total)
         store.dispatch(mergeCutoffListAndEmployeeProgress(progress))
       }
     }
   }
 );
-// console.log(response, "aaa");
 return response.data.message;
 };
 
@@ -105,13 +100,11 @@ const summarizeCutoffListAndEmployeeApiCall = async ( {emp_no, cutoff_code} : Cu
     onDownloadProgress: (progressEvent) => {
       if(progressEvent.total){
         const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-        console.log("Merge progress:", progress, "Loaded:", progressEvent.loaded, "Total:", progressEvent.total)
         store.dispatch(summarizeCutoffListAndEmployeeProgress(progress))
       }
     }
   }
 );
-// console.log(response, "aaa");
 return response.data.message;
 };
 
@@ -123,16 +116,9 @@ export const viewAllDtrLogsEpic: Epic = (action$, state$) =>
         viewAllDtrLogsApiCall()
       ).pipe(
         map((data) => {
-          // console.log("asdasdasdasd")
-          // Save the token in a secure cookie with an expiration time of 1 hour
-          // Cookies.set('token', data.jwt, { expires: 1 / 24, secure: true });
-          // Cookies.set('user', JSON.stringify(data.user), { expires: 1 / 24, secure: true });
-          // Cookies.set('employee_detail', JSON.stringify(data.employee_detail), { expires: 1 / 24, secure: true });
-          // console.log(data, "viewAllDtrLogsSuccess");
           return viewAllDtrLogsSuccess(data);
         }),
         catchError((error) => {
-          // console.log(error.response, "maeeeeee111owww");
           if (error.response && error.response.data && error.response.data.error) {
             return of(viewAllDtrLogsFailure(error.response.data.error)); // Extract error message from the response
           } else {
@@ -154,7 +140,6 @@ export const viewMergedDtrLogsEpic: Epic = (action$, state$) =>
           return viewMergedDtrLogsSuccess(data);
         }),
         catchError((error) => {
-          // console.log(error.response, "maeeeeee111owww");
           if (error.response && error.response.data && error.response.data.error) {
             return of(viewMergedDtrLogsFailure(error.response.data.error)); // Extract error message from the response
           } else {
@@ -177,7 +162,6 @@ export const viewCutoffDtrSummaryEpic: Epic = (action$, state$) =>
           return viewCutoffDtrSummarySuccess(data);
         }),
         catchError((error) => {
-          // console.log(error.response, "maeeeeee111owww");
           if (error.response && error.response.data && error.response.data.error) {
             return of(viewCutoffDtrSummaryFailure(error.response.data.error)); // Extract error message from the response
           } else {
@@ -199,7 +183,6 @@ export const getCutoffDTRListEpic: Epic = (action$, state$) =>
           return getCutoffListSuccess(data);
         }),
         catchError((error) => {
-          // console.log(error.response, "maeeeeee111owww");
           if (error.response && error.response.data && error.response.data.error) {
             return of(getCutoffListFailure(error.response.data.error)); // Extract error message from the response
           } else {
@@ -221,7 +204,6 @@ export const getCutoffDTRListEmployeeEpic: Epic = (action$, state$) =>
           return getCutoffListEmployeeSuccess(data);
         }),
         catchError((error) => {
-          // console.log(error.response, "maeeeeee111owww");
           if (error.response && error.response.data && error.response.data.error) {
             return of(getCutoffListEmployeeFailure(error.response.data.error)); // Extract error message from the response
           } else {
@@ -243,7 +225,6 @@ export const mergeCutoffListAndEmployeeEpic: Epic = (action$, state$) =>
           return mergeCutoffListAndEmployeeSuccess(data);
         }),
         catchError((error) => {
-          // console.log(error.response, "maeeeeee111owww");
           if (error.response && error.response.data && error.response.data.error) {
             return of(mergeCutoffListAndEmployeeFailure(error.response.data.error)); // Extract error message from the response
           } else {
@@ -265,7 +246,6 @@ export const summarizeCutoffListAndEmployeeEpic: Epic = (action$, state$) =>
           return summarizeCutoffListAndEmployeeSuccess(data);
         }),
         catchError((error) => {
-          // console.log(error.response, "maeeeeee111owww");
           if (error.response && error.response.data && error.response.data.error) {
             return of(summarizeCutoffListAndEmployeeFailure(error.response.data.error)); // Extract error message from the response
           } else {

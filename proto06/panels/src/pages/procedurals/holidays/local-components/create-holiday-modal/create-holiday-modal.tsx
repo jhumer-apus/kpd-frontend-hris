@@ -44,7 +44,6 @@ const holiday_location = ['City', 'Province', 'National'];
 export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
     const dispatch = useDispatch();
     const {open, handleClose} = props;
-    //GRRRRRR!!!!!!
     const createHoliday = useSelector((state: RootState)=> state.procedurals?.HolidayCreate);
     const [createHolidayForm, setCreateHolidayForm] = useState<HolidayGetType>({
         holiday_date: '',
@@ -54,7 +53,6 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
     })
     const [value, setValue] = React.useState<string | null>(holiday_location[0]);
     const [inputValue, setInputValue] = React.useState('');
-    console.log(inputValue, "aaaA??", createHoliday)
     const submitNewHoliday = () => {
         dispatch(HolidayCreate(createHolidayForm));
 

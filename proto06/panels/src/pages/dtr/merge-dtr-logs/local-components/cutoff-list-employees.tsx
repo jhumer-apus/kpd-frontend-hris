@@ -79,23 +79,7 @@ export default function CutOffListEmployees(props: CutOffListEmployees) {
         emp_no_locale.push(row.emp_no);
       }
     });
-    console.log(emp_no_locale, "final mama?")
 
-    // if (newSelection.length > 1) {
-    //   alert('You can only select one cutoff at a time. Please uncheck the current selection or make sure you have only one per request.');
-    //   return;
-    // }
-    // if (newSelection.length > 0) {
-    //   setSelectedRows((prevState) => ({
-    //     ...prevState,
-    //     cutoff_code: newSelection[0] as number,
-    //   }));
-    // } else {
-    //   setSelectedRows((prevState) => ({
-    //     ...prevState,
-    //     cutoff_code: NaN,
-    //   }));
-    // }
     setSelectedRows((prevState) => ({
       ...prevState,
       emp_no: emp_no_locale,

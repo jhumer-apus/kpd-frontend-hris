@@ -4,7 +4,6 @@ import { EmployeeDetailsType, GetEmployeesListsType } from '@/types/types-store'
 
 export const getEmployeesList = createAction("GET_EMPLOYEES");
 export const getEmployeesListSuccess = createAction("GET_EMPLOYEES_LIST_SUCCESS", (list: Array<GetEmployeesListsType>) => { 
-    // console.log("list", list, "or");
     return({ payload: {list} })});
 export const getEmployeesListFailure = createAction<String>("GET_EMPLOYEES_LIST_FAILURE");
 

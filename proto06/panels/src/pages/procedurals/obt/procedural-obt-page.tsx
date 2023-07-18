@@ -6,17 +6,21 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import useDtrState from '@/custom-hooks/use-dtr-state';
-import PrintTableButton from './local-components/print-table-button';
-import ExportToCsvButton from './local-components/export-to-csv-button';
+import PrintTableButton from './local-components/additional-features/print-table-button';
+import ExportToCsvButton from './local-components/additional-features/export-to-csv-button';
 import { ProceduralOBTPageDescriptions } from '@/data/pages-data/procedural-data/obt-data';
 // import { dynamicPayrollColumns } from '@/data/pages-data/view-payroll-data/view-payroll';
-import GeneratePayslipMultiple from './local-components/generate-payslip-multiple';
-import GeneratePayslipSingle from './local-components/view-obt-single-modal';
+import GeneratePayslipMultiple from './local-components/create-obt-component';
+import GeneratePayslipSingle from './local-components/main-modals/view-obt-single-modal';
 import { OBTViewFilterEmployeeInitialState, OBTViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
 import jsPDF from 'jspdf';
-import GeneratePDFButton from './local-components/generate-pdf-button';
+import dayjs from 'dayjs';
+
+// import GeneratePDFButton from './local-components/additional-features/generate-pdf-button';
 import { OBTViewAction } from '@/store/actions/procedurals';
 import { GridColDef, GridValueGetterParams, GridCellParams, GridValueFormatterParams } from "@mui/x-data-grid";
+import GeneratePDFButton from './local-components/additional-features/generate-pdf-button';
+
 
 export const ProceduralOBTPageColumns: GridColDef[] = 
 [
@@ -32,7 +36,6 @@ export const ProceduralOBTPageColumns: GridColDef[] =
   { field: 'emp_no', headerName: 'Filed By:', width: 120 },
   { field: 'obt_approval_status', headerName: 'Status', width: 100,
     renderCell: (params: GridCellParams) => {
-      console.log(params, "maoaoa");
       const status = params.row?.obt_approval_status as string;
 
       let cellColor = '';
@@ -90,7 +93,6 @@ export default function ProceduralOBTPage() {
   const [singleOBTDetailsData, setSingleOBTDetailsData] = useState<OBTViewInterface>(OBTViewFilterEmployeeInitialState);
   const dispatch = useDispatch();
   const { spButtonIndex, dtrStatus, dtrData } = useDtrState();
-
   const { OBTView, OBTViewFilterEmployeeAndOBT } = useSelector((state: RootState) => state.procedurals);
   const { data } = OBTView;
   const OBTViewData = data as OBTViewInterface[];
@@ -127,10 +129,10 @@ export default function ProceduralOBTPage() {
           <i>Click on the Table Headers to Customize View, Sort, or Add/Remove Columns</i>
         </Typography>
         </div>
-        <div className='flex justify-between gap-6'>
+        {/* <div className='flex justify-between gap-6'>
           <ExportToCsvButton data={OBTViewData} />
           <PrintTableButton setIsPrinting={setIsPrinting}/>
-        </div>
+        </div> */}
       </div>
       <div style={{ height: `${printing? `${printableArea()}px` : '660px'}`, width: '100%' }} id="printable-area">
         <DataGrid

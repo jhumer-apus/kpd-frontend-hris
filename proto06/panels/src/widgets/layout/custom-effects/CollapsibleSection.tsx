@@ -10,7 +10,6 @@ type CollapsibleSectionProps = {
 
 export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({ children, header, className }) => {
   const contentRef = useRef<HTMLDivElement>(null);
-//   console.log(contentRef.current?.getAttribute("data-collapsed"), "123", contentRef.current)
   useEffect(() => {
     // if (contentRef?.current?.getAttribute("data-collapsed") === "false") {
     if(contentRef.current) {

@@ -4,8 +4,8 @@ import { convertDaysToHHMM, convertMinutesToHHMM,  } from '@/helpers/utils';
 import { Button } from '@mui/material';
 import dayjs from 'dayjs';
 import {TextField} from '@mui/material';
-import ApproveOBTModal from '../approve-obt-modal';
-import DenyOBTModal from '../deny-obt-modal';
+import ApproveOBTModal from '../main-modals/inner-modals/approve-obt-modal';
+import DenyOBTModal from '../main-modals/inner-modals/deny-obt-modal';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 
@@ -30,13 +30,12 @@ function OBTModalUI(props: OBTModalUIInterface) {
         }   
         
     };
-    console.log(denyOBTOpenModal, "hjaha?")
     const userIsApprover = curr_user?.emp_no === ThisProps.obt_approver1_empno || curr_user?.emp_no === ThisProps.obt_approver2_empno;
     return (
         <React.Fragment>
             <ApproveOBTModal singleOBTDetailsData={singleOBTDetailsData} setSingleOBTDetailsData={setSingleOBTDetailsData} approveOBTOpenModal={approveOBTOpenModal} setApproveOBTOpenModal={setApproveOBTOpenModal}/>
             <DenyOBTModal singleOBTDetailsData={singleOBTDetailsData} setSingleOBTDetailsData={setSingleOBTDetailsData} denyOBTOpenModal={denyOBTOpenModal} setDenyOBTOpenModal={setDenyOBTOpenModal}/>
-            <div className='flex gap-10 overflow-auto'>
+            <div className='flex gap-10 overflow-auto relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Date Filed:' value={ThisProps.obt_date_filed ? dayjs(ThisProps.obt_date_filed).format('MM-DD-YYYY') : '-'} InputProps={{readOnly: false,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Total hrs:' value={ThisProps.obt_total_hours || '-'} InputProps={{readOnly: true,}} variant='standard'/>
@@ -50,21 +49,24 @@ function OBTModalUI(props: OBTModalUIInterface) {
                     <TextField sx={{width: '100%', minWidth: '160px', color: 'green'}} label='Status:' value={ThisProps.obt_approval_status || '-'} InputProps={{readOnly: true,}} color={ThisProps.obt_approval_status === 'APD' ? 'success' : ThisProps.obt_approval_status === 'DIS' ? 'error' : 'warning'} variant='filled' focused/>
                     <TextField sx={{width: '100%'}} label='Date From:' value={ThisProps.obt_date_from? dayjs(ThisProps.obt_date_from).format('MM-DD-YYYY') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Date Until:' value={ThisProps.obt_date_to? dayjs(ThisProps.obt_date_to).format('MM-DD-YYYY') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
-                    <TextField sx={{width: '100%'}} label='Date Approved: #1' value={ThisProps.date_approved1 || '-'} focused={ThisProps.date_approved1 ? true : false} color={ThisProps.date_approved1 ? 'success' : 'info'} InputProps={{readOnly: true,}} variant='standard'/>
-                    <TextField sx={{width: '100%'}} label='Date Approved: #2' value={ThisProps.date_approved1 || '-'} focused={ThisProps.date_approved1 ? true : false} color={ThisProps.date_approved2 ? 'success' : 'info'} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%'}} label='Date Approved: #1' value={ThisProps.obt_date_approved1? dayjs(ThisProps.obt_date_approved1).format('MM-DD-YYYY LT') : '-'} focused={!!ThisProps.obt_date_approved1} color={ThisProps.obt_date_approved1 ? 'success' : 'warning'} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%'}} label='Date Approved: #2' value={ThisProps.obt_date_approved2? dayjs(ThisProps.obt_date_approved2).format('MM-DD-YYYY LT') : '-'} focused={!!ThisProps.obt_date_approved2} color={ThisProps.obt_date_approved2 ? 'success' : 'warning'} InputProps={{readOnly: true,}} variant='standard'/>
                 </div>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Employee #:' value={ThisProps.emp_no || '-'} InputProps={{readOnly: true,}} variant='filled'/>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='OBT Type:' value={ThisProps.obt_type || '-'} InputProps={{readOnly: true,}} variant='standard'/>
-                    <TextField sx={{width: '100%', minWidth: '160px'}} label='Reason for Disapproval:' value={ThisProps.obt_reason_disapproval || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
+                    <TextField sx={{width: '100%', minWidth: '160px'}} focused={!!ThisProps.obt_reason_disapproval} color={'error'} label='Reason for Disapproval:' value={ThisProps.obt_reason_disapproval || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
+                    {ThisProps.obt_approval_status === 'APD' && <img src={ '/img/stampApproved2.png' } style={{height: '300px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
+                    {ThisProps.obt_approval_status === 'DIS' && <img src={ '/img/stampRejected.png' } style={{height: '300px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
                 </div>
+
             </div>
             {ThisProps.obt_approval_status.includes('1') && 
             <div className='flex flex-col justify-center items-center'>
             <div className='flex justify-center mt-6' container-name='obt_buttons_container'>
                 <div className='flex justify-between' style={{width:'300px'}} container-name='obt_buttons'>
-                    <Button disabled={!userIsApprover? false : true} variant='contained' onClick={()=> onClickModal(0)}>Approve OBT</Button>
-                    <Button disabled={!userIsApprover? false : true} variant='outlined' onClick={()=> onClickModal(1)}>Deny OBT</Button>
+                    <Button disabled={!userIsApprover} variant='contained' onClick={()=> onClickModal(0)}>Approve OBT</Button>
+                    <Button disabled={!userIsApprover} variant='outlined' onClick={()=> onClickModal(1)}>Deny OBT</Button>
                 </div>
                 
             </div>
@@ -72,7 +74,6 @@ function OBTModalUI(props: OBTModalUIInterface) {
                 <i className='w-6/12 text-center mt-4' style={{color: 'gray'}}>You are not listed as one of the approvers</i>
             }
             </div>
-            
             }
 
 

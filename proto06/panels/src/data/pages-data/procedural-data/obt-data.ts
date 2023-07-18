@@ -33,7 +33,6 @@ export const ProceduralOBTPageColumns: GridColDef[] =
     headerName: 'Prof Pic',
     width: 150,
     renderCell: (params: GridCellParams) => {
-      console.log(params, "maoaoa");
       const status = params.value as string;
 
       let cellColor = '';

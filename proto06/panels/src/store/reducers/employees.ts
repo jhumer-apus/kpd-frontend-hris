@@ -39,15 +39,13 @@ export const employeesSlice = createSlice({
       })
       .addCase(getSpecificEmployeeInfo, (state, action) => {
         // state.employees_list = null;
-        // console.log("pumasok");
+
         state.specific_employee_info = null;
         state.error = null;
       })
       .addCase(getSpecificEmployeeInfoSuccess, (state, action) => {
         // state.employees_list = null;
-        // console.log("awooo" , action.payload.list);
         state.specific_employee_info = action.payload.list;
-        // state.error = action.payload;
       })
       .addCase(getSpecificEmployeeInfoFailure, (state, action) => {
         // state.employees_list = null;

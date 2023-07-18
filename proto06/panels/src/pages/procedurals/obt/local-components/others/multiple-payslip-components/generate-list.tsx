@@ -48,7 +48,6 @@ function GenerateList(props: GenerateListInterface) {
             multiple_payslips_data_locale.push(row);
           }
         });
-        console.log(multiple_payslips_data_locale, "final mama?")
         setMultiplePayslipsData(multiple_payslips_data_locale);
       };
     return (
@@ -66,17 +65,8 @@ function GenerateList(props: GenerateListInterface) {
                     },
                 }}
                 pageSizeOptions={[25, 50, 75, 100]}
-                // onRowClick={(e) => {
-                //     setMultiplePayslipsData(e.row);
-                //     // console.log(e, "this is pancit")
-                //     // setSinglePayslipOpen(true);
-                //     // spButtonIndex === 2 ? gridRowClick(e) : null
-                // }}
                 onRowSelectionModelChange={handleSelection}
                 checkboxSelection
-                // disableRowSelectionOnClick={false}
-                // disableSelectionOnClick 
-                // style={{ cursor: spButtonIndex === 2 ? 'pointer': 'default'}}
                 localeText={{ noRowsLabel: `${currentPayrollListStatus === 'loading' ? `${currentPayrollListStatus?.toUpperCase()}...` : currentPayrollListStatus === 'failed' ?  'No employee lists found. Contact your administrator/support.' : (currentPayrollListStatus === null || currentPayrollListStatus === undefined) ? 'Server Error. Contact your admin/developers.': 'SUCCEEDED...'}` }}
             />
             </div>

@@ -31,8 +31,6 @@ export const UserProfile = () => {
             },
           }
         );
-    
-        console.log(response.data);
         setTimeout(()=>{
             location.reload();
         }, 1000)

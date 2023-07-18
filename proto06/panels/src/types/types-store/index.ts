@@ -61,9 +61,9 @@ export interface EmployeeDetailsType {
 
 export interface GetEmployeesListsType {
     [key: string]: any;
-    id: Number;
+    id: number;
     employee_image?: String;
-    emp_no: Number;
+    emp_no: number;
     first_name: String;
     middle_name?: String;
     last_name: String;
@@ -78,7 +78,7 @@ export interface GetEmployeesListsType {
     email_address?: String;
     date_hired: Date;
     date_resigned?: Date;
-    approver: Number;
+    approver: number;
     date_added: Date;
     date_deleted?: Date;
     philhealth_code?: String;
@@ -96,17 +96,17 @@ export interface GetEmployeesListsType {
     user?: {
         is_superuser: Boolean;
         username: String;
-        role: Number;
+        role: number;
         is_active: Boolean;
         is_logged_in: Boolean;
         is_locked: Boolean;
-        failed_login_attempts: Number;
+        failed_login_attempts: number;
         last_login: Date;
         old_password: String;
         date_password_changed?: Date; 
         date_added: Date;
         date_deleted?: Date;
-        emp_no: Number;
+        emp_no: number;
         groups: Array<String>;
         user_permissions: Array<String>;
     }

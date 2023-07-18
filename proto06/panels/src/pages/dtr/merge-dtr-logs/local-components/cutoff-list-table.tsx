@@ -70,7 +70,6 @@ export default function CutOffListTable(props: CutOffListTable) {
   const {selectedRows, setSelectedRows} = props;
   const dispatch = useDispatch();
   const {cutoffList, status} = useSelector((state: RootState)=> state.dtr.getCutoffList);
-  // console.log(selectedRows, "hahaha>?")
 
   useEffect(()=>{
     dispatch(getCutoffList());

@@ -1,4 +1,4 @@
-
+import dayjs, {ConfigType} from "dayjs";
 
 
 // It takes an object and an optional prefix string as arguments.
@@ -72,3 +72,13 @@ export const limitString = (str: string): string => {
 
   return limitedString;
 }
+
+
+// Function to compute the duration in hours between two dates
+export const computeDurationInHours = (start: ConfigType, end: ConfigType): number => {
+  const startTime = dayjs(start);
+  const endTime = dayjs(end);
+  const durationInMilliseconds = endTime.diff(startTime);
+  const durationInHours = durationInMilliseconds / (1000 * 60 * 60);
+  return Math.abs(durationInHours);
+};

@@ -1,3 +1,5 @@
+import dayjs, { Dayjs } from "dayjs";
+
 export type previewDtrCsvItem = {
     bio_id: string;
     date_time: string;
@@ -234,26 +236,26 @@ export type HolidayGetType = {
 
 
 export interface OBTCreateInterface {
-    obt_date_filed: string;
-    obt_type: string;
-    obt_location: string;
+    emp_no: number | null;
+    obt_type: string | null;
+    obt_location: string | null;
     obt_remarks: string | null;
-    obt_date_from: string;
-    obt_date_to: string;
-    obt_approval_status: string;
-    obt_total_hour: number;
-    obt_approver1_empno: number | null;
-    obt_approver2_empno: number | null,
-    emp_no: number;
-    cutoff_code: number;
+    obt_date_from: Dayjs | string | null;
+    obt_date_to: Dayjs | string | null;
 }
 
 export interface OBTViewInterface extends OBTCreateInterface { 
-    [key: string]: string | number | null;
+    [key: string]: string | number | null | Dayjs;
     id: number,
+    obt_date_filed: string;
+    obt_approval_status: string;
+    obt_total_hour: number;
     obt_reason_disapproval: string | null,
     obt_date_approved1: string | null;
     obt_date_approved2: string | null,
+    obt_approver1_empno: number | null;
+    obt_approver2_empno: number | null,
+    cutoff_code: number;
 }
 
 export interface OBTEditInterface extends OBTViewInterface {}

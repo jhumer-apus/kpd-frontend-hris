@@ -35,9 +35,7 @@ export const dynamicDTRColumns: Array<GridColDef[]> =
       width: 150,
       valueGetter: (params: GridValueGetterParams) => {
         const shio = new Date(params.row.datetime_bio);
-        // console.log(shio, "is there???")
         return shio.toLocaleTimeString();
-        // return new Intl.DateTimeFormat('default', { hour: 'numeric', minute: 'numeric', hour12: true }).format(shio);
       },
     },
     { field: 'bio_id', headerName: 'Biometrics ID', width: 140 },

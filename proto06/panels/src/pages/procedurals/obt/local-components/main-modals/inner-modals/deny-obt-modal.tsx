@@ -3,7 +3,7 @@ import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
 import { OBTViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
-import SinglePayslip from './payslips/single-payslip';
+import SinglePayslip from './obt-modal-component';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
@@ -24,13 +24,22 @@ export default function DenyOBTModal(props: DenyOBTModalInterface) {
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
   const OBTDenyState = useSelector((state: RootState)=> state.procedurals.OBTEdit.status)
   const {denyOBTOpenModal, setDenyOBTOpenModal, singleOBTDetailsData, setSingleOBTDetailsData} = props;
+  const DateNow = new Date();
+  const denyDate = dayjs(DateNow).format('MMM-DD-YY LT');
 
   const denyOBT = () => { 
-    const DateNow = new Date();
-    const denydDate = dayjs(DateNow).format('YYYY-MM-DDTHH:mm:ss');
     if(singleOBTDetailsData.obt_reason_disapproval){
         return(
-          dispatch(OBTEditAction(singleOBTDetailsData))
+          setSingleOBTDetailsData((prevState)=> {
+            dispatch(OBTEditAction({
+              ...prevState,
+              obt_reason_disapproval: `${prevState.obt_reason_disapproval}  <Updated: ${denyDate}>`
+            }))  
+            return({
+              ...prevState,
+              obt_reason_disapproval: `${prevState.obt_reason_disapproval} <Updated: ${denyDate}>`
+            })
+          })
         )
       } else {
         window.alert('Please insert reason');
@@ -38,9 +47,9 @@ export default function DenyOBTModal(props: DenyOBTModalInterface) {
     }
 
   React.useEffect(()=>{
-    if(OBTDenyState){
-      window.alert(`${OBTDenyState.charAt(0).toUpperCase()}${OBTDenyState.slice(1)}`)
-      if(OBTDenyState !== 'failed'){
+    if(OBTDenyState){      
+      if(OBTDenyState === 'succeeded'){
+        window.alert(`${OBTDenyState.charAt(0).toUpperCase()}${OBTDenyState.slice(1)}`)
         setTimeout(()=>{
           window.location.reload();
         }, 800)
@@ -108,7 +117,7 @@ export default function DenyOBTModal(props: DenyOBTModalInterface) {
                     setSingleOBTDetailsData((prevState)=> {
                       return({
                         ...prevState,
-                        obt_reason_disapproval: event.target.value
+                        obt_reason_disapproval: `${event.target.value}`
                       })
                     })
                   }}

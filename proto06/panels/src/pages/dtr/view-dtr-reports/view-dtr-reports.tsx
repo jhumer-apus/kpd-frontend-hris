@@ -106,7 +106,7 @@ export default function ViewDtrReports() {
     setSecondOptionModalEntranceDelay(true)
     dispatchSpecificEmployeeInfo(e.row?.emp_no)
   };
-  // console.log(dtrStatus, "this is the page:", dtrData);
+
   return (
     <Fragment>
       <div className="my-10 flex flex-wrap justify-between items-start gap-6">

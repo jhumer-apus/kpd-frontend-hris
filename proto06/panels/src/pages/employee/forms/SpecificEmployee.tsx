@@ -75,10 +75,8 @@ export const SpecificEmployee = (props: initialState) => {
           setPreviewUrl(null);
         }
     };
-    // console.log(file, "mamaw")
     const {modalEntranceDelay, secondOptionModalEntranceDelay, loadingEffect} = props;
     const { register, handleSubmit, setValue, formState: { errors } } = useForm<GetEmployeesListsType>();
-    // const dispatch = useDispatch();
     const userData = useSelector((state: RootState) => state.employees.specific_employee_info);
     const [editMode, setEditMode] = useState(false);
     const [editMode2, setEditMode2] = useState(false);
@@ -121,7 +119,6 @@ export const SpecificEmployee = (props: initialState) => {
                 },
               }
             );
-            console.log(response.data);
             loadingEffect();
             if(file){
                 setTimeout(()=> {
@@ -134,10 +131,8 @@ export const SpecificEmployee = (props: initialState) => {
     };
     const onSubmit = async (data: GetEmployeesListsType, type: string) => {
         const formData = new FormData();
-        // console.log("appending file:sss ", data)
         
         const keyChecker = (key: string) => {
-            // console.log(key,"aaaaa1111")
             const keyProcessed: { [key: string]: () => void } = {
                 "type1": () => setEditMode(false),
                 "type2": () => setEditMode2(false),
@@ -157,7 +152,6 @@ export const SpecificEmployee = (props: initialState) => {
             const value = data[key];
             if (value !== null && value !== undefined && value !== "") {
                 if(key === "employee_image" && file){
-                    // console.log("nandtio ba?")
                     formData.append(key, file);
                 }else if(key==="employee_image" && !file){
                     return
@@ -166,7 +160,6 @@ export const SpecificEmployee = (props: initialState) => {
                 }
             }
         }
-        // console.log("formData: ", formData);
         await fetchData(formData);
     };
 

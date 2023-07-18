@@ -74,7 +74,6 @@ const shortcutsItems: PickersShortcutsItem<Dayjs | null>[] = [
   },
 ];
 
-console.log(shortcutsItems, "typeofshortcutItems")
 
 export default function BasicShortcuts() {
   return (

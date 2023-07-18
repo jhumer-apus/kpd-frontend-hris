@@ -51,13 +51,10 @@ export function DashboardNavbar() {
   }, [])
   // "/media/image/prof6_2wAfFr1.jpg"
 
-  // console.log(hello, "meow1111")
   const [controller, dispatch] = useMaterialTailwindController();
   const { fixedNavbar, openSidenav } = controller;
   const { pathname } = useLocation();
-  const [layout, page, innermostpage] = pathname.split("/").filter((el) => el !== "");
-  // console.log(pathname, "meowww", pathname.split("/").filter((el) => el !== ""), innermostpage, "aaa");
-  
+  const [layout, page, innermostpage] = pathname.split("/").filter((el) => el !== "");  
   const updatedImage = employee_detail?.employee_image;
   const handleLogout = () => {
     // Perform logout actions here

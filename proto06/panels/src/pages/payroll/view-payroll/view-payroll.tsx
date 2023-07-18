@@ -45,7 +45,6 @@ export default function ViewPayroll() {
       return 700
     }
   };
-  // console.log(payrollData, "aaa???")
 
   return (
     <Fragment>

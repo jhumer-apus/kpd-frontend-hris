@@ -15,7 +15,6 @@ import CollapsibleSection from "./custom-effects/CollapsibleSection";
 
 export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
   const [expandedItems, setExpandedItems] = useState<Record<number, boolean>>({});
-  // console.log(expandedItems, "maaaw")
   const toggleExpandedItem = (itemId: number) => {
     setExpandedItems((prevExpandedItems) => ({
       ...prevExpandedItems,

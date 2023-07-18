@@ -39,7 +39,6 @@ export function ProfileInfoCard({ title, description, details, action } : Profil
         {details && (
           <ul className="flex flex-col gap-4 p-0">
             {Object.keys(details).map((el, key) => {
-              console.log(details, "meowwwww");
               if (isDetailsKey(el, details)){
                 return (
                   <li key={key} className="flex items-center gap-4">

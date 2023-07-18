@@ -1,30 +1,31 @@
-import * as React from 'react';
+import { useState, Fragment } from 'react';
+import Button from '@mui/joy/Button';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
-import { OBTViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
-import SinglePayslip from './payslips/single-payslip';
+import CreateOBTModal from './ui-components/create-obt-modal-ui';
 
 
-interface SinglePayslipInterface {
-    singleOBTOpenModal: boolean; 
-    setSingleOBTOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-    singleOBTDetailsData: OBTViewInterface;
-    setSingleOBTDetailsData: React.Dispatch<React.SetStateAction<OBTViewInterface>>;
-}
-
-export default function GeneratePayslipSingle(props: SinglePayslipInterface) {
-    const {singleOBTOpenModal, setSingleOBTOpenModal, setSingleOBTDetailsData, singleOBTDetailsData} = props;
-  const [scroll, setScroll] = React.useState<boolean>(true);
+export default function CreateOBTComponent() {
+  const [open, setOpen] = useState<boolean>(false);
   return (
-    <React.Fragment>
-      <Transition in={singleOBTOpenModal} timeout={400}>
+    <Fragment>
+      <Button
+          variant="solid"
+          color="primary"
+          onClick={() => {
+            setOpen(true);
+          }}
+        >
+          + CREATE OFFICIAL BUSINESS TRIP/TIME
+      </Button>
+      <Transition in={open} timeout={400}>
       {(state: string) => (
       <Modal
         keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setSingleOBTOpenModal(false);
+            setOpen(false);
         }}
         slotProps={{
             backdrop: {
@@ -47,32 +48,19 @@ export default function GeneratePayslipSingle(props: SinglePayslipInterface) {
             aria-labelledby="dialog-vertical-scroll-title" 
             layout={'center'}
             sx={{
-              ...paySlipArea,
                 opacity: 0,
                 transition: `opacity 300ms`,
                 ...{
                   entering: { opacity: 1 },
                   entered: { opacity: 1 },
                 }[state],
-                overflow: 'auto',
             }}
         >
-          <SinglePayslip setSingleOBTDetailsData={setSingleOBTDetailsData} singleOBTDetailsData={singleOBTDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <CreateOBTModal/>
         </ModalDialog>
       </Modal>
         )}
       </Transition>
-    </React.Fragment>
+    </Fragment>
   );
 }
-
-
-// Styles
-const paySlipArea = {
-  height: '208.5mm',
-  width: '210mm',
-  margin: '0 auto',
-  background: 'white',
-  boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.1)',
-  overflow: 'hidden',
-};

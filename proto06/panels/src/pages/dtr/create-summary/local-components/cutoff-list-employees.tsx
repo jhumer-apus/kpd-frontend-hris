@@ -72,41 +72,21 @@ export default function CutOffListEmployees(props: CutOffListEmployees) {
   const { employees, selectedRows, setSelectedRows} = props;
   const dispatch = useDispatch();
   const {status} = useSelector((state: RootState)=> state.dtr.getCutoffListEmployees);
-
-  console.log(employees, "aaaaasss" , selectedRows)
   const handleSelection = (newSelection: GridRowSelectionModel, details: GridCallbackDetails) => {
     let emp_no_locale = [] as Array<number>;
     newSelection.forEach((id) => {
       const row = employees?.find((row) => row.id === id);
       if (row) {
-        console.log(row.emp_no, "haduken", newSelection, "mama?");  // or whatever property you're interested in
         emp_no_locale.push(row.emp_no);
       }
     });
-    console.log(emp_no_locale, "final mama?")
 
-    // if (newSelection.length > 1) {
-    //   alert('You can only select one cutoff at a time. Please uncheck the current selection or make sure you have only one per request.');
-    //   return;
-    // }
-    // if (newSelection.length > 0) {
-    //   setSelectedRows((prevState) => ({
-    //     ...prevState,
-    //     cutoff_code: newSelection[0] as number,
-    //   }));
-    // } else {
-    //   setSelectedRows((prevState) => ({
-    //     ...prevState,
-    //     cutoff_code: NaN,
-    //   }));
-    // }
     setSelectedRows((prevState) => ({
       ...prevState,
       emp_no: emp_no_locale,
     }));
   };
   function initializeMerge(){
-    console.log(selectedRows, 'pumasok ba')
     if(!Number.isNaN(selectedRows.cutoff_code)){
       dispatch(summarizeCutoffListAndEmployee(selectedRows))
     } else {

@@ -1,40 +1,30 @@
 import * as React from 'react';
-import Button from '@mui/joy/Button';
-import List from '@mui/joy/List';
-import ListItem from '@mui/joy/ListItem';
-import FormControl from '@mui/joy/FormControl';
-import FormLabel from '@mui/joy/FormLabel';
-import Switch from '@mui/joy/Switch';
 import Modal from '@mui/joy/Modal';
-import ModalDialog, { ModalDialogProps } from '@mui/joy/ModalDialog';
-import ModalClose from '@mui/joy/ModalClose';
-import Typography from '@mui/joy/Typography';
-import Stack from '@mui/joy/Stack';
+import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
+import { OBTViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
+import OBTModalComponent from './inner-modals/obt-modal-component';
 
-import MultiplePayslip from './payslips/multiple-payslip';
 
-export default function GeneratePayslipMultiple() {
+interface SinglePayslipInterface {
+    singleOBTOpenModal: boolean; 
+    setSingleOBTOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+    singleOBTDetailsData: OBTViewInterface;
+    setSingleOBTDetailsData: React.Dispatch<React.SetStateAction<OBTViewInterface>>;
+}
+
+export default function GeneratePayslipSingle(props: SinglePayslipInterface) {
+    const {singleOBTOpenModal, setSingleOBTOpenModal, setSingleOBTDetailsData, singleOBTDetailsData} = props;
   const [scroll, setScroll] = React.useState<boolean>(true);
-  const [open, setOpen] = React.useState<boolean>(false);
   return (
     <React.Fragment>
-      <Button
-          variant="solid"
-          color="neutral"
-          onClick={() => {
-            setOpen(true);
-          }}
-        >
-          GENERATE PAYSLIP - MULTIPLE
-      </Button>
-      <Transition in={open} timeout={400}>
+      <Transition in={singleOBTOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
         keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-            setOpen(false);
+          setSingleOBTOpenModal(false);
         }}
         slotProps={{
             backdrop: {
@@ -55,18 +45,19 @@ export default function GeneratePayslipMultiple() {
       >
         <ModalDialog 
             aria-labelledby="dialog-vertical-scroll-title" 
-            layout={'fullscreen'}
+            layout={'center'}
             sx={{
+              ...paySlipArea,
                 opacity: 0,
                 transition: `opacity 300ms`,
                 ...{
                   entering: { opacity: 1 },
                   entered: { opacity: 1 },
                 }[state],
-                // border: '1px solid red'
+                overflow: 'auto',
             }}
         >
-          <MultiplePayslip/>
+          <OBTModalComponent setSingleOBTDetailsData={setSingleOBTDetailsData} singleOBTDetailsData={singleOBTDetailsData} scroll={scroll} setScroll={setScroll}/>
         </ModalDialog>
       </Modal>
         )}
@@ -74,3 +65,14 @@ export default function GeneratePayslipMultiple() {
     </React.Fragment>
   );
 }
+
+
+// Styles
+const paySlipArea = {
+  height: '208.5mm',
+  width: '210mm',
+  margin: '0 auto',
+  background: 'white',
+  boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.1)',
+  overflow: 'hidden',
+};

@@ -291,7 +291,6 @@ import {
 
 // HOLIDAY API SECTION // HOLIDAY API SECTION // HOLIDAY API SECTION // HOLIDAY API SECTION // HOLIDAY API SECTION
 const HolidayEditSubmitApiCall = async (payload: HolidayGetType): Promise<HolidayGetType> => {
-  console.log(payload, "pumasok?11111")
   const response = await axios.put(`http://172.16.168.155:8000/api/holiday/${payload.id}/`,
   payload, 
   {
@@ -307,7 +306,6 @@ const HolidayEditSubmitApiCall = async (payload: HolidayGetType): Promise<Holida
 };
 
 const HolidayCreateApiCall = async (payload: HolidayGetType): Promise<HolidayGetType> => {
-console.log(payload, "pumasok?11111")
 const response = await axios.post("http://172.16.168.155:8000/api/holiday/",
 payload, 
 {
@@ -368,8 +366,6 @@ action$.pipe(
         return HolidayCreateSuccess(data);
       }),
       catchError((error) => {
-        // console.log(error, "123092138")
-        // console.log(error.response, "maeeeeee111owww");
         if (error.response && error.response.data && error.response.data['Error Message']) {
           return of(HolidayCreateFailure(error.response.data['Error Message'])); // Extract error message from the response
         } else {

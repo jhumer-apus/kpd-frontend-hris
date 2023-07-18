@@ -17,7 +17,6 @@ import store from '../configureStore';
 import { ProcessPayroll } from '@/types/types-pages';
 
 const processPayrollApiCall = async (payload: ProcessPayroll): Promise<string> => {
-  console.log(payload, "pumasok?11111")
   const response = await axios.post("http://172.16.168.155:8000/api/create_payrolls/",
   payload, 
   {
@@ -78,8 +77,6 @@ export const processPayrollEpic: Epic = (action$, state$) =>
           return processPayrollSuccess(data);
         }),
         catchError((error) => {
-          // console.log(error, "123092138")
-          // console.log(error.response, "maeeeeee111owww");
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(processPayrollFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {

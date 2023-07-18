@@ -103,9 +103,7 @@ export default function CutOffListEmployees(props: CutOffListEmployees) {
   };
 
   function initializeMerge(){
-    console.log('pumasok?', selectedRows.cutoff_code)
     if(!Number.isNaN(selectedRows.cutoff_code) && isAtLeastOneTrue){
-      console.log(dispatch(processPayroll(selectedRows)), "pumasok?")
       dispatch(processPayroll(selectedRows))
     } else if(!Number.isNaN(selectedRows.cutoff_code) && isAllFalse){
       handleOpen();

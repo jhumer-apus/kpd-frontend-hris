@@ -14,7 +14,6 @@ const getEmployeesListApiCall = async () => {
     // const response = await axios.post("https://bitverse-api.herokuapp.com/login", {
     // const response = await axios.post("http://172.16.168.144:8888/login", {
     const response = await axios.get("http://172.16.168.155:8000/api/employees");
-  // console.log(response, "aaa");
   return response.data;
 };
 
@@ -31,16 +30,9 @@ export const employeesListEpic: Epic = (action$, state$) =>
         getEmployeesListApiCall()
       ).pipe(
         map((data) => {
-          // console.log("asdasdasdasd")
-          // Save the token in a secure cookie with an expiration time of 1 hour
-          // Cookies.set('token', data.jwt, { expires: 1 / 24, secure: true });
-          // Cookies.set('user', JSON.stringify(data.user), { expires: 1 / 24, secure: true });
-          // Cookies.set('employee_detail', JSON.stringify(data.employee_detail), { expires: 1 / 24, secure: true });
-          // console.log(data, "hallooooo11111");
           return getEmployeesListSuccess(data);
         }),
         catchError((error) => {
-          // console.log(error.response, "maeeeeee111owww");
           if (error.response && error.response.data && error.response.data.error) {
             return of(getEmployeesListFailure(error.response.data.error)); 
           } else {
@@ -59,16 +51,13 @@ export const employeesSpecificEpic: Epic = (action$, state$) =>
         getSpecificEmployeesInfoApiCall(action.payload.employee_id)
       ).pipe(
         map((data) => {
-          // console.log("asdasdasdasd" , data)
           // Save the token in a secure cookie with an expiration time of 1 hour
           // Cookies.set('token', data.jwt, { expires: 1 / 24, secure: true });
           // Cookies.set('user', JSON.stringify(data.user), { expires: 1 / 24, secure: true });
           // Cookies.set('employee_detail', JSON.stringify(data.employee_detail), { expires: 1 / 24, secure: true });
-          // console.log(data, "AKOOO ANG Reynaaaaaa");
           return getSpecificEmployeeInfoSuccess(data);
         }),
         catchError((error) => {
-          // console.log(error.response, "maeeeeee111owww");
           if (error.response && error.response.data && error.response.data.error) {
             return of(getSpecificEmployeeInfoFailure(error.response.data.error)); 
           } else {

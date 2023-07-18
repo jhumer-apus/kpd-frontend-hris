@@ -83,11 +83,6 @@ export default function UploadDtrLogs() {
                     },
                   }
                 );
-          
-                console.log(response.data , "this is upload dtr!!");
-                // setTimeout(() => {
-                //   location.reload();
-                // }, 1000);
                 setActiveStep((prevActiveStep) => prevActiveStep + 1);
                 window.alert(`${response.data.message}`);
               } catch (err) {

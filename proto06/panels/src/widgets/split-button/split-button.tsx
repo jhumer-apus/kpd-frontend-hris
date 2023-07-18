@@ -23,7 +23,6 @@ export default function SplitButton(props?:SplitButtonProps) {
   const dispatch = useDispatch();
   const viewDTRRecordsState = useSelector((state: RootState)=> state.dtr);
   const defaultViewRecords = viewDTRRecordsState?.viewDtrReports?.splitButton?.spButtonIndex || 0;
-  // console.log(magad, "checking")
   const options = props?.options || ['Create a merge commit', 'Squash and merge', 'Rebase and merge'];
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
@@ -32,18 +31,15 @@ export default function SplitButton(props?:SplitButtonProps) {
   const handleClick = () => {
     console.info(`You clicked ${options[selectedIndex]} ${selectedIndex}`);
     dispatch(saveIndexAndString({index: selectedIndex, str: `${options[selectedIndex]}` }))
-    // console.log(magad, "checking default")
   };
 
   const handleMenuItemClick = (
     event: React.MouseEvent<HTMLLIElement, MouseEvent>,
     index: number,
   ) => {
-    // console.log( index, options[selectedIndex], "here?")
     setSelectedIndex(index);
     setOpen(false);
     dispatch(saveIndexAndString({index: index, str: `${options[selectedIndex]}` }))
-    // console.log(magad, "checking toggle")
   };
 
   const handleToggle = () => {

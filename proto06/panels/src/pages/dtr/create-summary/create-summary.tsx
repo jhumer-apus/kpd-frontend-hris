@@ -38,26 +38,25 @@ export default function CreateSummaryPage() {
       dispatch(getCutoffListEmployee({cutoff_period:selectedRows?.cutoff_code}));
   }, [selectedRows?.cutoff_code])
   
-  console.log(employees, "mamama??", selectedRows)
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.down('lg'));
 
-  return (
-    <Fragment>
-        <form>
-        <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
-            <Grid item xs={6}>
-                <Paper elevation={3} style={PaperStyle}>
-                    <CutOffListTable selectedRows={selectedRows} setSelectedRows={setSelectedRows}/>
-                </Paper>
-            </Grid>
-            <Grid item xs={6}>
-                <Paper elevation={3} style={PaperStyle}>
-                    <CutOffListEmployees employees={employees} selectedRows={selectedRows} setSelectedRows={setSelectedRows}/>
-                </Paper>
-            </Grid>
-        </Grid>
-        </form>
-    </Fragment>
-  );
+    return (
+      <Fragment>
+          <form>
+          <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
+              <Grid item xs={6}>
+                  <Paper elevation={3} style={PaperStyle}>
+                      <CutOffListTable selectedRows={selectedRows} setSelectedRows={setSelectedRows}/>
+                  </Paper>
+              </Grid>
+              <Grid item xs={6}>
+                  <Paper elevation={3} style={PaperStyle}>
+                      <CutOffListEmployees employees={employees} selectedRows={selectedRows} setSelectedRows={setSelectedRows}/>
+                  </Paper>
+              </Grid>
+          </Grid>
+          </form>
+      </Fragment>
+    );
 }

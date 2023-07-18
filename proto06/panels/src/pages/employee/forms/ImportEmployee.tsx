@@ -34,8 +34,6 @@ export const ImportEmployee = () => {
               },
             }
           );
-    
-          console.log(response.data);
           setTimeout(() => {
             location.reload();
           }, 1000);

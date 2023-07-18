@@ -149,7 +149,6 @@ function ApplyPayrollDeductions(props: ApplyPayrollDeductions) {
                 }}
               >
                 {Object.entries(selectedRows).map(([key, value], index) => {
-                  console.log(key, value, "eto un besh")
                 if (typeof value === 'boolean' && (key !== 'is_disabled_loan' && key !== 'is_disabled_deduction' && key !== 'is_30' && key !== 'is_70' ) ) {
                   return (
                     <ListItem key={key}>

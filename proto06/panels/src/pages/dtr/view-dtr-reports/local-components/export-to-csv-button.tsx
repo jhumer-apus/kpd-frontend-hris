@@ -15,7 +15,6 @@ function ExportToCsvButton(props: ExportToCsvButtonInterface)  {
         if(data){
           const header = Object.keys(data[0]);
           const csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
-          // console.log(csv, "step1", csv.unshift(header.join(',')), "step2", csv.join('\r\n'), "step3");
           csv.unshift(header.join(','));
           return csv.join('\r\n');
         }else {
