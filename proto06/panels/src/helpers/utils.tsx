@@ -82,3 +82,26 @@ export const computeDurationInHours = (start: ConfigType, end: ConfigType): numb
   const durationInHours = durationInMilliseconds / (1000 * 60 * 60);
   return Math.abs(durationInHours);
 };
+
+
+
+/* 
+How to use: 
+const jsonString = '{"obt_total_hours":["This field is required."]}';
+const jsonObject = JSON.parse(jsonString);
+const beautifiedOutput = beautifyJSON(jsonObject);
+console.log(beautifiedOutput);
+Expected Output: obt total hours : This field is required.
+
+*/ 
+export function beautifyJSON(jsonObj: any) {
+  let beautifiedString = '';
+  for (const key in jsonObj) {
+    if (jsonObj.hasOwnProperty(key)) {
+      const formattedKey = key.replace('_', ' ');
+      const value = typeof jsonObj[key] === 'string' ? jsonObj[key] : jsonObj[key][0];
+      beautifiedString += `${formattedKey} : ${value}\n`;
+    }
+  }
+  return beautifiedString.trim();
+}

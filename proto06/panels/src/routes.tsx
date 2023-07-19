@@ -39,6 +39,9 @@ import HolidaysPage from "./pages/procedurals/holidays/holidays-page";
 import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
 import NoCrashOutlinedIcon from '@mui/icons-material/NoCrashOutlined';
 import ProceduralOBTPage from "./pages/procedurals/obt/procedural-obt-page";
+import ProceduralOvertimePage from "./pages/procedurals/overtime/procedural-overtime-page";
+import ProceduralLEAVEPage from "./pages/procedurals/leaves/procedural-leave-page";
+
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -174,7 +177,7 @@ export const routes: Array<IRoute> = [
             icon: <AlarmOnOutlinedIcon  {...icon} />,
             name: "Overtime",
             path: "/procedurals/overtime",
-            element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">APPRAISAL PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+            element:<ProceduralOvertimePage/>,
             hasSubItems: false,
           },
           {
@@ -182,7 +185,7 @@ export const routes: Array<IRoute> = [
             icon: <AppRegistrationOutlinedIcon {...icon} />,
             name: "Leaves",
             path: "/procedurals/leaves",
-            element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">APPRAISAL PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+            element: <ProceduralLEAVEPage/>,
             hasSubItems: false,
           },
           {

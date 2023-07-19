@@ -131,10 +131,12 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
                                     {icon}
                                     <Typography
                                       color="inherit"
-                                      className="font-medium capitalize text-start"
+                                      className="font-medium capitalize text-start flex justify-between"
+                                      style={{width: '100%'}}
                                     >
-                                      {name}
-                                      </Typography>
+                                      <p className="flex justify-center items-center">{name}</p> 
+                                      {/* {name === 'OBT' && <p className="flex justify-center items-center" style={{height: '36px', width: '36px', background: '#4E62B8', borderRadius: '30px', textAlign: 'center'}}>1</p>} */}
+                                    </Typography>
                                 </Button>
                               </li>
                             )}

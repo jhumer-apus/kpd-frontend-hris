@@ -249,7 +249,7 @@ export interface OBTViewInterface extends OBTCreateInterface {
     id: number,
     obt_date_filed: string;
     obt_approval_status: string;
-    obt_total_hour: number;
+    obt_total_hours: number;
     obt_reason_disapproval: string | null,
     obt_date_approved1: string | null;
     obt_date_approved2: string | null,
@@ -272,7 +272,7 @@ export const OBTViewFilterEmployeeInitialState: OBTViewInterface = {
     obt_date_from: '',
     obt_date_to: '',
     obt_approval_status: '',
-    obt_total_hour: 0,
+    obt_total_hours: 0,
     obt_approver1_empno: null,
     obt_approver2_empno: null,
     emp_no: 0,
@@ -281,18 +281,11 @@ export const OBTViewFilterEmployeeInitialState: OBTViewInterface = {
 
 
 export interface OVERTIMECreateInterface {
-    ot_date_filed: string;
-    ot_type: string;
-    ot_remarks: string;
-    ot_date_from: string;
-    ot_date_to: string;
-    ot_approval_status: string;
-    ot_reason_disapproval: string | null;
-    ot_total_hours: number;
-    ot_approver1_empno: number | null;
-    ot_approver2_empno: number | null;
     emp_no: number;
-    cutoff_code: number;
+    ot_type: string | null;
+    ot_remarks: string | null;
+    ot_date_from: string | null;
+    ot_date_to: string | null;
 }
 
 export interface OVERTIMEViewInterface extends OVERTIMECreateInterface { 
@@ -300,24 +293,23 @@ export interface OVERTIMEViewInterface extends OVERTIMECreateInterface {
     ot_reason_disapproval: string | null,
     ot_date_approved1: string | null;
     ot_date_approved2: string | null;
+    ot_approver1_empno: number | null;
+    ot_approver2_empno: number | null;
+    ot_date_filed: string;
+    cutoff_code: number;
+    ot_approval_status: string;
+    ot_total_hours: number;
 }
 
 export interface OVERTIMEEditInterface extends OVERTIMEViewInterface {}
 
 
 export interface LEAVECreateInterface {
-    leave_date_filed: string;
-    leave_remarks: string;
-    leave_date_from: string;
-    leave_date_to: string;
-    leave_approval_status: string;
-    leave_total_hours: number;
-    leave_approver1_empno: number | null;
-    leave_approver2_empno: number | null;
-    leave_number_days: number;
-    emp_no: number;
-    cutoff_code: number;
-    leave_type: number;
+    leave_type: number | null;
+    leave_remarks: string | null;
+    leave_date_from: string | null;
+    leave_date_to: string | null;
+    emp_no: number | null;
 }
 
 export interface LEAVEViewInterface extends LEAVECreateInterface { 
@@ -325,6 +317,13 @@ export interface LEAVEViewInterface extends LEAVECreateInterface {
     leave_reason_disapproval: string | null;
     leave_date_approved1: string | null;
     leave_date_approved2: string | null;
+    leave_date_filed: string;
+    leave_approval_status: string;
+    leave_total_hours: number;
+    leave_approver1_empno: number | null;
+    leave_approver2_empno: number | null;
+    leave_number_days: number;
+    cutoff_code: number;
 }
 
 export interface LEAVEEditInterface extends LEAVEViewInterface {}

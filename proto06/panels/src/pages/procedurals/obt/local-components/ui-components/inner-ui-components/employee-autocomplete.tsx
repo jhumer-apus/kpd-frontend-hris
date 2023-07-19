@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, MutableRefObject, SetStateAction, useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,13 +9,13 @@ import { OBTCreateInterface } from '@/types/types-pages';
 
 
 interface EmployeeAutoCompleteInterface{
-    createOBT?: OBTCreateInterface,
+    createOBT: OBTCreateInterface;
     setCreateOBT: Dispatch<SetStateAction<OBTCreateInterface>>;
 }
 
 
 export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterface) {
-    const {setCreateOBT} = props;
+    const { createOBT, setCreateOBT } = props;
     const dispatch = useDispatch();
     const state = useSelector((state:RootState)=> state.employees);
     const [employeesList, setEmployeesList] = useState<{employee: string, emp_no: number}[]>([])

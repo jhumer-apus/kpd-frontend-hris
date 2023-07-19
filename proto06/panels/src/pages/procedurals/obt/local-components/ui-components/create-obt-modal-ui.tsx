@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, Dispatch, SetStateAction } from 'react';
 import { OBTViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
 import { convertDaysToHHMM, convertMinutesToHHMM,  } from '@/helpers/utils';
 import { Button } from '@mui/material';
@@ -14,18 +14,15 @@ import DateFromToOBTCreate from './inner-ui-components/date-from-to-field';
 import { Typography } from '@mui/joy';
 import { ModalClose } from '@mui/joy';
 import { OBTCreateInterface } from '@/types/types-pages';
-import { OBTCreateAction } from '@/store/actions/procedurals';
+import { OBTCreateAction, OBTCreateActionFailureCleanup } from '@/store/actions/procedurals';
 
-interface OBTModalUIInterface {
-    singleOBTDetailsData: OBTViewInterface;
-    multiplePayslipMode?: boolean;
-    setSingleOBTDetailsData: React.Dispatch<React.SetStateAction<OBTViewInterface>>;
+interface CreateOBTModalInterface {
+    setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-function CreateOBTModal() {
+function CreateOBTModal(props: CreateOBTModalInterface) {
+    const { setOpen } = props;
     const dispatch = useDispatch();
-    const [ approveOBTOpenModal, setApproveOBTOpenModal ] = useState(false);
-    const [ denyOBTOpenModal, setDenyOBTOpenModal ] = useState(false);
     const OBTCreatestate = useSelector((state: RootState)=> state.procedurals.OBTCreate);
     const [createOBT, setCreateOBT] = useState<OBTCreateInterface>({
         emp_no: NaN,
@@ -43,7 +40,10 @@ function CreateOBTModal() {
             window.alert('Request Successful');
             window.location.reload();
         }else if(OBTCreatestate.status === 'failed'){
-            window.alert('Request Failed, there must be an error')
+            window.alert(`Request Failed, ${OBTCreatestate.error}`)
+            setTimeout(()=> {
+                dispatch(OBTCreateActionFailureCleanup());
+            }, 1000)
         }
     }, [OBTCreatestate.status])
 
@@ -65,15 +65,16 @@ function CreateOBTModal() {
                             value={createOBT?.obt_remarks}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 // event.target.value
-                                setCreateOBT((prevState)=>{
-                                    return(
+                                setCreateOBT((prevState)=> {
+                                    return (
                                         {
                                             ...prevState,
-                                            obt_remarks: event.target.value,
+                                            obt_remarks: event.target.value
                                         }
                                     )
-                                });
+                                })
                             }}
+                            
                         />
                     </div>
                     <div className='flex flex-col gap-6'>
@@ -86,14 +87,15 @@ function CreateOBTModal() {
                             multiline rows={4}
                             value={createOBT?.obt_location}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                              setCreateOBT((prevState)=> {
-                                return(
-                                    {
-                                        ...prevState,
-                                        obt_location: event.target.value,
-                                    }
-                                )  
-                              });
+                                // event.target.value
+                                setCreateOBT((prevState)=> {
+                                    return (
+                                        {
+                                            ...prevState,
+                                            obt_location: event.target.value
+                                        }
+                                    )
+                                })
                             }}
                         />
                     </div>
@@ -101,7 +103,7 @@ function CreateOBTModal() {
                 <div className='flex justify-center mt-6' container-name='obt_buttons_container'>
                     <div className='flex justify-between' style={{width:'300px'}} container-name='obt_buttons'>
                         <Button variant='contained' onClick={onClickSubmit}>Create OBT</Button>
-                        <Button variant='outlined'>Cancel</Button>
+                        <Button variant='outlined' onClick={()=> setOpen(false)}>Cancel</Button>
                     </div>
                 </div>
             </div>

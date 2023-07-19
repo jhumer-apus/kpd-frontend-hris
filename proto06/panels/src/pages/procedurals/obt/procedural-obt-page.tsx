@@ -2,16 +2,13 @@ import { Fragment, useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
-import {
-  Typography,
-} from "@material-tailwind/react";
+import { Typography } from "@material-tailwind/react";
 import useDtrState from '@/custom-hooks/use-dtr-state';
 import PrintTableButton from './local-components/additional-features/print-table-button';
 import ExportToCsvButton from './local-components/additional-features/export-to-csv-button';
 import { ProceduralOBTPageDescriptions } from '@/data/pages-data/procedural-data/obt-data';
-// import { dynamicPayrollColumns } from '@/data/pages-data/view-payroll-data/view-payroll';
-import GeneratePayslipMultiple from './local-components/create-obt-component';
-import GeneratePayslipSingle from './local-components/main-modals/view-obt-single-modal';
+import CreateOBTComponent from './local-components/create-obt-component';
+import ViewOBTSingleModal from './local-components/main-modals/view-obt-single-modal';
 import { OBTViewFilterEmployeeInitialState, OBTViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
 import jsPDF from 'jspdf';
 import dayjs from 'dayjs';
@@ -120,8 +117,8 @@ export default function ProceduralOBTPage() {
     <Fragment>
       <div className="my-10 flex flex-wrap justify-between items-start gap-6">
         <div>
-          <GeneratePayslipSingle setSingleOBTDetailsData={setSingleOBTDetailsData} singleOBTDetailsData={singleOBTDetailsData} singleOBTOpenModal={singleOBTOpenModal} setSingleOBTOpenModal={setSingleOBTOpenModal}/>
-          <GeneratePayslipMultiple />
+          <ViewOBTSingleModal setSingleOBTDetailsData={setSingleOBTDetailsData} singleOBTDetailsData={singleOBTDetailsData} singleOBTOpenModal={singleOBTOpenModal} setSingleOBTOpenModal={setSingleOBTOpenModal}/>
+          <CreateOBTComponent />
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
           <p>Status: {ProceduralOBTPageDescriptions}</p>
         </Typography>
@@ -136,7 +133,7 @@ export default function ProceduralOBTPage() {
       </div>
       <div style={{ height: `${printing? `${printableArea()}px` : '660px'}`, width: '100%' }} id="printable-area">
         <DataGrid
-          rows={OBTViewData? OBTViewData as OBTViewInterface[]: []}
+          rows={OBTViewData? OBTViewData as OBTViewInterface[]:[]}
           columns={ProceduralOBTPageColumns}
           initialState={{
             pagination: {
@@ -152,7 +149,7 @@ export default function ProceduralOBTPage() {
           style={{ cursor: spButtonIndex === 2 ? 'pointer': 'default'}}
           localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? 'The caller for OBT Epic hasn\'t been set up, please contact your frontend developer': 'There is no OBT to generate. Double check with a Database Admin'}` }}
         />
-        <GeneratePDFButton data={OBTViewData} columns={ProceduralOBTPageColumns} />
+        {/* <GeneratePDFButton data={OBTViewData} columns={ProceduralOBTPageColumns} /> */}
       </div>
     </Fragment>
   );

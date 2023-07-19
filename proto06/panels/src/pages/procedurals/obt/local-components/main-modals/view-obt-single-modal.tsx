@@ -13,7 +13,7 @@ interface SinglePayslipInterface {
     setSingleOBTDetailsData: React.Dispatch<React.SetStateAction<OBTViewInterface>>;
 }
 
-export default function GeneratePayslipSingle(props: SinglePayslipInterface) {
+export default function ViewOBTSingleModal(props: SinglePayslipInterface) {
     const {singleOBTOpenModal, setSingleOBTOpenModal, setSingleOBTDetailsData, singleOBTDetailsData} = props;
   const [scroll, setScroll] = React.useState<boolean>(true);
   return (

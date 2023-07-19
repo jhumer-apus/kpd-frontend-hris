@@ -886,7 +886,7 @@ const setFailureState = (state: OverallProceduralState, payload: string, path: s
 };
 
 
-const setRefreshedState = (state: OverallProceduralState, payload: string, path: string) => {
+const setRefreshedState = (path: string) => (state: OverallProceduralState) => {
   state[path].status = 'refreshed';
   state[path].data = [];
   state[path].error = null;
@@ -932,6 +932,7 @@ const proceduralsSlice = createSlice({
       .addCase(OBTCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OBTCreate"))
       .addCase(OBTCreateActionProgress, (state, action) => setProgressState(state, action.payload, "OBTCreate"))
       .addCase(OBTCreateActionFailure, (state, action) => setFailureState(state, action.payload, "OBTCreate"))
+      .addCase(OBTCreateActionFailureCleanup, setRefreshedState("OBTCreate"))
       .addCase(OBTEditAction, setLoadingState("OBTEdit"))
       .addCase(OBTEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OBTEdit"))
       .addCase(OBTEditActionProgress, (state, action) => setProgressState(state, action.payload, "OBTEdit"))
@@ -957,6 +958,7 @@ const proceduralsSlice = createSlice({
       .addCase(OVERTIMECreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OVERTIMECreate"))
       .addCase(OVERTIMECreateActionProgress, (state, action) => setProgressState(state, action.payload, "OVERTIMECreate"))
       .addCase(OVERTIMECreateActionFailure, (state, action) => setFailureState(state, action.payload, "OVERTIMECreate"))
+      .addCase(OVERTIMECreateActionFailureCleanup, setRefreshedState("OVERTIMECreate"))
       .addCase(OVERTIMEEditAction, setLoadingState("OVERTIMEEdit"))
       .addCase(OVERTIMEEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OVERTIMEEdit"))
       .addCase(OVERTIMEEditActionProgress, (state, action) => setProgressState(state, action.payload, "OVERTIMEEdit"))
@@ -979,6 +981,7 @@ const proceduralsSlice = createSlice({
       .addCase(LEAVEViewFilterApproverActionProgress, (state, action) => setProgressState(state, action.payload, "LEAVEViewFilterApprover"))
       .addCase(LEAVEViewFilterApproverActionFailure, (state, action) => setFailureState(state, action.payload, "LEAVEViewFilterApprover"))
       .addCase(LEAVECreateAction, setLoadingState("LEAVECreate"))
+      .addCase(LEAVECreateActionFailureCleanup, setRefreshedState("LEAVECreate"))
       .addCase(LEAVECreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "LEAVECreate"))
       .addCase(LEAVECreateActionProgress, (state, action) => setProgressState(state, action.payload, "LEAVECreate"))
       .addCase(LEAVECreateActionFailure, (state, action) => setFailureState(state, action.payload, "LEAVECreate"))
@@ -1007,6 +1010,7 @@ const proceduralsSlice = createSlice({
       .addCase(UACreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "UACreate"))
       .addCase(UACreateActionProgress, (state, action) => setProgressState(state, action.payload, "UACreate"))
       .addCase(UACreateActionFailure, (state, action) => setFailureState(state, action.payload, "UACreate"))
+      .addCase(UACreateActionFailureCleanup, setRefreshedState("UACreate"))
       .addCase(UAEditAction, setLoadingState("UAEdit"))
       .addCase(UAEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "UAEdit"))
       .addCase(UAEditActionProgress, (state, action) => setProgressState(state, action.payload, "UAEdit"))
@@ -1024,6 +1028,7 @@ const proceduralsSlice = createSlice({
       .addCase(LEAVECREDITCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "LEAVECREDITCreate"))
       .addCase(LEAVECREDITCreateActionProgress, (state, action) => setProgressState(state, action.payload, "LEAVECREDITCreate"))
       .addCase(LEAVECREDITCreateActionFailure, (state, action) => setFailureState(state, action.payload, "LEAVECREDITCreate"))
+      .addCase(LEAVECREDITCreateActionFailureCleanup, setRefreshedState("LEAVECREDITCreate"))
       .addCase(LEAVECREDITEditAction, setLoadingState("LEAVECREDITEdit"))
       .addCase(LEAVECREDITEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "LEAVECREDITEdit"))
       .addCase(LEAVECREDITEditActionProgress, (state, action) => setProgressState(state, action.payload, "LEAVECREDITEdit"))
@@ -1041,6 +1046,7 @@ const proceduralsSlice = createSlice({
       .addCase(LEAVETYPECreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "LEAVETYPECreate"))
       .addCase(LEAVETYPECreateActionProgress, (state, action) => setProgressState(state, action.payload, "LEAVETYPECreate"))
       .addCase(LEAVETYPECreateActionFailure, (state, action) => setFailureState(state, action.payload, "LEAVETYPECreate"))
+      .addCase(LEAVETYPECreateActionFailureCleanup, setRefreshedState("LEAVETYPECreate"))
       .addCase(LEAVETYPEEditAction, setLoadingState("LEAVETYPEEdit"))
       .addCase(LEAVETYPEEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "LEAVETYPEEdit"))
       .addCase(LEAVETYPEEditActionProgress, (state, action) => setProgressState(state, action.payload, "LEAVETYPEEdit"))
@@ -1058,6 +1064,7 @@ const proceduralsSlice = createSlice({
       .addCase(CUTOFFPERIODCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "CUTOFFPERIODCreate"))
       .addCase(CUTOFFPERIODCreateActionProgress, (state, action) => setProgressState(state, action.payload, "CUTOFFPERIODCreate"))
       .addCase(CUTOFFPERIODCreateActionFailure, (state, action) => setFailureState(state, action.payload, "CUTOFFPERIODCreate"))
+      .addCase(CUTOFFPERIODCreateActionFailureCleanup, setRefreshedState("CUTOFFPERIODCreate"))
       .addCase(CUTOFFPERIODEditAction, setLoadingState("CUTOFFPERIODEdit"))
       .addCase(CUTOFFPERIODEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "CUTOFFPERIODEdit"))
       .addCase(CUTOFFPERIODEditActionProgress, (state, action) => setProgressState(state, action.payload, "CUTOFFPERIODEdit"))
@@ -1075,6 +1082,7 @@ const proceduralsSlice = createSlice({
       .addCase(SCHEDULESHIFTCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "SCHEDULESHIFTCreate"))
       .addCase(SCHEDULESHIFTCreateActionProgress, (state, action) => setProgressState(state, action.payload, "SCHEDULESHIFTCreate"))
       .addCase(SCHEDULESHIFTCreateActionFailure, (state, action) => setFailureState(state, action.payload, "SCHEDULESHIFTCreate"))
+      .addCase(SCHEDULESHIFTCreateActionFailureCleanup, setRefreshedState("SCHEDULESHIFTCreate"))
       .addCase(SCHEDULESHIFTEditAction, setLoadingState("SCHEDULESHIFTEdit"))
       .addCase(SCHEDULESHIFTEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "SCHEDULESHIFTEdit"))
       .addCase(SCHEDULESHIFTEditActionProgress, (state, action) => setProgressState(state, action.payload, "SCHEDULESHIFTEdit"))
@@ -1097,6 +1105,7 @@ const proceduralsSlice = createSlice({
       .addCase(SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionProgress, (state, action) => setProgressState(state, action.payload, "SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILY"))
       .addCase(SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionFailure, (state, action) => setFailureState(state, action.payload, "SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILY"))
       .addCase(SCHEDULEDAILYCreateAction, setLoadingState("SCHEDULEDAILYCreate"))
+      .addCase(SCHEDULEDAILYCreateActionFailureCleanup, setRefreshedState("SCHEDULEDAILYCreate"))
       .addCase(SCHEDULEDAILYCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "SCHEDULEDAILYCreate"))
       .addCase(SCHEDULEDAILYCreateActionProgress, (state, action) => setProgressState(state, action.payload, "SCHEDULEDAILYCreate"))
       .addCase(SCHEDULEDAILYCreateActionFailure, (state, action) => setFailureState(state, action.payload, "SCHEDULEDAILYCreate"))

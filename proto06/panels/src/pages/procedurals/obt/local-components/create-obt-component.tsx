@@ -56,7 +56,7 @@ export default function CreateOBTComponent() {
                 }[state],
             }}
         >
-          <CreateOBTModal/>
+          <CreateOBTModal setOpen={setOpen}/>
         </ModalDialog>
       </Modal>
         )}

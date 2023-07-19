@@ -2,6 +2,7 @@ import { ofType } from 'redux-observable';
 import { map, catchError, switchMap, mergeMap } from 'rxjs/operators';
 import { of, from } from 'rxjs';
 import axios, { AxiosProgressEvent } from 'axios';
+import { beautifyJSON } from '@/helpers/utils';
 import {
     HolidaysGet,
     HolidaysGetFailure,
@@ -583,8 +584,9 @@ export const OBTCreateEpic: Epic = (action$, state$) =>
           return OBTCreateActionSuccess(data);
         }),
         catchError((error) => {
-          if (error.response && error.response.data && error.response.data['Error Message']) {
-            return of(OBTCreateActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          console.log(error, "mama?")
+          if (error.response && error.response.data && error.response.data) {
+            return of(OBTCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
           } else {
             return of(OBTCreateActionFailure(error.message)); // If there is no custom error message, use the default one
           }

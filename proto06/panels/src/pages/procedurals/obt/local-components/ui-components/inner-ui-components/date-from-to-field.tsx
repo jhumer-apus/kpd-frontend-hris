@@ -1,4 +1,4 @@
-import {Dispatch, SetStateAction, useState} from 'react';
+import { MutableRefObject, Dispatch, SetStateAction } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -6,7 +6,7 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { OBTCreateInterface } from '@/types/types-pages';
 
 interface DateFromToOBTCreateInterface{
-    createOBT?: OBTCreateInterface,
+    createOBT: OBTCreateInterface;
     setCreateOBT: Dispatch<SetStateAction<OBTCreateInterface>>;
 }
 
@@ -22,7 +22,7 @@ export default function DateFromToOBTCreate(props: DateFromToOBTCreateInterface)
             onChange={(newValue) => {
                 const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
                 return (
-                    setCreateOBT((prevState)=> {
+                    setCreateOBT((prevState)=>{
                         return(
                             {
                                 ...prevState,
@@ -38,8 +38,8 @@ export default function DateFromToOBTCreate(props: DateFromToOBTCreateInterface)
             value={createOBT?.obt_date_to}
             onChange={(newValue) => {
                 const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
-                return (
-                    setCreateOBT((prevState)=> {
+                return(
+                    setCreateOBT((prevState)=>{
                         return(
                             {
                                 ...prevState,

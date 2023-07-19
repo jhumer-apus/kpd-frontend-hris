@@ -209,7 +209,7 @@ export function Configurator() {
         </div>
         <div className="text-center">
           <Typography variant="h6" color="blue-gray">
-            Follow Us on Social Media
+            Follow Me on Social Media
           </Typography>
           <div className="mt-4 flex justify-center gap-2">
             <Button
