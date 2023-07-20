@@ -7,6 +7,7 @@ export interface IPage {
     name: string;
     path: string;
     element?: React.ReactNode;
+    badgeAccessor?: string;
     hasSubItems: boolean;
     subItems?: Array<IPage> | undefined;
 }

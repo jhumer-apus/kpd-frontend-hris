@@ -2,29 +2,29 @@ import * as React from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
-import { LEAVEViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
-import LEAVEModalComponent from './inner-modals/leaves-modal-component';
+import { UAViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
+import UAModalComponent from './inner-modals/ua-modal-component';
 
 
-interface ViewLEAVESingleModalInterface {
-    singleLEAVEOpenModal: boolean; 
-    setSingleLEAVEOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-    singleLEAVEDetailsData: LEAVEViewInterface;
-    setSingleLEAVEDetailsData: React.Dispatch<React.SetStateAction<LEAVEViewInterface>>;
+interface ViewUASingleModalInterface {
+    singleUAOpenModal: boolean; 
+    setSingleUAOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+    singleUADetailsData: UAViewInterface;
+    setSingleUADetailsData: React.Dispatch<React.SetStateAction<UAViewInterface>>;
 }
 
-export default function ViewLEAVESingleModal(props: ViewLEAVESingleModalInterface) {
-    const {singleLEAVEOpenModal, setSingleLEAVEOpenModal, setSingleLEAVEDetailsData, singleLEAVEDetailsData} = props;
+export default function ViewUASingleModal(props: ViewUASingleModalInterface) {
+    const {singleUAOpenModal, setSingleUAOpenModal, setSingleUADetailsData, singleUADetailsData} = props;
   const [scroll, setScroll] = React.useState<boolean>(true);
   return (
     <React.Fragment>
-      <Transition in={singleLEAVEOpenModal} timeout={400}>
+      <Transition in={singleUAOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
         keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setSingleLEAVEOpenModal(false);
+          setSingleUAOpenModal(false);
         }}
         slotProps={{
             backdrop: {
@@ -47,7 +47,7 @@ export default function ViewLEAVESingleModal(props: ViewLEAVESingleModalInterfac
             aria-labelledby="dialog-vertical-scroll-title" 
             layout={'center'}
             sx={{
-              ...leavesModalArea,
+              ...uaModalArea,
                 opacity: 0,
                 transition: `opacity 300ms`,
                 ...{
@@ -57,7 +57,7 @@ export default function ViewLEAVESingleModal(props: ViewLEAVESingleModalInterfac
                 overflow: 'auto',
             }}
         >
-          <LEAVEModalComponent setSingleLEAVEDetailsData={setSingleLEAVEDetailsData} singleLEAVEDetailsData={singleLEAVEDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <UAModalComponent setSingleUADetailsData={setSingleUADetailsData} singleUADetailsData={singleUADetailsData} scroll={scroll} setScroll={setScroll}/>
         </ModalDialog>
       </Modal>
         )}
@@ -68,7 +68,7 @@ export default function ViewLEAVESingleModal(props: ViewLEAVESingleModalInterfac
 
 
 // Styles
-const leavesModalArea = {
+const uaModalArea = {
   height: '195.5mm',
   width: '210mm',
   margin: '0 auto',

@@ -41,6 +41,11 @@ import NoCrashOutlinedIcon from '@mui/icons-material/NoCrashOutlined';
 import ProceduralOBTPage from "./pages/procedurals/obt/procedural-obt-page";
 import ProceduralOvertimePage from "./pages/procedurals/overtime/procedural-overtime-page";
 import ProceduralLEAVEPage from "./pages/procedurals/leaves/procedural-leave-page";
+import ProceduralUAPage from "./pages/procedurals/ua/procedural-ua-page";
+import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
+import PublishedWithChangesOutlinedIcon from '@mui/icons-material/PublishedWithChangesOutlined';
+import CreditScoreOutlinedIcon from '@mui/icons-material/CreditScoreOutlined';
+import ApprovalUAPage from "./pages/your-approvals/ua-approvals/approval-ua-page";
 
 
 const icon = {
@@ -142,8 +147,36 @@ export const routes: Array<IRoute> = [
             id: 14100,
             icon: <NoCrashOutlinedIcon {...icon} />,
             name: "OBT Approvals",
-            path: "/your-approvals/obt-approvals",
-            element: <DataTable/>, 
+            path: "/your-approvals/OBT-approvals",
+            element: <></>, 
+            badgeAccessor: 'OBTViewFilterApprover',
+            hasSubItems: false,
+          },
+          {
+            id: 14200,
+            icon: <CreditScoreOutlinedIcon {...icon} />,
+            name: "OT Approvals",
+            path: "/your-approvals/OT-approvals",
+            element: <></>, 
+            badgeAccessor: 'OVERTIMEViewFilterApprover',
+            hasSubItems: false,
+          },
+          {
+            id: 14300,
+            icon: <HowToRegOutlinedIcon {...icon} />,
+            name: "LEAVE Approvals",
+            path: "/your-approvals/LEAVE-approvals",
+            element: <></>, 
+            badgeAccessor: 'LEAVEViewFilterApprover',
+            hasSubItems: false,
+          },
+          {
+            id: 14400,
+            icon: <PublishedWithChangesOutlinedIcon {...icon} />,
+            name: "UA Approvals",
+            path: "/your-approvals/UA-approvals",
+            element: <ApprovalUAPage/>, 
+            badgeAccessor: 'UAViewFilterApprover',
             hasSubItems: false,
           },
         ]
@@ -217,7 +250,7 @@ export const routes: Array<IRoute> = [
             icon: <BadgeOutlinedIcon {...icon} />,
             name: "Unaccounted Attendances",
             path: "/procedurals/unaccounted-attendances",
-            element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">APPRAISAL PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+            element: <ProceduralUAPage/>,
             hasSubItems: false,
           },
           {

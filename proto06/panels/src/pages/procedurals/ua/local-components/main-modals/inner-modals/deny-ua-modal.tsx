@@ -2,42 +2,42 @@ import * as React from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
-import { LEAVEViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
-import SinglePayslip from './leaves-modal-component';
+import { UAViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
+import SinglePayslip from './ua-modal-component';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
-import { LEAVEEditAction } from '@/store/actions/procedurals';
+import { UAEditAction } from '@/store/actions/procedurals';
 
 
 
-interface DenyLEAVEModalInterface {
-    singleLEAVEDetailsData: LEAVEViewInterface;
-    denyLEAVEOpenModal: boolean; 
-    setDenyLEAVEOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-    setSingleLEAVEDetailsData: React.Dispatch<React.SetStateAction<LEAVEViewInterface>>;
+interface DenyUAModalInterface {
+    singleUADetailsData: UAViewInterface;
+    denyUAOpenModal: boolean; 
+    setDenyUAOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+    setSingleUADetailsData: React.Dispatch<React.SetStateAction<UAViewInterface>>;
 }
 
-export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
+export default function DenyUAModal(props: DenyUAModalInterface) {
   const dispatch = useDispatch();
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
-  const LEAVEDenyState = useSelector((state: RootState)=> state.procedurals.LEAVEEdit.status)
-  const {denyLEAVEOpenModal, setDenyLEAVEOpenModal, singleLEAVEDetailsData, setSingleLEAVEDetailsData} = props;
+  const UADenyState = useSelector((state: RootState)=> state.procedurals.UAEdit.status)
+  const {denyUAOpenModal, setDenyUAOpenModal, singleUADetailsData, setSingleUADetailsData} = props;
   const DateNow = new Date();
   const denyDate = dayjs(DateNow).format('MMM-DD-YY LT');
 
-  const denyLEAVE = () => { 
-    if(singleLEAVEDetailsData.leave_reason_disapproval){
+  const denyUA = () => { 
+    if(singleUADetailsData.ua_reason_disapproval){
         return(
-          setSingleLEAVEDetailsData((prevState)=> {
-            dispatch(LEAVEEditAction({
+          setSingleUADetailsData((prevState)=> {
+            dispatch(UAEditAction({
               ...prevState,
-              leave_reason_disapproval: `${prevState.leave_reason_disapproval}  <Updated: ${denyDate}>`
+              ua_reason_disapproval: `${prevState.ua_reason_disapproval}  <Updated: ${denyDate}>`
             }))  
             return({
               ...prevState,
-              leave_reason_disapproval: `${prevState.leave_reason_disapproval} <Updated: ${denyDate}>`
+              ua_reason_disapproval: `${prevState.ua_reason_disapproval} <Updated: ${denyDate}>`
             })
           })
         )
@@ -47,24 +47,24 @@ export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
     }
 
   React.useEffect(()=>{
-    if(LEAVEDenyState){      
-      if(LEAVEDenyState === 'succeeded'){
-        window.alert(`${LEAVEDenyState.charAt(0).toUpperCase()}${LEAVEDenyState.slice(1)}`)
+    if(UADenyState){      
+      if(UADenyState === 'succeeded'){
+        window.alert(`${UADenyState.charAt(0).toUpperCase()}${UADenyState.slice(1)}`)
         setTimeout(()=>{
           window.location.reload();
         }, 800)
       }
     }
-  }, [LEAVEDenyState])
+  }, [UADenyState])
   return (
     <React.Fragment>
-      <Transition in={denyLEAVEOpenModal} timeout={400}>
+      <Transition in={denyUAOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
         keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setDenyLEAVEOpenModal(false);
+          setDenyUAOpenModal(false);
         }}
         slotProps={{
             backdrop: {
@@ -87,7 +87,7 @@ export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
             aria-labelledby="dialog-vertical-scroll-title" 
             layout={'center'}
             sx={{
-              ...denyLEAVEArea,
+              ...denyUAArea,
                 opacity: 0,
                 transition: `opacity 300ms`,
                 ...{
@@ -98,11 +98,11 @@ export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
             }}
             size='sm'
         > 
-          <Typography variant='h6' className='border-b-2 border-red-700'>REJECTING LEAVE</Typography>
+          <Typography variant='h6' className='border-b-2 border-red-700'>REJECTING UA</Typography>
           <div className='flex justify-center flex-col item-center h-full'>
             <div className='flex flex-col justify-around w-full h-2/4 gap-14'>
               <div className='flex justify-center item-center'>
-                <Typography>Please Insert Reason for Disapproving LEAVE</Typography>
+                <Typography>Please Insert Reason for Disapproving UA</Typography>
               </div>
               <div className='flex justify-center item-center'>
                 <TextField
@@ -112,9 +112,9 @@ export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
                   rows={4}
                   required
                   focused
-                  value={singleLEAVEDetailsData.leave_reason_disapproval}
+                  value={singleUADetailsData.ua_reason_disapproval}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>)=> {
-                    setSingleLEAVEDetailsData((prevState)=> {
+                    setSingleUADetailsData((prevState)=> {
                       return({
                         ...prevState,
                         ot_reason_disapproval: `${event.target.value}`
@@ -124,8 +124,8 @@ export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
                 />
               </div>
               <div className='flex justify-around'>
-                <Button variant={'contained'} onClick={denyLEAVE}>Submit</Button>
-                <Button variant={'outlined'} onClick={()=>{setDenyLEAVEOpenModal(false)}}>Cancel</Button>
+                <Button variant={'contained'} onClick={denyUA}>Submit</Button>
+                <Button variant={'outlined'} onClick={()=>{setDenyUAOpenModal(false)}}>Cancel</Button>
               </div>
             </div>
           </div>
@@ -139,7 +139,7 @@ export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
 
 
 // Styles
-const denyLEAVEArea = {
+const denyUAArea = {
   height: '124.5mm',
   width: '100mm',
   margin: '0 auto',

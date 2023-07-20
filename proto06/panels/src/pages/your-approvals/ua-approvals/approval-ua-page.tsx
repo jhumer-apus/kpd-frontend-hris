@@ -19,7 +19,7 @@ import { GridColDef, GridValueGetterParams, GridCellParams, GridValueFormatterPa
 import GeneratePDFButton from './local-components/additional-features/generate-pdf-button';
 
 
-export default function ProceduralUAPage() {
+export default function ApprovalUAPage() {
   const [printing, setIsPrinting] = useState(false);
   const [singleUAOpenModal, setSingleUAOpenModal] = useState<boolean>(false);
   const [singleUADetailsData, setSingleUADetailsData] = useState<UAViewInterface>({
@@ -40,8 +40,8 @@ export default function ProceduralUAPage() {
   });
   const dispatch = useDispatch();
   const { spButtonIndex, dtrStatus, dtrData } = useDtrState();
-  const { UAView, UAViewFilterEmployeeAndUA } = useSelector((state: RootState) => state.procedurals);
-  const { data } = UAView;
+  const { UAViewFilterApprover, UAViewFilterEmployeeAndUA } = useSelector((state: RootState) => state.procedurals);
+  const { data } = UAViewFilterApprover;
   const UAViewData = data as UAViewInterface[];
 
   useEffect(()=> {

@@ -3,10 +3,10 @@ import Button from '@mui/joy/Button';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
-import CreateLEAVEModal from './ui-components/create-leaves-modal-ui';
+import CreateUAModal from './ui-components/create-ua-modal-ui';
 
 
-export default function CreateLEAVEComponent() {
+export default function CreateUAComponent() {
   const [open, setOpen] = useState<boolean>(false);
   return (
     <Fragment>
@@ -17,7 +17,7 @@ export default function CreateLEAVEComponent() {
             setOpen(true);
           }}
         >
-          + CREATE LEAVE ENTRY
+          + CREATE UA ENTRY
       </Button>
       <Transition in={open} timeout={400}>
       {(state: string) => (
@@ -56,7 +56,7 @@ export default function CreateLEAVEComponent() {
                 }[state],
             }}
         >
-          <CreateLEAVEModal setOpen={setOpen}/>
+          <CreateUAModal setOpen={setOpen}/>
         </ModalDialog>
       </Modal>
         )}

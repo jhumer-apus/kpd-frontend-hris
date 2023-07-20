@@ -7,15 +7,15 @@ import { GridColDef, GridValueGetterParams, GridCellParams, GridValueFormatterPa
 //   // "View Employee Specific DTR"
 // ];
 
-export const ProceduralUAPageDescriptions = [
-  "P1 - Pending Approver1 | P2 - Pending Approver2 | APD - Approved | DIS - Disapproved",
+export const YourApprovalsUAPageDescriptions = [
+  "Once you have successfully approved, the item will no longer be shown, go to procedurals for list instead",
   // "See merged logs of all employees here, showing the total hours and details of each logs. Sortable and filterable on the table headers.",
   // "See the total hours of all employees per cutoff here. Sortable and filterable by the table headers.",
   // "Nondescript"
 ];
 
 
-export const ProceduralUAPageColumns: GridColDef[] = 
+export const YourApprovalsUAPageColumns: GridColDef[] = 
 [
   {
     field: 'ua_date_filed',
@@ -81,7 +81,7 @@ export const ProceduralUAPageColumns: GridColDef[] =
 ];
   
 export default {
-  ProceduralUAPageDescriptions,
-  ProceduralUAPageColumns
+  YourApprovalsUAPageDescriptions,
+  YourApprovalsUAPageColumns
 };
   

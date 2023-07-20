@@ -5,57 +5,62 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { getEmployeesList } from '@/store/actions/employees';
 import { AutocompleteInputChangeReason } from '@mui/material/Autocomplete';
-import { UACreateInterface } from '@/types/types-pages';
+import { 
+    UACreateInterface, 
+    UATYPEViewInterface 
+} from '@/types/types-pages';
+import { UATYPEViewAction } from '@/store/actions/procedurals';
 
 
-interface EmployeeAutoCompleteInterface{
+interface UATYPEFetchAutoCompleteInterface{
     createUA: UACreateInterface;
     setCreateUA: Dispatch<SetStateAction<UACreateInterface>>;
 }
 
 
-export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterface) {
+export default function UATYPEFetchAutoComplete(props: UATYPEFetchAutoCompleteInterface) {
     const {setCreateUA, createUA} = props;
     const dispatch = useDispatch();
-    const state = useSelector((state:RootState)=> state.employees);
-    const [employeesList, setEmployeesList] = useState<{employee: string, emp_no: number}[]>([])
-    const [selectedEmployeeId, setSelectedEmployeeId] = useState<number | null>(null);
+    const state = useSelector((state:RootState)=> state.procedurals.UATYPEView);
+    const dataArray = state.data as UATYPEViewInterface[];
+    const [UATYPEList, setUATYPEList] = useState<{UATYPE: string, UATYPE_id: number }[]>([])
+    const [selectedUATYPEId, setSelectedUATYPEId] = useState<number | null>(null);
     useEffect(()=> {
-        if(state.employees_list?.length === 0){
-            dispatch(getEmployeesList());
+        if(dataArray?.length === 0 || !dataArray ){
+            dispatch(UATYPEViewAction());
         }
     }, []);
 
     useEffect(()=> {
-        if(selectedEmployeeId){
+        if(selectedUATYPEId){
             setCreateUA((prevState)=> {
                 return(
                     {
                         ...prevState,
-                        emp_no: selectedEmployeeId
+                        leave_type: selectedUATYPEId
                     }
                 )
             })
         }
-    }, [selectedEmployeeId])
+    }, [selectedUATYPEId])
 
     useEffect(() => {
-        if (state.employees_list) {
+        if (dataArray) {
             setTimeout(() => {
-                const updatedEmployeesList = 
-                state.employees_list?.map(({ emp_no, last_name, first_name }) => {
+                const updatedUATYPEList = 
+                dataArray?.map(({ id, name, is_paid }) => {
                     return {
-                        employee: `${last_name}, ${first_name} - #${emp_no}`,
-                        emp_no: emp_no,
+                        UATYPE: `${id} - ${name} [${is_paid ? 'Paid': 'Unpaid'}]`,
+                        UATYPE_id: id,
                     };
                 }) || [];
-                setEmployeesList(updatedEmployeesList);
+                setUATYPEList(updatedUATYPEList);
             }, 1000);
         }
-    }, [state.employees_list]);
+    }, [dataArray]);
 
-    const options = employeesList?.map((option) => {
-        const firstLetter = option.employee[0].toUpperCase();
+    const options = UATYPEList?.map((option) => {
+        const firstLetter = option.UATYPE[0].toUpperCase();
         return {
         firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
         ...option,
@@ -63,20 +68,20 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
     });
     
     const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string, reason: AutocompleteInputChangeReason) => {
-        const matchingEmployee = employeesList.find(
+        const matchingUATYPE = UATYPEList.find(
         //   (employeeItems) => employeeItems.employee === newInputValue
-        (employeeItems) => employeeItems.employee.toLowerCase().includes(newInputValue.toLowerCase())
+        (UATYPEItems) => UATYPEItems.UATYPE.toLowerCase().includes(newInputValue.toLowerCase())
         );
-        if (matchingEmployee) {
-            setSelectedEmployeeId(matchingEmployee.emp_no);
+        if (matchingUATYPE) {
+            setSelectedUATYPEId(matchingUATYPE.UATYPE_id);
         } else {
-          setSelectedEmployeeId(null);
+            setSelectedUATYPEId(null);
         // window.alert('No Matched Employee in the list is found. Create an employee entry first')
         }
     };
 
-    const isOptionEqualToValue = (option: { employee: string; emp_no: number }, value: { employee: string; emp_no: number }) => {
-        return option.emp_no === value.emp_no;
+    const isOptionEqualToValue = (option: { UATYPE: string; UATYPE_id: number }, value: { UATYPE: string; UATYPE_id: number }) => {
+        return option.UATYPE_id === value.UATYPE_id;
     };
     
     return (
@@ -85,14 +90,14 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
         id="grouped-demo"
         options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
         groupBy={(option) => option.firstLetter}
-        getOptionLabel={(option) => option.employee}
+        getOptionLabel={(option) => option.UATYPE}
         onInputChange={handleInputChange}
         sx={{ width: 300 }}
         isOptionEqualToValue={isOptionEqualToValue}
         renderInput={(params) => 
             {   
                 return(
-                    <TextField {...params} label="Employee #" />
+                    <TextField {...params} label="Leave Types" />
                 )
 
             }

@@ -7,29 +7,29 @@ import { GridColDef, GridValueGetterParams, GridCellParams, GridValueFormatterPa
 //   // "View Employee Specific DTR"
 // ];
 
-export const ProceduralUAPageDescriptions = [
-  "P1 - Pending Approver1 | P2 - Pending Approver2 | APD - Approved | DIS - Disapproved",
+export const YourApprovalsOVERTIMEPageDescriptions = [
+  "Once you have successfully approved, the item will no longer be shown, go to procedurals for list instead",
   // "See merged logs of all employees here, showing the total hours and details of each logs. Sortable and filterable on the table headers.",
   // "See the total hours of all employees per cutoff here. Sortable and filterable by the table headers.",
   // "Nondescript"
 ];
 
 
-export const ProceduralUAPageColumns: GridColDef[] = 
+export const YourApprovalsOVERTIMEPageColumns: GridColDef[] = 
 [
   {
-    field: 'ua_date_filed',
+    field: 'ot_date_filed',
     headerName: 'Date Filed',
     width: 150,
     valueGetter: (params: GridValueGetterParams) => {
-      const date = new Date(params.row.ua_date_filed);
+      const date = new Date(params.row.ot_date_filed);
       return date.toLocaleDateString();
     }
   },
   { field: 'emp_no', headerName: 'Filed By:', width: 120 },
-  { field: 'ua_approval_status', headerName: 'Status', width: 100,
+  { field: 'ot_approval_status', headerName: 'Status', width: 100,
     renderCell: (params: GridCellParams) => {
-      const status = params.row?.ua_approval_status as string;
+      const status = params.row?.ot_approval_status as string;
 
       let cellColor = '';
       if (status === 'P1' || status === 'P2') {
@@ -49,39 +49,39 @@ export const ProceduralUAPageColumns: GridColDef[] =
       );
     }  
   },
-  { field: 'ua_approver1_empno', headerName: 'Approver #1', width: 120 },
+  { field: 'ot_approver1_empno', headerName: 'Approver #1', width: 120 },
   {
-    field: 'ua_date_approved1',
+    field: 'ot_date_approved1',
     headerName: 'Date Approved #1',
     width: 150,
     valueGetter: (params: GridValueGetterParams) => {
-      if(params.row.ua_date_approved1){
-        const date = new Date(params.row.ua_date_approved1);
+      if(params.row.ot_date_approved1){
+        const date = new Date(params.row.ot_date_approved1);
         return date.toLocaleDateString();
       } else {
         return '-'
       }
     }
   },
-  { field: 'ua_approver2_empno', headerName: 'Approver #2', width: 120 },
+  { field: 'ot_approver2_empno', headerName: 'Approver #2', width: 120 },
   {
-    field: 'ua_date_approved2',
+    field: 'ot_date_approved2',
     headerName: 'Date Approved #2',
     width: 150,
     valueGetter: (params: GridValueGetterParams) => {
-      if(params.row.ua_date_approved2){
-        const date = new Date(params.row.ua_date_approved2);
+      if(params.row.ot_date_approved2){
+        const date = new Date(params.row.ot_date_approved2);
         return date.toLocaleDateString();
       } else {
         return '-'
       }
     }
   },
-  { field: 'ua_reason_disapproval', headerName: 'Disapproval Reason',  width: 300 },
+  { field: 'ot_reason_disapproval', headerName: 'Disapproval Reason',  width: 300 },
 ];
   
 export default {
-  ProceduralUAPageDescriptions,
-  ProceduralUAPageColumns
+  YourApprovalsOVERTIMEPageDescriptions,
+  YourApprovalsOVERTIMEPageColumns
 };
   

@@ -332,23 +332,23 @@ export interface LEAVEEditInterface extends LEAVEViewInterface {}
 
 
 export interface UACreateInterface {
-    ua_date_filed: string;
-    ua_description: string;
-    ua_date_from: string;
-    ua_date_to: string;
-    ua_approval_status: string;
-    ua_total_hour: number;
-    ua_approver1_empno: number | null;
-    ua_approver2_empno: number | null;
+    ua_description: string | null;
+    ua_date_from: string | null;
+    ua_date_to: string | null;
     emp_no: number;
-    cutoff_code: number;
 }
 
 export interface UAViewInterface extends UACreateInterface { 
     id: number;
+    ua_date_filed: string;
+    ua_approval_status: string;
     ua_reason_disapproval: string | null;
+    ua_total_hours: number;
+    ua_approver1_empno: number | null;
     ua_date_approved1: string | null;
+    ua_approver2_empno: number | null;
     ua_date_approved2: string | null;
+    cutoff_code: number;
 }
 
 export interface UAEditInterface extends UAViewInterface {}

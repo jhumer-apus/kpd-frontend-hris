@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import { Link, NavLink } from "react-router-dom";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -12,8 +12,55 @@ import { useMaterialTailwindController, setOpenSidenav } from "@/context";
 import { SideNavProps } from "@/types/index";
 import styles from './custom-styles/sideNav.module.scss';
 import CollapsibleSection from "./custom-effects/CollapsibleSection";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/configureStore";
+import { UAViewFilterApproverAction, LEAVEViewFilterApproverAction, OVERTIMEViewFilterApproverAction, OBTViewFilterApproverAction } from "@/store/actions/procedurals";
+import { LEAVEViewInterface, OBTViewInterface, OVERTIMEViewInterface, UAViewInterface } from "@/types/types-pages";
 
 export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
+  const dispatchRedux = useDispatch();
+  const currUserState = useSelector((state: RootState)=> state.auth.employee_detail);
+  const proceduralState = useSelector((state: RootState)=> state.procedurals);
+  const { UAViewFilterApprover, LEAVEViewFilterApprover, OVERTIMEViewFilterApprover, OBTViewFilterApprover } = proceduralState;
+  const currUserEmpNo = currUserState?.emp_no as number;
+  const proceduralActions = [
+    UAViewFilterApproverAction,
+    LEAVEViewFilterApproverAction,
+    OVERTIMEViewFilterApproverAction,
+    OBTViewFilterApproverAction,
+  ];
+
+  const dispatchActions = useCallback(() => {
+    proceduralActions.forEach((action) => {
+      const stringifiedAction = `${action}`
+      const formattedString = stringifiedAction.replace(/Action$/, '')
+      if (!proceduralState[formattedString]?.data) {
+        dispatchRedux(action({ emp_no: currUserEmpNo }));
+      }
+    });
+  }, [currUserEmpNo]);
+
+  useEffect(() => {
+    dispatchActions();
+  }, [dispatchActions]);
+  
+  const approvalNames = ['OBT Approvals', 'OT Approvals', 'LEAVE Approvals', 'UA Approvals'];
+
+  const arrayLengthChecker = (key: string) => {
+    type objectChecker = {
+      [key: string]: number;
+    }
+    const keyProcessor: objectChecker = {
+      'OBT Approvals': (OBTViewFilterApprover?.data as OBTViewInterface[])?.length,
+      'OT Approvals': (OVERTIMEViewFilterApprover?.data as OVERTIMEViewInterface[])?.length,
+      'LEAVE Approvals': (LEAVEViewFilterApprover?.data as LEAVEViewInterface[])?.length,
+      'UA Approvals': (UAViewFilterApprover?.data as UAViewInterface[])?.length,
+      'Your Approvals': ((OBTViewFilterApprover?.data as OBTViewInterface[])?.length + (OVERTIMEViewFilterApprover?.data as OVERTIMEViewInterface[])?.length + (LEAVEViewFilterApprover?.data as LEAVEViewInterface[])?.length + (UAViewFilterApprover?.data as UAViewInterface[])?.length),
+      'default': 0
+    };
+    return keyProcessor[key] || keyProcessor['default']
+  };
+
   const [expandedItems, setExpandedItems] = useState<Record<number, boolean>>({});
   const toggleExpandedItem = (itemId: number) => {
     setExpandedItems((prevExpandedItems) => ({
@@ -103,15 +150,31 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
                               {icon}
                               <Typography
                                 color="inherit"
-                                className="font-medium capitalize"
+                                className="font-medium capitalize flex justify-between w-full"
                               >
-                                {name}
+                                <p className="flex justify-center items-center">{name}</p>
+                                {name === 'Your Approvals' && <p 
+                                  className="flex justify-center items-center" 
+                                  style={{
+                                    fontSize: '12px',
+                                    height: '30px', 
+                                    width: '30px', 
+                                    // background: '#4E62B8',
+                                    background: 'rgb(98 0 255)',
+                                    // mixBlendMode: 'difference', 
+                                    borderRadius: '30px', 
+                                    textAlign: 'center',
+                                    }}
+                                >
+                                  {arrayLengthChecker(name)}
+                                </p>}
                               </Typography>
                             </Button>
                           }
                         >
                             {
-                            subItems?.map(({ icon, name, path }) => (
+                            subItems?.map(({ icon, name, path, badgeAccessor }) => 
+                            (
                               <NavLink to={`/${layout}${path}`} className={styles.toggleableItem}>
                               {({ isActive }) => (
                                 <li key={name} >
@@ -135,7 +198,26 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
                                       style={{width: '100%'}}
                                     >
                                       <p className="flex justify-center items-center">{name}</p> 
-                                      {/* {name === 'OBT' && <p className="flex justify-center items-center" style={{height: '36px', width: '36px', background: '#4E62B8', borderRadius: '30px', textAlign: 'center'}}>1</p>} */}
+                                      {approvalNames.includes(name) && arrayLengthChecker(name) !== 0 && 
+                                      <p 
+                                        className="flex justify-center items-center" 
+                                        style={{
+                                          fontSize: '12px',
+                                          height: '30px', 
+                                          width: '30px', 
+                                          // background: '#4E62B8',
+                                          background: '#7509eb',
+                                          mixBlendMode: 'difference', 
+                                          borderRadius: '30px', 
+                                          textAlign: 'center',
+                                          }}
+                                      >
+                                        {
+                                        arrayLengthChecker(name) 
+                                        }
+                                        {/* #7509eb green and purple*/}
+                                      </p>
+                                      }
                                     </Typography>
                                 </Button>
                               </li>
