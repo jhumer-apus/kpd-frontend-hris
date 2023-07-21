@@ -7,7 +7,7 @@ import { GridColDef, GridValueGetterParams, GridCellParams, GridValueFormatterPa
 //   // "View Employee Specific DTR"
 // ];
 
-export const YourApprovalsUAPageDescriptions = [
+export const ApprovalUAPageDescriptions = [
   "Once you have successfully approved, the item will no longer be shown, go to procedurals for list instead",
   // "See merged logs of all employees here, showing the total hours and details of each logs. Sortable and filterable on the table headers.",
   // "See the total hours of all employees per cutoff here. Sortable and filterable by the table headers.",
@@ -15,7 +15,7 @@ export const YourApprovalsUAPageDescriptions = [
 ];
 
 
-export const YourApprovalsUAPageColumns: GridColDef[] = 
+export const ApprovalUAPageColumns: GridColDef[] = 
 [
   {
     field: 'ua_date_filed',
@@ -49,7 +49,18 @@ export const YourApprovalsUAPageColumns: GridColDef[] =
       );
     }  
   },
-  { field: 'ua_approver1_empno', headerName: 'Approver #1', width: 120 },
+  { 
+    field: 'ua_approver1_empno', 
+    headerName: 'Approver #1', 
+    width: 120,
+    valueGetter: (params: GridValueGetterParams) => {
+      if(params.row.ua_approver1_empno){
+        return params.row.ua_approver1_empno
+      } else {
+        return 'Any higher rank'
+      }
+    }
+  },
   {
     field: 'ua_date_approved1',
     headerName: 'Date Approved #1',
@@ -63,7 +74,11 @@ export const YourApprovalsUAPageColumns: GridColDef[] =
       }
     }
   },
-  { field: 'ua_approver2_empno', headerName: 'Approver #2', width: 120 },
+  { 
+    field: 'ua_approver2_empno', 
+    headerName: 'Approver #2', 
+    width: 120,
+  },
   {
     field: 'ua_date_approved2',
     headerName: 'Date Approved #2',
@@ -81,7 +96,7 @@ export const YourApprovalsUAPageColumns: GridColDef[] =
 ];
   
 export default {
-  YourApprovalsUAPageDescriptions,
-  YourApprovalsUAPageColumns
+  ApprovalUAPageDescriptions,
+  ApprovalUAPageColumns
 };
   

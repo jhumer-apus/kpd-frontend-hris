@@ -46,6 +46,13 @@ import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
 import PublishedWithChangesOutlinedIcon from '@mui/icons-material/PublishedWithChangesOutlined';
 import CreditScoreOutlinedIcon from '@mui/icons-material/CreditScoreOutlined';
 import ApprovalUAPage from "./pages/your-approvals/ua-approvals/approval-ua-page";
+import ApprovalOvertimePage from "./pages/your-approvals/ot-approvals/approval-overtime-page";
+import ApprovalLEAVEPage from "./pages/your-approvals/leave-approvals/approval-leave-page";
+import ApprovalOBTPage from "./pages/your-approvals/obt-approvals/approval-obt-page";
+import CloudSyncSharpIcon from '@mui/icons-material/CloudSyncSharp';
+import SettingsAccessibilitySharpIcon from '@mui/icons-material/SettingsAccessibilitySharp';
+import DifferenceOutlinedIcon from '@mui/icons-material/DifferenceOutlined';
+import FileOBTPage from "./pages/quick-accesses/file-obt/file-obt-page";
 
 
 const icon = {
@@ -129,8 +136,32 @@ export const routes: Array<IRoute> = [
             id: 13100,
             icon: <WorkOutlineOutlinedIcon {...icon} />,
             name: "File OBT",
-            path: "/quick-accesses/file-obt",
-            element: <DataTable/>, 
+            path: "/quick-accesses/file-OBT",
+            element: <FileOBTPage/>, 
+            hasSubItems: false,
+          },
+          {
+            id: 13200,
+            icon: <DifferenceOutlinedIcon {...icon} />,
+            name: "File OT",
+            path: "/quick-accesses/file-OT",
+            element: <DifferenceOutlinedIcon/>, 
+            hasSubItems: false,
+          },
+          {
+            id: 13300,
+            icon: <SettingsAccessibilitySharpIcon {...icon} />,
+            name: "File LEAVE",
+            path: "/quick-accesses/file-LEAVE",
+            element: <SettingsAccessibilitySharpIcon/>, 
+            hasSubItems: false,
+          },
+          {
+            id: 13400,
+            icon: <CloudSyncSharpIcon {...icon} />,
+            name: "File UA",
+            path: "/quick-accesses/file-UA",
+            element: <CloudSyncSharpIcon/>, 
             hasSubItems: false,
           },
         ]
@@ -148,7 +179,7 @@ export const routes: Array<IRoute> = [
             icon: <NoCrashOutlinedIcon {...icon} />,
             name: "OBT Approvals",
             path: "/your-approvals/OBT-approvals",
-            element: <></>, 
+            element: <ApprovalOBTPage/>, 
             badgeAccessor: 'OBTViewFilterApprover',
             hasSubItems: false,
           },
@@ -157,7 +188,7 @@ export const routes: Array<IRoute> = [
             icon: <CreditScoreOutlinedIcon {...icon} />,
             name: "OT Approvals",
             path: "/your-approvals/OT-approvals",
-            element: <></>, 
+            element: <ApprovalOvertimePage/>, 
             badgeAccessor: 'OVERTIMEViewFilterApprover',
             hasSubItems: false,
           },
@@ -166,7 +197,7 @@ export const routes: Array<IRoute> = [
             icon: <HowToRegOutlinedIcon {...icon} />,
             name: "LEAVE Approvals",
             path: "/your-approvals/LEAVE-approvals",
-            element: <></>, 
+            element: <ApprovalLEAVEPage/>, 
             badgeAccessor: 'LEAVEViewFilterApprover',
             hasSubItems: false,
           },

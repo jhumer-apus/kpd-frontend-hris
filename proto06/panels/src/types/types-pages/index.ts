@@ -256,6 +256,7 @@ export interface OBTViewInterface extends OBTCreateInterface {
     obt_approver1_empno: number | null;
     obt_approver2_empno: number | null,
     cutoff_code: number;
+    applicant_rank: number;
 }
 
 export interface OBTEditInterface extends OBTViewInterface {}
@@ -277,6 +278,7 @@ export const OBTViewFilterEmployeeInitialState: OBTViewInterface = {
     obt_approver2_empno: null,
     emp_no: 0,
     cutoff_code: 0,
+    applicant_rank: NaN,
 }
 
 
@@ -297,6 +299,7 @@ export interface OVERTIMEViewInterface extends OVERTIMECreateInterface {
     ot_approver2_empno: number | null;
     ot_date_filed: string;
     cutoff_code: number;
+    applicant_rank: number;
     ot_approval_status: string;
     ot_total_hours: number;
 }
@@ -324,6 +327,7 @@ export interface LEAVEViewInterface extends LEAVECreateInterface {
     leave_approver2_empno: number | null;
     leave_number_days: number;
     cutoff_code: number;
+    applicant_rank: number;
 }
 
 export interface LEAVEEditInterface extends LEAVEViewInterface {}
@@ -349,6 +353,7 @@ export interface UAViewInterface extends UACreateInterface {
     ua_approver2_empno: number | null;
     ua_date_approved2: string | null;
     cutoff_code: number;
+    applicant_rank: number;
 }
 
 export interface UAEditInterface extends UAViewInterface {}

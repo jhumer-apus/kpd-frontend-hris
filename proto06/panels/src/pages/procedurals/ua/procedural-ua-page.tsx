@@ -37,6 +37,7 @@ export default function ProceduralUAPage() {
       ua_approver1_empno: null,
       ua_approver2_empno: null,
       cutoff_code: NaN,
+      applicant_rank: NaN,
   });
   const dispatch = useDispatch();
   const { spButtonIndex, dtrStatus, dtrData } = useDtrState();

@@ -7,7 +7,7 @@ import { GridColDef, GridValueGetterParams, GridCellParams, GridValueFormatterPa
 //   // "View Employee Specific DTR"
 // ];
 
-export const YourApprovalsLEAVEPageDescriptions = [
+export const ApprovalLEAVEPageDescriptions = [
   "Once you have successfully approved, the item will no longer be shown, go to procedurals for list instead",
   // "See merged logs of all employees here, showing the total hours and details of each logs. Sortable and filterable on the table headers.",
   // "See the total hours of all employees per cutoff here. Sortable and filterable by the table headers.",
@@ -15,7 +15,7 @@ export const YourApprovalsLEAVEPageDescriptions = [
 ];
 
 
-export const YourApprovalsLEAVEPageColumns: GridColDef[] = 
+export const ApprovalLEAVEPageColumns: GridColDef[] = 
 [
   {
     field: 'leave_date_filed',
@@ -49,7 +49,18 @@ export const YourApprovalsLEAVEPageColumns: GridColDef[] =
       );
     }  
   },
-  { field: 'leave_approver1_empno', headerName: 'Approver #1', width: 120 },
+  { 
+    field: 'leave_approver1_empno', 
+    headerName: 'Approver #1', 
+    width: 120,
+    valueGetter: (params: GridValueGetterParams) => {
+      if(params.row.leave_approver1_empno){
+        return params.row.leave_approver1_empno
+      } else {
+        return 'Any higher rank'
+      }
+    } 
+  },
   {
     field: 'leave_date_approved1',
     headerName: 'Date Approved #1',
@@ -81,7 +92,7 @@ export const YourApprovalsLEAVEPageColumns: GridColDef[] =
 ];
   
 export default {
-  YourApprovalsLEAVEPageDescriptions,
-  YourApprovalsLEAVEPageColumns
+  ApprovalLEAVEPageDescriptions,
+  ApprovalLEAVEPageColumns
 };
   

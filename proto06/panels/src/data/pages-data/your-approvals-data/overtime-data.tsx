@@ -7,7 +7,7 @@ import { GridColDef, GridValueGetterParams, GridCellParams, GridValueFormatterPa
 //   // "View Employee Specific DTR"
 // ];
 
-export const YourApprovalsOVERTIMEPageDescriptions = [
+export const ApprovalOVERTIMEPageDescriptions = [
   "Once you have successfully approved, the item will no longer be shown, go to procedurals for list instead",
   // "See merged logs of all employees here, showing the total hours and details of each logs. Sortable and filterable on the table headers.",
   // "See the total hours of all employees per cutoff here. Sortable and filterable by the table headers.",
@@ -15,7 +15,7 @@ export const YourApprovalsOVERTIMEPageDescriptions = [
 ];
 
 
-export const YourApprovalsOVERTIMEPageColumns: GridColDef[] = 
+export const ApprovalOVERTIMEPageColumns: GridColDef[] = 
 [
   {
     field: 'ot_date_filed',
@@ -49,7 +49,18 @@ export const YourApprovalsOVERTIMEPageColumns: GridColDef[] =
       );
     }  
   },
-  { field: 'ot_approver1_empno', headerName: 'Approver #1', width: 120 },
+  { 
+    field: 'ot_approver1_empno', 
+    headerName: 'Approver #1', 
+    width: 120,
+    valueGetter: (params: GridValueGetterParams) => {
+      if(params.row.ot_approver1_empno){
+        return params.row.ot_approver1_empno
+      } else {
+        return 'Any higher rank'
+      }
+    }
+  },
   {
     field: 'ot_date_approved1',
     headerName: 'Date Approved #1',
@@ -81,7 +92,7 @@ export const YourApprovalsOVERTIMEPageColumns: GridColDef[] =
 ];
   
 export default {
-  YourApprovalsOVERTIMEPageDescriptions,
-  YourApprovalsOVERTIMEPageColumns
+  ApprovalOVERTIMEPageDescriptions,
+  ApprovalOVERTIMEPageColumns
 };
   

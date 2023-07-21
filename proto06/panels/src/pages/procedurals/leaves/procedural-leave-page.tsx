@@ -39,6 +39,7 @@ export default function ProceduralLEAVEPage() {
       leave_approver2_empno: null,
       leave_number_days: 0,
       cutoff_code: NaN,
+      applicant_rank: NaN,
   });
   const dispatch = useDispatch();
   const { spButtonIndex, dtrStatus, dtrData } = useDtrState();

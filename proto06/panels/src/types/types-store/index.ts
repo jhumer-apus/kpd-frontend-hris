@@ -26,7 +26,7 @@ export interface UserType {
 export interface EmployeeDetailsType {
     id: Number;
     employee_image?: String;
-    emp_no: Number;
+    emp_no: number;
     first_name: String;
     middle_name?: String;
     last_name: String;
@@ -51,7 +51,7 @@ export interface EmployeeDetailsType {
     division_code?: String;
     payroll_group_code?: String;
     position_code?: String;
-    rank_code?: String;
+    rank_code?: string | number;
     tax_code?: String;
     city_code?: String;
     pagibig_code?: String;

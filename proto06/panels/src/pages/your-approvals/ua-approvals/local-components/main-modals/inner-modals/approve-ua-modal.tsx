@@ -28,7 +28,7 @@ export default function ApproveUAModal(props: ApproveUAModalInterface) {
   const approveUA = () => { 
     const DateNow = new Date();
     const approvedDate = dayjs(DateNow).format('YYYY-MM-DDTHH:mm:ss');
-    if(state?.emp_no === singleUADetailsData.ua_approver1_empno){
+    if(state?.emp_no === singleUADetailsData.ua_approver1_empno || ((state?.rank_code as number) > singleUADetailsData?.applicant_rank)){
       setSingleUADetailsData((prevState)=> {
         dispatch(UAEditAction({
           ...prevState,
@@ -59,10 +59,12 @@ export default function ApproveUAModal(props: ApproveUAModalInterface) {
   React.useEffect(()=>{
     if(UAApproveState){
       window.alert(`${UAApproveState.charAt(0).toUpperCase()}${UAApproveState.slice(1)}`)
-      if(UAApproveState !== 'failed'){
+      if(UAApproveState === 'succeeded'){
         setTimeout(()=>{
           window.location.reload();
         }, 800)
+      }else {
+        return
       }
     }
   }, [UAApproveState])

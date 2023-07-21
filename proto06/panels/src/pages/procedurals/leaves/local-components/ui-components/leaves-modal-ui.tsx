@@ -30,7 +30,8 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
         }   
         
     };
-    const userIsApprover = curr_user?.emp_no === ThisProps.leave_approver1_empno || curr_user?.emp_no === ThisProps.leave_approver2_empno;
+    console.log(((curr_user?.rank_code as number) > singleLEAVEDetailsData?.applicant_rank), "haha?")
+    const userIsApprover = (curr_user?.emp_no === ThisProps.leave_approver1_empno || curr_user?.emp_no === ThisProps.leave_approver2_empno || ((curr_user?.rank_code as number) > singleLEAVEDetailsData?.applicant_rank));
     return (
         <React.Fragment>
             <ApproveLEAVEModal singleLEAVEDetailsData={singleLEAVEDetailsData} setSingleLEAVEDetailsData={setSingleLEAVEDetailsData} approveLEAVEOpenModal={approveLEAVEOpenModal} setApproveLEAVEOpenModal={setApproveLEAVEOpenModal}/>
@@ -40,7 +41,7 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Date Filed:' value={ThisProps.leave_date_filed ? dayjs(ThisProps.leave_date_filed).format('MM-DD-YYYY') : '-'} InputProps={{readOnly: false,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Total hrs:' value={(ThisProps.leave_total_hours / 60).toFixed(2) || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Cutoff Code:' value={ThisProps.cutoff_code || '-'} InputProps={{readOnly: true,}} variant='standard'/>
-                    <TextField sx={{width: '100%'}} label='Approver1:' value={ThisProps.leave_approver1_empno || '-'} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%'}} label='Approver1:' value={ThisProps.leave_approver1_empno || 'Any Higher Ranking Officer'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Approver2:' value={ThisProps.leave_approver2_empno || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='LEAVE Description:' value={ThisProps.leave_remarks || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
                 </div>

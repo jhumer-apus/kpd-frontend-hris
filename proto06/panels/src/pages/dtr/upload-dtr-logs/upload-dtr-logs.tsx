@@ -264,9 +264,9 @@ export default function UploadDtrLogs() {
                     </Box>
                 </Paper>
             </Grid>
-            <Divider orientation="vertical" flexItem>
+            {/* <Divider orientation="vertical" flexItem>
                 Preview &gt;&gt;
-            </Divider>
+            </Divider> */}
             <Grid item xs>
                 <Paper elevation={3} style={PaperStyle}>
                     <PreviewDtr csvData={csvData} fileName={fileName}/>

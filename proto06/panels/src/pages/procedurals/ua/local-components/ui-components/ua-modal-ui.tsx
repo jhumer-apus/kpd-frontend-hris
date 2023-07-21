@@ -30,7 +30,7 @@ function UAModalUI(props: UAModalUIInterface) {
         }   
         
     };
-    const userIsApprover = curr_user?.emp_no === ThisProps.ua_approver1_empno || curr_user?.emp_no === ThisProps.ua_approver2_empno;
+    const userIsApprover = curr_user?.emp_no === ThisProps.ua_approver1_empno || curr_user?.emp_no === ThisProps.ua_approver2_empno || ((curr_user?.rank_code as number) > singleUADetailsData?.applicant_rank);
     return (
         <React.Fragment>
             <ApproveUAModal singleUADetailsData={singleUADetailsData} setSingleUADetailsData={setSingleUADetailsData} approveUAOpenModal={approveUAOpenModal} setApproveUAOpenModal={setApproveUAOpenModal}/>
@@ -40,7 +40,7 @@ function UAModalUI(props: UAModalUIInterface) {
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Date Filed:' value={ThisProps.ua_date_filed ? dayjs(ThisProps.ua_date_filed).format('MM-DD-YYYY') : '-'} InputProps={{readOnly: false,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Total hrs:' value={(ThisProps.ua_total_hours / 60).toFixed(2) || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Cutoff Code:' value={ThisProps.cutoff_code || '-'} InputProps={{readOnly: true,}} variant='standard'/>
-                    <TextField sx={{width: '100%'}} label='Approver1:' value={ThisProps.ua_approver1_empno || '-'} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%'}} label='Approver1:' value={ThisProps.ua_approver1_empno || 'Any Higher Ranking Officer'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Approver2:' value={ThisProps.ua_approver2_empno || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='UA Description:' value={ThisProps.ua_description || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
                 </div>

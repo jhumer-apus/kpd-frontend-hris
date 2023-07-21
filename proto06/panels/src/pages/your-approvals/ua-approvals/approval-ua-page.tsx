@@ -6,7 +6,7 @@ import { Typography } from "@material-tailwind/react";
 import useDtrState from '@/custom-hooks/use-dtr-state';
 import PrintTableButton from './local-components/additional-features/print-table-button';
 import ExportToCsvButton from './local-components/additional-features/export-to-csv-button';
-import { ProceduralUAPageDescriptions, ProceduralUAPageColumns } from '@/data/pages-data/procedural-data/ua-data';
+import { ApprovalUAPageDescriptions, ApprovalUAPageColumns } from '@/data/pages-data/your-approvals-data/ua-data';
 import CreateUAComponent from './local-components/create-ua-component';
 import ViewUASingleModal from './local-components/main-modals/view-ua-single-modal';
 import { UAViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
@@ -37,6 +37,7 @@ export default function ApprovalUAPage() {
       ua_approver1_empno: null,
       ua_approver2_empno: null,
       cutoff_code: NaN,
+      applicant_rank: NaN,
   });
   const dispatch = useDispatch();
   const { spButtonIndex, dtrStatus, dtrData } = useDtrState();
@@ -68,9 +69,9 @@ export default function ApprovalUAPage() {
       <div className="my-10 flex flex-wrap justify-between items-start gap-6">
         <div>
           <ViewUASingleModal setSingleUADetailsData={setSingleUADetailsData} singleUADetailsData={singleUADetailsData} singleUAOpenModal={singleUAOpenModal} setSingleUAOpenModal={setSingleUAOpenModal}/>
-          <CreateUAComponent />
+          {/* <CreateUAComponent /> */}
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
-          <p>Status: {ProceduralUAPageDescriptions}</p>
+          <p>Status: {ApprovalUAPageDescriptions}</p>
         </Typography>
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400"}}>
           <i>Click on the Table Headers to Customize View, Sort, or Add/Remove Columns</i>
@@ -84,7 +85,7 @@ export default function ApprovalUAPage() {
       <div style={{ height: `${printing? `${printableArea()}px` : '660px'}`, width: '100%' }} id="printable-area">
         <DataGrid
           rows={UAViewData? UAViewData as UAViewInterface[]:[]}
-          columns={ProceduralUAPageColumns}
+          columns={ApprovalUAPageColumns}
           initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 100 },
@@ -97,9 +98,9 @@ export default function ApprovalUAPage() {
           }}
           disableRowSelectionOnClick 
           style={{ cursor: spButtonIndex === 2 ? 'pointer': 'default'}}
-          localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? 'The caller for UA Epic hasn\'t been set up, please contact your frontend developer': 'There is no UA to generate. Double check with a Database Admin'}` }}
+          localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? 'You have no pending UA approvals.': 'There is no UA to generate. Double check with a Database Admin'}` }}
         />
-        {/* <GeneratePDFButton data={UAViewData} columns={ProceduralUAPageColumns} /> */}
+        {/* <GeneratePDFButton data={UAViewData} columns={ApprovalUAPageColumns} /> */}
       </div>
     </Fragment>
   );

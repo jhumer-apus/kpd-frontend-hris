@@ -6,7 +6,7 @@ import { Typography } from "@material-tailwind/react";
 import useDtrState from '@/custom-hooks/use-dtr-state';
 import PrintTableButton from './local-components/additional-features/print-table-button';
 import ExportToCsvButton from './local-components/additional-features/export-to-csv-button';
-import { ProceduralOBTPageDescriptions } from '@/data/pages-data/procedural-data/obt-data';
+import { ProceduralOBTPageDescriptions, ProceduralOBTPageColumns } from '@/data/pages-data/procedural-data/obt-data';
 import CreateOBTComponent from './local-components/create-obt-component';
 import ViewOBTSingleModal from './local-components/main-modals/view-obt-single-modal';
 import { OBTViewFilterEmployeeInitialState, OBTViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
@@ -17,72 +17,6 @@ import dayjs from 'dayjs';
 import { OBTViewAction } from '@/store/actions/procedurals';
 import { GridColDef, GridValueGetterParams, GridCellParams, GridValueFormatterParams } from "@mui/x-data-grid";
 import GeneratePDFButton from './local-components/additional-features/generate-pdf-button';
-
-
-export const ProceduralOBTPageColumns: GridColDef[] = 
-[
-  {
-    field: 'obt_date_filed',
-    headerName: 'Date Filed',
-    width: 150,
-    valueGetter: (params: GridValueGetterParams) => {
-      const date = new Date(params.row.obt_date_filed);
-      return date.toLocaleDateString();
-    }
-  },
-  { field: 'emp_no', headerName: 'Filed By:', width: 120 },
-  { field: 'obt_approval_status', headerName: 'Status', width: 100,
-    renderCell: (params: GridCellParams) => {
-      const status = params.row?.obt_approval_status as string;
-
-      let cellColor = '';
-      if (status === 'P1' || status === 'P2') {
-        cellColor = '#ff9100'; // Orange
-      } else if ( status==='DIS' ){
-        cellColor = '#aa2e25'; // Red
-      }
-
-      return(
-      // <div style={{ height: '100%', width: '10%', alignItems: 'center' }}>
-        // 
-        <div className='relative'>
-          <div style={{ top:'', left: '26px', position: 'absolute', backgroundColor: cellColor, height:'5px', width: '5px', borderRadius: '100px'}}></div>
-          {status}
-        </div>
-      // </div>
-      );
-    }  
-  },
-  { field: 'obt_approver1_empno', headerName: 'Approver #1', width: 120 },
-  {
-    field: 'obt_date_approved1',
-    headerName: 'Date Approved #1',
-    width: 150,
-    valueGetter: (params: GridValueGetterParams) => {
-      if(params.row.obt_date_approved1){
-        const date = new Date(params.row.obt_date_approved1);
-        return date.toLocaleDateString();
-      } else {
-        return '-'
-      }
-    }
-  },
-  { field: 'obt_approver2_empno', headerName: 'Approver #2', width: 120 },
-  {
-    field: 'obt_date_approved2',
-    headerName: 'Date Approved #2',
-    width: 150,
-    valueGetter: (params: GridValueGetterParams) => {
-      if(params.row.obt_date_approved2){
-        const date = new Date(params.row.obt_date_approved2);
-        return date.toLocaleDateString();
-      } else {
-        return '-'
-      }
-    }
-  },
-  { field: 'obt_reason_disapproval', headerName: 'Disapproval Reason',  width: 300 },
-];
 
 export default function ProceduralOBTPage() {
   const [printing, setIsPrinting] = useState(false);

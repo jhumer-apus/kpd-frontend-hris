@@ -38,6 +38,7 @@ export default function ProceduralOvertimePage() {
       ot_approver2_empno: null,
       emp_no: NaN,
       cutoff_code: NaN,
+      applicant_rank: NaN,
   });
   const dispatch = useDispatch();
   const { spButtonIndex, dtrStatus, dtrData } = useDtrState();
