@@ -8,7 +8,7 @@ export const viewPayrollOptions = [
 ];
 
 export const QuickAccessOBTPageDescriptions = [
-  "Once you have successfully approved, the item will no longer be shown, go to procedurals for list instead",
+  "On this table, you will find the history of your filed requests for the past week, months, or years.",
   // "See merged logs of all employees here, showing the total hours and details of each logs. Sortable and filterable on the table headers.",
   // "See the total hours of all employees per cutoff here. Sortable and filterable by the table headers.",
   // "Nondescript"

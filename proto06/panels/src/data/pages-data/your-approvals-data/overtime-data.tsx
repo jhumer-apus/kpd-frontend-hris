@@ -8,7 +8,7 @@ import { GridColDef, GridValueGetterParams, GridCellParams, GridValueFormatterPa
 // ];
 
 export const ApprovalOVERTIMEPageDescriptions = [
-  "Once you have successfully approved, the item will no longer be shown, go to procedurals for list instead",
+  "Once you have successfully approved/rejected a request, the item will no longer be shown, go to procedurals for list instead",
   // "See merged logs of all employees here, showing the total hours and details of each logs. Sortable and filterable on the table headers.",
   // "See the total hours of all employees per cutoff here. Sortable and filterable by the table headers.",
   // "Nondescript"

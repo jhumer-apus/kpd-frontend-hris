@@ -30,8 +30,7 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
         }   
         
     };
-    console.log(((curr_user?.rank_code as number) > singleLEAVEDetailsData?.applicant_rank), "haha?")
-    const userIsApprover = (curr_user?.emp_no === ThisProps.leave_approver1_empno || curr_user?.emp_no === ThisProps.leave_approver2_empno || ((curr_user?.rank_code as number) > singleLEAVEDetailsData?.applicant_rank));
+    const userIsApprover = (curr_user?.emp_no === ThisProps.leave_approver1_empno || curr_user?.emp_no === ThisProps.leave_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleLEAVEDetailsData?.applicant_rank));
     return (
         <React.Fragment>
             <ApproveLEAVEModal singleLEAVEDetailsData={singleLEAVEDetailsData} setSingleLEAVEDetailsData={setSingleLEAVEDetailsData} approveLEAVEOpenModal={approveLEAVEOpenModal} setApproveLEAVEOpenModal={setApproveLEAVEOpenModal}/>
@@ -61,7 +60,7 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
                 {ThisProps.leave_approval_status === 'APD' && <img src={ '/img/stampApproved2.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
                 {ThisProps.leave_approval_status === 'DIS' && <img src={ '/img/stampRejected.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
             </div>
-            {ThisProps.leave_approval_status.includes('1') && 
+            {(ThisProps.leave_approval_status.includes('1') || ThisProps.leave_approval_status.includes('2')) && 
             <div className='flex flex-col justify-center items-center'>
             <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
                 <div className='flex justify-between' style={{width:'400px'}} container-name='leave_buttons'>

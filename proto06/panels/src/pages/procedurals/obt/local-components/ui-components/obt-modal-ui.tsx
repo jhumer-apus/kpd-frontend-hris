@@ -30,7 +30,9 @@ function OBTModalUI(props: OBTModalUIInterface) {
         }   
         
     };
-    const userIsApprover = curr_user?.emp_no === ThisProps.obt_approver1_empno || curr_user?.emp_no === ThisProps.obt_approver2_empno || ((curr_user?.rank_code as number) > singleOBTDetailsData?.applicant_rank);
+
+    console.log(curr_user, "aasd")
+    const userIsApprover = curr_user?.emp_no === ThisProps.obt_approver1_empno || curr_user?.emp_no === ThisProps.obt_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleOBTDetailsData?.applicant_rank);
     return (
         <React.Fragment>
             <ApproveOBTModal singleOBTDetailsData={singleOBTDetailsData} setSingleOBTDetailsData={setSingleOBTDetailsData} approveOBTOpenModal={approveOBTOpenModal} setApproveOBTOpenModal={setApproveOBTOpenModal}/>
@@ -61,7 +63,7 @@ function OBTModalUI(props: OBTModalUIInterface) {
                 </div>
 
             </div>
-            {ThisProps.obt_approval_status.includes('1') && 
+            {(ThisProps.obt_approval_status.includes('1') || ThisProps.obt_approval_status.includes('2')) && 
             <div className='flex flex-col justify-center items-center'>
             <div className='flex justify-center mt-6' container-name='obt_buttons_container'>
                 <div className='flex justify-between' style={{width:'300px'}} container-name='obt_buttons'>

@@ -27,6 +27,7 @@ export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
   const DateNow = new Date();
   const denyDate = dayjs(DateNow).format('MMM-DD-YY LT');
 
+  console.log(singleLEAVEDetailsData, "hahaha??")
   const denyLEAVE = () => { 
     if(singleLEAVEDetailsData.leave_reason_disapproval){
         return(
@@ -117,7 +118,7 @@ export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
                     setSingleLEAVEDetailsData((prevState)=> {
                       return({
                         ...prevState,
-                        ot_reason_disapproval: `${event.target.value}`
+                        leave_reason_disapproval: `${event.target.value}`
                       })
                     })
                   }}

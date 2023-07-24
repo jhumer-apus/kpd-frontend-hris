@@ -30,7 +30,7 @@ function OVERTIMEModalUI(props: OVERTIMEModalUIInterface) {
         }   
         
     };
-    const userIsApprover = curr_user?.emp_no === ThisProps.ot_approver1_empno || curr_user?.emp_no === ThisProps.ot_approver2_empno || ((curr_user?.rank_code as number) > singleOVERTIMEDetailsData?.applicant_rank);
+    const userIsApprover = curr_user?.emp_no === ThisProps.ot_approver1_empno || curr_user?.emp_no === ThisProps.ot_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleOVERTIMEDetailsData?.applicant_rank);
     return (
         <React.Fragment>
             <ApproveOVERTIMEModal singleOVERTIMEDetailsData={singleOVERTIMEDetailsData} setSingleOVERTIMEDetailsData={setSingleOVERTIMEDetailsData} approveOVERTIMEOpenModal={approveOVERTIMEOpenModal} setApproveOVERTIMEOpenModal={setApproveOVERTIMEOpenModal}/>
@@ -60,7 +60,7 @@ function OVERTIMEModalUI(props: OVERTIMEModalUIInterface) {
                 {ThisProps.ot_approval_status === 'APD' && <img src={ '/img/stampApproved2.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
                 {ThisProps.ot_approval_status === 'DIS' && <img src={ '/img/stampRejected.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
             </div>
-            {ThisProps.ot_approval_status.includes('1') && 
+            {(ThisProps.ot_approval_status.includes('1') || ThisProps.ot_approval_status.includes('2')) && 
             <div className='flex flex-col justify-center items-center'>
             <div className='flex justify-center mt-6' container-name='ot_buttons_container'>
                 <div className='flex justify-between' style={{width:'400px'}} container-name='ot_buttons'>

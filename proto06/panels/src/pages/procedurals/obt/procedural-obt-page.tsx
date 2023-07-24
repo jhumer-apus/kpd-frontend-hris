@@ -52,7 +52,7 @@ export default function ProceduralOBTPage() {
       <div className="my-10 flex flex-wrap justify-between items-start gap-6">
         <div>
           <ViewOBTSingleModal setSingleOBTDetailsData={setSingleOBTDetailsData} singleOBTDetailsData={singleOBTDetailsData} singleOBTOpenModal={singleOBTOpenModal} setSingleOBTOpenModal={setSingleOBTOpenModal}/>
-          <CreateOBTComponent />
+          {/* <CreateOBTComponent /> */}
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
           <p>Status: {ProceduralOBTPageDescriptions}</p>
         </Typography>

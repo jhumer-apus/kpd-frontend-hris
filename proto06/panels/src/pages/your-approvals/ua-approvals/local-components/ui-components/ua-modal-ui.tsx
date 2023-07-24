@@ -30,7 +30,7 @@ function UAModalUI(props: UAModalUIInterface) {
         }   
         
     };
-    const userIsApprover = curr_user?.emp_no === ThisProps.ua_approver1_empno || curr_user?.emp_no === ThisProps.ua_approver2_empno || ((curr_user?.rank_code as number) > singleUADetailsData?.applicant_rank);
+    const userIsApprover = curr_user?.emp_no === ThisProps.ua_approver1_empno || curr_user?.emp_no === ThisProps.ua_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleUADetailsData?.applicant_rank);
     return (
         <React.Fragment>
             <ApproveUAModal singleUADetailsData={singleUADetailsData} setSingleUADetailsData={setSingleUADetailsData} approveUAOpenModal={approveUAOpenModal} setApproveUAOpenModal={setApproveUAOpenModal}/>
@@ -60,7 +60,7 @@ function UAModalUI(props: UAModalUIInterface) {
                 {ThisProps.ua_approval_status === 'APD' && <img src={ '/img/stampApproved2.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
                 {ThisProps.ua_approval_status === 'DIS' && <img src={ '/img/stampRejected.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
             </div>
-            {ThisProps.ua_approval_status.includes('1') && 
+            {(ThisProps.ua_approval_status.includes('1') || ThisProps.ua_approval_status.includes('2')) && 
             <div className='flex flex-col justify-center items-center'>
             <div className='flex justify-center mt-6' container-name='ua_buttons_container'>
                 <div className='flex justify-between' style={{width:'400px'}} container-name='ua_buttons'>

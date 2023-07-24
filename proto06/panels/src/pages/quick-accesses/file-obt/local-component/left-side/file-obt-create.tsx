@@ -43,8 +43,8 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
 
     return (
         <React.Fragment>
-            <TextField style={{width: '100%', borderTop: '2px solid rgb(25, 118, 210)', position: 'relative',marginTop: '0px'}} variant="filled" focused InputProps={{style: {display: 'flex', justifyContent: 'center', paddingBottom: '10px'}}} value="Create Official Business Time/Trip Individual Data"></TextField>
-            {/* <Typography variant='plain' level="h6">Create Official Business Time/Trip Individual Data</Typography> */}
+            {/* <TextField style={{width: '100%', borderTop: '2px solid rgb(25, 118, 210)', position: 'relative',marginTop: '0px'}} variant="filled" focused InputProps={{style: {display: 'flex', justifyContent: 'center', paddingBottom: '10px'}}} value="Create Official Business Time/Trip Individual Data"></TextField> */}
+            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain' level="h6">Create Official Business Time/Trip Individual Data</Typography>
             <div className='flex flex-col gap-6 overflow-auto relative'>
                 <div className='flex flex-wrap gap-6 pt-4'>
                     <div className='flex flex-col gap-6'>

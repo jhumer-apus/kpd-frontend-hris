@@ -62,8 +62,11 @@ export function DashboardNavbar() {
     removals.forEach((el) => {
       Cookies.remove(el);
     });
-    dispatchV2(userLogout());
-    navigate('/'); // Navigate to the desired route after logout
+    setTimeout(()=> {
+      dispatchV2(userLogout());
+      navigate('/');  // Navigate to the desired route after logout
+    }, 200)
+    window.location.reload();
   };
 
   return (

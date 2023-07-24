@@ -53,7 +53,9 @@ import CloudSyncSharpIcon from '@mui/icons-material/CloudSyncSharp';
 import SettingsAccessibilitySharpIcon from '@mui/icons-material/SettingsAccessibilitySharp';
 import DifferenceOutlinedIcon from '@mui/icons-material/DifferenceOutlined';
 import FileOBTPage from "./pages/quick-accesses/file-obt/file-obt-page";
-
+import FileOVERTIMEPage from "./pages/quick-accesses/file-ot/file-ot-page";
+import FileUAPage from "./pages/quick-accesses/file-ua/file-ua-page";
+import FileLEAVEPage from "./pages/quick-accesses/file-leave/file-leave-page";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -145,7 +147,7 @@ export const routes: Array<IRoute> = [
             icon: <DifferenceOutlinedIcon {...icon} />,
             name: "File OT",
             path: "/quick-accesses/file-OT",
-            element: <DifferenceOutlinedIcon/>, 
+            element: <FileOVERTIMEPage/>, 
             hasSubItems: false,
           },
           {
@@ -153,7 +155,7 @@ export const routes: Array<IRoute> = [
             icon: <SettingsAccessibilitySharpIcon {...icon} />,
             name: "File LEAVE",
             path: "/quick-accesses/file-LEAVE",
-            element: <SettingsAccessibilitySharpIcon/>, 
+            element: <FileLEAVEPage/>, 
             hasSubItems: false,
           },
           {
@@ -161,7 +163,7 @@ export const routes: Array<IRoute> = [
             icon: <CloudSyncSharpIcon {...icon} />,
             name: "File UA",
             path: "/quick-accesses/file-UA",
-            element: <CloudSyncSharpIcon/>, 
+            element: <FileUAPage/>, 
             hasSubItems: false,
           },
         ]

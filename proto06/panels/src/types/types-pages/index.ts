@@ -508,3 +508,19 @@ export interface SCHEDULEDAILYViewInterface extends SCHEDULEDAILYCreateInterface
 }
 
 export interface SCHEDULEDAILYEditInterface extends SCHEDULEDAILYViewInterface {}
+
+
+
+
+// ===============================================================================================================================================================
+
+
+export interface RankDataInterface { 
+    date_added: string;
+    date_deleted: string | null;
+    hierarchy: number;
+    id: number;
+    is_approver: boolean;
+    rank_description: string;
+    rank_name: string;
+}
