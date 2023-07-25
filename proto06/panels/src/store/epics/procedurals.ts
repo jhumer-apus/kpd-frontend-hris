@@ -1266,7 +1266,7 @@ export const UAEditEpic: Epic = (action$, state$) =>
 
 // LEAVECREDIT API SECTION // LEAVECREDIT API SECTION // LEAVECREDIT API SECTION // LEAVECREDIT API SECTION // LEAVECREDIT API SECTION
 const LEAVECREDITEditApiCall = async (payload: LEAVECREDITEditInterface) => {
-  const response = await axios.put(`http://172.16.168.155:8000/api/leave_credit/${payload.id}/`,
+  const response = await axios.put(`http://172.16.168.155:8000/api/leave_credit/${payload.emp_no}/${payload.id}/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {

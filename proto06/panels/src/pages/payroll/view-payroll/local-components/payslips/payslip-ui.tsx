@@ -174,7 +174,8 @@ function PayslipUI(props: PaySlipUI) {
                 <div className='flex flex-col justify-between h-100'>
                     <div>
                         <div className='w-48 text-center font-bold overflow-hidden break-words'>
-                            SILICON VALLEY COMPUTER GROUPS PHILS INC
+                            {/* SILICON VALLEY COMPUTER GROUPS PHILS INC */}
+                            CAVDEAL-CAVITE CORP.
                         </div>
                         <div className='flex'>
                             <div className='w-28'>

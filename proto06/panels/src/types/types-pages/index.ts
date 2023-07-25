@@ -422,20 +422,20 @@ export interface UAEditInterface extends UAViewInterface {}
 
 
 export interface LEAVECREDITCreateInterface {
-    allowed_days: number,
-    credit_used: number,
-    credit_remaining: number,
-    expiry: string,
-    is_converted: boolean,
-    date_added: string,
-    emp_no: number,
-    leave_type_code: number,
+    allowed_days: number | null,
+    expiry: string | null,
+    emp_no: number | null,
+    leave_type_code: number | null,
 }
 
 export interface LEAVECREDITViewInterface extends LEAVECREDITCreateInterface { 
-    id: number;
-    leave_name: string;
+    id: number | null;
+    leave_name: string | null;
     date_deleted: string | null;
+    credit_used: number | null,
+    credit_remaining: number | null,
+    is_converted: boolean | null,
+    date_added: string | null,
 }
 
 export interface LEAVECREDITEditInterface extends LEAVECREDITViewInterface {}

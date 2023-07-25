@@ -71,7 +71,7 @@ export default function ProceduralLEAVEPage() {
       <div className="my-10 flex flex-wrap justify-between items-start gap-6">
         <div>
           <ViewLEAVESingleModal setSingleLEAVEDetailsData={setSingleLEAVEDetailsData} singleLEAVEDetailsData={singleLEAVEDetailsData} singleLEAVEOpenModal={singleLEAVEOpenModal} setSingleLEAVEOpenModal={setSingleLEAVEOpenModal}/>
-          <CreateLEAVEComponent />
+          {/* <CreateLEAVEComponent /> */}
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
           <p>Status: {ProceduralLEAVEPageDescriptions}</p>
         </Typography>

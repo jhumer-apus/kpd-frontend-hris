@@ -1,30 +1,30 @@
-import * as React from 'react';
+import { Dispatch, SetStateAction, Fragment, useState } from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
-import { OVERTIMEViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
-import OVERTIMEModalComponent from './inner-modals/overtime-modal-component';
+import { LEAVECREDITViewInterface } from '@/types/types-pages';
+import LEAVECREDITModalComponent from './inner-modals/leave-credit-modal-component';
 
 
-interface ViewOVERTIMESingleModalInterface {
-    singleOVERTIMEOpenModal: boolean; 
-    setSingleOVERTIMEOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-    singleOVERTIMEDetailsData: OVERTIMEViewInterface;
-    setSingleOVERTIMEDetailsData: React.Dispatch<React.SetStateAction<OVERTIMEViewInterface>>;
+interface SingleLEAVECREDITInterface {
+    singleLEAVECREDITOpenModal: boolean; 
+    setSingleLEAVECREDITOpenModal: Dispatch<SetStateAction<boolean>>;
+    singleLEAVECREDITDetailsData: LEAVECREDITViewInterface;
+    setSingleLEAVECREDITDetailsData: Dispatch<SetStateAction<LEAVECREDITViewInterface>>;
 }
 
-export default function ViewOVERTIMESingleModal(props: ViewOVERTIMESingleModalInterface) {
-    const {singleOVERTIMEOpenModal, setSingleOVERTIMEOpenModal, setSingleOVERTIMEDetailsData, singleOVERTIMEDetailsData} = props;
-  const [scroll, setScroll] = React.useState<boolean>(true);
+export default function ViewLEAVECREDITSingleModal(props: SingleLEAVECREDITInterface) {
+    const {singleLEAVECREDITOpenModal, setSingleLEAVECREDITOpenModal, setSingleLEAVECREDITDetailsData, singleLEAVECREDITDetailsData} = props;
+  const [scroll, setScroll] = useState<boolean>(true);
   return (
-    <React.Fragment>
-      <Transition in={singleOVERTIMEOpenModal} timeout={400}>
+    <Fragment>
+      <Transition in={singleLEAVECREDITOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
         keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setSingleOVERTIMEOpenModal(false);
+          setSingleLEAVECREDITOpenModal(false);
         }}
         slotProps={{
             backdrop: {
@@ -47,7 +47,7 @@ export default function ViewOVERTIMESingleModal(props: ViewOVERTIMESingleModalIn
             aria-labelledby="dialog-vertical-scroll-title" 
             layout={'center'}
             sx={{
-              ...overtimeModalArea,
+              ...LEAVECREDITModalArea,
                 opacity: 0,
                 transition: `opacity 300ms`,
                 ...{
@@ -57,19 +57,19 @@ export default function ViewOVERTIMESingleModal(props: ViewOVERTIMESingleModalIn
                 overflow: 'auto',
             }}
         >
-          <OVERTIMEModalComponent setSingleOVERTIMEDetailsData={setSingleOVERTIMEDetailsData} singleOVERTIMEDetailsData={singleOVERTIMEDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <LEAVECREDITModalComponent setSingleLEAVECREDITDetailsData={setSingleLEAVECREDITDetailsData} singleLEAVECREDITDetailsData={singleLEAVECREDITDetailsData} scroll={scroll} setScroll={setScroll}/>
         </ModalDialog>
       </Modal>
         )}
       </Transition>
-    </React.Fragment>
+    </Fragment>
   );
 }
 
 
 // Styles
-const overtimeModalArea = {
-  height: '188.5mm',
+const LEAVECREDITModalArea = {
+  height: '128.5mm',
   width: '210mm',
   margin: '0 auto',
   background: 'white',

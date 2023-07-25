@@ -56,6 +56,7 @@ import FileOBTPage from "./pages/quick-accesses/file-obt/file-obt-page";
 import FileOVERTIMEPage from "./pages/quick-accesses/file-ot/file-ot-page";
 import FileUAPage from "./pages/quick-accesses/file-ua/file-ua-page";
 import FileLEAVEPage from "./pages/quick-accesses/file-leave/file-leave-page";
+import ProceduralLEAVECREDITPage from "./pages/procedurals/leave-credits/procedural-leave-credit-page";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -234,7 +235,7 @@ export const routes: Array<IRoute> = [
             id: 15200,
             icon: <ApprovalOutlinedIcon  {...icon} />,
             name: "OBT",
-            path: "/procedurals/obt",
+            path: "/procedurals/OBT",
             element:<ProceduralOBTPage/>,
             hasSubItems: false,
           },
@@ -259,7 +260,7 @@ export const routes: Array<IRoute> = [
             icon: <AppsOutageOutlinedIcon {...icon} />,
             name: "Leave Credits",
             path: "/procedurals/leave-credits",
-            element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">APPRAISAL PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+            element:<ProceduralLEAVECREDITPage/>,
             hasSubItems: false,
           },
           {
@@ -346,14 +347,14 @@ export const routes: Array<IRoute> = [
           },
         ]
       },
-      {
-        id: 17000,
-        icon: null,
-        name: "Reports",
-        path: "/reports",
-        element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">REPORTS PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
-        hasSubItems: false,
-      },
+      // {
+      //   id: 17000,
+      //   icon: null,
+      //   name: "Reports",
+      //   path: "/reports",
+      //   element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">REPORTS PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+      //   hasSubItems: false,
+      // },
       {
         id: 18000,
         icon: null,
@@ -416,14 +417,14 @@ export const routes: Array<IRoute> = [
           },
         ]
       },
-      {
-        id: 21200,
-        icon: null,
-        name: "Help",
-        path: "/help",
-        element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">HELP PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
-        hasSubItems: false,
-      },
+      // {
+      //   id: 21200,
+      //   icon: null,
+      //   name: "Help",
+      //   path: "/help",
+      //   element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">HELP PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
+      //   hasSubItems: false,
+      // },
     ],
   },
   {

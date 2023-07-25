@@ -39,7 +39,7 @@ export function ChooseDashboard() {
         </Card>
 
 
-        <Card className={styles.requestsBar}>
+        <Card className={styles.requestsBar} style={{marginTop: '24px'}}>
           <CardHeader
             floated={false}
             shadow={false}
@@ -91,7 +91,7 @@ export function ChooseDashboard() {
               </thead>
               <tbody>
                 {filedRequestsData.map(
-                  ({ img, name, members, budget, completion }, key) => {
+                  ({ img, name, members, budget, completion, icon }, key) => {
                     const className = `py-3 px-5 ${
                       key === projectsTableData.length - 1
                         ? ""
@@ -102,7 +102,8 @@ export function ChooseDashboard() {
                       <tr key={name}>
                         <td className={className}>
                           <div className="flex items-center gap-4">
-                            <BriefcaseIcon style={{height: "36px", width: "36px"}}/>
+                            {icon}
+                            {/* <BriefcaseIcon style={{height: "36px", width: "36px"}}/> */}
                             <Typography
                               variant="small"
                               color="blue-gray"

@@ -64,9 +64,11 @@ export function DashboardNavbar() {
     });
     setTimeout(()=> {
       dispatchV2(userLogout());
-      navigate('/');  // Navigate to the desired route after logout
+      
+      // navigate('/');  // Navigate to the desired route after logout
     }, 200)
     window.location.reload();
+    window.location.replace('/')
   };
 
   return (
