@@ -8,12 +8,13 @@ import ExpiryDateLEAVECREDITCreate from './inner-ui-components/expiry-date-field
 import { Typography } from '@mui/joy';
 import { LEAVECREDITCreateInterface } from '@/types/types-pages';
 import { LEAVECREDITCreateAction, LEAVECREDITCreateActionFailureCleanup } from '@/store/actions/procedurals';
+import LEAVETYPEFetchAutoCompleteOnLEAVECREDITPage from './inner-ui-components/leave-type-autocomplete';
 
 interface CreateLEAVECREDITModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
 }
 
-function QuickAccessLEAVECREDITCreate(props: CreateLEAVECREDITModalInterface) {
+function ProceduralLEAVECREDITCreate(props: CreateLEAVECREDITModalInterface) {
 
     const dispatch = useDispatch();
     const LEAVECREDITCreatestate = useSelector((state: RootState)=> state.procedurals.LEAVECREDITCreate);
@@ -45,7 +46,8 @@ function QuickAccessLEAVECREDITCreate(props: CreateLEAVECREDITModalInterface) {
                 <div className='flex flex-wrap gap-6 pt-4'>
                     <div className='flex flex-col gap-6'>
                         <EmployeeAutoComplete createLEAVECREDIT={createLEAVECREDIT} setCreateLEAVECREDIT={setCreateLEAVECREDIT}/>
-                        <TextField
+                        <LEAVETYPEFetchAutoCompleteOnLEAVECREDITPage createLEAVECREDIT={createLEAVECREDIT} setCreateLEAVECREDIT={setCreateLEAVECREDIT}/>
+                        {/* <TextField
                             required 
                             sx={{width: '100%'}} 
                             label='LEAVECREDIT Type Code:'  
@@ -64,7 +66,7 @@ function QuickAccessLEAVECREDITCreate(props: CreateLEAVECREDITModalInterface) {
                                 })
                             }}
                             
-                        />
+                        /> */}
                     </div>
                     <div className='flex flex-col gap-6'>
                         <ExpiryDateLEAVECREDITCreate createLEAVECREDIT={createLEAVECREDIT} setCreateLEAVECREDIT={setCreateLEAVECREDIT}/>
@@ -100,5 +102,5 @@ function QuickAccessLEAVECREDITCreate(props: CreateLEAVECREDITModalInterface) {
     );
 }
 
-export default QuickAccessLEAVECREDITCreate;
+export default ProceduralLEAVECREDITCreate;
 

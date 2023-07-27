@@ -2,8 +2,8 @@ import { Fragment }from 'react';
 import { styled } from '@mui/material/styles';
 import MuiGrid from '@mui/material/Grid';
 import { Paper, Box, useTheme, useMediaQuery } from '@mui/material';
-import QuickAccessLEAVEPageHistory from './local-component/right-side/file-leave-history';
-import QuickAccessLEAVECreate from './local-component/left-side/file-leave-create';
+import ProceduralCUTOFFPERIODPageHistory from './local-component/right-side/cutoff-period-history';
+import ProceduralCUTOFFPERIODCreate from './local-component/left-side/procedural-cutoff-period-create';
 
 
 const PaperStyle = {
@@ -21,28 +21,23 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
     },
 }));
 
-export default function FileLEAVEPage() {
+export default function ProceduralCUTOFFPERIODPage() {
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.down('lg'));
 
   return (
     <Fragment>
-        {/* <Paper elevation={3} style={{height: '100px', width: '99%',  marginBottom: '10px'}}>
-            <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-                <QuickAccessLEAVECreate/>
-            </Box>
-        </Paper> */}
         <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
             <Grid item xs>
                 <Paper elevation={3} style={PaperStyle}>
                     <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
-                        <QuickAccessLEAVECreate/>
+                        <ProceduralCUTOFFPERIODCreate/>
                     </Box>
                 </Paper>
             </Grid>
             <Grid item xs>
                 <Paper elevation={3} style={PaperStyle}>
-                    <QuickAccessLEAVEPageHistory/>
+                    <ProceduralCUTOFFPERIODPageHistory/>
                 </Paper>
             </Grid>
         </Grid>

@@ -326,6 +326,15 @@ export const LEAVETYPEEditActionProgress = createAction<number>("LEAVETYPE_EDIT_
 export const LEAVETYPEEditActionFailure = createAction<string>("LEAVETYPE_EDIT_ACTION_FAILURE");
 export const LEAVETYPEEditActionFailureCleanup = createAction("LEAVETYPE_EDIT_ACTION_FAILURE_CLEANUP");
 
+export const LEAVETYPEDeleteAction = createAction<{lt_id: number}>("LEAVETYPE_DELETE_ACTION");
+export const LEAVETYPEDeleteActionSuccess = createAction("LEAVETYPE_DELETE_ACTION_SUCCESS", (SuccessMessage: string) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const LEAVETYPEDeleteActionProgress = createAction<number>("LEAVETYPE_DELETE_ACTION_PROGRESS");
+export const LEAVETYPEDeleteActionFailure = createAction<string>("LEAVETYPE_DELETE_ACTION_FAILURE");
+export const LEAVETYPEDeleteActionFailureCleanup = createAction("LEAVETYPE_DELETE_ACTION_FAILURE_CLEANUP");
+
+
 // CUTOFFPERIOD SECTION // CUTOFFPERIOD SECTION // CUTOFFPERIOD SECTION // CUTOFFPERIOD SECTION // CUTOFFPERIOD SECTION // CUTOFFPERIOD SECTION
 export const CUTOFFPERIODViewAction = createAction("CUTOFFPERIOD_VIEW_ACTION");
 export const CUTOFFPERIODViewActionSuccess = createAction("CUTOFFPERIOD_VIEW_ACTION_SUCCESS", (SuccessMessage: CUTOFFPERIODViewInterface[]) => { 

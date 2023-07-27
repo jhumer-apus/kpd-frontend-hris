@@ -182,6 +182,11 @@ import {
     LEAVETYPEViewFilterEmployeeActionFailureCleanup,
     LEAVETYPEViewFilterEmployeeActionProgress,
     LEAVETYPEViewFilterEmployeeActionSuccess,
+    LEAVETYPEDeleteAction,
+    LEAVETYPEDeleteActionFailure,
+    LEAVETYPEDeleteActionFailureCleanup,
+    LEAVETYPEDeleteActionProgress,
+    LEAVETYPEDeleteActionSuccess,
     //CUTOFFPERIOD SECTION,
     CUTOFFPERIODCreateAction,
     CUTOFFPERIODCreateActionFailure,
@@ -257,7 +262,7 @@ import {
     SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionSuccess,
 } from '../actions/procedurals';
 import { Epic } from 'redux-observable';
-import store from '../configureStore';
+import store, { APILink } from '../configureStore';
 import { 
   HolidayGetType, 
   OBTCreateInterface, 
@@ -292,7 +297,7 @@ import {
 
 // HOLIDAY API SECTION // HOLIDAY API SECTION // HOLIDAY API SECTION // HOLIDAY API SECTION // HOLIDAY API SECTION
 const HolidayEditSubmitApiCall = async (payload: HolidayGetType): Promise<HolidayGetType> => {
-  const response = await axios.put(`http://172.16.168.155:8000/api/holiday/${payload.id}/`,
+  const response = await axios.put(`${APILink}holiday/${payload.id}/`,
   payload, 
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -307,7 +312,7 @@ const HolidayEditSubmitApiCall = async (payload: HolidayGetType): Promise<Holida
 };
 
 const HolidayCreateApiCall = async (payload: HolidayGetType): Promise<HolidayGetType> => {
-const response = await axios.post("http://172.16.168.155:8000/api/holiday/",
+const response = await axios.post(`${APILink}holiday/`,
 payload, 
 {
     onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -322,7 +327,7 @@ return response.data;
 };
 
 const HolidaysGetApiCall = async () => {
-  const response = await axios.get("http://172.16.168.155:8000/api/holiday/", 
+  const response = await axios.get(`${APILink}holiday/`, 
   {
       onDownloadProgress: (progressEvent) => {
         if(progressEvent.total){
@@ -401,7 +406,7 @@ action$.pipe(
 
 // OBT API SECTION // OBT API SECTION // OBT API SECTION // OBT API SECTION // OBT API SECTION
 const OBTEditApiCall = async (payload: OBTEditInterface) => {
-  const response = await axios.put(`http://172.16.168.155:8000/api/obt/${payload.emp_no}/${payload.id}/`,
+  const response = await axios.put(`${APILink}obt/${payload.emp_no}/${payload.id}/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -416,7 +421,7 @@ const OBTEditApiCall = async (payload: OBTEditInterface) => {
 };
 
 const OBTCreateApiCall = async (payload: OBTCreateInterface) => {
-  const response = await axios.post(`http://172.16.168.155:8000/api/obt/`,
+  const response = await axios.post(`${APILink}obt/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -432,7 +437,7 @@ const OBTCreateApiCall = async (payload: OBTCreateInterface) => {
 
 
 const OBTViewFilterApproverApiCall = async (payload: {emp_no: number}) => {
-  const response = await axios.get(`http://172.16.168.155:8000/api/obt/approver/${payload.emp_no}/`,
+  const response = await axios.get(`${APILink}obt/approver/${payload.emp_no}/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -447,7 +452,7 @@ const OBTViewFilterApproverApiCall = async (payload: {emp_no: number}) => {
 
 
 const OBTViewFilterEmployeeAndOBTApiCall = async (payload: {emp_no: number, obt_id: number}) => {
-  const response = await axios.get(`http://172.16.168.155:8000/api/obt/${payload.emp_no}/${payload.obt_id}`,
+  const response = await axios.get(`${APILink}obt/${payload.emp_no}/${payload.obt_id}`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -461,7 +466,7 @@ const OBTViewFilterEmployeeAndOBTApiCall = async (payload: {emp_no: number, obt_
 };
 
 const OBTViewFilterEmployeeApiCall = async (payload: {emp_no: number}) => {
-  const response = await axios.get(`http://172.16.168.155:8000/api/obt/${payload.emp_no}/`,
+  const response = await axios.get(`${APILink}obt/${payload.emp_no}/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -476,7 +481,7 @@ const OBTViewFilterEmployeeApiCall = async (payload: {emp_no: number}) => {
 
 
 const OBTViewApiCall = async () => {
-  const response = await axios.get("http://172.16.168.155:8000/api/obt/",
+  const response = await axios.get(`${APILink}obt/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -584,7 +589,7 @@ export const OBTCreateEpic: Epic = (action$, state$) =>
           return OBTCreateActionSuccess(data);
         }),
         catchError((error) => {
-          console.log(error, "mama?")
+          console.log(error, `mama?`)
           if (error.response && error.response.data && error.response.data) {
             return of(OBTCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
           } else {
@@ -618,7 +623,7 @@ export const OBTEditEpic: Epic = (action$, state$) =>
 
 // OVERTIME API SECTION // OVERTIME API SECTION // OVERTIME API SECTION // OVERTIME API SECTION // OVERTIME API SECTION
 const OVERTIMEEditApiCall = async (payload: OVERTIMEEditInterface) => {
-  const response = await axios.put(`http://172.16.168.155:8000/api/ot/${payload.emp_no}/${payload.id}/`,
+  const response = await axios.put(`${APILink}ot/${payload.emp_no}/${payload.id}/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -633,7 +638,7 @@ const OVERTIMEEditApiCall = async (payload: OVERTIMEEditInterface) => {
 };
 
 const OVERTIMECreateApiCall = async (payload: OVERTIMECreateInterface) => {
-  const response = await axios.post(`http://172.16.168.155:8000/api/ot/`,
+  const response = await axios.post(`${APILink}ot/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -649,7 +654,7 @@ const OVERTIMECreateApiCall = async (payload: OVERTIMECreateInterface) => {
 
 
 const OVERTIMEViewFilterApproverApiCall = async (payload: {emp_no: number}) => {
-  const response = await axios.get(`http://172.16.168.155:8000/api/ot/approver/${payload.emp_no}/`,
+  const response = await axios.get(`${APILink}ot/approver/${payload.emp_no}/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -664,7 +669,7 @@ const OVERTIMEViewFilterApproverApiCall = async (payload: {emp_no: number}) => {
 
 
 const OVERTIMEViewFilterEmployeeAndOVERTIMEApiCall = async (payload: {emp_no: number, ot_id: number}) => {
-  const response = await axios.get(`http://172.16.168.155:8000/api/ot/${payload.emp_no}/${payload.ot_id}`,
+  const response = await axios.get(`${APILink}ot/${payload.emp_no}/${payload.ot_id}`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -678,7 +683,7 @@ const OVERTIMEViewFilterEmployeeAndOVERTIMEApiCall = async (payload: {emp_no: nu
 };
 
 const OVERTIMEViewFilterEmployeeApiCall = async (payload: {emp_no: number}) => {
-  const response = await axios.get(`http://172.16.168.155:8000/api/ot/${payload.emp_no}/`,
+  const response = await axios.get(`${APILink}ot/${payload.emp_no}/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -693,7 +698,7 @@ const OVERTIMEViewFilterEmployeeApiCall = async (payload: {emp_no: number}) => {
 
 
 const OVERTIMEViewApiCall = async () => {
-  const response = await axios.get("http://172.16.168.155:8000/api/ot/",
+  const response = await axios.get(`${APILink}ot/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -834,7 +839,7 @@ export const OVERTIMEEditEpic: Epic = (action$, state$) =>
 
 // LEAVE API SECTION // LEAVE API SECTION // LEAVE API SECTION // LEAVE API SECTION // LEAVE API SECTION
 const LEAVEEditApiCall = async (payload: LEAVEEditInterface) => {
-  const response = await axios.put(`http://172.16.168.155:8000/api/leave/${payload.emp_no}/${payload.id}/`,
+  const response = await axios.put(`${APILink}leave/${payload.emp_no}/${payload.id}/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -849,7 +854,7 @@ const LEAVEEditApiCall = async (payload: LEAVEEditInterface) => {
 };
 
 const LEAVECreateApiCall = async (payload: LEAVECreateInterface) => {
-  const response = await axios.post(`http://172.16.168.155:8000/api/leave/`,
+  const response = await axios.post(`${APILink}leave/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -865,7 +870,7 @@ const LEAVECreateApiCall = async (payload: LEAVECreateInterface) => {
 
 
 const LEAVEViewFilterApproverApiCall = async (payload: {emp_no: number}) => {
-  const response = await axios.get(`http://172.16.168.155:8000/api/leave/approver/${payload.emp_no}/`,
+  const response = await axios.get(`${APILink}leave/approver/${payload.emp_no}/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -880,7 +885,7 @@ const LEAVEViewFilterApproverApiCall = async (payload: {emp_no: number}) => {
 
 
 const LEAVEViewFilterEmployeeAndLEAVEApiCall = async (payload: {emp_no: number, lv_id: number}) => {
-  const response = await axios.get(`http://172.16.168.155:8000/api/leave/${payload.emp_no}/${payload.lv_id}`,
+  const response = await axios.get(`${APILink}leave/${payload.emp_no}/${payload.lv_id}`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -894,7 +899,7 @@ const LEAVEViewFilterEmployeeAndLEAVEApiCall = async (payload: {emp_no: number, 
 };
 
 const LEAVEViewFilterEmployeeApiCall = async (payload: {emp_no: number}) => {
-  const response = await axios.get(`http://172.16.168.155:8000/api/leave/${payload.emp_no}/`,
+  const response = await axios.get(`${APILink}leave/${payload.emp_no}/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -909,7 +914,7 @@ const LEAVEViewFilterEmployeeApiCall = async (payload: {emp_no: number}) => {
 
 
 const LEAVEViewApiCall = async () => {
-  const response = await axios.get("http://172.16.168.155:8000/api/leave/",
+  const response = await axios.get(`${APILink}leave/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -1050,7 +1055,7 @@ export const LEAVEEditEpic: Epic = (action$, state$) =>
 
 // UA API SECTION // UA API SECTION // UA API SECTION // UA API SECTION // UA API SECTION
 const UAEditApiCall = async (payload: UAEditInterface) => {
-  const response = await axios.put(`http://172.16.168.155:8000/api/ua/${payload.emp_no}/${payload.id}/`,
+  const response = await axios.put(`${APILink}ua/${payload.emp_no}/${payload.id}/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -1065,7 +1070,7 @@ const UAEditApiCall = async (payload: UAEditInterface) => {
 };
 
 const UACreateApiCall = async (payload: UACreateInterface) => {
-  const response = await axios.post(`http://172.16.168.155:8000/api/ua/`,
+  const response = await axios.post(`${APILink}ua/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -1081,7 +1086,7 @@ const UACreateApiCall = async (payload: UACreateInterface) => {
 
 
 const UAViewFilterApproverApiCall = async (payload: {emp_no: number}) => {
-  const response = await axios.get(`http://172.16.168.155:8000/api/ua/approver/${payload.emp_no}/`,
+  const response = await axios.get(`${APILink}ua/approver/${payload.emp_no}/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -1096,7 +1101,7 @@ const UAViewFilterApproverApiCall = async (payload: {emp_no: number}) => {
 
 
 const UAViewFilterEmployeeAndUAApiCall = async (payload: {emp_no: number, ua_id: number}) => {
-  const response = await axios.get(`http://172.16.168.155:8000/api/ua/${payload.emp_no}/${payload.ua_id}`,
+  const response = await axios.get(`${APILink}ua/${payload.emp_no}/${payload.ua_id}`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -1110,7 +1115,7 @@ const UAViewFilterEmployeeAndUAApiCall = async (payload: {emp_no: number, ua_id:
 };
 
 const UAViewFilterEmployeeApiCall = async (payload: {emp_no: number}) => {
-  const response = await axios.get(`http://172.16.168.155:8000/api/ua/${payload.emp_no}/`,
+  const response = await axios.get(`${APILink}ua/${payload.emp_no}/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -1125,7 +1130,7 @@ const UAViewFilterEmployeeApiCall = async (payload: {emp_no: number}) => {
 
 
 const UAViewApiCall = async () => {
-  const response = await axios.get("http://172.16.168.155:8000/api/ua/",
+  const response = await axios.get(`${APILink}ua/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -1266,7 +1271,7 @@ export const UAEditEpic: Epic = (action$, state$) =>
 
 // LEAVECREDIT API SECTION // LEAVECREDIT API SECTION // LEAVECREDIT API SECTION // LEAVECREDIT API SECTION // LEAVECREDIT API SECTION
 const LEAVECREDITEditApiCall = async (payload: LEAVECREDITEditInterface) => {
-  const response = await axios.put(`http://172.16.168.155:8000/api/leave_credit/${payload.emp_no}/${payload.id}/`,
+  const response = await axios.put(`${APILink}leave_credit/${payload.emp_no}/${payload.id}/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -1281,7 +1286,7 @@ const LEAVECREDITEditApiCall = async (payload: LEAVECREDITEditInterface) => {
 };
 
 const LEAVECREDITCreateApiCall = async (payload: LEAVECREDITCreateInterface) => {
-  const response = await axios.post(`http://172.16.168.155:8000/api/leave_credit/`,
+  const response = await axios.post(`${APILink}leave_credit/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -1296,7 +1301,7 @@ const LEAVECREDITCreateApiCall = async (payload: LEAVECREDITCreateInterface) => 
 };
 
 const LEAVECREDITViewFilterEmployeeApiCall = async (payload: {emp_no: number}) => {
-  const response = await axios.get(`http://172.16.168.155:8000/api/leave_credit/${payload.emp_no}/`,
+  const response = await axios.get(`${APILink}leave_credit/${payload.emp_no}/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -1311,7 +1316,7 @@ const LEAVECREDITViewFilterEmployeeApiCall = async (payload: {emp_no: number}) =
 
 
 const LEAVECREDITViewApiCall = async () => {
-  const response = await axios.get("http://172.16.168.155:8000/api/leave_credit/",
+  const response = await axios.get(`${APILink}leave_credit/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -1409,8 +1414,23 @@ export const LEAVECREDITEditEpic: Epic = (action$, state$) =>
 );
 
 // LEAVETYPE API SECTION // LEAVETYPE API SECTION // LEAVETYPE API SECTION // LEAVETYPE API SECTION // LEAVETYPE API SECTION
+const LEAVETYPEDeleteApiCall = async (payload: {lt_id: number}) => {
+  const response = await axios.delete(`${APILink}leave_type/${payload.lt_id}/`,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(LEAVETYPEDeleteActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+
 const LEAVETYPEEditApiCall = async (payload: LEAVETYPEEditInterface) => {
-  const response = await axios.put(`http://172.16.168.155:8000/api/leave_type/${payload.id}/`,
+  const response = await axios.put(`${APILink}leave_type/${payload.id}/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -1425,7 +1445,7 @@ const LEAVETYPEEditApiCall = async (payload: LEAVETYPEEditInterface) => {
 };
 
 const LEAVETYPECreateApiCall = async (payload: LEAVETYPECreateInterface) => {
-  const response = await axios.post(`http://172.16.168.155:8000/api/leave_type/`,
+  const response = await axios.post(`${APILink}leave_type/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -1440,7 +1460,7 @@ const LEAVETYPECreateApiCall = async (payload: LEAVETYPECreateInterface) => {
 };
 
 const LEAVETYPEViewFilterEmployeeApiCall = async (payload: {emp_no: number}) => {
-  const response = await axios.get(`http://172.16.168.155:8000/api/leave_type/${payload.emp_no}/`,
+  const response = await axios.get(`${APILink}leave_type/${payload.emp_no}/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -1455,7 +1475,7 @@ const LEAVETYPEViewFilterEmployeeApiCall = async (payload: {emp_no: number}) => 
 
 
 const LEAVETYPEViewApiCall = async () => {
-  const response = await axios.get("http://172.16.168.155:8000/api/leave_type/",
+  const response = await axios.get(`${APILink}leave_type/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -1552,10 +1572,31 @@ export const LEAVETYPEEditEpic: Epic = (action$, state$) =>
     )
 );
 
+export const SCHEDULESHIFTDeleteEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(SCHEDULESHIFTDeleteAction.type),
+    switchMap((action: ReturnType<typeof SCHEDULESHIFTDeleteAction>) =>
+      from(
+        SCHEDULESHIFTDeleteApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return SCHEDULESHIFTDeleteActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(SCHEDULESHIFTDeleteActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(SCHEDULESHIFTDeleteActionFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
 
 // CUTOFFPERIOD API SECTION // CUTOFFPERIOD API SECTION // CUTOFFPERIOD API SECTION // CUTOFFPERIOD API SECTION // CUTOFFPERIOD API SECTION
 const CUTOFFPERIODEditApiCall = async (payload: CUTOFFPERIODEditInterface) => {
-  const response = await axios.put(`http://172.16.168.155:8000/api/cutoff_period/${payload.id}/`,
+  const response = await axios.put(`${APILink}cutoff_period/${payload.id}/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -1570,7 +1611,7 @@ const CUTOFFPERIODEditApiCall = async (payload: CUTOFFPERIODEditInterface) => {
 };
 
 const CUTOFFPERIODCreateApiCall = async (payload: CUTOFFPERIODCreateInterface) => {
-  const response = await axios.post(`http://172.16.168.155:8000/api/cutoff_period/`,
+  const response = await axios.post(`${APILink}cutoff_period/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -1585,7 +1626,7 @@ const CUTOFFPERIODCreateApiCall = async (payload: CUTOFFPERIODCreateInterface) =
 };
 
 const CUTOFFPERIODViewFilterCUTOFFPERIODApiCall = async (payload: {co_id: number}) => {
-  const response = await axios.get(`http://172.16.168.155:8000/api/cutoff_period/${payload.co_id}/`,
+  const response = await axios.get(`${APILink}cutoff_period/${payload.co_id}/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -1600,7 +1641,7 @@ const CUTOFFPERIODViewFilterCUTOFFPERIODApiCall = async (payload: {co_id: number
 
 
 const CUTOFFPERIODViewApiCall = async () => {
-  const response = await axios.get("http://172.16.168.155:8000/api/cutoff_period/",
+  const response = await axios.get(`${APILink}cutoff_period/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -1699,7 +1740,7 @@ export const CUTOFFPERIODEditEpic: Epic = (action$, state$) =>
 
 // SCHEDULESHIFT API SECTION // SCHEDULESHIFT API SECTION // SCHEDULESHIFT API SECTION // SCHEDULESHIFT API SECTION // SCHEDULESHIFT API SECTION
 const SCHEDULESHIFTDeleteApiCall = async (payload: {ss_id: number}) => {
-  const response = await axios.delete(`http://172.16.168.155:8000/api/schedule_shift/${payload.ss_id}/`,
+  const response = await axios.delete(`${APILink}schedule_shift/${payload.ss_id}/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -1713,7 +1754,7 @@ const SCHEDULESHIFTDeleteApiCall = async (payload: {ss_id: number}) => {
 };
 
 const SCHEDULESHIFTEditApiCall = async (payload: SCHEDULESHIFTEditInterface) => {
-  const response = await axios.put(`http://172.16.168.155:8000/api/schedule_shift/${payload.id}/`,
+  const response = await axios.put(`${APILink}schedule_shift/${payload.id}/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -1728,7 +1769,7 @@ const SCHEDULESHIFTEditApiCall = async (payload: SCHEDULESHIFTEditInterface) => 
 };
 
 const SCHEDULESHIFTCreateApiCall = async (payload: SCHEDULESHIFTCreateInterface) => {
-  const response = await axios.post(`http://172.16.168.155:8000/api/schedule_shift/`,
+  const response = await axios.post(`${APILink}schedule_shift/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -1743,7 +1784,7 @@ const SCHEDULESHIFTCreateApiCall = async (payload: SCHEDULESHIFTCreateInterface)
 };
 
 const SCHEDULESHIFTViewFilterSCHEDULESHIFTApiCall = async (payload: {ss_id: number}) => {
-  const response = await axios.get(`http://172.16.168.155:8000/api/schedule_shift/${payload.ss_id}/`,
+  const response = await axios.get(`${APILink}schedule_shift/${payload.ss_id}/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -1758,7 +1799,7 @@ const SCHEDULESHIFTViewFilterSCHEDULESHIFTApiCall = async (payload: {ss_id: numb
 
 
 const SCHEDULESHIFTViewApiCall = async () => {
-  const response = await axios.get("http://172.16.168.155:8000/api/schedule_shift/",
+  const response = await axios.get(`${APILink}schedule_shift/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -1855,21 +1896,21 @@ export const SCHEDULESHIFTEditEpic: Epic = (action$, state$) =>
     )
 );
 
-export const SCHEDULESHIFTDeleteEpic: Epic = (action$, state$) =>
+export const LEAVETYPEDeleteEpic: Epic = (action$, state$) =>
   action$.pipe(
-    ofType(SCHEDULESHIFTDeleteAction.type),
-    switchMap((action: ReturnType<typeof SCHEDULESHIFTDeleteAction>) =>
+    ofType(LEAVETYPEDeleteAction.type),
+    switchMap((action: ReturnType<typeof LEAVETYPEDeleteAction>) =>
       from(
-        SCHEDULESHIFTDeleteApiCall(action?.payload)
+        LEAVETYPEDeleteApiCall(action?.payload)
       ).pipe(
         map((data) => {
-          return SCHEDULESHIFTDeleteActionSuccess(data);
+          return LEAVETYPEDeleteActionSuccess(data);
         }),
         catchError((error) => {
           if (error.response && error.response.data && error.response.data['Error Message']) {
-            return of(SCHEDULESHIFTDeleteActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            return of(LEAVETYPEDeleteActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(SCHEDULESHIFTDeleteActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(LEAVETYPEDeleteActionFailure(error.message)); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1878,7 +1919,7 @@ export const SCHEDULESHIFTDeleteEpic: Epic = (action$, state$) =>
 
 // SCHEDULEDAILY API SECTION // SCHEDULEDAILY API SECTION // SCHEDULEDAILY API SECTION // SCHEDULEDAILY API SECTION // SCHEDULEDAILY API SECTION
 const SCHEDULEDAILYEditApiCall = async (payload: SCHEDULEDAILYEditInterface) => {
-  const response = await axios.put(`http://172.16.168.155:8000/api/schedule_daily/${payload.emp_no}/${payload.id}/`,
+  const response = await axios.put(`${APILink}schedule_daily/${payload.emp_no}/${payload.id}/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -1893,7 +1934,7 @@ const SCHEDULEDAILYEditApiCall = async (payload: SCHEDULEDAILYEditInterface) => 
 };
 
 const SCHEDULEDAILYCreateApiCall = async (payload: SCHEDULEDAILYCreateInterface) => {
-  const response = await axios.post(`http://172.16.168.155:8000/api/schedule_daily/`,
+  const response = await axios.post(`${APILink}schedule_daily/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -1908,7 +1949,7 @@ const SCHEDULEDAILYCreateApiCall = async (payload: SCHEDULEDAILYCreateInterface)
 };
 
 const SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYApiCall = async (payload: {emp_no: number, sd_id: number}) => {
-  const response = await axios.get(`http://172.16.168.155:8000/api/schedule_daily/${payload.emp_no}/${payload.sd_id}`,
+  const response = await axios.get(`${APILink}schedule_daily/${payload.emp_no}/${payload.sd_id}`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -1922,7 +1963,7 @@ const SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYApiCall = async (payload: {
 };
 
 const SCHEDULEDAILYViewFilterEmployeeApiCall = async (payload: {emp_no: number}) => {
-  const response = await axios.get(`http://172.16.168.155:8000/api/schedule_daily/${payload.emp_no}/`,
+  const response = await axios.get(`${APILink}schedule_daily/${payload.emp_no}/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -1937,7 +1978,7 @@ const SCHEDULEDAILYViewFilterEmployeeApiCall = async (payload: {emp_no: number})
 
 
 const SCHEDULEDAILYViewApiCall = async () => {
-  const response = await axios.get("http://172.16.168.155:8000/api/schedule_daily/",
+  const response = await axios.get(`${APILink}schedule_daily/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){

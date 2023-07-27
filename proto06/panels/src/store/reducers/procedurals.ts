@@ -182,6 +182,11 @@ import {
     LEAVETYPEViewFilterEmployeeActionFailureCleanup,
     LEAVETYPEViewFilterEmployeeActionProgress,
     LEAVETYPEViewFilterEmployeeActionSuccess,
+    LEAVETYPEDeleteAction,
+    LEAVETYPEDeleteActionFailure,
+    LEAVETYPEDeleteActionFailureCleanup,
+    LEAVETYPEDeleteActionProgress,
+    LEAVETYPEDeleteActionSuccess,
     // CUTOFFPERIOD SECTION
     CUTOFFPERIODCreateAction,
     CUTOFFPERIODCreateActionFailure,
@@ -422,6 +427,8 @@ interface LEAVETYPEEditState extends CommonProceduralState {
   data: LEAVETYPEViewState | null;
 }
 
+interface LEAVETYPEDeleteState extends CommonProceduralState, CommonProceduralDataStringState {}
+
 // CUTOFFPERIOD SECTION // CUTOFFPERIOD SECTION // CUTOFFPERIOD SECTION // CUTOFFPERIOD SECTION
 interface CUTOFFPERIODViewState extends CommonProceduralState{
   data: CUTOFFPERIODViewInterface[] | null | [] | CUTOFFPERIODViewInterface;
@@ -486,6 +493,7 @@ interface OverallProceduralState {
   LEAVETYPEViewState | 
   LEAVETYPECreateState | 
   LEAVETYPEEditState | 
+  LEAVETYPEDeleteState | 
   CUTOFFPERIODViewState | 
   CUTOFFPERIODCreateState | 
   CUTOFFPERIODEditState | 
@@ -537,6 +545,7 @@ interface OverallProceduralState {
   LEAVETYPEViewFilterEmployee: LEAVETYPEViewState,
   LEAVETYPECreate: LEAVETYPECreateState,
   LEAVETYPEEdit: LEAVETYPEEditState,
+  LEAVETYPEDelete: LEAVETYPEDeleteState,
   //CUTOFFPERIOD SECTION
   CUTOFFPERIODView: CUTOFFPERIODViewState,
   CUTOFFPERIODViewFilterEmployee: CUTOFFPERIODViewState,
@@ -768,6 +777,12 @@ const initialState: OverallProceduralState = {
     error: '',
   },
   LEAVETYPEEdit: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  LEAVETYPEDelete: {
     status: '',
     progress: 0,
     data: null,
@@ -1051,6 +1066,10 @@ const proceduralsSlice = createSlice({
       .addCase(LEAVETYPEEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "LEAVETYPEEdit"))
       .addCase(LEAVETYPEEditActionProgress, (state, action) => setProgressState(state, action.payload, "LEAVETYPEEdit"))
       .addCase(LEAVETYPEEditActionFailure, (state, action) => setFailureState(state, action.payload, "LEAVETYPEEdit"))
+      .addCase(LEAVETYPEDeleteAction, setLoadingState("LEAVETYPEDelete"))
+      .addCase(LEAVETYPEDeleteActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "LEAVETYPEDelete"))
+      .addCase(LEAVETYPEDeleteActionProgress, (state, action) => setProgressState(state, action.payload, "LEAVETYPEDelete"))
+      .addCase(LEAVETYPEDeleteActionFailure, (state, action) => setFailureState(state, action.payload, "LEAVETYPEDelete"))
       //CUTOFFPERIOD SECTION
       .addCase(CUTOFFPERIODViewAction, setLoadingState("CUTOFFPERIODView"))
       .addCase(CUTOFFPERIODViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "CUTOFFPERIODView"))

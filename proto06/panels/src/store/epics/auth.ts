@@ -5,11 +5,12 @@ import axios from 'axios';
 import Cookies from 'js-cookie'
 import { userLogin, userLoginSuccess, userLoginFailure } from '../actions/auth';
 import { Epic } from 'redux-observable';
+import { APILink } from '../configureStore';
 
 const loginApiCall = async (username: string, password: string, twoFactorToken?: string) => {
     // const response = await axios.post("https://bitverse-api.herokuapp.com/login", {
     // const response = await axios.post("http://172.16.168.144:8888/login", {
-    const response = await axios.post(`http://172.16.168.155:8000/api/login/`, {
+    const response = await axios.post(`${APILink}login/`, {
     username,
     password,
     ...(twoFactorToken ? { twoFactorToken } : {}),
@@ -47,7 +48,7 @@ import { fetchUserData, fetchUserDataSuccess, fetchUserDataFailure, } from '../a
 
 // New API call function
 const fetchUserDataApiCall = async (emp_no: Number) => {
-  const response = await axios.get(`http://172.16.168.155:8000/api/employees/${emp_no}`);
+  const response = await axios.get(`${APILink}employees/${emp_no}`);
   return response.data;
 };
 

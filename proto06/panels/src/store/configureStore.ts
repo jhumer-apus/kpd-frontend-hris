@@ -51,6 +51,7 @@ import {
   LEAVETYPEEditEpic, 
   LEAVETYPEViewEpic, 
   LEAVETYPEViewFilterEmployeeEpic,
+  LEAVETYPEDeleteEpic,
   //CUTOFFPERIOD SECTION
   CUTOFFPERIODCreateEpic, 
   CUTOFFPERIODEditEpic, 
@@ -141,6 +142,7 @@ epicMiddleware.run(combineEpics(
   LEAVETYPEViewFilterEmployeeEpic,
   LEAVETYPECreateEpic,
   LEAVETYPEEditEpic,
+  LEAVETYPEDeleteEpic,
   //CUTOFFPERIOD SECTION
   CUTOFFPERIODViewEpic,
   CUTOFFPERIODViewFilterCUTOFFPERIODEpic,
@@ -161,4 +163,5 @@ epicMiddleware.run(combineEpics(
 ));
 
 export type RootState = ReturnType<typeof rootReducer>;
+export const APILink = 'http://169.254.10.240:8000/api/';
 export default store;

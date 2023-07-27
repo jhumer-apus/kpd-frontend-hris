@@ -377,7 +377,7 @@ export const SpecificEmployee = (props: initialState) => {
                                 />
                                 <Input
                                     {...register('user.date_deleted')}
-                                    label="Date Deleted:"
+                                    label="Date Deactivated:"
                                     containerProps={{ className: "min-w-[72px]" }} 
                                     labelProps={{style: {color: true? "unset" : ''}}}
                                     disabled={true}

@@ -31,7 +31,6 @@ export default function ProceduralLEAVECREDITPageHistory() {
   const LEAVECREDITViewData = data as LEAVECREDITViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
-  console.log(LEAVECREDITViewData, "haha?")
   useEffect(()=> {
     if((LEAVECREDITViewData?.length <= 0 || LEAVECREDITViewData === null || LEAVECREDITViewData === undefined ) && curr_user){
       dispatch(LEAVECREDITViewAction())

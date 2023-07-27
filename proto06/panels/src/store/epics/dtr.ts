@@ -3,6 +3,7 @@ import { map, catchError, switchMap, mergeMap } from 'rxjs/operators';
 import { of, from } from 'rxjs';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { APILink } from '../configureStore';
 import { 
   viewAllDtrLogs, 
   viewAllDtrLogsSuccess, 
@@ -33,22 +34,22 @@ import { CutoffListMergeSelectionState } from '@/types/types-pages';
 import store from '../configureStore';
 
 const viewAllDtrLogsApiCall = async () => {
-    const response = await axios.get("http://172.16.168.155:8000/api/dtr");
+    const response = await axios.get(`${APILink}dtr`);
     return response.data;
 };
 
 const viewMergedDtrLogsApiCall = async () => {
-    const response = await axios.get("http://172.16.168.155:8000/api/dtr_summary/");
+    const response = await axios.get(`${APILink}dtr_summary/`);
     return response.data;
 };
 
 const viewCutoffDtrSummaryApiCall = async () => {
-    const response = await axios.get("http://172.16.168.155:8000/api/dtr_cutoff_summary/");
+    const response = await axios.get(`${APILink}dtr_cutoff_summary/`);
     return response.data;
 };
 
 const getCutoffDTRListApiCall = async () => {
-  const response = await axios.get("http://172.16.168.155:8000/api/cutoff_period/");
+  const response = await axios.get(`${APILink}cutoff_period/`);
   return response.data;
 };
 
@@ -56,7 +57,7 @@ const getCutoffDTRListEmployeeApiCall = async (cutoff_code: number) => {
   if(Number.isNaN(cutoff_code)){
     return;
   }
-  const response = await axios.get(`http://172.16.168.155:8000/api/dtr_summary/cutoff_period/${cutoff_code}`
+  const response = await axios.get(`${APILink}dtr_summary/cutoff_period/${cutoff_code}`
   , {
     onDownloadProgress: (progressEvent) => {
       if(progressEvent.total){
@@ -70,9 +71,9 @@ const getCutoffDTRListEmployeeApiCall = async (cutoff_code: number) => {
 
 const mergeCutoffListAndEmployeeApiCall = async ( {emp_no, cutoff_code} : CutoffListMergeSelectionState ) => {
 
-  // const response = await axios.post("https://bitverse-api.herokuapp.com/login", {
-  // const response = await axios.post("http://172.16.168.144:8888/login", {
-  const response = await axios.post(`http://172.16.168.155:8000/api/mergedtr/`, {
+  // const response = await axios.post(`https://bitverse-api.herokuapp.com/login`, {
+  // const response = await axios.post(`http://172.16.168.144:8888/login`, {
+  const response = await axios.post(`${APILink}mergedtr/`, {
   emp_no,
   cutoff_code,
   }
@@ -91,7 +92,7 @@ return response.data.message;
 
 
 const summarizeCutoffListAndEmployeeApiCall = async ( {emp_no, cutoff_code} : CutoffListMergeSelectionState ) => {
-  const response = await axios.post(`http://172.16.168.155:8000/api/create_summary/`, {
+  const response = await axios.post(`${APILink}create_summary/`, {
   emp_no,
   cutoff_code,
   }

@@ -69,7 +69,7 @@ export default function ProceduralUAPage() {
       <div className="my-10 flex flex-wrap justify-between items-start gap-6">
         <div>
           <ViewUASingleModal setSingleUADetailsData={setSingleUADetailsData} singleUADetailsData={singleUADetailsData} singleUAOpenModal={singleUAOpenModal} setSingleUAOpenModal={setSingleUAOpenModal}/>
-          <CreateUAComponent />
+          {/* <CreateUAComponent /> */}
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
           <p>Status: {ProceduralUAPageDescriptions}</p>
         </Typography>

@@ -8,17 +8,18 @@ import { getEmployeesList, getEmployeesListFailure, getEmployeesListSuccess } fr
 import { Epic } from 'redux-observable';
 import { EmployeeDetailsType } from '@/types/types-store';
 import { getSpecificEmployeeInfo, getSpecificEmployeeInfoSuccess, getSpecificEmployeeInfoFailure } from '../actions/employees';
+import { APILink } from '../configureStore';
 
 const getEmployeesListApiCall = async () => {
 
-    // const response = await axios.post("https://bitverse-api.herokuapp.com/login", {
-    // const response = await axios.post("http://172.16.168.144:8888/login", {
-    const response = await axios.get("http://172.16.168.155:8000/api/employees");
+    // const response = await axios.post(`https://bitverse-api.herokuapp.com/login`, {
+    // const response = await axios.post(`http://172.16.168.144:8888/login`, {
+    const response = await axios.get(`${APILink}employees`);
   return response.data;
 };
 
 const getSpecificEmployeesInfoApiCall = async (employee_id: number) => {
-  const response = await axios.get(`http://172.16.168.155:8000/api/employees/${employee_id}/`);
+  const response = await axios.get(`${APILink}employees/${employee_id}/`);
   return response.data;
 };
 

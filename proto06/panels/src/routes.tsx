@@ -57,6 +57,8 @@ import FileOVERTIMEPage from "./pages/quick-accesses/file-ot/file-ot-page";
 import FileUAPage from "./pages/quick-accesses/file-ua/file-ua-page";
 import FileLEAVEPage from "./pages/quick-accesses/file-leave/file-leave-page";
 import ProceduralLEAVECREDITPage from "./pages/procedurals/leave-credits/procedural-leave-credit-page";
+import ProceduralLEAVETYPEPage from "./pages/procedurals/leave-types/procedural-leave-type-page";
+import ProceduralCUTOFFPERIODPage from "./pages/procedurals/cutoff-periods/procedural-cutoff-period-page";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -268,7 +270,7 @@ export const routes: Array<IRoute> = [
             icon: <AppsOutlinedIcon {...icon} />,
             name: "Leave Types",
             path: "/procedurals/leave-types",
-            element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">APPRAISAL PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+            element:<ProceduralLEAVETYPEPage/>,
             hasSubItems: false,
           },
           {
@@ -276,7 +278,7 @@ export const routes: Array<IRoute> = [
             icon: <AssignmentIndOutlinedIcon {...icon} />,
             name: "Cutoff Periods",
             path: "/procedurals/cutoff-periods",
-            element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">APPRAISAL PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+            element:<ProceduralCUTOFFPERIODPage/>,
             hasSubItems: false,
           },
           {

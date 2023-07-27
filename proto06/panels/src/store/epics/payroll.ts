@@ -13,11 +13,11 @@ import {
     viewPayrollListSuccess,
 } from '../actions/payroll';
 import { Epic } from 'redux-observable';
-import store from '../configureStore';
+import store, { APILink } from '../configureStore';
 import { ProcessPayroll } from '@/types/types-pages';
 
 const processPayrollApiCall = async (payload: ProcessPayroll): Promise<string> => {
-  const response = await axios.post("http://172.16.168.155:8000/api/create_payrolls/",
+  const response = await axios.post(`${APILink}create_payrolls/`,
   payload, 
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -32,7 +32,7 @@ const processPayrollApiCall = async (payload: ProcessPayroll): Promise<string> =
 };
 
 const viewPayrollListApiCall = async () => {
-    const response = await axios.get("http://172.16.168.155:8000/api/payroll", 
+    const response = await axios.get(`${APILink}payroll`, 
     {
         onDownloadProgress: (progressEvent) => {
           if(progressEvent.total){

@@ -443,13 +443,13 @@ export interface LEAVECREDITEditInterface extends LEAVECREDITViewInterface {}
 
 
 export interface LEAVETYPECreateInterface {
-    name: string,
-    is_paid: boolean,
+    name: string | null,
+    is_paid: boolean | null,
 }
 
 export interface LEAVETYPEViewInterface extends LEAVETYPECreateInterface { 
-    id: number;
-    date_added: string;
+    id: number | null;
+    date_added: string | null;
     date_deleted: string | null;
 }
 
@@ -459,19 +459,19 @@ export interface LEAVETYPEEditInterface extends LEAVETYPEViewInterface {}
 
 
 export interface CUTOFFPERIODCreateInterface {
-    co_name: string;
-    co_description: string;
-    co_date_from: string;
-    co_date_to: string;
-    reg_days_total: number;
-    co_is_processed: boolean;
-    credit_date: string;
-    payroll_group_code: number;
-    division_code: number;
+    co_name: string | null;
+    co_description: string | null;
+    co_date_from: string | null;
+    co_date_to: string | null;
+    reg_days_total: number | null;
+    credit_date: string | null;
+    payroll_group_code: number | null;
+    division_code: number | null;
 }
 
 export interface CUTOFFPERIODViewInterface extends CUTOFFPERIODCreateInterface { 
     id: number;
+    co_is_processed: boolean;
 }
 
 export interface CUTOFFPERIODEditInterface extends CUTOFFPERIODViewInterface {}

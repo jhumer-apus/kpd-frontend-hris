@@ -4,18 +4,18 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { AutocompleteInputChangeReason } from '@mui/material/Autocomplete';
-import { LEAVECreateInterface, LEAVETYPEViewInterface } from '@/types/types-pages';
+import { LEAVECREDITCreateInterface, LEAVETYPEViewInterface } from '@/types/types-pages';
 import { LEAVETYPEViewAction } from '@/store/actions/procedurals';
 
 
-interface LEAVETYPEFetchAutoCompleteInterface{
-    createLEAVE: LEAVECreateInterface;
-    setCreateLEAVE: Dispatch<SetStateAction<LEAVECreateInterface>>;
+interface LEAVETYPEFetchAutoCompleteOnLEAVECREDITPageInterface{
+    createLEAVECREDIT: LEAVECREDITCreateInterface;
+    setCreateLEAVECREDIT: Dispatch<SetStateAction<LEAVECREDITCreateInterface>>;
 }
 
 
-export default function LEAVETYPEFetchAutoComplete(props: LEAVETYPEFetchAutoCompleteInterface) {
-    const {setCreateLEAVE, createLEAVE} = props;
+export default function LEAVETYPEFetchAutoCompleteOnLEAVECREDITPage(props: LEAVETYPEFetchAutoCompleteOnLEAVECREDITPageInterface) {
+    const {setCreateLEAVECREDIT, createLEAVECREDIT} = props;
     const dispatch = useDispatch();
     const state = useSelector((state:RootState)=> state.procedurals.LEAVETYPEView);
     const dataArray = state.data as LEAVETYPEViewInterface[];
@@ -29,11 +29,11 @@ export default function LEAVETYPEFetchAutoComplete(props: LEAVETYPEFetchAutoComp
 
     useEffect(()=> {
         if(selectedLEAVETYPEId){
-            setCreateLEAVE((prevState)=> {
+            setCreateLEAVECREDIT((prevState)=> {
                 return(
                     {
                         ...prevState,
-                        leave_type: selectedLEAVETYPEId
+                        leave_type_code: selectedLEAVETYPEId
                     }
                 )
             })
