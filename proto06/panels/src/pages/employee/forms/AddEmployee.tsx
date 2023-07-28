@@ -1,20 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
 import { Button } from '@mui/material';
 import { Input, Typography } from '@material-tailwind/react';
 import { useForm } from 'react-hook-form';
-import { getSpecificEmployeeInfo } from '@/store/actions/employees';
 import { GetEmployeesListsType } from '@/types/types-store';
+import { APILink } from '@/store/configureStore';
 
 export const UserProfile = () => {
-    const { register, handleSubmit, setValue, formState: { errors } } = useForm<GetEmployeesListsType>();
-    const dispatch = useDispatch();
+    const { register, handleSubmit, formState: { errors } } = useForm<GetEmployeesListsType>();
     const [editMode, setEditMode] = useState(true);
 
-    useEffect(() => {
-        dispatch(getSpecificEmployeeInfo({employee_id: 33333}));
-    }, [dispatch]);
 
   const onSubmit = async (data: GetEmployeesListsType) => {
     const formData = new FormData();
@@ -23,7 +18,7 @@ export const UserProfile = () => {
     }
     try {
         const response = await axios.post(
-          'http://172.16.168.155:8000/api/employees/',
+          `${APILink}employees/`,
           formData,
           {
             headers: {

@@ -9,6 +9,7 @@ import {
 import { GiftIcon } from "@heroicons/react/24/solid";
 import Pagination from "@mui/material/Pagination";
 import { AnniversaryDataProps } from "@/types/types-widgets";
+import { UnderDevelopmentMsg } from "@/pages/dashboard/hris-portal/local-components/projects-card";
 
 interface AnniversaryCardProps {
   celebrants: AnniversaryDataProps[];
@@ -31,6 +32,7 @@ const UpcomingAnniversary: React.FC<AnniversaryCardProps> = ({ celebrants }) => 
 
   return (
     <Card className="justify-between">
+      <UnderDevelopmentMsg/>
       <CardHeader color="pink" className="text-white" floated={false}>
         <Typography variant="h6" className="p-4">Upcoming Anniversaries</Typography>
       </CardHeader>

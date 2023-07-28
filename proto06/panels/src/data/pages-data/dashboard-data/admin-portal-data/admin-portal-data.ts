@@ -28,6 +28,9 @@ export const adminPortalData = [
     // custom: "linear-gradient(315deg, #d4418e 0%, #0652c5 74%)",
     // custom: "linear-gradient(315deg, #ffcfdf 0%, #b0f3f1 74%)",
     custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
+    link: 'development',
+    customTop: 15,
+    customLeft: 38,
   },
   {
     icon: UserGroupIcon,
@@ -41,6 +44,9 @@ export const adminPortalData = [
     // custom: "linear-gradient(315deg, #d4418e 0%, #0652c5 74%)",
     // custom: "linear-gradient(315deg, #ffcfdf 0%, #b0f3f1 74%)",
     custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
+    link: 'development',
+    customTop: 15,
+    customLeft: 38,
   },
   {
     icon: ClockIcon,
@@ -54,6 +60,9 @@ export const adminPortalData = [
     // custom: "linear-gradient(315deg, #d4418e 0%, #0652c5 74%)",
     // custom: "linear-gradient(315deg, #ffcfdf 0%, #b0f3f1 74%)",
     custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
+    link: 'development',
+    customTop: 15,
+    customLeft: 38,
   },
   {
     icon: ClipboardDocumentIcon,
@@ -67,6 +76,9 @@ export const adminPortalData = [
     // custom: "linear-gradient(315deg, #d4418e 0%, #0652c5 74%)",
     // custom: "linear-gradient(315deg, #ffcfdf 0%, #b0f3f1 74%)",
     custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
+    link: 'development',
+    customTop: 15,
+    customLeft: 38,
   },
   {
     icon: ComputerDesktopIcon,
@@ -80,6 +92,9 @@ export const adminPortalData = [
     // custom: "linear-gradient(315deg, #d4418e 0%, #0652c5 74%)",
     // custom: "linear-gradient(315deg, #ffcfdf 0%, #b0f3f1 74%)",
     custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
+    link: 'development',
+    customTop: 15,
+    customLeft: 38,
   },
   {
     icon: Cog6ToothIcon,
@@ -93,6 +108,9 @@ export const adminPortalData = [
     // custom: "linear-gradient(315deg, #d4418e 0%, #0652c5 74%)",
     // custom: "linear-gradient(315deg, #ffcfdf 0%, #b0f3f1 74%)",
     custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
+    link: 'development',
+    customTop: 15,
+    customLeft: 38,
   },
   ];
   export default adminPortalData;

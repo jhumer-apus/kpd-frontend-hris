@@ -4,6 +4,7 @@ import { Button } from '@mui/material';
 import { Input, Typography } from '@material-tailwind/react';
 import { useForm } from 'react-hook-form';
 import { GetEmployeesListsType } from '@/types/types-store';
+import { APILink } from '@/store/configureStore';
 
 
 export const UserProfile = () => {
@@ -17,7 +18,7 @@ export const UserProfile = () => {
     }
     try {
         const response = await axios.post(
-          'http://172.16.168.155:8000/api/employees/',
+          `${APILink}employees/`,
           formData,
           {
             headers: {

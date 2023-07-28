@@ -294,7 +294,7 @@ export const routes: Array<IRoute> = [
             icon: <CalendarTodayOutlinedIcon {...icon} />,
             name: "Schedule Shifts",
             path: "/procedurals/schedule-shifts",
-            element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">APPRAISAL PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+            element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">SCHEDULE SHIFTS ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
           {
@@ -302,7 +302,7 @@ export const routes: Array<IRoute> = [
             icon: <CalendarMonthOutlinedIcon {...icon} />,
             name: "Schedule Dailies",
             path: "/procedurals/schedule-dailies",
-            element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">APPRAISAL PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+            element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">SCHEDULE DAILIES PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
         ]
@@ -310,7 +310,7 @@ export const routes: Array<IRoute> = [
       {
         id: 16000,
         icon: null,
-        name: "DTR",
+        name: "Admin DTR",
         path: "/DTR",
         element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-pink-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">DTR PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
         hasSubItems: true,

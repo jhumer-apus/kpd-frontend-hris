@@ -65,7 +65,7 @@ export interface EmployeeDetailsType {
 
 
 export interface GetEmployeesListsType {
-    [key: string]: number | string | Date| boolean | Object;
+    [key: string]: any;
     id: number;
     employee_image: string;
     emp_no: number;

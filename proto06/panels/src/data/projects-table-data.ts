@@ -8,7 +8,7 @@ export const projectsTableData = [
       { img: "/img/team-3.jpeg", name: "Jessica Doe" },
       { img: "/img/team-4.jpeg", name: "Alexander Smith" },
     ],
-    budget: "$14,000",
+    budget: "Php140,000",
     completion: 60,
   },
   {
@@ -18,7 +18,7 @@ export const projectsTableData = [
       { img: "/img/team-2.jpeg", name: "Ryan Tompson" },
       { img: "/img/team-4.jpeg", name: "Alexander Smith" },
     ],
-    budget: "$3,000",
+    budget: "Php30,000",
     completion: 10,
   },
   {
@@ -28,7 +28,7 @@ export const projectsTableData = [
       { img: "/img/team-3.jpeg", name: "Jessica Doe" },
       { img: "/img/team-1.jpeg", name: "Romina Hadid" },
     ],
-    budget: "Not set",
+    budget: "Php120,000",
     completion: 100,
   },
   {
@@ -40,14 +40,14 @@ export const projectsTableData = [
       { img: "/img/team-2.jpeg", name: "Ryan Tompson" },
       { img: "/img/team-1.jpeg", name: "Romina Hadid" },
     ],
-    budget: "$20,500",
+    budget: "Php200,500",
     completion: 100,
   },
   {
     img: "/img/logo-jira.svg",
     name: "Add the New Pricing Page",
     members: [{ img: "/img/team-4.jpeg", name: "Alexander Smith" }],
-    budget: "$500",
+    budget: "Php5000",
     completion: 25,
   },
   {
@@ -57,7 +57,7 @@ export const projectsTableData = [
       { img: "/img/team-1.jpeg", name: "Romina Hadid" },
       { img: "/img/team-4.jpeg", name: "Alexander Smith" },
     ],
-    budget: "$2,000",
+    budget: "Php20,000",
     completion: 40,
   },
 ];

@@ -53,7 +53,7 @@ export const dynamicDTRColumns: Array<GridColDef[]> =
       valueGetter: (params: GridValueGetterParams) => {
         const isAbsent = params.row.is_absent as boolean;
         const date = new Date(params.row.duty_in);
-        return params.row.duty_in ? date.toLocaleTimeString() : isAbsent ?  'ABSENT' : 'REST';
+        return params.row.duty_in ? date.toLocaleTimeString() : isAbsent ?  'ABSENT' : '-';
       },
     },
     {
@@ -63,7 +63,7 @@ export const dynamicDTRColumns: Array<GridColDef[]> =
       valueGetter: (params: GridValueGetterParams) => {
         const isAbsent = params.row.is_absent as boolean;
         const date = new Date(params.row.duty_out);
-        return params.row.duty_out ? date.toLocaleTimeString() : isAbsent ?  'ABSENT' : 'REST';
+        return params.row.duty_out ? date.toLocaleTimeString() : isAbsent ?  'ABSENT' : '-';
       },
     },
     { field: 'lates', headerName: 'Lates(mins)', width: 120 },

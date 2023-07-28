@@ -2,7 +2,9 @@ import React from "react";
 import { Carousel } from "react-responsive-carousel";
 import styles from './custom-styles/Carousel.module.scss';
 import { useSelector } from "react-redux";
-import { RootState } from "@/store/reducers";
+import { RootState } from "@/store/configureStore";
+// import { RootState } from "@/store/reducers";
+import { UnderDevelopmentMsg } from "@/pages/dashboard/hris-portal/local-components/projects-card";
 
 const CarouselUI = ({ items }: any) => {
     const { employee_detail } = useSelector((state: RootState) => state.auth);
@@ -31,6 +33,7 @@ const CarouselUI = ({ items }: any) => {
             <div className={styles.leftSide}>
                 <div className={styles.greetingsBar}>Good Afternoon, {employee_detail?.gender?.includes("F")? 'Ms.': 'Mr.'} {employee_detail?.last_name}!</div>
                 <div className={styles.newsWrap}>
+                    <UnderDevelopmentMsg/>
                     <Carousel showThumbs={false} infiniteLoop useKeyboardArrows autoPlay swipeable={true} showStatus={false} showIndicators={false}>
                         {carouselItems.map((item, index) => (
                             <div className={styles.carouselWrap} key={index}>

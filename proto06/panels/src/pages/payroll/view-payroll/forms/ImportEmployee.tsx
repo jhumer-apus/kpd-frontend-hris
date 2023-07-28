@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Button } from '@mui/material';
 import { Typography } from '@material-tailwind/react';
+import { APILink } from '@/store/configureStore';
 
 type ImportEmployee = {
   file: any;
@@ -26,7 +27,7 @@ export const UploadDTRComponent = () => {
     
         try {
           const response = await axios.post(
-            'http://172.16.168.155:8000/api/import_employee/',
+            `${APILink}import_employee/`,
             formData,
             {
               headers: {

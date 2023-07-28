@@ -9,6 +9,7 @@ import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
 import axios, { CancelTokenSource } from 'axios';
 import { StaticDatePicker, PickersShortcutsItem } from '@mui/x-date-pickers';
 import './highlighted-calendar.scss';
+import { APILink } from '@/store/configureStore';
 
 
 export interface HighlightedCalendarInterface {
@@ -65,7 +66,7 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
     setHighlightedDays([]);
     requestAbortController.current = axios.CancelToken.source();
   
-    axios.get('http://172.16.168.155:8000/api/holiday/', {
+    axios.get(`${APILink}holiday/`, {
       cancelToken: requestAbortController.current.token,
     })
       .then((response) => {

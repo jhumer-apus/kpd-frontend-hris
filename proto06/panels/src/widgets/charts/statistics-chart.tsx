@@ -1,3 +1,4 @@
+import { UnderDevelopmentMsg } from "@/pages/dashboard/hris-portal/local-components/projects-card";
 import {
   Card,
   CardHeader,
@@ -7,10 +8,19 @@ import {
 } from "@material-tailwind/react";
 import PropTypes from "prop-types";
 import Chart from "react-apexcharts";
+import { useNavigate } from "react-router-dom";
 
-export function StatisticsChart({ color, chart, title, description, footer }) {
+export function StatisticsChart({ color, chart, title, description, footer, link }) {
+  const navigate = useNavigate();
   return (
-    <Card>
+    <Card style={{cursor: link !== 'development' ? 'pointer' : ''}}>
+      {
+      link === 'development' 
+      ? 
+      <UnderDevelopmentMsg fontSize={12}/> 
+      :
+      <div className="absolute w-full h-full" onClick={()=> { navigate(`${link}`) }}></div>
+      }
       <CardHeader variant="gradient" color={color}>
         <Chart {...chart} />
       </CardHeader>

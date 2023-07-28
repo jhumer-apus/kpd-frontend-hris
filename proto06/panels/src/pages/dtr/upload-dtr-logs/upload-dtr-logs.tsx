@@ -13,6 +13,7 @@ import PreviewDtr from './local-components/preview-dtr-component';
 import { previewDtrCsvItem } from '@/types/types-pages';
 import axios from 'axios';
 import { useNavigate }  from 'react-router-dom';
+import { APILink } from '@/store/configureStore';
 
 const PaperStyle = {
     padding: "20px",
@@ -75,7 +76,7 @@ export default function UploadDtrLogs() {
           
               try {
                 const response = await axios.post(
-                  'http://172.16.168.155:8000/api/upload_dtr_logs/',
+                  `${APILink}upload_dtr_logs/`,
                   formData,
                   {
                     headers: {

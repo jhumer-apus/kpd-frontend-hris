@@ -19,6 +19,7 @@ export const statisticsCardsData = [
       value: "<",
       label: "201, Appraisal, etc.",
     },
+    link: '/home/employees/201-files',
   },
   {
     color: "pink",
@@ -30,6 +31,7 @@ export const statisticsCardsData = [
       value: "<",
       label: "OT, Leaves, UA, etc.",
     },
+    link: '/home/DTR/View-DTR',
   },
   {
     color: "green",
@@ -41,6 +43,7 @@ export const statisticsCardsData = [
       value: "<",
       label: "Summaries, etc.",
     },
+    link: 'development'
   },
   {
     color: "orange",
@@ -52,6 +55,7 @@ export const statisticsCardsData = [
       value: "<",
       label: "Payslips, Tax, etc.",
     },
+    link: '/home/payroll/view-payroll'
   },
   {
     color: "orange",
@@ -63,17 +67,19 @@ export const statisticsCardsData = [
       value: "<",
       label: "Pages, Tables, etc.",
     },
+    link: 'development'
   },
   {
     color: "pink",
     icon: ClockIcon,
-    title: "Schedule Approval",
-    value: "Employees",
+    title: "Schedule Lists",
+    value: "Schedule",
     footer: {
       color: "text-green-500",
       value: "<",
       label: "Modification, etc.",
     },
+    link: '/home/procedurals/schedule-dailies'
   },
 ];
 

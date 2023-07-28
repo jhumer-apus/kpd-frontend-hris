@@ -34,8 +34,9 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 // import { RootState } from "@/store/reducers";
-import { RootState } from "@/store/configureStore";
+import { APILink, RootState } from "@/store/configureStore";
 import { useEffect } from "react";
+import { UnderDevelopmentMsg } from "@/pages/dashboard/hris-portal/local-components/projects-card";
 
 
 export function DashboardNavbar() {
@@ -156,13 +157,16 @@ export function DashboardNavbar() {
                  {!employee_detail?.employee_image ? 
                  <UserCircleIcon className="h-7 w-7 text-blue-gray-500" /> 
                   :
-                  <img className="h-7 w-7 text-blue-gray-500" src={`http://172.16.168.155:8000${updatedImage}`} style={{borderRadius: "10px", objectFit: "cover", border: "1px solid white", marginRight: "2px", boxShadow: "1px 1px 1px gray"}}/> 
+                  <img className="h-7 w-7 text-blue-gray-500" src={`${APILink.replace('/api/', '')}${updatedImage}`} style={{borderRadius: "10px", objectFit: "cover", border: "1px solid white", marginRight: "2px", boxShadow: "1px 1px 1px gray"}}/> 
                 } 
                  <p className="hidden xl:flex"> Welcome, {employee_detail?.first_name} </p>
               </Button>
             </MenuHandler>
             <MenuList className="w-max border-0">
-              <Link to="/home/profile">
+              <Link
+                to="" 
+                // to="/home/profile"
+              >
                 <MenuItem className="flex items-center gap-3">
                   {/* <Avatar
                     src="/img/team-2.jpeg"
@@ -171,51 +175,18 @@ export function DashboardNavbar() {
                     variant="circular"
                   /> */}
                   <UserIcon className="h-8 w-8 text-blue-gray-500" />
-                  <div>
-
+                  <div className="relative w-full">
+                    <UnderDevelopmentMsg fontSize={8} borderRadius={4}/>
                     <Typography
                       variant="small"
                       color="blue-gray"
                       className="mb-1 font-normal"
                     >
                       Profile
-                      {/* <strong>Profile</strong> Page */}
                     </Typography>
-
-                    {/* <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="flex items-center gap-1 text-xs font-normal opacity-60"
-                    >
-                      <ClockIcon className="h-3.5 w-3.5" /> 13 minutes ago
-                    </Typography> */}
                   </div>
                 </MenuItem>
               </Link>
-              {/* <MenuItem className="flex items-center gap-4">
-                <Avatar
-                  src="/img/logo-spotify.svg"
-                  alt="item-1"
-                  size="sm"
-                  variant="circular"
-                />
-                <div>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="mb-1 font-normal"
-                  >
-                    <strong>New album</strong> by Travis Scott
-                  </Typography>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="flex items-center gap-1 text-xs font-normal opacity-60"
-                  >
-                    <ClockIcon className="h-3.5 w-3.5" /> 1 day ago
-                  </Typography>
-                </div>
-              </MenuItem> */}
               <MenuItem className="flex items-center gap-4" onClick={handleLogout}>
                 <div className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-tr from-blue-gray-800 to-blue-gray-900">
                   <CreditCardIcon className="h-4 w-4 text-white" />
@@ -227,34 +198,10 @@ export function DashboardNavbar() {
                     className="mb-1 font-normal"
                   >Logout
                   </Typography>
-                  {/* <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="flex items-center gap-1 text-xs font-normal opacity-60"
-                  >
-                    <ClockIcon className="h-3.5 w-3.5" /> 2 days ago
-                  </Typography> */}
                 </div>
               </MenuItem>
             </MenuList>
           </Menu>
-          {/* <Link to="/auth/sign-in">
-            <Button
-              variant="text"
-              color="blue-gray"
-              className="hidden items-center gap-1 px-4 xl:flex"
-            >
-              <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
-              Welcome, User
-            </Button>
-            <IconButton
-              variant="text"
-              color="blue-gray"
-              className="grid xl:hidden"
-            >
-              <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
-            </IconButton>
-          </Link> */}
           <IconButton
             variant="text"
             color="blue-gray"
@@ -262,7 +209,7 @@ export function DashboardNavbar() {
           >
             <Cog6ToothIcon className="h-5 w-5 text-blue-gray-500" />
           </IconButton>
-          <Menu>
+          {/* <Menu>
             <MenuHandler>
               <IconButton variant="text" color="blue-gray">
                 <BellIcon className="h-5 w-5 text-blue-gray-500" />
@@ -339,7 +286,7 @@ export function DashboardNavbar() {
                 </div>
               </MenuItem>
             </MenuList>
-          </Menu>
+          </Menu> */}
         </div>
       </div>
     </Navbar>

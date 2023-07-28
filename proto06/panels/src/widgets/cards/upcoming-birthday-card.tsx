@@ -9,6 +9,7 @@ import {
 import { CakeIcon } from "@heroicons/react/24/solid";
 import Pagination from "@mui/material/Pagination";
 import { CelebrantsDataProps } from "@/types/types-widgets";
+import { UnderDevelopmentMsg } from "@/pages/dashboard/hris-portal/local-components/projects-card";
 
 interface BirthdayCardProps {
   celebrants: CelebrantsDataProps[];
@@ -31,6 +32,7 @@ const BirthdayCard: React.FC<BirthdayCardProps> = ({ celebrants }) => {
 
   return (
     <Card className="justify-between">
+      <UnderDevelopmentMsg/>
       <CardHeader color="blue" className="text-white" floated={false}>
         <Typography variant="h6" className="p-4">Upcoming Birthdays</Typography>
       </CardHeader>

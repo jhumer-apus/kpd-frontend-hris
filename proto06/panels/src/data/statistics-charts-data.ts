@@ -1,4 +1,27 @@
-import { chartsConfig } from "@/configs";
+import { chartsConfig, chartsConfigInterface, chartsConfigXAxis, chartsConfigYAxis } from "@/configs";
+
+export interface websiteViewsChartInterface {
+  type: string,
+  height: number,
+  series: [
+    {
+      name: string,
+      data: number[],
+    },
+  ],
+  options: chartsConfigInterface & {
+    colors: string,
+    plotOptions: {
+      bar: {
+        columnWidth: string,
+        borderRadius: number,
+      },
+    },
+    xaxis: chartsConfigXAxis & {
+      categories: string[],
+    }
+  }
+}
 
 const websiteViewsChart = {
   type: "bar",
@@ -77,6 +100,9 @@ export const statisticsChartsData = [
     description: "HRIS Activity Performance",
     footer: "backend synched 2 days ago",
     chart: websiteViewsChart,
+    link: 'development',
+    customTop: 30,
+    customLeft: 40,
   },
   {
     color: "pink",
@@ -84,6 +110,9 @@ export const statisticsChartsData = [
     description: "15% increase in this Month's Payroll",
     footer: "updated 4 min ago",
     chart: dailySalesChart,
+    link: 'development',
+    customTop: 30,
+    customLeft: 40,
   },
   {
     color: "green",
@@ -91,6 +120,9 @@ export const statisticsChartsData = [
     description: "Last Campaign Performance",
     footer: "just updated",
     chart: completedTasksChart,
+    link: 'development',
+    customTop: 30,
+    customLeft: 40,
   },
 ];
 

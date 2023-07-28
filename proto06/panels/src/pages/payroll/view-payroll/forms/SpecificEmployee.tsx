@@ -32,7 +32,7 @@ import { Fragment, useEffect, useState, forwardRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Input, Typography } from '@material-tailwind/react';
 import { useForm } from 'react-hook-form';
-import { RootState } from '@/store/configureStore';
+import { APILink, RootState } from '@/store/configureStore';
 import { GetEmployeesListsType } from '@/types/types-store';
 import FormData from 'form-data';
 
@@ -112,7 +112,7 @@ export const SpecificEmployee = (props: initialState) => {
     const fetchData = async function (formData: FormData) {
         try {
             const response = await axios.put(
-              `http://172.16.168.155:8000/api/employees/${userData?.emp_no}/`,
+              `${APILink}employees/${userData?.emp_no}/`,
               formData,
               {
                 headers: {
@@ -183,7 +183,7 @@ export const SpecificEmployee = (props: initialState) => {
                         previewUrl ? 
                         <Avatar sx={{ width: 100, height: 100, objectFit: 'contain' }} src={`${previewUrl}`} alt="Preview"/>
                         :
-                        <Avatar sx={{ width: 100, height: 100, objectFit: 'contain' }} src={`http://172.16.168.155:8000${userData?.employee_image}`} alt="Avatar"/>
+                        <Avatar sx={{ width: 100, height: 100, objectFit: 'contain' }} src={`${APILink.replace('/api/', '')}${userData?.employee_image}`} alt="Avatar"/>
                         }
                         </div>
                         <Typography variant="h4" color="white">

@@ -8,11 +8,21 @@ import {
 import PropTypes from "prop-types";
 import styles from './custom-styles/EasyAccessCard.module.scss'; // Custom-Styles is created when Tailwind fails to work. 当Tailwind无法工作时，就会创建自定义样式
 import { EasyAccessCardProps } from "@/types/types-widgets";
+import { UnderDevelopmentMsg } from "@/pages/dashboard/hris-portal/local-components/projects-card";
+import { useNavigate } from "react-router-dom";
 // import './custom-styles/StatisticsCard.css'
 
-export function EasyAccessCard({ color, icon, title, value, footer, custom }: EasyAccessCardProps) {
+export function EasyAccessCard({ color, icon, title, value, footer, custom, link }: EasyAccessCardProps) {
+  const navigate = useNavigate();
   return (
-    <Card className={styles.cardWrap}>
+    <Card className={(link !== 'development' ? styles.cardWrap : '')} style={{position: 'relative'}} >
+      {
+      link === 'development' 
+      ? 
+      <UnderDevelopmentMsg fontSize={12}/> 
+      :
+      <div className="absolute w-full h-full" onClick={()=> { navigate(`${link}`) }}></div>
+      }
       <CardHeader
         variant="gradient"
         // color={color}

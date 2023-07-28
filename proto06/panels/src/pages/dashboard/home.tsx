@@ -25,10 +25,13 @@ import styles from './custom-styles/home.module.scss';
 import CarouselUI from "@/widgets/banner/banner";
 import employeeEasyAccessData from "@/data/employee-easy-access-data";
 import filedRequestsData from "@/data/filed-requests-data";
+import { UnderDevelopmentMsg } from "./hris-portal/local-components/projects-card";
+import { useNavigate } from "react-router-dom";
 
 
 
 export function ChooseDashboard() {
+  const navigate = useNavigate();
 
 
   return (
@@ -37,9 +40,8 @@ export function ChooseDashboard() {
         <Card className={styles.greetingsBar}>
           <CarouselUI className={styles.greetingsBar}/>
         </Card>
-
-
         <Card className={styles.requestsBar} style={{marginTop: '24px'}}>
+          <UnderDevelopmentMsg/>
           <CardHeader
             floated={false}
             shadow={false}
@@ -179,10 +181,18 @@ export function ChooseDashboard() {
           </CardHeader>
           <CardBody className="pt-0 flex flex-wrap justify-around" >
             {employeeEasyAccessData.map(
-              ({ icon, color, title, description }, key) => (
-                <div key={title} className="flex items-start gap-4 py-3">
+              ({ icon, color, title, description, link }, key) => (
+                <div key={title} className="relative flex items-start gap-4 py-3">
+
                   <div style={{position: "relative"}} >
                     <Button variant={"text"} color="indigo" style={{height: "76px", width: "120px", padding: "unset", display: "flex", flexDirection: "column", justifyContent: "space-around", alignItems: "center", background:"rgba(235, 237, 247)" }}>
+                    {
+                    link === 'development' 
+                    ? 
+                    <UnderDevelopmentMsg fontSize={8} borderRadius={10}/> 
+                    :
+                    <div className="absolute w-full h-full" onClick={()=> { navigate(`${link}`) }}></div>
+                    }
                     <span style={{background: "transparent"}}>
                         {React.createElement(icon, {
                         className: `!w-5 !h-5 ${color}`,
