@@ -21,7 +21,7 @@ export function Navbar({ brandName, routes, action }) {
   }, []);
 
   const navList = (
-    <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+    <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6" style={{cursor: 'default'}}>
       {routes.map(({ name, path, icon }) => (
         <Typography
           key={name}
@@ -30,13 +30,16 @@ export function Navbar({ brandName, routes, action }) {
           color="blue-gray"
           className="capitalize"
         >
-          <Link to={path} className="flex items-center gap-1 p-1 font-normal">
+          <Link 
+            to={''} 
+            className="flex items-center gap-1 p-1 font-normal" 
+            style={{cursor: 'default'}} >
             {icon &&
               React.createElement(icon, {
                 className: "w-[18px] h-[18px] opacity-50 mr-1",
               })}
             {name}
-          </Link>
+          </Link >
         </Typography>
       ))}
     </ul>
@@ -87,11 +90,10 @@ Navbar.defaultProps = {
   action: (
     <a
       href="https://site.bitverseph.com/contact-us"
-      // href="https://www.creative-tim.com/product/material-tailwind-dashboard-react"
       target="_blank"
     >
       <Button variant="gradient" size="sm" fullWidth>
-        BOOK A DEMO
+        CONTACT US
       </Button>
     </a>
   ),
