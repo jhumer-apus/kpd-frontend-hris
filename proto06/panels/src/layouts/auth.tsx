@@ -17,17 +17,17 @@ export function Auth() {
       icon: ChartPieIcon,
     },
     {
-      name: "profile",
+      name: "Payroll System",
       path: "/dashboard/home",
       icon: UserIcon,
     },
     {
-      name: "sign up",
+      name: "Employee Mgmnt",
       path: "/auth/sign-up",
       icon: UserPlusIcon,
     },
     {
-      name: "sign in",
+      name: "Timekeeping",
       path: "/auth/sign-in",
       icon: ArrowRightOnRectangleIcon,
     },
