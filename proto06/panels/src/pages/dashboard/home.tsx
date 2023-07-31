@@ -179,7 +179,7 @@ export function ChooseDashboard() {
               For your easy access <strong>convenience</strong>
             </Typography>
           </CardHeader>
-          <CardBody className="pt-0 flex flex-wrap justify-around" >
+          <CardBody className="pt-0 flex flex-wrap justify-around gap-1" >
             {employeeEasyAccessData.map(
               ({ icon, color, title, description, link }, key) => (
                 <div key={title} className="relative flex items-start gap-4 py-3">
