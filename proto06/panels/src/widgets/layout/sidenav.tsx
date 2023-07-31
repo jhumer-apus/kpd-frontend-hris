@@ -153,7 +153,7 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
                                 className="font-medium capitalize flex justify-between w-full"
                               >
                                 <p className="flex justify-center items-center">{name}</p>
-                                {name === 'Your Approvals' && <p 
+                                {name === 'Your Approvals' && ( arrayLengthChecker(name) > 0 ) && <p 
                                   className="flex justify-center items-center" 
                                   style={{
                                     fontSize: '12px',
@@ -175,7 +175,7 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
                             {
                             subItems?.map(({ icon, name, path, badgeAccessor }) => 
                             (
-                              <NavLink to={`/${layout}${path}`} className={styles.toggleableItem}>
+                              <NavLink to={`/${layout}${path}`} className={styles.toggleableItem} data-link={path}>
                               {({ isActive }) => (
                                 <li key={name} >
                                   <Button
