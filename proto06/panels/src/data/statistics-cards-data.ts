@@ -79,7 +79,8 @@ export const statisticsCardsData = [
       value: "<",
       label: "Modification, etc.",
     },
-    link: '/home/procedurals/schedule-dailies'
+    link: 'development'
+    // link: '/home/procedurals/schedule-dailies'
   },
 ];
 
