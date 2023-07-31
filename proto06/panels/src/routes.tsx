@@ -59,6 +59,7 @@ import FileLEAVEPage from "./pages/quick-accesses/file-leave/file-leave-page";
 import ProceduralLEAVECREDITPage from "./pages/procedurals/leave-credits/procedural-leave-credit-page";
 import ProceduralLEAVETYPEPage from "./pages/procedurals/leave-types/procedural-leave-type-page";
 import ProceduralCUTOFFPERIODPage from "./pages/procedurals/cutoff-periods/procedural-cutoff-period-page";
+import ProceduralSCHEDULESHIFTSPage from "./pages/procedurals/schedule-shifts/procedural-schedule-shifts-page";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -294,7 +295,7 @@ export const routes: Array<IRoute> = [
             icon: <CalendarTodayOutlinedIcon {...icon} />,
             name: "Schedule Shifts",
             path: "/procedurals/schedule-shifts",
-            element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">SCHEDULE SHIFTS ELEMENTS UNDER DEVELOPMENT</strong>,
+            element: <ProceduralSCHEDULESHIFTSPage/>,
             hasSubItems: false,
           },
           {

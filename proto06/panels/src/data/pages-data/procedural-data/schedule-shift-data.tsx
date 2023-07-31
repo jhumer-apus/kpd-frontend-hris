@@ -1,5 +1,5 @@
 import { GridColDef, GridValueGetterParams, GridCellParams, GridValueFormatterParams } from "@mui/x-data-grid";
-
+import dayjs from "dayjs";
 // export const viewPayrollOptions = [
 //   "View Payroll Per Employee",
 //   "No Other Payroll View Options",
@@ -23,8 +23,8 @@ export const ProceduralSCHEDULESHIFTPageColumns: GridColDef[] =
     headerName: 'Sched IN:',
     width: 150,
     valueGetter: (params: GridValueGetterParams) => {
-      const date = new Date(params.row.time_in);
-      return date.toLocaleTimeString();
+      const formattedValue = dayjs(params.row.time_in, "HH:mm:ss").format('hh:mm a');
+      return formattedValue;
     }
   },
   {
@@ -32,8 +32,8 @@ export const ProceduralSCHEDULESHIFTPageColumns: GridColDef[] =
     headerName: 'Sched OUT:',
     width: 150,
     valueGetter: (params: GridValueGetterParams) => {
-      const date = new Date(params.row.time_out);
-      return date.toLocaleTimeString();
+      const formattedValue = dayjs(params.row.time_out, "HH:mm:ss").format('hh:mm a');
+      return formattedValue;
     }
   },
   { field: 'name', headerName: 'Schedule Name',  width: 180 },

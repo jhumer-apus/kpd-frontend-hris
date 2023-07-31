@@ -157,7 +157,7 @@ export function DashboardNavbar() {
                  {!employee_detail?.employee_image ? 
                  <UserCircleIcon className="h-7 w-7 text-blue-gray-500" /> 
                   :
-                  <img className="h-7 w-7 text-blue-gray-500" src={`${APILink.replace('/api/', '')}${updatedImage}`} style={{borderRadius: "10px", objectFit: "cover", border: "1px solid white", marginRight: "2px", boxShadow: "1px 1px 1px gray"}}/> 
+                  <img className="h-7 w-7 text-blue-gray-500" src={`${APILink.replace(/\/api\/v1\//, '')}${updatedImage}`} style={{borderRadius: "10px", objectFit: "cover", border: "1px solid white", marginRight: "2px", boxShadow: "1px 1px 1px gray"}}/> 
                 } 
                  <p className="hidden xl:flex"> Welcome, {employee_detail?.first_name} </p>
               </Button>

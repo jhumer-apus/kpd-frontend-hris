@@ -163,5 +163,5 @@ epicMiddleware.run(combineEpics(
 ));
 
 export type RootState = ReturnType<typeof rootReducer>;
-export const APILink = 'http://192.168.0.81:8000/api/';
+export const APILink = 'http://192.168.0.81:8000/api/v1/';
 export default store;

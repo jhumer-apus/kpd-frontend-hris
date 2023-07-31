@@ -478,17 +478,17 @@ export interface CUTOFFPERIODEditInterface extends CUTOFFPERIODViewInterface {}
 
 
 export interface SCHEDULESHIFTCreateInterface {
-    name: string;
-    time_in: string;
-    time_out: string;
-    grace_period: number;
-    with_overtime: boolean;
-    is_night_shift: boolean;
-    date_deleted: string | null;
+    name: string | null;
+    time_in: string | null;
+    time_out: string | null;
+    grace_period: number | null;
+    with_overtime: boolean | null;
 }
 
 export interface SCHEDULESHIFTViewInterface extends SCHEDULESHIFTCreateInterface { 
     id: number;
+    is_night_shift: boolean | null;
+    date_deleted: string | null;
 }
 
 export interface SCHEDULESHIFTEditInterface extends SCHEDULESHIFTViewInterface {}
