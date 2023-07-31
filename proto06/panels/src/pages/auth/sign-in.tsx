@@ -9,20 +9,30 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { userLogin } from "@/store/actions/auth";
+import { userLoginAction } from "@/store/actions/auth";
+import { RootState } from "@/store/configureStore";
 
 export function SignIn() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const signState = useSelector((state: RootState) => state.auth);
+
 
   function handleSignIn(passedEmail: string, passedPassword: string) {
     // Implement your login logic here
-    dispatch(userLogin({username: passedEmail, password: passedPassword}));
+    dispatch(userLoginAction({username: passedEmail, password: passedPassword}));
   }
+  console.log(signState.status, "haha?")
+
+  useEffect(()=>{
+    if(signState.status === 'logged_error'){
+      window.alert(`Error: ${signState.error || ''}`);
+    }
+  }, [signState.status])
   return (
     <>
       <img
@@ -54,16 +64,16 @@ export function SignIn() {
             </Button>
             <Typography variant="small" className="mt-6 flex justify-center">
               Don't have an account?
-              <Link to="/auth/sign-up">
+              {/* <Link to="/auth/sign-up"> */}
                 <Typography
                   as="span"
                   variant="small"
                   color="blue"
                   className="ml-1 font-bold"
                 >
-                  Sign up
+                  <a href="https://site.bitverseph.com/contact-us" target="_blank">Contact Us</a>
                 </Typography>
-              </Link>
+              {/* </Link> */}
             </Typography>
           </CardFooter>
         </Card>

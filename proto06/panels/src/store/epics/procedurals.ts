@@ -335,7 +335,7 @@ const HolidaysGetApiCall = async () => {
           store.dispatch(HolidaysGetProgress(progress));
         }
       }
-    }
+  }
   );
   return response.data;
 };

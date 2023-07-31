@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { 
-  userLogin, 
-  userLoginSuccess, 
-  userLoginFailure, 
+  userLoginAction, 
+  userLoginActionSuccess, 
+  userLoginActionFailure, 
   userLogout,
   // fetchUserData,
   fetchUserDataSuccess,
@@ -12,6 +12,7 @@ import { UserType, EmployeeDetailsType } from '@/types/types-store';
 
 
 interface AuthState {
+  status: string;
   isAuthenticated: boolean;
   token: string | null;
   user: UserType | null; // Add user and employee fields
@@ -20,6 +21,7 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
+  status: '',
   isAuthenticated: false,
   token: null,
   user: null, // Initialize user and employee fields
@@ -33,13 +35,15 @@ export const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(userLogin, (state) => {
+      .addCase(userLoginAction, (state) => {
+        state.status = 'logging_in';
         state.isAuthenticated = false;
         state.token = null;
         state.error = null;
       })
-      .addCase(userLoginSuccess, (state, action) => 
+      .addCase(userLoginActionSuccess, (state, action) => 
       { 
+        state.status = 'logged_in';
         state.isAuthenticated = true;
         state.token = action.payload.jwt; // Update this line to access the JWT from the payload
         state.user = action.payload.user; // Store user and employee details
@@ -47,12 +51,14 @@ export const authSlice = createSlice({
         state.error = null;
       }
       )
-      .addCase(userLoginFailure, (state, action) => {
+      .addCase(userLoginActionFailure, (state, action) => {
+        state.status = 'logged_error';
         state.isAuthenticated = false;
         state.token = null;
         state.error = action.payload;
       })
       .addCase(userLogout, (state) => {
+        state.status = 'logged_out';
         state.isAuthenticated = false;
         state.token = null;
         state.error = null;

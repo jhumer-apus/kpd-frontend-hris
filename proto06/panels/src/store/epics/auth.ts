@@ -3,25 +3,36 @@ import { map, catchError, switchMap, mergeMap, tap } from 'rxjs/operators';
 import { of, from } from 'rxjs';
 import axios from 'axios';
 import Cookies from 'js-cookie'
-import { userLogin, userLoginSuccess, userLoginFailure } from '../actions/auth';
+import { userLoginAction, userLoginActionSuccess, userLoginActionProgress, userLoginActionFailure } from '../actions/auth';
 import { Epic } from 'redux-observable';
 import { APILink } from '../configureStore';
+import store from '../configureStore';
 
 const loginApiCall = async (username: string, password: string, twoFactorToken?: string) => {
     // const response = await axios.post("https://bitverse-api.herokuapp.com/login", {
     // const response = await axios.post("http://172.16.168.144:8888/login", {
-    const response = await axios.post(`${APILink}login/`, {
+    const response = await axios.post(`${APILink}login/`, 
+    {
     username,
     password,
     ...(twoFactorToken ? { twoFactorToken } : {}),
-  });
+    },
+    {
+      onDownloadProgress: (progressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(userLoginActionProgress(progress));
+        }
+      }
+  }
+  );
   return response.data;
 };
 
 export const authEpic: Epic = (action$, state$) =>
   action$.pipe(
-    ofType(userLogin.type),
-    switchMap((action: ReturnType<typeof userLogin>) =>
+    ofType(userLoginAction.type),
+    switchMap((action: ReturnType<typeof userLoginAction>) =>
       from(
         loginApiCall(action.payload.username, action.payload.password, action.payload.twoFactorToken)
       ).pipe(
@@ -30,13 +41,14 @@ export const authEpic: Epic = (action$, state$) =>
           Cookies.set('token', data.jwt, { expires: 1 / 24, secure: true });
           Cookies.set('user', JSON.stringify(data.user), { expires: 1 / 24, secure: true });
           Cookies.set('employee_detail', JSON.stringify(data.employee_detail), { expires: 1 / 24, secure: true });
-          return userLoginSuccess(data.jwt, data.user, data.employee_detail);
+          return userLoginActionSuccess(data.jwt, data.user, data.employee_detail);
         }),
         catchError((error) => {
-          if (error.response && error.response.data && error.response.data.error) {
-            return of(userLoginFailure(error.response.data.error)); // Extract error message from the response
+          console.log(error, "haha?11")
+          if (error.response && error.response.data && error.response.data?.['Error Message']) {
+            return of(userLoginActionFailure(error.response.data?.['Error Message'])); // Extract error message from the response
           } else {
-            return of(userLoginFailure(error.message)); // If there is no custom error message, use the default one
+            return of(userLoginActionFailure(error.message)); // If there is no custom error message, use the default one
           }
         })
       )

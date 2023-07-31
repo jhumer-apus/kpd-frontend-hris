@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Cookies from 'js-cookie';
 import { RootState } from '@/store/configureStore';
-import { userLoginSuccess, userLogout } from '@/store/actions/auth';
+import { userLoginActionSuccess, userLogout } from '@/store/actions/auth';
 
 export function useAuth() {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ export function useAuth() {
     const userCookie = JSON.parse(Cookies.get('user') || '{}');
     const employeeCookie = JSON.parse(Cookies.get('employee_detail') || '{}');
     if (token) {
-      dispatch(userLoginSuccess(token, userCookie, employeeCookie));
+      dispatch(userLoginActionSuccess(token, userCookie, employeeCookie));
     } else {
       dispatch(userLogout());
     }
