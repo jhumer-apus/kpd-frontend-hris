@@ -60,6 +60,7 @@ import ProceduralLEAVECREDITPage from "./pages/procedurals/leave-credits/procedu
 import ProceduralLEAVETYPEPage from "./pages/procedurals/leave-types/procedural-leave-type-page";
 import ProceduralCUTOFFPERIODPage from "./pages/procedurals/cutoff-periods/procedural-cutoff-period-page";
 import ProceduralSCHEDULESHIFTSPage from "./pages/procedurals/schedule-shifts/procedural-schedule-shifts-page";
+import ProceduralSCHEDULEDAILYpage from "./pages/procedurals/schedule-dailies/procedural-schedule-daily";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -303,7 +304,8 @@ export const routes: Array<IRoute> = [
             icon: <CalendarMonthOutlinedIcon {...icon} />,
             name: "Schedule Dailies",
             path: "/procedurals/schedule-dailies",
-            element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">SCHEDULE DAILIES PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+            element: <ProceduralSCHEDULEDAILYpage/>,
+            // element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">SCHEDULE DAILIES PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
             hasSubItems: false,
           },
         ]

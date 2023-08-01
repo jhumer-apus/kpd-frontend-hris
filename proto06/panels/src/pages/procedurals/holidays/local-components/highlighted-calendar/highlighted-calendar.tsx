@@ -10,7 +10,7 @@ import axios, { CancelTokenSource } from 'axios';
 import { StaticDatePicker, PickersShortcutsItem } from '@mui/x-date-pickers';
 import './highlighted-calendar.scss';
 import { APILink } from '@/store/configureStore';
-
+import { HolidayGetType } from '@/types/types-pages';
 
 export interface HighlightedCalendarInterface {
   value: dayjs.Dayjs | null,
@@ -46,21 +46,11 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[],
 export default function HighlightedCalendar(props: HighlightedCalendarInterface) {
   const { value } = props;
   const requestAbortController = React.useRef<CancelTokenSource  | null>(null);
-  // const [shortcutsItems, setShortcutsItems] = React.useState<PickersShortcutsItem<Dayjs>[]>([]);
   const [isLoading, setIsLoading] = React.useState(false);
-//   const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15]);
   const [highlightedDays, setHighlightedDays] = React.useState<number[]>([]);
-  const [holidayTypes, setHolidayTypes] = React.useState<Record<string, string>>({}); // Add this line to declare the state variable
-
-  // const createShortcutItems = (data: any[]): PickersShortcutsItem<Dayjs>[] => {
-  //   return data.map((holiday: any) => ({
-  //     label: holiday.holiday_description || '', // Use holiday_description as label
-  //     getValue: () => dayjs(holiday.holiday_date),
-  //   }));
-  // };
+  const [holidayTypes, setHolidayTypes] = React.useState<Record<string, string>>({}); 
   const fetchHighlightedDays = (date: Dayjs) => {
 
-    // requestAbortController.current = controller;
     const formattedDate = date.format('YYYY-MM');
     setIsLoading(true);
     setHighlightedDays([]);
@@ -71,26 +61,24 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
     })
       .then((response) => {
         //Added this to filter the data from the response
-        const filteredData = response.data.filter((holiday: any) => {
+        const filteredData: HolidayGetType[] = response.data.filter((holiday: HolidayGetType) => {
             const holidayDate = dayjs(holiday.holiday_date);
             return (
               holidayDate.format('YYYY-MM') === formattedDate &&
               holidayDate.isSame(date, 'month')
             );
         });
-        const holidayTypes = filteredData.reduce((types: Record<string, string>, holiday: any) => {
+        const holidayTypes: Record<string, string> = filteredData.reduce((types: Record<string, string>, holiday: HolidayGetType,) => {
             const holidayDate = dayjs(holiday.holiday_date).format('YYYY-MM-DD');
             types[holidayDate] = holiday.holiday_type;
             return types;
         }, {});
-
         const daysToHighlight = filteredData.map((holiday: any) =>
           parseInt(holiday.holiday_date.split('-')[2])
         );
         setHighlightedDays(daysToHighlight);
         setHolidayTypes(holidayTypes); // Set the holidayTypes state
         setIsLoading(false);
-        // setShortcutsItems(createShortcutItems(filteredData)); // Update shortcutsItems
       })
       .catch((error) => {
         if (axios.isCancel(error)) {

@@ -486,25 +486,27 @@ export interface SCHEDULESHIFTCreateInterface {
 }
 
 export interface SCHEDULESHIFTViewInterface extends SCHEDULESHIFTCreateInterface { 
+    [key: string]: boolean | string | number | null;
     id: number;
-    is_night_shift: boolean | null;
-    date_deleted: string | null;
+    is_night_shift: boolean;
+    date_deleted: string;
 }
 
 export interface SCHEDULESHIFTEditInterface extends SCHEDULESHIFTViewInterface {}
 
 
 export interface SCHEDULEDAILYCreateInterface {
-    schedule_shift_code: number | SCHEDULESHIFTViewInterface; // Frontend UX Form number only; View is Object
-    business_date: string;
-    is_processed: boolean | null; // Frontend UX non-inclusive
-    emp_no: number;
-    sched_default: boolean | null;
+    schedule_shift_code: SCHEDULESHIFTViewInterface | number | null; // This is where the type error is coming from
+    business_date: string | null;
+    emp_no: number | null;
+    is_restday: boolean;
 }
 
 export interface SCHEDULEDAILYViewInterface extends SCHEDULEDAILYCreateInterface { 
     id: number;
-    is_restday: boolean;   
+    is_processed: boolean | null;
+
+    sched_default: boolean | null;
 }
 
 export interface SCHEDULEDAILYEditInterface extends SCHEDULEDAILYViewInterface {}

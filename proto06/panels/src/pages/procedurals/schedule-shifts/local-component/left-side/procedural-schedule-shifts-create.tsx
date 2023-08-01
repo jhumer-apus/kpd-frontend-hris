@@ -7,7 +7,6 @@ import SCHEDULESHIFTTimeCreate from './inner-ui-components/schedule-shift-time-f
 import { Typography } from '@mui/joy';
 import { SCHEDULESHIFTCreateInterface } from '@/types/types-pages';
 import { SCHEDULESHIFTCreateAction, SCHEDULESHIFTCreateActionFailureCleanup } from '@/store/actions/procedurals';
-import SCHEDULESHIFTCreditDateCreate from './inner-ui-components/cutoff-period-credit-date-field';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -51,7 +50,7 @@ function ProceduralSCHEDULESHIFTCreate(props: CreateSCHEDULESHIFTModalInterface)
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain' level="h6">Create SCHEDULESHIFT Individual Data</Typography>
             <div className='flex flex-col gap-6 overflow-auto relative'>
                 <div className='flex flex-wrap gap-6 pt-4'>
-                    <div className='flex flex-col gap-6'>
+                    <div className='flex flex-col gap-6' style={{width: '100%'}}>
                         <TextField
                             required 
                             sx={{width: '100%'}} 
@@ -114,7 +113,7 @@ function ProceduralSCHEDULESHIFTCreate(props: CreateSCHEDULESHIFTModalInterface)
                             </RadioGroup>
                         </FormControl>
                     </div>
-                    <div className='flex flex-col gap-6'>
+                    <div className='flex flex-col gap-6' style={{width: '100%'}}>
                         <SCHEDULESHIFTTimeCreate createSCHEDULESHIFT={createSCHEDULESHIFT} setCreateSCHEDULESHIFT={setCreateSCHEDULESHIFT}/>
                     </div>
                 </div>

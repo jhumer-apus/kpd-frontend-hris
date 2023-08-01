@@ -47,26 +47,6 @@ function ProceduralLEAVECREDITCreate(props: CreateLEAVECREDITModalInterface) {
                     <div className='flex flex-col gap-6'>
                         <EmployeeAutoComplete createLEAVECREDIT={createLEAVECREDIT} setCreateLEAVECREDIT={setCreateLEAVECREDIT}/>
                         <LEAVETYPEFetchAutoCompleteOnLEAVECREDITPage createLEAVECREDIT={createLEAVECREDIT} setCreateLEAVECREDIT={setCreateLEAVECREDIT}/>
-                        {/* <TextField
-                            required 
-                            sx={{width: '100%'}} 
-                            label='LEAVECREDIT Type Code:'  
-                            variant='outlined' 
-                            type="number"
-                            value={createLEAVECREDIT?.leave_type_code}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = parseInt(event.target.value)
-                                setCreateLEAVECREDIT((prevState)=> {
-                                    return (
-                                        {
-                                            ...prevState,
-                                            leave_type_code: value
-                                        }
-                                    )
-                                })
-                            }}
-                            
-                        /> */}
                     </div>
                     <div className='flex flex-col gap-6'>
                         <ExpiryDateLEAVECREDITCreate createLEAVECREDIT={createLEAVECREDIT} setCreateLEAVECREDIT={setCreateLEAVECREDIT}/>
