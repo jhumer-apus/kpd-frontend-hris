@@ -59,6 +59,7 @@ export default function CreateSCHEDULEDAILYModal(props: CreateSCHEDULEDAILYModal
         business_date: null,
         emp_no: null,
         is_restday: false,
+        sched_default: false,
     })
     const [value, setValue] = React.useState<string | null>(holiday_location[0]);
     const [inputValue, setInputValue] = React.useState('');

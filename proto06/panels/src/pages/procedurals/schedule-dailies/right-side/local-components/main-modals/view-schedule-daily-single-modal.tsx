@@ -2,29 +2,29 @@ import { Dispatch, SetStateAction, Fragment, useState } from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
-import { CUTOFFPERIODViewInterface } from '@/types/types-pages';
-import CUTOFFPERIODModalComponent from './inner-modals/cutoff-period-modal-component';
+import { SCHEDULEDAILYViewInterface } from '@/types/types-pages';
+import SCHEDULEDAILYModalComponent from './inner-modals/schedule-daily-modal-component';
 
 
-interface SingleCUTOFFPERIODInterface {
-    singleCUTOFFPERIODOpenModal: boolean; 
-    setSingleCUTOFFPERIODOpenModal: Dispatch<SetStateAction<boolean>>;
-    singleCUTOFFPERIODDetailsData: CUTOFFPERIODViewInterface;
-    setSingleCUTOFFPERIODDetailsData: Dispatch<SetStateAction<CUTOFFPERIODViewInterface>>;
+interface SingleSCHEDULEDAILYInterface {
+    singleSCHEDULEDAILYOpenModal: boolean; 
+    setSingleSCHEDULEDAILYOpenModal: Dispatch<SetStateAction<boolean>>;
+    singleSCHEDULEDAILYDetailsData: SCHEDULEDAILYViewInterface;
+    setSingleSCHEDULEDAILYDetailsData: Dispatch<SetStateAction<SCHEDULEDAILYViewInterface>>;
 }
 
-export default function ViewCUTOFFPERIODSingleModal(props: SingleCUTOFFPERIODInterface) {
-    const {singleCUTOFFPERIODOpenModal, setSingleCUTOFFPERIODOpenModal, setSingleCUTOFFPERIODDetailsData, singleCUTOFFPERIODDetailsData} = props;
+export default function ViewSCHEDULEDAILYSingleModal(props: SingleSCHEDULEDAILYInterface) {
+    const {singleSCHEDULEDAILYOpenModal, setSingleSCHEDULEDAILYOpenModal, setSingleSCHEDULEDAILYDetailsData, singleSCHEDULEDAILYDetailsData} = props;
   const [scroll, setScroll] = useState<boolean>(true);
   return (
     <Fragment>
-      <Transition in={singleCUTOFFPERIODOpenModal} timeout={400}>
+      <Transition in={singleSCHEDULEDAILYOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
         keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setSingleCUTOFFPERIODOpenModal(false);
+          setSingleSCHEDULEDAILYOpenModal(false);
         }}
         slotProps={{
             backdrop: {
@@ -47,7 +47,7 @@ export default function ViewCUTOFFPERIODSingleModal(props: SingleCUTOFFPERIODInt
             aria-labelledby="dialog-vertical-scroll-title" 
             layout={'center'}
             sx={{
-              ...CUTOFFPERIODModalArea,
+              ...SCHEDULEDAILYModalArea,
                 opacity: 0,
                 transition: `opacity 300ms`,
                 ...{
@@ -57,7 +57,7 @@ export default function ViewCUTOFFPERIODSingleModal(props: SingleCUTOFFPERIODInt
                 overflow: 'auto',
             }}
         >
-          <CUTOFFPERIODModalComponent setSingleCUTOFFPERIODDetailsData={setSingleCUTOFFPERIODDetailsData} singleCUTOFFPERIODDetailsData={singleCUTOFFPERIODDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <SCHEDULEDAILYModalComponent setSingleSCHEDULEDAILYDetailsData={setSingleSCHEDULEDAILYDetailsData} singleSCHEDULEDAILYDetailsData={singleSCHEDULEDAILYDetailsData} scroll={scroll} setScroll={setScroll}/>
         </ModalDialog>
       </Modal>
         )}
@@ -68,7 +68,7 @@ export default function ViewCUTOFFPERIODSingleModal(props: SingleCUTOFFPERIODInt
 
 
 // Styles
-const CUTOFFPERIODModalArea = {
+const SCHEDULEDAILYModalArea = {
   height: '128.5mm',
   width: '210mm',
   margin: '0 auto',

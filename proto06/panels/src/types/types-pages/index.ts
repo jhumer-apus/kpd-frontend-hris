@@ -496,20 +496,25 @@ export interface SCHEDULESHIFTEditInterface extends SCHEDULESHIFTViewInterface {
 
 
 export interface SCHEDULEDAILYCreateInterface {
-    schedule_shift_code: SCHEDULESHIFTViewInterface | number | null; // This is where the type error is coming from
+    schedule_shift_code: SCHEDULESHIFTViewInterface | null; // This is where the type error is coming from
     business_date: string | null;
     emp_no: number | null;
     is_restday: boolean;
+    sched_default: boolean | null;
 }
 
 export interface SCHEDULEDAILYViewInterface extends SCHEDULEDAILYCreateInterface { 
     id: number;
     is_processed: boolean | null;
-
-    sched_default: boolean | null;
 }
 
-export interface SCHEDULEDAILYEditInterface extends SCHEDULEDAILYViewInterface {}
+export interface SCHEDULEDAILYEditInterface {
+    schedule_shift_code: number | null;
+    business_date: string | null;
+    emp_no: number | null;
+    is_restday: boolean;
+    sched_default: boolean | null;
+}
 
 
 

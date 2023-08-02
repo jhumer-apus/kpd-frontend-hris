@@ -87,7 +87,7 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
         groupBy={(option) => option.firstLetter}
         getOptionLabel={(option) => option.employee}
         onInputChange={handleInputChange}
-        sx={{ width: '300px' }}
+        sx={{ width: '100%' }}
         isOptionEqualToValue={isOptionEqualToValue}
         renderInput={(params) => 
             {   

@@ -14,6 +14,8 @@ import ListOfHolidaysComponent from './local-components/list-of-holidays/list-of
 import { ScheduleDailyColor } from './local-components/list-of-holidays/list-of-schedule-daily';
 import dayjs from 'dayjs';
 import CreateHolidayModal from './local-components/create-holiday-modal/create-schedule-daily-modal';
+import ProceduralSCHEDULEDAILYPageHistory from './right-side/schedule-daily-history';
+import EmployeeAutoComplete from './local-components/employee-autocomplete/employee-autocomplete';
 
 
 const PaperStyle: CSSProperties = {
@@ -53,9 +55,23 @@ export default function ProceduralSCHEDULEDAILYpage() {
         <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
             <Grid item xs={6}>
                 <Paper elevation={3} style={PaperStyle}>
-                    <Typography variant={'h6'}>
-                      Daily Schedule of an Employee
-                    </Typography>
+                    <div className='flex justify-between'>
+                        <div className='flex flex-col'>
+                          <Typography variant={'h6'}>
+                            Daily Schedule of an Employee
+                          </Typography>
+                          <Typography variant={'small'} className='italic'>
+                            Some Restdays have schedules', make sure to be guided accordingly.
+                          </Typography>
+                          <Typography variant={'small'} className='italic'>
+                            Hover date to check details. And make sure this is intended.
+                          </Typography>
+                        </div>
+                        <div>
+                          <Typography className='flex my-2'><p style={{background: ScheduleDailyColor._restday, borderRadius: '100px', width: '25px', opacity: '0.4'}}></p>&nbsp;&nbsp;Restday</Typography>
+                          <Typography className='flex mb-2'><p style={{background: ScheduleDailyColor._workday, borderRadius: '100px', width: '25px', opacity: '0.4'}}></p>&nbsp;&nbsp;Workday</Typography>  
+                        </div>
+                    </div>
                     <div className='flex justify-center align-center'>
                       <HighlightedCalendar value={value} setValue={setValue} currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/>
                     </div>
@@ -76,14 +92,10 @@ export default function ProceduralSCHEDULEDAILYpage() {
             <Grid item xs={6}>
                 <Paper elevation={3} style={PaperStyle}>
                     <div className='flex justify-between'>
-                    <Typography variant={'h6'} style={{alignItems: 'center', display: 'flex', paddingLeft: '10px'}}>List of Holidays</Typography>
-                    <div>
-                      {/* <Typography>Legends</Typography> */}
-                      <Typography className='flex my-2'><p style={{background: ScheduleDailyColor._restday, borderRadius: '100px', width: '25px'}}></p>&nbsp;&nbsp;Restday</Typography>
-                      <Typography className='flex mb-2'><p style={{background: ScheduleDailyColor._workday, borderRadius: '100px', width: '25px'}}></p>&nbsp;&nbsp;Workday</Typography>  
+                    <Typography variant={'h6'} style={{alignItems: 'center', display: 'flex'}}>Choose Employee to view Daily Schedule</Typography>
+                    <EmployeeAutoComplete/>
                     </div>
-                    </div>
-                    <ListOfHolidaysComponent value={value} setValue={setValue}  currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/>
+                    <ProceduralSCHEDULEDAILYPageHistory currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/>
                 </Paper>
             </Grid>
         </Grid>

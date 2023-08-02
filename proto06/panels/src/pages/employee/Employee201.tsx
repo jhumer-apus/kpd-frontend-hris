@@ -2,14 +2,13 @@ import { Fragment, JSXElementConstructor, useEffect, useState } from 'react';
 import { DataGrid, GridColDef, GridValueGetterParams, GridCellParams } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
 import { getEmployeesList } from '@/store/actions/employees';
-import { RootState } from '@/store/reducers';
+import { RootState } from '@/store/configureStore';
 import { getSpecificEmployeeInfo } from '@/store/actions/employees';
 import { Modal, Box, CircularProgress } from '@mui/material';
 import { UserProfile } from './forms/AddEmployee';
 import { useForm } from 'react-hook-form';
 import { GetEmployeesListsType } from '@/types/types-store';
 import { ImportEmployee } from './forms/ImportEmployee';
-
 import {
   Typography,
   Card,
@@ -53,7 +52,7 @@ const columns: GridColDef[] = [
   // { field: 'id', headerName: 'ID', width: 70 },
   {
     field: 'employee_image',
-    headerName: 'Prof Pic',
+    headerName: 'Display Pic',
     width: 150,
     renderCell: (params: GridCellParams) => {
       if (params.value){
