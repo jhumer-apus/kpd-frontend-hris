@@ -26,7 +26,6 @@ export function SignIn() {
     // Implement your login logic here
     dispatch(userLoginAction({username: passedEmail, password: passedPassword}));
   }
-  console.log(signState.status, "haha?")
 
   useEffect(()=>{
     if(signState.status === 'logged_error'){

@@ -12,9 +12,6 @@ import { SCHEDULEDAILYCreateActionFailureCleanup, SCHEDULEDAILYEditAction } from
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { SCHEDULEDAILYCreateInterface } from '@/types/types-pages';
-import { TimePicker } from '@mui/x-date-pickers';
-
 
 
 interface AllowedDaysSCHEDULEDAILYModalInterface {
@@ -43,7 +40,6 @@ export default function AllowedDaysSCHEDULEDAILYModal(props: AllowedDaysSCHEDULE
     }
   }
 
-  console.log(singleSCHEDULEDAILYDetailsData, "haha?", singleSCHEDULEDAILYDetailsData)
   useEffect(()=>{
     if(SCHEDULEDAILYAllowedDaysState.status){      
       if(SCHEDULEDAILYAllowedDaysState.status === 'succeeded'){

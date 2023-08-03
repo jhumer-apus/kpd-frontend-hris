@@ -24,11 +24,12 @@ const columns = [
   {
     field: "emp_no",
     headerName: "Employee #",
-    width: 142,
+    width: 100,
   },
   {
     field: "emp_fullname",
     headerName: "Employee Fullname",
+    width: 180,
     valueGetter: (params: GridValueGetterParams) => {
       const first_name = params.row.first_name;
       const middle_name = params.row.middle_name;
@@ -40,14 +41,14 @@ const columns = [
     field: "bio_id",
     headerName: "Biometrics",
   },
-  {
-    field: "date_hired",
-    headerName: "Date Hired"
-  },
-  {
-    field: "department_code",
-    headerName: "Department"
-  },
+  // {
+  //   field: "date_hired",
+  //   headerName: "Date Hired"
+  // },
+  // {
+  //   field: "department_code",
+  //   headerName: "Department"
+  // },
   // {
   //   field: "payroll_group_code",
   //   headerName: "PG Code",

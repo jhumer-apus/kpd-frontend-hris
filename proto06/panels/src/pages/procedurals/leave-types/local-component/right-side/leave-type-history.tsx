@@ -25,7 +25,6 @@ export default function ProceduralLEAVETYPEPageHistory() {
   const LEAVETYPEViewData = data as LEAVETYPEViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
-  console.log(LEAVETYPEViewData, "haha?")
   useEffect(()=> {
     if((LEAVETYPEViewData?.length <= 0 || LEAVETYPEViewData === null || LEAVETYPEViewData === undefined ) && curr_user){
       dispatch(LEAVETYPEViewAction())

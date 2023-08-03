@@ -44,9 +44,9 @@ export default function ProceduralSCHEDULEDAILYPageHistory(props: ProceduralSCHE
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
   useEffect(()=> {
-    if((SCHEDULEDAILYViewData?.length <= 0 || SCHEDULEDAILYViewData === null || SCHEDULEDAILYViewData === undefined ) && curr_user){
+    // if((SCHEDULEDAILYViewData?.length <= 0 || SCHEDULEDAILYViewData === null || SCHEDULEDAILYViewData === undefined ) && curr_user){
       dispatch(SCHEDULEDAILYViewFilterEmployeeAction({emp_no: currEmployee}))
-    }
+    // }
   }, [currEmployee]);
 
   return (
@@ -78,7 +78,7 @@ export default function ProceduralSCHEDULEDAILYPageHistory(props: ProceduralSCHE
           }}
           disableRowSelectionOnClick 
           style={{ cursor: spButtonIndex === 2 ? 'pointer': 'default'}}
-          localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? 'The caller for SCHEDULEDAILY Epic hasn\'t been set up, please contact your frontend developer': 'There is no SCHEDULEDAILY to generate. Double check with a Database Admin'}` }}
+          localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? `No Daily Schedule found for Employee #${currEmployee}`: 'There is no SCHEDULEDAILY to generate. Double check with a Database Admin'}` }}
         />
       </div>
     </Fragment>

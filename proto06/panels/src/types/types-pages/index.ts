@@ -496,7 +496,7 @@ export interface SCHEDULESHIFTEditInterface extends SCHEDULESHIFTViewInterface {
 
 
 export interface SCHEDULEDAILYCreateInterface {
-    schedule_shift_code: SCHEDULESHIFTViewInterface | null; // This is where the type error is coming from
+    schedule_shift_code: SCHEDULESHIFTViewInterface | null;
     business_date: string | null;
     emp_no: number | null;
     is_restday: boolean;
@@ -509,6 +509,7 @@ export interface SCHEDULEDAILYViewInterface extends SCHEDULEDAILYCreateInterface
 }
 
 export interface SCHEDULEDAILYEditInterface {
+    id?: number;
     schedule_shift_code: number | null;
     business_date: string | null;
     emp_no: number | null;

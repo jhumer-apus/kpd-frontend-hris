@@ -31,6 +31,13 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({ children
             const dataLink = childNode.getAttribute("data-link");
             if (window.location.pathname.includes(dataLink || '')) {
               expandSection(contentRef.current);
+            } else {
+              // I know it might be tempting to add a collapseSection function here,
+              // But know that this might be a buggy endeavour. Therefore, try to study the whole
+              // implementation first before doing so, *wink. You might need to 
+              // revise the whole logic first :D 
+              // console.log('here') and see that its rendered 29+ times. 
+              // This might be related to the reason why the animation is kinda glitchy 
             }
           }
         }

@@ -27,8 +27,8 @@ function ApplyPayrollDeductions(props: ApplyPayrollDeductions) {
     const screenSize = useScreenSize();
     const checkboxLabel = (key: keyof ProcessPayroll): string => {
         const keyProcessor: Record<keyof ProcessPayroll, string> = {
-          emp_no: 'null',
-          cutoff_code: 'haha',
+          emp_no: '',
+          cutoff_code: '',
           is_disabled_loan: 'Disable Loan Deduction',
           is_ca: 'Cash Advance',
           is_pagibig_house: 'HDMF House Loan',

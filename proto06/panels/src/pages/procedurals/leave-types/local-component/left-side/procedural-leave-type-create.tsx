@@ -27,7 +27,6 @@ function ProceduralLEAVETYPECreate(props: CreateLEAVETYPEModalInterface) {
         name: null,
         is_paid: false,
     });
-    console.log(LEAVETYPECreatestate, "haha!?@#")
     const onClickSubmit = () => {
         dispatch(LEAVETYPECreateAction(createLEAVETYPE))
     };

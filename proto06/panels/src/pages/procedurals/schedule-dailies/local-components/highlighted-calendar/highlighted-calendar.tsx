@@ -4,7 +4,6 @@ import Badge from '@mui/material/Badge';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { PickersDay, PickersDayProps } from '@mui/x-date-pickers/PickersDay';
-import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
 import axios, { CancelTokenSource } from 'axios';
 import { StaticDatePicker, PickersShortcutsItem } from '@mui/x-date-pickers';
@@ -15,7 +14,6 @@ import { ScheduleDailyColor } from '../list-of-holidays/list-of-schedule-daily';
 
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
-import HelpIcon from '@mui/icons-material/Help';
 
 export interface HighlightedCalendarInterface {
   value: dayjs.Dayjs | null,
@@ -29,7 +27,6 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[],
   const { highlightedDays = [], scheduleDaily = {}, pipi, day, outsideCurrentMonth, ...other } = props;
   const isSelected = !props.outsideCurrentMonth && highlightedDays.includes(props.day.date());
   const scheduleDailyIsRestday = scheduleDaily[`${day.format('YYYY-MM-DD')}`];
-  console.log(scheduleDailyIsRestday, "123123zz")
   let badgeContent: ReactNode = undefined;
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -45,7 +42,7 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[],
 
 
   if (isSelected) {
-    if (scheduleDailyIsRestday.is_restday) {
+    if (scheduleDailyIsRestday?.is_restday) {
       badgeContent = 
       <div onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose} 
       style=
@@ -210,7 +207,6 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
         const daysToHighlight = filteredData.map((scheduleDaily: any) =>
           parseInt(scheduleDaily.business_date.split('-')[2])
         );
-        console.log(scheduleDaily, "eto un")
         setHighlightedDays(daysToHighlight);
         setScheduleDaily(scheduleDaily); // Set the scheduleDaily state
         setIsLoading(false);
@@ -231,7 +227,7 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
     fetchHighlightedDays(initialValue);
     // abort request on unmount
     return () => requestAbortController.current?.cancel();
-  }, []);
+  }, [currEmployee]);
 
   const handleMonthChange = (date: Dayjs) => {
     if (requestAbortController.current) {
@@ -241,8 +237,6 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
     setHighlightedDays([]);
     fetchHighlightedDays(date);
   };
-  console.log(highlightedDays, "123xs", scheduleDaily)
-  const haha = 123;
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -262,7 +256,6 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
             day: {
                 highlightedDays,
                 scheduleDaily,
-                haha 
             } as any,
             // shortcuts: {
             //     items: shortcutsItems,

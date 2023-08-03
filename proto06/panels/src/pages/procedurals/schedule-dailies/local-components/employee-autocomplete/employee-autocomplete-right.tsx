@@ -5,17 +5,18 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { getEmployeesList } from '@/store/actions/employees';
 import { AutocompleteInputChangeReason } from '@mui/material/Autocomplete';
-import { SCHEDULEDAILYCreateInterface } from '@/types/types-pages';
+import { useNavigate } from 'react-router-dom';
 
 
 interface EmployeeAutoCompleteInterface{
-    createSCHEDULEDAILY: SCHEDULEDAILYCreateInterface;
-    setCreateSCHEDULEDAILY: Dispatch<SetStateAction<SCHEDULEDAILYCreateInterface>>;
+    currEmployee: number;
+    setCurrEmployee: Dispatch<SetStateAction<number>>;
 }
 
 
-export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterface) {
-    const {setCreateSCHEDULEDAILY, createSCHEDULEDAILY} = props;
+export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInterface) {
+    const navigate = useNavigate();
+    const {currEmployee, setCurrEmployee} = props;
     const dispatch = useDispatch();
     const state = useSelector((state:RootState)=> state.employees);
     const [employeesList, setEmployeesList] = useState<{employee: string, emp_no: number}[]>([])
@@ -28,20 +29,13 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
 
     useEffect(()=> {
         if(selectedEmployeeId){
-            setCreateSCHEDULEDAILY((prevState)=> {
-                return(
-                    {
-                        ...prevState,
-                        emp_no: selectedEmployeeId
-                    }
-                )
-            })
+            setCurrEmployee(selectedEmployeeId)
         }
     }, [selectedEmployeeId])
 
     useEffect(() => {
         if (state.employees_list) {
-            setTimeout(() => {
+            // setTimeout(() => {
                 const updatedEmployeesList = 
                 state.employees_list?.map(({ emp_no, last_name, first_name }) => {
                     return {
@@ -50,7 +44,7 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
                     };
                 }) || [];
                 setEmployeesList(updatedEmployeesList);
-            }, 1000);
+            // }, 800);
         }
     }, [state.employees_list]);
 
@@ -62,6 +56,8 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
         };
     });
     
+    const defaultOption = options?.find((option) => option.emp_no === currEmployee);
+    console.log(defaultOption, currEmployee, "haha?", selectedEmployeeId)
     const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string, reason: AutocompleteInputChangeReason) => {
         const matchingEmployee = employeesList.find(
         //   (employeeItems) => employeeItems.employee === newInputValue
@@ -80,9 +76,14 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
     };
     
     return (
+        <>
+        {defaultOption && 
         <Autocomplete
         // disableCloseOnSelect
+        noOptionsText={<><p>Not found. <i style={{cursor: 'pointer', color: 'blue'}} onClick={()=> navigate('/home/employees/201-files')}>Add Employee?</i></p></>}
+        disableCloseOnSelect={true}
         id="grouped-demo"
+        defaultValue={defaultOption}
         options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
         groupBy={(option) => option.firstLetter}
         getOptionLabel={(option) => option.employee}
@@ -99,5 +100,8 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
 
         }
         />
+        }
+        </>
+
     );
 }

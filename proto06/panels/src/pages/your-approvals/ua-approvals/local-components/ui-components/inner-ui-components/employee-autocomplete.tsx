@@ -6,6 +6,7 @@ import { RootState } from '@/store/configureStore';
 import { getEmployeesList } from '@/store/actions/employees';
 import { AutocompleteInputChangeReason } from '@mui/material/Autocomplete';
 import { UACreateInterface } from '@/types/types-pages';
+import { useNavigate } from 'react-router-dom';
 
 
 interface EmployeeAutoCompleteInterface{
@@ -15,6 +16,7 @@ interface EmployeeAutoCompleteInterface{
 
 
 export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterface) {
+    const navigate = useNavigate();
     const {setCreateUA, createUA} = props;
     const dispatch = useDispatch();
     const state = useSelector((state:RootState)=> state.employees);
@@ -83,6 +85,7 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
         <Autocomplete
         // disableCloseOnSelect
         id="grouped-demo"
+        noOptionsText={<><p>Not found. <i style={{cursor: 'pointer', color: 'blue'}} onClick={()=> navigate('/home/employees/201-files')}>Add Employee?</i></p></>}
         options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
         groupBy={(option) => option.firstLetter}
         getOptionLabel={(option) => option.employee}

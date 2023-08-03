@@ -4,18 +4,16 @@ import { styled } from '@mui/material/styles';
 import MuiGrid from '@mui/material/Grid';
 import { Paper, useTheme, useMediaQuery, Button } from '@mui/material';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { getCutoffListEmployee } from '@/store/actions/dtr';
+import { useSelector } from 'react-redux';
 
-import { CutoffListMergeSelectionState, ProcessPayroll } from '@/types/types-pages';
 import { RootState } from '@/store/configureStore';
 import { Typography } from '@material-tailwind/react';
-import ListOfHolidaysComponent from './local-components/list-of-holidays/list-of-schedule-daily';
 import { ScheduleDailyColor } from './local-components/list-of-holidays/list-of-schedule-daily';
 import dayjs from 'dayjs';
-import CreateHolidayModal from './local-components/create-holiday-modal/create-schedule-daily-modal';
+import CreateSCHEDULEDAILYModal from './local-components/assign-shift-modal/create-schedule-daily-modal';
 import ProceduralSCHEDULEDAILYPageHistory from './right-side/schedule-daily-history';
-import EmployeeAutoComplete from './local-components/employee-autocomplete/employee-autocomplete';
+import EmployeeAutoCompleteRight from './local-components/employee-autocomplete/employee-autocomplete-right';
+import CreateSCHEDULEDAILYMultipleModal from './local-components/assign-multiple-shift/create-schedule-daily-multiple-modal';
 
 
 const PaperStyle: CSSProperties = {
@@ -43,11 +41,15 @@ export default function ProceduralSCHEDULEDAILYpage() {
   const curr_emp = useSelector((state: RootState) => state.auth);
   const [value, setValue] = useState<dayjs.Dayjs | null>(dayjs());
   const matches = useMediaQuery(theme.breakpoints.down('lg'));
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const [open1, setOpen1] = useState(false);
+  const handleOpen1 = () => setOpen1(true);
+  const handleClose1 = () => setOpen1(false);
+  const [open2, setOpen2] = useState(false);
+  const handleOpen2 = () => setOpen2(true);
+  const handleClose2 = () => setOpen2(false);
   const curr_emp_no = curr_emp.employee_detail?.emp_no;
   const [currEmployee, setCurrEmployee] = useState<number>((curr_emp_no) || 0);
-  const handleClose = () => setOpen(false);
+
 
 
     return (
@@ -81,10 +83,16 @@ export default function ProceduralSCHEDULEDAILYpage() {
                       <p>or + Assign Shift to add</p>
                     </Typography>
                     <Typography>
-                      <Button variant='contained' onClick={handleOpen}>
-                        + Assign Shift
-                      </Button>
-                      <CreateHolidayModal open={open} setOpen={setOpen} handleOpen={handleOpen} handleClose={handleClose}/>
+                      <div className='flex flex-col gap-4'>
+                        <Button variant='contained' className='text-start' onClick={handleOpen1}>
+                          + Assign Shift
+                        </Button>
+                        <Button variant='outlined' onClick={handleOpen2}>
+                          + Assign Multiple
+                        </Button>
+                      </div>
+                      <CreateSCHEDULEDAILYModal open1={open1} setOpen1={setOpen1} handleOpen1={handleOpen1} handleClose1={handleClose1}/>
+                      <CreateSCHEDULEDAILYMultipleModal open2={open2} setOpen2={setOpen2} handleOpen2={handleOpen2} handleClose2={handleClose2}/>
                     </Typography>
                     </div>
                 </Paper>
@@ -93,7 +101,7 @@ export default function ProceduralSCHEDULEDAILYpage() {
                 <Paper elevation={3} style={PaperStyle}>
                     <div className='flex justify-between'>
                     <Typography variant={'h6'} style={{alignItems: 'center', display: 'flex'}}>Choose Employee to view Daily Schedule</Typography>
-                    <EmployeeAutoComplete/>
+                    <EmployeeAutoCompleteRight currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/>
                     </div>
                     <ProceduralSCHEDULEDAILYPageHistory currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/>
                 </Paper>

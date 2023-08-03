@@ -7,16 +7,12 @@ import Modal from '@mui/material/Modal';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-// import { SCHEDULEDAILYGetType } from '@/types/types-pages';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
 import { SCHEDULEDAILYCreateInterface } from '@/types/types-pages';
 import { SCHEDULEDAILYCreateAction, SCHEDULEDAILYCreateActionFailureCleanup } from '@/store/actions/procedurals';
 import SCHEDULESHIFTFetchAutoCompleteOnSCHEDULEDAILYPage from '../schedule-shift-autocomplete/schedule-shift-autocomplete';
-import EmployeeAutoComplete from '../employee-autocomplete/employee-autocomplete';
 
 
 import Radio from '@mui/material/Radio';
@@ -24,6 +20,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import EmployeeAutoCompleteLeft from '../employee-autocomplete/employee-autocomplete-left';
 
 
 const style = {
@@ -31,28 +28,26 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
   bgcolor: 'background.paper',
-  borderRadius: '15px',
-//   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
   display: 'flex',
   flexDirection: 'column',
   gap: 3,
+  minWidth: 400,
+//   height: '100%',
 };
 
-interface CreateSCHEDULEDAILYModalInterface {
-    open?: boolean,
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>,
-    handleOpen: () => void,
-    handleClose: () => void,
+interface CreateSCHEDULEDAILYMultipleModalInterface {
+    open2?: boolean,
+    setOpen2: React.Dispatch<React.SetStateAction<boolean>>,
+    handleOpen2: () => void,
+    handleClose2: () => void,
 }
-const holiday_location = ['City', 'Province', 'National'];
 
-export default function CreateSCHEDULEDAILYModal(props: CreateSCHEDULEDAILYModalInterface) {
+export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDAILYMultipleModalInterface) {
     const dispatch = useDispatch();
-    const {open, handleClose} = props;
+    const {open2, handleClose2} = props;
     const createSCHEDULEDAILY = useSelector((state: RootState)=> state.procedurals.SCHEDULEDAILYCreate);
     const [createSCHEDULEDAILYForm, setCreateSCHEDULEDAILYForm] = useState<SCHEDULEDAILYCreateInterface>({
         schedule_shift_code: null,
@@ -61,12 +56,9 @@ export default function CreateSCHEDULEDAILYModal(props: CreateSCHEDULEDAILYModal
         is_restday: false,
         sched_default: false,
     })
-    const [value, setValue] = React.useState<string | null>(holiday_location[0]);
-    const [inputValue, setInputValue] = React.useState('');
     const submitNewSCHEDULEDAILY = () => {
         dispatch(SCHEDULEDAILYCreateAction(createSCHEDULEDAILYForm));
     };
-    console.log(createSCHEDULEDAILY, ":asd?")
 
     useEffect(()=>{
         if(createSCHEDULEDAILY?.status === 'succeeded'){
@@ -82,8 +74,8 @@ export default function CreateSCHEDULEDAILYModal(props: CreateSCHEDULEDAILYModal
     return (
         <div>
             <Modal
-            open={open ?? false}
-            onClose={handleClose}
+            open={open2 ?? false}
+            onClose={handleClose2}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
             >
@@ -112,7 +104,7 @@ export default function CreateSCHEDULEDAILYModal(props: CreateSCHEDULEDAILYModal
                         }}
                     />
                 </LocalizationProvider>
-                <EmployeeAutoComplete createSCHEDULEDAILY={createSCHEDULEDAILYForm} setCreateSCHEDULEDAILY={setCreateSCHEDULEDAILYForm}/>
+                <EmployeeAutoCompleteLeft createSCHEDULEDAILY={createSCHEDULEDAILYForm} setCreateSCHEDULEDAILY={setCreateSCHEDULEDAILYForm}/>
                 <FormControl>
                     <FormLabel id="demo-controlled-radio-buttons-group">Is Restday</FormLabel>
                     <RadioGroup

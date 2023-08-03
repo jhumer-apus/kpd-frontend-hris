@@ -44,7 +44,6 @@ export const authEpic: Epic = (action$, state$) =>
           return userLoginActionSuccess(data.jwt, data.user, data.employee_detail);
         }),
         catchError((error) => {
-          console.log(error, "haha?11")
           if (error.response && error.response.data && error.response.data?.['Error Message']) {
             return of(userLoginActionFailure(error.response.data?.['Error Message'])); // Extract error message from the response
           } else {

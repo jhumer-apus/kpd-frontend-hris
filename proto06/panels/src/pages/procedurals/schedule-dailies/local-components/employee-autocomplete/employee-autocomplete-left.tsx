@@ -14,7 +14,7 @@ interface EmployeeAutoCompleteInterface{
 }
 
 
-export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterface) {
+export default function EmployeeAutoCompleteLeft(props: EmployeeAutoCompleteInterface) {
     const {setCreateSCHEDULEDAILY, createSCHEDULEDAILY} = props;
     const dispatch = useDispatch();
     const state = useSelector((state:RootState)=> state.employees);
