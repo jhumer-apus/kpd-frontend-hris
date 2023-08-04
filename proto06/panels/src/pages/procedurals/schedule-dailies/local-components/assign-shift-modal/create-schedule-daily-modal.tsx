@@ -51,8 +51,9 @@ export default function CreateSCHEDULEDAILYModal(props: CreateSCHEDULEDAILYModal
     const createSCHEDULEDAILY = useSelector((state: RootState)=> state.procedurals.SCHEDULEDAILYCreate);
     const [createSCHEDULEDAILYForm, setCreateSCHEDULEDAILYForm] = useState<SCHEDULEDAILYCreateInterface>({
         schedule_shift_code: null,
-        business_date: null,
-        emp_no: null,
+        business_date_from: null,
+        business_date_to: null,
+        emp_no: [],
         is_restday: false,
         sched_default: false,
     })
@@ -89,14 +90,29 @@ export default function CreateSCHEDULEDAILYModal(props: CreateSCHEDULEDAILYModal
                 <SCHEDULESHIFTFetchAutoCompleteOnSCHEDULEDAILYPage createSCHEDULEDAILY={createSCHEDULEDAILYForm} setCreateSCHEDULEDAILY={setCreateSCHEDULEDAILYForm}/>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
-                        value={createSCHEDULEDAILYForm.business_date}
+                        value={createSCHEDULEDAILYForm.business_date_from}
                         onChange={(newValue) => {
                             setCreateSCHEDULEDAILYForm((prevState)=> ({
                                 ...prevState,
-                                business_date: dayjs(newValue).format('YYYY-MM-DD')
+                                business_date_from: dayjs(newValue).format('YYYY-MM-DD')
                             }))
                         }}
-                        label="Choose Which Date"
+                        label="Date Range From"
+                        slotProps={{
+                        textField: {
+                            helperText: 'MM/DD/YYYY',
+                        },
+                        }}
+                    />
+                    <DatePicker
+                        value={createSCHEDULEDAILYForm.business_date_to}
+                        onChange={(newValue) => {
+                            setCreateSCHEDULEDAILYForm((prevState)=> ({
+                                ...prevState,
+                                business_date_to: dayjs(newValue).format('YYYY-MM-DD')
+                            }))
+                        }}
+                        label="Date Range To (Optional)"
                         slotProps={{
                         textField: {
                             helperText: 'MM/DD/YYYY',

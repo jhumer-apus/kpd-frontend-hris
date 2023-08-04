@@ -497,8 +497,9 @@ export interface SCHEDULESHIFTEditInterface extends SCHEDULESHIFTViewInterface {
 
 export interface SCHEDULEDAILYCreateInterface {
     schedule_shift_code: SCHEDULESHIFTViewInterface | null;
-    business_date: string | null;
-    emp_no: number | null;
+    business_date_from: string | null;
+    business_date_to: string | null;  
+    emp_no: number[] | [];
     is_restday: boolean;
     sched_default: boolean | null;
 }

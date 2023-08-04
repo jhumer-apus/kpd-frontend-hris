@@ -27,12 +27,14 @@ export default function EmployeeAutoCompleteLeft(props: EmployeeAutoCompleteInte
     }, []);
 
     useEffect(()=> {
-        if(selectedEmployeeId){
+        if(selectedEmployeeId && typeof selectedEmployeeId === 'number'){
+            // const updatedForm = { ...createSCHEDULEDAILY };
+            // updatedForm.emp_no.push(selectedEmployeeId);
             setCreateSCHEDULEDAILY((prevState)=> {
                 return(
                     {
                         ...prevState,
-                        emp_no: selectedEmployeeId
+                        emp_no: [...prevState.emp_no, selectedEmployeeId]
                     }
                 )
             })
