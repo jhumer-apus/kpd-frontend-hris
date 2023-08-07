@@ -8,7 +8,7 @@ export const viewPayrollOptions = [
 ];
 
 export const viewPayrollDescriptions = [
-  "See all computed payroll of employees here. Sortable and filterable on the table headers. Click on the headers menu.",
+  "Click on Employee Details to View Individual Payslips. Otherwise, Check the boxes then generate multiple payslips.",
   // "See merged logs of all employees here, showing the total hours and details of each logs. Sortable and filterable on the table headers.",
   // "See the total hours of all employees per cutoff here. Sortable and filterable by the table headers.",
   // "Nondescript"

@@ -44,7 +44,7 @@ export const employeeEasyAccessData = [
     color: "text-orange-500",
     title: "Schedule",
     description: "View Schedule",
-    link: "development",
+    link: "/home/quick-accesses/your-schedule",
   },
   {
     icon: DocumentCheckIcon,

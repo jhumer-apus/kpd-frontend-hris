@@ -3,7 +3,6 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { Typography } from "@material-tailwind/react";
-import useDtrState from '@/custom-hooks/use-dtr-state';
 import { ProceduralCUTOFFPERIODPageDescriptions, ProceduralCUTOFFPERIODPageColumns } from '@/data/pages-data/procedural-data/cutoff-period-data';
 import ViewCUTOFFPERIODSingleModal from './local-components/main-modals/view-cutoff-period-single-modal';
 import { CUTOFFPERIODViewInterface } from '@/types/types-pages';
@@ -24,7 +23,6 @@ export default function ProceduralCUTOFFPERIODPageHistory() {
     division_code: null, 
   });
   const dispatch = useDispatch();
-  const { spButtonIndex, dtrStatus } = useDtrState();
   const { CUTOFFPERIODView } = useSelector((state: RootState) => state.procedurals);
   const { data } = CUTOFFPERIODView;
   const CUTOFFPERIODViewData = data as CUTOFFPERIODViewInterface[];
@@ -64,8 +62,7 @@ export default function ProceduralCUTOFFPERIODPageHistory() {
             setSingleCUTOFFPERIODOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          style={{ cursor: spButtonIndex === 2 ? 'pointer': 'default'}}
-          localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? 'The caller for CUTOFFPERIOD Epic hasn\'t been set up, please contact your frontend developer': 'There is no CUTOFFPERIOD to generate. Double check with a Database Admin'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for CUTOFFPERIOD Epic hasn\'t been set up, please contact your frontend developer': 'There is no CUTOFFPERIOD to generate. Double check with a Database Admin'}` }}
         />
       </div>
     </Fragment>

@@ -31,9 +31,8 @@ export default function QuickAccessLEAVEPageHistory() {
     leave_number_days: NaN,
   });
   const dispatch = useDispatch();
-  const { spButtonIndex, dtrStatus } = useDtrState();
   const { LEAVEViewFilterEmployee } = useSelector((state: RootState) => state.procedurals);
-  const { data } = LEAVEViewFilterEmployee;
+  const { data, status } = LEAVEViewFilterEmployee;
   const LEAVEViewData = data as LEAVEViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -71,8 +70,7 @@ export default function QuickAccessLEAVEPageHistory() {
             setSingleLEAVEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          style={{ cursor: spButtonIndex === 2 ? 'pointer': 'default'}}
-          localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? 'The caller for LEAVE Epic hasn\'t been set up, please contact your frontend developer': 'There is no LEAVE to generate. Double check with a Database Admin'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for LEAVE Epic hasn\'t been set up, please contact your frontend developer': 'There is no LEAVE to generate. Double check with a Database Admin'}` }}
         />
       </div>
     </Fragment>

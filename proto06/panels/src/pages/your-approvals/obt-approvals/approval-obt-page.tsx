@@ -3,7 +3,6 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { Typography } from "@material-tailwind/react";
-import useDtrState from '@/custom-hooks/use-dtr-state';
 import { ApprovalOBTPageDescriptions, ApprovalOBTPageColumns } from '@/data/pages-data/your-approvals-data/obt-data';
 import ViewOBTSingleModal from './local-components/main-modals/view-obt-single-modal';
 import { OBTViewFilterEmployeeInitialState, OBTViewInterface, } from '@/types/types-pages';
@@ -13,9 +12,8 @@ export default function ApprovalOBTPage() {
   const [singleOBTOpenModal, setSingleOBTOpenModal] = useState<boolean>(false);
   const [singleOBTDetailsData, setSingleOBTDetailsData] = useState<OBTViewInterface>(OBTViewFilterEmployeeInitialState);
   const dispatch = useDispatch();
-  const { spButtonIndex, dtrStatus } = useDtrState();
   const { OBTViewFilterApprover } = useSelector((state: RootState) => state.procedurals);
-  const { data } = OBTViewFilterApprover;
+  const { data, status } = OBTViewFilterApprover;
   const OBTViewData = data as OBTViewInterface[];
 
   useEffect(()=> {
@@ -50,8 +48,7 @@ export default function ApprovalOBTPage() {
             setSingleOBTOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          style={{ cursor: spButtonIndex === 2 ? 'pointer': 'default'}}
-          localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? 'The caller for OBT Epic hasn\'t been set up, please contact your frontend developer': 'There is no OBT to generate. Double check with a Database Admin'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for OBT Epic hasn\'t been set up, please contact your frontend developer': 'There is no OBT to generate. Double check with a Database Admin'}` }}
         />
       </div>
     </Fragment>

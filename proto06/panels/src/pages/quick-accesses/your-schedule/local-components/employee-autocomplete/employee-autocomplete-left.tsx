@@ -5,18 +5,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { getEmployeesList } from '@/store/actions/employees';
 import { AutocompleteInputChangeReason } from '@mui/material/Autocomplete';
-import { useNavigate } from 'react-router-dom';
+import { SCHEDULEDAILYCreateInterface } from '@/types/types-pages';
 
 
 interface EmployeeAutoCompleteInterface{
-    currEmployee: number;
-    setCurrEmployee: Dispatch<SetStateAction<number>>;
+    createSCHEDULEDAILY: SCHEDULEDAILYCreateInterface;
+    setCreateSCHEDULEDAILY: Dispatch<SetStateAction<SCHEDULEDAILYCreateInterface>>;
 }
 
 
-export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInterface) {
-    const navigate = useNavigate();
-    const {currEmployee, setCurrEmployee} = props;
+export default function EmployeeAutoCompleteLeft(props: EmployeeAutoCompleteInterface) {
+    const {setCreateSCHEDULEDAILY, createSCHEDULEDAILY} = props;
     const dispatch = useDispatch();
     const state = useSelector((state:RootState)=> state.employees);
     const [employeesList, setEmployeesList] = useState<{employee: string, emp_no: number}[]>([])
@@ -28,14 +27,23 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
     }, []);
 
     useEffect(()=> {
-        if(selectedEmployeeId){
-            setCurrEmployee(selectedEmployeeId)
+        if(selectedEmployeeId && typeof selectedEmployeeId === 'number'){
+            // const updatedForm = { ...createSCHEDULEDAILY };
+            // updatedForm.emp_no.push(selectedEmployeeId);
+            setCreateSCHEDULEDAILY((prevState)=> {
+                return(
+                    {
+                        ...prevState,
+                        emp_no: [...prevState.emp_no, selectedEmployeeId]
+                    }
+                )
+            })
         }
     }, [selectedEmployeeId])
 
     useEffect(() => {
         if (state.employees_list) {
-            // setTimeout(() => {
+            setTimeout(() => {
                 const updatedEmployeesList = 
                 state.employees_list?.map(({ emp_no, last_name, first_name }) => {
                     return {
@@ -44,7 +52,7 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
                     };
                 }) || [];
                 setEmployeesList(updatedEmployeesList);
-            // }, 800);
+            }, 1000);
         }
     }, [state.employees_list]);
 
@@ -56,8 +64,6 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
         };
     });
     
-    const defaultOption = options?.find((option) => option.emp_no === currEmployee);
-    console.log(defaultOption, currEmployee, "haha?", selectedEmployeeId)
     const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string, reason: AutocompleteInputChangeReason) => {
         const matchingEmployee = employeesList.find(
         //   (employeeItems) => employeeItems.employee === newInputValue
@@ -76,17 +82,14 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
     };
     
     return (
-        <>
-        {defaultOption && 
         <Autocomplete
-        noOptionsText={<><p>Not found. <i style={{cursor: 'pointer', color: 'blue'}} onClick={()=> navigate('/home/employees/201-files')}>Add Employee?</i></p></>}
+        // disableCloseOnSelect
         id="grouped-demo"
-        defaultValue={defaultOption}
         options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
         groupBy={(option) => option.firstLetter}
         getOptionLabel={(option) => option.employee}
         onInputChange={handleInputChange}
-        sx={{ width: '300px' }}
+        sx={{ width: '100%' }}
         isOptionEqualToValue={isOptionEqualToValue}
         renderInput={(params) => 
             {   
@@ -98,8 +101,5 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
 
         }
         />
-        }
-        </>
-
     );
 }

@@ -61,6 +61,8 @@ import ProceduralLEAVETYPEPage from "./pages/procedurals/leave-types/procedural-
 import ProceduralCUTOFFPERIODPage from "./pages/procedurals/cutoff-periods/procedural-cutoff-period-page";
 import ProceduralSCHEDULESHIFTSPage from "./pages/procedurals/schedule-shifts/procedural-schedule-shifts-page";
 import ProceduralSCHEDULEDAILYpage from "./pages/procedurals/schedule-dailies/procedural-schedule-daily";
+import HistoryToggleOffOutlinedIcon from '@mui/icons-material/HistoryToggleOffOutlined';
+import YourSCHEDULEDAILYpage from "./pages/quick-accesses/your-schedule/your-schedule-daily";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -169,6 +171,14 @@ export const routes: Array<IRoute> = [
             name: "File UA",
             path: "/quick-accesses/file-UA",
             element: <FileUAPage/>, 
+            hasSubItems: false,
+          },
+          {
+            id: 13500,
+            icon: <HistoryToggleOffOutlinedIcon {...icon} />,
+            name: "Your Schedule",
+            path: "/quick-accesses/your-schedule",
+            element: <YourSCHEDULEDAILYpage/>, 
             hasSubItems: false,
           },
         ]

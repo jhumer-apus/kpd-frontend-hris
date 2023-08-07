@@ -1,4 +1,4 @@
-import { GridColDef, GridValueGetterParams, GridCellParams } from "@mui/x-data-grid";
+import { GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 
 export const viewDTROptions = [
   "View All DTR Logs/Entries",
@@ -8,9 +8,9 @@ export const viewDTROptions = [
 ];
 
 export const viewDTRDescriptions = [
-  "Click on Employee Details to View Individual Payslips. Otherwise, Check the boxes then generate multiple payslips.",
-  // "See merged logs of all employees here, showing the total hours and details of each logs. Sortable and filterable on the table headers.",
-  // "See the total hours of all employees per cutoff here. Sortable and filterable by the table headers.",
+  "Check options to view different types of DTR. This table pertains to Raw DTR Logs Uploaded. ",
+  "This table pertains to showing the total hours and details of each logs per day. Sortable and filterable on the table headers.",
+  "See the total hours of all employees per cutoff here. Sortable and filterable by the table headers.",
   // "Nondescript"
 ];
 

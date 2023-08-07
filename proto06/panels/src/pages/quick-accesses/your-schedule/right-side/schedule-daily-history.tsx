@@ -51,7 +51,7 @@ export default function ProceduralSCHEDULEDAILYPageHistory(props: ProceduralSCHE
         <div>
           <ViewSCHEDULEDAILYSingleModal setSingleSCHEDULEDAILYDetailsData={setSingleSCHEDULEDAILYDetailsData} singleSCHEDULEDAILYDetailsData={singleSCHEDULEDAILYDetailsData} singleSCHEDULEDAILYOpenModal={singleSCHEDULEDAILYOpenModal} setSingleSCHEDULEDAILYOpenModal={setSingleSCHEDULEDAILYOpenModal}/>
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
-          <p>{ProceduralSCHEDULEDAILYPageDescriptions}</p>
+          <p>{'On this table, you will find your shift schedule history and their details each.'}</p>
         </Typography>
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400"}}>
           <i>Click on the Table Headers to Customize View, Sort, or Add/Remove Columns</i>

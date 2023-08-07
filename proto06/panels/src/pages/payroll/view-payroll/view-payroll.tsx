@@ -5,8 +5,7 @@ import { RootState } from '@/store/configureStore';
 import {
   Typography,
 } from "@material-tailwind/react";
-import { viewDTRDescriptions } from '@/data/pages-data/dtr-data/view-dtr-reports';
-import useDtrState from '@/custom-hooks/use-dtr-state';
+import { viewPayrollDescriptions } from '@/data/pages-data/view-payroll-data/view-payroll';
 import PrintTableButton from './local-components/print-table-button';
 import ExportToCsvButton from './local-components/export-to-csv-button';
 import { dynamicPayrollColumns } from '@/data/pages-data/view-payroll-data/view-payroll';
@@ -15,7 +14,6 @@ import GeneratePayslipMultiple from './local-components/generate-payslip-multipl
 import GeneratePayslipSingle from './local-components/generate-payslip-single';
 import { ViewPayrollPayPerEmployee } from '@/types/types-pages';
 import { PaySlipDataInitialState } from '@/types/types-pages';
-import jsPDF from 'jspdf';
 import GeneratePDFButton from './local-components/generate-pdf-button';
 
 export default function ViewPayroll() {
@@ -23,7 +21,6 @@ export default function ViewPayroll() {
   const [singlePayslipOpen, setSinglePayslipOpen] = useState<boolean>(false);
   const [singlePayslipData, setSinglePayslipData] = useState<ViewPayrollPayPerEmployee>(PaySlipDataInitialState);
   const dispatch = useDispatch();
-  const { spButtonIndex, dtrStatus, dtrData } = useDtrState();
   
   const { status: payrollStatus, data: payrollData, progress: payrollProgress, error: payrollError} = useSelector((state: RootState) => state.payroll.viewPayroll);
 
@@ -31,18 +28,13 @@ export default function ViewPayroll() {
     dispatch(viewPayrollList())
   }, []);
 
-  const handleGeneratePDF = () => {
-    const doc = new jsPDF();
-    doc.text('Hello, PDF!', 10, 10); // Modify the content of the PDF as needed
-    doc.save('document.pdf');
-  };
 
   const printableArea = () => {
     // Calculate px; solves printable area bug, Do not easily modify
     if(payrollData?.length && payrollData?.length >= 11){
       return payrollData?.length / 25 * 1400
     } else {
-      return 700
+      return 600
     }
   };
 
@@ -53,7 +45,7 @@ export default function ViewPayroll() {
           <GeneratePayslipSingle singlePayslipData={singlePayslipData} singlePayslipOpen={singlePayslipOpen} setSinglePayslipOpen={setSinglePayslipOpen}/>
           <GeneratePayslipMultiple />
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400"}}>
-          <i>{viewDTRDescriptions[spButtonIndex === null ? 0 : spButtonIndex]}</i>
+          <i>{viewPayrollDescriptions[0]}</i>
         </Typography>
         </div>
         <div className='flex justify-between gap-6'>
@@ -76,8 +68,7 @@ export default function ViewPayroll() {
             setSinglePayslipOpen(true);
           }}
           disableRowSelectionOnClick 
-          style={{ cursor: spButtonIndex === 2 ? 'pointer': 'default'}}
-          localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? 'There is no payslip to generate. Create a cutoff summary first then process payroll': 'There is no payslip to generate. Create a cutoff summary first then process payroll'}` }}
+          localeText={{ noRowsLabel: `${payrollStatus === 'loading' ? `${payrollStatus?.toUpperCase()}...` : payrollStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (payrollStatus === null || payrollStatus === undefined) ? 'There is no payslip to generate. Create a cutoff summary first then process payroll': 'There is no payslip to generate. Create a cutoff summary first then process payroll'}` }}
         />
         <GeneratePDFButton data={payrollData} columns={dynamicPayrollColumns[0]} />
       </div>

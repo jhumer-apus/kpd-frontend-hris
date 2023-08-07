@@ -31,9 +31,8 @@ export default function ApprovalOvertimePage() {
       applicant_rank: NaN,
   });
   const dispatch = useDispatch();
-  const { spButtonIndex, dtrStatus } = useDtrState();
   const { OVERTIMEViewFilterApprover } = useSelector((state: RootState) => state.procedurals);
-  const { data } = OVERTIMEViewFilterApprover;
+  const { data, status } = OVERTIMEViewFilterApprover;
   const OVERTIMEViewData = data as OVERTIMEViewInterface[];
 
   useEffect(()=> {
@@ -68,8 +67,7 @@ export default function ApprovalOvertimePage() {
             setSingleOVERTIMEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          style={{ cursor: spButtonIndex === 2 ? 'pointer': 'default'}}
-          localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? 'You have no pending OVERTIME approvals.': 'There is no OVERTIME to generate. Double check with a Database Admin'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'You have no pending OVERTIME approvals.': 'There is no OVERTIME to generate. Double check with a Database Admin'}` }}
         />
       </div>
     </Fragment>

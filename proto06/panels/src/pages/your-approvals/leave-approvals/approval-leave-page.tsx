@@ -42,27 +42,21 @@ export default function ApprovalLEAVEPage() {
       applicant_rank: NaN,
   });
   const dispatch = useDispatch();
-  const { spButtonIndex, dtrStatus, dtrData } = useDtrState();
-  const { LEAVEViewFilterApprover, LEAVEViewFilterEmployeeAndLEAVE } = useSelector((state: RootState) => state.procedurals);
-  const { data } = LEAVEViewFilterApprover;
+  const { LEAVEViewFilterApprover } = useSelector((state: RootState) => state.procedurals);
+  const { data, status } = LEAVEViewFilterApprover;
   const LEAVEViewData = data as LEAVEViewInterface[];
 
   useEffect(()=> {
     dispatch(LEAVEViewAction())
   }, []);
 
-  const handleGeneratePDF = () => {
-    const doc = new jsPDF();
-    doc.text('Hello, PDF!', 10, 10); // Modify the content of the PDF as needed
-    doc.save('document.pdf');
-  };
 
   const printableArea = () => {
     // Calculate px; solves printable area bug, Do not easily modify
     if(LEAVEViewData?.length && LEAVEViewData?.length >= 11){
       return LEAVEViewData?.length / 25 * 1400
     } else {
-      return 700
+      return 600
     }
   };
 
@@ -71,7 +65,6 @@ export default function ApprovalLEAVEPage() {
       <div className="my-10 flex flex-wrap justify-between items-start gap-6">
         <div>
           <ViewLEAVESingleModal setSingleLEAVEDetailsData={setSingleLEAVEDetailsData} singleLEAVEDetailsData={singleLEAVEDetailsData} singleLEAVEOpenModal={singleLEAVEOpenModal} setSingleLEAVEOpenModal={setSingleLEAVEOpenModal}/>
-          {/* <CreateLEAVEComponent /> */}
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
           <p>Status: {ApprovalLEAVEPageDescriptions}</p>
         </Typography>
@@ -79,10 +72,6 @@ export default function ApprovalLEAVEPage() {
           <i>Click on the Table Headers to Customize View, Sort, or Add/Remove Columns</i>
         </Typography>
         </div>
-        {/* <div className='flex justify-between gap-6'>
-          <ExportToCsvButton data={LEAVEViewData} />
-          <PrintTableButton setIsPrinting={setIsPrinting}/>
-        </div> */}
       </div>
       <div style={{ height: `${printing? `${printableArea()}px` : '660px'}`, width: '100%' }} id="printable-area">
         <DataGrid
@@ -99,8 +88,7 @@ export default function ApprovalLEAVEPage() {
             setSingleLEAVEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          style={{ cursor: spButtonIndex === 2 ? 'pointer': 'default'}}
-          localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? 'The caller for LEAVE Epic hasn\'t been set up, please contact your frontend developer': 'There is no LEAVE to generate. Double check with a Database Admin'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for LEAVE Epic hasn\'t been set up, please contact your frontend developer': 'There is no LEAVE to generate. Double check with a Database Admin'}` }}
         />
         {/* <GeneratePDFButton data={LEAVEViewData} columns={ApprovalLEAVEPageColumns} /> */}
       </div>

@@ -3,14 +3,12 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { Typography } from "@material-tailwind/react";
-import useDtrState from '@/custom-hooks/use-dtr-state';
 import { QuickAccessUAPageDescriptions, QuickAccessUAPageColumns } from '@/data/pages-data/quick-accesses-data/ua-data';
 import ViewUASingleModal from './local-components/main-modals/view-ua-single-modal';
 import { UAViewInterface } from '@/types/types-pages';
 import { UAViewFilterEmployeeAction } from '@/store/actions/procedurals';
 
 export default function QuickAccessUAPageHistory() {
-  const [printing, setIsPrinting] = useState(false);
   const [singleUAOpenModal, setSingleUAOpenModal] = useState<boolean>(false);
   const [singleUADetailsData, setSingleUADetailsData] = useState<UAViewInterface>({
     id: NaN,
@@ -30,9 +28,8 @@ export default function QuickAccessUAPageHistory() {
     ua_total_hours: NaN,
   });
   const dispatch = useDispatch();
-  const { spButtonIndex, dtrStatus, dtrData } = useDtrState();
-  const { UAViewFilterEmployee, UAViewFilterEmployeeAndUA } = useSelector((state: RootState) => state.procedurals);
-  const { data } = UAViewFilterEmployee;
+  const { UAViewFilterEmployee } = useSelector((state: RootState) => state.procedurals);
+  const { data, status } = UAViewFilterEmployee;
   const UAViewData = data as UAViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -70,8 +67,7 @@ export default function QuickAccessUAPageHistory() {
             setSingleUAOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          style={{ cursor: spButtonIndex === 2 ? 'pointer': 'default'}}
-          localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? 'The caller for UA Epic hasn\'t been set up, please contact your frontend developer': 'There is no UA to generate. Double check with a Database Admin'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for UA Epic hasn\'t been set up, please contact your frontend developer': 'There is no UA to generate. Double check with a Database Admin'}` }}
         />
       </div>
     </Fragment>

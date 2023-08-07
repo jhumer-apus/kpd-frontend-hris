@@ -28,19 +28,13 @@ import {
   XMarkIcon,
   TagIcon,
 } from "@heroicons/react/24/outline";
-import { Fragment, useEffect, useState, forwardRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { Fragment, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Input, Typography } from '@material-tailwind/react';
 import { useForm } from 'react-hook-form';
 import { APILink, RootState } from '@/store/configureStore';
 import { GetEmployeesListsType } from '@/types/types-store';
 import FormData from 'form-data';
-
-// Snackbar Implementation
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
 
 type initialState = {
@@ -49,19 +43,11 @@ type initialState = {
     loadingEffect: () => void;
 }
 
-const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
-    props,
-    ref,
-  ) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  });
-
 export const SpecificEmployee = (props: initialState) => {
     const [file, setFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     
     const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        // setFile(event.target.files ? event.target.files[0] : null);
         const selectedFile = event.target.files ? event.target.files[0] : null;
         setFile(selectedFile);
     
@@ -83,24 +69,7 @@ export const SpecificEmployee = (props: initialState) => {
     const [editMode3, setEditMode3] = useState(false);
     const [type, setType] = useState("staticInfo");
 
-
-    const [open, setOpen] = useState(false);
-
-    const handleClick = () => {
-      setOpen(true);
-    };
-  
-    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-      if (reason === 'clickaway') {
-        return;
-      }
-  
-      setOpen(false);
-    };
-
-    // Side Effects
     useEffect(() => {
-        // update form values when userData changes
         if (userData) {
         for (const key in userData) {
             setValue(key, userData[key]);
@@ -165,25 +134,30 @@ export const SpecificEmployee = (props: initialState) => {
 
     return (
         <Fragment>
-            <Card className="w-full max-w-[120rem] xl:max-w-[100rem] ml-auto mr-auto">
+            
+            <Card className="w-full max-w-[110rem] xl:max-w-[90rem] ml-auto mr-auto" style={{zoom: 0.95}}>
+            {/* <div >askdljasdasd.kasjmd;laksd;alskd</div> */}
+            <Tabs value={type}>
                     <CardHeader
                         color="teal"
                         variant="gradient"
                         floated={false}
-                        shadow={false}
+                        shadow={true}
                         id="parent-modal-title"
-                        className="m-0 grid place-items-center rounded-b-none py-8 px-4 text-center"
+                        className="m-0 flex justify-center flex-col rounded-b-none py-8 px-4 text-center"
                     >
-                        <div className="mb-4 rounded-full border border-white/10 bg-white/10 p-6 text-white">
-                        {!userData?.employee_image && !previewUrl ? 
-                        
-                        <UserIcon className="h-24 w-24" />
-                        :
-                        previewUrl ? 
-                        <Avatar sx={{ width: 100, height: 100, objectFit: 'contain' }} src={`${previewUrl}`} alt="Preview"/>
-                        :
-                        <Avatar sx={{ width: 10, height: 10, objectFit: 'contain' }} src={`${APILink.replace('/api/', '')}${userData?.employee_image}`} alt="Avatar"/>
-                        }
+                        <div className='flex justify-center'>
+                            <div className="mb-4 rounded-full border border-white/10 bg-white/10 p-6 text-white">
+                            {!userData?.employee_image && !previewUrl ? 
+                            
+                            <UserIcon className="h-24 w-24" />
+                            :
+                            previewUrl ? 
+                            <Avatar sx={{ width: 100, height: 100, objectFit: 'contain' }} src={`${previewUrl}`} alt="Preview"/>
+                            :
+                            <Avatar sx={{ width: 100, height: 100, objectFit: 'contain' }} src={`${APILink.replace('/api/v1', '')}${userData?.employee_image}`} alt="Avatar"/>
+                            }
+                            </div>
                         </div>
                         <Typography variant="h4" color="white">
                         Full Name: {userData?.first_name} {userData?.middle_name} {userData?.last_name}
@@ -191,20 +165,19 @@ export const SpecificEmployee = (props: initialState) => {
                         <Typography variant="p" color="white">
                         Registered Employee #: {userData?.emp_no}
                         </Typography>
-                    </CardHeader>
-                    <CardBody id="parent-modal-description" className="p-4 sm:p-6 xl:p-28">
-                        <Tabs value={type} className="overflow-visible">
-                        <TabsHeader className="relative z-0 ">
-                        <Tab value="staticInfo" onClick={() => setType("staticInfo")}>
-                        Static Information
-                        </Tab>
-                        <Tab value="personalInfo" onClick={() => setType("personalInfo")}>
-                        Personal Information
-                        </Tab>
-                        <Tab value="employmentDetails" onClick={() => setType("employmentDetails")}>
-                        Employment Details
-                        </Tab>
+                        <TabsHeader className="relative z-0 w-full">
+                            <Tab value="staticInfo" onClick={() => setType("staticInfo")}>
+                            Static Info
+                            </Tab>
+                            <Tab value="personalInfo" onClick={() => setType("personalInfo")}>
+                            Personal
+                            </Tab>
+                            <Tab value="employmentDetails" onClick={() => setType("employmentDetails")}>
+                            Employment
+                            </Tab>
                         </TabsHeader>
+                    </CardHeader>
+                    <CardBody id="parent-modal-description" className="p-4 sm:p-6 xl:p-15">
                         <TabsBody
                             className="!overflow-x-hidden"
                             animate={{
@@ -863,23 +836,10 @@ export const SpecificEmployee = (props: initialState) => {
                             </form>
                         </TabPanel>
                         </TabsBody>
-                        </Tabs>
                     </CardBody>
+            </Tabs>
             </Card>
-            {/* <Stack spacing={2} sx={{ width: '100%' }}>
-                <Button variant="outlined" onClick={handleClick}>
-                    Open success snackbar
-                </Button>
-                <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-                    <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                    This is a success message!
-                    </Alert>
-                </Snackbar>
-                <Alert severity="error">This is an error message!</Alert>
-                <Alert severity="warning">This is a warning message!</Alert>
-                <Alert severity="info">This is an information message!</Alert>
-                <Alert severity="success">This is a success message!</Alert>
-            </Stack> */}
+            
         </Fragment>
 
     );

@@ -3,7 +3,6 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { Typography } from "@material-tailwind/react";
-import useDtrState from '@/custom-hooks/use-dtr-state';
 import { ProceduralSCHEDULESHIFTPageDescriptions, ProceduralSCHEDULESHIFTPageColumns } from '@/data/pages-data/procedural-data/schedule-shift-data';
 import ViewSCHEDULESHIFTSingleModal from './local-components/main-modals/view-schedule-shift-single-modal';
 import { SCHEDULESHIFTViewInterface } from '@/types/types-pages';
@@ -18,13 +17,12 @@ export default function ProceduralSCHEDULESHIFTPageHistory() {
     time_out: null,
     grace_period: null,
     with_overtime: null,
-    is_night_shift: null,
-    date_deleted: null, 
+    is_night_shift: false,
+    date_deleted: '', 
   });
   const dispatch = useDispatch();
-  const { spButtonIndex, dtrStatus } = useDtrState();
   const { SCHEDULESHIFTView } = useSelector((state: RootState) => state.procedurals);
-  const { data } = SCHEDULESHIFTView;
+  const { data, status } = SCHEDULESHIFTView;
   const SCHEDULESHIFTViewData = data as SCHEDULESHIFTViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -62,8 +60,7 @@ export default function ProceduralSCHEDULESHIFTPageHistory() {
             setSingleSCHEDULESHIFTOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          style={{ cursor: spButtonIndex === 2 ? 'pointer': 'default'}}
-          localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? 'The caller for SCHEDULESHIFT Epic hasn\'t been set up, please contact your frontend developer': 'There is no SCHEDULESHIFT to generate. Double check with a Database Admin'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for SCHEDULESHIFT Epic hasn\'t been set up, please contact your frontend developer': 'There is no SCHEDULESHIFT to generate. Double check with a Database Admin'}` }}
         />
       </div>
     </Fragment>

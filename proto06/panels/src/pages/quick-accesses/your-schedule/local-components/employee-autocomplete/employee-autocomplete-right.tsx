@@ -35,7 +35,6 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
 
     useEffect(() => {
         if (state.employees_list) {
-            // setTimeout(() => {
                 const updatedEmployeesList = 
                 state.employees_list?.map(({ emp_no, last_name, first_name }) => {
                     return {
@@ -57,17 +56,14 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
     });
     
     const defaultOption = options?.find((option) => option.emp_no === currEmployee);
-    console.log(defaultOption, currEmployee, "haha?", selectedEmployeeId)
     const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string, reason: AutocompleteInputChangeReason) => {
         const matchingEmployee = employeesList.find(
-        //   (employeeItems) => employeeItems.employee === newInputValue
         (employeeItems) => employeeItems.employee.toLowerCase().includes(newInputValue.toLowerCase())
         );
         if (matchingEmployee) {
             setSelectedEmployeeId(matchingEmployee.emp_no);
         } else {
           setSelectedEmployeeId(null);
-        // window.alert('No Matched Employee in the list is found. Create an employee entry first')
         }
     };
 
@@ -79,6 +75,7 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
         <>
         {defaultOption && 
         <Autocomplete
+        disabled
         noOptionsText={<><p>Not found. <i style={{cursor: 'pointer', color: 'blue'}} onClick={()=> navigate('/home/employees/201-files')}>Add Employee?</i></p></>}
         id="grouped-demo"
         defaultValue={defaultOption}

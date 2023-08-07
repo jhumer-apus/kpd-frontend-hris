@@ -3,7 +3,6 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { Typography } from "@material-tailwind/react";
-import useDtrState from '@/custom-hooks/use-dtr-state';
 import { ProceduralOVERTIMEPageDescriptions, ProceduralOVERTIMEPageColumns } from '@/data/pages-data/procedural-data/overtime-data';
 import ViewOVERTIMESingleModal from './local-components/main-modals/view-overtime-single-modal';
 import { OVERTIMEViewInterface } from '@/types/types-pages';
@@ -31,9 +30,8 @@ export default function ProceduralOvertimePage() {
       applicant_rank: NaN,
   });
   const dispatch = useDispatch();
-  const { spButtonIndex, dtrStatus } = useDtrState();
   const { OVERTIMEView } = useSelector((state: RootState) => state.procedurals);
-  const { data } = OVERTIMEView;
+  const { data, status } = OVERTIMEView;
   const OVERTIMEViewData = data as OVERTIMEViewInterface[];
 
   useEffect(()=> {
@@ -68,8 +66,7 @@ export default function ProceduralOvertimePage() {
             setSingleOVERTIMEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          style={{ cursor: spButtonIndex === 2 ? 'pointer': 'default'}}
-          localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? 'The caller for OVERTIME Epic hasn\'t been set up, please contact your frontend developer': 'There is no OVERTIME to generate. Double check with a Database Admin'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for OVERTIME Epic hasn\'t been set up, please contact your frontend developer': 'There is no OVERTIME to generate. Double check with a Database Admin'}` }}
         />
       </div>
     </Fragment>

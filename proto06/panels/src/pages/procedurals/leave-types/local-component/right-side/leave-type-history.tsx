@@ -3,7 +3,6 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { Typography } from "@material-tailwind/react";
-import useDtrState from '@/custom-hooks/use-dtr-state';
 import { ProceduralLEAVETYPEPageDescriptions, ProceduralLEAVETYPEPageColumns } from '@/data/pages-data/procedural-data/leave-types-data';
 import ViewLEAVETYPESingleModal from './local-components/main-modals/view-leave-type-single-modal';
 import { LEAVETYPEViewInterface } from '@/types/types-pages';
@@ -19,9 +18,8 @@ export default function ProceduralLEAVETYPEPageHistory() {
     date_deleted: null,
   });
   const dispatch = useDispatch();
-  const { spButtonIndex, dtrStatus } = useDtrState();
   const { LEAVETYPEView } = useSelector((state: RootState) => state.procedurals);
-  const { data } = LEAVETYPEView;
+  const { data, status } = LEAVETYPEView;
   const LEAVETYPEViewData = data as LEAVETYPEViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -59,8 +57,7 @@ export default function ProceduralLEAVETYPEPageHistory() {
             setSingleLEAVETYPEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          style={{ cursor: spButtonIndex === 2 ? 'pointer': 'default'}}
-          localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? 'The caller for LEAVETYPE Epic hasn\'t been set up, please contact your frontend developer': 'There is no LEAVETYPE to generate. Double check with a Database Admin'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for LEAVETYPE Epic hasn\'t been set up, please contact your frontend developer': 'There is no LEAVETYPE to generate. Double check with a Database Admin'}` }}
         />
       </div>
     </Fragment>
