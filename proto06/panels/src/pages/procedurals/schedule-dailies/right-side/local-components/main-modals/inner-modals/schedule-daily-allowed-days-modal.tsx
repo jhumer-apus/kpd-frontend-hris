@@ -27,7 +27,8 @@ export default function AllowedDaysSCHEDULEDAILYModal(props: AllowedDaysSCHEDULE
   const {allowedDaysSCHEDULEDAILYOpenModal, setAllowedDaysSCHEDULEDAILYOpenModal, singleSCHEDULEDAILYDetailsData, setSingleSCHEDULEDAILYDetailsData} = props;
   const [ initialEditState, setInitialEditState ] = useState<SCHEDULEDAILYEditInterface>({
     ...singleSCHEDULEDAILYDetailsData,
-    schedule_shift_code: singleSCHEDULEDAILYDetailsData.id,
+    emp_no: null,
+    schedule_shift_code: null,
   })
   const nullValues = Object.values(singleSCHEDULEDAILYDetailsData).filter(
     value => typeof value === null
@@ -138,16 +139,16 @@ export default function AllowedDaysSCHEDULEDAILYModal(props: AllowedDaysSCHEDULE
                             }
                           )
                         })
-                        return (
-                          setSingleSCHEDULEDAILYDetailsData((prevState) => {
-                            return (
-                              {
-                                ...prevState,
-                                emp_no: value
-                              }
-                            )
-                          })
-                        )
+                        // return (
+                        //   setSingleSCHEDULEDAILYDetailsData((prevState) => {
+                        //     return (
+                        //       {
+                        //         ...prevState,
+                        //         emp_no: value
+                        //       }
+                        //     )
+                        //   })
+                        // )
                       }}  
                       variant='standard'
                     />
