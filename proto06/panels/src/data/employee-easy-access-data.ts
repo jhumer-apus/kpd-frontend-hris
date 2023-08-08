@@ -79,7 +79,8 @@ export const employeeEasyAccessData = [
     color: "text-green-500",
     title: "Biometrics",
     description: "Biometrics Data",
-    link: "/home/employees/201-files",
+    link: 'development',
+    // link: "/home/employees/201-files",
   },
   {
     icon: FolderOpenIcon,

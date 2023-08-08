@@ -1,12 +1,10 @@
-import { useState, Fragment, Dispatch, SetStateAction, useEffect } from 'react';
-import { SCHEDULEDAILYViewInterface, SCHEDULESHIFTViewInterface } from '@/types/types-pages';
+import { useState, Fragment, Dispatch, SetStateAction } from 'react';
+import { SCHEDULEDAILYViewInterface } from '@/types/types-pages';
 import { Button } from '@mui/material';
 import dayjs from 'dayjs';
 import {TextField} from '@mui/material';
-import ApproveSCHEDULEDAILYModal from '../main-modals/inner-modals/schedule-daily-allowed-days-modal';
 import AllowedDaysSCHEDULEDAILYModal from '../main-modals/inner-modals/schedule-daily-allowed-days-modal';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+
 
 interface SCHEDULEDAILYModalUIInterface {
     singleSCHEDULEDAILYDetailsData: SCHEDULEDAILYViewInterface;
@@ -19,7 +17,6 @@ function SCHEDULEDAILYModalUI(props: SCHEDULEDAILYModalUIInterface) {
     const [ allowedDaysSCHEDULEDAILYOpenModal, setAllowedDaysSCHEDULEDAILYOpenModal ] = useState(false);
     const { setSingleSCHEDULEDAILYDetailsData, singleSCHEDULEDAILYDetailsData } = props;
     const ThisProps = props.singleSCHEDULEDAILYDetailsData;
-    const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
     const onClickModal = (mode: number) => {
         switch(mode){
             case 0: setApproveSCHEDULEDAILYOpenModal(true);

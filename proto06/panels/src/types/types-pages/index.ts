@@ -507,6 +507,7 @@ export interface SCHEDULEDAILYCreateInterface {
 export interface SCHEDULEDAILYViewInterface extends SCHEDULEDAILYCreateInterface { 
     id: number;
     is_processed: boolean | null;
+    business_date: string;
 }
 
 export interface SCHEDULEDAILYEditInterface {

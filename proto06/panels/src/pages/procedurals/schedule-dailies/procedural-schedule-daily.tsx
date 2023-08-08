@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 import { RootState } from '@/store/configureStore';
 import { Typography } from '@material-tailwind/react';
-import { ScheduleDailyColor } from './local-components/list-of-holidays/list-of-schedule-daily';
+import { ScheduleDailyColor } from '@/types/index';
 import dayjs from 'dayjs';
 import CreateSCHEDULEDAILYModal from './local-components/assign-shift-modal/create-schedule-daily-modal';
 import ProceduralSCHEDULEDAILYPageHistory from './right-side/schedule-daily-history';

@@ -3,7 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { Typography } from "@material-tailwind/react";
-import { ProceduralSCHEDULEDAILYPageDescriptions, ProceduralSCHEDULEDAILYPageColumns } from '@/data/pages-data/procedural-data/schedule-daily-data';
+import { ProceduralSCHEDULEDAILYPageColumns } from '@/data/pages-data/procedural-data/schedule-daily-data';
 import ViewSCHEDULEDAILYSingleModal from './local-components/main-modals/view-schedule-daily-single-modal';
 import { SCHEDULEDAILYViewInterface } from '@/types/types-pages';
 import { SCHEDULEDAILYViewFilterEmployeeAction } from '@/store/actions/procedurals';
@@ -35,6 +35,7 @@ export default function ProceduralSCHEDULEDAILYPageHistory(props: ProceduralSCHE
     business_date_to: null,
     emp_no: [],
     is_restday: false,
+    business_date: ''
   });
   const dispatch = useDispatch();
   const { SCHEDULEDAILYViewFilterEmployee } = useSelector((state: RootState) => state.procedurals);

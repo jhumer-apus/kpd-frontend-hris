@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
-import { EasyAccessCard } from '@/widgets/cards';
-import { KeyIcon } from '@heroicons/react/24/solid';
-import { Button, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
 import AvTimerOutlinedIcon from '@mui/icons-material/AvTimerOutlined';
@@ -21,7 +19,7 @@ import { RootState } from '@/store/configureStore';
 import { HolidaysGet } from '@/store/actions/procedurals';
 
 
-export enum HolidayColor {
+export const enum HolidayColor {
     _legal = 'linear-gradient(0deg, rgba(34,195,193,1) 0%, rgba(38,199,133,1) 50%)',
     _special = 'linear-gradient(0deg, rgba(195,147,34,1) 0%, rgba(253,187,45,1) 100%)',
     _legal_hex = '#26C785',

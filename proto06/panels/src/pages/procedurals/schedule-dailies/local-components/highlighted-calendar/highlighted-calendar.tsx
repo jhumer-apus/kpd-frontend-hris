@@ -10,8 +10,7 @@ import { StaticDatePicker, PickersShortcutsItem } from '@mui/x-date-pickers';
 import './highlighted-calendar.scss';
 import { APILink } from '@/store/configureStore';
 import { SCHEDULEDAILYViewInterface, SCHEDULESHIFTViewInterface } from '@/types/types-pages';
-import { ScheduleDailyColor } from '../list-of-holidays/list-of-schedule-daily';
-
+import { ScheduleDailyColor } from '@/types/index';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 
@@ -163,6 +162,8 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
   const [isLoading, setIsLoading] = useState(false);
   const [highlightedDays, setHighlightedDays] = useState<number[]>([]);
   const [scheduleDaily, setScheduleDaily] = useState<Record<string, Record<string, string | number | boolean | SCHEDULESHIFTViewInterface>>>({}); 
+  
+  console.log(scheduleDaily, "asdhjk");
   const fetchHighlightedDays = (date: Dayjs) => {
     let formattedDate = date.format('YYYY-MM');
     setIsLoading(true);
@@ -174,6 +175,7 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
     })
       .then((response) => {
         const filteredData: SCHEDULEDAILYViewInterface[] = response.data.filter((scheduleDaily: SCHEDULEDAILYViewInterface) => {
+            console.log(scheduleDaily, "asd122222")
             const scheduleDailyDate = dayjs(scheduleDaily.business_date);
             return (
               scheduleDailyDate.format('YYYY-MM') === formattedDate &&

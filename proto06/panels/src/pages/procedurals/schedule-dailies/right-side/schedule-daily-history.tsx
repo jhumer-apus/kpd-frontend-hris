@@ -35,6 +35,7 @@ export default function ProceduralSCHEDULEDAILYPageHistory(props: ProceduralSCHE
     business_date_to: null,
     emp_no: [],
     is_restday: false,
+    business_date: ''
   });
   const dispatch = useDispatch();
   const { SCHEDULEDAILYViewFilterEmployee } = useSelector((state: RootState) => state.procedurals);

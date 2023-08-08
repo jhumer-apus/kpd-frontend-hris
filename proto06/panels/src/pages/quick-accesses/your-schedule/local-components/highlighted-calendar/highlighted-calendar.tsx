@@ -1,4 +1,4 @@
-import {Dispatch, SetStateAction, useRef, Fragment, useState, useEffect, ReactNode} from 'react';
+import {Dispatch, SetStateAction, useRef, useState, useEffect, ReactNode} from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import Badge from '@mui/material/Badge';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -6,7 +6,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { PickersDay, PickersDayProps } from '@mui/x-date-pickers/PickersDay';
 import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
 import axios, { CancelTokenSource } from 'axios';
-import { StaticDatePicker, PickersShortcutsItem } from '@mui/x-date-pickers';
+import { StaticDatePicker } from '@mui/x-date-pickers';
 import './highlighted-calendar.scss';
 import { APILink } from '@/store/configureStore';
 import { SCHEDULEDAILYViewInterface, SCHEDULESHIFTViewInterface } from '@/types/types-pages';
