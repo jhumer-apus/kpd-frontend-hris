@@ -5,6 +5,7 @@ import { Input, Typography } from '@material-tailwind/react';
 import { useForm } from 'react-hook-form';
 import { GetEmployeesListsType } from '@/types/types-store';
 import { APILink } from '@/store/configureStore';
+import { beautifyJSON } from '@/helpers/utils';
 
 export const UserProfile = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<GetEmployeesListsType>();
@@ -26,64 +27,51 @@ export const UserProfile = () => {
             },
           }
         );
+        window.alert(`${response.status >= 200 && response.status < 300 && 'Request Successful'}`)
         setTimeout(()=>{
             location.reload();
-        }, 1000)
-      } catch (err) {
+        }, 800)
+      } catch (err: any) {
         console.error(err);
+        window.alert(`${beautifyJSON(err.response?.data)}`)
+        setEditMode(true);
       }
-    setEditMode(false);
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
         <Typography
-            variant="small"
+            variant="h4"
             color="blue-gray"
             className="mb-4 font-medium"
         >
-            Add New Employee
+            Add New Employee (Single Entry)
         </Typography>   
         <Typography
             variant="small"
-            color="blue-gray"
-            className="mb-4 font-medium"
+            color="black"
+            className="mb-4 font-medium italic"
         >
             Required Information
         </Typography>
+        
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
             <div style={{position: 'relative', width: '30%'}}>
                 <Input
                     {...register('date_hired', { required: true })}
-                    label="Date Hired: YYYYMMDD *"
+                    label="Date Hired: YYYY-MM-DD (required)"
+                    type='text'
                     disabled={!editMode}
+                    pattern='[0-9]{4}-[0-9]{2}-[0-9]{2}'
                 />
                 {errors.date_hired && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Date Hired is required.</sub>}
             </div>
         </div>
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
             <div style={{position: 'relative', width: '100%'}}>
-                <Input
-                    {...register('emp_no', { required: true })}
-                    label="Assigned Employee No:*"
-                    disabled={!editMode}
-                />
-                {errors.emp_no && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Emp # is required.</sub>}
-            </div>
-            <div style={{position: 'relative', width: '100%'}}>
-                <Input
-                    {...register('approver', { required: true })}
-                    label="Approver: *"
-                    disabled={!editMode}
-                />
-                {errors.approver && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Approver # is required.</sub>}
-            </div>
-        </div>    
-        <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
-            <div style={{position: 'relative', width: '100%'}}>
             <Input
                 {...register('first_name', { required: true })}
-                label="First Name: *"
+                label="First Name: (required)"
                 disabled={!editMode}
             />
             {errors.first_name && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>First name is required.</sub>}
@@ -91,41 +79,76 @@ export const UserProfile = () => {
 
             <Input
             {...register('middle_name')}
-            label="Middle Name:"
+            label="Middle Name: (optional)"
             disabled={!editMode}
             />
             <div style={{position: 'relative', width: '100%'}}>
             <Input
                 {...register('last_name', { required: true })}
-                label="Last Name: *"
+                label="Last Name: (required)"
                 disabled={!editMode}
             />
             {errors.last_name && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Last name is required.</sub>}
             </div>
             <Input
             {...register('suffix')}
-            label="Suffix:"
+            label="Suffix: (optional)"
             disabled={!editMode}
             />
-            <Input
-            {...register('gender')}
-            label="Gender: M/F *"
-            containerProps={{ className: "min-w-[20px]" }} 
-            disabled={!editMode}
-            />
+            <div style={{position: 'relative', width: '100%'}}>
+                <Input
+                {...register('gender', {required: true})}
+                type='text'
+                maxLength={1}
+                pattern='(M|F)'
+                label="Gender: M/F (required)"
+                containerProps={{ className: "min-w-[20px]" }} 
+                disabled={!editMode}
+                />
+                {errors.gender && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Gender is required.</sub>}
+            </div>
         </div>
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
             <div style={{position: 'relative', width: '100%'}}>
                 <Input
+                    {...register('emp_no', { required: true })}
+                    label="Assigned Employee No: (required, max 5 digits)"
+                    disabled={!editMode}
+                />
+                {errors.emp_no && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Emp # is required.</sub>}
+            </div>
+            <div style={{position: 'relative', width: '100%'}}>
+                <Input
+                    {...register('bio_id', { required: true })}
+                    label="Biometrics ID: (required, can be same as emp_no)"
+                    disabled={!editMode}
+                />
+                {errors.bio_id && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Bio ID is required.</sub>}
+            </div>
+            <div style={{position: 'relative', width: '100%'}}>
+                <Input
+                    {...register('rank_code', { required: true })}
+                    type='number'
+                    maxLength={1}
+                    max={5}
+                    label="Rank Code: (required, 1-lowest & 5-highest)"
+                    disabled={!editMode}
+                />
+                {errors.approver && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Approver # is required.</sub>}
+            </div>
+        </div>    
+        <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
+            <div style={{position: 'relative', width: '100%'}}>
+                <Input
                     {...register('address', { required: true })}
-                    label="Address: *"
+                    label="Address: (required)"
                     disabled={!editMode}
                 />
                 {errors.address && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Address is required.</sub>}
             </div>
             <Input
             {...register('provincial_address')}
-            label="Provincial Address:"
+            label="Provincial Address: (optional)"
             disabled={!editMode}
             />
             <div style={{position: 'relative', width: '100%'}}>
@@ -141,7 +164,7 @@ export const UserProfile = () => {
             <div style={{position: 'relative', width: '100%'}}>
                 <Input
                     {...register('mobile_phone', { required: true })}
-                    label="Mobile Phone #: *"
+                    label="Mobile Phone #: (required)"
                     disabled={!editMode}
                 />
                 {errors.email_address && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Phone # is required.</sub>}
@@ -149,7 +172,7 @@ export const UserProfile = () => {
             <div style={{position: 'relative', width: '100%'}}>
                 <Input
                 {...register('birthday', { required: true })}
-                label="Birthday: YYYYMMDD *"
+                label="Birthday: YYYY-MM-DD (required)"
                 disabled={!editMode}
                 />
                 {errors.email_address && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Birthday is required.</sub>}
@@ -157,33 +180,84 @@ export const UserProfile = () => {
             <div style={{position: 'relative', width: '100%'}}>
                 <Input
                 {...register('civil_status', { required: true })}
-                label="Civil Status: S/M/W/D *"
+                label="Civil Status: S/M/A/W/D (required)"
+                type='string'
+                maxLength={1}
+                pattern='(S|W|A|D|M)'
                 disabled={!editMode}
                 />
                 {errors.civil_status && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Civil Status is required.</sub>}
             </div>
         </div>
+        <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
+            <div style={{position: 'relative', width: '100%'}}>
+                <Input
+                    {...register('accnt_no', { required: true })}
+                    label="Account number: (Bank acct / Gcash acct)"
+                    disabled={!editMode}
+                />
+                {errors.accnt_no && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Account number is required.</sub>}
+            </div>
+            <div style={{position: 'relative', width: '100%'}}>
+                <Input
+                {...register('emp_salary_basic', { required: true })}
+                label="Basic Salary Amount: (no commas)"
+                disabled={!editMode}
+                />
+                {errors.emp_salary_basic && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Basic Salary Amount is required.</sub>}
+            </div>
+            <div style={{position: 'relative', width: '100%'}}>
+                <Input
+                {...register('emp_salary_type', { required: true })}
+                label="Salary Type: (monthly / daily) "
+                disabled={!editMode}
+                type='text'
+                />
+                {errors.emp_salary_type && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Salary Type is required.</sub>}
+            </div>
+        </div>
         <Typography
             variant="small"
-            color="blue-gray"
-            className="mb-4 font-medium"
+            color="gray"
+            className="mb-4 font-medium italic"
         >
             Optional Information
         </Typography>
-    {editMode ? (
+        <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
+            <div style={{position: 'relative', width: '100%'}}>
+                <Input
+                    {...register('approver1', { required: false })}
+                    label="Approver #1: (optional, emp_no)"
+                    disabled={!editMode}
+                />
+            </div>
+            <div style={{position: 'relative', width: '100%'}}>
+                <Input
+                    {...register('approver2', { required: false })}
+                    label="Approver #2: (optional, emp_no)"
+                    disabled={!editMode}
+                />
+            </div>
+        </div> 
+        <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
+            <div style={{position: 'relative', width: '100%'}}>
+                <Input
+                    {...register('division_code', { required: false })}
+                    label="Division Code: (optional, ID)"
+                    disabled={!editMode}
+                />
+            </div>
+            <div style={{position: 'relative', width: '100%'}}>
+                <Input
+                    {...register('position_code', { required: false })}
+                    label="Position Code: (optional, ID)"
+                    disabled={!editMode}
+                />
+            </div>
+        </div> 
         <Button variant="contained" color="primary" type="submit">
             Submit
         </Button>
-        ) : (
-        <Button
-            variant="outlined"
-            color="primary"
-            onClick={() => setEditMode(true)}
-        >
-            Edit
-        </Button>
-        )}
-
     </form>
   );
 };

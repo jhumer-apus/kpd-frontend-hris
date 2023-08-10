@@ -8,7 +8,7 @@ import {
   fetchUserDataSuccess,
   // fetchUserDataFailure,
 } from '../actions/auth';
-import { UserType, EmployeeDetailsType } from '@/types/types-store';
+import { UserType, GetEmployeesListsType } from '@/types/types-store';
 
 
 interface AuthState {
@@ -16,7 +16,7 @@ interface AuthState {
   isAuthenticated: boolean;
   token: string | null;
   user: UserType | null; // Add user and employee fields
-  employee_detail: EmployeeDetailsType | null;
+  employee_detail: GetEmployeesListsType | null;
   error: string | null;
 }
 

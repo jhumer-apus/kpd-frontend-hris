@@ -40,11 +40,6 @@ export const getCutoffListEmployeeSuccess = createAction("GET_CUTOFF_LIST_EMPLOY
     return({ payload: {DTRCutoffListEmployees} })});
 export const getCutoffListEmployeeFailure = createAction<string>("GET_CUTOFF_LIST_EMPLOYEE_FAILURE");
 
-
-// export const getSpecificEmployeeInfo = createAction<{employee_id: number}>("GET_SPECIFIC_EMPLOYEE_INFO");
-// export const getSpecificEmployeeInfoSuccess = createAction("GET_SPECIFIC_EMPLOYEE_INFO_SUCCESS", (list: EmployeeDetailsType) => ({ payload: {list} }));
-// export const getSpecificEmployeeInfoFailure = createAction<String>("GET_SPECIFIC_EMPLOYEE_INFO_FAILURE");
-
 export const mergeCutoffListAndEmployee = createAction<{emp_no: number[], cutoff_code: number}>("MERGE_CUTOFF_LIST_AND_EMPLOYEE");
 export const mergeCutoffListAndEmployeeSuccess = createAction("MERGE_CUTOFF_LIST_AND_EMPLOYEE_SUCCESS", (SuccessMessage: string) => { 
     return({ payload: {SuccessMessage} })});

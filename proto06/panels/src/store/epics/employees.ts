@@ -2,11 +2,9 @@ import { ofType } from 'redux-observable';
 import { map, catchError, switchMap, mergeMap } from 'rxjs/operators';
 import { of, from } from 'rxjs';
 import axios from 'axios';
-import Cookies from 'js-cookie'
 import { getEmployeesList, getEmployeesListFailure, getEmployeesListSuccess } from '../actions/employees';
 
 import { Epic } from 'redux-observable';
-import { EmployeeDetailsType } from '@/types/types-store';
 import { getSpecificEmployeeInfo, getSpecificEmployeeInfoSuccess, getSpecificEmployeeInfoFailure } from '../actions/employees';
 import { APILink } from '../configureStore';
 

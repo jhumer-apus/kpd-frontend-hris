@@ -1,24 +1,5 @@
 import dayjs, {ConfigType} from "dayjs";
-
-
-// It takes an object and an optional prefix string as arguments.
-// It reduces the input object into a new object that is flat (no nested objects).
-// For each key in the input object, it checks if the corresponding value is an object.
-// If the value is an object, it recursively calls flatten on the value, prepending the current key to the prefix.
-// If the value is not an object, it adds the key-value pair to the accumulated object, prepending the current key to the prefix.
-// It returns the accumulated object, which is flat.
-
-export const flattenObject = (obj: any, prefix = ''): any => {
-    return Object.keys(obj).reduce((acc: {[key: string]: any}, k) => {
-      const pre = prefix.length ? prefix + '.' : '';
-      if (typeof obj[k] === 'object' && obj[k] !== null && !(obj[k] instanceof Date)) {
-        Object.assign(acc, flattenObject(obj[k], pre + k));
-      } else {
-        acc[pre + k] = obj[k];
-      }
-      return acc;
-    }, {});
-}
+import { BeautifyObject, ObjectFlat } from "../types";
 
 
 // totalDays represents the number of days you want to convert, considering 8 working hours per day. 
@@ -85,16 +66,44 @@ export const computeDurationInHours = (start: ConfigType, end: ConfigType): numb
 
 
 
-/* 
-How to use: 
+
+/**
+  @author Ms. Universe Matty <3 
+  https://github.com/Mattttyyyy
+  @description 
+  It takes an object and an optional prefix string as arguments.
+  It reduces the input object into a new object that is flat (no nested objects).
+  For each key in the input object, it checks if the corresponding value is an object.
+  If the value is an object, it recursively calls flatten on the value, prepending the current key to the prefix.
+  If the value is not an object, it adds the key-value pair to the accumulated object, prepending the current key to the prefix. It returns the accumulated object, which is flat.
+*/
+
+export const flattenObject = (obj: ObjectFlat, prefix = ''): ObjectFlat => {
+  return Object.keys(obj).reduce((acc: {[key: string]: any}, k) => {
+    const pre = prefix.length ? prefix + '.' : '';
+    if (typeof obj[k] === 'object' && obj[k] !== null && !(obj[k] instanceof Date)) {
+      Object.assign(acc, flattenObject(obj[k], pre + k));
+    } else {
+      acc[pre + k] = obj[k];
+    }
+    return acc;
+  }, {});
+}
+
+/**
+@author Ms. World Matty <3
+https://github.com/Mattttyyyy
+@abstract 
+How to use: Pass any json message unto this function to stringify it while optimizing the string a bit.
+@requires any JSON Object
 const jsonString = '{"obt_total_hours":["This field is required."]}';
 const jsonObject = JSON.parse(jsonString);
 const beautifiedOutput = beautifyJSON(jsonObject);
 console.log(beautifiedOutput);
-Expected Output: obt total hours : This field is required.
-
+@returns
+"obt total hours : This field is required."
 */ 
-export function beautifyJSON(jsonObj: any) {
+export const beautifyJSON = (jsonObj: BeautifyObject) => {
   let beautifiedString = '';
   for (const key in jsonObj) {
     if (jsonObj.hasOwnProperty(key)) {

@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { EmployeeDetailsType, GetEmployeesListsType } from '@/types/types-store';
+import { GetEmployeesListsType } from '@/types/types-store';
 
 
 export const getEmployeesList = createAction("GET_EMPLOYEES");
@@ -9,5 +9,5 @@ export const getEmployeesListFailure = createAction<String>("GET_EMPLOYEES_LIST_
 
 
 export const getSpecificEmployeeInfo = createAction<{employee_id: number}>("GET_SPECIFIC_EMPLOYEE_INFO");
-export const getSpecificEmployeeInfoSuccess = createAction("GET_SPECIFIC_EMPLOYEE_INFO_SUCCESS", (list: EmployeeDetailsType) => ({ payload: {list} }));
+export const getSpecificEmployeeInfoSuccess = createAction("GET_SPECIFIC_EMPLOYEE_INFO_SUCCESS", (list: GetEmployeesListsType) => ({ payload: {list} }));
 export const getSpecificEmployeeInfoFailure = createAction<String>("GET_SPECIFIC_EMPLOYEE_INFO_FAILURE");

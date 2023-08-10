@@ -1,55 +1,21 @@
-import { Fragment, JSXElementConstructor, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { DataGrid, GridColDef, GridValueGetterParams, GridCellParams } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
 import { getEmployeesList } from '@/store/actions/employees';
 import { RootState } from '@/store/configureStore';
 import { getSpecificEmployeeInfo } from '@/store/actions/employees';
-import { Modal, Box, CircularProgress } from '@mui/material';
+import { Modal, Box } from '@mui/material';
 import { UserProfile } from './forms/AddEmployee';
 import { useForm } from 'react-hook-form';
 import { GetEmployeesListsType } from '@/types/types-store';
 import { ImportEmployee } from './forms/ImportEmployee';
-import {
-  Typography,
-  Card,
-  CardHeader,
-  CardBody,
-  Input,
-  Button,
-  Tabs,
-  Tab,
-  TabsHeader,
-  TabsBody,
-  TabPanel,
-  Select,
-  Option,
-} from "@material-tailwind/react";
-import {
-  LockClosedIcon,
-} from "@heroicons/react/24/solid";
-import {
-  UserIcon,
-  FingerPrintIcon,
-  AcademicCapIcon,
-  TvIcon,
-  UserGroupIcon,
-  WindowIcon,
-  ShieldCheckIcon,
-  LockClosedIcon as LockClosedOutline,
-  XCircleIcon,
-  CheckCircleIcon,
-  LockOpenIcon,
-  MapIcon,
-  UserPlusIcon,
-  XMarkIcon,
-  TagIcon,
-  ArrowUpTrayIcon,
-} from "@heroicons/react/24/outline";
+import { Button } from "@material-tailwind/react";
+import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
 import { SpecificEmployee } from './forms/SpecificEmployee';
 import { APILink } from '@/store/configureStore';
+import EmployeeExportToCsvButton from './local-components/export-to-csv-employee';
 
 const columns: GridColDef[] = [
-  // { field: 'id', headerName: 'ID', width: 70 },
   {
     field: 'employee_image',
     headerName: 'Display Pic',
@@ -93,11 +59,11 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: 400,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
   boxShadow: 24,
   pt: 2,
   px: 4,
   pb: 3,
+  borderRadius: '10px'
 };
 
 
@@ -112,7 +78,6 @@ export default function DataTable() {
   const [open, setOpen] = useState(false);
   const [modalEntranceDelay, setModalEntranceDelay] = useState(false);
   const [secondOptionModalEntranceDelay, setSecondOptionModalEntranceDelay] = useState(false);
-  const [editMode, setEditMode] = useState(false);
   function handleOpen(){
     setOpen(true);
   };
@@ -125,8 +90,6 @@ export default function DataTable() {
   // Add Employee Modal Form
   // States:
   const [open2, setOpen2] = useState(false);
-  const [modalEntranceDelay2, setModalEntranceDelay2] = useState(false);
-  const [secondOptionModalEntranceDelay2, setSecondOptionModalEntranceDelay2] = useState(false);
   function handleOpen2(){
     setOpen2(true);
   };
@@ -138,8 +101,6 @@ export default function DataTable() {
   // Import Employee Modal Form
   // States:
   const [open3, setOpen3] = useState(false);
-  const [modalEntranceDelay3, setModalEntranceDelay3] = useState(false);
-  const [secondOptionModalEntranceDelay3, setSecondOptionModalEntranceDelay3] = useState(false);
   function handleOpen3(){
     setOpen3(true);
   };
@@ -176,32 +137,6 @@ export default function DataTable() {
         setSecondOptionModalEntranceDelay(false);
       }, 1200);
   }, [specific_employee_info])
-
-  const data = employees_list;
-  function convertToCSV(data: GetEmployeesListsType[]) {
-    const replacer = (key: string, value: any) => value === null ? '' : value;
-    const header = Object.keys(data[0]);
-    const csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
-    csv.unshift(header.join(','));
-    return csv.join('\r\n');
-  };
-  function downloadCSV(csv: string, filename: string) {
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-  const handleDownload = () => {
-    if(!data){
-      return; //Todo: Error Handling 
-    }
-    const csv = convertToCSV(data);
-    downloadCSV(csv, `${window.prompt("File Name", "export_file_name")}`);
-  };
   
   return (
     <Fragment>
@@ -226,14 +161,7 @@ export default function DataTable() {
             <UserProfile/>
             </Box>
         </Modal>
-        <Button 
-          className='mb-4 flex gap-2'
-          color='indigo'
-          variant='gradient'
-          onClick={handleDownload}>
-        
-        <ArrowUpTrayIcon style={{height: '15px'}}/> Export / Download as CSV
-        </Button>
+        <EmployeeExportToCsvButton data={employees_list} />
         <Button 
           className='mb-4 flex gap-2'
           variant='outlined'

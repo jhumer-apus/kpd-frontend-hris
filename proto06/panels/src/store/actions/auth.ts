@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { UserType, EmployeeDetailsType } from '@/types/types-store';
+import { UserType, GetEmployeesListsType } from '@/types/types-store';
 
 
 export const userLoginAction = createAction<{username: string, password: string, twoFactorToken?: string}>('USER_LOGIN_ACTION');
@@ -11,7 +11,7 @@ export const userLoginActionFailure = createAction<string>('USER_LOGIN_ACTION_FA
 export const userLogout = createAction('USER_LOGOUT');
 export const userLoginActionSuccess = createAction(
     "USER_LOGIN_SUCCESS",
-    (jwt: string, user: UserType, employee_detail: EmployeeDetailsType) => ({ payload: { jwt, user, employee_detail } })
+    (jwt: string, user: UserType, employee_detail: GetEmployeesListsType) => ({ payload: { jwt, user, employee_detail } })
   );
 
 
@@ -19,6 +19,6 @@ export const userLoginActionSuccess = createAction(
 export const fetchUserData = createAction<{emp_no: Number}>('FETCH_USER_DATA');
 export const fetchUserDataSuccess = createAction(
   'FETCH_USER_DATA_SUCCESS',
-  (employee_detail: EmployeeDetailsType) => ({ payload: { employee_detail } })
+  (employee_detail: GetEmployeesListsType) => ({ payload: { employee_detail } })
   );
 export const fetchUserDataFailure = createAction('FETCH_USER_DATA_FAILURE');

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { EmployeeDetailsType, GetEmployeesListsType } from '@/types/types-store';
+import { GetEmployeesListsType } from '@/types/types-store';
 import { 
   getSpecificEmployeeInfo,
   getSpecificEmployeeInfoSuccess, 
@@ -46,6 +46,7 @@ export const employeesSlice = createSlice({
       .addCase(getSpecificEmployeeInfoSuccess, (state, action) => {
         // state.employees_list = null;
         state.specific_employee_info = action.payload.list;
+        state.error = null;
       })
       .addCase(getSpecificEmployeeInfoFailure, (state, action) => {
         // state.employees_list = null;

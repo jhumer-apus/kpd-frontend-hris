@@ -35,6 +35,7 @@ import { useForm } from 'react-hook-form';
 import { APILink, RootState } from '@/store/configureStore';
 import { GetEmployeesListsType } from '@/types/types-store';
 import FormData from 'form-data';
+import { beautifyJSON } from '@/helpers/utils';
 
 
 type initialState = {
@@ -89,18 +90,16 @@ export const SpecificEmployee = (props: initialState) => {
               }
             );
             loadingEffect();
-            if(file){
-                setTimeout(()=> {
-                    location.reload();
-                }, 1500)
-            }
-          } catch (err) {
-            console.error(err);
+            window.alert(`${response.status >= 200 && response.status < 300 && 'Request Successful'}`)
+            setTimeout(()=> {
+                location.reload();
+            }, 800)
+          } catch (err: any) {
+            window.alert(`Error: ${beautifyJSON(err?.response?.data)}`)
           }
     };
     const onSubmit = async (data: GetEmployeesListsType, type: string) => {
         const formData = new FormData();
-        
         const keyChecker = (key: string) => {
             const keyProcessed: { [key: string]: () => void } = {
                 "type1": () => setEditMode(false),
@@ -116,14 +115,14 @@ export const SpecificEmployee = (props: initialState) => {
         }
         
         keyChecker(type)
-    
+
         for (const key in data) {
             const value = data[key];
             if (value !== null && value !== undefined && value !== "") {
                 if(key === "employee_image" && file){
                     formData.append(key, file);
-                }else if(key==="employee_image" && !file){
-                    return
+                }else if(key === "employee_image" && value.includes('image')){
+                    formData.append(key, null);
                 }else {
                     formData.append(key, value);
                 }
@@ -136,7 +135,6 @@ export const SpecificEmployee = (props: initialState) => {
         <Fragment>
             
             <Card className="w-full max-w-[110rem] xl:max-w-[90rem] ml-auto mr-auto" style={{zoom: 0.95}}>
-            {/* <div >askdljasdasd.kasjmd;laksd;alskd</div> */}
             <Tabs value={type}>
                     <CardHeader
                         color="teal"
@@ -209,7 +207,7 @@ export const SpecificEmployee = (props: initialState) => {
                                         type="number" 
                                         containerProps={{ className: "min-w-[72px]" }} 
                                         labelProps={{style: {color: true? "unset" : ''}}} 
-                                        label="Database ID:" 
+                                        label="Database ID: (readonly)" 
                                         disabled={true} 
                                         icon={
                                         <TagIcon className="h-5 w-5 text-blue-gray-300" />
@@ -217,10 +215,12 @@ export const SpecificEmployee = (props: initialState) => {
                                     />
                                     <Input 
                                         {...register('bio_id')}
-                                        type="number" 
+                                        type="number"
+                                        max={99999} 
+                                        maxLength={5}
                                         containerProps={{ className: "min-w-[72px] focused" }} 
                                         labelProps={{style: {color: true? "unset" : ''}}} 
-                                        label="Biometric ID:" 
+                                        label="Biometric ID: (max 5 dig)" 
                                         disabled={!editMode} 
                                         icon={
                                         <FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />
@@ -412,7 +412,11 @@ export const SpecificEmployee = (props: initialState) => {
                             </form>
                         </TabPanel>
                         <TabPanel value="personalInfo" className="p-0">
-                            <form className="mt-12 flex flex-col gap-4" onSubmit={handleSubmit((data)=> onSubmit(data, "type2"))}>
+                            <form 
+                                className="mt-12 flex flex-col gap-4" 
+                                onSubmit={handleSubmit((data)=> onSubmit(data, "type2"))}
+                                // onSubmit={()=> window.alert("submitted")}
+                            >
                             <div className="my-0 flex flex-wrap md:flex-nowrap items-center gap-4">
                                 <div style={{width: "100%"}}>
                                     <Typography
@@ -420,7 +424,7 @@ export const SpecificEmployee = (props: initialState) => {
                                     color="blue-gray"
                                     className="mb-4 font-medium"
                                     >
-                                    Profile Details 
+                                    Profile Details
                                     </Typography>
                                     <Typography variant="small" className="mb-1">
                                     Profile Picture *accepts PNG file only, max 100kb size
@@ -434,12 +438,12 @@ export const SpecificEmployee = (props: initialState) => {
                                         onChange={e => {
                                             if (e.target.files && e.target.files.length > 0) {
                                                 const file = e.target.files[0];
-                                                if (file && file.size < 100000) { // size in bytes
+                                                if (file && file.size < 100000 && (file.type).includes('png')) { // size in bytes
                                                     onFileChange(e);
                                                 } else {
                                                     alert('File should be .png and less than 5MB');
                                                     e.target.value = ''; // clear the selected file
-                                                }
+                                                } 
                                             }
                                         }} 
                                     />
@@ -504,11 +508,11 @@ export const SpecificEmployee = (props: initialState) => {
                                     </Typography>
                                     <div className="my-4 flex items-center gap-4">
                                     <Input
-                                        {...register('birthdate')} 
+                                        {...register('birthday')} 
                                         type="text" 
                                         containerProps={{ className: "min-w-[72px]" }} 
                                         labelProps={{style: {color: true? "unset" : ''}}} 
-                                        label="Birthday:" 
+                                        label="Birthday: YYYY-MM-DD" 
                                         disabled={!editMode2} 
                                         icon={
                                         <TagIcon className="h-5 w-5 text-blue-gray-300" />
@@ -615,7 +619,7 @@ export const SpecificEmployee = (props: initialState) => {
                                 >
                                     Edit
                                 </Button2>
-                                {editMode2 && <Button2 
+                                {true && <Button2 
                                     type="submit"
                                     color={"teal"} 
                                     size="lg" 
@@ -693,7 +697,22 @@ export const SpecificEmployee = (props: initialState) => {
                                                 <WindowIcon className="h-5 w-5 text-blue-gray-300" />
                                             }
                                         />
+                                        
                                     </div>
+                                    <div className="mt-4 flex items-center gap-4">
+                                        <Input
+                                            {...register('accnt_no')} 
+                                            type="text" 
+                                            containerProps={{ className: "min-w-[72px] focused" }} 
+                                            labelProps={{style: {color: true? "unset" : ''}}} 
+                                            label="Account Number:" 
+                                            disabled={!editMode3} 
+                                            icon={
+                                                <AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />
+                                            }
+                                        />       
+                                    </div>
+
                                 </div>
                                 <div style={{width: "100%"}}>
                                     <Typography
@@ -755,6 +774,31 @@ export const SpecificEmployee = (props: initialState) => {
                                                 <TagIcon className="h-5 w-5 text-blue-gray-300" />
                                             }
                                         />
+                                    </div>
+                                    <div className="mt-4 flex items-center gap-4">
+                                        <Input
+                                            {...register('emp_salary_basic')} 
+                                            type="text" 
+                                            containerProps={{ className: "min-w-[72px] focused" }} 
+                                            labelProps={{style: {color: true? "unset" : ''}}} 
+                                            label="Basic Salary Amount:" 
+                                            disabled={!editMode3} 
+                                            icon={
+                                                <AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />
+                                            }
+                                        />
+                                        <Input
+                                            {...register('emp_salary_type')} 
+                                            type="text" 
+                                            containerProps={{ className: "min-w-[72px] focused" }} 
+                                            labelProps={{style: {color: true? "unset" : ''}}} 
+                                            label="Salary Type:" 
+                                            disabled={!editMode3} 
+                                            icon={
+                                                <WindowIcon className="h-5 w-5 text-blue-gray-300" />
+                                            }
+                                        />
+                                        
                                     </div>
                                 </div>
                                 </div>

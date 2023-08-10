@@ -1,125 +1,77 @@
 import { RankDataInterface } from "../types-pages";
 
 export interface UserType {
-    id: number;
-    is_superuser: Boolean;
-    first_name: string;
-    last_name: string;
-    email: string;
-    is_staff: Boolean;
-    date_joined: Date;
-    username: string;
-    role: number;
-    is_active: Boolean;
-    is_locked: Boolean;
-    is_logged_in: Boolean;
-    date_added: Date;
-    date_deleted?: Date;
-    failed_login_attempts: number;
-    last_login: Date;
-    old_password: string;
-    date_password_changed?: Date;
-    employee_number: number;
-    groups: Array<number>;
-    user_permissions: Array<number>;
-};
-
-
-
-
-export interface EmployeeDetailsType {
-    id: number;
-    employee_image?: string;
-    emp_no: number;
-    first_name: string;
-    middle_name?: string;
-    last_name: string;
-    suffix?: string;
-    birthdate: Date;
-    birth_place?: string;
-    civil_status: string;
-    gender: string;
-    address: string;
-    provincial_address?: string;
-    mobile_phone: string;
-    email_address?: string;
-    date_hired: Date;
-    date_resigned?: Date;
-    approver: number;
-    date_added: Date;
-    date_deleted?: Date;
-    philhealth_code?: string;
-    bio_id?: string;
-    branch_code?: string;
-    department_code?: string;
-    division_code?: string;
-    payroll_group_code?: string;
-    position_code?: string;
-    rank_code?: string | number;
-    tax_code?: string;
-    city_code?: string;
-    pagibig_code?: string;
-    sssid_code?: string;
-    rank_data: RankDataInterface;
-};
-
+    readonly id?: number,
+    is_superuser: Boolean,
+    first_name: string,
+    last_name: string,
+    email: string,
+    is_staff: Boolean,
+    date_joined: Date,
+    username: string,
+    role: number,
+    is_active: Boolean,
+    is_locked: Boolean,
+    is_logged_in: Boolean,
+    date_added: Date,
+    date_deleted?: Date,
+    failed_login_attempts: number,
+    last_login: Date,
+    old_password: string,
+    date_password_changed?: Date,
+    employee_number: number,
+    groups: Array<number>,
+    user_permissions: Array<number>,
+}
 
 export interface GetEmployeesListsType {
-    [key: string]: any;
-    id: number;
-    employee_image: string;
-    emp_no: number;
-    first_name: string;
-    middle_name: string;
-    last_name: string;
-    suffix: string;
-    birthdate: Date;
-    birth_place: string;
-    civil_status: string;
-    gender: string;
-    address: string;
-    provincial_address: string;
-    mobile_phone: string;
-    email_address: string;
-    date_hired: Date;
-    date_resigned: Date;
-    approver: number;
-    date_added: Date;
-    date_deleted: Date;
-    philhealth_code: string;
-    bio_id: string;
-    branch_code: string;
-    department_code: string;
-    division_code: string;
-    payroll_group_code: string;
-    position_code: string;
-    rank_code: string;
-    tax_code: string;
-    city_code: string;
-    pagibig_code: string;
-    sssid_code: string;
-    user: {
-        is_superuser: boolean;
-        username: string;
-        role: number;
-        is_active: boolean;
-        is_logged_in: boolean;
-        is_locked: boolean;
-        failed_login_attempts: number;
-        last_login: Date;
-        old_password: string;
-        date_password_changed: Date; 
-        date_added: Date;
-        date_deleted: Date;
-        emp_no: number;
-        groups: Array<string>;
-        user_permissions: Array<string>;
-    }
-};
+    [key: string]: any,
+    accnt_no: string,
+    address: string,
+    approver1: number | null, 
+    approver2: number | null, 
+    bio_id: number, 
+    birth_place: string,
+    birthday: string,
+    branch_code: number, 
+    city_code: string | null, 
+    civil_status: string,
+    date_added: string,
+    date_deleted: string | null,
+    date_hired: string,
+    date_resigned: string | null,
+    department_code: string | null,
+    division_code: string | null,
+    ecola: number | string | null,
+    email_address: string,
+    emp_no: number,
+    emp_salary_basic: number,
+    emp_salary_type: string,
+    employee_image: string,
+    first_name: string,
+    gender: string,
+    readonly id?: number,
+    insurance_life: string | null,
+    last_name: string,
+    middle_name: string | null,
+    mobile_phone: string,
+    other_deductible: string | null,
+    pagibig_code: string | null,
+    payroll_group_code: number | null,
+    philhealth_code: string | null,
+    position_code: string | null,
+    provincial_address: string | null,
+    rank_code: number | null,
+    rank_data: RankDataInterface,
+    sssid_code: string,
+    suffix: string,
+    tax_code: string,
+    user: UserType | null,
+}
 
 export interface ViewAllDtrLogsType {
-    [key: string]: number | string | Date | boolean;
-    id: number,
+    [key: string]: number | string | Date | boolean | undefined,
+    readonly id?: number,
     datetime_bio: Date,
     flag1_in_out: boolean,
     flag2_lout_lin: boolean,
@@ -130,11 +82,11 @@ export interface ViewAllDtrLogsType {
     bio_id: number,
     branch_code: number,
     schedule_daily_code: number,
-};
+}
 
 export interface ViewMergedDtrLogsType {
-    [key: string]: number | string | Date | boolean | null;
-    id: number,
+    [key: string]: number | string | Date | boolean | null | undefined,
+    readonly id?: number,
     business_date: Date,
     shift_name: string,
     duty_in: Date,
@@ -162,11 +114,11 @@ export interface ViewMergedDtrLogsType {
     is_computed: boolean,
     emp_no: number,
     cutoff_code: number,
-};
+}
 
 export interface ViewCutoffDtrSummaryType {
-    [key: string]: number | Date | string | null | boolean;
-    id: number,
+    [key: string]: number | Date | string | null | boolean | undefined,
+    readonly id?: number,
     business_date_from: Date,
     business_date_to: Date,
     paid_leaves_total: number,
@@ -184,7 +136,7 @@ export interface ViewCutoffDtrSummaryType {
     date_deleted: Date | null,
     emp_no: number,
     cutoff_code: number,
-};
+}
 
 
 export type DtrData = Array<ViewAllDtrLogsType> | Array<ViewMergedDtrLogsType> | Array<ViewCutoffDtrSummaryType> | null;

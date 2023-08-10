@@ -26,3 +26,13 @@ export enum ScheduleDailyColor {
     _restday_hex = '#26C785',
     _workday_hex = '#FDBB2D'
 }
+
+
+
+export interface BeautifyObject extends JSON {
+    [key: string]: any
+}
+
+export interface ObjectFlat extends Object {
+    [key:string]: any
+}

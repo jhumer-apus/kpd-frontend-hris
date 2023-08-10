@@ -135,7 +135,7 @@ export default function ViewDtrReports() {
             spButtonIndex === 2 ? gridRowClick(e) : null
           }}
           style={{ cursor: spButtonIndex === 2 ? 'pointer': 'default'}}
-          localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? 'Choose a cutoff period to display employee list': 'No Cutoff Summary found, please create DTR Summary first.'}` }}
+          localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No DTR lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? 'Choose a DTR to display employee list': 'No DTR found'}` }}
         />
         <Modal
           open={open}
