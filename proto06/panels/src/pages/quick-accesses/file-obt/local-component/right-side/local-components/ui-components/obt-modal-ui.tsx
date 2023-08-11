@@ -1,40 +1,18 @@
-import React, { useState } from 'react';
-import { OBTViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
-import { convertDaysToHHMM, convertMinutesToHHMM,  } from '@/helpers/utils';
-import { Button } from '@mui/material';
+import { Dispatch, SetStateAction, Fragment } from 'react';
+import { OBTViewInterface } from '@/types/types-pages';
 import dayjs from 'dayjs';
 import {TextField} from '@mui/material';
-import ApproveOBTModal from '../main-modals/inner-modals/approve-obt-modal';
-import DenyOBTModal from '../main-modals/inner-modals/deny-obt-modal';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
 
 interface OBTModalUIInterface {
     singleOBTDetailsData: OBTViewInterface;
     multiplePayslipMode?: boolean;
-    setSingleOBTDetailsData: React.Dispatch<React.SetStateAction<OBTViewInterface>>;
+    setSingleOBTDetailsData: Dispatch<SetStateAction<OBTViewInterface>>;
 }
 
 function OBTModalUI(props: OBTModalUIInterface) {
-    const [ approveOBTOpenModal, setApproveOBTOpenModal ] = useState(false);
-    const [ denyOBTOpenModal, setDenyOBTOpenModal ] = useState(false);
-    const { setSingleOBTDetailsData, singleOBTDetailsData } = props;
     const ThisProps = props.singleOBTDetailsData;
-    const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
-    const onClickModal = (mode: number) => {
-        switch(mode){
-            case 0: setApproveOBTOpenModal(true);
-            break;
-            case 1: setDenyOBTOpenModal(true);
-            break;
-        }   
-        
-    };
-    const userIsApprover = curr_user?.emp_no === ThisProps.obt_approver1_empno || curr_user?.emp_no === ThisProps.obt_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleOBTDetailsData?.applicant_rank);
     return (
-        <React.Fragment>
-            <ApproveOBTModal singleOBTDetailsData={singleOBTDetailsData} setSingleOBTDetailsData={setSingleOBTDetailsData} approveOBTOpenModal={approveOBTOpenModal} setApproveOBTOpenModal={setApproveOBTOpenModal}/>
-            <DenyOBTModal singleOBTDetailsData={singleOBTDetailsData} setSingleOBTDetailsData={setSingleOBTDetailsData} denyOBTOpenModal={denyOBTOpenModal} setDenyOBTOpenModal={setDenyOBTOpenModal}/>
+        <Fragment>
             <div className='flex gap-10 overflow-auto relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Date Filed:' value={ThisProps.obt_date_filed ? dayjs(ThisProps.obt_date_filed).format('MM-DD-YYYY') : '-'} InputProps={{readOnly: false,}} variant='filled'/>
@@ -61,23 +39,7 @@ function OBTModalUI(props: OBTModalUIInterface) {
                 </div>
 
             </div>
-            {(ThisProps.obt_approval_status.includes('1') || ThisProps.obt_approval_status.includes('2')) && 
-            <div className='flex flex-col justify-center items-center'>
-            <div className='flex justify-center mt-6' container-name='obt_buttons_container'>
-                <div className='flex justify-between' style={{width:'400px'}} container-name='obt_buttons'>
-                    <Button disabled={!userIsApprover} variant='contained' onClick={()=> onClickModal(0)}>Approve OBT</Button>
-                    <Button disabled={!userIsApprover} variant='outlined' onClick={()=> onClickModal(1)}>Deny OBT</Button>
-                </div>
-                
-            </div>
-            { !userIsApprover &&
-                <i className='w-6/12 text-center mt-4' style={{color: 'gray'}}>You are not listed as one of the approvers</i>
-            }
-            </div>
-            }
-
-
-        </React.Fragment>
+        </Fragment>
     );
 }
 

@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Button } from '@mui/material';
 import { Typography } from '@material-tailwind/react';
 import { APILink } from '@/store/configureStore';
+import { beautifyJSON } from '@/helpers/utils';
+import { BeautifyObject } from '@/types/index';
 
 type ImportEmployee = {
   file: any;
@@ -35,11 +37,13 @@ export const ImportEmployee = () => {
               },
             }
           );
-          setTimeout(() => {
-            location.reload();
-          }, 1000);
-        } catch (err) {
+          window.alert(`${response.status >= 200 && response.status < 300 && 'Request Successful'}`)
+          setTimeout(()=>{
+              location.reload();
+          }, 800)
+        } catch (err: any) {
           console.error(err);
+          window.alert(`${beautifyJSON(err.response?.data)}`)
         }
     };
   return (

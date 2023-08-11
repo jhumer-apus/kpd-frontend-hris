@@ -27,11 +27,6 @@ export default function FileLEAVEPage() {
 
   return (
     <Fragment>
-        {/* <Paper elevation={3} style={{height: '100px', width: '99%',  marginBottom: '10px'}}>
-            <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-                <QuickAccessLEAVECreate/>
-            </Box>
-        </Paper> */}
         <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
             <Grid item xs>
                 <Paper elevation={3} style={PaperStyle}>

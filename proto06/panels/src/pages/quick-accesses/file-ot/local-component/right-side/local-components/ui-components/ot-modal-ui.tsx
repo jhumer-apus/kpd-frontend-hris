@@ -1,13 +1,7 @@
-import React, { useState } from 'react';
-import { OVERTIMEViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
-import { convertDaysToHHMM, convertMinutesToHHMM,  } from '@/helpers/utils';
-import { Button } from '@mui/material';
+import React from 'react';
+import { OVERTIMEViewInterface } from '@/types/types-pages';
 import dayjs from 'dayjs';
 import {TextField} from '@mui/material';
-import ApproveOVERTIMEModal from '../main-modals/inner-modals/approve-ot-modal';
-import DenyOVERTIMEModal from '../main-modals/inner-modals/deny-ot-modal';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
 
 interface OVERTIMEModalUIInterface {
     singleOVERTIMEDetailsData: OVERTIMEViewInterface;
@@ -16,25 +10,9 @@ interface OVERTIMEModalUIInterface {
 }
 
 function OVERTIMEModalUI(props: OVERTIMEModalUIInterface) {
-    const [ approveOVERTIMEOpenModal, setApproveOVERTIMEOpenModal ] = useState(false);
-    const [ denyOVERTIMEOpenModal, setDenyOVERTIMEOpenModal ] = useState(false);
-    const { setSingleOVERTIMEDetailsData, singleOVERTIMEDetailsData } = props;
-    const ThisProps = props.singleOVERTIMEDetailsData;
-    const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
-    const onClickModal = (mode: number) => {
-        switch(mode){
-            case 0: setApproveOVERTIMEOpenModal(true);
-            break;
-            case 1: setDenyOVERTIMEOpenModal(true);
-            break;
-        }   
-        
-    };
-    const userIsApprover = curr_user?.emp_no === ThisProps.ot_approver1_empno || curr_user?.emp_no === ThisProps.ot_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleOVERTIMEDetailsData?.applicant_rank);
+    const ThisProps = props.singleOVERTIMEDetailsData;  
     return (
         <React.Fragment>
-            <ApproveOVERTIMEModal singleOVERTIMEDetailsData={singleOVERTIMEDetailsData} setSingleOVERTIMEDetailsData={setSingleOVERTIMEDetailsData} approveOVERTIMEOpenModal={approveOVERTIMEOpenModal} setApproveOVERTIMEOpenModal={setApproveOVERTIMEOpenModal}/>
-            <DenyOVERTIMEModal singleOVERTIMEDetailsData={singleOVERTIMEDetailsData} setSingleOVERTIMEDetailsData={setSingleOVERTIMEDetailsData} denyOVERTIMEOpenModal={denyOVERTIMEOpenModal} setDenyOVERTIMEOpenModal={setDenyOVERTIMEOpenModal}/>
             <div className='flex gap-10 overflow-auto relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Date Filed:' value={ThisProps.ot_date_filed ? dayjs(ThisProps.ot_date_filed).format('MM-DD-YYYY') : '-'} InputProps={{readOnly: false,}} variant='filled'/>
@@ -59,22 +37,6 @@ function OVERTIMEModalUI(props: OVERTIMEModalUIInterface) {
                 {ThisProps.ot_approval_status === 'APD' && <img src={ '/img/stampApproved2.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
                 {ThisProps.ot_approval_status === 'DIS' && <img src={ '/img/stampRejected.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
             </div>
-            {(ThisProps.ot_approval_status.includes('1') || ThisProps.ot_approval_status.includes('2')) && 
-            <div className='flex flex-col justify-center items-center'>
-            <div className='flex justify-center mt-6' container-name='ot_buttons_container'>
-                <div className='flex justify-between' style={{width:'400px'}} container-name='ot_buttons'>
-                    <Button disabled={!userIsApprover} variant='contained' onClick={()=> onClickModal(0)}>Approve OVERTIME</Button>
-                    <Button disabled={!userIsApprover} variant='outlined' onClick={()=> onClickModal(1)}>Deny OVERTIME</Button>
-                </div>
-                
-            </div>
-            { !userIsApprover &&
-                <i className='w-6/12 text-center mt-4' style={{color: 'gray'}}>You are not listed as one of the approvers</i>
-            }
-            </div>
-            }
-
-
         </React.Fragment>
     );
 }

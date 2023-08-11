@@ -16,6 +16,7 @@ export default function DateFromToOBTCreate(props: DateFromToOBTCreateInterface)
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <div title="Make sure this field is logical. (i.e, `Date From` should come first and not the `Date To`)">
             <DateTimePicker
             label="Date From"
             value={createOBT?.obt_date_from}
@@ -33,6 +34,8 @@ export default function DateFromToOBTCreate(props: DateFromToOBTCreateInterface)
                 )
             }}
             />
+            </div>
+            <div title="Make sure this field is logical. (i.e, `Date From` should come first and not the `Date To`)">
             <DateTimePicker
             label="Date To"
             value={createOBT?.obt_date_to}
@@ -50,6 +53,7 @@ export default function DateFromToOBTCreate(props: DateFromToOBTCreateInterface)
                 )
             }}
             />
+            </div>
         </LocalizationProvider>
     );
 }

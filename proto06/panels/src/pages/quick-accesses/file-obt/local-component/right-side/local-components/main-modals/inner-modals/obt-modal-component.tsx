@@ -28,11 +28,3 @@ const OBTModalComponent = ((props:OBTModalComponentInterface) => {
 });
 
 export default OBTModalComponent;
-
-
-// Styles
-
-  
-const paySlipDetailsFont = {
-    fontSize: '12px',
-};

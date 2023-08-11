@@ -354,7 +354,7 @@ action$.pipe(
         if (error.response && error.response.data && error.response.data.error) {
           return of(HolidaysGetFailure(error.response.data.error)); 
         } else {
-          return of(HolidaysGetFailure(error.message)); 
+          return of(HolidaysGetFailure(beautifyJSON(error.response.data))); 
         }
       })
     )
@@ -375,7 +375,7 @@ action$.pipe(
         if (error.response && error.response.data && error.response.data['Error Message']) {
           return of(HolidayCreateFailure(error.response.data['Error Message'])); // Extract error message from the response
         } else {
-          return of(HolidayCreateFailure(error.message)); // If there is no custom error message, use the default one
+          return of(HolidayCreateFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
         }
       })
     )
@@ -396,7 +396,7 @@ action$.pipe(
         if (error.response && error.response.data && error.response.data['Error Message']) {
           return of(HolidayEditSubmitFailure(error.response.data['Error Message'])); // Extract error message from the response
         } else {
-          return of(HolidayEditSubmitFailure(error.message)); // If there is no custom error message, use the default one
+          return of(HolidayEditSubmitFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
         }
       })
     )
@@ -508,7 +508,7 @@ export const OBTViewEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(OBTViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(OBTViewActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(OBTViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -529,7 +529,7 @@ export const OBTViewFilterEmployeeEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(OBTViewFilterEmployeeActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(OBTViewFilterEmployeeActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(OBTViewFilterEmployeeActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -550,7 +550,7 @@ export const OBTViewFilterEmployeeAndOBTEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(OBTViewFilterEmployeeAndOBTActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(OBTViewFilterEmployeeAndOBTActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(OBTViewFilterEmployeeAndOBTActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -571,7 +571,7 @@ export const OBTViewFilterApproverEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(OBTViewFilterApproverActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(OBTViewFilterApproverActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(OBTViewFilterApproverActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -593,7 +593,7 @@ export const OBTCreateEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data) {
             return of(OBTCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
           } else {
-            return of(OBTCreateActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(OBTCreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -614,7 +614,7 @@ export const OBTEditEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(OBTEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(OBTEditActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(OBTEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -725,7 +725,7 @@ export const OVERTIMEViewEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(OVERTIMEViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(OVERTIMEViewActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(OVERTIMEViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -746,7 +746,7 @@ export const OVERTIMEViewFilterEmployeeEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(OVERTIMEViewFilterEmployeeActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(OVERTIMEViewFilterEmployeeActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(OVERTIMEViewFilterEmployeeActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -767,7 +767,7 @@ export const OVERTIMEViewFilterEmployeeAndOVERTIMEEpic: Epic = (action$, state$)
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(OVERTIMEViewFilterEmployeeAndOVERTIMEActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(OVERTIMEViewFilterEmployeeAndOVERTIMEActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(OVERTIMEViewFilterEmployeeAndOVERTIMEActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -788,7 +788,7 @@ export const OVERTIMEViewFilterApproverEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(OVERTIMEViewFilterApproverActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(OVERTIMEViewFilterApproverActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(OVERTIMEViewFilterApproverActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -809,7 +809,7 @@ export const OVERTIMECreateEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(OVERTIMECreateActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(OVERTIMECreateActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(OVERTIMECreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -830,7 +830,7 @@ export const OVERTIMEEditEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(OVERTIMEEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(OVERTIMEEditActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(OVERTIMEEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -941,7 +941,7 @@ export const LEAVEViewEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(LEAVEViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(LEAVEViewActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(LEAVEViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -962,7 +962,7 @@ export const LEAVEViewFilterEmployeeEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(LEAVEViewFilterEmployeeActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(LEAVEViewFilterEmployeeActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(LEAVEViewFilterEmployeeActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -983,7 +983,7 @@ export const LEAVEViewFilterEmployeeAndLEAVEEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(LEAVEViewFilterEmployeeAndLEAVEActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(LEAVEViewFilterEmployeeAndLEAVEActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(LEAVEViewFilterEmployeeAndLEAVEActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1004,7 +1004,7 @@ export const LEAVEViewFilterApproverEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(LEAVEViewFilterApproverActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(LEAVEViewFilterApproverActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(LEAVEViewFilterApproverActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1025,7 +1025,7 @@ export const LEAVECreateEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(LEAVECreateActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(LEAVECreateActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(LEAVECreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1046,7 +1046,7 @@ export const LEAVEEditEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(LEAVEEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(LEAVEEditActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(LEAVEEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1157,7 +1157,7 @@ export const UAViewEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(UAViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(UAViewActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(UAViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1178,7 +1178,7 @@ export const UAViewFilterEmployeeEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(UAViewFilterEmployeeActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(UAViewFilterEmployeeActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(UAViewFilterEmployeeActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1199,7 +1199,7 @@ export const UAViewFilterEmployeeAndUAEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(UAViewFilterEmployeeAndUAActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(UAViewFilterEmployeeAndUAActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(UAViewFilterEmployeeAndUAActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1220,7 +1220,7 @@ export const UAViewFilterApproverEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(UAViewFilterApproverActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(UAViewFilterApproverActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(UAViewFilterApproverActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1241,7 +1241,7 @@ export const UACreateEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(UACreateActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(UACreateActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(UACreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1262,7 +1262,7 @@ export const UAEditEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(UAEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(UAEditActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(UAEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1343,7 +1343,7 @@ export const LEAVECREDITViewEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(LEAVECREDITViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(LEAVECREDITViewActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(LEAVECREDITViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1364,7 +1364,7 @@ export const LEAVECREDITViewFilterEmployeeEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(LEAVECREDITViewFilterEmployeeActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(LEAVECREDITViewFilterEmployeeActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(LEAVECREDITViewFilterEmployeeActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1385,7 +1385,7 @@ export const LEAVECREDITCreateEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(LEAVECREDITCreateActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(LEAVECREDITCreateActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(LEAVECREDITCreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1406,7 +1406,7 @@ export const LEAVECREDITEditEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(LEAVECREDITEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(LEAVECREDITEditActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(LEAVECREDITEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1502,7 +1502,7 @@ export const LEAVETYPEViewEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(LEAVETYPEViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(LEAVETYPEViewActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(LEAVETYPEViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1523,7 +1523,7 @@ export const LEAVETYPEViewFilterEmployeeEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(LEAVETYPEViewFilterEmployeeActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(LEAVETYPEViewFilterEmployeeActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(LEAVETYPEViewFilterEmployeeActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1544,7 +1544,7 @@ export const LEAVETYPECreateEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(LEAVETYPECreateActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(LEAVETYPECreateActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(LEAVETYPECreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1565,7 +1565,7 @@ export const LEAVETYPEEditEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(LEAVETYPEEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(LEAVETYPEEditActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(LEAVETYPEEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1586,7 +1586,7 @@ export const SCHEDULESHIFTDeleteEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(SCHEDULESHIFTDeleteActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(SCHEDULESHIFTDeleteActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(SCHEDULESHIFTDeleteActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1668,7 +1668,7 @@ export const CUTOFFPERIODViewEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(CUTOFFPERIODViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(CUTOFFPERIODViewActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(CUTOFFPERIODViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1689,7 +1689,7 @@ export const CUTOFFPERIODViewFilterCUTOFFPERIODEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(CUTOFFPERIODViewFilterCUTOFFPERIODActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(CUTOFFPERIODViewFilterCUTOFFPERIODActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(CUTOFFPERIODViewFilterCUTOFFPERIODActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1710,7 +1710,7 @@ export const CUTOFFPERIODCreateEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(CUTOFFPERIODCreateActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(CUTOFFPERIODCreateActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(CUTOFFPERIODCreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1731,7 +1731,7 @@ export const CUTOFFPERIODEditEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(CUTOFFPERIODEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(CUTOFFPERIODEditActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(CUTOFFPERIODEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1826,7 +1826,7 @@ export const SCHEDULESHIFTViewEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(SCHEDULESHIFTViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(SCHEDULESHIFTViewActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(SCHEDULESHIFTViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1847,7 +1847,7 @@ export const SCHEDULESHIFTViewFilterSCHEDULESHIFTEpic: Epic = (action$, state$) 
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(SCHEDULESHIFTViewFilterSCHEDULESHIFTActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(SCHEDULESHIFTViewFilterSCHEDULESHIFTActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(SCHEDULESHIFTViewFilterSCHEDULESHIFTActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1868,7 +1868,7 @@ export const SCHEDULESHIFTCreateEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(SCHEDULESHIFTCreateActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(SCHEDULESHIFTCreateActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(SCHEDULESHIFTCreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1889,7 +1889,7 @@ export const SCHEDULESHIFTEditEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(SCHEDULESHIFTEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(SCHEDULESHIFTEditActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(SCHEDULESHIFTEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -1910,7 +1910,7 @@ export const LEAVETYPEDeleteEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(LEAVETYPEDeleteActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(LEAVETYPEDeleteActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(LEAVETYPEDeleteActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -2005,7 +2005,7 @@ export const SCHEDULEDAILYViewEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(SCHEDULEDAILYViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(SCHEDULEDAILYViewActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(SCHEDULEDAILYViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -2026,7 +2026,7 @@ export const SCHEDULEDAILYViewFilterEmployeeEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(SCHEDULEDAILYViewFilterEmployeeActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(SCHEDULEDAILYViewFilterEmployeeActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(SCHEDULEDAILYViewFilterEmployeeActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -2047,7 +2047,7 @@ export const SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYEpic: Epic = (action
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -2068,7 +2068,7 @@ export const SCHEDULEDAILYCreateEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(SCHEDULEDAILYCreateActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(SCHEDULEDAILYCreateActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(SCHEDULEDAILYCreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -2089,7 +2089,7 @@ export const SCHEDULEDAILYEditEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(SCHEDULEDAILYEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(SCHEDULEDAILYEditActionFailure(error.message)); // If there is no custom error message, use the default one
+            return of(SCHEDULEDAILYEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
