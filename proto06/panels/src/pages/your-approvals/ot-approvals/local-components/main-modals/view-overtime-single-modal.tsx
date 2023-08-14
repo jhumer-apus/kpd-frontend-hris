@@ -69,7 +69,7 @@ export default function ViewOVERTIMESingleModal(props: ViewOVERTIMESingleModalIn
 
 // Styles
 const overtimeModalArea = {
-  height: '158.5mm',
+  height: '188.5mm',
   width: '210mm',
   margin: '0 auto',
   background: 'white',
