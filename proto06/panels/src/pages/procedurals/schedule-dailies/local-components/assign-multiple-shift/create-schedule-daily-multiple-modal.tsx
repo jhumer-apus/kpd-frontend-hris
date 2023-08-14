@@ -113,7 +113,7 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
                         onChange={(newValue) => {
                             setCreateSCHEDULEDAILYForm((prevState)=> ({
                                 ...prevState,
-                                business_date_to: dayjs(newValue).format('YYYY-MM-DD')
+                                business_date_to: (newValue !== null ? dayjs(newValue).format('YYYY-MM-DD') :  null) 
                             }))
                         }}
                         label="Date Range To (Optional)"

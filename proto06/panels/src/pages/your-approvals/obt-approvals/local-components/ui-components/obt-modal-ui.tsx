@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { OBTViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
 import { convertDaysToHHMM, convertMinutesToHHMM,  } from '@/helpers/utils';
 import { Button } from '@mui/material';
@@ -8,6 +8,7 @@ import ApproveOBTModal from '../main-modals/inner-modals/approve-obt-modal';
 import DenyOBTModal from '../main-modals/inner-modals/deny-obt-modal';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
+import { ApprovalStateInterface } from '@/types/index';
 
 interface OBTModalUIInterface {
     singleOBTDetailsData: OBTViewInterface;
@@ -18,6 +19,10 @@ interface OBTModalUIInterface {
 function OBTModalUI(props: OBTModalUIInterface) {
     const [ approveOBTOpenModal, setApproveOBTOpenModal ] = useState(false);
     const [ denyOBTOpenModal, setDenyOBTOpenModal ] = useState(false);
+    const [ approvalState, setApprovalState ] = useState<ApprovalStateInterface>({
+        buttonDisabled: false,
+        message1Show: true,
+    })
     const { setSingleOBTDetailsData, singleOBTDetailsData } = props;
     const ThisProps = props.singleOBTDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
@@ -30,13 +35,58 @@ function OBTModalUI(props: OBTModalUIInterface) {
         }   
         
     };
-    const formIsPending = ThisProps.obt_approval_status.includes('1') || ThisProps.obt_approval_status.includes('2');
-    const userIsApprover1_pending = curr_user?.emp_no === ThisProps.obt_approver1_empno && !ThisProps.obt_date_approved1
-    const userIsApprover2_pending = curr_user?.emp_no === ThisProps.obt_approver2_empno && !ThisProps.obt_date_approved2
-    const userIsHigherRank = ((curr_user?.rank_data?.hierarchy as number) > singleOBTDetailsData?.applicant_rank)
-    const eligibleApprover = curr_user?.emp_no === ThisProps.obt_approver1_empno || curr_user?.emp_no === ThisProps.obt_approver2_empno || userIsHigherRank
-    const currUserApprovalPending = (userIsApprover1_pending || userIsApprover2_pending)
-    const needCurrUserApproval = currUserApprovalPending && userIsHigherRank
+
+    const UserApprover1 = curr_user?.emp_no === ThisProps.obt_approver1_empno
+    const UserApprover2 = curr_user?.emp_no === ThisProps.obt_approver2_empno
+    const fileHasTwoApprovers = ThisProps.obt_approver1_empno && ThisProps.obt_approver2_empno
+    const fileApprover1Approved = ThisProps.obt_date_approved1
+    const fileApprover2Approved = ThisProps.obt_date_approved2
+    const userIsHigherRank =  ((curr_user?.rank_data?.hierarchy as number) > singleOBTDetailsData?.applicant_rank)
+    
+    useEffect(()=> {
+        if(fileHasTwoApprovers){
+            if(UserApprover1 && fileApprover1Approved && fileApprover2Approved){
+                setApprovalState((prevState: ApprovalStateInterface) => {
+                    return (
+                        {
+                            ...prevState,
+                            buttonDisabled: true,
+                            message1Show: true,
+                        }
+                    )
+                })
+            }else if (UserApprover2 && fileApprover1Approved && !fileApprover2Approved) {
+                setApprovalState((prevState: ApprovalStateInterface) => {
+                    return (
+                        {
+                            ...prevState,
+                            buttonDisabled: false,
+                        }
+                    )
+                })
+            }else if (!UserApprover1 && !UserApprover2 && !fileApprover1Approved && userIsHigherRank ){
+                setApprovalState((prevState: ApprovalStateInterface) => {
+                    return (
+                        {
+                            buttonDisabled: false,
+                            message1Show: false,
+                        }
+                    )
+                })
+            }else {
+                setApprovalState((prevState: ApprovalStateInterface) => {
+                    return (
+                        {
+                            buttonDisabled: true,
+                            message1Show: true,
+                        }
+                    )
+                })
+            }
+        }
+
+    }, [approvalState])
+
     return (
         <React.Fragment>
             <ApproveOBTModal singleOBTDetailsData={singleOBTDetailsData} setSingleOBTDetailsData={setSingleOBTDetailsData} approveOBTOpenModal={approveOBTOpenModal} setApproveOBTOpenModal={setApproveOBTOpenModal}/>
@@ -67,26 +117,21 @@ function OBTModalUI(props: OBTModalUIInterface) {
                 </div>
 
             </div>
-            {formIsPending && 
             <div className='flex flex-col justify-center items-center'>
             <div className='flex justify-center mt-6' container-name='obt_buttons_container'>
                 <div className='flex justify-between' style={{width:'300px'}} container-name='obt_buttons'>
-                    <Button disabled={!needCurrUserApproval} variant='contained' onClick={()=> onClickModal(0)}>Approve OBT</Button>
-                    <Button disabled={!needCurrUserApproval} variant='outlined' onClick={()=> onClickModal(1)}>Deny OBT</Button>
+                    <Button disabled={approvalState.buttonDisabled} variant='contained' onClick={()=> onClickModal(0)}>Approve OBT</Button>
+                    <Button disabled={approvalState.buttonDisabled} variant='outlined' onClick={()=> onClickModal(1)}>Deny OBT</Button>
                 </div>
                 
             </div>
-            { !needCurrUserApproval && formIsPending &&
+            { approvalState.message1Show &&
                 <i className='w-6/12 text-center mt-4' style={{color: 'gray'}}>All listed approver must approve - Status: Pending </i>
             }
-            { formIsPending && needCurrUserApproval &&
+            { !approvalState.message1Show &&
                 <i className='w-6/12 text-center mt-4' style={{color: 'gray'}}>Your action is needed as eligible approver - Status: Pending </i>
             }
-            { eligibleApprover && formIsPending && needCurrUserApproval &&
-                <i className='w-6/12 text-center mt-4' style={{color: 'gray'}}>You are not listed / eligible to be one of the approvers</i>
-            }
             </div>
-            }
 
 
         </React.Fragment>

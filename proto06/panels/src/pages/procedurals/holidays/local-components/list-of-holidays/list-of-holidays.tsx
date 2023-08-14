@@ -70,7 +70,7 @@ function ListOfHolidaysComponent(props: HighlightedCalendarInterface) {
                     </CardBody>
                     <CardFooter className="border-t flex justify-between border-blue-gray-50 p-4">
                         <span>{dayjs(holiday_date).locale('en').format('MMMM D, YYYY')} - {`${holiday_location.charAt(0).toUpperCase()}${holiday_location.slice(1)}`}</span>
-                        <span style={{zoom: 0.8}}>{React.createElement(EditCalendarOutlinedIcon, {style: {color: holiday_type === 'SH'? HolidayColor._special_hex: HolidayColor._legal_hex}})}</span>
+                        <span title="Under Development" style={{zoom: 0.8}}>{React.createElement(EditCalendarOutlinedIcon, {style: {color: holiday_type === 'SH'? HolidayColor._special_hex: HolidayColor._legal_hex}})}</span>
                     </CardFooter>
                 </Card>
             </li>

@@ -102,7 +102,7 @@ export default function EditSCHEDULESHIFTModal(props: EditSCHEDULESHIFTModalInte
             size='sm'
         > 
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <Typography variant='h6' className='border-b-2 border-green-700'>Editing Cutoff Period</Typography>
+          <Typography variant='h6' className='border-b-2 border-green-700'>Editing Schedule Shift</Typography>
             <div className='flex gap-10 overflow-auto relative mt-4 p-4'>
                 <div className='flex gap-6 flex-col'>
                     <FormControl>
@@ -129,7 +129,7 @@ export default function EditSCHEDULESHIFTModal(props: EditSCHEDULESHIFTModalInte
                         </RadioGroup>
                     </FormControl>
                     <TextField 
-                      sx={{width: '100%'}} 
+                      sx={{width: '100%', border: "1px solid red"}} 
                       label='Grace Period(mins):'
                       type='number' 
                       value={(singleSCHEDULESHIFTDetailsData?.grace_period)}

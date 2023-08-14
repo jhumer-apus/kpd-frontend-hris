@@ -36,3 +36,8 @@ export interface BeautifyObject extends JSON {
 export interface ObjectFlat extends Object {
     [key:string]: any
 }
+
+export interface ApprovalStateInterface {
+    buttonDisabled: boolean,
+    message1Show: boolean,
+}

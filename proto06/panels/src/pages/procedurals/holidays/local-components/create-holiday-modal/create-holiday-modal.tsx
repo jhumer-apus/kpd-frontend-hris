@@ -46,7 +46,7 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
     const {open, handleClose} = props;
     const createHoliday = useSelector((state: RootState)=> state.procedurals?.HolidayCreate);
     const [createHolidayForm, setCreateHolidayForm] = useState<HolidayGetType>({
-        holiday_date: '',
+        holiday_date: null,
         holiday_description: '',
         holiday_type: '',
         holiday_location: ''
@@ -95,7 +95,7 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
                     disablePortal
                     id="holiday_type"
                     options={['SH', 'LH']}
-                    sx={{ width: 300 }}
+                    sx={{ width: "100%" }}
                     renderInput={(params) => <TextField {...params} required label="Holiday Type" />}
                 />
                 <Autocomplete
@@ -109,7 +109,7 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
                     disablePortal
                     id="holiday_location"
                     options={holiday_location}
-                    sx={{ width: 300 }}
+                    sx={{ width: "100%" }}
                     renderInput={(params) => <TextField {...params} required label="Holiday Location" />}
                 />
                 <LocalizationProvider dateAdapter={AdapterDayjs}>

@@ -84,14 +84,14 @@ export default function ProceduralSCHEDULEDAILYpage() {
                     </Typography>
                     <Typography>
                       <div className='flex flex-col gap-4'>
-                        <Button variant='contained' className='text-start' onClick={handleOpen1}>
+                        {/* <Button variant='contained' className='text-start' onClick={handleOpen1}>
+                          + Assign Shift
+                        </Button> */}
+                        <Button variant='outlined' onClick={handleOpen2}>
                           + Assign Shift
                         </Button>
-                        <Button variant='outlined' onClick={handleOpen2}>
-                          + Assign Multiple
-                        </Button>
                       </div>
-                      <CreateSCHEDULEDAILYModal open1={open1} setOpen1={setOpen1} handleOpen1={handleOpen1} handleClose1={handleClose1}/>
+                      {/* <CreateSCHEDULEDAILYModal open1={open1} setOpen1={setOpen1} handleOpen1={handleOpen1} handleClose1={handleClose1}/> */}
                       <CreateSCHEDULEDAILYMultipleModal open2={open2} setOpen2={setOpen2} handleOpen2={handleOpen2} handleClose2={handleClose2}/>
                     </Typography>
                     </div>

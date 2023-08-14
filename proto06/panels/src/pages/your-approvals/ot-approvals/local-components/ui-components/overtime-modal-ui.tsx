@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { OVERTIMEViewInterface } from '@/types/types-pages';
 import { Button } from '@mui/material';
 import dayjs from 'dayjs';
@@ -7,6 +7,7 @@ import ApproveOVERTIMEModal from '../main-modals/inner-modals/approve-overtime-m
 import DenyOVERTIMEModal from '../main-modals/inner-modals/deny-overtime-modal';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
+import { ApprovalStateInterface } from '@/types/index';
 
 interface OVERTIMEModalUIInterface {
     singleOVERTIMEDetailsData: OVERTIMEViewInterface;
@@ -29,13 +30,61 @@ function OVERTIMEModalUI(props: OVERTIMEModalUIInterface) {
         }   
         
     };
-    const formIsPending = ThisProps.ot_approval_status.includes('1') || ThisProps.ot_approval_status.includes('2');
-    const userIsApprover1_pending = curr_user?.emp_no === ThisProps.ot_approver1_empno && !ThisProps.ot_date_approved1
-    const userIsApprover2_pending = curr_user?.emp_no === ThisProps.ot_approver2_empno && !ThisProps.ot_date_approved2
-    const userIsHigherRank = ((curr_user?.rank_data?.hierarchy as number) > singleOVERTIMEDetailsData?.applicant_rank)
-    const eligibleApprover = curr_user?.emp_no === ThisProps.ot_approver1_empno || curr_user?.emp_no === ThisProps.ot_approver2_empno || userIsHigherRank
-    const currUserApprovalPending = (userIsApprover1_pending || userIsApprover2_pending)
-    const needCurrUserApproval = currUserApprovalPending && userIsHigherRank
+    const [ approvalState, setApprovalState ] = useState<ApprovalStateInterface>({
+        buttonDisabled: false,
+        message1Show: true,
+    })
+    const UserApprover1 = curr_user?.emp_no === ThisProps.ot_approver1_empno
+    const UserApprover2 = curr_user?.emp_no === ThisProps.ot_approver2_empno
+    const fileHasTwoApprovers = ThisProps.ot_approver1_empno && ThisProps.ot_approver2_empno
+    const fileApprover1Approved = ThisProps.ot_date_approved1
+    const fileApprover2Approved = ThisProps.ot_date_approved2
+    const userIsHigherRank =  ((curr_user?.rank_data?.hierarchy as number) > singleOVERTIMEDetailsData?.applicant_rank)
+    
+    useEffect(()=> {
+        if(fileHasTwoApprovers){
+            if(UserApprover1 && fileApprover1Approved && fileApprover2Approved){
+                setApprovalState((prevState: ApprovalStateInterface) => {
+                    return (
+                        {
+                            ...prevState,
+                            buttonDisabled: true,
+                            message1Show: true,
+                        }
+                    )
+                })
+            }else if (UserApprover2 && fileApprover1Approved && !fileApprover2Approved) {
+                setApprovalState((prevState: ApprovalStateInterface) => {
+                    return (
+                        {
+                            ...prevState,
+                            buttonDisabled: false,
+                        }
+                    )
+                })
+            }else if (!UserApprover1 && !UserApprover2 && !fileApprover1Approved && userIsHigherRank ){
+                setApprovalState((prevState: ApprovalStateInterface) => {
+                    return (
+                        {
+                            buttonDisabled: false,
+                            message1Show: false,
+                        }
+                    )
+                })
+            }else {
+                setApprovalState((prevState: ApprovalStateInterface) => {
+                    return (
+                        {
+                            buttonDisabled: true,
+                            message1Show: true,
+                        }
+                    )
+                })
+            }
+        }
+
+    }, [approvalState])
+
     
     return (
         <React.Fragment>
@@ -66,27 +115,22 @@ function OVERTIMEModalUI(props: OVERTIMEModalUIInterface) {
                 {ThisProps.ot_approval_status === 'APD' && <img src={ '/img/stampApproved2.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
                 {ThisProps.ot_approval_status === 'DIS' && <img src={ '/img/stampRejected.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
             </div>
-            {formIsPending && 
+
             <div className='flex flex-col justify-center items-center'>
             <div className='flex justify-center mt-6' container-name='ot_buttons_container'>
                 <div className='flex justify-between' style={{width:'400px'}} container-name='ot_buttons'>
-                    <Button disabled={!needCurrUserApproval} variant='contained' onClick={()=> onClickModal(0)}>Approve OVERTIME</Button>
-                    <Button disabled={!needCurrUserApproval} variant='outlined' onClick={()=> onClickModal(1)}>Deny OVERTIME</Button>
+                    <Button disabled={approvalState.buttonDisabled} variant='contained' onClick={()=> onClickModal(0)}>Approve OVERTIME</Button>
+                    <Button disabled={approvalState.buttonDisabled} variant='outlined' onClick={()=> onClickModal(1)}>Deny OVERTIME</Button>
                 </div>
                 
             </div>
-            { !needCurrUserApproval && formIsPending &&
+            { approvalState.message1Show &&
                 <i className='w-6/12 text-center mt-4' style={{color: 'gray'}}>All listed approver must approve - Status: Pending </i>
             }
-            { formIsPending && needCurrUserApproval &&
+            { !approvalState.message1Show &&
                 <i className='w-6/12 text-center mt-4' style={{color: 'gray'}}>Your action is needed as eligible approver - Status: Pending </i>
             }
-            { eligibleApprover && formIsPending && needCurrUserApproval &&
-                <i className='w-6/12 text-center mt-4' style={{color: 'gray'}}>You are not listed / eligible to be one of the approvers</i>
-            }
             </div>
-            }
-
 
         </React.Fragment>
     );

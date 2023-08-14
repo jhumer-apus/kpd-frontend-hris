@@ -61,9 +61,9 @@ function LEAVETYPEModalUI(props: LEAVETYPEModalUIInterface) {
             </div>
             <div className='flex flex-col justify-center items-center'>
             <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
-                <div className='flex justify-between' style={{width:'300px', marginTop: '20px'}} container-name='leave_buttons'>
+                <div className='flex justify-center' style={{width:'300px', marginTop: '20px'}} container-name='leave_buttons'>
                     <Button variant='contained' onClick={()=> onClickModal(1)}>EDIT ENTRY</Button>
-                    <Button variant='outlined' color="error" onClick={()=> onClickModal(0)}>DEACTIVATE ENTRY</Button>
+                    {/* <Button variant='outlined' color="error" onClick={()=> onClickModal(0)}>DEACTIVATE ENTRY</Button> */}
                 </div> 
             </div>
             </div>

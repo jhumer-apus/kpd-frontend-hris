@@ -312,7 +312,7 @@ export const routes: Array<IRoute> = [
           {
             id: 15110,
             icon: <CalendarMonthOutlinedIcon {...icon} />,
-            name: "Schedule Dailies",
+            name: "Daily Schedules",
             path: "/procedurals/schedule-dailies",
             element: <ProceduralSCHEDULEDAILYpage/>,
             // element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">SCHEDULE DAILIES PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
