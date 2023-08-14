@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { OVERTIMEViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
-import { convertDaysToHHMM, convertMinutesToHHMM,  } from '@/helpers/utils';
+import { OVERTIMEViewInterface } from '@/types/types-pages';
 import { Button } from '@mui/material';
 import dayjs from 'dayjs';
 import {TextField} from '@mui/material';
@@ -30,7 +29,14 @@ function OVERTIMEModalUI(props: OVERTIMEModalUIInterface) {
         }   
         
     };
-    const userIsApprover = curr_user?.emp_no === ThisProps.ot_approver1_empno || curr_user?.emp_no === ThisProps.ot_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleOVERTIMEDetailsData?.applicant_rank);
+    const formIsPending = ThisProps.ot_approval_status.includes('1') || ThisProps.ot_approval_status.includes('2');
+    const userIsApprover1_pending = curr_user?.emp_no === ThisProps.ot_approver1_empno && !ThisProps.ot_date_approved1
+    const userIsApprover2_pending = curr_user?.emp_no === ThisProps.ot_approver2_empno && !ThisProps.ot_date_approved2
+    const userIsHigherRank = ((curr_user?.rank_data?.hierarchy as number) > singleOVERTIMEDetailsData?.applicant_rank)
+    const eligibleApprover = curr_user?.emp_no === ThisProps.ot_approver1_empno || curr_user?.emp_no === ThisProps.ot_approver2_empno || userIsHigherRank
+    const currUserApprovalPending = (userIsApprover1_pending || userIsApprover2_pending)
+    const needCurrUserApproval = currUserApprovalPending && userIsHigherRank
+    
     return (
         <React.Fragment>
             <ApproveOVERTIMEModal singleOVERTIMEDetailsData={singleOVERTIMEDetailsData} setSingleOVERTIMEDetailsData={setSingleOVERTIMEDetailsData} approveOVERTIMEOpenModal={approveOVERTIMEOpenModal} setApproveOVERTIMEOpenModal={setApproveOVERTIMEOpenModal}/>
@@ -60,17 +66,23 @@ function OVERTIMEModalUI(props: OVERTIMEModalUIInterface) {
                 {ThisProps.ot_approval_status === 'APD' && <img src={ '/img/stampApproved2.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
                 {ThisProps.ot_approval_status === 'DIS' && <img src={ '/img/stampRejected.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
             </div>
-            {(ThisProps.ot_approval_status.includes('1') || ThisProps.ot_approval_status.includes('2')) && 
+            {formIsPending && 
             <div className='flex flex-col justify-center items-center'>
             <div className='flex justify-center mt-6' container-name='ot_buttons_container'>
                 <div className='flex justify-between' style={{width:'400px'}} container-name='ot_buttons'>
-                    <Button disabled={!userIsApprover} variant='contained' onClick={()=> onClickModal(0)}>Approve OVERTIME</Button>
-                    <Button disabled={!userIsApprover} variant='outlined' onClick={()=> onClickModal(1)}>Deny OVERTIME</Button>
+                    <Button disabled={!needCurrUserApproval} variant='contained' onClick={()=> onClickModal(0)}>Approve OVERTIME</Button>
+                    <Button disabled={!needCurrUserApproval} variant='outlined' onClick={()=> onClickModal(1)}>Deny OVERTIME</Button>
                 </div>
                 
             </div>
-            { !userIsApprover &&
-                <i className='w-6/12 text-center mt-4' style={{color: 'gray'}}>You are not listed as one of the approvers</i>
+            { !needCurrUserApproval && formIsPending &&
+                <i className='w-6/12 text-center mt-4' style={{color: 'gray'}}>All listed approver must approve - Status: Pending </i>
+            }
+            { formIsPending && needCurrUserApproval &&
+                <i className='w-6/12 text-center mt-4' style={{color: 'gray'}}>Your action is needed as eligible approver - Status: Pending </i>
+            }
+            { eligibleApprover && formIsPending && needCurrUserApproval &&
+                <i className='w-6/12 text-center mt-4' style={{color: 'gray'}}>You are not listed / eligible to be one of the approvers</i>
             }
             </div>
             }

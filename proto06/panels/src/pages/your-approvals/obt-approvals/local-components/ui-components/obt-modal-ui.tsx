@@ -30,7 +30,13 @@ function OBTModalUI(props: OBTModalUIInterface) {
         }   
         
     };
-    const userIsApprover = curr_user?.emp_no === ThisProps.obt_approver1_empno || curr_user?.emp_no === ThisProps.obt_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleOBTDetailsData?.applicant_rank);
+    const formIsPending = ThisProps.obt_approval_status.includes('1') || ThisProps.obt_approval_status.includes('2');
+    const userIsApprover1_pending = curr_user?.emp_no === ThisProps.obt_approver1_empno && !ThisProps.obt_date_approved1
+    const userIsApprover2_pending = curr_user?.emp_no === ThisProps.obt_approver2_empno && !ThisProps.obt_date_approved2
+    const userIsHigherRank = ((curr_user?.rank_data?.hierarchy as number) > singleOBTDetailsData?.applicant_rank)
+    const eligibleApprover = curr_user?.emp_no === ThisProps.obt_approver1_empno || curr_user?.emp_no === ThisProps.obt_approver2_empno || userIsHigherRank
+    const currUserApprovalPending = (userIsApprover1_pending || userIsApprover2_pending)
+    const needCurrUserApproval = currUserApprovalPending && userIsHigherRank
     return (
         <React.Fragment>
             <ApproveOBTModal singleOBTDetailsData={singleOBTDetailsData} setSingleOBTDetailsData={setSingleOBTDetailsData} approveOBTOpenModal={approveOBTOpenModal} setApproveOBTOpenModal={setApproveOBTOpenModal}/>
@@ -61,17 +67,23 @@ function OBTModalUI(props: OBTModalUIInterface) {
                 </div>
 
             </div>
-            {(ThisProps.obt_approval_status.includes('1') || ThisProps.obt_approval_status.includes('2')) && 
+            {formIsPending && 
             <div className='flex flex-col justify-center items-center'>
             <div className='flex justify-center mt-6' container-name='obt_buttons_container'>
                 <div className='flex justify-between' style={{width:'300px'}} container-name='obt_buttons'>
-                    <Button disabled={!userIsApprover} variant='contained' onClick={()=> onClickModal(0)}>Approve OBT</Button>
-                    <Button disabled={!userIsApprover} variant='outlined' onClick={()=> onClickModal(1)}>Deny OBT</Button>
+                    <Button disabled={!needCurrUserApproval} variant='contained' onClick={()=> onClickModal(0)}>Approve OBT</Button>
+                    <Button disabled={!needCurrUserApproval} variant='outlined' onClick={()=> onClickModal(1)}>Deny OBT</Button>
                 </div>
                 
             </div>
-            { !userIsApprover &&
-                <i className='w-6/12 text-center mt-4' style={{color: 'gray'}}>You are not listed as one of the approvers</i>
+            { !needCurrUserApproval && formIsPending &&
+                <i className='w-6/12 text-center mt-4' style={{color: 'gray'}}>All listed approver must approve - Status: Pending </i>
+            }
+            { formIsPending && needCurrUserApproval &&
+                <i className='w-6/12 text-center mt-4' style={{color: 'gray'}}>Your action is needed as eligible approver - Status: Pending </i>
+            }
+            { eligibleApprover && formIsPending && needCurrUserApproval &&
+                <i className='w-6/12 text-center mt-4' style={{color: 'gray'}}>You are not listed / eligible to be one of the approvers</i>
             }
             </div>
             }
