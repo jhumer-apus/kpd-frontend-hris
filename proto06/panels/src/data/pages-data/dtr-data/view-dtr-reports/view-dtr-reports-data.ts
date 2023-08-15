@@ -26,7 +26,7 @@ export const dynamicDTRColumns: Array<GridColDef[]> =
       width: 150,
       valueGetter: (params: GridValueGetterParams) => {
         const date = new Date(params.row.datetime_bio);
-        return date.toLocaleDateString();
+        return params.row.datetime_bio ? date.toLocaleDateString() : '-';
       },
     },
     {
@@ -35,7 +35,7 @@ export const dynamicDTRColumns: Array<GridColDef[]> =
       width: 150,
       valueGetter: (params: GridValueGetterParams) => {
         const shio = new Date(params.row.datetime_bio);
-        return shio.toLocaleTimeString();
+        return params.row.datetime_bio ? shio.toLocaleTimeString() : '-';
       },
     },
     { field: 'bio_id', headerName: 'Biometrics ID', width: 140 },

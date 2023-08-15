@@ -22,7 +22,7 @@ interface ApproveLEAVEModalInterface {
 export default function ApproveLEAVEModal(props: ApproveLEAVEModalInterface) {
   const dispatch = useDispatch();
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
-  const LEAVEApproveState = useSelector((state: RootState)=> state.procedurals.LEAVEEdit.status)
+  const LEAVEApproveData = useSelector((state: RootState)=> state.procedurals.LEAVEEdit)
   const {approveLEAVEOpenModal, setApproveLEAVEOpenModal, singleLEAVEDetailsData, setSingleLEAVEDetailsData} = props;
 
   const approveLEAVE = () => { 
@@ -57,15 +57,15 @@ export default function ApproveLEAVEModal(props: ApproveLEAVEModalInterface) {
   }
 
   React.useEffect(()=>{
-    if(LEAVEApproveState){
-      window.alert(`${LEAVEApproveState.charAt(0).toUpperCase()}${LEAVEApproveState.slice(1)}`)
-      if(LEAVEApproveState !== 'failed'){
-        setTimeout(()=>{
-          window.location.reload();
-        }, 800)
-      }
+    if(LEAVEApproveData.status === 'succeeded'){
+      window.alert(`${LEAVEApproveData.status.charAt(0).toUpperCase()}${LEAVEApproveData.status.slice(1)}`)
+      setTimeout(()=>{
+        window.location.reload();
+      }, 800)
+    } else if(LEAVEApproveData.status === 'failed'){
+      window.alert(LEAVEApproveData.error)
     }
-  }, [LEAVEApproveState])
+  }, [])
   return (
     <React.Fragment>
       <Transition in={approveLEAVEOpenModal} timeout={400}>

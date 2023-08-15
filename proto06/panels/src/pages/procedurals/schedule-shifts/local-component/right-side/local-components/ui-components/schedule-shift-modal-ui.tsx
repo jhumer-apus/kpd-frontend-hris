@@ -3,10 +3,7 @@ import { SCHEDULESHIFTViewInterface } from '@/types/types-pages';
 import { Button } from '@mui/material';
 import dayjs from 'dayjs';
 import {TextField} from '@mui/material';
-import ApproveSCHEDULESHIFTModal from '../main-modals/inner-modals/edit-schedule-shift-modal';
 import EditSCHEDULESHIFTModal from '../main-modals/inner-modals/edit-schedule-shift-modal';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
 
 interface SCHEDULESHIFTModalUIInterface {
     singleSCHEDULESHIFTDetailsData: SCHEDULESHIFTViewInterface;
@@ -19,7 +16,6 @@ function SCHEDULESHIFTModalUI(props: SCHEDULESHIFTModalUIInterface) {
     const [ editSCHEDULESHIFTOpenModal, setEditSCHEDULESHIFTOpenModal ] = useState(false);
     const { setSingleSCHEDULESHIFTDetailsData, singleSCHEDULESHIFTDetailsData } = props;
     const ThisProps = props.singleSCHEDULESHIFTDetailsData;
-    const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
     const onClickModal = (mode: number) => {
         switch(mode){
             case 0: setApproveSCHEDULESHIFTOpenModal(true);

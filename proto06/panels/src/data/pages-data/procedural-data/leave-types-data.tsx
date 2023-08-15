@@ -23,7 +23,7 @@ export const ProceduralLEAVETYPEPageColumns: GridColDef[] =
     width: 150,
     valueGetter: (params: GridValueGetterParams) => {
       const date = new Date(params.row.date_added);
-      return date.toLocaleDateString();
+      return params.row.date_added ? date.toLocaleDateString() : 'No date';
     }
   },
   { field: 'id', headerName: 'Leave Type Code:', width: 140 },

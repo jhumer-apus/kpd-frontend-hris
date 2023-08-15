@@ -22,7 +22,7 @@ interface DenyUAModalInterface {
 export default function DenyUAModal(props: DenyUAModalInterface) {
   const dispatch = useDispatch();
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
-  const UADenyState = useSelector((state: RootState)=> state.procedurals.UAEdit.status)
+  const UADenyData = useSelector((state: RootState)=> state.procedurals.UAEdit)
   const {denyUAOpenModal, setDenyUAOpenModal, singleUADetailsData, setSingleUADetailsData} = props;
   const DateNow = new Date();
   const denyDate = dayjs(DateNow).format('MMM-DD-YY LT');
@@ -46,16 +46,16 @@ export default function DenyUAModal(props: DenyUAModalInterface) {
       }
     }
 
-  React.useEffect(()=>{
-    if(UADenyState){      
-      if(UADenyState === 'succeeded'){
-        window.alert(`${UADenyState.charAt(0).toUpperCase()}${UADenyState.slice(1)}`)
+    React.useEffect(()=>{
+      if(UADenyData.status === 'succeeded'){
+        window.alert(`${UADenyData.status.charAt(0).toUpperCase()}${UADenyData.status.slice(1)}`)
         setTimeout(()=>{
           window.location.reload();
         }, 800)
+      } else if(UADenyData.status === 'failed'){
+        window.alert(UADenyData.error)
       }
-    }
-  }, [UADenyState])
+    }, [])
   return (
     <React.Fragment>
       <Transition in={denyUAOpenModal} timeout={400}>

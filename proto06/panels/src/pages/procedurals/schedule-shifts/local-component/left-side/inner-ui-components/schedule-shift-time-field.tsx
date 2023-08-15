@@ -18,7 +18,7 @@ export default function SCHEDULESHIFTTimeCreate(props: TimeFromToSCHEDULESHIFTCr
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <TimePicker
             label="Time In:"
-            value={createSCHEDULESHIFT?.time_in}
+            value={createSCHEDULESHIFT?.time_in === null ? null : dayjs(createSCHEDULESHIFT?.time_in, "HH:mm:ss")}
             onChange={(newValue) => {
                 const formattedDate = dayjs(newValue).format('HH:mm:ss');
                 return (
@@ -35,7 +35,7 @@ export default function SCHEDULESHIFTTimeCreate(props: TimeFromToSCHEDULESHIFTCr
             />
             <TimePicker
             label="Time Out:"
-            value={createSCHEDULESHIFT?.time_out}
+            value={createSCHEDULESHIFT?.time_out === null ? null : dayjs(createSCHEDULESHIFT?.time_out, "HH:mm:ss")}
             onChange={(newValue) => {
                 const formattedDate = dayjs(newValue).format('HH:mm:ss');
                 return(

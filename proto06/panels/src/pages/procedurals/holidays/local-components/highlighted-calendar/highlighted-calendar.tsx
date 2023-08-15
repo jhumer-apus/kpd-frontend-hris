@@ -11,6 +11,7 @@ import { StaticDatePicker, PickersShortcutsItem } from '@mui/x-date-pickers';
 import './highlighted-calendar.scss';
 import { APILink } from '@/store/configureStore';
 import { HolidayGetType } from '@/types/types-pages';
+import { HolidayColor } from '../list-of-holidays/list-of-holidays';
 
 export interface HighlightedCalendarInterface {
   value: dayjs.Dayjs | null,
@@ -22,12 +23,12 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[],
   const { highlightedDays = [], holidayTypes = {}, pipi, day, outsideCurrentMonth, ...other } = props;
   const isSelected = !props.outsideCurrentMonth && highlightedDays.includes(props.day.date());
   const holidayType = holidayTypes[day.format('YYYY-MM-DD')];
-  let badgeContent = undefined;
+  let badgeContent: React.ReactNode = null;
   if (isSelected) {
     if (holidayType === 'LH') {
-      badgeContent = '🟢'; // Heart symbol for LH
+      badgeContent = <div style={{width: "10px", height: "10px", borderRadius: "20px", background: HolidayColor._legal}}/>;
     } else if (holidayType === 'SH') {
-      badgeContent = '🟠'; // Moon symbol for SH
+      badgeContent = <div style={{width: "10px", height: "10px", borderRadius: "20px", background: HolidayColor._special}}/>; // Moon symbol for SH
     }
   }
   return (

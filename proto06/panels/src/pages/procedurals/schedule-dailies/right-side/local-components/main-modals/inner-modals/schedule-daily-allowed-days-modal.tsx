@@ -13,6 +13,11 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 
 interface AllowedDaysSCHEDULEDAILYModalInterface {
     singleSCHEDULEDAILYDetailsData: SCHEDULEDAILYViewInterface;
@@ -139,46 +144,32 @@ export default function AllowedDaysSCHEDULEDAILYModal(props: AllowedDaysSCHEDULE
                             }
                           )
                         })
-                        // return (
-                        //   setSingleSCHEDULEDAILYDetailsData((prevState) => {
-                        //     return (
-                        //       {
-                        //         ...prevState,
-                        //         emp_no: value
-                        //       }
-                        //     )
-                        //   })
-                        // )
                       }}  
                       variant='standard'
                     />
-                    <TextField 
-                      sx={{width: '100%'}} 
-                      label='Is Restday:'
-                      value={(singleSCHEDULEDAILYDetailsData?.is_restday)}
-                      onChange={(newValue)=> {
-                        const value = (newValue.target.value === 'true' ? true : false);
-                        setInitialEditState((prevState)=> {
-                          return (
-                            {
-                              ...prevState,
-                              is_restday: value,
-                            }
-                          )
-                        })
-                        return (
-                          setSingleSCHEDULEDAILYDetailsData((prevState) => {
-                            return (
-                              {
-                                ...prevState,
-                                is_restday: value
-                              }
-                            )
-                          })
-                        )
-                      }}
-                      variant='standard'
-                    />
+                    <FormControl>
+                        <FormLabel id="demo-controlled-radio-buttons-group">Is Restday</FormLabel>
+                        <RadioGroup
+                            row
+                            aria-labelledby="demo-controlled-radio-buttons-group"
+                            name="controlled-radio-buttons-group"
+                            value={`${!!singleSCHEDULEDAILYDetailsData.is_restday}`}
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                const value = (event.target.value=== 'true' ? true : false);
+                                setSingleSCHEDULEDAILYDetailsData((prevState)=> {
+                                    return (
+                                        {
+                                            ...prevState,
+                                            is_restday: value
+                                        }
+                                    )
+                                })
+                            }}
+                        >
+                            <FormControlLabel value="true" control={<Radio />} label="Yes" />
+                            <FormControlLabel value="false" control={<Radio />} label="No" />
+                        </RadioGroup>
+                    </FormControl>
                 </div>
                 <div className='flex gap-5 flex-col'>
                     <TextField 

@@ -23,7 +23,7 @@ export const ProceduralCUTOFFPERIODPageColumns: GridColDef[] =
     width: 150,
     valueGetter: (params: GridValueGetterParams) => {
       const date = new Date(params.row.credit_date);
-      return date.toLocaleDateString();
+      return params.row.credit_date ? date.toLocaleDateString() : "No Date";
     }
   },
   { field: 'payroll_group_code', headerName: 'Payroll Group:', width: 140 },

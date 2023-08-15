@@ -61,7 +61,7 @@ function PrintTableButton(props: PrintTableButton) {
             you'd print, you'd have to view the 101st item in the table first <br/>&nbsp;
             and then press print to have it reflected. For customization of designs <br/>&nbsp;
             of the printables, with logo, and etc. Please contact your administrator <br/>&nbsp;
-            <b>for a developer's analysis.</b>
+            <b>for a developer's analysis.</b> Also, recommended to view print on landscape for table.
             </Typography>
         </Popover>
         </Typography>

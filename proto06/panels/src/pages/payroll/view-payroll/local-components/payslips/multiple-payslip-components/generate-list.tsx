@@ -67,7 +67,7 @@ function GenerateList(props: GenerateListInterface) {
                 pageSizeOptions={[25, 50, 75, 100]}
                 onRowSelectionModelChange={handleSelection}
                 checkboxSelection
-                localeText={{ noRowsLabel: `${currentPayrollListStatus === 'loading' ? `${currentPayrollListStatus?.toUpperCase()}...` : currentPayrollListStatus === 'failed' ?  'No employee lists found. Contact your administrator/support.' : (currentPayrollListStatus === null || currentPayrollListStatus === undefined) ? 'Server Error. Contact your admin/developers.': 'SUCCEEDED...'}` }}
+                localeText={{ noRowsLabel: `${currentPayrollListStatus === 'loading' ? `${currentPayrollListStatus?.toUpperCase()}... Please wait` : currentPayrollListStatus === 'failed' ?  'Failed to fetch. Contact your administrator/support.' : (currentPayrollListStatus === null || currentPayrollListStatus === undefined) ? 'Server Error. Contact your admin/developers.': 'Success: No Content Found...'}` }}
             />
             </div>
         </div>

@@ -1,6 +1,5 @@
-import React, { Fragment, MutableRefObject, useState } from 'react';
+import { Fragment, MutableRefObject, useState } from 'react';
 import { ViewPayrollPayPerEmployee } from '@/types/types-pages';
-import { Box } from '@mui/material';
 import PayslipUI from '../payslip-ui';
 import { CSSProperties } from 'react';
 
@@ -22,16 +21,6 @@ function MultiplePreview(props: MultiplePreview) {
         boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.4)',
         overflow: 'auto',
     })
-
-
-    // const paySlipPreviewArea: CSSProperties = {
-    //     height: '307mm',
-    //     width: '220mm',
-    //     margin: '20px auto',
-    //     background: 'white',
-    //     boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.4)',
-    //     overflow: 'auto',
-    // };
 
     const renderPayslips = () => {
         const A4Papers = [];

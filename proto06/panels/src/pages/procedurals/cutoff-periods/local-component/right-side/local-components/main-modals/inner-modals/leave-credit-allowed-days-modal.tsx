@@ -156,13 +156,6 @@ export default function AllowedDaysCUTOFFPERIODModal(props: AllowedDaysCUTOFFPER
                     />
                 </div>
                 <div className='flex gap-5 flex-col'>
-                    {/* <TextField 
-                      sx={{width: '100%', minWidth: '160px', color: 'green'}} 
-                      label='Cutoff Code ID' 
-                      value={singleCUTOFFPERIODDetailsData.id}
-                      inputProps={{readOnly: true}}  
-                      variant='filled'
-                    /> */}
                     <DateTimePicker
                       label="Date Range From:"
                       value={dayjs(singleCUTOFFPERIODDetailsData.co_date_from)}
@@ -263,11 +256,19 @@ export default function AllowedDaysCUTOFFPERIODModal(props: AllowedDaysCUTOFFPER
             <div className='flex flex-col justify-center items-center'>
             <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
                 <div className='flex justify-between' style={{width:'200px', marginTop: '20px'}} container-name='leave_buttons'>
-                    {/* <Button variant='contained' color={'success'} onClick={()=> onClickModal(1)}>Edit Cutoff Period</Button> */}
                     <Button variant={'contained'} onClick={allowedDaysCUTOFFPERIOD}>Submit</Button>
                     <Button variant={'outlined'} onClick={()=>{setAllowedDaysCUTOFFPERIODOpenModal(false)}}>Cancel</Button>
                 </div>
             </div>
+            <div className='flex flex-col gap-0 justify-center items-center mt-2' style={{color: "rgba(81,26,26,0.7)"}}>
+              <div className='text-xs italic'>
+                Take Precaution When Editing the Dates of Cutoff Periods. Make sure
+              </div>
+              <div className='text-xs italic'>
+                there are no dependent other records affected to prevent data inconsistencies. 
+              </div>
+            </div>
+            
             </div>
         </LocalizationProvider>
         </ModalDialog>

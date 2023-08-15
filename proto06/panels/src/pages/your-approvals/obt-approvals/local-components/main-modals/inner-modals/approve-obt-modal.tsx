@@ -22,7 +22,7 @@ interface ApproveOBTModalInterface {
 export default function ApproveOBTModal(props: ApproveOBTModalInterface) {
   const dispatch = useDispatch();
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
-  const OBTApproveState = useSelector((state: RootState)=> state.procedurals.OBTEdit.status)
+  const OBTApproveData = useSelector((state: RootState)=> state.procedurals.OBTEdit)
   const {approveOBTOpenModal, setApproveOBTOpenModal, singleOBTDetailsData, setSingleOBTDetailsData} = props;
 
   const approveOBT = () => { 
@@ -57,15 +57,15 @@ export default function ApproveOBTModal(props: ApproveOBTModalInterface) {
   }
 
   React.useEffect(()=>{
-    if(OBTApproveState){
-      window.alert(`${OBTApproveState.charAt(0).toUpperCase()}${OBTApproveState.slice(1)}`)
-      if(OBTApproveState !== 'failed'){
-        setTimeout(()=>{
-          window.location.reload();
-        }, 800)
-      }
+    if(OBTApproveData.status === 'succeeded'){
+      window.alert(`${OBTApproveData.status.charAt(0).toUpperCase()}${OBTApproveData.status.slice(1)}`)
+      setTimeout(()=>{
+        window.location.reload();
+      }, 800)
+    } else if(OBTApproveData.status === 'failed'){
+      window.alert(OBTApproveData.error)
     }
-  }, [OBTApproveState])
+  }, [])
   return (
     <React.Fragment>
       <Transition in={approveOBTOpenModal} timeout={400}>

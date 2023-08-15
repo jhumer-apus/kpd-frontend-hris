@@ -129,7 +129,7 @@ export default function EditSCHEDULESHIFTModal(props: EditSCHEDULESHIFTModalInte
                         </RadioGroup>
                     </FormControl>
                     <TextField 
-                      sx={{width: '100%', border: "1px solid red"}} 
+                      // sx={{width: '100%', border: "1px solid red"}} 
                       label='Grace Period(mins):'
                       type='number' 
                       value={(singleSCHEDULESHIFTDetailsData?.grace_period)}

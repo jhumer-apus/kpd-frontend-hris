@@ -22,7 +22,7 @@ interface DenyOBTModalInterface {
 export default function DenyOBTModal(props: DenyOBTModalInterface) {
   const dispatch = useDispatch();
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
-  const OBTDenyState = useSelector((state: RootState)=> state.procedurals.OBTEdit.status)
+  const OBTDenyData = useSelector((state: RootState)=> state.procedurals.OBTEdit)
   const {denyOBTOpenModal, setDenyOBTOpenModal, singleOBTDetailsData, setSingleOBTDetailsData} = props;
   const DateNow = new Date();
   const denyDate = dayjs(DateNow).format('MMM-DD-YY LT');
@@ -46,16 +46,16 @@ export default function DenyOBTModal(props: DenyOBTModalInterface) {
       }
     }
 
-  React.useEffect(()=>{
-    if(OBTDenyState){      
-      if(OBTDenyState === 'succeeded'){
-        window.alert(`${OBTDenyState.charAt(0).toUpperCase()}${OBTDenyState.slice(1)}`)
+    React.useEffect(()=>{
+      if(OBTDenyData.status === 'succeeded'){
+        window.alert(`${OBTDenyData.status.charAt(0).toUpperCase()}${OBTDenyData.status.slice(1)}`)
         setTimeout(()=>{
           window.location.reload();
         }, 800)
+      } else if(OBTDenyData.status === 'failed'){
+        window.alert(OBTDenyData.error)
       }
-    }
-  }, [OBTDenyState])
+    }, [])
   return (
     <React.Fragment>
       <Transition in={denyOBTOpenModal} timeout={400}>

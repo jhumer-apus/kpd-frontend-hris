@@ -22,7 +22,7 @@ interface DenyOVERTIMEModalInterface {
 export default function DenyOVERTIMEModal(props: DenyOVERTIMEModalInterface) {
   const dispatch = useDispatch();
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
-  const OVERTIMEDenyState = useSelector((state: RootState)=> state.procedurals.OVERTIMEEdit.status)
+  const OVERTIMEDenyData = useSelector((state: RootState)=> state.procedurals.OVERTIMEEdit)
   const {denyOVERTIMEOpenModal, setDenyOVERTIMEOpenModal, singleOVERTIMEDetailsData, setSingleOVERTIMEDetailsData} = props;
   const DateNow = new Date();
   const denyDate = dayjs(DateNow).format('MMM-DD-YY LT');
@@ -46,16 +46,16 @@ export default function DenyOVERTIMEModal(props: DenyOVERTIMEModalInterface) {
       }
     }
 
-  React.useEffect(()=>{
-    if(OVERTIMEDenyState){      
-      if(OVERTIMEDenyState === 'succeeded'){
-        window.alert(`${OVERTIMEDenyState.charAt(0).toUpperCase()}${OVERTIMEDenyState.slice(1)}`)
+    React.useEffect(()=>{
+      if(OVERTIMEDenyData.status === 'succeeded'){
+        window.alert(`${OVERTIMEDenyData.status.charAt(0).toUpperCase()}${OVERTIMEDenyData.status.slice(1)}`)
         setTimeout(()=>{
           window.location.reload();
         }, 800)
+      } else if(OVERTIMEDenyData.status === 'failed'){
+        window.alert(OVERTIMEDenyData.error)
       }
-    }
-  }, [OVERTIMEDenyState])
+    }, [])
   return (
     <React.Fragment>
       <Transition in={denyOVERTIMEOpenModal} timeout={400}>

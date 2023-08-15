@@ -23,7 +23,7 @@ export const ProceduralLEAVECREDITPageColumns: GridColDef[] =
     width: 150,
     valueGetter: (params: GridValueGetterParams) => {
       const date = new Date(params.row.expiry);
-      return date.toLocaleDateString();
+      return params.row.expiry ? date.toLocaleDateString() : 'No Expiry';
     }
   },
   { field: 'emp_no', headerName: 'For Emp:', width: 120 },

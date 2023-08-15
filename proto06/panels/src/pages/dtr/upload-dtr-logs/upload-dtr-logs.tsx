@@ -84,8 +84,13 @@ export default function UploadDtrLogs() {
                     },
                   }
                 );
-                setActiveStep((prevActiveStep) => prevActiveStep + 1);
-                window.alert(`${response.data.message}`);
+                // setActiveStep((prevActiveStep) => prevActiveStep + 1);
+                if(response.status >= 200){
+                    window.alert(`Request Successful`);
+                    setTimeout(()=> {
+                        window.location.reload();
+                    }, 500)
+                }
               } catch (err) {
                 console.error(err);
                 window.alert(`DTR Logs Error in Upload ${err}`);
@@ -265,9 +270,6 @@ export default function UploadDtrLogs() {
                     </Box>
                 </Paper>
             </Grid>
-            {/* <Divider orientation="vertical" flexItem>
-                Preview &gt;&gt;
-            </Divider> */}
             <Grid item xs>
                 <Paper elevation={3} style={PaperStyle}>
                     <PreviewDtr csvData={csvData} fileName={fileName}/>
