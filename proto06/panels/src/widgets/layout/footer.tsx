@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { Typography } from "@material-tailwind/react";
 import { HeartIcon } from "@heroicons/react/24/solid";
+import JSXRouteWrapper from "@/routes";
 
 export function Footer({ brandName, brandLink, routes }) {
   const year = new Date().getFullYear();
@@ -21,7 +22,7 @@ export function Footer({ brandName, brandLink, routes }) {
           {/* for a better web. */} All Rights Reserved.
         </Typography>
         <ul className="flex items-center gap-4">
-          {routes.map(({ name, path }) => (
+          {JSXRouteWrapper().routes.map(({ name, path }) => (
             <li key={name}>
               <Typography
                 as="a"

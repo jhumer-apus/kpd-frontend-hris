@@ -1,12 +1,8 @@
 import { Dispatch, Fragment, SetStateAction, useState, useRef } from 'react';
 import ModalClose from '@mui/joy/ModalClose';
-import Typography from '@mui/joy/Typography';
-import ReactToPrint from 'react-to-print';
-import { Button } from '@material-tailwind/react';
 import PrintPayslipButton from './print-payslip-button';
 import PayslipUI from './payslip-ui';
 import { ViewPayrollPayPerEmployee } from '@/types/types-pages';
-import { GridRowParams } from '@mui/x-data-grid';
 
 
 interface SinglePayslip {

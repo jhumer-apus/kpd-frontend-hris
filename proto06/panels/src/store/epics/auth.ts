@@ -59,7 +59,7 @@ import { fetchUserData, fetchUserDataSuccess, fetchUserDataFailure, } from '../a
 
 // New API call function
 const fetchUserDataApiCall = async (emp_no: Number) => {
-  const response = await axios.get(`${APILink}employees/${emp_no}`);
+  const response = await axios.get(`${APILink}employees/${emp_no}/`);
   return response.data;
 };
 

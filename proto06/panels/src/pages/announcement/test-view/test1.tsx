@@ -3,15 +3,15 @@ import { ViewPayrollPayPerEmployee } from '@/types/types-pages';
 import { convertDaysToHHMM, convertMinutesToHHMM,  } from '@/helpers/utils';
 
 interface PaySlipUI {
-    payslipData: ViewPayrollPayPerEmployee;
+    payslipData?: ViewPayrollPayPerEmployee;
     multiplePayslipMode?: boolean;
 }
 
-function PayslipUI(props: PaySlipUI) {
+function TestView(props: PaySlipUI) {
     const ThisProps = props.payslipData;
     const dateNow = new Date();
     return (
-        <React.Fragment>
+        <div style={paySlipArea}>
             <div className='flex border align-center border-black justify-between overflow-x-auto text-xs ' style={{marginTop: !props.multiplePayslipMode? '50px': '', marginLeft: !props.multiplePayslipMode? '20px':'' }}>
                 <div className='flex'>
                     <div>
@@ -212,8 +212,19 @@ function PayslipUI(props: PaySlipUI) {
                     </div>
                 </div>
             </div>
-        </React.Fragment>
-    );
+        </div>
+    )
 }
 
-export default PayslipUI;
+export default TestView;
+
+
+const paySlipArea = {
+    height: '148.5mm',
+    width: '210mm',
+    margin: '0 auto',
+    background: 'white',
+    boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.1)',
+    overflow: 'hidden',
+    paddingRight: '20px'
+  };

@@ -1,4 +1,3 @@
-import React from 'react';
 import jsPDF from 'jspdf';
 
 import 'jspdf-autotable'; // Import the autotable plugin for tabular data

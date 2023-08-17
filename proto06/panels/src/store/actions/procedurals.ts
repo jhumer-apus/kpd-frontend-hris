@@ -442,7 +442,7 @@ export const SCHEDULEDAILYCreateActionProgress = createAction<number>("SCHEDULED
 export const SCHEDULEDAILYCreateActionFailure = createAction<string>("SCHEDULEDAILY_CREATE_ACTION_FAILURE");
 export const SCHEDULEDAILYCreateActionFailureCleanup = createAction("SCHEDULEDAILY_CREATE_ACTION_FAILURE_CLEANUP");
 
-export const SCHEDULEDAILYEditAction = createAction<SCHEDULEDAILYEditInterface>("SCHEDULEDAILY_EDIT_ACTION");
+export const SCHEDULEDAILYEditAction = createAction<SCHEDULEDAILYViewInterface>("SCHEDULEDAILY_EDIT_ACTION");
 export const SCHEDULEDAILYEditActionSuccess = createAction("SCHEDULEDAILY_EDIT_ACTION_SUCCESS", (SuccessMessage: SCHEDULEDAILYEditInterface) => { 
     return({ payload: {SuccessMessage} })
 });

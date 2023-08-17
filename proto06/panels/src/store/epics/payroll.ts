@@ -32,7 +32,7 @@ const processPayrollApiCall = async (payload: ProcessPayroll): Promise<string> =
 };
 
 const viewPayrollListApiCall = async () => {
-    const response = await axios.get(`${APILink}payroll`, 
+    const response = await axios.get(`${APILink}payroll/`, 
     {
         onDownloadProgress: (progressEvent) => {
           if(progressEvent.total){

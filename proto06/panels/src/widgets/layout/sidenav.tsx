@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/configureStore";
 import { UAViewFilterApproverAction, LEAVEViewFilterApproverAction, OVERTIMEViewFilterApproverAction, OBTViewFilterApproverAction } from "@/store/actions/procedurals";
 import { LEAVEViewInterface, OBTViewInterface, OVERTIMEViewInterface, UAViewInterface } from "@/types/types-pages";
+import JSXRouteWrapper from "@/routes";
 
 export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
   const dispatchRedux = useDispatch();
@@ -108,7 +109,7 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
         </IconButton>
       </div>
       <div className={styles.sideNavItemsWrap} style={{margin: '1rem'}}data-name="list">
-        {routes.map(({ layout, title, pages }, key) => 
+        {JSXRouteWrapper().routes.map(({ layout, title, pages }, key) => 
         {
           if (layout === "auth") return null;
           return(

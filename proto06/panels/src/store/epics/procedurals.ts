@@ -1918,8 +1918,7 @@ export const LEAVETYPEDeleteEpic: Epic = (action$, state$) =>
 );
 
 // SCHEDULEDAILY API SECTION // SCHEDULEDAILY API SECTION // SCHEDULEDAILY API SECTION // SCHEDULEDAILY API SECTION // SCHEDULEDAILY API SECTION
-const SCHEDULEDAILYEditApiCall = async (payload: SCHEDULEDAILYEditInterface) => {
-  console.log(payload, "hajsdhn")
+const SCHEDULEDAILYEditApiCall = async (payload: SCHEDULEDAILYViewInterface) => {
   const response = await axios.put(`${APILink}schedule_daily/${payload.emp_no}/${payload.id}/`,
   payload,
   {

@@ -8,11 +8,9 @@ import {
   Configurator,
   Footer,
 } from "@/widgets/layout";
-import routes from "@/routes";
 import { useMaterialTailwindController, setOpenConfigurator } from "@/context";
 import { ChooseDashboard, Profile } from "@/pages/dashboard";
-import HomePageBanner from "@/widgets/banner/banner";
-// import Auth from "./auth";
+import JSXRouteWrapper from "@/routes";
 
 export function Dashboard() {
   const [controller, dispatch] = useMaterialTailwindController();
@@ -21,7 +19,7 @@ export function Dashboard() {
   return (
     <div className="min-h-screen bg-blue-gray-50/50">
       <Sidenav
-        routes={routes}
+        routes={JSXRouteWrapper().routes}
         brandImg={
           sidenavType === "dark" ? "/img/logo-ct.png" : "/img/logo-ct-dark.png"
         }
@@ -39,7 +37,7 @@ export function Dashboard() {
           <Cog6ToothIcon className="h-5 w-5" />
         </IconButton>
         <Routes>
-          {routes.map(
+          {JSXRouteWrapper().routes.map(
             ({ layout, pages }) =>
               layout !== "auth" &&
               pages.map(({ path: parentPath, element: parentElement, hasSubItems, subItems }) => 

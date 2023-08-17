@@ -34,7 +34,7 @@ import { CutoffListMergeSelectionState } from '@/types/types-pages';
 import store from '../configureStore';
 
 const viewAllDtrLogsApiCall = async () => {
-    const response = await axios.get(`${APILink}dtr`);
+    const response = await axios.get(`${APILink}dtr/`);
     return response.data;
 };
 
@@ -57,7 +57,7 @@ const getCutoffDTRListEmployeeApiCall = async (cutoff_code: number) => {
   if(Number.isNaN(cutoff_code)){
     return;
   }
-  const response = await axios.get(`${APILink}dtr_summary/cutoff_period/${cutoff_code}`
+  const response = await axios.get(`${APILink}dtr_summary/cutoff_period/${cutoff_code}/`
   , {
     onDownloadProgress: (progressEvent) => {
       if(progressEvent.total){

@@ -30,17 +30,13 @@ export default function AllowedDaysSCHEDULEDAILYModal(props: AllowedDaysSCHEDULE
   const dispatch = useDispatch();
   const SCHEDULEDAILYAllowedDaysState = useSelector((state: RootState)=> state.procedurals.SCHEDULEDAILYEdit)
   const {allowedDaysSCHEDULEDAILYOpenModal, setAllowedDaysSCHEDULEDAILYOpenModal, singleSCHEDULEDAILYDetailsData, setSingleSCHEDULEDAILYDetailsData} = props;
-  const [ initialEditState, setInitialEditState ] = useState<SCHEDULEDAILYEditInterface>({
-    ...singleSCHEDULEDAILYDetailsData,
-    emp_no: null,
-    schedule_shift_code: null,
-  })
+  const [ initialEditState, setInitialEditState ] = useState<SCHEDULEDAILYViewInterface>(singleSCHEDULEDAILYDetailsData)
   const nullValues = Object.values(singleSCHEDULEDAILYDetailsData).filter(
     value => typeof value === null
   );
   const allowedDaysSCHEDULEDAILY = () => { 
     if(nullValues.length === 0 ){
-      dispatch(SCHEDULEDAILYEditAction(initialEditState))
+      dispatch(SCHEDULEDAILYEditAction(singleSCHEDULEDAILYDetailsData))
       } else {
       window.alert('A field has found to have no value, make sure to supplement it a value.');
     }
@@ -129,24 +125,6 @@ export default function AllowedDaysSCHEDULEDAILYModal(props: AllowedDaysSCHEDULE
                           )
                       }}
                     />
-                    <TextField 
-                      sx={{width: '100%'}} 
-                      label='Employee Number:'
-                      type='number' 
-                      value={(singleSCHEDULEDAILYDetailsData?.emp_no)}
-                      onChange={(newValue)=> {
-                        const value = parseInt(newValue.target.value);
-                        setInitialEditState((prevState)=> {
-                          return (
-                            {
-                              ...prevState,
-                              emp_no: value,
-                            }
-                          )
-                        })
-                      }}  
-                      variant='standard'
-                    />
                     <FormControl>
                         <FormLabel id="demo-controlled-radio-buttons-group">Is Restday</FormLabel>
                         <RadioGroup
@@ -187,52 +165,14 @@ export default function AllowedDaysSCHEDULEDAILYModal(props: AllowedDaysSCHEDULE
                             }
                           )
                         })
-                        // return (
-                        //   setSingleSCHEDULEDAILYDetailsData((prevState) => {
-                        //     return (
-                        //       {
-                        //         ...prevState,
-                        //         schedule_shift_code: value
-                        //       }
-                        //     )
-                        //   })
-                        // )
                       }}
                       variant='standard'
-                    />
-                    <TextField 
-                      sx={{width: '100%'}} 
-                      label='Schedule is Default' 
-                      value={(singleSCHEDULEDAILYDetailsData?.sched_default)}  
-                      variant='standard'
-                      onChange={(newValue)=> {
-                        const value = (newValue.target.value === 'true' ? true : false);
-                        setInitialEditState((prevState)=> {
-                          return (
-                            {
-                              ...prevState,
-                              sched_default: value,
-                            }
-                          )
-                        })
-                        return (
-                          setSingleSCHEDULEDAILYDetailsData((prevState) => {
-                            return (
-                              {
-                                ...prevState,
-                                sched_default: value
-                              }
-                            )
-                          })
-                        )
-                      }}
                     />
                 </div>
             </div>
             <div className='flex flex-col justify-center items-center'>
             <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
                 <div className='flex justify-between' style={{width:'200px', marginTop: '20px'}} container-name='leave_buttons'>
-                    {/* <Button variant='contained' color={'success'} onClick={()=> onClickModal(1)}>Edit Cutoff Period</Button> */}
                     <Button variant={'contained'} onClick={allowedDaysSCHEDULEDAILY}>Submit</Button>
                     <Button variant={'outlined'} onClick={()=>{setAllowedDaysSCHEDULEDAILYOpenModal(false)}}>Cancel</Button>
                 </div>
@@ -250,7 +190,7 @@ export default function AllowedDaysSCHEDULEDAILYModal(props: AllowedDaysSCHEDULE
 
 // Styles
 const allowedDaysSCHEDULEDAILYArea = {
-  height: '148.5mm',
+  height: '98.5mm',
   width: '120mm',
   margin: '0 auto',
   background: 'white',

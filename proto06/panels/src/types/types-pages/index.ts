@@ -496,7 +496,7 @@ export interface SCHEDULESHIFTEditInterface extends SCHEDULESHIFTViewInterface {
 
 
 export interface SCHEDULEDAILYCreateInterface {
-    schedule_shift_code: SCHEDULESHIFTViewInterface | null;
+    schedule_shift_code: SCHEDULESHIFTViewInterface | number | null;
     business_date_from: string | null;
     business_date_to: string | null;  
     emp_no: number[] | [];
@@ -511,7 +511,6 @@ export interface SCHEDULEDAILYViewInterface extends SCHEDULEDAILYCreateInterface
 }
 
 export interface SCHEDULEDAILYEditInterface {
-    id?: number;
     schedule_shift_code: number | null;
     business_date: string | null;
     emp_no: number | null;

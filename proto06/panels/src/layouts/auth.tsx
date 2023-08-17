@@ -38,15 +38,6 @@ export function Auth() {
       <div className="container relative z-40 mx-auto p-4">
         <Navbar routes={navbarRoutes} />
       </div>
-      {/* <Routes>
-        {routes.map(
-          ({ layout, pages }) =>
-            layout === "auth" &&
-            pages.map(({ path, element }) => (
-              <Route path={path} element={element} />
-            ))
-        )}
-      </Routes> */}
       <SignIn/>
       <div className="container absolute bottom-8 left-2/4 z-10 mx-auto -translate-x-2/4 text-white">
         <Footer />

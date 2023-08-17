@@ -10,7 +10,7 @@ import { StaticDatePicker } from '@mui/x-date-pickers';
 import './highlighted-calendar.scss';
 import { APILink } from '@/store/configureStore';
 import { SCHEDULEDAILYViewInterface, SCHEDULESHIFTViewInterface } from '@/types/types-pages';
-import { ScheduleDailyColor } from '../list-of-holidays/list-of-schedule-daily';
+import { ScheduleDailyColor } from '@/types/index';
 
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';

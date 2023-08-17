@@ -12,7 +12,7 @@ const getEmployeesListApiCall = async () => {
 
     // const response = await axios.post(`https://bitverse-api.herokuapp.com/login`, {
     // const response = await axios.post(`http://172.16.168.144:8888/login`, {
-    const response = await axios.get(`${APILink}employees`);
+    const response = await axios.get(`${APILink}employees/`);
   return response.data;
 };
 
