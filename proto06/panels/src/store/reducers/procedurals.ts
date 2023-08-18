@@ -324,7 +324,8 @@ SCHEDULESHIFTViewInterface |
 SCHEDULESHIFTCreateInterface |
 SCHEDULEDAILYViewInterface[] | 
 SCHEDULEDAILYViewInterface | 
-SCHEDULEDAILYCreateInterface
+SCHEDULEDAILYCreateInterface |
+SCHEDULEDAILYEditInterface 
 ;
 
 interface CommonProceduralState {

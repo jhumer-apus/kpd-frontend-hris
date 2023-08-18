@@ -524,12 +524,105 @@ export interface SCHEDULEDAILYEditInterface extends SCHEDULEDAILYGeneric {
     emp_no: number;
 }
 
+// ============================================
+export interface BRANCHGenericInterface {
+    branch_name: string,
+    branch_address: string,
+    branch_email: string,
+    branch_contact_number: string,
+    branch_oic: string,
+}
+
+export interface BRANCHViewInterface extends BRANCHGenericInterface{
+    readonly id: number,
+    readonly date_added: string,
+    readonly date_deleted: string | null,
+}
+
+export interface BRANCHCreateInterface extends BRANCHGenericInterface{
+    current_user: number,
+}
+
+export interface BRANCHEditInterface extends BRANCHGenericInterface, BRANCHCreateInterface, BRANCHViewInterface {}
+
+// ============================================
+export interface DEPARTMENTGenericInterface {
+    dept_name: string,
+    dept_lead: number,
+    dept_branch_code: number,
+}
+
+export interface DEPARTMENTViewInterface extends DEPARTMENTGenericInterface{
+    readonly id: number,
+    readonly date_added: string,
+    readonly date_deleted: string | null,
+}
+
+export interface DEPARTMENTCreateInterface extends DEPARTMENTGenericInterface{
+    current_user: number,
+}
+
+export interface DEPARTMENTEditInterface extends DEPARTMENTGenericInterface, DEPARTMENTCreateInterface, DEPARTMENTViewInterface {}
+
+// ============================================
+export interface DIVISIONGenericInterface {
+    div_name: string,
+    div_lead: number,
+    div_branch_code: number,
+}
+
+export interface DIVISIONViewInterface extends DIVISIONGenericInterface{
+    readonly id: number,
+    readonly date_added: string,
+    readonly date_deleted: string | null,
+}
+
+export interface DIVISIONCreateInterface extends DIVISIONGenericInterface{
+    current_user: number,
+}
+
+export interface DIVISIONEditInterface extends DIVISIONGenericInterface, DIVISIONCreateInterface, DIVISIONViewInterface {}
+
+// ============================================
+export interface PAYROLLGROUPGenericInterface {
+    name: string,
+    payroll_description: string | null,
+    payroll_freq: number,
+}
+
+export interface PAYROLLGROUPViewInterface extends PAYROLLGROUPGenericInterface{
+    readonly id: number,
+    readonly date_added: string,
+    readonly date_deleted: string | null,
+    used_account: number,
+}
+
+export interface PAYROLLGROUPCreateInterface extends PAYROLLGROUPGenericInterface{
+    current_user: number,
+}
+
+export interface PAYROLLGROUPEditInterface extends PAYROLLGROUPGenericInterface, PAYROLLGROUPCreateInterface, PAYROLLGROUPViewInterface {}
 
 
+// ============================================
+export interface POSITIONGenericInterface {
+    pos_name: string,
+    pos_description: string | null,
+}
 
-// ===============================================================================================================================================================
+export interface POSITIONViewInterface extends POSITIONGenericInterface{
+    readonly id: number,
+    readonly date_added: string,
+    readonly date_deleted: string | null,
+}
 
+export interface POSITIONCreateInterface extends POSITIONGenericInterface{
+    current_user: number,
+}
 
+export interface POSITIONEditInterface extends POSITIONGenericInterface, POSITIONCreateInterface, POSITIONViewInterface {}
+
+// ============================================ 
 export interface RankDataInterface { 
     date_added: string;
     date_deleted: string | null;
@@ -539,3 +632,25 @@ export interface RankDataInterface {
     rank_description: string;
     rank_name: string;
 }
+
+
+export interface RANKGenericInterface {
+    rank_name: string,
+    rank_description: string,
+    is_approver: boolean,
+}
+
+export interface RANKViewInterface extends RANKGenericInterface{
+    readonly id: number,
+    date_added: string,
+    date_deleted: string | null,
+}
+
+export interface RANKCreateInterface extends RANKGenericInterface{
+    hierarchy: number,
+    current_user: number,
+}
+
+export interface RANKEditInterface extends RANKGenericInterface, RANKCreateInterface, RANKViewInterface {}
+
+
