@@ -495,27 +495,33 @@ export interface SCHEDULESHIFTViewInterface extends SCHEDULESHIFTCreateInterface
 export interface SCHEDULESHIFTEditInterface extends SCHEDULESHIFTViewInterface {}
 
 
-export interface SCHEDULEDAILYCreateInterface {
-    schedule_shift_code: SCHEDULESHIFTViewInterface | number | null;
+
+export interface SCHEDULEDAILYGeneric {
+    is_restday: boolean;
+    sched_default: boolean | null;
+}
+
+export interface SCHEDULEDAILYCreateInterface extends SCHEDULEDAILYGeneric{
     business_date_from: string | null;
     business_date_to: string | null;  
     emp_no: number[] | [];
-    is_restday: boolean;
-    sched_default: boolean | null;
+    schedule_shift_code: number
+
 }
 
-export interface SCHEDULEDAILYViewInterface extends SCHEDULEDAILYCreateInterface { 
-    id: number;
-    is_processed: boolean | null;
+export interface SCHEDULEDAILYViewInterface extends SCHEDULEDAILYGeneric { 
+    readonly id: number;
+    schedule_shift_code: SCHEDULESHIFTViewInterface;
     business_date: string;
+    is_processed: boolean | null;
+    emp_no: number;
 }
 
-export interface SCHEDULEDAILYEditInterface {
-    schedule_shift_code: number | null;
-    business_date: string | null;
-    emp_no: number | null;
-    is_restday: boolean;
-    sched_default: boolean | null;
+export interface SCHEDULEDAILYEditInterface extends SCHEDULEDAILYGeneric {
+    id: number;
+    schedule_shift_code: number;
+    business_date: string;
+    emp_no: number;
 }
 
 

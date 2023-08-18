@@ -1,4 +1,4 @@
-import {useEffect, Dispatch, SetStateAction, useState, ChangeEvent, Fragment}from 'react';
+import {useEffect, Dispatch, SetStateAction, useState, Fragment, CSSProperties}from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
@@ -8,16 +8,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
 import { SCHEDULEDAILYCreateActionFailureCleanup, SCHEDULEDAILYEditAction } from '@/store/actions/procedurals';
-
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-
+import { DatePicker } from '@mui/x-date-pickers';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import SCHEDULESHIFTFetchAutoCompleteOnSCHEDULEDAILYEditPage from './schedule-shift-autocomplete/schedule-shift-autocomplete';
+
+
+import { Box } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 
 interface AllowedDaysSCHEDULEDAILYModalInterface {
     singleSCHEDULEDAILYDetailsData: SCHEDULEDAILYViewInterface;
@@ -30,17 +33,41 @@ export default function AllowedDaysSCHEDULEDAILYModal(props: AllowedDaysSCHEDULE
   const dispatch = useDispatch();
   const SCHEDULEDAILYAllowedDaysState = useSelector((state: RootState)=> state.procedurals.SCHEDULEDAILYEdit)
   const {allowedDaysSCHEDULEDAILYOpenModal, setAllowedDaysSCHEDULEDAILYOpenModal, singleSCHEDULEDAILYDetailsData, setSingleSCHEDULEDAILYDetailsData} = props;
-  const [ initialEditState, setInitialEditState ] = useState<SCHEDULEDAILYViewInterface>(singleSCHEDULEDAILYDetailsData)
+  const [ circular, setCircular ] = useState({
+    show: true,
+    transition: true,
+  });
+  const CircularProgressStyle: CSSProperties = {
+    display: circular.show? 'flex' : 'none', 
+    zIndex: "999", 
+    position: "absolute", 
+    top: "0", 
+    left: "0", 
+    background: "white", 
+    height: "100%", 
+    width: "100%", 
+    opacity: circular.transition? '1': '0', 
+    transition: 'opacity 0.5s ease',
+  };
+
+  const [ initialEditState, setInitialEditState ] = useState<SCHEDULEDAILYEditInterface>(
+    {
+      id: singleSCHEDULEDAILYDetailsData.id,
+      business_date: singleSCHEDULEDAILYDetailsData.business_date,
+      is_restday: singleSCHEDULEDAILYDetailsData.is_restday,
+      emp_no: singleSCHEDULEDAILYDetailsData.emp_no,
+      schedule_shift_code: singleSCHEDULEDAILYDetailsData.schedule_shift_code?.id ?? 0,
+      sched_default: singleSCHEDULEDAILYDetailsData.sched_default,
+    }
+  );
+
   const nullValues = Object.values(singleSCHEDULEDAILYDetailsData).filter(
     value => typeof value === null
   );
+
   const allowedDaysSCHEDULEDAILY = () => { 
-    if(nullValues.length === 0 ){
-      dispatch(SCHEDULEDAILYEditAction(singleSCHEDULEDAILYDetailsData))
-      } else {
-      window.alert('A field has found to have no value, make sure to supplement it a value.');
-    }
-  }
+    dispatch(SCHEDULEDAILYEditAction(initialEditState))
+  };
 
   useEffect(()=>{
     if(SCHEDULEDAILYAllowedDaysState.status){      
@@ -48,13 +75,52 @@ export default function AllowedDaysSCHEDULEDAILYModal(props: AllowedDaysSCHEDULE
         window.alert(`${SCHEDULEDAILYAllowedDaysState.status.charAt(0).toUpperCase()}${SCHEDULEDAILYAllowedDaysState.status.slice(1)}`)
         setTimeout(()=>{
           window.location.reload();
-        }, 800)
+        }, 400)
       }else if (SCHEDULEDAILYAllowedDaysState.status === 'failed'){
         window.alert(`${SCHEDULEDAILYAllowedDaysState.error}`)
         dispatch(SCHEDULEDAILYCreateActionFailureCleanup());
       }
-    }
-  }, [SCHEDULEDAILYAllowedDaysState.status])
+    };
+
+    if(SCHEDULEDAILYAllowedDaysState.status === 'loading' || SCHEDULEDAILYAllowedDaysState.status === 'succeeded'){
+      return
+    } else {
+      setInitialEditState({
+        id: singleSCHEDULEDAILYDetailsData.id,
+        business_date: singleSCHEDULEDAILYDetailsData.business_date,
+        is_restday: singleSCHEDULEDAILYDetailsData.is_restday,
+        emp_no: singleSCHEDULEDAILYDetailsData.emp_no,
+        schedule_shift_code: singleSCHEDULEDAILYDetailsData.schedule_shift_code?.id || 0,
+        sched_default: singleSCHEDULEDAILYDetailsData.sched_default,
+      });
+    };
+  }, [SCHEDULEDAILYAllowedDaysState.status, singleSCHEDULEDAILYDetailsData]);
+
+
+  useEffect(()=> {
+
+    setTimeout(()=> {
+      setCircular((prevState) => ({
+        ...prevState,
+        show: false
+      }));
+    }, 2600);
+    setTimeout(()=> {
+      setCircular((prevState) => ({
+        ...prevState,
+        transition: false
+      }));
+    }, 2000);
+
+    return(()=>{
+      setCircular(() => ({
+        show: true,
+        transition: true
+      }));
+    })
+
+  }, [allowedDaysSCHEDULEDAILYOpenModal])
+
   return (
     <Fragment>
       <Transition in={allowedDaysSCHEDULEDAILYOpenModal} timeout={400}>
@@ -96,45 +162,41 @@ export default function AllowedDaysSCHEDULEDAILYModal(props: AllowedDaysSCHEDULE
             }}
             size='sm'
         > 
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <Typography variant='h6' className='border-b-2 border-green-700'>Editing Daily Schedule</Typography>
-            <div className='flex gap-10 overflow-auto relative mt-4 p-4'>
-                <div className='flex gap-6 flex-col'>
-                    <DateTimePicker
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Typography variant='h6' className='border-b-2 border-green-700'>Editing Daily Schedule</Typography>
+              <div>
+                {/* <Box sx={CircularProgressStyle}>
+                    <span style={{marginLeft: "50%", marginTop: "20%"}}><CircularProgress /></span>
+                </Box> */}
+                <div className='flex flex-col gap-10 overflow-auto relative mt-4 p-4'>
+                    <DatePicker
                       label="Business Date:"
-                      value={dayjs(singleSCHEDULEDAILYDetailsData.business_date)}
+                      value={dayjs(initialEditState.business_date)}
                       onChange={(newValue) => {
                           const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
-                          setInitialEditState((prevState)=> {
-                            return (
-                              {
-                                ...prevState,
-                                business_date: formattedDate,
-                              }
-                            )
-                          })
                           return (
-                            setSingleSCHEDULEDAILYDetailsData((prevState)=>{
-                                  return(
-                                      {
-                                          ...prevState,
-                                          business_date: formattedDate
-                                      }
-                                  )
-                              })
+                            setInitialEditState((prevState)=> {
+                              return (
+                                {
+                                  ...prevState,
+                                  business_date: formattedDate,
+                                }
+                              )
+                            })
                           )
                       }}
                     />
+                    <SCHEDULESHIFTFetchAutoCompleteOnSCHEDULEDAILYEditPage createSCHEDULEDAILYEdit={initialEditState} setSCHEDULEDAILYEdit={setInitialEditState}/>
                     <FormControl>
                         <FormLabel id="demo-controlled-radio-buttons-group">Is Restday</FormLabel>
                         <RadioGroup
                             row
                             aria-labelledby="demo-controlled-radio-buttons-group"
                             name="controlled-radio-buttons-group"
-                            value={`${!!singleSCHEDULEDAILYDetailsData.is_restday}`}
+                            value={`${initialEditState.is_restday}`}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value = (event.target.value=== 'true' ? true : false);
-                                setSingleSCHEDULEDAILYDetailsData((prevState)=> {
+                                setInitialEditState((prevState)=> {
                                     return (
                                         {
                                             ...prevState,
@@ -148,12 +210,10 @@ export default function AllowedDaysSCHEDULEDAILYModal(props: AllowedDaysSCHEDULE
                             <FormControlLabel value="false" control={<Radio />} label="No" />
                         </RadioGroup>
                     </FormControl>
-                </div>
-                <div className='flex gap-5 flex-col'>
                     <TextField 
                       sx={{width: '100%'}} 
                       label='Shift Code:'
-                      value={(singleSCHEDULEDAILYDetailsData?.schedule_shift_code?.id)}
+                      value={(initialEditState.schedule_shift_code)}
                       type='number'
                       onChange={(newValue)=> {
                         const value = parseInt(newValue.target.value);
@@ -169,16 +229,16 @@ export default function AllowedDaysSCHEDULEDAILYModal(props: AllowedDaysSCHEDULE
                       variant='standard'
                     />
                 </div>
-            </div>
-            <div className='flex flex-col justify-center items-center'>
-            <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
-                <div className='flex justify-between' style={{width:'200px', marginTop: '20px'}} container-name='leave_buttons'>
-                    <Button variant={'contained'} onClick={allowedDaysSCHEDULEDAILY}>Submit</Button>
-                    <Button variant={'outlined'} onClick={()=>{setAllowedDaysSCHEDULEDAILYOpenModal(false)}}>Cancel</Button>
+                <div className='flex flex-col justify-center items-center'>
+                  <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
+                      <div className='flex justify-between' style={{width:'200px', marginTop: '20px'}} container-name='leave_buttons'>
+                          <Button variant={'contained'} onClick={allowedDaysSCHEDULEDAILY}>Submit</Button>
+                          <Button variant={'outlined'} onClick={()=>{setAllowedDaysSCHEDULEDAILYOpenModal(false)}}>Cancel</Button>
+                      </div>
+                  </div>
                 </div>
-            </div>
-            </div>
-        </LocalizationProvider>
+              </div>
+          </LocalizationProvider>
         </ModalDialog>
       </Modal>
         )}
@@ -190,10 +250,12 @@ export default function AllowedDaysSCHEDULEDAILYModal(props: AllowedDaysSCHEDULE
 
 // Styles
 const allowedDaysSCHEDULEDAILYArea = {
-  height: '98.5mm',
+  height: '148.5mm',
   width: '120mm',
   margin: '0 auto',
   background: 'white',
   boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.1)',
   overflow: 'hidden',
 };
+
+

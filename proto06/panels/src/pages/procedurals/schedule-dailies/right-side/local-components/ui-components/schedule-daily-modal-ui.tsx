@@ -5,7 +5,6 @@ import dayjs from 'dayjs';
 import {TextField} from '@mui/material';
 import AllowedDaysSCHEDULEDAILYModal from '../main-modals/inner-modals/schedule-daily-allowed-days-modal';
 
-
 interface SCHEDULEDAILYModalUIInterface {
     singleSCHEDULEDAILYDetailsData: SCHEDULEDAILYViewInterface;
     multiplePayslipMode?: boolean;
@@ -29,14 +28,13 @@ function SCHEDULEDAILYModalUI(props: SCHEDULEDAILYModalUIInterface) {
 
     return (
         <Fragment>
-
             { singleSCHEDULEDAILYDetailsData &&
                 <AllowedDaysSCHEDULEDAILYModal 
-                singleSCHEDULEDAILYDetailsData={singleSCHEDULEDAILYDetailsData} 
-                setSingleSCHEDULEDAILYDetailsData={setSingleSCHEDULEDAILYDetailsData} 
-                allowedDaysSCHEDULEDAILYOpenModal={allowedDaysSCHEDULEDAILYOpenModal} 
-                setAllowedDaysSCHEDULEDAILYOpenModal={setAllowedDaysSCHEDULEDAILYOpenModal}
-            />
+                    singleSCHEDULEDAILYDetailsData={singleSCHEDULEDAILYDetailsData} 
+                    setSingleSCHEDULEDAILYDetailsData={setSingleSCHEDULEDAILYDetailsData} 
+                    allowedDaysSCHEDULEDAILYOpenModal={allowedDaysSCHEDULEDAILYOpenModal} 
+                    setAllowedDaysSCHEDULEDAILYOpenModal={setAllowedDaysSCHEDULEDAILYOpenModal}
+                />
             }
             <div className='flex gap-10 overflow-auto relative'>
                 <div className='flex gap-6 flex-col'>

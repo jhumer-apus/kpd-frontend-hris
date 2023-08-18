@@ -63,6 +63,7 @@ export default function SCHEDULESHIFTFetchAutoCompleteOnSCHEDULEDAILYEditPage(pr
         ...option,
         };
     });
+    const defaultOption = options?.find((option) => option.SCHEDULESHIFT_id === createSCHEDULEDAILYEdit.schedule_shift_code)
     
     const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string, reason: AutocompleteInputChangeReason) => {
         const matchingSCHEDULESHIFT = SCHEDULESHIFTList.find(
@@ -81,24 +82,53 @@ export default function SCHEDULESHIFTFetchAutoCompleteOnSCHEDULEDAILYEditPage(pr
     };
     
     return (
-        <Autocomplete
-        // disableCloseOnSelect
-        id="grouped-demo"
-        options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
-        groupBy={(option) => option.firstLetter}
-        getOptionLabel={(option) => option.SCHEDULESHIFT}
-        onInputChange={handleInputChange}
-        sx={{ width: '100%' }}
-        isOptionEqualToValue={isOptionEqualToValue}
-        renderInput={(params) => 
-            {   
-                return(
-                    <TextField {...params} label="Schedule Shifts" />
-                )
-
+        <>
+            {defaultOption &&
+                <Autocomplete
+                // disableCloseOnSelect
+                id="grouped-demo"
+                options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
+                groupBy={(option) => option.firstLetter}
+                getOptionLabel={(option) => option.SCHEDULESHIFT}
+                defaultValue={defaultOption}
+                onInputChange={handleInputChange}
+                sx={{ width: '100%' }}
+                isOptionEqualToValue={isOptionEqualToValue}
+                renderInput={(params) => 
+                    {   
+                        return(
+                            <TextField {...params} label="Schedule Shift" />
+                        )
+        
+                    }
+        
+                }
+                />
             }
+            {!defaultOption &&
+                <Autocomplete
+                // disableCloseOnSelect
+                id="grouped-demo"
+                options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
+                groupBy={(option) => option.firstLetter}
+                getOptionLabel={(option) => option.SCHEDULESHIFT}
+                // options={["Loading"]}
+                // defaultValue={"Loading"}
+                onInputChange={handleInputChange}
+                sx={{ width: '100%' }}
+                isOptionEqualToValue={isOptionEqualToValue}
+                renderInput={(params) => 
+                    {   
+                        return(
+                            <TextField {...params} label={(!defaultOption && !!createSCHEDULEDAILYEdit.schedule_shift_code) ? `Loading Values...` : `No Schedule Assigned (Choose if assigning)`} />
+                        )
+        
+                    }
+        
+                }
+                />
+            }
+        </>
 
-        }
-        />
     );
 }

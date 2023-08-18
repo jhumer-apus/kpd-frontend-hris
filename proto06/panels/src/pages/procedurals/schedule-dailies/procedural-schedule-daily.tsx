@@ -46,57 +46,57 @@ export default function ProceduralSCHEDULEDAILYpage() {
 
 
 
-    return (
-        <Fragment>
-        <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
-            <Grid item xs={6}>
-                <Paper elevation={3} style={PaperStyle}>
-                    <div className='flex justify-between'>
-                        <div className='flex flex-col'>
-                          <Typography variant={'h6'}>
-                            Daily Schedule of an Employee
-                          </Typography>
-                          <Typography variant={'small'} className='italic'>
-                            Some Restdays have schedules', make sure to be guided accordingly.
-                          </Typography>
-                          <Typography variant={'small'} className='italic'>
-                            Hover date to check details. And make sure this is intended.
-                          </Typography>
-                        </div>
-                        <div>
-                          <Typography className='flex my-2'><p style={{background: ScheduleDailyColor._restday, borderRadius: '100px', width: '25px', opacity: '0.4'}}></p>&nbsp;&nbsp;Restday</Typography>
-                          <Typography className='flex mb-2'><p style={{background: ScheduleDailyColor._workday, borderRadius: '100px', width: '25px', opacity: '0.4'}}></p>&nbsp;&nbsp;Workday</Typography>  
-                        </div>
-                    </div>
-                    <div className='flex justify-center align-center'>
-                      <HighlightedCalendar value={value} setValue={setValue} currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/>
-                    </div>
-                    <div className='flex justify-around'>
-                    <Typography variant={'paragraph'}>
-                      <p>Click the list to view date</p>
-                      <p>or + Assign Shift to add</p>
-                    </Typography>
-                    <Typography>
-                      <div className='flex flex-col gap-4'>
-                        <Button variant='outlined' onClick={handleOpen2}>
-                          + Assign Shift
-                        </Button>
-                      </div>
-                      <CreateSCHEDULEDAILYMultipleModal open2={open2} setOpen2={setOpen2} handleOpen2={handleOpen2} handleClose2={handleClose2}/>
-                    </Typography>
-                    </div>
-                </Paper>
-            </Grid>
-            <Grid item xs={6}>
-                <Paper elevation={3} style={PaperStyle}>
-                    <div className='flex justify-between'>
-                    <Typography variant={'h6'} style={{alignItems: 'center', display: 'flex'}}>Choose Employee to view Daily Schedule</Typography>
-                    <EmployeeAutoCompleteRight currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/>
-                    </div>
-                    <ProceduralSCHEDULEDAILYPageHistory currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/>
-                </Paper>
-            </Grid>
+  return (
+    <Fragment>
+      <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
+        <Grid item xs={6}>
+          <Paper elevation={3} style={PaperStyle}>
+            <div className='flex justify-between'>
+              <div className='flex flex-col'>
+                <Typography variant={'h6'}>
+                  Daily Schedule of an Employee
+                </Typography>
+                <Typography variant={'small'} className='italic'>
+                  Some Restdays have schedules', make sure to be guided accordingly.
+                </Typography>
+                <Typography variant={'small'} className='italic'>
+                  Hover date to check details. And make sure this is intended.
+                </Typography>
+              </div>
+              <div>
+                <Typography className='flex my-2'><p style={{background: ScheduleDailyColor._restday, borderRadius: '100px', width: '25px', opacity: '0.4'}}></p>&nbsp;&nbsp;Restday</Typography>
+                <Typography className='flex mb-2'><p style={{background: ScheduleDailyColor._workday, borderRadius: '100px', width: '25px', opacity: '0.4'}}></p>&nbsp;&nbsp;Workday</Typography>  
+              </div>
+            </div>
+            <div className='flex justify-center align-center'>
+              <HighlightedCalendar value={value} setValue={setValue} currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/>
+            </div>
+            <div className='flex justify-around'>
+            <Typography variant={'paragraph'}>
+              <p>Click the list to view date</p>
+              <p>or + Assign Shift to add</p>
+            </Typography>
+            <Typography>
+              <div className='flex flex-col gap-4'>
+                <Button variant='outlined' onClick={handleOpen2}>
+                  + Assign Shift
+                </Button>
+              </div>
+              <CreateSCHEDULEDAILYMultipleModal open2={open2} setOpen2={setOpen2} handleOpen2={handleOpen2} handleClose2={handleClose2}/>
+            </Typography>
+            </div>
+          </Paper>
         </Grid>
-        </Fragment>
-    );
+        <Grid item xs={6}>
+          <Paper elevation={3} style={PaperStyle}>
+            <div className='flex justify-between'>
+            <Typography variant={'h6'} style={{alignItems: 'center', display: 'flex'}}>Choose Employee to view Daily Schedule</Typography>
+            <EmployeeAutoCompleteRight currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/>
+            </div>
+            <ProceduralSCHEDULEDAILYPageHistory currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/>
+          </Paper>
+        </Grid>
+      </Grid>
+    </Fragment>
+  );
 }

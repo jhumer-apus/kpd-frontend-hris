@@ -277,7 +277,7 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
 
 Sidenav.defaultProps = {
   brandImg: "/img/logo-ct.png",
-  brandName: "Cavdeal-Cavite Corp",
+  brandName: "HR Integrated System",
 };
 
 Sidenav.propTypes = {
