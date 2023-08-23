@@ -122,7 +122,7 @@ export const SpecificEmployee = (props: initialState) => {
                 if(key === "employee_image" && file){
                     formData.append(key, file);
                 }else if(key === "employee_image" && value.includes('image')){
-                    formData.append(key, null);
+                    formData.append("", "");
                 }else {
                     formData.append(key, value);
                 }
