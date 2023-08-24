@@ -33,7 +33,6 @@ import { fetchUserData, userLogout } from "@/store/actions/auth";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-// import { RootState } from "@/store/reducers";
 import { APILink, RootState } from "@/store/configureStore";
 import { useEffect } from "react";
 import { UnderDevelopmentMsg } from "@/pages/dashboard/hris-portal/local-components/projects-card";
@@ -43,19 +42,19 @@ export function DashboardNavbar() {
   const navigate = useNavigate();
   const dispatchV2 = useDispatch();  
   const { employee_detail }= useSelector((state: RootState) => state.auth);
-  // const hello = useSelector((state: RootState)=> state);
 
   useEffect(()=>{
     if(employee_detail?.emp_no){
       dispatchV2(fetchUserData({emp_no: employee_detail?.emp_no}))
     }
   }, [])
-  // "/media/image/prof6_2wAfFr1.jpg"
 
   const [controller, dispatch] = useMaterialTailwindController();
   const { fixedNavbar, openSidenav } = controller;
   const { pathname } = useLocation();
-  const [layout, page, innermostpage] = pathname.split("/").filter((el) => el !== "");  
+  const [layout, page, innermostpage, firstInner, secondInner ] = pathname.split("/").filter((el) => el !== "");  
+  console.log(pathname.split("/").filter((el) => el !== ""), "asdasd?")
+  
   const updatedImage = employee_detail?.employee_image;
   const handleLogout = () => {
     // Perform logout actions here
@@ -65,8 +64,6 @@ export function DashboardNavbar() {
     });
     setTimeout(()=> {
       dispatchV2(userLogout());
-      
-      // navigate('/');  // Navigate to the desired route after logout
     }, 200)
     window.location.reload();
     window.location.replace('/')
@@ -134,9 +131,36 @@ export function DashboardNavbar() {
             :
             null
             }
+            {firstInner ? 
+            <Link to={`/${layout}/${page}/${innermostpage}/${firstInner}`}>
+                <Typography
+                  variant="small"
+                  color="blue-gray"
+                  className="font-normal"
+                >
+                  {firstInner?.replace("-", " ")}
+                </Typography>
+            </Link>
+            :
+            null
+            }
+            {secondInner ? 
+            <Link to={`/${layout}/${page}/${innermostpage}/${firstInner}`}>
+                <Typography
+                  variant="small"
+                  color="blue-gray"
+                  className="font-normal"
+                >
+                  {secondInner?.replace("-", " ")}
+                </Typography>
+                
+            </Link>
+            :
+            null
+            }
           </Breadcrumbs>
           <Typography variant="h6" color="blue-gray">
-            {innermostpage ? innermostpage?.replace("-", " ") : page?.replace("-", " ")}
+            {secondInner? secondInner.replace("-", " ") : firstInner? firstInner.replace("-", " ") : innermostpage ? innermostpage?.replace("-", " ") : page?.replace("-", " ")}
           </Typography>
         </div>
         <div className="flex items-center">

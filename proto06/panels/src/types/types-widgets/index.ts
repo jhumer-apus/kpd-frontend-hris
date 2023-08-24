@@ -42,6 +42,8 @@ export interface EasyAccessCardProps {
     footer: NonNullable<React.ReactNode>;
     custom?: string;
     link?: string;
+    onClickHandler?: (key:string)=> void;
+    onClickDetails?: string;
 }
 
 export interface CelebrantsDataProps {

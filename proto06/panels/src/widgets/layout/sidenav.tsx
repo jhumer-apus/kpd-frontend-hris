@@ -129,8 +129,6 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
             { if(hasSubItems){
               return(
                 <Fragment>
-                  {/* <NavLink to={`/${layout}${path}`}>
-                    {({ isActive }) => ( */}
                     <li key={name}>
                         <CollapsibleSection
                           header={

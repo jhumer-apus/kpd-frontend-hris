@@ -63,10 +63,10 @@ import ProceduralSCHEDULESHIFTSPage from "./pages/procedurals/schedule-shifts/pr
 import ProceduralSCHEDULEDAILYpage from "./pages/procedurals/schedule-dailies/procedural-schedule-daily";
 import HistoryToggleOffOutlinedIcon from '@mui/icons-material/HistoryToggleOffOutlined';
 import YourSCHEDULEDAILYpage from "./pages/quick-accesses/your-schedule/your-schedule-daily";
-import PayslipUI from "./pages/payroll/view-payroll/local-components/payslips/payslip-ui";
 import TestView from "./pages/announcement/test-view/test1";
 import { useSelector } from "react-redux";
 import { RootState } from "./store/configureStore";
+import CategoriesManagement from "./pages/dashboard/admin-portal/first-inner-pages/categories-management";
 
 
 const icon = {
@@ -102,7 +102,67 @@ const JSXRouteWrapper = () => {
               name: "Admin Portal",
               path: "/Dashboards/Admin-Dashboard",
               element: <AdminPortal/>,
-              hasSubItems: false,
+              hasSubItems: true,
+              subItems: [
+                {
+                  id: 112000,
+                  icon: <HomeIcon {...icon} />,
+                  name: "Categories",
+                  path: "/Dashboards/Admin-Dashboard/Categories",
+                  element: <CategoriesManagement/>,
+                  hasSubItems: true,
+                  subItems: [
+                    {
+                      id: 1120000,
+                      icon: <HomeIcon {...icon} />,
+                      name: "Branch",
+                      path: "/Dashboards/Admin-Dashboard/Categories/Branch",
+                      element: <h1>Hi this is branch</h1>,
+                      hasSubItems: false,
+                    },
+                    {
+                      id: 1120001,
+                      icon: <HomeIcon {...icon} />,
+                      name: "Department",
+                      path: "/Dashboards/Admin-Dashboard/Categories/Department",
+                      element: <h1>Hi this is dept</h1>,
+                      hasSubItems: false,
+                    },
+                    {
+                      id: 1120002,
+                      icon: <HomeIcon {...icon} />,
+                      name: "Division",
+                      path: "/Dashboards/Admin-Dashboard/Categories/Division",
+                      element: <h1>Hi this is div</h1>,
+                      hasSubItems: false,
+                    },
+                    {
+                      id: 1120003,
+                      icon: <HomeIcon {...icon} />,
+                      name: "Payroll Group",
+                      path: "/Dashboards/Admin-Dashboard/Categories/Payrollgroup",
+                      element: <h1>Hi this is pg</h1>,
+                      hasSubItems: false,
+                    },
+                    {
+                      id: 1120004,
+                      icon: <HomeIcon {...icon} />,
+                      name: "Position",
+                      path: "/Dashboards/Admin-Dashboard/Categories/Position",
+                      element: <h1>Hi this is pos</h1>,
+                      hasSubItems: false,
+                    },
+                    {
+                      id: 1120005,
+                      icon: <HomeIcon {...icon} />,
+                      name: "Rank",
+                      path: "/Dashboards/Admin-Dashboard/Categories/Rank",
+                      element: <h1>Hi this is rank</h1>,
+                      hasSubItems: false,
+                    },
+                  ]
+                },
+              ]
             },
           ]
         },
@@ -120,7 +180,17 @@ const JSXRouteWrapper = () => {
               name: "201 Files",
               path: "/employees/201-files",
               element: <DataTable/>, 
-              hasSubItems: false,
+              hasSubItems: true,
+              subItems: [
+                {
+                  id: 121000,
+                  icon: <UserCircleIcon {...icon} />,
+                  name: "201 Files",
+                  path: "/employees/201-files/extra",
+                  element: <h1>testing</h1>, 
+                  hasSubItems: false,
+                },
+              ]
             },
             {
               id: 12200,
@@ -457,7 +527,6 @@ const JSXRouteWrapper = () => {
       ],
     },
   ];
-
   return {
     routes,
   }

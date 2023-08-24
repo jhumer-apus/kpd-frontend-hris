@@ -1,39 +1,37 @@
-import {
-    BanknotesIcon,
-    UserPlusIcon,
-    UserIcon,
-    ChartBarIcon,
-    Cog8ToothIcon,
-    ClockIcon,
-    KeyIcon,
-    UserGroupIcon,
-    ClipboardDocumentIcon,
-    ComputerDesktopIcon,
-    Cog6ToothIcon,
-  } from "@heroicons/react/24/solid";
-  
-  
+import KeyboardCommandKeyOutlinedIcon from '@mui/icons-material/KeyboardCommandKeyOutlined';
+import SupervisedUserCircleOutlinedIcon from '@mui/icons-material/SupervisedUserCircleOutlined';
+import RecentActorsOutlinedIcon from '@mui/icons-material/RecentActorsOutlined';
+import ThreePOutlinedIcon from '@mui/icons-material/ThreePOutlined';
+import NoAccountsOutlinedIcon from '@mui/icons-material/NoAccountsOutlined';
+import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
+
+import AccountTreeOutlinedIcon from '@mui/icons-material/AccountTreeOutlined';
+import AdUnitsOutlinedIcon from '@mui/icons-material/AdUnitsOutlined';
+import ArtTrackOutlinedIcon from '@mui/icons-material/ArtTrackOutlined';
+import CurrencyExchangeOutlinedIcon from '@mui/icons-material/CurrencyExchangeOutlined';
+import Diversity3OutlinedIcon from '@mui/icons-material/Diversity3Outlined';
+import Diversity2OutlinedIcon from '@mui/icons-material/Diversity2Outlined';
+
 export const adminPortalData = [
   {
-    // color: "red",
     type: 2,
-    icon: KeyIcon,
-    title: "Role Management",
-    value: "RM",
+    icon: KeyboardCommandKeyOutlinedIcon,
+    title: "Categories Management",
+    value: "CM",
     footer: {
     color: "text-green-500",
     value: "<",
-    label: "Manage Roles, etc.",
+    label: "Manage Divisions, Ranks etc.",
     },
     // custom: "linear-gradient(315deg, #d4418e 0%, #0652c5 74%)",
     // custom: "linear-gradient(315deg, #ffcfdf 0%, #b0f3f1 74%)",
     custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
-    link: 'development',
+    link: '/home/Dashboards/Admin-Dashboard/Categories',
     customTop: 15,
     customLeft: 38,
   },
   {
-    icon: UserGroupIcon,
+    icon: SupervisedUserCircleOutlinedIcon,
     title: "User Account Management",
     value: "UAM",
     footer: {
@@ -49,7 +47,7 @@ export const adminPortalData = [
     customLeft: 38,
   },
   {
-    icon: ClockIcon,
+    icon: RecentActorsOutlinedIcon,
     title: "Attendance Access",
     value: "AA Permission",
     footer: {
@@ -65,7 +63,7 @@ export const adminPortalData = [
     customLeft: 38,
   },
   {
-    icon: ClipboardDocumentIcon,
+    icon: ThreePOutlinedIcon,
     title: "Directory Management",
     value: "HTLI",
     footer: {
@@ -76,12 +74,12 @@ export const adminPortalData = [
     // custom: "linear-gradient(315deg, #d4418e 0%, #0652c5 74%)",
     // custom: "linear-gradient(315deg, #ffcfdf 0%, #b0f3f1 74%)",
     custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
-    link: 'development',
+    link: '/home/Dashboards/Admin-Dashboard/Categories',
     customTop: 15,
     customLeft: 38,
   },
   {
-    icon: ComputerDesktopIcon,
+    icon: NoAccountsOutlinedIcon,
     title: "UA Access Approvers",
     value: "UA Permissions",
     footer: {
@@ -97,7 +95,7 @@ export const adminPortalData = [
     customLeft: 38,
   },
   {
-    icon: Cog6ToothIcon,
+    icon: AssessmentOutlinedIcon,
     title: "Reporting Tools",
     value: "Reports",
     footer: {
@@ -112,5 +110,109 @@ export const adminPortalData = [
     customTop: 15,
     customLeft: 38,
   },
-  ];
-  export default adminPortalData;
+];
+
+export const categoriesManagementData = [
+  {
+    // color: "red",
+    type: 2,
+    icon: AccountTreeOutlinedIcon,
+    title: "Manage Branch List",
+    value: "Branch",
+    footer: {
+    color: "text-green-500",
+    value: "<",
+    label: "View Branch List, Details etc.",
+    },
+    custom: "linear-gradient(315deg, #d4418e 0%, #0652c5 74%)",
+    // custom: "linear-gradient(315deg, #ffcfdf 0%, #b0f3f1 74%)",
+    // custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
+    link: '/home/Dashboards/Admin-Dashboard/Categories/Branch',
+    customTop: 15,
+    customLeft: 38,
+  },
+  {
+    icon: AdUnitsOutlinedIcon,
+    title: "Manage Department List",
+    value: "Department",
+    footer: {
+      color: "text-green-500",
+      value: "<",
+      label: "View Dept. List, Details etc.",
+    },
+    custom: "linear-gradient(315deg, #d4418e 0%, #0652c5 74%)",
+    // custom: "linear-gradient(315deg, #ffcfdf 0%, #b0f3f1 74%)",
+    // custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
+    link: '/home/Dashboards/Admin-Dashboard/Categories/Department',
+    customTop: 15,
+    customLeft: 38,
+  },
+  {
+    icon: ArtTrackOutlinedIcon,
+    title: "Manage Division List",
+    value: "Division",
+    footer: {
+      color: "text-green-500",
+      value: "<",
+      label: "View Division List, Details etc.",
+    },
+    custom: "linear-gradient(315deg, #d4418e 0%, #0652c5 74%)",
+    // custom: "linear-gradient(315deg, #ffcfdf 0%, #b0f3f1 74%)",
+    // custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
+    link: '/home/Dashboards/Admin-Dashboard/Categories/Division',
+    customTop: 15,
+    customLeft: 38,
+  },
+  {
+    icon: CurrencyExchangeOutlinedIcon,
+    title: "Manage Payrollgroup List",
+    value: "Payrollgroup",
+    footer: {
+      color: "text-green-500",
+      value: "<",
+      label: "View Payrollgroup List, Details etc.",
+    },
+    custom: "linear-gradient(315deg, #d4418e 0%, #0652c5 74%)",
+    // custom: "linear-gradient(315deg, #ffcfdf 0%, #b0f3f1 74%)",
+    // custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
+    link: '/home/Dashboards/Admin-Dashboard/Categories/Payrollgroup',
+    customTop: 15,
+    customLeft: 38,
+  },
+  {
+    icon: Diversity3OutlinedIcon,
+    title: "Manage Position List",
+    value: "Position",
+    footer: {
+      color: "text-green-500",
+      value: "<",
+      label: "View Position List, Details etc.",
+    },
+    custom: "linear-gradient(315deg, #d4418e 0%, #0652c5 74%)",
+    // custom: "linear-gradient(315deg, #ffcfdf 0%, #b0f3f1 74%)",
+    // custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
+    link: '/home/Dashboards/Admin-Dashboard/Categories/Position',
+    customTop: 15,
+    customLeft: 38,
+  },
+  {
+    icon: Diversity2OutlinedIcon,
+    title: "Manage Rank List",
+    value: "Rank",
+    footer: {
+      color: "text-green-500",
+      value: "<",
+      label: "View Rank List, Details etc.",
+    },
+    custom: "linear-gradient(315deg, #d4418e 0%, #0652c5 74%)",
+    // custom: "linear-gradient(315deg, #ffcfdf 0%, #b0f3f1 74%)",
+    // custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
+    link: '/home/Dashboards/Admin-Dashboard/Categories/Rank',
+    customTop: 15,
+    customLeft: 38,
+  },
+];
+
+
+
+  // export default {adminPortalData};

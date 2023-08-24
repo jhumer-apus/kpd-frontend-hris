@@ -14,9 +14,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={ isAuthenticated ? <Navigate to="/home"/> : <Auth/>} />
-      <Route path="/home/*" element={ isAuthenticated ? <Dashboard/> : <Auth/>} />
-      <Route path="/employee/*" element={<Dashboard />} />
-      {/* <Route path="/auth/*" element={<Auth />} /> */}
+      <Route path="/home/*" element={ isAuthenticated ? <Dashboard/> : <Auth/>}/>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

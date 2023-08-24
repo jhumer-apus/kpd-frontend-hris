@@ -131,7 +131,6 @@ export const SpecificEmployee = (props: initialState) => {
     };
     const onSubmit = async (data: GetEmployeesListsType, type: string) => {
         const formData = new FormData();
-        
         const keyChecker = (key: string) => {
             const keyProcessed: { [key: string]: () => void } = {
                 "type1": () => setEditMode(false),
@@ -147,7 +146,6 @@ export const SpecificEmployee = (props: initialState) => {
         }
         
         keyChecker(type)
-    
         for (const key in data) {
             const value = data[key];
             if (value !== null && value !== undefined && value !== "") {

@@ -12,7 +12,7 @@ import { UnderDevelopmentMsg } from "@/pages/dashboard/hris-portal/local-compone
 import { useNavigate } from "react-router-dom";
 // import './custom-styles/StatisticsCard.css'
 
-export function EasyAccessCard({ color, icon, title, value, footer, custom, link }: EasyAccessCardProps) {
+export function EasyAccessCard({ color, icon, title, value, footer, custom, link, onClickDetails, onClickHandler }: EasyAccessCardProps) {
   const navigate = useNavigate();
   return (
     <Card className={(link !== 'development' ? styles.cardWrap : '')} style={{position: 'relative'}} >
@@ -21,7 +21,10 @@ export function EasyAccessCard({ color, icon, title, value, footer, custom, link
       ? 
       <UnderDevelopmentMsg fontSize={12}/> 
       :
-      <div className="absolute w-full h-full" onClick={()=> { navigate(`${link}`) }}></div>
+      <div className="absolute w-full h-full" onClick={()=> { 
+        onClickHandler && onClickDetails && onClickHandler(onClickDetails)
+        setTimeout(()=> {navigate(`${link}`)}, 400) 
+      }}></div>
       }
       <CardHeader
         variant="gradient"
