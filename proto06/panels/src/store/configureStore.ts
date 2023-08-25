@@ -97,6 +97,7 @@ import {
   RANKViewSpecificEpic,
 } from './epics/categories';
 import { proceduralsReducer } from './reducers/procedurals';
+import { categoriesReducer } from './reducers/categories';
 
 const epicMiddleware = createEpicMiddleware();
 
@@ -106,6 +107,7 @@ const rootReducer = combineReducers({
   dtr: dtrReducer,
   payroll: payrollReducer,
   procedurals: proceduralsReducer,
+  categories: categoriesReducer,
 });
 
 const store = configureStore({

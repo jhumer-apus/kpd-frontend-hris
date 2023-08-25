@@ -67,6 +67,7 @@ import TestView from "./pages/announcement/test-view/test1";
 import { useSelector } from "react-redux";
 import { RootState } from "./store/configureStore";
 import CategoriesManagement from "./pages/dashboard/admin-portal/first-inner-pages/categories-management";
+import ManageBranch from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-branch/manage-branch";
 
 
 const icon = {
@@ -117,7 +118,7 @@ const JSXRouteWrapper = () => {
                       icon: <HomeIcon {...icon} />,
                       name: "Branch",
                       path: "/Dashboards/Admin-Dashboard/Categories/Branch",
-                      element: <h1>Hi this is branch</h1>,
+                      element: <ManageBranch/>,
                       hasSubItems: false,
                     },
                     {
