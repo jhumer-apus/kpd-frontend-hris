@@ -183,7 +183,7 @@ interface CommonCategoriesDataStringState {
 
 // BRANCH SECTION // BRANCH SECTION // BRANCH SECTION // BRANCH SECTION // BRANCH SECTION 
 interface BRANCHViewState extends CommonCategoriesState{
-  data: BRANCHViewInterface[] | null | [] | BRANCHViewInterface;
+  data: BRANCHViewInterface[] | [];
 }
 
 interface BRANCHCreateState extends CommonCategoriesState{
@@ -321,13 +321,13 @@ const initialState: OverallCategoriesState = {
   BRANCHView: {
     status: '',
     progress: 0,
-    data: null,
+    data: [],
     error: '',
   },
   BRANCHViewSpecific: {
     status: '',
     progress: 0,
-    data: null,
+    data: [],
     error: '',
   },
   BRANCHCreate: {

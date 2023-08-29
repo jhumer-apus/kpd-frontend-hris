@@ -530,7 +530,7 @@ export interface BRANCHGenericInterface {
     branch_address: string,
     branch_email: string,
     branch_contact_number: string,
-    branch_oic: string,
+    branch_oic: number,
 }
 
 export interface BRANCHViewInterface extends BRANCHGenericInterface{

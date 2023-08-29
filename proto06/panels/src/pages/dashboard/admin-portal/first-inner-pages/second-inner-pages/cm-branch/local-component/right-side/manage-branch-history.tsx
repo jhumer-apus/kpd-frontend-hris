@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { Typography } from "@material-tailwind/react";
 import { ManageBRANCHPageDescriptions, ManageBRANCHPageColumns } from '@/data/pages-data/manage-categories-data/manage-branch-data';
-import ViewBRANCHSingleModal from './local-components/main-modals/view-leave-credit-single-modal';
+import ViewBRANCHSingleModal from './local-components/main-modals/view-branch-single-modal';
 import { BRANCHViewInterface } from '@/types/types-pages';
 import { BRANCHViewAction } from '@/store/actions/categories';
 
@@ -18,7 +18,7 @@ export default function ManageBRANCHPageHistory() {
     branch_address: '',
     branch_email: '',
     branch_contact_number: '',
-    branch_oic: '',
+    branch_oic: NaN,
   });
   const dispatch = useDispatch();
   const { BRANCHView } = useSelector((state: RootState) => state.categories);
@@ -36,7 +36,7 @@ export default function ManageBRANCHPageHistory() {
     <Fragment>
       <div className="my-2 flex flex-wrap justify-between items-start gap-6">
         <div>
-          {/* <ViewBRANCHSingleModal setSingleBRANCHDetailsData={setSingleBRANCHDetailsData} singleBRANCHDetailsData={singleBRANCHDetailsData} singleBRANCHOpenModal={singleBRANCHOpenModal} setSingleBRANCHOpenModal={setSingleBRANCHOpenModal}/> */}
+          <ViewBRANCHSingleModal setSingleBRANCHDetailsData={setSingleBRANCHDetailsData} singleBRANCHDetailsData={singleBRANCHDetailsData} singleBRANCHOpenModal={singleBRANCHOpenModal} setSingleBRANCHOpenModal={setSingleBRANCHOpenModal}/>
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
           <p>{ManageBRANCHPageDescriptions}</p>
         </Typography>

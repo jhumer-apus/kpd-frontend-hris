@@ -5,17 +5,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { getEmployeesList } from '@/store/actions/employees';
 import { AutocompleteInputChangeReason } from '@mui/material/Autocomplete';
-import { BRANCHCreateInterface } from '@/types/types-pages';
+import { DEPARTMENTCreateInterface } from '@/types/types-pages';
 
 
 interface EmployeeAutoCompleteInterface{
-    createBRANCH: BRANCHCreateInterface;
-    setCreateBRANCH: Dispatch<SetStateAction<BRANCHCreateInterface>>;
+    createDEPARTMENT: DEPARTMENTCreateInterface;
+    setCreateDEPARTMENT: Dispatch<SetStateAction<DEPARTMENTCreateInterface>>;
 }
 
 
 export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterface) {
-    const {setCreateBRANCH, createBRANCH} = props;
+    const {setCreateDEPARTMENT, createDEPARTMENT} = props;
     const dispatch = useDispatch();
     const state = useSelector((state:RootState)=> state.employees);
     const [employeesList, setEmployeesList] = useState<{employee: string, emp_no: number}[]>([])
@@ -28,11 +28,11 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
 
     useEffect(()=> {
         if(selectedEmployeeId){
-            setCreateBRANCH((prevState)=> {
+            setCreateDEPARTMENT((prevState)=> {
                 return(
                     {
                         ...prevState,
-                        branch_oic: selectedEmployeeId
+                        dept_lead: selectedEmployeeId
                     }
                 )
             })
@@ -92,7 +92,7 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
         renderInput={(params) => 
             {   
                 return(
-                    <TextField {...params} label="Branch OIC" />
+                    <TextField {...params} label="Department Lead" />
                 )
 
             }

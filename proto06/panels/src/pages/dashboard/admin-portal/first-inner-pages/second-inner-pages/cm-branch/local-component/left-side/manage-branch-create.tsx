@@ -22,7 +22,7 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
         branch_address: "",
         branch_email: "",
         branch_contact_number: "",
-        branch_oic: "",
+        branch_oic: NaN,
         current_user: NaN,
     });
     const onClickSubmit = () => {

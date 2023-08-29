@@ -68,6 +68,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "./store/configureStore";
 import CategoriesManagement from "./pages/dashboard/admin-portal/first-inner-pages/categories-management";
 import ManageBranch from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-branch/manage-branch";
+import ManageDEPARTMENT from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-department/manage-department";
 
 
 const icon = {
@@ -126,7 +127,7 @@ const JSXRouteWrapper = () => {
                       icon: <HomeIcon {...icon} />,
                       name: "Department",
                       path: "/Dashboards/Admin-Dashboard/Categories/Department",
-                      element: <h1>Hi this is dept</h1>,
+                      element: <ManageDEPARTMENT/>,
                       hasSubItems: false,
                     },
                     {

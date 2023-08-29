@@ -2,29 +2,29 @@ import { Dispatch, SetStateAction, Fragment, useState } from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
-import { LEAVECREDITViewInterface } from '@/types/types-pages';
-import LEAVECREDITModalComponent from './inner-modals/leave-credit-modal-component';
+import { BRANCHViewInterface } from '@/types/types-pages';
+import BRANCHModalComponent from './inner-modals/branch-modal-component';
 
 
-interface SingleLEAVECREDITInterface {
-    singleLEAVECREDITOpenModal: boolean; 
-    setSingleLEAVECREDITOpenModal: Dispatch<SetStateAction<boolean>>;
-    singleLEAVECREDITDetailsData: LEAVECREDITViewInterface;
-    setSingleLEAVECREDITDetailsData: Dispatch<SetStateAction<LEAVECREDITViewInterface>>;
+interface SingleBRANCHInterface {
+    singleBRANCHOpenModal: boolean; 
+    setSingleBRANCHOpenModal: Dispatch<SetStateAction<boolean>>;
+    singleBRANCHDetailsData: BRANCHViewInterface;
+    setSingleBRANCHDetailsData: Dispatch<SetStateAction<BRANCHViewInterface>>;
 }
 
-export default function ViewLEAVECREDITSingleModal(props: SingleLEAVECREDITInterface) {
-    const {singleLEAVECREDITOpenModal, setSingleLEAVECREDITOpenModal, setSingleLEAVECREDITDetailsData, singleLEAVECREDITDetailsData} = props;
+export default function ViewBRANCHSingleModal(props: SingleBRANCHInterface) {
+    const {singleBRANCHOpenModal, setSingleBRANCHOpenModal, setSingleBRANCHDetailsData, singleBRANCHDetailsData} = props;
   const [scroll, setScroll] = useState<boolean>(true);
   return (
     <Fragment>
-      <Transition in={singleLEAVECREDITOpenModal} timeout={400}>
+      <Transition in={singleBRANCHOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
         keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setSingleLEAVECREDITOpenModal(false);
+          setSingleBRANCHOpenModal(false);
         }}
         slotProps={{
             backdrop: {
@@ -47,7 +47,7 @@ export default function ViewLEAVECREDITSingleModal(props: SingleLEAVECREDITInter
             aria-labelledby="dialog-vertical-scroll-title" 
             layout={'center'}
             sx={{
-              ...LEAVECREDITModalArea,
+              ...BRANCHModalArea,
                 opacity: 0,
                 transition: `opacity 300ms`,
                 ...{
@@ -57,7 +57,7 @@ export default function ViewLEAVECREDITSingleModal(props: SingleLEAVECREDITInter
                 overflow: 'auto',
             }}
         >
-          <LEAVECREDITModalComponent setSingleLEAVECREDITDetailsData={setSingleLEAVECREDITDetailsData} singleLEAVECREDITDetailsData={singleLEAVECREDITDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <BRANCHModalComponent setSingleBRANCHDetailsData={setSingleBRANCHDetailsData} singleBRANCHDetailsData={singleBRANCHDetailsData} scroll={scroll} setScroll={setScroll}/>
         </ModalDialog>
       </Modal>
         )}
@@ -68,7 +68,7 @@ export default function ViewLEAVECREDITSingleModal(props: SingleLEAVECREDITInter
 
 
 // Styles
-const LEAVECREDITModalArea = {
+const BRANCHModalArea = {
   height: '128.5mm',
   width: '210mm',
   margin: '0 auto',
