@@ -70,6 +70,7 @@ import CategoriesManagement from "./pages/dashboard/admin-portal/first-inner-pag
 import ManageBranch from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-branch/manage-branch";
 import ManageDEPARTMENT from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-department/manage-department";
 import ManageDIVISION from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-division/manage-division";
+import ManagePAYROLLGROUP from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-payrollgroup/manage-payrollgroup";
 
 
 const icon = {
@@ -144,7 +145,7 @@ const JSXRouteWrapper = () => {
                       icon: <HomeIcon {...icon} />,
                       name: "Payroll Group",
                       path: "/Dashboards/Admin-Dashboard/Categories/Payrollgroup",
-                      element: <h1>Hi this is pg</h1>,
+                      element: <ManagePAYROLLGROUP/>,
                       hasSubItems: false,
                     },
                     {
