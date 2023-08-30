@@ -2,57 +2,57 @@ import {useEffect, Dispatch, SetStateAction, ChangeEvent, Fragment}from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
-import { DEPARTMENTViewInterface } from '@/types/types-pages';
+import { DIVISIONViewInterface } from '@/types/types-pages';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
-import { DEPARTMENTEditAction } from '@/store/actions/categories';
+import { DIVISIONEditAction } from '@/store/actions/categories';
 import EmployeeAutoCompleteRight from './autocomplete-fields/employee-autocomplete-right';
 import BranchAutoCompleteRight from './autocomplete-fields/branch-autocomplete-right';
 
 
 
-interface AllowedDaysDEPARTMENTModalInterface {
-    singleDEPARTMENTDetailsData: DEPARTMENTViewInterface;
-    allowedDaysDEPARTMENTOpenModal: boolean; 
-    setAllowedDaysDEPARTMENTOpenModal: Dispatch<SetStateAction<boolean>>;
-    setSingleDEPARTMENTDetailsData: Dispatch<SetStateAction<DEPARTMENTViewInterface>>;
+interface AllowedDaysDIVISIONModalInterface {
+    singleDIVISIONDetailsData: DIVISIONViewInterface;
+    allowedDaysDIVISIONOpenModal: boolean; 
+    setAllowedDaysDIVISIONOpenModal: Dispatch<SetStateAction<boolean>>;
+    setSingleDIVISIONDetailsData: Dispatch<SetStateAction<DIVISIONViewInterface>>;
 }
 
-export default function AllowedDaysDEPARTMENTModal(props: AllowedDaysDEPARTMENTModalInterface) {
+export default function AllowedDaysDIVISIONModal(props: AllowedDaysDIVISIONModalInterface) {
   const dispatch = useDispatch();
-  const DEPARTMENTAllowedDaysState = useSelector((state: RootState)=> state.categories.DEPARTMENTEdit.status)
+  const DIVISIONAllowedDaysState = useSelector((state: RootState)=> state.categories.DIVISIONEdit.status)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
-  const {allowedDaysDEPARTMENTOpenModal, setAllowedDaysDEPARTMENTOpenModal, singleDEPARTMENTDetailsData, setSingleDEPARTMENTDetailsData} = props;
+  const {allowedDaysDIVISIONOpenModal, setAllowedDaysDIVISIONOpenModal, singleDIVISIONDetailsData, setSingleDIVISIONDetailsData} = props;
 
 
-  const allowedDaysDEPARTMENT = () => { 
-    dispatch(DEPARTMENTEditAction({
-      ...singleDEPARTMENTDetailsData,
+  const allowedDaysDIVISION = () => { 
+    dispatch(DIVISIONEditAction({
+      ...singleDIVISIONDetailsData,
       current_user: curr_user || NaN
     }))
   }
 
   useEffect(()=>{
-    if(DEPARTMENTAllowedDaysState){      
-      if(DEPARTMENTAllowedDaysState === 'succeeded'){
-        window.alert(`${DEPARTMENTAllowedDaysState.charAt(0).toUpperCase()}${DEPARTMENTAllowedDaysState.slice(1)}`)
+    if(DIVISIONAllowedDaysState){      
+      if(DIVISIONAllowedDaysState === 'succeeded'){
+        window.alert(`${DIVISIONAllowedDaysState.charAt(0).toUpperCase()}${DIVISIONAllowedDaysState.slice(1)}`)
         setTimeout(()=>{
           window.location.reload();
         }, 800)
       }
     }
-  }, [DEPARTMENTAllowedDaysState])
+  }, [DIVISIONAllowedDaysState])
   return (
     <Fragment>
-      <Transition in={allowedDaysDEPARTMENTOpenModal} timeout={400}>
+      <Transition in={allowedDaysDIVISIONOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
         keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setAllowedDaysDEPARTMENTOpenModal(false);
+          setAllowedDaysDIVISIONOpenModal(false);
         }}
         slotProps={{
             backdrop: {
@@ -75,7 +75,7 @@ export default function AllowedDaysDEPARTMENTModal(props: AllowedDaysDEPARTMENTM
             aria-labelledby="dialog-vertical-scroll-title" 
             layout={'center'}
             sx={{
-              ...allowedDaysDEPARTMENTArea,
+              ...allowedDaysDIVISIONArea,
                 opacity: 0,
                 transition: `opacity 300ms`,
                 ...{
@@ -86,7 +86,7 @@ export default function AllowedDaysDEPARTMENTModal(props: AllowedDaysDEPARTMENTM
             }}
             size='sm'
         > 
-          <Typography variant='h6' className='border-b-2 border-blue-700'>Editing Department Details</Typography>
+          <Typography variant='h6' className='border-b-2 border-blue-700'>Editing Division Details</Typography>
           <div className='flex flex-col items-center justify-around h-full'>
             <div className='flex flex-col w-full gap-10'>
               <div className='flex justify-center item-center'>
@@ -98,23 +98,23 @@ export default function AllowedDaysDEPARTMENTModal(props: AllowedDaysDEPARTMENTM
                   label='Branch Name'
                   type='text'
                   required
-                  value={singleDEPARTMENTDetailsData.dept_name}
+                  value={singleDIVISIONDetailsData.div_name}
                   onChange={(event: ChangeEvent<HTMLInputElement>)=> {
-                    setSingleDEPARTMENTDetailsData((prevState)=> {
+                    setSingleDIVISIONDetailsData((prevState)=> {
                       const value = event.target.value;
                       return({
                         ...prevState,
-                        dept_name: value,
+                        div_name: value,
                       })
                     })
                   }}
                 />
-                <EmployeeAutoCompleteRight createDEPARTMENT={singleDEPARTMENTDetailsData} setCreateDEPARTMENT={setSingleDEPARTMENTDetailsData}/>
-                <BranchAutoCompleteRight createDEPARTMENT={singleDEPARTMENTDetailsData} setCreateDEPARTMENT={setSingleDEPARTMENTDetailsData}/>
+                <EmployeeAutoCompleteRight createDIVISION={singleDIVISIONDetailsData} setCreateDIVISION={setSingleDIVISIONDetailsData}/>
+                <BranchAutoCompleteRight createDIVISION={singleDIVISIONDetailsData} setCreateDIVISION={setSingleDIVISIONDetailsData}/>
               </div>
               <div className='flex justify-around'>
-                <Button variant={'contained'} onClick={allowedDaysDEPARTMENT}>Submit</Button>
-                <Button variant={'outlined'} onClick={()=>{setAllowedDaysDEPARTMENTOpenModal(false)}}>Cancel</Button>
+                <Button variant={'contained'} onClick={allowedDaysDIVISION}>Submit</Button>
+                <Button variant={'outlined'} onClick={()=>{setAllowedDaysDIVISIONOpenModal(false)}}>Cancel</Button>
               </div>
             </div>
           </div>
@@ -128,7 +128,7 @@ export default function AllowedDaysDEPARTMENTModal(props: AllowedDaysDEPARTMENTM
 
 
 // Styles
-const allowedDaysDEPARTMENTArea = {
+const allowedDaysDIVISIONArea = {
   height: '164.5mm',
   width: '180mm',
   margin: '0 auto',

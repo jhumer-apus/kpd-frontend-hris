@@ -69,6 +69,7 @@ import { RootState } from "./store/configureStore";
 import CategoriesManagement from "./pages/dashboard/admin-portal/first-inner-pages/categories-management";
 import ManageBranch from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-branch/manage-branch";
 import ManageDEPARTMENT from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-department/manage-department";
+import ManageDIVISION from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-division/manage-division";
 
 
 const icon = {
@@ -135,7 +136,7 @@ const JSXRouteWrapper = () => {
                       icon: <HomeIcon {...icon} />,
                       name: "Division",
                       path: "/Dashboards/Admin-Dashboard/Categories/Division",
-                      element: <h1>Hi this is div</h1>,
+                      element: <ManageDIVISION/>,
                       hasSubItems: false,
                     },
                     {
