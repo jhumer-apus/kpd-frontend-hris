@@ -8,7 +8,7 @@ import { GridColDef, GridValueGetterParams, GridCellParams, GridValueFormatterPa
 // ];
 
 export const ManageDIVISIONPageDescriptions = [
-  "On this table, you will find the list of branches your company has and their details each.",
+  "On this table, you will find the list of division your company has and their details each.",
   // "See merged logs of all employees here, showing the total hours and details of each logs. Sortable and filterable on the table headers.",
   // "See the total hours of all employees per cutoff here. Sortable and filterable by the table headers.",
   // "Nondescript"
