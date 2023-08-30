@@ -71,6 +71,7 @@ import ManageBranch from "./pages/dashboard/admin-portal/first-inner-pages/secon
 import ManageDEPARTMENT from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-department/manage-department";
 import ManageDIVISION from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-division/manage-division";
 import ManagePAYROLLGROUP from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-payrollgroup/manage-payrollgroup";
+import ManagePOSITION from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-position/manage-position";
 
 
 const icon = {
@@ -153,7 +154,7 @@ const JSXRouteWrapper = () => {
                       icon: <HomeIcon {...icon} />,
                       name: "Position",
                       path: "/Dashboards/Admin-Dashboard/Categories/Position",
-                      element: <h1>Hi this is pos</h1>,
+                      element: <ManagePOSITION/>,
                       hasSubItems: false,
                     },
                     {

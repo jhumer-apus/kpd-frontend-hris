@@ -2,57 +2,53 @@ import {useEffect, Dispatch, SetStateAction, ChangeEvent, Fragment}from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
-import { PAYROLLGROUPViewInterface } from '@/types/types-pages';
+import { POSITIONViewInterface } from '@/types/types-pages';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
-import dayjs from 'dayjs';
-import { PAYROLLGROUPEditAction } from '@/store/actions/categories';
-import EmployeeAutoCompleteRight from './autocomplete-fields/employee-autocomplete-right';
-import BranchAutoCompleteRight from './autocomplete-fields/branch-autocomplete-right';
+import { POSITIONEditAction } from '@/store/actions/categories';
 
 
 
-interface AllowedDaysPAYROLLGROUPModalInterface {
-    singlePAYROLLGROUPDetailsData: PAYROLLGROUPViewInterface;
-    allowedDaysPAYROLLGROUPOpenModal: boolean; 
-    setAllowedDaysPAYROLLGROUPOpenModal: Dispatch<SetStateAction<boolean>>;
-    setSinglePAYROLLGROUPDetailsData: Dispatch<SetStateAction<PAYROLLGROUPViewInterface>>;
+interface AllowedDaysPOSITIONModalInterface {
+    singlePOSITIONDetailsData: POSITIONViewInterface;
+    allowedDaysPOSITIONOpenModal: boolean; 
+    setAllowedDaysPOSITIONOpenModal: Dispatch<SetStateAction<boolean>>;
+    setSinglePOSITIONDetailsData: Dispatch<SetStateAction<POSITIONViewInterface>>;
 }
 
-export default function AllowedDaysPAYROLLGROUPModal(props: AllowedDaysPAYROLLGROUPModalInterface) {
+export default function AllowedDaysPOSITIONModal(props: AllowedDaysPOSITIONModalInterface) {
   const dispatch = useDispatch();
-  const PAYROLLGROUPAllowedDaysState = useSelector((state: RootState)=> state.categories.PAYROLLGROUPEdit.status)
+  const POSITIONAllowedDaysState = useSelector((state: RootState)=> state.categories.POSITIONEdit.status)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
-  const {allowedDaysPAYROLLGROUPOpenModal, setAllowedDaysPAYROLLGROUPOpenModal, singlePAYROLLGROUPDetailsData, setSinglePAYROLLGROUPDetailsData} = props;
+  const {allowedDaysPOSITIONOpenModal, setAllowedDaysPOSITIONOpenModal, singlePOSITIONDetailsData, setSinglePOSITIONDetailsData} = props;
 
-
-  const allowedDaysPAYROLLGROUP = () => { 
-    dispatch(PAYROLLGROUPEditAction({
-      ...singlePAYROLLGROUPDetailsData,
+  console.log(singlePOSITIONDetailsData, "ha??")
+  const allowedDaysPOSITION = () => { 
+    dispatch(POSITIONEditAction({
+      ...singlePOSITIONDetailsData,
       current_user: curr_user || NaN
     }))
   }
 
   useEffect(()=>{
-    if(PAYROLLGROUPAllowedDaysState){      
-      if(PAYROLLGROUPAllowedDaysState === 'succeeded'){
-        window.alert(`${PAYROLLGROUPAllowedDaysState.charAt(0).toUpperCase()}${PAYROLLGROUPAllowedDaysState.slice(1)}`)
+    if(POSITIONAllowedDaysState){      
+      if(POSITIONAllowedDaysState === 'succeeded'){
+        window.alert(`${POSITIONAllowedDaysState.charAt(0).toUpperCase()}${POSITIONAllowedDaysState.slice(1)}`)
         setTimeout(()=>{
           window.location.reload();
         }, 800)
       }
     }
-  }, [PAYROLLGROUPAllowedDaysState])
+  }, [POSITIONAllowedDaysState])
   return (
     <Fragment>
-      <Transition in={allowedDaysPAYROLLGROUPOpenModal} timeout={400}>
+      <Transition in={allowedDaysPOSITIONOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setAllowedDaysPAYROLLGROUPOpenModal(false);
+          setAllowedDaysPOSITIONOpenModal(false);
         }}
         slotProps={{
             backdrop: {
@@ -75,7 +71,7 @@ export default function AllowedDaysPAYROLLGROUPModal(props: AllowedDaysPAYROLLGR
             aria-labelledby="dialog-vertical-scroll-title" 
             layout={'center'}
             sx={{
-              ...allowedDaysPAYROLLGROUPArea,
+              ...allowedDaysPOSITIONArea,
                 opacity: 0,
                 transition: `opacity 300ms`,
                 ...{
@@ -86,7 +82,7 @@ export default function AllowedDaysPAYROLLGROUPModal(props: AllowedDaysPAYROLLGR
             }}
             size='sm'
         > 
-          <Typography variant='h6' className='border-b-2 border-blue-700'>Editing Payroll Group Details</Typography>
+          <Typography variant='h6' className='border-b-2 border-blue-700'>Editing Position Details</Typography>
           <div className='flex flex-col items-center justify-around h-full'>
             <div className='flex flex-col w-full gap-10'>
               <div className='flex justify-center item-center'>
@@ -94,33 +90,18 @@ export default function AllowedDaysPAYROLLGROUPModal(props: AllowedDaysPAYROLLGR
               </div>
               <div className='flex flex-col justify-center items-center gap-5'>
                 <TextField
-                sx={{width: '90%'}}
+                  key={`${singlePOSITIONDetailsData.pos_name}1`}
+                  sx={{width: '90%'}}
                   label='Branch Name'
                   type='text'
                   required
-                  value={singlePAYROLLGROUPDetailsData.name}
+                  value={singlePOSITIONDetailsData.pos_name}
                   onChange={(event: ChangeEvent<HTMLInputElement>)=> {
-                    setSinglePAYROLLGROUPDetailsData((prevState)=> {
+                    setSinglePOSITIONDetailsData((prevState)=> {
                       const value = event.target.value;
                       return({
                         ...prevState,
-                        div_name: value,
-                      })
-                    })
-                  }}
-                />
-                <TextField
-                sx={{width: '90%'}}
-                  label='Pay Frequency(Per Month)'
-                  type='number'
-                  required
-                  value={singlePAYROLLGROUPDetailsData.payroll_freq}
-                  onChange={(event: ChangeEvent<HTMLInputElement>)=> {
-                    setSinglePAYROLLGROUPDetailsData((prevState)=> {
-                      const value = parseInt(event.target.value);
-                      return({
-                        ...prevState,
-                        payroll_freq: value,
+                        pos_name: value,
                       })
                     })
                   }}
@@ -130,23 +111,23 @@ export default function AllowedDaysPAYROLLGROUPModal(props: AllowedDaysPAYROLLGR
                   label='Description (optional)'
                   type='text'
                   multiline
-                  rows={3}
+                  rows={6}
                   variant='outlined'
-                  value={singlePAYROLLGROUPDetailsData.payroll_description}
+                  value={singlePOSITIONDetailsData.pos_description}
                   onChange={(event: ChangeEvent<HTMLInputElement>)=> {
-                    setSinglePAYROLLGROUPDetailsData((prevState)=> {
+                    setSinglePOSITIONDetailsData((prevState)=> {
                       const value = event.target.value;
                       return({
                         ...prevState,
-                        payroll_description: value,
+                        pos_description: value,
                       })
                     })
                   }}
                 />
               </div>
               <div className='flex justify-around'>
-                <Button variant={'contained'} onClick={allowedDaysPAYROLLGROUP}>Submit</Button>
-                <Button variant={'outlined'} onClick={()=>{setAllowedDaysPAYROLLGROUPOpenModal(false)}}>Cancel</Button>
+                <Button variant={'contained'} onClick={allowedDaysPOSITION}>Submit</Button>
+                <Button variant={'outlined'} onClick={()=>{setAllowedDaysPOSITIONOpenModal(false)}}>Cancel</Button>
               </div>
             </div>
           </div>
@@ -160,7 +141,7 @@ export default function AllowedDaysPAYROLLGROUPModal(props: AllowedDaysPAYROLLGR
 
 
 // Styles
-const allowedDaysPAYROLLGROUPArea = {
+const allowedDaysPOSITIONArea = {
   height: '164.5mm',
   width: '180mm',
   margin: '0 auto',
