@@ -38,9 +38,9 @@ export const authEpic: Epic = (action$, state$) =>
       ).pipe(
         map((data) => {
           // Save the token in a secure cookie with an expiration time of 1 hour
-          Cookies.set('token', data.jwt, { expires: 1 / 24, secure: true });
-          Cookies.set('user', JSON.stringify(data.user), { expires: 1 / 24, secure: true });
-          Cookies.set('employee_detail', JSON.stringify(data.employee_detail), { expires: 1 / 24, secure: true });
+          Cookies.set('token', data.jwt, { expires: 1 / 24, secure: false});
+          Cookies.set('user', JSON.stringify(data.user), { expires: 1 / 24, secure: false });
+          Cookies.set('employee_detail', JSON.stringify(data.employee_detail), { expires: 1 / 24, secure: false });
           return userLoginActionSuccess(data.jwt, data.user, data.employee_detail);
         }),
         catchError((error) => {
