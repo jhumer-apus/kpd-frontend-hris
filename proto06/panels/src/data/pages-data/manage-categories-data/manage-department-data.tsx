@@ -20,14 +20,14 @@ export const ManageDEPARTMENTPageColumns: GridColDef[] =
   {
     field: 'dept_name',
     headerName: 'Department Name',
-    width: 150,
+    width: 190,
     // valueGetter: (params: GridValueGetterParams) => {
     //   const date = new Date(params.row.expiry);
     //   return params.row.expiry ? date.toLocaleDateString() : 'No Expiry';
     // }
   },
-  { field: 'dept_lead', headerName: 'Department Lead:', width: 120 },
-  { field: 'id', headerName: 'Department ID', width: 100,
+  { field: 'dept_lead', headerName: 'Dept. Lead:', width: 120 },
+  { field: 'id', headerName: 'Department ID', width: 140,
     // renderCell: (params: GridCellParams) => {
     //   const status = params.row?.credit_remaining as number;
 
@@ -49,7 +49,7 @@ export const ManageDEPARTMENTPageColumns: GridColDef[] =
     //   );
     // }  
   },
-  { field: 'dept_branch_code', headerName: 'Branch ID',  width: 200 },
+  { field: 'dept_branch_code', headerName: 'Branch ID',  width: 120 },
 ];
   
 export default {

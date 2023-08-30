@@ -2,29 +2,29 @@ import { Dispatch, SetStateAction, Fragment, useState } from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
-import { BRANCHViewInterface } from '@/types/types-pages';
-import BRANCHModalComponent from './inner-modals/branch-modal-component';
+import { DEPARTMENTViewInterface } from '@/types/types-pages';
+import DEPARTMENTModalComponent from './inner-modals/department-modal-component';
 
 
-interface SingleBRANCHInterface {
-    singleBRANCHOpenModal: boolean; 
-    setSingleBRANCHOpenModal: Dispatch<SetStateAction<boolean>>;
-    singleBRANCHDetailsData: BRANCHViewInterface;
-    setSingleBRANCHDetailsData: Dispatch<SetStateAction<BRANCHViewInterface>>;
+interface SingleDEPARTMENTInterface {
+    singleDEPARTMENTOpenModal: boolean; 
+    setSingleDEPARTMENTOpenModal: Dispatch<SetStateAction<boolean>>;
+    singleDEPARTMENTDetailsData: DEPARTMENTViewInterface;
+    setSingleDEPARTMENTDetailsData: Dispatch<SetStateAction<DEPARTMENTViewInterface>>;
 }
 
-export default function ViewBRANCHSingleModal(props: SingleBRANCHInterface) {
-    const {singleBRANCHOpenModal, setSingleBRANCHOpenModal, setSingleBRANCHDetailsData, singleBRANCHDetailsData} = props;
+export default function ViewDEPARTMENTSingleModal(props: SingleDEPARTMENTInterface) {
+    const {singleDEPARTMENTOpenModal, setSingleDEPARTMENTOpenModal, setSingleDEPARTMENTDetailsData, singleDEPARTMENTDetailsData} = props;
   const [scroll, setScroll] = useState<boolean>(true);
   return (
     <Fragment>
-      <Transition in={singleBRANCHOpenModal} timeout={400}>
+      <Transition in={singleDEPARTMENTOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
         keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setSingleBRANCHOpenModal(false);
+          setSingleDEPARTMENTOpenModal(false);
         }}
         slotProps={{
             backdrop: {
@@ -47,7 +47,7 @@ export default function ViewBRANCHSingleModal(props: SingleBRANCHInterface) {
             aria-labelledby="dialog-vertical-scroll-title" 
             layout={'center'}
             sx={{
-              ...BRANCHModalArea,
+              ...DEPARTMENTModalArea,
                 opacity: 0,
                 transition: `opacity 300ms`,
                 ...{
@@ -57,7 +57,7 @@ export default function ViewBRANCHSingleModal(props: SingleBRANCHInterface) {
                 overflow: 'auto',
             }}
         >
-          <BRANCHModalComponent setSingleBRANCHDetailsData={setSingleBRANCHDetailsData} singleBRANCHDetailsData={singleBRANCHDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <DEPARTMENTModalComponent setSingleDEPARTMENTDetailsData={setSingleDEPARTMENTDetailsData} singleDEPARTMENTDetailsData={singleDEPARTMENTDetailsData} scroll={scroll} setScroll={setScroll}/>
         </ModalDialog>
       </Modal>
         )}
@@ -68,8 +68,8 @@ export default function ViewBRANCHSingleModal(props: SingleBRANCHInterface) {
 
 
 // Styles
-const BRANCHModalArea = {
-  height: '128.5mm',
+const DEPARTMENTModalArea = {
+  height: '88.5mm',
   width: '210mm',
   margin: '0 auto',
   background: 'white',

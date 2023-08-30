@@ -145,7 +145,7 @@ export const UserProfile = () => {
                     label="Mobile Phone #: *"
                     disabled={!editMode}
                 />
-                {errors.email_address && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Phone # is required.</sub>}
+                {errors.mobile_phone && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Phone # is required.</sub>}
             </div>
             <div style={{position: 'relative', width: '100%'}}>
                 <Input
@@ -153,7 +153,7 @@ export const UserProfile = () => {
                 label="Birthday: YYYYMMDD *"
                 disabled={!editMode}
                 />
-                {errors.email_address && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Birthday is required.</sub>}
+                {errors.birthday && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Birthday is required.</sub>}
             </div>
             <div style={{position: 'relative', width: '100%'}}>
                 <Input

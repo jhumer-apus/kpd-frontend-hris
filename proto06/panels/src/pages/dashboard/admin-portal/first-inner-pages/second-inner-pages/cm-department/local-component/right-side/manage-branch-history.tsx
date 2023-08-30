@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { Typography } from "@material-tailwind/react";
 import { ManageDEPARTMENTPageDescriptions, ManageDEPARTMENTPageColumns } from '@/data/pages-data/manage-categories-data/manage-department-data';
-import ViewDEPARTMENTSingleModal from './local-components/main-modals/view-branch-single-modal';
+import ViewDEPARTMENTSingleModal from './local-components/main-modals/view-department-single-modal';
 import { DEPARTMENTViewInterface } from '@/types/types-pages';
 import { DEPARTMENTViewAction } from '@/store/actions/categories';
 
@@ -34,7 +34,7 @@ export default function ManageDEPARTMENTPageHistory() {
     <Fragment>
       <div className="my-2 flex flex-wrap justify-between items-start gap-6">
         <div>
-          {/* <ViewDEPARTMENTSingleModal setSingleDEPARTMENTDetailsData={setSingleDEPARTMENTDetailsData} singleDEPARTMENTDetailsData={singleDEPARTMENTDetailsData} singleDEPARTMENTOpenModal={singleDEPARTMENTOpenModal} setSingleDEPARTMENTOpenModal={setSingleDEPARTMENTOpenModal}/> */}
+          <ViewDEPARTMENTSingleModal setSingleDEPARTMENTDetailsData={setSingleDEPARTMENTDetailsData} singleDEPARTMENTDetailsData={singleDEPARTMENTDetailsData} singleDEPARTMENTOpenModal={singleDEPARTMENTOpenModal} setSingleDEPARTMENTOpenModal={setSingleDEPARTMENTOpenModal}/>
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
           <p>{ManageDEPARTMENTPageDescriptions}</p>
         </Typography>
