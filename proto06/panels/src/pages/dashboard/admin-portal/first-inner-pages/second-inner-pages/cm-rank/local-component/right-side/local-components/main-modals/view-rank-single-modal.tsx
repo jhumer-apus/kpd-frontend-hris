@@ -2,30 +2,29 @@ import { Dispatch, SetStateAction, Fragment, useState } from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
-import { POSITIONViewInterface } from '@/types/types-pages';
-import POSITIONModalComponent from './inner-modals/position-modal-component';
+import { RANKViewInterface } from '@/types/types-pages';
+import RANKModalComponent from './inner-modals/rank-modal-component';
 
 
-interface SinglePOSITIONInterface {
-    singlePOSITIONOpenModal: boolean; 
-    setSinglePOSITIONOpenModal: Dispatch<SetStateAction<boolean>>;
-    singlePOSITIONDetailsData: POSITIONViewInterface;
-    setSinglePOSITIONDetailsData: Dispatch<SetStateAction<POSITIONViewInterface>>;
+interface SingleRANKInterface {
+    singleRANKOpenModal: boolean; 
+    setSingleRANKOpenModal: Dispatch<SetStateAction<boolean>>;
+    singleRANKDetailsData: RANKViewInterface;
+    setSingleRANKDetailsData: Dispatch<SetStateAction<RANKViewInterface>>;
 }
 
-export default function ViewPOSITIONSingleModal(props: SinglePOSITIONInterface) {
-  const {singlePOSITIONOpenModal, setSinglePOSITIONOpenModal, setSinglePOSITIONDetailsData, singlePOSITIONDetailsData} = props;
+export default function ViewRANKSingleModal(props: SingleRANKInterface) {
+  const {singleRANKOpenModal, setSingleRANKOpenModal, setSingleRANKDetailsData, singleRANKDetailsData} = props;
   const [scroll, setScroll] = useState<boolean>(true);
-  console.log(singlePOSITIONDetailsData, "123??")
   return (
     <Fragment>
-      <Transition in={singlePOSITIONOpenModal} timeout={400}>
+      <Transition in={singleRANKOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
         keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setSinglePOSITIONOpenModal(false);
+          setSingleRANKOpenModal(false);
         }}
         slotProps={{
             backdrop: {
@@ -48,7 +47,7 @@ export default function ViewPOSITIONSingleModal(props: SinglePOSITIONInterface) 
             aria-labelledby="dialog-vertical-scroll-title" 
             layout={'center'}
             sx={{
-              ...POSITIONModalArea,
+              ...RANKModalArea,
                 opacity: 0,
                 transition: `opacity 300ms`,
                 ...{
@@ -58,7 +57,7 @@ export default function ViewPOSITIONSingleModal(props: SinglePOSITIONInterface) 
                 overflow: 'auto',
             }}
         >
-          <POSITIONModalComponent setSinglePOSITIONDetailsData={setSinglePOSITIONDetailsData} singlePOSITIONDetailsData={singlePOSITIONDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <RANKModalComponent setSingleRANKDetailsData={setSingleRANKDetailsData} singleRANKDetailsData={singleRANKDetailsData} scroll={scroll} setScroll={setScroll}/>
         </ModalDialog>
       </Modal>
         )}
@@ -69,9 +68,9 @@ export default function ViewPOSITIONSingleModal(props: SinglePOSITIONInterface) 
 
 
 // Styles
-const POSITIONModalArea = {
+const RANKModalArea = {
   height: '108.5mm',
-  width: '150mm',
+  width: '190mm',
   margin: '0 auto',
   background: 'white',
   boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.1)',

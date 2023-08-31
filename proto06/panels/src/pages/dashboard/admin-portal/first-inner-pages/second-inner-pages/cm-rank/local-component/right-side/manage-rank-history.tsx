@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { Typography } from "@material-tailwind/react";
 import { ManageRANKPageDescriptions, ManageRANKPageColumns } from '@/data/pages-data/manage-categories-data/manage-rank-data';
-import ViewRANKSingleModal from './local-components/main-modals/view-position-single-modal';
+import ViewRANKSingleModal from './local-components/main-modals/view-rank-single-modal';
 import { RANKViewInterface } from '@/types/types-pages';
 import { RANKViewAction } from '@/store/actions/categories';
 
@@ -17,7 +17,7 @@ export default function ManageRANKPageHistory() {
     rank_name: '',
     rank_description: '',
     is_approver: false,
-    // hierarchy: NaN,
+    hierarchy: NaN,
   });
   const dispatch = useDispatch();
   const { RANKView } = useSelector((state: RootState) => state.categories);
@@ -35,7 +35,7 @@ export default function ManageRANKPageHistory() {
     <Fragment>
       <div className="my-2 flex flex-wrap justify-between items-start gap-6">
         <div>
-          {/* <ViewRANKSingleModal setSingleRANKDetailsData={setSingleRANKDetailsData} singleRANKDetailsData={singleRANKDetailsData} singleRANKOpenModal={singleRANKOpenModal} setSingleRANKOpenModal={setSingleRANKOpenModal}/> */}
+          <ViewRANKSingleModal setSingleRANKDetailsData={setSingleRANKDetailsData} singleRANKDetailsData={singleRANKDetailsData} singleRANKOpenModal={singleRANKOpenModal} setSingleRANKOpenModal={setSingleRANKOpenModal}/>
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
           <p>{ManageRANKPageDescriptions}</p>
         </Typography>
