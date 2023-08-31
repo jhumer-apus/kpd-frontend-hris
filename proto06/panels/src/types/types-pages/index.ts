@@ -638,6 +638,7 @@ export interface RANKGenericInterface {
     rank_name: string,
     rank_description: string,
     is_approver: boolean,
+    hierarchy: number,
 }
 
 export interface RANKViewInterface extends RANKGenericInterface{
@@ -647,7 +648,6 @@ export interface RANKViewInterface extends RANKGenericInterface{
 }
 
 export interface RANKCreateInterface extends RANKGenericInterface{
-    hierarchy: number,
     current_user: number,
 }
 

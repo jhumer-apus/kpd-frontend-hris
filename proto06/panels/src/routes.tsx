@@ -72,6 +72,7 @@ import ManageDEPARTMENT from "./pages/dashboard/admin-portal/first-inner-pages/s
 import ManageDIVISION from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-division/manage-division";
 import ManagePAYROLLGROUP from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-payrollgroup/manage-payrollgroup";
 import ManagePOSITION from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-position/manage-position";
+import ManageRANK from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-rank/manage-rank";
 
 
 const icon = {
@@ -162,7 +163,7 @@ const JSXRouteWrapper = () => {
                       icon: <HomeIcon {...icon} />,
                       name: "Rank",
                       path: "/Dashboards/Admin-Dashboard/Categories/Rank",
-                      element: <h1>Hi this is rank</h1>,
+                      element: <ManageRANK/>,
                       hasSubItems: false,
                     },
                   ]
