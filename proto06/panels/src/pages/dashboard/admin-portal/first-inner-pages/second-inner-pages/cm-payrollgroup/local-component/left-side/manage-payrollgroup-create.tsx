@@ -109,12 +109,12 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
                     type="number"
                     value={createPAYROLLGROUP?.payroll_freq}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                        const value = event.target.value
+                        const value = parseInt(event.target.value)
                         setCreatePAYROLLGROUP((prevState)=> {
                             return (
                                 {
                                     ...prevState,
-                                    payroll_description: value
+                                    payroll_freq: value
                                 }
                             )
                         })

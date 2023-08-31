@@ -68,7 +68,7 @@ export function DashboardNavbar() {
     window.location.reload();
     window.location.replace('/')
   };
-
+  console.log(employee_detail, "asdasdas" )
   return (
     <Navbar
       color={fixedNavbar ? "white" : "transparent"}

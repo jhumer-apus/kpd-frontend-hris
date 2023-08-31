@@ -85,7 +85,7 @@ export default function ProceduralUAPage() {
             setSingleUAOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for UA Epic hasn\'t been set up, please contact your frontend developer': 'There is no UA to generate. Double check with a Database Admin'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for UA Epic hasn\'t been set up, please contact your frontend developer': 'There is no UA to generate.'}` }}
         />
         {/* <GeneratePDFButton data={UAViewData} columns={ProceduralUAPageColumns} /> */}
       </div>

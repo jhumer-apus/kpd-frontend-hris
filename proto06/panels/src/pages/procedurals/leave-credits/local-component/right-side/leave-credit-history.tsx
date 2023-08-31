@@ -63,7 +63,7 @@ export default function ProceduralLEAVECREDITPageHistory() {
             setSingleLEAVECREDITOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for LEAVECREDIT Epic hasn\'t been set up, please contact your frontend developer': 'There is no LEAVECREDIT to generate. Double check with a Database Admin'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for LEAVECREDIT Epic hasn\'t been set up, please contact your frontend developer': 'There is no LEAVECREDIT to generate.'}` }}
         />
       </div>
     </Fragment>

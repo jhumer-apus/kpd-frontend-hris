@@ -60,7 +60,7 @@ export default function ManageRANKPageHistory() {
             setSingleRANKOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for RANK Epic hasn\'t been set up, please contact your frontend developer': 'There is no RANK to generate. Double check with a Database Admin'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for RANK Epic hasn\'t been set up, please contact your frontend developer': 'There is no RANK to generate.'}` }}
         />
       </div>
     </Fragment>
