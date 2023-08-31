@@ -98,6 +98,8 @@ import {
 } from './epics/categories';
 import { proceduralsReducer } from './reducers/procedurals';
 import { categoriesReducer } from './reducers/categories';
+import { USERCreateEpic, USEREditEpic, USERResetPasswordEpic, USERViewEpic, USERViewSpecificEpic } from './epics/users';
+import { usersReducer } from './reducers/users';
 
 const epicMiddleware = createEpicMiddleware();
 
@@ -108,6 +110,7 @@ const rootReducer = combineReducers({
   payroll: payrollReducer,
   procedurals: proceduralsReducer,
   categories: categoriesReducer,
+  users: usersReducer,
 });
 
 const store = configureStore({
@@ -212,6 +215,11 @@ epicMiddleware.run(combineEpics(
   RANKEditEpic,
   RANKViewEpic,
   RANKViewSpecificEpic,
+  USERCreateEpic,
+  USERViewEpic,
+  USEREditEpic,
+  USERViewSpecificEpic,
+  USERResetPasswordEpic,
 ));
 
 export type RootState = ReturnType<typeof rootReducer>;

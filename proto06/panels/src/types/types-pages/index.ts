@@ -654,3 +654,39 @@ export interface RANKCreateInterface extends RANKGenericInterface{
 export interface RANKEditInterface extends RANKGenericInterface, RANKCreateInterface, RANKViewInterface {}
 
 
+// ============================================ 
+
+export interface USERGenericInterface {
+    username: string,
+    role: number,
+    emp_no: number,
+    current_user: number,
+}
+
+export interface USERViewInterface extends Omit<USERGenericInterface, "current_user">{
+    readonly id: number,
+    readonly is_superuser: boolean,
+    is_active: boolean,
+    readonly is_logged_in: boolean,
+    is_locked: boolean,
+    readonly failed_login_attempts: number,
+    readonly last_login: string,
+    readonly old_password: string,
+    readonly date_password_changed: string | null,
+    readonly date_added: string,
+    readonly date_deleted: string | null,
+    readonly groups: number[] | string[],
+    readonly user_permissions: number[] | string [],
+}
+
+
+export interface USERCreateInterface extends USERGenericInterface{
+    password: string,
+}
+
+export interface USEREditInterface extends USERGenericInterface, Pick<USERViewInterface, "is_active" | "is_locked" | "id"> {}
+
+export interface USERResetPasswordInterface extends Pick<USERGenericInterface, "current_user">, Pick<USERViewInterface, "id">{
+    new_password: string,
+    repeat_new_password: string,
+}
