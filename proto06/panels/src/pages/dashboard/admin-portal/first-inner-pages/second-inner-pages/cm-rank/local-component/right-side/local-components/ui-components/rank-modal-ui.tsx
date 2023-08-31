@@ -3,8 +3,7 @@ import { RANKViewInterface } from '@/types/types-pages';
 import { Button } from '@mui/material';
 import dayjs from 'dayjs';
 import {TextField} from '@mui/material';
-// import ApproveRANKModal from '../main-modals/inner-modals/approve-leave-modal';
-import AllowedDaysRANKModal from '../main-modals/inner-modals/edit-position-modal';
+import AllowedDaysRANKModal from '../main-modals/inner-modals/edit-rank-modal';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 
@@ -29,10 +28,10 @@ function RANKModalUI(props: RANKModalUIInterface) {
         }   
         
     };
-    console.log(props.singleRANKDetailsData, "123?")
+
     return (
         <Fragment>
-            {/* <AllowedDaysRANKModal singleRANKDetailsData={singleRANKDetailsData} setSingleRANKDetailsData={setSingleRANKDetailsData} allowedDaysRANKOpenModal={allowedDaysRANKOpenModal} setAllowedDaysRANKOpenModal={setAllowedDaysRANKOpenModal}/> */}
+            <AllowedDaysRANKModal singleRANKDetailsData={singleRANKDetailsData} setSingleRANKDetailsData={setSingleRANKDetailsData} allowedDaysRANKOpenModal={allowedDaysRANKOpenModal} setAllowedDaysRANKOpenModal={setAllowedDaysRANKOpenModal}/>
             <div className='flex overflow-auto justify-around relative gap-6'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Position ID:' value={ThisProps.id ? ThisProps.id : '-'} InputProps={{readOnly: true,}} variant='filled'/>
@@ -44,8 +43,8 @@ function RANKModalUI(props: RANKModalUIInterface) {
                     <TextField sx={{width: '100%', minWidth: '160px'}} multiline rows={4} label='Description' value={ThisProps.rank_description || '-'} InputProps={{readOnly: true,}} variant='outlined'/>
                 </div>
                 <div className='flex gap-6 flex-col'>
-                    <TextField sx={{width: '100%', minWidth: '160px', color: 'green'}} label='Position Name' value={ThisProps.rank_name || '-'} InputProps={{readOnly: true,}} variant='filled' focused/>
-                    <TextField sx={{width: '100%', minWidth: '160px'}}  label='Description' value={ThisProps.rank_description || '-'} InputProps={{readOnly: true,}} variant='outlined'/>
+                    <TextField sx={{width: '100%', minWidth: '160px', color: 'green'}} label='Is Approver' value={ThisProps.is_approver ? 'Yes' : 'No'} InputProps={{readOnly: true,}} variant='filled' focused/>
+                    <TextField sx={{width: '100%', minWidth: '160px'}}  label='Approver Level (1 lowest - 5 highest)' value={ThisProps.hierarchy || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                 </div>
             </div>
             <div className='flex flex-col justify-center items-center'>

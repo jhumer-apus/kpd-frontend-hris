@@ -38,7 +38,7 @@ function ListOfHolidaysComponent(props: HighlightedCalendarInterface) {
     return (
         <div style={{height: '90%', overflowY: 'auto', padding: '6px'}}>
         <ul className='flex flex-col items-center justify-center'>
-        {ListOfHolidaysState.data.map(({ holiday_date, holiday_description, holiday_type, holiday_location }) => (
+        {ListOfHolidaysState?.data && ListOfHolidaysState?.data?.map(({ holiday_date, holiday_description, holiday_type, holiday_location }) => (
             <li style={{width: '95%'}}>
                 <Card 
                     style={{marginTop: '20px', padding: '0px', cursor: 'pointer', transition: 'transform 0.3s ease', boxShadow: `2px 2px 7px ${holiday_type === 'SH'? HolidayColor._special_hex : HolidayColor._legal_hex}`}} 
@@ -75,6 +75,7 @@ function ListOfHolidaysComponent(props: HighlightedCalendarInterface) {
                 </Card>
             </li>
         ))}
+        {ListOfHolidaysState?.data && "No Holidays to Generate"}
         </ul>
         </div>
     );
