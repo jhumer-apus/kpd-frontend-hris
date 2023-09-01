@@ -42,7 +42,7 @@ export const adminPortalData = [
     // custom: "linear-gradient(315deg, #d4418e 0%, #0652c5 74%)",
     // custom: "linear-gradient(315deg, #ffcfdf 0%, #b0f3f1 74%)",
     custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
-    link: 'development',
+    link: '/home/Dashboards/Admin-Dashboard/Users',
     customTop: 15,
     customLeft: 38,
   },

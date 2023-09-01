@@ -48,21 +48,23 @@ interface CommonUsersState {
   error: string | null; 
 }
 
-interface CommonUsersDataStringState {
-  data: string | null;
-}
+
 
 // USER SECTION // USER SECTION // USER SECTION // USER SECTION // USER SECTION 
 interface USERViewState extends CommonUsersState{
-  data: USERViewInterface[] | [];
+  data: USERViewInterface[];
 }
 
 interface USERCreateState extends CommonUsersState{
-  data: USERCreateInterface | null | {};
+  data: USERCreateInterface | {};
 }
 
 interface USEREditState extends CommonUsersState {
-  data: USERViewState | null;
+  data: USERViewState | [];
+}
+
+interface USERResetPasswordState extends CommonUsersState {
+  data: string;
 }
 
 
@@ -76,6 +78,7 @@ interface OverallUsersState {
   USERViewSpecific: USERViewState,
   USERCreate: USERCreateState,
   USEREdit: USEREditState,
+  USERResetPassword: USERResetPasswordState
 }
 
 const initialState: OverallUsersState = {
@@ -95,13 +98,19 @@ const initialState: OverallUsersState = {
   USERCreate: {
     status: '',
     progress: 0,
-    data: null,
+    data:[],
     error: '',
   },
   USEREdit: {
     status: '',
     progress: 0,
-    data: null,
+    data: [],
+    error: '',
+  },
+  USERResetPassword: {
+    status: '',
+    progress: 0,
+    data: '',
     error: '',
   },
 };
@@ -161,7 +170,11 @@ const usersSlice = createSlice({
       .addCase(USEREditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "USEREdit"))
       .addCase(USEREditActionProgress, (state, action) => setProgressState(state, action.payload, "USEREdit"))
       .addCase(USEREditActionFailure, (state, action) => setFailureState(state, action.payload, "USEREdit"))
-  },
+      .addCase(USERResetPasswordAction, setLoadingState("USERResetPassword"))
+      .addCase(USERResetPasswordActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "USERResetPassword"))
+      .addCase(USERResetPasswordActionProgress, (state, action) => setProgressState(state, action.payload, "USERResetPassword"))
+      .addCase(USERResetPasswordActionFailure, (state, action) => setFailureState(state, action.payload, "USERResetPassword"))
+    },
 });
 
 

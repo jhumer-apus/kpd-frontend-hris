@@ -4,7 +4,6 @@ import { Dashboard, Auth } from "@/layouts";
 import useAuth from "./custom-hooks/use-auth";
 import LoadingComponent from "./widgets/layout/custom-effects/LoadingComponent/LoadingComponent";
 
-
 function App() {
   const { isAuthenticated, loading } = useAuth();
   if (loading) {

@@ -44,7 +44,7 @@ export const USEREditActionFailureCleanup = createAction("USER_EDIT_ACTION_FAILU
 
 
 export const USERResetPasswordAction = createAction<USERResetPasswordInterface>("USER_RESET_PASSWORD_ACTION");
-export const USERResetPasswordActionSuccess = createAction("USER_RESET_PASSWORD_ACTION_SUCCESS", (SuccessMessage: USERResetPasswordInterface) => { 
+export const USERResetPasswordActionSuccess = createAction("USER_RESET_PASSWORD_ACTION_SUCCESS", (SuccessMessage: string) => { 
     return({ payload: {SuccessMessage} })
 });
 export const USERResetPasswordActionProgress = createAction<number>("USER_RESET_PASSWORD_ACTION_PROGRESS");

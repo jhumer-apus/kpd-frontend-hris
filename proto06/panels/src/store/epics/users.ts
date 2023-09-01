@@ -43,7 +43,7 @@ import {
 
 // USER API SECTION // USER API SECTION // USER API SECTION // USER API SECTION // USER API SECTION
 const USERResetPasswordApiCall = async (payload: USERResetPasswordInterface) => {
-    const response = await axios.put(`${APILink}reset-password/${payload.id}/`,
+    const response = await axios.post(`${APILink}reset-password/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
