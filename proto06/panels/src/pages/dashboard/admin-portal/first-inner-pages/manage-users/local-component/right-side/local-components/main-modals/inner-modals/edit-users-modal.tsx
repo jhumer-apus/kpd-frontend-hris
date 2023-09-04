@@ -6,11 +6,15 @@ import { USERViewInterface } from '@/types/types-pages';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
-import dayjs from 'dayjs';
 import { USEREditAction } from '@/store/actions/users';
 import EmployeeAutoCompleteRight from './autocomplete-fields/employee-autocomplete-right';
-import BranchAutoCompleteRight from './autocomplete-fields/branch-autocomplete-right';
+import RoleAutoCompleteRight from './autocomplete-fields/role-autocomplete-right';
 
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 
 
 interface EditUSERModalInterface {
@@ -49,7 +53,6 @@ export default function EditUSERModal(props: EditUSERModalInterface) {
       <Transition in={editUSEROpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setEditUSEROpenModal(false);
@@ -109,8 +112,33 @@ export default function EditUSERModal(props: EditUSERModalInterface) {
                     })
                   }}
                 />
-                {/* <EmployeeAutoCompleteRight createUSER={singleUSERDetailsData} setCreateUSER={setSingleUSERDetailsData}/> */}
+                <RoleAutoCompleteRight createUSER={singleUSERDetailsData} setCreateUSER={setSingleUSERDetailsData}/>
+                <EmployeeAutoCompleteRight createUSER={singleUSERDetailsData} setCreateUSER={setSingleUSERDetailsData}/>
                 {/* <BranchAutoCompleteRight createUSER={singleUSERDetailsData} setCreateUSER={setSingleUSERDetailsData}/> */}
+                <FormControl className='w-3/4 justify-center items-center'>
+                    <FormLabel id="is-locked-manage-user-edit">Account Locked Status</FormLabel>
+                    <RadioGroup
+                        className='flex w-full justify-around'
+                        row
+                        aria-labelledby="is-locked-manage-user-edit w-full"
+                        name="name-is-locked-manage-user-edit"
+                        value={`${singleUSERDetailsData.is_locked}`}
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                            const value = (event.target.value=== 'true' ? true : false);
+                            setSingleUSERDetailsData((prevState)=> {
+                                return (
+                                    {
+                                        ...prevState,
+                                        is_locked: value
+                                    }
+                                )
+                            })
+                        }}
+                    >
+                        <FormControlLabel value="true" control={<Radio />} label="Locked" />
+                        <FormControlLabel value="false" control={<Radio />} label="Not Locked" />
+                    </RadioGroup>
+                </FormControl>
               </div>
               <div className='flex justify-around'>
                 <Button variant={'contained'} onClick={editUSER}>Submit</Button>

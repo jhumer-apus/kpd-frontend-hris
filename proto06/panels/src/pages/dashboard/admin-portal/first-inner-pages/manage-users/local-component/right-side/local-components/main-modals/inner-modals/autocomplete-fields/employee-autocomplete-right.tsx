@@ -5,17 +5,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { getEmployeesList } from '@/store/actions/employees';
 import { AutocompleteInputChangeReason } from '@mui/material/Autocomplete';
-import { DEPARTMENTCreateInterface, DEPARTMENTViewInterface } from '@/types/types-pages';
+import { USERCreateInterface, USERViewInterface } from '@/types/types-pages';
 
 
 interface EmployeeAutoCompleteInterface{
-    createDEPARTMENT: DEPARTMENTViewInterface;
-    setCreateDEPARTMENT: Dispatch<SetStateAction<DEPARTMENTViewInterface>>;
+    createUSER: USERViewInterface;
+    setCreateUSER: Dispatch<SetStateAction<USERViewInterface>>;
 }
 
 
 export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInterface) {
-    const {setCreateDEPARTMENT, createDEPARTMENT} = props;
+    const {setCreateUSER, createUSER} = props;
     const dispatch = useDispatch();
     const state = useSelector((state:RootState)=> state.employees);
     const [employeesList, setEmployeesList] = useState<{employee: string, emp_no: number}[]>([])
@@ -28,7 +28,7 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
 
     useEffect(()=> {
         if(selectedEmployeeId){
-            setCreateDEPARTMENT((prevState)=> {
+            setCreateUSER((prevState)=> {
                 return(
                     {
                         ...prevState,
@@ -61,7 +61,7 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
         ...option,
         };
     });
-    const defaultOption = options?.find((option) => option.emp_no === createDEPARTMENT.dept_lead)
+    const defaultOption = options?.find((option) => option.emp_no === createUSER.emp_no)
     
     const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string, reason: AutocompleteInputChangeReason) => {
         const matchingEmployee = employeesList.find(
@@ -84,7 +84,7 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
         {defaultOption &&
         <Autocomplete
         // disableCloseOnSelect
-        // key={createDEPARTMENT.dept_lead}
+        // key={createUSER.dept_lead}
         id="grouped-demo"
         options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
         groupBy={(option) => option.firstLetter}

@@ -4,13 +4,13 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { AutocompleteInputChangeReason } from '@mui/material/Autocomplete';
-import { BRANCHViewInterface, USERCreateInterface } from '@/types/types-pages';
+import { BRANCHViewInterface, USERViewInterface } from '@/types/types-pages';
 import { BRANCHViewAction } from '@/store/actions/categories';
 
 
 interface RoleAutoCompleteInterface{
-    createUSER: USERCreateInterface;
-    setCreateUSER: Dispatch<SetStateAction<USERCreateInterface>>;
+    createUSER: USERViewInterface;
+    setCreateUSER: Dispatch<SetStateAction<USERViewInterface>>;
 }
 
 
@@ -43,12 +43,6 @@ export default function RoleAutoCompleteRight(props: RoleAutoCompleteInterface) 
     // const state = useSelector((state:RootState)=> state.categories.BRANCHView);
     const [roleList, setRoleList] = useState<{role_name: string, role_id: number}[]>([])
     const [selectedRoleID, setSelectedRoleID] = useState<number | null>(null);
-    // useEffect(()=> {
-    //     if(Array.isArray(state.data) && state.data.length === 0){
-    //         dispatch(BRANCHViewAction());
-    //     }
-    // }, []);
-
     useEffect(()=> {
         if(selectedRoleID){
             setCreateUSER((prevState)=> {
@@ -84,7 +78,9 @@ export default function RoleAutoCompleteRight(props: RoleAutoCompleteInterface) 
         ...option,
         };
     });
-    
+
+    const defaultOption = options?.find((option) => option.role_id === createUSER.role)
+
     const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string, reason: AutocompleteInputChangeReason) => {
         const matchingRole = roleList.find(
         (roleItems) => roleItems.role_name.toLowerCase().includes(newInputValue.toLowerCase())
@@ -102,24 +98,51 @@ export default function RoleAutoCompleteRight(props: RoleAutoCompleteInterface) 
     };
     
     return (
-        <Autocomplete
-        // disableCloseOnSelect
-        id="grouped-demo"
-        options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
-        groupBy={(option) => option.firstLetter}
-        getOptionLabel={(option) => option.role_name}
-        onInputChange={handleInputChange}
-        sx={{ width: 300 }}
-        isOptionEqualToValue={isOptionEqualToValue}
-        renderInput={(params) => 
-            {   
-                return(
-                    <TextField {...params} label="Access Role" />
-                )
-
+        <>
+        {defaultOption &&
+            <Autocomplete
+            // disableCloseOnSelect
+            id="grouped-demo"
+            defaultValue={defaultOption}
+            options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
+            groupBy={(option) => option.firstLetter}
+            getOptionLabel={(option) => option.role_name}
+            onInputChange={handleInputChange}
+            sx={{ width: "90%" }}
+            isOptionEqualToValue={isOptionEqualToValue}
+            renderInput={(params) => 
+                {   
+                    return(
+                        <TextField {...params} label="Access Role" />
+                    )
+    
+                }
+    
             }
-
+            />
         }
-        />
+        {!defaultOption &&
+            <Autocomplete
+            // disableCloseOnSelect
+            id="grouped-demo"
+            // defaultValue={defaultOption}
+            options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
+            groupBy={(option) => option.firstLetter}
+            getOptionLabel={(option) => option.role_name}
+            onInputChange={handleInputChange}
+            sx={{ width: "90%" }}
+            isOptionEqualToValue={isOptionEqualToValue}
+            renderInput={(params) => 
+                {   
+                    return(
+                        <TextField {...params} label="Loading Values..." />
+                    )
+    
+                }
+    
+            }
+            />
+        }
+        </>
     );
 }

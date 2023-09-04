@@ -100,6 +100,8 @@ import { proceduralsReducer } from './reducers/procedurals';
 import { categoriesReducer } from './reducers/categories';
 import { USERCreateEpic, USEREditEpic, USERResetPasswordEpic, USERViewEpic, USERViewSpecificEpic } from './epics/users';
 import { usersReducer } from './reducers/users';
+import { PAGIBIGCreateEpic, PAGIBIGEditEpic, PAGIBIGViewEpic, PAGIBIGViewSpecificEpic, PHILHEALTHCreateEpic, PHILHEALTHEditEpic, PHILHEALTHViewEpic, PHILHEALTHViewSpecificEpic, SSSCreateEpic, SSSEditEpic, SSSViewEpic, SSSViewSpecificEpic, TAXCreateEpic, TAXEditEpic, TAXViewEpic, TAXViewSpecificEpic } from './epics/payroll-variables';
+import { payrollVariablesReducer } from './reducers/payroll-variables';
 
 const epicMiddleware = createEpicMiddleware();
 
@@ -111,6 +113,7 @@ const rootReducer = combineReducers({
   procedurals: proceduralsReducer,
   categories: categoriesReducer,
   users: usersReducer,
+  payrollVariables: payrollVariablesReducer,
 });
 
 const store = configureStore({
@@ -220,10 +223,26 @@ epicMiddleware.run(combineEpics(
   USEREditEpic,
   USERViewSpecificEpic,
   USERResetPasswordEpic,
+  PHILHEALTHViewEpic,
+  PHILHEALTHViewSpecificEpic,
+  PHILHEALTHCreateEpic,
+  PHILHEALTHEditEpic,
+  SSSViewEpic,
+  SSSViewSpecificEpic,
+  SSSCreateEpic,
+  SSSEditEpic,
+  PAGIBIGViewEpic,
+  PAGIBIGViewSpecificEpic,
+  PAGIBIGCreateEpic,
+  PAGIBIGEditEpic,
+  TAXViewEpic,
+  TAXViewSpecificEpic,
+  TAXCreateEpic,
+  TAXEditEpic,
 ));
 
 export type RootState = ReturnType<typeof rootReducer>;
 // export const APILink = 'http://18.141.159.149:8000/api/v1/';
-export const APILink = 'https://mercovsk.pythonanywhere.com/api/v1/';
-// export const APILink = 'http://192.168.0.81:8000/api/v1/';
+// export const APILink = 'https://mercovsk.pythonanywhere.com/api/v1/';
+export const APILink = 'http://192.168.0.81:8000/api/v1/';
 export default store;

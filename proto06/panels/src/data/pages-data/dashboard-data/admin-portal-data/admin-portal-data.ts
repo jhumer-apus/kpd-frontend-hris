@@ -48,12 +48,12 @@ export const adminPortalData = [
   },
   {
     icon: RecentActorsOutlinedIcon,
-    title: "Attendance Access",
-    value: "AA Permission",
+    title: "Payroll Variables (Monthly)",
+    value: "PVM",
     footer: {
       color: "text-green-500",
       value: "<",
-      label: "Attendance Edit Approvers, etc.",
+      label: "Tax, Pagibig, ",
     },
     // custom: "linear-gradient(315deg, #d4418e 0%, #0652c5 74%)",
     // custom: "linear-gradient(315deg, #ffcfdf 0%, #b0f3f1 74%)",
