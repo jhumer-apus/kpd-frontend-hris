@@ -224,6 +224,6 @@ epicMiddleware.run(combineEpics(
 
 export type RootState = ReturnType<typeof rootReducer>;
 // export const APILink = 'http://18.141.159.149:8000/api/v1/';
-// export const APILink = 'https://mercovsk.pythonanywhere.com/api/v1/';
-export const APILink = 'http://192.168.0.81:8000/api/v1/';
+export const APILink = 'https://mercovsk.pythonanywhere.com/api/v1/';
+// export const APILink = 'http://192.168.0.81:8000/api/v1/';
 export default store;
