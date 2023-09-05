@@ -74,6 +74,8 @@ import ManagePAYROLLGROUP from "./pages/dashboard/admin-portal/first-inner-pages
 import ManagePOSITION from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-position/manage-position";
 import ManageRANK from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-rank/manage-rank";
 import ManageUSERS from "./pages/dashboard/admin-portal/first-inner-pages/manage-users/manage-users";
+import PayrollVariablesMonthly from "./pages/dashboard/admin-portal/first-inner-pages/payroll-variables-monthly";
+import PVMTAX from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-tax/pvm-tax";
 
 
 const icon = {
@@ -112,8 +114,8 @@ const JSXRouteWrapper = () => {
               hasSubItems: true,
               subItems: [
                 {
-                  id: 112000,
-                  icon: <HomeIcon {...icon} />,
+                  id: 111000,
+                  icon: null,
                   name: "Categories",
                   path: "/Dashboards/Admin-Dashboard/Categories",
                   element: <CategoriesManagement/>,
@@ -121,7 +123,7 @@ const JSXRouteWrapper = () => {
                   subItems: [
                     {
                       id: 1120000,
-                      icon: <HomeIcon {...icon} />,
+                      icon: null,
                       name: "Branch",
                       path: "/Dashboards/Admin-Dashboard/Categories/Branch",
                       element: <ManageBranch/>,
@@ -129,7 +131,7 @@ const JSXRouteWrapper = () => {
                     },
                     {
                       id: 1120001,
-                      icon: <HomeIcon {...icon} />,
+                      icon: null,
                       name: "Department",
                       path: "/Dashboards/Admin-Dashboard/Categories/Department",
                       element: <ManageDEPARTMENT/>,
@@ -137,7 +139,7 @@ const JSXRouteWrapper = () => {
                     },
                     {
                       id: 1120002,
-                      icon: <HomeIcon {...icon} />,
+                      icon: null,
                       name: "Division",
                       path: "/Dashboards/Admin-Dashboard/Categories/Division",
                       element: <ManageDIVISION/>,
@@ -145,7 +147,7 @@ const JSXRouteWrapper = () => {
                     },
                     {
                       id: 1120003,
-                      icon: <HomeIcon {...icon} />,
+                      icon: null,
                       name: "Payroll Group",
                       path: "/Dashboards/Admin-Dashboard/Categories/Payrollgroup",
                       element: <ManagePAYROLLGROUP/>,
@@ -153,7 +155,7 @@ const JSXRouteWrapper = () => {
                     },
                     {
                       id: 1120004,
-                      icon: <HomeIcon {...icon} />,
+                      icon: null,
                       name: "Position",
                       path: "/Dashboards/Admin-Dashboard/Categories/Position",
                       element: <ManagePOSITION/>,
@@ -161,7 +163,7 @@ const JSXRouteWrapper = () => {
                     },
                     {
                       id: 1120005,
-                      icon: <HomeIcon {...icon} />,
+                      icon: null,
                       name: "Rank",
                       path: "/Dashboards/Admin-Dashboard/Categories/Rank",
                       element: <ManageRANK/>,
@@ -171,12 +173,78 @@ const JSXRouteWrapper = () => {
                 },
                 {
                   id: 112000,
-                  icon: <HomeIcon {...icon} />,
+                  icon: null,
                   name: "Users",
                   path: "/Dashboards/Admin-Dashboard/Users",
                   element: <ManageUSERS/>,
                   hasSubItems: false,
                   subItems: []
+                },
+                {
+                  id: 113000,
+                  icon: null,
+                  name: "PVM",
+                  path: "/Dashboards/Admin-Dashboard/Payroll-Variables-Monthly",
+                  element: <PayrollVariablesMonthly/>,
+                  hasSubItems: true,
+                  subItems: [
+                    {
+                      id: 1120000,
+                      icon: null,
+                      name: "Tax",
+                      path: "/Dashboards/Admin-Dashboard/Payroll-Variables-Monthly/Tax",
+                      element: <PVMTAX/>,
+                      hasSubItems: false,
+                    },
+                    {
+                      id: 1120001,
+                      icon: null,
+                      name: "PAGIBIG",
+                      path: "/Dashboards/Admin-Dashboard/Payroll-Variables-Monthly/Pagibig",
+                      element: <h1>asd</h1>,
+                      hasSubItems: false,
+                    },
+                    {
+                      id: 1120002,
+                      icon: null,
+                      name: "SSS",
+                      path: "/Dashboards/Admin-Dashboard/Payroll-Variables-Monthly/SSS",
+                      element: <h1>asd</h1>,
+                      hasSubItems: false,
+                    },
+                    {
+                      id: 1120003,
+                      icon: null,
+                      name: "Philhealth",
+                      path: "/Dashboards/Admin-Dashboard/Payroll-Variables-Monthly/Philhealth",
+                      element: <h1>asd</h1>,
+                      hasSubItems: false,
+                    },
+                    {
+                      id: 1120004,
+                      icon: null,
+                      name: "Cash Advance",
+                      path: "/Dashboards/Admin-Dashboard/Payroll-Variables-Monthly/Cash-Advance",
+                      element: <h1>asd</h1>,
+                      hasSubItems: false,
+                    },
+                    {
+                      id: 1120005,
+                      icon: null,
+                      name: "Allowance Entry",
+                      path: "/Dashboards/Admin-Dashboard/Payroll-Variables-Monthly/Allowance-Entry",
+                      element: <h1>asd</h1>,
+                      hasSubItems: false,
+                    },
+                    {
+                      id: 1120006,
+                      icon: null,
+                      name: "Allowance Type",
+                      path: "/Dashboards/Admin-Dashboard/Payroll-Variables-Monthly/Allowance-Type",
+                      element: <h1>asd</h1>,
+                      hasSubItems: false,
+                    },
+                  ]
                 },
               ]
             },

@@ -12,6 +12,15 @@ import CurrencyExchangeOutlinedIcon from '@mui/icons-material/CurrencyExchangeOu
 import Diversity3OutlinedIcon from '@mui/icons-material/Diversity3Outlined';
 import Diversity2OutlinedIcon from '@mui/icons-material/Diversity2Outlined';
 
+import AddModeratorIcon from '@mui/icons-material/AddModerator';
+import AssuredWorkloadOutlinedIcon from '@mui/icons-material/AssuredWorkloadOutlined';
+import AttractionsOutlinedIcon from '@mui/icons-material/AttractionsOutlined';
+import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
+import ContactEmergencyOutlinedIcon from '@mui/icons-material/ContactEmergencyOutlined';
+import ContactPageOutlinedIcon from '@mui/icons-material/ContactPageOutlined';
+import ContentPasteSearchOutlinedIcon from '@mui/icons-material/ContentPasteSearchOutlined';
+
+
 export const adminPortalData = [
   {
     type: 2,
@@ -58,7 +67,7 @@ export const adminPortalData = [
     // custom: "linear-gradient(315deg, #d4418e 0%, #0652c5 74%)",
     // custom: "linear-gradient(315deg, #ffcfdf 0%, #b0f3f1 74%)",
     custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
-    link: 'development',
+    link: '/home/Dashboards/Admin-Dashboard/Payroll-Variables-Monthly',
     customTop: 15,
     customLeft: 38,
   },
@@ -212,6 +221,115 @@ export const categoriesManagementData = [
     customLeft: 38,
   },
 ];
+
+
+
+
+export const payrollVariablesMonthlyData = [
+  {
+    // color: "red",
+    type: 2,
+    icon: AddModeratorIcon,
+    title: "Employee Tax Entries",
+    value: "TAX",
+    footer: {
+    color: "text-green-500",
+    value: "<",
+    label: "View List of Tax IDs, details etc.",
+    },
+    custom: "linear-gradient(235deg, rgba(132,25,142,1) 4%, rgba(52,9,121,0.8379726890756303) 23%, rgba(19,151,161,1) 55%)",
+    link: '/home/Dashboards/Admin-Dashboard/Payroll-Variables-Monthly/Tax',
+    customTop: 15,
+    customLeft: 38,
+  },
+  {
+    icon: AssuredWorkloadOutlinedIcon,
+    title: "Employee PAGIBIG Entries",
+    value: "PHDMF",
+    footer: {
+      color: "text-green-500",
+      value: "<",
+      label: "View PHDMF IDs, details etc.",
+    },
+    custom: "linear-gradient(235deg, rgba(132,25,142,1) 4%, rgba(52,9,121,0.8379726890756303) 23%, rgba(19,151,161,1) 55%)",
+    link: '/home/Dashboards/Admin-Dashboard/Payroll-Variables-Monthly/Pagibig',
+    customTop: 15,
+    customLeft: 38,
+  },
+  {
+    icon: AttractionsOutlinedIcon,
+    title: "Employee SSS Entries",
+    value: "SSS",
+    footer: {
+      color: "text-green-500",
+      value: "<",
+      label: "View Social Security IDs, details etc.",
+    },
+    custom: "linear-gradient(235deg, rgba(132,25,142,1) 4%, rgba(52,9,121,0.8379726890756303) 23%, rgba(19,151,161,1) 55%)",
+    link: '/home/Dashboards/Admin-Dashboard/Payroll-Variables-Monthly/SSS',
+    customTop: 15,
+    customLeft: 38,
+  },
+  {
+    icon: BusinessOutlinedIcon,
+    title: "Employee Philhealth Entries",
+    value: "PHILHEALTH",
+    footer: {
+      color: "text-green-500",
+      value: "<",
+      label: "View Philhealth IDs, details etc.",
+    },
+    custom: "linear-gradient(235deg, rgba(132,25,142,1) 4%, rgba(52,9,121,0.8379726890756303) 23%, rgba(19,151,161,1) 55%)",
+    link: '/home/Dashboards/Admin-Dashboard/Payroll-Variables-Monthly/Philhealth',
+    customTop: 15,
+    customLeft: 38,
+  },
+  {
+    icon: ContactEmergencyOutlinedIcon,
+    title: "Employee Cash Advance List",
+    value: "CA",
+    footer: {
+      color: "text-green-500",
+      value: "<",
+      label: "View Cash Advance List, details etc.",
+    },
+    custom: "linear-gradient(235deg, rgba(132,25,142,1) 4%, rgba(52,9,121,0.8379726890756303) 23%, rgba(19,151,161,1) 55%)",
+    link: '/home/Dashboards/Admin-Dashboard/Payroll-Variables-Monthly/Cash-Advance',
+    customTop: 15,
+    customLeft: 38,
+  },
+  {
+    icon: ContactPageOutlinedIcon,
+    title: "Employee Allowance Entries",
+    value: "AE",
+    footer: {
+      color: "text-green-500",
+      value: "<",
+      label: "View Allowance Entries, Details etc.",
+    },
+    custom: "linear-gradient(235deg, rgba(132,25,142,1) 4%, rgba(52,9,121,0.8379726890756303) 23%, rgba(19,151,161,1) 55%)",
+    link: '/home/Dashboards/Admin-Dashboard/Payroll-Variables-Monthly/Allowance-Entry',
+    customTop: 15,
+    customLeft: 38,
+  },
+  {
+    icon: ContentPasteSearchOutlinedIcon,
+    title: "Allowance Types",
+    value: "AT",
+    footer: {
+      color: "text-green-500",
+      value: "<",
+      label: "View Allowance Types, Details etc.",
+    },
+    custom: "linear-gradient(235deg, rgba(132,25,142,1) 4%, rgba(52,9,121,0.8379726890756303) 23%, rgba(19,151,161,1) 55%)",
+    link: '/home/Dashboards/Admin-Dashboard/Payroll-Variables-Monthly/Allowance-Type',
+    customTop: 15,
+    customLeft: 38,
+  },
+];
+
+
+
 
 
 

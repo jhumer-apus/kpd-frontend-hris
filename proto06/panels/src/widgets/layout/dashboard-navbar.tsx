@@ -53,7 +53,7 @@ export function DashboardNavbar() {
   const { fixedNavbar, openSidenav } = controller;
   const { pathname } = useLocation();
   const [layout, page, innermostpage, firstInner, secondInner ] = pathname.split("/").filter((el) => el !== "");  
-  console.log(pathname.split("/").filter((el) => el !== ""), "asdasd?")
+  console.log(pathname.split("/").filter((el) => el !== ""), "asdasd?11")
   
   const updatedImage = employee_detail?.employee_image;
   const handleLogout = () => {
@@ -138,7 +138,7 @@ export function DashboardNavbar() {
                   color="blue-gray"
                   className="font-normal"
                 >
-                  {firstInner?.replace("-", " ")}
+                  {firstInner?.replaceAll("-", " ")}
                 </Typography>
             </Link>
             :
@@ -160,7 +160,7 @@ export function DashboardNavbar() {
             }
           </Breadcrumbs>
           <Typography variant="h6" color="blue-gray">
-            {secondInner? secondInner.replace("-", " ") : firstInner? firstInner.replace("-", " ") : innermostpage ? innermostpage?.replace("-", " ") : page?.replace("-", " ")}
+            {secondInner? secondInner.replace("-", " ") : firstInner? firstInner.replaceAll("-", " ") : innermostpage ? innermostpage?.replace("-", " ") : page?.replace("-", " ")}
           </Typography>
         </div>
         <div className="flex items-center">
