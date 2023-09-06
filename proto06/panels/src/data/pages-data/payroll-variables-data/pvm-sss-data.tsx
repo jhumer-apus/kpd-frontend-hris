@@ -1,4 +1,11 @@
-import { GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
+import { GridColDef, GridValueGetterParams, GridCellParams, GridValueFormatterParams } from "@mui/x-data-grid";
+
+// export const viewPayrollOptions = [
+//   "View Payroll Per Employee",
+//   "No Other Payroll View Options",
+//   // "View Cutoff DTR Summary",
+//   // "View Employee Specific DTR"
+// ];
 
 export const PVMSSSPageDescriptions = [
   "On this table, you will find the list of HRIS SSS IDs of the employee of your company and their details each.",
@@ -19,14 +26,14 @@ export const PVMSSSPageColumns: GridColDef[] =
     //   return params.row.expiry ? date.toLocaleDateString() : 'No Expiry';
     // }
   },
-  { field: 'role', headerName: 'Role', width: 100 },
-  { field: 'date_added', 
-    headerName: 'Date Added', 
-    width: 120,
-    valueGetter: (params: GridValueGetterParams) => {
-      const date = new Date(params.row.date_added);
-      return params.row.date_added ? date.toLocaleDateString() : 'No Date';
-    }
+  { field: 'id', headerName: 'Key ID', width: 100 },
+  { field: 'sss_contribution_month', 
+    headerName: 'Monthly Contribution', 
+    width: 160,
+    // valueGetter: (params: GridValueGetterParams) => {
+    //   const date = new Date(params.row.date_added);
+    //   return params.row.date_added ? date.toLocaleDateString() : 'No Date';
+    // }
     // renderCell: (params: GridCellParams) => {
     //   const status = params.row?.credit_remaining as number;
 
@@ -48,7 +55,7 @@ export const PVMSSSPageColumns: GridColDef[] =
     //   );
     // }  
   },
-  { field: 'username', headerName: 'Username',  width: 200 },
+  { field: 'sss_no', headerName: 'SSS Number',  width: 160 },
 ];
   
 export default {

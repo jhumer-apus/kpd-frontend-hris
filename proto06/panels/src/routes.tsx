@@ -77,6 +77,7 @@ import ManageUSERS from "./pages/dashboard/admin-portal/first-inner-pages/manage
 import PayrollVariablesMonthly from "./pages/dashboard/admin-portal/first-inner-pages/payroll-variables-monthly";
 import PVMTAX from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-tax/pvm-tax";
 import PVMPAGIBIG from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-pagibig/pvm-pagibig";
+import PVMSSS from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-sss/pvm-sss";
 
 
 const icon = {
@@ -210,7 +211,7 @@ const JSXRouteWrapper = () => {
                       icon: null,
                       name: "SSS",
                       path: "/Dashboards/Admin-Dashboard/Payroll-Variables-Monthly/SSS",
-                      element: <h1>asd</h1>,
+                      element: <PVMSSS/>,
                       hasSubItems: false,
                     },
                     {
