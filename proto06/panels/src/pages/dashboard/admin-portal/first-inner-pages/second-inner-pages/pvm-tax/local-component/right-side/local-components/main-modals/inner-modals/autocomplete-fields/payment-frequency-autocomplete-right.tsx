@@ -87,6 +87,7 @@ export default function PaymentFrequencyAutoCompleteRight(props: PaymentFrequenc
         };
     });
     
+    const defaultOption = options?.find((option) => option.pay_id === createTAX.payment_frequency)
     const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string, reason: AutocompleteInputChangeReason) => {
         const matchingPaymentFrequency = payList.find(
         (payItems) => payItems.pay_name.toLowerCase().includes(newInputValue.toLowerCase())
@@ -104,24 +105,52 @@ export default function PaymentFrequencyAutoCompleteRight(props: PaymentFrequenc
     };
     
     return (
-        <Autocomplete
-        // disableCloseOnSelect
-        id="grouped-demo"
-        options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
-        groupBy={(option) => option.firstLetter}
-        getOptionLabel={(option) => option.pay_name}
-        onInputChange={handleInputChange}
-        sx={{ width: "100%" }}
-        isOptionEqualToValue={isOptionEqualToValue}
-        renderInput={(params) => 
-            {   
-                return(
-                    <TextField {...params} label="Payment Frequency" />
-                )
-
+        <>
+        {defaultOption &&
+            <Autocomplete
+            // disableCloseOnSelect
+            id="grouped-demo"
+            options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
+            defaultValue={defaultOption}
+            groupBy={(option) => option.firstLetter}
+            getOptionLabel={(option) => option.pay_name}
+            onInputChange={handleInputChange}
+            sx={{ width: "100%" }}
+            isOptionEqualToValue={isOptionEqualToValue}
+            renderInput={(params) => 
+                {   
+                    return(
+                        <TextField {...params} label="Payment Frequency" />
+                    )
+    
+                }
+    
             }
-
+            />
         }
-        />
+        {!defaultOption &&
+            <Autocomplete
+            // disableCloseOnSelect
+            id="grouped-demo"
+            options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
+            defaultValue={defaultOption}
+            groupBy={(option) => option.firstLetter}
+            getOptionLabel={(option) => option.pay_name}
+            onInputChange={handleInputChange}
+            sx={{ width: "100%" }}
+            isOptionEqualToValue={isOptionEqualToValue}
+            renderInput={(params) => 
+                {   
+                    return(
+                        <TextField {...params} label="Loading Values..." />
+                    )
+    
+                }
+    
+            }
+            />
+        }
+        </>
+        
     );
 }

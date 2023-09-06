@@ -27,7 +27,7 @@ interface EditTAXModalInterface {
 
 export default function EditTAXModal(props: EditTAXModalInterface) {
   const dispatch = useDispatch();
-  const TAXEditState = useSelector((state: RootState)=> state.payrollVariables.TAXEdit.status)
+  const TAXEditState = useSelector((state: RootState)=> state.payrollVariables.TAXEdit)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
   const {editTAXOpenModal, setEditTAXOpenModal, singleTAXDetailsData, setSingleTAXDetailsData} = props;
 
@@ -40,15 +40,17 @@ export default function EditTAXModal(props: EditTAXModalInterface) {
   }
 
   useEffect(()=>{
-    if(TAXEditState){      
-      if(TAXEditState === 'succeeded'){
-        window.alert(`${TAXEditState.charAt(0).toUpperCase()}${TAXEditState.slice(1)}`)
+    if(TAXEditState.status){      
+      if(TAXEditState.status === 'succeeded'){
+        window.alert(`${TAXEditState.status.charAt(0).toUpperCase()}${TAXEditState.status.slice(1)}`)
         setTimeout(()=>{
           window.location.reload();
         }, 800)
-      } // Error Handling here.
+      }else if(TAXEditState.status === 'failed'){
+        window.alert(`${TAXEditState.error}`)
+      }
     }
-  }, [TAXEditState])
+  }, [TAXEditState.status])
   return (
     <Fragment>
       <Transition in={editTAXOpenModal} timeout={400}>
