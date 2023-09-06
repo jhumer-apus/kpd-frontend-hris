@@ -1,4 +1,4 @@
-import { GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
+import { GridColDef } from "@mui/x-data-grid";
 
 export const PVMPHILHEALTHPageDescriptions = [
   "On this table, you will find the list of HRIS PHILHEALTH IDs of the employee of your company and their details each.",
@@ -19,14 +19,14 @@ export const PVMPHILHEALTHPageColumns: GridColDef[] =
     //   return params.row.expiry ? date.toLocaleDateString() : 'No Expiry';
     // }
   },
-  { field: 'role', headerName: 'Role', width: 100 },
-  { field: 'date_added', 
-    headerName: 'Date Added', 
-    width: 120,
-    valueGetter: (params: GridValueGetterParams) => {
-      const date = new Date(params.row.date_added);
-      return params.row.date_added ? date.toLocaleDateString() : 'No Date';
-    }
+  { field: 'id', headerName: 'Key ID', width: 100 },
+  { field: 'ph_contribution_month', 
+    headerName: 'Monthly Contribution', 
+    width: 160,
+    // valueGetter: (params: GridValueGetterParams) => {
+    //   const date = new Date(params.row.date_added);
+    //   return params.row.date_added ? date.toLocaleDateString() : 'No Date';
+    // }
     // renderCell: (params: GridCellParams) => {
     //   const status = params.row?.credit_remaining as number;
 
@@ -48,7 +48,7 @@ export const PVMPHILHEALTHPageColumns: GridColDef[] =
     //   );
     // }  
   },
-  { field: 'username', headerName: 'Username',  width: 200 },
+  { field: 'ph_no', headerName: 'PHILHEALTH Number',  width: 160 },
 ];
   
 export default {

@@ -550,7 +550,7 @@ const SSSEditApiCall = async (payload: SSSEditInterface) => {
   
 // PHILHEALTH API SECTION // PHILHEALTH API SECTION // PHILHEALTH API SECTION // PHILHEALTH API SECTION // PHILHEALTH API SECTION
 const PHILHEALTHEditApiCall = async (payload: PHILHEALTHEditInterface) => {
-    const response = await axios.put(`${APILink}sss/${payload.emp_no}/`,
+    const response = await axios.put(`${APILink}philhealth/${payload.emp_no}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -565,7 +565,7 @@ const PHILHEALTHEditApiCall = async (payload: PHILHEALTHEditInterface) => {
   };
   
   const PHILHEALTHCreateApiCall = async (payload: PHILHEALTHCreateInterface) => {
-    const response = await axios.post(`${APILink}sss/`,
+    const response = await axios.post(`${APILink}philhealth/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -581,7 +581,7 @@ const PHILHEALTHEditApiCall = async (payload: PHILHEALTHEditInterface) => {
   
   
   const PHILHEALTHViewSpecificApiCall = async (payload: {emp_no: number}) => {
-    const response = await axios.get(`${APILink}sss/${payload.emp_no}/`,
+    const response = await axios.get(`${APILink}philhealth/${payload.emp_no}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -596,7 +596,7 @@ const PHILHEALTHEditApiCall = async (payload: PHILHEALTHEditInterface) => {
   
   
   const PHILHEALTHViewApiCall = async () => {
-    const response = await axios.get(`${APILink}sss/`,
+    const response = await axios.get(`${APILink}philhealth/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){

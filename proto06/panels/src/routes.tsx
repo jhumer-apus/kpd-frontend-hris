@@ -78,6 +78,7 @@ import PayrollVariablesMonthly from "./pages/dashboard/admin-portal/first-inner-
 import PVMTAX from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-tax/pvm-tax";
 import PVMPAGIBIG from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-pagibig/pvm-pagibig";
 import PVMSSS from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-sss/pvm-sss";
+import PVMPHILHEALTH from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-philhealth/pvm-philhealth";
 
 
 const icon = {
@@ -219,7 +220,7 @@ const JSXRouteWrapper = () => {
                       icon: null,
                       name: "Philhealth",
                       path: "/Dashboards/Admin-Dashboard/Payroll-Variables-Monthly/Philhealth",
-                      element: <h1>asd</h1>,
+                      element: <PVMPHILHEALTH/>,
                       hasSubItems: false,
                     },
                     {
