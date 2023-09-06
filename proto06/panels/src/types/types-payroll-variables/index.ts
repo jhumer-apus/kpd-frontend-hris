@@ -115,8 +115,52 @@ export interface CASHADVANCEViewInterface extends CASHADVANCEGenericInterface{
 }
 
 
-export interface CASHADVANCECreateInterface extends CASHADVANCEGenericInterface{}
+export interface CASHADVANCECreateInterface extends Pick<CASHADVANCEGenericInterface, "cash_advance_total" | "payment_monthly" | "emp_no" | "current_user">{}
 
-export interface CASHADVANCEEditInterface extends Pick<CASHADVANCEGenericInterface, "cash_advance_total" | "payment_monthly" | "cash_advance_remaining" | "emp_no">{}
+export interface CASHADVANCEEditInterface extends Pick<CASHADVANCEGenericInterface, "payment_monthly">{}
 
+
+// ======================================
+
+export interface ALLOWANCETYPEGenericInterface {
+    allowance_name: string,
+    taxable: boolean,
+    current_user?: number,
+}
+
+
+export interface ALLOWANCETYPEViewInterface extends ALLOWANCETYPEGenericInterface{
+    readonly id: number,
+    readonly date_added: string,
+    readonly date_deleted: string | null,
+}
+
+
+export interface ALLOWANCETYPECreateInterface extends ALLOWANCETYPEGenericInterface{}
+
+export interface ALLOWANCETYPEEditInterface extends ALLOWANCETYPEGenericInterface{}
+
+
+
+// ======================================
+
+export interface ALLOWANCEENTRYGenericInterface {
+    amount: number,
+    tax_rate: number,
+    emp_no: number,
+    allowance_code: number,
+    current_user?: number,
+}
+
+
+export interface ALLOWANCEENTRYViewInterface extends ALLOWANCEENTRYGenericInterface{
+    readonly id: number,
+    readonly date_added: string,
+    readonly date_deleted: string | null,
+}
+
+
+export interface ALLOWANCEENTRYCreateInterface extends ALLOWANCEENTRYGenericInterface{}
+
+export interface ALLOWANCEENTRYEditInterface extends ALLOWANCEENTRYGenericInterface{}
 
