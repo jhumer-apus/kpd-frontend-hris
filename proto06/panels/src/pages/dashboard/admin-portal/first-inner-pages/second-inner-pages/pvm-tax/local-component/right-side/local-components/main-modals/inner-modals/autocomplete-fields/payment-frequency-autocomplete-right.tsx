@@ -103,7 +103,6 @@ export default function PaymentFrequencyAutoCompleteRight(props: PaymentFrequenc
     const isOptionEqualToValue = (option: { pay_name: string; pay_id: number }, value: { pay_name: string; pay_id: number }) => {
         return option.pay_id === value.pay_id;
     };
-    
     return (
         <>
         {defaultOption &&
@@ -142,7 +141,7 @@ export default function PaymentFrequencyAutoCompleteRight(props: PaymentFrequenc
             renderInput={(params) => 
                 {   
                     return(
-                        <TextField {...params} label="Loading Values..." />
+                        <TextField {...params} label={ createTAX.payment_frequency ?  'Loading Values...' : 'Choose Payment Frequency' } />
                     )
     
                 }

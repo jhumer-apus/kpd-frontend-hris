@@ -76,6 +76,7 @@ import ManageRANK from "./pages/dashboard/admin-portal/first-inner-pages/second-
 import ManageUSERS from "./pages/dashboard/admin-portal/first-inner-pages/manage-users/manage-users";
 import PayrollVariablesMonthly from "./pages/dashboard/admin-portal/first-inner-pages/payroll-variables-monthly";
 import PVMTAX from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-tax/pvm-tax";
+import PVMPAGIBIG from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-pagibig/pvm-pagibig";
 
 
 const icon = {
@@ -201,7 +202,7 @@ const JSXRouteWrapper = () => {
                       icon: null,
                       name: "PAGIBIG",
                       path: "/Dashboards/Admin-Dashboard/Payroll-Variables-Monthly/Pagibig",
-                      element: <h1>asd</h1>,
+                      element: <PVMPAGIBIG/>,
                       hasSubItems: false,
                     },
                     {

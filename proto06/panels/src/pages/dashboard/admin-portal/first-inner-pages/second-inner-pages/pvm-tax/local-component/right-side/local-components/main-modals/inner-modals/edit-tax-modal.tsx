@@ -1,4 +1,4 @@
-import {useEffect, Dispatch, SetStateAction, ChangeEvent, Fragment}from 'react';
+import {useEffect, Dispatch, SetStateAction, Fragment}from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
@@ -7,14 +7,6 @@ import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { TAXEditAction } from '@/store/actions/payroll-variables';
-import EmployeeAutoCompleteRight from './autocomplete-fields/employee-autocomplete-right';
-import RoleAutoCompleteRight from './autocomplete-fields/role-autocomplete-right';
-
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 import PaymentFrequencyAutoCompleteRight from './autocomplete-fields/payment-frequency-autocomplete-right';
 
 
@@ -100,9 +92,6 @@ export default function EditTAXModal(props: EditTAXModalInterface) {
               </div>
               <div className='flex flex-col gap-5'>
                     <div className='flex flex-col gap-6 pt-4'>
-                        <EmployeeAutoCompleteRight createTAX={singleTAXDetailsData} setCreateTAX={setSingleTAXDetailsData}/>
-                    </div>
-                    <div className='flex flex-col gap-6'>
                         <TextField
                             required 
                             sx={{width: '100%'}} 
@@ -112,7 +101,7 @@ export default function EditTAXModal(props: EditTAXModalInterface) {
                             type="text"
                             value={singleTAXDetailsData?.tin_no}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = event.target.value
+                                const value = parseInt(event.target.value)
                                 setSingleTAXDetailsData((prevState)=> {
                                     return (
                                         {

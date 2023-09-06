@@ -1,10 +1,8 @@
 import { useState, Fragment, Dispatch, SetStateAction } from 'react';
 import { TAXViewInterface } from '@/types/types-payroll-variables';
 import { Button } from '@mui/material';
-import dayjs from 'dayjs';
 import {TextField} from '@mui/material';
 import EditTAXModal from '../main-modals/inner-modals/edit-tax-modal';
-import ResetPasswordTAXModal from '../main-modals/inner-modals/reset-password-users-modal';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 

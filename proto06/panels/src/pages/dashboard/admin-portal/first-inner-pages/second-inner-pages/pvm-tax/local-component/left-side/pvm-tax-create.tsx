@@ -19,7 +19,7 @@ function PVMTAXCreate(props: CreateTAXModalInterface) {
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail?.emp_no);
     const TAXCreatestate = useSelector((state: RootState)=> state.payrollVariables.TAXCreate);
     const [createTAX, setCreateTAX] = useState<TAXCreateInterface>({
-        tin_no: '',
+        tin_no: NaN,
         tax_form: '',
         tax_description: '',
         tax_percentage: NaN,
@@ -70,10 +70,10 @@ function PVMTAXCreate(props: CreateTAXModalInterface) {
                             label='TIN Number'
                             aria-required  
                             variant='outlined' 
-                            type="text"
+                            type="number"
                             value={createTAX?.tin_no}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = event.target.value
+                                const value = parseInt(event.target.value)
                                 setCreateTAX((prevState)=> {
                                     return (
                                         {

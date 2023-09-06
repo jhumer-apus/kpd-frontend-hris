@@ -5,17 +5,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { getEmployeesList } from '@/store/actions/employees';
 import { AutocompleteInputChangeReason } from '@mui/material/Autocomplete';
-import { TAXCreateInterface, TAXViewInterface } from '@/types/types-payroll-variables';
+import { PAGIBIGCreateInterface } from '@/types/types-payroll-variables';
 
 
 interface EmployeeAutoCompleteInterface{
-    createTAX: TAXViewInterface;
-    setCreateTAX: Dispatch<SetStateAction<TAXViewInterface>>;
+    createPAGIBIG: PAGIBIGCreateInterface;
+    setCreatePAGIBIG: Dispatch<SetStateAction<PAGIBIGCreateInterface>>;
 }
 
 
-export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInterface) {
-    const {setCreateTAX, createTAX} = props;
+export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterface) {
+    const {setCreatePAGIBIG, createPAGIBIG} = props;
     const dispatch = useDispatch();
     const state = useSelector((state:RootState)=> state.employees);
     const [employeesList, setEmployeesList] = useState<{employee: string, emp_no: number}[]>([])
@@ -28,11 +28,11 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
 
     useEffect(()=> {
         if(selectedEmployeeId){
-            setCreateTAX((prevState)=> {
+            setCreatePAGIBIG((prevState)=> {
                 return(
                     {
                         ...prevState,
-                        dept_lead: selectedEmployeeId
+                        emp_no: selectedEmployeeId
                     }
                 )
             })
@@ -61,10 +61,10 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
         ...option,
         };
     });
-    const defaultOption = options?.find((option) => option.emp_no === createTAX.emp_no)
     
     const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string, reason: AutocompleteInputChangeReason) => {
         const matchingEmployee = employeesList.find(
+        //   (employeeItems) => employeeItems.employee === newInputValue
         (employeeItems) => employeeItems.employee.toLowerCase().includes(newInputValue.toLowerCase())
         );
         if (matchingEmployee) {
@@ -80,16 +80,12 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
     };
     
     return (
-        <>
-        {defaultOption &&
         <Autocomplete
         // disableCloseOnSelect
-        // key={createTAX.dept_lead}
         id="grouped-demo"
         options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
         groupBy={(option) => option.firstLetter}
         getOptionLabel={(option) => option.employee}
-        defaultValue={defaultOption}
         onInputChange={handleInputChange}
         sx={{ width: "100%" }}
         isOptionEqualToValue={isOptionEqualToValue}
@@ -103,27 +99,5 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
 
         }
         />
-        }
-        {!defaultOption &&
-        <Autocomplete
-        id="grouped-demo"
-        options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
-        groupBy={(option) => option.firstLetter}
-        getOptionLabel={(option) => option.employee}
-        onInputChange={handleInputChange}
-        sx={{ width: '100%' }}
-        isOptionEqualToValue={isOptionEqualToValue}
-        renderInput={(params) => 
-            {   
-                return(
-                    <TextField {...params} label="Loading Values..." />
-                )
-
-            }
-
-        }
-        />
-        }
-        </>
     );
 }
