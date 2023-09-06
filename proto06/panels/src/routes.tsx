@@ -79,6 +79,7 @@ import PVMTAX from "./pages/dashboard/admin-portal/first-inner-pages/second-inne
 import PVMPAGIBIG from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-pagibig/pvm-pagibig";
 import PVMSSS from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-sss/pvm-sss";
 import PVMPHILHEALTH from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-philhealth/pvm-philhealth";
+import PVMCASHADVANCE from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-cash-advance/pvm-cash-advance";
 
 
 const icon = {
@@ -228,7 +229,7 @@ const JSXRouteWrapper = () => {
                       icon: null,
                       name: "Cash Advance",
                       path: "/Dashboards/Admin-Dashboard/Payroll-Variables-Monthly/Cash-Advance",
-                      element: <h1>asd</h1>,
+                      element: <PVMCASHADVANCE/>,
                       hasSubItems: false,
                     },
                     {
