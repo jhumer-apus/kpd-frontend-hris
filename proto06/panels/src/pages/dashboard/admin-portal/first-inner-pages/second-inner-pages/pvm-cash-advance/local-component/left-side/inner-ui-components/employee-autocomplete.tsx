@@ -5,17 +5,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { getEmployeesList } from '@/store/actions/employees';
 import { AutocompleteInputChangeReason } from '@mui/material/Autocomplete';
-import { PHILHEALTHCreateInterface } from '@/types/types-payroll-variables';
+import { CASHADVANCECreateInterface } from '@/types/types-payroll-variables';
 
 
 interface EmployeeAutoCompleteInterface{
-    createPHILHEALTH: PHILHEALTHCreateInterface;
-    setCreatePHILHEALTH: Dispatch<SetStateAction<PHILHEALTHCreateInterface>>;
+    createCASHADVANCE: CASHADVANCECreateInterface;
+    setCreateCASHADVANCE: Dispatch<SetStateAction<CASHADVANCECreateInterface>>;
 }
 
 
 export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterface) {
-    const {setCreatePHILHEALTH, createPHILHEALTH} = props;
+    const {setCreateCASHADVANCE, createCASHADVANCE} = props;
     const dispatch = useDispatch();
     const state = useSelector((state:RootState)=> state.employees);
     const [employeesList, setEmployeesList] = useState<{employee: string, emp_no: number}[]>([])
@@ -28,7 +28,7 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
 
     useEffect(()=> {
         if(selectedEmployeeId){
-            setCreatePHILHEALTH((prevState)=> {
+            setCreateCASHADVANCE((prevState)=> {
                 return(
                     {
                         ...prevState,

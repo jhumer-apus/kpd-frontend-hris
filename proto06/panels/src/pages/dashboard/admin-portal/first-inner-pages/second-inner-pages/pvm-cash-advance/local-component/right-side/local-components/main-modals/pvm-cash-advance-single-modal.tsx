@@ -2,29 +2,29 @@ import { Dispatch, SetStateAction, Fragment, useState } from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
-import { PHILHEALTHViewInterface } from '@/types/types-payroll-variables';
-import PHILHEALTHModalComponent from './inner-modals/philhealth-modal-component';
+import { CASHADVANCEViewInterface } from '@/types/types-payroll-variables';
+import CASHADVANCEModalComponent from './inner-modals/cash-advance-modal-component';
 
 
-interface SinglePHILHEALTHInterface {
-    singlePHILHEALTHOpenModal: boolean; 
-    setSinglePHILHEALTHOpenModal: Dispatch<SetStateAction<boolean>>;
-    singlePHILHEALTHDetailsData: PHILHEALTHViewInterface;
-    setSinglePHILHEALTHDetailsData: Dispatch<SetStateAction<PHILHEALTHViewInterface>>;
+interface SingleCASHADVANCEInterface {
+    singleCASHADVANCEOpenModal: boolean; 
+    setSingleCASHADVANCEOpenModal: Dispatch<SetStateAction<boolean>>;
+    singleCASHADVANCEDetailsData: CASHADVANCEViewInterface;
+    setSingleCASHADVANCEDetailsData: Dispatch<SetStateAction<CASHADVANCEViewInterface>>;
 }
 
-export default function ViewPHILHEALTHSingleModal(props: SinglePHILHEALTHInterface) {
-    const {singlePHILHEALTHOpenModal, setSinglePHILHEALTHOpenModal, setSinglePHILHEALTHDetailsData, singlePHILHEALTHDetailsData} = props;
+export default function ViewCASHADVANCESingleModal(props: SingleCASHADVANCEInterface) {
+    const {singleCASHADVANCEOpenModal, setSingleCASHADVANCEOpenModal, setSingleCASHADVANCEDetailsData, singleCASHADVANCEDetailsData} = props;
   const [scroll, setScroll] = useState<boolean>(true);
   return (
     <Fragment>
-      <Transition in={singlePHILHEALTHOpenModal} timeout={400}>
+      <Transition in={singleCASHADVANCEOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
         keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setSinglePHILHEALTHOpenModal(false);
+          setSingleCASHADVANCEOpenModal(false);
         }}
         slotProps={{
             backdrop: {
@@ -47,7 +47,7 @@ export default function ViewPHILHEALTHSingleModal(props: SinglePHILHEALTHInterfa
             aria-labelledby="dialog-vertical-scroll-title" 
             layout={'center'}
             sx={{
-              ...PHILHEALTHModalArea,
+              ...CASHADVANCEModalArea,
                 opacity: 0,
                 transition: `opacity 300ms`,
                 ...{
@@ -57,7 +57,7 @@ export default function ViewPHILHEALTHSingleModal(props: SinglePHILHEALTHInterfa
                 overflow: 'auto',
             }}
         >
-          <PHILHEALTHModalComponent setSinglePHILHEALTHDetailsData={setSinglePHILHEALTHDetailsData} singlePHILHEALTHDetailsData={singlePHILHEALTHDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <CASHADVANCEModalComponent setSingleCASHADVANCEDetailsData={setSingleCASHADVANCEDetailsData} singleCASHADVANCEDetailsData={singleCASHADVANCEDetailsData} scroll={scroll} setScroll={setScroll}/>
         </ModalDialog>
       </Modal>
         )}
@@ -68,7 +68,7 @@ export default function ViewPHILHEALTHSingleModal(props: SinglePHILHEALTHInterfa
 
 
 // Styles
-const PHILHEALTHModalArea = {
+const CASHADVANCEModalArea = {
   height: '90.5mm',
   width: '210mm',
   margin: '0 auto',

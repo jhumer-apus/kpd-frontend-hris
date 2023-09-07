@@ -1,8 +1,7 @@
-import { GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
+import { GridColDef } from "@mui/x-data-grid";
 
-
-export const PayrollVariableCASHADVANCEPageDescriptions = [
-  "On this table, you will find the list of Employee Cash Advances of your company and their details each.",
+export const PVMCASHADVANCEPageDescriptions = [
+  "On this table, you will find the list of Cash Advances of the employees of your company and their details each.",
   // "See merged logs of all employees here, showing the total hours and details of each logs. Sortable and filterable on the table headers.",
   // "See the total hours of all employees per cutoff here. Sortable and filterable by the table headers.",
   // "Nondescript"
@@ -14,20 +13,20 @@ export const PVMCASHADVANCEPageColumns: GridColDef[] =
   {
     field: 'emp_no',
     headerName: 'Employee #',
-    width: 150,
+    width: 100,
     // valueGetter: (params: GridValueGetterParams) => {
     //   const date = new Date(params.row.expiry);
     //   return params.row.expiry ? date.toLocaleDateString() : 'No Expiry';
     // }
   },
-  { field: 'role', headerName: 'Role', width: 100 },
-  { field: 'date_added', 
-    headerName: 'Date Added', 
-    width: 120,
-    valueGetter: (params: GridValueGetterParams) => {
-      const date = new Date(params.row.date_added);
-      return params.row.date_added ? date.toLocaleDateString() : 'No Date';
-    }
+  { field: 'cash_advance_remaining', headerName: 'Remaning', width: 150 },
+  { field: 'payment_monthly', 
+    headerName: 'Monthly Payment', 
+    width: 160,
+    // valueGetter: (params: GridValueGetterParams) => {
+    //   const date = new Date(params.row.date_added);
+    //   return params.row.date_added ? date.toLocaleDateString() : 'No Date';
+    // }
     // renderCell: (params: GridCellParams) => {
     //   const status = params.row?.credit_remaining as number;
 
@@ -49,11 +48,11 @@ export const PVMCASHADVANCEPageColumns: GridColDef[] =
     //   );
     // }  
   },
-  { field: 'username', headerName: 'Username',  width: 200 },
+  { field: 'cash_advance_total', headerName: 'Cash Advance Total',  width: 160 },
 ];
   
 export default {
-  PayrollVariableCASHADVANCEPageDescriptions,
-  PayrollVariableCASHADVANCEPageColumns
+  PVMCASHADVANCEPageDescriptions,
+  PVMCASHADVANCEPageColumns
 };
   

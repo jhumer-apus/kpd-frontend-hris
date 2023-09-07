@@ -5,32 +5,31 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
 import { Typography } from '@mui/joy';
-import { PHILHEALTHCreateInterface } from '@/types/types-payroll-variables';
-import { PHILHEALTHCreateAction, PHILHEALTHCreateActionFailureCleanup } from '@/store/actions/payroll-variables';
+import { CASHADVANCECreateInterface } from '@/types/types-payroll-variables';
+import { CASHADVANCECreateAction, CASHADVANCECreateActionFailureCleanup } from '@/store/actions/payroll-variables';
 
 
-interface CreatePHILHEALTHModalInterface {
+interface CreateCASHADVANCEModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
 }
 
-function PVMPHILHEALTHCreate(props: CreatePHILHEALTHModalInterface) {
+function PVMCASHADVANCECreate(props: CreateCASHADVANCEModalInterface) {
     const dispatch = useDispatch();
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail?.emp_no);
-    const PHILHEALTHCreatestate = useSelector((state: RootState)=> state.payrollVariables.PHILHEALTHCreate);
-    const [createPHILHEALTH, setCreatePHILHEALTH] = useState<PHILHEALTHCreateInterface>({
-        ph_no: NaN,
-        ph_contribution_month: NaN,
-        ph_category: '',
+    const CASHADVANCECreatestate = useSelector((state: RootState)=> state.payrollVariables.CASHADVANCECreate);
+    const [createCASHADVANCE, setCreateCASHADVANCE] = useState<CASHADVANCECreateInterface>({
+        cash_advance_total: NaN,
+        payment_monthly: NaN,
         emp_no: NaN,
         current_user: NaN,
     });
     const onClickSubmit = () => {
-        dispatch(PHILHEALTHCreateAction(createPHILHEALTH))
+        dispatch(CASHADVANCECreateAction(createCASHADVANCE))
     };
 
     useEffect(()=> {
         if(curr_user){
-            setCreatePHILHEALTH((prevState) => {
+            setCreateCASHADVANCE((prevState) => {
                 return (
                     {
                         ...prevState,
@@ -42,40 +41,40 @@ function PVMPHILHEALTHCreate(props: CreatePHILHEALTHModalInterface) {
     }, [curr_user]) 
 
     useEffect(()=>{
-        if(PHILHEALTHCreatestate.status === 'succeeded'){
+        if(CASHADVANCECreatestate.status === 'succeeded'){
             window.alert('Request Successful');
             window.location.reload();
-        }else if(PHILHEALTHCreatestate.status === 'failed'){
-            window.alert(`Request Failed, ${PHILHEALTHCreatestate.error}`)
+        }else if(CASHADVANCECreatestate.status === 'failed'){
+            window.alert(`Request Failed, ${CASHADVANCECreatestate.error}`)
             setTimeout(()=> {
-                dispatch(PHILHEALTHCreateActionFailureCleanup());
+                dispatch(CASHADVANCECreateActionFailureCleanup());
             }, 1000)
         }
-    }, [PHILHEALTHCreatestate.status])
+    }, [CASHADVANCECreatestate.status])
 
     return (
         <React.Fragment>
-            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain' level="h6">Create PHILHEALTH Individual Data</Typography>
+            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain' level="h6">Create CASHADVANCE Individual Data</Typography>
             <div className='flex flex-col gap-6 overflow-auto w-3/4'>
                     <div className='flex flex-col gap-6 pt-4'>
-                        <EmployeeAutoComplete createPHILHEALTH={createPHILHEALTH} setCreatePHILHEALTH={setCreatePHILHEALTH}/>
+                        <EmployeeAutoComplete createCASHADVANCE={createCASHADVANCE} setCreateCASHADVANCE={setCreateCASHADVANCE}/>
                     </div>
                     <div className='flex flex-col gap-6'>
                         <TextField
                             required 
                             sx={{width: '100%'}} 
-                            label='PHILHEALTH Number:'
+                            label='CASHADVANCE Amount:'
                             aria-required  
                             variant='outlined' 
                             type="number"
-                            value={createPHILHEALTH?.ph_no}
+                            value={createCASHADVANCE?.cash_advance_total}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value = parseInt(event.target.value)
-                                setCreatePHILHEALTH((prevState)=> {
+                                setCreateCASHADVANCE((prevState)=> {
                                     return (
                                         {
                                             ...prevState,
-                                            ph_no: value
+                                            cash_advance_total: value
                                         }
                                     )
                                 })
@@ -84,38 +83,18 @@ function PVMPHILHEALTHCreate(props: CreatePHILHEALTHModalInterface) {
                         <TextField
                             required 
                             sx={{width: '100%'}} 
-                            label='Contribution Monthly (Amount)'
+                            label='Payment Monthly (Amount)'
                             aria-required  
                             variant='outlined' 
                             type="number"
-                            value={createPHILHEALTH?.ph_contribution_month}
+                            value={createCASHADVANCE?.payment_monthly}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value = parseInt(event.target.value)
-                                setCreatePHILHEALTH((prevState)=> {
+                                setCreateCASHADVANCE((prevState)=> {
                                     return (
                                         {
                                             ...prevState,
-                                            ph_contribution_month: value
-                                        }
-                                    )
-                                })
-                            }}
-                        />
-                        <TextField
-                            required 
-                            sx={{width: '100%'}} 
-                            label='Philhealth Category'
-                            aria-required  
-                            variant='outlined' 
-                            type="text"
-                            value={createPHILHEALTH?.ph_category}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = event.target.value
-                                setCreatePHILHEALTH((prevState)=> {
-                                    return (
-                                        {
-                                            ...prevState,
-                                            ph_category: value
+                                            payment_monthly: value
                                         }
                                     )
                                 })
@@ -124,7 +103,7 @@ function PVMPHILHEALTHCreate(props: CreatePHILHEALTHModalInterface) {
                     </div>
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
-                        <Button variant='contained' onClick={onClickSubmit}>Create PHILHEALTH</Button>
+                        <Button variant='contained' onClick={onClickSubmit}>Create CASHADVANCE</Button>
                     </div>
                 </div>
             </div>
@@ -132,5 +111,5 @@ function PVMPHILHEALTHCreate(props: CreatePHILHEALTHModalInterface) {
     );
 }
 
-export default PVMPHILHEALTHCreate;
+export default PVMCASHADVANCECreate;
 

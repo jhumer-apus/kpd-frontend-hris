@@ -2,7 +2,7 @@ import { Fragment }from 'react';
 import { styled } from '@mui/material/styles';
 import MuiGrid from '@mui/material/Grid';
 import { Paper, Box, useTheme, useMediaQuery } from '@mui/material';
-import PVMCASHADVANCEPageHistory from './local-component/right-side/pvm-philhealth-history';
+import PVMCASHADVANCEPageHistory from './local-component/right-side/pvm-cash-advance-history';
 import PVMCASHADVANCECreate from './local-component/left-side/pvm-philhealth-create';
 
 
@@ -31,13 +31,13 @@ export default function PVMCASHADVANCE() {
             <Grid item xs>
                 <Paper elevation={3} style={PaperStyle}>
                     <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
-                        {/* <PVMCASHADVANCECreate/> */}
+                        <PVMCASHADVANCECreate/>
                     </Box>
                 </Paper>
             </Grid>
             <Grid item xs>
                 <Paper elevation={3} style={PaperStyle}>
-                    {/* <PVMCASHADVANCEPageHistory/> */}
+                    <PVMCASHADVANCEPageHistory/>
                 </Paper>
             </Grid>
         </Grid>
