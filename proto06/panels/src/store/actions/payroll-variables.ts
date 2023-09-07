@@ -16,6 +16,18 @@ import {
     SSSEditInterface,
     SSSGenericInterface,
     SSSViewInterface,
+    CASHADVANCECreateInterface,
+    CASHADVANCEEditInterface,
+    CASHADVANCEGenericInterface,
+    CASHADVANCEViewInterface,
+    ALLOWANCEENTRYCreateInterface,
+    ALLOWANCEENTRYEditInterface,
+    ALLOWANCEENTRYGenericInterface,
+    ALLOWANCEENTRYViewInterface,
+    ALLOWANCETYPECreateInterface,
+    ALLOWANCETYPEEditInterface,
+    ALLOWANCETYPEGenericInterface,
+    ALLOWANCETYPEViewInterface,
 } from '@/types/types-payroll-variables';
 
 
@@ -152,6 +164,119 @@ export const PHILHEALTHEditActionSuccess = createAction("PHILHEALTH_EDIT_ACTION_
 export const PHILHEALTHEditActionProgress = createAction<number>("PHILHEALTH_EDIT_ACTION_PROGRESS");
 export const PHILHEALTHEditActionFailure = createAction<string>("PHILHEALTH_EDIT_ACTION_FAILURE");
 export const PHILHEALTHEditActionFailureCleanup = createAction("PHILHEALTH_EDIT_ACTION_FAILURE_CLEANUP");
+
+
+
+
+// CASHADVANCE SECTION
+export const CASHADVANCEViewAction = createAction("CASHADVANCE_VIEW_ACTION");
+export const CASHADVANCEViewActionSuccess = createAction("CASHADVANCE_VIEW_ACTION_SUCCESS", (SuccessMessage: CASHADVANCEViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const CASHADVANCEViewActionProgress = createAction<number>("CASHADVANCE_VIEW_ACTION_PROGRESS");
+export const CASHADVANCEViewActionFailure = createAction<string>("CASHADVANCE_VIEW_ACTION_FAILURE");
+export const CASHADVANCEViewActionFailureCleanup = createAction("CASHADVANCE_VIEW_ACTION_FAILURE_CLEANUP");
+
+export const CASHADVANCEViewSpecificEmployeeAction = createAction<{emp_no: number}>("CASHADVANCE_VIEW_SPECIFIC_EMPLOYEE_ACTION");
+export const CASHADVANCEViewSpecificEmployeeActionSuccess = createAction("CASHADVANCE_VIEW_SPECIFIC_EMPLOYEE_ACTION_SUCCESS", (SuccessMessage: CASHADVANCEViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const CASHADVANCEViewSpecificEmployeeActionProgress = createAction<number>("CASHADVANCE_VIEW_SPECIFIC_EMPLOYEE_ACTION_PROGRESS");
+export const CASHADVANCEViewSpecificEmployeeActionFailure = createAction<string>("CASHADVANCE_VIEW_SPECIFIC_EMPLOYEE_ACTION_FAILURE");
+export const CASHADVANCEViewSpecificEmployeeActionFailureCleanup = createAction("CASHADVANCE_VIEW_SPECIFIC_EMPLOYEE_ACTION_FAILURE_CLEANUP");
+
+
+export const CASHADVANCEViewSpecificAction = createAction<{emp_no: number, ca_no: number}>("CASHADVANCE_VIEW_SPECIFIC_ACTION");
+export const CASHADVANCEViewSpecificActionSuccess = createAction("CASHADVANCE_VIEW_SPECIFIC_ACTION_SUCCESS", (SuccessMessage: CASHADVANCEViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const CASHADVANCEViewSpecificActionProgress = createAction<number>("CASHADVANCE_VIEW_SPECIFIC_ACTION_PROGRESS");
+export const CASHADVANCEViewSpecificActionFailure = createAction<string>("CASHADVANCE_VIEW_SPECIFIC_ACTION_FAILURE");
+export const CASHADVANCEViewSpecificActionFailureCleanup = createAction("CASHADVANCE_VIEW_SPECIFIC_ACTION_FAILURE_CLEANUP");
+
+export const CASHADVANCECreateAction = createAction<CASHADVANCECreateInterface>("CASHADVANCE_CREATE_ACTION");
+export const CASHADVANCECreateActionSuccess = createAction("CASHADVANCE_CREATE_ACTION_SUCCESS", (SuccessMessage: CASHADVANCECreateInterface) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const CASHADVANCECreateActionProgress = createAction<number>("CASHADVANCE_CREATE_ACTION_PROGRESS");
+export const CASHADVANCECreateActionFailure = createAction<string>("CASHADVANCE_CREATE_ACTION_FAILURE");
+export const CASHADVANCECreateActionFailureCleanup = createAction("CASHADVANCE_CREATE_ACTION_FAILURE_CLEANUP");
+
+export const CASHADVANCEEditAction = createAction<CASHADVANCEEditInterface>("CASHADVANCE_EDIT_ACTION");
+export const CASHADVANCEEditActionSuccess = createAction("CASHADVANCE_EDIT_ACTION_SUCCESS", (SuccessMessage: CASHADVANCEViewInterface) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const CASHADVANCEEditActionProgress = createAction<number>("CASHADVANCE_EDIT_ACTION_PROGRESS");
+export const CASHADVANCEEditActionFailure = createAction<string>("CASHADVANCE_EDIT_ACTION_FAILURE");
+export const CASHADVANCEEditActionFailureCleanup = createAction("CASHADVANCE_EDIT_ACTION_FAILURE_CLEANUP");
+
+
+
+
+// ALLOWANCETYPE SECTION
+export const ALLOWANCETYPEViewAction = createAction("ALLOWANCETYPE_VIEW_ACTION");
+export const ALLOWANCETYPEViewActionSuccess = createAction("ALLOWANCETYPE_VIEW_ACTION_SUCCESS", (SuccessMessage: ALLOWANCETYPEViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const ALLOWANCETYPEViewActionProgress = createAction<number>("ALLOWANCETYPE_VIEW_ACTION_PROGRESS");
+export const ALLOWANCETYPEViewActionFailure = createAction<string>("ALLOWANCETYPE_VIEW_ACTION_FAILURE");
+export const ALLOWANCETYPEViewActionFailureCleanup = createAction("ALLOWANCETYPE_VIEW_ACTION_FAILURE_CLEANUP");
+
+export const ALLOWANCETYPEViewSpecificAction = createAction<{at_no: number}>("ALLOWANCETYPE_VIEW_SPECIFIC_ACTION");
+export const ALLOWANCETYPEViewSpecificActionSuccess = createAction("ALLOWANCETYPE_VIEW_SPECIFIC_ACTION_SUCCESS", (SuccessMessage: ALLOWANCETYPEViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const ALLOWANCETYPEViewSpecificActionProgress = createAction<number>("ALLOWANCETYPE_VIEW_SPECIFIC_ACTION_PROGRESS");
+export const ALLOWANCETYPEViewSpecificActionFailure = createAction<string>("ALLOWANCETYPE_VIEW_SPECIFIC_ACTION_FAILURE");
+export const ALLOWANCETYPEViewSpecificActionFailureCleanup = createAction("ALLOWANCETYPE_VIEW_SPECIFIC_ACTION_FAILURE_CLEANUP");
+
+export const ALLOWANCETYPECreateAction = createAction<ALLOWANCETYPECreateInterface>("ALLOWANCETYPE_CREATE_ACTION");
+export const ALLOWANCETYPECreateActionSuccess = createAction("ALLOWANCETYPE_CREATE_ACTION_SUCCESS", (SuccessMessage: ALLOWANCETYPECreateInterface) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const ALLOWANCETYPECreateActionProgress = createAction<number>("ALLOWANCETYPE_CREATE_ACTION_PROGRESS");
+export const ALLOWANCETYPECreateActionFailure = createAction<string>("ALLOWANCETYPE_CREATE_ACTION_FAILURE");
+export const ALLOWANCETYPECreateActionFailureCleanup = createAction("ALLOWANCETYPE_CREATE_ACTION_FAILURE_CLEANUP");
+
+export const ALLOWANCETYPEEditAction = createAction<ALLOWANCETYPEEditInterface>("ALLOWANCETYPE_EDIT_ACTION");
+export const ALLOWANCETYPEEditActionSuccess = createAction("ALLOWANCETYPE_EDIT_ACTION_SUCCESS", (SuccessMessage: ALLOWANCETYPEEditInterface) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const ALLOWANCETYPEEditActionProgress = createAction<number>("ALLOWANCETYPE_EDIT_ACTION_PROGRESS");
+export const ALLOWANCETYPEEditActionFailure = createAction<string>("ALLOWANCETYPE_EDIT_ACTION_FAILURE");
+export const ALLOWANCETYPEEditActionFailureCleanup = createAction("ALLOWANCETYPE_EDIT_ACTION_FAILURE_CLEANUP");
+
+
+// ALLOWANCEENTRY SECTION
+export const ALLOWANCEENTRYViewAction = createAction("ALLOWANCEENTRY_VIEW_ACTION");
+export const ALLOWANCEENTRYViewActionSuccess = createAction("ALLOWANCEENTRY_VIEW_ACTION_SUCCESS", (SuccessMessage: ALLOWANCEENTRYViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const ALLOWANCEENTRYViewActionProgress = createAction<number>("ALLOWANCEENTRY_VIEW_ACTION_PROGRESS");
+export const ALLOWANCEENTRYViewActionFailure = createAction<string>("ALLOWANCEENTRY_VIEW_ACTION_FAILURE");
+export const ALLOWANCEENTRYViewActionFailureCleanup = createAction("ALLOWANCEENTRY_VIEW_ACTION_FAILURE_CLEANUP");
+
+export const ALLOWANCEENTRYViewSpecificAction = createAction<{ae_no: number}>("ALLOWANCEENTRY_VIEW_SPECIFIC_ACTION");
+export const ALLOWANCEENTRYViewSpecificActionSuccess = createAction("ALLOWANCEENTRY_VIEW_SPECIFIC_ACTION_SUCCESS", (SuccessMessage: ALLOWANCEENTRYViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const ALLOWANCEENTRYViewSpecificActionProgress = createAction<number>("ALLOWANCEENTRY_VIEW_SPECIFIC_ACTION_PROGRESS");
+export const ALLOWANCEENTRYViewSpecificActionFailure = createAction<string>("ALLOWANCEENTRY_VIEW_SPECIFIC_ACTION_FAILURE");
+export const ALLOWANCEENTRYViewSpecificActionFailureCleanup = createAction("ALLOWANCEENTRY_VIEW_SPECIFIC_ACTION_FAILURE_CLEANUP");
+
+export const ALLOWANCEENTRYCreateAction = createAction<ALLOWANCEENTRYCreateInterface>("ALLOWANCEENTRY_CREATE_ACTION");
+export const ALLOWANCEENTRYCreateActionSuccess = createAction("ALLOWANCEENTRY_CREATE_ACTION_SUCCESS", (SuccessMessage: ALLOWANCEENTRYCreateInterface) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const ALLOWANCEENTRYCreateActionProgress = createAction<number>("ALLOWANCEENTRY_CREATE_ACTION_PROGRESS");
+export const ALLOWANCEENTRYCreateActionFailure = createAction<string>("ALLOWANCEENTRY_CREATE_ACTION_FAILURE");
+export const ALLOWANCEENTRYCreateActionFailureCleanup = createAction("ALLOWANCEENTRY_CREATE_ACTION_FAILURE_CLEANUP");
+
+export const ALLOWANCEENTRYEditAction = createAction<ALLOWANCEENTRYEditInterface>("ALLOWANCEENTRY_EDIT_ACTION");
+export const ALLOWANCEENTRYEditActionSuccess = createAction("ALLOWANCEENTRY_EDIT_ACTION_SUCCESS", (SuccessMessage: ALLOWANCEENTRYEditInterface) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const ALLOWANCEENTRYEditActionProgress = createAction<number>("ALLOWANCEENTRY_EDIT_ACTION_PROGRESS");
+export const ALLOWANCEENTRYEditActionFailure = createAction<string>("ALLOWANCEENTRY_EDIT_ACTION_FAILURE");
+export const ALLOWANCEENTRYEditActionFailureCleanup = createAction("ALLOWANCEENTRY_EDIT_ACTION_FAILURE_CLEANUP");
+
+
+
+
+
 
 
 

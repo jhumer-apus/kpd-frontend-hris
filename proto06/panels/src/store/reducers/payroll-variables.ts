@@ -80,6 +80,66 @@ import {
     TAXEditActionProgress,
     TAXEditActionFailure,
     TAXEditActionFailureCleanup,
+    CASHADVANCECreateAction,
+    CASHADVANCECreateActionFailure,
+    CASHADVANCECreateActionFailureCleanup,
+    CASHADVANCECreateActionProgress,
+    CASHADVANCECreateActionSuccess,
+    CASHADVANCEEditAction,
+    CASHADVANCEEditActionFailure,
+    CASHADVANCEEditActionFailureCleanup,
+    CASHADVANCEEditActionProgress,
+    CASHADVANCEEditActionSuccess,
+    CASHADVANCEViewAction,
+    CASHADVANCEViewActionFailure,
+    CASHADVANCEViewActionFailureCleanup,
+    CASHADVANCEViewActionProgress,
+    CASHADVANCEViewActionSuccess,
+    CASHADVANCEViewSpecificAction,
+    CASHADVANCEViewSpecificActionFailure,
+    CASHADVANCEViewSpecificActionFailureCleanup,
+    CASHADVANCEViewSpecificActionProgress,
+    CASHADVANCEViewSpecificActionSuccess,
+    CASHADVANCEViewSpecificEmployeeAction,
+    CASHADVANCEViewSpecificEmployeeActionFailure,
+    CASHADVANCEViewSpecificEmployeeActionFailureCleanup,
+    CASHADVANCEViewSpecificEmployeeActionProgress,
+    CASHADVANCEViewSpecificEmployeeActionSuccess,
+    ALLOWANCEENTRYCreateAction,
+    ALLOWANCEENTRYCreateActionFailure,
+    ALLOWANCEENTRYCreateActionFailureCleanup,
+    ALLOWANCEENTRYCreateActionProgress,
+    ALLOWANCEENTRYCreateActionSuccess,
+    ALLOWANCEENTRYEditAction,
+    ALLOWANCEENTRYEditActionFailure,
+    ALLOWANCEENTRYEditActionFailureCleanup,
+    ALLOWANCEENTRYEditActionProgress,
+    ALLOWANCEENTRYEditActionSuccess,
+    ALLOWANCEENTRYViewAction,
+    ALLOWANCEENTRYViewActionFailure,
+    ALLOWANCEENTRYViewActionFailureCleanup,
+    ALLOWANCEENTRYViewActionProgress,
+    ALLOWANCEENTRYViewActionSuccess,
+    ALLOWANCEENTRYViewSpecificAction,
+    ALLOWANCEENTRYViewSpecificActionFailure,
+    ALLOWANCEENTRYViewSpecificActionFailureCleanup,
+    ALLOWANCEENTRYViewSpecificActionProgress,
+    ALLOWANCEENTRYViewSpecificActionSuccess,
+    ALLOWANCETYPECreateAction,
+    ALLOWANCETYPECreateActionFailure,
+    ALLOWANCETYPECreateActionFailureCleanup,
+    ALLOWANCETYPECreateActionProgress,
+    ALLOWANCETYPECreateActionSuccess,
+    ALLOWANCETYPEEditAction,
+    ALLOWANCETYPEEditActionFailure,
+    ALLOWANCETYPEEditActionFailureCleanup,
+    ALLOWANCETYPEEditActionProgress,
+    ALLOWANCETYPEEditActionSuccess,
+    ALLOWANCETYPEViewAction,
+    ALLOWANCETYPEViewActionFailure,
+    ALLOWANCETYPEViewActionFailureCleanup,
+    ALLOWANCETYPEViewActionProgress,
+    ALLOWANCETYPEViewActionSuccess,
   } from '../actions/payroll-variables';
 import { 
     TAXCreateInterface,
@@ -98,6 +158,18 @@ import {
     SSSEditInterface,
     SSSGenericInterface,
     SSSViewInterface,
+    CASHADVANCECreateInterface,
+    CASHADVANCEEditInterface,
+    CASHADVANCEGenericInterface,
+    CASHADVANCEViewInterface,
+    ALLOWANCEENTRYCreateInterface,
+    ALLOWANCEENTRYEditInterface,
+    ALLOWANCEENTRYGenericInterface,
+    ALLOWANCEENTRYViewInterface,
+    ALLOWANCETYPECreateInterface,
+    ALLOWANCETYPEEditInterface,
+    ALLOWANCETYPEGenericInterface,
+    ALLOWANCETYPEViewInterface,
 } from '@/types/types-payroll-variables';
 
 type PayrollVariablesPayloads = 
@@ -114,7 +186,16 @@ SSSCreateInterface |
 PHILHEALTHViewInterface[] | 
 PHILHEALTHViewInterface | 
 PHILHEALTHCreateInterface |
-PHILHEALTHEditInterface
+PHILHEALTHEditInterface | 
+CASHADVANCEViewInterface[] | 
+CASHADVANCEViewInterface | 
+CASHADVANCECreateInterface |
+ALLOWANCETYPEViewInterface[] | 
+ALLOWANCETYPEViewInterface | 
+ALLOWANCETYPECreateInterface |
+ALLOWANCEENTRYViewInterface[] | 
+ALLOWANCEENTRYViewInterface | 
+ALLOWANCEENTRYCreateInterface
 ;
 
 interface CommonPayrollVariablesState {
@@ -179,6 +260,45 @@ interface PHILHEALTHEditState extends CommonPayrollVariablesState {
   data: PHILHEALTHViewState | null;
 }
 
+// CASHADVANCE SECTION // CASHADVANCE SECTION // CASHADVANCE SECTION // CASHADVANCE SECTION // CASHADVANCE SECTION 
+interface CASHADVANCEViewState extends CommonPayrollVariablesState{
+  data: CASHADVANCEViewInterface[] | [];
+}
+
+interface CASHADVANCECreateState extends CommonPayrollVariablesState{
+  data: CASHADVANCECreateInterface | null | {};
+}
+
+interface CASHADVANCEEditState extends CommonPayrollVariablesState {
+  data: CASHADVANCEViewState | null;
+}
+
+// ALLOWANCETYPE SECTION // ALLOWANCETYPE SECTION // ALLOWANCETYPE SECTION // ALLOWANCETYPE SECTION // ALLOWANCETYPE SECTION 
+interface ALLOWANCETYPEViewState extends CommonPayrollVariablesState{
+  data: ALLOWANCETYPEViewInterface[] | [];
+}
+
+interface ALLOWANCETYPECreateState extends CommonPayrollVariablesState{
+  data: ALLOWANCETYPECreateInterface | null | {};
+}
+
+interface ALLOWANCETYPEEditState extends CommonPayrollVariablesState {
+  data: ALLOWANCETYPEViewState | null;
+}
+
+// ALLOWANCEENTRY SECTION // ALLOWANCEENTRY SECTION // ALLOWANCEENTRY SECTION // ALLOWANCEENTRY SECTION // ALLOWANCEENTRY SECTION 
+interface ALLOWANCEENTRYViewState extends CommonPayrollVariablesState{
+  data: ALLOWANCEENTRYViewInterface[] | [];
+}
+
+interface ALLOWANCEENTRYCreateState extends CommonPayrollVariablesState{
+  data: ALLOWANCEENTRYCreateInterface | null | {};
+}
+
+interface ALLOWANCEENTRYEditState extends CommonPayrollVariablesState {
+  data: ALLOWANCEENTRYViewState | null;
+}
+
 
 interface OverallPayrollVariablesState {
   [key: string]: 
@@ -193,7 +313,16 @@ interface OverallPayrollVariablesState {
   SSSEditState |
   PHILHEALTHViewState | 
   PHILHEALTHCreateState | 
-  PHILHEALTHEditState 
+  PHILHEALTHEditState |
+  CASHADVANCEViewState | 
+  CASHADVANCECreateState | 
+  CASHADVANCEEditState |
+  ALLOWANCETYPEViewState | 
+  ALLOWANCETYPECreateState | 
+  ALLOWANCETYPEEditState |
+  ALLOWANCEENTRYViewState | 
+  ALLOWANCEENTRYCreateState | 
+  ALLOWANCEENTRYEditState 
   ,
   //TAX SECTION
   TAXView: TAXViewState,
@@ -215,6 +344,22 @@ interface OverallPayrollVariablesState {
   PHILHEALTHViewSpecific: PHILHEALTHViewState,
   PHILHEALTHCreate: PHILHEALTHCreateState,
   PHILHEALTHEdit: PHILHEALTHEditState,
+  //CASHADVANCE SECTION
+  CASHADVANCEView: CASHADVANCEViewState,
+  CASHADVANCEViewSpecificEmployee: CASHADVANCEViewState,
+  CASHADVANCEViewSpecific: CASHADVANCEViewState,
+  CASHADVANCECreate: CASHADVANCECreateState,
+  CASHADVANCEEdit: CASHADVANCEEditState,
+  //ALLOWANCETYPE SECTION
+  ALLOWANCETYPEView: ALLOWANCETYPEViewState,
+  ALLOWANCETYPEViewSpecific: ALLOWANCETYPEViewState,
+  ALLOWANCETYPECreate: ALLOWANCETYPECreateState,
+  ALLOWANCETYPEEdit: ALLOWANCETYPEEditState,
+  //ALLOWANCEENTRY SECTION
+  ALLOWANCEENTRYView: ALLOWANCEENTRYViewState,
+  ALLOWANCEENTRYViewSpecific: ALLOWANCEENTRYViewState,
+  ALLOWANCEENTRYCreate: ALLOWANCEENTRYCreateState,
+  ALLOWANCEENTRYEdit: ALLOWANCEENTRYEditState,
 }
 
 const initialState: OverallPayrollVariablesState = {
@@ -318,6 +463,87 @@ const initialState: OverallPayrollVariablesState = {
     data: null,
     error: '',
   },
+  //CASHADVANCE SECTION
+  CASHADVANCEView: {
+    status: '',
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  CASHADVANCEViewSpecificEmployee: {
+    status: '',
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  CASHADVANCEViewSpecific: {
+    status: '',
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  CASHADVANCECreate: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  CASHADVANCEEdit: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  //ALLOWANCETYPE SECTION
+  ALLOWANCETYPEView: {
+    status: '',
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  ALLOWANCETYPEViewSpecific: {
+    status: '',
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  ALLOWANCETYPECreate: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  ALLOWANCETYPEEdit: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  //ALLOWANCEENTRY SECTION
+  ALLOWANCEENTRYView: {
+    status: '',
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  ALLOWANCEENTRYViewSpecific: {
+    status: '',
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  ALLOWANCEENTRYCreate: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  ALLOWANCEENTRYEdit: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
   
 };
 
@@ -394,6 +620,64 @@ const payrollVariablesSlice = createSlice({
       .addCase(PAGIBIGEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "PAGIBIGEdit"))
       .addCase(PAGIBIGEditActionProgress, (state, action) => setProgressState(state, action.payload, "PAGIBIGEdit"))
       .addCase(PAGIBIGEditActionFailure, (state, action) => setFailureState(state, action.payload, "PAGIBIGEdit"))
+      //SSS SECTION
+      .addCase(SSSViewAction, setLoadingState("SSSView"))
+      .addCase(SSSViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "SSSView"))
+      .addCase(SSSViewActionProgress, (state, action) => setProgressState(state, action.payload, "SSSView"))
+      .addCase(SSSViewActionFailure, (state, action) => setFailureState(state, action.payload, "SSSView"))
+      .addCase(SSSViewSpecificAction, setLoadingState("SSSViewSpecific"))
+      .addCase(SSSViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "SSSViewSpecific"))
+      .addCase(SSSViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "SSSViewSpecific"))
+      .addCase(SSSViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "SSSViewSpecific"))
+      .addCase(SSSCreateAction, setLoadingState("SSSCreate"))
+      .addCase(SSSCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "SSSCreate"))
+      .addCase(SSSCreateActionProgress, (state, action) => setProgressState(state, action.payload, "SSSCreate"))
+      .addCase(SSSCreateActionFailure, (state, action) => setFailureState(state, action.payload, "SSSCreate"))
+      .addCase(SSSCreateActionFailureCleanup, setRefreshedState("SSSCreate"))
+      .addCase(SSSEditAction, setLoadingState("SSSEdit"))
+      .addCase(SSSEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "SSSEdit"))
+      .addCase(SSSEditActionProgress, (state, action) => setProgressState(state, action.payload, "SSSEdit"))
+      .addCase(SSSEditActionFailure, (state, action) => setFailureState(state, action.payload, "SSSEdit"))
+      //PHILHEALTH SECTION
+      .addCase(PHILHEALTHViewAction, setLoadingState("PHILHEALTHView"))
+      .addCase(PHILHEALTHViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "PHILHEALTHView"))
+      .addCase(PHILHEALTHViewActionProgress, (state, action) => setProgressState(state, action.payload, "PHILHEALTHView"))
+      .addCase(PHILHEALTHViewActionFailure, (state, action) => setFailureState(state, action.payload, "PHILHEALTHView"))
+      .addCase(PHILHEALTHViewSpecificAction, setLoadingState("PHILHEALTHViewSpecific"))
+      .addCase(PHILHEALTHViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "PHILHEALTHViewSpecific"))
+      .addCase(PHILHEALTHViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "PHILHEALTHViewSpecific"))
+      .addCase(PHILHEALTHViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "PHILHEALTHViewSpecific"))
+      .addCase(PHILHEALTHCreateAction, setLoadingState("PHILHEALTHCreate"))
+      .addCase(PHILHEALTHCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "PHILHEALTHCreate"))
+      .addCase(PHILHEALTHCreateActionProgress, (state, action) => setProgressState(state, action.payload, "PHILHEALTHCreate"))
+      .addCase(PHILHEALTHCreateActionFailure, (state, action) => setFailureState(state, action.payload, "PHILHEALTHCreate"))
+      .addCase(PHILHEALTHCreateActionFailureCleanup, setRefreshedState("PHILHEALTHCreate"))
+      .addCase(PHILHEALTHEditAction, setLoadingState("PHILHEALTHEdit"))
+      .addCase(PHILHEALTHEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "PHILHEALTHEdit"))
+      .addCase(PHILHEALTHEditActionProgress, (state, action) => setProgressState(state, action.payload, "PHILHEALTHEdit"))
+      .addCase(PHILHEALTHEditActionFailure, (state, action) => setFailureState(state, action.payload, "PHILHEALTHEdit"))
+      //CASHADVANCE SECTION
+      .addCase(CASHADVANCEViewAction, setLoadingState("CASHADVANCEView"))
+      .addCase(CASHADVANCEViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "CASHADVANCEView"))
+      .addCase(CASHADVANCEViewActionProgress, (state, action) => setProgressState(state, action.payload, "CASHADVANCEView"))
+      .addCase(CASHADVANCEViewActionFailure, (state, action) => setFailureState(state, action.payload, "CASHADVANCEView"))
+      .addCase(CASHADVANCEViewSpecificEmployeeAction, setLoadingState("CASHADVANCEViewSpecificEmployee"))
+      .addCase(CASHADVANCEViewSpecificEmployeeActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "CASHADVANCEViewSpecificEmployee"))
+      .addCase(CASHADVANCEViewSpecificEmployeeActionProgress, (state, action) => setProgressState(state, action.payload, "CASHADVANCEViewSpecificEmployee"))
+      .addCase(CASHADVANCEViewSpecificEmployeeActionFailure, (state, action) => setFailureState(state, action.payload, "CASHADVANCEViewSpecificEmployee"))
+      .addCase(CASHADVANCEViewSpecificAction, setLoadingState("CASHADVANCEViewSpecific"))
+      .addCase(CASHADVANCEViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "CASHADVANCEViewSpecific"))
+      .addCase(CASHADVANCEViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "CASHADVANCEViewSpecific"))
+      .addCase(CASHADVANCEViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "CASHADVANCEViewSpecific"))
+      .addCase(CASHADVANCECreateAction, setLoadingState("CASHADVANCECreate"))
+      .addCase(CASHADVANCECreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "CASHADVANCECreate"))
+      .addCase(CASHADVANCECreateActionProgress, (state, action) => setProgressState(state, action.payload, "CASHADVANCECreate"))
+      .addCase(CASHADVANCECreateActionFailure, (state, action) => setFailureState(state, action.payload, "CASHADVANCECreate"))
+      .addCase(CASHADVANCECreateActionFailureCleanup, setRefreshedState("CASHADVANCECreate"))
+      .addCase(CASHADVANCEEditAction, setLoadingState("CASHADVANCEEdit"))
+      .addCase(CASHADVANCEEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "CASHADVANCEEdit"))
+      .addCase(CASHADVANCEEditActionProgress, (state, action) => setProgressState(state, action.payload, "CASHADVANCEEdit"))
+      .addCase(CASHADVANCEEditActionFailure, (state, action) => setFailureState(state, action.payload, "CASHADVANCEEdit"))
       //SSS SECTION
       .addCase(SSSViewAction, setLoadingState("SSSView"))
       .addCase(SSSViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "SSSView"))

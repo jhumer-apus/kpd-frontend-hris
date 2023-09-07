@@ -100,7 +100,7 @@ import { proceduralsReducer } from './reducers/procedurals';
 import { categoriesReducer } from './reducers/categories';
 import { USERCreateEpic, USEREditEpic, USERResetPasswordEpic, USERViewEpic, USERViewSpecificEpic } from './epics/users';
 import { usersReducer } from './reducers/users';
-import { PAGIBIGCreateEpic, PAGIBIGEditEpic, PAGIBIGViewEpic, PAGIBIGViewSpecificEpic, PHILHEALTHCreateEpic, PHILHEALTHEditEpic, PHILHEALTHViewEpic, PHILHEALTHViewSpecificEpic, SSSCreateEpic, SSSEditEpic, SSSViewEpic, SSSViewSpecificEpic, TAXCreateEpic, TAXEditEpic, TAXViewEpic, TAXViewSpecificEpic } from './epics/payroll-variables';
+import { ALLOWANCEENTRYCreateEpic, ALLOWANCEENTRYEditEpic, ALLOWANCEENTRYViewEpic, ALLOWANCEENTRYViewSpecificEpic, ALLOWANCETYPECreateEpic, ALLOWANCETYPEEditEpic, ALLOWANCETYPEViewEpic, ALLOWANCETYPEViewSpecificEpic, CASHADVANCECreateEpic, CASHADVANCEEditEpic, CASHADVANCEViewEpic, CASHADVANCEViewSpecificEmployeeEpic, CASHADVANCEViewSpecificEpic, PAGIBIGCreateEpic, PAGIBIGEditEpic, PAGIBIGViewEpic, PAGIBIGViewSpecificEpic, PHILHEALTHCreateEpic, PHILHEALTHEditEpic, PHILHEALTHViewEpic, PHILHEALTHViewSpecificEpic, SSSCreateEpic, SSSEditEpic, SSSViewEpic, SSSViewSpecificEpic, TAXCreateEpic, TAXEditEpic, TAXViewEpic, TAXViewSpecificEpic } from './epics/payroll-variables';
 import { payrollVariablesReducer } from './reducers/payroll-variables';
 
 const epicMiddleware = createEpicMiddleware();
@@ -239,6 +239,19 @@ epicMiddleware.run(combineEpics(
   TAXViewSpecificEpic,
   TAXCreateEpic,
   TAXEditEpic,
+  CASHADVANCEViewEpic,
+  CASHADVANCEViewSpecificEpic,
+  CASHADVANCEViewSpecificEmployeeEpic,
+  CASHADVANCECreateEpic,
+  CASHADVANCEEditEpic,
+  ALLOWANCETYPEViewEpic,
+  ALLOWANCETYPEViewSpecificEpic,
+  ALLOWANCETYPECreateEpic,
+  ALLOWANCETYPEEditEpic,
+  ALLOWANCEENTRYViewEpic,
+  ALLOWANCEENTRYViewSpecificEpic,
+  ALLOWANCEENTRYCreateEpic,
+  ALLOWANCEENTRYEditEpic
 ));
 
 export type RootState = ReturnType<typeof rootReducer>;

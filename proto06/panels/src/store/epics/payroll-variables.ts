@@ -84,6 +84,71 @@ import {
     TAXEditActionProgress,
     TAXEditActionFailure,
     TAXEditActionFailureCleanup,
+    CASHADVANCECreateAction,
+    CASHADVANCECreateActionFailure,
+    CASHADVANCECreateActionFailureCleanup,
+    CASHADVANCECreateActionProgress,
+    CASHADVANCECreateActionSuccess,
+    CASHADVANCEEditAction,
+    CASHADVANCEEditActionFailure,
+    CASHADVANCEEditActionFailureCleanup,
+    CASHADVANCEEditActionProgress,
+    CASHADVANCEEditActionSuccess,
+    CASHADVANCEViewAction,
+    CASHADVANCEViewActionFailure,
+    CASHADVANCEViewActionFailureCleanup,
+    CASHADVANCEViewActionProgress,
+    CASHADVANCEViewActionSuccess,
+    CASHADVANCEViewSpecificAction,
+    CASHADVANCEViewSpecificActionFailure,
+    CASHADVANCEViewSpecificActionFailureCleanup,
+    CASHADVANCEViewSpecificActionProgress,
+    CASHADVANCEViewSpecificActionSuccess,
+    CASHADVANCEViewSpecificEmployeeAction,
+    CASHADVANCEViewSpecificEmployeeActionFailure,
+    CASHADVANCEViewSpecificEmployeeActionFailureCleanup,
+    CASHADVANCEViewSpecificEmployeeActionProgress,
+    CASHADVANCEViewSpecificEmployeeActionSuccess,
+    ALLOWANCEENTRYCreateAction,
+    ALLOWANCEENTRYCreateActionFailure,
+    ALLOWANCEENTRYCreateActionFailureCleanup,
+    ALLOWANCEENTRYCreateActionProgress,
+    ALLOWANCEENTRYCreateActionSuccess,
+    ALLOWANCEENTRYEditAction,
+    ALLOWANCEENTRYEditActionFailure,
+    ALLOWANCEENTRYEditActionFailureCleanup,
+    ALLOWANCEENTRYEditActionProgress,
+    ALLOWANCEENTRYEditActionSuccess,
+    ALLOWANCEENTRYViewAction,
+    ALLOWANCEENTRYViewActionFailure,
+    ALLOWANCEENTRYViewActionFailureCleanup,
+    ALLOWANCEENTRYViewActionProgress,
+    ALLOWANCEENTRYViewActionSuccess,
+    ALLOWANCEENTRYViewSpecificAction,
+    ALLOWANCEENTRYViewSpecificActionFailure,
+    ALLOWANCEENTRYViewSpecificActionFailureCleanup,
+    ALLOWANCEENTRYViewSpecificActionProgress,
+    ALLOWANCEENTRYViewSpecificActionSuccess,
+    ALLOWANCETYPECreateAction,
+    ALLOWANCETYPECreateActionFailure,
+    ALLOWANCETYPECreateActionFailureCleanup,
+    ALLOWANCETYPECreateActionProgress,
+    ALLOWANCETYPECreateActionSuccess,
+    ALLOWANCETYPEEditAction,
+    ALLOWANCETYPEEditActionFailure,
+    ALLOWANCETYPEEditActionFailureCleanup,
+    ALLOWANCETYPEEditActionProgress,
+    ALLOWANCETYPEEditActionSuccess,
+    ALLOWANCETYPEViewAction,
+    ALLOWANCETYPEViewActionFailure,
+    ALLOWANCETYPEViewActionFailureCleanup,
+    ALLOWANCETYPEViewActionProgress,
+    ALLOWANCETYPEViewActionSuccess,
+    ALLOWANCETYPEViewSpecificAction,
+    ALLOWANCETYPEViewSpecificActionFailure,
+    ALLOWANCETYPEViewSpecificActionFailureCleanup,
+    ALLOWANCETYPEViewSpecificActionProgress,
+    ALLOWANCETYPEViewSpecificActionSuccess,
 } from '../actions/payroll-variables';
 import { Epic } from 'redux-observable';
 import store, { APILink } from '../configureStore';
@@ -104,6 +169,18 @@ import {
     SSSEditInterface,
     SSSGenericInterface,
     SSSViewInterface,
+    CASHADVANCECreateInterface,
+    CASHADVANCEEditInterface,
+    CASHADVANCEGenericInterface,
+    CASHADVANCEViewInterface,
+    ALLOWANCEENTRYCreateInterface,
+    ALLOWANCEENTRYEditInterface,
+    ALLOWANCEENTRYGenericInterface,
+    ALLOWANCEENTRYViewInterface,
+    ALLOWANCETYPECreateInterface,
+    ALLOWANCETYPEEditInterface,
+    ALLOWANCETYPEGenericInterface,
+    ALLOWANCETYPEViewInterface,
 } from '@/types/types-payroll-variables';
 
 
@@ -701,3 +778,483 @@ const PHILHEALTHEditApiCall = async (payload: PHILHEALTHEditInterface) => {
 
 
 
+// =====================================================
+
+
+// CASHADVANCE API SECTION // CASHADVANCE API SECTION // CASHADVANCE API SECTION // CASHADVANCE API SECTION // CASHADVANCE API SECTION
+const CASHADVANCEEditApiCall = async (payload: CASHADVANCEEditInterface) => {
+  const response = await axios.put(`${APILink}ca/${payload.emp_no}/`,
+  payload,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(CASHADVANCEEditActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+const CASHADVANCECreateApiCall = async (payload: CASHADVANCECreateInterface) => {
+  const response = await axios.post(`${APILink}ca/`,
+  payload,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(CASHADVANCECreateActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+const CASHADVANCEViewSpecificEmployeeApiCall = async (payload: {emp_no: number}) => {
+  const response = await axios.get(`${APILink}ca/${payload.emp_no}/`,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(CASHADVANCEViewSpecificEmployeeActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+
+
+const CASHADVANCEViewSpecificApiCall = async (payload: {emp_no: number, ca_no: number}) => {
+  const response = await axios.get(`${APILink}ca/${payload.emp_no}/${payload.ca_no}`,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(CASHADVANCEViewSpecificActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+
+const CASHADVANCEViewApiCall = async () => {
+  const response = await axios.get(`${APILink}ca/`,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(CASHADVANCEViewActionProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+export const CASHADVANCEViewEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(CASHADVANCEViewAction.type),
+    switchMap(() =>
+      from(
+        CASHADVANCEViewApiCall()
+      ).pipe(
+        map((data) => {
+          return CASHADVANCEViewActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(CASHADVANCEViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(CASHADVANCEViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+export const CASHADVANCEViewSpecificEmployeeEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(CASHADVANCEViewSpecificEmployeeAction.type),
+    switchMap((action: ReturnType<typeof CASHADVANCEViewSpecificEmployeeAction>) =>
+      from(
+        CASHADVANCEViewSpecificEmployeeApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return CASHADVANCEViewSpecificEmployeeActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(CASHADVANCEViewSpecificEmployeeActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(CASHADVANCEViewSpecificEmployeeActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+export const CASHADVANCEViewSpecificEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(CASHADVANCEViewSpecificAction.type),
+    switchMap((action: ReturnType<typeof CASHADVANCEViewSpecificAction>) =>
+      from(
+        CASHADVANCEViewSpecificApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return CASHADVANCEViewSpecificActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(CASHADVANCEViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(CASHADVANCEViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+
+export const CASHADVANCECreateEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(CASHADVANCECreateAction.type),
+    switchMap((action: ReturnType<typeof CASHADVANCECreateAction>) =>
+      from(
+        CASHADVANCECreateApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return CASHADVANCECreateActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data) {
+            return of(CASHADVANCECreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
+          } else {
+            return of(CASHADVANCECreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+export const CASHADVANCEEditEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(CASHADVANCEEditAction.type),
+    switchMap((action: ReturnType<typeof CASHADVANCEEditAction>) =>
+      from(
+        CASHADVANCEEditApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return CASHADVANCEEditActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(CASHADVANCEEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(CASHADVANCEEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+
+// ALLOWANCETYPE API SECTION // ALLOWANCETYPE API SECTION // ALLOWANCETYPE API SECTION // ALLOWANCETYPE API SECTION // ALLOWANCETYPE API SECTION
+const ALLOWANCETYPEEditApiCall = async (payload: ALLOWANCETYPEEditInterface) => {
+    const response = await axios.put(`${APILink}pagibig/${payload.id}/`,
+    payload,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(ALLOWANCETYPEEditActionProgress(progress));
+          }
+        }
+      }
+    );
+    return response.data;
+  };
+  
+  const ALLOWANCETYPECreateApiCall = async (payload: ALLOWANCETYPECreateInterface) => {
+    const response = await axios.post(`${APILink}pagibig/`,
+    payload,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(ALLOWANCETYPECreateActionProgress(progress));
+          }
+        }
+      }
+    );
+    return response.data;
+  };
+  
+  
+  const ALLOWANCETYPEViewSpecificApiCall = async (payload: {at_no: number}) => {
+    const response = await axios.get(`${APILink}pagibig/${payload.at_no}/`,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(ALLOWANCETYPEViewSpecificActionProgress(progress));
+          }
+        }
+      }
+    );
+    return response.data;
+  };
+  
+  
+  const ALLOWANCETYPEViewApiCall = async () => {
+    const response = await axios.get(`${APILink}pagibig/`,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(ALLOWANCETYPEViewActionProgress(progress));
+          }
+        }
+      }
+    );
+    return response.data;
+  };
+  
+  export const ALLOWANCETYPEViewEpic: Epic = (action$, state$) =>
+    action$.pipe(
+      ofType(ALLOWANCETYPEViewAction.type),
+      switchMap(() =>
+        from(
+          ALLOWANCETYPEViewApiCall()
+        ).pipe(
+          map((data) => {
+            return ALLOWANCETYPEViewActionSuccess(data);
+          }),
+          catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+              return of(ALLOWANCETYPEViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+              return of(ALLOWANCETYPEViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+          })
+        )
+      )
+  );
+  
+  export const ALLOWANCETYPEViewSpecificEpic: Epic = (action$, state$) =>
+    action$.pipe(
+      ofType(ALLOWANCETYPEViewSpecificAction.type),
+      switchMap((action: ReturnType<typeof ALLOWANCETYPEViewSpecificAction>) =>
+        from(
+          ALLOWANCETYPEViewSpecificApiCall(action?.payload)
+        ).pipe(
+          map((data) => {
+            return ALLOWANCETYPEViewSpecificActionSuccess(data);
+          }),
+          catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+              return of(ALLOWANCETYPEViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+              return of(ALLOWANCETYPEViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+          })
+        )
+      )
+  );
+  
+  
+  export const ALLOWANCETYPECreateEpic: Epic = (action$, state$) =>
+    action$.pipe(
+      ofType(ALLOWANCETYPECreateAction.type),
+      switchMap((action: ReturnType<typeof ALLOWANCETYPECreateAction>) =>
+        from(
+          ALLOWANCETYPECreateApiCall(action?.payload)
+        ).pipe(
+          map((data) => {
+            return ALLOWANCETYPECreateActionSuccess(data);
+          }),
+          catchError((error) => {
+            if (error.response && error.response.data && error.response.data) {
+              return of(ALLOWANCETYPECreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
+            } else {
+              return of(ALLOWANCETYPECreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+          })
+        )
+      )
+  );
+  
+  export const ALLOWANCETYPEEditEpic: Epic = (action$, state$) =>
+    action$.pipe(
+      ofType(ALLOWANCETYPEEditAction.type),
+      switchMap((action: ReturnType<typeof ALLOWANCETYPEEditAction>) =>
+        from(
+          ALLOWANCETYPEEditApiCall(action?.payload)
+        ).pipe(
+          map((data) => {
+            return ALLOWANCETYPEEditActionSuccess(data);
+          }),
+          catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+              return of(ALLOWANCETYPEEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+              return of(ALLOWANCETYPEEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+          })
+        )
+      )
+  );
+  
+  
+// ALLOWANCEENTRY API SECTION // ALLOWANCEENTRY API SECTION // ALLOWANCEENTRY API SECTION // ALLOWANCEENTRY API SECTION // ALLOWANCEENTRY API SECTION
+const ALLOWANCEENTRYEditApiCall = async (payload: ALLOWANCEENTRYEditInterface) => {
+    const response = await axios.put(`${APILink}sss/${payload.emp_no}/`,
+    payload,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(ALLOWANCEENTRYEditActionProgress(progress));
+          }
+        }
+      }
+    );
+    return response.data;
+  };
+  
+  const ALLOWANCEENTRYCreateApiCall = async (payload: ALLOWANCEENTRYCreateInterface) => {
+    const response = await axios.post(`${APILink}sss/`,
+    payload,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(ALLOWANCEENTRYCreateActionProgress(progress));
+          }
+        }
+      }
+    );
+    return response.data;
+  };
+  
+  
+  const ALLOWANCEENTRYViewSpecificApiCall = async (payload: {ae_no: number}) => {
+    const response = await axios.get(`${APILink}sss/${payload.ae_no}/`,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(ALLOWANCEENTRYViewSpecificActionProgress(progress));
+          }
+        }
+      }
+    );
+    return response.data;
+  };
+  
+  
+  const ALLOWANCEENTRYViewApiCall = async () => {
+    const response = await axios.get(`${APILink}sss/`,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(ALLOWANCEENTRYViewActionProgress(progress));
+          }
+        }
+      }
+    );
+    return response.data;
+  };
+  
+  export const ALLOWANCEENTRYViewEpic: Epic = (action$, state$) =>
+    action$.pipe(
+      ofType(ALLOWANCEENTRYViewAction.type),
+      switchMap(() =>
+        from(
+          ALLOWANCEENTRYViewApiCall()
+        ).pipe(
+          map((data) => {
+            return ALLOWANCEENTRYViewActionSuccess(data);
+          }),
+          catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+              return of(ALLOWANCEENTRYViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+              return of(ALLOWANCEENTRYViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+          })
+        )
+      )
+  );
+  
+  export const ALLOWANCEENTRYViewSpecificEpic: Epic = (action$, state$) =>
+    action$.pipe(
+      ofType(ALLOWANCEENTRYViewSpecificAction.type),
+      switchMap((action: ReturnType<typeof ALLOWANCEENTRYViewSpecificAction>) =>
+        from(
+          ALLOWANCEENTRYViewSpecificApiCall(action?.payload)
+        ).pipe(
+          map((data) => {
+            return ALLOWANCEENTRYViewSpecificActionSuccess(data);
+          }),
+          catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+              return of(ALLOWANCEENTRYViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+              return of(ALLOWANCEENTRYViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+          })
+        )
+      )
+  );
+  
+  
+  export const ALLOWANCEENTRYCreateEpic: Epic = (action$, state$) =>
+    action$.pipe(
+      ofType(ALLOWANCEENTRYCreateAction.type),
+      switchMap((action: ReturnType<typeof ALLOWANCEENTRYCreateAction>) =>
+        from(
+          ALLOWANCEENTRYCreateApiCall(action?.payload)
+        ).pipe(
+          map((data) => {
+            return ALLOWANCEENTRYCreateActionSuccess(data);
+          }),
+          catchError((error) => {
+            if (error.response && error.response.data && error.response.data) {
+              return of(ALLOWANCEENTRYCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
+            } else {
+              return of(ALLOWANCEENTRYCreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+          })
+        )
+      )
+  );
+  
+  export const ALLOWANCEENTRYEditEpic: Epic = (action$, state$) =>
+    action$.pipe(
+      ofType(ALLOWANCEENTRYEditAction.type),
+      switchMap((action: ReturnType<typeof ALLOWANCEENTRYEditAction>) =>
+        from(
+          ALLOWANCEENTRYEditApiCall(action?.payload)
+        ).pipe(
+          map((data) => {
+            return ALLOWANCEENTRYEditActionSuccess(data);
+          }),
+          catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+              return of(ALLOWANCEENTRYEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+              return of(ALLOWANCEENTRYEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+          })
+        )
+      )
+  );
+  
+  

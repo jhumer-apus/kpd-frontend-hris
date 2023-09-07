@@ -98,6 +98,7 @@ export interface PHILHEALTHEditInterface extends Omit<PHILHEALTHGenericInterface
 // ======================================
 
 export interface CASHADVANCEGenericInterface {
+    readonly id: number,
     cash_advance_total: number,
     cash_advance_remaining: number,
     payment_monthly: number,
@@ -110,19 +111,19 @@ export interface CASHADVANCEGenericInterface {
 
 
 export interface CASHADVANCEViewInterface extends CASHADVANCEGenericInterface{
-    readonly id: number,
     readonly date_added: string,
 }
 
 
 export interface CASHADVANCECreateInterface extends Pick<CASHADVANCEGenericInterface, "cash_advance_total" | "payment_monthly" | "emp_no" | "current_user">{}
 
-export interface CASHADVANCEEditInterface extends Pick<CASHADVANCEGenericInterface, "payment_monthly">{}
+export interface CASHADVANCEEditInterface extends Pick<CASHADVANCEGenericInterface, "payment_monthly" | "emp_no" | "id" >{}
 
 
 // ======================================
 
 export interface ALLOWANCETYPEGenericInterface {
+    readonly id: number,
     allowance_name: string,
     taxable: boolean,
     current_user?: number,
@@ -130,13 +131,12 @@ export interface ALLOWANCETYPEGenericInterface {
 
 
 export interface ALLOWANCETYPEViewInterface extends ALLOWANCETYPEGenericInterface{
-    readonly id: number,
     readonly date_added: string,
     readonly date_deleted: string | null,
 }
 
 
-export interface ALLOWANCETYPECreateInterface extends ALLOWANCETYPEGenericInterface{}
+export interface ALLOWANCETYPECreateInterface extends Omit<ALLOWANCETYPEGenericInterface, "id">{}
 
 export interface ALLOWANCETYPEEditInterface extends ALLOWANCETYPEGenericInterface{}
 
