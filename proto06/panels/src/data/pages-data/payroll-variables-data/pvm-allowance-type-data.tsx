@@ -1,14 +1,7 @@
-import { GridColDef, GridValueGetterParams, GridCellParams, GridValueFormatterParams } from "@mui/x-data-grid";
-
-// export const viewPayrollOptions = [
-//   "View Payroll Per Employee",
-//   "No Other Payroll View Options",
-//   // "View Cutoff DTR Summary",
-//   // "View Employee Specific DTR"
-// ];
+import { GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 
 export const PVMALLOWANCETYPEPageDescriptions = [
-  "On this table, you will find the list of HRIS Allowance TYPES for the employees of your company and their details each.",
+  "On this table, you will find the list of Cash Advances of the employees of your company and their details each.",
   // "See merged logs of all employees here, showing the total hours and details of each logs. Sortable and filterable on the table headers.",
   // "See the total hours of all employees per cutoff here. Sortable and filterable by the table headers.",
   // "Nondescript"
@@ -18,18 +11,25 @@ export const PVMALLOWANCETYPEPageDescriptions = [
 export const PVMALLOWANCETYPEPageColumns: GridColDef[] = 
 [
   {
-    field: 'emp_no',
-    headerName: 'Employee #',
-    width: 150,
+    field: 'id',
+    headerName: 'ID',
+    width: 100,
     // valueGetter: (params: GridValueGetterParams) => {
     //   const date = new Date(params.row.expiry);
     //   return params.row.expiry ? date.toLocaleDateString() : 'No Expiry';
     // }
   },
-  { field: 'role', headerName: 'Role', width: 100 },
+  { field: 'taxable', 
+    headerName: 'Taxable', 
+    width: 150,
+    valueGetter: (params: GridValueGetterParams) => {
+      const convertBool = params.row.taxable ? 'Yes' : 'No';
+      return convertBool;
+    } 
+  },
   { field: 'date_added', 
     headerName: 'Date Added', 
-    width: 120,
+    width: 160,
     valueGetter: (params: GridValueGetterParams) => {
       const date = new Date(params.row.date_added);
       return params.row.date_added ? date.toLocaleDateString() : 'No Date';
@@ -55,7 +55,7 @@ export const PVMALLOWANCETYPEPageColumns: GridColDef[] =
     //   );
     // }  
   },
-  { field: 'username', headerName: 'Username',  width: 200 },
+  { field: 'allowance_name', headerName: 'Allowance Name',  width: 160 },
 ];
   
 export default {

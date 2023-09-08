@@ -966,7 +966,7 @@ export const CASHADVANCEEditEpic: Epic = (action$, state$) =>
 
 // ALLOWANCETYPE API SECTION // ALLOWANCETYPE API SECTION // ALLOWANCETYPE API SECTION // ALLOWANCETYPE API SECTION // ALLOWANCETYPE API SECTION
 const ALLOWANCETYPEEditApiCall = async (payload: ALLOWANCETYPEEditInterface) => {
-    const response = await axios.put(`${APILink}pagibig/${payload.id}/`,
+    const response = await axios.put(`${APILink}allowance_type/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -981,7 +981,7 @@ const ALLOWANCETYPEEditApiCall = async (payload: ALLOWANCETYPEEditInterface) => 
   };
   
   const ALLOWANCETYPECreateApiCall = async (payload: ALLOWANCETYPECreateInterface) => {
-    const response = await axios.post(`${APILink}pagibig/`,
+    const response = await axios.post(`${APILink}allowance_type/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -997,7 +997,7 @@ const ALLOWANCETYPEEditApiCall = async (payload: ALLOWANCETYPEEditInterface) => 
   
   
   const ALLOWANCETYPEViewSpecificApiCall = async (payload: {at_no: number}) => {
-    const response = await axios.get(`${APILink}pagibig/${payload.at_no}/`,
+    const response = await axios.get(`${APILink}allowance_type/${payload.at_no}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -1012,7 +1012,7 @@ const ALLOWANCETYPEEditApiCall = async (payload: ALLOWANCETYPEEditInterface) => 
   
   
   const ALLOWANCETYPEViewApiCall = async () => {
-    const response = await axios.get(`${APILink}pagibig/`,
+    const response = await axios.get(`${APILink}allowance_type/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
