@@ -783,7 +783,7 @@ const PHILHEALTHEditApiCall = async (payload: PHILHEALTHEditInterface) => {
 
 // CASHADVANCE API SECTION // CASHADVANCE API SECTION // CASHADVANCE API SECTION // CASHADVANCE API SECTION // CASHADVANCE API SECTION
 const CASHADVANCEEditApiCall = async (payload: CASHADVANCEEditInterface) => {
-  const response = await axios.put(`${APILink}ca/${payload.emp_no}/`,
+  const response = await axios.put(`${APILink}ca/${payload.emp_no}/${payload.id}/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {

@@ -69,7 +69,7 @@ export default function ViewCASHADVANCESingleModal(props: SingleCASHADVANCEInter
 
 // Styles
 const CASHADVANCEModalArea = {
-  height: '90.5mm',
+  height: '120.5mm',
   width: '210mm',
   margin: '0 auto',
   background: 'white',

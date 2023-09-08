@@ -117,7 +117,7 @@ export interface CASHADVANCEViewInterface extends CASHADVANCEGenericInterface{
 
 export interface CASHADVANCECreateInterface extends Pick<CASHADVANCEGenericInterface, "cash_advance_total" | "payment_monthly" | "emp_no" | "current_user">{}
 
-export interface CASHADVANCEEditInterface extends Pick<CASHADVANCEGenericInterface, "payment_monthly" | "emp_no" | "id" >{}
+export interface CASHADVANCEEditInterface extends Pick<CASHADVANCEGenericInterface, "payment_monthly" | "emp_no" | "id" | "current_user">{}
 
 
 // ======================================

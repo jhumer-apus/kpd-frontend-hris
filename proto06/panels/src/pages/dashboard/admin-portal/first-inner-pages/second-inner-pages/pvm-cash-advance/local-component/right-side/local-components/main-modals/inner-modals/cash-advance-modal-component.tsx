@@ -21,7 +21,7 @@ const CASHADVANCEModalComponent = ((props:CASHADVANCEModalComponentInterface) =>
             <Typography variant='soft'>CASHADVANCE Individual Data</Typography>
             <ModalClose sx={{marginTop: '4px'}}/>
             <div ref={componentRef} id="printable-area" className='mt-4'>
-                {/* <CASHADVANCEModalUI setSingleCASHADVANCEDetailsData={setSingleCASHADVANCEDetailsData} singleCASHADVANCEDetailsData={singleCASHADVANCEDetailsData}/> */}
+                <CASHADVANCEModalUI setSingleCASHADVANCEDetailsData={setSingleCASHADVANCEDetailsData} singleCASHADVANCEDetailsData={singleCASHADVANCEDetailsData}/>
             </div>
         </Fragment>
     );
