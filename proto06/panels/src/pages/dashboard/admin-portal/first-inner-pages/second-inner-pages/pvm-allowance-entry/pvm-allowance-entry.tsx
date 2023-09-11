@@ -2,8 +2,8 @@ import { Fragment }from 'react';
 import { styled } from '@mui/material/styles';
 import MuiGrid from '@mui/material/Grid';
 import { Paper, Box, useTheme, useMediaQuery } from '@mui/material';
-import PVMALLOWANCEENTRYPageHistory from './local-component/right-side/pvm-cash-advance-history';
-import PVMALLOWANCEENTRYCreate from './local-component/left-side/pvm-philhealth-create';
+import PVMALLOWANCEENTRYPageHistory from './local-component/right-side/pvm-allowance-entry-history';
+import PVMALLOWANCEENTRYCreate from './local-component/left-side/pvm-allowance-entry-create';
 
 
 const PaperStyle = {
@@ -24,6 +24,7 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
 export default function PVMALLOWANCEENTRY() {
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.down('lg'));
+    console.log(process.env.NODE_ENV, "asdasdasdasdasd")
 
   return (
     <Fragment>
@@ -31,13 +32,13 @@ export default function PVMALLOWANCEENTRY() {
             <Grid item xs>
                 <Paper elevation={3} style={PaperStyle}>
                     <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
-                        {/* <PVMALLOWANCEENTRYCreate/> */}
+                        <PVMALLOWANCEENTRYCreate/>
                     </Box>
                 </Paper>
             </Grid>
             <Grid item xs>
                 <Paper elevation={3} style={PaperStyle}>
-                    {/* <PVMALLOWANCEENTRYPageHistory/> */}
+                    <PVMALLOWANCEENTRYPageHistory/>
                 </Paper>
             </Grid>
         </Grid>

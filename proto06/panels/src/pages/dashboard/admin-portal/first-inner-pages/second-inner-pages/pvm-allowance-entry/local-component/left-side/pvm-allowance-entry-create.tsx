@@ -5,31 +5,33 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
 import { Typography } from '@mui/joy';
-import { CASHADVANCECreateInterface } from '@/types/types-payroll-variables';
-import { CASHADVANCECreateAction, CASHADVANCECreateActionFailureCleanup } from '@/store/actions/payroll-variables';
+import { ALLOWANCEENTRYCreateInterface } from '@/types/types-payroll-variables';
+import { ALLOWANCEENTRYCreateAction, ALLOWANCEENTRYCreateActionFailureCleanup } from '@/store/actions/payroll-variables';
+import AllowanceAutoComplete from './inner-ui-components/allowance-type-autocomplete';
 
 
-interface CreateCASHADVANCEModalInterface {
+interface CreateALLOWANCEENTRYModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
 }
 
-function PVMCASHADVANCECreate(props: CreateCASHADVANCEModalInterface) {
+function PVMALLOWANCEENTRYCreate(props: CreateALLOWANCEENTRYModalInterface) {
     const dispatch = useDispatch();
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail?.emp_no);
-    const CASHADVANCECreatestate = useSelector((state: RootState)=> state.payrollVariables.CASHADVANCECreate);
-    const [createCASHADVANCE, setCreateCASHADVANCE] = useState<CASHADVANCECreateInterface>({
-        cash_advance_total: NaN,
-        payment_monthly: NaN,
+    const ALLOWANCEENTRYCreatestate = useSelector((state: RootState)=> state.payrollVariables.ALLOWANCEENTRYCreate);
+    const [createALLOWANCEENTRY, setCreateALLOWANCEENTRY] = useState<ALLOWANCEENTRYCreateInterface>({
+        amount: NaN,
+        tax_rate: NaN,
+        allowance_code: NaN,
         emp_no: NaN,
         current_user: NaN,
     });
     const onClickSubmit = () => {
-        dispatch(CASHADVANCECreateAction(createCASHADVANCE))
+        dispatch(ALLOWANCEENTRYCreateAction(createALLOWANCEENTRY))
     };
 
     useEffect(()=> {
         if(curr_user){
-            setCreateCASHADVANCE((prevState) => {
+            setCreateALLOWANCEENTRY((prevState) => {
                 return (
                     {
                         ...prevState,
@@ -41,40 +43,41 @@ function PVMCASHADVANCECreate(props: CreateCASHADVANCEModalInterface) {
     }, [curr_user]) 
 
     useEffect(()=>{
-        if(CASHADVANCECreatestate.status === 'succeeded'){
+        if(ALLOWANCEENTRYCreatestate.status === 'succeeded'){
             window.alert('Request Successful');
             window.location.reload();
-        }else if(CASHADVANCECreatestate.status === 'failed'){
-            window.alert(`Request Failed, ${CASHADVANCECreatestate.error}`)
+        }else if(ALLOWANCEENTRYCreatestate.status === 'failed'){
+            window.alert(`Request Failed, ${ALLOWANCEENTRYCreatestate.error}`)
             setTimeout(()=> {
-                dispatch(CASHADVANCECreateActionFailureCleanup());
+                dispatch(ALLOWANCEENTRYCreateActionFailureCleanup());
             }, 1000)
         }
-    }, [CASHADVANCECreatestate.status])
+    }, [ALLOWANCEENTRYCreatestate.status])
 
     return (
         <React.Fragment>
-            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain' level="h6">Create CASHADVANCE Individual Data</Typography>
+            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain' level="h6">Create ALLOWANCEENTRY Individual Data</Typography>
             <div className='flex flex-col gap-6 overflow-auto w-3/4'>
                     <div className='flex flex-col gap-6 pt-4'>
-                        <EmployeeAutoComplete createCASHADVANCE={createCASHADVANCE} setCreateCASHADVANCE={setCreateCASHADVANCE}/>
+                        <EmployeeAutoComplete createALLOWANCEENTRY={createALLOWANCEENTRY} setCreateALLOWANCEENTRY={setCreateALLOWANCEENTRY}/>
                     </div>
+                    <AllowanceAutoComplete createALLOWANCEENTRY={createALLOWANCEENTRY} setCreateALLOWANCEENTRY={setCreateALLOWANCEENTRY}/>
                     <div className='flex flex-col gap-6'>
                         <TextField
                             required 
                             sx={{width: '100%'}} 
-                            label='CASHADVANCE Amount:'
+                            label='Allowance Amount:'
                             aria-required  
                             variant='outlined' 
                             type="number"
-                            value={createCASHADVANCE?.cash_advance_total}
+                            value={createALLOWANCEENTRY?.amount}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value = parseInt(event.target.value)
-                                setCreateCASHADVANCE((prevState)=> {
+                                setCreateALLOWANCEENTRY((prevState)=> {
                                     return (
                                         {
                                             ...prevState,
-                                            cash_advance_total: value
+                                            amount: value
                                         }
                                     )
                                 })
@@ -83,18 +86,18 @@ function PVMCASHADVANCECreate(props: CreateCASHADVANCEModalInterface) {
                         <TextField
                             required 
                             sx={{width: '100%'}} 
-                            label='Payment Monthly (Amount)'
+                            label='Tax Rate'
                             aria-required  
                             variant='outlined' 
                             type="number"
-                            value={createCASHADVANCE?.payment_monthly}
+                            value={createALLOWANCEENTRY?.tax_rate}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value = parseInt(event.target.value)
-                                setCreateCASHADVANCE((prevState)=> {
+                                setCreateALLOWANCEENTRY((prevState)=> {
                                     return (
                                         {
                                             ...prevState,
-                                            payment_monthly: value
+                                            tax_rate: value
                                         }
                                     )
                                 })
@@ -103,7 +106,7 @@ function PVMCASHADVANCECreate(props: CreateCASHADVANCEModalInterface) {
                     </div>
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
-                        <Button variant='contained' onClick={onClickSubmit}>Create CASHADVANCE</Button>
+                        <Button variant='contained' onClick={onClickSubmit}>Create ALLOWANCEENTRY</Button>
                     </div>
                 </div>
             </div>
@@ -111,5 +114,5 @@ function PVMCASHADVANCECreate(props: CreateCASHADVANCEModalInterface) {
     );
 }
 
-export default PVMCASHADVANCECreate;
+export default PVMALLOWANCEENTRYCreate;
 

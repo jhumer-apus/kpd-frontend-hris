@@ -5,17 +5,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { getEmployeesList } from '@/store/actions/employees';
 import { AutocompleteInputChangeReason } from '@mui/material/Autocomplete';
-import { ALLOWANCEENTRYCreateInterface } from '@/types/types-payroll-variables';
+import { ALLOWANCEENTRYCreateInterface, ALLOWANCEENTRYViewInterface } from '@/types/types-payroll-variables';
 
 
-interface EmployeeAutoCompleteInterface{
-    createALLOWANCEENTRY: ALLOWANCEENTRYCreateInterface;
-    setCreateALLOWANCEENTRY: Dispatch<SetStateAction<ALLOWANCEENTRYCreateInterface>>;
+interface EmployeeAutoCompleteRightInterface{
+    editALLOWANCEENTRY: ALLOWANCEENTRYViewInterface;
+    setEditALLOWANCEENTRY: Dispatch<SetStateAction<ALLOWANCEENTRYViewInterface>>;
 }
 
 
-export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterface) {
-    const {setCreateALLOWANCEENTRY, createALLOWANCEENTRY} = props;
+export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteRightInterface) {
+    const {setEditALLOWANCEENTRY, editALLOWANCEENTRY} = props;
     const dispatch = useDispatch();
     const state = useSelector((state:RootState)=> state.employees);
     const [employeesList, setEmployeesList] = useState<{employee: string, emp_no: number}[]>([])
@@ -28,7 +28,7 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
 
     useEffect(()=> {
         if(selectedEmployeeId){
-            setCreateALLOWANCEENTRY((prevState)=> {
+            setEditALLOWANCEENTRY((prevState)=> {
                 return(
                     {
                         ...prevState,

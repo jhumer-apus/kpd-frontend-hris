@@ -1,7 +1,7 @@
 import { GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 
 export const PVMALLOWANCETYPEPageDescriptions = [
-  "On this table, you will find the list of Cash Advances of the employees of your company and their details each.",
+  "On this table, you will find the list of Allowance Types of the employees of your company and their details each.",
   // "See merged logs of all employees here, showing the total hours and details of each logs. Sortable and filterable on the table headers.",
   // "See the total hours of all employees per cutoff here. Sortable and filterable by the table headers.",
   // "Nondescript"

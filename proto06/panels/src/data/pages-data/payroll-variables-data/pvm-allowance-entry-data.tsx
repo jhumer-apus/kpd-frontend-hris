@@ -1,8 +1,7 @@
 import { GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 
-
 export const PVMALLOWANCEENTRYPageDescriptions = [
-  "On this table, you will find the list of HRIS tax IDs of the employee of your company and their details each.",
+  "On this table, you will find the list of Allowances of the employees of your company and their details each.",
   // "See merged logs of all employees here, showing the total hours and details of each logs. Sortable and filterable on the table headers.",
   // "See the total hours of all employees per cutoff here. Sortable and filterable by the table headers.",
   // "Nondescript"
@@ -12,18 +11,25 @@ export const PVMALLOWANCEENTRYPageDescriptions = [
 export const PVMALLOWANCEENTRYPageColumns: GridColDef[] = 
 [
   {
-    field: 'emp_no',
-    headerName: 'Employee #',
-    width: 150,
+    field: 'id',
+    headerName: 'ID',
+    width: 100,
     // valueGetter: (params: GridValueGetterParams) => {
     //   const date = new Date(params.row.expiry);
     //   return params.row.expiry ? date.toLocaleDateString() : 'No Expiry';
     // }
   },
-  { field: 'role', headerName: 'Role', width: 100 },
+  { field: 'taxable', 
+    headerName: 'Taxable', 
+    width: 150,
+    valueGetter: (params: GridValueGetterParams) => {
+      const convertBool = params.row.taxable ? 'Yes' : 'No';
+      return convertBool;
+    } 
+  },
   { field: 'date_added', 
     headerName: 'Date Added', 
-    width: 120,
+    width: 160,
     valueGetter: (params: GridValueGetterParams) => {
       const date = new Date(params.row.date_added);
       return params.row.date_added ? date.toLocaleDateString() : 'No Date';
@@ -49,7 +55,7 @@ export const PVMALLOWANCEENTRYPageColumns: GridColDef[] =
     //   );
     // }  
   },
-  { field: 'username', headerName: 'Username',  width: 200 },
+  { field: 'amount', headerName: 'Amount',  width: 160 },
 ];
   
 export default {

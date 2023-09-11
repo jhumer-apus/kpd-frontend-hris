@@ -2,29 +2,29 @@ import { Dispatch, SetStateAction, Fragment, useState } from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
-import { CASHADVANCEViewInterface } from '@/types/types-payroll-variables';
-import CASHADVANCEModalComponent from './inner-modals/cash-advance-modal-component';
+import { ALLOWANCEENTRYViewInterface } from '@/types/types-payroll-variables';
+import ALLOWANCEENTRYModalComponent from './inner-modals/allowance-entry-modal-component';
 
 
-interface SingleCASHADVANCEInterface {
-    singleCASHADVANCEOpenModal: boolean; 
-    setSingleCASHADVANCEOpenModal: Dispatch<SetStateAction<boolean>>;
-    singleCASHADVANCEDetailsData: CASHADVANCEViewInterface;
-    setSingleCASHADVANCEDetailsData: Dispatch<SetStateAction<CASHADVANCEViewInterface>>;
+interface SingleALLOWANCEENTRYInterface {
+    singleALLOWANCEENTRYOpenModal: boolean; 
+    setSingleALLOWANCEENTRYOpenModal: Dispatch<SetStateAction<boolean>>;
+    singleALLOWANCEENTRYDetailsData: ALLOWANCEENTRYViewInterface;
+    setSingleALLOWANCEENTRYDetailsData: Dispatch<SetStateAction<ALLOWANCEENTRYViewInterface>>;
 }
 
-export default function ViewCASHADVANCESingleModal(props: SingleCASHADVANCEInterface) {
-    const {singleCASHADVANCEOpenModal, setSingleCASHADVANCEOpenModal, setSingleCASHADVANCEDetailsData, singleCASHADVANCEDetailsData} = props;
+export default function ViewALLOWANCEENTRYSingleModal(props: SingleALLOWANCEENTRYInterface) {
+    const {singleALLOWANCEENTRYOpenModal, setSingleALLOWANCEENTRYOpenModal, setSingleALLOWANCEENTRYDetailsData, singleALLOWANCEENTRYDetailsData} = props;
   const [scroll, setScroll] = useState<boolean>(true);
   return (
     <Fragment>
-      <Transition in={singleCASHADVANCEOpenModal} timeout={400}>
+      <Transition in={singleALLOWANCEENTRYOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
         keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setSingleCASHADVANCEOpenModal(false);
+          setSingleALLOWANCEENTRYOpenModal(false);
         }}
         slotProps={{
             backdrop: {
@@ -47,7 +47,7 @@ export default function ViewCASHADVANCESingleModal(props: SingleCASHADVANCEInter
             aria-labelledby="dialog-vertical-scroll-title" 
             layout={'center'}
             sx={{
-              ...CASHADVANCEModalArea,
+              ...ALLOWANCEENTRYModalArea,
                 opacity: 0,
                 transition: `opacity 300ms`,
                 ...{
@@ -57,7 +57,7 @@ export default function ViewCASHADVANCESingleModal(props: SingleCASHADVANCEInter
                 overflow: 'auto',
             }}
         >
-          <CASHADVANCEModalComponent setSingleCASHADVANCEDetailsData={setSingleCASHADVANCEDetailsData} singleCASHADVANCEDetailsData={singleCASHADVANCEDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <ALLOWANCEENTRYModalComponent setSingleALLOWANCEENTRYDetailsData={setSingleALLOWANCEENTRYDetailsData} singleALLOWANCEENTRYDetailsData={singleALLOWANCEENTRYDetailsData} scroll={scroll} setScroll={setScroll}/>
         </ModalDialog>
       </Modal>
         )}
@@ -68,7 +68,7 @@ export default function ViewCASHADVANCESingleModal(props: SingleCASHADVANCEInter
 
 
 // Styles
-const CASHADVANCEModalArea = {
+const ALLOWANCEENTRYModalArea = {
   height: '120.5mm',
   width: '210mm',
   margin: '0 auto',
