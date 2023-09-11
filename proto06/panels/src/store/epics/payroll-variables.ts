@@ -1113,7 +1113,7 @@ const ALLOWANCETYPEEditApiCall = async (payload: ALLOWANCETYPEEditInterface) => 
   
 // ALLOWANCEENTRY API SECTION // ALLOWANCEENTRY API SECTION // ALLOWANCEENTRY API SECTION // ALLOWANCEENTRY API SECTION // ALLOWANCEENTRY API SECTION
 const ALLOWANCEENTRYEditApiCall = async (payload: ALLOWANCEENTRYEditInterface) => {
-    const response = await axios.put(`${APILink}sss/${payload.emp_no}/`,
+    const response = await axios.put(`${APILink}allowance_entry/${payload.emp_no}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -1128,7 +1128,7 @@ const ALLOWANCEENTRYEditApiCall = async (payload: ALLOWANCEENTRYEditInterface) =
   };
   
   const ALLOWANCEENTRYCreateApiCall = async (payload: ALLOWANCEENTRYCreateInterface) => {
-    const response = await axios.post(`${APILink}sss/`,
+    const response = await axios.post(`${APILink}allowance_entry/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -1144,7 +1144,7 @@ const ALLOWANCEENTRYEditApiCall = async (payload: ALLOWANCEENTRYEditInterface) =
   
   
   const ALLOWANCEENTRYViewSpecificApiCall = async (payload: {ae_no: number}) => {
-    const response = await axios.get(`${APILink}sss/${payload.ae_no}/`,
+    const response = await axios.get(`${APILink}allowance_entry/${payload.ae_no}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -1159,7 +1159,7 @@ const ALLOWANCEENTRYEditApiCall = async (payload: ALLOWANCEENTRYEditInterface) =
   
   
   const ALLOWANCEENTRYViewApiCall = async () => {
-    const response = await axios.get(`${APILink}sss/`,
+    const response = await axios.get(`${APILink}allowance_entry/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
