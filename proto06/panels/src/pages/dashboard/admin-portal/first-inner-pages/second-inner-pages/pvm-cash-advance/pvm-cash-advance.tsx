@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 import MuiGrid from '@mui/material/Grid';
 import { Paper, Box, useTheme, useMediaQuery } from '@mui/material';
 import PVMCASHADVANCEPageHistory from './local-component/right-side/pvm-cash-advance-history';
-import PVMCASHADVANCECreate from './local-component/left-side/pvm-philhealth-create';
+import PVMCASHADVANCECreate from './local-component/left-side/pvm-cash-advance-create';
 
 
 const PaperStyle = {
