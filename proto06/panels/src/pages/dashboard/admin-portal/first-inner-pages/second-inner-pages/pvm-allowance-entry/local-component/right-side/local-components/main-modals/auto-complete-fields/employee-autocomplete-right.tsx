@@ -61,6 +61,8 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteRig
         ...option,
         };
     });
+
+    const defaultOption = options?.find((option) => option.emp_no === editALLOWANCEENTRY.emp_no);
     
     const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string, reason: AutocompleteInputChangeReason) => {
         const matchingEmployee = employeesList.find(
@@ -80,24 +82,50 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteRig
     };
     
     return (
-        <Autocomplete
-        // disableCloseOnSelect
-        id="grouped-demo"
-        options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
-        groupBy={(option) => option.firstLetter}
-        getOptionLabel={(option) => option.employee}
-        onInputChange={handleInputChange}
-        sx={{ width: "100%" }}
-        isOptionEqualToValue={isOptionEqualToValue}
-        renderInput={(params) => 
-            {   
-                return(
-                    <TextField {...params} label="For Employee #:" />
-                )
-
+        <>
+        {defaultOption && 
+            <Autocomplete
+            // disableCloseOnSelect
+            id="grouped-demo"
+            defaultValue={defaultOption}
+            options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
+            groupBy={(option) => option.firstLetter}
+            getOptionLabel={(option) => option.employee}
+            onInputChange={handleInputChange}
+            sx={{ width: "100%" }}
+            isOptionEqualToValue={isOptionEqualToValue}
+            renderInput={(params) => 
+                {   
+                    return(
+                        <TextField {...params} label="For Employee #:" />
+                    )
+    
+                }
+    
             }
-
+            />
         }
-        />
+        {!defaultOption && 
+            <Autocomplete
+            options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
+            groupBy={(option) => option.firstLetter}
+            getOptionLabel={(option) => option.employee}
+            onInputChange={handleInputChange}
+            sx={{ width: "100%" }}
+            isOptionEqualToValue={isOptionEqualToValue}
+            renderInput={(params) => 
+                {   
+                    return(
+                        <TextField {...params} label="Loading Values" />
+                    )
+    
+                }
+    
+            }
+            />
+        }
+        </>
+        
+        
     );
 }

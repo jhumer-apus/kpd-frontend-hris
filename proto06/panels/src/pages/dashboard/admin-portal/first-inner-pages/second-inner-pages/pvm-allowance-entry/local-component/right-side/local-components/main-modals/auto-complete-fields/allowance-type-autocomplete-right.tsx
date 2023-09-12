@@ -5,17 +5,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { ALLOWANCETYPEViewAction } from '@/store/actions/payroll-variables';
 import { AutocompleteInputChangeReason } from '@mui/material/Autocomplete';
-import { ALLOWANCEENTRYCreateInterface } from '@/types/types-payroll-variables';
+import { ALLOWANCEENTRYViewInterface } from '@/types/types-payroll-variables';
 
 
 interface AllowanceAutoCompleteRightInterface{
-    createALLOWANCEENTRY: ALLOWANCEENTRYCreateInterface;
-    setCreateALLOWANCEENTRY: Dispatch<SetStateAction<ALLOWANCEENTRYCreateInterface>>;
+    editALLOWANCEENTRY: ALLOWANCEENTRYViewInterface;
+    setEditALLOWANCEENTRY: Dispatch<SetStateAction<ALLOWANCEENTRYViewInterface>>;
 }
 
 
 export default function AllowanceAutoCompleteRight(props: AllowanceAutoCompleteRightInterface) {
-    const {setCreateALLOWANCEENTRY, createALLOWANCEENTRY} = props;
+    const {setEditALLOWANCEENTRY, editALLOWANCEENTRY} = props;
     const dispatch = useDispatch();
     const state = useSelector((state:RootState)=> state.payrollVariables.ALLOWANCETYPEView);
     const [allowanceList, setAllowanceList] = useState<{allowance: string, allowance_code: number}[]>([])
@@ -28,7 +28,7 @@ export default function AllowanceAutoCompleteRight(props: AllowanceAutoCompleteR
 
     useEffect(()=> {
         if(selectedAllowanceId){
-            setCreateALLOWANCEENTRY((prevState)=> {
+            setEditALLOWANCEENTRY((prevState)=> {
                 return(
                     {
                         ...prevState,
@@ -62,6 +62,8 @@ export default function AllowanceAutoCompleteRight(props: AllowanceAutoCompleteR
         };
     });
     
+    const defaultOption = options?.find((option) => option.allowance_code === editALLOWANCEENTRY.allowance_code);
+
     const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string, reason: AutocompleteInputChangeReason) => {
         const matchingAllowance = allowanceList.find(
         //   (allowanceItems) => allowanceItems.allowance === newInputValue
@@ -71,7 +73,7 @@ export default function AllowanceAutoCompleteRight(props: AllowanceAutoCompleteR
             setSelectedAllowanceId(matchingAllowance.allowance_code);
         } else {
           setSelectedAllowanceId(null);
-        // window.alert('No Matched Allowance in the list is found. Create an allowance entry first')
+        // window.alert('No Matched Allowance in the list is found. Edit an allowance entry first')
         }
     };
 
@@ -80,9 +82,13 @@ export default function AllowanceAutoCompleteRight(props: AllowanceAutoCompleteR
     };
     
     return (
+        <>
+        {
+        defaultOption &&
         <Autocomplete
         // disableCloseOnSelect
         id="grouped-demo"
+        defaultValue={defaultOption}
         options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
         groupBy={(option) => option.firstLetter}
         getOptionLabel={(option) => option.allowance}
@@ -99,5 +105,29 @@ export default function AllowanceAutoCompleteRight(props: AllowanceAutoCompleteR
 
         }
         />
+        }
+        {
+        !defaultOption &&
+        <Autocomplete
+        options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
+        groupBy={(option) => option.firstLetter}
+        getOptionLabel={(option) => option.allowance}
+        onInputChange={handleInputChange}
+        sx={{ width: "100%" }}
+        isOptionEqualToValue={isOptionEqualToValue}
+        renderInput={(params) => 
+            {   
+                return(
+                    <TextField {...params} label="Loading Values:" />
+                )
+
+            }
+
+        }
+        />
+        }
+        
+        </>
+
     );
 }

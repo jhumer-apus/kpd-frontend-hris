@@ -1113,7 +1113,7 @@ const ALLOWANCETYPEEditApiCall = async (payload: ALLOWANCETYPEEditInterface) => 
   
 // ALLOWANCEENTRY API SECTION // ALLOWANCEENTRY API SECTION // ALLOWANCEENTRY API SECTION // ALLOWANCEENTRY API SECTION // ALLOWANCEENTRY API SECTION
 const ALLOWANCEENTRYEditApiCall = async (payload: ALLOWANCEENTRYEditInterface) => {
-    const response = await axios.put(`${APILink}allowance_entry/${payload.emp_no}/`,
+    const response = await axios.put(`${APILink}allowance_entry/${payload.emp_no}/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {

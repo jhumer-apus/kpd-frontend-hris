@@ -162,5 +162,5 @@ export interface ALLOWANCEENTRYViewInterface extends ALLOWANCEENTRYGenericInterf
 
 export interface ALLOWANCEENTRYCreateInterface extends ALLOWANCEENTRYGenericInterface{}
 
-export interface ALLOWANCEENTRYEditInterface extends ALLOWANCEENTRYGenericInterface{}
+export interface ALLOWANCEENTRYEditInterface extends Omit<ALLOWANCEENTRYViewInterface, "date_added" | "date_deleted">{}
 

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { ALLOWANCEENTRYEditAction } from '@/store/actions/payroll-variables';
 import EmployeeAutoCompleteRight from '../auto-complete-fields/employee-autocomplete-right';
+import AllowanceAutoCompleteRight from '../auto-complete-fields/allowance-type-autocomplete-right';
 
 interface EditALLOWANCEENTRYModalInterface {
     singleALLOWANCEENTRYDetailsData: ALLOWANCEENTRYViewInterface;
@@ -91,7 +92,7 @@ export default function EditALLOWANCEENTRYModal(props: EditALLOWANCEENTRYModalIn
               </div>
               <div className='flex flex-col gap-5'>
                     <div className='flex flex-col gap-6'>
-                      <EmployeeAutoCompleteRight editALLOWANCEENTRY={singleALLOWANCEENTRYDetailsData} setEditALLOWANCEENTRY={setSingleALLOWANCEENTRYDetailsData}/>
+                      {/* <EmployeeAutoCompleteRight editALLOWANCEENTRY={singleALLOWANCEENTRYDetailsData} setEditALLOWANCEENTRY={setSingleALLOWANCEENTRYDetailsData}/> */}
                         <TextField
                             required 
                             sx={{width: '100%'}} 
@@ -132,6 +133,7 @@ export default function EditALLOWANCEENTRYModal(props: EditALLOWANCEENTRYModalIn
                                 })
                             }}
                         />
+                      <AllowanceAutoCompleteRight editALLOWANCEENTRY={singleALLOWANCEENTRYDetailsData} setEditALLOWANCEENTRY={setSingleALLOWANCEENTRYDetailsData}/>
                       </div>
               </div>
               <div className='flex justify-around'>
@@ -151,7 +153,7 @@ export default function EditALLOWANCEENTRYModal(props: EditALLOWANCEENTRYModalIn
 
 // Styles
 const editALLOWANCEENTRYArea = {
-  height: '135.5mm',
+  height: '145.5mm',
   width: '180mm',
   margin: '0 auto',
   background: 'white',

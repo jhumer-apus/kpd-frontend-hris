@@ -40,7 +40,7 @@ function ALLOWANCEENTRYModalUI(props: ALLOWANCEENTRYModalUIInterface) {
 
                 </div>
                 <div className='flex gap-6 flex-col'>
-                    <TextField sx={{width: '100%', minWidth: '160px', color: 'green'}} label='Allowance Code:' value={ThisProps.id || '-'} InputProps={{readOnly: true,}} variant='filled' focused/>
+                    <TextField sx={{width: '100%', minWidth: '160px', color: 'green'}} label='Allowance Code:' value={ThisProps.allowance_code || '-'} InputProps={{readOnly: true,}} variant='filled' focused/>
                     <TextField sx={{width: '100%'}} label='Date Added:' value={ThisProps.date_added? dayjs(ThisProps.date_added).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
                 </div>
                 <div className='flex gap-6 flex-col'>
