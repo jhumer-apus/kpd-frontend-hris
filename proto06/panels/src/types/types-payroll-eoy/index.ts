@@ -1,0 +1,152 @@
+
+export interface TAXCOLLECTEDGenericInterface {
+    tax_rate_used: number,
+    amount_deducted: number,
+    emp_no: number | null,
+    cutoff_code: number,
+    allowance_entry_code: number,
+}
+
+
+export interface TAXCOLLECTEDViewInterface extends TAXCOLLECTEDGenericInterface{
+    readonly id: number,
+    readonly date_added: string,
+}
+
+
+// ======================================
+
+
+export interface PAY13THGenericInterface {
+    coverage_from: string,
+    coverage_to: string,
+    total_pay: number,
+    is_printed: boolean,
+    emp_no: number
+    current_user?: number,
+}
+
+
+export interface PAY13THViewInterface extends PAY13THGenericInterface{
+    readonly id: number,
+}
+
+export interface PAY13THCreateInterface extends Pick<PAY13THGenericInterface, "emp_no" | "current_user">{}
+
+
+// ======================================
+
+export interface BONUSLISTGenericInterface {
+    name: string,
+    description: string,
+    amount: number,
+    current_user?: number,
+}
+
+
+export interface BONUSLISTViewInterface extends BONUSLISTGenericInterface{
+    readonly id: number,
+    readonly date_added: string,
+}
+
+
+export interface BONUSLISTCreateInterface extends BONUSLISTGenericInterface{}
+
+export interface BONUSLISTEditInterface extends BONUSLISTGenericInterface{}
+
+
+// ======================================
+
+
+export interface BONUSENTRYGenericInterface {
+    is_applied: boolean,
+    bonus_code: number,
+    emp_no: number,
+    cutoff_code: number,
+    added_by?: number, //current_user
+}
+
+
+export interface BONUSENTRYViewInterface extends BONUSENTRYGenericInterface{
+    readonly id: number,
+    readonly date_added: string,
+}
+
+
+export interface BONUSENTRYCreateInterface extends Omit<BONUSENTRYGenericInterface, "is_applied">{}
+
+export interface BONUSENTRYEditInterface extends Omit<BONUSENTRYGenericInterface, "is_applied">{}
+
+
+// ======================================
+
+
+export interface ANNOUNCEMENTGenericInterface {
+    date_posted: string,
+    expiry_date: string,
+    order_by_no: number,
+    message:string,
+    emp_no: number, //current_user
+}
+
+
+export interface ANNOUNCEMENTViewInterface extends ANNOUNCEMENTGenericInterface{
+    readonly id: number,
+    readonly date_added: string,
+    readonly is_posted: boolean,
+}
+
+
+export interface ANNOUNCEMENTCreateInterface extends ANNOUNCEMENTGenericInterface{}
+
+export interface ANNOUNCEMENTEditInterface extends ANNOUNCEMENTGenericInterface{}
+
+// ======================================
+
+export interface ASSETLISTGenericInterface {
+    asset_name: string,
+    model: string,
+    year: number,
+    batch_no: string | null,
+    description: string,
+    remarks: string | null,
+    quantity: number,
+    added_by?: number, //current_user
+}
+
+
+export interface ASSETLISTViewInterface extends ASSETLISTGenericInterface{
+    readonly id: number,
+    readonly date_added: string,
+}
+
+
+export interface ASSETLISTCreateInterface extends ASSETLISTGenericInterface{}
+
+export interface ASSETLISTEditInterface extends ASSETLISTGenericInterface{}
+
+
+
+// ======================================
+
+export interface ASSETACCOUNTGenericInterface {
+    serial_no_manufacturer: string,
+    serial_no_internal: string,
+    remarks: string,
+    asset_list_code: number,
+    assigned_by: number, //current_user
+    assigned_to: number,
+}
+
+
+export interface ASSETACCOUNTViewInterface extends ASSETACCOUNTGenericInterface{
+    readonly id: number,
+}
+
+
+export interface ASSETACCOUNTCreateInterface extends ASSETACCOUNTGenericInterface{}
+
+export interface ASSETACCOUNTEditInterface extends ASSETACCOUNTGenericInterface{}
+
+
+// ======================================
