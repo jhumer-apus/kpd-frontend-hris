@@ -3,196 +3,21 @@ import { map, catchError, switchMap, mergeMap } from 'rxjs/operators';
 import { of, from } from 'rxjs';
 import axios, { AxiosProgressEvent } from 'axios';
 import { beautifyJSON } from '@/helpers/utils';
-import {
-    PHILHEALTHViewAction,
-    PHILHEALTHViewActionSuccess,
-    PHILHEALTHViewActionProgress,
-    PHILHEALTHViewActionFailure,
-    PHILHEALTHViewActionFailureCleanup,
-    PHILHEALTHViewSpecificAction,
-    PHILHEALTHViewSpecificActionSuccess,
-    PHILHEALTHViewSpecificActionProgress,
-    PHILHEALTHViewSpecificActionFailure,
-    PHILHEALTHViewSpecificActionFailureCleanup,
-    PHILHEALTHCreateAction,
-    PHILHEALTHCreateActionSuccess,
-    PHILHEALTHCreateActionProgress,
-    PHILHEALTHCreateActionFailure,
-    PHILHEALTHCreateActionFailureCleanup,
-    PHILHEALTHEditAction,
-    PHILHEALTHEditActionSuccess,
-    PHILHEALTHEditActionProgress,
-    PHILHEALTHEditActionFailure,
-    PHILHEALTHEditActionFailureCleanup,
-    SSSViewAction,
-    SSSViewActionSuccess,
-    SSSViewActionProgress,
-    SSSViewActionFailure,
-    SSSViewActionFailureCleanup,
-    SSSViewSpecificAction,
-    SSSViewSpecificActionSuccess,
-    SSSViewSpecificActionProgress,
-    SSSViewSpecificActionFailure,
-    SSSViewSpecificActionFailureCleanup,
-    SSSCreateAction,
-    SSSCreateActionSuccess,
-    SSSCreateActionProgress,
-    SSSCreateActionFailure,
-    SSSCreateActionFailureCleanup,
-    SSSEditAction,
-    SSSEditActionSuccess,
-    SSSEditActionProgress,
-    SSSEditActionFailure,
-    SSSEditActionFailureCleanup,
-    PAGIBIGViewAction,
-    PAGIBIGViewActionSuccess,
-    PAGIBIGViewActionProgress,
-    PAGIBIGViewActionFailure,
-    PAGIBIGViewActionFailureCleanup,
-    PAGIBIGViewSpecificAction,
-    PAGIBIGViewSpecificActionSuccess,
-    PAGIBIGViewSpecificActionProgress,
-    PAGIBIGViewSpecificActionFailure,
-    PAGIBIGViewSpecificActionFailureCleanup,
-    PAGIBIGCreateAction,
-    PAGIBIGCreateActionSuccess,
-    PAGIBIGCreateActionProgress,
-    PAGIBIGCreateActionFailure,
-    PAGIBIGCreateActionFailureCleanup,
-    PAGIBIGEditAction,
-    PAGIBIGEditActionSuccess,
-    PAGIBIGEditActionProgress,
-    PAGIBIGEditActionFailure,
-    PAGIBIGEditActionFailureCleanup,
-    TAXViewAction,
-    TAXViewActionSuccess,
-    TAXViewActionProgress,
-    TAXViewActionFailure,
-    TAXViewActionFailureCleanup,
-    TAXViewSpecificAction,
-    TAXViewSpecificActionSuccess,
-    TAXViewSpecificActionProgress,
-    TAXViewSpecificActionFailure,
-    TAXViewSpecificActionFailureCleanup,
-    TAXCreateAction,
-    TAXCreateActionSuccess,
-    TAXCreateActionProgress,
-    TAXCreateActionFailure,
-    TAXCreateActionFailureCleanup,
-    TAXEditAction,
-    TAXEditActionSuccess,
-    TAXEditActionProgress,
-    TAXEditActionFailure,
-    TAXEditActionFailureCleanup,
-    CASHADVANCECreateAction,
-    CASHADVANCECreateActionFailure,
-    CASHADVANCECreateActionFailureCleanup,
-    CASHADVANCECreateActionProgress,
-    CASHADVANCECreateActionSuccess,
-    CASHADVANCEEditAction,
-    CASHADVANCEEditActionFailure,
-    CASHADVANCEEditActionFailureCleanup,
-    CASHADVANCEEditActionProgress,
-    CASHADVANCEEditActionSuccess,
-    CASHADVANCEViewAction,
-    CASHADVANCEViewActionFailure,
-    CASHADVANCEViewActionFailureCleanup,
-    CASHADVANCEViewActionProgress,
-    CASHADVANCEViewActionSuccess,
-    CASHADVANCEViewSpecificAction,
-    CASHADVANCEViewSpecificActionFailure,
-    CASHADVANCEViewSpecificActionFailureCleanup,
-    CASHADVANCEViewSpecificActionProgress,
-    CASHADVANCEViewSpecificActionSuccess,
-    CASHADVANCEViewSpecificEmployeeAction,
-    CASHADVANCEViewSpecificEmployeeActionFailure,
-    CASHADVANCEViewSpecificEmployeeActionFailureCleanup,
-    CASHADVANCEViewSpecificEmployeeActionProgress,
-    CASHADVANCEViewSpecificEmployeeActionSuccess,
-    ALLOWANCEENTRYCreateAction,
-    ALLOWANCEENTRYCreateActionFailure,
-    ALLOWANCEENTRYCreateActionFailureCleanup,
-    ALLOWANCEENTRYCreateActionProgress,
-    ALLOWANCEENTRYCreateActionSuccess,
-    ALLOWANCEENTRYEditAction,
-    ALLOWANCEENTRYEditActionFailure,
-    ALLOWANCEENTRYEditActionFailureCleanup,
-    ALLOWANCEENTRYEditActionProgress,
-    ALLOWANCEENTRYEditActionSuccess,
-    ALLOWANCEENTRYViewAction,
-    ALLOWANCEENTRYViewActionFailure,
-    ALLOWANCEENTRYViewActionFailureCleanup,
-    ALLOWANCEENTRYViewActionProgress,
-    ALLOWANCEENTRYViewActionSuccess,
-    ALLOWANCEENTRYViewSpecificAction,
-    ALLOWANCEENTRYViewSpecificActionFailure,
-    ALLOWANCEENTRYViewSpecificActionFailureCleanup,
-    ALLOWANCEENTRYViewSpecificActionProgress,
-    ALLOWANCEENTRYViewSpecificActionSuccess,
-    ALLOWANCETYPECreateAction,
-    ALLOWANCETYPECreateActionFailure,
-    ALLOWANCETYPECreateActionFailureCleanup,
-    ALLOWANCETYPECreateActionProgress,
-    ALLOWANCETYPECreateActionSuccess,
-    ALLOWANCETYPEEditAction,
-    ALLOWANCETYPEEditActionFailure,
-    ALLOWANCETYPEEditActionFailureCleanup,
-    ALLOWANCETYPEEditActionProgress,
-    ALLOWANCETYPEEditActionSuccess,
-    ALLOWANCETYPEViewAction,
-    ALLOWANCETYPEViewActionFailure,
-    ALLOWANCETYPEViewActionFailureCleanup,
-    ALLOWANCETYPEViewActionProgress,
-    ALLOWANCETYPEViewActionSuccess,
-    ALLOWANCETYPEViewSpecificAction,
-    ALLOWANCETYPEViewSpecificActionFailure,
-    ALLOWANCETYPEViewSpecificActionFailureCleanup,
-    ALLOWANCETYPEViewSpecificActionProgress,
-    ALLOWANCETYPEViewSpecificActionSuccess,
-} from '../actions/payroll-variables';
+import * as _Action from '../actions/payroll-variables';
 import { Epic } from 'redux-observable';
 import store, { APILink } from '../configureStore';
-import { 
-    TAXCreateInterface,
-    TAXEditInterface,
-    TAXGenericInterface,
-    TAXViewInterface,
-    PAGIBIGCreateInterface,
-    PAGIBIGEditInterface,
-    PAGIBIGGenericInterface,
-    PAGIBIGViewInterface,
-    PHILHEALTHCreateInterface,
-    PHILHEALTHEditInterface,
-    PHILHEALTHGenericInterface,
-    PHILHEALTHViewInterface,
-    SSSCreateInterface,
-    SSSEditInterface,
-    SSSGenericInterface,
-    SSSViewInterface,
-    CASHADVANCECreateInterface,
-    CASHADVANCEEditInterface,
-    CASHADVANCEGenericInterface,
-    CASHADVANCEViewInterface,
-    ALLOWANCEENTRYCreateInterface,
-    ALLOWANCEENTRYEditInterface,
-    ALLOWANCEENTRYGenericInterface,
-    ALLOWANCEENTRYViewInterface,
-    ALLOWANCETYPECreateInterface,
-    ALLOWANCETYPEEditInterface,
-    ALLOWANCETYPEGenericInterface,
-    ALLOWANCETYPEViewInterface,
-} from '@/types/types-payroll-variables';
+import * as _Interface from '@/types/types-payroll-variables';
 
 
 // TAX API SECTION // TAX API SECTION // TAX API SECTION // TAX API SECTION // TAX API SECTION
-const TAXEditApiCall = async (payload: TAXEditInterface) => {
+const TAXEditApiCall = async (payload: _Interface.TAXEditInterface) => {
   const response = await axios.put(`${APILink}tax/${payload.emp_no}/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
           const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-          store.dispatch(TAXEditActionProgress(progress));
+          store.dispatch(_Action.TAXEditActionProgress(progress));
         }
       }
     }
@@ -200,14 +25,14 @@ const TAXEditApiCall = async (payload: TAXEditInterface) => {
   return response.data;
 };
 
-const TAXCreateApiCall = async (payload: TAXCreateInterface) => {
+const TAXCreateApiCall = async (payload: _Interface.TAXCreateInterface) => {
   const response = await axios.post(`${APILink}tax/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
           const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-          store.dispatch(TAXCreateActionProgress(progress));
+          store.dispatch(_Action.TAXCreateActionProgress(progress));
         }
       }
     }
@@ -222,7 +47,7 @@ const TAXViewSpecificApiCall = async (payload: {emp_no: number}) => {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
           const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-          store.dispatch(TAXViewSpecificActionProgress(progress));
+          store.dispatch(_Action.TAXViewSpecificActionProgress(progress));
         }
       }
     }
@@ -237,7 +62,7 @@ const TAXViewApiCall = async () => {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
           const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-          store.dispatch(TAXViewActionProgress(progress));
+          store.dispatch(_Action.TAXViewActionProgress(progress));
         }
       }
     }
@@ -247,19 +72,19 @@ const TAXViewApiCall = async () => {
 
 export const TAXViewEpic: Epic = (action$, state$) =>
   action$.pipe(
-    ofType(TAXViewAction.type),
+    ofType(_Action.TAXViewAction.type),
     switchMap(() =>
       from(
         TAXViewApiCall()
       ).pipe(
         map((data) => {
-          return TAXViewActionSuccess(data);
+          return _Action.TAXViewActionSuccess(data);
         }),
         catchError((error) => {
           if (error.response && error.response.data && error.response.data['Error Message']) {
-            return of(TAXViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            return of(_Action.TAXViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(TAXViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            return of(_Action.TAXViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -268,19 +93,19 @@ export const TAXViewEpic: Epic = (action$, state$) =>
 
 export const TAXViewSpecificEpic: Epic = (action$, state$) =>
   action$.pipe(
-    ofType(TAXViewSpecificAction.type),
-    switchMap((action: ReturnType<typeof TAXViewSpecificAction>) =>
+    ofType(_Action.TAXViewSpecificAction.type),
+    switchMap((action: ReturnType<typeof _Action.TAXViewSpecificAction>) =>
       from(
         TAXViewSpecificApiCall(action?.payload)
       ).pipe(
         map((data) => {
-          return TAXViewSpecificActionSuccess(data);
+          return _Action.TAXViewSpecificActionSuccess(data);
         }),
         catchError((error) => {
           if (error.response && error.response.data && error.response.data['Error Message']) {
-            return of(TAXViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            return of(_Action.TAXViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(TAXViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            return of(_Action.TAXViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -290,19 +115,19 @@ export const TAXViewSpecificEpic: Epic = (action$, state$) =>
 
 export const TAXCreateEpic: Epic = (action$, state$) =>
   action$.pipe(
-    ofType(TAXCreateAction.type),
-    switchMap((action: ReturnType<typeof TAXCreateAction>) =>
+    ofType(_Action.TAXCreateAction.type),
+    switchMap((action: ReturnType<typeof _Action.TAXCreateAction>) =>
       from(
         TAXCreateApiCall(action?.payload)
       ).pipe(
         map((data) => {
-          return TAXCreateActionSuccess(data);
+          return _Action.TAXCreateActionSuccess(data);
         }),
         catchError((error) => {
           if (error.response && error.response.data && error.response.data) {
-            return of(TAXCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
+            return of(_Action.TAXCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
           } else {
-            return of(TAXCreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            return of(_Action.TAXCreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -311,19 +136,19 @@ export const TAXCreateEpic: Epic = (action$, state$) =>
 
 export const TAXEditEpic: Epic = (action$, state$) =>
   action$.pipe(
-    ofType(TAXEditAction.type),
-    switchMap((action: ReturnType<typeof TAXEditAction>) =>
+    ofType(_Action.TAXEditAction.type),
+    switchMap((action: ReturnType<typeof _Action.TAXEditAction>) =>
       from(
         TAXEditApiCall(action?.payload)
       ).pipe(
         map((data) => {
-          return TAXEditActionSuccess(data);
+          return _Action.TAXEditActionSuccess(data);
         }),
         catchError((error) => {
           if (error.response && error.response.data && error.response.data['Error Message']) {
-            return of(TAXEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            return of(_Action.TAXEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(TAXEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            return of(_Action.TAXEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -332,14 +157,14 @@ export const TAXEditEpic: Epic = (action$, state$) =>
 
 
 // PAGIBIG API SECTION // PAGIBIG API SECTION // PAGIBIG API SECTION // PAGIBIG API SECTION // PAGIBIG API SECTION
-const PAGIBIGEditApiCall = async (payload: PAGIBIGEditInterface) => {
+const PAGIBIGEditApiCall = async (payload: _Interface.PAGIBIGEditInterface) => {
     const response = await axios.put(`${APILink}pagibig/${payload.emp_no}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
             const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            store.dispatch(PAGIBIGEditActionProgress(progress));
+            store.dispatch(_Action.PAGIBIGEditActionProgress(progress));
           }
         }
       }
@@ -347,14 +172,14 @@ const PAGIBIGEditApiCall = async (payload: PAGIBIGEditInterface) => {
     return response.data;
   };
   
-  const PAGIBIGCreateApiCall = async (payload: PAGIBIGCreateInterface) => {
+  const PAGIBIGCreateApiCall = async (payload: _Interface.PAGIBIGCreateInterface) => {
     const response = await axios.post(`${APILink}pagibig/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
             const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            store.dispatch(PAGIBIGCreateActionProgress(progress));
+            store.dispatch(_Action.PAGIBIGCreateActionProgress(progress));
           }
         }
       }
@@ -369,7 +194,7 @@ const PAGIBIGEditApiCall = async (payload: PAGIBIGEditInterface) => {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
             const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            store.dispatch(PAGIBIGViewSpecificActionProgress(progress));
+            store.dispatch(_Action.PAGIBIGViewSpecificActionProgress(progress));
           }
         }
       }
@@ -384,7 +209,7 @@ const PAGIBIGEditApiCall = async (payload: PAGIBIGEditInterface) => {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
             const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            store.dispatch(PAGIBIGViewActionProgress(progress));
+            store.dispatch(_Action.PAGIBIGViewActionProgress(progress));
           }
         }
       }
@@ -394,19 +219,19 @@ const PAGIBIGEditApiCall = async (payload: PAGIBIGEditInterface) => {
   
   export const PAGIBIGViewEpic: Epic = (action$, state$) =>
     action$.pipe(
-      ofType(PAGIBIGViewAction.type),
+      ofType(_Action.PAGIBIGViewAction.type),
       switchMap(() =>
         from(
           PAGIBIGViewApiCall()
         ).pipe(
           map((data) => {
-            return PAGIBIGViewActionSuccess(data);
+            return _Action.PAGIBIGViewActionSuccess(data);
           }),
           catchError((error) => {
             if (error.response && error.response.data && error.response.data['Error Message']) {
-              return of(PAGIBIGViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+              return of(_Action.PAGIBIGViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
             } else {
-              return of(PAGIBIGViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+              return of(_Action.PAGIBIGViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
             }
           })
         )
@@ -415,19 +240,19 @@ const PAGIBIGEditApiCall = async (payload: PAGIBIGEditInterface) => {
   
   export const PAGIBIGViewSpecificEpic: Epic = (action$, state$) =>
     action$.pipe(
-      ofType(PAGIBIGViewSpecificAction.type),
-      switchMap((action: ReturnType<typeof PAGIBIGViewSpecificAction>) =>
+      ofType(_Action.PAGIBIGViewSpecificAction.type),
+      switchMap((action: ReturnType<typeof _Action.PAGIBIGViewSpecificAction>) =>
         from(
           PAGIBIGViewSpecificApiCall(action?.payload)
         ).pipe(
           map((data) => {
-            return PAGIBIGViewSpecificActionSuccess(data);
+            return _Action.PAGIBIGViewSpecificActionSuccess(data);
           }),
           catchError((error) => {
             if (error.response && error.response.data && error.response.data['Error Message']) {
-              return of(PAGIBIGViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+              return of(_Action.PAGIBIGViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
             } else {
-              return of(PAGIBIGViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+              return of(_Action.PAGIBIGViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
             }
           })
         )
@@ -437,19 +262,19 @@ const PAGIBIGEditApiCall = async (payload: PAGIBIGEditInterface) => {
   
   export const PAGIBIGCreateEpic: Epic = (action$, state$) =>
     action$.pipe(
-      ofType(PAGIBIGCreateAction.type),
-      switchMap((action: ReturnType<typeof PAGIBIGCreateAction>) =>
+      ofType(_Action.PAGIBIGCreateAction.type),
+      switchMap((action: ReturnType<typeof _Action.PAGIBIGCreateAction>) =>
         from(
           PAGIBIGCreateApiCall(action?.payload)
         ).pipe(
           map((data) => {
-            return PAGIBIGCreateActionSuccess(data);
+            return _Action.PAGIBIGCreateActionSuccess(data);
           }),
           catchError((error) => {
             if (error.response && error.response.data && error.response.data) {
-              return of(PAGIBIGCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
+              return of(_Action.PAGIBIGCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
             } else {
-              return of(PAGIBIGCreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+              return of(_Action.PAGIBIGCreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
             }
           })
         )
@@ -458,19 +283,19 @@ const PAGIBIGEditApiCall = async (payload: PAGIBIGEditInterface) => {
   
   export const PAGIBIGEditEpic: Epic = (action$, state$) =>
     action$.pipe(
-      ofType(PAGIBIGEditAction.type),
-      switchMap((action: ReturnType<typeof PAGIBIGEditAction>) =>
+      ofType(_Action.PAGIBIGEditAction.type),
+      switchMap((action: ReturnType<typeof _Action.PAGIBIGEditAction>) =>
         from(
           PAGIBIGEditApiCall(action?.payload)
         ).pipe(
           map((data) => {
-            return PAGIBIGEditActionSuccess(data);
+            return _Action.PAGIBIGEditActionSuccess(data);
           }),
           catchError((error) => {
             if (error.response && error.response.data && error.response.data['Error Message']) {
-              return of(PAGIBIGEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+              return of(_Action.PAGIBIGEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
             } else {
-              return of(PAGIBIGEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+              return of(_Action.PAGIBIGEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
             }
           })
         )
@@ -479,14 +304,14 @@ const PAGIBIGEditApiCall = async (payload: PAGIBIGEditInterface) => {
   
   
 // SSS API SECTION // SSS API SECTION // SSS API SECTION // SSS API SECTION // SSS API SECTION
-const SSSEditApiCall = async (payload: SSSEditInterface) => {
+const SSSEditApiCall = async (payload: _Interface.SSSEditInterface) => {
     const response = await axios.put(`${APILink}sss/${payload.emp_no}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
             const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            store.dispatch(SSSEditActionProgress(progress));
+            store.dispatch(_Action.SSSEditActionProgress(progress));
           }
         }
       }
@@ -494,14 +319,14 @@ const SSSEditApiCall = async (payload: SSSEditInterface) => {
     return response.data;
   };
   
-  const SSSCreateApiCall = async (payload: SSSCreateInterface) => {
+  const SSSCreateApiCall = async (payload: _Interface.SSSCreateInterface) => {
     const response = await axios.post(`${APILink}sss/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
             const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            store.dispatch(SSSCreateActionProgress(progress));
+            store.dispatch(_Action.SSSCreateActionProgress(progress));
           }
         }
       }
@@ -516,7 +341,7 @@ const SSSEditApiCall = async (payload: SSSEditInterface) => {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
             const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            store.dispatch(SSSViewSpecificActionProgress(progress));
+            store.dispatch(_Action.SSSViewSpecificActionProgress(progress));
           }
         }
       }
@@ -531,7 +356,7 @@ const SSSEditApiCall = async (payload: SSSEditInterface) => {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
             const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            store.dispatch(SSSViewActionProgress(progress));
+            store.dispatch(_Action.SSSViewActionProgress(progress));
           }
         }
       }
@@ -541,19 +366,19 @@ const SSSEditApiCall = async (payload: SSSEditInterface) => {
   
   export const SSSViewEpic: Epic = (action$, state$) =>
     action$.pipe(
-      ofType(SSSViewAction.type),
+      ofType(_Action.SSSViewAction.type),
       switchMap(() =>
         from(
           SSSViewApiCall()
         ).pipe(
           map((data) => {
-            return SSSViewActionSuccess(data);
+            return _Action.SSSViewActionSuccess(data);
           }),
           catchError((error) => {
             if (error.response && error.response.data && error.response.data['Error Message']) {
-              return of(SSSViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+              return of(_Action.SSSViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
             } else {
-              return of(SSSViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+              return of(_Action.SSSViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
             }
           })
         )
@@ -562,19 +387,19 @@ const SSSEditApiCall = async (payload: SSSEditInterface) => {
   
   export const SSSViewSpecificEpic: Epic = (action$, state$) =>
     action$.pipe(
-      ofType(SSSViewSpecificAction.type),
-      switchMap((action: ReturnType<typeof SSSViewSpecificAction>) =>
+      ofType(_Action.SSSViewSpecificAction.type),
+      switchMap((action: ReturnType<typeof _Action.SSSViewSpecificAction>) =>
         from(
           SSSViewSpecificApiCall(action?.payload)
         ).pipe(
           map((data) => {
-            return SSSViewSpecificActionSuccess(data);
+            return _Action.SSSViewSpecificActionSuccess(data);
           }),
           catchError((error) => {
             if (error.response && error.response.data && error.response.data['Error Message']) {
-              return of(SSSViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+              return of(_Action.SSSViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
             } else {
-              return of(SSSViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+              return of(_Action.SSSViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
             }
           })
         )
@@ -584,19 +409,19 @@ const SSSEditApiCall = async (payload: SSSEditInterface) => {
   
   export const SSSCreateEpic: Epic = (action$, state$) =>
     action$.pipe(
-      ofType(SSSCreateAction.type),
-      switchMap((action: ReturnType<typeof SSSCreateAction>) =>
+      ofType(_Action.SSSCreateAction.type),
+      switchMap((action: ReturnType<typeof _Action.SSSCreateAction>) =>
         from(
           SSSCreateApiCall(action?.payload)
         ).pipe(
           map((data) => {
-            return SSSCreateActionSuccess(data);
+            return _Action.SSSCreateActionSuccess(data);
           }),
           catchError((error) => {
             if (error.response && error.response.data && error.response.data) {
-              return of(SSSCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
+              return of(_Action.SSSCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
             } else {
-              return of(SSSCreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+              return of(_Action.SSSCreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
             }
           })
         )
@@ -605,19 +430,19 @@ const SSSEditApiCall = async (payload: SSSEditInterface) => {
   
   export const SSSEditEpic: Epic = (action$, state$) =>
     action$.pipe(
-      ofType(SSSEditAction.type),
-      switchMap((action: ReturnType<typeof SSSEditAction>) =>
+      ofType(_Action.SSSEditAction.type),
+      switchMap((action: ReturnType<typeof _Action.SSSEditAction>) =>
         from(
           SSSEditApiCall(action?.payload)
         ).pipe(
           map((data) => {
-            return SSSEditActionSuccess(data);
+            return _Action.SSSEditActionSuccess(data);
           }),
           catchError((error) => {
             if (error.response && error.response.data && error.response.data['Error Message']) {
-              return of(SSSEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+              return of(_Action.SSSEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
             } else {
-              return of(SSSEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+              return of(_Action.SSSEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
             }
           })
         )
@@ -626,14 +451,14 @@ const SSSEditApiCall = async (payload: SSSEditInterface) => {
   
   
 // PHILHEALTH API SECTION // PHILHEALTH API SECTION // PHILHEALTH API SECTION // PHILHEALTH API SECTION // PHILHEALTH API SECTION
-const PHILHEALTHEditApiCall = async (payload: PHILHEALTHEditInterface) => {
+const PHILHEALTHEditApiCall = async (payload: _Interface.PHILHEALTHEditInterface) => {
     const response = await axios.put(`${APILink}philhealth/${payload.emp_no}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
             const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            store.dispatch(PHILHEALTHEditActionProgress(progress));
+            store.dispatch(_Action.PHILHEALTHEditActionProgress(progress));
           }
         }
       }
@@ -641,14 +466,14 @@ const PHILHEALTHEditApiCall = async (payload: PHILHEALTHEditInterface) => {
     return response.data;
   };
   
-  const PHILHEALTHCreateApiCall = async (payload: PHILHEALTHCreateInterface) => {
+  const PHILHEALTHCreateApiCall = async (payload: _Interface.PHILHEALTHCreateInterface) => {
     const response = await axios.post(`${APILink}philhealth/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
             const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            store.dispatch(PHILHEALTHCreateActionProgress(progress));
+            store.dispatch(_Action.PHILHEALTHCreateActionProgress(progress));
           }
         }
       }
@@ -663,7 +488,7 @@ const PHILHEALTHEditApiCall = async (payload: PHILHEALTHEditInterface) => {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
             const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            store.dispatch(PHILHEALTHViewSpecificActionProgress(progress));
+            store.dispatch(_Action.PHILHEALTHViewSpecificActionProgress(progress));
           }
         }
       }
@@ -678,7 +503,7 @@ const PHILHEALTHEditApiCall = async (payload: PHILHEALTHEditInterface) => {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
             const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            store.dispatch(PHILHEALTHViewActionProgress(progress));
+            store.dispatch(_Action.PHILHEALTHViewActionProgress(progress));
           }
         }
       }
@@ -688,19 +513,19 @@ const PHILHEALTHEditApiCall = async (payload: PHILHEALTHEditInterface) => {
   
   export const PHILHEALTHViewEpic: Epic = (action$, state$) =>
     action$.pipe(
-      ofType(PHILHEALTHViewAction.type),
+      ofType(_Action.PHILHEALTHViewAction.type),
       switchMap(() =>
         from(
           PHILHEALTHViewApiCall()
         ).pipe(
           map((data) => {
-            return PHILHEALTHViewActionSuccess(data);
+            return _Action.PHILHEALTHViewActionSuccess(data);
           }),
           catchError((error) => {
             if (error.response && error.response.data && error.response.data['Error Message']) {
-              return of(PHILHEALTHViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+              return of(_Action.PHILHEALTHViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
             } else {
-              return of(PHILHEALTHViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+              return of(_Action.PHILHEALTHViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
             }
           })
         )
@@ -709,19 +534,19 @@ const PHILHEALTHEditApiCall = async (payload: PHILHEALTHEditInterface) => {
   
   export const PHILHEALTHViewSpecificEpic: Epic = (action$, state$) =>
     action$.pipe(
-      ofType(PHILHEALTHViewSpecificAction.type),
-      switchMap((action: ReturnType<typeof PHILHEALTHViewSpecificAction>) =>
+      ofType(_Action.PHILHEALTHViewSpecificAction.type),
+      switchMap((action: ReturnType<typeof _Action.PHILHEALTHViewSpecificAction>) =>
         from(
           PHILHEALTHViewSpecificApiCall(action?.payload)
         ).pipe(
           map((data) => {
-            return PHILHEALTHViewSpecificActionSuccess(data);
+            return _Action.PHILHEALTHViewSpecificActionSuccess(data);
           }),
           catchError((error) => {
             if (error.response && error.response.data && error.response.data['Error Message']) {
-              return of(PHILHEALTHViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+              return of(_Action.PHILHEALTHViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
             } else {
-              return of(PHILHEALTHViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+              return of(_Action.PHILHEALTHViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
             }
           })
         )
@@ -731,19 +556,19 @@ const PHILHEALTHEditApiCall = async (payload: PHILHEALTHEditInterface) => {
   
   export const PHILHEALTHCreateEpic: Epic = (action$, state$) =>
     action$.pipe(
-      ofType(PHILHEALTHCreateAction.type),
-      switchMap((action: ReturnType<typeof PHILHEALTHCreateAction>) =>
+      ofType(_Action.PHILHEALTHCreateAction.type),
+      switchMap((action: ReturnType<typeof _Action.PHILHEALTHCreateAction>) =>
         from(
           PHILHEALTHCreateApiCall(action?.payload)
         ).pipe(
           map((data) => {
-            return PHILHEALTHCreateActionSuccess(data);
+            return _Action.PHILHEALTHCreateActionSuccess(data);
           }),
           catchError((error) => {
             if (error.response && error.response.data && error.response.data) {
-              return of(PHILHEALTHCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
+              return of(_Action.PHILHEALTHCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
             } else {
-              return of(PHILHEALTHCreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+              return of(_Action.PHILHEALTHCreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
             }
           })
         )
@@ -752,19 +577,19 @@ const PHILHEALTHEditApiCall = async (payload: PHILHEALTHEditInterface) => {
   
   export const PHILHEALTHEditEpic: Epic = (action$, state$) =>
     action$.pipe(
-      ofType(PHILHEALTHEditAction.type),
-      switchMap((action: ReturnType<typeof PHILHEALTHEditAction>) =>
+      ofType(_Action.PHILHEALTHEditAction.type),
+      switchMap((action: ReturnType<typeof _Action.PHILHEALTHEditAction>) =>
         from(
           PHILHEALTHEditApiCall(action?.payload)
         ).pipe(
           map((data) => {
-            return PHILHEALTHEditActionSuccess(data);
+            return _Action.PHILHEALTHEditActionSuccess(data);
           }),
           catchError((error) => {
             if (error.response && error.response.data && error.response.data['Error Message']) {
-              return of(PHILHEALTHEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+              return of(_Action.PHILHEALTHEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
             } else {
-              return of(PHILHEALTHEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+              return of(_Action.PHILHEALTHEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
             }
           })
         )
@@ -782,14 +607,14 @@ const PHILHEALTHEditApiCall = async (payload: PHILHEALTHEditInterface) => {
 
 
 // CASHADVANCE API SECTION // CASHADVANCE API SECTION // CASHADVANCE API SECTION // CASHADVANCE API SECTION // CASHADVANCE API SECTION
-const CASHADVANCEEditApiCall = async (payload: CASHADVANCEEditInterface) => {
+const CASHADVANCEEditApiCall = async (payload: _Interface.CASHADVANCEEditInterface) => {
   const response = await axios.put(`${APILink}ca/${payload.emp_no}/${payload.id}/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
           const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-          store.dispatch(CASHADVANCEEditActionProgress(progress));
+          store.dispatch(_Action.CASHADVANCEEditActionProgress(progress));
         }
       }
     }
@@ -797,14 +622,14 @@ const CASHADVANCEEditApiCall = async (payload: CASHADVANCEEditInterface) => {
   return response.data;
 };
 
-const CASHADVANCECreateApiCall = async (payload: CASHADVANCECreateInterface) => {
+const CASHADVANCECreateApiCall = async (payload: _Interface.CASHADVANCECreateInterface) => {
   const response = await axios.post(`${APILink}ca/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
           const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-          store.dispatch(CASHADVANCECreateActionProgress(progress));
+          store.dispatch(_Action.CASHADVANCECreateActionProgress(progress));
         }
       }
     }
@@ -818,7 +643,7 @@ const CASHADVANCEViewSpecificEmployeeApiCall = async (payload: {emp_no: number})
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
           const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-          store.dispatch(CASHADVANCEViewSpecificEmployeeActionProgress(progress));
+          store.dispatch(_Action.CASHADVANCEViewSpecificEmployeeActionProgress(progress));
         }
       }
     }
@@ -834,7 +659,7 @@ const CASHADVANCEViewSpecificApiCall = async (payload: {emp_no: number, ca_no: n
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
           const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-          store.dispatch(CASHADVANCEViewSpecificActionProgress(progress));
+          store.dispatch(_Action.CASHADVANCEViewSpecificActionProgress(progress));
         }
       }
     }
@@ -849,7 +674,7 @@ const CASHADVANCEViewApiCall = async () => {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
           const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-          store.dispatch(CASHADVANCEViewActionProgress(progress));
+          store.dispatch(_Action.CASHADVANCEViewActionProgress(progress));
         }
       }
     }
@@ -859,19 +684,19 @@ const CASHADVANCEViewApiCall = async () => {
 
 export const CASHADVANCEViewEpic: Epic = (action$, state$) =>
   action$.pipe(
-    ofType(CASHADVANCEViewAction.type),
+    ofType(_Action.CASHADVANCEViewAction.type),
     switchMap(() =>
       from(
         CASHADVANCEViewApiCall()
       ).pipe(
         map((data) => {
-          return CASHADVANCEViewActionSuccess(data);
+          return _Action.CASHADVANCEViewActionSuccess(data);
         }),
         catchError((error) => {
           if (error.response && error.response.data && error.response.data['Error Message']) {
-            return of(CASHADVANCEViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            return of(_Action.CASHADVANCEViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(CASHADVANCEViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            return of(_Action.CASHADVANCEViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -880,19 +705,19 @@ export const CASHADVANCEViewEpic: Epic = (action$, state$) =>
 
 export const CASHADVANCEViewSpecificEmployeeEpic: Epic = (action$, state$) =>
   action$.pipe(
-    ofType(CASHADVANCEViewSpecificEmployeeAction.type),
-    switchMap((action: ReturnType<typeof CASHADVANCEViewSpecificEmployeeAction>) =>
+    ofType(_Action.CASHADVANCEViewSpecificEmployeeAction.type),
+    switchMap((action: ReturnType<typeof _Action.CASHADVANCEViewSpecificEmployeeAction>) =>
       from(
         CASHADVANCEViewSpecificEmployeeApiCall(action?.payload)
       ).pipe(
         map((data) => {
-          return CASHADVANCEViewSpecificEmployeeActionSuccess(data);
+          return _Action.CASHADVANCEViewSpecificEmployeeActionSuccess(data);
         }),
         catchError((error) => {
           if (error.response && error.response.data && error.response.data['Error Message']) {
-            return of(CASHADVANCEViewSpecificEmployeeActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            return of(_Action.CASHADVANCEViewSpecificEmployeeActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(CASHADVANCEViewSpecificEmployeeActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            return of(_Action.CASHADVANCEViewSpecificEmployeeActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -901,19 +726,19 @@ export const CASHADVANCEViewSpecificEmployeeEpic: Epic = (action$, state$) =>
 
 export const CASHADVANCEViewSpecificEpic: Epic = (action$, state$) =>
   action$.pipe(
-    ofType(CASHADVANCEViewSpecificAction.type),
-    switchMap((action: ReturnType<typeof CASHADVANCEViewSpecificAction>) =>
+    ofType(_Action.CASHADVANCEViewSpecificAction.type),
+    switchMap((action: ReturnType<typeof _Action.CASHADVANCEViewSpecificAction>) =>
       from(
         CASHADVANCEViewSpecificApiCall(action?.payload)
       ).pipe(
         map((data) => {
-          return CASHADVANCEViewSpecificActionSuccess(data);
+          return _Action.CASHADVANCEViewSpecificActionSuccess(data);
         }),
         catchError((error) => {
           if (error.response && error.response.data && error.response.data['Error Message']) {
-            return of(CASHADVANCEViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            return of(_Action.CASHADVANCEViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(CASHADVANCEViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            return of(_Action.CASHADVANCEViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -923,19 +748,19 @@ export const CASHADVANCEViewSpecificEpic: Epic = (action$, state$) =>
 
 export const CASHADVANCECreateEpic: Epic = (action$, state$) =>
   action$.pipe(
-    ofType(CASHADVANCECreateAction.type),
-    switchMap((action: ReturnType<typeof CASHADVANCECreateAction>) =>
+    ofType(_Action.CASHADVANCECreateAction.type),
+    switchMap((action: ReturnType<typeof _Action.CASHADVANCECreateAction>) =>
       from(
         CASHADVANCECreateApiCall(action?.payload)
       ).pipe(
         map((data) => {
-          return CASHADVANCECreateActionSuccess(data);
+          return _Action.CASHADVANCECreateActionSuccess(data);
         }),
         catchError((error) => {
           if (error.response && error.response.data && error.response.data) {
-            return of(CASHADVANCECreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
+            return of(_Action.CASHADVANCECreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
           } else {
-            return of(CASHADVANCECreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            return of(_Action.CASHADVANCECreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -944,19 +769,19 @@ export const CASHADVANCECreateEpic: Epic = (action$, state$) =>
 
 export const CASHADVANCEEditEpic: Epic = (action$, state$) =>
   action$.pipe(
-    ofType(CASHADVANCEEditAction.type),
-    switchMap((action: ReturnType<typeof CASHADVANCEEditAction>) =>
+    ofType(_Action.CASHADVANCEEditAction.type),
+    switchMap((action: ReturnType<typeof _Action.CASHADVANCEEditAction>) =>
       from(
         CASHADVANCEEditApiCall(action?.payload)
       ).pipe(
         map((data) => {
-          return CASHADVANCEEditActionSuccess(data);
+          return _Action.CASHADVANCEEditActionSuccess(data);
         }),
         catchError((error) => {
           if (error.response && error.response.data && error.response.data['Error Message']) {
-            return of(CASHADVANCEEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            return of(_Action.CASHADVANCEEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(CASHADVANCEEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            return of(_Action.CASHADVANCEEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
           }
         })
       )
@@ -965,14 +790,14 @@ export const CASHADVANCEEditEpic: Epic = (action$, state$) =>
 
 
 // ALLOWANCETYPE API SECTION // ALLOWANCETYPE API SECTION // ALLOWANCETYPE API SECTION // ALLOWANCETYPE API SECTION // ALLOWANCETYPE API SECTION
-const ALLOWANCETYPEEditApiCall = async (payload: ALLOWANCETYPEEditInterface) => {
+const ALLOWANCETYPEEditApiCall = async (payload: _Interface.ALLOWANCETYPEEditInterface) => {
     const response = await axios.put(`${APILink}allowance_type/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
             const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            store.dispatch(ALLOWANCETYPEEditActionProgress(progress));
+            store.dispatch(_Action.ALLOWANCETYPEEditActionProgress(progress));
           }
         }
       }
@@ -980,14 +805,14 @@ const ALLOWANCETYPEEditApiCall = async (payload: ALLOWANCETYPEEditInterface) => 
     return response.data;
   };
   
-  const ALLOWANCETYPECreateApiCall = async (payload: ALLOWANCETYPECreateInterface) => {
+  const ALLOWANCETYPECreateApiCall = async (payload: _Interface.ALLOWANCETYPECreateInterface) => {
     const response = await axios.post(`${APILink}allowance_type/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
             const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            store.dispatch(ALLOWANCETYPECreateActionProgress(progress));
+            store.dispatch(_Action.ALLOWANCETYPECreateActionProgress(progress));
           }
         }
       }
@@ -1002,7 +827,7 @@ const ALLOWANCETYPEEditApiCall = async (payload: ALLOWANCETYPEEditInterface) => 
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
             const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            store.dispatch(ALLOWANCETYPEViewSpecificActionProgress(progress));
+            store.dispatch(_Action.ALLOWANCETYPEViewSpecificActionProgress(progress));
           }
         }
       }
@@ -1017,7 +842,7 @@ const ALLOWANCETYPEEditApiCall = async (payload: ALLOWANCETYPEEditInterface) => 
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
             const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            store.dispatch(ALLOWANCETYPEViewActionProgress(progress));
+            store.dispatch(_Action.ALLOWANCETYPEViewActionProgress(progress));
           }
         }
       }
@@ -1027,19 +852,19 @@ const ALLOWANCETYPEEditApiCall = async (payload: ALLOWANCETYPEEditInterface) => 
   
   export const ALLOWANCETYPEViewEpic: Epic = (action$, state$) =>
     action$.pipe(
-      ofType(ALLOWANCETYPEViewAction.type),
+      ofType(_Action.ALLOWANCETYPEViewAction.type),
       switchMap(() =>
         from(
           ALLOWANCETYPEViewApiCall()
         ).pipe(
           map((data) => {
-            return ALLOWANCETYPEViewActionSuccess(data);
+            return _Action.ALLOWANCETYPEViewActionSuccess(data);
           }),
           catchError((error) => {
             if (error.response && error.response.data && error.response.data['Error Message']) {
-              return of(ALLOWANCETYPEViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+              return of(_Action.ALLOWANCETYPEViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
             } else {
-              return of(ALLOWANCETYPEViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+              return of(_Action.ALLOWANCETYPEViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
             }
           })
         )
@@ -1048,19 +873,19 @@ const ALLOWANCETYPEEditApiCall = async (payload: ALLOWANCETYPEEditInterface) => 
   
   export const ALLOWANCETYPEViewSpecificEpic: Epic = (action$, state$) =>
     action$.pipe(
-      ofType(ALLOWANCETYPEViewSpecificAction.type),
-      switchMap((action: ReturnType<typeof ALLOWANCETYPEViewSpecificAction>) =>
+      ofType(_Action.ALLOWANCETYPEViewSpecificAction.type),
+      switchMap((action: ReturnType<typeof _Action.ALLOWANCETYPEViewSpecificAction>) =>
         from(
           ALLOWANCETYPEViewSpecificApiCall(action?.payload)
         ).pipe(
           map((data) => {
-            return ALLOWANCETYPEViewSpecificActionSuccess(data);
+            return _Action.ALLOWANCETYPEViewSpecificActionSuccess(data);
           }),
           catchError((error) => {
             if (error.response && error.response.data && error.response.data['Error Message']) {
-              return of(ALLOWANCETYPEViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+              return of(_Action.ALLOWANCETYPEViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
             } else {
-              return of(ALLOWANCETYPEViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+              return of(_Action.ALLOWANCETYPEViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
             }
           })
         )
@@ -1070,19 +895,19 @@ const ALLOWANCETYPEEditApiCall = async (payload: ALLOWANCETYPEEditInterface) => 
   
   export const ALLOWANCETYPECreateEpic: Epic = (action$, state$) =>
     action$.pipe(
-      ofType(ALLOWANCETYPECreateAction.type),
-      switchMap((action: ReturnType<typeof ALLOWANCETYPECreateAction>) =>
+      ofType(_Action.ALLOWANCETYPECreateAction.type),
+      switchMap((action: ReturnType<typeof _Action.ALLOWANCETYPECreateAction>) =>
         from(
           ALLOWANCETYPECreateApiCall(action?.payload)
         ).pipe(
           map((data) => {
-            return ALLOWANCETYPECreateActionSuccess(data);
+            return _Action.ALLOWANCETYPECreateActionSuccess(data);
           }),
           catchError((error) => {
             if (error.response && error.response.data && error.response.data) {
-              return of(ALLOWANCETYPECreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
+              return of(_Action.ALLOWANCETYPECreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
             } else {
-              return of(ALLOWANCETYPECreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+              return of(_Action.ALLOWANCETYPECreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
             }
           })
         )
@@ -1091,19 +916,19 @@ const ALLOWANCETYPEEditApiCall = async (payload: ALLOWANCETYPEEditInterface) => 
   
   export const ALLOWANCETYPEEditEpic: Epic = (action$, state$) =>
     action$.pipe(
-      ofType(ALLOWANCETYPEEditAction.type),
-      switchMap((action: ReturnType<typeof ALLOWANCETYPEEditAction>) =>
+      ofType(_Action.ALLOWANCETYPEEditAction.type),
+      switchMap((action: ReturnType<typeof _Action.ALLOWANCETYPEEditAction>) =>
         from(
           ALLOWANCETYPEEditApiCall(action?.payload)
         ).pipe(
           map((data) => {
-            return ALLOWANCETYPEEditActionSuccess(data);
+            return _Action.ALLOWANCETYPEEditActionSuccess(data);
           }),
           catchError((error) => {
             if (error.response && error.response.data && error.response.data['Error Message']) {
-              return of(ALLOWANCETYPEEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+              return of(_Action.ALLOWANCETYPEEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
             } else {
-              return of(ALLOWANCETYPEEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+              return of(_Action.ALLOWANCETYPEEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
             }
           })
         )
@@ -1112,14 +937,14 @@ const ALLOWANCETYPEEditApiCall = async (payload: ALLOWANCETYPEEditInterface) => 
   
   
 // ALLOWANCEENTRY API SECTION // ALLOWANCEENTRY API SECTION // ALLOWANCEENTRY API SECTION // ALLOWANCEENTRY API SECTION // ALLOWANCEENTRY API SECTION
-const ALLOWANCEENTRYEditApiCall = async (payload: ALLOWANCEENTRYEditInterface) => {
+const ALLOWANCEENTRYEditApiCall = async (payload: _Interface.ALLOWANCEENTRYEditInterface) => {
     const response = await axios.put(`${APILink}allowance_entry/${payload.emp_no}/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
             const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            store.dispatch(ALLOWANCEENTRYEditActionProgress(progress));
+            store.dispatch(_Action.ALLOWANCEENTRYEditActionProgress(progress));
           }
         }
       }
@@ -1127,14 +952,14 @@ const ALLOWANCEENTRYEditApiCall = async (payload: ALLOWANCEENTRYEditInterface) =
     return response.data;
   };
   
-  const ALLOWANCEENTRYCreateApiCall = async (payload: ALLOWANCEENTRYCreateInterface) => {
+  const ALLOWANCEENTRYCreateApiCall = async (payload: _Interface.ALLOWANCEENTRYCreateInterface) => {
     const response = await axios.post(`${APILink}allowance_entry/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
             const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            store.dispatch(ALLOWANCEENTRYCreateActionProgress(progress));
+            store.dispatch(_Action.ALLOWANCEENTRYCreateActionProgress(progress));
           }
         }
       }
@@ -1149,7 +974,7 @@ const ALLOWANCEENTRYEditApiCall = async (payload: ALLOWANCEENTRYEditInterface) =
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
             const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            store.dispatch(ALLOWANCEENTRYViewSpecificActionProgress(progress));
+            store.dispatch(_Action.ALLOWANCEENTRYViewSpecificActionProgress(progress));
           }
         }
       }
@@ -1164,7 +989,7 @@ const ALLOWANCEENTRYEditApiCall = async (payload: ALLOWANCEENTRYEditInterface) =
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
             const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            store.dispatch(ALLOWANCEENTRYViewActionProgress(progress));
+            store.dispatch(_Action.ALLOWANCEENTRYViewActionProgress(progress));
           }
         }
       }
@@ -1174,19 +999,19 @@ const ALLOWANCEENTRYEditApiCall = async (payload: ALLOWANCEENTRYEditInterface) =
   
   export const ALLOWANCEENTRYViewEpic: Epic = (action$, state$) =>
     action$.pipe(
-      ofType(ALLOWANCEENTRYViewAction.type),
+      ofType(_Action.ALLOWANCEENTRYViewAction.type),
       switchMap(() =>
         from(
           ALLOWANCEENTRYViewApiCall()
         ).pipe(
           map((data) => {
-            return ALLOWANCEENTRYViewActionSuccess(data);
+            return _Action.ALLOWANCEENTRYViewActionSuccess(data);
           }),
           catchError((error) => {
             if (error.response && error.response.data && error.response.data['Error Message']) {
-              return of(ALLOWANCEENTRYViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+              return of(_Action.ALLOWANCEENTRYViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
             } else {
-              return of(ALLOWANCEENTRYViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+              return of(_Action.ALLOWANCEENTRYViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
             }
           })
         )
@@ -1195,19 +1020,19 @@ const ALLOWANCEENTRYEditApiCall = async (payload: ALLOWANCEENTRYEditInterface) =
   
   export const ALLOWANCEENTRYViewSpecificEpic: Epic = (action$, state$) =>
     action$.pipe(
-      ofType(ALLOWANCEENTRYViewSpecificAction.type),
-      switchMap((action: ReturnType<typeof ALLOWANCEENTRYViewSpecificAction>) =>
+      ofType(_Action.ALLOWANCEENTRYViewSpecificAction.type),
+      switchMap((action: ReturnType<typeof _Action.ALLOWANCEENTRYViewSpecificAction>) =>
         from(
           ALLOWANCEENTRYViewSpecificApiCall(action?.payload)
         ).pipe(
           map((data) => {
-            return ALLOWANCEENTRYViewSpecificActionSuccess(data);
+            return _Action.ALLOWANCEENTRYViewSpecificActionSuccess(data);
           }),
           catchError((error) => {
             if (error.response && error.response.data && error.response.data['Error Message']) {
-              return of(ALLOWANCEENTRYViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+              return of(_Action.ALLOWANCEENTRYViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
             } else {
-              return of(ALLOWANCEENTRYViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+              return of(_Action.ALLOWANCEENTRYViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
             }
           })
         )
@@ -1217,19 +1042,19 @@ const ALLOWANCEENTRYEditApiCall = async (payload: ALLOWANCEENTRYEditInterface) =
   
   export const ALLOWANCEENTRYCreateEpic: Epic = (action$, state$) =>
     action$.pipe(
-      ofType(ALLOWANCEENTRYCreateAction.type),
-      switchMap((action: ReturnType<typeof ALLOWANCEENTRYCreateAction>) =>
+      ofType(_Action.ALLOWANCEENTRYCreateAction.type),
+      switchMap((action: ReturnType<typeof _Action.ALLOWANCEENTRYCreateAction>) =>
         from(
           ALLOWANCEENTRYCreateApiCall(action?.payload)
         ).pipe(
           map((data) => {
-            return ALLOWANCEENTRYCreateActionSuccess(data);
+            return _Action.ALLOWANCEENTRYCreateActionSuccess(data);
           }),
           catchError((error) => {
             if (error.response && error.response.data && error.response.data) {
-              return of(ALLOWANCEENTRYCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
+              return of(_Action.ALLOWANCEENTRYCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
             } else {
-              return of(ALLOWANCEENTRYCreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+              return of(_Action.ALLOWANCEENTRYCreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
             }
           })
         )
@@ -1238,19 +1063,19 @@ const ALLOWANCEENTRYEditApiCall = async (payload: ALLOWANCEENTRYEditInterface) =
   
   export const ALLOWANCEENTRYEditEpic: Epic = (action$, state$) =>
     action$.pipe(
-      ofType(ALLOWANCEENTRYEditAction.type),
-      switchMap((action: ReturnType<typeof ALLOWANCEENTRYEditAction>) =>
+      ofType(_Action.ALLOWANCEENTRYEditAction.type),
+      switchMap((action: ReturnType<typeof _Action.ALLOWANCEENTRYEditAction>) =>
         from(
           ALLOWANCEENTRYEditApiCall(action?.payload)
         ).pipe(
           map((data) => {
-            return ALLOWANCEENTRYEditActionSuccess(data);
+            return _Action.ALLOWANCEENTRYEditActionSuccess(data);
           }),
           catchError((error) => {
             if (error.response && error.response.data && error.response.data['Error Message']) {
-              return of(ALLOWANCEENTRYEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+              return of(_Action.ALLOWANCEENTRYEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
             } else {
-              return of(ALLOWANCEENTRYEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+              return of(_Action.ALLOWANCEENTRYEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
             }
           })
         )
