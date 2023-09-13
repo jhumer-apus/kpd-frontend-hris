@@ -228,7 +228,14 @@ export const ASSETACCOUNTViewActionFailure = createAction<string>("ASSETACCOUNT_
 export const ASSETACCOUNTViewActionFailureCleanup = createAction("ASSETACCOUNT_VIEW_ACTION_FAILURE_CLEANUP");
 
 
-export const ASSETACCOUNTViewSpecificAction = createAction<{asset_account_id: number}>("ASSETACCOUNT_VIEW_SPECIFIC_ACTION");
+export const ASSETACCOUNTViewSpecificEmployeeAction = createAction<{emp_no: number}>("ASSETACCOUNT_VIEW_SPECIFIC_EMPLOYEE_ACTION");
+export const ASSETACCOUNTViewSpecificEmployeeActionSuccess = createAction("ASSETACCOUNT_VIEW_SPECIFIC_EMPLOYEE_ACTION_SUCCESS", (SuccessMessage: ASSETACCOUNTViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const ASSETACCOUNTViewSpecificEmployeeActionProgress = createAction<number>("ASSETACCOUNT_VIEW_SPECIFIC_EMPLOYEE_ACTION_PROGRESS");
+export const ASSETACCOUNTViewSpecificEmployeeActionFailure = createAction<string>("ASSETACCOUNT_VIEW_SPECIFIC_EMPLOYEE_ACTION_FAILURE");
+export const ASSETACCOUNTViewSpecificEmployeeActionFailureCleanup = createAction("ASSETACCOUNT_VIEW_SPECIFIC_EMPLOYEE_ACTION_FAILURE_CLEANUP");
+
+export const ASSETACCOUNTViewSpecificAction = createAction<{asset_account_id: number, emp_no: number}>("ASSETACCOUNT_VIEW_SPECIFIC_ACTION");
 export const ASSETACCOUNTViewSpecificActionSuccess = createAction("ASSETACCOUNT_VIEW_SPECIFIC_ACTION_SUCCESS", (SuccessMessage: ASSETACCOUNTViewInterface[]) => { 
     return({ payload: {SuccessMessage} })});
 export const ASSETACCOUNTViewSpecificActionProgress = createAction<number>("ASSETACCOUNT_VIEW_SPECIFIC_ACTION_PROGRESS");

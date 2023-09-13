@@ -52,7 +52,7 @@ export interface BONUSLISTViewInterface extends BONUSLISTGenericInterface{
 
 export interface BONUSLISTCreateInterface extends BONUSLISTGenericInterface{}
 
-export interface BONUSLISTEditInterface extends BONUSLISTGenericInterface{}
+export interface BONUSLISTEditInterface extends BONUSLISTGenericInterface, Pick<BONUSLISTViewInterface, "id">{}
 
 
 // ======================================
@@ -75,7 +75,7 @@ export interface BONUSENTRYViewInterface extends BONUSENTRYGenericInterface{
 
 export interface BONUSENTRYCreateInterface extends Omit<BONUSENTRYGenericInterface, "is_applied">{}
 
-export interface BONUSENTRYEditInterface extends Omit<BONUSENTRYGenericInterface, "is_applied">{}
+export interface BONUSENTRYEditInterface extends Omit<BONUSENTRYViewInterface, "is_applied" | "date_added">{}
 
 
 // ======================================
@@ -99,7 +99,7 @@ export interface ANNOUNCEMENTViewInterface extends ANNOUNCEMENTGenericInterface{
 
 export interface ANNOUNCEMENTCreateInterface extends ANNOUNCEMENTGenericInterface{}
 
-export interface ANNOUNCEMENTEditInterface extends ANNOUNCEMENTGenericInterface{}
+export interface ANNOUNCEMENTEditInterface extends ANNOUNCEMENTGenericInterface, Pick<ANNOUNCEMENTViewInterface, "id">{}
 
 // ======================================
 
@@ -123,7 +123,7 @@ export interface ASSETLISTViewInterface extends ASSETLISTGenericInterface{
 
 export interface ASSETLISTCreateInterface extends ASSETLISTGenericInterface{}
 
-export interface ASSETLISTEditInterface extends ASSETLISTGenericInterface{}
+export interface ASSETLISTEditInterface extends ASSETLISTGenericInterface, Pick<ASSETLISTViewInterface, "id">{}
 
 
 
@@ -146,7 +146,7 @@ export interface ASSETACCOUNTViewInterface extends ASSETACCOUNTGenericInterface{
 
 export interface ASSETACCOUNTCreateInterface extends ASSETACCOUNTGenericInterface{}
 
-export interface ASSETACCOUNTEditInterface extends ASSETACCOUNTGenericInterface{}
+export interface ASSETACCOUNTEditInterface extends ASSETACCOUNTGenericInterface, Pick<ASSETACCOUNTViewInterface, "id">{}
 
 
 // ======================================

@@ -57,7 +57,7 @@ export default function PaymentFrequencyAutoComplete(props: PaymentFrequencyAuto
                 return(
                     {
                         ...prevState,
-                        pay: selectedPaymentFrequencyID
+                        payment_frequency: selectedPaymentFrequencyID
                     }
                 )
             })
