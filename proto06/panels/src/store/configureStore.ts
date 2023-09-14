@@ -102,6 +102,8 @@ import { USERCreateEpic, USEREditEpic, USERResetPasswordEpic, USERViewEpic, USER
 import { usersReducer } from './reducers/users';
 import { ALLOWANCEENTRYCreateEpic, ALLOWANCEENTRYEditEpic, ALLOWANCEENTRYViewEpic, ALLOWANCEENTRYViewSpecificEpic, ALLOWANCETYPECreateEpic, ALLOWANCETYPEEditEpic, ALLOWANCETYPEViewEpic, ALLOWANCETYPEViewSpecificEpic, CASHADVANCECreateEpic, CASHADVANCEEditEpic, CASHADVANCEViewEpic, CASHADVANCEViewSpecificEmployeeEpic, CASHADVANCEViewSpecificEpic, PAGIBIGCreateEpic, PAGIBIGEditEpic, PAGIBIGViewEpic, PAGIBIGViewSpecificEpic, PHILHEALTHCreateEpic, PHILHEALTHEditEpic, PHILHEALTHViewEpic, PHILHEALTHViewSpecificEpic, SSSCreateEpic, SSSEditEpic, SSSViewEpic, SSSViewSpecificEpic, TAXCreateEpic, TAXEditEpic, TAXViewEpic, TAXViewSpecificEpic } from './epics/payroll-variables';
 import { payrollVariablesReducer } from './reducers/payroll-variables';
+import { payrollEOYReducer } from './reducers/payroll-eoy';
+import { ANNOUNCEMENTCreateEpic, ANNOUNCEMENTEditEpic, ANNOUNCEMENTViewEpic, ANNOUNCEMENTViewSpecificEpic, ASSETACCOUNTCreateEpic, ASSETACCOUNTEditEpic, ASSETACCOUNTViewEpic, ASSETACCOUNTViewSpecificEmployeeEpic, ASSETACCOUNTViewSpecificEpic, ASSETLISTCreateEpic, ASSETLISTEditEpic, ASSETLISTViewEpic, ASSETLISTViewSpecificEpic, BONUSENTRYCreateEpic, BONUSENTRYEditEpic, BONUSENTRYViewEpic, BONUSENTRYViewSpecificEmployeeEpic, BONUSENTRYViewSpecificEpic, BONUSLISTCreateEpic, BONUSLISTEditEpic, BONUSLISTViewEpic, BONUSLISTViewSpecificEpic, PAY13THCreateEpic, PAY13THViewEpic, PAY13THViewSpecificEpic, TAXCOLLECTEDViewEpic, TAXCOLLECTEDViewSpecificEmployeeEpic } from './epics/payroll-eoy';
 
 const epicMiddleware = createEpicMiddleware();
 
@@ -114,6 +116,7 @@ const rootReducer = combineReducers({
   categories: categoriesReducer,
   users: usersReducer,
   payrollVariables: payrollVariablesReducer,
+  payrollEOY: payrollEOYReducer,
 });
 
 const store = configureStore({
@@ -251,7 +254,35 @@ epicMiddleware.run(combineEpics(
   ALLOWANCEENTRYViewEpic,
   ALLOWANCEENTRYViewSpecificEpic,
   ALLOWANCEENTRYCreateEpic,
-  ALLOWANCEENTRYEditEpic
+  ALLOWANCEENTRYEditEpic,
+  ASSETACCOUNTViewEpic,
+  ASSETACCOUNTViewSpecificEpic,
+  ASSETACCOUNTViewSpecificEmployeeEpic,
+  ASSETACCOUNTCreateEpic,
+  ASSETACCOUNTEditEpic,
+  ASSETLISTViewEpic,
+  ASSETLISTViewSpecificEpic,
+  ASSETLISTCreateEpic,
+  ASSETLISTEditEpic,
+  ANNOUNCEMENTViewEpic,
+  ANNOUNCEMENTViewSpecificEpic,
+  ANNOUNCEMENTCreateEpic,
+  ANNOUNCEMENTEditEpic,
+  TAXCOLLECTEDViewEpic,
+  TAXCOLLECTEDViewSpecificEmployeeEpic,
+  PAY13THViewEpic,
+  PAY13THViewSpecificEpic,
+  PAY13THCreateEpic,
+  BONUSLISTViewEpic,
+  BONUSLISTViewSpecificEpic,
+  BONUSLISTCreateEpic,
+  BONUSLISTEditEpic,
+  BONUSENTRYViewEpic,
+  BONUSENTRYViewSpecificEpic,
+  BONUSENTRYViewSpecificEmployeeEpic,
+  BONUSENTRYCreateEpic,
+  BONUSENTRYEditEpic,
+
 ));
 
 export type RootState = ReturnType<typeof rootReducer>;
