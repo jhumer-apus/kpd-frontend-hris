@@ -2,14 +2,15 @@ import { useEffect, useState, createElement } from "react";
 import {
   Typography,
 } from "@material-tailwind/react";
+// import { Typography } from "@mui/material";
 import { EasyAccessCard } from "@/widgets/cards";
-import { adminPortalData, categoriesManagementData } from "@/data/pages-data/dashboard-data/admin-portal-data";
+import { payrollEOYData } from "@/data/pages-data/dashboard-data/admin-portal-data";
 
 export interface DivAnimate {
   [key: string]: boolean
 }
 
-export function CategoriesManagement() {
+export function PayrollEOY() {
   const [isVisible, setIsVisible] = useState<DivAnimate>({});
   const [pageLoaded, setPageLoaded] = useState(false);
 
@@ -32,7 +33,7 @@ export function CategoriesManagement() {
   return (
     <div className="mt-12" style={{height: '90vh'}}>
       <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-3">
-        {categoriesManagementData.map(({ icon, title, footer, value, ...rest }, index) => (
+        {payrollEOYData.map(({ icon, title, footer, value, ...rest }, index) => (
           <div style={{
             transition: 'transform 0.5s ease, opacity 0.5s ease',
             transform: !isVisible[`${value}${index}`] && pageLoaded ? 'translateY(0)' : 'translateY(-100%)',
@@ -62,4 +63,4 @@ export function CategoriesManagement() {
   );
 }
 
-export default CategoriesManagement;
+export default PayrollEOY;

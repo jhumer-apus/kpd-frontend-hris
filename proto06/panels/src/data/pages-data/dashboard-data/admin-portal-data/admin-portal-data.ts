@@ -73,24 +73,24 @@ export const adminPortalData = [
   },
   {
     icon: ThreePOutlinedIcon,
-    title: "Directory Management",
-    value: "HTLI",
+    title: "Payroll End Of Year",
+    value: "EOY",
     footer: {
       color: "text-green-500",
       value: "<",
-      label: "Directory Manage Approvers, etc.",
+      label: "13th Month, Bonus, Tax, etc.",
     },
     // custom: "linear-gradient(315deg, #d4418e 0%, #0652c5 74%)",
     // custom: "linear-gradient(315deg, #ffcfdf 0%, #b0f3f1 74%)",
     custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
-    link: 'development',
+    link: '/home/Dashboards/Admin-Dashboard/Payroll-EOY',
     customTop: 15,
     customLeft: 38,
   },
   {
     icon: NoAccountsOutlinedIcon,
-    title: "UA Access Approvers",
-    value: "UA Permissions",
+    title: "Assets & Announcements",
+    value: "AA",
     footer: {
       color: "text-green-500",
       value: "<",
@@ -99,7 +99,7 @@ export const adminPortalData = [
     // custom: "linear-gradient(315deg, #d4418e 0%, #0652c5 74%)",
     // custom: "linear-gradient(315deg, #ffcfdf 0%, #b0f3f1 74%)",
     custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
-    link: 'development',
+    link: '/home/Dashboards/Admin-Dashboard/Assets-And-Announcement',
     customTop: 15,
     customLeft: 38,
   },
@@ -334,7 +334,67 @@ export const payrollVariablesMonthlyData = [
 
 
 
-
+export const payrollEOYData = [
+  {
+    // color: "red",
+    type: 2,
+    icon: AddModeratorIcon,
+    title: "Tax Collected",
+    value: "TC",
+    footer: {
+    color: "text-green-500",
+    value: "<",
+    label: "View List of Tax Collected, details etc.",
+    },
+    custom: "linear-gradient(235deg, rgba(132,25,142,1) 4%, rgba(52,9,121,0.8379726890756303) 23%, rgba(19,151,161,1) 55%)",
+    link: '/home/Dashboards/Admin-Dashboard/Payroll-EOY/Tax-Collected',
+    customTop: 15,
+    customLeft: 38,
+  },
+  {
+    icon: AssuredWorkloadOutlinedIcon,
+    title: "13th Month Pay",
+    value: "P13",
+    footer: {
+      color: "text-green-500",
+      value: "<",
+      label: "View Employee 13th Month Pay, details etc.",
+    },
+    custom: "linear-gradient(235deg, rgba(132,25,142,1) 4%, rgba(52,9,121,0.8379726890756303) 23%, rgba(19,151,161,1) 55%)",
+    link: '/home/Dashboards/Admin-Dashboard/Payroll-EOY/13th-Month-Pay',
+    customTop: 15,
+    customLeft: 38,
+  },
+  {
+    icon: AttractionsOutlinedIcon,
+    title: "Bonus Types List",
+    value: "BTL",
+    footer: {
+      color: "text-green-500",
+      value: "<",
+      label: "View Bonus Types List, details etc.",
+    },
+    custom: "linear-gradient(235deg, rgba(132,25,142,1) 4%, rgba(52,9,121,0.8379726890756303) 23%, rgba(19,151,161,1) 55%)",
+    link: '/home/Dashboards/Admin-Dashboard/Payroll-EOY/Bonus-List',
+    customTop: 15,
+    customLeft: 38,
+  },
+  {
+    icon: BusinessOutlinedIcon,
+    title: "Bonus Entries",
+    value: "BE",
+    footer: {
+      color: "text-green-500",
+      value: "<",
+      label: "View Bonus Amount Entries, details etc.",
+    },
+    custom: "linear-gradient(235deg, rgba(132,25,142,1) 4%, rgba(52,9,121,0.8379726890756303) 23%, rgba(19,151,161,1) 55%)",
+    // link: 'development',
+    link: '/home/Dashboards/Admin-Dashboard/Payroll-EOY/Bonus-Entries',
+    customTop: 15,
+    customLeft: 38,
+  },
+];
 
 
   // export default {adminPortalData};

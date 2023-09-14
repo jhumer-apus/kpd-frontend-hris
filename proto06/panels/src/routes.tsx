@@ -82,6 +82,8 @@ import PVMPHILHEALTH from "./pages/dashboard/admin-portal/first-inner-pages/seco
 import PVMCASHADVANCE from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-cash-advance/pvm-cash-advance";
 import PVMALLOWANCETYPE from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-allowance-type/pvm-allowance-type";
 import PVMALLOWANCEENTRY from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-allowance-entry/pvm-allowance-entry";
+import EOYBONUSLIST from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/eoy-bonus-list/eoy-bonus-list";
+import PayrollEOY from "./pages/dashboard/admin-portal/first-inner-pages/payroll-eoy";
 
 
 const icon = {
@@ -248,6 +250,82 @@ const JSXRouteWrapper = () => {
                       name: "Allowance Type",
                       path: "/Dashboards/Admin-Dashboard/Payroll-Variables-Monthly/Allowance-Type",
                       element: <PVMALLOWANCETYPE/>,
+                      hasSubItems: false,
+                    },
+                  ]
+                },
+                {
+                  id: 114000,
+                  icon: null,
+                  name: "EOY",
+                  path: "/Dashboards/Admin-Dashboard/Payroll-EOY",
+                  element: <PayrollEOY/>,
+                  hasSubItems: true,
+                  subItems: [
+                    {
+                      id: 1140000,
+                      icon: null,
+                      name: "Tax Collected",
+                      path: "/Dashboards/Admin-Dashboard/Payroll-EOY/Tax-Collected",
+                      element: <h1>Tax Collected</h1>,
+                      hasSubItems: false,
+                    },
+                    {
+                      id: 1140001,
+                      icon: null,
+                      name: "13th Month Pay",
+                      path: "/Dashboards/Admin-Dashboard/Payroll-EOY/13th-Month-pay",
+                      element: <h1>13th</h1>,
+                      hasSubItems: false,
+                    },
+                    {
+                      id: 1140002,
+                      icon: null,
+                      name: "Bonus List",
+                      path: "/Dashboards/Admin-Dashboard/Payroll-EOY/Bonus-List",
+                      element: <EOYBONUSLIST/>,
+                      hasSubItems: false,
+                    },
+                    {
+                      id: 1140003,
+                      icon: null,
+                      name: "Bonus Entries",
+                      path: "/Dashboards/Admin-Dashboard/Payroll-EOY/Bonus-Entries",
+                      element: <h1>BE</h1>,
+                      hasSubItems: false,
+                    },
+                  ]
+                },
+                {
+                  id: 115000,
+                  icon: null,
+                  name: "AAA",
+                  path: "/Dashboards/Admin-Dashboard/Assets-And-Announcement",
+                  element: <PayrollVariablesMonthly/>,
+                  hasSubItems: true,
+                  subItems: [
+                    {
+                      id: 1150000,
+                      icon: null,
+                      name: "Asset Account",
+                      path: "/Dashboards/Admin-Dashboard/Assets-And-Announcement/Asset-Account",
+                      element: <h1>AA</h1>,
+                      hasSubItems: false,
+                    },
+                    {
+                      id: 1150001,
+                      icon: null,
+                      name: "Asset List",
+                      path: "/Dashboards/Admin-Dashboard/Assets-And-Announcement/Asset-List",
+                      element: <h1>AL</h1>,
+                      hasSubItems: false,
+                    },
+                    {
+                      id: 1150002,
+                      icon: null,
+                      name: "Announcements",
+                      path: "/Dashboards/Admin-Dashboard/Assets-And-Announcement/Announcements",
+                      element: <h1>ANN</h1>,
                       hasSubItems: false,
                     },
                   ]
