@@ -37,7 +37,7 @@ export const ImportEmployee = () => {
               },
             }
           );
-          window.alert(`${response.status >= 200 && response.status < 300 && 'Request Successful'}`)
+          window.alert(`${response.status}: ${beautifyJSON(response.data)}`)
           setTimeout(()=>{
               location.reload();
           }, 800)
