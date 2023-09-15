@@ -432,7 +432,7 @@ interface LEAVETYPEDeleteState extends CommonProceduralState, CommonProceduralDa
 
 // CUTOFFPERIOD SECTION // CUTOFFPERIOD SECTION // CUTOFFPERIOD SECTION // CUTOFFPERIOD SECTION
 interface CUTOFFPERIODViewState extends CommonProceduralState{
-  data: CUTOFFPERIODViewInterface[] | null | [] | CUTOFFPERIODViewInterface;
+  data: CUTOFFPERIODViewInterface[] | null | [];
 }
 
 interface CUTOFFPERIODCreateState extends CommonProceduralState{

@@ -84,6 +84,7 @@ import PVMALLOWANCETYPE from "./pages/dashboard/admin-portal/first-inner-pages/s
 import PVMALLOWANCEENTRY from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-allowance-entry/pvm-allowance-entry";
 import EOYBONUSLIST from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/eoy-bonus-list/eoy-bonus-list";
 import PayrollEOY from "./pages/dashboard/admin-portal/first-inner-pages/payroll-eoy";
+import EOYBonusEntry from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/eoy-bonus-entry/eoy-bonus-entry";
 
 
 const icon = {
@@ -291,7 +292,7 @@ const JSXRouteWrapper = () => {
                       icon: null,
                       name: "Bonus Entries",
                       path: "/Dashboards/Admin-Dashboard/Payroll-EOY/Bonus-Entries",
-                      element: <h1>BE</h1>,
+                      element: <EOYBonusEntry/>,
                       hasSubItems: false,
                     },
                   ]
