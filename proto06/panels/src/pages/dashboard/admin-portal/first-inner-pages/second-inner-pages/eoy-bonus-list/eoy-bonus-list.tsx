@@ -2,7 +2,7 @@ import { Fragment }from 'react';
 import { styled } from '@mui/material/styles';
 import MuiGrid from '@mui/material/Grid';
 import { Paper, Box, useTheme, useMediaQuery } from '@mui/material';
-import EOYBONUSLISTPageHistory from './local-component/right-side/pvm-allowance-entry-history';
+import EOYBONUSLISTPageHistory from './local-component/right-side/eoy-bonus-list-history';
 import EOYBONUSLISTCreate from './local-component/left-side/eoy-bonus-list-create';
 
 
@@ -38,7 +38,7 @@ export default function EOYBONUSLIST() {
             </Grid>
             <Grid item xs>
                 <Paper elevation={3} style={PaperStyle}>
-                    {/* <EOYBONUSLISTPageHistory/> */}
+                    <EOYBONUSLISTPageHistory/>
                 </Paper>
             </Grid>
         </Grid>

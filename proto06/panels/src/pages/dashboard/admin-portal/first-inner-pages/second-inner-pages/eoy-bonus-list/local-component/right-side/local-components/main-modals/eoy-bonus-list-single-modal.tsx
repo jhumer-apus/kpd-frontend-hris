@@ -2,29 +2,29 @@ import { Dispatch, SetStateAction, Fragment, useState } from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
-import { ALLOWANCEENTRYViewInterface } from '@/types/types-payroll-variables';
-import ALLOWANCEENTRYModalComponent from './inner-modals/allowance-entry-modal-component';
+import { BONUSLISTViewInterface } from '@/types/types-payroll-eoy';
+import BONUSLISTModalComponent from './inner-modals/bonus-list-modal-component';
 
 
-interface SingleALLOWANCEENTRYInterface {
-    singleALLOWANCEENTRYOpenModal: boolean; 
-    setSingleALLOWANCEENTRYOpenModal: Dispatch<SetStateAction<boolean>>;
-    singleALLOWANCEENTRYDetailsData: ALLOWANCEENTRYViewInterface;
-    setSingleALLOWANCEENTRYDetailsData: Dispatch<SetStateAction<ALLOWANCEENTRYViewInterface>>;
+interface SingleBONUSLISTInterface {
+    singleBONUSLISTOpenModal: boolean; 
+    setSingleBONUSLISTOpenModal: Dispatch<SetStateAction<boolean>>;
+    singleBONUSLISTDetailsData: BONUSLISTViewInterface;
+    setSingleBONUSLISTDetailsData: Dispatch<SetStateAction<BONUSLISTViewInterface>>;
 }
 
-export default function ViewALLOWANCEENTRYSingleModal(props: SingleALLOWANCEENTRYInterface) {
-    const {singleALLOWANCEENTRYOpenModal, setSingleALLOWANCEENTRYOpenModal, setSingleALLOWANCEENTRYDetailsData, singleALLOWANCEENTRYDetailsData} = props;
+export default function ViewBONUSLISTSingleModal(props: SingleBONUSLISTInterface) {
+    const {singleBONUSLISTOpenModal, setSingleBONUSLISTOpenModal, setSingleBONUSLISTDetailsData, singleBONUSLISTDetailsData} = props;
   const [scroll, setScroll] = useState<boolean>(true);
   return (
     <Fragment>
-      <Transition in={singleALLOWANCEENTRYOpenModal} timeout={400}>
+      <Transition in={singleBONUSLISTOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
         keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setSingleALLOWANCEENTRYOpenModal(false);
+          setSingleBONUSLISTOpenModal(false);
         }}
         slotProps={{
             backdrop: {
@@ -47,7 +47,7 @@ export default function ViewALLOWANCEENTRYSingleModal(props: SingleALLOWANCEENTR
             aria-labelledby="dialog-vertical-scroll-title" 
             layout={'center'}
             sx={{
-              ...ALLOWANCEENTRYModalArea,
+              ...BONUSLISTModalArea,
                 opacity: 0,
                 transition: `opacity 300ms`,
                 ...{
@@ -57,7 +57,7 @@ export default function ViewALLOWANCEENTRYSingleModal(props: SingleALLOWANCEENTR
                 overflow: 'auto',
             }}
         >
-          <ALLOWANCEENTRYModalComponent setSingleALLOWANCEENTRYDetailsData={setSingleALLOWANCEENTRYDetailsData} singleALLOWANCEENTRYDetailsData={singleALLOWANCEENTRYDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <BONUSLISTModalComponent setSingleBONUSLISTDetailsData={setSingleBONUSLISTDetailsData} singleBONUSLISTDetailsData={singleBONUSLISTDetailsData} scroll={scroll} setScroll={setScroll}/>
         </ModalDialog>
       </Modal>
         )}
@@ -68,7 +68,7 @@ export default function ViewALLOWANCEENTRYSingleModal(props: SingleALLOWANCEENTR
 
 
 // Styles
-const ALLOWANCEENTRYModalArea = {
+const BONUSLISTModalArea = {
   height: '120.5mm',
   width: '210mm',
   margin: '0 auto',

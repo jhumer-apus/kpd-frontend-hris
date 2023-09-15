@@ -2,55 +2,53 @@ import {useEffect, Dispatch, SetStateAction, Fragment}from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
-import { ALLOWANCEENTRYViewInterface } from '@/types/types-payroll-variables';
+import { BONUSLISTViewInterface } from '@/types/types-payroll-eoy';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
-import { ALLOWANCEENTRYEditAction } from '@/store/actions/payroll-variables';
-import EmployeeAutoCompleteRight from '../auto-complete-fields/employee-autocomplete-right';
-import AllowanceAutoCompleteRight from '../auto-complete-fields/allowance-type-autocomplete-right';
+import { BONUSLISTEditAction } from '@/store/actions/payroll-eoy';
 
-interface EditALLOWANCEENTRYModalInterface {
-    singleALLOWANCEENTRYDetailsData: ALLOWANCEENTRYViewInterface;
-    editALLOWANCEENTRYOpenModal: boolean; 
-    setEditALLOWANCEENTRYOpenModal: Dispatch<SetStateAction<boolean>>;
-    setSingleALLOWANCEENTRYDetailsData: Dispatch<SetStateAction<ALLOWANCEENTRYViewInterface>>;
+interface EditBONUSLISTModalInterface {
+    singleBONUSLISTDetailsData: BONUSLISTViewInterface;
+    editBONUSLISTOpenModal: boolean; 
+    setEditBONUSLISTOpenModal: Dispatch<SetStateAction<boolean>>;
+    setSingleBONUSLISTDetailsData: Dispatch<SetStateAction<BONUSLISTViewInterface>>;
 }
 
-export default function EditALLOWANCEENTRYModal(props: EditALLOWANCEENTRYModalInterface) {
+export default function EditBONUSLISTModal(props: EditBONUSLISTModalInterface) {
   const dispatch = useDispatch();
-  const ALLOWANCEENTRYEditState = useSelector((state: RootState)=> state.payrollVariables.ALLOWANCEENTRYEdit)
+  const BONUSLISTEditState = useSelector((state: RootState)=> state.payrollEOY.BONUSLISTEdit)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
-  const {editALLOWANCEENTRYOpenModal, setEditALLOWANCEENTRYOpenModal, singleALLOWANCEENTRYDetailsData, setSingleALLOWANCEENTRYDetailsData} = props;
+  const {editBONUSLISTOpenModal, setEditBONUSLISTOpenModal, singleBONUSLISTDetailsData, setSingleBONUSLISTDetailsData} = props;
 
 
-  const editALLOWANCEENTRY = () => { 
-    dispatch(ALLOWANCEENTRYEditAction({
-      ...singleALLOWANCEENTRYDetailsData,
+  const editBONUSLIST = () => { 
+    dispatch(BONUSLISTEditAction({
+      ...singleBONUSLISTDetailsData,
       current_user: curr_user || NaN
     }))
   }
 
   useEffect(()=>{
-    if(ALLOWANCEENTRYEditState.status){      
-      if(ALLOWANCEENTRYEditState.status === 'succeeded'){
-        window.alert(`${ALLOWANCEENTRYEditState.status.charAt(0).toUpperCase()}${ALLOWANCEENTRYEditState.status.slice(1)}`)
+    if(BONUSLISTEditState.status){      
+      if(BONUSLISTEditState.status === 'succeeded'){
+        window.alert(`${BONUSLISTEditState.status.charAt(0).toUpperCase()}${BONUSLISTEditState.status.slice(1)}`)
         setTimeout(()=>{
           window.location.reload();
         }, 800)
-      }else if(ALLOWANCEENTRYEditState.status === 'failed'){
-        window.alert(`${ALLOWANCEENTRYEditState.error}`)
+      }else if(BONUSLISTEditState.status === 'failed'){
+        window.alert(`${BONUSLISTEditState.error}`)
       }
     }
-  }, [ALLOWANCEENTRYEditState.status])
+  }, [BONUSLISTEditState.status])
   return (
     <Fragment>
-      <Transition in={editALLOWANCEENTRYOpenModal} timeout={400}>
+      <Transition in={editBONUSLISTOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setEditALLOWANCEENTRYOpenModal(false);
+          setEditBONUSLISTOpenModal(false);
         }}
         slotProps={{
             backdrop: {
@@ -73,7 +71,7 @@ export default function EditALLOWANCEENTRYModal(props: EditALLOWANCEENTRYModalIn
             aria-labelledby="dialog-vertical-scroll-title" 
             layout={'center'}
             sx={{
-              ...editALLOWANCEENTRYArea,
+              ...editBONUSLISTArea,
                 opacity: 0,
                 transition: `opacity 300ms`,
                 ...{
@@ -84,7 +82,7 @@ export default function EditALLOWANCEENTRYModal(props: EditALLOWANCEENTRYModalIn
             }}
             size='sm'
         > 
-          <Typography variant='h6' className='border-b-2 border-blue-700'>Editing ALLOWANCEENTRY Details</Typography>
+          <Typography variant='h6' className='border-b-2 border-blue-700'>Editing BONUSLIST Details</Typography>
           <div className='flex flex-col items-center justify-around h-full'>
             <div className='flex flex-col w-full gap-10'>
               <div className='flex justify-center item-center'>
@@ -92,18 +90,38 @@ export default function EditALLOWANCEENTRYModal(props: EditALLOWANCEENTRYModalIn
               </div>
               <div className='flex flex-col gap-5'>
                     <div className='flex flex-col gap-6'>
-                      {/* <EmployeeAutoCompleteRight editALLOWANCEENTRY={singleALLOWANCEENTRYDetailsData} setEditALLOWANCEENTRY={setSingleALLOWANCEENTRYDetailsData}/> */}
+                      {/* <EmployeeAutoCompleteRight editBONUSLIST={singleBONUSLISTDetailsData} setEditBONUSLIST={setSingleBONUSLISTDetailsData}/> */}
                         <TextField
                             required 
                             sx={{width: '100%'}} 
-                            label='Allowance Amount'
+                            label='Bonus Type Name'
+                            aria-required  
+                            variant='outlined' 
+                            type="text"
+                            value={singleBONUSLISTDetailsData?.name}
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                const value = event.target.value;
+                                setSingleBONUSLISTDetailsData((prevState)=> {
+                                    return (
+                                        {
+                                            ...prevState,
+                                            name: value
+                                        }
+                                    )
+                                })
+                            }}
+                        />
+                        <TextField
+                            required 
+                            sx={{width: '100%'}} 
+                            label='Bonus Type Amount (in PH Peso):'
                             aria-required  
                             variant='outlined' 
                             type="number"
-                            value={singleALLOWANCEENTRYDetailsData?.amount}
+                            value={singleBONUSLISTDetailsData?.amount}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value = parseInt(event.target.value)
-                                setSingleALLOWANCEENTRYDetailsData((prevState)=> {
+                                setSingleBONUSLISTDetailsData((prevState)=> {
                                     return (
                                         {
                                             ...prevState,
@@ -116,29 +134,30 @@ export default function EditALLOWANCEENTRYModal(props: EditALLOWANCEENTRYModalIn
                         <TextField
                             required 
                             sx={{width: '100%'}} 
-                            label='Tax Rate'
+                            label='Bonus Type Description:'
                             aria-required  
                             variant='outlined' 
-                            type="number"
-                            value={singleALLOWANCEENTRYDetailsData?.tax_rate}
+                            multiline
+                            rows={4}
+                            type="text"
+                            value={singleBONUSLISTDetailsData?.description}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = parseInt(event.target.value)
-                                setSingleALLOWANCEENTRYDetailsData((prevState)=> {
+                                const value = event.target.value;
+                                setSingleBONUSLISTDetailsData((prevState)=> {
                                     return (
                                         {
                                             ...prevState,
-                                            tax_rate: value
+                                            description: value
                                         }
                                     )
                                 })
                             }}
                         />
-                      <AllowanceAutoCompleteRight editALLOWANCEENTRY={singleALLOWANCEENTRYDetailsData} setEditALLOWANCEENTRY={setSingleALLOWANCEENTRYDetailsData}/>
                       </div>
               </div>
               <div className='flex justify-around'>
-                <Button variant={'contained'} onClick={editALLOWANCEENTRY}>Submit</Button>
-                <Button variant={'outlined'} onClick={()=>{setEditALLOWANCEENTRYOpenModal(false)}}>Cancel</Button>
+                <Button variant={'contained'} onClick={editBONUSLIST}>Submit</Button>
+                <Button variant={'outlined'} onClick={()=>{setEditBONUSLISTOpenModal(false)}}>Cancel</Button>
               </div>
             </div>
           </div>
@@ -152,7 +171,7 @@ export default function EditALLOWANCEENTRYModal(props: EditALLOWANCEENTRYModalIn
 
 
 // Styles
-const editALLOWANCEENTRYArea = {
+const editBONUSLISTArea = {
   height: '145.5mm',
   width: '180mm',
   margin: '0 auto',
