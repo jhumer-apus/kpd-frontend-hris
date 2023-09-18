@@ -5,7 +5,7 @@ import { RootState } from '@/store/configureStore';
 import { Typography } from '@mui/material';
 // import { Typography } from "@material-tailwind/react";
 import { EOYBONUSENTRYPageDescriptions, EOYBONUSENTRYPageColumns } from '@/data/pages-data/payroll-eoy-data/eoy-bonus-entry-data';
-import ViewBONUSENTRYSingleModal from './local-components/main-modals/pvm-tax-single-modal';
+import ViewBONUSENTRYSingleModal from './local-components/main-modals/eoy-bonus-entry-single-modal';
 import { BONUSENTRYViewInterface } from '@/types/types-payroll-eoy';
 import { BONUSENTRYViewAction } from '@/store/actions/payroll-eoy';
 
@@ -35,7 +35,7 @@ export default function EOYBONUSENTRYPageHistory() {
     <Fragment>
       <div className="my-2 flex flex-wrap justify-between items-start gap-6">
         <div>
-          {/* <ViewBONUSENTRYSingleModal setSingleBONUSENTRYDetailsData={setSingleBONUSENTRYDetailsData} singleBONUSENTRYDetailsData={singleBONUSENTRYDetailsData} singleBONUSENTRYOpenModal={singleBONUSENTRYOpenModal} setSingleBONUSENTRYOpenModal={setSingleBONUSENTRYOpenModal}/> */}
+          <ViewBONUSENTRYSingleModal setSingleBONUSENTRYDetailsData={setSingleBONUSENTRYDetailsData} singleBONUSENTRYDetailsData={singleBONUSENTRYDetailsData} singleBONUSENTRYOpenModal={singleBONUSENTRYOpenModal} setSingleBONUSENTRYOpenModal={setSingleBONUSENTRYOpenModal}/>
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
           <p>{EOYBONUSENTRYPageDescriptions}</p>
         </Typography>

@@ -823,7 +823,7 @@ export const BONUSLISTEditEpic: Epic = (action$, state$) =>
 
 // BONUSENTRY API SECTION // BONUSENTRY API SECTION // BONUSENTRY API SECTION // BONUSENTRY API SECTION // BONUSENTRY API SECTION
 const BONUSENTRYEditApiCall = async (payload: _Interface.BONUSENTRYEditInterface) => {
-    const response = await axios.put(`${APILink}bonus_entry/${payload.id}/`,
+    const response = await axios.put(`${APILink}bonus_entry/${payload.emp_no}/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {

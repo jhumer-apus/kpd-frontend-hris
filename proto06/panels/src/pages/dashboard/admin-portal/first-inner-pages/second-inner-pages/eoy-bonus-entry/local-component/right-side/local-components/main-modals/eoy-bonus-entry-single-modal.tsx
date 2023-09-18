@@ -2,29 +2,29 @@ import { Dispatch, SetStateAction, Fragment, useState } from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
-import { TAXViewInterface } from '@/types/types-payroll-variables';
-import TAXModalComponent from './inner-modals/tax-modal-component';
+import { BONUSENTRYViewInterface } from '@/types/types-payroll-eoy';
+import BONUSENTRYModalComponent from './inner-modals/bonus-entry-modal-component';
 
 
-interface SingleTAXInterface {
-    singleTAXOpenModal: boolean; 
-    setSingleTAXOpenModal: Dispatch<SetStateAction<boolean>>;
-    singleTAXDetailsData: TAXViewInterface;
-    setSingleTAXDetailsData: Dispatch<SetStateAction<TAXViewInterface>>;
+interface SingleBONUSENTRYInterface {
+    singleBONUSENTRYOpenModal: boolean; 
+    setSingleBONUSENTRYOpenModal: Dispatch<SetStateAction<boolean>>;
+    singleBONUSENTRYDetailsData: BONUSENTRYViewInterface;
+    setSingleBONUSENTRYDetailsData: Dispatch<SetStateAction<BONUSENTRYViewInterface>>;
 }
 
-export default function ViewTAXSingleModal(props: SingleTAXInterface) {
-    const {singleTAXOpenModal, setSingleTAXOpenModal, setSingleTAXDetailsData, singleTAXDetailsData} = props;
+export default function ViewBONUSENTRYSingleModal(props: SingleBONUSENTRYInterface) {
+    const {singleBONUSENTRYOpenModal, setSingleBONUSENTRYOpenModal, setSingleBONUSENTRYDetailsData, singleBONUSENTRYDetailsData} = props;
   const [scroll, setScroll] = useState<boolean>(true);
   return (
     <Fragment>
-      <Transition in={singleTAXOpenModal} timeout={400}>
+      <Transition in={singleBONUSENTRYOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
         keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setSingleTAXOpenModal(false);
+          setSingleBONUSENTRYOpenModal(false);
         }}
         slotProps={{
             backdrop: {
@@ -47,7 +47,7 @@ export default function ViewTAXSingleModal(props: SingleTAXInterface) {
             aria-labelledby="dialog-vertical-scroll-title" 
             layout={'center'}
             sx={{
-              ...TAXModalArea,
+              ...BONUSENTRYModalArea,
                 opacity: 0,
                 transition: `opacity 300ms`,
                 ...{
@@ -57,7 +57,7 @@ export default function ViewTAXSingleModal(props: SingleTAXInterface) {
                 overflow: 'auto',
             }}
         >
-          <TAXModalComponent setSingleTAXDetailsData={setSingleTAXDetailsData} singleTAXDetailsData={singleTAXDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <BONUSENTRYModalComponent setSingleBONUSENTRYDetailsData={setSingleBONUSENTRYDetailsData} singleBONUSENTRYDetailsData={singleBONUSENTRYDetailsData} scroll={scroll} setScroll={setScroll}/>
         </ModalDialog>
       </Modal>
         )}
@@ -68,8 +68,8 @@ export default function ViewTAXSingleModal(props: SingleTAXInterface) {
 
 
 // Styles
-const TAXModalArea = {
-  height: '118.5mm',
+const BONUSENTRYModalArea = {
+  height: '88.5mm',
   width: '210mm',
   margin: '0 auto',
   background: 'white',
