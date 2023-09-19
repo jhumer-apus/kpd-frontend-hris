@@ -86,6 +86,8 @@ import EOYBONUSLIST from "./pages/dashboard/admin-portal/first-inner-pages/secon
 import PayrollEOY from "./pages/dashboard/admin-portal/first-inner-pages/payroll-eoy";
 import EOYBonusEntry from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/eoy-bonus-entry/eoy-bonus-entry";
 import EOYPAY13TH from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/eoy-pay-13th/eoy-pay-13th";
+import EOYTAXCOLLECTEDPage from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/eoy-tax-collected/eoy-tax-collected-page";
+import AssetAndAnnouncement from "./pages/dashboard/admin-portal/first-inner-pages/asset-and-announcement";
 
 
 const icon = {
@@ -269,7 +271,7 @@ const JSXRouteWrapper = () => {
                       icon: null,
                       name: "Tax Collected",
                       path: "/Dashboards/Admin-Dashboard/Payroll-EOY/Tax-Collected",
-                      element: <h1>Tax Collected</h1>,
+                      element: <EOYTAXCOLLECTEDPage/>,
                       hasSubItems: false,
                     },
                     {
@@ -303,7 +305,7 @@ const JSXRouteWrapper = () => {
                   icon: null,
                   name: "AAA",
                   path: "/Dashboards/Admin-Dashboard/Assets-And-Announcement",
-                  element: <PayrollVariablesMonthly/>,
+                  element: <AssetAndAnnouncement/>,
                   hasSubItems: true,
                   subItems: [
                     {
@@ -326,7 +328,7 @@ const JSXRouteWrapper = () => {
                       id: 1150002,
                       icon: null,
                       name: "Announcements",
-                      path: "/Dashboards/Admin-Dashboard/Assets-And-Announcement/Announcements",
+                      path: "/Dashboards/Admin-Dashboard/Assets-And-Announcement/Announcement-Configurations",
                       element: <h1>ANN</h1>,
                       hasSubItems: false,
                     },
