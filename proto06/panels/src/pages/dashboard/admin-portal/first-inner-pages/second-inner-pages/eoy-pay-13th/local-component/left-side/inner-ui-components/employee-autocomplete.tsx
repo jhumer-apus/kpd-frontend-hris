@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { getEmployeesList } from '@/store/actions/employees';
 import { AutocompleteChangeReason } from '@mui/material/Autocomplete';
-import { SCHEDULEDAILYCreateInterface } from '@/types/types-pages';
+import { PAY13THCreateInterface } from '@/types/types-payroll-eoy';
 
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
@@ -16,8 +16,8 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 
 interface EmployeeAutoCompleteInterface{
-    createSCHEDULEDAILY: SCHEDULEDAILYCreateInterface;
-    setCreateSCHEDULEDAILY: Dispatch<SetStateAction<SCHEDULEDAILYCreateInterface>>;
+    createPAY13TH: PAY13THCreateInterface;
+    setCreatePAY13TH: Dispatch<SetStateAction<PAY13THCreateInterface>>;
 }
 
 
@@ -28,12 +28,12 @@ interface optionsInterface {
 }
 
 export default function MultiEmployeeAutoCompleteLeft(props: EmployeeAutoCompleteInterface) {
-    const {setCreateSCHEDULEDAILY, createSCHEDULEDAILY} = props;
+    const {setCreatePAY13TH, createPAY13TH} = props;
     const dispatch = useDispatch();
     const state = useSelector((state:RootState)=> state.employees);
     const [employeesList, setEmployeesList] = useState<optionsInterface[]>([])
     const [selectedEmployeeId, setSelectedEmployeeId] = useState<number[]>([]);
-
+    const [selectAll, setSelectAll] = useState(false);
     useEffect(()=> {
         if(state.employees_list?.length === 0){
             dispatch(getEmployeesList());
@@ -42,7 +42,7 @@ export default function MultiEmployeeAutoCompleteLeft(props: EmployeeAutoComplet
 
     useEffect(()=> {
         if(selectedEmployeeId){
-            setCreateSCHEDULEDAILY((prevState)=> {
+            setCreatePAY13TH((prevState)=> {
                 return(
                     {
                         ...prevState,
@@ -67,7 +67,11 @@ export default function MultiEmployeeAutoCompleteLeft(props: EmployeeAutoComplet
     }, [state.employees_list]);
 
     const handleChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: optionsInterface[], reason: AutocompleteChangeReason) => {
-        if (Array.isArray(newInputValue) && newInputValue.length > 0) {
+        
+        
+        if (selectAll) {
+            setSelectedEmployeeId(employeesList.map((employee) => employee.emp_no));
+        }else if (Array.isArray(newInputValue) && newInputValue.length > 0) {
             const matchingEmployees = employeesList.filter((employeeItem) =>
                 newInputValue.some((selectedItem) => selectedItem.employee === employeeItem.employee)
             );
@@ -84,6 +88,7 @@ export default function MultiEmployeeAutoCompleteLeft(props: EmployeeAutoComplet
     };
     
     return (
+        <>
         <Autocomplete
         // disableCloseOnSelect
         multiple
@@ -119,7 +124,8 @@ export default function MultiEmployeeAutoCompleteLeft(props: EmployeeAutoComplet
             }
 
         }
-
         />
+        </>
+
     );
 }

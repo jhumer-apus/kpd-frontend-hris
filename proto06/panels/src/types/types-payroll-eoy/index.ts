@@ -31,7 +31,9 @@ export interface PAY13THViewInterface extends PAY13THGenericInterface{
     readonly id: number,
 }
 
-export interface PAY13THCreateInterface extends Pick<PAY13THGenericInterface, "emp_no" | "current_user">{}
+export interface PAY13THCreateInterface extends Pick<PAY13THGenericInterface, "current_user">{
+    emp_no: number[] | null
+}
 
 
 // ======================================

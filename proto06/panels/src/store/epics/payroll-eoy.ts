@@ -566,7 +566,7 @@ const ANNOUNCEMENTEditApiCall = async (payload: _Interface.ANNOUNCEMENTEditInter
 
 // PAY13TH API SECTION // PAY13TH API SECTION // PAY13TH API SECTION // PAY13TH API SECTION // PAY13TH API SECTION
   const PAY13THCreateApiCall = async (payload: _Interface.PAY13THCreateInterface) => {
-    const response = await axios.post(`${APILink}pay13/`,
+    const response = await axios.post(`${APILink}createpay13/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {

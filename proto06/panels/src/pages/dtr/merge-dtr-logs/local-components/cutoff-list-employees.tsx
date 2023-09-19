@@ -85,6 +85,7 @@ export default function CutOffListEmployees(props: CutOffListEmployees) {
       emp_no: emp_no_locale,
     }));
   };
+  
   function initializeMerge(){
     
     if(!Number.isNaN(selectedRows.cutoff_code)){
