@@ -85,6 +85,7 @@ import PVMALLOWANCEENTRY from "./pages/dashboard/admin-portal/first-inner-pages/
 import EOYBONUSLIST from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/eoy-bonus-list/eoy-bonus-list";
 import PayrollEOY from "./pages/dashboard/admin-portal/first-inner-pages/payroll-eoy";
 import EOYBonusEntry from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/eoy-bonus-entry/eoy-bonus-entry";
+import EOYPAY13TH from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/eoy-pay-13th/eoy-pay-13th";
 
 
 const icon = {
@@ -276,7 +277,7 @@ const JSXRouteWrapper = () => {
                       icon: null,
                       name: "13th Month Pay",
                       path: "/Dashboards/Admin-Dashboard/Payroll-EOY/13th-Month-pay",
-                      element: <h1>13th</h1>,
+                      element: <EOYPAY13TH/>,
                       hasSubItems: false,
                     },
                     {
