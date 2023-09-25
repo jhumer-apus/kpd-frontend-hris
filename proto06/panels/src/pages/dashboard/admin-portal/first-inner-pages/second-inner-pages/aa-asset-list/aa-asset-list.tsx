@@ -2,8 +2,8 @@ import { Fragment }from 'react';
 import { styled } from '@mui/material/styles';
 import MuiGrid from '@mui/material/Grid';
 import { Paper, Box, useTheme, useMediaQuery } from '@mui/material';
-import AAASSETLISTPageHistory from './local-component/right-side/eoy-bonus-list-history';
-import AAASSETLISTCreate from './local-component/left-side/eoy-bonus-list-create';
+import AAASSETLISTPageHistory from './local-component/right-side/aa-asset-list-history';
+import AAASSETLISTCreate from './local-component/left-side/aa-asset-list-create';
 
 
 const PaperStyle = {

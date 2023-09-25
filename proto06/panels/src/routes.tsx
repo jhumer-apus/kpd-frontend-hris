@@ -88,6 +88,7 @@ import EOYBonusEntry from "./pages/dashboard/admin-portal/first-inner-pages/seco
 import EOYPAY13TH from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/eoy-pay-13th/eoy-pay-13th";
 import EOYTAXCOLLECTEDPage from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/eoy-tax-collected/eoy-tax-collected-page";
 import AssetAndAnnouncement from "./pages/dashboard/admin-portal/first-inner-pages/asset-and-announcement";
+import AAASSETLIST from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/aa-asset-list/aa-asset-list";
 
 
 const icon = {
@@ -321,7 +322,7 @@ const JSXRouteWrapper = () => {
                       icon: null,
                       name: "Asset List",
                       path: "/Dashboards/Admin-Dashboard/Assets-And-Announcement/Asset-List",
-                      element: <h1>AL</h1>,
+                      element: <AAASSETLIST/>,
                       hasSubItems: false,
                     },
                     {
