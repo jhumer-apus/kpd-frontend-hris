@@ -24,8 +24,6 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
 export default function PVMALLOWANCEENTRY() {
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.down('lg'));
-    console.log(process.env.NODE_ENV, "asdasdasdasdasd")
-
   return (
     <Fragment>
         <Grid container direction={matches ? 'column' : 'row'} spacing={2}>

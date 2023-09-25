@@ -31,7 +31,6 @@ function OBTModalUI(props: OBTModalUIInterface) {
         
     };
 
-    console.log(curr_user, "aasd")
     const userIsApprover = curr_user?.emp_no === ThisProps.obt_approver1_empno || curr_user?.emp_no === ThisProps.obt_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleOBTDetailsData?.applicant_rank);
     return (
         <React.Fragment>

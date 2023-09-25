@@ -29,7 +29,6 @@ export default function AllowedDaysRANKModal(props: AllowedDaysRANKModalInterfac
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
   const {allowedDaysRANKOpenModal, setAllowedDaysRANKOpenModal, singleRANKDetailsData, setSingleRANKDetailsData} = props;
 
-  console.log(singleRANKDetailsData, "ha??")
   const allowedDaysRANK = () => { 
     dispatch(RANKEditAction({
       ...singleRANKDetailsData,

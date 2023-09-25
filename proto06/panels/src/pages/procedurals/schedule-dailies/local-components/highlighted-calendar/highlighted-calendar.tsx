@@ -163,7 +163,6 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
   const [highlightedDays, setHighlightedDays] = useState<number[]>([]);
   const [scheduleDaily, setScheduleDaily] = useState<Record<string, Record<string, string | number | boolean | SCHEDULESHIFTViewInterface>>>({}); 
   
-  console.log(scheduleDaily, "asdhjk");
   const fetchHighlightedDays = (date: Dayjs) => {
     let formattedDate = date.format('YYYY-MM');
     setIsLoading(true);
@@ -175,7 +174,6 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
     })
       .then((response) => {
         const filteredData: SCHEDULEDAILYViewInterface[] = response.data.filter((scheduleDaily: SCHEDULEDAILYViewInterface) => {
-            console.log(scheduleDaily, "asd122222")
             const scheduleDailyDate = dayjs(scheduleDaily.business_date);
             return (
               scheduleDailyDate.format('YYYY-MM') === formattedDate &&
@@ -202,7 +200,6 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
               is_restday: scheduleDaily.is_restday, 
               sched_details: sched_id_check1(scheduleDaily?.schedule_shift_code as SCHEDULESHIFTViewInterface)
             };
-            console.log(is_restday[scheduleDailyDate], "ha123z", scheduleDaily)
             return is_restday;
         }, {});
 

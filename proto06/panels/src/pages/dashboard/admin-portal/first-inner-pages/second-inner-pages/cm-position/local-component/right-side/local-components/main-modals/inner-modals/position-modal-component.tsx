@@ -15,7 +15,6 @@ interface POSITIONModalComponentInterface {
 const POSITIONModalComponent = ((props:POSITIONModalComponentInterface) => {
     const { singlePOSITIONDetailsData, setSinglePOSITIONDetailsData } = props;
     const componentRef = useRef<HTMLDivElement | null>(null);
-    console.log("123??",singlePOSITIONDetailsData )
     return (
         <Fragment>
             <Typography variant='soft'>POSITION Individual Data</Typography>

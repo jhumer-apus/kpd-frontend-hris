@@ -53,7 +53,6 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
       }
     }
   }, [BRANCHAllowedDaysState])
-  console.log(singleBRANCHDetailsData, "hahahaha")
   return (
     <Fragment>
       <Transition in={allowedDaysBRANCHOpenModal} timeout={400}>

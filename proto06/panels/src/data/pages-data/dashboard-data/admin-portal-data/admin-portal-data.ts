@@ -410,7 +410,7 @@ export const AssetAndAnnouncementData = [
     footer: {
     color: "text-green-500",
     value: "<",
-    label: "View List of Asset Types and Categories, details etc.",
+    label: "View List of Asset Types, details etc.",
     },
     custom: "linear-gradient(22deg, rgba(9,9,121,1) 15%, rgba(70,191,4,1) 47%, rgba(2,0,36,1) 100%, rgba(0,212,255,1) 100%)",
     link: '/home/Dashboards/Admin-Dashboard/Assets-And-Announcement/Asset-List',

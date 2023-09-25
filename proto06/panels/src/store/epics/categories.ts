@@ -271,7 +271,6 @@ export const BRANCHCreateEpic: Epic = (action$, state$) =>
           return BRANCHCreateActionSuccess(data);
         }),
         catchError((error) => {
-          console.log(error, `mama?`)
           if (error.response && error.response.data && error.response.data) {
             return of(BRANCHCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
           } else {
@@ -419,7 +418,6 @@ export const DEPARTMENTCreateEpic: Epic = (action$, state$) =>
           return DEPARTMENTCreateActionSuccess(data);
         }),
         catchError((error) => {
-          console.log(error, `mama?`)
           if (error.response && error.response.data && error.response.data) {
             return of(DEPARTMENTCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
           } else {
@@ -568,7 +566,6 @@ const DIVISIONEditApiCall = async (payload: DIVISIONEditInterface) => {
             return DIVISIONCreateActionSuccess(data);
           }),
           catchError((error) => {
-            console.log(error, `mama?`)
             if (error.response && error.response.data && error.response.data) {
               return of(DIVISIONCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
             } else {
@@ -716,7 +713,6 @@ action$.pipe(
         return PAYROLLGROUPCreateActionSuccess(data);
         }),
         catchError((error) => {
-        console.log(error, `mama?`)
         if (error.response && error.response.data && error.response.data) {
             return of(PAYROLLGROUPCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
         } else {
@@ -863,7 +859,6 @@ action$.pipe(
         return POSITIONCreateActionSuccess(data);
         }),
         catchError((error) => {
-        console.log(error, `mama?`)
         if (error.response && error.response.data && error.response.data) {
             return of(POSITIONCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
         } else {
@@ -1012,7 +1007,6 @@ action$.pipe(
         return RANKCreateActionSuccess(data);
         }),
         catchError((error) => {
-        console.log(error, `mama?`)
         if (error.response && error.response.data && error.response.data) {
             return of(RANKCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
         } else {

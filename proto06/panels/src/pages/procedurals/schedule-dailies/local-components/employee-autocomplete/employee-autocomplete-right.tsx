@@ -57,7 +57,6 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
     });
     
     const defaultOption = options?.find((option) => option.emp_no === currEmployee);
-    console.log(defaultOption, currEmployee, "haha?", selectedEmployeeId)
     const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string, reason: AutocompleteInputChangeReason) => {
         const matchingEmployee = employeesList.find(
         //   (employeeItems) => employeeItems.employee === newInputValue

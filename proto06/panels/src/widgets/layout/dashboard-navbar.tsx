@@ -53,7 +53,6 @@ export function DashboardNavbar() {
   const { fixedNavbar, openSidenav } = controller;
   const { pathname } = useLocation();
   const [layout, page, innermostpage, firstInner, secondInner ] = pathname.split("/").filter((el) => el !== "");  
-  console.log(pathname.split("/").filter((el) => el !== ""), "asdasd?11")
   
   const updatedImage = employee_detail?.employee_image;
   const handleLogout = () => {
@@ -68,7 +67,6 @@ export function DashboardNavbar() {
     window.location.reload();
     window.location.replace('/')
   };
-  console.log(employee_detail, "asdasdas" )
   return (
     <Navbar
       color={fixedNavbar ? "white" : "transparent"}

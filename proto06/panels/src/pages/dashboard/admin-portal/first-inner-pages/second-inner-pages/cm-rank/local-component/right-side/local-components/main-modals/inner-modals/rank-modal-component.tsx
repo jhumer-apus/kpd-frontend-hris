@@ -15,7 +15,6 @@ interface RANKModalComponentInterface {
 const RANKModalComponent = ((props:RANKModalComponentInterface) => {
     const { singleRANKDetailsData, setSingleRANKDetailsData } = props;
     const componentRef = useRef<HTMLDivElement | null>(null);
-    console.log("123??",singleRANKDetailsData )
     return (
         <Fragment>
             <Typography variant='soft'>RANK Individual Data</Typography>

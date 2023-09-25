@@ -23,7 +23,6 @@ export default function AllowedDaysPOSITIONModal(props: AllowedDaysPOSITIONModal
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
   const {allowedDaysPOSITIONOpenModal, setAllowedDaysPOSITIONOpenModal, singlePOSITIONDetailsData, setSinglePOSITIONDetailsData} = props;
 
-  console.log(singlePOSITIONDetailsData, "ha??")
   const allowedDaysPOSITION = () => { 
     dispatch(POSITIONEditAction({
       ...singlePOSITIONDetailsData,

@@ -35,7 +35,6 @@ function EOYPAY13THCreate(props: CreatePAY13THModalInterface) {
         emp_no: [],
     });
 
-    console.log(createPAY13TH, "hahaha111", state.employees_list)
     const onClickSubmit = () => {
         dispatch(PAY13THCreateAction(createPAY13TH))
     };

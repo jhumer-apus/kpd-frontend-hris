@@ -30,7 +30,6 @@ export default function ManageRANKPageHistory() {
       dispatch(RANKViewAction())
     }
   }, [curr_user]);
-  // console.log(singleRANKDetailsData, "123???")
   return (
     <Fragment>
       <div className="my-2 flex flex-wrap justify-between items-start gap-6">
@@ -55,7 +54,6 @@ export default function ManageRANKPageHistory() {
           }}
           pageSizeOptions={[25, 50, 75, 100]}
           onRowClick={(e) => {
-            // console.log(e.row, "123?")
             setSingleRANKDetailsData(e.row);
             setSingleRANKOpenModal(true);
           }}

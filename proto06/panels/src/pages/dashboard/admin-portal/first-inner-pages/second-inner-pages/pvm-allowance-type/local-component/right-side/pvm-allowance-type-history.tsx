@@ -29,7 +29,6 @@ export default function PVMALLOWANCETYPEPageHistory() {
     }
   }, [curr_user]);
 
-  console.log(ALLOWANCETYPEViewData, "haha??")
   return (
     <Fragment>
       <div className="my-2 flex flex-wrap justify-between items-start gap-6">

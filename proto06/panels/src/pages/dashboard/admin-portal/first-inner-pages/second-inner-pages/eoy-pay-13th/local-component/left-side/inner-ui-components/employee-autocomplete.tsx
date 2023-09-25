@@ -97,7 +97,6 @@ export default function MultiEmployeeAutoCompleteLeft(props: EmployeeAutoComplet
         options={employeesList?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
         groupBy={(employeesList) => employeesList.firstLetter}
         getOptionLabel={(employeesList) => employeesList.employee}
-        // onInputChange={()=> console.log("asd11")}
         // value={selectedTags}
         onChange={handleChange}
         disableCloseOnSelect

@@ -2,29 +2,29 @@ import { Dispatch, SetStateAction, Fragment, useState } from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
-import { POSITIONViewInterface } from '@/types/types-pages';
-import POSITIONModalComponent from './inner-modals/position-modal-component';
+import { BONUSLISTViewInterface } from '@/types/types-payroll-eoy';
+import BONUSLISTModalComponent from './inner-modals/bonus-list-modal-component';
 
 
-interface SinglePOSITIONInterface {
-    singlePOSITIONOpenModal: boolean; 
-    setSinglePOSITIONOpenModal: Dispatch<SetStateAction<boolean>>;
-    singlePOSITIONDetailsData: POSITIONViewInterface;
-    setSinglePOSITIONDetailsData: Dispatch<SetStateAction<POSITIONViewInterface>>;
+interface SingleBONUSLISTInterface {
+    singleBONUSLISTOpenModal: boolean; 
+    setSingleBONUSLISTOpenModal: Dispatch<SetStateAction<boolean>>;
+    singleBONUSLISTDetailsData: BONUSLISTViewInterface;
+    setSingleBONUSLISTDetailsData: Dispatch<SetStateAction<BONUSLISTViewInterface>>;
 }
 
-export default function ViewPOSITIONSingleModal(props: SinglePOSITIONInterface) {
-  const {singlePOSITIONOpenModal, setSinglePOSITIONOpenModal, setSinglePOSITIONDetailsData, singlePOSITIONDetailsData} = props;
+export default function ViewBONUSLISTSingleModal(props: SingleBONUSLISTInterface) {
+    const {singleBONUSLISTOpenModal, setSingleBONUSLISTOpenModal, setSingleBONUSLISTDetailsData, singleBONUSLISTDetailsData} = props;
   const [scroll, setScroll] = useState<boolean>(true);
   return (
     <Fragment>
-      <Transition in={singlePOSITIONOpenModal} timeout={400}>
+      <Transition in={singleBONUSLISTOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
         keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setSinglePOSITIONOpenModal(false);
+          setSingleBONUSLISTOpenModal(false);
         }}
         slotProps={{
             backdrop: {
@@ -47,7 +47,7 @@ export default function ViewPOSITIONSingleModal(props: SinglePOSITIONInterface) 
             aria-labelledby="dialog-vertical-scroll-title" 
             layout={'center'}
             sx={{
-              ...POSITIONModalArea,
+              ...BONUSLISTModalArea,
                 opacity: 0,
                 transition: `opacity 300ms`,
                 ...{
@@ -57,7 +57,7 @@ export default function ViewPOSITIONSingleModal(props: SinglePOSITIONInterface) 
                 overflow: 'auto',
             }}
         >
-          <POSITIONModalComponent setSinglePOSITIONDetailsData={setSinglePOSITIONDetailsData} singlePOSITIONDetailsData={singlePOSITIONDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <BONUSLISTModalComponent setSingleBONUSLISTDetailsData={setSingleBONUSLISTDetailsData} singleBONUSLISTDetailsData={singleBONUSLISTDetailsData} scroll={scroll} setScroll={setScroll}/>
         </ModalDialog>
       </Modal>
         )}
@@ -68,9 +68,9 @@ export default function ViewPOSITIONSingleModal(props: SinglePOSITIONInterface) 
 
 
 // Styles
-const POSITIONModalArea = {
-  height: '108.5mm',
-  width: '150mm',
+const BONUSLISTModalArea = {
+  height: '120.5mm',
+  width: '210mm',
   margin: '0 auto',
   background: 'white',
   boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.1)',

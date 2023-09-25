@@ -2,8 +2,8 @@ import { Fragment }from 'react';
 import { styled } from '@mui/material/styles';
 import MuiGrid from '@mui/material/Grid';
 import { Paper, Box, useTheme, useMediaQuery } from '@mui/material';
-import EOYBONUSLISTPageHistory from './local-component/right-side/eoy-bonus-list-history';
-import EOYBONUSLISTCreate from './local-component/left-side/eoy-bonus-list-create';
+import AAASSETLISTPageHistory from './local-component/right-side/eoy-bonus-list-history';
+import AAASSETLISTCreate from './local-component/left-side/eoy-bonus-list-create';
 
 
 const PaperStyle = {
@@ -21,7 +21,7 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
     },
 }));
 
-export default function EOYBONUSLIST() {
+export default function AAASSETLIST() {
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.down('lg'));
 
@@ -31,13 +31,13 @@ export default function EOYBONUSLIST() {
             <Grid item xs>
                 <Paper elevation={3} style={PaperStyle}>
                     <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
-                        <EOYBONUSLISTCreate/>
+                        <AAASSETLISTCreate/>
                     </Box>
                 </Paper>
             </Grid>
             <Grid item xs>
                 <Paper elevation={3} style={PaperStyle}>
-                    <EOYBONUSLISTPageHistory/>
+                    <AAASSETLISTPageHistory/>
                 </Paper>
             </Grid>
         </Grid>

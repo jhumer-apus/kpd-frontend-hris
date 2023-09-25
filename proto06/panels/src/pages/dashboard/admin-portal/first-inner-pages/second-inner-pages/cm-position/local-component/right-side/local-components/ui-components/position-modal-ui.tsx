@@ -29,7 +29,6 @@ function POSITIONModalUI(props: POSITIONModalUIInterface) {
         }   
         
     };
-    console.log(props.singlePOSITIONDetailsData, "123?")
     return (
         <Fragment>
             <AllowedDaysPOSITIONModal singlePOSITIONDetailsData={singlePOSITIONDetailsData} setSinglePOSITIONDetailsData={setSinglePOSITIONDetailsData} allowedDaysPOSITIONOpenModal={allowedDaysPOSITIONOpenModal} setAllowedDaysPOSITIONOpenModal={setAllowedDaysPOSITIONOpenModal}/>

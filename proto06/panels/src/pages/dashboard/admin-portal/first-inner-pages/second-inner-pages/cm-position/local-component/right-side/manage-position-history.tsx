@@ -28,7 +28,6 @@ export default function ManagePOSITIONPageHistory() {
       dispatch(POSITIONViewAction())
     }
   }, [curr_user]);
-  // console.log(singlePOSITIONDetailsData, "123???")
   return (
     <Fragment>
       <div className="my-2 flex flex-wrap justify-between items-start gap-6">
@@ -53,7 +52,6 @@ export default function ManagePOSITIONPageHistory() {
           }}
           pageSizeOptions={[25, 50, 75, 100]}
           onRowClick={(e) => {
-            // console.log(e.row, "123?")
             setSinglePOSITIONDetailsData(e.row);
             setSinglePOSITIONOpenModal(true);
           }}

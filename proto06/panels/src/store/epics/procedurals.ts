@@ -589,7 +589,6 @@ export const OBTCreateEpic: Epic = (action$, state$) =>
           return OBTCreateActionSuccess(data);
         }),
         catchError((error) => {
-          console.log(error, `mama?`)
           if (error.response && error.response.data && error.response.data) {
             return of(OBTCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
           } else {
