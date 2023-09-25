@@ -136,7 +136,7 @@ export interface ASSETACCOUNTGenericInterface {
     serial_no_internal: string,
     remarks: string,
     asset_list_code: number,
-    assigned_by: number, //current_user
+    assigned_by?: number, //current_user
     assigned_to: number,
 }
 
