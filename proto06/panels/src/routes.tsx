@@ -90,6 +90,7 @@ import EOYTAXCOLLECTEDPage from "./pages/dashboard/admin-portal/first-inner-page
 import AssetAndAnnouncement from "./pages/dashboard/admin-portal/first-inner-pages/asset-and-announcement";
 import AAASSETLIST from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/aa-asset-list/aa-asset-list";
 import AAASSETACCOUNT from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/aa-asset-account/aa-asset-account";
+import AAANNOUNCEMENT from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/aa-announcement-configurations/aa-announcement-configuration";
 
 
 const icon = {
@@ -331,7 +332,7 @@ const JSXRouteWrapper = () => {
                       icon: null,
                       name: "Announcements",
                       path: "/Dashboards/Admin-Dashboard/Assets-And-Announcement/Announcement-Configurations",
-                      element: <h1>ANN</h1>,
+                      element: <AAANNOUNCEMENT/>,
                       hasSubItems: false,
                     },
                   ]

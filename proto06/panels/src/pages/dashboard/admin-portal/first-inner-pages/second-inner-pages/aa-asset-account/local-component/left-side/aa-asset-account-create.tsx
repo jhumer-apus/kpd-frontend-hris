@@ -25,7 +25,7 @@ function AAASSETACCOUNTCreate(props: CreateASSETACCOUNTModalInterface) {
         serial_no_internal: '',
         serial_no_manufacturer: '',
         remarks: '',
-        date_assigned: '',
+        date_assigned: null,
     });
     const onClickSubmit = () => {
         dispatch(ASSETACCOUNTCreateAction(createASSETACCOUNT))

@@ -84,11 +84,11 @@ export interface BONUSENTRYEditInterface extends Omit<BONUSENTRYViewInterface, "
 
 
 export interface ANNOUNCEMENTGenericInterface {
-    date_posted: string,
-    expiry_date: string,
+    date_posted: string | null,
+    expiry_date: string | null,
     order_by_no: number,
     message:string,
-    emp_no: number, //current_user
+    emp_no?: number, //current_user
 }
 
 
@@ -138,7 +138,7 @@ export interface ASSETACCOUNTGenericInterface {
     asset_list_code: number,
     assigned_by?: number, //current_user
     assigned_to: number,
-    date_assigned: string,
+    date_assigned: string | null,
 }
 
 
