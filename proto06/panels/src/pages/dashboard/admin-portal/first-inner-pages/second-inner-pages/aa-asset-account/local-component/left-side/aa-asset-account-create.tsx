@@ -8,6 +8,7 @@ import { ASSETACCOUNTCreateInterface } from '@/types/types-payroll-eoy';
 import { ASSETACCOUNTCreateAction, ASSETACCOUNTCreateActionFailureCleanup } from '@/store/actions/payroll-eoy';
 import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
 import AssetListAutoComplete from './inner-ui-components/asset-list-autocomplete';
+import DateAssignedASSETACCOUNTCreate from './inner-ui-components/date-assigned';
 
 
 interface CreateASSETACCOUNTModalInterface {
@@ -24,6 +25,7 @@ function AAASSETACCOUNTCreate(props: CreateASSETACCOUNTModalInterface) {
         serial_no_internal: '',
         serial_no_manufacturer: '',
         remarks: '',
+        date_assigned: '',
     });
     const onClickSubmit = () => {
         dispatch(ASSETACCOUNTCreateAction(createASSETACCOUNT))
@@ -58,6 +60,9 @@ function AAASSETACCOUNTCreate(props: CreateASSETACCOUNTModalInterface) {
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain' level="h6">Create ASSETACCOUNT Individual Data</Typography>
             <div className='flex flex-col gap-6 overflow-auto w-3/4'>
+                    <div className='flex flex-col gap-6 pt-4'>
+                        <DateAssignedASSETACCOUNTCreate createASSETACCOUNT={createASSETACCOUNT} setCreateASSETACCOUNT={setCreateASSETACCOUNT}/>
+                    </div>
                     <div className='flex flex-col gap-6 pt-4'>
                         <EmployeeAutoComplete createASSETACCOUNT={createASSETACCOUNT} setCreateASSETACCOUNT={setCreateASSETACCOUNT}/>
                     </div>

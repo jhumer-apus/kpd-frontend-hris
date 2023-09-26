@@ -138,6 +138,7 @@ export interface ASSETACCOUNTGenericInterface {
     asset_list_code: number,
     assigned_by?: number, //current_user
     assigned_to: number,
+    date_assigned: string,
 }
 
 
