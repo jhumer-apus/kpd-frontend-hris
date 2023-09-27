@@ -57,7 +57,7 @@ export default function AAASSETLISTPageHistory() {
             setSingleASSETLISTOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for ASSETLIST Epic hasn\'t been set up, please contact your frontend developer': 'There is no ASSETLIST to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Asset Lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Asset List Epic hasn\'t been set up, please contact your frontend developer': 'There is no ASSETLIST to generate.'}` }}
         />
       </div>
     </Fragment>

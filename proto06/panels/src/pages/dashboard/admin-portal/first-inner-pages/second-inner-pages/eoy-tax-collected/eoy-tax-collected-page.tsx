@@ -47,7 +47,7 @@ export default function EOYTAXCOLLECTEDPage() {
           //   setSingleTAXCOLLECTEDOpenModal(true);
           // }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for TAXCOLLECTED Epic hasn\'t been set up, please contact your frontend developer': 'There is no TAXCOLLECTED to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Tax Collected found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Tax Collected Epic hasn\'t been set up, please contact your frontend developer': 'There is no Tax Collected to generate.'}` }}
         />
       </div>
     </Fragment>

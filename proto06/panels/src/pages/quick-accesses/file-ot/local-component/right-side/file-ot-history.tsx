@@ -70,7 +70,7 @@ export default function QuickAccessOVERTIMEPageHistory() {
             setSingleOVERTIMEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for OVERTIME Epic hasn\'t been set up, please contact your frontend developer': 'There is no OVERTIME to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No OT found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for OVERTIME Epic hasn\'t been set up, please contact your frontend developer': 'There is no OVERTIME to generate.'}` }}
         />
       </div>
     </Fragment>

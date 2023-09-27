@@ -57,7 +57,7 @@ export default function PVMALLOWANCETYPEPageHistory() {
             setSingleALLOWANCETYPEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for ALLOWANCETYPE Epic hasn\'t been set up, please contact your frontend developer': 'There is no ALLOWANCETYPE to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Allowance Type found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Allowance Type Epic hasn\'t been set up, please contact your frontend developer': 'There is no Allowance Type to generate.'}` }}
         />
       </div>
     </Fragment>

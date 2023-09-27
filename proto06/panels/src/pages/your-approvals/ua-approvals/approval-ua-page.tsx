@@ -85,7 +85,7 @@ export default function ApprovalUAPage() {
             setSingleUAOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'You have no pending UA approvals.': 'There is no UA to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No UA found. Contact your administrator/support.' : (status === null || status === undefined) ? 'You have no pending UA approvals.': 'There is no UA to generate.'}` }}
         />
       </div>
     </Fragment>

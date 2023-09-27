@@ -67,7 +67,7 @@ export default function ApprovalOvertimePage() {
             setSingleOVERTIMEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'You have no pending OVERTIME approvals.': 'There is no OVERTIME to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No OT found. Contact your administrator/support.' : (status === null || status === undefined) ? 'You have no pending OVERTIME approvals.': 'There is no OVERTIME to generate.'}` }}
         />
       </div>
     </Fragment>

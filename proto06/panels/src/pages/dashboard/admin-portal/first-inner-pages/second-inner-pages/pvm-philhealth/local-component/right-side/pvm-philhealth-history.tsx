@@ -57,7 +57,7 @@ export default function PVMPHILHEALTHPageHistory() {
             setSinglePHILHEALTHOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for PHILHEALTH Epic hasn\'t been set up, please contact your frontend developer': 'There is no PHILHEALTH to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Philhealth found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Philhealth Epic hasn\'t been set up, please contact your frontend developer': 'There is no Philhealth to generate.'}` }}
         />
       </div>
     </Fragment>

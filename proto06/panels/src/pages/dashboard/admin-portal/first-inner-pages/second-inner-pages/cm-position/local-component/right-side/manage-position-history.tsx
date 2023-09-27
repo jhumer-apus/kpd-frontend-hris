@@ -56,7 +56,7 @@ export default function ManagePOSITIONPageHistory() {
             setSinglePOSITIONOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for POSITION Epic hasn\'t been set up, please contact your frontend developer': 'There is no POSITION to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Position found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Position Epic hasn\'t been set up, please contact your frontend developer': 'There is no Position to generate.'}` }}
         />
       </div>
     </Fragment>

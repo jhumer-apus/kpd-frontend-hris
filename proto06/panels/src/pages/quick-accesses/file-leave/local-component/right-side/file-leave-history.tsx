@@ -70,7 +70,7 @@ export default function QuickAccessLEAVEPageHistory() {
             setSingleLEAVEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for LEAVE Epic hasn\'t been set up, please contact your frontend developer': 'There is no LEAVE to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Leave found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Leave Epic hasn\'t been set up, please contact your frontend developer': 'There is no Leave to generate.'}` }}
         />
       </div>
     </Fragment>

@@ -62,7 +62,7 @@ export default function PVMPAGIBIGPageHistory() {
             setSinglePAGIBIGOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for PAGIBIG Epic hasn\'t been set up, please contact your frontend developer': 'There is no PAGIBIG to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Pagibig found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Pagibig Epic hasn\'t been set up, please contact your frontend developer': 'There is no Pagibig to generate.'}` }}
         />
       </div>
     </Fragment>

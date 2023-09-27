@@ -62,7 +62,7 @@ export default function ProceduralCUTOFFPERIODPageHistory() {
             setSingleCUTOFFPERIODOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for CUTOFFPERIOD Epic hasn\'t been set up, please contact your frontend developer': 'There is no CUTOFFPERIOD to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff period found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for CUTOFFPERIOD Epic hasn\'t been set up, please contact your frontend developer': 'There is no CUTOFFPERIOD to generate.'}` }}
         />
       </div>
     </Fragment>

@@ -2,53 +2,54 @@ import {useEffect, Dispatch, SetStateAction, Fragment}from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
-import { BONUSLISTViewInterface } from '@/types/types-payroll-eoy';
+import { ANNOUNCEMENTViewInterface } from '@/types/types-payroll-eoy';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
-import { BONUSLISTEditAction } from '@/store/actions/payroll-eoy';
+import { ANNOUNCEMENTEditAction } from '@/store/actions/payroll-eoy';
+import DateAssignedANNOUNCEMENTEdit from './fields/date-fields-right';
 
-interface EditBONUSLISTModalInterface {
-    singleBONUSLISTDetailsData: BONUSLISTViewInterface;
-    editBONUSLISTOpenModal: boolean; 
-    setEditBONUSLISTOpenModal: Dispatch<SetStateAction<boolean>>;
-    setSingleBONUSLISTDetailsData: Dispatch<SetStateAction<BONUSLISTViewInterface>>;
+interface EditANNOUNCEMENTModalInterface {
+    singleANNOUNCEMENTDetailsData: ANNOUNCEMENTViewInterface;
+    editANNOUNCEMENTOpenModal: boolean; 
+    setEditANNOUNCEMENTOpenModal: Dispatch<SetStateAction<boolean>>;
+    setSingleANNOUNCEMENTDetailsData: Dispatch<SetStateAction<ANNOUNCEMENTViewInterface>>;
 }
 
-export default function EditBONUSLISTModal(props: EditBONUSLISTModalInterface) {
+export default function EditANNOUNCEMENTModal(props: EditANNOUNCEMENTModalInterface) {
   const dispatch = useDispatch();
-  const BONUSLISTEditState = useSelector((state: RootState)=> state.payrollEOY.BONUSLISTEdit)
+  const ANNOUNCEMENTEditState = useSelector((state: RootState)=> state.payrollEOY.ANNOUNCEMENTEdit)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
-  const {editBONUSLISTOpenModal, setEditBONUSLISTOpenModal, singleBONUSLISTDetailsData, setSingleBONUSLISTDetailsData} = props;
+  const {editANNOUNCEMENTOpenModal, setEditANNOUNCEMENTOpenModal, singleANNOUNCEMENTDetailsData, setSingleANNOUNCEMENTDetailsData} = props;
 
 
-  const editBONUSLIST = () => { 
-    dispatch(BONUSLISTEditAction({
-      ...singleBONUSLISTDetailsData,
-      current_user: curr_user || NaN
+  const editANNOUNCEMENT = () => { 
+    dispatch(ANNOUNCEMENTEditAction({
+      ...singleANNOUNCEMENTDetailsData,
+      emp_no: curr_user || NaN
     }))
   }
 
   useEffect(()=>{
-    if(BONUSLISTEditState.status){      
-      if(BONUSLISTEditState.status === 'succeeded'){
-        window.alert(`${BONUSLISTEditState.status.charAt(0).toUpperCase()}${BONUSLISTEditState.status.slice(1)}`)
+    if(ANNOUNCEMENTEditState.status){      
+      if(ANNOUNCEMENTEditState.status === 'succeeded'){
+        window.alert(`${ANNOUNCEMENTEditState.status.charAt(0).toUpperCase()}${ANNOUNCEMENTEditState.status.slice(1)}`)
         setTimeout(()=>{
           window.location.reload();
         }, 800)
-      }else if(BONUSLISTEditState.status === 'failed'){
-        window.alert(`${BONUSLISTEditState.error}`)
+      }else if(ANNOUNCEMENTEditState.status === 'failed'){
+        window.alert(`${ANNOUNCEMENTEditState.error}`)
       }
     }
-  }, [BONUSLISTEditState.status])
+  }, [ANNOUNCEMENTEditState.status])
   return (
     <Fragment>
-      <Transition in={editBONUSLISTOpenModal} timeout={400}>
+      <Transition in={editANNOUNCEMENTOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setEditBONUSLISTOpenModal(false);
+          setEditANNOUNCEMENTOpenModal(false);
         }}
         slotProps={{
             backdrop: {
@@ -71,7 +72,7 @@ export default function EditBONUSLISTModal(props: EditBONUSLISTModalInterface) {
             aria-labelledby="dialog-vertical-scroll-title" 
             layout={'center'}
             sx={{
-              ...editBONUSLISTArea,
+              ...editANNOUNCEMENTArea,
                 opacity: 0,
                 transition: `opacity 300ms`,
                 ...{
@@ -82,7 +83,7 @@ export default function EditBONUSLISTModal(props: EditBONUSLISTModalInterface) {
             }}
             size='sm'
         > 
-          <Typography variant='h6' className='border-b-2 border-blue-700'>Editing BONUSLIST Details</Typography>
+          <Typography variant='h6' className='border-b-2 border-blue-700'>Editing ANNOUNCEMENT Details</Typography>
           <div className='flex flex-col items-center justify-around h-full'>
             <div className='flex flex-col w-full gap-10'>
               <div className='flex justify-center item-center'>
@@ -90,42 +91,22 @@ export default function EditBONUSLISTModal(props: EditBONUSLISTModalInterface) {
               </div>
               <div className='flex flex-col gap-5'>
                     <div className='flex flex-col gap-6'>
-                      {/* <EmployeeAutoCompleteRight editBONUSLIST={singleBONUSLISTDetailsData} setEditBONUSLIST={setSingleBONUSLISTDetailsData}/> */}
+                      <DateAssignedANNOUNCEMENTEdit editANNOUNCEMENT={singleANNOUNCEMENTDetailsData} setEditANNOUNCEMENT={setSingleANNOUNCEMENTDetailsData}/>
                         <TextField
                             required 
                             sx={{width: '100%'}} 
-                            label='Bonus Type Name'
-                            aria-required  
-                            variant='outlined' 
-                            type="text"
-                            value={singleBONUSLISTDetailsData?.name}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = event.target.value;
-                                setSingleBONUSLISTDetailsData((prevState)=> {
-                                    return (
-                                        {
-                                            ...prevState,
-                                            name: value
-                                        }
-                                    )
-                                })
-                            }}
-                        />
-                        <TextField
-                            required 
-                            sx={{width: '100%'}} 
-                            label='Bonus Type Amount (in PH Peso):'
+                            label='Order By No.'
                             aria-required  
                             variant='outlined' 
                             type="number"
-                            value={singleBONUSLISTDetailsData?.amount}
+                            value={singleANNOUNCEMENTDetailsData?.order_by_no}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value = parseInt(event.target.value)
-                                setSingleBONUSLISTDetailsData((prevState)=> {
+                                setSingleANNOUNCEMENTDetailsData((prevState)=> {
                                     return (
                                         {
                                             ...prevState,
-                                            amount: value
+                                            order_by_no: value
                                         }
                                     )
                                 })
@@ -134,20 +115,20 @@ export default function EditBONUSLISTModal(props: EditBONUSLISTModalInterface) {
                         <TextField
                             required 
                             sx={{width: '100%'}} 
-                            label='Bonus Type Description:'
+                            label='Announcement Message:'
                             aria-required  
                             variant='outlined' 
                             multiline
                             rows={4}
                             type="text"
-                            value={singleBONUSLISTDetailsData?.description}
+                            value={singleANNOUNCEMENTDetailsData?.message}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value = event.target.value;
-                                setSingleBONUSLISTDetailsData((prevState)=> {
+                                setSingleANNOUNCEMENTDetailsData((prevState)=> {
                                     return (
                                         {
                                             ...prevState,
-                                            description: value
+                                            message: value
                                         }
                                     )
                                 })
@@ -156,8 +137,8 @@ export default function EditBONUSLISTModal(props: EditBONUSLISTModalInterface) {
                       </div>
               </div>
               <div className='flex justify-around'>
-                <Button variant={'contained'} onClick={editBONUSLIST}>Submit</Button>
-                <Button variant={'outlined'} onClick={()=>{setEditBONUSLISTOpenModal(false)}}>Cancel</Button>
+                <Button variant={'contained'} onClick={editANNOUNCEMENT}>Submit</Button>
+                <Button variant={'outlined'} onClick={()=>{setEditANNOUNCEMENTOpenModal(false)}}>Cancel</Button>
               </div>
             </div>
           </div>
@@ -171,7 +152,7 @@ export default function EditBONUSLISTModal(props: EditBONUSLISTModalInterface) {
 
 
 // Styles
-const editBONUSLISTArea = {
+const editANNOUNCEMENTArea = {
   height: '145.5mm',
   width: '180mm',
   margin: '0 auto',

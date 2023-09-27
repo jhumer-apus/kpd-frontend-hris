@@ -3,8 +3,8 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { Typography } from '@mui/material';
-import { AAANNOUNCEMENTPageDescriptions, AAANNOUNCEMENTPageColumns } from '@/data/pages-data/payroll-eoy-data/aa-asset-account-data';
-import ViewANNOUNCEMENTSingleModal from './local-components/main-modals/eoy-bonus-list-single-modal';
+import { AAANNOUNCEMENTPageDescriptions, AAANNOUNCEMENTPageColumns } from '@/data/pages-data/payroll-eoy-data/aa-announcement-data';
+import ViewANNOUNCEMENTSingleModal from './local-components/main-modals/aa-announcement-configuration-single-modal';
 import { ANNOUNCEMENTViewInterface } from '@/types/types-payroll-eoy';
 import { ANNOUNCEMENTViewAction } from '@/store/actions/payroll-eoy';
 
@@ -36,7 +36,7 @@ export default function AAANNOUNCEMENTPageHistory() {
     <Fragment>
       <div className="my-2 flex flex-wrap justify-between items-start gap-6">
         <div>
-          {/* <ViewANNOUNCEMENTSingleModal setSingleANNOUNCEMENTDetailsData={setSingleANNOUNCEMENTDetailsData} singleANNOUNCEMENTDetailsData={singleANNOUNCEMENTDetailsData} singleANNOUNCEMENTOpenModal={singleANNOUNCEMENTOpenModal} setSingleANNOUNCEMENTOpenModal={setSingleANNOUNCEMENTOpenModal}/> */}
+          <ViewANNOUNCEMENTSingleModal setSingleANNOUNCEMENTDetailsData={setSingleANNOUNCEMENTDetailsData} singleANNOUNCEMENTDetailsData={singleANNOUNCEMENTDetailsData} singleANNOUNCEMENTOpenModal={singleANNOUNCEMENTOpenModal} setSingleANNOUNCEMENTOpenModal={setSingleANNOUNCEMENTOpenModal}/>
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
           <p>{AAANNOUNCEMENTPageDescriptions}</p>
         </Typography>
@@ -60,7 +60,7 @@ export default function AAANNOUNCEMENTPageHistory() {
             setSingleANNOUNCEMENTOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for ANNOUNCEMENT Epic hasn\'t been set up, please contact your frontend developer': 'There is no ANNOUNCEMENT to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Announcement found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for ANNOUNCEMENT Epic hasn\'t been set up, please contact your frontend developer': 'There is no ANNOUNCEMENT to generate.'}` }}
         />
       </div>
     </Fragment>

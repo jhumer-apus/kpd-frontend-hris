@@ -68,7 +68,7 @@ export default function ManageUSERPageHistory() {
             setSingleUSEROpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for USER Epic hasn\'t been set up, please contact your frontend developer': 'There is no USER to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Users found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for USER Epic hasn\'t been set up, please contact your frontend developer': 'There is no USER to generate.'}` }}
         />
       </div>
     </Fragment>

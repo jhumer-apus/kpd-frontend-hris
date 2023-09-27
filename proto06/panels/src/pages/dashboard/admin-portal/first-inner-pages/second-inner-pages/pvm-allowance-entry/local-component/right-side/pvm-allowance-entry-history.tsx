@@ -59,7 +59,7 @@ export default function PVMALLOWANCEENTRYPageHistory() {
             setSingleALLOWANCEENTRYOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for ALLOWANCEENTRY Epic hasn\'t been set up, please contact your frontend developer': 'There is no ALLOWANCEENTRY to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Allowance Entry found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for ALLOWANCEENTRY Epic hasn\'t been set up, please contact your frontend developer': 'There is no ALLOWANCEENTRY to generate.'}` }}
         />
       </div>
     </Fragment>

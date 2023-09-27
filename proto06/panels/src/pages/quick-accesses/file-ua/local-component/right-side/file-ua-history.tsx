@@ -67,7 +67,7 @@ export default function QuickAccessUAPageHistory() {
             setSingleUAOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for UA Epic hasn\'t been set up, please contact your frontend developer': 'There is no UA to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No UA found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for UA Epic hasn\'t been set up, please contact your frontend developer': 'There is no UA to generate.'}` }}
         />
       </div>
     </Fragment>

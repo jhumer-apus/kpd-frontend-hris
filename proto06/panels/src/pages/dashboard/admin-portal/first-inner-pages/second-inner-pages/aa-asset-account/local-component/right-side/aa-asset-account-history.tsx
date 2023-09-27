@@ -58,7 +58,7 @@ export default function AAASSETACCOUNTPageHistory() {
             setSingleASSETACCOUNTOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for ASSETACCOUNT Epic hasn\'t been set up, please contact your frontend developer': 'There is no ASSETACCOUNT to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Asset Account found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Asset Account Epic hasn\'t been set up, please contact your frontend developer': 'There is no ASSETACCOUNT to generate.'}` }}
         />
       </div>
     </Fragment>

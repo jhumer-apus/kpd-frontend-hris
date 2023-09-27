@@ -59,7 +59,7 @@ export default function EOYBONUSENTRYPageHistory() {
             setSingleBONUSENTRYOpenModal(true);
           }}
           disableRowSelectionOnClick
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for BONUSENTRY Epic hasn\'t been set up, please contact your frontend developer': 'There is no BONUSENTRY to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Bonus Entry found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Bonus Entry Epic hasn\'t been set up, please contact your frontend developer': 'There is no Bonus Entry to generate.'}` }}
         />
       </div>
     </Fragment>

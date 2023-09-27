@@ -2,7 +2,7 @@ import { GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 
 
 export const AAANNOUNCEMENTPageDescriptions = [
-  "On this table, you will find the list of HRIS Asset List/Type of your company and their details each.",
+  "On this table, you will find the list of Announcements of your company and their details each.",
   // "See merged logs of all employees here, showing the total hours and details of each logs. Sortable and filterable on the table headers.",
   // "See the total hours of all employees per cutoff here. Sortable and filterable by the table headers.",
   // "Nondescript"
@@ -12,22 +12,30 @@ export const AAANNOUNCEMENTPageDescriptions = [
 export const AAANNOUNCEMENTPageColumns: GridColDef[] = 
 [
   {
-    field: 'id',
-    headerName: 'Type ID',
+    field: 'order_by_no',
+    headerName: 'Order by no:',
     width: 100,
     // valueGetter: (params: GridValueGetterParams) => {
     //   const date = new Date(params.row.expiry);
     //   return params.row.expiry ? date.toLocaleDateString() : 'No Expiry';
     // }
   },
-  { field: 'asset_list_code', headerName: 'Asset List Code:', width: 150 },
-  { field: 'assigned_to', 
-    headerName: 'Employee #:', 
-    width: 130,
-    // valueGetter: (params: GridValueGetterParams) => {
-    //   const date = new Date(params.row.date_added);
-    //   return params.row.date_added ? date.toLocaleDateString() : 'No Date';
-    // }
+  {
+    field: 'date_posted',
+    headerName: 'Date Posted',
+    width: 150,
+    valueGetter: (params: GridValueGetterParams) => {
+      const date = new Date(params.row.date_posted);
+      return params.row.date_posted ? date.toLocaleDateString() : 'No Date';
+    }
+  },
+  { field: 'expiry_date', 
+    headerName: 'Expiry Date', 
+    width: 150,
+    valueGetter: (params: GridValueGetterParams) => {
+      const date = new Date(params.row.expiry_date);
+      return params.row.expiry_date ? date.toLocaleDateString() : 'No Date';
+    }
     // renderCell: (params: GridCellParams) => {
     //   const status = params.row?.credit_remaining as number;
 
@@ -49,7 +57,7 @@ export const AAANNOUNCEMENTPageColumns: GridColDef[] =
     //   );
     // }  
   },
-  { field: 'remarks', headerName: 'remarks',  width: 200 },
+  { field: 'message', headerName: 'Message',  width: 200 },
 ];
   
 export default {

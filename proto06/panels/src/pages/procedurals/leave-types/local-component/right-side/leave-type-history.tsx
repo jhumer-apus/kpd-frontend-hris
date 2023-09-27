@@ -57,7 +57,7 @@ export default function ProceduralLEAVETYPEPageHistory() {
             setSingleLEAVETYPEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for LEAVETYPE Epic hasn\'t been set up, please contact your frontend developer': 'There is no LEAVETYPE to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Leave Type found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Leave Type Epic hasn\'t been set up, please contact your frontend developer': 'There is no Leave Type to generate.'}` }}
         />
       </div>
     </Fragment>

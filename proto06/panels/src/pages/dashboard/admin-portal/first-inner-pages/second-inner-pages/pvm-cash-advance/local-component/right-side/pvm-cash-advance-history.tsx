@@ -61,7 +61,7 @@ export default function PVMCASHADVANCEPageHistory() {
             setSingleCASHADVANCEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for CASHADVANCE Epic hasn\'t been set up, please contact your frontend developer': 'There is no CASHADVANCE to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Cash Advance found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Cash Advance Epic hasn\'t been set up, please contact your frontend developer': 'There is no Cash Advance to generate.'}` }}
         />
       </div>
     </Fragment>

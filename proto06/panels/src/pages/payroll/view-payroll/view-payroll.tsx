@@ -68,7 +68,7 @@ export default function ViewPayroll() {
             setSinglePayslipOpen(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${payrollStatus === 'loading' ? `${payrollStatus?.toUpperCase()}...` : payrollStatus === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (payrollStatus === null || payrollStatus === undefined) ? 'There is no payslip to generate. Create a cutoff summary first then process payroll': 'There is no payslip to generate. Create a cutoff summary first then process payroll'}` }}
+          localeText={{ noRowsLabel: `${payrollStatus === 'loading' ? `${payrollStatus?.toUpperCase()}...` : payrollStatus === 'failed' ?  'No payroll found. Contact your administrator/support.' : (payrollStatus === null || payrollStatus === undefined) ? 'There is no payslip to generate. Create a cutoff summary first then process payroll': 'There is no payslip to generate. Create a cutoff summary first then process payroll'}` }}
         />
         <GeneratePDFButton data={payrollData} columns={dynamicPayrollColumns[0]} />
       </div>

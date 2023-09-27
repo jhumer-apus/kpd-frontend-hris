@@ -60,7 +60,7 @@ export default function ManageBRANCHPageHistory() {
             setSingleBRANCHOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for BRANCH Epic hasn\'t been set up, please contact your frontend developer': 'There is no BRANCH to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Branch found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Branch Epic hasn\'t been set up, please contact your frontend developer': 'There is no BRANCH to generate.'}` }}
         />
       </div>
     </Fragment>

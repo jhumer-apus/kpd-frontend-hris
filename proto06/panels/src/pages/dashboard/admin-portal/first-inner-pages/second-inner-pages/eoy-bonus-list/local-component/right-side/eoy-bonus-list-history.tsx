@@ -57,7 +57,7 @@ export default function EOYBONUSLISTPageHistory() {
             setSingleBONUSLISTOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for BONUSLIST Epic hasn\'t been set up, please contact your frontend developer': 'There is no BONUSLIST to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Bonus List found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Bonus List Epic hasn\'t been set up, please contact your frontend developer': 'There is no Bonus List to generate.'}` }}
         />
       </div>
     </Fragment>

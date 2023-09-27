@@ -58,7 +58,7 @@ export default function ManageDIVISIONPageHistory() {
             setSingleDIVISIONOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for DIVISION Epic hasn\'t been set up, please contact your frontend developer': 'There is no DIVISION to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Division found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for DIVISION Epic hasn\'t been set up, please contact your frontend developer': 'There is no Division to generate.'}` }}
         />
       </div>
     </Fragment>
