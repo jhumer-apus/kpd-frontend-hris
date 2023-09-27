@@ -17,7 +17,7 @@ function PayslipUI(props: PaySlipUI) {
                     <div>
                         <div>
                             <span className='text-xl block border-t text-center border-l border-black font-bold bg-gray-300'>
-                                CAVDEAL CAVITE CORP
+                                COMPANY NAME
                             </span>
                             <div className='flex border-black border-t border-l border-b'>
                                 <div className='w-28'>
@@ -175,7 +175,8 @@ function PayslipUI(props: PaySlipUI) {
                     <div>
                         <div className='w-48 text-center font-bold overflow-hidden break-words'>
                             {/* SILICON VALLEY COMPUTER GROUPS PHILS INC */}
-                            CAVDEAL-CAVITE CORP.
+                            {/* CAVDEAL-CAVITE CORP. */}
+                            COMPANY NAME
                         </div>
                         <div className='flex'>
                             <div className='w-28'>
