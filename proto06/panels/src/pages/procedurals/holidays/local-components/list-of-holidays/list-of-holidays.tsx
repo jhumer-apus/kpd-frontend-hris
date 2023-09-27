@@ -75,7 +75,7 @@ function ListOfHolidaysComponent(props: HighlightedCalendarInterface) {
                 </Card>
             </li>
         ))}
-        {ListOfHolidaysState?.data && "No Holidays to Generate"}
+        {/* {ListOfHolidaysState?.data && "No Holidays to Generate"} */}
         </ul>
         </div>
     );
