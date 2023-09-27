@@ -48,6 +48,7 @@ export function Dashboard() {
           color="white"
           className="fixed bottom-8 right-8 z-40 rounded-full shadow-blue-gray-900/10"
           ripple={false}
+          style={{display: 'none'}}
           onClick={() => setOpenConfigurator(dispatch, true)}
         >
           <Cog6ToothIcon className="h-5 w-5" />
