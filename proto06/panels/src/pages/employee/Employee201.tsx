@@ -203,6 +203,7 @@ export default function DataTable() {
             dispatchSpecificEmployeeInfo(e.row?.emp_no)
           }}
           style={{ cursor: 'pointer'}}
+          localeText={{ noRowsLabel: 'Loading...' }}
         />
         <Modal
           open={open}
