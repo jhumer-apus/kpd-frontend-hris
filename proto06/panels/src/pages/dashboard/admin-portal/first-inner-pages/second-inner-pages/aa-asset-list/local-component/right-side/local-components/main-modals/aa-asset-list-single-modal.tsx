@@ -2,29 +2,29 @@ import { Dispatch, SetStateAction, Fragment, useState } from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
-import { BONUSLISTViewInterface } from '@/types/types-payroll-eoy';
-import BONUSLISTModalComponent from './inner-modals/bonus-list-modal-component';
+import { ASSETLISTViewInterface } from '@/types/types-payroll-eoy';
+import ASSETLISTModalComponent from './inner-modals/asset-list-modal-component';
 
 
-interface SingleBONUSLISTInterface {
-    singleBONUSLISTOpenModal: boolean; 
-    setSingleBONUSLISTOpenModal: Dispatch<SetStateAction<boolean>>;
-    singleBONUSLISTDetailsData: BONUSLISTViewInterface;
-    setSingleBONUSLISTDetailsData: Dispatch<SetStateAction<BONUSLISTViewInterface>>;
+interface SingleASSETLISTInterface {
+    singleASSETLISTOpenModal: boolean; 
+    setSingleASSETLISTOpenModal: Dispatch<SetStateAction<boolean>>;
+    singleASSETLISTDetailsData: ASSETLISTViewInterface;
+    setSingleASSETLISTDetailsData: Dispatch<SetStateAction<ASSETLISTViewInterface>>;
 }
 
-export default function ViewBONUSLISTSingleModal(props: SingleBONUSLISTInterface) {
-    const {singleBONUSLISTOpenModal, setSingleBONUSLISTOpenModal, setSingleBONUSLISTDetailsData, singleBONUSLISTDetailsData} = props;
+export default function ViewASSETLISTSingleModal(props: SingleASSETLISTInterface) {
+    const {singleASSETLISTOpenModal, setSingleASSETLISTOpenModal, setSingleASSETLISTDetailsData, singleASSETLISTDetailsData} = props;
   const [scroll, setScroll] = useState<boolean>(true);
   return (
     <Fragment>
-      <Transition in={singleBONUSLISTOpenModal} timeout={400}>
+      <Transition in={singleASSETLISTOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
         keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setSingleBONUSLISTOpenModal(false);
+          setSingleASSETLISTOpenModal(false);
         }}
         slotProps={{
             backdrop: {
@@ -47,7 +47,7 @@ export default function ViewBONUSLISTSingleModal(props: SingleBONUSLISTInterface
             aria-labelledby="dialog-vertical-scroll-title" 
             layout={'center'}
             sx={{
-              ...BONUSLISTModalArea,
+              ...ASSETLISTModalArea,
                 opacity: 0,
                 transition: `opacity 300ms`,
                 ...{
@@ -57,7 +57,7 @@ export default function ViewBONUSLISTSingleModal(props: SingleBONUSLISTInterface
                 overflow: 'auto',
             }}
         >
-          <BONUSLISTModalComponent setSingleBONUSLISTDetailsData={setSingleBONUSLISTDetailsData} singleBONUSLISTDetailsData={singleBONUSLISTDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <ASSETLISTModalComponent setSingleASSETLISTDetailsData={setSingleASSETLISTDetailsData} singleASSETLISTDetailsData={singleASSETLISTDetailsData} scroll={scroll} setScroll={setScroll}/>
         </ModalDialog>
       </Modal>
         )}
@@ -68,7 +68,7 @@ export default function ViewBONUSLISTSingleModal(props: SingleBONUSLISTInterface
 
 
 // Styles
-const BONUSLISTModalArea = {
+const ASSETLISTModalArea = {
   height: '120.5mm',
   width: '210mm',
   margin: '0 auto',

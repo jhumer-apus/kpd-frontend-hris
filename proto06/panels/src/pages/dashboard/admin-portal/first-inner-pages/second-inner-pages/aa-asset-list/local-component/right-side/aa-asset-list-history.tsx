@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { Typography } from '@mui/material';
 import { AAASSETLISTPageDescriptions, AAASSETLISTPageColumns } from '@/data/pages-data/payroll-eoy-data/aa-asset-list-data';
-import ViewASSETLISTSingleModal from './local-components/main-modals/eoy-bonus-list-single-modal';
+import ViewASSETLISTSingleModal from './local-components/main-modals/aa-asset-list-single-modal';
 import { ASSETLISTViewInterface } from '@/types/types-payroll-eoy';
 import { ASSETLISTViewAction } from '@/store/actions/payroll-eoy';
 
@@ -33,7 +33,7 @@ export default function AAASSETLISTPageHistory() {
     <Fragment>
       <div className="my-2 flex flex-wrap justify-between items-start gap-6">
         <div>
-          {/* <ViewASSETLISTSingleModal setSingleASSETLISTDetailsData={setSingleASSETLISTDetailsData} singleASSETLISTDetailsData={singleASSETLISTDetailsData} singleASSETLISTOpenModal={singleASSETLISTOpenModal} setSingleASSETLISTOpenModal={setSingleASSETLISTOpenModal}/> */}
+          <ViewASSETLISTSingleModal setSingleASSETLISTDetailsData={setSingleASSETLISTDetailsData} singleASSETLISTDetailsData={singleASSETLISTDetailsData} singleASSETLISTOpenModal={singleASSETLISTOpenModal} setSingleASSETLISTOpenModal={setSingleASSETLISTOpenModal}/>
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
           <p>{AAASSETLISTPageDescriptions}</p>
         </Typography>
