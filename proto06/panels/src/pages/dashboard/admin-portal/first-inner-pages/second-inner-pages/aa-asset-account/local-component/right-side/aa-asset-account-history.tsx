@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { Typography } from '@mui/material';
 import { AAASSETACCOUNTPageDescriptions, AAASSETACCOUNTPageColumns } from '@/data/pages-data/payroll-eoy-data/aa-asset-account-data';
-import ViewASSETACCOUNTSingleModal from './local-components/main-modals/eoy-bonus-list-single-modal';
+import ViewASSETACCOUNTSingleModal from './local-components/main-modals/eoy-asset-account-single-modal';
 import { ASSETACCOUNTViewInterface } from '@/types/types-payroll-eoy';
 import { ASSETACCOUNTViewAction } from '@/store/actions/payroll-eoy';
 
@@ -34,7 +34,7 @@ export default function AAASSETACCOUNTPageHistory() {
     <Fragment>
       <div className="my-2 flex flex-wrap justify-between items-start gap-6">
         <div>
-          {/* <ViewASSETACCOUNTSingleModal setSingleASSETACCOUNTDetailsData={setSingleASSETACCOUNTDetailsData} singleASSETACCOUNTDetailsData={singleASSETACCOUNTDetailsData} singleASSETACCOUNTOpenModal={singleASSETACCOUNTOpenModal} setSingleASSETACCOUNTOpenModal={setSingleASSETACCOUNTOpenModal}/> */}
+          <ViewASSETACCOUNTSingleModal setSingleASSETACCOUNTDetailsData={setSingleASSETACCOUNTDetailsData} singleASSETACCOUNTDetailsData={singleASSETACCOUNTDetailsData} singleASSETACCOUNTOpenModal={singleASSETACCOUNTOpenModal} setSingleASSETACCOUNTOpenModal={setSingleASSETACCOUNTOpenModal}/>
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
           <p>{AAASSETACCOUNTPageDescriptions}</p>
         </Typography>
