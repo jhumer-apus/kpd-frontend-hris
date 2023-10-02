@@ -94,6 +94,11 @@ interface ANNOUNCEMENTEditState extends CommonPayrollEOYState {
   data: ANNOUNCEMENTViewState | null;
 }
 
+// ACTIVEANNOUNCEMENT SECTION
+interface ACTIVEANNOUNCEMENTViewState extends CommonPayrollEOYState{
+  data: _Interface.ACTIVEANNOUNCEMENTViewInterface[] | [];
+}
+
 // ASSETLIST SECTION // ASSETLIST SECTION // ASSETLIST SECTION // ASSETLIST SECTION // ASSETLIST SECTION 
 interface ASSETLISTViewState extends CommonPayrollEOYState{
   data: _Interface.ASSETLISTViewInterface[] | [];
@@ -135,6 +140,7 @@ interface OverallPayrollEOYState {
   ANNOUNCEMENTViewState | 
   ANNOUNCEMENTCreateState | 
   ANNOUNCEMENTEditState |
+  ACTIVEANNOUNCEMENTViewState |
   ASSETLISTViewState | 
   ASSETLISTCreateState | 
   ASSETLISTEditState |
@@ -166,6 +172,8 @@ interface OverallPayrollEOYState {
   ANNOUNCEMENTViewSpecific: ANNOUNCEMENTViewState,
   ANNOUNCEMENTCreate: ANNOUNCEMENTCreateState,
   ANNOUNCEMENTEdit: ANNOUNCEMENTEditState,
+  //ACTIVEANNOUNCEMENT SECTION
+  ACTIVEANNOUNCEMENTView: ACTIVEANNOUNCEMENTViewState,
   //ASSETLIST SECTION
   ASSETLISTView: ASSETLISTViewState,
   ASSETLISTViewSpecific: ASSETLISTViewState,
@@ -308,6 +316,13 @@ const initialState: OverallPayrollEOYState = {
     status: '',
     progress: 0,
     data: null,
+    error: '',
+  },
+  //ACTIVEANNOUNCEMENT SECTION
+  ACTIVEANNOUNCEMENTView: {
+    status: '',
+    progress: 0,
+    data: [],
     error: '',
   },
   //ASSETLIST SECTION
@@ -481,6 +496,11 @@ const payrollEOYSlice = createSlice({
       .addCase(_Actions.ANNOUNCEMENTEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ANNOUNCEMENTEdit"))
       .addCase(_Actions.ANNOUNCEMENTEditActionProgress, (state, action) => setProgressState(state, action.payload, "ANNOUNCEMENTEdit"))
       .addCase(_Actions.ANNOUNCEMENTEditActionFailure, (state, action) => setFailureState(state, action.payload, "ANNOUNCEMENTEdit"))
+      //ACTIVEANNOUNCEMENT SECTION
+      .addCase(_Actions.ACTIVEANNOUNCEMENTViewAction, setLoadingState("ACTIVEANNOUNCEMENTView"))
+      .addCase(_Actions.ACTIVEANNOUNCEMENTViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ACTIVEANNOUNCEMENTView"))
+      .addCase(_Actions.ACTIVEANNOUNCEMENTViewActionProgress, (state, action) => setProgressState(state, action.payload, "ACTIVEANNOUNCEMENTView"))
+      .addCase(_Actions.ACTIVEANNOUNCEMENTViewActionFailure, (state, action) => setFailureState(state, action.payload, "ACTIVEANNOUNCEMENTView"))
       //ASSETLIST SECTION
       .addCase(_Actions.ASSETLISTViewAction, setLoadingState("ASSETLISTView"))
       .addCase(_Actions.ASSETLISTViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ASSETLISTView"))

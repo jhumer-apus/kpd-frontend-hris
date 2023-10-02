@@ -346,149 +346,186 @@ const ASSETLISTEditApiCall = async (payload: _Interface.ASSETLISTEditInterface) 
 
 // ANNOUNCEMENT API SECTION // ANNOUNCEMENT API SECTION // ANNOUNCEMENT API SECTION // ANNOUNCEMENT API SECTION // ANNOUNCEMENT API SECTION
 const ANNOUNCEMENTEditApiCall = async (payload: _Interface.ANNOUNCEMENTEditInterface) => {
-    const response = await axios.put(`${APILink}announcement/${payload.id}/`,
-    payload,
-    {
-        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
-          if(progressEvent.total){
-            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            store.dispatch(_Action.ANNOUNCEMENTEditActionProgress(progress));
-          }
+  const response = await axios.put(`${APILink}announcement/${payload.id}/`,
+  payload,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(_Action.ANNOUNCEMENTEditActionProgress(progress));
         }
       }
-    );
-    return response.data;
-  };
+    }
+  );
+  return response.data;
+};
   
-  const ANNOUNCEMENTCreateApiCall = async (payload: _Interface.ANNOUNCEMENTCreateInterface) => {
-    const response = await axios.post(`${APILink}announcement/`,
-    payload,
-    {
-        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
-          if(progressEvent.total){
-            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            store.dispatch(_Action.ANNOUNCEMENTCreateActionProgress(progress));
-          }
+const ANNOUNCEMENTCreateApiCall = async (payload: _Interface.ANNOUNCEMENTCreateInterface) => {
+  const response = await axios.post(`${APILink}announcement/`,
+  payload,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(_Action.ANNOUNCEMENTCreateActionProgress(progress));
         }
       }
-    );
-    return response.data;
-  };
+    }
+  );
+  return response.data;
+};
+
   
-  
-  const ANNOUNCEMENTViewSpecificApiCall = async (payload: {announcement_id: number}) => {
-    const response = await axios.get(`${APILink}announcement/${payload.announcement_id}/`,
-    {
-        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
-          if(progressEvent.total){
-            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            store.dispatch(_Action.ANNOUNCEMENTViewSpecificActionProgress(progress));
-          }
+const ANNOUNCEMENTViewSpecificApiCall = async (payload: {announcement_id: number}) => {
+  const response = await axios.get(`${APILink}announcement/${payload.announcement_id}/`,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(_Action.ANNOUNCEMENTViewSpecificActionProgress(progress));
         }
       }
-    );
-    return response.data;
-  };
-  
-  
-  const ANNOUNCEMENTViewApiCall = async () => {
-    const response = await axios.get(`${APILink}announcement/`,
-    {
-        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
-          if(progressEvent.total){
-            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            store.dispatch(_Action.ANNOUNCEMENTViewActionProgress(progress));
-          }
+    }
+  );
+  return response.data;
+};
+
+
+const ANNOUNCEMENTViewApiCall = async () => {
+  const response = await axios.get(`${APILink}announcement/`,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(_Action.ANNOUNCEMENTViewActionProgress(progress));
         }
       }
-    );
-    return response.data;
-  };
-  
-  export const ANNOUNCEMENTViewEpic: Epic = (action$, state$) =>
-    action$.pipe(
-      ofType(_Action.ANNOUNCEMENTViewAction.type),
-      switchMap(() =>
-        from(
-          ANNOUNCEMENTViewApiCall()
-        ).pipe(
-          map((data) => {
-            return _Action.ANNOUNCEMENTViewActionSuccess(data);
-          }),
-          catchError((error) => {
-            if (error.response && error.response.data && error.response.data['Error Message']) {
-              return of(_Action.ANNOUNCEMENTViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
-            } else {
-              return of(_Action.ANNOUNCEMENTViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
-            }
-          })
-        )
-      )
+    }
   );
-  
-  export const ANNOUNCEMENTViewSpecificEpic: Epic = (action$, state$) =>
-    action$.pipe(
-      ofType(_Action.ANNOUNCEMENTViewSpecificAction.type),
-      switchMap((action: ReturnType<typeof _Action.ANNOUNCEMENTViewSpecificAction>) =>
-        from(
-          ANNOUNCEMENTViewSpecificApiCall(action?.payload)
-        ).pipe(
-          map((data) => {
-            return _Action.ANNOUNCEMENTViewSpecificActionSuccess(data);
-          }),
-          catchError((error) => {
-            if (error.response && error.response.data && error.response.data['Error Message']) {
-              return of(_Action.ANNOUNCEMENTViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
-            } else {
-              return of(_Action.ANNOUNCEMENTViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
-            }
-          })
-        )
+  return response.data;
+};
+
+export const ANNOUNCEMENTViewEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(_Action.ANNOUNCEMENTViewAction.type),
+    switchMap(() =>
+      from(
+        ANNOUNCEMENTViewApiCall()
+      ).pipe(
+        map((data) => {
+          return _Action.ANNOUNCEMENTViewActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(_Action.ANNOUNCEMENTViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(_Action.ANNOUNCEMENTViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+          }
+        })
       )
-  );
-  
-  
-  export const ANNOUNCEMENTCreateEpic: Epic = (action$, state$) =>
-    action$.pipe(
-      ofType(_Action.ANNOUNCEMENTCreateAction.type),
-      switchMap((action: ReturnType<typeof _Action.ANNOUNCEMENTCreateAction>) =>
-        from(
-          ANNOUNCEMENTCreateApiCall(action?.payload)
-        ).pipe(
-          map((data) => {
-            return _Action.ANNOUNCEMENTCreateActionSuccess(data);
-          }),
-          catchError((error) => {
-            if (error.response && error.response.data && error.response.data) {
-              return of(_Action.ANNOUNCEMENTCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
-            } else {
-              return of(_Action.ANNOUNCEMENTCreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
-            }
-          })
-        )
+    )
+);
+
+export const ANNOUNCEMENTViewSpecificEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(_Action.ANNOUNCEMENTViewSpecificAction.type),
+    switchMap((action: ReturnType<typeof _Action.ANNOUNCEMENTViewSpecificAction>) =>
+      from(
+        ANNOUNCEMENTViewSpecificApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return _Action.ANNOUNCEMENTViewSpecificActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(_Action.ANNOUNCEMENTViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(_Action.ANNOUNCEMENTViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+          }
+        })
       )
-  );
-  
-  export const ANNOUNCEMENTEditEpic: Epic = (action$, state$) =>
-    action$.pipe(
-      ofType(_Action.ANNOUNCEMENTEditAction.type),
-      switchMap((action: ReturnType<typeof _Action.ANNOUNCEMENTEditAction>) =>
-        from(
-          ANNOUNCEMENTEditApiCall(action?.payload)
-        ).pipe(
-          map((data) => {
-            return _Action.ANNOUNCEMENTEditActionSuccess(data);
-          }),
-          catchError((error) => {
-            if (error.response && error.response.data && error.response.data['Error Message']) {
-              return of(_Action.ANNOUNCEMENTEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
-            } else {
-              return of(_Action.ANNOUNCEMENTEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
-            }
-          })
-        )
+    )
+);
+
+
+export const ANNOUNCEMENTCreateEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(_Action.ANNOUNCEMENTCreateAction.type),
+    switchMap((action: ReturnType<typeof _Action.ANNOUNCEMENTCreateAction>) =>
+      from(
+        ANNOUNCEMENTCreateApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return _Action.ANNOUNCEMENTCreateActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data) {
+            return of(_Action.ANNOUNCEMENTCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
+          } else {
+            return of(_Action.ANNOUNCEMENTCreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+          }
+        })
       )
+    )
+);
+
+export const ANNOUNCEMENTEditEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(_Action.ANNOUNCEMENTEditAction.type),
+    switchMap((action: ReturnType<typeof _Action.ANNOUNCEMENTEditAction>) =>
+      from(
+        ANNOUNCEMENTEditApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return _Action.ANNOUNCEMENTEditActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(_Action.ANNOUNCEMENTEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(_Action.ANNOUNCEMENTEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+//ACTIVEANNOUNCEMENT API SECTION
+const ACTIVEANNOUNCEMENTViewApiCall = async (payload: {dept: number, rank: number, pin: boolean }) => {
+  const response = await axios.get(`${APILink}act_announcement/?department=${payload?.dept}&rank=${payload.rank}&pin=${payload.pin}`,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(_Action.ACTIVEANNOUNCEMENTViewActionProgress(progress));
+        }
+      }
+    }
   );
+  return response.data;
+};
+
+export const ACTIVEANNOUNCEMENTViewEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(_Action.ACTIVEANNOUNCEMENTViewAction.type),
+    switchMap((action: ReturnType<typeof _Action.ACTIVEANNOUNCEMENTViewAction>) =>
+      from(
+        ACTIVEANNOUNCEMENTViewApiCall(action?.payload)
+      ).pipe(
+        map((data) => {
+          return _Action.ACTIVEANNOUNCEMENTViewActionSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(_Action.ACTIVEANNOUNCEMENTViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+          } else {
+            return of(_Action.ACTIVEANNOUNCEMENTViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
 
 
 // TAXCOLLECTED API SECTION // TAXCOLLECTED API SECTION // TAXCOLLECTED API SECTION // TAXCOLLECTED API SECTION // TAXCOLLECTED API SECTION

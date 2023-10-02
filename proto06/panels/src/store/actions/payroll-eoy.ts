@@ -25,6 +25,7 @@ import {
     ASSETLISTEditInterface,
     ASSETLISTGenericInterface,
     ASSETLISTViewInterface,
+    ACTIVEANNOUNCEMENTViewInterface,
 
 } from '@/types/types-payroll-eoy';
 
@@ -181,6 +182,14 @@ export const ANNOUNCEMENTEditActionSuccess = createAction("ANNOUNCEMENT_EDIT_ACT
 export const ANNOUNCEMENTEditActionProgress = createAction<number>("ANNOUNCEMENT_EDIT_ACTION_PROGRESS");
 export const ANNOUNCEMENTEditActionFailure = createAction<string>("ANNOUNCEMENT_EDIT_ACTION_FAILURE");
 export const ANNOUNCEMENTEditActionFailureCleanup = createAction("ANNOUNCEMENT_EDIT_ACTION_FAILURE_CLEANUP");
+
+
+export const ACTIVEANNOUNCEMENTViewAction = createAction<{dept: number, rank: number, pin: boolean}>("ACTIVEANNOUNCEMENT_VIEW_ACTION");
+export const ACTIVEANNOUNCEMENTViewActionSuccess = createAction("ACTIVEANNOUNCEMENT_VIEW_ACTION_SUCCESS", (SuccessMessage: ACTIVEANNOUNCEMENTViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const ACTIVEANNOUNCEMENTViewActionProgress = createAction<number>("ACTIVEANNOUNCEMENT_VIEW_ACTION_PROGRESS");
+export const ACTIVEANNOUNCEMENTViewActionFailure = createAction<string>("ACTIVEANNOUNCEMENT_VIEW_ACTION_FAILURE");
+export const ACTIVEANNOUNCEMENTViewActionFailureCleanup = createAction("ACTIVEANNOUNCEMENT_VIEW_ACTION_FAILURE_CLEANUP");
 
 
 // ASSETLIST SECTION

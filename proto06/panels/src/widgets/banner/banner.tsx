@@ -1,18 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Carousel } from "react-responsive-carousel";
 import styles from './custom-styles/Carousel.module.scss';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/configureStore";
 // import { RootState } from "@/store/reducers";
 import { UnderDevelopmentMsg } from "@/pages/dashboard/hris-portal/local-components/projects-card";
+import { ACTIVEANNOUNCEMENTViewAction } from "@/store/actions/payroll-eoy";
 
 const CarouselUI = ({ items }: any) => {
+    const dispatch = useDispatch();
     const { employee_detail } = useSelector((state: RootState) => state.auth);
-
+    const state = useSelector((state: RootState) => state.payrollEOY.ACTIVEANNOUNCEMENTView)
+    useEffect(()=> {
+        dispatch(ACTIVEANNOUNCEMENTViewAction({dept: 1, rank: 1, pin: false}))
+    }, [])
+    console.log(state, "wawa?")
     const carouselItems = [
         {
           imageUrl: "/img/team-1.jpeg",
-          caption: "05/12/2023",
+          caption: "May 12, 2023",
           altText: "Image 1",
         },
         {

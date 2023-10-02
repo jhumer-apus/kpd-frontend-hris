@@ -98,6 +98,7 @@ export interface ANNOUNCEMENTViewInterface extends ANNOUNCEMENTGenericInterface{
     readonly is_posted: boolean,
 }
 
+export interface ACTIVEANNOUNCEMENTViewInterface extends ANNOUNCEMENTViewInterface{}
 
 export interface ANNOUNCEMENTCreateInterface extends ANNOUNCEMENTGenericInterface{}
 
