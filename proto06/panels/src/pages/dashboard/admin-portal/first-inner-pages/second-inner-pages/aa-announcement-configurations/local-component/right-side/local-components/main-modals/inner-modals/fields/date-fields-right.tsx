@@ -13,12 +13,11 @@ interface DateFromToANNOUNCEMENTViewInterface{
 
 export default function DateAssignedANNOUNCEMENTEdit(props: DateFromToANNOUNCEMENTViewInterface) {
     const { editANNOUNCEMENT, setEditANNOUNCEMENT } = props;
-
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
             label="Announcement Date Posted"
-            value={editANNOUNCEMENT?.date_posted ?? null}
+            value={dayjs(editANNOUNCEMENT?.date_posted)}
             onChange={(newValue) => {
                 const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
                 return (
@@ -26,7 +25,7 @@ export default function DateAssignedANNOUNCEMENTEdit(props: DateFromToANNOUNCEME
                         return(
                             {
                                 ...prevState,
-                                date_posted: formattedDate
+                                date_posted: null
                             }
                         )
                     })
@@ -35,7 +34,7 @@ export default function DateAssignedANNOUNCEMENTEdit(props: DateFromToANNOUNCEME
             />
             <DateTimePicker
             label="Announcement Expiry Date"
-            value={editANNOUNCEMENT?.expiry_date ?? null}
+            value={dayjs(editANNOUNCEMENT?.expiry_date) ?? null}
             onChange={(newValue) => {
                 const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
                 return (
