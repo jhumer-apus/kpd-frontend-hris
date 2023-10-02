@@ -99,3 +99,19 @@
             }
         }
 }
+
+@media screen and (max-width: 1065px) {
+
+        .wholeCarouselWrap{
+            .leftSide{
+                width: 100%;
+                z-index: 30;
+
+                .newsWrap{
+                    background: rgba(0,0,0,0.7);
+                    border-radius: 10px;
+                }
+            }
+        }
+        
+}
