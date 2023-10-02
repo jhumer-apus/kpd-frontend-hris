@@ -17,7 +17,7 @@ export default function DateAssignedANNOUNCEMENTCreate(props: DateFromToANNOUNCE
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
-            label="Announcement Date Posted"
+            label="Announcement Post Date"
             value={createANNOUNCEMENT?.date_posted ?? null}
             onChange={(newValue) => {
                 const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');

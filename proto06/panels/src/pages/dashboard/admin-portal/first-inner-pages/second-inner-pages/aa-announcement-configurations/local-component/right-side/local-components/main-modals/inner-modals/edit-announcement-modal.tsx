@@ -153,7 +153,7 @@ export default function EditANNOUNCEMENTModal(props: EditANNOUNCEMENTModalInterf
 
 // Styles
 const editANNOUNCEMENTArea = {
-  height: '145.5mm',
+  height: '165.5mm',
   width: '180mm',
   margin: '0 auto',
   background: 'white',
