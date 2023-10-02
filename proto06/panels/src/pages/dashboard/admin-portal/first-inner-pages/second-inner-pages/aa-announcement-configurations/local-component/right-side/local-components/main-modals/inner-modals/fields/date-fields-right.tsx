@@ -25,7 +25,7 @@ export default function DateAssignedANNOUNCEMENTEdit(props: DateFromToANNOUNCEME
                         return(
                             {
                                 ...prevState,
-                                date_posted: null
+                                date_posted: formattedDate
                             }
                         )
                     })
