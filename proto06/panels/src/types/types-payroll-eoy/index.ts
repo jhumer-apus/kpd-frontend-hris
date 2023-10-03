@@ -88,6 +88,10 @@ export interface ANNOUNCEMENTGenericInterface {
     expiry_date: string | null,
     order_by_no: number,
     message:string,
+    for_departments_code: number[],
+    for_ranks_code: number[],
+    emp_image: string,
+    emp_name: string,
     emp_no?: number, //current_user
 }
 
