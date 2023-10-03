@@ -94,7 +94,7 @@ export const adminPortalData = [
     footer: {
       color: "text-green-500",
       value: "<",
-      label: "Unaccounted Attendances Approvers, etc.",
+      label: "Announcements, and Assets Mgt., etc.",
     },
     // custom: "linear-gradient(315deg, #d4418e 0%, #0652c5 74%)",
     // custom: "linear-gradient(315deg, #ffcfdf 0%, #b0f3f1 74%)",
