@@ -527,6 +527,78 @@ export const ACTIVEANNOUNCEMENTViewEpic: Epic = (action$, state$) =>
 );
 
 
+const ANNRANKViewApiCall = async () => {
+  const response = await axios.get(`${APILink}ann_rank/`,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(_Action.ANNRANKViewActionProgress(progress));
+          }
+      }
+      }
+  );
+  return response.data;
+};
+  
+export const ANNRANKViewEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(_Action.ANNRANKViewAction.type),
+    switchMap(() =>
+    from(
+        ANNRANKViewApiCall()
+    ).pipe(
+        map((data) => {
+        return _Action.ANNRANKViewActionSuccess(data);
+        }),
+        catchError((error) => {
+        if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(_Action.ANNRANKViewActionFailure(error.response.data['Error Message'])); 
+        } else {
+            return of(_Action.ANNRANKViewActionFailure(beautifyJSON(error.response.data))); 
+        }
+        })
+    )
+  )
+);
+
+const ANNDEPARTMENTViewApiCall = async () => {
+  const response = await axios.get(`${APILink}ann_department/`,
+  {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(_Action.ANNDEPARTMENTViewActionProgress(progress));
+          }
+      }
+      }
+  );
+  return response.data;
+};
+  
+export const ANNDEPARTMENTViewEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(_Action.ANNDEPARTMENTViewAction.type),
+    switchMap(() =>
+    from(
+        ANNDEPARTMENTViewApiCall()
+    ).pipe(
+        map((data) => {
+        return _Action.ANNDEPARTMENTViewActionSuccess(data);
+        }),
+        catchError((error) => {
+        if (error.response && error.response.data && error.response.data['Error Message']) {
+            return of(_Action.ANNDEPARTMENTViewActionFailure(error.response.data['Error Message'])); 
+        } else {
+            return of(_Action.ANNDEPARTMENTViewActionFailure(beautifyJSON(error.response.data))); 
+        }
+        })
+    )
+  )
+);
+
+
+
 
 // TAXCOLLECTED API SECTION // TAXCOLLECTED API SECTION // TAXCOLLECTED API SECTION // TAXCOLLECTED API SECTION // TAXCOLLECTED API SECTION
   const TAXCOLLECTEDViewSpecificEmployeeApiCall = async (payload: {emp_no: number}) => {

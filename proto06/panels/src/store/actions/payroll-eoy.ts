@@ -28,6 +28,7 @@ import {
     ACTIVEANNOUNCEMENTViewInterface,
 
 } from '@/types/types-payroll-eoy';
+import { DEPARTMENTViewInterface, RANKViewInterface } from '@/types/types-pages';
 
 
 
@@ -190,6 +191,20 @@ export const ACTIVEANNOUNCEMENTViewActionSuccess = createAction("ACTIVEANNOUNCEM
 export const ACTIVEANNOUNCEMENTViewActionProgress = createAction<number>("ACTIVEANNOUNCEMENT_VIEW_ACTION_PROGRESS");
 export const ACTIVEANNOUNCEMENTViewActionFailure = createAction<string>("ACTIVEANNOUNCEMENT_VIEW_ACTION_FAILURE");
 export const ACTIVEANNOUNCEMENTViewActionFailureCleanup = createAction("ACTIVEANNOUNCEMENT_VIEW_ACTION_FAILURE_CLEANUP");
+
+export const ANNRANKViewAction = createAction("ANNRANK_VIEW_ACTION");
+export const ANNRANKViewActionSuccess = createAction("ANNRANK_VIEW_ACTION_SUCCESS", (SuccessMessage: RANKViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const ANNRANKViewActionProgress = createAction<number>("ANNRANK_VIEW_ACTION_PROGRESS");
+export const ANNRANKViewActionFailure = createAction<string>("ANNRANK_VIEW_ACTION_FAILURE");
+export const ANNRANKViewActionFailureCleanup = createAction("ANNRANK_VIEW_ACTION_FAILURE_CLEANUP");
+
+export const ANNDEPARTMENTViewAction = createAction("ANNDEPARTMENT_VIEW_ACTION");
+export const ANNDEPARTMENTViewActionSuccess = createAction("ANNDEPARTMENT_VIEW_ACTION_SUCCESS", (SuccessMessage: DEPARTMENTViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const ANNDEPARTMENTViewActionProgress = createAction<number>("ANNDEPARTMENT_VIEW_ACTION_PROGRESS");
+export const ANNDEPARTMENTViewActionFailure = createAction<string>("ANNDEPARTMENT_VIEW_ACTION_FAILURE");
+export const ANNDEPARTMENTViewActionFailureCleanup = createAction("ANNDEPARTMENT_VIEW_ACTION_FAILURE_CLEANUP");
 
 
 // ASSETLIST SECTION

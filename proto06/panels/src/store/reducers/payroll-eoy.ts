@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import * as _Actions from '../actions/payroll-eoy';
 import * as _Interface from '@/types/types-payroll-eoy';
+import { DEPARTMENTViewInterface, RANKViewInterface } from '@/types/types-pages';
 
 type PayrollEOYPayloads = 
 string |
@@ -99,6 +100,14 @@ interface ACTIVEANNOUNCEMENTViewState extends CommonPayrollEOYState{
   data: _Interface.ACTIVEANNOUNCEMENTViewInterface[] | [];
 }
 
+interface ANNRANKViewState extends CommonPayrollEOYState{
+  data: RANKViewInterface[] | null;
+}
+
+interface ANNDEPARTMENTViewState extends CommonPayrollEOYState{
+  data: DEPARTMENTViewInterface[] | null;
+}
+
 // ASSETLIST SECTION // ASSETLIST SECTION // ASSETLIST SECTION // ASSETLIST SECTION // ASSETLIST SECTION 
 interface ASSETLISTViewState extends CommonPayrollEOYState{
   data: _Interface.ASSETLISTViewInterface[] | [];
@@ -141,6 +150,8 @@ interface OverallPayrollEOYState {
   ANNOUNCEMENTCreateState | 
   ANNOUNCEMENTEditState |
   ACTIVEANNOUNCEMENTViewState |
+  ANNRANKViewState | 
+  ANNDEPARTMENTViewState | 
   ASSETLISTViewState | 
   ASSETLISTCreateState | 
   ASSETLISTEditState |
@@ -174,6 +185,10 @@ interface OverallPayrollEOYState {
   ANNOUNCEMENTEdit: ANNOUNCEMENTEditState,
   //ACTIVEANNOUNCEMENT SECTION
   ACTIVEANNOUNCEMENTView: ACTIVEANNOUNCEMENTViewState,
+  //ANNOUNCEMENTRANK SECTION
+  ANNOUNCEMENTRANKView: ANNRANKViewState,
+  //ANNOUNCEMENTDEPARTMENT SECTION
+  ANNOUNCEMENTDEPARTMENTView: ANNDEPARTMENTViewState,
   //ASSETLIST SECTION
   ASSETLISTView: ASSETLISTViewState,
   ASSETLISTViewSpecific: ASSETLISTViewState,
@@ -320,6 +335,20 @@ const initialState: OverallPayrollEOYState = {
   },
   //ACTIVEANNOUNCEMENT SECTION
   ACTIVEANNOUNCEMENTView: {
+    status: '',
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  //ANNRANK SECTION
+  ANNRANKView: {
+    status: '',
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  //ANNDEPARTMENT SECTION
+  ANNDEPARTMENTView: {
     status: '',
     progress: 0,
     data: [],
