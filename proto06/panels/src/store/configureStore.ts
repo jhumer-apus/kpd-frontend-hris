@@ -103,7 +103,7 @@ import { usersReducer } from './reducers/users';
 import { ALLOWANCEENTRYCreateEpic, ALLOWANCEENTRYEditEpic, ALLOWANCEENTRYViewEpic, ALLOWANCEENTRYViewSpecificEpic, ALLOWANCETYPECreateEpic, ALLOWANCETYPEEditEpic, ALLOWANCETYPEViewEpic, ALLOWANCETYPEViewSpecificEpic, CASHADVANCECreateEpic, CASHADVANCEEditEpic, CASHADVANCEViewEpic, CASHADVANCEViewSpecificEmployeeEpic, CASHADVANCEViewSpecificEpic, PAGIBIGCreateEpic, PAGIBIGEditEpic, PAGIBIGViewEpic, PAGIBIGViewSpecificEpic, PHILHEALTHCreateEpic, PHILHEALTHEditEpic, PHILHEALTHViewEpic, PHILHEALTHViewSpecificEpic, SSSCreateEpic, SSSEditEpic, SSSViewEpic, SSSViewSpecificEpic, TAXCreateEpic, TAXEditEpic, TAXViewEpic, TAXViewSpecificEpic } from './epics/payroll-variables';
 import { payrollVariablesReducer } from './reducers/payroll-variables';
 import { payrollEOYReducer } from './reducers/payroll-eoy';
-import { ACTIVEANNOUNCEMENTViewEpic, ANNOUNCEMENTCreateEpic, ANNOUNCEMENTEditEpic, ANNOUNCEMENTViewEpic, ANNOUNCEMENTViewSpecificEpic, ASSETACCOUNTCreateEpic, ASSETACCOUNTEditEpic, ASSETACCOUNTViewEpic, ASSETACCOUNTViewSpecificEmployeeEpic, ASSETACCOUNTViewSpecificEpic, ASSETLISTCreateEpic, ASSETLISTEditEpic, ASSETLISTViewEpic, ASSETLISTViewSpecificEpic, BONUSENTRYCreateEpic, BONUSENTRYEditEpic, BONUSENTRYViewEpic, BONUSENTRYViewSpecificEmployeeEpic, BONUSENTRYViewSpecificEpic, BONUSLISTCreateEpic, BONUSLISTEditEpic, BONUSLISTViewEpic, BONUSLISTViewSpecificEpic, PAY13THCreateEpic, PAY13THViewEpic, PAY13THViewSpecificEpic, TAXCOLLECTEDViewEpic, TAXCOLLECTEDViewSpecificEmployeeEpic } from './epics/payroll-eoy';
+import { ACTIVEANNOUNCEMENTViewEpic, ANNDEPARTMENTViewEpic, ANNOUNCEMENTCreateEpic, ANNOUNCEMENTEditEpic, ANNOUNCEMENTViewEpic, ANNOUNCEMENTViewSpecificEpic, ANNRANKViewEpic, ASSETACCOUNTCreateEpic, ASSETACCOUNTEditEpic, ASSETACCOUNTViewEpic, ASSETACCOUNTViewSpecificEmployeeEpic, ASSETACCOUNTViewSpecificEpic, ASSETLISTCreateEpic, ASSETLISTEditEpic, ASSETLISTViewEpic, ASSETLISTViewSpecificEpic, BONUSENTRYCreateEpic, BONUSENTRYEditEpic, BONUSENTRYViewEpic, BONUSENTRYViewSpecificEmployeeEpic, BONUSENTRYViewSpecificEpic, BONUSLISTCreateEpic, BONUSLISTEditEpic, BONUSLISTViewEpic, BONUSLISTViewSpecificEpic, PAY13THCreateEpic, PAY13THViewEpic, PAY13THViewSpecificEpic, TAXCOLLECTEDViewEpic, TAXCOLLECTEDViewSpecificEmployeeEpic } from './epics/payroll-eoy';
 
 const epicMiddleware = createEpicMiddleware();
 
@@ -282,12 +282,14 @@ epicMiddleware.run(combineEpics(
   BONUSENTRYViewSpecificEmployeeEpic,
   BONUSENTRYCreateEpic,
   BONUSENTRYEditEpic,
-  ACTIVEANNOUNCEMENTViewEpic
+  ACTIVEANNOUNCEMENTViewEpic,
+  ANNRANKViewEpic,
+  ANNDEPARTMENTViewEpic,
 ));
 
 export type RootState = ReturnType<typeof rootReducer>;
 // export const APILink = 'http://18.141.159.149:8000/api/v1/';
 // export const APILink = 'https://mercovsk1.pythonanywhere.com/api/v1/';
-// export const APILink = 'http://192.168.0.101:8000/api/v1/';
-export const APILink = 'http://192.168.0.107:8000/api/v1/';
+export const APILink = 'http://192.168.0.101:8000/api/v1/';
+// export const APILink = 'http://192.168.0.107:8000/api/v1/';
 export default store;
