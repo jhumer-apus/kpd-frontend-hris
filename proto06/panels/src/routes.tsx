@@ -91,6 +91,11 @@ import AssetAndAnnouncement from "./pages/dashboard/admin-portal/first-inner-pag
 import AAASSETLIST from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/aa-asset-list/aa-asset-list";
 import AAASSETACCOUNT from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/aa-asset-account/aa-asset-account";
 import AAANNOUNCEMENT from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/aa-announcement-configurations/aa-announcement-configuration";
+import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
+import PrivacyTipOutlinedIcon from '@mui/icons-material/PrivacyTipOutlined';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import RuleFolderOutlinedIcon from '@mui/icons-material/RuleFolderOutlined';
+import { EmployeeAndApplicants } from "./pages/dashboard/admin-portal/first-inner-pages/employee-and-applicants";
 
 
 const icon = {
@@ -337,6 +342,40 @@ const JSXRouteWrapper = () => {
                     },
                   ]
                 },
+                {
+                  id: 116000,
+                  icon: null,
+                  name: "Employee & Applicant Variables",
+                  path: "/Dashboards/Admin-Dashboard/Employee-And-Applicants",
+                  element: <EmployeeAndApplicants/>,
+                  hasSubItems: true,
+                  subItems: [
+                    {
+                      id: 1160000,
+                      icon: null,
+                      name: "KPI Evaluation",
+                      path: "/Dashboards/Admin-Dashboard/Employee-And-Applicants/KPI-Evaluation",
+                      element: <h1>KPI</h1>,
+                      hasSubItems: false,
+                    },
+                    {
+                      id: 1160001,
+                      icon: null,
+                      name: "Onboarding",
+                      path: "/Dashboards/Admin-Dashboard/Employee-And-Applicants/Onboarding",
+                      element: <h1>Onboarding</h1>,
+                      hasSubItems: false,
+                    },
+                    {
+                      id: 1160002,
+                      icon: null,
+                      name: "Offboarding",
+                      path: "/Dashboards/Admin-Dashboard/Employee-And-Applicants/Offboarding",
+                      element: <h1>Offboarding</h1>,
+                      hasSubItems: false,
+                    },
+                  ]
+                },
               ]
             },
           ]
@@ -351,7 +390,7 @@ const JSXRouteWrapper = () => {
           subItems: [
             {
               id: 12100,
-              icon: <UserCircleIcon {...icon} />,
+              icon: <PersonOutlineOutlinedIcon {...icon} />,
               name: "201 Files",
               path: "/employees/201-files",
               element: <DataTable/>, 
@@ -369,9 +408,17 @@ const JSXRouteWrapper = () => {
             },
             {
               id: 12200,
-              icon: <UserCircleIcon {...icon} />,
-              name: "Appraisal",
-              path: "/employees/appraisal",
+              icon: <InsertChartOutlinedIcon {...icon} />,
+              name: "Appraisals",
+              path: "/employees/Appraisal",
+              element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">APPRAISAL PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+              hasSubItems: false,
+            },
+            {
+              id: 12300,
+              icon: <PrivacyTipOutlinedIcon {...icon} />,
+              name: "About Appraisals",
+              path: "/employees/About-Appraisal",
               element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">APPRAISAL PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
               hasSubItems: false,
             },
@@ -425,6 +472,14 @@ const JSXRouteWrapper = () => {
               element: <YourSCHEDULEDAILYpage/>, 
               hasSubItems: false,
             },
+            {
+              id: 13600,
+              icon: <InsertChartOutlinedIcon {...icon} />,
+              name: "Your Evaluation",
+              path: "/quick-accesses/Your-Evaluation",
+              element: <h1>Your Evaluation</h1>, 
+              hasSubItems: false,
+            },
           ]
         },
         {
@@ -467,6 +522,15 @@ const JSXRouteWrapper = () => {
               icon: <PublishedWithChangesOutlinedIcon {...icon} />,
               name: "UA Approvals",
               path: "/your-approvals/UA-approvals",
+              element: <ApprovalUAPage/>, 
+              badgeAccessor: 'UAViewFilterApprover',
+              hasSubItems: false,
+            },
+            {
+              id: 14500,
+              icon: <RuleFolderOutlinedIcon {...icon} />,
+              name: "Appraisal Confirmations",
+              path: "/your-approvals/Appraisal-Confirmations",
               element: <ApprovalUAPage/>, 
               badgeAccessor: 'UAViewFilterApprover',
               hasSubItems: false,

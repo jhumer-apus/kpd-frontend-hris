@@ -105,17 +105,17 @@ export const adminPortalData = [
   },
   {
     icon: AssessmentOutlinedIcon,
-    title: "Reporting Tools",
-    value: "Reports",
+    title: "Employee & Applicant Variables",
+    value: "EAV",
     footer: {
       color: "text-green-500",
       value: "<",
-      label: "Add Report Themes, etc.",
+      label: "KPI, Onboarding, Offboarding etc.",
     },
     // custom: "linear-gradient(315deg, #d4418e 0%, #0652c5 74%)",
     // custom: "linear-gradient(315deg, #ffcfdf 0%, #b0f3f1 74%)",
     custom: "linear-gradient(147deg, #a399b2 0%, #4d4855 74%)",
-    link: 'development',
+    link: '/home/Dashboards/Admin-Dashboard/Employee-And-Applicants',
     customTop: 15,
     customLeft: 38,
   },
@@ -445,6 +445,61 @@ export const AssetAndAnnouncementData = [
     custom: "linear-gradient(22deg, rgba(9,9,121,1) 15%, rgba(70,191,4,1) 47%, rgba(2,0,36,1) 100%, rgba(0,212,255,1) 100%)",
     // custom: "linear-gradient(235deg, rgba(132,25,142,1) 4%, rgba(52,9,121,0.8379726890756303) 23%, rgba(19,151,161,1) 55%)",
     link: '/home/Dashboards/Admin-Dashboard/Assets-And-Announcement/Announcement-Configurations',
+    customTop: 15,
+    customLeft: 38,
+  },
+];
+
+
+import LibraryAddCheckOutlinedIcon from '@mui/icons-material/LibraryAddCheckOutlined';
+import PlaylistAddCircleOutlinedIcon from '@mui/icons-material/PlaylistAddCircleOutlined';
+import RemoveShoppingCartOutlinedIcon from '@mui/icons-material/RemoveShoppingCartOutlined';
+
+export const EmployeeAndApplicantsData = [
+  {
+    // color: "red",
+    type: 2,
+    icon: LibraryAddCheckOutlinedIcon,
+    title: "KPI Appraisal",
+    value: "KEA",
+    footer: {
+    color: "text-green-500",
+    value: "<",
+    label: "Open and View KPI Submissions, etc.",
+    },
+    custom: "linear-gradient(22deg, rgba(9,9,121,1) 15%, rgba(191,4,14,1) 47%, rgba(2,0,36,1) 100%, rgba(0,212,255,1) 100%)",
+    link: '/home/Dashboards/Admin-Dashboard/Employee-And-Applicants/KPI-Evaluation',
+    customTop: 15,
+    customLeft: 38,
+  },
+  {
+    // color: "red",
+    type: 2,
+    icon: PlaylistAddCircleOutlinedIcon,
+    title: "Onboarding",
+    value: "ONB",
+    footer: {
+    color: "text-green-500",
+    value: "<",
+    label: "Open Onboarding Req., details etc.",
+    },
+    custom: "linear-gradient(22deg, rgba(9,9,121,1) 15%, rgba(191,4,14,1) 47%, rgba(2,0,36,1) 100%, rgba(0,212,255,1) 100%)",
+    link: '/home/Dashboards/Admin-Dashboard/Employee-And-Applicants/Onboarding',
+    customTop: 15,
+    customLeft: 38,
+  },
+  {
+    icon: RemoveShoppingCartOutlinedIcon,
+    title: "Offboarding",
+    value: "OFFB",
+    footer: {
+      color: "text-green-500",
+      value: "<",
+      label: "Open Offboarding Req., details etc.",
+    },
+    custom: "linear-gradient(22deg, rgba(9,9,121,1) 15%, rgba(191,4,14,1) 47%, rgba(2,0,36,1) 100%, rgba(0,212,255,1) 100%)",
+    // custom: "linear-gradient(235deg, rgba(132,25,142,1) 4%, rgba(52,9,121,0.8379726890756303) 23%, rgba(19,151,161,1) 55%)",
+    link: '/home/Dashboards/Admin-Dashboard/Employee-And-Applicants/Offboarding',
     customTop: 15,
     customLeft: 38,
   },
