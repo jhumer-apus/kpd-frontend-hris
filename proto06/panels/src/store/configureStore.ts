@@ -105,6 +105,7 @@ import { payrollVariablesReducer } from './reducers/payroll-variables';
 import { payrollEOYReducer } from './reducers/payroll-eoy';
 import { ACTIVEANNOUNCEMENTViewEpic, ANNDEPARTMENTViewEpic, ANNOUNCEMENTCreateEpic, ANNOUNCEMENTEditEpic, ANNOUNCEMENTViewEpic, ANNOUNCEMENTViewSpecificEpic, ANNRANKViewEpic, ASSETACCOUNTCreateEpic, ASSETACCOUNTEditEpic, ASSETACCOUNTViewEpic, ASSETACCOUNTViewSpecificEmployeeEpic, ASSETACCOUNTViewSpecificEpic, ASSETLISTCreateEpic, ASSETLISTEditEpic, ASSETLISTViewEpic, ASSETLISTViewSpecificEpic, BONUSENTRYCreateEpic, BONUSENTRYEditEpic, BONUSENTRYViewEpic, BONUSENTRYViewSpecificEmployeeEpic, BONUSENTRYViewSpecificEpic, BONUSLISTCreateEpic, BONUSLISTEditEpic, BONUSLISTViewEpic, BONUSLISTViewSpecificEpic, PAY13THCreateEpic, PAY13THViewEpic, PAY13THViewSpecificEpic, TAXCOLLECTEDViewEpic, TAXCOLLECTEDViewSpecificEmployeeEpic } from './epics/payroll-eoy';
 import { CORECOMPECreateEpic, CORECOMPEEditEpic, CORECOMPEViewEpic, CORECOMPEViewSpecificEpic, EVALQUESTIONSCreateEpic, EVALQUESTIONSEditEpic, EVALQUESTIONSViewEpic, EVALQUESTIONSViewSpecificEpic, KPICORECreateEpic, KPICOREEditEpic, KPICOREViewEpic, KPICOREViewSpecificEpic } from './epics/employee-and-applicants';
+import { employeeAndApplicantsReducer } from './reducers/employee-and-applicants';
 
 const epicMiddleware = createEpicMiddleware();
 
@@ -118,6 +119,7 @@ const rootReducer = combineReducers({
   users: usersReducer,
   payrollVariables: payrollVariablesReducer,
   payrollEOY: payrollEOYReducer,
+  employeeAndApplicants: employeeAndApplicantsReducer,
 });
 
 const store = configureStore({
