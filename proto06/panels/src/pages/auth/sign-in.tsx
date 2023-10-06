@@ -9,7 +9,7 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
-import { useEffect, useState } from "react";
+import { CSSProperties, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userLoginAction } from "@/store/actions/auth";
 import { RootState } from "@/store/configureStore";
@@ -32,6 +32,7 @@ export function SignIn() {
       window.alert(`Error: ${signState.error || ''}`);
     }
   }, [signState.status])
+  console.log(signState.status, "hahahaha")
   return (
     <>
       <img
@@ -58,8 +59,11 @@ export function SignIn() {
             </div>
           </CardBody>
           <CardFooter className="pt-0">
-            <Button variant="gradient" fullWidth onClick={()=> handleSignIn(email, password)}>
+            <Button variant="gradient" style={{position: 'relative'}} fullWidth onClick={()=> handleSignIn(email, password)}>
               Sign In
+              <div style={spinnerStyle} aria-hidden hidden={(signState.status !== 'logging_in')}>
+                {/* <div style={srStyle}></div> */}
+              </div>
             </Button>
             <Typography variant="small" className="mt-6 flex justify-center">
               Don't have an account?
@@ -82,3 +86,27 @@ export function SignIn() {
 }
 
 export default SignIn;
+
+
+
+const spinnerStyle: CSSProperties = {
+  width: '1.5rem',
+  height: '1.5rem',
+  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%23fff' strokeLinecap='round' strokeLinejoin='round' strokeWidth='10' d='M20 4v5h-.582m0 0a8.001 8.001 0 00-15.356 2m15.356-2H15M4 20v-5h.581m0 0a8.003 8.003 0 0015.357-2M4.581 15H9' /%3E%3C/svg%3E")`,
+  animation: 'spin 1s infinite linear',
+  position: 'absolute',
+  right: '0.625rem',
+  top: '0.45rem'
+}
+
+const srStyle: CSSProperties = {
+  position: 'absolute',
+  width: '1px',
+  height: '1px',
+  padding: '0',
+  margin: '-1px',
+  overflow: 'hidden',
+  clip: 'rect(0,0,0,0)',
+  whiteSpace: 'nowrap',
+  borderWidth: '0'
+}
