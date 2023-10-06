@@ -2,8 +2,8 @@ import { Fragment }from 'react';
 import { styled } from '@mui/material/styles';
 import MuiGrid from '@mui/material/Grid';
 import { Paper, Box, useTheme, useMediaQuery } from '@mui/material';
-import EOYPAY13THPageHistory from './local-component/right-side/eoy-pay-13th-history';
-import EOYPAY13THCreate from './local-component/left-side/eoy-pay-13th';
+import EAKPIEVALPageHistory from './local-component/right-side/eoy-pay-13th-history';
+import EAKPIEVALCreate from './local-component/left-side/eoy-pay-13th';
 
 
 const PaperStyle = {
@@ -31,13 +31,13 @@ export default function EAKPIEVAL() {
             <Grid item xs>
                 <Paper elevation={3} style={PaperStyle}>
                     <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
-                        <EOYPAY13THCreate/>
+                        <EAKPIEVALCreate/>
                     </Box>
                 </Paper>
             </Grid>
             <Grid item xs>
                 <Paper elevation={3} style={PaperStyle}>
-                    <EOYPAY13THPageHistory/>
+                    {/* <EAKPIEVALPageHistory/> */}
                 </Paper>
             </Grid>
         </Grid>

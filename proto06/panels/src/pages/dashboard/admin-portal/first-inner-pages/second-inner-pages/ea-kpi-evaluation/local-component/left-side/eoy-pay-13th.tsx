@@ -2,51 +2,171 @@ import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { Button } from '@mui/material';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { JSONServer, RootState } from '@/store/configureStore';
 import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
 import { Typography } from '@mui/joy';
-import { PAY13THCreateInterface } from '@/types/types-payroll-eoy';
-import { PAY13THCreateAction, PAY13THCreateActionFailureCleanup } from '@/store/actions/payroll-eoy';
+import { CORECOMPEViewInterface, EVALQUESTIONSViewInterface, KPICORECreateInterface } from '@/types/types-employee-and-applicants';
+import { CORECOMPECreateActionSuccess, CORECOMPEViewAction, KPICORECreateAction, KPICORECreateActionFailureCleanup, KPICOREViewActionSuccess } from '@/store/actions/employee-and-applicants';
 import CutoffAutoComplete from './inner-ui-components/cutoff-code-autocomplete';
 import BonusListAutoComplete from './inner-ui-components/bonus-type-autocomplete';
 import MultiEmployeeAutoCompleteLeft from './inner-ui-components/employee-autocomplete';
-
+import { loremIpsum } from "lorem-ipsum";
 
 import { DataGrid, GridCallbackDetails, GridRowSelectionModel } from '@mui/x-data-grid';
 // import { Typography } from "@material-tailwind/react";
-import { EOYPAY13THPageDescriptions, EOYPAY13THPageColumns, EOYProcessPAY13THPageColumns } from '@/data/pages-data/payroll-eoy-data/eoy-pay-13th-data';
-import { PAY13THViewInterface } from '@/types/types-payroll-eoy';
-import { PAY13THViewAction } from '@/store/actions/payroll-eoy';
+import { EAKPICOREPageDescriptions, EAKPICOREPageColumns, EAProcessKPICOREPageColumns } from '@/data/pages-data/employee-and-applicants-data/ea-kpi-core-data';
+import { KPICOREViewInterface } from '@/types/types-employee-and-applicants';
+import { KPICOREViewAction } from '@/store/actions/employee-and-applicants';
 import { getEmployeesList } from '@/store/actions/employees';
 import { GetEmployeesListsType } from '@/types/types-store';
 
+import axios from 'axios';
 
-
-interface CreatePAY13THModalInterface {
+interface CreateKPICOREModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
 }
 
-function EOYPAY13THCreate(props: CreatePAY13THModalInterface) {
+function EAKPICORECreate(props: CreateKPICOREModalInterface) {
+    let randomText = loremIpsum({
+        count: 1,               
+        format: "plain",         
+        paragraphLowerBound: 3,  
+        paragraphUpperBound: 6,  
+        random: Math.random,     
+        sentenceLowerBound: 5,   
+        sentenceUpperBound: 8,  
+        suffix: "\n",            
+        units: "paragraph",      
+    })
     const state = useSelector((state: RootState) => state.employees)
+    const coreCompeState = useSelector((state: RootState)=> state.employeeAndApplicants.CORECOMPEView)
+    const KPICoreState = useSelector((state: RootState)=> state.employeeAndApplicants.KPICOREView)
     const dispatch = useDispatch();
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail?.emp_no);
-    const PAY13THCreatestate = useSelector((state: RootState)=> state.payrollEOY.PAY13THCreate);
-    const [createPAY13TH, setCreatePAY13TH] = useState<PAY13THCreateInterface>({
-        emp_no: [],
+    const KPICORECreatestate = useSelector((state: RootState)=> state.employeeAndApplicants.KPICORECreate);
+    const [createKPICORE, setCreateKPICORE] = useState<{emp_details: {emp_no: number, emp_name: string}[]}>({
+        emp_details: [],
     });
+    const [submitMode, setSubmitMode] = useState<boolean>(false);
+    const [coreCompe, setCoreCompe] = useState<CORECOMPEViewInterface[]>();
+    const [evalQuestions, setEvalQuestions] = useState<EVALQUESTIONSViewInterface[]>();
+    const min1 = 88;
+    const max1 = 120;
+    const min2 = 1;
+    const max2 = 10;
+    
+    const randomNumber1 = Math.floor(Math.random() * (max1 - min1 + 1)) + min1;
+    const randomNumber2 = Math.floor(Math.random() * (max2 - min2 + 1)) + min2;
 
     const onClickSubmit = () => {
-        dispatch(PAY13THCreateAction(createPAY13TH))
+        // dispatch(KPICORECreateAction(createKPICORE))
+        setSubmitMode(true);
     };
 
     useEffect(()=> {
         if(state.employees_list?.length === 0 || !state.employees_list ){
             getEmployeesList()
         }
+        async function getCoreCompe() {
+            try {
+                const value = await axios.get(`${JSONServer}core_compe/`);
+                setCoreCompe(value.data);
+
+            } catch(err){
+                console.error("Core Compe Err", err)
+            }
+        }
+        async function getEvalQuestions() {
+            try {
+                const value = await axios.get(`${JSONServer}eval_questions/`); 
+                setEvalQuestions(value.data);
+            } catch(err){
+                console.error("Core Compe Err", err)
+            }
+        }
+        getCoreCompe();
+        getEvalQuestions();
     }, [])
+
+    useEffect(()=> {
+        if(submitMode){
+            createKPICORE.emp_details.forEach((element, index) => {
+                const _self_eval_points = Math.floor(Math.random() * (120 - 80 + 1)) + 80;
+
+                const _sup_eval_points =  Math.floor(Math.random() * (120 - 80 + 1)) + 80;
+
+                const _coreCompe = coreCompe?.map((item)=> {
+                    return (
+                        {
+                            checklist_title: item.checklist_title,
+                            checklist_limits: item.checklist_limits,
+                            points:  Math.floor(Math.random() * (10 - 5 + 1)) + 5,
+                        }
+                    )
+                })
+                const _core_compe_points = _coreCompe?.reduce((accumulator, currentValue) => {
+                    return accumulator + currentValue.points;
+                }, 0);
+                console.log(_core_compe_points, "testing")
+                const _percentage_total = Math.floor(((_sup_eval_points + (_core_compe_points ?? 0)) / 180) * 100) 
+                const payload: KPICORECreateInterface = {
+                    id: Math.random().toString(36).substring(2, 9),
+                    date_added: "2023-03-20T00:00:00Z",
+                    emp_no: element.emp_no,
+                    emp_name: element.emp_name,
+                    sup_name: 'Juan Dela Cruz',
+                    sup_no: 9989,
+                    eval_date: "2023-03-25T00:00:00Z",
+                    status: 'Confirmed',
+                    final_rating: (_percentage_total <= 79 ? 'C' : _percentage_total <= 90 ? 'B' : 'A'),
+                    percentage_total: _percentage_total,
+                    self_eval_points: _self_eval_points,
+                    core_compe_points: _core_compe_points ?? 0,
+                    sup_eval_points: _sup_eval_points,
+                    questions: evalQuestions?.map((item)=> {
+                        return (
+                            {
+                                question: item.question,
+                                answer: loremIpsum({
+                                    count: 1,               
+                                    format: "plain",         
+                                    paragraphLowerBound: 3,  
+                                    paragraphUpperBound: 6,  
+                                    random: Math.random,     
+                                    sentenceLowerBound: 5,   
+                                    sentenceUpperBound: 8,  
+                                    suffix: "\n",            
+                                    units: "paragraph",      
+                                })
+                            }
+                        )
+                    }),
+                    core_competencies: _coreCompe,
+                    current_user: curr_user
+                }
+                async function createKPICoreEntry() {
+
+                    await setTimeout(async ()=> {
+                        try {
+                            const value = await axios.post(`${JSONServer}kpi_core/`, payload);
+                            setCoreCompe(value.data);
+                        } catch(err){
+                            console.error("Core Compe Err", err)
+                        }
+                    }, 3000)
+                }
+                return createKPICoreEntry()
+            });
+        }
+        return (()=> {
+            setSubmitMode(false)
+        })
+    }, [submitMode])
+
+    console.log(coreCompe, "haha??", evalQuestions, "lala", createKPICORE, "never")
     useEffect(()=> {
         if(curr_user){
-            setCreatePAY13TH((prevState) => {
+            setCreateKPICORE((prevState) => {
                 return (
                     {
                         ...prevState,
@@ -58,29 +178,30 @@ function EOYPAY13THCreate(props: CreatePAY13THModalInterface) {
     }, [curr_user]) 
 
     useEffect(()=>{
-        if(PAY13THCreatestate.status === 'succeeded'){
-            window.alert('Request Successful');
-            window.location.reload();
-        }else if(PAY13THCreatestate.status === 'failed'){
-            window.alert(`Request Failed, ${PAY13THCreatestate.error}`)
+        if(KPICORECreatestate.status === 'succeeded'){
+            // window.alert('Request Successful');
+            // window.location.reload();
+            console.log("Success")
+        }else if(KPICORECreatestate.status === 'failed'){
+            window.alert(`Request Failed, ${KPICORECreatestate.error}`)
             setTimeout(()=> {
-                dispatch(PAY13THCreateActionFailureCleanup());
+                dispatch(KPICORECreateActionFailureCleanup());
             }, 1000)
         }
-    }, [PAY13THCreatestate.status])
+    }, [KPICORECreatestate.status])
 
     const handleSelection = (newSelection: GridRowSelectionModel, details: GridCallbackDetails) => {
-        let emp_no_locale = [] as Array<number>;
+        let emp_no_locale = [] as Array<{emp_no: number, emp_name: string}>;
         newSelection.forEach((id) => {
           const row = state.employees_list?.find((row) => row.id === id);
           if (row) {
-            emp_no_locale.push(row.emp_no);
+            emp_no_locale.push({emp_no: row.emp_no, emp_name: `${row.first_name} ${row.last_name}`});
           }
         });
     
-        setCreatePAY13TH((prevState) => ({
+        setCreateKPICORE((prevState) => ({
           ...prevState,
-          emp_no: emp_no_locale,
+          emp_details: emp_no_locale
         }));
       };
 
@@ -92,7 +213,7 @@ function EOYPAY13THCreate(props: CreatePAY13THModalInterface) {
                     <div style={{ height: '450px', width: '100%' }}>
                         <DataGrid
                         rows={state.employees_list as GetEmployeesListsType[]}
-                        columns={EOYProcessPAY13THPageColumns}
+                        columns={EAProcessKPICOREPageColumns}
                         initialState={{
                             pagination: {
                             paginationModel: { page: 0, pageSize: 100 },
@@ -100,8 +221,8 @@ function EOYPAY13THCreate(props: CreatePAY13THModalInterface) {
                         }}
                         pageSizeOptions={[25, 50, 75, 100]}
                         // onRowClick={(e) => {
-                        //     setSinglePAY13THDetailsData(e.row);
-                        //     setSinglePAY13THOpenModal(true);
+                        //     setSingleKPICOREDetailsData(e.row);
+                        //     setSingleKPICOREOpenModal(true);
                         // }}
                         onRowSelectionModelChange={handleSelection}
                         checkboxSelection
@@ -119,5 +240,5 @@ function EOYPAY13THCreate(props: CreatePAY13THModalInterface) {
     );
 }
 
-export default EOYPAY13THCreate;
+export default EAKPICORECreate;
 

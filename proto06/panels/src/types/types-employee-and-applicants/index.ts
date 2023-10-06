@@ -1,6 +1,7 @@
 // ======================================
 
 export interface KPICOREGenericInterface {
+	id?: number | string,
 	date_added: string
 	emp_no: number
 	emp_name: string
@@ -13,12 +14,21 @@ export interface KPICOREGenericInterface {
 	sup_eval_points: number
     core_compe_points: number
     percentage_total: number
+	current_user?: number
+	questions?: {
+		question: string
+		answer: string
+	}[]
+	core_competencies?: {
+		checklist_title: string
+		checklist_limits: string
+		points: number
+	}[]
+
 }
 
 
-export interface KPICOREViewInterface extends KPICOREGenericInterface{
-    readonly id: number,
-}
+export interface KPICOREViewInterface extends KPICOREGenericInterface{}
 
 
 export interface KPICORECreateInterface extends KPICOREGenericInterface{}
