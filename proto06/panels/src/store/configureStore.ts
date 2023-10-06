@@ -104,6 +104,7 @@ import { ALLOWANCEENTRYCreateEpic, ALLOWANCEENTRYEditEpic, ALLOWANCEENTRYViewEpi
 import { payrollVariablesReducer } from './reducers/payroll-variables';
 import { payrollEOYReducer } from './reducers/payroll-eoy';
 import { ACTIVEANNOUNCEMENTViewEpic, ANNDEPARTMENTViewEpic, ANNOUNCEMENTCreateEpic, ANNOUNCEMENTEditEpic, ANNOUNCEMENTViewEpic, ANNOUNCEMENTViewSpecificEpic, ANNRANKViewEpic, ASSETACCOUNTCreateEpic, ASSETACCOUNTEditEpic, ASSETACCOUNTViewEpic, ASSETACCOUNTViewSpecificEmployeeEpic, ASSETACCOUNTViewSpecificEpic, ASSETLISTCreateEpic, ASSETLISTEditEpic, ASSETLISTViewEpic, ASSETLISTViewSpecificEpic, BONUSENTRYCreateEpic, BONUSENTRYEditEpic, BONUSENTRYViewEpic, BONUSENTRYViewSpecificEmployeeEpic, BONUSENTRYViewSpecificEpic, BONUSLISTCreateEpic, BONUSLISTEditEpic, BONUSLISTViewEpic, BONUSLISTViewSpecificEpic, PAY13THCreateEpic, PAY13THViewEpic, PAY13THViewSpecificEpic, TAXCOLLECTEDViewEpic, TAXCOLLECTEDViewSpecificEmployeeEpic } from './epics/payroll-eoy';
+import { CORECOMPECreateEpic, CORECOMPEEditEpic, CORECOMPEViewEpic, CORECOMPEViewSpecificEpic, EVALQUESTIONSCreateEpic, EVALQUESTIONSEditEpic, EVALQUESTIONSViewEpic, EVALQUESTIONSViewSpecificEpic, KPICORECreateEpic, KPICOREEditEpic, KPICOREViewEpic, KPICOREViewSpecificEpic } from './epics/employee-and-applicants';
 
 const epicMiddleware = createEpicMiddleware();
 
@@ -285,6 +286,18 @@ epicMiddleware.run(combineEpics(
   ACTIVEANNOUNCEMENTViewEpic,
   ANNRANKViewEpic,
   ANNDEPARTMENTViewEpic,
+  KPICORECreateEpic,
+  KPICOREEditEpic,
+  KPICOREViewEpic,
+  KPICOREViewSpecificEpic,
+  CORECOMPECreateEpic,
+  CORECOMPEEditEpic,
+  CORECOMPEViewEpic,
+  CORECOMPEViewSpecificEpic,
+  EVALQUESTIONSCreateEpic,
+  EVALQUESTIONSEditEpic,
+  EVALQUESTIONSViewEpic,
+  EVALQUESTIONSViewSpecificEpic,
 ));
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -292,4 +305,5 @@ export type RootState = ReturnType<typeof rootReducer>;
 // export const APILink = 'https://mercovsk1.pythonanywhere.com/api/v1/';
 export const APILink = 'http://192.168.0.101:8000/api/v1/';
 // export const APILink = 'http://192.168.0.107:8000/api/v1/';
+export const JSONServer = 'http://localhost:3030/';
 export default store;
