@@ -1,256 +1,267 @@
 {
-    "posts": [
-      { "id": 1, "title": "json-server", "author": "typicode" }
-    ],
-    "comments": [
-      { "id": 1, "body": "some comment", "postId": 1 }
-    ],
-    "eval_questions": [
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "eval_questions": [
+    {
+      "id": 1,
+      "date_added": "2023-10-06T00:00:00",
+      "added_by": 9989,
+      "question": "How frequently did you proactively assist team members in completing their tasks or overcoming challenges during the evaluation period?",
+      "answer": "",
+      "date_deleted": null
+    },
+    {
+      "id": 2,
+      "date_added": "2023-10-06T00:00:00",
+      "added_by": 9989,
+      "question": "Can you provide examples of specific instances where your contributions had a positive impact on the progress and success of the projects you were involved in?",
+      "answer": "",
+      "date_deleted": null
+    },
+    {
+      "id": 3,
+      "date_added": "2023-10-06T00:00:00",
+      "added_by": 9989,
+      "question": "What steps have you taken to improve your ability to contribute effectively to project goals, and what results have you achieved in terms of project outcomes?",
+      "answer": "",
+      "date_deleted": null
+    },
+    {
+      "id": 4,
+      "date_added": "2023-10-06T00:00:00",
+      "added_by": 9989,
+      "question": "How would you rate your ability to establish and maintain positive relationships with clients and workmates on a scale of 1 to 10, with 10 being the highest?",
+      "answer": "",
+      "date_deleted": null
+    },
+    {
+      "id": 5,
+      "date_added": "2023-10-06T00:00:00",
+      "added_by": 9989,
+      "question": "Can you share an example of a challenging interaction with a client or workmate and how you successfully resolved it while maintaining a positive rapport?",
+      "answer": "",
+      "date_deleted": null
+    },
+    {
+      "id": 6,
+      "date_added": "2023-10-06T00:00:00",
+      "added_by": 9989,
+      "question": "What strategies have you implemented to enhance your communication and interpersonal skills in order to improve client and workmate interactions?",
+      "answer": "",
+      "date_deleted": null
+    },
+    {
+      "id": 7,
+      "date_added": "2023-10-06T00:00:00",
+      "added_by": 9989,
+      "question": "What specific actions have you taken to pursue personal and professional development opportunities outlined in the self-growth clauses?",
+      "answer": "",
+      "date_deleted": null
+    },
+    {
+      "id": 8,
+      "date_added": "2023-10-06T00:00:00",
+      "added_by": 9989,
+      "question": "How have these self-growth clauses positively influenced your skillset and performance within the evaluation period?",
+      "answer": "",
+      "date_deleted": null
+    },
+    {
+      "id": 9,
+      "date_added": "2023-10-06T00:00:00",
+      "added_by": 9989,
+      "question": "Can you provide examples of how you've demonstrated a commitment to continuous self-improvement and learning in your role?",
+      "answer": "",
+      "date_deleted": null
+    },
+    {
+      "id": 10,
+      "date_added": "2023-10-06T00:00:00",
+      "added_by": 9989,
+      "question": "How have you upheld the integrity clauses and ethical standards of the organization in your day-to-day work and decision-making?",
+      "answer": "",
+      "date_deleted": null
+    },
+    {
+      "id": 11,
+      "date_added": "2023-10-06T00:00:00",
+      "added_by": 9989,
+      "question": "Can you share an instance where you faced an ethical dilemma, and how did you navigate it while maintaining your commitment to integrity?",
+      "answer": "",
+      "date_deleted": null
+    },
+    {
+      "id": 12,
+      "date_added": "2023-10-06T00:00:00",
+      "added_by": 9989,
+      "question": "What steps have you taken to ensure that you consistently adhere to the integrity clauses, and what impact has this had on the organization's reputation and trustworthiness?",
+      "answer": "",
+      "date_deleted": null
+    }
+  ],
+  "core_compe": [
+    {
+      "id": 1,
+      "date_added": "2023-10-06T00:00:00",
+      "checklist_title": "No Lates",
+      "checklist_limits": "Max. of 30 minutes / month cumulative",
+      "points": 0,
+      "date_deleted": ""
+    },
+    {
+      "id": 2,
+      "date_added": "2023-10-06T00:00:00",
+      "checklist_title": "No Absences without Leave/Notice (AWOL)",
+      "checklist_limits": "Zero AWOL Tolerance",
+      "points": 0,
+      "date_deleted": ""
+    },
+    {
+      "id": 3,
+      "date_added": "2023-10-06T00:00:00",
+      "checklist_title": "No Absences",
+      "checklist_limits": "3 Max Informed Absences",
+      "points": 0,
+      "date_deleted": ""
+    },
+    {
+      "id": 4,
+      "date_added": "2023-10-06T00:00:00",
+      "checklist_title": "No Missed Deadlines / Tasks / Projects",
+      "checklist_limits": "2 Max Instances",
+      "points": 0,
+      "date_deleted": ""
+    },
+    {
+      "id": 5,
+      "date_added": "2023-10-06T00:00:00",
+      "checklist_title": "No Poor Work Quality",
+      "checklist_limits": "Zero Work Quality Instance",
+      "points": 0,
+      "date_deleted": ""
+    },
+    {
+      "id": 6,
+      "date_added": "2023-10-06T00:00:00",
+      "checklist_title": "No Critical Offenses",
+      "checklist_limits": "Zero Critical Offence Instance",
+      "points": 0,
+      "date_deleted": ""
+    }
+  ],
+  "kpi_core": [
+    {
+      "id": "5w5ahqe",
+      "date_added": "2023-10-06T00:00:00",
+      "emp_no": 3,
+      "emp_name": "Matthew Blasco",
+      "sup_name": "Juan Dela Cruz",
+      "sup_no": 9989,
+      "eval_date": "2023-10-09T00:00:00",
+      "status": "pending",
+      "final_rating": "",
+      "self_eval_points": 0,
+      "sup_eval_points": 0,
+      "core_compe_points": 0,
+      "percentage_total": 0,
+      "current_user": 9989,
+      "questions": [
         {
-            "id": 1,
-            "date_added": "2023-10-06T00:00:00",
-            "added_by": 9989,
-            "question": "How frequently did you proactively assist team members in completing their tasks or overcoming challenges during the evaluation period?",
-            "answer": "",
-            "date_deleted": null
+          "question": "How frequently did you proactively assist team members in completing their tasks or overcoming challenges during the evaluation period?",
+          "answer": ""
         },
         {
-            "id": 2,
-            "date_added": "2023-10-06T00:00:00",
-            "added_by": 9989,
-            "question": "Can you provide examples of specific instances where your contributions had a positive impact on the progress and success of the projects you were involved in?",
-            "answer": "",
-            "date_deleted": null
+          "question": "Can you provide examples of specific instances where your contributions had a positive impact on the progress and success of the projects you were involved in?",
+          "answer": ""
         },
         {
-            "id": 3,
-            "date_added": "2023-10-06T00:00:00",
-            "added_by": 9989,
-            "question": "What steps have you taken to improve your ability to contribute effectively to project goals, and what results have you achieved in terms of project outcomes?",
-            "answer": "",
-            "date_deleted": null
+          "question": "What steps have you taken to improve your ability to contribute effectively to project goals, and what results have you achieved in terms of project outcomes?",
+          "answer": ""
         },
         {
-            "id": 4,
-            "date_added": "2023-10-06T00:00:00",
-            "added_by": 9989,
-            "question": "How would you rate your ability to establish and maintain positive relationships with clients and workmates on a scale of 1 to 10, with 10 being the highest?",
-            "answer": "",
-            "date_deleted": null
+          "question": "How would you rate your ability to establish and maintain positive relationships with clients and workmates on a scale of 1 to 10, with 10 being the highest?",
+          "answer": ""
         },
         {
-            "id": 5,
-            "date_added": "2023-10-06T00:00:00",
-            "added_by": 9989,
-            "question": "Can you share an example of a challenging interaction with a client or workmate and how you successfully resolved it while maintaining a positive rapport?",
-            "answer": "",
-            "date_deleted": null
+          "question": "Can you share an example of a challenging interaction with a client or workmate and how you successfully resolved it while maintaining a positive rapport?",
+          "answer": ""
         },
         {
-            "id": 6,
-            "date_added": "2023-10-06T00:00:00",
-            "added_by": 9989,
-            "question": "What strategies have you implemented to enhance your communication and interpersonal skills in order to improve client and workmate interactions?",
-            "answer": "",
-            "date_deleted": null
+          "question": "What strategies have you implemented to enhance your communication and interpersonal skills in order to improve client and workmate interactions?",
+          "answer": ""
         },
         {
-            "id": 7,
-            "date_added": "2023-10-06T00:00:00",
-            "added_by": 9989,
-            "question": "What specific actions have you taken to pursue personal and professional development opportunities outlined in the self-growth clauses?",
-            "answer": "",
-            "date_deleted": null
+          "question": "What specific actions have you taken to pursue personal and professional development opportunities outlined in the self-growth clauses?",
+          "answer": ""
         },
         {
-            "id": 8,
-            "date_added": "2023-10-06T00:00:00",
-            "added_by": 9989,
-            "question": "How have these self-growth clauses positively influenced your skillset and performance within the evaluation period?",
-            "answer": "",
-            "date_deleted": null
+          "question": "How have these self-growth clauses positively influenced your skillset and performance within the evaluation period?",
+          "answer": ""
         },
         {
-            "id": 9,
-            "date_added": "2023-10-06T00:00:00",
-            "added_by": 9989,
-            "question": "Can you provide examples of how you've demonstrated a commitment to continuous self-improvement and learning in your role?",
-            "answer": "",
-            "date_deleted": null
+          "question": "Can you provide examples of how you've demonstrated a commitment to continuous self-improvement and learning in your role?",
+          "answer": ""
         },
         {
-            "id": 10,
-            "date_added": "2023-10-06T00:00:00",
-            "added_by": 9989,
-            "question": "How have you upheld the integrity clauses and ethical standards of the organization in your day-to-day work and decision-making?",
-            "answer": "",
-            "date_deleted": null
+          "question": "How have you upheld the integrity clauses and ethical standards of the organization in your day-to-day work and decision-making?",
+          "answer": ""
         },
         {
-            "id": 11,
-            "date_added": "2023-10-06T00:00:00",
-            "added_by": 9989,
-            "question": "Can you share an instance where you faced an ethical dilemma, and how did you navigate it while maintaining your commitment to integrity?",
-            "answer": "",
-            "date_deleted": null
+          "question": "Can you share an instance where you faced an ethical dilemma, and how did you navigate it while maintaining your commitment to integrity?",
+          "answer": ""
         },
         {
-            "id": 12,
-            "date_added": "2023-10-06T00:00:00",
-            "added_by": 9989,
-            "question": "What steps have you taken to ensure that you consistently adhere to the integrity clauses, and what impact has this had on the organization's reputation and trustworthiness?",
-            "answer": "",
-            "date_deleted": null
+          "question": "What steps have you taken to ensure that you consistently adhere to the integrity clauses, and what impact has this had on the organization's reputation and trustworthiness?",
+          "answer": ""
         }
-    ],
-    "core_compe": [
+      ],
+      "core_compe": [
         {
-            "id": 1,
-            "date_added": "2023-10-06T00:00:00",
-            "checklist_title": "No Lates",
-            "checklist_limits": "Max. of 30 minutes / month cumulative",
-            "points": 0,
-            "date_deleted": ""
+          "checklist_title": "No Lates",
+          "checklist_limits": "Max. of 30 minutes / month cumulative",
+          "points": 0
         },
         {
-            "id": 2,
-            "date_added": "2023-10-06T00:00:00",
-            "checklist_title": "No Absences without Leave/Notice (AWOL)",
-            "checklist_limits": "Zero AWOL Tolerance",
-            "points": 0,
-            "date_deleted": ""
+          "checklist_title": "No Absences without Leave/Notice (AWOL)",
+          "checklist_limits": "Zero AWOL Tolerance",
+          "points": 0
         },
         {
-            "id": 3,
-            "date_added": "2023-10-06T00:00:00",
-            "checklist_title": "No Absences",
-            "checklist_limits": "3 Max Informed Absences",
-            "points": 0,
-            "date_deleted": ""
+          "checklist_title": "No Absences",
+          "checklist_limits": "3 Max Informed Absences",
+          "points": 0
         },
         {
-            "id": 4,
-            "date_added": "2023-10-06T00:00:00",
-            "checklist_title": "No Missed Deadlines / Tasks / Projects",
-            "checklist_limits": "2 Max Instances",
-            "points": 0,
-            "date_deleted": ""
+          "checklist_title": "No Missed Deadlines / Tasks / Projects",
+          "checklist_limits": "2 Max Instances",
+          "points": 0
         },
         {
-            "id": 5,
-            "date_added": "2023-10-06T00:00:00",
-            "checklist_title": "No Poor Work Quality",
-            "checklist_limits": "Zero Work Quality Instance",
-            "points": 0,
-            "date_deleted": ""
+          "checklist_title": "No Poor Work Quality",
+          "checklist_limits": "Zero Work Quality Instance",
+          "points": 0
         },
         {
-            "id": 6,
-            "date_added": "2023-10-06T00:00:00",
-            "checklist_title": "No Critical Offenses",
-            "checklist_limits": "Zero Critical Offence Instance",
-            "points": 0,
-            "date_deleted": ""
+          "checklist_title": "No Critical Offenses",
+          "checklist_limits": "Zero Critical Offence Instance",
+          "points": 0
         }
-    ],
-    "kpi_core": [
-        {
-            "id": "5w5ahqe",
-            "date_added": "2023-10-06T00:00:00",
-            "emp_no": 3,
-            "emp_name": "Matthew Blasco",
-            "sup_name": "Juan Dela Cruz",
-            "sup_no": 9989,
-            "eval_date": "2023-10-09T00:00:00",
-            "status": "pending",
-            "final_rating": "",
-            "self_eval_points": 0,
-            "sup_eval_points": 0,
-            "core_compe_points": 0,
-            "percentage_total": 0, 
-            "questions": [
-                {
-                    "question": "How frequently did you proactively assist team members in completing their tasks or overcoming challenges during the evaluation period?",
-                    "answer": ""
-                },
-                {
-                    "question": "Can you provide examples of specific instances where your contributions had a positive impact on the progress and success of the projects you were involved in?",
-                    "answer": ""
-                },
-                {
-                    "question": "What steps have you taken to improve your ability to contribute effectively to project goals, and what results have you achieved in terms of project outcomes?",
-                    "answer": ""
-                },
-                {
-                    "question": "How would you rate your ability to establish and maintain positive relationships with clients and workmates on a scale of 1 to 10, with 10 being the highest?",
-                    "answer": ""
-                },
-                {
-                    "question": "Can you share an example of a challenging interaction with a client or workmate and how you successfully resolved it while maintaining a positive rapport?",
-                    "answer": ""
-                },
-                {
-                    "question": "What strategies have you implemented to enhance your communication and interpersonal skills in order to improve client and workmate interactions?",
-                    "answer": ""
-                },
-                {
-                    "question": "What specific actions have you taken to pursue personal and professional development opportunities outlined in the self-growth clauses?",
-                    "answer": ""
-                },
-                {
-                    "question": "How have these self-growth clauses positively influenced your skillset and performance within the evaluation period?",
-                    "answer": ""
-                },
-                {
-                    "question": "Can you provide examples of how you've demonstrated a commitment to continuous self-improvement and learning in your role?",
-                    "answer": ""
-                },
-                {
-                    "question": "How have you upheld the integrity clauses and ethical standards of the organization in your day-to-day work and decision-making?",
-                    "answer": ""
-                },
-                {
-                    "question": "Can you share an instance where you faced an ethical dilemma, and how did you navigate it while maintaining your commitment to integrity?",
-                    "answer": ""
-                },
-                {
-                    "question": "What steps have you taken to ensure that you consistently adhere to the integrity clauses, and what impact has this had on the organization's reputation and trustworthiness?",
-                    "answer": ""
-                }
-            ],
-            "core_compe": [
-                {
-                    "checklist_title": "No Lates",
-                    "checklist_limits": "Max. of 30 minutes / month cumulative",
-                    "points": 0
-                },
-                {
-                    "checklist_title": "No Absences without Leave/Notice (AWOL)",
-                    "checklist_limits": "Zero AWOL Tolerance",
-                    "points": 0
-                },
-                {
-                    "checklist_title": "No Absences",
-                    "checklist_limits": "3 Max Informed Absences",
-                    "points": 0
-                },
-                {
-                    "checklist_title": "No Missed Deadlines / Tasks / Projects",
-                    "checklist_limits": "2 Max Instances",
-                    "points": 0
-                },
-                {
-                    "checklist_title": "No Poor Work Quality",
-                    "checklist_limits": "Zero Work Quality Instance",
-                    "points": 0
-                },
-                {
-                    "checklist_title": "No Critical Offenses",
-                    "checklist_limits": "Zero Critical Offence Instance",
-                    "points": 0
-                }
-            ]
-        }
-    ],
-    "profile": { "name": "typicode" }
+      ]
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
 }
