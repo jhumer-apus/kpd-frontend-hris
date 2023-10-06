@@ -375,6 +375,22 @@ const JSXRouteWrapper = () => {
                       element: <h1>Offboarding</h1>,
                       hasSubItems: false,
                     },
+                    {
+                      id: 1160003,
+                      icon: null,
+                      name: "KPI Questions",
+                      path: "/Dashboards/Admin-Dashboard/Employee-And-Applicants/KPI-Questions",
+                      element: <h1>Questions</h1>,
+                      hasSubItems: false,
+                    },
+                    {
+                      id: 1160004,
+                      icon: null,
+                      name: "Core Competencies",
+                      path: "/Dashboards/Admin-Dashboard/Employee-And-Applicants/Core-Competencies",
+                      element: <h1>Core</h1>,
+                      hasSubItems: false,
+                    },
                   ]
                 },
               ]
