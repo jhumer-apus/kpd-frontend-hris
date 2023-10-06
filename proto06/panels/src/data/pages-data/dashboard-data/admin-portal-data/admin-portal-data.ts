@@ -454,13 +454,16 @@ export const AssetAndAnnouncementData = [
 import LibraryAddCheckOutlinedIcon from '@mui/icons-material/LibraryAddCheckOutlined';
 import PlaylistAddCircleOutlinedIcon from '@mui/icons-material/PlaylistAddCircleOutlined';
 import RemoveShoppingCartOutlinedIcon from '@mui/icons-material/RemoveShoppingCartOutlined';
+import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined';
+import VerifiedOutlinedIcon from '@mui/icons-material/VerifiedOutlined';
+
 
 export const EmployeeAndApplicantsData = [
   {
     // color: "red",
     type: 2,
     icon: LibraryAddCheckOutlinedIcon,
-    title: "KPI Appraisal",
+    title: "KPI Appraisals",
     value: "KEA",
     footer: {
     color: "text-green-500",
@@ -500,6 +503,38 @@ export const EmployeeAndApplicantsData = [
     custom: "linear-gradient(22deg, rgba(9,9,121,1) 15%, rgba(191,4,14,1) 47%, rgba(2,0,36,1) 100%, rgba(0,212,255,1) 100%)",
     // custom: "linear-gradient(235deg, rgba(132,25,142,1) 4%, rgba(52,9,121,0.8379726890756303) 23%, rgba(19,151,161,1) 55%)",
     link: '/home/Dashboards/Admin-Dashboard/Employee-And-Applicants/Offboarding',
+    customTop: 15,
+    customLeft: 38,
+  },
+  {
+    // color: "red",
+    type: 2,
+    icon: ReceiptLongOutlinedIcon,
+    title: "KPI Questions",
+    value: "KQS",
+    footer: {
+    color: "text-green-500",
+    value: "<",
+    label: "List of KPI Questions, etc.",
+    },
+    custom: "linear-gradient(22deg, rgba(9,9,121,1) 15%, rgba(191,4,14,1) 47%, rgba(2,0,36,1) 100%, rgba(0,212,255,1) 100%)",
+    link: '/home/Dashboards/Admin-Dashboard/Employee-And-Applicants/KPI-Questions',
+    customTop: 15,
+    customLeft: 38,
+  },
+  {
+    // color: "red",
+    type: 2,
+    icon: VerifiedOutlinedIcon,
+    title: "Core Competencies",
+    value: "CCS",
+    footer: {
+    color: "text-green-500",
+    value: "<",
+    label: "List of Core Competencies, etc.",
+    },
+    custom: "linear-gradient(22deg, rgba(9,9,121,1) 15%, rgba(191,4,14,1) 47%, rgba(2,0,36,1) 100%, rgba(0,212,255,1) 100%)",
+    link: '/home/Dashboards/Admin-Dashboard/Employee-And-Applicants/KPI-Questions',
     customTop: 15,
     customLeft: 38,
   },
