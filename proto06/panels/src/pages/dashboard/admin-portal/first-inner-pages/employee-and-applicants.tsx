@@ -1,8 +1,5 @@
 import { useEffect, useState, createElement } from "react";
-import {
-  Typography,
-} from "@material-tailwind/react";
-// import { Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { EasyAccessCard } from "@/widgets/cards";
 import { EmployeeAndApplicantsData } from "@/data/pages-data/dashboard-data/admin-portal-data";
 

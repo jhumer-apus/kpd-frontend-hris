@@ -96,6 +96,7 @@ import PrivacyTipOutlinedIcon from '@mui/icons-material/PrivacyTipOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import RuleFolderOutlinedIcon from '@mui/icons-material/RuleFolderOutlined';
 import { EmployeeAndApplicants } from "./pages/dashboard/admin-portal/first-inner-pages/employee-and-applicants";
+import EAKPIEVAL from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-kpi-evaluation/eoy-pay-13th";
 
 
 const icon = {
@@ -355,7 +356,7 @@ const JSXRouteWrapper = () => {
                       icon: null,
                       name: "KPI Evaluation",
                       path: "/Dashboards/Admin-Dashboard/Employee-And-Applicants/KPI-Evaluation",
-                      element: <h1>KPI</h1>,
+                      element: <EAKPIEVAL/>,
                       hasSubItems: false,
                     },
                     {
