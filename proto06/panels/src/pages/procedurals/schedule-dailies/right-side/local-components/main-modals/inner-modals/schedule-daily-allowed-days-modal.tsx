@@ -210,7 +210,7 @@ export default function AllowedDaysSCHEDULEDAILYModal(props: AllowedDaysSCHEDULE
                             <FormControlLabel value="false" control={<Radio />} label="No" />
                         </RadioGroup>
                     </FormControl>
-                    <TextField 
+                    {/* <TextField 
                       sx={{width: '100%'}} 
                       label='Shift Code:'
                       value={(initialEditState.schedule_shift_code)}
@@ -227,7 +227,7 @@ export default function AllowedDaysSCHEDULEDAILYModal(props: AllowedDaysSCHEDULE
                         })
                       }}
                       variant='standard'
-                    />
+                    /> */}
                 </div>
                 <div className='flex flex-col justify-center items-center'>
                   <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
@@ -250,7 +250,7 @@ export default function AllowedDaysSCHEDULEDAILYModal(props: AllowedDaysSCHEDULE
 
 // Styles
 const allowedDaysSCHEDULEDAILYArea = {
-  height: '148.5mm',
+  height: '128.5mm',
   width: '120mm',
   margin: '0 auto',
   background: 'white',
