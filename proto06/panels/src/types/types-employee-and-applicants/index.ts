@@ -64,7 +64,7 @@ export interface CORECOMPEEditInterface extends CORECOMPEGenericInterface, Pick<
 
 export interface EVALQUESTIONSGenericInterface {
 	date_added: string
-	added_by: number
+	added_by?: number
 	question: string
 	answer: string 
 }

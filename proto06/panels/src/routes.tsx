@@ -97,6 +97,7 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 import RuleFolderOutlinedIcon from '@mui/icons-material/RuleFolderOutlined';
 import { EmployeeAndApplicants } from "./pages/dashboard/admin-portal/first-inner-pages/employee-and-applicants";
 import EAKPIEVAL from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-kpi-evaluation/ea-kpi-evaluation";
+import EAEVALQUESTIONS from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-kpi-questions/ea-eval-questions";
 
 
 const icon = {
@@ -380,7 +381,7 @@ const JSXRouteWrapper = () => {
                       icon: null,
                       name: "KPI Questions",
                       path: "/Dashboards/Admin-Dashboard/Employee-And-Applicants/KPI-Questions",
-                      element: <h1>Questions</h1>,
+                      element: <EAEVALQUESTIONS/>,
                       hasSubItems: false,
                     },
                     {
