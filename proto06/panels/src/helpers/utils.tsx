@@ -114,3 +114,14 @@ export const beautifyJSON = (jsonObj: BeautifyObject) => {
   }
   return beautifiedString.trim();
 }
+
+
+
+export const findExistingKey = <T extends object>(PassedObject: T, keysToCheck: (keyof T)[]): keyof T => {
+  for (const key of keysToCheck) {
+      if (key in PassedObject) {
+          return key;
+      }
+  }
+  throw console.error('No Key Found');
+}
