@@ -16,8 +16,6 @@ const CarouselUI = ({ items }: any) => {
     const state = useSelector((state: RootState) => state.payrollEOY.ACTIVEANNOUNCEMENTView)
     const [greetings, setGreeting] = useState("");
     
-
-    
     useEffect(()=> {
         let timeNow = new Date().getHours();
         if (timeNow >= 5 && timeNow < 12){
@@ -54,7 +52,7 @@ const CarouselUI = ({ items }: any) => {
         },
       ];
 
-    const activeAnnouncement = state.data.map((item, index)=> {
+    const activeAnnouncement = Array.isArray(state.data) ? state?.data?.map((item, index)=> {
         return (
             {
                 imageUrl: item.emp_image,
@@ -65,7 +63,7 @@ const CarouselUI = ({ items }: any) => {
                 
             }
         )
-    })
+    }) : [];
   return (
     <React.Fragment>
         <div className={styles.exampleWrap}>
