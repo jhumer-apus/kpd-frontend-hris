@@ -99,7 +99,8 @@ import { EmployeeAndApplicants } from "./pages/dashboard/admin-portal/first-inne
 import EAKPIEVAL from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-kpi-evaluation/ea-kpi-evaluation";
 import EAEVALQUESTIONS from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-kpi-questions/ea-eval-questions";
 import EACORECOMPE from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-core-competencies/ea-core-competencies";
-
+import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
+import AlarmOffIcon from '@mui/icons-material/AlarmOff';
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -520,7 +521,7 @@ const JSXRouteWrapper = () => {
         {
           id: 14000,
           icon: null,
-          name: "Your Approvals",
+          name: "Pending Checklists",
           path: "/your-approvals",
           element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-orange-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">EMPLOYEE ELEMENTS UNDER DEVELOPMENT</strong>,
           hasSubItems: true,
@@ -564,8 +565,26 @@ const JSXRouteWrapper = () => {
             {
               id: 14500,
               icon: <RuleFolderOutlinedIcon {...icon} />,
-              name: "Appraisal Confirmations",
+              name: "KPI Appraisal Confirmations",
               path: "/your-approvals/Appraisal-Confirmations",
+              element: <ApprovalUAPage/>, 
+              badgeAccessor: 'UAViewFilterApprover',
+              hasSubItems: false,
+            },
+            {
+              id: 14600,
+              icon: <AddLocationAltIcon {...icon} />,
+              name: "Onboarding CF",
+              path: "/your-approvals/Onboarding-Confirmations",
+              element: <ApprovalUAPage/>, 
+              badgeAccessor: 'UAViewFilterApprover',
+              hasSubItems: false,
+            },
+            {
+              id: 14700,
+              icon: <AlarmOffIcon {...icon} />,
+              name: "Offboarding CF",
+              path: "/your-approvals/Offboarding-Confirmations",
               element: <ApprovalUAPage/>, 
               badgeAccessor: 'UAViewFilterApprover',
               hasSubItems: false,
