@@ -60,7 +60,7 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
                 <TextField
                     required 
                     sx={{width: '100%'}} 
-                    label='Payroll Group Name'
+                    label='Payroll Group Name (Max: 25 char)'
                     aria-required  
                     variant='outlined' 
                     type="text"

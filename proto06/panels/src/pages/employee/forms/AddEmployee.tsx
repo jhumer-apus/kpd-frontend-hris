@@ -56,10 +56,10 @@ export const UserProfile = () => {
         </Typography>
         
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
-            <div style={{position: 'relative', width: '30%'}}>
+            <div style={{position: 'relative', width: '40%'}}>
                 <Input
                     {...register('date_hired', { required: true })}
-                    label="Date Hired: YYYY-MM-DD (required)"
+                    label="Date Hired: YYYY-MM-DD*"
                     type='text'
                     disabled={!editMode}
                     pattern='[0-9]{4}-[0-9]{2}-[0-9]{2}'
@@ -112,7 +112,7 @@ export const UserProfile = () => {
             <div style={{position: 'relative', width: '100%'}}>
                 <Input
                     {...register('emp_no', { required: true })}
-                    label="Assigned Employee No: (required, max 5 digits)"
+                    label="Assigned Employee No:* (max 5 digits)"
                     disabled={!editMode}
                 />
                 {errors.emp_no && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Emp # is required.</sub>}
@@ -120,7 +120,7 @@ export const UserProfile = () => {
             <div style={{position: 'relative', width: '100%'}}>
                 <Input
                     {...register('bio_id', { required: true })}
-                    label="Biometrics ID: (required, can be same as emp_no)"
+                    label="Biometrics ID:* (can be same as emp_no)"
                     disabled={!editMode}
                 />
                 {errors.bio_id && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Bio ID is required.</sub>}
@@ -214,6 +214,17 @@ export const UserProfile = () => {
                 type='text'
                 />
                 {errors.emp_salary_type && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Salary Type is required.</sub>}
+            </div>
+        </div>
+        <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
+            <div style={{position: 'relative', width: '100%'}}>
+                <Input
+                {...register('payroll_group_code', { required: true })}
+                label="Payroll Group Code: (ID) "
+                disabled={!editMode}
+                type='text'
+                />
+                {errors.payroll_group_code && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Payrollgroup ID is required.</sub>}
             </div>
         </div>
         <Typography

@@ -18,6 +18,8 @@ export interface KPICOREGenericInterface {
 	questions?: {
 		question: string
 		answer: string
+		sup_eval_points: number
+		self_eval_points: number
 	}[]
 	core_competencies?: {
 		checklist_title: string

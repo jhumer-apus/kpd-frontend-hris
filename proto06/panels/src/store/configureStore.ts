@@ -304,8 +304,8 @@ epicMiddleware.run(combineEpics(
 
 export type RootState = ReturnType<typeof rootReducer>;
 // export const APILink = 'http://18.141.159.149:8000/api/v1/';
-// export const APILink = 'https://mercovsk1.pythonanywhere.com/api/v1/';
-export const APILink = 'http://192.168.0.101:8000/api/v1/';
+export const APILink = 'https://mercovsk1.pythonanywhere.com/api/v1/';
+// export const APILink = 'http://192.168.0.101:8000/api/v1/';
 // export const APILink = 'http://192.168.0.107:8000/api/v1/';
 export const JSONServer = 'http://localhost:3030/';
 export default store;

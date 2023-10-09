@@ -1,8 +1,9 @@
 import { GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
-
+import dayjs from "dayjs";
+import sortBy from "lodash/sortBy"
 
 export const EAKPICOREPageDescriptions = [
-  "On this table, you will find the list of HRIS Bonus Entry of the employee of your company and their details each.",
+  "On this table, you will find the list of KPI Eval Data of the employees of your company and their details each.",
   // "See merged logs of all employees here, showing the total hours and details of each logs. Sortable and filterable on the table headers.",
   // "See the total hours of all employees per cutoff here. Sortable and filterable by the table headers.",
   // "Nondescript"
@@ -12,29 +13,29 @@ export const EAKPICOREPageDescriptions = [
 export const EAKPICOREPageColumns: GridColDef[] = 
 [
   {
-    field: 'emp_no',
-    headerName: 'Employee #',
+    field: 'final_rating',
+    headerName: 'Final Rating',
     width: 100,
     // valueGetter: (params: GridValueGetterParams) => {
     //   const date = new Date(params.row.expiry);
     //   return params.row.expiry ? date.toLocaleDateString() : 'No Expiry';
     // }
   },
-  { field: 'coverage_from', 
-    headerName: 'Coverage From:', 
+  { field: 'eval_date', 
+    headerName: 'Eval Date:', 
     width: 150,
     valueGetter: (params: GridValueGetterParams) => {
-      const date = new Date(params.row.coverage_from);
-      return params.row.coverage_from ? date.toLocaleDateString() : 'No Date';
+      const date = new Date(params.row.eval_date);
+      return params.row.eval_date ? dayjs(date).format("MM-DD-YYYY") : 'No Date';
     }
   },
-  { field: 'coverage_to', 
-    headerName: 'Coverage To:', 
+  { field: 'status', 
+    headerName: 'Status:', 
     width: 150,
-    valueGetter: (params: GridValueGetterParams) => {
-      const date = new Date(params.row.coverage_to);
-      return params.row.coverage_to ? date.toLocaleDateString() : 'No Date';
-    }
+    // valueGetter: (params: GridValueGetterParams) => {
+    //   const date = new Date(params.row.coverage_to);
+    //   return params.row.coverage_to ? date.toLocaleDateString() : 'No Date';
+    // }
     // valueGetter: (params: GridValueGetterParams) => {
     //   const date = new Date(params.row.date_added);
     //   return params.row.date_added ? date.toLocaleDateString() : 'No Date';
@@ -60,13 +61,9 @@ export const EAKPICOREPageColumns: GridColDef[] =
     //   );
     // }  
   },
-  { field: 'total_pay', 
-    headerName: 'Total Pay:',  
+  { field: 'emp_name', 
+    headerName: 'Employee Name:',  
     width: 180,
-    valueGetter: (params: GridValueGetterParams) => {
-      const string = new Number(params.row.total_pay);
-      return params.row.total_pay ? string.toFixed(2) : 'No Date';
-    } 
   },
 ];
 

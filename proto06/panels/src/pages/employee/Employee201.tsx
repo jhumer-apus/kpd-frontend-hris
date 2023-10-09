@@ -157,7 +157,7 @@ export default function DataTable() {
             aria-labelledby="parent-modal-title"
             aria-describedby="parent-modal-description"
           >
-            <Box sx={{ ...style, width:"80%", height: "80%", overflowY: "auto",  background: "#fff", backgroundImage: "#fff" }}>
+            <Box sx={{ ...style, width:"80%", height: "90%", overflowY: "auto",  background: "#fff", backgroundImage: "#fff" }}>
             <UserProfile/>
             </Box>
         </Modal>

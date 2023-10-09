@@ -222,7 +222,7 @@ interface DIVISIONEditState extends CommonCategoriesState {
 
 // PAYROLLGROUP SECTION // PAYROLLGROUP SECTION // PAYROLLGROUP SECTION // PAYROLLGROUP SECTION
 interface PAYROLLGROUPViewState extends CommonCategoriesState{
-  data: PAYROLLGROUPViewInterface[] | null | [] | PAYROLLGROUPViewInterface;
+  data: PAYROLLGROUPViewInterface[] | [] ;
 }
 
 interface PAYROLLGROUPCreateState extends CommonCategoriesState{
@@ -396,13 +396,13 @@ const initialState: OverallCategoriesState = {
   PAYROLLGROUPView: {
     status: '',
     progress: 0,
-    data: null,
+    data: [],
     error: '',
   },
   PAYROLLGROUPViewSpecific: {
     status: '',
     progress: 0,
-    data: null,
+    data: [],
     error: '',
   },
   PAYROLLGROUPCreate: {
