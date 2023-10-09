@@ -83,3 +83,101 @@ export interface EVALQUESTIONSEditInterface extends EVALQUESTIONSGenericInterfac
 
 
 
+
+
+export interface ONBOARDINGSTATUSGenericInterface {
+	emp_no: number
+	start_date: string
+	status: "Pending" | "Completed"
+	final_remarks: string
+	date_added: string
+	added_by?: number
+	requirements: Omit<ONBOARDINGREQUIREMENTSViewInterface[], "id" | "added_by" |"date_added" | "date_deleted">
+}
+
+
+export interface ONBOARDINGSTATUSViewInterface extends ONBOARDINGSTATUSGenericInterface{
+    readonly id: number,
+}
+
+export interface ONBOARDINGSTATUSCreateInterface extends ONBOARDINGSTATUSGenericInterface{}
+
+export interface ONBOARDINGSTATUSEditInterface extends ONBOARDINGSTATUSGenericInterface, Pick<ONBOARDINGSTATUSViewInterface, "id">{}
+
+// ======================================
+
+
+
+export interface ONBOARDINGREQUIREMENTSGenericInterface {
+	facilitator: number
+	onboarding_title: string,
+	commencement_date: string | null
+	emp_remarks: string | null
+	facilitator_remarks: string | null
+	status: "Pending" | "Completed"
+	date_added: string
+	added_by?: number
+}
+
+
+export interface ONBOARDINGREQUIREMENTSViewInterface extends ONBOARDINGREQUIREMENTSGenericInterface{
+    readonly id: number,
+    readonly date_deleted: string
+}
+
+export interface ONBOARDINGREQUIREMENTSCreateInterface extends ONBOARDINGREQUIREMENTSGenericInterface{}
+
+export interface ONBOARDINGREQUIREMENTSEditInterface extends ONBOARDINGREQUIREMENTSGenericInterface, Pick<ONBOARDINGREQUIREMENTSViewInterface, "id">{}
+
+// ======================================
+
+
+
+
+export interface OFFBOARDINGSTATUSGenericInterface {
+	emp_no: number
+	start_date: string
+	status: "Pending" | "Completed"
+	final_remarks: string
+	date_added: string
+	added_by?: number
+	requirements: Omit<OFFBOARDINGREQUIREMENTSViewInterface[], "id" | "added_by" |"date_added" | "date_deleted">
+}
+
+
+export interface OFFBOARDINGSTATUSViewInterface extends OFFBOARDINGSTATUSGenericInterface{
+    readonly id: number,
+}
+
+export interface OFFBOARDINGSTATUSCreateInterface extends OFFBOARDINGSTATUSGenericInterface{}
+
+export interface OFFBOARDINGSTATUSEditInterface extends OFFBOARDINGSTATUSGenericInterface, Pick<OFFBOARDINGSTATUSViewInterface, "id">{}
+
+// ======================================
+
+
+
+export interface OFFBOARDINGREQUIREMENTSGenericInterface {
+	facilitator: number
+	onboarding_title: string,
+	commencement_date: string | null
+	emp_remarks: string | null
+	facilitator_remarks: string | null
+	status: "Pending" | "Completed"
+	date_added: string
+	added_by?: number
+}
+
+
+export interface OFFBOARDINGREQUIREMENTSViewInterface extends OFFBOARDINGREQUIREMENTSGenericInterface{
+    readonly id: number,
+    readonly date_deleted: string
+}
+
+export interface OFFBOARDINGREQUIREMENTSCreateInterface extends OFFBOARDINGREQUIREMENTSGenericInterface{}
+
+export interface OFFBOARDINGREQUIREMENTSEditInterface extends OFFBOARDINGREQUIREMENTSGenericInterface, Pick<OFFBOARDINGREQUIREMENTSViewInterface, "id">{}
+
+// ======================================
+
+
