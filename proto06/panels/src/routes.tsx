@@ -98,6 +98,7 @@ import RuleFolderOutlinedIcon from '@mui/icons-material/RuleFolderOutlined';
 import { EmployeeAndApplicants } from "./pages/dashboard/admin-portal/first-inner-pages/employee-and-applicants";
 import EAKPIEVAL from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-kpi-evaluation/ea-kpi-evaluation";
 import EAEVALQUESTIONS from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-kpi-questions/ea-eval-questions";
+import EACORECOMPE from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-core-competencies/ea-core-competencies";
 
 
 const icon = {
@@ -363,17 +364,17 @@ const JSXRouteWrapper = () => {
                     {
                       id: 1160001,
                       icon: null,
-                      name: "Onboarding",
-                      path: "/Dashboards/Admin-Dashboard/Employee-And-Applicants/Onboarding",
-                      element: <h1>Onboarding</h1>,
+                      name: "Initialize Onboarding",
+                      path: "/Dashboards/Admin-Dashboard/Employee-And-Applicants/Initialize-Onboarding",
+                      element: <h1>Initialize Onboarding</h1>,
                       hasSubItems: false,
                     },
                     {
                       id: 1160002,
                       icon: null,
-                      name: "Offboarding",
-                      path: "/Dashboards/Admin-Dashboard/Employee-And-Applicants/Offboarding",
-                      element: <h1>Offboarding</h1>,
+                      name: "Initialize Offboarding",
+                      path: "/Dashboards/Admin-Dashboard/Employee-And-Applicants/Initialize-Offboarding",
+                      element: <h1>Initialize Offboarding</h1>,
                       hasSubItems: false,
                     },
                     {
@@ -389,7 +390,23 @@ const JSXRouteWrapper = () => {
                       icon: null,
                       name: "Core Competencies",
                       path: "/Dashboards/Admin-Dashboard/Employee-And-Applicants/Core-Competencies",
-                      element: <h1>Core</h1>,
+                      element: <EACORECOMPE/>,
+                      hasSubItems: false,
+                    },
+                    {
+                      id: 1160005,
+                      icon: null,
+                      name: "Onboarding Requirements",
+                      path: "/Dashboards/Admin-Dashboard/Employee-And-Applicants/Onboarding-Requirements",
+                      element: <h1>Onboarding Requirements</h1>,
+                      hasSubItems: false,
+                    },
+                    {
+                      id: 1160006,
+                      icon: null,
+                      name: "Offboarding",
+                      path: "/Dashboards/Admin-Dashboard/Employee-And-Applicants/Offboarding-Requirements",
+                      element: <h1>Offboarding Requirements</h1>,
                       hasSubItems: false,
                     },
                   ]

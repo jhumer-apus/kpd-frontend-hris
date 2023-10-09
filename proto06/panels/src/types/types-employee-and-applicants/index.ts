@@ -46,7 +46,7 @@ export interface CORECOMPEGenericInterface {
 	checklist_title: string
 	checklist_limits: string
 	points: number
-
+	added_by?: number,
 }
 
 
