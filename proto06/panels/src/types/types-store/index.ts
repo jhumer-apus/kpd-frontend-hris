@@ -61,12 +61,13 @@ export interface GetEmployeesListsType {
     philhealth_code: string | null,
     position_code: string | null,
     provincial_address: string | null,
-    rank_code: number | null,
+    rank_code: number,
     rank_data: RankDataInterface,
     sssid_code: string,
     suffix: string,
     tax_code: string,
     user: UserType | null,
+    rank_hierarchy: number,
 }
 
 export interface ViewAllDtrLogsType {

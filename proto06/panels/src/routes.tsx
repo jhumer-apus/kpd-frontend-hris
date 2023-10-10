@@ -103,6 +103,7 @@ import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import AlarmOffIcon from '@mui/icons-material/AlarmOff';
 import EAONBOARDINGSTATUS from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-initialize-onboarding/ea-initialize-onboarding";
 import EAOFFBOARDINGSTATUS from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-initialize-offboarding/ea-initialize-offboarding";
+import EAONBOARDINGREQUIREMENTS from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-onboarding-requirements/ea-onboarding-requirements";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -401,7 +402,7 @@ const JSXRouteWrapper = () => {
                       icon: null,
                       name: "Onboarding Requirements",
                       path: "/Dashboards/Admin-Dashboard/Employee-And-Applicants/Onboarding-Requirements",
-                      element: <h1>Onboarding Requirements</h1>,
+                      element: <EAONBOARDINGREQUIREMENTS/>,
                       hasSubItems: false,
                     },
                     {

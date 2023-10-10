@@ -118,7 +118,8 @@
       "checklist_title": "No Lates",
       "checklist_limits": "Max. of 30 minutes / month cumulative",
       "points": 0,
-      "date_deleted": ""
+      "date_deleted": "",
+      "added_by": 1
     },
     {
       "id": 2,
@@ -126,7 +127,8 @@
       "checklist_title": "No Absences without Leave/Notice (AWOL)",
       "checklist_limits": "Zero AWOL Tolerance",
       "points": 0,
-      "date_deleted": ""
+      "date_deleted": "",
+      "added_by": 1
     },
     {
       "id": 3,
@@ -134,7 +136,8 @@
       "checklist_title": "No Absences",
       "checklist_limits": "3 Max Informed Absences",
       "points": 0,
-      "date_deleted": ""
+      "date_deleted": "",
+      "added_by": 1
     },
     {
       "id": 4,
@@ -142,7 +145,8 @@
       "checklist_title": "No Missed Deadlines / Tasks / Projects",
       "checklist_limits": "2 Max Instances",
       "points": 0,
-      "date_deleted": ""
+      "date_deleted": "",
+      "added_by": 1
     },
     {
       "id": 5,
@@ -150,7 +154,8 @@
       "checklist_title": "No Poor Work Quality",
       "checklist_limits": "Zero Work Quality Instance",
       "points": 0,
-      "date_deleted": ""
+      "date_deleted": "",
+      "added_by": 1
     },
     {
       "id": 6,
@@ -158,7 +163,8 @@
       "checklist_title": "No Critical Offenses",
       "checklist_limits": "Zero Critical Offence Instance",
       "points": 0,
-      "date_deleted": ""
+      "date_deleted": "",
+      "added_by": 1
     }
   ],
   "kpi_core": [
