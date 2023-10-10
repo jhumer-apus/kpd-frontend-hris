@@ -448,3 +448,588 @@ export const EVALQUESTIONSEditEpic: Epic = (action$, state$) =>
 );
 
   
+
+// ONBOARDINGSTATUS API SECTION // ONBOARDINGSTATUS API SECTION // ONBOARDINGSTATUS API SECTION // ONBOARDINGSTATUS API SECTION // ONBOARDINGSTATUS API SECTION
+const ONBOARDINGSTATUSEditApiCall = async (payload: _Interface.ONBOARDINGSTATUSEditInterface) => {
+    const response = await axios.put(`${JSONServer}onboarding_status/${payload.id}/`,
+    payload,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.ONBOARDINGSTATUSEditActionProgress(progress));
+          }
+        }
+      }
+    );
+    return response.data;
+};
+  
+const ONBOARDINGSTATUSCreateApiCall = async (payload: _Interface.ONBOARDINGSTATUSCreateInterface) => {
+    const response = await axios.post(`${JSONServer}onboarding_status/`,
+    payload,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.ONBOARDINGSTATUSCreateActionProgress(progress));
+            }
+        }
+        }
+    );
+    return response.data;
+};
+
+const ONBOARDINGSTATUSViewSpecificApiCall = async (payload: {onboarding_status_id: number }) => {
+    const response = await axios.get(`${JSONServer}onboarding_status/${payload.onboarding_status_id}/`,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.ONBOARDINGSTATUSViewSpecificActionProgress(progress));
+            }
+        }
+        }
+    );
+    return response.data;
+};
+
+
+const ONBOARDINGSTATUSViewApiCall = async () => {
+    const response = await axios.get(`${JSONServer}onboarding_status/`,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.ONBOARDINGSTATUSViewActionProgress(progress));
+            }
+        }
+        }
+    );
+    return response.data;
+};
+
+export const ONBOARDINGSTATUSViewEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.ONBOARDINGSTATUSViewAction.type),
+        switchMap(() =>
+        from(
+            ONBOARDINGSTATUSViewApiCall()
+        ).pipe(
+            map((data) => {
+            return _Action.ONBOARDINGSTATUSViewActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.ONBOARDINGSTATUSViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.ONBOARDINGSTATUSViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+export const ONBOARDINGSTATUSViewSpecificEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.ONBOARDINGSTATUSViewSpecificAction.type),
+        switchMap((action: ReturnType<typeof _Action.ONBOARDINGSTATUSViewSpecificAction>) =>
+        from(
+            ONBOARDINGSTATUSViewSpecificApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.ONBOARDINGSTATUSViewSpecificActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.ONBOARDINGSTATUSViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.ONBOARDINGSTATUSViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+
+export const ONBOARDINGSTATUSCreateEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.ONBOARDINGSTATUSCreateAction.type),
+        switchMap((action: ReturnType<typeof _Action.ONBOARDINGSTATUSCreateAction>) =>
+        from(
+            ONBOARDINGSTATUSCreateApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.ONBOARDINGSTATUSCreateActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data) {
+                return of(_Action.ONBOARDINGSTATUSCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
+            } else {
+                return of(_Action.ONBOARDINGSTATUSCreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+export const ONBOARDINGSTATUSEditEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.ONBOARDINGSTATUSEditAction.type),
+        switchMap((action: ReturnType<typeof _Action.ONBOARDINGSTATUSEditAction>) =>
+        from(
+            ONBOARDINGSTATUSEditApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.ONBOARDINGSTATUSEditActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.ONBOARDINGSTATUSEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.ONBOARDINGSTATUSEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+
+// ONBOARDINGREQUIREMENTS API SECTION // ONBOARDINGREQUIREMENTS API SECTION // ONBOARDINGREQUIREMENTS API SECTION // ONBOARDINGREQUIREMENTS API SECTION // ONBOARDINGREQUIREMENTS API SECTION
+const ONBOARDINGREQUIREMENTSEditApiCall = async (payload: _Interface.ONBOARDINGREQUIREMENTSEditInterface) => {
+    const response = await axios.put(`${JSONServer}onboarding_requirements/${payload.id}/`,
+    payload,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.ONBOARDINGREQUIREMENTSEditActionProgress(progress));
+          }
+        }
+      }
+    );
+    return response.data;
+};
+  
+const ONBOARDINGREQUIREMENTSCreateApiCall = async (payload: _Interface.ONBOARDINGREQUIREMENTSCreateInterface) => {
+    const response = await axios.post(`${JSONServer}onboarding_reuirements/`,
+    payload,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.ONBOARDINGREQUIREMENTSCreateActionProgress(progress));
+            }
+        }
+        }
+    );
+    return response.data;
+};
+
+const ONBOARDINGREQUIREMENTSViewSpecificApiCall = async (payload: {onboarding_requirements_id: number }) => {
+    const response = await axios.get(`${JSONServer}onboarding_requirements/${payload.onboarding_requirements_id}/`,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.ONBOARDINGREQUIREMENTSViewSpecificActionProgress(progress));
+            }
+        }
+        }
+    );
+    return response.data;
+};
+
+
+const ONBOARDINGREQUIREMENTSViewApiCall = async () => {
+    const response = await axios.get(`${JSONServer}onboarding_requirements/`,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.ONBOARDINGREQUIREMENTSViewActionProgress(progress));
+            }
+        }
+        }
+    );
+    return response.data;
+};
+
+export const ONBOARDINGREQUIREMENTSViewEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.ONBOARDINGREQUIREMENTSViewAction.type),
+        switchMap(() =>
+        from(
+            ONBOARDINGREQUIREMENTSViewApiCall()
+        ).pipe(
+            map((data) => {
+            return _Action.ONBOARDINGREQUIREMENTSViewActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.ONBOARDINGREQUIREMENTSViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.ONBOARDINGREQUIREMENTSViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+export const ONBOARDINGREQUIREMENTSViewSpecificEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.ONBOARDINGREQUIREMENTSViewSpecificAction.type),
+        switchMap((action: ReturnType<typeof _Action.ONBOARDINGREQUIREMENTSViewSpecificAction>) =>
+        from(
+            ONBOARDINGREQUIREMENTSViewSpecificApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.ONBOARDINGREQUIREMENTSViewSpecificActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.ONBOARDINGREQUIREMENTSViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.ONBOARDINGREQUIREMENTSViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+
+export const ONBOARDINGREQUIREMENTSCreateEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.ONBOARDINGREQUIREMENTSCreateAction.type),
+        switchMap((action: ReturnType<typeof _Action.ONBOARDINGREQUIREMENTSCreateAction>) =>
+        from(
+            ONBOARDINGREQUIREMENTSCreateApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.ONBOARDINGREQUIREMENTSCreateActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data) {
+                return of(_Action.ONBOARDINGREQUIREMENTSCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
+            } else {
+                return of(_Action.ONBOARDINGREQUIREMENTSCreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+export const ONBOARDINGREQUIREMENTSEditEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.ONBOARDINGREQUIREMENTSEditAction.type),
+        switchMap((action: ReturnType<typeof _Action.ONBOARDINGREQUIREMENTSEditAction>) =>
+        from(
+            ONBOARDINGREQUIREMENTSEditApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.ONBOARDINGREQUIREMENTSEditActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.ONBOARDINGREQUIREMENTSEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.ONBOARDINGREQUIREMENTSEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+
+
+
+// OFFBOARDINGSTATUS API SECTION // OFFBOARDINGSTATUS API SECTION // OFFBOARDINGSTATUS API SECTION // OFFBOARDINGSTATUS API SECTION // OFFBOARDINGSTATUS API SECTION
+const OFFBOARDINGSTATUSEditApiCall = async (payload: _Interface.OFFBOARDINGSTATUSEditInterface) => {
+    const response = await axios.put(`${JSONServer}offboarding_status/${payload.id}/`,
+    payload,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.OFFBOARDINGSTATUSEditActionProgress(progress));
+          }
+        }
+      }
+    );
+    return response.data;
+};
+  
+const OFFBOARDINGSTATUSCreateApiCall = async (payload: _Interface.OFFBOARDINGSTATUSCreateInterface) => {
+    const response = await axios.post(`${JSONServer}offboarding_status/`,
+    payload,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.OFFBOARDINGSTATUSCreateActionProgress(progress));
+            }
+        }
+        }
+    );
+    return response.data;
+};
+
+const OFFBOARDINGSTATUSViewSpecificApiCall = async (payload: {offboarding_status_id: number }) => {
+    const response = await axios.get(`${JSONServer}offboarding_status/${payload.offboarding_status_id}/`,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.OFFBOARDINGSTATUSViewSpecificActionProgress(progress));
+            }
+        }
+        }
+    );
+    return response.data;
+};
+
+
+const OFFBOARDINGSTATUSViewApiCall = async () => {
+    const response = await axios.get(`${JSONServer}offboarding_status/`,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.OFFBOARDINGSTATUSViewActionProgress(progress));
+            }
+        }
+        }
+    );
+    return response.data;
+};
+
+export const OFFBOARDINGSTATUSViewEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.OFFBOARDINGSTATUSViewAction.type),
+        switchMap(() =>
+        from(
+            OFFBOARDINGSTATUSViewApiCall()
+        ).pipe(
+            map((data) => {
+            return _Action.OFFBOARDINGSTATUSViewActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.OFFBOARDINGSTATUSViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.OFFBOARDINGSTATUSViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+export const OFFBOARDINGSTATUSViewSpecificEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.OFFBOARDINGSTATUSViewSpecificAction.type),
+        switchMap((action: ReturnType<typeof _Action.OFFBOARDINGSTATUSViewSpecificAction>) =>
+        from(
+            OFFBOARDINGSTATUSViewSpecificApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.OFFBOARDINGSTATUSViewSpecificActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.OFFBOARDINGSTATUSViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.OFFBOARDINGSTATUSViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+
+export const OFFBOARDINGSTATUSCreateEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.OFFBOARDINGSTATUSCreateAction.type),
+        switchMap((action: ReturnType<typeof _Action.OFFBOARDINGSTATUSCreateAction>) =>
+        from(
+            OFFBOARDINGSTATUSCreateApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.OFFBOARDINGSTATUSCreateActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data) {
+                return of(_Action.OFFBOARDINGSTATUSCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
+            } else {
+                return of(_Action.OFFBOARDINGSTATUSCreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+export const OFFBOARDINGSTATUSEditEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.OFFBOARDINGSTATUSEditAction.type),
+        switchMap((action: ReturnType<typeof _Action.OFFBOARDINGSTATUSEditAction>) =>
+        from(
+            OFFBOARDINGSTATUSEditApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.OFFBOARDINGSTATUSEditActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.OFFBOARDINGSTATUSEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.OFFBOARDINGSTATUSEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+
+// OFFBOARDINGREQUIREMENTS API SECTION // OFFBOARDINGREQUIREMENTS API SECTION // OFFBOARDINGREQUIREMENTS API SECTION // OFFBOARDINGREQUIREMENTS API SECTION // OFFBOARDINGREQUIREMENTS API SECTION
+const OFFBOARDINGREQUIREMENTSEditApiCall = async (payload: _Interface.OFFBOARDINGREQUIREMENTSEditInterface) => {
+    const response = await axios.put(`${JSONServer}offboarding_requirements/${payload.id}/`,
+    payload,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.OFFBOARDINGREQUIREMENTSEditActionProgress(progress));
+          }
+        }
+      }
+    );
+    return response.data;
+};
+  
+const OFFBOARDINGREQUIREMENTSCreateApiCall = async (payload: _Interface.OFFBOARDINGREQUIREMENTSCreateInterface) => {
+    const response = await axios.post(`${JSONServer}offboarding_reuirements/`,
+    payload,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.OFFBOARDINGREQUIREMENTSCreateActionProgress(progress));
+            }
+        }
+        }
+    );
+    return response.data;
+};
+
+const OFFBOARDINGREQUIREMENTSViewSpecificApiCall = async (payload: {offboarding_requirements_id: number }) => {
+    const response = await axios.get(`${JSONServer}offboarding_requirements/${payload.offboarding_requirements_id}/`,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.OFFBOARDINGREQUIREMENTSViewSpecificActionProgress(progress));
+            }
+        }
+        }
+    );
+    return response.data;
+};
+
+
+const OFFBOARDINGREQUIREMENTSViewApiCall = async () => {
+    const response = await axios.get(`${JSONServer}offboarding_requirements/`,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.OFFBOARDINGREQUIREMENTSViewActionProgress(progress));
+            }
+        }
+        }
+    );
+    return response.data;
+};
+
+export const OFFBOARDINGREQUIREMENTSViewEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.OFFBOARDINGREQUIREMENTSViewAction.type),
+        switchMap(() =>
+        from(
+            OFFBOARDINGREQUIREMENTSViewApiCall()
+        ).pipe(
+            map((data) => {
+            return _Action.OFFBOARDINGREQUIREMENTSViewActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.OFFBOARDINGREQUIREMENTSViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.OFFBOARDINGREQUIREMENTSViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+export const OFFBOARDINGREQUIREMENTSViewSpecificEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.OFFBOARDINGREQUIREMENTSViewSpecificAction.type),
+        switchMap((action: ReturnType<typeof _Action.OFFBOARDINGREQUIREMENTSViewSpecificAction>) =>
+        from(
+            OFFBOARDINGREQUIREMENTSViewSpecificApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.OFFBOARDINGREQUIREMENTSViewSpecificActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.OFFBOARDINGREQUIREMENTSViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.OFFBOARDINGREQUIREMENTSViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+
+export const OFFBOARDINGREQUIREMENTSCreateEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.OFFBOARDINGREQUIREMENTSCreateAction.type),
+        switchMap((action: ReturnType<typeof _Action.OFFBOARDINGREQUIREMENTSCreateAction>) =>
+        from(
+            OFFBOARDINGREQUIREMENTSCreateApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.OFFBOARDINGREQUIREMENTSCreateActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data) {
+                return of(_Action.OFFBOARDINGREQUIREMENTSCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
+            } else {
+                return of(_Action.OFFBOARDINGREQUIREMENTSCreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+export const OFFBOARDINGREQUIREMENTSEditEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.OFFBOARDINGREQUIREMENTSEditAction.type),
+        switchMap((action: ReturnType<typeof _Action.OFFBOARDINGREQUIREMENTSEditAction>) =>
+        from(
+            OFFBOARDINGREQUIREMENTSEditApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.OFFBOARDINGREQUIREMENTSEditActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.OFFBOARDINGREQUIREMENTSEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.OFFBOARDINGREQUIREMENTSEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);

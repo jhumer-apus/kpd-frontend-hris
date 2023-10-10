@@ -99,3 +99,131 @@ export const EVALQUESTIONSEditActionProgress = createAction<number>("EVALQUESTIO
 export const EVALQUESTIONSEditActionFailure = createAction<string>("EVALQUESTIONS_EDIT_ACTION_FAILURE");
 export const EVALQUESTIONSEditActionFailureCleanup = createAction("EVALQUESTIONS_EDIT_ACTION_FAILURE_CLEANUP");
 
+
+// ONBOARDINGSTATUS SECTION
+export const ONBOARDINGSTATUSViewAction = createAction("ONBOARDINGSTATUS_VIEW_ACTION");
+export const ONBOARDINGSTATUSViewActionSuccess = createAction("ONBOARDINGSTATUS_VIEW_ACTION_SUCCESS", (SuccessMessage: _Type.ONBOARDINGSTATUSViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const ONBOARDINGSTATUSViewActionProgress = createAction<number>("ONBOARDINGSTATUS_VIEW_ACTION_PROGRESS");
+export const ONBOARDINGSTATUSViewActionFailure = createAction<string>("ONBOARDINGSTATUS_VIEW_ACTION_FAILURE");
+export const ONBOARDINGSTATUSViewActionFailureCleanup = createAction("ONBOARDINGSTATUS_VIEW_ACTION_FAILURE_CLEANUP");
+
+export const ONBOARDINGSTATUSViewSpecificAction = createAction<{onboarding_status_id: number}>("ONBOARDINGSTATUS_VIEW_SPECIFIC_ACTION");
+export const ONBOARDINGSTATUSViewSpecificActionSuccess = createAction("ONBOARDINGSTATUS_VIEW_SPECIFIC_ACTION_SUCCESS", (SuccessMessage: _Type.ONBOARDINGSTATUSViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const ONBOARDINGSTATUSViewSpecificActionProgress = createAction<number>("ONBOARDINGSTATUS_VIEW_SPECIFIC_ACTION_PROGRESS");
+export const ONBOARDINGSTATUSViewSpecificActionFailure = createAction<string>("ONBOARDINGSTATUS_VIEW_SPECIFIC_ACTION_FAILURE");
+export const ONBOARDINGSTATUSViewSpecificActionFailureCleanup = createAction("ONBOARDINGSTATUS_VIEW_SPECIFIC_ACTION_FAILURE_CLEANUP");
+
+export const ONBOARDINGSTATUSCreateAction = createAction<_Type.ONBOARDINGSTATUSCreateInterface>("ONBOARDINGSTATUS_CREATE_ACTION");
+export const ONBOARDINGSTATUSCreateActionSuccess = createAction("ONBOARDINGSTATUS_CREATE_ACTION_SUCCESS", (SuccessMessage: _Type.ONBOARDINGSTATUSCreateInterface) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const ONBOARDINGSTATUSCreateActionProgress = createAction<number>("ONBOARDINGSTATUS_CREATE_ACTION_PROGRESS");
+export const ONBOARDINGSTATUSCreateActionFailure = createAction<string>("ONBOARDINGSTATUS_CREATE_ACTION_FAILURE");
+export const ONBOARDINGSTATUSCreateActionFailureCleanup = createAction("ONBOARDINGSTATUS_CREATE_ACTION_FAILURE_CLEANUP");
+
+export const ONBOARDINGSTATUSEditAction = createAction<_Type.ONBOARDINGSTATUSEditInterface>("ONBOARDINGSTATUS_EDIT_ACTION");
+export const ONBOARDINGSTATUSEditActionSuccess = createAction("ONBOARDINGSTATUS_EDIT_ACTION_SUCCESS", (SuccessMessage: _Type.ONBOARDINGSTATUSEditInterface) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const ONBOARDINGSTATUSEditActionProgress = createAction<number>("ONBOARDINGSTATUS_EDIT_ACTION_PROGRESS");
+export const ONBOARDINGSTATUSEditActionFailure = createAction<string>("ONBOARDINGSTATUS_EDIT_ACTION_FAILURE");
+export const ONBOARDINGSTATUSEditActionFailureCleanup = createAction("ONBOARDINGSTATUS_EDIT_ACTION_FAILURE_CLEANUP");
+
+// ONBOARDINGREQUIREMENTS SECTION
+export const ONBOARDINGREQUIREMENTSViewAction = createAction("ONBOARDINGREQUIREMENTS_VIEW_ACTION");
+export const ONBOARDINGREQUIREMENTSViewActionSuccess = createAction("ONBOARDINGREQUIREMENTS_VIEW_ACTION_SUCCESS", (SuccessMessage: _Type.ONBOARDINGREQUIREMENTSViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const ONBOARDINGREQUIREMENTSViewActionProgress = createAction<number>("ONBOARDINGREQUIREMENTS_VIEW_ACTION_PROGRESS");
+export const ONBOARDINGREQUIREMENTSViewActionFailure = createAction<string>("ONBOARDINGREQUIREMENTS_VIEW_ACTION_FAILURE");
+export const ONBOARDINGREQUIREMENTSViewActionFailureCleanup = createAction("ONBOARDINGREQUIREMENTS_VIEW_ACTION_FAILURE_CLEANUP");
+
+export const ONBOARDINGREQUIREMENTSViewSpecificAction = createAction<{onboarding_requirements_id: number}>("ONBOARDINGREQUIREMENTS_VIEW_SPECIFIC_ACTION");
+export const ONBOARDINGREQUIREMENTSViewSpecificActionSuccess = createAction("ONBOARDINGREQUIREMENTS_VIEW_SPECIFIC_ACTION_SUCCESS", (SuccessMessage: _Type.ONBOARDINGREQUIREMENTSViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const ONBOARDINGREQUIREMENTSViewSpecificActionProgress = createAction<number>("ONBOARDINGREQUIREMENTS_VIEW_SPECIFIC_ACTION_PROGRESS");
+export const ONBOARDINGREQUIREMENTSViewSpecificActionFailure = createAction<string>("ONBOARDINGREQUIREMENTS_VIEW_SPECIFIC_ACTION_FAILURE");
+export const ONBOARDINGREQUIREMENTSViewSpecificActionFailureCleanup = createAction("ONBOARDINGREQUIREMENTS_VIEW_SPECIFIC_ACTION_FAILURE_CLEANUP");
+
+export const ONBOARDINGREQUIREMENTSCreateAction = createAction<_Type.ONBOARDINGREQUIREMENTSCreateInterface>("ONBOARDINGREQUIREMENTS_CREATE_ACTION");
+export const ONBOARDINGREQUIREMENTSCreateActionSuccess = createAction("ONBOARDINGREQUIREMENTS_CREATE_ACTION_SUCCESS", (SuccessMessage: _Type.ONBOARDINGREQUIREMENTSCreateInterface) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const ONBOARDINGREQUIREMENTSCreateActionProgress = createAction<number>("ONBOARDINGREQUIREMENTS_CREATE_ACTION_PROGRESS");
+export const ONBOARDINGREQUIREMENTSCreateActionFailure = createAction<string>("ONBOARDINGREQUIREMENTS_CREATE_ACTION_FAILURE");
+export const ONBOARDINGREQUIREMENTSCreateActionFailureCleanup = createAction("ONBOARDINGREQUIREMENTS_CREATE_ACTION_FAILURE_CLEANUP");
+
+export const ONBOARDINGREQUIREMENTSEditAction = createAction<_Type.ONBOARDINGREQUIREMENTSEditInterface>("ONBOARDINGREQUIREMENTS_EDIT_ACTION");
+export const ONBOARDINGREQUIREMENTSEditActionSuccess = createAction("ONBOARDINGREQUIREMENTS_EDIT_ACTION_SUCCESS", (SuccessMessage: _Type.ONBOARDINGREQUIREMENTSEditInterface) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const ONBOARDINGREQUIREMENTSEditActionProgress = createAction<number>("ONBOARDINGREQUIREMENTS_EDIT_ACTION_PROGRESS");
+export const ONBOARDINGREQUIREMENTSEditActionFailure = createAction<string>("ONBOARDINGREQUIREMENTS_EDIT_ACTION_FAILURE");
+export const ONBOARDINGREQUIREMENTSEditActionFailureCleanup = createAction("ONBOARDINGREQUIREMENTS_EDIT_ACTION_FAILURE_CLEANUP");
+
+
+
+// OFFBOARDINGSTATUS SECTION
+export const OFFBOARDINGSTATUSViewAction = createAction("OFFBOARDINGSTATUS_VIEW_ACTION");
+export const OFFBOARDINGSTATUSViewActionSuccess = createAction("OFFBOARDINGSTATUS_VIEW_ACTION_SUCCESS", (SuccessMessage: _Type.OFFBOARDINGSTATUSViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const OFFBOARDINGSTATUSViewActionProgress = createAction<number>("OFFBOARDINGSTATUS_VIEW_ACTION_PROGRESS");
+export const OFFBOARDINGSTATUSViewActionFailure = createAction<string>("OFFBOARDINGSTATUS_VIEW_ACTION_FAILURE");
+export const OFFBOARDINGSTATUSViewActionFailureCleanup = createAction("OFFBOARDINGSTATUS_VIEW_ACTION_FAILURE_CLEANUP");
+
+export const OFFBOARDINGSTATUSViewSpecificAction = createAction<{offboarding_status_id: number}>("OFFBOARDINGSTATUS_VIEW_SPECIFIC_ACTION");
+export const OFFBOARDINGSTATUSViewSpecificActionSuccess = createAction("OFFBOARDINGSTATUS_VIEW_SPECIFIC_ACTION_SUCCESS", (SuccessMessage: _Type.OFFBOARDINGSTATUSViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const OFFBOARDINGSTATUSViewSpecificActionProgress = createAction<number>("OFFBOARDINGSTATUS_VIEW_SPECIFIC_ACTION_PROGRESS");
+export const OFFBOARDINGSTATUSViewSpecificActionFailure = createAction<string>("OFFBOARDINGSTATUS_VIEW_SPECIFIC_ACTION_FAILURE");
+export const OFFBOARDINGSTATUSViewSpecificActionFailureCleanup = createAction("OFFBOARDINGSTATUS_VIEW_SPECIFIC_ACTION_FAILURE_CLEANUP");
+
+export const OFFBOARDINGSTATUSCreateAction = createAction<_Type.OFFBOARDINGSTATUSCreateInterface>("OFFBOARDINGSTATUS_CREATE_ACTION");
+export const OFFBOARDINGSTATUSCreateActionSuccess = createAction("OFFBOARDINGSTATUS_CREATE_ACTION_SUCCESS", (SuccessMessage: _Type.OFFBOARDINGSTATUSCreateInterface) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const OFFBOARDINGSTATUSCreateActionProgress = createAction<number>("OFFBOARDINGSTATUS_CREATE_ACTION_PROGRESS");
+export const OFFBOARDINGSTATUSCreateActionFailure = createAction<string>("OFFBOARDINGSTATUS_CREATE_ACTION_FAILURE");
+export const OFFBOARDINGSTATUSCreateActionFailureCleanup = createAction("OFFBOARDINGSTATUS_CREATE_ACTION_FAILURE_CLEANUP");
+
+export const OFFBOARDINGSTATUSEditAction = createAction<_Type.OFFBOARDINGSTATUSEditInterface>("OFFBOARDINGSTATUS_EDIT_ACTION");
+export const OFFBOARDINGSTATUSEditActionSuccess = createAction("OFFBOARDINGSTATUS_EDIT_ACTION_SUCCESS", (SuccessMessage: _Type.OFFBOARDINGSTATUSEditInterface) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const OFFBOARDINGSTATUSEditActionProgress = createAction<number>("OFFBOARDINGSTATUS_EDIT_ACTION_PROGRESS");
+export const OFFBOARDINGSTATUSEditActionFailure = createAction<string>("OFFBOARDINGSTATUS_EDIT_ACTION_FAILURE");
+export const OFFBOARDINGSTATUSEditActionFailureCleanup = createAction("OFFBOARDINGSTATUS_EDIT_ACTION_FAILURE_CLEANUP");
+
+
+// OFFBOARDINGREQUIREMENTS SECTION
+export const OFFBOARDINGREQUIREMENTSViewAction = createAction("OFFBOARDINGREQUIREMENTS_VIEW_ACTION");
+export const OFFBOARDINGREQUIREMENTSViewActionSuccess = createAction("OFFBOARDINGREQUIREMENTS_VIEW_ACTION_SUCCESS", (SuccessMessage: _Type.OFFBOARDINGREQUIREMENTSViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const OFFBOARDINGREQUIREMENTSViewActionProgress = createAction<number>("OFFBOARDINGREQUIREMENTS_VIEW_ACTION_PROGRESS");
+export const OFFBOARDINGREQUIREMENTSViewActionFailure = createAction<string>("OFFBOARDINGREQUIREMENTS_VIEW_ACTION_FAILURE");
+export const OFFBOARDINGREQUIREMENTSViewActionFailureCleanup = createAction("OFFBOARDINGREQUIREMENTS_VIEW_ACTION_FAILURE_CLEANUP");
+
+export const OFFBOARDINGREQUIREMENTSViewSpecificAction = createAction<{offboarding_requirements_id: number}>("OFFBOARDINGREQUIREMENTS_VIEW_SPECIFIC_ACTION");
+export const OFFBOARDINGREQUIREMENTSViewSpecificActionSuccess = createAction("OFFBOARDINGREQUIREMENTS_VIEW_SPECIFIC_ACTION_SUCCESS", (SuccessMessage: _Type.OFFBOARDINGREQUIREMENTSViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const OFFBOARDINGREQUIREMENTSViewSpecificActionProgress = createAction<number>("OFFBOARDINGREQUIREMENTS_VIEW_SPECIFIC_ACTION_PROGRESS");
+export const OFFBOARDINGREQUIREMENTSViewSpecificActionFailure = createAction<string>("OFFBOARDINGREQUIREMENTS_VIEW_SPECIFIC_ACTION_FAILURE");
+export const OFFBOARDINGREQUIREMENTSViewSpecificActionFailureCleanup = createAction("OFFBOARDINGREQUIREMENTS_VIEW_SPECIFIC_ACTION_FAILURE_CLEANUP");
+
+export const OFFBOARDINGREQUIREMENTSCreateAction = createAction<_Type.OFFBOARDINGREQUIREMENTSCreateInterface>("OFFBOARDINGREQUIREMENTS_CREATE_ACTION");
+export const OFFBOARDINGREQUIREMENTSCreateActionSuccess = createAction("OFFBOARDINGREQUIREMENTS_CREATE_ACTION_SUCCESS", (SuccessMessage: _Type.OFFBOARDINGREQUIREMENTSCreateInterface) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const OFFBOARDINGREQUIREMENTSCreateActionProgress = createAction<number>("OFFBOARDINGREQUIREMENTS_CREATE_ACTION_PROGRESS");
+export const OFFBOARDINGREQUIREMENTSCreateActionFailure = createAction<string>("OFFBOARDINGREQUIREMENTS_CREATE_ACTION_FAILURE");
+export const OFFBOARDINGREQUIREMENTSCreateActionFailureCleanup = createAction("OFFBOARDINGREQUIREMENTS_CREATE_ACTION_FAILURE_CLEANUP");
+
+export const OFFBOARDINGREQUIREMENTSEditAction = createAction<_Type.OFFBOARDINGREQUIREMENTSEditInterface>("OFFBOARDINGREQUIREMENTS_EDIT_ACTION");
+export const OFFBOARDINGREQUIREMENTSEditActionSuccess = createAction("OFFBOARDINGREQUIREMENTS_EDIT_ACTION_SUCCESS", (SuccessMessage: _Type.OFFBOARDINGREQUIREMENTSEditInterface) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const OFFBOARDINGREQUIREMENTSEditActionProgress = createAction<number>("OFFBOARDINGREQUIREMENTS_EDIT_ACTION_PROGRESS");
+export const OFFBOARDINGREQUIREMENTSEditActionFailure = createAction<string>("OFFBOARDINGREQUIREMENTS_EDIT_ACTION_FAILURE");
+export const OFFBOARDINGREQUIREMENTSEditActionFailureCleanup = createAction("OFFBOARDINGREQUIREMENTS_EDIT_ACTION_FAILURE_CLEANUP");
+

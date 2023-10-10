@@ -12,7 +12,19 @@ _Interface.CORECOMPEViewInterface |
 _Interface.CORECOMPECreateInterface |
 _Interface.EVALQUESTIONSViewInterface[] | 
 _Interface.EVALQUESTIONSViewInterface | 
-_Interface.EVALQUESTIONSCreateInterface
+_Interface.EVALQUESTIONSCreateInterface |
+_Interface.ONBOARDINGSTATUSViewInterface[] | 
+_Interface.ONBOARDINGSTATUSViewInterface | 
+_Interface.ONBOARDINGSTATUSCreateInterface |
+_Interface.ONBOARDINGREQUIREMENTSViewInterface[] | 
+_Interface.ONBOARDINGREQUIREMENTSViewInterface | 
+_Interface.ONBOARDINGREQUIREMENTSCreateInterface |
+_Interface.OFFBOARDINGSTATUSViewInterface[] | 
+_Interface.OFFBOARDINGSTATUSViewInterface | 
+_Interface.OFFBOARDINGSTATUSCreateInterface |
+_Interface.OFFBOARDINGREQUIREMENTSViewInterface[] | 
+_Interface.OFFBOARDINGREQUIREMENTSViewInterface | 
+_Interface.OFFBOARDINGREQUIREMENTSCreateInterface
 ;
 
 interface CommonEmployeeAndApplicantsState {
@@ -64,6 +76,61 @@ interface EVALQUESTIONSEditState extends CommonEmployeeAndApplicantsState {
   data: EVALQUESTIONSViewState | null;
 }
 
+// ONBOARDINGSTATUS SECTION // ONBOARDINGSTATUS SECTION // ONBOARDINGSTATUS SECTION // ONBOARDINGSTATUS SECTION // ONBOARDINGSTATUS SECTION 
+interface ONBOARDINGSTATUSViewState extends CommonEmployeeAndApplicantsState{
+  data: _Interface.ONBOARDINGSTATUSViewInterface[] | [];
+}
+
+interface ONBOARDINGSTATUSCreateState extends CommonEmployeeAndApplicantsState{
+  data: _Interface.ONBOARDINGSTATUSCreateInterface | null | {};
+}
+
+interface ONBOARDINGSTATUSEditState extends CommonEmployeeAndApplicantsState {
+  data: ONBOARDINGSTATUSViewState | null;
+}
+
+// ONBOARDINGREQUIREMENTS SECTION // ONBOARDINGREQUIREMENTS SECTION // ONBOARDINGREQUIREMENTS SECTION // ONBOARDINGREQUIREMENTS SECTION // ONBOARDINGREQUIREMENTS SECTION 
+interface ONBOARDINGREQUIREMENTSViewState extends CommonEmployeeAndApplicantsState{
+  data: _Interface.ONBOARDINGREQUIREMENTSViewInterface[] | [];
+}
+
+interface ONBOARDINGREQUIREMENTSCreateState extends CommonEmployeeAndApplicantsState{
+  data: _Interface.ONBOARDINGREQUIREMENTSCreateInterface | null | {};
+}
+
+interface ONBOARDINGREQUIREMENTSEditState extends CommonEmployeeAndApplicantsState {
+  data: ONBOARDINGREQUIREMENTSViewState | null;
+}
+
+
+// OFFBOARDINGSTATUS SECTION // OFFBOARDINGSTATUS SECTION // OFFBOARDINGSTATUS SECTION // OFFBOARDINGSTATUS SECTION // OFFBOARDINGSTATUS SECTION 
+interface OFFBOARDINGSTATUSViewState extends CommonEmployeeAndApplicantsState{
+  data: _Interface.OFFBOARDINGSTATUSViewInterface[] | [];
+}
+
+interface OFFBOARDINGSTATUSCreateState extends CommonEmployeeAndApplicantsState{
+  data: _Interface.OFFBOARDINGSTATUSCreateInterface | null | {};
+}
+
+interface OFFBOARDINGSTATUSEditState extends CommonEmployeeAndApplicantsState {
+  data: OFFBOARDINGSTATUSViewState | null;
+}
+
+// OFFBOARDINGREQUIREMENTS SECTION // OFFBOARDINGREQUIREMENTS SECTION // OFFBOARDINGREQUIREMENTS SECTION // OFFBOARDINGREQUIREMENTS SECTION // OFFBOARDINGREQUIREMENTS SECTION 
+interface OFFBOARDINGREQUIREMENTSViewState extends CommonEmployeeAndApplicantsState{
+  data: _Interface.OFFBOARDINGREQUIREMENTSViewInterface[] | [];
+}
+
+interface OFFBOARDINGREQUIREMENTSCreateState extends CommonEmployeeAndApplicantsState{
+  data: _Interface.OFFBOARDINGREQUIREMENTSCreateInterface | null | {};
+}
+
+interface OFFBOARDINGREQUIREMENTSEditState extends CommonEmployeeAndApplicantsState {
+  data: OFFBOARDINGREQUIREMENTSViewState | null;
+}
+
+
+
 
 interface OverallEmployeeAndApplicantsState {
   [key: string]: 
@@ -75,7 +142,19 @@ interface OverallEmployeeAndApplicantsState {
   CORECOMPEEditState |
   EVALQUESTIONSViewState | 
   EVALQUESTIONSCreateState | 
-  EVALQUESTIONSEditState 
+  EVALQUESTIONSEditState |
+  ONBOARDINGSTATUSViewState | 
+  ONBOARDINGSTATUSCreateState | 
+  ONBOARDINGSTATUSEditState |
+  ONBOARDINGREQUIREMENTSViewState | 
+  ONBOARDINGREQUIREMENTSCreateState | 
+  ONBOARDINGREQUIREMENTSEditState |
+  OFFBOARDINGSTATUSViewState | 
+  OFFBOARDINGSTATUSCreateState | 
+  OFFBOARDINGSTATUSEditState |
+  OFFBOARDINGREQUIREMENTSViewState | 
+  OFFBOARDINGREQUIREMENTSCreateState | 
+  OFFBOARDINGREQUIREMENTSEditState 
   ,
   //KPICORE SECTION
   KPICOREView: KPICOREViewState,
@@ -92,6 +171,26 @@ interface OverallEmployeeAndApplicantsState {
   EVALQUESTIONSViewSpecific: EVALQUESTIONSViewState,
   EVALQUESTIONSCreate: EVALQUESTIONSCreateState,
   EVALQUESTIONSEdit: EVALQUESTIONSEditState,
+  //ONBOARDINGSTATUS SECTION
+  ONBOARDINGSTATUSView: ONBOARDINGSTATUSViewState,
+  ONBOARDINGSTATUSViewSpecific: ONBOARDINGSTATUSViewState,
+  ONBOARDINGSTATUSCreate: ONBOARDINGSTATUSCreateState,
+  ONBOARDINGSTATUSEdit: ONBOARDINGSTATUSEditState,
+  //ONBOARDINGREQUIREMENTS SECTION
+  ONBOARDINGREQUIREMENTSView: ONBOARDINGREQUIREMENTSViewState,
+  ONBOARDINGREQUIREMENTSViewSpecific: ONBOARDINGREQUIREMENTSViewState,
+  ONBOARDINGREQUIREMENTSCreate: ONBOARDINGREQUIREMENTSCreateState,
+  ONBOARDINGREQUIREMENTSEdit: ONBOARDINGREQUIREMENTSEditState,
+  //OFFBOARDINGSTATUS SECTION
+  OFFBOARDINGSTATUSView: OFFBOARDINGSTATUSViewState,
+  OFFBOARDINGSTATUSViewSpecific: OFFBOARDINGSTATUSViewState,
+  OFFBOARDINGSTATUSCreate: OFFBOARDINGSTATUSCreateState,
+  OFFBOARDINGSTATUSEdit: OFFBOARDINGSTATUSEditState,
+  //OFFBOARDINGREQUIREMENTS SECTION
+  OFFBOARDINGREQUIREMENTSView: OFFBOARDINGREQUIREMENTSViewState,
+  OFFBOARDINGREQUIREMENTSViewSpecific: OFFBOARDINGREQUIREMENTSViewState,
+  OFFBOARDINGREQUIREMENTSCreate: OFFBOARDINGREQUIREMENTSCreateState,
+  OFFBOARDINGREQUIREMENTSEdit: OFFBOARDINGREQUIREMENTSEditState,
 }
 
 const initialState: OverallEmployeeAndApplicantsState = {
@@ -170,7 +269,106 @@ const initialState: OverallEmployeeAndApplicantsState = {
     data: null,
     error: '',
   },
-  
+  //ONBOARDINGSTATUS SECTION
+  ONBOARDINGSTATUSView: {
+    status: '',
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  ONBOARDINGSTATUSViewSpecific: {
+    status: '',
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  ONBOARDINGSTATUSCreate: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  ONBOARDINGSTATUSEdit: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  //ONBOARDINGREQUIREMENTS SECTION
+  ONBOARDINGREQUIREMENTSView: {
+    status: '',
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  ONBOARDINGREQUIREMENTSViewSpecific: {
+    status: '',
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  ONBOARDINGREQUIREMENTSCreate: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  ONBOARDINGREQUIREMENTSEdit: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  //OFFBOARDINGSTATUS SECTION
+  OFFBOARDINGSTATUSView: {
+    status: '',
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  OFFBOARDINGSTATUSViewSpecific: {
+    status: '',
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  OFFBOARDINGSTATUSCreate: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  OFFBOARDINGSTATUSEdit: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  //OFFBOARDINGREQUIREMENTS SECTION
+  OFFBOARDINGREQUIREMENTSView: {
+    status: '',
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  OFFBOARDINGREQUIREMENTSViewSpecific: {
+    status: '',
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  OFFBOARDINGREQUIREMENTSCreate: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  OFFBOARDINGREQUIREMENTSEdit: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
 };
 
 const setLoadingState = (path: string) => (state: OverallEmployeeAndApplicantsState) => {
@@ -264,6 +462,78 @@ const employeeAndApplicantsSlice = createSlice({
       .addCase(_Actions.EVALQUESTIONSEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "EVALQUESTIONSEdit"))
       .addCase(_Actions.EVALQUESTIONSEditActionProgress, (state, action) => setProgressState(state, action.payload, "EVALQUESTIONSEdit"))
       .addCase(_Actions.EVALQUESTIONSEditActionFailure, (state, action) => setFailureState(state, action.payload, "EVALQUESTIONSEdit"))
+      //ONBOARDINGSTATUS SECTION
+      .addCase(_Actions.ONBOARDINGSTATUSViewAction, setLoadingState("ONBOARDINGSTATUSView"))
+      .addCase(_Actions.ONBOARDINGSTATUSViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ONBOARDINGSTATUSView"))
+      .addCase(_Actions.ONBOARDINGSTATUSViewActionProgress, (state, action) => setProgressState(state, action.payload, "ONBOARDINGSTATUSView"))
+      .addCase(_Actions.ONBOARDINGSTATUSViewActionFailure, (state, action) => setFailureState(state, action.payload, "ONBOARDINGSTATUSView"))
+      .addCase(_Actions.ONBOARDINGSTATUSViewSpecificAction, setLoadingState("ONBOARDINGSTATUSViewSpecific"))
+      .addCase(_Actions.ONBOARDINGSTATUSViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ONBOARDINGSTATUSViewSpecific"))
+      .addCase(_Actions.ONBOARDINGSTATUSViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "ONBOARDINGSTATUSViewSpecific"))
+      .addCase(_Actions.ONBOARDINGSTATUSViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "ONBOARDINGSTATUSViewSpecific"))
+      .addCase(_Actions.ONBOARDINGSTATUSCreateAction, setLoadingState("ONBOARDINGSTATUSCreate"))
+      .addCase(_Actions.ONBOARDINGSTATUSCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ONBOARDINGSTATUSCreate"))
+      .addCase(_Actions.ONBOARDINGSTATUSCreateActionProgress, (state, action) => setProgressState(state, action.payload, "ONBOARDINGSTATUSCreate"))
+      .addCase(_Actions.ONBOARDINGSTATUSCreateActionFailure, (state, action) => setFailureState(state, action.payload, "ONBOARDINGSTATUSCreate"))
+      .addCase(_Actions.ONBOARDINGSTATUSCreateActionFailureCleanup, setRefreshedState("ONBOARDINGSTATUSCreate"))
+      .addCase(_Actions.ONBOARDINGSTATUSEditAction, setLoadingState("ONBOARDINGSTATUSEdit"))
+      .addCase(_Actions.ONBOARDINGSTATUSEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ONBOARDINGSTATUSEdit"))
+      .addCase(_Actions.ONBOARDINGSTATUSEditActionProgress, (state, action) => setProgressState(state, action.payload, "ONBOARDINGSTATUSEdit"))
+      .addCase(_Actions.ONBOARDINGSTATUSEditActionFailure, (state, action) => setFailureState(state, action.payload, "ONBOARDINGSTATUSEdit"))
+      //ONBOARDINGREQUIREMENTS SECTION
+      .addCase(_Actions.ONBOARDINGREQUIREMENTSViewAction, setLoadingState("ONBOARDINGREQUIREMENTSView"))
+      .addCase(_Actions.ONBOARDINGREQUIREMENTSViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ONBOARDINGREQUIREMENTSView"))
+      .addCase(_Actions.ONBOARDINGREQUIREMENTSViewActionProgress, (state, action) => setProgressState(state, action.payload, "ONBOARDINGREQUIREMENTSView"))
+      .addCase(_Actions.ONBOARDINGREQUIREMENTSViewActionFailure, (state, action) => setFailureState(state, action.payload, "ONBOARDINGREQUIREMENTSView"))
+      .addCase(_Actions.ONBOARDINGREQUIREMENTSViewSpecificAction, setLoadingState("ONBOARDINGREQUIREMENTSViewSpecific"))
+      .addCase(_Actions.ONBOARDINGREQUIREMENTSViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ONBOARDINGREQUIREMENTSViewSpecific"))
+      .addCase(_Actions.ONBOARDINGREQUIREMENTSViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "ONBOARDINGREQUIREMENTSViewSpecific"))
+      .addCase(_Actions.ONBOARDINGREQUIREMENTSViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "ONBOARDINGREQUIREMENTSViewSpecific"))
+      .addCase(_Actions.ONBOARDINGREQUIREMENTSCreateAction, setLoadingState("ONBOARDINGREQUIREMENTSCreate"))
+      .addCase(_Actions.ONBOARDINGREQUIREMENTSCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ONBOARDINGREQUIREMENTSCreate"))
+      .addCase(_Actions.ONBOARDINGREQUIREMENTSCreateActionProgress, (state, action) => setProgressState(state, action.payload, "ONBOARDINGREQUIREMENTSCreate"))
+      .addCase(_Actions.ONBOARDINGREQUIREMENTSCreateActionFailure, (state, action) => setFailureState(state, action.payload, "ONBOARDINGREQUIREMENTSCreate"))
+      .addCase(_Actions.ONBOARDINGREQUIREMENTSCreateActionFailureCleanup, setRefreshedState("ONBOARDINGREQUIREMENTSCreate"))
+      .addCase(_Actions.ONBOARDINGREQUIREMENTSEditAction, setLoadingState("ONBOARDINGREQUIREMENTSEdit"))
+      .addCase(_Actions.ONBOARDINGREQUIREMENTSEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ONBOARDINGREQUIREMENTSEdit"))
+      .addCase(_Actions.ONBOARDINGREQUIREMENTSEditActionProgress, (state, action) => setProgressState(state, action.payload, "ONBOARDINGREQUIREMENTSEdit"))
+      .addCase(_Actions.ONBOARDINGREQUIREMENTSEditActionFailure, (state, action) => setFailureState(state, action.payload, "ONBOARDINGREQUIREMENTSEdit"))
+      //OFFBOARDINGSTATUS SECTION
+      .addCase(_Actions.OFFBOARDINGSTATUSViewAction, setLoadingState("OFFBOARDINGSTATUSView"))
+      .addCase(_Actions.OFFBOARDINGSTATUSViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OFFBOARDINGSTATUSView"))
+      .addCase(_Actions.OFFBOARDINGSTATUSViewActionProgress, (state, action) => setProgressState(state, action.payload, "OFFBOARDINGSTATUSView"))
+      .addCase(_Actions.OFFBOARDINGSTATUSViewActionFailure, (state, action) => setFailureState(state, action.payload, "OFFBOARDINGSTATUSView"))
+      .addCase(_Actions.OFFBOARDINGSTATUSViewSpecificAction, setLoadingState("OFFBOARDINGSTATUSViewSpecific"))
+      .addCase(_Actions.OFFBOARDINGSTATUSViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OFFBOARDINGSTATUSViewSpecific"))
+      .addCase(_Actions.OFFBOARDINGSTATUSViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "OFFBOARDINGSTATUSViewSpecific"))
+      .addCase(_Actions.OFFBOARDINGSTATUSViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "OFFBOARDINGSTATUSViewSpecific"))
+      .addCase(_Actions.OFFBOARDINGSTATUSCreateAction, setLoadingState("OFFBOARDINGSTATUSCreate"))
+      .addCase(_Actions.OFFBOARDINGSTATUSCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OFFBOARDINGSTATUSCreate"))
+      .addCase(_Actions.OFFBOARDINGSTATUSCreateActionProgress, (state, action) => setProgressState(state, action.payload, "OFFBOARDINGSTATUSCreate"))
+      .addCase(_Actions.OFFBOARDINGSTATUSCreateActionFailure, (state, action) => setFailureState(state, action.payload, "OFFBOARDINGSTATUSCreate"))
+      .addCase(_Actions.OFFBOARDINGSTATUSCreateActionFailureCleanup, setRefreshedState("OFFBOARDINGSTATUSCreate"))
+      .addCase(_Actions.OFFBOARDINGSTATUSEditAction, setLoadingState("OFFBOARDINGSTATUSEdit"))
+      .addCase(_Actions.OFFBOARDINGSTATUSEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OFFBOARDINGSTATUSEdit"))
+      .addCase(_Actions.OFFBOARDINGSTATUSEditActionProgress, (state, action) => setProgressState(state, action.payload, "OFFBOARDINGSTATUSEdit"))
+      .addCase(_Actions.OFFBOARDINGSTATUSEditActionFailure, (state, action) => setFailureState(state, action.payload, "OFFBOARDINGSTATUSEdit"))
+      //OFFBOARDINGREQUIREMENTS SECTION
+      .addCase(_Actions.OFFBOARDINGREQUIREMENTSViewAction, setLoadingState("OFFBOARDINGREQUIREMENTSView"))
+      .addCase(_Actions.OFFBOARDINGREQUIREMENTSViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OFFBOARDINGREQUIREMENTSView"))
+      .addCase(_Actions.OFFBOARDINGREQUIREMENTSViewActionProgress, (state, action) => setProgressState(state, action.payload, "OFFBOARDINGREQUIREMENTSView"))
+      .addCase(_Actions.OFFBOARDINGREQUIREMENTSViewActionFailure, (state, action) => setFailureState(state, action.payload, "OFFBOARDINGREQUIREMENTSView"))
+      .addCase(_Actions.OFFBOARDINGREQUIREMENTSViewSpecificAction, setLoadingState("OFFBOARDINGREQUIREMENTSViewSpecific"))
+      .addCase(_Actions.OFFBOARDINGREQUIREMENTSViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OFFBOARDINGREQUIREMENTSViewSpecific"))
+      .addCase(_Actions.OFFBOARDINGREQUIREMENTSViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "OFFBOARDINGREQUIREMENTSViewSpecific"))
+      .addCase(_Actions.OFFBOARDINGREQUIREMENTSViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "OFFBOARDINGREQUIREMENTSViewSpecific"))
+      .addCase(_Actions.OFFBOARDINGREQUIREMENTSCreateAction, setLoadingState("OFFBOARDINGREQUIREMENTSCreate"))
+      .addCase(_Actions.OFFBOARDINGREQUIREMENTSCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OFFBOARDINGREQUIREMENTSCreate"))
+      .addCase(_Actions.OFFBOARDINGREQUIREMENTSCreateActionProgress, (state, action) => setProgressState(state, action.payload, "OFFBOARDINGREQUIREMENTSCreate"))
+      .addCase(_Actions.OFFBOARDINGREQUIREMENTSCreateActionFailure, (state, action) => setFailureState(state, action.payload, "OFFBOARDINGREQUIREMENTSCreate"))
+      .addCase(_Actions.OFFBOARDINGREQUIREMENTSCreateActionFailureCleanup, setRefreshedState("OFFBOARDINGREQUIREMENTSCreate"))
+      .addCase(_Actions.OFFBOARDINGREQUIREMENTSEditAction, setLoadingState("OFFBOARDINGREQUIREMENTSEdit"))
+      .addCase(_Actions.OFFBOARDINGREQUIREMENTSEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OFFBOARDINGREQUIREMENTSEdit"))
+      .addCase(_Actions.OFFBOARDINGREQUIREMENTSEditActionProgress, (state, action) => setProgressState(state, action.payload, "OFFBOARDINGREQUIREMENTSEdit"))
+      .addCase(_Actions.OFFBOARDINGREQUIREMENTSEditActionFailure, (state, action) => setFailureState(state, action.payload, "OFFBOARDINGREQUIREMENTSEdit"))
     },
 });
 
