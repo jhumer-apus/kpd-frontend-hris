@@ -119,16 +119,7 @@ export const EAProcessONBOARDINGSTATUSPageColumns: GridColDef[] =
       const date = new Date(params.row.date_hired);
       return params.row.date_hired ? dayjs(date).format("MM-DD-YYYY") : 'No Date';
     }
-  }, 
-  { 
-    field: 'date_resigned', 
-    headerName: 'Resign Date:',  
-    width: 150,
-    valueGetter: (params: GridValueGetterParams) => {
-      const date = new Date(params.row.date_resigned);
-      return params.row.date_resigned ? dayjs(date).format("MM-DD-YYYY") : '-';
-    }
-  }, 
+  }
 ];
   
 export default {

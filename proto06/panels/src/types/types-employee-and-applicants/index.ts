@@ -143,15 +143,17 @@ export interface OFFBOARDINGSTATUSGenericInterface {
 	final_remarks: string
 	date_added: string
 	added_by?: number
-	requirements: Omit<OFFBOARDINGREQUIREMENTSViewInterface[], "id" | "added_by" |"date_added" | "date_deleted">
+	requirements: Omit<OFFBOARDINGREQUIREMENTSViewInterface[], "id" | "added_by" |"date_added" | "date_deleted"> | []
 }
 
 
 export interface OFFBOARDINGSTATUSViewInterface extends OFFBOARDINGSTATUSGenericInterface{
-    readonly id: number,
+    readonly id: number | string,
 }
 
-export interface OFFBOARDINGSTATUSCreateInterface extends OFFBOARDINGSTATUSGenericInterface{}
+export interface OFFBOARDINGSTATUSCreateInterface extends OFFBOARDINGSTATUSGenericInterface{
+	id: string //only on mockup, can delete after backend implementation is complete
+}
 
 export interface OFFBOARDINGSTATUSEditInterface extends OFFBOARDINGSTATUSGenericInterface, Pick<OFFBOARDINGSTATUSViewInterface, "id">{}
 
@@ -161,8 +163,8 @@ export interface OFFBOARDINGSTATUSEditInterface extends OFFBOARDINGSTATUSGeneric
 
 export interface OFFBOARDINGREQUIREMENTSGenericInterface {
 	facilitator: number
-	onboarding_title: string,
-	commencement_date: string | null
+	offboarding_title: string,
+	accomplished_date: string | null
 	emp_remarks: string | null
 	facilitator_remarks: string | null
 	status: "Pending" | "Completed"
