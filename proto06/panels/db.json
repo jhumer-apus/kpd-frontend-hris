@@ -5043,6 +5043,216 @@
       "current_user": 1
     }
   ],
+  "onboarding_requirements": [
+    {
+      "id": 1,
+      "onboarding_title": "New Employee Orientation (NEO)",
+      "facilitator": 1,
+      "commencement_date": "",
+      "emp_remarks": "",
+      "facilitator_remarks": "",
+      "status": "Pending",
+      "added_by": 1,
+      "date_added": "2018-01-01T00:00:00Z",
+      "date_deleted": ""
+    },
+    {
+      "id": 2,
+      "onboarding_title": "Introduction to Department & Management (IDM)",
+      "facilitator": 1,
+      "commencement_date": "",
+      "emp_remarks": "",
+      "facilitator_remarks": "",
+      "status": "Pending",
+      "added_by": 1,
+      "date_added": "2018-01-01T00:00:00Z",
+      "date_deleted": ""
+    },
+    {
+      "id": 3,
+      "onboarding_title": "Company Cybersecurity Practices (CCP)",
+      "facilitator": 1,
+      "commencement_date": "",
+      "emp_remarks": "",
+      "facilitator_remarks": "",
+      "status": "Pending",
+      "added_by": 1,
+      "date_added": "2018-01-01T00:00:00Z",
+      "date_deleted": ""
+    },
+    {
+      "id": 4,
+      "onboarding_title": "HR Regulations and Pay Computations",
+      "facilitator": 1,
+      "commencement_date": "",
+      "emp_remarks": "",
+      "facilitator_remarks": "",
+      "status": "Pending",
+      "added_by": 1,
+      "date_added": "2018-01-01T00:00:00Z",
+      "date_deleted": ""
+    }
+  ],
+  "offboarding_requirements": [
+    {
+      "id": 1,
+      "offboarding_title": "Resignation Notice and Compliance",
+      "facilitator": 1,
+      "accomplished_date": "",
+      "emp_remarks": "",
+      "facilitator_remarks": "",
+      "status": "Pending",
+      "added_by": 1,
+      "date_added": "2018-01-01T00:00:00Z",
+      "date_deleted": ""
+    },
+    {
+      "id": 2,
+      "offboarding_title": "Technical Equipments and Materials Turnover",
+      "facilitator": 1,
+      "accomplished_date": "",
+      "emp_remarks": "",
+      "facilitator_remarks": "",
+      "status": "Pending",
+      "added_by": 1,
+      "date_added": "2018-01-01T00:00:00Z",
+      "date_deleted": ""
+    },
+    {
+      "id": 3,
+      "offboarding_title": "Contracts Overview and Clearance Documentation",
+      "facilitator": 1,
+      "accomplished_date": "",
+      "emp_remarks": "",
+      "facilitator_remarks": "",
+      "status": "Pending",
+      "added_by": 1,
+      "date_added": "2018-01-01T00:00:00Z",
+      "date_deleted": ""
+    },
+    {
+      "id": 4,
+      "offboarding_title": "Final Payroll Computations and Deductions",
+      "facilitator": 1,
+      "accomplished_date": "",
+      "emp_remarks": "",
+      "facilitator_remarks": "",
+      "status": "Pending",
+      "added_by": 1,
+      "date_added": "2018-01-01T00:00:00Z",
+      "date_deleted": ""
+    },
+    {
+      "id": 5,
+      "offboarding_title": "Organizational Chart Review and Database Update ",
+      "facilitator": 1,
+      "accomplished_date": "",
+      "emp_remarks": "",
+      "facilitator_remarks": "",
+      "status": "Pending",
+      "added_by": 1,
+      "date_added": "2018-01-01T00:00:00Z",
+      "date_deleted": ""
+    }
+  ],
+  "onboarding_status": [
+    {
+      "id": 5,
+      "emp_no": 1,
+      "start_date": "2018-01-20T00:00:00Z",
+      "status": "Completed",
+      "final_remarks": "Good",
+      "added_by": 1,
+      "date_added": "2018-01-18T00:00:00Z",
+      "requirements": [
+        {
+          "onboarding_title": "New Employee Orientation (NEO)",
+          "facilitator": 1,
+          "commencement_date": "2018-01-20T00:00:00Z",
+          "emp_remarks": "The facilitator is nice and kind",
+          "facilitator_remarks": "Attendance is good",
+          "status": "Completed"
+        },
+        {
+          "onboarding_title": "Introduction to Department & Management (IDM)",
+          "facilitator": 1,
+          "commencement_date": "2018-01-21T00:00:00Z",
+          "emp_remarks": "-",
+          "facilitator_remarks": "Good",
+          "status": "Completed"
+        },
+        {
+          "onboarding_title": "Company Cybersecurity Practices (CCP)",
+          "facilitator": 1,
+          "commencement_date": "2018-01-24T00:00:00Z",
+          "emp_remarks": "-",
+          "facilitator_remarks": "Good",
+          "status": "Completed"
+        },
+        {
+          "onboarding_title": "HR Regulations and Pay Computations",
+          "facilitator": 1,
+          "commencement_date": "2018-01-25T00:00:00Z",
+          "emp_remarks": "-",
+          "facilitator_remarks": "Good",
+          "status": "Completed"
+        }
+      ]
+    }
+  ],
+  "offboarding_status": [
+    {
+      "id": 5,
+      "emp_no": 50505,
+      "start_date": "2022-08-13T00:00:00Z",
+      "status": "Pending",
+      "final_remarks": "",
+      "added_by": 1,
+      "date_added": "2023-10-10T00:00:00Z",
+      "requirements": [
+        {
+          "offboarding_title": "Resignation Notice and Compliance",
+          "facilitator": 1,
+          "accomplished_date": "2023-09-24T00:00:00Z",
+          "emp_remarks": "Better Opportunity Found", 
+          "facilitator_remarks": "Supervisor Approved",
+          "status": "Completed"
+        },
+        {
+          "offboarding_title": "Technical Equipments and Materials Turnover ",
+          "facilitator": 1,
+          "accomplished_date": "2023-10-23T00:00:00Z",
+          "emp_remarks": "",
+          "facilitator_remarks": "",
+          "status": "Pending"
+        },
+        {
+          "offboarding_title": "Contracts Overview and Clearance Documentation",
+          "facilitator": 1,
+          "accomplished_date": "2023-10-24T00:00:00Z",
+          "emp_remarks": "",
+          "facilitator_remarks": "",
+          "status": "Pending"
+        },
+        {
+          "offboarding_title": "Final Payroll Computations and Deductions",
+          "facilitator": 1,
+          "accomplished_date": "2023-11-24T00:00:00Z",
+          "emp_remarks": "",
+          "facilitator_remarks": "",
+          "status": "Pending"
+        },
+        {
+          "offboarding_title": "Organizational Chart Review and Database Update ",
+          "facilitator": 1,
+          "accomplished_date": "2023-10-24T00:00:00Z",
+          "emp_remarks": "",
+          "facilitator_remarks": "",
+          "status": "Pending"
+        }
+      ]
+    }
+  ],
   "profile": {
     "name": "typicode"
   }
