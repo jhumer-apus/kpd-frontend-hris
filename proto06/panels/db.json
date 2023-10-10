@@ -5157,42 +5157,214 @@
   ],
   "onboarding_status": [
     {
-      "id": 5,
-      "emp_no": 1,
-      "start_date": "2018-01-20T00:00:00Z",
-      "status": "Completed",
-      "final_remarks": "Good",
-      "added_by": 1,
-      "date_added": "2018-01-18T00:00:00Z",
+      "id": "gwbx561",
+      "emp_no": 50501,
+      "start_date": "",
+      "status": "Pending",
+      "final_remarks": "",
+      "date_added": "2023-10-10T05:54:22.523Z",
       "requirements": [
         {
+          "facilitator": 1,
           "onboarding_title": "New Employee Orientation (NEO)",
-          "facilitator": 1,
-          "commencement_date": "2018-01-20T00:00:00Z",
-          "emp_remarks": "The facilitator is nice and kind",
-          "facilitator_remarks": "Attendance is good",
-          "status": "Completed"
+          "commencement_date": "",
+          "emp_remarks": "",
+          "facilitator_remarks": "",
+          "status": "Pending"
         },
         {
+          "facilitator": 1,
           "onboarding_title": "Introduction to Department & Management (IDM)",
-          "facilitator": 1,
-          "commencement_date": "2018-01-21T00:00:00Z",
-          "emp_remarks": "-",
-          "facilitator_remarks": "Good",
-          "status": "Completed"
+          "commencement_date": "",
+          "emp_remarks": "",
+          "facilitator_remarks": "",
+          "status": "Pending"
         },
         {
+          "facilitator": 1,
           "onboarding_title": "Company Cybersecurity Practices (CCP)",
+          "commencement_date": "",
+          "emp_remarks": "",
+          "facilitator_remarks": "",
+          "status": "Pending"
+        },
+        {
           "facilitator": 1,
-          "commencement_date": "2018-01-24T00:00:00Z",
+          "onboarding_title": "HR Regulations and Pay Computations",
+          "commencement_date": "",
+          "emp_remarks": "",
+          "facilitator_remarks": "",
+          "status": "Pending"
+        }
+      ],
+      "added_by": 1
+    },
+    {
+      "id": "xsqk98w",
+      "emp_no": 50502,
+      "start_date": "2022-08-12T05:54:22.523Z",
+      "status": "Completed",
+      "final_remarks": "Requirements Completed",
+      "date_added": "2023-10-10T06:13:37.719Z",
+      "added_by": 1,
+      "requirements": [
+        {
+          "facilitator": 1,
+          "onboarding_title": "New Employee Orientation (NEO)",
+          "commencement_date": "2022-08-15T05:54:22.523Z",
           "emp_remarks": "-",
           "facilitator_remarks": "Good",
           "status": "Completed"
         },
         {
-          "onboarding_title": "HR Regulations and Pay Computations",
           "facilitator": 1,
-          "commencement_date": "2018-01-25T00:00:00Z",
+          "onboarding_title": "Introduction to Department & Management (IDM)",
+          "commencement_date": "2022-08-15T05:54:22.523Z",
+          "emp_remarks": "-",
+          "facilitator_remarks": "Good",
+          "status": "Completed"
+        },
+        {
+          "facilitator": 1,
+          "onboarding_title": "Company Cybersecurity Practices (CCP)",
+          "commencement_date": "2022-08-15T05:54:22.523Z",
+          "emp_remarks": "-",
+          "facilitator_remarks": "Good",
+          "status": "Completed"
+        },
+        {
+          "facilitator": 1,
+          "onboarding_title": "HR Regulations and Pay Computations",
+          "commencement_date": "2022-08-15T05:54:22.523Z",
+          "emp_remarks": "-",
+          "facilitator_remarks": "Good",
+          "status": "Completed"
+        }
+      ]
+    },
+    {
+      "id": "1swuq49",
+      "emp_no": 50503,
+      "start_date": "2022-10-12T05:54:22.523Z",
+      "status": "Completed",
+      "final_remarks": "Requirements Completed",
+      "date_added": "2023-10-10T06:14:23.017Z",
+      "added_by": 1,
+      "requirements": [
+        {
+          "facilitator": 1,
+          "onboarding_title": "New Employee Orientation (NEO)",
+          "commencement_date": "2022-10-12T05:54:22.523Z",
+          "emp_remarks": "-",
+          "facilitator_remarks": "Good",
+          "status": "Completed"
+        },
+        {
+          "facilitator": 1,
+          "onboarding_title": "Introduction to Department & Management (IDM)",
+          "commencement_date": "2022-10-12T05:54:22.523Z",
+          "emp_remarks": "-",
+          "facilitator_remarks": "Good",
+          "status": "Completed"
+        },
+        {
+          "facilitator": 1,
+          "onboarding_title": "Company Cybersecurity Practices (CCP)",
+          "commencement_date": "2022-10-12T05:54:22.523Z",
+          "emp_remarks": "-",
+          "facilitator_remarks": "Good",
+          "status": "Completed"
+        },
+        {
+          "facilitator": 1,
+          "onboarding_title": "HR Regulations and Pay Computations",
+          "commencement_date": "2022-10-12T05:54:22.523Z",
+          "emp_remarks": "-",
+          "facilitator_remarks": "Good",
+          "status": "Completed"
+        }
+      ]
+    },
+    {
+      "id": "ce33nmp",
+      "emp_no": 50504,
+      "start_date": "2022-09-12T05:54:22.523Z",
+      "status": "Completed",
+      "final_remarks": "Requirements Completed",
+      "date_added": "2023-10-10T06:14:36.623Z",
+      "added_by": 1,
+      "requirements": [
+        {
+          "facilitator": 1,
+          "onboarding_title": "New Employee Orientation (NEO)",
+          "commencement_date": "2022-09-12T05:54:22.523Z",
+          "emp_remarks": "-",
+          "facilitator_remarks": "Good",
+          "status": "Completed"
+        },
+        {
+          "facilitator": 1,
+          "onboarding_title": "Introduction to Department & Management (IDM)",
+          "commencement_date": "2022-09-12T05:54:22.523Z",
+          "emp_remarks": "-",
+          "facilitator_remarks": "Good",
+          "status": "Completed"
+        },
+        {
+          "facilitator": 1,
+          "onboarding_title": "Company Cybersecurity Practices (CCP)",
+          "commencement_date": "2022-09-12T05:54:22.523Z",
+          "emp_remarks": "-",
+          "facilitator_remarks": "Good",
+          "status": "Completed"
+        },
+        {
+          "facilitator": 1,
+          "onboarding_title": "HR Regulations and Pay Computations",
+          "commencement_date": "2022-09-12T05:54:22.523Z",
+          "emp_remarks": "-",
+          "facilitator_remarks": "Good",
+          "status": "Completed"
+        }
+      ]
+    },
+    {
+      "id": "7cyt4fs",
+      "emp_no": 50505,
+      "start_date": "2022-08-13T05:54:22.523Z",
+      "status": "Completed",
+      "final_remarks": "Requirements Completed",
+      "date_added": "2023-10-10T06:14:54.515Z",
+      "added_by": 1,
+      "requirements": [
+        {
+          "facilitator": 1,
+          "onboarding_title": "New Employee Orientation (NEO)",
+          "commencement_date": "2022-08-13T05:54:22.523Z",
+          "emp_remarks": "-",
+          "facilitator_remarks": "Good",
+          "status": "Completed"
+        },
+        {
+          "facilitator": 1,
+          "onboarding_title": "Introduction to Department & Management (IDM)",
+          "commencement_date": "2022-08-13T05:54:22.523Z",
+          "emp_remarks": "-",
+          "facilitator_remarks": "Good",
+          "status": "Completed"
+        },
+        {
+          "facilitator": 1,
+          "onboarding_title": "Company Cybersecurity Practices (CCP)",
+          "commencement_date": "2022-08-13T05:54:22.523Z",
+          "emp_remarks": "-",
+          "facilitator_remarks": "Good",
+          "status": "Completed"
+        },
+        {
+          "facilitator": 1,
+          "onboarding_title": "HR Regulations and Pay Computations",
+          "commencement_date": "2022-08-13T05:54:22.523Z",
           "emp_remarks": "-",
           "facilitator_remarks": "Good",
           "status": "Completed"
@@ -5214,7 +5386,7 @@
           "offboarding_title": "Resignation Notice and Compliance",
           "facilitator": 1,
           "accomplished_date": "2023-09-24T00:00:00Z",
-          "emp_remarks": "Better Opportunity Found", 
+          "emp_remarks": "Better Opportunity Found",
           "facilitator_remarks": "Supervisor Approved",
           "status": "Completed"
         },

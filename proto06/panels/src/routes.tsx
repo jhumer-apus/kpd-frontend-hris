@@ -101,6 +101,7 @@ import EAEVALQUESTIONS from "./pages/dashboard/admin-portal/first-inner-pages/se
 import EACORECOMPE from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-core-competencies/ea-core-competencies";
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import AlarmOffIcon from '@mui/icons-material/AlarmOff';
+import EAONBOARDINGSTATUS from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-initialize-onboarding/ea-initialize-onboarding";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -367,7 +368,7 @@ const JSXRouteWrapper = () => {
                       icon: null,
                       name: "Initialize Onboarding",
                       path: "/Dashboards/Admin-Dashboard/Employee-And-Applicants/Initialize-Onboarding",
-                      element: <h1>Initialize Onboarding</h1>,
+                      element: <EAONBOARDINGSTATUS/>,
                       hasSubItems: false,
                     },
                     {

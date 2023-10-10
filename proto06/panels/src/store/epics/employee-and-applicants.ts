@@ -612,7 +612,7 @@ const ONBOARDINGREQUIREMENTSEditApiCall = async (payload: _Interface.ONBOARDINGR
 };
   
 const ONBOARDINGREQUIREMENTSCreateApiCall = async (payload: _Interface.ONBOARDINGREQUIREMENTSCreateInterface) => {
-    const response = await axios.post(`${JSONServer}onboarding_reuirements/`,
+    const response = await axios.post(`${JSONServer}onboarding_requirements/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {

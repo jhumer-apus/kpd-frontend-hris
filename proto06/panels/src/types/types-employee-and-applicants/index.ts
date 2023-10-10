@@ -92,15 +92,17 @@ export interface ONBOARDINGSTATUSGenericInterface {
 	final_remarks: string
 	date_added: string
 	added_by?: number
-	requirements: Omit<ONBOARDINGREQUIREMENTSViewInterface[], "id" | "added_by" |"date_added" | "date_deleted">
+	requirements: Omit<ONBOARDINGREQUIREMENTSViewInterface[], "id" | "added_by" |"date_added" | "date_deleted"> | []
 }
 
 
 export interface ONBOARDINGSTATUSViewInterface extends ONBOARDINGSTATUSGenericInterface{
-    readonly id: number,
+    readonly id: string | number,
 }
 
-export interface ONBOARDINGSTATUSCreateInterface extends ONBOARDINGSTATUSGenericInterface{}
+export interface ONBOARDINGSTATUSCreateInterface extends ONBOARDINGSTATUSGenericInterface{
+	id: string //only on mockup, can delete after backend implementation is complete
+}
 
 export interface ONBOARDINGSTATUSEditInterface extends ONBOARDINGSTATUSGenericInterface, Pick<ONBOARDINGSTATUSViewInterface, "id">{}
 
