@@ -6,11 +6,23 @@ import {
   CardFooter,
   Typography,
 } from "@material-tailwind/react";
+import { color } from "@material-tailwind/react/types/components/alert";
 import PropTypes from "prop-types";
 import Chart from "react-apexcharts";
 import { useNavigate } from "react-router-dom";
 
-export function StatisticsChart({ color, chart, title, description, footer, link }) {
+interface StatisticsChartInterface {
+  color: color
+  chart: any
+  title: any
+  description: any
+  footer: any
+  link: any
+}
+
+
+
+export function StatisticsChart({ color, chart, title, description, footer, link }: StatisticsChartInterface) {
   const navigate = useNavigate();
   return (
     <Card style={{cursor: link !== 'development' ? 'pointer' : ''}}>
@@ -22,7 +34,15 @@ export function StatisticsChart({ color, chart, title, description, footer, link
       <div className="absolute w-full h-full" onClick={()=> { navigate(`${link}`) }}></div>
       }
       <CardHeader variant="gradient" color={color}>
-        <Chart {...chart} />
+        <Chart
+        {...chart} 
+        type={chart.type}
+        series={[{
+          name: `${chart.series[0].name}`,
+          data: chart.series[0].data
+        }]}
+        
+        />
       </CardHeader>
       <CardBody className="p-6">
         <Typography variant="h6" color="blue-gray">

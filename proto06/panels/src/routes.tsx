@@ -105,6 +105,7 @@ import EAOFFBOARDINGSTATUS from "./pages/dashboard/admin-portal/first-inner-page
 import EAONBOARDINGREQUIREMENTS from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-onboarding-requirements/ea-onboarding-requirements";
 import EAOFFBOARDINGREQUIREMENTS from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-offboarding-requirements/ea-offboarding-requirements";
 import DataTable from "./pages/employee/201-files/Employee201";
+import EmployeesAppraisalPage from "./pages/employee/appraisals/employees-appraisal";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -451,7 +452,7 @@ const JSXRouteWrapper = () => {
               icon: <InsertChartOutlinedIcon {...icon} />,
               name: "Appraisals",
               path: "/employees/Appraisal",
-              element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">APPRAISAL PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+              element:<EmployeesAppraisalPage/>,
               hasSubItems: false,
             },
             {
