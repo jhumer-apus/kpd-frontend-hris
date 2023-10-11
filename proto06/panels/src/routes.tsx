@@ -16,7 +16,6 @@ import MergeIcon from '@mui/icons-material/Merge';
 import TableViewIcon from '@mui/icons-material/TableView';
 import HRISDashboard from "./pages/dashboard/hris-portal/hrisPortal";
 import AdminPortal from "./pages/dashboard/admin-portal/adminPortal";
-import DataTable from "./pages/employee/Employee201";
 import { SignIn, SignUp } from "@/pages/auth";
 import { IRoute } from "./types";
 import ViewDtrReports from "./pages/dtr/view-dtr-reports/view-dtr-reports";
@@ -105,6 +104,7 @@ import EAONBOARDINGSTATUS from "./pages/dashboard/admin-portal/first-inner-pages
 import EAOFFBOARDINGSTATUS from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-initialize-offboarding/ea-initialize-offboarding";
 import EAONBOARDINGREQUIREMENTS from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-onboarding-requirements/ea-onboarding-requirements";
 import EAOFFBOARDINGREQUIREMENTS from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-offboarding-requirements/ea-offboarding-requirements";
+import DataTable from "./pages/employee/201-files/Employee201";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
