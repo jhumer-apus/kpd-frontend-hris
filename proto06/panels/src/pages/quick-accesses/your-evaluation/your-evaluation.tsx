@@ -3,50 +3,56 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { Typography } from "@material-tailwind/react";
-import { ProceduralOBTPageDescriptions, ProceduralOBTPageColumns } from '@/data/pages-data/procedural-data/obt-data';
-import ViewOBTSingleModal from './local-components/main-modals/view-obt-single-modal';
-import { OBTViewFilterEmployeeInitialState, OBTViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
-import { OBTViewAction } from '@/store/actions/procedurals';
+import { YourKPICOREPageDescriptions, YourKPICOREPageColumns } from '@/data/pages-data/quick-accesses-data/your-evaluation-data';
+import ViewKPICORESingleModal from './local-components/main-modals/view-evaluation-single-modal';
+import { KPICOREViewInterface } from '@/types/types-employee-and-applicants';
+import { KPICOREViewAction } from '@/store/actions/employee-and-applicants';
 
-export default function ProceduralOBTPage() {
+export default function YourKPICOREPage() {
   const [printing, setIsPrinting] = useState(false);
-  const [singleOBTOpenModal, setSingleOBTOpenModal] = useState<boolean>(false);
-  const [singleOBTDetailsData, setSingleOBTDetailsData] = useState<OBTViewInterface>(OBTViewFilterEmployeeInitialState);
+  const [singleKPICOREOpenModal, setSingleKPICOREOpenModal] = useState<boolean>(false);
+  const [singleKPICOREDetailsData, setSingleKPICOREDetailsData] = useState<KPICOREViewInterface>({
+    id: NaN,
+    date_added: '',
+    emp_no: NaN,
+    emp_name: '',
+    sup_name: '',
+    sup_no: NaN,
+    eval_date: '',
+    status: 'Pending',
+    final_rating: '',
+    self_eval_points: NaN,
+    sup_eval_points: NaN,
+    core_compe_points: NaN,
+    percentage_total: NaN,
+
+  });
   const dispatch = useDispatch();
-  const { OBTView } = useSelector((state: RootState) => state.procedurals);
-  const { data, status } = OBTView;
-  const OBTViewData = data as OBTViewInterface[];
+  const { KPICOREView } = useSelector((state: RootState) => state.employeeAndApplicants);
+  const { data, status } = KPICOREView;
+  const KPICOREViewData = data as KPICOREViewInterface[];
 
   useEffect(()=> {
-    dispatch(OBTViewAction())
+    dispatch(KPICOREViewAction())
   }, []);
-
-  const printableArea = () => {
-    // Calculate px; solves printable area bug, Do not easily modify
-    if(OBTViewData?.length && OBTViewData?.length >= 11){
-      return OBTViewData?.length / 25 * 1400
-    } else {
-      return 600
-    }
-  };
 
   return (
     <Fragment>
       <div className="my-10 flex flex-wrap justify-between items-start gap-6">
         <div>
-          <ViewOBTSingleModal setSingleOBTDetailsData={setSingleOBTDetailsData} singleOBTDetailsData={singleOBTDetailsData} singleOBTOpenModal={singleOBTOpenModal} setSingleOBTOpenModal={setSingleOBTOpenModal}/>
+          <ViewKPICORESingleModal setSingleKPICOREDetailsData={setSingleKPICOREDetailsData} singleKPICOREDetailsData={singleKPICOREDetailsData} singleKPICOREOpenModal={singleKPICOREOpenModal} setSingleKPICOREOpenModal={setSingleKPICOREOpenModal}/>
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
-          <p>Status: {ProceduralOBTPageDescriptions}</p>
+          <p>Status: {YourKPICOREPageDescriptions}</p>
         </Typography>
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400"}}>
           <i>Click on the Table Headers to Customize View, Sort, or Add/Remove Columns</i>
         </Typography>
         </div>
       </div>
-      <div style={{ height: `${printing? `${printableArea()}px` : '660px'}`, width: '100%' }} id="printable-area">
+      <div style={{ height: '660px', width: '100%' }} id="printable-area">
         <DataGrid
-          rows={OBTViewData? OBTViewData as OBTViewInterface[]:[]}
-          columns={ProceduralOBTPageColumns}
+          rows={KPICOREViewData? KPICOREViewData as KPICOREViewInterface[]:[]}
+          columns={YourKPICOREPageColumns}
           initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 100 },
@@ -54,11 +60,11 @@ export default function ProceduralOBTPage() {
           }}
           pageSizeOptions={[25, 50, 75, 100]}
           onRowClick={(e) => {
-            setSingleOBTDetailsData(e.row);
-            setSingleOBTOpenModal(true);
+            setSingleKPICOREDetailsData(e.row);
+            setSingleKPICOREOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No OBT found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for OBT Epic hasn\'t been set up, please contact your frontend developer': 'There is no OBT to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No KPICORE found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for KPICORE Epic hasn\'t been set up, please contact your frontend developer': 'There is no KPICORE to generate.'}` }}
         />
       </div>
     </Fragment>

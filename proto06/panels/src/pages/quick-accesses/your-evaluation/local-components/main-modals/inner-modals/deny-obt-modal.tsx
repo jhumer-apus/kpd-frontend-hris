@@ -3,7 +3,7 @@ import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
 import { OBTViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
-import SinglePayslip from './obt-modal-component';
+import SinglePayslip from './evaluation-modal-component';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';

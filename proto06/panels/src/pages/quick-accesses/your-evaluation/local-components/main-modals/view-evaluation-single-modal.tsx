@@ -2,29 +2,29 @@ import * as React from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
-import { OBTViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
-import OBTModalComponent from './inner-modals/obt-modal-component';
+import { KPICOREViewInterface } from '@/types/types-employee-and-applicants';
+import KPICOREModalComponent from './inner-modals/evaluation-modal-component';
 
 
 interface SinglePayslipInterface {
-    singleOBTOpenModal: boolean; 
-    setSingleOBTOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-    singleOBTDetailsData: OBTViewInterface;
-    setSingleOBTDetailsData: React.Dispatch<React.SetStateAction<OBTViewInterface>>;
+    singleKPICOREOpenModal: boolean; 
+    setSingleKPICOREOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+    singleKPICOREDetailsData: KPICOREViewInterface;
+    setSingleKPICOREDetailsData: React.Dispatch<React.SetStateAction<KPICOREViewInterface>>;
 }
 
-export default function ViewOBTSingleModal(props: SinglePayslipInterface) {
-    const {singleOBTOpenModal, setSingleOBTOpenModal, setSingleOBTDetailsData, singleOBTDetailsData} = props;
+export default function ViewKPICORESingleModal(props: SinglePayslipInterface) {
+    const {singleKPICOREOpenModal, setSingleKPICOREOpenModal, setSingleKPICOREDetailsData, singleKPICOREDetailsData} = props;
   const [scroll, setScroll] = React.useState<boolean>(true);
   return (
     <React.Fragment>
-      <Transition in={singleOBTOpenModal} timeout={400}>
+      <Transition in={singleKPICOREOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
         keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setSingleOBTOpenModal(false);
+          setSingleKPICOREOpenModal(false);
         }}
         slotProps={{
             backdrop: {
@@ -57,7 +57,7 @@ export default function ViewOBTSingleModal(props: SinglePayslipInterface) {
                 overflow: 'auto',
             }}
         >
-          <OBTModalComponent setSingleOBTDetailsData={setSingleOBTDetailsData} singleOBTDetailsData={singleOBTDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <KPICOREModalComponent setSingleKPICOREDetailsData={setSingleKPICOREDetailsData} singleKPICOREDetailsData={singleKPICOREDetailsData} scroll={scroll} setScroll={setScroll}/>
         </ModalDialog>
       </Modal>
         )}

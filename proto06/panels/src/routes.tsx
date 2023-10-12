@@ -106,6 +106,7 @@ import EAONBOARDINGREQUIREMENTS from "./pages/dashboard/admin-portal/first-inner
 import EAOFFBOARDINGREQUIREMENTS from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-offboarding-requirements/ea-offboarding-requirements";
 import DataTable from "./pages/employee/201-files/Employee201";
 import EmployeesAppraisalPage from "./pages/employee/appraisals/employees-appraisal";
+import YourKPICOREPage from "./pages/quick-accesses/your-evaluation/your-evaluation";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -518,7 +519,7 @@ const JSXRouteWrapper = () => {
               icon: <InsertChartOutlinedIcon {...icon} />,
               name: "Your Evaluation",
               path: "/quick-accesses/Your-Evaluation",
-              element: <h1>Your Evaluation</h1>, 
+              element: <YourKPICOREPage/>, 
               hasSubItems: false,
             },
           ]

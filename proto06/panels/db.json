@@ -5047,6 +5047,616 @@
         }
       ],
       "current_user": 1
+    },
+    {
+      "id": "ka79o76",
+      "date_added": "2023-10-10T00:00:00Z",
+      "emp_no": 1,
+      "emp_name": "Matthew Blasco",
+      "sup_name": "Matthew Blasco",
+      "sup_no": 1,
+      "eval_date": "2023-10-25T00:00:00Z",
+      "status": "Pending",
+      "final_rating": "C",
+      "percentage_total": 0,
+      "self_eval_points": 0,
+      "core_compe_points": 0,
+      "sup_eval_points": 0,
+      "questions": [
+        {
+          "question": "How frequently did you proactively assist team members in completing their tasks or overcoming challenges during the evaluation period?",
+          "answer": "Et id ullamco labore dolor. Ad dolor est veniam duis velit. Anim est ipsum consequat eiusmod et.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "Can you provide examples of specific instances where your contributions had a positive impact on the progress and success of the projects you were involved in?",
+          "answer": "Sit qui adipisicing culpa nostrud proident consectetur. Ipsum dolor eiusmod non incididunt eu dolore. Labore id aliquip consequat elit id. Quis labore sint elit veniam reprehenderit fugiat magna.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "What steps have you taken to improve your ability to contribute effectively to project goals, and what results have you achieved in terms of project outcomes?",
+          "answer": "Fugiat veniam et amet sunt irure. Velit voluptate aliquip laboris quis labore nisi consequat. Laboris aute non esse ullamco.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "How would you rate your ability to establish and maintain positive relationships with clients and workmates on a scale of 1 to 10, with 10 being the highest?",
+          "answer": "Ipsum elit ad ad esse do. Amet id consectetur adipisicing sint. Exercitation sunt exercitation in aliquip aute deserunt aliqua. Nostrud elit et dolore laboris. Non fugiat ut commodo voluptate consectetur eiusmod voluptate.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "Can you share an example of a challenging interaction with a client or workmate and how you successfully resolved it while maintaining a positive rapport?",
+          "answer": "Ullamco mollit ex nostrud cillum. Labore amet aute sunt ea irure anim quis. Magna elit eiusmod sunt amet dolor. Aute ipsum Lorem est ullamco excepteur eu. Commodo fugiat id anim voluptate ut occaecat.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "What strategies have you implemented to enhance your communication and interpersonal skills in order to improve client and workmate interactions?",
+          "answer": "Deserunt exercitation nulla irure enim sunt tempor. Eiusmod voluptate mollit non voluptate reprehenderit pariatur. Mollit laborum ut ut qui anim est.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "What specific actions have you taken to pursue personal and professional development opportunities outlined in the self-growth clauses?",
+          "answer": "Ex incididunt culpa quis dolor. Consectetur est sunt pariatur ut officia. Dolore proident quis reprehenderit magna sunt laboris. Amet tempor commodo duis qui exercitation ex.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "How have these self-growth clauses positively influenced your skillset and performance within the evaluation period?",
+          "answer": "Lorem aliqua Lorem sit et cillum laborum magna. Amet sunt voluptate laborum nisi. Sint ullamco qui in pariatur laborum aliquip. Consequat nisi voluptate aliqua mollit. Irure mollit do consectetur ullamco aliqua eiusmod. Minim eu id non amet veniam.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "Can you provide examples of how you've demonstrated a commitment to continuous self-improvement and learning in your role?",
+          "answer": "Aute amet quis labore reprehenderit ad. Incididunt labore aliquip ipsum incididunt irure adipisicing velit. Dolore tempor laborum ipsum irure anim elit. Qui veniam incididunt dolor tempor. Et quis ea ullamco sunt.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "How have you upheld the integrity clauses and ethical standards of the organization in your day-to-day work and decision-making?",
+          "answer": "Amet veniam minim excepteur amet aliquip enim. Sint ut exercitation et non aute eu. Sunt dolore nulla qui esse in anim ipsum. Ad reprehenderit qui ad et deserunt. Et proident sint sunt labore. Do excepteur qui magna velit.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "Can you share an instance where you faced an ethical dilemma, and how did you navigate it while maintaining your commitment to integrity?",
+          "answer": "Nostrud amet commodo irure proident mollit. Deserunt laborum id sint aute. Aute in aliqua ut culpa ad. Dolor est excepteur cupidatat aliquip deserunt. Culpa irure occaecat fugiat ipsum veniam.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "What steps have you taken to ensure that you consistently adhere to the integrity clauses, and what impact has this had on the organization's reputation and trustworthiness?",
+          "answer": "Veniam laborum veniam ex consectetur culpa Lorem id. Excepteur magna quis qui quis. Commodo velit in id elit sit cupidatat. Et eu non velit sit et nostrud occaecat. Eu incididunt irure Lorem aliqua labore irure. Proident consequat pariatur laborum sunt esse anim reprehenderit.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        }
+      ],
+      "core_competencies": [
+        {
+          "checklist_title": "No Lates",
+          "checklist_limits": "Max. of 30 minutes / month cumulative",
+          "points": 0
+        },
+        {
+          "checklist_title": "No Absences without Leave/Notice (AWOL)",
+          "checklist_limits": "Zero AWOL Tolerance",
+          "points": 0
+        },
+        {
+          "checklist_title": "No Absences",
+          "checklist_limits": "3 Max Informed Absences",
+          "points": 0
+        },
+        {
+          "checklist_title": "No Missed Deadlines / Tasks / Projects",
+          "checklist_limits": "2 Max Instances",
+          "points": 0
+        },
+        {
+          "checklist_title": "No Poor Work Quality",
+          "checklist_limits": "Zero Work Quality Instance",
+          "points": 0
+        },
+        {
+          "checklist_title": "No Critical Offenses",
+          "checklist_limits": "Zero Critical Offence Instance",
+          "points": 0
+        }
+      ],
+      "current_user": 1
+    },
+    {
+      "id": "z15cy0u",
+      "date_added": "2023-10-10T00:00:00Z",
+      "emp_no": 50503,
+      "emp_name": "Jeriel Cruz",
+      "sup_name": "Matthew Blasco",
+      "sup_no": 1,
+      "eval_date": "2023-10-25T00:00:00Z",
+      "status": "Pending",
+      "final_rating": "C",
+      "percentage_total": 0,
+      "self_eval_points": 0,
+      "core_compe_points": 0,
+      "sup_eval_points": 0,
+      "questions": [
+        {
+          "question": "How frequently did you proactively assist team members in completing their tasks or overcoming challenges during the evaluation period?",
+          "answer": "Qui Lorem anim ad dolore proident. Ea do qui est dolore cillum sint. Magna officia eiusmod id laboris ipsum ut.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "Can you provide examples of specific instances where your contributions had a positive impact on the progress and success of the projects you were involved in?",
+          "answer": "Ea do officia anim adipisicing sint officia non. Occaecat culpa nostrud officia esse qui et. Exercitation adipisicing veniam excepteur reprehenderit mollit magna consequat. Lorem adipisicing officia officia deserunt eu. Nisi voluptate occaecat proident amet esse ex. Labore voluptate commodo veniam labore aliquip.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "What steps have you taken to improve your ability to contribute effectively to project goals, and what results have you achieved in terms of project outcomes?",
+          "answer": "Nulla sint quis qui velit non. Culpa minim reprehenderit excepteur pariatur reprehenderit do dolore. Voluptate duis excepteur mollit Lorem do ut. Excepteur nulla labore sint amet. Occaecat dolore laborum qui eu.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "How would you rate your ability to establish and maintain positive relationships with clients and workmates on a scale of 1 to 10, with 10 being the highest?",
+          "answer": "Et amet ut nisi sunt magna nisi ullamco. Voluptate fugiat pariatur proident aute tempor. Aliqua anim aliqua reprehenderit reprehenderit duis. Ex Lorem cillum ex laboris ad. Aute ex sunt laborum quis nulla deserunt et.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "Can you share an example of a challenging interaction with a client or workmate and how you successfully resolved it while maintaining a positive rapport?",
+          "answer": "Esse aute culpa nostrud nisi pariatur deserunt. Adipisicing laborum tempor ea eu irure est. Deserunt occaecat laborum sint deserunt. Laboris anim dolore mollit voluptate. Ullamco Lorem veniam enim adipisicing est nostrud nulla.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "What strategies have you implemented to enhance your communication and interpersonal skills in order to improve client and workmate interactions?",
+          "answer": "Minim sit duis laboris aliqua quis laboris do. Sunt minim in quis culpa elit ad ipsum. Incididunt nostrud do adipisicing anim enim. Minim sint cillum veniam magna minim mollit aute.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "What specific actions have you taken to pursue personal and professional development opportunities outlined in the self-growth clauses?",
+          "answer": "Consequat tempor pariatur Lorem elit Lorem consequat ipsum. Sint cupidatat cillum nisi nulla non in deserunt. Aute magna duis cupidatat ex. Minim quis labore elit sint ut. Qui culpa qui aliqua labore commodo labore. Labore Lorem in nisi magna nulla cillum.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "How have these self-growth clauses positively influenced your skillset and performance within the evaluation period?",
+          "answer": "Labore eu dolore consectetur tempor id ut. Elit elit cillum velit incididunt. Non enim minim incididunt aliqua excepteur.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "Can you provide examples of how you've demonstrated a commitment to continuous self-improvement and learning in your role?",
+          "answer": "Laborum amet reprehenderit exercitation mollit Lorem occaecat in. Duis minim esse esse velit. Consequat occaecat laboris incididunt nisi Lorem officia aliquip.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "How have you upheld the integrity clauses and ethical standards of the organization in your day-to-day work and decision-making?",
+          "answer": "Minim ad eiusmod est anim dolore nostrud. Occaecat quis cupidatat eiusmod duis minim in voluptate. Sit ad est magna ipsum eu. Do amet duis reprehenderit cupidatat. Lorem consequat ullamco occaecat nulla officia occaecat.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "Can you share an instance where you faced an ethical dilemma, and how did you navigate it while maintaining your commitment to integrity?",
+          "answer": "Amet nostrud ea nostrud quis culpa excepteur est. Pariatur nostrud sit irure id tempor. Aliqua proident labore sit voluptate consectetur labore officia. Est voluptate adipisicing nisi aliqua minim velit dolore. Dolor do ea quis in mollit et ad.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "What steps have you taken to ensure that you consistently adhere to the integrity clauses, and what impact has this had on the organization's reputation and trustworthiness?",
+          "answer": "Quis anim proident anim aute amet ullamco labore. Elit ut consequat minim officia ipsum et. Pariatur mollit veniam id enim eu. Eu nostrud sint ad in eiusmod consequat dolore. Voluptate commodo et officia cillum consectetur pariatur proident.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        }
+      ],
+      "core_competencies": [
+        {
+          "checklist_title": "No Lates",
+          "checklist_limits": "Max. of 30 minutes / month cumulative",
+          "points": 0
+        },
+        {
+          "checklist_title": "No Absences without Leave/Notice (AWOL)",
+          "checklist_limits": "Zero AWOL Tolerance",
+          "points": 0
+        },
+        {
+          "checklist_title": "No Absences",
+          "checklist_limits": "3 Max Informed Absences",
+          "points": 0
+        },
+        {
+          "checklist_title": "No Missed Deadlines / Tasks / Projects",
+          "checklist_limits": "2 Max Instances",
+          "points": 0
+        },
+        {
+          "checklist_title": "No Poor Work Quality",
+          "checklist_limits": "Zero Work Quality Instance",
+          "points": 0
+        },
+        {
+          "checklist_title": "No Critical Offenses",
+          "checklist_limits": "Zero Critical Offence Instance",
+          "points": 0
+        }
+      ],
+      "current_user": 1
+    },
+    {
+      "id": "0ll2aig",
+      "date_added": "2023-10-10T00:00:00Z",
+      "emp_no": 50502,
+      "emp_name": "Mary Anne Balingit",
+      "sup_name": "Matthew Blasco",
+      "sup_no": 1,
+      "eval_date": "2023-10-25T00:00:00Z",
+      "status": "Pending",
+      "final_rating": "C",
+      "percentage_total": 0,
+      "self_eval_points": 0,
+      "core_compe_points": 0,
+      "sup_eval_points": 0,
+      "questions": [
+        {
+          "question": "How frequently did you proactively assist team members in completing their tasks or overcoming challenges during the evaluation period?",
+          "answer": "Occaecat aliquip nostrud ea Lorem sint velit nostrud. Ut proident deserunt dolore pariatur sit laboris. Elit officia ipsum veniam tempor magna officia enim. Tempor qui veniam reprehenderit consectetur.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "Can you provide examples of specific instances where your contributions had a positive impact on the progress and success of the projects you were involved in?",
+          "answer": "Veniam id consequat mollit deserunt minim occaecat in. Fugiat sit reprehenderit eu exercitation. Reprehenderit aliquip id deserunt in culpa veniam. Id nisi mollit incididunt do.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "What steps have you taken to improve your ability to contribute effectively to project goals, and what results have you achieved in terms of project outcomes?",
+          "answer": "Ad dolore eu dolore elit reprehenderit. Enim sunt excepteur voluptate ipsum voluptate nisi. Do et fugiat Lorem mollit. Eiusmod tempor reprehenderit officia incididunt ipsum Lorem reprehenderit. Enim aliquip eiusmod pariatur ad incididunt anim cupidatat.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "How would you rate your ability to establish and maintain positive relationships with clients and workmates on a scale of 1 to 10, with 10 being the highest?",
+          "answer": "Enim do consequat reprehenderit cupidatat. Esse culpa qui sunt ad. Officia nisi esse sit eiusmod elit esse.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "Can you share an example of a challenging interaction with a client or workmate and how you successfully resolved it while maintaining a positive rapport?",
+          "answer": "Sunt aute nostrud enim aliquip enim aute. Exercitation eu do ut ut enim. Ea officia minim adipisicing amet nostrud.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "What strategies have you implemented to enhance your communication and interpersonal skills in order to improve client and workmate interactions?",
+          "answer": "Mollit ex laboris minim aute commodo. Officia labore fugiat voluptate eu ad culpa nulla. Occaecat ea qui cillum excepteur ut ullamco pariatur. Ad anim anim commodo magna ullamco. Ut elit proident in in.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "What specific actions have you taken to pursue personal and professional development opportunities outlined in the self-growth clauses?",
+          "answer": "Id consequat dolore proident aliquip ad et ut. Duis proident id mollit veniam laborum. Quis laborum elit Lorem in sint officia occaecat. Officia eiusmod eu aute voluptate labore. Sit exercitation dolor sint id exercitation ullamco dolore.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "How have these self-growth clauses positively influenced your skillset and performance within the evaluation period?",
+          "answer": "Occaecat fugiat magna pariatur anim fugiat. Proident nostrud in laboris incididunt est anim. Non ipsum ut ad veniam est consequat. Velit ad esse quis nisi. Voluptate esse deserunt commodo excepteur.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "Can you provide examples of how you've demonstrated a commitment to continuous self-improvement and learning in your role?",
+          "answer": "Dolor eiusmod ex nulla eiusmod aliqua mollit. Laboris nostrud minim et proident. Lorem elit in do qui non consectetur duis. Magna sint Lorem et sit officia. Tempor ullamco sint pariatur id qui voluptate eiusmod.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "How have you upheld the integrity clauses and ethical standards of the organization in your day-to-day work and decision-making?",
+          "answer": "Consectetur mollit proident commodo Lorem deserunt enim. Veniam irure elit adipisicing nisi tempor. Velit occaecat minim nulla officia magna velit nulla. Irure proident cupidatat velit ut mollit laborum ex.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "Can you share an instance where you faced an ethical dilemma, and how did you navigate it while maintaining your commitment to integrity?",
+          "answer": "Ad adipisicing ea enim ex reprehenderit duis dolore. Nisi deserunt pariatur sunt magna. Duis labore ut occaecat quis.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "What steps have you taken to ensure that you consistently adhere to the integrity clauses, and what impact has this had on the organization's reputation and trustworthiness?",
+          "answer": "Sunt in sit minim eu ea. Tempor pariatur dolore eiusmod nulla. Nisi ad occaecat reprehenderit elit veniam adipisicing reprehenderit. Exercitation laboris ex culpa minim exercitation reprehenderit. Commodo pariatur id ipsum occaecat esse non cupidatat. Minim veniam id cupidatat quis cillum culpa.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        }
+      ],
+      "core_competencies": [
+        {
+          "checklist_title": "No Lates",
+          "checklist_limits": "Max. of 30 minutes / month cumulative",
+          "points": 0
+        },
+        {
+          "checklist_title": "No Absences without Leave/Notice (AWOL)",
+          "checklist_limits": "Zero AWOL Tolerance",
+          "points": 0
+        },
+        {
+          "checklist_title": "No Absences",
+          "checklist_limits": "3 Max Informed Absences",
+          "points": 0
+        },
+        {
+          "checklist_title": "No Missed Deadlines / Tasks / Projects",
+          "checklist_limits": "2 Max Instances",
+          "points": 0
+        },
+        {
+          "checklist_title": "No Poor Work Quality",
+          "checklist_limits": "Zero Work Quality Instance",
+          "points": 0
+        },
+        {
+          "checklist_title": "No Critical Offenses",
+          "checklist_limits": "Zero Critical Offence Instance",
+          "points": 0
+        }
+      ],
+      "current_user": 1
+    },
+    {
+      "id": "9pj4w3b",
+      "date_added": "2023-10-10T00:00:00Z",
+      "emp_no": 50505,
+      "emp_name": "Saldi Koria",
+      "sup_name": "Matthew Blasco",
+      "sup_no": 1,
+      "eval_date": "2023-10-25T00:00:00Z",
+      "status": "Pending",
+      "final_rating": "C",
+      "percentage_total": 0,
+      "self_eval_points": 0,
+      "core_compe_points": 0,
+      "sup_eval_points": 0,
+      "questions": [
+        {
+          "question": "How frequently did you proactively assist team members in completing their tasks or overcoming challenges during the evaluation period?",
+          "answer": "Exercitation sunt pariatur veniam nulla. Adipisicing officia amet do ex enim Lorem. Cupidatat occaecat tempor nisi nostrud irure amet. Proident nisi ut voluptate in laborum aliquip.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "Can you provide examples of specific instances where your contributions had a positive impact on the progress and success of the projects you were involved in?",
+          "answer": "Anim eiusmod elit consectetur culpa anim. Sint in exercitation qui deserunt nisi. Minim velit aliqua nostrud qui duis ex.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "What steps have you taken to improve your ability to contribute effectively to project goals, and what results have you achieved in terms of project outcomes?",
+          "answer": "Magna aliqua sit consequat officia aliqua exercitation. Mollit eu et sit dolore esse exercitation sunt. Aliquip voluptate in minim elit amet. Velit commodo elit Lorem proident qui est. Aliquip exercitation ullamco occaecat sit consectetur ea deserunt.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "How would you rate your ability to establish and maintain positive relationships with clients and workmates on a scale of 1 to 10, with 10 being the highest?",
+          "answer": "In aliqua est occaecat fugiat tempor veniam. Duis officia non ipsum id cupidatat. Eiusmod pariatur aliquip pariatur nulla. Eiusmod et consectetur consectetur est. Nostrud duis et dolore reprehenderit aliquip irure nisi.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "Can you share an example of a challenging interaction with a client or workmate and how you successfully resolved it while maintaining a positive rapport?",
+          "answer": "Proident cillum ipsum est dolor elit nisi. Occaecat aliquip aliqua laborum occaecat. Nostrud anim nulla anim dolor aute.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "What strategies have you implemented to enhance your communication and interpersonal skills in order to improve client and workmate interactions?",
+          "answer": "Ad occaecat labore in adipisicing consectetur sint. Non pariatur consequat nulla ad. Labore ea duis ullamco id proident incididunt irure.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "What specific actions have you taken to pursue personal and professional development opportunities outlined in the self-growth clauses?",
+          "answer": "Enim adipisicing ipsum eiusmod consectetur pariatur consectetur ipsum. Lorem irure deserunt sint cillum velit. Culpa sint officia consectetur ullamco minim. Anim sunt nostrud ea et reprehenderit amet.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "How have these self-growth clauses positively influenced your skillset and performance within the evaluation period?",
+          "answer": "Occaecat ullamco commodo non qui. Sunt labore deserunt labore ipsum voluptate. Excepteur deserunt velit occaecat deserunt consectetur esse. Et aute nulla fugiat incididunt aliqua Lorem.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "Can you provide examples of how you've demonstrated a commitment to continuous self-improvement and learning in your role?",
+          "answer": "Aute mollit ea dolore pariatur ullamco dolor fugiat. Laborum eiusmod aliquip amet voluptate. Ad anim consequat cillum aliquip enim fugiat. Aliqua elit exercitation dolore non cupidatat dolore nostrud. Amet fugiat incididunt nisi quis. Elit ullamco non esse non sit excepteur.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "How have you upheld the integrity clauses and ethical standards of the organization in your day-to-day work and decision-making?",
+          "answer": "Ex irure nostrud culpa incididunt. Dolore id excepteur nostrud duis anim non velit. Culpa Lorem ut qui sit ullamco.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "Can you share an instance where you faced an ethical dilemma, and how did you navigate it while maintaining your commitment to integrity?",
+          "answer": "Qui culpa labore ipsum proident dolore labore. Esse exercitation mollit mollit in labore. Eu cupidatat ex in irure laborum ullamco eu.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "What steps have you taken to ensure that you consistently adhere to the integrity clauses, and what impact has this had on the organization's reputation and trustworthiness?",
+          "answer": "In voluptate aliqua non cillum. Adipisicing dolor cillum non commodo minim nisi non. Anim eu pariatur consequat mollit aliquip do. Ut laborum incididunt officia esse adipisicing aliquip. Anim mollit duis reprehenderit cupidatat exercitation amet.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        }
+      ],
+      "core_competencies": [
+        {
+          "checklist_title": "No Lates",
+          "checklist_limits": "Max. of 30 minutes / month cumulative",
+          "points": 0
+        },
+        {
+          "checklist_title": "No Absences without Leave/Notice (AWOL)",
+          "checklist_limits": "Zero AWOL Tolerance",
+          "points": 0
+        },
+        {
+          "checklist_title": "No Absences",
+          "checklist_limits": "3 Max Informed Absences",
+          "points": 0
+        },
+        {
+          "checklist_title": "No Missed Deadlines / Tasks / Projects",
+          "checklist_limits": "2 Max Instances",
+          "points": 0
+        },
+        {
+          "checklist_title": "No Poor Work Quality",
+          "checklist_limits": "Zero Work Quality Instance",
+          "points": 0
+        },
+        {
+          "checklist_title": "No Critical Offenses",
+          "checklist_limits": "Zero Critical Offence Instance",
+          "points": 0
+        }
+      ],
+      "current_user": 1
+    },
+    {
+      "id": "vfqo77t",
+      "date_added": "2023-10-10T00:00:00Z",
+      "emp_no": 50504,
+      "emp_name": "Jesiah Mobliga",
+      "sup_name": "Matthew Blasco",
+      "sup_no": 1,
+      "eval_date": "2023-10-25T00:00:00Z",
+      "status": "Pending",
+      "final_rating": "C",
+      "percentage_total": 0,
+      "self_eval_points": 0,
+      "core_compe_points": 0,
+      "sup_eval_points": 0,
+      "questions": [
+        {
+          "question": "How frequently did you proactively assist team members in completing their tasks or overcoming challenges during the evaluation period?",
+          "answer": "Eiusmod deserunt aliquip dolor ut tempor laboris. Et commodo deserunt anim consectetur mollit. Proident cillum et cupidatat ex aliqua in exercitation. Eiusmod ipsum officia ut pariatur consectetur.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "Can you provide examples of specific instances where your contributions had a positive impact on the progress and success of the projects you were involved in?",
+          "answer": "Eu commodo et eiusmod ea id aute. Nisi ut laboris laboris proident. Occaecat cillum aliqua magna non.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "What steps have you taken to improve your ability to contribute effectively to project goals, and what results have you achieved in terms of project outcomes?",
+          "answer": "Commodo Lorem duis quis voluptate. Ex incididunt consequat sit irure cillum. Proident sit do labore nostrud. Magna aute tempor quis cupidatat commodo. Est dolore elit aliquip sunt cillum.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "How would you rate your ability to establish and maintain positive relationships with clients and workmates on a scale of 1 to 10, with 10 being the highest?",
+          "answer": "Culpa dolore anim dolore proident occaecat voluptate. In irure culpa est excepteur qui adipisicing incididunt. Quis laborum aliqua ad sint fugiat. Eu anim labore culpa consequat officia et. Et culpa consectetur est excepteur occaecat pariatur.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "Can you share an example of a challenging interaction with a client or workmate and how you successfully resolved it while maintaining a positive rapport?",
+          "answer": "Mollit commodo magna fugiat culpa aliquip. Quis dolor aliquip veniam pariatur nisi tempor. Non amet eu ad sint id labore. Elit occaecat nostrud consectetur non.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "What strategies have you implemented to enhance your communication and interpersonal skills in order to improve client and workmate interactions?",
+          "answer": "Non in mollit elit aliqua officia tempor. Velit laborum voluptate duis ex est sunt. Cupidatat officia ipsum exercitation nisi do consequat.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "What specific actions have you taken to pursue personal and professional development opportunities outlined in the self-growth clauses?",
+          "answer": "Pariatur proident enim consectetur consectetur laborum reprehenderit. Tempor dolore nisi voluptate est exercitation est et. Anim adipisicing do qui adipisicing anim ea velit.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "How have these self-growth clauses positively influenced your skillset and performance within the evaluation period?",
+          "answer": "Laboris pariatur sunt esse commodo labore occaecat. Non nulla sit commodo laboris exercitation. Culpa occaecat sit reprehenderit ad.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "Can you provide examples of how you've demonstrated a commitment to continuous self-improvement and learning in your role?",
+          "answer": "Labore mollit exercitation pariatur exercitation. Exercitation velit consequat nisi excepteur. Voluptate id do excepteur tempor nostrud. Cupidatat eiusmod veniam velit nisi irure sunt. Pariatur ea occaecat esse officia Lorem aliquip ipsum. Reprehenderit labore laboris cillum eiusmod consectetur.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "How have you upheld the integrity clauses and ethical standards of the organization in your day-to-day work and decision-making?",
+          "answer": "Ullamco ex ad sit laborum cillum et. Duis ex cillum dolore enim sit. Nostrud Lorem aute qui consectetur consectetur cillum.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "Can you share an instance where you faced an ethical dilemma, and how did you navigate it while maintaining your commitment to integrity?",
+          "answer": "Quis culpa labore occaecat ullamco irure nostrud occaecat. Pariatur ullamco ad id ipsum. Nostrud excepteur cillum quis elit irure duis eu. Aliquip pariatur anim do et qui laborum. Reprehenderit esse eiusmod nulla sit.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        },
+        {
+          "question": "What steps have you taken to ensure that you consistently adhere to the integrity clauses, and what impact has this had on the organization's reputation and trustworthiness?",
+          "answer": "Ea ea officia adipisicing nulla voluptate est laboris. Consectetur deserunt commodo est mollit excepteur amet quis. Magna eu ad adipisicing aute culpa. Tempor sunt in veniam consectetur ullamco consequat.",
+          "self_eval_points": 0,
+          "sup_eval_points": 0
+        }
+      ],
+      "core_competencies": [
+        {
+          "checklist_title": "No Lates",
+          "checklist_limits": "Max. of 30 minutes / month cumulative",
+          "points": 0
+        },
+        {
+          "checklist_title": "No Absences without Leave/Notice (AWOL)",
+          "checklist_limits": "Zero AWOL Tolerance",
+          "points": 0
+        },
+        {
+          "checklist_title": "No Absences",
+          "checklist_limits": "3 Max Informed Absences",
+          "points": 0
+        },
+        {
+          "checklist_title": "No Missed Deadlines / Tasks / Projects",
+          "checklist_limits": "2 Max Instances",
+          "points": 0
+        },
+        {
+          "checklist_title": "No Poor Work Quality",
+          "checklist_limits": "Zero Work Quality Instance",
+          "points": 0
+        },
+        {
+          "checklist_title": "No Critical Offenses",
+          "checklist_limits": "Zero Critical Offence Instance",
+          "points": 0
+        }
+      ],
+      "current_user": 1
     }
   ],
   "onboarding_requirements": [

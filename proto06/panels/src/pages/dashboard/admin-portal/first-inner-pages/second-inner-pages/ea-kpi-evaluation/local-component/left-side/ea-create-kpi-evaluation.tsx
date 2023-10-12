@@ -87,7 +87,7 @@ function EAKPICORECreate(props: CreateKPICOREModalInterface) {
                         {
                             checklist_title: item.checklist_title,
                             checklist_limits: item.checklist_limits,
-                            points:  Math.floor(Math.random() * (10 - 8 + 1)) + 8,
+                            points:  (Math.floor(Math.random() * (10 - 8 + 1)) + 8) * 0,
                         }
                     )
                 })
@@ -106,8 +106,8 @@ function EAKPICORECreate(props: CreateKPICOREModalInterface) {
                                 suffix: "\n",            
                                 units: "paragraph",      
                             }),
-                            self_eval_points:  Math.floor(Math.random() * (10 - 9 + 1)) + 9,
-                            sup_eval_points: Math.floor(Math.random() * (10 - 9 + 1)) + 9,
+                            self_eval_points:  (Math.floor(Math.random() * (10 - 9 + 1)) + 9) * 0,
+                            sup_eval_points: (Math.floor(Math.random() * (10 - 9 + 1)) + 9) * 0,
                         }
                     )
                 })
