@@ -33,7 +33,9 @@ export interface KPICOREGenericInterface {
 export interface KPICOREViewInterface extends KPICOREGenericInterface{}
 
 
-export interface KPICORECreateInterface extends KPICOREGenericInterface{}
+export interface KPICORECreateInterface extends Omit<KPICOREGenericInterface, "emp_no">{
+	emp_no: number[] | number,
+}
 
 export interface KPICOREEditInterface extends KPICOREGenericInterface, Pick<KPICOREViewInterface, "id">{}
 

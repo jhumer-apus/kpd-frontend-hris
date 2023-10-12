@@ -10,6 +10,7 @@ import { KPICOREViewAction } from '@/store/actions/employee-and-applicants';
 
 export default function YourKPICOREPage() {
   const [printing, setIsPrinting] = useState(false);
+  const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
   const [singleKPICOREOpenModal, setSingleKPICOREOpenModal] = useState<boolean>(false);
   const [singleKPICOREDetailsData, setSingleKPICOREDetailsData] = useState<KPICOREViewInterface>({
     id: NaN,
@@ -32,6 +33,8 @@ export default function YourKPICOREPage() {
   const { data, status } = KPICOREView;
   const KPICOREViewData = data as KPICOREViewInterface[];
 
+  const FilteredKPICOREViewData = KPICOREViewData.filter((item) => item.emp_no === curr_user );
+
   useEffect(()=> {
     dispatch(KPICOREViewAction())
   }, []);
@@ -51,7 +54,7 @@ export default function YourKPICOREPage() {
       </div>
       <div style={{ height: '660px', width: '100%' }} id="printable-area">
         <DataGrid
-          rows={KPICOREViewData? KPICOREViewData as KPICOREViewInterface[]:[]}
+          rows={KPICOREViewData? FilteredKPICOREViewData as KPICOREViewInterface[]:[]}
           columns={YourKPICOREPageColumns}
           initialState={{
             pagination: {

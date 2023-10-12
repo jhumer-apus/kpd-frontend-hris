@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { KPICOREViewInterface } from '@/types/types-employee-and-applicants';
 import { convertDaysToHHMM, convertMinutesToHHMM,  } from '@/helpers/utils';
 import { Button } from '@mui/material';
@@ -30,11 +30,32 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
         }   
         
     };
+    
+    const [saveChangesButton, setSaveChangesButton] = useState<boolean>(false); 
 
+    const buttonAction = () => {
+        if(singleKPICOREDetailsData.status === "Confirmed"){
+            window.alert("You cannot modify this already confirmed document.")
+            return
+        }else{
+            setSaveChangesButton(!saveChangesButton);
+            //submit changes or dispatch post action
+        }
+        // setSaveChangesButton(!saveChangesButton);
+    }
     return (
         <React.Fragment>
             {/* <ApproveKPICOREModal singleKPICOREDetailsData={singleKPICOREDetailsData} setSingleKPICOREDetailsData={setSingleKPICOREDetailsData} approveKPICOREOpenModal={approveKPICOREOpenModal} setApproveKPICOREOpenModal={setApproveKPICOREOpenModal}/>
             <DenyKPICOREModal singleKPICOREDetailsData={singleKPICOREDetailsData} setSingleKPICOREDetailsData={setSingleKPICOREDetailsData} denyKPICOREOpenModal={denyKPICOREOpenModal} setDenyKPICOREOpenModal={setDenyKPICOREOpenModal}/> */}
+            <div className='flex justify-end'>
+                <div className='flex justify-center mt-6' container-name='obt_buttons_container'>
+                    <div className='flex justify-between' style={{width:'300px'}} container-name='obt_buttons'>
+                        <Button variant='contained' sx={{display: `${saveChangesButton ? 'none': 'block'}`}} aria-hidden={saveChangesButton} hidden={saveChangesButton} onClick={buttonAction}>Input Details</Button>
+                        <Button variant='outlined' sx={{display: `${!saveChangesButton ? 'none': 'block'}`}} aria-hidden={!saveChangesButton} hidden={!saveChangesButton} onClick={buttonAction}>Submit Changes</Button>
+                    </div>
+                </div>
+            </div>
+            
             <div className='flex gap-10 overflow-auto relative'>
                 <div className='flex gap-10 flex-col mt-4 w-full'>
                     {
@@ -89,16 +110,7 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
                 </div> */}
 
             </div>
-            <div className='flex flex-col justify-center items-center'>
-            <div className='flex justify-center mt-6' container-name='obt_buttons_container'>
-                <div className='flex justify-between' style={{width:'300px'}} container-name='obt_buttons'>
-                    <Button variant='contained' onClick={()=> onClickModal(0)}>Approve KPICORE</Button>
-                    <Button variant='outlined' onClick={()=> onClickModal(1)}>Deny KPICORE</Button>
-                </div>
-                
-            </div>
-            </div>
-            
+
 
 
         </React.Fragment>
