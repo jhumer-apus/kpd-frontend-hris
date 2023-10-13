@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { KPICOREViewInterface } from '@/types/types-employee-and-applicants';
 import { convertDaysToHHMM, convertMinutesToHHMM,  } from '@/helpers/utils';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import {TextField} from '@mui/material';
 import ApproveKPICOREModal from '../main-modals/inner-modals/approve-obt-modal';
@@ -30,7 +30,7 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
         }   
         
     };
-    
+
     const [saveChangesButton, setSaveChangesButton] = useState<boolean>(false); 
 
     const buttonAction = () => {
@@ -47,26 +47,84 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
         <React.Fragment>
             {/* <ApproveKPICOREModal singleKPICOREDetailsData={singleKPICOREDetailsData} setSingleKPICOREDetailsData={setSingleKPICOREDetailsData} approveKPICOREOpenModal={approveKPICOREOpenModal} setApproveKPICOREOpenModal={setApproveKPICOREOpenModal}/>
             <DenyKPICOREModal singleKPICOREDetailsData={singleKPICOREDetailsData} setSingleKPICOREDetailsData={setSingleKPICOREDetailsData} denyKPICOREOpenModal={denyKPICOREOpenModal} setDenyKPICOREOpenModal={setDenyKPICOREOpenModal}/> */}
-            <div className='flex justify-end'>
-                <div className='flex justify-center mt-6' container-name='obt_buttons_container'>
-                    <div className='flex justify-between' style={{width:'300px'}} container-name='obt_buttons'>
+            
+            
+            <div className='flex justify-center flex-col'>
+                <Typography variant='h5' className='flex justify-center text-center'>
+                            Employee Name: {singleKPICOREDetailsData.emp_name}
+                </Typography>
+                <Typography variant='subtitle1' className='flex justify-center text-center'>
+                        Status: {singleKPICOREDetailsData.status} | KPI Score: {singleKPICOREDetailsData.sup_eval_points} | Core: {singleKPICOREDetailsData.core_compe_points} | Total %: {singleKPICOREDetailsData.percentage_total}
+                </Typography>
+                <Typography variant='subtitle1' className='flex justify-center text-center'>
+                        Final Rating: {singleKPICOREDetailsData.status === 'Pending' ? 'Pending...' : singleKPICOREDetailsData.final_rating} | Supervisor: {singleKPICOREDetailsData.sup_name}
+                </Typography>
+                <Typography variant='subtitle1' className='flex justify-center text-center'>
+                        Evaluation Date: {dayjs(singleKPICOREDetailsData.eval_date).format("MMMM DD, YYYY")}
+                </Typography>
+                <div className='flex justify-center my-6' container-name='obt_buttons_container'>
+                    <div className='flex justify-center' style={{width:'300px'}} container-name='obt_buttons'>
                         <Button variant='contained' sx={{display: `${saveChangesButton ? 'none': 'block'}`}} aria-hidden={saveChangesButton} hidden={saveChangesButton} onClick={buttonAction}>Input Details</Button>
                         <Button variant='outlined' sx={{display: `${!saveChangesButton ? 'none': 'block'}`}} aria-hidden={!saveChangesButton} hidden={!saveChangesButton} onClick={buttonAction}>Submit Changes</Button>
                     </div>
                 </div>
             </div>
+
+            <Typography className="italic" variant="body2">
+                Reminder: Make sure to check each fields and make sure that each of the fields has an answer including self-eval points. Managers/Supervisors are the one who will fulfill the Supervisor Points and Confirm.
+            </Typography>
             
             <div className='flex gap-10 overflow-auto relative'>
-                <div className='flex gap-10 flex-col mt-4 w-full'>
+                <div className='flex gap-10 flex-col mt-4 w-full' style={{zoom: 0.9}}>
                     {
                         singleKPICOREDetailsData?.questions?.map((item, index) => {
                             return(
                                 <>
-                                <TextField sx={{width: '100%'}} label={`Question #${index + 1}`} value={item.question} InputProps={{readOnly: true,}} variant='filled' multiline rows={2}/>
-                                <TextField sx={{width: '100%', fontStyle: 'italic'}} label={`Answer to #${index + 1}`} value={item.answer} InputProps={{readOnly: true,}} variant='outlined' multiline rows={2}/>
-                                <div className='flex justify-center gap-20'>
-                                <TextField sx={{width: '20%'}} label={`Self-Eval Points #${index + 1}`} value={item.self_eval_points} InputProps={{readOnly: true,}} variant='outlined' />
-                                <TextField sx={{width: '20%'}} label={`Supervisor Points #${index + 1}`} value={item.sup_eval_points} InputProps={{readOnly: true,}} variant='outlined' />
+                                <hr style={{borderTop: '3px double #8c8b8b'}}/>
+                                <TextField 
+                                    sx={{width: '100%'}} 
+                                    label={`Question #${index + 1}`} 
+                                    value={item.question} 
+                                    // onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+
+                                    // }}
+                                    InputProps={{readOnly: true,}} 
+                                    variant='filled' 
+                                    multiline 
+                                    rows={2}
+                                />
+                                <TextField 
+                                    sx={{width: '100%', fontStyle: 'italic'}} 
+                                    label={`Answer to #${index + 1}`} 
+                                    value={item.answer} 
+                                    InputProps={{readOnly: true,}} 
+                                    variant='outlined' 
+                                    multiline 
+                                    rows={2}
+                                />
+                                <div className='flex justify-center gap-4'>
+                                    <TextField 
+                                        sx={{width: '30%'}} 
+                                        placeholder={'1-10'} 
+                                        label={`Self-Eval Points #${index + 1}`} 
+                                        value={item.self_eval_points} 
+                                        InputProps={{readOnly: true,}} 
+                                        variant='outlined' 
+                                    />
+                                    <TextField 
+                                        sx={{width: '30%'}} 
+                                        label={`Supervisor Points #${index + 1}`} 
+                                        value={item.sup_eval_points} 
+                                        InputProps={{readOnly: true,}} 
+                                        variant='outlined' 
+                                    />
+                                    <TextField 
+                                        sx={{width: '40%'}} 
+                                        label={`Supervisor Remarks #${index + 1}`} 
+                                        value={item.sup_remarks} 
+                                        InputProps={{readOnly: true,}} 
+                                        variant='outlined' 
+                                    />
                                 </div>
 
                                 </>
