@@ -5047,6 +5047,616 @@
         }
       ],
       "current_user": 1
+    },
+    {
+      "id": "812dgoy",
+      "date_added": "2023-09-10T00:00:00Z",
+      "emp_no": 1,
+      "emp_name": "Matthew Blasco",
+      "sup_name": "Matthew Blasco",
+      "sup_no": 1,
+      "eval_date": "2023-09-25T00:00:00Z",
+      "status": "Pending",
+      "final_rating": "C",
+      "percentage_total": null,
+      "self_eval_points": null,
+      "core_compe_points": null,
+      "sup_eval_points": null,
+      "questions": [
+        {
+          "question": "How frequently did you proactively assist team members in completing their tasks or overcoming challenges during the evaluation period?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "Can you provide examples of specific instances where your contributions had a positive impact on the progress and success of the projects you were involved in?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "What steps have you taken to improve your ability to contribute effectively to project goals, and what results have you achieved in terms of project outcomes?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "How would you rate your ability to establish and maintain positive relationships with clients and workmates on a scale of 1 to 10, with 10 being the highest?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "Can you share an example of a challenging interaction with a client or workmate and how you successfully resolved it while maintaining a positive rapport?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "What strategies have you implemented to enhance your communication and interpersonal skills in order to improve client and workmate interactions?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "What specific actions have you taken to pursue personal and professional development opportunities outlined in the self-growth clauses?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "How have these self-growth clauses positively influenced your skillset and performance within the evaluation period?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "Can you provide examples of how you've demonstrated a commitment to continuous self-improvement and learning in your role?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "How have you upheld the integrity clauses and ethical standards of the organization in your day-to-day work and decision-making?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "Can you share an instance where you faced an ethical dilemma, and how did you navigate it while maintaining your commitment to integrity?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "What steps have you taken to ensure that you consistently adhere to the integrity clauses, and what impact has this had on the organization's reputation and trustworthiness?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        }
+      ],
+      "core_competencies": [
+        {
+          "checklist_title": "No Lates",
+          "checklist_limits": "Max. of 30 minutes / month cumulative",
+          "points": null
+        },
+        {
+          "checklist_title": "No Absences without Leave/Notice (AWOL)",
+          "checklist_limits": "Zero AWOL Tolerance",
+          "points": null
+        },
+        {
+          "checklist_title": "No Absences",
+          "checklist_limits": "3 Max Informed Absences",
+          "points": null
+        },
+        {
+          "checklist_title": "No Missed Deadlines / Tasks / Projects",
+          "checklist_limits": "2 Max Instances",
+          "points": null
+        },
+        {
+          "checklist_title": "No Poor Work Quality",
+          "checklist_limits": "Zero Work Quality Instance",
+          "points": null
+        },
+        {
+          "checklist_title": "No Critical Offenses",
+          "checklist_limits": "Zero Critical Offence Instance",
+          "points": null
+        }
+      ],
+      "current_user": 50502
+    },
+    {
+      "id": "389inai",
+      "date_added": "2023-09-10T00:00:00Z",
+      "emp_no": 50503,
+      "emp_name": "Jeriel Cruz",
+      "sup_name": "Matthew Blasco",
+      "sup_no": 1,
+      "eval_date": "2023-09-25T00:00:00Z",
+      "status": "Pending",
+      "final_rating": "C",
+      "percentage_total": null,
+      "self_eval_points": null,
+      "core_compe_points": null,
+      "sup_eval_points": null,
+      "questions": [
+        {
+          "question": "How frequently did you proactively assist team members in completing their tasks or overcoming challenges during the evaluation period?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "Can you provide examples of specific instances where your contributions had a positive impact on the progress and success of the projects you were involved in?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "What steps have you taken to improve your ability to contribute effectively to project goals, and what results have you achieved in terms of project outcomes?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "How would you rate your ability to establish and maintain positive relationships with clients and workmates on a scale of 1 to 10, with 10 being the highest?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "Can you share an example of a challenging interaction with a client or workmate and how you successfully resolved it while maintaining a positive rapport?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "What strategies have you implemented to enhance your communication and interpersonal skills in order to improve client and workmate interactions?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "What specific actions have you taken to pursue personal and professional development opportunities outlined in the self-growth clauses?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "How have these self-growth clauses positively influenced your skillset and performance within the evaluation period?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "Can you provide examples of how you've demonstrated a commitment to continuous self-improvement and learning in your role?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "How have you upheld the integrity clauses and ethical standards of the organization in your day-to-day work and decision-making?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "Can you share an instance where you faced an ethical dilemma, and how did you navigate it while maintaining your commitment to integrity?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "What steps have you taken to ensure that you consistently adhere to the integrity clauses, and what impact has this had on the organization's reputation and trustworthiness?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        }
+      ],
+      "core_competencies": [
+        {
+          "checklist_title": "No Lates",
+          "checklist_limits": "Max. of 30 minutes / month cumulative",
+          "points": null
+        },
+        {
+          "checklist_title": "No Absences without Leave/Notice (AWOL)",
+          "checklist_limits": "Zero AWOL Tolerance",
+          "points": null
+        },
+        {
+          "checklist_title": "No Absences",
+          "checklist_limits": "3 Max Informed Absences",
+          "points": null
+        },
+        {
+          "checklist_title": "No Missed Deadlines / Tasks / Projects",
+          "checklist_limits": "2 Max Instances",
+          "points": null
+        },
+        {
+          "checklist_title": "No Poor Work Quality",
+          "checklist_limits": "Zero Work Quality Instance",
+          "points": null
+        },
+        {
+          "checklist_title": "No Critical Offenses",
+          "checklist_limits": "Zero Critical Offence Instance",
+          "points": null
+        }
+      ],
+      "current_user": 50502
+    },
+    {
+      "id": "laxmbx3",
+      "date_added": "2023-09-10T00:00:00Z",
+      "emp_no": 50505,
+      "emp_name": "Saldi Koria",
+      "sup_name": "Matthew Blasco",
+      "sup_no": 1,
+      "eval_date": "2023-09-25T00:00:00Z",
+      "status": "Pending",
+      "final_rating": "C",
+      "percentage_total": null,
+      "self_eval_points": null,
+      "core_compe_points": null,
+      "sup_eval_points": null,
+      "questions": [
+        {
+          "question": "How frequently did you proactively assist team members in completing their tasks or overcoming challenges during the evaluation period?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "Can you provide examples of specific instances where your contributions had a positive impact on the progress and success of the projects you were involved in?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "What steps have you taken to improve your ability to contribute effectively to project goals, and what results have you achieved in terms of project outcomes?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "How would you rate your ability to establish and maintain positive relationships with clients and workmates on a scale of 1 to 10, with 10 being the highest?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "Can you share an example of a challenging interaction with a client or workmate and how you successfully resolved it while maintaining a positive rapport?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "What strategies have you implemented to enhance your communication and interpersonal skills in order to improve client and workmate interactions?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "What specific actions have you taken to pursue personal and professional development opportunities outlined in the self-growth clauses?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "How have these self-growth clauses positively influenced your skillset and performance within the evaluation period?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "Can you provide examples of how you've demonstrated a commitment to continuous self-improvement and learning in your role?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "How have you upheld the integrity clauses and ethical standards of the organization in your day-to-day work and decision-making?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "Can you share an instance where you faced an ethical dilemma, and how did you navigate it while maintaining your commitment to integrity?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "What steps have you taken to ensure that you consistently adhere to the integrity clauses, and what impact has this had on the organization's reputation and trustworthiness?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        }
+      ],
+      "core_competencies": [
+        {
+          "checklist_title": "No Lates",
+          "checklist_limits": "Max. of 30 minutes / month cumulative",
+          "points": null
+        },
+        {
+          "checklist_title": "No Absences without Leave/Notice (AWOL)",
+          "checklist_limits": "Zero AWOL Tolerance",
+          "points": null
+        },
+        {
+          "checklist_title": "No Absences",
+          "checklist_limits": "3 Max Informed Absences",
+          "points": null
+        },
+        {
+          "checklist_title": "No Missed Deadlines / Tasks / Projects",
+          "checklist_limits": "2 Max Instances",
+          "points": null
+        },
+        {
+          "checklist_title": "No Poor Work Quality",
+          "checklist_limits": "Zero Work Quality Instance",
+          "points": null
+        },
+        {
+          "checklist_title": "No Critical Offenses",
+          "checklist_limits": "Zero Critical Offence Instance",
+          "points": null
+        }
+      ],
+      "current_user": 50502
+    },
+    {
+      "id": "6dijqn9",
+      "date_added": "2023-09-10T00:00:00Z",
+      "emp_no": 50502,
+      "emp_name": "Mary Anne Balingit",
+      "sup_name": "Matthew Blasco",
+      "sup_no": 1,
+      "eval_date": "2023-09-25T00:00:00Z",
+      "status": "Pending",
+      "final_rating": "C",
+      "percentage_total": null,
+      "self_eval_points": null,
+      "core_compe_points": null,
+      "sup_eval_points": null,
+      "questions": [
+        {
+          "question": "How frequently did you proactively assist team members in completing their tasks or overcoming challenges during the evaluation period?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "Can you provide examples of specific instances where your contributions had a positive impact on the progress and success of the projects you were involved in?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "What steps have you taken to improve your ability to contribute effectively to project goals, and what results have you achieved in terms of project outcomes?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "How would you rate your ability to establish and maintain positive relationships with clients and workmates on a scale of 1 to 10, with 10 being the highest?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "Can you share an example of a challenging interaction with a client or workmate and how you successfully resolved it while maintaining a positive rapport?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "What strategies have you implemented to enhance your communication and interpersonal skills in order to improve client and workmate interactions?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "What specific actions have you taken to pursue personal and professional development opportunities outlined in the self-growth clauses?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "How have these self-growth clauses positively influenced your skillset and performance within the evaluation period?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "Can you provide examples of how you've demonstrated a commitment to continuous self-improvement and learning in your role?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "How have you upheld the integrity clauses and ethical standards of the organization in your day-to-day work and decision-making?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "Can you share an instance where you faced an ethical dilemma, and how did you navigate it while maintaining your commitment to integrity?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "What steps have you taken to ensure that you consistently adhere to the integrity clauses, and what impact has this had on the organization's reputation and trustworthiness?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        }
+      ],
+      "core_competencies": [
+        {
+          "checklist_title": "No Lates",
+          "checklist_limits": "Max. of 30 minutes / month cumulative",
+          "points": null
+        },
+        {
+          "checklist_title": "No Absences without Leave/Notice (AWOL)",
+          "checklist_limits": "Zero AWOL Tolerance",
+          "points": null
+        },
+        {
+          "checklist_title": "No Absences",
+          "checklist_limits": "3 Max Informed Absences",
+          "points": null
+        },
+        {
+          "checklist_title": "No Missed Deadlines / Tasks / Projects",
+          "checklist_limits": "2 Max Instances",
+          "points": null
+        },
+        {
+          "checklist_title": "No Poor Work Quality",
+          "checklist_limits": "Zero Work Quality Instance",
+          "points": null
+        },
+        {
+          "checklist_title": "No Critical Offenses",
+          "checklist_limits": "Zero Critical Offence Instance",
+          "points": null
+        }
+      ],
+      "current_user": 50502
+    },
+    {
+      "id": "nu1uggx",
+      "date_added": "2023-09-10T00:00:00Z",
+      "emp_no": 50504,
+      "emp_name": "Jesiah Mobliga",
+      "sup_name": "Matthew Blasco",
+      "sup_no": 1,
+      "eval_date": "2023-09-25T00:00:00Z",
+      "status": "Pending",
+      "final_rating": "C",
+      "percentage_total": null,
+      "self_eval_points": null,
+      "core_compe_points": null,
+      "sup_eval_points": null,
+      "questions": [
+        {
+          "question": "How frequently did you proactively assist team members in completing their tasks or overcoming challenges during the evaluation period?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "Can you provide examples of specific instances where your contributions had a positive impact on the progress and success of the projects you were involved in?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "What steps have you taken to improve your ability to contribute effectively to project goals, and what results have you achieved in terms of project outcomes?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "How would you rate your ability to establish and maintain positive relationships with clients and workmates on a scale of 1 to 10, with 10 being the highest?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "Can you share an example of a challenging interaction with a client or workmate and how you successfully resolved it while maintaining a positive rapport?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "What strategies have you implemented to enhance your communication and interpersonal skills in order to improve client and workmate interactions?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "What specific actions have you taken to pursue personal and professional development opportunities outlined in the self-growth clauses?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "How have these self-growth clauses positively influenced your skillset and performance within the evaluation period?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "Can you provide examples of how you've demonstrated a commitment to continuous self-improvement and learning in your role?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "How have you upheld the integrity clauses and ethical standards of the organization in your day-to-day work and decision-making?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "Can you share an instance where you faced an ethical dilemma, and how did you navigate it while maintaining your commitment to integrity?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        },
+        {
+          "question": "What steps have you taken to ensure that you consistently adhere to the integrity clauses, and what impact has this had on the organization's reputation and trustworthiness?",
+          "answer": null,
+          "self_eval_points": null,
+          "sup_eval_points": null
+        }
+      ],
+      "core_competencies": [
+        {
+          "checklist_title": "No Lates",
+          "checklist_limits": "Max. of 30 minutes / month cumulative",
+          "points": null
+        },
+        {
+          "checklist_title": "No Absences without Leave/Notice (AWOL)",
+          "checklist_limits": "Zero AWOL Tolerance",
+          "points": null
+        },
+        {
+          "checklist_title": "No Absences",
+          "checklist_limits": "3 Max Informed Absences",
+          "points": null
+        },
+        {
+          "checklist_title": "No Missed Deadlines / Tasks / Projects",
+          "checklist_limits": "2 Max Instances",
+          "points": null
+        },
+        {
+          "checklist_title": "No Poor Work Quality",
+          "checklist_limits": "Zero Work Quality Instance",
+          "points": null
+        },
+        {
+          "checklist_title": "No Critical Offenses",
+          "checklist_limits": "Zero Critical Offence Instance",
+          "points": null
+        }
+      ],
+      "current_user": 50502
     }
   ],
   "onboarding_requirements": [
