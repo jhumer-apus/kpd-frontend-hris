@@ -3,50 +3,16 @@ import { DataGrid, GridColDef, GridValueGetterParams, GridCellParams } from '@mu
 import { useSelector, useDispatch } from 'react-redux';
 import { getEmployeesList } from '@/store/actions/employees';
 import { RootState } from '@/store/configureStore';
-import { Modal, Typography } from '@mui/material';
+import { Button, Modal, Typography } from '@mui/material';
 import { APILink } from '@/store/configureStore';
 import statisticsChartsData from '@/data/statistics-charts-data';
 import { StatisticsChart } from '@/widgets/charts';
 import { ChartBarIcon } from '@heroicons/react/24/solid';
 import { KPICOREViewAction } from '@/store/actions/employee-and-applicants';
 import { color } from '@material-tailwind/react/types/components/alert';
+import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
+import { useNavigate } from 'react-router-dom';
 
-const columns: GridColDef[] = [
-  {
-    field: 'employee_image',
-    headerName: 'Display Pic',
-    width: 150,
-    renderCell: (params: GridCellParams) => {
-      if (params.value){
-        return(
-          
-          <img src={`${APILink.replace('/api/v1/', '')}${params.value as string}`} alt="" width="50" height="50" style={{borderRadius: "10px", height: "40px", width: "40px", objectFit: "cover", border: "1px solid white", boxShadow: "1px 1px 10px gray"}}/>
-          )
-      } else {
-        return (
-          null
-        )    
-      }
-    },
-  },
-  { field: 'emp_no', headerName: 'Employee #', width: 120 },
-  { field: 'first_name', headerName: 'First Name', width: 150 },
-  { field: 'last_name', headerName: 'Last Name', width: 150 },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params: GridValueGetterParams) =>
-      `${params.row.first_name || ''} ${params.row.last_name || ''}`,
-  },
-  { field: 'date_hired', headerName: 'Date Hired', width: 150 },
-  { field: 'branch_code', headerName: 'Branch Code', width: 150 },
-  { field: 'mobile_phone', headerName: 'Mobile Number', width: 150 },
-  { field: `user`, headerName: 'Has HRIS Access', width: 150, valueGetter: (params: GridValueGetterParams) => `${params.row.user?.is_active ? 'Active' : 'No Access'}` },
-  { field: 'bio_id', headerName: 'Biometrics ID', width: 150 },
-];
 
 
 export default function EmployeesAppraisalPage() {
@@ -55,13 +21,76 @@ export default function EmployeesAppraisalPage() {
   const ListOfAllKPIScores = useSelector((state: RootState) => state.employeeAndApplicants.KPICOREView.data);
   const [ mema, setMema ] = useState([{haha: 1, hehe: 2}, {haha: 1, hehe: 20}, {haha: 3, hehe: 200}])
 
+  const navigate = useNavigate();
+  const columns: GridColDef[] = [
+    {
+      field: 'employee_image',
+      headerName: 'Display Pic',
+      width: 150,
+      renderCell: (params: GridCellParams) => {
+        if (params.value){
+          return(
+            
+            <img src={`${APILink.replace('/api/v1/', '')}${params.value as string}`} alt="" width="50" height="50" style={{borderRadius: "10px", height: "40px", width: "40px", objectFit: "cover", border: "1px solid white", boxShadow: "1px 1px 10px gray"}}/>
+            )
+        } else {
+          return (
+            null
+          )    
+        }
+      },
+    },
+    { field: 'emp_no', headerName: 'Employee #', width: 120 },
+    // { field: 'first_name', headerName: 'First Name', width: 150 },
+    // { field: 'last_name', headerName: 'Last Name', width: 150 },
+    {
+      field: 'fullName',
+      headerName: 'Full name',
+      description: 'This column has a value getter and is not sortable.',
+      sortable: false,
+      width: 160,
+      valueGetter: (params: GridValueGetterParams) =>
+        `${params.row.first_name || ''} ${params.row.last_name || ''}`,
+    },
+    { field: 'date_hired', headerName: 'Date Hired', width: 150 },
+    { field: 'branch_code', headerName: 'Branch Code', width: 150 },
+    { field: 'mobile_phone', headerName: 'Mobile Number', width: 150 },
+    { field: `user`, headerName: 'Has HRIS Access', width: 150, valueGetter: (params: GridValueGetterParams) => `${params.row.user?.is_active ? 'Active' : 'No Access'}` },
+    { field: 'bio_id', headerName: 'Biometrics ID', width: 150 },
+    {
+      field: 'appraisal_button',
+      headerName: 'Check Details',
+      width: 200,
+      renderCell: (params: GridCellParams) => {
+        if (params.row.emp_no){
+          return(
+            
+            // <Button variant={'contained'} style={{borderRadius: "10px", height: "30px", width: "30px", objectFit: "cover", border: "1px solid white", boxShadow: "1px 1px 10px gray"}}>
+              
+            //   </Button>
+            <ArrowCircleRightOutlinedIcon color={'info'} 
+            onClick={()=> {
+              navigate(`/home/employees/Appraisal/${params.row.emp_no}`)
+              // window.alert(`${params.row.emp_no}`)
+            }
+              }
+              />
+            )
+        } else {
+          return (
+            null
+          )    
+        }
+      },
+    },
+  ];
+
   useEffect(() => {
     dispatch(getEmployeesList());
     if((Array.isArray(ListOfAllKPIScores) && ListOfAllKPIScores.length === 0 )|| !ListOfAllKPIScores ){
       dispatch(KPICOREViewAction())
     }
   }, []);
-  console.log(ListOfAllKPIScores, "111?")
   
   const [ statisticsChartsData, setStatisticsChartsData ] = useState([
     {
@@ -336,14 +365,13 @@ export default function EmployeesAppraisalPage() {
       newState[0].chart.series[0].data = FinalRating.length > 0 ? FinalRating : [0,0,0,0,0,0,0,0,0];
       newState[1].chart.series[0].data = KPIResult.length > 0 ? KPIResult : [0,0,0,0,0,0,0,0,0];
       newState[2].chart.series[0].data = CoreCompeResult.length > 0 ? CoreCompeResult : [0,0,0,0,0,0,0,0,0];
-
-      console.log(newState, "hhhjjjj", FinalRating)
       return newState;
     })
   }
 
   return (
     <Fragment>
+
       <div className="my-12 grid grid-cols-1 gap-y-12 gap-x-6 md:grid-cols-2 xl:grid-cols-3">
         {statisticsChartsData.map((props) => (
           <StatisticsChart

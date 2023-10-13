@@ -22,7 +22,7 @@ function UseDashboardRoute() {
   */
   const FirstInnerRoutePath = JSXRouteWrapper().routes.map((object)=> object.layout !== "auth" && object.pages.map((value)=> value.hasSubItems && value.subItems?.map((innerValue)=> {
     return (
-      <Route path={innerValue.path} element={innerValue.element}></Route>
+      <Route path={innerValue.path} element={ innerValue.element }></Route>
     )
   })));
   

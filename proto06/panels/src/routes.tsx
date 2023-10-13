@@ -108,6 +108,7 @@ import DataTable from "./pages/employee/201-files/Employee201";
 import EmployeesAppraisalPage from "./pages/employee/appraisals/employees-appraisal";
 import YourKPICOREPage from "./pages/quick-accesses/your-evaluation/your-evaluation";
 import AppraisalConfirmationKPICOREPage from "./pages/your-approvals/kpi-appraisal-confirmations/your-evaluation";
+import Test01 from "./pages/testing_pages/test01";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -455,7 +456,17 @@ const JSXRouteWrapper = () => {
               name: "Appraisals",
               path: "/employees/Appraisal",
               element:<EmployeesAppraisalPage/>,
-              hasSubItems: false,
+              hasSubItems: true,
+              subItems: [
+                {
+                  id: 121000,
+                  icon: <UserCircleIcon {...icon} />,
+                  name: "201 Files",
+                  path: "/employees/Appraisal/:emp_no",
+                  element: <Test01/>, 
+                  hasSubItems: false,
+                },
+              ]
             },
             {
               id: 12300,
