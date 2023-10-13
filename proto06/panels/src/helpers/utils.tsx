@@ -1,5 +1,6 @@
 import dayjs, {ConfigType} from "dayjs";
 import { BeautifyObject, ObjectFlat } from "../types";
+import { useEffect, useState } from "react";
 
 
 // totalDays represents the number of days you want to convert, considering 8 working hours per day. 
@@ -125,3 +126,23 @@ export const findExistingKey = <T extends object>(PassedObject: T, keysToCheck: 
   }
   throw console.error('No Key Found');
 }
+
+
+export const checkDevice = () => {
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  useEffect(()=> {
+
+    if(window.navigator.userAgent){
+      setIsMobile(/Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone/i.test(window.navigator.userAgent))
+    }
+  }, [window.navigator.userAgent])
+
+  return (
+    {
+      isMobile
+    }
+  )
+}
+
+
+
