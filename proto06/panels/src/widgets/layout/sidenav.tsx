@@ -22,13 +22,16 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
   const dispatchRedux = useDispatch();
   const currUserState = useSelector((state: RootState)=> state.auth.employee_detail);
   const proceduralState = useSelector((state: RootState)=> state.procedurals);
+  const EAState = useSelector((state:RootState) => state.employeeAndApplicants)
   const { UAViewFilterApprover, LEAVEViewFilterApprover, OVERTIMEViewFilterApprover, OBTViewFilterApprover } = proceduralState;
   const currUserEmpNo = currUserState?.emp_no as number;
+  const PendingKPICore = EAState.KPICOREView.data.filter((item)=> item.status ==='Pending' && item.sup_no === currUserEmpNo);
+
   const proceduralActions = [
     UAViewFilterApproverAction,
     LEAVEViewFilterApproverAction,
     OVERTIMEViewFilterApproverAction,
-    OBTViewFilterApproverAction,
+    OBTViewFilterApproverAction
   ];
 
   const dispatchActions = useCallback(() => {
@@ -45,7 +48,7 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
     dispatchActions();
   }, [dispatchActions]);
   
-  const approvalNames = ['OBT Approvals', 'OT Approvals', 'LEAVE Approvals', 'UA Approvals'];
+  const approvalNames = ['OBT Approvals', 'OT Approvals', 'LEAVE Approvals', 'UA Approvals', 'KPI Appraisal Confirmations'];
 
   const arrayLengthChecker = (key: string) => {
     type objectChecker = {
@@ -56,7 +59,8 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
       'OT Approvals': (OVERTIMEViewFilterApprover?.data as OVERTIMEViewInterface[])?.length,
       'LEAVE Approvals': (LEAVEViewFilterApprover?.data as LEAVEViewInterface[])?.length,
       'UA Approvals': (UAViewFilterApprover?.data as UAViewInterface[])?.length,
-      'Your Approvals': ((OBTViewFilterApprover?.data as OBTViewInterface[])?.length + (OVERTIMEViewFilterApprover?.data as OVERTIMEViewInterface[])?.length + (LEAVEViewFilterApprover?.data as LEAVEViewInterface[])?.length + (UAViewFilterApprover?.data as UAViewInterface[])?.length),
+      'KPI Appraisal Confirmations': PendingKPICore.length,
+      'Pending Checklists': ((OBTViewFilterApprover?.data as OBTViewInterface[])?.length + (OVERTIMEViewFilterApprover?.data as OVERTIMEViewInterface[])?.length + (LEAVEViewFilterApprover?.data as LEAVEViewInterface[])?.length + (UAViewFilterApprover?.data as UAViewInterface[])?.length + PendingKPICore.length),
       'default': 0
     };
     return keyProcessor[key] || keyProcessor['default']
@@ -69,6 +73,7 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
       [itemId]: !prevExpandedItems[itemId],
     }));
   };
+  
   const [controller, dispatch] = useMaterialTailwindController();
   const { sidenavColor, sidenavType, openSidenav } = controller;
   const sidenavTypes: Record<string, string> = {
@@ -152,7 +157,7 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
                                 className="font-medium capitalize flex justify-between w-full"
                               >
                                 <p className="flex justify-center items-center">{name}</p>
-                                {name === 'Your Approvals' && ( arrayLengthChecker(name) > 0 ) && <p 
+                                {name === 'Pending Checklists' && ( arrayLengthChecker(name) > 0 ) && <p 
                                   className="flex justify-center items-center" 
                                   style={{
                                     fontSize: '12px',
