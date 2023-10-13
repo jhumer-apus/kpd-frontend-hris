@@ -21,7 +21,6 @@ export default function ViewKPICORESingleModal(props: SinglePayslipInterface) {
       <Transition in={singleKPICOREOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSingleKPICOREOpenModal(false);
