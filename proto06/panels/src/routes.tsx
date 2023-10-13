@@ -107,6 +107,7 @@ import EAOFFBOARDINGREQUIREMENTS from "./pages/dashboard/admin-portal/first-inne
 import DataTable from "./pages/employee/201-files/Employee201";
 import EmployeesAppraisalPage from "./pages/employee/appraisals/employees-appraisal";
 import YourKPICOREPage from "./pages/quick-accesses/your-evaluation/your-evaluation";
+import AppraisalConfirmationKPICOREPage from "./pages/your-approvals/kpi-appraisal-confirmations/your-evaluation";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -573,7 +574,7 @@ const JSXRouteWrapper = () => {
               icon: <RuleFolderOutlinedIcon {...icon} />,
               name: "KPI Appraisal Confirmations",
               path: "/your-approvals/Appraisal-Confirmations",
-              element: <ApprovalUAPage/>, 
+              element: <AppraisalConfirmationKPICOREPage/>, 
               badgeAccessor: 'UAViewFilterApprover',
               hasSubItems: false,
             },
