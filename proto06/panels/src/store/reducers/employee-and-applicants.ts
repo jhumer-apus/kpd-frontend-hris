@@ -159,6 +159,7 @@ interface OverallEmployeeAndApplicantsState {
   //KPICORE SECTION
   KPICOREView: KPICOREViewState,
   KPICOREViewSpecific: KPICOREViewState,
+  KPICOREViewSpecificEmployee: KPICOREViewState,
   KPICORECreate: KPICORECreateState,
   KPICOREEdit: KPICOREEditState,
   //CORECOMPE SECTION
@@ -202,6 +203,12 @@ const initialState: OverallEmployeeAndApplicantsState = {
     error: '',
   },
   KPICOREViewSpecific: {
+    status: '',
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  KPICOREViewSpecificEmployee: {
     status: '',
     progress: 0,
     data: [],
@@ -417,6 +424,10 @@ const employeeAndApplicantsSlice = createSlice({
       .addCase(_Actions.KPICOREViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "KPICOREViewSpecific"))
       .addCase(_Actions.KPICOREViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "KPICOREViewSpecific"))
       .addCase(_Actions.KPICOREViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "KPICOREViewSpecific"))
+      .addCase(_Actions.KPICOREViewSpecificEmployeeAction, setLoadingState("KPICOREViewSpecificEmployee"))
+      .addCase(_Actions.KPICOREViewSpecificEmployeeActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "KPICOREViewSpecificEmployee"))
+      .addCase(_Actions.KPICOREViewSpecificEmployeeActionProgress, (state, action) => setProgressState(state, action.payload, "KPICOREViewSpecificEmployee"))
+      .addCase(_Actions.KPICOREViewSpecificEmployeeActionFailure, (state, action) => setFailureState(state, action.payload, "KPICOREViewSpecificEmployee"))
       .addCase(_Actions.KPICORECreateAction, setLoadingState("KPICORECreate"))
       .addCase(_Actions.KPICORECreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "KPICORECreate"))
       .addCase(_Actions.KPICORECreateActionProgress, (state, action) => setProgressState(state, action.payload, "KPICORECreate"))

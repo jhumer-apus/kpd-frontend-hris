@@ -41,6 +41,21 @@ const KPICORECreateApiCall = async (payload: _Interface.KPICORECreateInterface) 
     return response.data;
 };
 
+const KPICOREViewSpecificEmployeeApiCall = async (payload: {emp_no: number }) => {
+    const response = await axios.get(`${JSONServer}kpi_core?emp_no=${payload.emp_no}`,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.KPICOREViewSpecificEmployeeActionProgress(progress));
+            }
+        }
+        }
+    );
+    return response.data;
+};
+
+
 const KPICOREViewSpecificApiCall = async (payload: {kpi_core_id: number }) => {
     const response = await axios.get(`${JSONServer}kpi_core/${payload.kpi_core_id}/`,
     {
@@ -111,6 +126,28 @@ export const KPICOREViewSpecificEpic: Epic = (action$, state$) =>
         )
         )
 );
+
+export const KPICOREViewSpecificEmployeeEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.KPICOREViewSpecificEmployeeAction.type),
+        switchMap((action: ReturnType<typeof _Action.KPICOREViewSpecificEmployeeAction>) =>
+        from(
+            KPICOREViewSpecificEmployeeApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.KPICOREViewSpecificEmployeeActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.KPICOREViewSpecificEmployeeActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.KPICOREViewSpecificEmployeeActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
 
 
 export const KPICORECreateEpic: Epic = (action$, state$) =>

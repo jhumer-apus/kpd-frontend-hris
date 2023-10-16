@@ -109,6 +109,7 @@ import EmployeesAppraisalPage from "./pages/employee/appraisals/employees-apprai
 import YourKPICOREPage from "./pages/quick-accesses/your-evaluation/your-evaluation";
 import AppraisalConfirmationKPICOREPage from "./pages/pending-checklists/kpi-appraisal-confirmations/your-evaluation";
 import Test01 from "./pages/testing_pages/test01";
+import APPRAISALDETAILSPage from "./pages/employee/appraisals/inner-page/appraisal-details-page/appraisal-details";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -463,7 +464,7 @@ const JSXRouteWrapper = () => {
                   icon: <UserCircleIcon {...icon} />,
                   name: "201 Files",
                   path: "/employees/Appraisal/:emp_no",
-                  element: <Test01/>, 
+                  element: <APPRAISALDETAILSPage/>, 
                   hasSubItems: false,
                 },
               ]

@@ -17,6 +17,13 @@ export const KPICOREViewSpecificActionProgress = createAction<number>("KPICORE_V
 export const KPICOREViewSpecificActionFailure = createAction<string>("KPICORE_VIEW_SPECIFIC_ACTION_FAILURE");
 export const KPICOREViewSpecificActionFailureCleanup = createAction("KPICORE_VIEW_SPECIFIC_ACTION_FAILURE_CLEANUP");
 
+export const KPICOREViewSpecificEmployeeAction = createAction<{emp_no: number}>("KPICORE_VIEW_SPECIFIC_EMPLOYEE_ACTION");
+export const KPICOREViewSpecificEmployeeActionSuccess = createAction("KPICORE_VIEW_SPECIFIC_EMPLOYEE_ACTION_SUCCESS", (SuccessMessage: _Type.KPICOREViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const KPICOREViewSpecificEmployeeActionProgress = createAction<number>("KPICORE_VIEW_SPECIFIC_EMPLOYEE_ACTION_PROGRESS");
+export const KPICOREViewSpecificEmployeeActionFailure = createAction<string>("KPICORE_VIEW_SPECIFIC_EMPLOYEE_ACTION_FAILURE");
+export const KPICOREViewSpecificEmployeeActionFailureCleanup = createAction("KPICORE_VIEW_SPECIFIC_EMPLOYEE_ACTION_FAILURE_CLEANUP");
+
 export const KPICORECreateAction = createAction<_Type.KPICORECreateInterface>("KPICORE_CREATE_ACTION");
 export const KPICORECreateActionSuccess = createAction("KPICORE_CREATE_ACTION_SUCCESS", (SuccessMessage: _Type.KPICORECreateInterface) => { 
     return({ payload: {SuccessMessage} })
