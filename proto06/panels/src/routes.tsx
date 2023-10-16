@@ -44,10 +44,10 @@ import ProceduralUAPage from "./pages/procedurals/ua/procedural-ua-page";
 import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
 import PublishedWithChangesOutlinedIcon from '@mui/icons-material/PublishedWithChangesOutlined';
 import CreditScoreOutlinedIcon from '@mui/icons-material/CreditScoreOutlined';
-import ApprovalUAPage from "./pages/your-approvals/ua-approvals/approval-ua-page";
-import ApprovalOvertimePage from "./pages/your-approvals/ot-approvals/approval-overtime-page";
-import ApprovalLEAVEPage from "./pages/your-approvals/leave-approvals/approval-leave-page";
-import ApprovalOBTPage from "./pages/your-approvals/obt-approvals/approval-obt-page";
+import ApprovalUAPage from "./pages/pending-checklists/ua-approvals/approval-ua-page";
+import ApprovalOvertimePage from "./pages/pending-checklists/ot-approvals/approval-overtime-page";
+import ApprovalLEAVEPage from "./pages/pending-checklists/leave-approvals/approval-leave-page";
+import ApprovalOBTPage from "./pages/pending-checklists/obt-approvals/approval-obt-page";
 import CloudSyncSharpIcon from '@mui/icons-material/CloudSyncSharp';
 import SettingsAccessibilitySharpIcon from '@mui/icons-material/SettingsAccessibilitySharp';
 import DifferenceOutlinedIcon from '@mui/icons-material/DifferenceOutlined';
@@ -107,7 +107,7 @@ import EAOFFBOARDINGREQUIREMENTS from "./pages/dashboard/admin-portal/first-inne
 import DataTable from "./pages/employee/201-files/Employee201";
 import EmployeesAppraisalPage from "./pages/employee/appraisals/employees-appraisal";
 import YourKPICOREPage from "./pages/quick-accesses/your-evaluation/your-evaluation";
-import AppraisalConfirmationKPICOREPage from "./pages/your-approvals/kpi-appraisal-confirmations/your-evaluation";
+import AppraisalConfirmationKPICOREPage from "./pages/pending-checklists/kpi-appraisal-confirmations/your-evaluation";
 import Test01 from "./pages/testing_pages/test01";
 
 const icon = {
@@ -540,7 +540,7 @@ const JSXRouteWrapper = () => {
           id: 14000,
           icon: null,
           name: "Pending Checklists",
-          path: "/your-approvals",
+          path: "/pending-checklists",
           element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-orange-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">EMPLOYEE ELEMENTS UNDER DEVELOPMENT</strong>,
           hasSubItems: true,
           subItems: [
@@ -548,7 +548,7 @@ const JSXRouteWrapper = () => {
               id: 14100,
               icon: <NoCrashOutlinedIcon {...icon} />,
               name: "OBT Approvals",
-              path: "/your-approvals/OBT-approvals",
+              path: "/pending-checklists/OBT-approvals",
               element: <ApprovalOBTPage/>, 
               badgeAccessor: 'OBTViewFilterApprover',
               hasSubItems: false,
@@ -557,7 +557,7 @@ const JSXRouteWrapper = () => {
               id: 14200,
               icon: <CreditScoreOutlinedIcon {...icon} />,
               name: "OT Approvals",
-              path: "/your-approvals/OT-approvals",
+              path: "/pending-checklists/OT-approvals",
               element: <ApprovalOvertimePage/>, 
               badgeAccessor: 'OVERTIMEViewFilterApprover',
               hasSubItems: false,
@@ -566,7 +566,7 @@ const JSXRouteWrapper = () => {
               id: 14300,
               icon: <HowToRegOutlinedIcon {...icon} />,
               name: "LEAVE Approvals",
-              path: "/your-approvals/LEAVE-approvals",
+              path: "/pending-checklists/LEAVE-approvals",
               element: <ApprovalLEAVEPage/>, 
               badgeAccessor: 'LEAVEViewFilterApprover',
               hasSubItems: false,
@@ -575,7 +575,7 @@ const JSXRouteWrapper = () => {
               id: 14400,
               icon: <PublishedWithChangesOutlinedIcon {...icon} />,
               name: "UA Approvals",
-              path: "/your-approvals/UA-approvals",
+              path: "/pending-checklists/UA-approvals",
               element: <ApprovalUAPage/>, 
               badgeAccessor: 'UAViewFilterApprover',
               hasSubItems: false,
@@ -584,7 +584,7 @@ const JSXRouteWrapper = () => {
               id: 14500,
               icon: <RuleFolderOutlinedIcon {...icon} />,
               name: "KPI Appraisal Confirmations",
-              path: "/your-approvals/Appraisal-Confirmations",
+              path: "/pending-checklists/Appraisal-Confirmations",
               element: <AppraisalConfirmationKPICOREPage/>, 
               badgeAccessor: 'UAViewFilterApprover',
               hasSubItems: false,
@@ -593,7 +593,7 @@ const JSXRouteWrapper = () => {
               id: 14600,
               icon: <AddLocationAltIcon {...icon} />,
               name: "Onboarding CF",
-              path: "/your-approvals/Onboarding-Confirmations",
+              path: "/pending-checklists/Onboarding-Confirmations",
               element: <ApprovalUAPage/>, 
               badgeAccessor: 'UAViewFilterApprover',
               hasSubItems: false,
@@ -602,7 +602,7 @@ const JSXRouteWrapper = () => {
               id: 14700,
               icon: <AlarmOffIcon {...icon} />,
               name: "Offboarding CF",
-              path: "/your-approvals/Offboarding-Confirmations",
+              path: "/pending-checklists/Offboarding-Confirmations",
               element: <ApprovalUAPage/>, 
               badgeAccessor: 'UAViewFilterApprover',
               hasSubItems: false,
