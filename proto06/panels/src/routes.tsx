@@ -110,6 +110,7 @@ import YourKPICOREPage from "./pages/quick-accesses/your-evaluation/your-evaluat
 import AppraisalConfirmationKPICOREPage from "./pages/pending-checklists/kpi-appraisal-confirmations/your-evaluation";
 import Test01 from "./pages/testing_pages/test01";
 import APPRAISALDETAILSPage from "./pages/employee/appraisals/inner-page/appraisal-details-page/appraisal-details";
+import AboutAppraisalsPage from "./pages/employee/about-appraisals/about-appraisals";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -474,7 +475,7 @@ const JSXRouteWrapper = () => {
               icon: <PrivacyTipOutlinedIcon {...icon} />,
               name: "About Appraisals",
               path: "/employees/About-Appraisal",
-              element:<strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-green-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">APPRAISAL PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+              element: <AboutAppraisalsPage/>,
               hasSubItems: false,
             },
           ]
