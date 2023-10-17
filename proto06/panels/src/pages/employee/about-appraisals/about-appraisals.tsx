@@ -25,8 +25,8 @@ const PaperStyle = {
 
 
 const steps = [
-    'Upload',
-    'Preview',
+    'Monthly',
+    'Iterative',
     'Submit',
 ];
 const Grid = styled(MuiGrid)(({ theme }) => ({
@@ -172,7 +172,7 @@ export default function AboutAppraisalsPage() {
                 <Paper elevation={3} style={PaperStyle}>
                     <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                         <Stepper activeStep={activeStep}>
-                            {steps.map((label, index) => {
+                            {/* {steps.map((label, index) => {
                             const stepProps: { completed?: boolean } = {};
                             const labelProps: {
                                 optional?: React.ReactNode;
@@ -190,7 +190,7 @@ export default function AboutAppraisalsPage() {
                                 <StepLabel {...labelProps}>{label}</StepLabel>
                                 </Step>
                             );
-                            })}
+                            })} */}
                         </Stepper>
                             {activeStep === steps.length ? (
                                 <Fragment>
@@ -207,10 +207,8 @@ export default function AboutAppraisalsPage() {
                                 <Fragment>
                                 <div className={"mt-2 mb-1"}>
                                     {activeStep=== 0 && 
-                                    <div className="flex justify-center"> 
+                                    <div className="w-full"> 
                                         <UploadDTRComponent 
-                                            handleFileUpload={handleFileUpload}
-                                            onFileChange={onFileChange}
                                         />
                                     </div>
                                     }
@@ -247,7 +245,7 @@ export default function AboutAppraisalsPage() {
                                     }
                                 </div>
                                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                                    <Button
+                                    {/* <Button
                                     color="inherit"
                                     disabled={activeStep === 0}
                                     onClick={handleBack}
@@ -263,7 +261,7 @@ export default function AboutAppraisalsPage() {
                                     )}
                                     <Button onClick={handleNext}>
                                     {activeStep === steps.length - 1 ? 'Submit' : activeStep === 0 ? 'Preview' : 'Next'}
-                                    </Button>
+                                    </Button> */}
                                 </Box>
                                 </Fragment>
                             )}
