@@ -203,6 +203,22 @@ const JSXRouteWrapper = () => {
                       element: <ManageRANK/>,
                       hasSubItems: false,
                     },
+                    {
+                      id: 1120006,
+                      icon: null,
+                      name: "Applicants",
+                      path: "/Dashboards/Admin-Dashboard/Categories/Applicants",
+                      element: <ManageRANK/>,
+                      hasSubItems: false,
+                    },
+                    {
+                      id: 1120007,
+                      icon: null,
+                      name: "Job Posting",
+                      path: "/Dashboards/Admin-Dashboard/Categories/Job-Posting",
+                      element: <ManageRANK/>,
+                      hasSubItems: false,
+                    },
                   ]
                 },
                 {

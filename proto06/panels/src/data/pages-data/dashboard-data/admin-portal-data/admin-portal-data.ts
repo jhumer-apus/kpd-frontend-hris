@@ -19,6 +19,8 @@ import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
 import ContactEmergencyOutlinedIcon from '@mui/icons-material/ContactEmergencyOutlined';
 import ContactPageOutlinedIcon from '@mui/icons-material/ContactPageOutlined';
 import ContentPasteSearchOutlinedIcon from '@mui/icons-material/ContentPasteSearchOutlined';
+import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
+import ChecklistRtlOutlinedIcon from '@mui/icons-material/ChecklistRtlOutlined';
 
 
 export const adminPortalData = [
@@ -566,6 +568,36 @@ export const EmployeeAndApplicantsData = [
     custom: "linear-gradient(22deg, rgba(9,9,121,1) 15%, rgba(191,4,14,1) 47%, rgba(2,0,36,1) 100%, rgba(0,212,255,1) 100%)",
     // custom: "linear-gradient(235deg, rgba(132,25,142,1) 4%, rgba(52,9,121,0.8379726890756303) 23%, rgba(19,151,161,1) 55%)",
     link: '/home/Dashboards/Admin-Dashboard/Employee-And-Applicants/Offboarding-Requirements',
+    customTop: 15,
+    customLeft: 38,
+  },
+  {
+    icon: FactCheckOutlinedIcon,
+    title: "Applicants List",
+    value: "APL",
+    footer: {
+      color: "text-green-500",
+      value: "<",
+      label: "List of Applicants, Status Req., details etc.",
+    },
+    custom: "linear-gradient(22deg, rgba(9,9,121,1) 15%, rgba(191,4,14,1) 47%, rgba(2,0,36,1) 100%, rgba(0,212,255,1) 100%)",
+    // custom: "linear-gradient(235deg, rgba(132,25,142,1) 4%, rgba(52,9,121,0.8379726890756303) 23%, rgba(19,151,161,1) 55%)",
+    link: '/home/Dashboards/Admin-Dashboard/Employee-And-Applicants/Applicants',
+    customTop: 15,
+    customLeft: 38,
+  },
+  {
+    icon: ChecklistRtlOutlinedIcon,
+    title: "Job Postings",
+    value: "JOBP",
+    footer: {
+      color: "text-green-500",
+      value: "<",
+      label: "List of Jobs Req., details etc.",
+    },
+    custom: "linear-gradient(22deg, rgba(9,9,121,1) 15%, rgba(191,4,14,1) 47%, rgba(2,0,36,1) 100%, rgba(0,212,255,1) 100%)",
+    // custom: "linear-gradient(235deg, rgba(132,25,142,1) 4%, rgba(52,9,121,0.8379726890756303) 23%, rgba(19,151,161,1) 55%)",
+    link: '/home/Dashboards/Admin-Dashboard/Employee-And-Applicants/Job-Posting',
     customTop: 15,
     customLeft: 38,
   },
