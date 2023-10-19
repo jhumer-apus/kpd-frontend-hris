@@ -232,41 +232,24 @@ export interface APPLICANTSEditInterface extends APPLICANTSGenericInterface, Pic
 
 
 
-export interface APPLICANTSGenericInterface {
-	first_name: string
-	middle_name: string
-	last_name: string
-	suffix: string
-	birthday: string
-	birth_place: string
-	civil_status: string
-	gender: string
-	address: string
-	mobile_phone: string
-	email_address: string
-	facebook: string
-	linkedin: string
-	date_applied: string
-	date_next_appointment: string
-	interview1_date: string | null
-	interview1_result: string | null
-	interview2_date: string | null
-	interview2_result: string | null
-	exam1_date: string | null
-	exam1_score: string
-	exam2_date: string | null
-	exam2_score: string
-	current_user?: number
+export interface JOBPOSTINGSGenericInterface {
+	job_description: string
+	job_salary_range: string
+	qualifications: string
+	date_added: string
+	date_deleted: string | null
+	position_code: number
+	added_by?: number
 }
 
 
-export interface APPLICANTSViewInterface extends APPLICANTSGenericInterface{
+export interface JOBPOSTINGSViewInterface extends JOBPOSTINGSGenericInterface{
     readonly id: number
 }
 
-export interface APPLICANTSCreateInterface extends APPLICANTSGenericInterface{}
+export interface JOBPOSTINGSCreateInterface extends JOBPOSTINGSGenericInterface{}
 
-export interface APPLICANTSEditInterface extends APPLICANTSGenericInterface, Pick<OFFBOARDINGREQUIREMENTSViewInterface, "id">{}
+export interface JOBPOSTINGSEditInterface extends JOBPOSTINGSGenericInterface, Pick<OFFBOARDINGREQUIREMENTSViewInterface, "id">{}
 
 // ======================================
 

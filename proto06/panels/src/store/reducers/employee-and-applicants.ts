@@ -24,7 +24,13 @@ _Interface.OFFBOARDINGSTATUSViewInterface |
 _Interface.OFFBOARDINGSTATUSCreateInterface |
 _Interface.OFFBOARDINGREQUIREMENTSViewInterface[] | 
 _Interface.OFFBOARDINGREQUIREMENTSViewInterface | 
-_Interface.OFFBOARDINGREQUIREMENTSCreateInterface
+_Interface.OFFBOARDINGREQUIREMENTSCreateInterface |
+_Interface.APPLICANTSViewInterface[] | 
+_Interface.APPLICANTSViewInterface | 
+_Interface.APPLICANTSCreateInterface |
+_Interface.JOBPOSTINGSViewInterface[] | 
+_Interface.JOBPOSTINGSViewInterface | 
+_Interface.JOBPOSTINGSCreateInterface
 ;
 
 interface CommonEmployeeAndApplicantsState {
@@ -129,6 +135,31 @@ interface OFFBOARDINGREQUIREMENTSEditState extends CommonEmployeeAndApplicantsSt
   data: OFFBOARDINGREQUIREMENTSViewState | null;
 }
 
+// APPLICANTS SECTION // APPLICANTS SECTION // APPLICANTS SECTION // APPLICANTS SECTION // APPLICANTS SECTION 
+interface APPLICANTSViewState extends CommonEmployeeAndApplicantsState{
+  data: _Interface.APPLICANTSViewInterface[] | [];
+}
+
+interface APPLICANTSCreateState extends CommonEmployeeAndApplicantsState{
+  data: _Interface.APPLICANTSCreateInterface | null | {};
+}
+
+interface APPLICANTSEditState extends CommonEmployeeAndApplicantsState {
+  data: APPLICANTSViewState | null;
+}
+
+// JOBPOSTINGS SECTION // JOBPOSTINGS SECTION // JOBPOSTINGS SECTION // JOBPOSTINGS SECTION // JOBPOSTINGS SECTION 
+interface JOBPOSTINGSViewState extends CommonEmployeeAndApplicantsState{
+  data: _Interface.JOBPOSTINGSViewInterface[] | [];
+}
+
+interface JOBPOSTINGSCreateState extends CommonEmployeeAndApplicantsState{
+  data: _Interface.JOBPOSTINGSCreateInterface | null | {};
+}
+
+interface JOBPOSTINGSEditState extends CommonEmployeeAndApplicantsState {
+  data: JOBPOSTINGSViewState | null;
+}
 
 
 
@@ -154,7 +185,13 @@ interface OverallEmployeeAndApplicantsState {
   OFFBOARDINGSTATUSEditState |
   OFFBOARDINGREQUIREMENTSViewState | 
   OFFBOARDINGREQUIREMENTSCreateState | 
-  OFFBOARDINGREQUIREMENTSEditState 
+  OFFBOARDINGREQUIREMENTSEditState |
+  APPLICANTSViewState | 
+  APPLICANTSCreateState | 
+  APPLICANTSEditState |
+  JOBPOSTINGSViewState | 
+  JOBPOSTINGSCreateState | 
+  JOBPOSTINGSEditState 
   ,
   //KPICORE SECTION
   KPICOREView: KPICOREViewState,
@@ -192,6 +229,18 @@ interface OverallEmployeeAndApplicantsState {
   OFFBOARDINGREQUIREMENTSViewSpecific: OFFBOARDINGREQUIREMENTSViewState,
   OFFBOARDINGREQUIREMENTSCreate: OFFBOARDINGREQUIREMENTSCreateState,
   OFFBOARDINGREQUIREMENTSEdit: OFFBOARDINGREQUIREMENTSEditState,
+  //APPLICANTS SECTION
+  APPLICANTSView: APPLICANTSViewState,
+  APPLICANTSViewSpecific: APPLICANTSViewState,
+  APPLICANTSViewSpecificEmployee: APPLICANTSViewState,
+  APPLICANTSCreate: APPLICANTSCreateState,
+  APPLICANTSEdit: APPLICANTSEditState,
+  //JOBPOSTINGS SECTION
+  JOBPOSTINGSView: JOBPOSTINGSViewState,
+  JOBPOSTINGSViewSpecific: JOBPOSTINGSViewState,
+  JOBPOSTINGSViewSpecificEmployee: JOBPOSTINGSViewState,
+  JOBPOSTINGSCreate: JOBPOSTINGSCreateState,
+  JOBPOSTINGSEdit: JOBPOSTINGSEditState,
 }
 
 const initialState: OverallEmployeeAndApplicantsState = {
@@ -376,6 +425,68 @@ const initialState: OverallEmployeeAndApplicantsState = {
     data: null,
     error: '',
   },
+  //APPLICANTS SECTION
+  APPLICANTSView: {
+    status: '',
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  APPLICANTSViewSpecific: {
+    status: '',
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  APPLICANTSViewSpecificEmployee: {
+    status: '',
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  APPLICANTSCreate: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  APPLICANTSEdit: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  //JOBPOSTINGS SECTION
+  JOBPOSTINGSView: {
+    status: '',
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  JOBPOSTINGSViewSpecific: {
+    status: '',
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  JOBPOSTINGSViewSpecificEmployee: {
+    status: '',
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  JOBPOSTINGSCreate: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  JOBPOSTINGSEdit: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
 };
 
 const setLoadingState = (path: string) => (state: OverallEmployeeAndApplicantsState) => {
@@ -545,6 +656,50 @@ const employeeAndApplicantsSlice = createSlice({
       .addCase(_Actions.OFFBOARDINGREQUIREMENTSEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OFFBOARDINGREQUIREMENTSEdit"))
       .addCase(_Actions.OFFBOARDINGREQUIREMENTSEditActionProgress, (state, action) => setProgressState(state, action.payload, "OFFBOARDINGREQUIREMENTSEdit"))
       .addCase(_Actions.OFFBOARDINGREQUIREMENTSEditActionFailure, (state, action) => setFailureState(state, action.payload, "OFFBOARDINGREQUIREMENTSEdit"))
+      //APPLICANTS SECTION
+      .addCase(_Actions.APPLICANTSViewAction, setLoadingState("APPLICANTSView"))
+      .addCase(_Actions.APPLICANTSViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "APPLICANTSView"))
+      .addCase(_Actions.APPLICANTSViewActionProgress, (state, action) => setProgressState(state, action.payload, "APPLICANTSView"))
+      .addCase(_Actions.APPLICANTSViewActionFailure, (state, action) => setFailureState(state, action.payload, "APPLICANTSView"))
+      .addCase(_Actions.APPLICANTSViewSpecificAction, setLoadingState("APPLICANTSViewSpecific"))
+      .addCase(_Actions.APPLICANTSViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "APPLICANTSViewSpecific"))
+      .addCase(_Actions.APPLICANTSViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "APPLICANTSViewSpecific"))
+      .addCase(_Actions.APPLICANTSViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "APPLICANTSViewSpecific"))
+      .addCase(_Actions.APPLICANTSViewSpecificEmployeeAction, setLoadingState("APPLICANTSViewSpecificEmployee"))
+      .addCase(_Actions.APPLICANTSViewSpecificEmployeeActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "APPLICANTSViewSpecificEmployee"))
+      .addCase(_Actions.APPLICANTSViewSpecificEmployeeActionProgress, (state, action) => setProgressState(state, action.payload, "APPLICANTSViewSpecificEmployee"))
+      .addCase(_Actions.APPLICANTSViewSpecificEmployeeActionFailure, (state, action) => setFailureState(state, action.payload, "APPLICANTSViewSpecificEmployee"))
+      .addCase(_Actions.APPLICANTSCreateAction, setLoadingState("APPLICANTSCreate"))
+      .addCase(_Actions.APPLICANTSCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "APPLICANTSCreate"))
+      .addCase(_Actions.APPLICANTSCreateActionProgress, (state, action) => setProgressState(state, action.payload, "APPLICANTSCreate"))
+      .addCase(_Actions.APPLICANTSCreateActionFailure, (state, action) => setFailureState(state, action.payload, "APPLICANTSCreate"))
+      .addCase(_Actions.APPLICANTSCreateActionFailureCleanup, setRefreshedState("APPLICANTSCreate"))
+      .addCase(_Actions.APPLICANTSEditAction, setLoadingState("APPLICANTSEdit"))
+      .addCase(_Actions.APPLICANTSEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "APPLICANTSEdit"))
+      .addCase(_Actions.APPLICANTSEditActionProgress, (state, action) => setProgressState(state, action.payload, "APPLICANTSEdit"))
+      .addCase(_Actions.APPLICANTSEditActionFailure, (state, action) => setFailureState(state, action.payload, "APPLICANTSEdit"))
+      //JOBPOSTINGS SECTION
+      .addCase(_Actions.JOBPOSTINGSViewAction, setLoadingState("JOBPOSTINGSView"))
+      .addCase(_Actions.JOBPOSTINGSViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "JOBPOSTINGSView"))
+      .addCase(_Actions.JOBPOSTINGSViewActionProgress, (state, action) => setProgressState(state, action.payload, "JOBPOSTINGSView"))
+      .addCase(_Actions.JOBPOSTINGSViewActionFailure, (state, action) => setFailureState(state, action.payload, "JOBPOSTINGSView"))
+      .addCase(_Actions.JOBPOSTINGSViewSpecificAction, setLoadingState("JOBPOSTINGSViewSpecific"))
+      .addCase(_Actions.JOBPOSTINGSViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "JOBPOSTINGSViewSpecific"))
+      .addCase(_Actions.JOBPOSTINGSViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "JOBPOSTINGSViewSpecific"))
+      .addCase(_Actions.JOBPOSTINGSViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "JOBPOSTINGSViewSpecific"))
+      .addCase(_Actions.JOBPOSTINGSViewSpecificEmployeeAction, setLoadingState("JOBPOSTINGSViewSpecificEmployee"))
+      .addCase(_Actions.JOBPOSTINGSViewSpecificEmployeeActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "JOBPOSTINGSViewSpecificEmployee"))
+      .addCase(_Actions.JOBPOSTINGSViewSpecificEmployeeActionProgress, (state, action) => setProgressState(state, action.payload, "JOBPOSTINGSViewSpecificEmployee"))
+      .addCase(_Actions.JOBPOSTINGSViewSpecificEmployeeActionFailure, (state, action) => setFailureState(state, action.payload, "JOBPOSTINGSViewSpecificEmployee"))
+      .addCase(_Actions.JOBPOSTINGSCreateAction, setLoadingState("JOBPOSTINGSCreate"))
+      .addCase(_Actions.JOBPOSTINGSCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "JOBPOSTINGSCreate"))
+      .addCase(_Actions.JOBPOSTINGSCreateActionProgress, (state, action) => setProgressState(state, action.payload, "JOBPOSTINGSCreate"))
+      .addCase(_Actions.JOBPOSTINGSCreateActionFailure, (state, action) => setFailureState(state, action.payload, "JOBPOSTINGSCreate"))
+      .addCase(_Actions.JOBPOSTINGSCreateActionFailureCleanup, setRefreshedState("JOBPOSTINGSCreate"))
+      .addCase(_Actions.JOBPOSTINGSEditAction, setLoadingState("JOBPOSTINGSEdit"))
+      .addCase(_Actions.JOBPOSTINGSEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "JOBPOSTINGSEdit"))
+      .addCase(_Actions.JOBPOSTINGSEditActionProgress, (state, action) => setProgressState(state, action.payload, "JOBPOSTINGSEdit"))
+      .addCase(_Actions.JOBPOSTINGSEditActionFailure, (state, action) => setFailureState(state, action.payload, "JOBPOSTINGSEdit"))
     },
 });
 

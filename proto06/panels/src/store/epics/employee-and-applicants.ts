@@ -1070,3 +1070,371 @@ export const OFFBOARDINGREQUIREMENTSEditEpic: Epic = (action$, state$) =>
         )
         )
 );
+
+
+
+// APPLICANTS API SECTION // APPLICANTS API SECTION // APPLICANTS API SECTION // APPLICANTS API SECTION // APPLICANTS API SECTION
+const APPLICANTSEditApiCall = async (payload: _Interface.APPLICANTSEditInterface) => {
+    const response = await axios.put(`${JSONServer}kpi_core/${payload.id}/`,
+    payload,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.APPLICANTSEditActionProgress(progress));
+          }
+        }
+      }
+    );
+    return response.data;
+};
+  
+const APPLICANTSCreateApiCall = async (payload: _Interface.APPLICANTSCreateInterface) => {
+    const response = await axios.post(`${JSONServer}kpi_core/`,
+    payload,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.APPLICANTSCreateActionProgress(progress));
+            }
+        }
+        }
+    );
+    return response.data;
+};
+
+const APPLICANTSViewSpecificEmployeeApiCall = async (payload: {emp_no: number }) => {
+    const response = await axios.get(`${JSONServer}kpi_core?emp_no=${payload.emp_no}`,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.APPLICANTSViewSpecificEmployeeActionProgress(progress));
+            }
+        }
+        }
+    );
+    return response.data;
+};
+
+
+const APPLICANTSViewSpecificApiCall = async (payload: {applicant_id: number }) => {
+    const response = await axios.get(`${JSONServer}kpi_core/${payload.applicant_id}/`,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.APPLICANTSViewSpecificActionProgress(progress));
+            }
+        }
+        }
+    );
+    return response.data;
+};
+
+
+const APPLICANTSViewApiCall = async () => {
+    const response = await axios.get(`${JSONServer}kpi_core/`,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.APPLICANTSViewActionProgress(progress));
+            }
+        }
+        }
+    );
+    return response.data;
+};
+
+export const APPLICANTSViewEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.APPLICANTSViewAction.type),
+        switchMap(() =>
+        from(
+            APPLICANTSViewApiCall()
+        ).pipe(
+            map((data) => {
+            return _Action.APPLICANTSViewActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.APPLICANTSViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.APPLICANTSViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+export const APPLICANTSViewSpecificEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.APPLICANTSViewSpecificAction.type),
+        switchMap((action: ReturnType<typeof _Action.APPLICANTSViewSpecificAction>) =>
+        from(
+            APPLICANTSViewSpecificApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.APPLICANTSViewSpecificActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.APPLICANTSViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.APPLICANTSViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+export const APPLICANTSViewSpecificEmployeeEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.APPLICANTSViewSpecificEmployeeAction.type),
+        switchMap((action: ReturnType<typeof _Action.APPLICANTSViewSpecificEmployeeAction>) =>
+        from(
+            APPLICANTSViewSpecificEmployeeApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.APPLICANTSViewSpecificEmployeeActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.APPLICANTSViewSpecificEmployeeActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.APPLICANTSViewSpecificEmployeeActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+
+
+export const APPLICANTSCreateEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.APPLICANTSCreateAction.type),
+        switchMap((action: ReturnType<typeof _Action.APPLICANTSCreateAction>) =>
+        from(
+            APPLICANTSCreateApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.APPLICANTSCreateActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data) {
+                return of(_Action.APPLICANTSCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
+            } else {
+                return of(_Action.APPLICANTSCreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+export const APPLICANTSEditEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.APPLICANTSEditAction.type),
+        switchMap((action: ReturnType<typeof _Action.APPLICANTSEditAction>) =>
+        from(
+            APPLICANTSEditApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.APPLICANTSEditActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.APPLICANTSEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.APPLICANTSEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+
+
+// JOBPOSTINGS API SECTION // JOBPOSTINGS API SECTION // JOBPOSTINGS API SECTION // JOBPOSTINGS API SECTION // JOBPOSTINGS API SECTION
+const JOBPOSTINGSEditApiCall = async (payload: _Interface.JOBPOSTINGSEditInterface) => {
+    const response = await axios.put(`${JSONServer}kpi_core/${payload.id}/`,
+    payload,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.JOBPOSTINGSEditActionProgress(progress));
+          }
+        }
+      }
+    );
+    return response.data;
+};
+  
+const JOBPOSTINGSCreateApiCall = async (payload: _Interface.JOBPOSTINGSCreateInterface) => {
+    const response = await axios.post(`${JSONServer}kpi_core/`,
+    payload,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.JOBPOSTINGSCreateActionProgress(progress));
+            }
+        }
+        }
+    );
+    return response.data;
+};
+
+const JOBPOSTINGSViewSpecificEmployeeApiCall = async (payload: {emp_no: number }) => {
+    const response = await axios.get(`${JSONServer}kpi_core?emp_no=${payload.emp_no}`,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.JOBPOSTINGSViewSpecificEmployeeActionProgress(progress));
+            }
+        }
+        }
+    );
+    return response.data;
+};
+
+
+const JOBPOSTINGSViewSpecificApiCall = async (payload: {job_posting_id: number }) => {
+    const response = await axios.get(`${JSONServer}kpi_core/${payload.job_posting_id}/`,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.JOBPOSTINGSViewSpecificActionProgress(progress));
+            }
+        }
+        }
+    );
+    return response.data;
+};
+
+
+const JOBPOSTINGSViewApiCall = async () => {
+    const response = await axios.get(`${JSONServer}kpi_core/`,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.JOBPOSTINGSViewActionProgress(progress));
+            }
+        }
+        }
+    );
+    return response.data;
+};
+
+export const JOBPOSTINGSViewEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.JOBPOSTINGSViewAction.type),
+        switchMap(() =>
+        from(
+            JOBPOSTINGSViewApiCall()
+        ).pipe(
+            map((data) => {
+            return _Action.JOBPOSTINGSViewActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.JOBPOSTINGSViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.JOBPOSTINGSViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+export const JOBPOSTINGSViewSpecificEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.JOBPOSTINGSViewSpecificAction.type),
+        switchMap((action: ReturnType<typeof _Action.JOBPOSTINGSViewSpecificAction>) =>
+        from(
+            JOBPOSTINGSViewSpecificApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.JOBPOSTINGSViewSpecificActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.JOBPOSTINGSViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.JOBPOSTINGSViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+export const JOBPOSTINGSViewSpecificEmployeeEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.JOBPOSTINGSViewSpecificEmployeeAction.type),
+        switchMap((action: ReturnType<typeof _Action.JOBPOSTINGSViewSpecificEmployeeAction>) =>
+        from(
+            JOBPOSTINGSViewSpecificEmployeeApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.JOBPOSTINGSViewSpecificEmployeeActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.JOBPOSTINGSViewSpecificEmployeeActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.JOBPOSTINGSViewSpecificEmployeeActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+
+
+export const JOBPOSTINGSCreateEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.JOBPOSTINGSCreateAction.type),
+        switchMap((action: ReturnType<typeof _Action.JOBPOSTINGSCreateAction>) =>
+        from(
+            JOBPOSTINGSCreateApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.JOBPOSTINGSCreateActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data) {
+                return of(_Action.JOBPOSTINGSCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
+            } else {
+                return of(_Action.JOBPOSTINGSCreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+export const JOBPOSTINGSEditEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.JOBPOSTINGSEditAction.type),
+        switchMap((action: ReturnType<typeof _Action.JOBPOSTINGSEditAction>) =>
+        from(
+            JOBPOSTINGSEditApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.JOBPOSTINGSEditActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.JOBPOSTINGSEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.JOBPOSTINGSEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
