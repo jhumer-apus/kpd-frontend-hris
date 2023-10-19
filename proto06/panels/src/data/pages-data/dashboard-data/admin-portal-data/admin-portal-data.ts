@@ -589,7 +589,7 @@ export const EmployeeAndApplicantsData = [
   {
     icon: ChecklistRtlOutlinedIcon,
     title: "Job Postings",
-    value: "JOBP",
+    value: "JOBPT",
     footer: {
       color: "text-green-500",
       value: "<",

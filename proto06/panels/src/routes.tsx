@@ -111,6 +111,7 @@ import AppraisalConfirmationKPICOREPage from "./pages/pending-checklists/kpi-app
 import Test01 from "./pages/testing_pages/test01";
 import APPRAISALDETAILSPage from "./pages/employee/appraisals/inner-page/appraisal-details-page/appraisal-details";
 import AboutAppraisalsPage from "./pages/employee/about-appraisals/about-appraisals";
+import EAAPPLICANTSLIST from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-applicants-list/ea-applicants-list";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -200,22 +201,6 @@ const JSXRouteWrapper = () => {
                       icon: null,
                       name: "Rank",
                       path: "/Dashboards/Admin-Dashboard/Categories/Rank",
-                      element: <ManageRANK/>,
-                      hasSubItems: false,
-                    },
-                    {
-                      id: 1120006,
-                      icon: null,
-                      name: "Applicants",
-                      path: "/Dashboards/Admin-Dashboard/Categories/Applicants",
-                      element: <ManageRANK/>,
-                      hasSubItems: false,
-                    },
-                    {
-                      id: 1120007,
-                      icon: null,
-                      name: "Job Posting",
-                      path: "/Dashboards/Admin-Dashboard/Categories/Job-Posting",
                       element: <ManageRANK/>,
                       hasSubItems: false,
                     },
@@ -434,6 +419,22 @@ const JSXRouteWrapper = () => {
                       name: "Offboarding",
                       path: "/Dashboards/Admin-Dashboard/Employee-And-Applicants/Offboarding-Requirements",
                       element: <EAOFFBOARDINGREQUIREMENTS/>,
+                      hasSubItems: false,
+                    },
+                    {
+                      id: 1160007,
+                      icon: null,
+                      name: "Applicants",
+                      path: "/Dashboards/Admin-Dashboard/Employee-And-Applicants/Applicants",
+                      element: <EAAPPLICANTSLIST/>,
+                      hasSubItems: false,
+                    },
+                    {
+                      id: 1160008,
+                      icon: null,
+                      name: "Job Posting",
+                      path: "/Dashboards/Admin-Dashboard/Employee-And-Applicants/Job-Posting",
+                      element: <h1>hehehe</h1>,
                       hasSubItems: false,
                     },
                   ]
