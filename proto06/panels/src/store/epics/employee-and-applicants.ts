@@ -1075,7 +1075,7 @@ export const OFFBOARDINGREQUIREMENTSEditEpic: Epic = (action$, state$) =>
 
 // APPLICANTS API SECTION // APPLICANTS API SECTION // APPLICANTS API SECTION // APPLICANTS API SECTION // APPLICANTS API SECTION
 const APPLICANTSEditApiCall = async (payload: _Interface.APPLICANTSEditInterface) => {
-    const response = await axios.put(`${JSONServer}kpi_core/${payload.id}/`,
+    const response = await axios.put(`${JSONServer}applicant/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -1090,7 +1090,7 @@ const APPLICANTSEditApiCall = async (payload: _Interface.APPLICANTSEditInterface
 };
   
 const APPLICANTSCreateApiCall = async (payload: _Interface.APPLICANTSCreateInterface) => {
-    const response = await axios.post(`${JSONServer}kpi_core/`,
+    const response = await axios.post(`${JSONServer}applicant/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -1105,7 +1105,7 @@ const APPLICANTSCreateApiCall = async (payload: _Interface.APPLICANTSCreateInter
 };
 
 const APPLICANTSViewSpecificEmployeeApiCall = async (payload: {emp_no: number }) => {
-    const response = await axios.get(`${JSONServer}kpi_core?emp_no=${payload.emp_no}`,
+    const response = await axios.get(`${JSONServer}applicant?emp_no=${payload.emp_no}`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -1120,7 +1120,7 @@ const APPLICANTSViewSpecificEmployeeApiCall = async (payload: {emp_no: number })
 
 
 const APPLICANTSViewSpecificApiCall = async (payload: {applicant_id: number }) => {
-    const response = await axios.get(`${JSONServer}kpi_core/${payload.applicant_id}/`,
+    const response = await axios.get(`${JSONServer}applicant/${payload.applicant_id}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -1135,7 +1135,7 @@ const APPLICANTSViewSpecificApiCall = async (payload: {applicant_id: number }) =
 
 
 const APPLICANTSViewApiCall = async () => {
-    const response = await axios.get(`${JSONServer}kpi_core/`,
+    const response = await axios.get(`${JSONServer}applicant/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
