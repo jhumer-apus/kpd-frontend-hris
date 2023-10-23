@@ -5,7 +5,7 @@ import { map, catchError, switchMap, mergeMap } from 'rxjs/operators';
 import { of, from } from 'rxjs';
 import axios, { AxiosProgressEvent } from 'axios';
 import { beautifyJSON } from '@/helpers/utils';
-import store, { JSONServer } from '../configureStore';
+import store, { JSONServer, APILink } from '../configureStore';
 
 
 
@@ -1075,7 +1075,7 @@ export const OFFBOARDINGREQUIREMENTSEditEpic: Epic = (action$, state$) =>
 
 // APPLICANTS API SECTION // APPLICANTS API SECTION // APPLICANTS API SECTION // APPLICANTS API SECTION // APPLICANTS API SECTION
 const APPLICANTSEditApiCall = async (payload: _Interface.APPLICANTSEditInterface) => {
-    const response = await axios.put(`${JSONServer}applicant/${payload.id}/`,
+    const response = await axios.put(`${APILink}applicant/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -1090,7 +1090,7 @@ const APPLICANTSEditApiCall = async (payload: _Interface.APPLICANTSEditInterface
 };
   
 const APPLICANTSCreateApiCall = async (payload: _Interface.APPLICANTSCreateInterface) => {
-    const response = await axios.post(`${JSONServer}applicant/`,
+    const response = await axios.post(`${APILink}applicant/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -1105,7 +1105,7 @@ const APPLICANTSCreateApiCall = async (payload: _Interface.APPLICANTSCreateInter
 };
 
 const APPLICANTSViewSpecificApiCall = async (payload: {applicant_id: number }) => {
-    const response = await axios.get(`${JSONServer}applicant/${payload.applicant_id}/`,
+    const response = await axios.get(`${APILink}applicant/${payload.applicant_id}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -1120,7 +1120,7 @@ const APPLICANTSViewSpecificApiCall = async (payload: {applicant_id: number }) =
 
 
 const APPLICANTSViewApiCall = async () => {
-    const response = await axios.get(`${JSONServer}applicant/`,
+    const response = await axios.get(`${APILink}applicant/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -1223,7 +1223,7 @@ export const APPLICANTSEditEpic: Epic = (action$, state$) =>
 
 // JOBPOSTINGS API SECTION // JOBPOSTINGS API SECTION // JOBPOSTINGS API SECTION // JOBPOSTINGS API SECTION // JOBPOSTINGS API SECTION
 const JOBPOSTINGSEditApiCall = async (payload: _Interface.JOBPOSTINGSEditInterface) => {
-    const response = await axios.put(`${JSONServer}job_post/${payload.id}/`,
+    const response = await axios.put(`${APILink}job_post/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -1238,7 +1238,7 @@ const JOBPOSTINGSEditApiCall = async (payload: _Interface.JOBPOSTINGSEditInterfa
 };
   
 const JOBPOSTINGSCreateApiCall = async (payload: _Interface.JOBPOSTINGSCreateInterface) => {
-    const response = await axios.post(`${JSONServer}job_post/`,
+    const response = await axios.post(`${APILink}job_post/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -1253,7 +1253,7 @@ const JOBPOSTINGSCreateApiCall = async (payload: _Interface.JOBPOSTINGSCreateInt
 };
 
 const JOBPOSTINGSViewSpecificApiCall = async (payload: {job_posting_id: number }) => {
-    const response = await axios.get(`${JSONServer}job_post/${payload.job_posting_id}/`,
+    const response = await axios.get(`${APILink}job_post/${payload.job_posting_id}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -1268,7 +1268,7 @@ const JOBPOSTINGSViewSpecificApiCall = async (payload: {job_posting_id: number }
 
 
 const JOBPOSTINGSViewApiCall = async () => {
-    const response = await axios.get(`${JSONServer}job_post/`,
+    const response = await axios.get(`${APILink}job_post/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
