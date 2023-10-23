@@ -438,12 +438,6 @@ const initialState: OverallEmployeeAndApplicantsState = {
     data: [],
     error: '',
   },
-  APPLICANTSViewSpecificEmployee: {
-    status: '',
-    progress: 0,
-    data: [],
-    error: '',
-  },
   APPLICANTSCreate: {
     status: '',
     progress: 0,
@@ -464,12 +458,6 @@ const initialState: OverallEmployeeAndApplicantsState = {
     error: '',
   },
   JOBPOSTINGSViewSpecific: {
-    status: '',
-    progress: 0,
-    data: [],
-    error: '',
-  },
-  JOBPOSTINGSViewSpecificEmployee: {
     status: '',
     progress: 0,
     data: [],
@@ -665,10 +653,6 @@ const employeeAndApplicantsSlice = createSlice({
       .addCase(_Actions.APPLICANTSViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "APPLICANTSViewSpecific"))
       .addCase(_Actions.APPLICANTSViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "APPLICANTSViewSpecific"))
       .addCase(_Actions.APPLICANTSViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "APPLICANTSViewSpecific"))
-      .addCase(_Actions.APPLICANTSViewSpecificEmployeeAction, setLoadingState("APPLICANTSViewSpecificEmployee"))
-      .addCase(_Actions.APPLICANTSViewSpecificEmployeeActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "APPLICANTSViewSpecificEmployee"))
-      .addCase(_Actions.APPLICANTSViewSpecificEmployeeActionProgress, (state, action) => setProgressState(state, action.payload, "APPLICANTSViewSpecificEmployee"))
-      .addCase(_Actions.APPLICANTSViewSpecificEmployeeActionFailure, (state, action) => setFailureState(state, action.payload, "APPLICANTSViewSpecificEmployee"))
       .addCase(_Actions.APPLICANTSCreateAction, setLoadingState("APPLICANTSCreate"))
       .addCase(_Actions.APPLICANTSCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "APPLICANTSCreate"))
       .addCase(_Actions.APPLICANTSCreateActionProgress, (state, action) => setProgressState(state, action.payload, "APPLICANTSCreate"))
@@ -687,10 +671,6 @@ const employeeAndApplicantsSlice = createSlice({
       .addCase(_Actions.JOBPOSTINGSViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "JOBPOSTINGSViewSpecific"))
       .addCase(_Actions.JOBPOSTINGSViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "JOBPOSTINGSViewSpecific"))
       .addCase(_Actions.JOBPOSTINGSViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "JOBPOSTINGSViewSpecific"))
-      .addCase(_Actions.JOBPOSTINGSViewSpecificEmployeeAction, setLoadingState("JOBPOSTINGSViewSpecificEmployee"))
-      .addCase(_Actions.JOBPOSTINGSViewSpecificEmployeeActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "JOBPOSTINGSViewSpecificEmployee"))
-      .addCase(_Actions.JOBPOSTINGSViewSpecificEmployeeActionProgress, (state, action) => setProgressState(state, action.payload, "JOBPOSTINGSViewSpecificEmployee"))
-      .addCase(_Actions.JOBPOSTINGSViewSpecificEmployeeActionFailure, (state, action) => setFailureState(state, action.payload, "JOBPOSTINGSViewSpecificEmployee"))
       .addCase(_Actions.JOBPOSTINGSCreateAction, setLoadingState("JOBPOSTINGSCreate"))
       .addCase(_Actions.JOBPOSTINGSCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "JOBPOSTINGSCreate"))
       .addCase(_Actions.JOBPOSTINGSCreateActionProgress, (state, action) => setProgressState(state, action.payload, "JOBPOSTINGSCreate"))

@@ -1104,21 +1104,6 @@ const APPLICANTSCreateApiCall = async (payload: _Interface.APPLICANTSCreateInter
     return response.data;
 };
 
-const APPLICANTSViewSpecificEmployeeApiCall = async (payload: {emp_no: number }) => {
-    const response = await axios.get(`${JSONServer}applicant?emp_no=${payload.emp_no}`,
-    {
-        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
-            if(progressEvent.total){
-            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            store.dispatch(_Action.APPLICANTSViewSpecificEmployeeActionProgress(progress));
-            }
-        }
-        }
-    );
-    return response.data;
-};
-
-
 const APPLICANTSViewSpecificApiCall = async (payload: {applicant_id: number }) => {
     const response = await axios.get(`${JSONServer}applicant/${payload.applicant_id}/`,
     {
@@ -1190,27 +1175,6 @@ export const APPLICANTSViewSpecificEpic: Epic = (action$, state$) =>
         )
 );
 
-export const APPLICANTSViewSpecificEmployeeEpic: Epic = (action$, state$) =>
-    action$.pipe(
-        ofType(_Action.APPLICANTSViewSpecificEmployeeAction.type),
-        switchMap((action: ReturnType<typeof _Action.APPLICANTSViewSpecificEmployeeAction>) =>
-        from(
-            APPLICANTSViewSpecificEmployeeApiCall(action?.payload)
-        ).pipe(
-            map((data) => {
-            return _Action.APPLICANTSViewSpecificEmployeeActionSuccess(data);
-            }),
-            catchError((error) => {
-            if (error.response && error.response.data && error.response.data['Error Message']) {
-                return of(_Action.APPLICANTSViewSpecificEmployeeActionFailure(error.response.data['Error Message'])); // Extract error message from the response
-            } else {
-                return of(_Action.APPLICANTSViewSpecificEmployeeActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
-            }
-            })
-        )
-        )
-);
-
 
 
 export const APPLICANTSCreateEpic: Epic = (action$, state$) =>
@@ -1259,7 +1223,7 @@ export const APPLICANTSEditEpic: Epic = (action$, state$) =>
 
 // JOBPOSTINGS API SECTION // JOBPOSTINGS API SECTION // JOBPOSTINGS API SECTION // JOBPOSTINGS API SECTION // JOBPOSTINGS API SECTION
 const JOBPOSTINGSEditApiCall = async (payload: _Interface.JOBPOSTINGSEditInterface) => {
-    const response = await axios.put(`${JSONServer}kpi_core/${payload.id}/`,
+    const response = await axios.put(`${JSONServer}job_post/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -1274,7 +1238,7 @@ const JOBPOSTINGSEditApiCall = async (payload: _Interface.JOBPOSTINGSEditInterfa
 };
   
 const JOBPOSTINGSCreateApiCall = async (payload: _Interface.JOBPOSTINGSCreateInterface) => {
-    const response = await axios.post(`${JSONServer}kpi_core/`,
+    const response = await axios.post(`${JSONServer}job_post/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -1288,23 +1252,8 @@ const JOBPOSTINGSCreateApiCall = async (payload: _Interface.JOBPOSTINGSCreateInt
     return response.data;
 };
 
-const JOBPOSTINGSViewSpecificEmployeeApiCall = async (payload: {emp_no: number }) => {
-    const response = await axios.get(`${JSONServer}kpi_core?emp_no=${payload.emp_no}`,
-    {
-        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
-            if(progressEvent.total){
-            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            store.dispatch(_Action.JOBPOSTINGSViewSpecificEmployeeActionProgress(progress));
-            }
-        }
-        }
-    );
-    return response.data;
-};
-
-
 const JOBPOSTINGSViewSpecificApiCall = async (payload: {job_posting_id: number }) => {
-    const response = await axios.get(`${JSONServer}kpi_core/${payload.job_posting_id}/`,
+    const response = await axios.get(`${JSONServer}job_post/${payload.job_posting_id}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -1319,7 +1268,7 @@ const JOBPOSTINGSViewSpecificApiCall = async (payload: {job_posting_id: number }
 
 
 const JOBPOSTINGSViewApiCall = async () => {
-    const response = await axios.get(`${JSONServer}kpi_core/`,
+    const response = await axios.get(`${JSONServer}job_post/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -1373,28 +1322,6 @@ export const JOBPOSTINGSViewSpecificEpic: Epic = (action$, state$) =>
         )
         )
 );
-
-export const JOBPOSTINGSViewSpecificEmployeeEpic: Epic = (action$, state$) =>
-    action$.pipe(
-        ofType(_Action.JOBPOSTINGSViewSpecificEmployeeAction.type),
-        switchMap((action: ReturnType<typeof _Action.JOBPOSTINGSViewSpecificEmployeeAction>) =>
-        from(
-            JOBPOSTINGSViewSpecificEmployeeApiCall(action?.payload)
-        ).pipe(
-            map((data) => {
-            return _Action.JOBPOSTINGSViewSpecificEmployeeActionSuccess(data);
-            }),
-            catchError((error) => {
-            if (error.response && error.response.data && error.response.data['Error Message']) {
-                return of(_Action.JOBPOSTINGSViewSpecificEmployeeActionFailure(error.response.data['Error Message'])); // Extract error message from the response
-            } else {
-                return of(_Action.JOBPOSTINGSViewSpecificEmployeeActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
-            }
-            })
-        )
-        )
-);
-
 
 
 export const JOBPOSTINGSCreateEpic: Epic = (action$, state$) =>

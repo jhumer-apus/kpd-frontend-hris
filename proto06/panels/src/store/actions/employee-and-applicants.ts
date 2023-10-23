@@ -252,13 +252,6 @@ export const APPLICANTSViewSpecificActionProgress = createAction<number>("APPLIC
 export const APPLICANTSViewSpecificActionFailure = createAction<string>("APPLICANTS_VIEW_SPECIFIC_ACTION_FAILURE");
 export const APPLICANTSViewSpecificActionFailureCleanup = createAction("APPLICANTS_VIEW_SPECIFIC_ACTION_FAILURE_CLEANUP");
 
-export const APPLICANTSViewSpecificEmployeeAction = createAction<{emp_no: number}>("APPLICANTS_VIEW_SPECIFIC_EMPLOYEE_ACTION");
-export const APPLICANTSViewSpecificEmployeeActionSuccess = createAction("APPLICANTS_VIEW_SPECIFIC_EMPLOYEE_ACTION_SUCCESS", (SuccessMessage: _Type.APPLICANTSViewInterface[]) => { 
-    return({ payload: {SuccessMessage} })});
-export const APPLICANTSViewSpecificEmployeeActionProgress = createAction<number>("APPLICANTS_VIEW_SPECIFIC_EMPLOYEE_ACTION_PROGRESS");
-export const APPLICANTSViewSpecificEmployeeActionFailure = createAction<string>("APPLICANTS_VIEW_SPECIFIC_EMPLOYEE_ACTION_FAILURE");
-export const APPLICANTSViewSpecificEmployeeActionFailureCleanup = createAction("APPLICANTS_VIEW_SPECIFIC_EMPLOYEE_ACTION_FAILURE_CLEANUP");
-
 export const APPLICANTSCreateAction = createAction<_Type.APPLICANTSCreateInterface>("APPLICANTS_CREATE_ACTION");
 export const APPLICANTSCreateActionSuccess = createAction("APPLICANTS_CREATE_ACTION_SUCCESS", (SuccessMessage: _Type.APPLICANTSCreateInterface) => { 
     return({ payload: {SuccessMessage} })
@@ -291,13 +284,6 @@ export const JOBPOSTINGSViewSpecificActionSuccess = createAction("JOBPOSTINGS_VI
 export const JOBPOSTINGSViewSpecificActionProgress = createAction<number>("JOBPOSTINGS_VIEW_SPECIFIC_ACTION_PROGRESS");
 export const JOBPOSTINGSViewSpecificActionFailure = createAction<string>("JOBPOSTINGS_VIEW_SPECIFIC_ACTION_FAILURE");
 export const JOBPOSTINGSViewSpecificActionFailureCleanup = createAction("JOBPOSTINGS_VIEW_SPECIFIC_ACTION_FAILURE_CLEANUP");
-
-export const JOBPOSTINGSViewSpecificEmployeeAction = createAction<{emp_no: number}>("JOBPOSTINGS_VIEW_SPECIFIC_EMPLOYEE_ACTION");
-export const JOBPOSTINGSViewSpecificEmployeeActionSuccess = createAction("JOBPOSTINGS_VIEW_SPECIFIC_EMPLOYEE_ACTION_SUCCESS", (SuccessMessage: _Type.JOBPOSTINGSViewInterface[]) => { 
-    return({ payload: {SuccessMessage} })});
-export const JOBPOSTINGSViewSpecificEmployeeActionProgress = createAction<number>("JOBPOSTINGS_VIEW_SPECIFIC_EMPLOYEE_ACTION_PROGRESS");
-export const JOBPOSTINGSViewSpecificEmployeeActionFailure = createAction<string>("JOBPOSTINGS_VIEW_SPECIFIC_EMPLOYEE_ACTION_FAILURE");
-export const JOBPOSTINGSViewSpecificEmployeeActionFailureCleanup = createAction("JOBPOSTINGS_VIEW_SPECIFIC_EMPLOYEE_ACTION_FAILURE_CLEANUP");
 
 export const JOBPOSTINGSCreateAction = createAction<_Type.JOBPOSTINGSCreateInterface>("JOBPOSTINGS_CREATE_ACTION");
 export const JOBPOSTINGSCreateActionSuccess = createAction("JOBPOSTINGS_CREATE_ACTION_SUCCESS", (SuccessMessage: _Type.JOBPOSTINGSCreateInterface) => { 
