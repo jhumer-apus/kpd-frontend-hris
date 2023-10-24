@@ -5,14 +5,14 @@ import { map, catchError, switchMap, mergeMap } from 'rxjs/operators';
 import { of, from } from 'rxjs';
 import axios, { AxiosProgressEvent } from 'axios';
 import { beautifyJSON } from '@/helpers/utils';
-import store, { JSONServer, APILink } from '../configureStore';
+import store, { APILink } from '../configureStore';
 
 
 
 
 // KPICORE API SECTION // KPICORE API SECTION // KPICORE API SECTION // KPICORE API SECTION // KPICORE API SECTION
 const KPICOREEditApiCall = async (payload: _Interface.KPICOREEditInterface) => {
-    const response = await axios.put(`${JSONServer}kpi_core/${payload.id}/`,
+    const response = await axios.put(`${APILink}kpi_core/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -27,7 +27,7 @@ const KPICOREEditApiCall = async (payload: _Interface.KPICOREEditInterface) => {
 };
   
 const KPICORECreateApiCall = async (payload: _Interface.KPICORECreateInterface) => {
-    const response = await axios.post(`${JSONServer}kpi_core/`,
+    const response = await axios.post(`${APILink}kpi_core/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -42,7 +42,7 @@ const KPICORECreateApiCall = async (payload: _Interface.KPICORECreateInterface) 
 };
 
 const KPICOREViewSpecificEmployeeApiCall = async (payload: {emp_no: number }) => {
-    const response = await axios.get(`${JSONServer}kpi_core?emp_no=${payload.emp_no}`,
+    const response = await axios.get(`${APILink}kpi_core?emp_no=${payload.emp_no}`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -57,7 +57,7 @@ const KPICOREViewSpecificEmployeeApiCall = async (payload: {emp_no: number }) =>
 
 
 const KPICOREViewSpecificApiCall = async (payload: {kpi_core_id: number }) => {
-    const response = await axios.get(`${JSONServer}kpi_core/${payload.kpi_core_id}/`,
+    const response = await axios.get(`${APILink}kpi_core/${payload.kpi_core_id}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -72,7 +72,7 @@ const KPICOREViewSpecificApiCall = async (payload: {kpi_core_id: number }) => {
 
 
 const KPICOREViewApiCall = async () => {
-    const response = await axios.get(`${JSONServer}kpi_core/`,
+    const response = await axios.get(`${APILink}kpi_core/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -195,7 +195,7 @@ export const KPICOREEditEpic: Epic = (action$, state$) =>
   
 // CORECOMPE API SECTION // CORECOMPE API SECTION // CORECOMPE API SECTION // CORECOMPE API SECTION // CORECOMPE API SECTION
 const CORECOMPEEditApiCall = async (payload: _Interface.CORECOMPEEditInterface) => {
-    const response = await axios.put(`${JSONServer}core_compe/${payload.id}/`,
+    const response = await axios.put(`${APILink}core_compe/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -210,7 +210,7 @@ const CORECOMPEEditApiCall = async (payload: _Interface.CORECOMPEEditInterface) 
 };
   
 const CORECOMPECreateApiCall = async (payload: _Interface.CORECOMPECreateInterface) => {
-    const response = await axios.post(`${JSONServer}core_compe/`,
+    const response = await axios.post(`${APILink}core_compe/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -225,7 +225,7 @@ const CORECOMPECreateApiCall = async (payload: _Interface.CORECOMPECreateInterfa
 };
 
 const CORECOMPEViewSpecificApiCall = async (payload: {core_compe_id: number }) => {
-    const response = await axios.get(`${JSONServer}core_compe/${payload.core_compe_id}/`,
+    const response = await axios.get(`${APILink}core_compe/${payload.core_compe_id}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -240,7 +240,7 @@ const CORECOMPEViewSpecificApiCall = async (payload: {core_compe_id: number }) =
 
 
 const CORECOMPEViewApiCall = async () => {
-    const response = await axios.get(`${JSONServer}core_compe/`,
+    const response = await axios.get(`${APILink}core_compe/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -341,7 +341,7 @@ export const CORECOMPEEditEpic: Epic = (action$, state$) =>
   
 // EVALQUESTIONS API SECTION // EVALQUESTIONS API SECTION // EVALQUESTIONS API SECTION // EVALQUESTIONS API SECTION // EVALQUESTIONS API SECTION
 const EVALQUESTIONSEditApiCall = async (payload: _Interface.EVALQUESTIONSEditInterface) => {
-    const response = await axios.put(`${JSONServer}eval_questions/${payload.id}/`,
+    const response = await axios.put(`${APILink}eval_questions/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -356,7 +356,7 @@ const EVALQUESTIONSEditApiCall = async (payload: _Interface.EVALQUESTIONSEditInt
 };
   
 const EVALQUESTIONSCreateApiCall = async (payload: _Interface.EVALQUESTIONSCreateInterface) => {
-    const response = await axios.post(`${JSONServer}eval_questions/`,
+    const response = await axios.post(`${APILink}eval_questions/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -371,7 +371,7 @@ const EVALQUESTIONSCreateApiCall = async (payload: _Interface.EVALQUESTIONSCreat
 };
 
 const EVALQUESTIONSViewSpecificApiCall = async (payload: {eval_questions_id: number }) => {
-    const response = await axios.get(`${JSONServer}eval_questions/${payload.eval_questions_id}/`,
+    const response = await axios.get(`${APILink}eval_questions/${payload.eval_questions_id}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -386,7 +386,7 @@ const EVALQUESTIONSViewSpecificApiCall = async (payload: {eval_questions_id: num
 
 
 const EVALQUESTIONSViewApiCall = async () => {
-    const response = await axios.get(`${JSONServer}eval_questions/`,
+    const response = await axios.get(`${APILink}eval_questions/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -488,7 +488,7 @@ export const EVALQUESTIONSEditEpic: Epic = (action$, state$) =>
 
 // ONBOARDINGSTATUS API SECTION // ONBOARDINGSTATUS API SECTION // ONBOARDINGSTATUS API SECTION // ONBOARDINGSTATUS API SECTION // ONBOARDINGSTATUS API SECTION
 const ONBOARDINGSTATUSEditApiCall = async (payload: _Interface.ONBOARDINGSTATUSEditInterface) => {
-    const response = await axios.put(`${JSONServer}onboarding_status/${payload.id}/`,
+    const response = await axios.put(`${APILink}onboarding_status/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -503,7 +503,7 @@ const ONBOARDINGSTATUSEditApiCall = async (payload: _Interface.ONBOARDINGSTATUSE
 };
   
 const ONBOARDINGSTATUSCreateApiCall = async (payload: _Interface.ONBOARDINGSTATUSCreateInterface) => {
-    const response = await axios.post(`${JSONServer}onboarding_status/`,
+    const response = await axios.post(`${APILink}onboarding_status/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -518,7 +518,7 @@ const ONBOARDINGSTATUSCreateApiCall = async (payload: _Interface.ONBOARDINGSTATU
 };
 
 const ONBOARDINGSTATUSViewSpecificApiCall = async (payload: {onboarding_status_id: number }) => {
-    const response = await axios.get(`${JSONServer}onboarding_status/${payload.onboarding_status_id}/`,
+    const response = await axios.get(`${APILink}onboarding_status/${payload.onboarding_status_id}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -533,7 +533,7 @@ const ONBOARDINGSTATUSViewSpecificApiCall = async (payload: {onboarding_status_i
 
 
 const ONBOARDINGSTATUSViewApiCall = async () => {
-    const response = await axios.get(`${JSONServer}onboarding_status/`,
+    const response = await axios.get(`${APILink}onboarding_status/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -634,7 +634,7 @@ export const ONBOARDINGSTATUSEditEpic: Epic = (action$, state$) =>
 
 // ONBOARDINGREQUIREMENTS API SECTION // ONBOARDINGREQUIREMENTS API SECTION // ONBOARDINGREQUIREMENTS API SECTION // ONBOARDINGREQUIREMENTS API SECTION // ONBOARDINGREQUIREMENTS API SECTION
 const ONBOARDINGREQUIREMENTSEditApiCall = async (payload: _Interface.ONBOARDINGREQUIREMENTSEditInterface) => {
-    const response = await axios.put(`${JSONServer}onboarding_requirements/${payload.id}/`,
+    const response = await axios.put(`${APILink}onboarding_requirements/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -649,7 +649,7 @@ const ONBOARDINGREQUIREMENTSEditApiCall = async (payload: _Interface.ONBOARDINGR
 };
   
 const ONBOARDINGREQUIREMENTSCreateApiCall = async (payload: _Interface.ONBOARDINGREQUIREMENTSCreateInterface) => {
-    const response = await axios.post(`${JSONServer}onboarding_requirements/`,
+    const response = await axios.post(`${APILink}onboarding_requirements/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -664,7 +664,7 @@ const ONBOARDINGREQUIREMENTSCreateApiCall = async (payload: _Interface.ONBOARDIN
 };
 
 const ONBOARDINGREQUIREMENTSViewSpecificApiCall = async (payload: {onboarding_requirements_id: number }) => {
-    const response = await axios.get(`${JSONServer}onboarding_requirements/${payload.onboarding_requirements_id}/`,
+    const response = await axios.get(`${APILink}onboarding_requirements/${payload.onboarding_requirements_id}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -679,7 +679,7 @@ const ONBOARDINGREQUIREMENTSViewSpecificApiCall = async (payload: {onboarding_re
 
 
 const ONBOARDINGREQUIREMENTSViewApiCall = async () => {
-    const response = await axios.get(`${JSONServer}onboarding_requirements/`,
+    const response = await axios.get(`${APILink}onboarding_requirements/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -782,7 +782,7 @@ export const ONBOARDINGREQUIREMENTSEditEpic: Epic = (action$, state$) =>
 
 // OFFBOARDINGSTATUS API SECTION // OFFBOARDINGSTATUS API SECTION // OFFBOARDINGSTATUS API SECTION // OFFBOARDINGSTATUS API SECTION // OFFBOARDINGSTATUS API SECTION
 const OFFBOARDINGSTATUSEditApiCall = async (payload: _Interface.OFFBOARDINGSTATUSEditInterface) => {
-    const response = await axios.put(`${JSONServer}offboarding_status/${payload.id}/`,
+    const response = await axios.put(`${APILink}offboarding_status/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -797,7 +797,7 @@ const OFFBOARDINGSTATUSEditApiCall = async (payload: _Interface.OFFBOARDINGSTATU
 };
   
 const OFFBOARDINGSTATUSCreateApiCall = async (payload: _Interface.OFFBOARDINGSTATUSCreateInterface) => {
-    const response = await axios.post(`${JSONServer}offboarding_status/`,
+    const response = await axios.post(`${APILink}offboarding_status/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -812,7 +812,7 @@ const OFFBOARDINGSTATUSCreateApiCall = async (payload: _Interface.OFFBOARDINGSTA
 };
 
 const OFFBOARDINGSTATUSViewSpecificApiCall = async (payload: {offboarding_status_id: number }) => {
-    const response = await axios.get(`${JSONServer}offboarding_status/${payload.offboarding_status_id}/`,
+    const response = await axios.get(`${APILink}offboarding_status/${payload.offboarding_status_id}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -827,7 +827,7 @@ const OFFBOARDINGSTATUSViewSpecificApiCall = async (payload: {offboarding_status
 
 
 const OFFBOARDINGSTATUSViewApiCall = async () => {
-    const response = await axios.get(`${JSONServer}offboarding_status/`,
+    const response = await axios.get(`${APILink}offboarding_status/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -928,7 +928,7 @@ export const OFFBOARDINGSTATUSEditEpic: Epic = (action$, state$) =>
 
 // OFFBOARDINGREQUIREMENTS API SECTION // OFFBOARDINGREQUIREMENTS API SECTION // OFFBOARDINGREQUIREMENTS API SECTION // OFFBOARDINGREQUIREMENTS API SECTION // OFFBOARDINGREQUIREMENTS API SECTION
 const OFFBOARDINGREQUIREMENTSEditApiCall = async (payload: _Interface.OFFBOARDINGREQUIREMENTSEditInterface) => {
-    const response = await axios.put(`${JSONServer}offboarding_requirements/${payload.id}/`,
+    const response = await axios.put(`${APILink}offboarding_requirements/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -943,7 +943,7 @@ const OFFBOARDINGREQUIREMENTSEditApiCall = async (payload: _Interface.OFFBOARDIN
 };
   
 const OFFBOARDINGREQUIREMENTSCreateApiCall = async (payload: _Interface.OFFBOARDINGREQUIREMENTSCreateInterface) => {
-    const response = await axios.post(`${JSONServer}offboarding_reuirements/`,
+    const response = await axios.post(`${APILink}offboarding_reuirements/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -958,7 +958,7 @@ const OFFBOARDINGREQUIREMENTSCreateApiCall = async (payload: _Interface.OFFBOARD
 };
 
 const OFFBOARDINGREQUIREMENTSViewSpecificApiCall = async (payload: {offboarding_requirements_id: number }) => {
-    const response = await axios.get(`${JSONServer}offboarding_requirements/${payload.offboarding_requirements_id}/`,
+    const response = await axios.get(`${APILink}offboarding_requirements/${payload.offboarding_requirements_id}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -973,7 +973,7 @@ const OFFBOARDINGREQUIREMENTSViewSpecificApiCall = async (payload: {offboarding_
 
 
 const OFFBOARDINGREQUIREMENTSViewApiCall = async () => {
-    const response = await axios.get(`${JSONServer}offboarding_requirements/`,
+    const response = await axios.get(`${APILink}offboarding_requirements/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){

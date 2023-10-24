@@ -15,12 +15,13 @@ export interface KPICOREGenericInterface {
     core_compe_points: number
     percentage_total: number
 	current_user?: number
-	questions?: {
-		question: string
-		answer: string
+	questions?: Omit<EVALQUESTIONSViewInterface, "date_deleted" | "added_by" | "date_added">[] & {
 		sup_eval_points: number
+		sup_feedback: string | null
 		self_eval_points: number
-		sup_remarks: string,
+		self_comment: string | null
+		date_eval: string | null,
+		emp_no: number
 	}[]
 	core_competencies?: {
 		checklist_title: string
@@ -69,16 +70,15 @@ export interface EVALQUESTIONSGenericInterface {
 	date_added: string
 	added_by?: number
 	question: string
-	answer: string 
 }
 
 
 export interface EVALQUESTIONSViewInterface extends EVALQUESTIONSGenericInterface{
     readonly id: number,
-    readonly date_deleted: string
+    readonly date_deleted: string | null
 }
 
-export interface EVALQUESTIONSCreateInterface extends EVALQUESTIONSGenericInterface{}
+export interface EVALQUESTIONSCreateInterface extends Omit<EVALQUESTIONSGenericInterface, "date_added">{}
 
 export interface EVALQUESTIONSEditInterface extends EVALQUESTIONSGenericInterface, Pick<EVALQUESTIONSViewInterface, "id">{}
 

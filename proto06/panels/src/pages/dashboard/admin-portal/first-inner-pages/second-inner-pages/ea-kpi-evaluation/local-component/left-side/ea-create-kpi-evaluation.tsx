@@ -38,13 +38,6 @@ function EAKPICORECreate(props: CreateKPICOREModalInterface) {
     const [submitMode, setSubmitMode] = useState<boolean>(false);
     const [coreCompe, setCoreCompe] = useState<CORECOMPEViewInterface[]>();
     const [evalQuestions, setEvalQuestions] = useState<EVALQUESTIONSViewInterface[]>();
-    // const min1 = 88;
-    // const max1 = 120;
-    // const min2 = 1;
-    // const max2 = 10;
-    
-    // const randomNumber1 = Math.floor(Math.random() * (max1 - min1 + 1)) + min1;
-    // const randomNumber2 = Math.floor(Math.random() * (max2 - min2 + 1)) + min2;
 
     const onClickSubmit = () => {
         // dispatch(KPICORECreateAction(createKPICORE))

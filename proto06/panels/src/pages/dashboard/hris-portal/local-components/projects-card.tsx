@@ -44,7 +44,7 @@ export const UnderDevelopmentMsg = (props: {left?: number, top?: number, fontSiz
     }
     return(
         <div style={UnderDevelopmentTag}>
-            <p>UNDER DEVELOPMENT</p>
+            <p>LOCKED</p>
         </div>
     )
 };
