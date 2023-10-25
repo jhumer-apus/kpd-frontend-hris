@@ -8,6 +8,15 @@ import { ANNOUNCEMENTCreateInterface } from '@/types/types-payroll-eoy';
 import { ANNOUNCEMENTCreateAction, ANNOUNCEMENTCreateActionFailureCleanup } from '@/store/actions/payroll-eoy';
 import DateAssignedANNOUNCEMENTCreate from './inner-ui-components/date-fields';
 
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import MultiRankAutoCompleteLeft from './inner-ui-components/multiple-ranks-choose-modal';
+import MultiDepartmentAutoCompleteLeft from './inner-ui-components/multiple-departments-choose-modal copy';
+
+
 
 interface CreateANNOUNCEMENTModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -21,8 +30,12 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
         date_posted: null,
         expiry_date: null,
         order_by_no: NaN,
-        message: ''
+        message: '',
+        for_departments_code: [],
+        for_ranks_code: []
     });
+    const [radioState, setRadioState] = useState<boolean | null>(null)
+
     const onClickSubmit = () => {
         dispatch(ANNOUNCEMENTCreateAction(createANNOUNCEMENT))
     };
@@ -33,7 +46,7 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
                 return (
                     {
                         ...prevState,
-                        assigned_by: curr_user
+                        emp_no: curr_user
                     }
                 )
             })
@@ -51,6 +64,7 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
             }, 1000)
         }
     }, [ANNOUNCEMENTCreatestate.status])
+    console.log(radioState, "ahahhaa")
 
     return (
         <React.Fragment>
@@ -83,11 +97,42 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
                             }}
                         />
                     </div>
-                <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
-                    <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
-                        <Button variant='contained' onClick={onClickSubmit}>Create ANNOUNCEMENT</Button>
+                    <FormControl className='w-full justify-center items-center'>
+                        <FormLabel id="target-audience-create">Target Audience</FormLabel>
+                        <RadioGroup
+                            className='flex w-full justify-around'
+                            row
+                            aria-labelledby="target-audience-create w-full"
+                            name="name-target-audience-create"
+                            // value={`${createANNOUNCEMENT._value_}`}
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                const value = (event.target.value=== 'true' ? [1] : []);
+                                console.log(event.target.value, "ano")
+                                setRadioState(!(JSON.parse(event.target.value)))
+                                setCreateANNOUNCEMENT((prevState)=> {
+                                    return (
+                                        {
+                                            ...prevState,
+                                            for_departments_code: value,
+                                            for_ranks_code: value
+                                        }
+                                    )
+                                })
+                            }}
+                        >
+                            <FormControlLabel value="true" control={<Radio />} label="All Employees" />
+                            <FormControlLabel value="false" control={<Radio />} label="Selected Employees" />
+                        </RadioGroup>
+                    </FormControl>
+
+                    {radioState && <MultiRankAutoCompleteLeft createANNOUNCEMENT={createANNOUNCEMENT} setCreateANNOUNCEMENT={setCreateANNOUNCEMENT}/>}                
+                    {radioState && <MultiDepartmentAutoCompleteLeft createANNOUNCEMENT={createANNOUNCEMENT} setCreateANNOUNCEMENT={setCreateANNOUNCEMENT}/>}                
+                    
+                    <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
+                        <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
+                            <Button variant='contained' onClick={onClickSubmit}>Create ANNOUNCEMENT</Button>
+                        </div>
                     </div>
-                </div>
             </div>
         </React.Fragment>
     );
