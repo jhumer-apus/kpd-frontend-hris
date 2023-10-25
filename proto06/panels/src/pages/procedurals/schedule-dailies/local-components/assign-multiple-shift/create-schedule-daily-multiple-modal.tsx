@@ -54,7 +54,7 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
     const {open2, handleClose2} = props;
     const createSCHEDULEDAILY = useSelector((state: RootState)=> state.procedurals.SCHEDULEDAILYCreate);
     const [createSCHEDULEDAILYForm, setCreateSCHEDULEDAILYForm] = useState<SCHEDULEDAILYCreateInterface>({
-        schedule_shift_code: null,
+        schedule_shift_code: NaN,
         business_date_from: null,
         business_date_to: null,
         emp_no: [],

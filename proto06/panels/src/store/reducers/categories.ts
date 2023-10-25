@@ -196,7 +196,7 @@ interface BRANCHEditState extends CommonCategoriesState {
 
 // OVERTIME SECTION // OVERTIME SECTION // OVERTIME SECTION // OVERTIME SECTION
 interface DEPARTMENTViewState extends CommonCategoriesState{
-  data: DEPARTMENTViewInterface[] | null | [] | DEPARTMENTViewInterface;
+  data: DEPARTMENTViewInterface[];
 }
 
 interface DEPARTMENTCreateState extends CommonCategoriesState{
@@ -248,7 +248,7 @@ interface POSITIONEditState extends CommonCategoriesState {
 
 // RANK SECTION // RANK SECTION // RANK SECTION // RANK SECTION
 interface RANKViewState extends CommonCategoriesState{
-  data: RANKViewInterface[] | null | [] | RANKViewInterface;
+  data: RANKViewInterface[];
 }
 
 interface RANKCreateState extends CommonCategoriesState{
@@ -346,13 +346,13 @@ const initialState: OverallCategoriesState = {
   DEPARTMENTView: {
     status: '',
     progress: 0,
-    data: null,
+    data: [],
     error: '',
   },
   DEPARTMENTViewSpecific: {
     status: '',
     progress: 0,
-    data: null,
+    data: [],
     error: '',
   },
   DEPARTMENTCreate: {
@@ -446,13 +446,13 @@ const initialState: OverallCategoriesState = {
   RANKView: {
     status: '',
     progress: 0,
-    data: null,
+    data: [],
     error: '',
   },
   RANKViewSpecific: {
     status: '',
     progress: 0,
-    data: null,
+    data: [],
     error: '',
   },
   RANKCreate: {
