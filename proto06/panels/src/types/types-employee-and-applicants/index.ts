@@ -23,10 +23,8 @@ export interface KPICOREGenericInterface {
 		date_eval: string | null,
 		emp_no: number
 	}[]
-	core_competencies?: {
-		checklist_title: string
-		checklist_limits: string
-		points: number
+	core_competencies?: CORECOMPEViewInterface[] & {
+		points: number | null
 	}[]
 
 }
@@ -46,17 +44,16 @@ export interface KPICOREEditInterface extends KPICOREGenericInterface, Pick<KPIC
 
 
 export interface CORECOMPEGenericInterface {
-	date_added: string
 	checklist_title: string
 	checklist_limits: string
-	points: number
 	added_by?: number,
 }
 
 
 export interface CORECOMPEViewInterface extends CORECOMPEGenericInterface{
-    readonly id: number
-    readonly date_deleted: string | null
+	readonly id: number
+    readonly date_added: string
+	readonly date_deleted: string | null
 }
 
 

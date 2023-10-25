@@ -10,7 +10,7 @@ export const KPICOREViewActionProgress = createAction<number>("KPICORE_VIEW_ACTI
 export const KPICOREViewActionFailure = createAction<string>("KPICORE_VIEW_ACTION_FAILURE");
 export const KPICOREViewActionFailureCleanup = createAction("KPICORE_VIEW_ACTION_FAILURE_CLEANUP");
 
-export const KPICOREViewSpecificAction = createAction<{kpi_core_id: number}>("KPICORE_VIEW_SPECIFIC_ACTION");
+export const KPICOREViewSpecificAction = createAction<{emp_kpi_core_id: number}>("KPICORE_VIEW_SPECIFIC_ACTION");
 export const KPICOREViewSpecificActionSuccess = createAction("KPICORE_VIEW_SPECIFIC_ACTION_SUCCESS", (SuccessMessage: _Type.KPICOREViewInterface[]) => { 
     return({ payload: {SuccessMessage} })});
 export const KPICOREViewSpecificActionProgress = createAction<number>("KPICORE_VIEW_SPECIFIC_ACTION_PROGRESS");
@@ -50,7 +50,7 @@ export const CORECOMPEViewActionProgress = createAction<number>("CORECOMPE_VIEW_
 export const CORECOMPEViewActionFailure = createAction<string>("CORECOMPE_VIEW_ACTION_FAILURE");
 export const CORECOMPEViewActionFailureCleanup = createAction("CORECOMPE_VIEW_ACTION_FAILURE_CLEANUP");
 
-export const CORECOMPEViewSpecificAction = createAction<{core_compe_id: number}>("CORECOMPE_VIEW_SPECIFIC_ACTION");
+export const CORECOMPEViewSpecificAction = createAction<{core_id: number}>("CORECOMPE_VIEW_SPECIFIC_ACTION");
 export const CORECOMPEViewSpecificActionSuccess = createAction("CORECOMPE_VIEW_SPECIFIC_ACTION_SUCCESS", (SuccessMessage: _Type.CORECOMPEViewInterface[]) => { 
     return({ payload: {SuccessMessage} })});
 export const CORECOMPEViewSpecificActionProgress = createAction<number>("CORECOMPE_VIEW_SPECIFIC_ACTION_PROGRESS");
@@ -83,7 +83,7 @@ export const EVALQUESTIONSViewActionProgress = createAction<number>("EVALQUESTIO
 export const EVALQUESTIONSViewActionFailure = createAction<string>("EVALQUESTIONS_VIEW_ACTION_FAILURE");
 export const EVALQUESTIONSViewActionFailureCleanup = createAction("EVALQUESTIONS_VIEW_ACTION_FAILURE_CLEANUP");
 
-export const EVALQUESTIONSViewSpecificAction = createAction<{eval_questions_id: number}>("EVALQUESTIONS_VIEW_SPECIFIC_ACTION");
+export const EVALQUESTIONSViewSpecificAction = createAction<{kpi_id: number}>("EVALQUESTIONS_VIEW_SPECIFIC_ACTION");
 export const EVALQUESTIONSViewSpecificActionSuccess = createAction("EVALQUESTIONS_VIEW_SPECIFIC_ACTION_SUCCESS", (SuccessMessage: _Type.EVALQUESTIONSViewInterface[]) => { 
     return({ payload: {SuccessMessage} })});
 export const EVALQUESTIONSViewSpecificActionProgress = createAction<number>("EVALQUESTIONS_VIEW_SPECIFIC_ACTION_PROGRESS");

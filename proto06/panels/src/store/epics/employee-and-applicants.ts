@@ -12,7 +12,7 @@ import store, { APILink } from '../configureStore';
 
 // KPICORE API SECTION // KPICORE API SECTION // KPICORE API SECTION // KPICORE API SECTION // KPICORE API SECTION
 const KPICOREEditApiCall = async (payload: _Interface.KPICOREEditInterface) => {
-    const response = await axios.put(`${APILink}kpi_core/${payload.id}/`,
+    const response = await axios.put(`${APILink}emp_kpi_core/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -27,7 +27,7 @@ const KPICOREEditApiCall = async (payload: _Interface.KPICOREEditInterface) => {
 };
   
 const KPICORECreateApiCall = async (payload: _Interface.KPICORECreateInterface) => {
-    const response = await axios.post(`${APILink}kpi_core/`,
+    const response = await axios.post(`${APILink}emp_kpi_core/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -42,7 +42,7 @@ const KPICORECreateApiCall = async (payload: _Interface.KPICORECreateInterface) 
 };
 
 const KPICOREViewSpecificEmployeeApiCall = async (payload: {emp_no: number }) => {
-    const response = await axios.get(`${APILink}kpi_core?emp_no=${payload.emp_no}`,
+    const response = await axios.get(`${APILink}emp_kpi_core?emp_no=${payload.emp_no}`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -56,8 +56,8 @@ const KPICOREViewSpecificEmployeeApiCall = async (payload: {emp_no: number }) =>
 };
 
 
-const KPICOREViewSpecificApiCall = async (payload: {kpi_core_id: number }) => {
-    const response = await axios.get(`${APILink}kpi_core/${payload.kpi_core_id}/`,
+const KPICOREViewSpecificApiCall = async (payload: {emp_kpi_core_id: number }) => {
+    const response = await axios.get(`${APILink}emp_kpi_core/${payload.emp_kpi_core_id}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -72,7 +72,7 @@ const KPICOREViewSpecificApiCall = async (payload: {kpi_core_id: number }) => {
 
 
 const KPICOREViewApiCall = async () => {
-    const response = await axios.get(`${APILink}kpi_core/`,
+    const response = await axios.get(`${APILink}emp_kpi_core/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -195,7 +195,7 @@ export const KPICOREEditEpic: Epic = (action$, state$) =>
   
 // CORECOMPE API SECTION // CORECOMPE API SECTION // CORECOMPE API SECTION // CORECOMPE API SECTION // CORECOMPE API SECTION
 const CORECOMPEEditApiCall = async (payload: _Interface.CORECOMPEEditInterface) => {
-    const response = await axios.put(`${APILink}core_compe/${payload.id}/`,
+    const response = await axios.put(`${APILink}core/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -210,7 +210,7 @@ const CORECOMPEEditApiCall = async (payload: _Interface.CORECOMPEEditInterface) 
 };
   
 const CORECOMPECreateApiCall = async (payload: _Interface.CORECOMPECreateInterface) => {
-    const response = await axios.post(`${APILink}core_compe/`,
+    const response = await axios.post(`${APILink}core/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -224,8 +224,8 @@ const CORECOMPECreateApiCall = async (payload: _Interface.CORECOMPECreateInterfa
     return response.data;
 };
 
-const CORECOMPEViewSpecificApiCall = async (payload: {core_compe_id: number }) => {
-    const response = await axios.get(`${APILink}core_compe/${payload.core_compe_id}/`,
+const CORECOMPEViewSpecificApiCall = async (payload: {core_id: number }) => {
+    const response = await axios.get(`${APILink}core/${payload.core_id}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -240,7 +240,7 @@ const CORECOMPEViewSpecificApiCall = async (payload: {core_compe_id: number }) =
 
 
 const CORECOMPEViewApiCall = async () => {
-    const response = await axios.get(`${APILink}core_compe/`,
+    const response = await axios.get(`${APILink}core/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -341,7 +341,7 @@ export const CORECOMPEEditEpic: Epic = (action$, state$) =>
   
 // EVALQUESTIONS API SECTION // EVALQUESTIONS API SECTION // EVALQUESTIONS API SECTION // EVALQUESTIONS API SECTION // EVALQUESTIONS API SECTION
 const EVALQUESTIONSEditApiCall = async (payload: _Interface.EVALQUESTIONSEditInterface) => {
-    const response = await axios.put(`${APILink}eval_questions/${payload.id}/`,
+    const response = await axios.put(`${APILink}kpi/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -356,7 +356,7 @@ const EVALQUESTIONSEditApiCall = async (payload: _Interface.EVALQUESTIONSEditInt
 };
   
 const EVALQUESTIONSCreateApiCall = async (payload: _Interface.EVALQUESTIONSCreateInterface) => {
-    const response = await axios.post(`${APILink}eval_questions/`,
+    const response = await axios.post(`${APILink}kpi/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -370,8 +370,8 @@ const EVALQUESTIONSCreateApiCall = async (payload: _Interface.EVALQUESTIONSCreat
     return response.data;
 };
 
-const EVALQUESTIONSViewSpecificApiCall = async (payload: {eval_questions_id: number }) => {
-    const response = await axios.get(`${APILink}eval_questions/${payload.eval_questions_id}/`,
+const EVALQUESTIONSViewSpecificApiCall = async (payload: {kpi_id: number }) => {
+    const response = await axios.get(`${APILink}kpi/${payload.kpi_id}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -386,7 +386,7 @@ const EVALQUESTIONSViewSpecificApiCall = async (payload: {eval_questions_id: num
 
 
 const EVALQUESTIONSViewApiCall = async () => {
-    const response = await axios.get(`${APILink}eval_questions/`,
+    const response = await axios.get(`${APILink}kpi/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
