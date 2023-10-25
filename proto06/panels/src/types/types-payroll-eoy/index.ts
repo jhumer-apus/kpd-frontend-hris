@@ -90,8 +90,8 @@ export interface ANNOUNCEMENTGenericInterface {
     message:string,
     for_departments_code: number[],
     for_ranks_code: number[],
-    emp_image: string,
-    emp_name: string,
+    emp_image: string, // 
+    emp_name: string, //
     emp_no?: number, //current_user
 }
 
@@ -104,7 +104,7 @@ export interface ANNOUNCEMENTViewInterface extends ANNOUNCEMENTGenericInterface{
 
 export interface ACTIVEANNOUNCEMENTViewInterface extends ANNOUNCEMENTViewInterface{}
 
-export interface ANNOUNCEMENTCreateInterface extends ANNOUNCEMENTGenericInterface{}
+export interface ANNOUNCEMENTCreateInterface extends Omit<ANNOUNCEMENTGenericInterface, "emp_name" | "emp_image">{}
 
 export interface ANNOUNCEMENTEditInterface extends ANNOUNCEMENTGenericInterface, Pick<ANNOUNCEMENTViewInterface, "id">{}
 

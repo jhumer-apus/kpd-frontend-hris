@@ -10,9 +10,9 @@ export interface KPICOREGenericInterface {
 	eval_date: string
 	status: string
 	final_rating: string
-	self_eval_points: number
-	sup_eval_points: number
-    core_compe_points: number
+	total_self_eval_points: number
+	total_sup_eval_points: number
+    total_core_compe_points: number
     percentage_total: number
 	current_user?: number
 	questions?: Omit<EVALQUESTIONSViewInterface, "date_deleted" | "added_by" | "date_added">[] & {
