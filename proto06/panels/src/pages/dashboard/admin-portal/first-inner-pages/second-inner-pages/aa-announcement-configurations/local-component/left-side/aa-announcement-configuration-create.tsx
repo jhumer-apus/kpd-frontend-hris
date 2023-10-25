@@ -14,7 +14,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import MultiRankAutoCompleteLeft from './inner-ui-components/multiple-ranks-choose-modal';
-import MultiDepartmentAutoCompleteLeft from './inner-ui-components/multiple-departments-choose-modal copy';
+import MultiDepartmentAutoCompleteLeft from './inner-ui-components/multiple-departments-choose-modal';
 
 
 
