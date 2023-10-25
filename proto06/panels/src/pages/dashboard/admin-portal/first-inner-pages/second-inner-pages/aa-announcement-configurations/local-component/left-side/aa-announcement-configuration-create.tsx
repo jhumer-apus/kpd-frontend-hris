@@ -29,7 +29,7 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
     const [createANNOUNCEMENT, setCreateANNOUNCEMENT] = useState<ANNOUNCEMENTCreateInterface>({
         date_posted: null,
         expiry_date: null,
-        order_by_no: NaN,
+        order_by_no: null,
         message: '',
         for_departments_code: [],
         for_ranks_code: []
@@ -91,6 +91,24 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
                                         {
                                             ...prevState,
                                             message: value
+                                        }
+                                    )
+                                })
+                            }}
+                        />
+                        <TextField 
+                            sx={{width: '100%'}} 
+                            label='Display Priority (1, 2, or 3):'
+                            variant='outlined' 
+                            type="number"
+                            value={createANNOUNCEMENT?.order_by_no}
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                const value = +(event.target.value);
+                                setCreateANNOUNCEMENT((prevState)=> {
+                                    return (
+                                        {
+                                            ...prevState,
+                                            order_by_no: value
                                         }
                                     )
                                 })

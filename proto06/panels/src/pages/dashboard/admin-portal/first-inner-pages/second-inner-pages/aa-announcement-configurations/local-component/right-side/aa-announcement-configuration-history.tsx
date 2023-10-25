@@ -12,12 +12,16 @@ export default function AAANNOUNCEMENTPageHistory() {
   const [singleANNOUNCEMENTOpenModal, setSingleANNOUNCEMENTOpenModal] = useState<boolean>(false);
   const [singleANNOUNCEMENTDetailsData, setSingleANNOUNCEMENTDetailsData] = useState<ANNOUNCEMENTViewInterface>({
     id: NaN,
-    message: '',
-    order_by_no: NaN,
-    date_posted: null,
-    expiry_date: null,
     date_added: '',
     is_posted: false,
+    date_posted: null,
+    expiry_date: null,
+    order_by_no: null,
+    message: '',
+    for_departments_code: [],
+    for_ranks_code: [],
+    emp_image: '',
+    emp_name: '',
     emp_no: NaN,
   });
   const dispatch = useDispatch();
@@ -45,7 +49,7 @@ export default function AAANNOUNCEMENTPageHistory() {
         </Typography>
         </div>
       </div>
-      <div style={{ height: '600px', width: '100%' }}>
+      <div style={{ height: '800px', width: '100%' }}>
         <DataGrid
           rows={ANNOUNCEMENTViewData? ANNOUNCEMENTViewData as ANNOUNCEMENTViewInterface[]:[]}
           columns={AAANNOUNCEMENTPageColumns}

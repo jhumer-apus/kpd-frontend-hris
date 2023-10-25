@@ -8,7 +8,7 @@ import AAANNOUNCEMENTCreate from './local-component/left-side/aa-announcement-co
 
 const PaperStyle = {
     padding: "20px",
-    height: "800px",
+    height: "900px",
     overflow: 'auto'
 }
 
