@@ -130,7 +130,7 @@ function EAKPICORECreate(props: CreateKPICOREModalInterface) {
                     sup_eval_points: _sup_eval_points ?? 0,
                     questions: _questions,
                     core_competencies: _coreCompe,
-                    current_user: curr_user
+                    added_by: curr_user
                 }
                 async function createKPICoreEntry() {
 
@@ -157,7 +157,7 @@ function EAKPICORECreate(props: CreateKPICOREModalInterface) {
                 return (
                     {
                         ...prevState,
-                        current_user: curr_user
+                        added_by: curr_user
                     }
                 )
             })

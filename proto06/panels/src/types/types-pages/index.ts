@@ -686,7 +686,7 @@ export interface USERCreateInterface extends USERGenericInterface{
 
 export interface USEREditInterface extends USERGenericInterface, Pick<USERViewInterface, "is_active" | "is_locked" | "id"> {}
 
-export interface USERResetPasswordInterface extends Pick<USERGenericInterface, "added_by?">, Pick<USERViewInterface, "id">{
+export interface USERResetPasswordInterface extends Pick<USERGenericInterface, "added_by">, Pick<USERViewInterface, "id">{
     new_password: string,
     repeat_new_password: string,
 }

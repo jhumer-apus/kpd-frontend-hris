@@ -6,7 +6,6 @@ import { DEPARTMENTViewInterface } from '@/types/types-pages';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
-import dayjs from 'dayjs';
 import { DEPARTMENTEditAction } from '@/store/actions/categories';
 import EmployeeAutoCompleteRight from './autocomplete-fields/employee-autocomplete-right';
 import BranchAutoCompleteRight from './autocomplete-fields/branch-autocomplete-right';

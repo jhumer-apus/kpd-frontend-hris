@@ -3,11 +3,9 @@ import { Button } from '@mui/material';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
-import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
 import { Typography } from '@mui/joy';
 import { PAYROLLGROUPCreateInterface } from '@/types/types-pages';
 import { PAYROLLGROUPCreateAction, PAYROLLGROUPCreateActionFailureCleanup } from '@/store/actions/categories';
-import BranchAutoComplete from './inner-ui-components/branch-autocomplete';
 
 interface CreatePAYROLLGROUPModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;

@@ -21,7 +21,7 @@ export default function ResetPasswordUSERModal(props: ResetPasswordUSERModalInte
   const USERResetPasswordState = useSelector((state: RootState)=> state.users.USERResetPassword.status)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
   const {resetPasswordUSEROpenModal, setResetPasswordUSEROpenModal, primaryKey} = props;
-  const [singleUSERDetailsData, setSingleUSERDetailsData] = useState<Omit<USERResetPasswordInterface, "id" | "current_user">>({
+  const [singleUSERDetailsData, setSingleUSERDetailsData] = useState<Omit<USERResetPasswordInterface, "id" | "added_by">>({
     new_password: '',
     repeat_new_password: '',
   })
@@ -31,7 +31,7 @@ export default function ResetPasswordUSERModal(props: ResetPasswordUSERModalInte
       dispatch(USERResetPasswordAction({
         ...singleUSERDetailsData,
         id: primaryKey || NaN,
-        current_user: curr_user || NaN
+        added_by: curr_user || NaN
       }))
     } else {
       window.alert("Error, no Primary Key and Current User Found")
