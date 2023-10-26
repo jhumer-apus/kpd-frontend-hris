@@ -540,7 +540,7 @@ export interface BRANCHViewInterface extends BRANCHGenericInterface{
 }
 
 export interface BRANCHCreateInterface extends BRANCHGenericInterface{
-    current_user: number,
+    added_by?: number,
 }
 
 export interface BRANCHEditInterface extends BRANCHGenericInterface, BRANCHCreateInterface, BRANCHViewInterface {}
@@ -559,7 +559,7 @@ export interface DEPARTMENTViewInterface extends DEPARTMENTGenericInterface{
 }
 
 export interface DEPARTMENTCreateInterface extends DEPARTMENTGenericInterface{
-    current_user: number,
+    added_by?: number,
 }
 
 export interface DEPARTMENTEditInterface extends DEPARTMENTGenericInterface, DEPARTMENTCreateInterface, DEPARTMENTViewInterface {}
@@ -578,7 +578,7 @@ export interface DIVISIONViewInterface extends DIVISIONGenericInterface{
 }
 
 export interface DIVISIONCreateInterface extends DIVISIONGenericInterface{
-    current_user: number,
+    added_by?: number,
 }
 
 export interface DIVISIONEditInterface extends DIVISIONGenericInterface, DIVISIONCreateInterface, DIVISIONViewInterface {}
@@ -598,7 +598,7 @@ export interface PAYROLLGROUPViewInterface extends PAYROLLGROUPGenericInterface{
 }
 
 export interface PAYROLLGROUPCreateInterface extends PAYROLLGROUPGenericInterface{
-    current_user: number,
+    added_by?: number,
 }
 
 export interface PAYROLLGROUPEditInterface extends PAYROLLGROUPGenericInterface, PAYROLLGROUPCreateInterface, PAYROLLGROUPViewInterface {}
@@ -617,7 +617,7 @@ export interface POSITIONViewInterface extends POSITIONGenericInterface{
 }
 
 export interface POSITIONCreateInterface extends POSITIONGenericInterface{
-    current_user: number,
+    added_by?: number,
 }
 
 export interface POSITIONEditInterface extends POSITIONGenericInterface, POSITIONCreateInterface, POSITIONViewInterface {}
@@ -648,7 +648,7 @@ export interface RANKViewInterface extends RANKGenericInterface{
 }
 
 export interface RANKCreateInterface extends RANKGenericInterface{
-    current_user: number,
+    added_by?: number,
 }
 
 export interface RANKEditInterface extends RANKGenericInterface, RANKCreateInterface, RANKViewInterface {}
@@ -660,10 +660,10 @@ export interface USERGenericInterface {
     username: string,
     role: number,
     emp_no: number,
-    current_user: number,
+    added_by?: number,
 }
 
-export interface USERViewInterface extends Omit<USERGenericInterface, "current_user">{
+export interface USERViewInterface extends Omit<USERGenericInterface, "added_by?">{
     readonly id: number,
     readonly is_superuser: boolean,
     is_active: boolean,
@@ -686,7 +686,7 @@ export interface USERCreateInterface extends USERGenericInterface{
 
 export interface USEREditInterface extends USERGenericInterface, Pick<USERViewInterface, "is_active" | "is_locked" | "id"> {}
 
-export interface USERResetPasswordInterface extends Pick<USERGenericInterface, "current_user">, Pick<USERViewInterface, "id">{
+export interface USERResetPasswordInterface extends Pick<USERGenericInterface, "added_by?">, Pick<USERViewInterface, "id">{
     new_password: string,
     repeat_new_password: string,
 }

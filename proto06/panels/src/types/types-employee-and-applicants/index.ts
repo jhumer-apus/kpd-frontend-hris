@@ -14,7 +14,7 @@ export interface KPICOREGenericInterface {
 	total_sup_eval_points: number
     total_core_compe_points: number
     percentage_total: number
-	current_user?: number
+	added_by?: number
 	questions?: Omit<EVALQUESTIONSViewInterface, "date_deleted" | "added_by" | "date_added">[] & {
 		sup_eval_points: number
 		sup_feedback: string | null
@@ -210,7 +210,7 @@ export interface APPLICANTSGenericInterface {
 	exam1_score: string
 	exam2_date: string | null
 	exam2_score: string
-	current_user?: number
+	added_by?: number
 }
 
 
@@ -233,8 +233,8 @@ export interface JOBPOSTINGSGenericInterface {
 	job_description: string
 	job_salary_range: string
 	qualifications: string
-	date_added: string
-	date_deleted: string | null
+	objectives: string
+	responsibilities: string
 	position_code: number
 	added_by?: number
 }
@@ -242,6 +242,9 @@ export interface JOBPOSTINGSGenericInterface {
 
 export interface JOBPOSTINGSViewInterface extends JOBPOSTINGSGenericInterface{
     readonly id: number
+	readonly date_added: string
+	readonly date_deleted: string | null
+	readonly position_title: string
 }
 
 export interface JOBPOSTINGSCreateInterface extends JOBPOSTINGSGenericInterface{}

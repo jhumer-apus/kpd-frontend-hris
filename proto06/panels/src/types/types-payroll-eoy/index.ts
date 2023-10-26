@@ -23,7 +23,7 @@ export interface PAY13THGenericInterface {
     total_pay: number,
     is_printed: boolean,
     emp_no: number
-    current_user?: number,
+    added_by?: number,
 }
 
 
@@ -31,7 +31,7 @@ export interface PAY13THViewInterface extends PAY13THGenericInterface{
     readonly id: number,
 }
 
-export interface PAY13THCreateInterface extends Pick<PAY13THGenericInterface, "current_user">{
+export interface PAY13THCreateInterface extends Pick<PAY13THGenericInterface, "added_by">{
     emp_no: number[] | null
 }
 
@@ -42,7 +42,7 @@ export interface BONUSLISTGenericInterface {
     name: string,
     description: string,
     amount: number,
-    current_user?: number,
+    added_by?: number,
 }
 
 
@@ -65,7 +65,7 @@ export interface BONUSENTRYGenericInterface {
     bonus_code: number,
     emp_no: number,
     cutoff_code: number,
-    added_by?: number, //current_user
+    added_by?: number, //added_by
 }
 
 
@@ -92,7 +92,7 @@ export interface ANNOUNCEMENTGenericInterface {
     for_ranks_code: number[],
     emp_image: string, // 
     emp_name: string, //
-    emp_no?: number, //current_user
+    emp_no?: number, //added_by
 }
 
 
@@ -118,7 +118,7 @@ export interface ASSETLISTGenericInterface {
     description: string,
     remarks: string | null,
     quantity: number,
-    added_by?: number, //current_user
+    added_by?: number, //added_by
 }
 
 
@@ -141,7 +141,7 @@ export interface ASSETACCOUNTGenericInterface {
     serial_no_internal: string,
     remarks: string,
     asset_list_code: number,
-    assigned_by?: number, //current_user
+    assigned_by?: number, //added_by
     assigned_to: number,
     date_assigned: string | null,
 }

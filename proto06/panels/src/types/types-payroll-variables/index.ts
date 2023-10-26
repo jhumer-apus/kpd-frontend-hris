@@ -7,7 +7,7 @@ export interface TAXGenericInterface {
     tax_percentage: number,
     payment_frequency: number,
     emp_no: number,
-    current_user?: number,
+    added_by?: number,
 }
 
 
@@ -33,7 +33,7 @@ export interface PAGIBIGGenericInterface {
     pagibig_with_calloan_amount: number | null,
     pagibig_rem_calloan_amount: number | null,
     emp_no: number,
-    current_user?: number,
+    added_by?: number,
 }
 
 
@@ -57,7 +57,7 @@ export interface SSSGenericInterface {
     sss_with_calloan_amount: number | null,
     sss_rem_calloan_amount: number | null,
     emp_no: number,
-    current_user?: number,
+    added_by?: number,
 }
 
 
@@ -80,7 +80,7 @@ export interface PHILHEALTHGenericInterface {
     ph_contribution_month: number,
     ph_category: string | null,
     emp_no: number,
-    current_user?: number,
+    added_by?: number,
 }
 
 
@@ -106,7 +106,7 @@ export interface CASHADVANCEGenericInterface {
     last_payment_amount: number,
     date_last_payment: string | null,
     emp_no: number,
-    current_user?: number,
+    added_by?: number,
 }
 
 
@@ -115,9 +115,9 @@ export interface CASHADVANCEViewInterface extends CASHADVANCEGenericInterface{
 }
 
 
-export interface CASHADVANCECreateInterface extends Pick<CASHADVANCEGenericInterface, "cash_advance_total" | "payment_monthly" | "emp_no" | "current_user">{}
+export interface CASHADVANCECreateInterface extends Pick<CASHADVANCEGenericInterface, "cash_advance_total" | "payment_monthly" | "emp_no" | "added_by">{}
 
-export interface CASHADVANCEEditInterface extends Pick<CASHADVANCEGenericInterface, "payment_monthly" | "emp_no" | "id" | "current_user">{}
+export interface CASHADVANCEEditInterface extends Pick<CASHADVANCEGenericInterface, "payment_monthly" | "emp_no" | "id" | "added_by">{}
 
 
 // ======================================
@@ -126,7 +126,7 @@ export interface ALLOWANCETYPEGenericInterface {
     readonly id: number,
     allowance_name: string,
     taxable: boolean,
-    current_user?: number,
+    added_by?: number,
 }
 
 
@@ -149,7 +149,7 @@ export interface ALLOWANCEENTRYGenericInterface {
     tax_rate: number,
     emp_no: number,
     allowance_code: number,
-    current_user?: number,
+    added_by?: number,
 }
 
 
