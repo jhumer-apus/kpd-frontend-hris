@@ -168,7 +168,6 @@ function EAKPICORECreate(props: CreateKPICOREModalInterface) {
         if(KPICORECreatestate.status === 'succeeded'){
             // window.alert('Request Successful');
             // window.location.reload();
-            console.log("Success")
         }else if(KPICORECreatestate.status === 'failed'){
             window.alert(`Request Failed, ${KPICORECreatestate.error}`)
             setTimeout(()=> {

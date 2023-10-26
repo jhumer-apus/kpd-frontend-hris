@@ -6,6 +6,7 @@ import EditANNOUNCEMENTModal from '../main-modals/inner-modals/edit-announcement
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
+import MultiDepartmentAutoCompleteRight from './autocomplete.tsx/multiple-departments-choose-modal';
 
 interface ANNOUNCEMENTModalUIInterface {
     singleANNOUNCEMENTDetailsData: ANNOUNCEMENTViewInterface;
@@ -46,6 +47,7 @@ function ANNOUNCEMENTModalUI(props: ANNOUNCEMENTModalUIInterface) {
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Created By Emp #:' value={ThisProps.emp_no || '-'} InputProps={{readOnly: true,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Date Posted:' value={ThisProps.date_posted? dayjs(ThisProps.date_posted).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Expiry Date:' value={ThisProps.expiry_date? dayjs(ThisProps.expiry_date).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
+                    {/* <MultiDepartmentAutoCompleteRight viewANNOUNCEMENT={singleANNOUNCEMENTDetailsData} setViewANNOUNCEMENT={setSingleANNOUNCEMENTDetailsData}/> */}
                 </div>
             </div>
             <div className='flex flex-col justify-center items-center'>

@@ -356,8 +356,8 @@ export default function EmployeesAppraisalPage() {
   const updateState = (emp_no: number, emp_name: string) => {
     const filteredArr = ListOfAllKPIScores.filter((item) => item.emp_no === emp_no);
     const FinalRating = filteredArr.map((item) => item.percentage_total);
-    const KPIResult = filteredArr.map((item) => item.sup_eval_points);
-    const CoreCompeResult = filteredArr.map((item) => item.core_compe_points);
+    const KPIResult = filteredArr.map((item) => item.total_sup_eval_points);
+    const CoreCompeResult = filteredArr.map((item) => item.total_core_compe_points);
     setStatisticsChartsData((prevState)=> {
       const newState = [...prevState];
       newState[1].footer = `Employee Name: ${emp_name}`;

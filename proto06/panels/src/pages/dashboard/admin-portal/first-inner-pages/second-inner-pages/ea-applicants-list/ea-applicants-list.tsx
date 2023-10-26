@@ -119,8 +119,6 @@ export default function EAAPPLICANTSLIST() {
     setType("staticInfo");
   };
 
-  console.log(APPLICANTSListState, "hahaha")
-
   useEffect(() => {
     dispatch(APPLICANTSViewAction());
   }, []);

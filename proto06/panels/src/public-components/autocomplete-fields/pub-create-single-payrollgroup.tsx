@@ -30,7 +30,6 @@ export default function PayrollGroupAutoCompleteCreateSingle<LocalState>(props: 
     useEffect(()=> {
         const keysToCheck: string[] = ['div_payrollgroup_code', 'payrollgroup_code', 'another_key'];
         const existingKey = findExistingKey(localState as object, keysToCheck as keyof object);
-        console.log(existingKey, "haha")
         if(selectedPayrollGroupID){
             setLocalState((prevState)=> {
                 return(

@@ -32,7 +32,6 @@ export function SignIn() {
       window.alert(`Error: ${signState.error || ''}`);
     }
   }, [signState.status])
-  console.log(signState.status, "hahahaha")
   return (
     <>
       <img

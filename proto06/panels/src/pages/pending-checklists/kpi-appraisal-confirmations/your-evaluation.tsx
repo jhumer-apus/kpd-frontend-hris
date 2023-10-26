@@ -23,9 +23,9 @@ export default function AppraisalConfirmationKPICOREPage() {
     eval_date: '',
     status: 'Pending',
     final_rating: '',
-    self_eval_points: NaN,
-    sup_eval_points: NaN,
-    core_compe_points: NaN,
+    total_self_eval_points: NaN,
+    total_sup_eval_points: NaN,
+    total_core_compe_points: NaN,
     percentage_total: NaN,
 
   });
@@ -36,7 +36,6 @@ export default function AppraisalConfirmationKPICOREPage() {
 
   const FilteredKPICOREViewData = KPICOREViewData.filter((item) => item.status === 'Pending' && item.sup_no === curr_user );
 
-  console.log(KPICOREViewData, "hahaha")
   useEffect(()=> {
     dispatch(KPICOREViewAction())
   }, []);

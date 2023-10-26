@@ -21,7 +21,6 @@ export default function ViewANNOUNCEMENTSingleModal(props: SingleANNOUNCEMENTInt
       <Transition in={singleANNOUNCEMENTOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSingleANNOUNCEMENTOpenModal(false);

@@ -4,7 +4,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { AutocompleteChangeReason } from '@mui/material/Autocomplete';
-import { ANNOUNCEMENTCreateInterface } from '@/types/types-payroll-eoy';
+import { ANNOUNCEMENTViewInterface } from '@/types/types-payroll-eoy';
 
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
@@ -16,8 +16,8 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 
 interface DepartmentAutoCompleteInterface{
-    createANNOUNCEMENT: ANNOUNCEMENTCreateInterface;
-    setCreateANNOUNCEMENT: Dispatch<SetStateAction<ANNOUNCEMENTCreateInterface>>;
+    viewANNOUNCEMENT: ANNOUNCEMENTViewInterface;
+    setViewANNOUNCEMENT: Dispatch<SetStateAction<ANNOUNCEMENTViewInterface>>;
 }
 
 
@@ -27,20 +27,20 @@ interface optionsInterface {
     firstLetter: string;
 }
 
-export default function MultiDepartmentAutoCompleteLeft(props: DepartmentAutoCompleteInterface) {
-    const {setCreateANNOUNCEMENT, createANNOUNCEMENT} = props;
+export default function MultiDepartmentAutoCompleteRight(props: DepartmentAutoCompleteInterface) {
+    const {setViewANNOUNCEMENT, viewANNOUNCEMENT} = props;
     const dispatch = useDispatch();
     const state = useSelector((state:RootState)=> state.categories.DEPARTMENTView);
     const [departmentsList, setDepartmentsList] = useState<optionsInterface[]>([])
     const [chosenDepartments, setChosenDepartments] = useState<optionsInterface[]>([]);
     const [selectedDepartmentId, setSelectedDepartmentId] = useState<number[]>([]);
+
     useEffect(()=> {
         dispatch(DEPARTMENTViewAction());
     }, []);
-
     useEffect(()=> {
         if(selectedDepartmentId){
-            setCreateANNOUNCEMENT((prevState)=> {
+            setViewANNOUNCEMENT((prevState)=> {
                 return(
                     {
                         ...prevState,
@@ -61,16 +61,20 @@ export default function MultiDepartmentAutoCompleteLeft(props: DepartmentAutoCom
                 };
             }) || [];
             setDepartmentsList(updatedDepartmentsList);
+            const matchingDepartments = departmentsList.filter((departmentItem) => 
+                 viewANNOUNCEMENT.for_departments_code.some((department_code) => department_code === departmentItem.department_id))
+            setChosenDepartments(matchingDepartments)
         }
+
     }, [state.data]);
 
     useEffect(() => {
-        // if(createANNOUNCEMENT.for_departments_code.length > 0){
-           const matchingDepartments = departmentsList.filter((departmentItem) => createANNOUNCEMENT.for_departments_code.some((department_code) => department_code === departmentItem.department_id))
-           setChosenDepartments(matchingDepartments)
+        // if(viewANNOUNCEMENT.for_departments_code.length > 0){
+
         // }
     }, [])
 
+    // console.log(departmentsList, "ha113344")
     const handleChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: optionsInterface[], reason: AutocompleteChangeReason) => {
         // if (Array.isArray(newInputValue) && newInputValue.length > 0) {
             const matchingDepartments = departmentsList.filter((departmentItem) =>

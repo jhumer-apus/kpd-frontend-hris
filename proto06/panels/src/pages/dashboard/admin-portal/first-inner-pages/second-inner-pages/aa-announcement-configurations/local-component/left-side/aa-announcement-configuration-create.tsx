@@ -64,7 +64,6 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
             }, 1000)
         }
     }, [ANNOUNCEMENTCreatestate.status])
-    console.log(radioState, "ahahhaa")
 
     return (
         <React.Fragment>
@@ -125,7 +124,6 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
                             // value={`${createANNOUNCEMENT._value_}`}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value = (event.target.value=== 'true' ? [1] : []);
-                                console.log(event.target.value, "ano")
                                 setRadioState(!(JSON.parse(event.target.value)))
                                 setCreateANNOUNCEMENT((prevState)=> {
                                     return (
