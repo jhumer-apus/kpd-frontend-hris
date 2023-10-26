@@ -112,6 +112,7 @@ import Test01 from "./pages/testing_pages/test01";
 import APPRAISALDETAILSPage from "./pages/employee/appraisals/inner-page/appraisal-details-page/appraisal-details";
 import AboutAppraisalsPage from "./pages/employee/about-appraisals/about-appraisals";
 import EAAPPLICANTSLIST from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-applicants-list/ea-applicants-list";
+import EAJOBPOSTINGS from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-job-postings/ea-job-postings";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -434,7 +435,7 @@ const JSXRouteWrapper = () => {
                       icon: null,
                       name: "Job Posting",
                       path: "/Dashboards/Admin-Dashboard/Employee-And-Applicants/Job-Posting",
-                      element: <h1>hehehe</h1>,
+                      element: <EAJOBPOSTINGS/>,
                       hasSubItems: false,
                     },
                   ]
