@@ -32,7 +32,7 @@ export default function AllowedDaysRANKModal(props: AllowedDaysRANKModalInterfac
   const allowedDaysRANK = () => { 
     dispatch(RANKEditAction({
       ...singleRANKDetailsData,
-      current_user: curr_user || NaN
+      added_by: curr_user || NaN
     }))
   }
 

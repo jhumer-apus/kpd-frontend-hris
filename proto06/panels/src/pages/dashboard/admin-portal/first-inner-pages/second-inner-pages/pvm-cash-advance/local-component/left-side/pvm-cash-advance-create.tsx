@@ -21,7 +21,7 @@ function PVMCASHADVANCECreate(props: CreateCASHADVANCEModalInterface) {
         cash_advance_total: NaN,
         payment_monthly: NaN,
         emp_no: NaN,
-        current_user: NaN,
+        added_by: NaN,
     });
     const onClickSubmit = () => {
         dispatch(CASHADVANCECreateAction(createCASHADVANCE))
@@ -33,7 +33,7 @@ function PVMCASHADVANCECreate(props: CreateCASHADVANCEModalInterface) {
                 return (
                     {
                         ...prevState,
-                        current_user: curr_user
+                        added_by: curr_user
                     }
                 )
             })

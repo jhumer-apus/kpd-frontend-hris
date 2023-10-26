@@ -27,7 +27,7 @@ export default function EditALLOWANCEENTRYModal(props: EditALLOWANCEENTRYModalIn
   const editALLOWANCEENTRY = () => { 
     dispatch(ALLOWANCEENTRYEditAction({
       ...singleALLOWANCEENTRYDetailsData,
-      current_user: curr_user || NaN
+      added_by: curr_user || NaN
     }))
   }
 

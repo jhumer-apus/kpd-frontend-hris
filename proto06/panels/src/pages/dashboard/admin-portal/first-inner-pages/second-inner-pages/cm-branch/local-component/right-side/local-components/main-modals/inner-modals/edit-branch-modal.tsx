@@ -39,7 +39,7 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
     // })
     dispatch(BRANCHEditAction({
       ...singleBRANCHDetailsData,
-      current_user: curr_user || NaN
+      added_by: curr_user || NaN
     }))
   }
 

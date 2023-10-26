@@ -30,7 +30,7 @@ function PVMPAGIBIGCreate(props: CreatePAGIBIGModalInterface) {
         pagibig_with_calloan_amount: null,
         pagibig_rem_calloan_amount: null,
         emp_no: NaN,
-        current_user: NaN,
+        added_by: NaN,
     });
     const onClickSubmit = () => {
         dispatch(PAGIBIGCreateAction(createPAGIBIG))
@@ -42,7 +42,7 @@ function PVMPAGIBIGCreate(props: CreatePAGIBIGModalInterface) {
                 return (
                     {
                         ...prevState,
-                        current_user: curr_user
+                        added_by: curr_user
                     }
                 )
             })

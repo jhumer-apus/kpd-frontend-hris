@@ -31,7 +31,7 @@ export default function EditALLOWANCETYPEModal(props: EditALLOWANCETYPEModalInte
   const editALLOWANCETYPE = () => { 
     dispatch(ALLOWANCETYPEEditAction({
       ...singleALLOWANCETYPEDetailsData,
-      current_user: curr_user || NaN
+      added_by: curr_user || NaN
     }))
   }
 

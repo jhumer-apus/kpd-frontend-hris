@@ -22,7 +22,7 @@ function PVMPHILHEALTHCreate(props: CreatePHILHEALTHModalInterface) {
         ph_contribution_month: NaN,
         ph_category: '',
         emp_no: NaN,
-        current_user: NaN,
+        added_by: NaN,
     });
     const onClickSubmit = () => {
         dispatch(PHILHEALTHCreateAction(createPHILHEALTH))
@@ -34,7 +34,7 @@ function PVMPHILHEALTHCreate(props: CreatePHILHEALTHModalInterface) {
                 return (
                     {
                         ...prevState,
-                        current_user: curr_user
+                        added_by: curr_user
                     }
                 )
             })

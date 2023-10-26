@@ -23,7 +23,7 @@ function ManageUSERCreate(props: CreateUSERModalInterface) {
         password: "",
         role: NaN,
         emp_no: NaN,
-        current_user: NaN,
+        added_by: NaN,
     });
     const onClickSubmit = () => {
         dispatch(USERCreateAction(createUSER))
@@ -35,7 +35,7 @@ function ManageUSERCreate(props: CreateUSERModalInterface) {
                 return (
                     {
                         ...prevState,
-                        current_user: curr_user
+                        added_by: curr_user
                     }
                 )
             })

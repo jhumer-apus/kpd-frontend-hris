@@ -22,7 +22,7 @@ function ManageDEPARTMENTCreate(props: CreateDEPARTMENTModalInterface) {
         dept_name: "",
         dept_lead: NaN,
         dept_branch_code: NaN,
-        current_user: NaN,
+        added_by: NaN,
     });
     const onClickSubmit = () => {
         dispatch(DEPARTMENTCreateAction(createDEPARTMENT))
@@ -34,7 +34,7 @@ function ManageDEPARTMENTCreate(props: CreateDEPARTMENTModalInterface) {
                 return (
                     {
                         ...prevState,
-                        current_user: curr_user
+                        added_by: curr_user
                     }
                 )
             })

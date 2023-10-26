@@ -28,7 +28,7 @@ function ManageRANKCreate(props: CreateRANKModalInterface) {
         rank_description: "",
         is_approver: false,
         hierarchy: NaN,
-        current_user: NaN,
+        added_by: NaN,
     });
     const onClickSubmit = () => {
         dispatch(RANKCreateAction(createRANK))
@@ -40,7 +40,7 @@ function ManageRANKCreate(props: CreateRANKModalInterface) {
                 return (
                     {
                         ...prevState,
-                        current_user: curr_user
+                        added_by: curr_user
                     }
                 )
             })

@@ -27,7 +27,7 @@ function PVMALLOWANCETYPECreate(props: CreateALLOWANCETYPEModalInterface) {
     const [createALLOWANCETYPE, setCreateALLOWANCETYPE] = useState<ALLOWANCETYPECreateInterface>({
         allowance_name: '',
         taxable: false,
-        current_user: NaN,
+        added_by: NaN,
     });
     const onClickSubmit = () => {
         dispatch(ALLOWANCETYPECreateAction(createALLOWANCETYPE))
@@ -39,7 +39,7 @@ function PVMALLOWANCETYPECreate(props: CreateALLOWANCETYPEModalInterface) {
                 return (
                     {
                         ...prevState,
-                        current_user: curr_user
+                        added_by: curr_user
                     }
                 )
             })

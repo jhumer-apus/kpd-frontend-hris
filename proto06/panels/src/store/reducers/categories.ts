@@ -235,7 +235,7 @@ interface PAYROLLGROUPEditState extends CommonCategoriesState {
 
 // POSITION SECTION // POSITION SECTION // POSITION SECTION // POSITION SECTION
 interface POSITIONViewState extends CommonCategoriesState{
-  data: POSITIONViewInterface[] | null | [] | POSITIONViewInterface;
+  data: POSITIONViewInterface[];
 }
 
 interface POSITIONCreateState extends CommonCategoriesState{
@@ -421,13 +421,13 @@ const initialState: OverallCategoriesState = {
   POSITIONView: {
     status: '',
     progress: 0,
-    data: null,
+    data: [],
     error: '',
   },
   POSITIONViewSpecific: {
     status: '',
     progress: 0,
-    data: null,
+    data: [],
     error: '',
   },
   POSITIONCreate: {

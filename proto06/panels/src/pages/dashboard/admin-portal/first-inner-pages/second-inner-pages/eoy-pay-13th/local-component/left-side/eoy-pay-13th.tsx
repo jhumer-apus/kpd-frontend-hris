@@ -50,7 +50,7 @@ function EOYPAY13THCreate(props: CreatePAY13THModalInterface) {
                 return (
                     {
                         ...prevState,
-                        current_user: curr_user
+                        added_by: curr_user
                     }
                 )
             })

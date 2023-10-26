@@ -25,7 +25,7 @@ export default function EditCASHADVANCEModal(props: EditCASHADVANCEModalInterfac
   const editCASHADVANCE = () => { 
     dispatch(CASHADVANCEEditAction({
       ...singleCASHADVANCEDetailsData,
-      current_user: curr_user || NaN
+      added_by: curr_user || NaN
     }))
   }
 

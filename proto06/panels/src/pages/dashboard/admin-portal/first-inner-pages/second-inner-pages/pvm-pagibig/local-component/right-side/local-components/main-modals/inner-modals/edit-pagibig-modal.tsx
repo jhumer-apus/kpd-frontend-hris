@@ -25,7 +25,7 @@ export default function EditPAGIBIGModal(props: EditPAGIBIGModalInterface) {
   const editPAGIBIG = () => { 
     dispatch(PAGIBIGEditAction({
       ...singlePAGIBIGDetailsData,
-      current_user: curr_user || NaN
+      added_by: curr_user || NaN
     }))
   }
 

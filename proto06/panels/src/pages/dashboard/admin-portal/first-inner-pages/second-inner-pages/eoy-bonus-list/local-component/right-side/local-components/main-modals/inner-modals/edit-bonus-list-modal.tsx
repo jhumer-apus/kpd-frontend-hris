@@ -25,7 +25,7 @@ export default function EditBONUSLISTModal(props: EditBONUSLISTModalInterface) {
   const editBONUSLIST = () => { 
     dispatch(BONUSLISTEditAction({
       ...singleBONUSLISTDetailsData,
-      current_user: curr_user || NaN
+      added_by: curr_user || NaN
     }))
   }
 

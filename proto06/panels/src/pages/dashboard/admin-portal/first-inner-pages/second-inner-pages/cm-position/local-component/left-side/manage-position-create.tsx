@@ -19,7 +19,7 @@ function ManagePOSITIONCreate(props: CreatePOSITIONModalInterface) {
     const [createPOSITION, setCreatePOSITION] = useState<POSITIONCreateInterface>({
         pos_name: "",
         pos_description: "",
-        current_user: NaN,
+        added_by: NaN,
     });
     const onClickSubmit = () => {
         dispatch(POSITIONCreateAction(createPOSITION))
@@ -31,7 +31,7 @@ function ManagePOSITIONCreate(props: CreatePOSITIONModalInterface) {
                 return (
                     {
                         ...prevState,
-                        current_user: curr_user
+                        added_by: curr_user
                     }
                 )
             })

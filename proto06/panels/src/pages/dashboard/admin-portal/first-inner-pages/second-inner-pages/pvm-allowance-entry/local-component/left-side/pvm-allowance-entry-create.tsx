@@ -23,7 +23,7 @@ function PVMALLOWANCEENTRYCreate(props: CreateALLOWANCEENTRYModalInterface) {
         tax_rate: NaN,
         allowance_code: NaN,
         emp_no: NaN,
-        current_user: NaN,
+        added_by: NaN,
     });
     const onClickSubmit = () => {
         dispatch(ALLOWANCEENTRYCreateAction(createALLOWANCEENTRY))
@@ -35,7 +35,7 @@ function PVMALLOWANCEENTRYCreate(props: CreateALLOWANCEENTRYModalInterface) {
                 return (
                     {
                         ...prevState,
-                        current_user: curr_user
+                        added_by: curr_user
                     }
                 )
             })

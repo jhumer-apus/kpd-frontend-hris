@@ -31,7 +31,7 @@ function EOYBONUSLISTCreate(props: CreateBONUSLISTModalInterface) {
                 return (
                     {
                         ...prevState,
-                        current_user: curr_user
+                        added_by: curr_user
                     }
                 )
             })

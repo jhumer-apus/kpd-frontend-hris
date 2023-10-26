@@ -25,7 +25,7 @@ function PVMTAXCreate(props: CreateTAXModalInterface) {
         tax_percentage: NaN,
         payment_frequency: NaN,
         emp_no: NaN,
-        current_user: NaN,
+        added_by: NaN,
     });
     const onClickSubmit = () => {
         dispatch(TAXCreateAction(createTAX))
@@ -37,7 +37,7 @@ function PVMTAXCreate(props: CreateTAXModalInterface) {
                 return (
                     {
                         ...prevState,
-                        current_user: curr_user
+                        added_by: curr_user
                     }
                 )
             })

@@ -25,7 +25,7 @@ export default function EditSSSModal(props: EditSSSModalInterface) {
   const editSSS = () => { 
     dispatch(SSSEditAction({
       ...singleSSSDetailsData,
-      current_user: curr_user || NaN
+      added_by: curr_user || NaN
     }))
   }
 

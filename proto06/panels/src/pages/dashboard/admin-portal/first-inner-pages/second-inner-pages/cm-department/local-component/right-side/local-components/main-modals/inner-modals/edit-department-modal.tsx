@@ -30,7 +30,7 @@ export default function AllowedDaysDEPARTMENTModal(props: AllowedDaysDEPARTMENTM
   const allowedDaysDEPARTMENT = () => { 
     dispatch(DEPARTMENTEditAction({
       ...singleDEPARTMENTDetailsData,
-      current_user: curr_user || NaN
+      added_by: curr_user || NaN
     }))
   }
 

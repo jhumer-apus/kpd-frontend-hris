@@ -28,7 +28,7 @@ function PVMSSSCreate(props: CreateSSSModalInterface) {
         sss_with_calloan_amount: null,
         sss_rem_calloan_amount: null,
         emp_no: NaN,
-        current_user: NaN,
+        added_by: NaN,
     });
     const onClickSubmit = () => {
         dispatch(SSSCreateAction(createSSS))
@@ -40,7 +40,7 @@ function PVMSSSCreate(props: CreateSSSModalInterface) {
                 return (
                     {
                         ...prevState,
-                        current_user: curr_user
+                        added_by: curr_user
                     }
                 )
             })

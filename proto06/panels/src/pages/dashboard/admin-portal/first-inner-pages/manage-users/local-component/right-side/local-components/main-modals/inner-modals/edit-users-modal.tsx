@@ -34,7 +34,7 @@ export default function EditUSERModal(props: EditUSERModalInterface) {
   const editUSER = () => { 
     dispatch(USEREditAction({
       ...singleUSERDetailsData,
-      current_user: curr_user || NaN
+      added_by: curr_user || NaN
     }))
   }
 

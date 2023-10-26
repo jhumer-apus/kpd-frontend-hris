@@ -25,7 +25,7 @@ export default function EditPHILHEALTHModal(props: EditPHILHEALTHModalInterface)
   const editPHILHEALTH = () => { 
     dispatch(PHILHEALTHEditAction({
       ...singlePHILHEALTHDetailsData,
-      current_user: curr_user || NaN
+      added_by: curr_user || NaN
     }))
   }
 

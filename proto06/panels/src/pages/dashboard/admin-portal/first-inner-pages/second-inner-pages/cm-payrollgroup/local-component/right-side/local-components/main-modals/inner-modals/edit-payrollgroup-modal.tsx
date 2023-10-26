@@ -30,7 +30,7 @@ export default function AllowedDaysPAYROLLGROUPModal(props: AllowedDaysPAYROLLGR
   const allowedDaysPAYROLLGROUP = () => { 
     dispatch(PAYROLLGROUPEditAction({
       ...singlePAYROLLGROUPDetailsData,
-      current_user: curr_user || NaN
+      added_by: curr_user || NaN
     }))
   }
 

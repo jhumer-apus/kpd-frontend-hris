@@ -26,7 +26,7 @@ export default function AllowedDaysPOSITIONModal(props: AllowedDaysPOSITIONModal
   const allowedDaysPOSITION = () => { 
     dispatch(POSITIONEditAction({
       ...singlePOSITIONDetailsData,
-      current_user: curr_user || NaN
+      added_by: curr_user || NaN
     }))
   }
 

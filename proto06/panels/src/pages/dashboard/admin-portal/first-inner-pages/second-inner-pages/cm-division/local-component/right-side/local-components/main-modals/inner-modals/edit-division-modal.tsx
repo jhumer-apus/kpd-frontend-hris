@@ -30,7 +30,7 @@ export default function AllowedDaysDIVISIONModal(props: AllowedDaysDIVISIONModal
   const allowedDaysDIVISION = () => { 
     dispatch(DIVISIONEditAction({
       ...singleDIVISIONDetailsData,
-      current_user: curr_user || NaN
+      added_by: curr_user || NaN
     }))
   }
 

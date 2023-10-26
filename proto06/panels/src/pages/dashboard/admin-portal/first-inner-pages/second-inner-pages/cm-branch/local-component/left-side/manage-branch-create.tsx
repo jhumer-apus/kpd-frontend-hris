@@ -23,7 +23,7 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
         branch_email: "",
         branch_contact_number: "",
         branch_oic: NaN,
-        current_user: NaN,
+        added_by: NaN,
     });
     const onClickSubmit = () => {
         dispatch(BRANCHCreateAction(createBRANCH))
@@ -35,7 +35,7 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                 return (
                     {
                         ...prevState,
-                        current_user: curr_user
+                        added_by: curr_user
                     }
                 )
             })
