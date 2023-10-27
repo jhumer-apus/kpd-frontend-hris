@@ -1222,6 +1222,23 @@ export const APPLICANTSEditEpic: Epic = (action$, state$) =>
 
 
 // JOBPOSTINGS API SECTION // JOBPOSTINGS API SECTION // JOBPOSTINGS API SECTION // JOBPOSTINGS API SECTION // JOBPOSTINGS API SECTION
+const JOBPOSTINGSDeleteApiCall = async (payload: {jp_id: number, curr_user: number}) => {
+    const response = await axios.put(`${APILink}job_post/${payload.jp_id}/`,
+    {current_user: payload.curr_user}, //payload
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.JOBPOSTINGSDeleteActionProgress(progress));
+          }
+        }
+      }
+    );
+    return response.data;
+};
+
+
+
 const JOBPOSTINGSEditApiCall = async (payload: _Interface.JOBPOSTINGSEditInterface) => {
     const response = await axios.put(`${APILink}job_post/${payload.id}/`,
     payload,
@@ -1360,6 +1377,28 @@ export const JOBPOSTINGSEditEpic: Epic = (action$, state$) =>
                 return of(_Action.JOBPOSTINGSEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
             } else {
                 return of(_Action.JOBPOSTINGSEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+
+export const JOBPOSTINGSDeleteEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.JOBPOSTINGSDeleteAction.type),
+        switchMap((action: ReturnType<typeof _Action.JOBPOSTINGSDeleteAction>) =>
+        from(
+            JOBPOSTINGSDeleteApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.JOBPOSTINGSDeleteActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.JOBPOSTINGSDeleteActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.JOBPOSTINGSDeleteActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
             }
             })
         )

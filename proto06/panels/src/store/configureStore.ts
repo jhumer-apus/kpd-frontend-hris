@@ -104,7 +104,7 @@ import { ALLOWANCEENTRYCreateEpic, ALLOWANCEENTRYEditEpic, ALLOWANCEENTRYViewEpi
 import { payrollVariablesReducer } from './reducers/payroll-variables';
 import { payrollEOYReducer } from './reducers/payroll-eoy';
 import { ACTIVEANNOUNCEMENTViewEpic, ANNDEPARTMENTViewEpic, ANNOUNCEMENTCreateEpic, ANNOUNCEMENTEditEpic, ANNOUNCEMENTViewEpic, ANNOUNCEMENTViewSpecificEpic, ANNRANKViewEpic, ASSETACCOUNTCreateEpic, ASSETACCOUNTEditEpic, ASSETACCOUNTViewEpic, ASSETACCOUNTViewSpecificEmployeeEpic, ASSETACCOUNTViewSpecificEpic, ASSETLISTCreateEpic, ASSETLISTEditEpic, ASSETLISTViewEpic, ASSETLISTViewSpecificEpic, BONUSENTRYCreateEpic, BONUSENTRYEditEpic, BONUSENTRYViewEpic, BONUSENTRYViewSpecificEmployeeEpic, BONUSENTRYViewSpecificEpic, BONUSLISTCreateEpic, BONUSLISTEditEpic, BONUSLISTViewEpic, BONUSLISTViewSpecificEpic, PAY13THCreateEpic, PAY13THViewEpic, PAY13THViewSpecificEpic, TAXCOLLECTEDViewEpic, TAXCOLLECTEDViewSpecificEmployeeEpic } from './epics/payroll-eoy';
-import { APPLICANTSCreateEpic, APPLICANTSEditEpic, APPLICANTSViewEpic, APPLICANTSViewSpecificEpic, CORECOMPECreateEpic, CORECOMPEEditEpic, CORECOMPEViewEpic, CORECOMPEViewSpecificEpic, EVALQUESTIONSCreateEpic, EVALQUESTIONSEditEpic, EVALQUESTIONSViewEpic, EVALQUESTIONSViewSpecificEpic, JOBPOSTINGSCreateEpic, JOBPOSTINGSEditEpic, JOBPOSTINGSViewEpic, JOBPOSTINGSViewSpecificEpic, KPICORECreateEpic, KPICOREEditEpic, KPICOREViewEpic, KPICOREViewSpecificEmployeeEpic, KPICOREViewSpecificEpic, OFFBOARDINGREQUIREMENTSCreateEpic, OFFBOARDINGREQUIREMENTSEditEpic, OFFBOARDINGREQUIREMENTSViewEpic, OFFBOARDINGREQUIREMENTSViewSpecificEpic, OFFBOARDINGSTATUSCreateEpic, OFFBOARDINGSTATUSEditEpic, OFFBOARDINGSTATUSViewEpic, OFFBOARDINGSTATUSViewSpecificEpic, ONBOARDINGREQUIREMENTSCreateEpic, ONBOARDINGREQUIREMENTSEditEpic, ONBOARDINGREQUIREMENTSViewEpic, ONBOARDINGREQUIREMENTSViewSpecificEpic, ONBOARDINGSTATUSCreateEpic, ONBOARDINGSTATUSEditEpic, ONBOARDINGSTATUSViewEpic, ONBOARDINGSTATUSViewSpecificEpic } from './epics/employee-and-applicants';
+import { APPLICANTSCreateEpic, APPLICANTSEditEpic, APPLICANTSViewEpic, APPLICANTSViewSpecificEpic, CORECOMPECreateEpic, CORECOMPEEditEpic, CORECOMPEViewEpic, CORECOMPEViewSpecificEpic, EVALQUESTIONSCreateEpic, EVALQUESTIONSEditEpic, EVALQUESTIONSViewEpic, EVALQUESTIONSViewSpecificEpic, JOBPOSTINGSCreateEpic, JOBPOSTINGSDeleteEpic, JOBPOSTINGSEditEpic, JOBPOSTINGSViewEpic, JOBPOSTINGSViewSpecificEpic, KPICORECreateEpic, KPICOREEditEpic, KPICOREViewEpic, KPICOREViewSpecificEmployeeEpic, KPICOREViewSpecificEpic, OFFBOARDINGREQUIREMENTSCreateEpic, OFFBOARDINGREQUIREMENTSEditEpic, OFFBOARDINGREQUIREMENTSViewEpic, OFFBOARDINGREQUIREMENTSViewSpecificEpic, OFFBOARDINGSTATUSCreateEpic, OFFBOARDINGSTATUSEditEpic, OFFBOARDINGSTATUSViewEpic, OFFBOARDINGSTATUSViewSpecificEpic, ONBOARDINGREQUIREMENTSCreateEpic, ONBOARDINGREQUIREMENTSEditEpic, ONBOARDINGREQUIREMENTSViewEpic, ONBOARDINGREQUIREMENTSViewSpecificEpic, ONBOARDINGSTATUSCreateEpic, ONBOARDINGSTATUSEditEpic, ONBOARDINGSTATUSViewEpic, ONBOARDINGSTATUSViewSpecificEpic } from './epics/employee-and-applicants';
 import { employeeAndApplicantsReducer } from './reducers/employee-and-applicants';
 
 const epicMiddleware = createEpicMiddleware();
@@ -325,12 +325,13 @@ epicMiddleware.run(combineEpics(
   JOBPOSTINGSEditEpic,
   JOBPOSTINGSViewEpic,
   JOBPOSTINGSViewSpecificEpic,
+  JOBPOSTINGSDeleteEpic,
 ));
 
 export type RootState = ReturnType<typeof rootReducer>;
 // export const APILink = 'http://18.141.159.149:8000/api/v1/';
 // export const APILink = 'https://mercovsk1.pythonanywhere.com/api/v1/';
-export const APILink = 'http://192.168.0.106:8000/api/v1/';
+export const APILink = 'http://192.168.0.101:8000/api/v1/';
 // export const APILink = 'http://192.168.0.107:8000/api/v1/';
 export const JSONServer = 'http://localhost:3030/';
 export default store;

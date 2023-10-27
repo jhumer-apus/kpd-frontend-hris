@@ -39,8 +39,8 @@ interface CommonEmployeeAndApplicantsState {
   error: string | null; 
 }
 
-interface CommonEmployeeAndApplicantsDataStringState {
-  data: string | null;
+interface CommonEmployeeAndApplicantsDataStringState extends CommonEmployeeAndApplicantsState {
+  data: string | null | unknown;
 }
 
 // KPICORE SECTION // KPICORE SECTION // KPICORE SECTION // KPICORE SECTION // KPICORE SECTION 
@@ -164,7 +164,7 @@ interface JOBPOSTINGSEditState extends CommonEmployeeAndApplicantsState {
 
 
 interface OverallEmployeeAndApplicantsState {
-  [key: string]: 
+  [key: string]: CommonEmployeeAndApplicantsDataStringState | 
   KPICOREViewState | 
   KPICORECreateState | 
   KPICOREEditState |
@@ -239,6 +239,7 @@ interface OverallEmployeeAndApplicantsState {
   JOBPOSTINGSViewSpecific: JOBPOSTINGSViewState,
   JOBPOSTINGSCreate: JOBPOSTINGSCreateState,
   JOBPOSTINGSEdit: JOBPOSTINGSEditState,
+  JOBPOSTINGSDelete: CommonEmployeeAndApplicantsDataStringState,
 }
 
 const initialState: OverallEmployeeAndApplicantsState = {
@@ -473,6 +474,12 @@ const initialState: OverallEmployeeAndApplicantsState = {
     data: null,
     error: '',
   },
+  JOBPOSTINGSDelete: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
 };
 
 const setLoadingState = (path: string) => (state: OverallEmployeeAndApplicantsState) => {
@@ -678,6 +685,10 @@ const employeeAndApplicantsSlice = createSlice({
       .addCase(_Actions.JOBPOSTINGSEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "JOBPOSTINGSEdit"))
       .addCase(_Actions.JOBPOSTINGSEditActionProgress, (state, action) => setProgressState(state, action.payload, "JOBPOSTINGSEdit"))
       .addCase(_Actions.JOBPOSTINGSEditActionFailure, (state, action) => setFailureState(state, action.payload, "JOBPOSTINGSEdit"))
+      .addCase(_Actions.JOBPOSTINGSDeleteAction, setLoadingState("JOBPOSTINGSDelete"))
+      .addCase(_Actions.JOBPOSTINGSDeleteActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "JOBPOSTINGSDelete"))
+      .addCase(_Actions.JOBPOSTINGSDeleteActionProgress, (state, action) => setProgressState(state, action.payload, "JOBPOSTINGSDelete"))
+      .addCase(_Actions.JOBPOSTINGSDeleteActionFailure, (state, action) => setFailureState(state, action.payload, "JOBPOSTINGSDelete"))
     },
 });
 

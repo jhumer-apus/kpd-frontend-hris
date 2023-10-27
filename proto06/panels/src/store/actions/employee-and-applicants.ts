@@ -301,3 +301,12 @@ export const JOBPOSTINGSEditActionProgress = createAction<number>("JOBPOSTINGS_E
 export const JOBPOSTINGSEditActionFailure = createAction<string>("JOBPOSTINGS_EDIT_ACTION_FAILURE");
 export const JOBPOSTINGSEditActionFailureCleanup = createAction("JOBPOSTINGS_EDIT_ACTION_FAILURE_CLEANUP");
 
+
+export const JOBPOSTINGSDeleteAction = createAction<{jp_id: number, curr_user: number}>("JOBPOSTINGS_DELETE_ACTION");
+export const JOBPOSTINGSDeleteActionSuccess = createAction("JOBPOSTINGS_DELETE_ACTION_SUCCESS", (SuccessMessage: string) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const JOBPOSTINGSDeleteActionProgress = createAction<number>("JOBPOSTINGS_DELETE_ACTION_PROGRESS");
+export const JOBPOSTINGSDeleteActionFailure = createAction<string>("JOBPOSTINGS_DELETE_ACTION_FAILURE");
+export const JOBPOSTINGSDeleteActionFailureCleanup = createAction("JOBPOSTINGS_DELETE_ACTION_FAILURE_CLEANUP");
+

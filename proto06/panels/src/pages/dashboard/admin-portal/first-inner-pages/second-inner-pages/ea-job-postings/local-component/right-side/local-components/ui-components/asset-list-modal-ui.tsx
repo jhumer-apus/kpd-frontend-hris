@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
 import { JOBPOSTINGSEditAction } from '@/store/actions/employee-and-applicants';
+import DeleteJOBPOSTINGSModal from './delete-modal';
 
 interface JOBPOSTINGSModalUIInterface {
     singleJOBPOSTINGSDetailsData: JOBPOSTINGSViewInterface;
@@ -15,20 +16,11 @@ interface JOBPOSTINGSModalUIInterface {
 }
 
 function JOBPOSTINGSModalUI(props: JOBPOSTINGSModalUIInterface) {
-    const [ resetPasswordJOBPOSTINGSOpenModal, setResetPasswordJOBPOSTINGSOpenModal ] = useState(false);
-    const [ editJOBPOSTINGSOpenModal, setEditJOBPOSTINGSOpenModal ] = useState(false);
+    const [ deleteJOBPOSTINGSOpenModal, setDeleteJOBPOSTINGSOpenModal ] = useState(false);
     const { setSingleJOBPOSTINGSDetailsData, singleJOBPOSTINGSDetailsData } = props;
     const ThisProps = props.singleJOBPOSTINGSDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
-    const onClickModal = (mode: number) => {
-        switch(mode){
-            case 0: setResetPasswordJOBPOSTINGSOpenModal(true);
-            break;
-            case 1: setEditJOBPOSTINGSOpenModal(true);
-            break;
-        }   
-        
-    };
+
     const dispatch = useDispatch();
     const JOBPOSTINGSEditState = useSelector((state: RootState)=> state.employeeAndApplicants.JOBPOSTINGSEdit)  
   
@@ -216,7 +208,17 @@ function JOBPOSTINGSModalUI(props: JOBPOSTINGSModalUIInterface) {
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
                     <div className='flex justify-center gap-6' style={{width:'400px', marginTop: '20px'}} container-name='leave_buttons'>
                         { viewMode && <Button disabled={JOBPOSTINGSEditState.status === "loading"} variant='outlined' onClick={()=> setViewMode(false)}>Edit Details</Button>}
-                        { viewMode === false && <Button variant='contained' color={'primary'} onClick={submitEditJOBPOSTINGS}>Submit Changes</Button>}
+                        { viewMode === false && 
+                        
+                        <>
+                        <Button variant='contained' color={'primary'} onClick={submitEditJOBPOSTINGS}>Submit Changes</Button>
+                        <Button variant='contained' color={'primary'} onClick={()=> setViewMode(true)}>Cancel</Button>
+                        <Button variant='outlined' color={'error'} onClick={()=> setDeleteJOBPOSTINGSOpenModal(true)}>Delete</Button>
+
+                        </>
+                        
+                        }
+                        <DeleteJOBPOSTINGSModal singleJOBPOSTINGSDetailsData={singleJOBPOSTINGSDetailsData} setDeleteJOBPOSTINGSOpenModal={setDeleteJOBPOSTINGSOpenModal} deleteJOBPOSTINGSOpenModal={deleteJOBPOSTINGSOpenModal}/>
                     </div>
                 </div>
             </div>
