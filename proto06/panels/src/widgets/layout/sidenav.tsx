@@ -25,7 +25,7 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
   const EAState = useSelector((state:RootState) => state.employeeAndApplicants)
   const { UAViewFilterApprover, LEAVEViewFilterApprover, OVERTIMEViewFilterApprover, OBTViewFilterApprover } = proceduralState;
   const currUserEmpNo = currUserState?.emp_no as number;
-  const PendingKPICore = EAState.KPICOREView.data.filter((item)=> item.status ==='Pending' && item.sup_no === currUserEmpNo);
+  const PendingKPICore = EAState.KPICOREView.data.length > 0 ? EAState?.KPICOREView?.data?.filter((item)=> item?.status ==='Pending' && item?.sup_no === currUserEmpNo) : [];
 
   const proceduralActions = [
     UAViewFilterApproverAction,
