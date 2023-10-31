@@ -108,7 +108,7 @@ import DataTable from "./pages/employee/201-files/Employee201";
 import EmployeesAppraisalPage from "./pages/employee/appraisals/employees-appraisal";
 import YourKPICOREPage from "./pages/quick-accesses/your-evaluation/your-evaluation";
 import AppraisalConfirmationKPICOREPage from "./pages/pending-checklists/kpi-appraisal-confirmations/your-evaluation";
-import Test01 from "./pages/testing_pages/test01";
+// import Test01 from "./pages/testing_pages/test01";
 import APPRAISALDETAILSPage from "./pages/employee/appraisals/inner-page/appraisal-details-page/appraisal-details";
 import AboutAppraisalsPage from "./pages/employee/about-appraisals/about-appraisals";
 import EAAPPLICANTSLIST from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-applicants-list/ea-applicants-list";

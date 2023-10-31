@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { Typography } from '@mui/material';
 import { EACORECOMPEPageDescriptions, EACORECOMPEPageColumns } from '@/data/pages-data/employee-and-applicants-data/ea-core-competencies-data';
-import ViewCORECOMPESingleModal from './local-components/main-modals/aa-asset-list-single-modal';
+import ViewCORECOMPESingleModal from './local-components/main-modals/ea-core-compe-history-single-modal';
 import { CORECOMPEViewInterface } from '@/types/types-employee-and-applicants';
 import { CORECOMPEViewAction } from '@/store/actions/employee-and-applicants';
 
@@ -17,7 +17,6 @@ export default function EACORECOMPEPageHistory() {
     added_by: NaN,
     checklist_limits: '',
     checklist_title: '',
-    points: NaN,
   });
   const dispatch = useDispatch();
   const { CORECOMPEView } = useSelector((state: RootState) => state.employeeAndApplicants);
@@ -35,7 +34,7 @@ export default function EACORECOMPEPageHistory() {
     <Fragment>
       <div className="my-2 flex flex-wrap justify-between items-start gap-6">
         <div>
-          {/* <ViewCORECOMPESingleModal setSingleCORECOMPEDetailsData={setSingleCORECOMPEDetailsData} singleCORECOMPEDetailsData={singleCORECOMPEDetailsData} singleCORECOMPEOpenModal={singleCORECOMPEOpenModal} setSingleCORECOMPEOpenModal={setSingleCORECOMPEOpenModal}/> */}
+          <ViewCORECOMPESingleModal setSingleCORECOMPEDetailsData={setSingleCORECOMPEDetailsData} singleCORECOMPEDetailsData={singleCORECOMPEDetailsData} singleCORECOMPEOpenModal={singleCORECOMPEOpenModal} setSingleCORECOMPEOpenModal={setSingleCORECOMPEOpenModal}/>
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
           <p>{EACORECOMPEPageDescriptions}</p>
         </Typography>

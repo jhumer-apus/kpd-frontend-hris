@@ -2,29 +2,29 @@ import { Dispatch, SetStateAction, Fragment, useState } from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
-import { ASSETLISTViewInterface } from '@/types/types-payroll-eoy';
-import ASSETLISTModalComponent from './inner-modals/asset-list-modal-component';
+import { CORECOMPEViewInterface } from '@/types/types-employee-and-applicants';
+import CORECOMPEModalComponent from './inner-modals/core-compe-modal-component';
 
 
-interface SingleASSETLISTInterface {
-    singleASSETLISTOpenModal: boolean; 
-    setSingleASSETLISTOpenModal: Dispatch<SetStateAction<boolean>>;
-    singleASSETLISTDetailsData: ASSETLISTViewInterface;
-    setSingleASSETLISTDetailsData: Dispatch<SetStateAction<ASSETLISTViewInterface>>;
+interface SingleCORECOMPEInterface {
+    singleCORECOMPEOpenModal: boolean; 
+    setSingleCORECOMPEOpenModal: Dispatch<SetStateAction<boolean>>;
+    singleCORECOMPEDetailsData: CORECOMPEViewInterface;
+    setSingleCORECOMPEDetailsData: Dispatch<SetStateAction<CORECOMPEViewInterface>>;
 }
 
-export default function ViewASSETLISTSingleModal(props: SingleASSETLISTInterface) {
-    const {singleASSETLISTOpenModal, setSingleASSETLISTOpenModal, setSingleASSETLISTDetailsData, singleASSETLISTDetailsData} = props;
+export default function ViewCORECOMPESingleModal(props: SingleCORECOMPEInterface) {
+    const {singleCORECOMPEOpenModal, setSingleCORECOMPEOpenModal, setSingleCORECOMPEDetailsData, singleCORECOMPEDetailsData} = props;
   const [scroll, setScroll] = useState<boolean>(true);
   return (
     <Fragment>
-      <Transition in={singleASSETLISTOpenModal} timeout={400}>
+      <Transition in={singleCORECOMPEOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
         keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setSingleASSETLISTOpenModal(false);
+          setSingleCORECOMPEOpenModal(false);
         }}
         slotProps={{
             backdrop: {
@@ -47,7 +47,7 @@ export default function ViewASSETLISTSingleModal(props: SingleASSETLISTInterface
             aria-labelledby="dialog-vertical-scroll-title" 
             layout={'center'}
             sx={{
-              ...ASSETLISTModalArea,
+              ...CORECOMPEModalArea,
                 opacity: 0,
                 transition: `opacity 300ms`,
                 ...{
@@ -57,7 +57,7 @@ export default function ViewASSETLISTSingleModal(props: SingleASSETLISTInterface
                 overflow: 'auto',
             }}
         >
-          <ASSETLISTModalComponent setSingleASSETLISTDetailsData={setSingleASSETLISTDetailsData} singleASSETLISTDetailsData={singleASSETLISTDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <CORECOMPEModalComponent setSingleCORECOMPEDetailsData={setSingleCORECOMPEDetailsData} singleCORECOMPEDetailsData={singleCORECOMPEDetailsData} scroll={scroll} setScroll={setScroll}/>
         </ModalDialog>
       </Modal>
         )}
@@ -68,7 +68,7 @@ export default function ViewASSETLISTSingleModal(props: SingleASSETLISTInterface
 
 
 // Styles
-const ASSETLISTModalArea = {
+const CORECOMPEModalArea = {
   height: '120.5mm',
   width: '210mm',
   margin: '0 auto',

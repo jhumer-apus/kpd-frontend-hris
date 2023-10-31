@@ -45,7 +45,7 @@ export interface KPICOREEditInterface extends KPICOREGenericInterface, Pick<KPIC
 
 export interface CORECOMPEGenericInterface {
 	checklist_title: string
-	checklist_limits: string
+	checklist_limit: string
 	added_by?: number,
 }
 

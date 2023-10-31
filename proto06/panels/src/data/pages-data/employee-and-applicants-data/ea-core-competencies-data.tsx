@@ -49,7 +49,7 @@ export const EACORECOMPEPageColumns: GridColDef[] =
     //   );
     // }  
   },
-  { field: 'checklist_limits', headerName: 'Limits', width: 150 },
+  { field: 'checklist_limit', headerName: 'Limits', width: 150 },
   { field: 'checklist_title', headerName: 'Competency',  width: 200 },
 ];
   
