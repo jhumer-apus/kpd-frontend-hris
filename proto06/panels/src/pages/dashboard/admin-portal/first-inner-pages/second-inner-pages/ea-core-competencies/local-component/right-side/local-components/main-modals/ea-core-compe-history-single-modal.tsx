@@ -21,7 +21,7 @@ export default function ViewCORECOMPESingleModal(props: SingleCORECOMPEInterface
       <Transition in={singleCORECOMPEOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
+        // keepMounted <--when disabled, the onmount transition effect disappears, however, the localstate onMount bug reappears. To Do: Needs to re-evaluate if the transition can be restack to co-exist with the functionality
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSingleCORECOMPEOpenModal(false);

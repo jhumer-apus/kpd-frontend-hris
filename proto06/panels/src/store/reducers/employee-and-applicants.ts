@@ -40,7 +40,7 @@ interface CommonEmployeeAndApplicantsState {
 }
 
 interface CommonEmployeeAndApplicantsDataStringState extends CommonEmployeeAndApplicantsState {
-  data: string | null | unknown;
+  data: string | null | unknown | [];
 }
 
 // KPICORE SECTION // KPICORE SECTION // KPICORE SECTION // KPICORE SECTION // KPICORE SECTION 
@@ -570,6 +570,7 @@ const employeeAndApplicantsSlice = createSlice({
       .addCase(_Actions.CORECOMPEDeleteActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "CORECOMPEDelete"))
       .addCase(_Actions.CORECOMPEDeleteActionProgress, (state, action) => setProgressState(state, action.payload, "CORECOMPEDelete"))
       .addCase(_Actions.CORECOMPEDeleteActionFailure, (state, action) => setFailureState(state, action.payload, "CORECOMPEDelete"))
+      .addCase(_Actions.CORECOMPEDeleteActionFailureCleanup, setRefreshedState("CORECOMPEDelete"))
       //EVALQUESTIONS SECTION
       .addCase(_Actions.EVALQUESTIONSViewAction, setLoadingState("EVALQUESTIONSView"))
       .addCase(_Actions.EVALQUESTIONSViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "EVALQUESTIONSView"))

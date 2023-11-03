@@ -18,7 +18,7 @@ const CORECOMPEModalComponent = ((props:CORECOMPEModalComponentInterface) => {
 
     return (
         <Fragment>
-            <Typography variant='soft'>CORECOMPE Individual Data</Typography>
+            <Typography variant='soft'>Core Competency Details</Typography>
             <ModalClose sx={{marginTop: '4px'}}/>
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <CORECOMPEModalUI setSingleCORECOMPEDetailsData={setSingleCORECOMPEDetailsData} singleCORECOMPEDetailsData={singleCORECOMPEDetailsData}/>

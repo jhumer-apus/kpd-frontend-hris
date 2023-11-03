@@ -195,8 +195,7 @@ export const KPICOREEditEpic: Epic = (action$, state$) =>
   
 // CORECOMPE API SECTION // CORECOMPE API SECTION // CORECOMPE API SECTION // CORECOMPE API SECTION // CORECOMPE API SECTION
 const CORECOMPEDeleteApiCall = async (payload: {cc_id: number, curr_user: number}) => {
-    const response = await axios.put(`${APILink}core/${payload.cc_id}/`,
-    {added_by: payload.curr_user}, //payload
+    const response = await axios.delete(`${APILink}core/${payload.cc_id}/?added_by=${payload.curr_user}`, //payload
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){

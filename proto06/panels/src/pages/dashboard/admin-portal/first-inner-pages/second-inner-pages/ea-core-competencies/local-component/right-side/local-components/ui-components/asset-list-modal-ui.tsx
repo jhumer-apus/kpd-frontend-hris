@@ -6,6 +6,7 @@ import EditCORECOMPEModal from '../main-modals/inner-modals/edit-asset-list-moda
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
+import DeactivateCORECOMPEModal from '../main-modals/inner-modals/delete-core-compe-modal';
 
 interface CORECOMPEModalUIInterface {
     singleCORECOMPEDetailsData: CORECOMPEViewInterface;
@@ -20,17 +21,20 @@ function CORECOMPEModalUI(props: CORECOMPEModalUIInterface) {
     const ThisProps = props.singleCORECOMPEDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
     const submitChanges = () => {
-        
+        setEditCORECOMPEOpenModal(true)
+
     };
 
+    const [DeactivateCORECOMPEOpenModal, setDeactivateCORECOMPEOpenModal] = useState(false);
     return (
         <Fragment>
             {/* <EditCORECOMPEModal singleCORECOMPEDetailsData={singleCORECOMPEDetailsData} setSingleCORECOMPEDetailsData={setSingleCORECOMPEDetailsData} editCORECOMPEOpenModal={editCORECOMPEOpenModal} setEditCORECOMPEOpenModal={setEditCORECOMPEOpenModal}/> */}
+            <DeactivateCORECOMPEModal DeactivateCORECOMPEOpenModal={DeactivateCORECOMPEOpenModal} setDeactivateCORECOMPEOpenModal={setDeactivateCORECOMPEOpenModal} singleCORECOMPEDetailsData={singleCORECOMPEDetailsData} setSingleCORECOMPEDetailsData={setSingleCORECOMPEDetailsData} />
             <div className='flex overflow-auto gap-4 relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField 
                         sx={{width: '100%', minWidth: '230px'}} 
-                        label='Asset ID:' 
+                        label='Core Competency ID:' 
                         value={ThisProps.id} 
                         InputProps={{readOnly: true,}} 
                         variant='filled'
@@ -110,7 +114,7 @@ function CORECOMPEModalUI(props: CORECOMPEModalUIInterface) {
             </div>
             <div className='flex flex-col justify-center items-center'>
                 <div className='mt-6' container-name='leave_buttons_container'>
-                    <div className='' style={{width:'100%', marginTop: '20px'}} container-name='leave_buttons'>
+                    <div className='' style={{display: 'flex', gap: 20, marginTop: '20px'}} container-name='leave_buttons'>
                         {
                         editCORECOMPEOpenModal && 
                         <Button variant='contained' onClick={() => setEditCORECOMPEOpenModal(false)}>Edit Details</Button>
@@ -118,9 +122,9 @@ function CORECOMPEModalUI(props: CORECOMPEModalUIInterface) {
                         {
                         !editCORECOMPEOpenModal &&
                             <>
-                            <Button variant='contained' onClick={onClickModal}>Submit Changes</Button>
+                            <Button variant='contained' onClick={submitChanges}>Submit Changes</Button>
                             <Button variant='contained' color={"warning"} onClick={() => setEditCORECOMPEOpenModal(true)}>Cancel</Button>
-                            <Button variant='outlined' color={"error"} onClick={onClickModal}>Delete</Button>
+                            <Button variant='outlined' color={"error"} onClick={() => setDeactivateCORECOMPEOpenModal(true)}>Delete</Button>
                             </>                            
                         }
                         {/* <Button variant='outlined' color={'error'} onClick={()=> onClickModal(0)}>Reset Password</Button> */}
