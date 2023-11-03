@@ -2,11 +2,9 @@ import { useState, Fragment, Dispatch, SetStateAction } from 'react';
 import { CORECOMPEViewInterface } from '@/types/types-employee-and-applicants';
 import { Button } from '@mui/material';
 import {TextField} from '@mui/material';
-import EditCORECOMPEModal from '../main-modals/inner-modals/edit-asset-list-modal';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
 import DeactivateCORECOMPEModal from '../main-modals/inner-modals/delete-core-compe-modal';
+import EditSubmitCORECOMPEModal from '../main-modals/inner-modals/submit-changes-core-compe-modal';
 
 interface CORECOMPEModalUIInterface {
     singleCORECOMPEDetailsData: CORECOMPEViewInterface;
@@ -15,20 +13,17 @@ interface CORECOMPEModalUIInterface {
 }
 
 function CORECOMPEModalUI(props: CORECOMPEModalUIInterface) {
-    const dispatch = useDispatch();
     const [ editCORECOMPEOpenModal, setEditCORECOMPEOpenModal ] = useState(true);
     const { setSingleCORECOMPEDetailsData, singleCORECOMPEDetailsData } = props;
     const ThisProps = props.singleCORECOMPEDetailsData;
-    const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
-    const submitChanges = () => {
-        setEditCORECOMPEOpenModal(true)
-
-    };
 
     const [DeactivateCORECOMPEOpenModal, setDeactivateCORECOMPEOpenModal] = useState(false);
+    const [EditSubmitCORECOMPEOpenModal, setEditSubmitCORECOMPEOpenModal] = useState(false);
+
+    console.log(singleCORECOMPEDetailsData, "cgheclk")
     return (
         <Fragment>
-            {/* <EditCORECOMPEModal singleCORECOMPEDetailsData={singleCORECOMPEDetailsData} setSingleCORECOMPEDetailsData={setSingleCORECOMPEDetailsData} editCORECOMPEOpenModal={editCORECOMPEOpenModal} setEditCORECOMPEOpenModal={setEditCORECOMPEOpenModal}/> */}
+            <EditSubmitCORECOMPEModal EditSubmitCORECOMPEOpenModal={EditSubmitCORECOMPEOpenModal} setEditSubmitCORECOMPEOpenModal={setEditSubmitCORECOMPEOpenModal} singleCORECOMPEDetailsData={singleCORECOMPEDetailsData} setSingleCORECOMPEDetailsData={setSingleCORECOMPEDetailsData} />
             <DeactivateCORECOMPEModal DeactivateCORECOMPEOpenModal={DeactivateCORECOMPEOpenModal} setDeactivateCORECOMPEOpenModal={setDeactivateCORECOMPEOpenModal} singleCORECOMPEDetailsData={singleCORECOMPEDetailsData} setSingleCORECOMPEDetailsData={setSingleCORECOMPEDetailsData} />
             <div className='flex overflow-auto gap-4 relative'>
                 <div className='flex gap-6 flex-col'>
@@ -122,7 +117,7 @@ function CORECOMPEModalUI(props: CORECOMPEModalUIInterface) {
                         {
                         !editCORECOMPEOpenModal &&
                             <>
-                            <Button variant='contained' onClick={submitChanges}>Submit Changes</Button>
+                            <Button variant='contained' onClick={ () => setEditSubmitCORECOMPEOpenModal(true)}>Submit Changes</Button>
                             <Button variant='contained' color={"warning"} onClick={() => setEditCORECOMPEOpenModal(true)}>Cancel</Button>
                             <Button variant='outlined' color={"error"} onClick={() => setDeactivateCORECOMPEOpenModal(true)}>Delete</Button>
                             </>                            

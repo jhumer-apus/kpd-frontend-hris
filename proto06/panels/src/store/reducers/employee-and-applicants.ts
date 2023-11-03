@@ -566,6 +566,7 @@ const employeeAndApplicantsSlice = createSlice({
       .addCase(_Actions.CORECOMPEEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "CORECOMPEEdit"))
       .addCase(_Actions.CORECOMPEEditActionProgress, (state, action) => setProgressState(state, action.payload, "CORECOMPEEdit"))
       .addCase(_Actions.CORECOMPEEditActionFailure, (state, action) => setFailureState(state, action.payload, "CORECOMPEEdit"))
+      .addCase(_Actions.CORECOMPEEditActionFailureCleanup, setRefreshedState("CORECOMPEEdit"))
       .addCase(_Actions.CORECOMPEDeleteAction, setLoadingState("CORECOMPEDelete"))
       .addCase(_Actions.CORECOMPEDeleteActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "CORECOMPEDelete"))
       .addCase(_Actions.CORECOMPEDeleteActionProgress, (state, action) => setProgressState(state, action.payload, "CORECOMPEDelete"))

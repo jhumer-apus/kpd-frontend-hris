@@ -51,7 +51,7 @@ export interface CORECOMPEGenericInterface {
 
 
 export interface CORECOMPEViewInterface extends CORECOMPEGenericInterface{
-	readonly id: number
+	readonly id?: number
     readonly date_added: string
 	readonly date_deleted: string | null
 }
