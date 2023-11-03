@@ -2,7 +2,7 @@ import { GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 
 
 export const AAASSETACCOUNTPageDescriptions = [
-  "On this table, you will find the list of HRIS Asset List/Type of your company and their details each.",
+  "On this table, you will find the list of HRIS Asset Account of your company and their details each.",
   // "See merged logs of all employees here, showing the total hours and details of each logs. Sortable and filterable on the table headers.",
   // "See the total hours of all employees per cutoff here. Sortable and filterable by the table headers.",
   // "Nondescript"
