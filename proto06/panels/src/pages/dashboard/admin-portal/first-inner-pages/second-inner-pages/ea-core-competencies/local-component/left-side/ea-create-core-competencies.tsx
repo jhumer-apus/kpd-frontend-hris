@@ -17,10 +17,8 @@ function EACORECOMPECreate(props: CreateCORECOMPEModalInterface) {
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail?.emp_no);
     const CORECOMPECreatestate = useSelector((state: RootState)=> state.employeeAndApplicants.CORECOMPECreate);
     const [createCORECOMPE, setCreateCORECOMPE] = useState<CORECOMPECreateInterface>({
-        date_added: (new Date()).toISOString(),
         checklist_title: '',
-        checklist_limits: '',
-        points: NaN,
+        checklist_limit: '',
     });
     const onClickSubmit = () => {
         dispatch(CORECOMPECreateAction(createCORECOMPE))
@@ -47,7 +45,7 @@ function EACORECOMPECreate(props: CreateCORECOMPEModalInterface) {
             window.alert(`Request Failed, ${CORECOMPECreatestate.error}`)
             setTimeout(()=> {
                 dispatch(CORECOMPECreateActionFailureCleanup());
-            }, 1000)
+            }, 800) // To do: apply to all useEffect cleanup? Or Make this a whole repo handler
         }
     }, [CORECOMPECreatestate.status])
 
@@ -61,7 +59,7 @@ function EACORECOMPECreate(props: CreateCORECOMPEModalInterface) {
                         <TextField
                             required 
                             sx={{width: '100%'}} 
-                            label='Core Competency:'
+                            label='Core Title:'
                             aria-required  
                             variant='outlined' 
                             type="text"
@@ -81,18 +79,18 @@ function EACORECOMPECreate(props: CreateCORECOMPEModalInterface) {
                         <TextField
                             required 
                             sx={{width: '100%'}} 
-                            label='Competency Limits:'
+                            label='Core Limits:'
                             aria-required  
                             variant='outlined' 
                             type="text"
-                            value={createCORECOMPE?.checklist_limits}
+                            value={createCORECOMPE?.checklist_limit}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value = event.target.value
                                 setCreateCORECOMPE((prevState)=> {
                                     return (
                                         {
                                             ...prevState,
-                                            checklist_limits: value
+                                            checklist_limit: value
                                         }
                                     )
                                 })
