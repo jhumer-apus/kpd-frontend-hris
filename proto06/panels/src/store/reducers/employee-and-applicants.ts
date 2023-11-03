@@ -204,6 +204,7 @@ interface OverallEmployeeAndApplicantsState {
   CORECOMPEViewSpecific: CORECOMPEViewState,
   CORECOMPECreate: CORECOMPECreateState,
   CORECOMPEEdit: CORECOMPEEditState,
+  CORECOMPEDelete: CommonEmployeeAndApplicantsDataStringState,
   //EVALQUESTIONS SECTION
   EVALQUESTIONSView: EVALQUESTIONSViewState,
   EVALQUESTIONSViewSpecific: EVALQUESTIONSViewState,
@@ -294,6 +295,12 @@ const initialState: OverallEmployeeAndApplicantsState = {
     error: '',
   },
   CORECOMPEEdit: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  CORECOMPEDelete: {
     status: '',
     progress: 0,
     data: null,
@@ -559,6 +566,10 @@ const employeeAndApplicantsSlice = createSlice({
       .addCase(_Actions.CORECOMPEEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "CORECOMPEEdit"))
       .addCase(_Actions.CORECOMPEEditActionProgress, (state, action) => setProgressState(state, action.payload, "CORECOMPEEdit"))
       .addCase(_Actions.CORECOMPEEditActionFailure, (state, action) => setFailureState(state, action.payload, "CORECOMPEEdit"))
+      .addCase(_Actions.CORECOMPEDeleteAction, setLoadingState("CORECOMPEDelete"))
+      .addCase(_Actions.CORECOMPEDeleteActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "CORECOMPEDelete"))
+      .addCase(_Actions.CORECOMPEDeleteActionProgress, (state, action) => setProgressState(state, action.payload, "CORECOMPEDelete"))
+      .addCase(_Actions.CORECOMPEDeleteActionFailure, (state, action) => setFailureState(state, action.payload, "CORECOMPEDelete"))
       //EVALQUESTIONS SECTION
       .addCase(_Actions.EVALQUESTIONSViewAction, setLoadingState("EVALQUESTIONSView"))
       .addCase(_Actions.EVALQUESTIONSViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "EVALQUESTIONSView"))

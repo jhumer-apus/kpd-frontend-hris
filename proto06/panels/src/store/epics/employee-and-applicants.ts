@@ -194,6 +194,22 @@ export const KPICOREEditEpic: Epic = (action$, state$) =>
 
   
 // CORECOMPE API SECTION // CORECOMPE API SECTION // CORECOMPE API SECTION // CORECOMPE API SECTION // CORECOMPE API SECTION
+const CORECOMPEDeleteApiCall = async (payload: {cc_id: number, curr_user: number}) => {
+    const response = await axios.put(`${APILink}core/${payload.cc_id}/`,
+    {added_by: payload.curr_user}, //payload
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.CORECOMPEDeleteActionProgress(progress));
+          }
+        }
+      }
+    );
+    return response.data;
+};
+
+
 const CORECOMPEEditApiCall = async (payload: _Interface.CORECOMPEEditInterface) => {
     const response = await axios.put(`${APILink}core/${payload.id}/`,
     payload,
@@ -337,6 +353,29 @@ export const CORECOMPEEditEpic: Epic = (action$, state$) =>
         )
         )
 );
+
+
+export const CORECOMPEDeleteEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.CORECOMPEDeleteAction.type),
+        switchMap((action: ReturnType<typeof _Action.CORECOMPEDeleteAction>) =>
+        from(
+            CORECOMPEDeleteApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.CORECOMPEDeleteActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.CORECOMPEDeleteActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.CORECOMPEDeleteActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
 
   
 // EVALQUESTIONS API SECTION // EVALQUESTIONS API SECTION // EVALQUESTIONS API SECTION // EVALQUESTIONS API SECTION // EVALQUESTIONS API SECTION
@@ -1224,7 +1263,7 @@ export const APPLICANTSEditEpic: Epic = (action$, state$) =>
 // JOBPOSTINGS API SECTION // JOBPOSTINGS API SECTION // JOBPOSTINGS API SECTION // JOBPOSTINGS API SECTION // JOBPOSTINGS API SECTION
 const JOBPOSTINGSDeleteApiCall = async (payload: {jp_id: number, curr_user: number}) => {
     const response = await axios.put(`${APILink}job_post/${payload.jp_id}/`,
-    {current_user: payload.curr_user}, //payload
+    {added_by: payload.curr_user}, //payload
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){

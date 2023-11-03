@@ -73,6 +73,13 @@ export const CORECOMPEEditActionProgress = createAction<number>("CORECOMPE_EDIT_
 export const CORECOMPEEditActionFailure = createAction<string>("CORECOMPE_EDIT_ACTION_FAILURE");
 export const CORECOMPEEditActionFailureCleanup = createAction("CORECOMPE_EDIT_ACTION_FAILURE_CLEANUP");
 
+export const CORECOMPEDeleteAction = createAction<{cc_id: number, curr_user: number}>("CORECOMPE_DELETE_ACTION");
+export const CORECOMPEDeleteActionSuccess = createAction("CORECOMPE_DELETE_ACTION_SUCCESS", (SuccessMessage: string) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const CORECOMPEDeleteActionProgress = createAction<number>("CORECOMPE_DELETE_ACTION_PROGRESS");
+export const CORECOMPEDeleteActionFailure = createAction<string>("CORECOMPE_DELETE_ACTION_FAILURE");
+export const CORECOMPEDeleteActionFailureCleanup = createAction("CORECOMPE_DELETE_ACTION_FAILURE_CLEANUP");
 
 
 // EVALQUESTIONS SECTION
