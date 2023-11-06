@@ -672,7 +672,7 @@ export const ONBOARDINGSTATUSEditEpic: Epic = (action$, state$) =>
 
 // ONBOARDINGREQUIREMENTS API SECTION // ONBOARDINGREQUIREMENTS API SECTION // ONBOARDINGREQUIREMENTS API SECTION // ONBOARDINGREQUIREMENTS API SECTION // ONBOARDINGREQUIREMENTS API SECTION
 const ONBOARDINGREQUIREMENTSEditApiCall = async (payload: _Interface.ONBOARDINGREQUIREMENTSEditInterface) => {
-    const response = await axios.put(`${APILink}onboarding_requirements/${payload.id}/`,
+    const response = await axios.put(`${APILink}onboard_req/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -687,7 +687,7 @@ const ONBOARDINGREQUIREMENTSEditApiCall = async (payload: _Interface.ONBOARDINGR
 };
   
 const ONBOARDINGREQUIREMENTSCreateApiCall = async (payload: _Interface.ONBOARDINGREQUIREMENTSCreateInterface) => {
-    const response = await axios.post(`${APILink}onboarding_requirements/`,
+    const response = await axios.post(`${APILink}onboard_req/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -702,7 +702,7 @@ const ONBOARDINGREQUIREMENTSCreateApiCall = async (payload: _Interface.ONBOARDIN
 };
 
 const ONBOARDINGREQUIREMENTSViewSpecificApiCall = async (payload: {onboarding_requirements_id: number }) => {
-    const response = await axios.get(`${APILink}onboarding_requirements/${payload.onboarding_requirements_id}/`,
+    const response = await axios.get(`${APILink}onboard_req/${payload.onboarding_requirements_id}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -717,7 +717,7 @@ const ONBOARDINGREQUIREMENTSViewSpecificApiCall = async (payload: {onboarding_re
 
 
 const ONBOARDINGREQUIREMENTSViewApiCall = async () => {
-    const response = await axios.get(`${APILink}onboarding_requirements/`,
+    const response = await axios.get(`${APILink}onboard_req/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
