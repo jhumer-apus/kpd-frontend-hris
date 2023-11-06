@@ -210,6 +210,7 @@ interface OverallEmployeeAndApplicantsState {
   EVALQUESTIONSViewSpecific: EVALQUESTIONSViewState,
   EVALQUESTIONSCreate: EVALQUESTIONSCreateState,
   EVALQUESTIONSEdit: EVALQUESTIONSEditState,
+  EVALQUESTIONSDelete: CommonEmployeeAndApplicantsDataStringState,
   //ONBOARDINGSTATUS SECTION
   ONBOARDINGSTATUSView: ONBOARDINGSTATUSViewState,
   ONBOARDINGSTATUSViewSpecific: ONBOARDINGSTATUSViewState,
@@ -326,6 +327,12 @@ const initialState: OverallEmployeeAndApplicantsState = {
     error: '',
   },
   EVALQUESTIONSEdit: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  EVALQUESTIONSDelete: {
     status: '',
     progress: 0,
     data: null,
@@ -590,6 +597,11 @@ const employeeAndApplicantsSlice = createSlice({
       .addCase(_Actions.EVALQUESTIONSEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "EVALQUESTIONSEdit"))
       .addCase(_Actions.EVALQUESTIONSEditActionProgress, (state, action) => setProgressState(state, action.payload, "EVALQUESTIONSEdit"))
       .addCase(_Actions.EVALQUESTIONSEditActionFailure, (state, action) => setFailureState(state, action.payload, "EVALQUESTIONSEdit"))
+      .addCase(_Actions.EVALQUESTIONSDeleteAction, setLoadingState("EVALQUESTIONSDelete"))
+      .addCase(_Actions.EVALQUESTIONSDeleteActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "EVALQUESTIONSDelete"))
+      .addCase(_Actions.EVALQUESTIONSDeleteActionProgress, (state, action) => setProgressState(state, action.payload, "EVALQUESTIONSDelete"))
+      .addCase(_Actions.EVALQUESTIONSDeleteActionFailure, (state, action) => setFailureState(state, action.payload, "EVALQUESTIONSDelete"))
+      .addCase(_Actions.EVALQUESTIONSDeleteActionFailureCleanup, setRefreshedState("EVALQUESTIONSDelete"))
       //ONBOARDINGSTATUS SECTION
       .addCase(_Actions.ONBOARDINGSTATUSViewAction, setLoadingState("ONBOARDINGSTATUSView"))
       .addCase(_Actions.ONBOARDINGSTATUSViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ONBOARDINGSTATUSView"))

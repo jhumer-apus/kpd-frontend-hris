@@ -113,6 +113,16 @@ export const EVALQUESTIONSEditActionProgress = createAction<number>("EVALQUESTIO
 export const EVALQUESTIONSEditActionFailure = createAction<string>("EVALQUESTIONS_EDIT_ACTION_FAILURE");
 export const EVALQUESTIONSEditActionFailureCleanup = createAction("EVALQUESTIONS_EDIT_ACTION_FAILURE_CLEANUP");
 
+export const EVALQUESTIONSDeleteAction = createAction<{eq_id: number, curr_user: number}>("EVALQUESTIONS_DELETE_ACTION");
+export const EVALQUESTIONSDeleteActionSuccess = createAction("EVALQUESTIONS_DELETE_ACTION_SUCCESS", (SuccessMessage: string) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const EVALQUESTIONSDeleteActionProgress = createAction<number>("EVALQUESTIONS_DELETE_ACTION_PROGRESS");
+export const EVALQUESTIONSDeleteActionFailure = createAction<string>("EVALQUESTIONS_DELETE_ACTION_FAILURE");
+export const EVALQUESTIONSDeleteActionFailureCleanup = createAction("EVALQUESTIONS_DELETE_ACTION_FAILURE_CLEANUP");
+
+
+
 
 // ONBOARDINGSTATUS SECTION
 export const ONBOARDINGSTATUSViewAction = createAction("ONBOARDINGSTATUS_VIEW_ACTION");
