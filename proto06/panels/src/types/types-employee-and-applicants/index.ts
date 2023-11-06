@@ -92,7 +92,14 @@ export interface ONBOARDINGSTATUSGenericInterface {
 	final_remarks: string
 	date_added: string
 	added_by?: number
-	requirements: Omit<ONBOARDINGREQUIREMENTSViewInterface[], "id" | "added_by" |"date_added" | "date_deleted"> | []
+	emp_onboard_reqs?: Array<Omit<ONBOARDINGREQUIREMENTSViewInterface, "date_deleted"> & {
+		emp_remarks: string | null
+		facilitator_remarks: string | null
+		date_commencement: string | null
+		status: "Pending" | "Completed"
+		emp_no: number
+		onboarding_requirement_code: number
+	}>
 }
 
 
@@ -112,11 +119,7 @@ export interface ONBOARDINGSTATUSEditInterface extends ONBOARDINGSTATUSGenericIn
 
 export interface ONBOARDINGREQUIREMENTSGenericInterface {
 	facilitator: number
-	onboarding_title: string,
-	commencement_date: string | null
-	emp_remarks: string | null
-	facilitator_remarks: string | null
-	status: "Pending" | "Completed"
+	onboard_title: string,
 	date_added: string
 	added_by?: number
 }
