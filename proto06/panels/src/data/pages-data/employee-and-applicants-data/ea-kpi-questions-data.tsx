@@ -20,7 +20,7 @@ export const EAEVALQUESTIONSPageColumns: GridColDef[] =
     //   return params.row.expiry ? date.toLocaleDateString() : 'No Expiry';
     // }
   },
-  { field: 'added_by', headerName: 'Added By:', width: 150 },
+  { field: 'added_by', headerName: 'Added By:', width: 100 },
   { field: 'date_added', 
     headerName: 'Date Added', 
     width: 130,
@@ -49,7 +49,7 @@ export const EAEVALQUESTIONSPageColumns: GridColDef[] =
     //   );
     // }  
   },
-  { field: 'question', headerName: 'Questions',  width: 200 },
+  { field: 'question', headerName: 'Questions',  width: 250 },
 ];
   
 export default {
