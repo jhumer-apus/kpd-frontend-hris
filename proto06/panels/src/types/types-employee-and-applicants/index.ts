@@ -64,15 +64,15 @@ export interface CORECOMPEEditInterface extends CORECOMPEGenericInterface, Pick<
 // ======================================
 
 export interface EVALQUESTIONSGenericInterface {
-	date_added: string
 	added_by?: number
 	question: string
 }
 
 
 export interface EVALQUESTIONSViewInterface extends EVALQUESTIONSGenericInterface{
-    readonly id: number,
+    readonly id: number
     readonly date_deleted: string | null
+	readonly date_added: string
 }
 
 export interface EVALQUESTIONSCreateInterface extends Omit<EVALQUESTIONSGenericInterface, "date_added">{}
