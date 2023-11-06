@@ -378,6 +378,22 @@ export const CORECOMPEDeleteEpic: Epic = (action$, state$) =>
 
   
 // EVALQUESTIONS API SECTION // EVALQUESTIONS API SECTION // EVALQUESTIONS API SECTION // EVALQUESTIONS API SECTION // EVALQUESTIONS API SECTION
+const EVALQUESTIONSDeleteApiCall = async (payload: {eq_id: number, curr_user: number}) => {
+    const response = await axios.delete(`${APILink}kpi/${payload.eq_id}/?added_by=${payload.curr_user}`, //payload
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.EVALQUESTIONSDeleteActionProgress(progress));
+          }
+        }
+      }
+    );
+    return response.data;
+};
+
+
+
 const EVALQUESTIONSEditApiCall = async (payload: _Interface.EVALQUESTIONSEditInterface) => {
     const response = await axios.put(`${APILink}kpi/${payload.id}/`,
     payload,
@@ -521,6 +537,29 @@ export const EVALQUESTIONSEditEpic: Epic = (action$, state$) =>
         )
         )
 );
+
+export const EVALQUESTIONSDeleteEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.EVALQUESTIONSDeleteAction.type),
+        switchMap((action: ReturnType<typeof _Action.EVALQUESTIONSDeleteAction>) =>
+        from(
+            EVALQUESTIONSDeleteApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.EVALQUESTIONSDeleteActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.EVALQUESTIONSDeleteActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.EVALQUESTIONSDeleteActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+
 
   
 
