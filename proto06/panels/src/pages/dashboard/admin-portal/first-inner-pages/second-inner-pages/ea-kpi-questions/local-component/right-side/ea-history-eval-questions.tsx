@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { Typography } from '@mui/material';
 import { EAEVALQUESTIONSPageDescriptions, EAEVALQUESTIONSPageColumns } from '@/data/pages-data/employee-and-applicants-data/ea-kpi-questions-data';
-import ViewEVALQUESTIONSSingleModal from './local-components/main-modals/aa-asset-list-single-modal';
+import ViewEVALQUESTIONSSingleModal from './local-components/main-modals/view-eval-questions-single-modal';
 import { EVALQUESTIONSViewInterface } from '@/types/types-employee-and-applicants';
 import { EVALQUESTIONSViewAction } from '@/store/actions/employee-and-applicants';
 
@@ -16,7 +16,6 @@ export default function EAEVALQUESTIONSPageHistory() {
     date_added: '',
     added_by: NaN,
     question: '',
-    answer: '',
   });
   const dispatch = useDispatch();
   const { EVALQUESTIONSView } = useSelector((state: RootState) => state.employeeAndApplicants);
@@ -34,7 +33,7 @@ export default function EAEVALQUESTIONSPageHistory() {
     <Fragment>
       <div className="my-2 flex flex-wrap justify-between items-start gap-6">
         <div>
-          {/* <ViewEVALQUESTIONSSingleModal setSingleEVALQUESTIONSDetailsData={setSingleEVALQUESTIONSDetailsData} singleEVALQUESTIONSDetailsData={singleEVALQUESTIONSDetailsData} singleEVALQUESTIONSOpenModal={singleEVALQUESTIONSOpenModal} setSingleEVALQUESTIONSOpenModal={setSingleEVALQUESTIONSOpenModal}/> */}
+          <ViewEVALQUESTIONSSingleModal setSingleEVALQUESTIONSDetailsData={setSingleEVALQUESTIONSDetailsData} singleEVALQUESTIONSDetailsData={singleEVALQUESTIONSDetailsData} singleEVALQUESTIONSOpenModal={singleEVALQUESTIONSOpenModal} setSingleEVALQUESTIONSOpenModal={setSingleEVALQUESTIONSOpenModal}/>
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
           <p>{EAEVALQUESTIONSPageDescriptions}</p>
         </Typography>
