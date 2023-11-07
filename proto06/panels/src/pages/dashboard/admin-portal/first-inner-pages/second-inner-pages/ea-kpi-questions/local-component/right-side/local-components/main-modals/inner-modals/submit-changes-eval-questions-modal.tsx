@@ -113,7 +113,7 @@ export default function EditSubmitEVALQUESTIONSModal(props: EditEVALQUESTIONSMod
           <div className='flex justify-center flex-col item-center h-full'>
             <div className='flex flex-col justify-between w-full h-2/4'>
               <div className='flex justify-center flex-col items-center gap-2 mb-4'>
-                <Typography className="text-center">Are you sure you want to Submit the edited changes of this Evaluation Question?</Typography>
+                <Typography className="text-center">Are you sure you want to submit the edited changes of this Evaluation Question?</Typography>
                 <Typography className='italic' variant='caption'>Please review the details carefully before submitting .</Typography>
                 <Typography className='italic' variant='caption'>Your ID will be recorded on audit trail for submitting the changes.</Typography>
               </div>

@@ -89,7 +89,7 @@ export default function DeactivateLEAVETYPEModal(props: DeactivateLEAVETYPEModal
           <div className='flex justify-center flex-col item-center h-full'>
             <div className='flex flex-col justify-between w-full h-2/4'>
               <div className='flex justify-center flex-col items-center gap-2 mb-4'>
-                <Typography>Are you sure you want to Deactivate this LEAVETYPE?</Typography>
+                <Typography>Are you sure you want to deactivate this LEAVETYPE?</Typography>
                 <Typography className='italic' variant='caption'>Users can no longer see this in the tables afterwards.</Typography>
                 <Typography className='italic' variant='caption'>Assigned ID will be skipped and recorded on audit trail.</Typography>
               </div>
