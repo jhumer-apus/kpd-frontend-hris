@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { Typography } from '@mui/material';
 import { EAONBOARDINGREQUIREMENTSPageDescriptions, EAONBOARDINGREQUIREMENTSPageColumns } from '@/data/pages-data/employee-and-applicants-data/ea-onboarding-requirements-data';
-import ViewONBOARDINGREQUIREMENTSSingleModal from './local-components/main-modals/aa-asset-list-single-modal';
+import ViewONBOARDINGREQUIREMENTSSingleModal from './local-components/main-modals/ea-onboarding-req-single-modal';
 import { ONBOARDINGREQUIREMENTSViewInterface } from '@/types/types-employee-and-applicants';
 import { ONBOARDINGREQUIREMENTSViewAction } from '@/store/actions/employee-and-applicants';
 
@@ -13,13 +13,9 @@ export default function EAONBOARDINGREQUIREMENTSPageHistory() {
   const [singleONBOARDINGREQUIREMENTSDetailsData, setSingleONBOARDINGREQUIREMENTSDetailsData] = useState<ONBOARDINGREQUIREMENTSViewInterface>({
     id: NaN,
     date_deleted: '',
+    date_added: '',
     facilitator: NaN,
-    onboarding_title: '',
-    commencement_date: '',
-    emp_remarks: '',
-    facilitator_remarks: '',
-    status: 'Pending',
-    date_added: ''
+    onboard_title: '',
   });
   const dispatch = useDispatch();
   const { ONBOARDINGREQUIREMENTSView } = useSelector((state: RootState) => state.employeeAndApplicants);
@@ -37,7 +33,7 @@ export default function EAONBOARDINGREQUIREMENTSPageHistory() {
     <Fragment>
       <div className="my-2 flex flex-wrap justify-between items-start gap-6">
         <div>
-          {/* <ViewONBOARDINGREQUIREMENTSSingleModal setSingleONBOARDINGREQUIREMENTSDetailsData={setSingleONBOARDINGREQUIREMENTSDetailsData} singleONBOARDINGREQUIREMENTSDetailsData={singleONBOARDINGREQUIREMENTSDetailsData} singleONBOARDINGREQUIREMENTSOpenModal={singleONBOARDINGREQUIREMENTSOpenModal} setSingleONBOARDINGREQUIREMENTSOpenModal={setSingleONBOARDINGREQUIREMENTSOpenModal}/> */}
+          <ViewONBOARDINGREQUIREMENTSSingleModal setSingleONBOARDINGREQUIREMENTSDetailsData={setSingleONBOARDINGREQUIREMENTSDetailsData} singleONBOARDINGREQUIREMENTSDetailsData={singleONBOARDINGREQUIREMENTSDetailsData} singleONBOARDINGREQUIREMENTSOpenModal={singleONBOARDINGREQUIREMENTSOpenModal} setSingleONBOARDINGREQUIREMENTSOpenModal={setSingleONBOARDINGREQUIREMENTSOpenModal}/>
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
           <p>{EAONBOARDINGREQUIREMENTSPageDescriptions}</p>
         </Typography>

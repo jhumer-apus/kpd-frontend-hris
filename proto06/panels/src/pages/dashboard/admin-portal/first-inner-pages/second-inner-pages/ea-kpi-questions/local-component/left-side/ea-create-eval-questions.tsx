@@ -17,9 +17,7 @@ function EAEVALQUESTIONSCreate(props: CreateEVALQUESTIONSModalInterface) {
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail?.emp_no);
     const EVALQUESTIONSCreatestate = useSelector((state: RootState)=> state.employeeAndApplicants.EVALQUESTIONSCreate);
     const [createEVALQUESTIONS, setCreateEVALQUESTIONS] = useState<EVALQUESTIONSCreateInterface>({
-        date_added: (new Date()).toISOString(),
-        question: '',
-        answer: '',
+        question: ''
     });
     const onClickSubmit = () => {
         dispatch(EVALQUESTIONSCreateAction(createEVALQUESTIONS))

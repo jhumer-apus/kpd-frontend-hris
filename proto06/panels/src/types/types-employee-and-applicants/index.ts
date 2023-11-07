@@ -120,7 +120,6 @@ export interface ONBOARDINGSTATUSEditInterface extends ONBOARDINGSTATUSGenericIn
 export interface ONBOARDINGREQUIREMENTSGenericInterface {
 	facilitator: number
 	onboard_title: string,
-	date_added: string
 	added_by?: number
 }
 
@@ -128,6 +127,7 @@ export interface ONBOARDINGREQUIREMENTSGenericInterface {
 export interface ONBOARDINGREQUIREMENTSViewInterface extends ONBOARDINGREQUIREMENTSGenericInterface{
     readonly id: number,
     readonly date_deleted: string
+	readonly date_added: string
 }
 
 export interface ONBOARDINGREQUIREMENTSCreateInterface extends ONBOARDINGREQUIREMENTSGenericInterface{}
