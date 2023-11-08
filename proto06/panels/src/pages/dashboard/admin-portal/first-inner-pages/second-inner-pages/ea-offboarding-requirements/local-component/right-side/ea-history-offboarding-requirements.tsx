@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { Typography } from '@mui/material';
 import { EAOFFBOARDINGREQUIREMENTSPageDescriptions, EAOFFBOARDINGREQUIREMENTSPageColumns } from '@/data/pages-data/employee-and-applicants-data/ea-offboarding-requirements-data';
-import ViewOFFBOARDINGREQUIREMENTSSingleModal from './local-components/main-modals/aa-asset-list-single-modal';
+import ViewOFFBOARDINGREQUIREMENTSSingleModal from './local-components/main-modals/ea-offboarding-req-single-modal';
 import { OFFBOARDINGREQUIREMENTSViewInterface } from '@/types/types-employee-and-applicants';
 import { OFFBOARDINGREQUIREMENTSViewAction } from '@/store/actions/employee-and-applicants';
 
@@ -13,13 +13,9 @@ export default function EAOFFBOARDINGREQUIREMENTSPageHistory() {
   const [singleOFFBOARDINGREQUIREMENTSDetailsData, setSingleOFFBOARDINGREQUIREMENTSDetailsData] = useState<OFFBOARDINGREQUIREMENTSViewInterface>({
     id: NaN,
     date_deleted: '',
+    date_added: '',
     facilitator: NaN,
-    offboarding_title: '',
-    accomplished_date: '',
-    emp_remarks: '',
-    facilitator_remarks: '',
-    status: 'Pending',
-    date_added: ''
+    offboard_title: '',
   });
   const dispatch = useDispatch();
   const { OFFBOARDINGREQUIREMENTSView } = useSelector((state: RootState) => state.employeeAndApplicants);
@@ -37,7 +33,7 @@ export default function EAOFFBOARDINGREQUIREMENTSPageHistory() {
     <Fragment>
       <div className="my-2 flex flex-wrap justify-between items-start gap-6">
         <div>
-          {/* <ViewOFFBOARDINGREQUIREMENTSSingleModal setSingleOFFBOARDINGREQUIREMENTSDetailsData={setSingleOFFBOARDINGREQUIREMENTSDetailsData} singleOFFBOARDINGREQUIREMENTSDetailsData={singleOFFBOARDINGREQUIREMENTSDetailsData} singleOFFBOARDINGREQUIREMENTSOpenModal={singleOFFBOARDINGREQUIREMENTSOpenModal} setSingleOFFBOARDINGREQUIREMENTSOpenModal={setSingleOFFBOARDINGREQUIREMENTSOpenModal}/> */}
+          <ViewOFFBOARDINGREQUIREMENTSSingleModal setSingleOFFBOARDINGREQUIREMENTSDetailsData={setSingleOFFBOARDINGREQUIREMENTSDetailsData} singleOFFBOARDINGREQUIREMENTSDetailsData={singleOFFBOARDINGREQUIREMENTSDetailsData} singleOFFBOARDINGREQUIREMENTSOpenModal={singleOFFBOARDINGREQUIREMENTSOpenModal} setSingleOFFBOARDINGREQUIREMENTSOpenModal={setSingleOFFBOARDINGREQUIREMENTSOpenModal}/>
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
           <p>{EAOFFBOARDINGREQUIREMENTSPageDescriptions}</p>
         </Typography>

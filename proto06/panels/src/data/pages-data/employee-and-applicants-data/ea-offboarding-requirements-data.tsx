@@ -49,8 +49,8 @@ export const EAOFFBOARDINGREQUIREMENTSPageColumns: GridColDef[] =
     //   );
     // }  
   },
-  { field: 'facilitator', headerName: 'Facilitator:', width: 100 },
-  { field: 'offboarding_title', headerName: 'Offboarding Title',  width: 270 },
+  { field: 'facilitator', headerName: 'Facilitator Emp #:', width: 130 },
+  { field: 'offboard_title', headerName: 'Offboarding Title',  width: 240 },
 ];
   
 export default {

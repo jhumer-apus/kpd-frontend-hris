@@ -179,13 +179,6 @@ export interface OFFBOARDINGREQUIREMENTSGenericInterface {
 	offboard_title: string
 	facilitator: number
 	added_by?: number
-
-	accomplished_date: string | null
-	emp_remarks: string | null
-	facilitator_remarks: string | null
-	status: "Pending" | "Completed"
-
-
 }
 
 

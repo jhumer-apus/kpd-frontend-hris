@@ -2,29 +2,29 @@ import { Dispatch, SetStateAction, Fragment, useState } from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
-import { ASSETLISTViewInterface } from '@/types/types-payroll-eoy';
-import ASSETLISTModalComponent from './inner-modals/asset-list-modal-component';
+import { OFFBOARDINGREQUIREMENTSViewInterface } from '@/types/types-employee-and-applicants';
+import OFFBOARDINGREQUIREMENTSModalComponent from './inner-modals/offboarding-req-modal-component';
 
 
-interface SingleASSETLISTInterface {
-    singleASSETLISTOpenModal: boolean; 
-    setSingleASSETLISTOpenModal: Dispatch<SetStateAction<boolean>>;
-    singleASSETLISTDetailsData: ASSETLISTViewInterface;
-    setSingleASSETLISTDetailsData: Dispatch<SetStateAction<ASSETLISTViewInterface>>;
+interface SingleOFFBOARDINGREQUIREMENTSInterface {
+    singleOFFBOARDINGREQUIREMENTSOpenModal: boolean; 
+    setSingleOFFBOARDINGREQUIREMENTSOpenModal: Dispatch<SetStateAction<boolean>>;
+    singleOFFBOARDINGREQUIREMENTSDetailsData: OFFBOARDINGREQUIREMENTSViewInterface;
+    setSingleOFFBOARDINGREQUIREMENTSDetailsData: Dispatch<SetStateAction<OFFBOARDINGREQUIREMENTSViewInterface>>;
 }
 
-export default function ViewASSETLISTSingleModal(props: SingleASSETLISTInterface) {
-    const {singleASSETLISTOpenModal, setSingleASSETLISTOpenModal, setSingleASSETLISTDetailsData, singleASSETLISTDetailsData} = props;
+export default function ViewOFFBOARDINGREQUIREMENTSSingleModal(props: SingleOFFBOARDINGREQUIREMENTSInterface) {
+    const {singleOFFBOARDINGREQUIREMENTSOpenModal, setSingleOFFBOARDINGREQUIREMENTSOpenModal, setSingleOFFBOARDINGREQUIREMENTSDetailsData, singleOFFBOARDINGREQUIREMENTSDetailsData} = props;
   const [scroll, setScroll] = useState<boolean>(true);
   return (
     <Fragment>
-      <Transition in={singleASSETLISTOpenModal} timeout={400}>
+      <Transition in={singleOFFBOARDINGREQUIREMENTSOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
         keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setSingleASSETLISTOpenModal(false);
+          setSingleOFFBOARDINGREQUIREMENTSOpenModal(false);
         }}
         slotProps={{
             backdrop: {
@@ -47,7 +47,7 @@ export default function ViewASSETLISTSingleModal(props: SingleASSETLISTInterface
             aria-labelledby="dialog-vertical-scroll-title" 
             layout={'center'}
             sx={{
-              ...ASSETLISTModalArea,
+              ...OFFBOARDINGREQUIREMENTSModalArea,
                 opacity: 0,
                 transition: `opacity 300ms`,
                 ...{
@@ -57,7 +57,7 @@ export default function ViewASSETLISTSingleModal(props: SingleASSETLISTInterface
                 overflow: 'auto',
             }}
         >
-          <ASSETLISTModalComponent setSingleASSETLISTDetailsData={setSingleASSETLISTDetailsData} singleASSETLISTDetailsData={singleASSETLISTDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <OFFBOARDINGREQUIREMENTSModalComponent setSingleOFFBOARDINGREQUIREMENTSDetailsData={setSingleOFFBOARDINGREQUIREMENTSDetailsData} singleOFFBOARDINGREQUIREMENTSDetailsData={singleOFFBOARDINGREQUIREMENTSDetailsData} scroll={scroll} setScroll={setScroll}/>
         </ModalDialog>
       </Modal>
         )}
@@ -68,7 +68,7 @@ export default function ViewASSETLISTSingleModal(props: SingleASSETLISTInterface
 
 
 // Styles
-const ASSETLISTModalArea = {
+const OFFBOARDINGREQUIREMENTSModalArea = {
   height: '120.5mm',
   width: '210mm',
   margin: '0 auto',
