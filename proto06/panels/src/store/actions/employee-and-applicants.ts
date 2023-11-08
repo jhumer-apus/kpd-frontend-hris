@@ -186,6 +186,13 @@ export const ONBOARDINGREQUIREMENTSEditActionProgress = createAction<number>("ON
 export const ONBOARDINGREQUIREMENTSEditActionFailure = createAction<string>("ONBOARDINGREQUIREMENTS_EDIT_ACTION_FAILURE");
 export const ONBOARDINGREQUIREMENTSEditActionFailureCleanup = createAction("ONBOARDINGREQUIREMENTS_EDIT_ACTION_FAILURE_CLEANUP");
 
+export const ONBOARDINGREQUIREMENTSDeleteAction = createAction<{or_id: number, curr_user: number}>("ONBOARDINGREQUIREMENTS_DELETE_ACTION");
+export const ONBOARDINGREQUIREMENTSDeleteActionSuccess = createAction("ONBOARDINGREQUIREMENTS_DELETE_ACTION_SUCCESS", (SuccessMessage: string) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const ONBOARDINGREQUIREMENTSDeleteActionProgress = createAction<number>("ONBOARDINGREQUIREMENTS_DELETE_ACTION_PROGRESS");
+export const ONBOARDINGREQUIREMENTSDeleteActionFailure = createAction<string>("ONBOARDINGREQUIREMENTS_DELETE_ACTION_FAILURE");
+export const ONBOARDINGREQUIREMENTSDeleteActionFailureCleanup = createAction("ONBOARDINGREQUIREMENTS_DELETE_ACTION_FAILURE_CLEANUP");
 
 
 // OFFBOARDINGSTATUS SECTION
@@ -251,6 +258,13 @@ export const OFFBOARDINGREQUIREMENTSEditActionProgress = createAction<number>("O
 export const OFFBOARDINGREQUIREMENTSEditActionFailure = createAction<string>("OFFBOARDINGREQUIREMENTS_EDIT_ACTION_FAILURE");
 export const OFFBOARDINGREQUIREMENTSEditActionFailureCleanup = createAction("OFFBOARDINGREQUIREMENTS_EDIT_ACTION_FAILURE_CLEANUP");
 
+export const OFFBOARDINGREQUIREMENTSDeleteAction = createAction<{or_id: number, curr_user: number}>("OFFBOARDINGREQUIREMENTS_DELETE_ACTION");
+export const OFFBOARDINGREQUIREMENTSDeleteActionSuccess = createAction("OFFBOARDINGREQUIREMENTS_DELETE_ACTION_SUCCESS", (SuccessMessage: string) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const OFFBOARDINGREQUIREMENTSDeleteActionProgress = createAction<number>("OFFBOARDINGREQUIREMENTS_DELETE_ACTION_PROGRESS");
+export const OFFBOARDINGREQUIREMENTSDeleteActionFailure = createAction<string>("OFFBOARDINGREQUIREMENTS_DELETE_ACTION_FAILURE");
+export const OFFBOARDINGREQUIREMENTSDeleteActionFailureCleanup = createAction("OFFBOARDINGREQUIREMENTS_DELETE_ACTION_FAILURE_CLEANUP");
 
 
 

@@ -221,6 +221,7 @@ interface OverallEmployeeAndApplicantsState {
   ONBOARDINGREQUIREMENTSViewSpecific: ONBOARDINGREQUIREMENTSViewState,
   ONBOARDINGREQUIREMENTSCreate: ONBOARDINGREQUIREMENTSCreateState,
   ONBOARDINGREQUIREMENTSEdit: ONBOARDINGREQUIREMENTSEditState,
+  ONBOARDINGREQUIREMENTSDelete: CommonEmployeeAndApplicantsDataStringState,
   //OFFBOARDINGSTATUS SECTION
   OFFBOARDINGSTATUSView: OFFBOARDINGSTATUSViewState,
   OFFBOARDINGSTATUSViewSpecific: OFFBOARDINGSTATUSViewState,
@@ -231,6 +232,7 @@ interface OverallEmployeeAndApplicantsState {
   OFFBOARDINGREQUIREMENTSViewSpecific: OFFBOARDINGREQUIREMENTSViewState,
   OFFBOARDINGREQUIREMENTSCreate: OFFBOARDINGREQUIREMENTSCreateState,
   OFFBOARDINGREQUIREMENTSEdit: OFFBOARDINGREQUIREMENTSEditState,
+  OFFBOARDINGREQUIREMENTSDelete: CommonEmployeeAndApplicantsDataStringState,
   //APPLICANTS SECTION
   APPLICANTSView: APPLICANTSViewState,
   APPLICANTSViewSpecific: APPLICANTSViewState,
@@ -388,6 +390,12 @@ const initialState: OverallEmployeeAndApplicantsState = {
     data: null,
     error: '',
   },
+  ONBOARDINGREQUIREMENTSDelete: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
   //OFFBOARDINGSTATUS SECTION
   OFFBOARDINGSTATUSView: {
     status: '',
@@ -433,6 +441,12 @@ const initialState: OverallEmployeeAndApplicantsState = {
     error: '',
   },
   OFFBOARDINGREQUIREMENTSEdit: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  OFFBOARDINGREQUIREMENTSDelete: {
     status: '',
     progress: 0,
     data: null,
@@ -638,6 +652,11 @@ const employeeAndApplicantsSlice = createSlice({
       .addCase(_Actions.ONBOARDINGREQUIREMENTSEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ONBOARDINGREQUIREMENTSEdit"))
       .addCase(_Actions.ONBOARDINGREQUIREMENTSEditActionProgress, (state, action) => setProgressState(state, action.payload, "ONBOARDINGREQUIREMENTSEdit"))
       .addCase(_Actions.ONBOARDINGREQUIREMENTSEditActionFailure, (state, action) => setFailureState(state, action.payload, "ONBOARDINGREQUIREMENTSEdit"))
+      .addCase(_Actions.ONBOARDINGREQUIREMENTSDeleteAction, setLoadingState("ONBOARDINGREQUIREMENTSDelete"))
+      .addCase(_Actions.ONBOARDINGREQUIREMENTSDeleteActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ONBOARDINGREQUIREMENTSDelete"))
+      .addCase(_Actions.ONBOARDINGREQUIREMENTSDeleteActionProgress, (state, action) => setProgressState(state, action.payload, "ONBOARDINGREQUIREMENTSDelete"))
+      .addCase(_Actions.ONBOARDINGREQUIREMENTSDeleteActionFailure, (state, action) => setFailureState(state, action.payload, "ONBOARDINGREQUIREMENTSDelete"))
+      .addCase(_Actions.ONBOARDINGREQUIREMENTSDeleteActionFailureCleanup, setRefreshedState("ONBOARDINGREQUIREMENTSDelete"))
       //OFFBOARDINGSTATUS SECTION
       .addCase(_Actions.OFFBOARDINGSTATUSViewAction, setLoadingState("OFFBOARDINGSTATUSView"))
       .addCase(_Actions.OFFBOARDINGSTATUSViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OFFBOARDINGSTATUSView"))
@@ -674,6 +693,11 @@ const employeeAndApplicantsSlice = createSlice({
       .addCase(_Actions.OFFBOARDINGREQUIREMENTSEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OFFBOARDINGREQUIREMENTSEdit"))
       .addCase(_Actions.OFFBOARDINGREQUIREMENTSEditActionProgress, (state, action) => setProgressState(state, action.payload, "OFFBOARDINGREQUIREMENTSEdit"))
       .addCase(_Actions.OFFBOARDINGREQUIREMENTSEditActionFailure, (state, action) => setFailureState(state, action.payload, "OFFBOARDINGREQUIREMENTSEdit"))
+      .addCase(_Actions.OFFBOARDINGREQUIREMENTSDeleteAction, setLoadingState("OFFBOARDINGREQUIREMENTSDelete"))
+      .addCase(_Actions.OFFBOARDINGREQUIREMENTSDeleteActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OFFBOARDINGREQUIREMENTSDelete"))
+      .addCase(_Actions.OFFBOARDINGREQUIREMENTSDeleteActionProgress, (state, action) => setProgressState(state, action.payload, "OFFBOARDINGREQUIREMENTSDelete"))
+      .addCase(_Actions.OFFBOARDINGREQUIREMENTSDeleteActionFailure, (state, action) => setFailureState(state, action.payload, "OFFBOARDINGREQUIREMENTSDelete"))
+      .addCase(_Actions.OFFBOARDINGREQUIREMENTSDeleteActionFailureCleanup, setRefreshedState("OFFBOARDINGREQUIREMENTSDelete"))
       //APPLICANTS SECTION
       .addCase(_Actions.APPLICANTSViewAction, setLoadingState("APPLICANTSView"))
       .addCase(_Actions.APPLICANTSViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "APPLICANTSView"))

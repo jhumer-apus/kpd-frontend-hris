@@ -710,6 +710,20 @@ export const ONBOARDINGSTATUSEditEpic: Epic = (action$, state$) =>
 
 
 // ONBOARDINGREQUIREMENTS API SECTION // ONBOARDINGREQUIREMENTS API SECTION // ONBOARDINGREQUIREMENTS API SECTION // ONBOARDINGREQUIREMENTS API SECTION // ONBOARDINGREQUIREMENTS API SECTION
+const ONBOARDINGREQUIREMENTSDeleteApiCall = async (payload: {or_id: number, curr_user: number}) => {
+    const response = await axios.delete(`${APILink}onboard_req/${payload.or_id}/?added_by=${payload.curr_user}`, //payload
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.ONBOARDINGREQUIREMENTSDeleteActionProgress(progress));
+          }
+        }
+      }
+    );
+    return response.data;
+};
+
 const ONBOARDINGREQUIREMENTSEditApiCall = async (payload: _Interface.ONBOARDINGREQUIREMENTSEditInterface) => {
     const response = await axios.put(`${APILink}onboard_req/${payload.id}/`,
     payload,
@@ -853,6 +867,29 @@ export const ONBOARDINGREQUIREMENTSEditEpic: Epic = (action$, state$) =>
         )
         )
 );
+
+
+export const ONBOARDINGREQUIREMENTSDeleteEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.ONBOARDINGREQUIREMENTSDeleteAction.type),
+        switchMap((action: ReturnType<typeof _Action.ONBOARDINGREQUIREMENTSDeleteAction>) =>
+            from(
+                ONBOARDINGREQUIREMENTSDeleteApiCall(action?.payload)
+            ).pipe(
+                map((data) => {
+                return _Action.ONBOARDINGREQUIREMENTSDeleteActionSuccess(data);
+                }),
+                catchError((error) => {
+                if (error.response && error.response.data && error.response.data['Error Message']) {
+                    return of(_Action.ONBOARDINGREQUIREMENTSDeleteActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+                } else {
+                    return of(_Action.ONBOARDINGREQUIREMENTSDeleteActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+                }
+                })
+            )
+        )
+); 
+
 
 
 
@@ -1004,6 +1041,21 @@ export const OFFBOARDINGSTATUSEditEpic: Epic = (action$, state$) =>
 
 
 // OFFBOARDINGREQUIREMENTS API SECTION // OFFBOARDINGREQUIREMENTS API SECTION // OFFBOARDINGREQUIREMENTS API SECTION // OFFBOARDINGREQUIREMENTS API SECTION // OFFBOARDINGREQUIREMENTS API SECTION
+const OFFBOARDINGREQUIREMENTSDeleteApiCall = async (payload: {or_id: number, curr_user: number}) => {
+    const response = await axios.delete(`${APILink}onboard_req/${payload.or_id}/?added_by=${payload.curr_user}`, //payload
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.OFFBOARDINGREQUIREMENTSDeleteActionProgress(progress));
+          }
+        }
+      }
+    );
+    return response.data;
+};
+
+
 const OFFBOARDINGREQUIREMENTSEditApiCall = async (payload: _Interface.OFFBOARDINGREQUIREMENTSEditInterface) => {
     const response = await axios.put(`${APILink}offboard_req/${payload.id}/`,
     payload,
@@ -1148,6 +1200,26 @@ export const OFFBOARDINGREQUIREMENTSEditEpic: Epic = (action$, state$) =>
         )
 );
 
+export const OFFBOARDINGREQUIREMENTSDeleteEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.OFFBOARDINGREQUIREMENTSDeleteAction.type),
+        switchMap((action: ReturnType<typeof _Action.OFFBOARDINGREQUIREMENTSDeleteAction>) =>
+            from(
+                OFFBOARDINGREQUIREMENTSDeleteApiCall(action?.payload)
+            ).pipe(
+                map((data) => {
+                return _Action.OFFBOARDINGREQUIREMENTSDeleteActionSuccess(data);
+                }),
+                catchError((error) => {
+                if (error.response && error.response.data && error.response.data['Error Message']) {
+                    return of(_Action.OFFBOARDINGREQUIREMENTSDeleteActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+                } else {
+                    return of(_Action.OFFBOARDINGREQUIREMENTSDeleteActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+                }
+                })
+            )
+        )
+);
 
 
 // APPLICANTS API SECTION // APPLICANTS API SECTION // APPLICANTS API SECTION // APPLICANTS API SECTION // APPLICANTS API SECTION
