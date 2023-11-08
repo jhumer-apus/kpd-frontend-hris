@@ -86,25 +86,28 @@ export interface EVALQUESTIONSEditInterface extends EVALQUESTIONSGenericInterfac
 
 
 export interface ONBOARDINGSTATUSGenericInterface {
-	emp_no: number
-	start_date: string
+	date_start: string
 	status: "Pending" | "Completed"
-	final_remarks: string
-	date_added: string
-	added_by?: number
-	emp_onboard_reqs?: Array<Omit<ONBOARDINGREQUIREMENTSViewInterface, "date_deleted"> & {
+	final_remarks: string | null
+
+	emp_no: number
+	emp_onboard_reqs?: Array<Omit<ONBOARDINGREQUIREMENTSViewInterface, "date_deleted" | "facilitator"> & {
 		emp_remarks: string | null
 		facilitator_remarks: string | null
 		date_commencement: string | null
 		status: "Pending" | "Completed"
 		emp_no: number
 		onboarding_requirement_code: number
+		onboarding_facilitator: number
 	}>
+	added_by?: number
+	onboarding_codes: number[]
 }
 
 
 export interface ONBOARDINGSTATUSViewInterface extends ONBOARDINGSTATUSGenericInterface{
-    readonly id: string | number,
+    readonly id: string | number
+	readonly date_added: string
 }
 
 export interface ONBOARDINGSTATUSCreateInterface extends ONBOARDINGSTATUSGenericInterface{
@@ -140,18 +143,27 @@ export interface ONBOARDINGREQUIREMENTSEditInterface extends ONBOARDINGREQUIREME
 
 
 export interface OFFBOARDINGSTATUSGenericInterface {
-	emp_no: number
-	start_date: string
+	date_resigned: string | null
 	status: "Pending" | "Completed"
-	final_remarks: string
-	date_added: string
+	final_remarks: string | null
+	emp_no: number
+	emp_offboard_reqs?: Array<Omit<OFFBOARDINGREQUIREMENTSViewInterface, "date_deleted" | "facilitator"> & {
+		offboarding_facilitator: number
+		date_accomplished: string | null
+		emp_remarks: string | null
+		facilitator_remarks: string | null
+		status: "Pending" | "Completed"
+		emp_no: number
+		offboarding_requirement_code: number
+	}>
 	added_by?: number
-	requirements: Omit<OFFBOARDINGREQUIREMENTSViewInterface[], "id" | "added_by" |"date_added" | "date_deleted"> | []
+	offboarding_codes: number[]
 }
 
 
 export interface OFFBOARDINGSTATUSViewInterface extends OFFBOARDINGSTATUSGenericInterface{
-    readonly id: number | string,
+    readonly id: number | string
+	readonly date_added: string
 }
 
 export interface OFFBOARDINGSTATUSCreateInterface extends OFFBOARDINGSTATUSGenericInterface{
@@ -165,19 +177,22 @@ export interface OFFBOARDINGSTATUSEditInterface extends OFFBOARDINGSTATUSGeneric
 
 
 export interface OFFBOARDINGREQUIREMENTSGenericInterface {
+	offboard_title: string
 	facilitator: number
-	offboarding_title: string,
+	added_by?: number
+
 	accomplished_date: string | null
 	emp_remarks: string | null
 	facilitator_remarks: string | null
 	status: "Pending" | "Completed"
-	date_added: string
-	added_by?: number
+
+
 }
 
 
 export interface OFFBOARDINGREQUIREMENTSViewInterface extends OFFBOARDINGREQUIREMENTSGenericInterface{
-    readonly id: number,
+    readonly id: number
+	readonly date_added: string
     readonly date_deleted: string
 }
 
