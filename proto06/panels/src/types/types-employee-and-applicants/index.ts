@@ -89,7 +89,6 @@ export interface ONBOARDINGSTATUSGenericInterface {
 	date_start: string
 	status: "Pending" | "Completed"
 	final_remarks: string | null
-
 	emp_no: number
 	emp_onboard_reqs?: Array<Omit<ONBOARDINGREQUIREMENTSViewInterface, "date_deleted" | "facilitator"> & {
 		emp_remarks: string | null
