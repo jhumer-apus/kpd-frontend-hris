@@ -2,8 +2,6 @@ import { useState, Fragment, Dispatch, SetStateAction } from 'react';
 import { ONBOARDINGREQUIREMENTSViewInterface } from '@/types/types-employee-and-applicants';
 import { Button } from '@mui/material';
 import {TextField} from '@mui/material';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
 import EditSubmitONBOARDINGREQUIREMENTSModal from '../main-modals/inner-modals/submit-changes-onboarding-req-modal';
 import DeactivateONBOARDINGREQUIREMENTSModal from '../main-modals/inner-modals/delete-onboarding-req-modal';
@@ -19,7 +17,6 @@ function ONBOARDINGREQUIREMENTSModalUI(props: ONBOARDINGREQUIREMENTSModalUIInter
 
     const { setSingleONBOARDINGREQUIREMENTSDetailsData, singleONBOARDINGREQUIREMENTSDetailsData } = props;
     const ThisProps = props.singleONBOARDINGREQUIREMENTSDetailsData;
-    const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
 
     const [ submitModalOpen, setSubmitModalOpen ] = useState(false);
     const [ deleteModalOpen, setDeleteModalOpen ] = useState(false);
