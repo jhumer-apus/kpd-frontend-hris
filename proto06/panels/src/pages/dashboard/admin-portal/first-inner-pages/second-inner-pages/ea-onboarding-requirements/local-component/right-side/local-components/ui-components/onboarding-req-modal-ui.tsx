@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
 import EditSubmitONBOARDINGREQUIREMENTSModal from '../main-modals/inner-modals/submit-changes-onboarding-req-modal';
+import DeactivateONBOARDINGREQUIREMENTSModal from '../main-modals/inner-modals/delete-onboarding-req-modal';
 
 interface ONBOARDINGREQUIREMENTSModalUIInterface {
     singleONBOARDINGREQUIREMENTSDetailsData: ONBOARDINGREQUIREMENTSViewInterface;
@@ -33,6 +34,12 @@ function ONBOARDINGREQUIREMENTSModalUI(props: ONBOARDINGREQUIREMENTSModalUIInter
                         setInitialState={setSingleONBOARDINGREQUIREMENTSDetailsData}
                         openModal={submitModalOpen}
                         setOpenModal={setSubmitModalOpen}
+                    />
+                    <DeactivateONBOARDINGREQUIREMENTSModal
+                        initialState={singleONBOARDINGREQUIREMENTSDetailsData} 
+                        setInitialState={setSingleONBOARDINGREQUIREMENTSDetailsData}
+                        openModal={deleteModalOpen}
+                        setOpenModal={setDeleteModalOpen}
                     />
                     <TextField 
                         sx={{width: '100%', minWidth: '160px'}} 
@@ -118,7 +125,7 @@ function ONBOARDINGREQUIREMENTSModalUI(props: ONBOARDINGREQUIREMENTSModalUIInter
                             <>
                             <Button variant='contained' onClick={()=> setSubmitModalOpen(true)}>Submit Changes</Button>
                             <Button variant='contained' color="warning" onClick={()=> setEditDetailsMode(false)}>Cancel</Button>
-                            <Button variant='outlined' color="error" onClick={()=> setEditDetailsMode(true)}>Delete</Button>
+                            <Button variant='outlined' color="error" onClick={()=> setDeleteModalOpen(true)}>Delete</Button>
 
                             </>
                         }

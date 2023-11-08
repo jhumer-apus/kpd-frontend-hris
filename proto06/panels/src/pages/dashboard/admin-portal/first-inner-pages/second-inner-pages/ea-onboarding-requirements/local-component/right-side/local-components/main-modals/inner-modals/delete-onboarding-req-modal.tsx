@@ -2,57 +2,56 @@ import * as React from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
-import { EVALQUESTIONSViewInterface } from '@/types/types-employee-and-applicants';
+import { ONBOARDINGREQUIREMENTSViewInterface } from '@/types/types-employee-and-applicants';
 import { Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
-import { EVALQUESTIONSDeleteAction, EVALQUESTIONSDeleteActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import { ONBOARDINGREQUIREMENTSDeleteAction, ONBOARDINGREQUIREMENTSDeleteActionFailureCleanup } from '@/store/actions/employee-and-applicants';
 
 
 
-interface DeactivateEVALQUESTIONSModalInterface {
-    singleEVALQUESTIONSDetailsData: EVALQUESTIONSViewInterface;
-    DeactivateEVALQUESTIONSOpenModal: boolean; 
-    setDeactivateEVALQUESTIONSOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-    setSingleEVALQUESTIONSDetailsData: React.Dispatch<React.SetStateAction<EVALQUESTIONSViewInterface>>;
+interface DeactivateONBOARDINGREQUIREMENTSModalInterface {
+    initialState: ONBOARDINGREQUIREMENTSViewInterface;
+    openModal: boolean; 
+    setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+    setInitialState: React.Dispatch<React.SetStateAction<ONBOARDINGREQUIREMENTSViewInterface>>;
 }
 
-export default function DeactivateEVALQUESTIONSModal(props: DeactivateEVALQUESTIONSModalInterface) {
+export default function DeactivateONBOARDINGREQUIREMENTSModal(props: DeactivateONBOARDINGREQUIREMENTSModalInterface) {
   const dispatch = useDispatch();
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
-  const EVALQUESTIONSDeactivateState = useSelector((state: RootState)=> state.employeeAndApplicants.EVALQUESTIONSDelete)
-  const {DeactivateEVALQUESTIONSOpenModal, setDeactivateEVALQUESTIONSOpenModal, singleEVALQUESTIONSDetailsData, setSingleEVALQUESTIONSDetailsData} = props;
+  const ONBOARDINGREQUIREMENTSDeactivateState = useSelector((state: RootState)=> state.employeeAndApplicants.ONBOARDINGREQUIREMENTSDelete)
+  const {openModal, setOpenModal, initialState, setInitialState} = props;
 
-  const DeactivateEVALQUESTIONS = () => {
-    if(singleEVALQUESTIONSDetailsData.id){
-      dispatch(EVALQUESTIONSDeleteAction({eq_id: singleEVALQUESTIONSDetailsData.id, curr_user: (state?.emp_no as number)}))
+  const DeactivateONBOARDINGREQUIREMENTS = () => {
+    if(initialState.id){
+      dispatch(ONBOARDINGREQUIREMENTSDeleteAction({or_id: initialState.id, curr_user: (state?.emp_no as number)}))
     } else {
       window.alert('No Core Competency ID found.')
     } 
   }
 
   React.useEffect(()=>{
-    if(EVALQUESTIONSDeactivateState.status === 'succeeded'){
-      window.alert(`Success: ${EVALQUESTIONSDeactivateState.status?.charAt(0).toUpperCase()}${EVALQUESTIONSDeactivateState.status.slice(1)}`)
+    if(ONBOARDINGREQUIREMENTSDeactivateState.status === 'succeeded'){
+      window.alert(`Success: ${ONBOARDINGREQUIREMENTSDeactivateState.status?.charAt(0).toUpperCase()}${ONBOARDINGREQUIREMENTSDeactivateState.status.slice(1)}`)
       setTimeout(()=>{
         window.location.reload();
       }, 800)
-    } else if(EVALQUESTIONSDeactivateState.status === 'failed') {
-      window.alert(`Error: ${EVALQUESTIONSDeactivateState.error}`)
-      dispatch(EVALQUESTIONSDeleteActionFailureCleanup());
+    } else if(ONBOARDINGREQUIREMENTSDeactivateState.status === 'failed') {
+      window.alert(`Error: ${ONBOARDINGREQUIREMENTSDeactivateState.error}`)
+      dispatch(ONBOARDINGREQUIREMENTSDeleteActionFailureCleanup());
     }
-  }, [EVALQUESTIONSDeactivateState])
+  }, [ONBOARDINGREQUIREMENTSDeactivateState])
 
-  console.log(EVALQUESTIONSDeactivateState.status, "haha?")
   return (
     <React.Fragment>
-      <Transition in={DeactivateEVALQUESTIONSOpenModal} timeout={400}>
+      <Transition in={openModal} timeout={400}>
       {(state: string) => (
       <Modal
         keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setDeactivateEVALQUESTIONSOpenModal(false);
+          setOpenModal(false);
         }}
         slotProps={{
             backdrop: {
@@ -89,14 +88,14 @@ export default function DeactivateEVALQUESTIONSModal(props: DeactivateEVALQUESTI
           <Typography variant='h6' className='border-b-2 border-red-700'>Confirmation</Typography>
           <div className='flex justify-center flex-col item-center h-full'>
             <div className='flex flex-col justify-between w-full h-2/4'>
-              <div className='flex justify-center flex-col items-center gap-2 mb-4'>
-                <Typography>Are you sure you want to deactivate this Evaluation Question?</Typography>
+              <div className='flex justify-center text-center flex-col items-center gap-2 mb-4'>
+                <Typography>Are you sure you want to deactivate this Onboarding Requirement?</Typography>
                 <Typography className='italic' variant='caption'>Users can no longer see this in the tables afterwards.</Typography>
                 <Typography className='italic' variant='caption'>Assigned ID will be skipped and recorded on audit trail.</Typography>
               </div>
               <div className='flex justify-around'>
-                <Button variant={'contained'} color="error" onClick={DeactivateEVALQUESTIONS}>Confirm</Button>
-                <Button variant={'outlined'} color="warning" onClick={()=>{setDeactivateEVALQUESTIONSOpenModal(false)}}>Cancel</Button>
+                <Button variant={'contained'} color="error" onClick={DeactivateONBOARDINGREQUIREMENTS}>Confirm</Button>
+                <Button variant={'outlined'} color="warning" onClick={()=>{setOpenModal(false)}}>Cancel</Button>
               </div>
             </div>
           </div>

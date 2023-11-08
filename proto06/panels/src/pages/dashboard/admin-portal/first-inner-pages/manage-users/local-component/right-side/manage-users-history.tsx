@@ -2,7 +2,10 @@ import { Fragment, useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
-import { Typography } from "@material-tailwind/react";
+
+// import { Typography } from "@material-tailwind/react";
+
+import { Typography } from '@mui/material';
 import { ManageUSERPageDescriptions, ManageUSERPageColumns } from '@/data/pages-data/manage-user-data/manage-user-data';
 import ViewUSERSingleModal from './local-components/main-modals/view-users-single-modal';
 import { USERViewInterface } from '@/types/types-pages';
