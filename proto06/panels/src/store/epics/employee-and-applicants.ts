@@ -565,7 +565,7 @@ export const EVALQUESTIONSDeleteEpic: Epic = (action$, state$) =>
 
 // ONBOARDINGSTATUS API SECTION // ONBOARDINGSTATUS API SECTION // ONBOARDINGSTATUS API SECTION // ONBOARDINGSTATUS API SECTION // ONBOARDINGSTATUS API SECTION
 const ONBOARDINGSTATUSEditApiCall = async (payload: _Interface.ONBOARDINGSTATUSEditInterface) => {
-    const response = await axios.put(`${APILink}onboarding_status/${payload.id}/`,
+    const response = await axios.put(`${APILink}onboarding/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -580,7 +580,7 @@ const ONBOARDINGSTATUSEditApiCall = async (payload: _Interface.ONBOARDINGSTATUSE
 };
   
 const ONBOARDINGSTATUSCreateApiCall = async (payload: _Interface.ONBOARDINGSTATUSCreateInterface) => {
-    const response = await axios.post(`${APILink}onboarding_status/`,
+    const response = await axios.post(`${APILink}onboarding/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -595,7 +595,7 @@ const ONBOARDINGSTATUSCreateApiCall = async (payload: _Interface.ONBOARDINGSTATU
 };
 
 const ONBOARDINGSTATUSViewSpecificApiCall = async (payload: {onboarding_status_id: number }) => {
-    const response = await axios.get(`${APILink}onboarding_status/${payload.onboarding_status_id}/`,
+    const response = await axios.get(`${APILink}onboarding/${payload.onboarding_status_id}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -610,7 +610,7 @@ const ONBOARDINGSTATUSViewSpecificApiCall = async (payload: {onboarding_status_i
 
 
 const ONBOARDINGSTATUSViewApiCall = async () => {
-    const response = await axios.get(`${APILink}onboarding_status/`,
+    const response = await axios.get(`${APILink}onboarding/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
