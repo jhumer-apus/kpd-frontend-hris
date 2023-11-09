@@ -1372,8 +1372,7 @@ export const APPLICANTSEditEpic: Epic = (action$, state$) =>
 
 // JOBPOSTINGS API SECTION // JOBPOSTINGS API SECTION // JOBPOSTINGS API SECTION // JOBPOSTINGS API SECTION // JOBPOSTINGS API SECTION
 const JOBPOSTINGSDeleteApiCall = async (payload: {jp_id: number, curr_user: number}) => {
-    const response = await axios.put(`${APILink}job_post/${payload.jp_id}/`,
-    {added_by: payload.curr_user}, //payload
+    const response = await axios.delete(`${APILink}job_post/${payload.jp_id}/?added_by=${payload.curr_user}`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
