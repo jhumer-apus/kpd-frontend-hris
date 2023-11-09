@@ -20,7 +20,9 @@ function EAJOBPOSTINGSCreate(props: CreateJOBPOSTINGSModalInterface) {
         position_code: NaN,
         job_description: '',
         job_salary_range: '',
-        qualifications: ''
+        qualifications: '-',
+        objectives: '-',
+        responsibilities: '-',
     });
     const onClickSubmit = () => {
         dispatch(JOBPOSTINGSCreateAction(createJOBPOSTINGS))
@@ -57,6 +59,7 @@ function EAJOBPOSTINGSCreate(props: CreateJOBPOSTINGSModalInterface) {
             {/* <Typography className="italic p-8 flex justify-center text-center items-center" >Newly added requirements will reflect to the future "pending" requirements only</Typography> */}
             
             <div className='flex flex-col gap-6 overflow-auto w-3/4'>
+                    <Typography className="text-center"> You can add "Job Objectives" & "Job Responsibilities" on the entry after it has been initialized on the right table. </Typography>
                     <div className='flex flex-col gap-6 pt-4'>
                         <EmployeeAutoComplete createJOBPOSTINGS={createJOBPOSTINGS} setCreateJOBPOSTINGS={setCreateJOBPOSTINGS}/>              
                         <TextField
@@ -102,7 +105,7 @@ function EAJOBPOSTINGSCreate(props: CreateJOBPOSTINGSModalInterface) {
                         <TextField
                             required 
                             sx={{width: '100%'}} 
-                            label='Qualifications:'
+                            label='Qualifications: (Required)'
                             multiline
                             rows={4}
                             aria-required  
