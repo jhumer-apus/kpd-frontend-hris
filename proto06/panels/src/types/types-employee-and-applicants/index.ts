@@ -86,7 +86,7 @@ export interface EVALQUESTIONSEditInterface extends EVALQUESTIONSGenericInterfac
 
 
 export interface ONBOARDINGSTATUSGenericInterface {
-	date_start: string
+	date_start: string | null
 	status: "Pending" | "Completed"
 	final_remarks: string | null
 	emp_no: number
@@ -105,15 +105,15 @@ export interface ONBOARDINGSTATUSGenericInterface {
 
 
 export interface ONBOARDINGSTATUSViewInterface extends ONBOARDINGSTATUSGenericInterface{
-    readonly id: string | number
+    readonly id: number
 	readonly date_added: string
 }
 
-export interface ONBOARDINGSTATUSCreateInterface extends ONBOARDINGSTATUSGenericInterface{
-	id: string //only on mockup, can delete after backend implementation is complete
+export interface ONBOARDINGSTATUSCreateInterface extends Omit<ONBOARDINGSTATUSGenericInterface, "status" | "final_remarks" | "emp_no" | "onboarding_codes" >{
+	emp_no: number[]
 }
 
-export interface ONBOARDINGSTATUSEditInterface extends ONBOARDINGSTATUSGenericInterface, Pick<ONBOARDINGSTATUSViewInterface, "id">{}
+export interface ONBOARDINGSTATUSEditInterface extends ONBOARDINGSTATUSGenericInterface, Pick<ONBOARDINGSTATUSViewInterface, "id" >{}
 
 // ======================================
 
