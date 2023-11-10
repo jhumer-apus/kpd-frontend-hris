@@ -34,7 +34,7 @@ export default function AppraisalConfirmationKPICOREPage() {
   const { data, status } = KPICOREView;
   const KPICOREViewData = data as KPICOREViewInterface[];
 
-  const FilteredKPICOREViewData = KPICOREViewData.filter((item) => item.status === 'Pending' && item.sup_no === curr_user );
+  const FilteredKPICOREViewData = Array.isArray(KPICOREViewData) ?  KPICOREViewData.filter((item) => item?.status === 'Pending' && item?.sup_no === curr_user ) : [];
 
   useEffect(()=> {
     dispatch(KPICOREViewAction())

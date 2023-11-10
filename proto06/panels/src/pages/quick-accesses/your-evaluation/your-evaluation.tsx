@@ -33,7 +33,9 @@ export default function YourKPICOREPage() {
   const { data, status } = KPICOREView;
   const KPICOREViewData = data as KPICOREViewInterface[];
 
-  const FilteredKPICOREViewData = KPICOREViewData.filter((item) => item.emp_no === curr_user );
+  const FilteredKPICOREViewData = Array.isArray(KPICOREViewData) ? KPICOREViewData?.filter((item) => item?.emp_no === curr_user ) : [];
+  // Backend throwing  204 No Content changes the data from array type to a string type... added isArray to make sure it is as intended
+
 
   useEffect(()=> {
     dispatch(KPICOREViewAction())
