@@ -7,34 +7,43 @@ string |
 _Interface.KPICOREViewInterface[] | 
 _Interface.KPICOREViewInterface | 
 _Interface.KPICORECreateInterface |
+_Interface.KPICOREEditInterface |
 _Interface.CORECOMPEViewInterface[] | 
 _Interface.CORECOMPEViewInterface | 
 _Interface.CORECOMPECreateInterface |
+_Interface.CORECOMPEEditInterface |
 _Interface.EVALQUESTIONSViewInterface[] | 
 _Interface.EVALQUESTIONSViewInterface | 
 _Interface.EVALQUESTIONSCreateInterface |
+_Interface.EVALQUESTIONSEditInterface |
 _Interface.ONBOARDINGSTATUSViewInterface[] | 
 _Interface.ONBOARDINGSTATUSViewInterface | 
 _Interface.ONBOARDINGSTATUSCreateInterface |
+_Interface.ONBOARDINGSTATUSEditInterface |
 _Interface.ONBOARDINGREQUIREMENTSViewInterface[] | 
 _Interface.ONBOARDINGREQUIREMENTSViewInterface | 
 _Interface.ONBOARDINGREQUIREMENTSCreateInterface |
+_Interface.ONBOARDINGREQUIREMENTSEditInterface |
 _Interface.OFFBOARDINGSTATUSViewInterface[] | 
 _Interface.OFFBOARDINGSTATUSViewInterface | 
 _Interface.OFFBOARDINGSTATUSCreateInterface |
+_Interface.OFFBOARDINGSTATUSEditInterface |
 _Interface.OFFBOARDINGREQUIREMENTSViewInterface[] | 
 _Interface.OFFBOARDINGREQUIREMENTSViewInterface | 
 _Interface.OFFBOARDINGREQUIREMENTSCreateInterface |
+_Interface.OFFBOARDINGREQUIREMENTSEditInterface |
 _Interface.APPLICANTSViewInterface[] | 
 _Interface.APPLICANTSViewInterface | 
 _Interface.APPLICANTSCreateInterface |
+_Interface.APPLICANTSEditInterface |
 _Interface.JOBPOSTINGSViewInterface[] | 
 _Interface.JOBPOSTINGSViewInterface | 
-_Interface.JOBPOSTINGSCreateInterface
+_Interface.JOBPOSTINGSCreateInterface |
+_Interface.JOBPOSTINGSEditInterface
 ;
 
 interface CommonEmployeeAndApplicantsState {
-  status: string | null;
+  status: 'loading' | 'succeeded' | 'failed' | 'refreshed' | null;
   progress: number;
   error: string | null; 
 }
@@ -249,261 +258,261 @@ interface OverallEmployeeAndApplicantsState {
 const initialState: OverallEmployeeAndApplicantsState = {
   //KPICORE SECTION
   KPICOREView: {
-    status: '',
+    status: null,
     progress: 0,
     data: [],
     error: '',
   },
   KPICOREViewSpecific: {
-    status: '',
+    status: null,
     progress: 0,
     data: [],
     error: '',
   },
   KPICOREViewSpecificEmployee: {
-    status: '',
+    status: null,
     progress: 0,
     data: [],
     error: '',
   },
   KPICORECreate: {
-    status: '',
+    status: null,
     progress: 0,
     data: null,
     error: '',
   },
   KPICOREEdit: {
-    status: '',
+    status: null,
     progress: 0,
     data: null,
     error: '',
   },
   //CORECOMPE SECTION
   CORECOMPEView: {
-    status: '',
+    status: null,
     progress: 0,
     data: [],
     error: '',
   },
   CORECOMPEViewSpecific: {
-    status: '',
+    status: null,
     progress: 0,
     data: [],
     error: '',
   },
   CORECOMPECreate: {
-    status: '',
+    status: null,
     progress: 0,
     data: null,
     error: '',
   },
   CORECOMPEEdit: {
-    status: '',
+    status: null,
     progress: 0,
     data: null,
     error: '',
   },
   CORECOMPEDelete: {
-    status: '',
+    status: null,
     progress: 0,
     data: null,
     error: '',
   },
   //EVALQUESTIONS SECTION
   EVALQUESTIONSView: {
-    status: '',
+    status: null,
     progress: 0,
     data: [],
     error: '',
   },
   EVALQUESTIONSViewSpecific: {
-    status: '',
+    status: null,
     progress: 0,
     data: [],
     error: '',
   },
   EVALQUESTIONSCreate: {
-    status: '',
+    status: null,
     progress: 0,
     data: null,
     error: '',
   },
   EVALQUESTIONSEdit: {
-    status: '',
+    status: null,
     progress: 0,
     data: null,
     error: '',
   },
   EVALQUESTIONSDelete: {
-    status: '',
+    status: null,
     progress: 0,
     data: null,
     error: '',
   },
   //ONBOARDINGSTATUS SECTION
   ONBOARDINGSTATUSView: {
-    status: '',
+    status: null,
     progress: 0,
     data: [],
     error: '',
   },
   ONBOARDINGSTATUSViewSpecific: {
-    status: '',
+    status: null,
     progress: 0,
     data: [],
     error: '',
   },
   ONBOARDINGSTATUSCreate: {
-    status: '',
+    status: null,
     progress: 0,
     data: null,
     error: '',
   },
   ONBOARDINGSTATUSEdit: {
-    status: '',
+    status: null,
     progress: 0,
     data: null,
     error: '',
   },
   //ONBOARDINGREQUIREMENTS SECTION
   ONBOARDINGREQUIREMENTSView: {
-    status: '',
+    status: null,
     progress: 0,
     data: [],
     error: '',
   },
   ONBOARDINGREQUIREMENTSViewSpecific: {
-    status: '',
+    status: null,
     progress: 0,
     data: [],
     error: '',
   },
   ONBOARDINGREQUIREMENTSCreate: {
-    status: '',
+    status: null,
     progress: 0,
     data: null,
     error: '',
   },
   ONBOARDINGREQUIREMENTSEdit: {
-    status: '',
+    status: null,
     progress: 0,
     data: null,
     error: '',
   },
   ONBOARDINGREQUIREMENTSDelete: {
-    status: '',
+    status: null,
     progress: 0,
     data: null,
     error: '',
   },
   //OFFBOARDINGSTATUS SECTION
   OFFBOARDINGSTATUSView: {
-    status: '',
+    status: null,
     progress: 0,
     data: [],
     error: '',
   },
   OFFBOARDINGSTATUSViewSpecific: {
-    status: '',
+    status: null,
     progress: 0,
     data: [],
     error: '',
   },
   OFFBOARDINGSTATUSCreate: {
-    status: '',
+    status: null,
     progress: 0,
     data: null,
     error: '',
   },
   OFFBOARDINGSTATUSEdit: {
-    status: '',
+    status: null,
     progress: 0,
     data: null,
     error: '',
   },
   //OFFBOARDINGREQUIREMENTS SECTION
   OFFBOARDINGREQUIREMENTSView: {
-    status: '',
+    status: null,
     progress: 0,
     data: [],
     error: '',
   },
   OFFBOARDINGREQUIREMENTSViewSpecific: {
-    status: '',
+    status: null,
     progress: 0,
     data: [],
     error: '',
   },
   OFFBOARDINGREQUIREMENTSCreate: {
-    status: '',
+    status: null,
     progress: 0,
     data: null,
     error: '',
   },
   OFFBOARDINGREQUIREMENTSEdit: {
-    status: '',
+    status: null,
     progress: 0,
     data: null,
     error: '',
   },
   OFFBOARDINGREQUIREMENTSDelete: {
-    status: '',
+    status: null,
     progress: 0,
     data: null,
     error: '',
   },
   //APPLICANTS SECTION
   APPLICANTSView: {
-    status: '',
+    status: null,
     progress: 0,
     data: [],
     error: '',
   },
   APPLICANTSViewSpecific: {
-    status: '',
+    status: null,
     progress: 0,
     data: [],
     error: '',
   },
   APPLICANTSCreate: {
-    status: '',
+    status: null,
     progress: 0,
     data: null,
     error: '',
   },
   APPLICANTSEdit: {
-    status: '',
+    status: null,
     progress: 0,
     data: null,
     error: '',
   },
   //JOBPOSTINGS SECTION
   JOBPOSTINGSView: {
-    status: '',
+    status: null,
     progress: 0,
     data: [],
     error: '',
   },
   JOBPOSTINGSViewSpecific: {
-    status: '',
+    status: null,
     progress: 0,
     data: [],
     error: '',
   },
   JOBPOSTINGSCreate: {
-    status: '',
+    status: null,
     progress: 0,
     data: null,
     error: '',
   },
   JOBPOSTINGSEdit: {
-    status: '',
+    status: null,
     progress: 0,
     data: null,
     error: '',
   },
   JOBPOSTINGSDelete: {
-    status: '',
+    status: null,
     progress: 0,
     data: null,
     error: '',
