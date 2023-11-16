@@ -1,3 +1,4 @@
+import { globalDate } from "@/store/configureStore";
 import { GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import dayjs from "dayjs";
 
@@ -16,58 +17,22 @@ export const EAONBOARDINGSTATUSPageColumns: GridColDef[] =
     field: 'status',
     headerName: 'Status',
     width: 100,
-    // valueGetter: (params: GridValueGetterParams) => {
-    //   const date = new Date(params.row.expiry);
-    //   return params.row.expiry ? date.toLocaleDateString() : 'No Expiry';
-    // }
   },
   { field: 'start_date', 
     headerName: 'Start Date:', 
     width: 150,
     valueGetter: (params: GridValueGetterParams) => {
-      const date = new Date(params.row.start_date);
-      return params.row.start_date ? dayjs(date).format("MM-DD-YYYY") : 'No Date';
+      const date = new Date(params.row.date_start);
+      return params.row.date_start ? dayjs(date).format(`${globalDate}`) : 'No Date';
     }
   },
   { field: 'emp_no', 
     headerName: 'Employee #', 
     width: 150,
-    // valueGetter: (params: GridValueGetterParams) => {
-    //   const date = new Date(params.row.coverage_to);
-    //   return params.row.coverage_to ? date.toLocaleDateString() : 'No Date';
-    // }
-    // valueGetter: (params: GridValueGetterParams) => {
-    //   const date = new Date(params.row.date_added);
-    //   return params.row.date_added ? date.toLocaleDateString() : 'No Date';
-    // }
-    // renderCell: (params: GridCellParams) => {
-    //   const status = params.row?.credit_remaining as number;
-
-    //   let cellColor = '';
-    //   if (status < 5 && status > 0) {
-    //     cellColor = '#ff9100'; // Orange
-    //   } else if ( status === 0 || status === null ){
-    //     cellColor = '#aa2e25'; // Red
-    //   }
-
-    //   return(
-    //   // <div style={{ height: '100%', width: '10%', alignItems: 'center' }}>
-    //     // 
-    //     <div className='relative'>
-    //       <div style={{ top:'', left: '10px', position: 'absolute', backgroundColor: cellColor, height:'5px', width: '5px', borderRadius: '100px'}}></div>
-    //       {status === 0 || status === null ? 0 : status}
-    //     </div>
-    //   // </div>
-    //   );
-    // }  
   },
   { field: 'final_remarks', 
     headerName: 'Final Remarks:',  
     width: 180,
-    // valueGetter: (params: GridValueGetterParams) => {
-    //   const string = new Number(params.row.total_pay);
-    //   return params.row.total_pay ? string.toFixed(2) : 'No Date';
-    // } 
   },
 ];
 
@@ -77,39 +42,11 @@ export const EAProcessONBOARDINGSTATUSPageColumns: GridColDef[] =
     field: 'emp_no',
     headerName: 'Employee #',
     width: 100,
-    // valueGetter: (params: GridValueGetterParams) => {
-    //   const date = new Date(params.row.expiry);
-    //   return params.row.expiry ? date.toLocaleDateString() : 'No Expiry';
-    // }
   },
   { field: 'last_name', headerName: 'Last Name', width: 120 }, //30
   { field: 'first_name', 
     headerName: 'First Name', 
     width: 130,
-    // valueGetter: (params: GridValueGetterParams) => {
-    //   const date = new Date(params.row.date_added);
-    //   return params.row.date_added ? date.toLocaleDateString() : 'No Date';
-    // }
-    // renderCell: (params: GridCellParams) => {
-    //   const status = params.row?.credit_remaining as number;
-
-    //   let cellColor = '';
-    //   if (status < 5 && status > 0) {
-    //     cellColor = '#ff9100'; // Orange
-    //   } else if ( status === 0 || status === null ){
-    //     cellColor = '#aa2e25'; // Red
-    //   }
-
-    //   return(
-    //   // <div style={{ height: '100%', width: '10%', alignItems: 'center' }}>
-    //     // 
-    //     <div className='relative'>
-    //       <div style={{ top:'', left: '10px', position: 'absolute', backgroundColor: cellColor, height:'5px', width: '5px', borderRadius: '100px'}}></div>
-    //       {status === 0 || status === null ? 0 : status}
-    //     </div>
-    //   // </div>
-    //   );
-    // }  
   },
   { 
     field: 'date_hired', 
@@ -117,7 +54,7 @@ export const EAProcessONBOARDINGSTATUSPageColumns: GridColDef[] =
     width: 150,
     valueGetter: (params: GridValueGetterParams) => {
       const date = new Date(params.row.date_hired);
-      return params.row.date_hired ? dayjs(date).format("MM-DD-YYYY") : 'No Date';
+      return params.row.date_hired ? dayjs(date).format(`${globalDate}`) : 'No Date';
     }
   }
 ];

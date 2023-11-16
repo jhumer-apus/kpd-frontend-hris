@@ -1,17 +1,9 @@
-import { GridColDef, GridValueGetterParams, GridCellParams, GridValueFormatterParams } from "@mui/x-data-grid";
-
-// export const viewPayrollOptions = [
-//   "View Payroll Per Employee",
-//   "No Other Payroll View Options",
-//   // "View Cutoff DTR Summary",
-//   // "View Employee Specific DTR"
-// ];
+import { globalDate } from "@/store/configureStore";
+import { GridColDef, GridValueGetterParams, GridCellParams } from "@mui/x-data-grid";
+import dayjs from "dayjs";
 
 export const ApprovalLEAVEPageDescriptions = [
   "Once you have successfully approved/rejected a request, the item will no longer be shown, go to procedurals for list instead",
-  // "See merged logs of all employees here, showing the total hours and details of each logs. Sortable and filterable on the table headers.",
-  // "See the total hours of all employees per cutoff here. Sortable and filterable by the table headers.",
-  // "Nondescript"
 ];
 
 
@@ -23,7 +15,7 @@ export const ApprovalLEAVEPageColumns: GridColDef[] =
     width: 150,
     valueGetter: (params: GridValueGetterParams) => {
       const date = new Date(params.row.leave_date_filed);
-      return date.toLocaleDateString();
+      return dayjs(date).format(`${globalDate}`);
     }
   },
   { field: 'emp_no', headerName: 'Filed By:', width: 120 },
@@ -39,13 +31,10 @@ export const ApprovalLEAVEPageColumns: GridColDef[] =
       }
 
       return(
-      // <div style={{ height: '100%', width: '10%', alignItems: 'center' }}>
-        // 
         <div className='relative'>
           <div style={{ top:'', left: '26px', position: 'absolute', backgroundColor: cellColor, height:'5px', width: '5px', borderRadius: '100px'}}></div>
           {status}
         </div>
-      // </div>
       );
     }  
   },
@@ -68,7 +57,7 @@ export const ApprovalLEAVEPageColumns: GridColDef[] =
     valueGetter: (params: GridValueGetterParams) => {
       if(params.row.leave_date_approved1){
         const date = new Date(params.row.leave_date_approved1);
-        return date.toLocaleDateString();
+        return dayjs(date).format(`${globalDate}`);
       } else {
         return '-'
       }
@@ -82,7 +71,7 @@ export const ApprovalLEAVEPageColumns: GridColDef[] =
     valueGetter: (params: GridValueGetterParams) => {
       if(params.row.leave_date_approved2){
         const date = new Date(params.row.leave_date_approved2);
-        return date.toLocaleDateString();
+        return dayjs(date).format(`${globalDate}`);
       } else {
         return '-'
       }

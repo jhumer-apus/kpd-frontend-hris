@@ -15,10 +15,6 @@ export const EAONBOARDINGREQUIREMENTSPageColumns: GridColDef[] =
     field: 'id',
     headerName: 'ID:',
     width: 80,
-    // valueGetter: (params: GridValueGetterParams) => {
-    //   const date = new Date(params.row.expiry);
-    //   return params.row.expiry ? date.toLocaleDateString() : 'No Expiry';
-    // }
   },
 
   { field: 'date_added', 
@@ -28,26 +24,6 @@ export const EAONBOARDINGREQUIREMENTSPageColumns: GridColDef[] =
       const date = new Date(params.row.date_added);
       return params.row.date_added ? dayjs(date).format("MM-DD-YYYY") : 'No Date';
     }
-    // renderCell: (params: GridCellParams) => {
-    //   const status = params.row?.credit_remaining as number;
-
-    //   let cellColor = '';
-    //   if (status < 5 && status > 0) {
-    //     cellColor = '#ff9100'; // Orange
-    //   } else if ( status === 0 || status === null ){
-    //     cellColor = '#aa2e25'; // Red
-    //   }
-
-    //   return(
-    //   // <div style={{ height: '100%', width: '10%', alignItems: 'center' }}>
-    //     // 
-    //     <div className='relative'>
-    //       <div style={{ top:'', left: '10px', position: 'absolute', backgroundColor: cellColor, height:'5px', width: '5px', borderRadius: '100px'}}></div>
-    //       {status === 0 || status === null ? 0 : status}
-    //     </div>
-    //   // </div>
-    //   );
-    // }  
   },
   { field: 'facilitator', headerName: 'Facilitator Emp #:', width: 140 },
   { field: 'onboard_title', headerName: 'Onboarding Title',  width: 230 },

@@ -1,17 +1,9 @@
-import { GridColDef, GridValueGetterParams, GridCellParams, GridValueFormatterParams } from "@mui/x-data-grid";
-
-// export const viewPayrollOptions = [
-//   "View Payroll Per Employee",
-//   "No Other Payroll View Options",
-//   // "View Cutoff DTR Summary",
-//   // "View Employee Specific DTR"
-// ];
+import { globalDate } from "@/store/configureStore";
+import { GridColDef, GridValueGetterParams, GridCellParams } from "@mui/x-data-grid";
+import dayjs from "dayjs";
 
 export const ProceduralLEAVECREDITPageDescriptions = [
   "On this table, you will find the remaining leave credits of the employees and their details each.",
-  // "See merged logs of all employees here, showing the total hours and details of each logs. Sortable and filterable on the table headers.",
-  // "See the total hours of all employees per cutoff here. Sortable and filterable by the table headers.",
-  // "Nondescript"
 ];
 
 
@@ -23,7 +15,7 @@ export const ProceduralLEAVECREDITPageColumns: GridColDef[] =
     width: 150,
     valueGetter: (params: GridValueGetterParams) => {
       const date = new Date(params.row.expiry);
-      return params.row.expiry ? date.toLocaleDateString() : 'No Expiry';
+      return params.row.expiry ? dayjs(date).format(`${globalDate}`) : 'No Expiry';
     }
   },
   { field: 'emp_no', headerName: 'For Emp:', width: 120 },
@@ -39,13 +31,10 @@ export const ProceduralLEAVECREDITPageColumns: GridColDef[] =
       }
 
       return(
-      // <div style={{ height: '100%', width: '10%', alignItems: 'center' }}>
-        // 
         <div className='relative'>
           <div style={{ top:'', left: '10px', position: 'absolute', backgroundColor: cellColor, height:'5px', width: '5px', borderRadius: '100px'}}></div>
           {status === 0 || status === null ? 0 : status}
         </div>
-      // </div>
       );
     }  
   },

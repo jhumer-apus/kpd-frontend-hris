@@ -143,6 +143,3 @@ export const checkDevice = () => {
     }
   )
 }
-
-
-
