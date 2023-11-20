@@ -1,30 +1,26 @@
-import { GridColDef, GridValueGetterParams, GridCellParams, GridValueFormatterParams } from "@mui/x-data-grid";
+import { globalDate } from "@/store/configureStore";
+import { GridColDef, GridValueGetterParams, GridValueFormatterParams } from "@mui/x-data-grid";
+import dayjs from "dayjs";
 
 export const viewPayrollOptions = [
   "View Payroll Per Employee",
   "No Other Payroll View Options",
-  // "View Cutoff DTR Summary",
-  // "View Employee Specific DTR"
 ];
 
 export const viewPayrollDescriptions = [
   "Click on Employee Details to View Individual Payslips. Otherwise, Check the boxes then generate multiple payslips.",
-  // "See merged logs of all employees here, showing the total hours and details of each logs. Sortable and filterable on the table headers.",
-  // "See the total hours of all employees per cutoff here. Sortable and filterable by the table headers.",
-  // "Nondescript"
 ];
 
 export const dynamicPayrollColumns: Array<GridColDef[]> = 
 [
   [
-    // { field: 'id', headerName: 'Trans ID', width: 80 },
     {
       field: 'credit_date',
       headerName: 'Credit Date',
       width: 120,
       valueGetter: (params: GridValueGetterParams) => {
         const date = new Date(params.row.cutoff.credit_date);
-        return date.toLocaleDateString();
+        return dayjs(date).format(`${globalDate}`);
       },
     },
     { field: 'emp_cname', headerName: 'Employee Name', width: 160 },
