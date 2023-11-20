@@ -5,7 +5,7 @@ import { RootState } from '@/store/configureStore';
 import { Typography } from '@mui/material';
 // import { Typography } from "@material-tailwind/react";
 import { EAONBOARDINGSTATUSPageDescriptions, EAONBOARDINGSTATUSPageColumns } from '@/data/pages-data/employee-and-applicants-data/ea-initialize-onboarding-data';
-import ViewONBOARDINGSTATUSSingleModal from './local-components/main-modals/eoy-pay-13th-single-modal';
+import ViewONBOARDINGSTATUSSingleModal from './local-components/main-modals/ea-initialize-onboarding-single-modal';
 import { ONBOARDINGSTATUSViewInterface } from '@/types/types-employee-and-applicants';
 import { ONBOARDINGSTATUSViewAction } from '@/store/actions/employee-and-applicants';
 
@@ -14,12 +14,26 @@ export default function EAONBOARDINGSTATUSPageHistory() {
   const [singleONBOARDINGSTATUSOpenModal, setSingleONBOARDINGSTATUSOpenModal] = useState<boolean>(false);
   const [singleONBOARDINGSTATUSDetailsData, setSingleONBOARDINGSTATUSDetailsData] = useState<ONBOARDINGSTATUSViewInterface>({
     id: NaN,
-    emp_no: NaN,
-    start_date: '',
+    date_added: '',
+    date_start: '',
     status: 'Pending',
     final_remarks: '',
-    date_added: '',
-    requirements: []
+    emp_no: NaN,
+    emp_onboard_reqs: [{
+      id: NaN,
+      date_added: '',
+      onboard_title: '',
+      emp_remarks: '',
+      facilitator_remarks: '',
+      date_commencement: '',
+      status: 'Pending',
+      emp_no: NaN,
+      onboarding_requirement_code: NaN,
+      onboarding_facilitator: NaN,
+      added_by: NaN,
+    }],
+    onboarding_codes: [],
+    added_by: NaN,
   });
   const dispatch = useDispatch();
   const { ONBOARDINGSTATUSView } = useSelector((state: RootState) => state.employeeAndApplicants);
@@ -37,7 +51,7 @@ export default function EAONBOARDINGSTATUSPageHistory() {
     <Fragment>
       <div className="my-2 flex flex-wrap justify-between items-start gap-6">
         <div>
-          {/* <ViewONBOARDINGSTATUSSingleModal setSingleONBOARDINGSTATUSDetailsData={setSingleONBOARDINGSTATUSDetailsData} singleONBOARDINGSTATUSDetailsData={singleONBOARDINGSTATUSDetailsData} singleONBOARDINGSTATUSOpenModal={singleONBOARDINGSTATUSOpenModal} setSingleONBOARDINGSTATUSOpenModal={setSingleONBOARDINGSTATUSOpenModal}/> */}
+          <ViewONBOARDINGSTATUSSingleModal setSingleONBOARDINGSTATUSDetailsData={setSingleONBOARDINGSTATUSDetailsData} singleONBOARDINGSTATUSDetailsData={singleONBOARDINGSTATUSDetailsData} singleONBOARDINGSTATUSOpenModal={singleONBOARDINGSTATUSOpenModal} setSingleONBOARDINGSTATUSOpenModal={setSingleONBOARDINGSTATUSOpenModal}/>
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
           <p>{EAONBOARDINGSTATUSPageDescriptions}</p>
         </Typography>

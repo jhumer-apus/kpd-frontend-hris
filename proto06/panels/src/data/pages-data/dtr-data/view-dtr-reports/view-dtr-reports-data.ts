@@ -1,4 +1,6 @@
+import { globalDate, globalTime } from "@/store/configureStore";
 import { GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
+import dayjs from "dayjs";
 
 export const viewDTROptions = [
   "View All DTR Logs/Entries",
@@ -25,21 +27,21 @@ export const dynamicDTRColumns: Array<GridColDef[]> =
       headerName: 'Entry Date',
       width: 150,
       description: 'This column has a value getter and is not sortable. Use Filter instead, by clicking on the three dots beside this header.',
-      sortable: false,
+      sortable: true,
       valueGetter: (params: GridValueGetterParams) => {
         const date = new Date(params.row.datetime_bio);
-        return params.row.datetime_bio ? date.toLocaleDateString() : '-';
+        return params.row.datetime_bio ? dayjs(date).format(`${globalDate}`) : '-';
       },
     },
     {
       field: 'datetime_bio_time',
-      headerName: 'Entry Time',
+      headerName: 'Time',
       width: 150,
       description: 'This column has a value getter and is not sortable. Use Filter instead, by clicking on the three dots beside this header.',
-      sortable: false,
+      sortable: true,
       valueGetter: (params: GridValueGetterParams) => {
         const shio = new Date(params.row.datetime_bio);
-        return params.row.datetime_bio ? shio.toLocaleTimeString() : '-';
+        return params.row.datetime_bio ? dayjs(shio).format(`${globalTime}`) : '-';
       },
     },
     { field: 'bio_id', headerName: 'Biometrics ID', width: 140 },
@@ -59,7 +61,7 @@ export const dynamicDTRColumns: Array<GridColDef[]> =
       valueGetter: (params: GridValueGetterParams) => {
         const isAbsent = params.row.is_absent as boolean;
         const date = new Date(params.row.duty_in);
-        return params.row.duty_in ? date.toLocaleTimeString() : isAbsent ?  'ABSENT' : '-';
+        return params.row.duty_in ? dayjs(date).format(`${globalTime}`) : isAbsent ?  'ABSENT' : '-';
       },
     },
     {
@@ -71,7 +73,7 @@ export const dynamicDTRColumns: Array<GridColDef[]> =
       valueGetter: (params: GridValueGetterParams) => {
         const isAbsent = params.row.is_absent as boolean;
         const date = new Date(params.row.duty_out);
-        return params.row.duty_out ? date.toLocaleTimeString() : isAbsent ?  'ABSENT' : '-';
+        return params.row.duty_out ? dayjs(date).format(`${globalTime}`) : isAbsent ?  'ABSENT' : '-';
       },
     },
     { field: 'lates', headerName: 'Lates(mins)', width: 120 },
@@ -80,8 +82,6 @@ export const dynamicDTRColumns: Array<GridColDef[]> =
       field: 'total_hours',
       headerName: 'Total Hours',
       width: 120,
-      description: 'This column has a value getter and is not sortable. Use Filter instead, by clicking on the three dots beside this header.',
-      sortable: false,
       valueGetter: (params: GridValueGetterParams) => {
         const convertedMinsToHours = parseFloat((params.row.total_hours / 60).toFixed(2));
         return convertedMinsToHours;
@@ -99,8 +99,8 @@ export const dynamicDTRColumns: Array<GridColDef[]> =
     { 
       field: 'paid_leaves_total', 
       headerName: 'Paid Leaves',
-      description: 'This column has a value getter and is not sortable. Use Filter instead, by clicking on the three dots beside this header.',
-      sortable: false,
+      description: 'This column has a value getter and sorting may sometimes not accurately filter. Use Filter instead, by clicking on the three dots beside this header.',
+      sortable: true, // Can turn to 'false' if there is bug in sorting.
       valueGetter: (params: GridValueGetterParams) => {
         return `${params.row.paid_leaves_total} day(s)`;
       },  
@@ -109,8 +109,8 @@ export const dynamicDTRColumns: Array<GridColDef[]> =
     { 
       field: 'reg_ot_total', 
       headerName: 'Reg. OT',
-      description: 'This column has a value getter and is not sortable. Use Filter instead, by clicking on the three dots beside this header.',
-      sortable: false,
+      description: 'This column has a value getter and sorting may sometimes not accurately filter. Use Filter instead, by clicking on the three dots beside this header.',
+      sortable: true, // Can turn to 'false' if there is bug in sorting.
       valueGetter: (params: GridValueGetterParams) => {
         // const convertedMinsToHours = parseFloat((params.row.reg_ot_total / 60).toFixed(2));
         return `${params.row.reg_ot_total} min(s)`;
@@ -163,6 +163,7 @@ export const dynamicDTRColumns: Array<GridColDef[]> =
       valueGetter: (params: GridValueGetterParams) => {
         return `${params.row.total_hours} min(s)`;
       }, 
+      sortable: true,
       width: 110 
     },
     { field: 'is_processed', headerName: 'Processed', width: 110 },
