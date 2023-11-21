@@ -18,11 +18,13 @@ const ONBOARDINGSTATUSModalComponent = ((props:ONBOARDINGSTATUSModalComponentInt
 
     return (
         <Fragment>
-            <Typography variant='soft'>ONBOARDINGSTATUS Individual Data</Typography>
+            <Typography variant='soft'>Onboarding Status Data</Typography>
             <ModalClose sx={{marginTop: '4px'}}/>
+            <Typography className='italic text-center' sx={{marginTop:'10px', fontSize: '14px'}}>Onboarding lists on "view" mode only. To keep the integrity of data safe, unless data flow has been redefined, data must come from the facilitator assigned for each onboarding item.</Typography>
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <ONBOARDINGSTATUSModalUI setSingleONBOARDINGSTATUSDetailsData={setSingleONBOARDINGSTATUSDetailsData} singleONBOARDINGSTATUSDetailsData={singleONBOARDINGSTATUSDetailsData}/>
             </div>
+
         </Fragment>
     );
 });

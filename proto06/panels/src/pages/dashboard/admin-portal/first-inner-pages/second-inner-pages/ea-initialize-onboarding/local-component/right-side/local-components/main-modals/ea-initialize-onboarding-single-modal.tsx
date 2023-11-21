@@ -69,7 +69,7 @@ export default function ViewONBOARDINGSTATUSSingleModal(props: SingleONBOARDINGS
 
 // Styles
 const ONBOARDINGSTATUSModalArea = {
-  height: '88.5mm',
+  height: '195.5mm',
   width: '210mm',
   margin: '0 auto',
   background: 'white',

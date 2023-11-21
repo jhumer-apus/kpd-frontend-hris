@@ -100,7 +100,7 @@ export interface ONBOARDINGSTATUSGenericInterface {
 		onboarding_facilitator: number
 	}>
 	added_by?: number
-	onboarding_codes: number[]
+	onboarding_codes?: number[]
 }
 
 
@@ -113,7 +113,7 @@ export interface ONBOARDINGSTATUSCreateInterface extends Omit<ONBOARDINGSTATUSGe
 	emp_no: number[]
 }
 
-export interface ONBOARDINGSTATUSEditInterface extends ONBOARDINGSTATUSGenericInterface, Pick<ONBOARDINGSTATUSViewInterface, "id" >{}
+export interface ONBOARDINGSTATUSEditInterface extends Omit<ONBOARDINGSTATUSGenericInterface, "status">, Pick<ONBOARDINGSTATUSViewInterface, "id" >{}
 
 // ======================================
 
