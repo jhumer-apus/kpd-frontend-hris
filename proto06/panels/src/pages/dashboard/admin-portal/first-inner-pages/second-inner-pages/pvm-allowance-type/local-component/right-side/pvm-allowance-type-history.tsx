@@ -19,7 +19,7 @@ export default function PVMALLOWANCETYPEPageHistory() {
   });
   const dispatch = useDispatch();
   const { ALLOWANCETYPEView } = useSelector((state: RootState) => state.payrollVariables);
-  const { data, status } = ALLOWANCETYPEView;
+  const { data, status, error } = ALLOWANCETYPEView;
   const ALLOWANCETYPEViewData = data as ALLOWANCETYPEViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -57,7 +57,7 @@ export default function PVMALLOWANCETYPEPageHistory() {
             setSingleALLOWANCETYPEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Allowance Type found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Allowance Type Epic hasn\'t been set up, please contact your frontend developer': 'There is no Allowance Type to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

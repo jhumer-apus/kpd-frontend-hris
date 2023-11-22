@@ -32,7 +32,7 @@ export default function ApprovalOvertimePage() {
   });
   const dispatch = useDispatch();
   const { OVERTIMEViewFilterApprover } = useSelector((state: RootState) => state.procedurals);
-  const { data, status } = OVERTIMEViewFilterApprover;
+  const { data, status, error } = OVERTIMEViewFilterApprover;
   const OVERTIMEViewData = data as OVERTIMEViewInterface[];
 
   useEffect(()=> {
@@ -67,8 +67,8 @@ export default function ApprovalOvertimePage() {
             setSingleOVERTIMEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No OT found. Contact your administrator/support.' : (status === null || status === undefined) ? 'You have no pending OVERTIME approvals.': 'There is no OVERTIME to generate.'}` }}
-        />
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          />
       </div>
     </Fragment>
   );

@@ -17,10 +17,11 @@ export default function AAASSETACCOUNTPageHistory() {
     remarks: '',
     asset_list_code: NaN,
     assigned_to: NaN,
+    date_assigned: ''
   });
   const dispatch = useDispatch();
   const { ASSETACCOUNTView } = useSelector((state: RootState) => state.payrollEOY);
-  const { data, status } = ASSETACCOUNTView;
+  const { data, status, error } = ASSETACCOUNTView;
   const ASSETACCOUNTViewData = data as ASSETACCOUNTViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -58,7 +59,7 @@ export default function AAASSETACCOUNTPageHistory() {
             setSingleASSETACCOUNTOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Asset Account found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Asset Account Epic hasn\'t been set up, please contact your frontend developer': 'There is no ASSETACCOUNT to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

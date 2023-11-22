@@ -25,7 +25,7 @@ export default function ProceduralLEAVECREDITPageHistory() {
   });
   const dispatch = useDispatch();
   const { LEAVECREDITView } = useSelector((state: RootState) => state.procedurals);
-  const { data, status } = LEAVECREDITView;
+  const { data, status, error } = LEAVECREDITView;
   const LEAVECREDITViewData = data as LEAVECREDITViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -63,8 +63,8 @@ export default function ProceduralLEAVECREDITPageHistory() {
             setSingleLEAVECREDITOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Leave Credit found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Leave Credit Epic hasn\'t been set up, please contact your frontend developer': 'There is no Leave Credit to generate.'}` }}
-        />
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          />
       </div>
     </Fragment>
   );

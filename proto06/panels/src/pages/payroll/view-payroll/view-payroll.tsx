@@ -22,7 +22,7 @@ export default function ViewPayroll() {
   const [singlePayslipData, setSinglePayslipData] = useState<ViewPayrollPayPerEmployee>(PaySlipDataInitialState);
   const dispatch = useDispatch();
   
-  const { status: payrollStatus, data: payrollData, progress: payrollProgress, error: payrollError} = useSelector((state: RootState) => state.payroll.viewPayroll);
+  const { status, data, progress, error } = useSelector((state: RootState) => state.payroll.viewPayroll);
 
   useEffect(()=> {
     dispatch(viewPayrollList())
@@ -31,8 +31,8 @@ export default function ViewPayroll() {
 
   const printableArea = () => {
     // Calculate px; solves printable area bug, Do not easily modify
-    if(payrollData?.length && payrollData?.length >= 11){
-      return payrollData?.length / 25 * 1400
+    if(data?.length && data?.length >= 11){
+      return data?.length / 25 * 1400
     } else {
       return 600
     }
@@ -49,13 +49,13 @@ export default function ViewPayroll() {
         </Typography>
         </div>
         <div className='flex justify-between gap-6'>
-          <ExportToCsvButton data={payrollData} />
+          <ExportToCsvButton data={data} />
           <PrintTableButton setIsPrinting={setIsPrinting}/>
         </div>
       </div>
       <div style={{ height: `${printing? `${printableArea()}px` : '660px'}`, width: '100%' }} id="printable-area">
         <DataGrid
-          rows={payrollData? payrollData: []}
+          rows={data? data: []}
           columns={dynamicPayrollColumns[0]}
           initialState={{
             pagination: {
@@ -68,9 +68,9 @@ export default function ViewPayroll() {
             setSinglePayslipOpen(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${payrollStatus === 'loading' ? `${payrollStatus?.toUpperCase()}...` : payrollStatus === 'failed' ?  'No payroll found. Contact your administrator/support.' : (payrollStatus === null || payrollStatus === undefined) ? 'There is no payslip to generate. Create a cutoff summary first then process payroll': 'There is no payslip to generate. Create a cutoff summary first then process payroll'}` }}
-        />
-        <GeneratePDFButton data={payrollData} columns={dynamicPayrollColumns[0]} />
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          />
+        <GeneratePDFButton data={data} columns={dynamicPayrollColumns[0]} />
       </div>
     </Fragment>
   );

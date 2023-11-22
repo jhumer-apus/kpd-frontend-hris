@@ -135,8 +135,8 @@ export default function ViewDtrReports() {
             spButtonIndex === 2 ? gridRowClick(e) : null
           }}
           style={{ cursor: spButtonIndex === 2 ? 'pointer': 'default'}}
-          localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  'No DTR lists found. Contact your administrator/support.' : (dtrStatus === null || dtrStatus === undefined) ? 'Choose a DTR to display employee list': 'No DTR found'}` }}
-        />
+          localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  `${dtrError}` : 'Data Loaded - Showing 0 Results'}` }}
+          />
         <Modal
           open={open}
           onClose={

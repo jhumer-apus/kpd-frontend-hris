@@ -41,7 +41,7 @@ export default function ProceduralUAPage() {
   });
   const dispatch = useDispatch();
   const { UAView } = useSelector((state: RootState) => state.procedurals);
-  const { data, status } = UAView;
+  const { data, status, error } = UAView;
   const UAViewData = data as UAViewInterface[];
 
   useEffect(()=> {
@@ -85,7 +85,7 @@ export default function ProceduralUAPage() {
             setSingleUAOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Unaccounted Attendance found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Unaccounted Attendance Epic hasn\'t been set up, please contact your frontend developer': 'There is no Unaccounted Attendance to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
         {/* <GeneratePDFButton data={UAViewData} columns={ProceduralUAPageColumns} /> */}
       </div>

@@ -23,7 +23,7 @@ export default function PVMCASHADVANCEPageHistory() {
   });
   const dispatch = useDispatch();
   const { CASHADVANCEView } = useSelector((state: RootState) => state.payrollVariables);
-  const { data, status } = CASHADVANCEView;
+  const { data, status, error } = CASHADVANCEView;
   const CASHADVANCEViewData = data as CASHADVANCEViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -61,7 +61,7 @@ export default function PVMCASHADVANCEPageHistory() {
             setSingleCASHADVANCEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Cash Advance found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Cash Advance Epic hasn\'t been set up, please contact your frontend developer': 'There is no Cash Advance to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

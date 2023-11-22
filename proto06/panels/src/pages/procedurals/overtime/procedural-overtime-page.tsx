@@ -31,7 +31,7 @@ export default function ProceduralOvertimePage() {
   });
   const dispatch = useDispatch();
   const { OVERTIMEView } = useSelector((state: RootState) => state.procedurals);
-  const { data, status } = OVERTIMEView;
+  const { data, status, error } = OVERTIMEView;
   const OVERTIMEViewData = data as OVERTIMEViewInterface[];
 
   useEffect(()=> {
@@ -66,8 +66,8 @@ export default function ProceduralOvertimePage() {
             setSingleOVERTIMEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Overtime found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Overtime Epic hasn\'t been set up, please contact your frontend developer': 'There is no Overtime to generate.'}` }}
-        />
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          />
       </div>
     </Fragment>
   );

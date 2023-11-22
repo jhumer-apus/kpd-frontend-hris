@@ -14,16 +14,33 @@ export default function EAOFFBOARDINGSTATUSPageHistory() {
   const [singleOFFBOARDINGSTATUSOpenModal, setSingleOFFBOARDINGSTATUSOpenModal] = useState<boolean>(false);
   const [singleOFFBOARDINGSTATUSDetailsData, setSingleOFFBOARDINGSTATUSDetailsData] = useState<OFFBOARDINGSTATUSViewInterface>({
     id: NaN,
-    emp_no: NaN,
-    start_date: '',
+    date_added: '',
+    date_resigned: '',
     status: 'Pending',
     final_remarks: '',
-    date_added: '',
-    requirements: []
+    emp_no: NaN,
+    emp_offboard_reqs: [
+      {
+        id: NaN,
+        date_added: '',
+        offboard_title: '',
+        offboarding_facilitator: NaN,
+        date_accomplished: '',
+        emp_remarks: '',
+        facilitator_remarks: '',
+        status: 'Pending',
+        emp_no: NaN,
+        offboarding_requirement_code: NaN
+      }
+    ],
+    offboarding_codes: [],
+
+
+
   });
   const dispatch = useDispatch();
   const { OFFBOARDINGSTATUSView } = useSelector((state: RootState) => state.employeeAndApplicants);
-  const { data, status } = OFFBOARDINGSTATUSView;
+  const { data, status, error } = OFFBOARDINGSTATUSView;
   const OFFBOARDINGSTATUSViewData = data as OFFBOARDINGSTATUSViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -61,7 +78,7 @@ export default function EAOFFBOARDINGSTATUSPageHistory() {
             setSingleOFFBOARDINGSTATUSOpenModal(true);
           }}
           disableRowSelectionOnClick
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No 13th Month Pay found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for 13th Month Pay Epic hasn\'t been set up, please contact your frontend developer': 'There is no 13th Month Pay to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

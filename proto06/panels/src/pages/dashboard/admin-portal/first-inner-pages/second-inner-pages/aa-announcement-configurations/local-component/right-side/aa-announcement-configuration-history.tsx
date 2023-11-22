@@ -26,7 +26,7 @@ export default function AAANNOUNCEMENTPageHistory() {
   });
   const dispatch = useDispatch();
   const { ANNOUNCEMENTView } = useSelector((state: RootState) => state.payrollEOY);
-  const { data, status } = ANNOUNCEMENTView;
+  const { data, status, error } = ANNOUNCEMENTView;
   const ANNOUNCEMENTViewData = data as ANNOUNCEMENTViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -64,7 +64,7 @@ export default function AAANNOUNCEMENTPageHistory() {
             setSingleANNOUNCEMENTOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Announcement found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for ANNOUNCEMENT Epic hasn\'t been set up, please contact your frontend developer': 'There is no ANNOUNCEMENT to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

@@ -20,7 +20,7 @@ export default function ManageDEPARTMENTPageHistory() {
   });
   const dispatch = useDispatch();
   const { DEPARTMENTView } = useSelector((state: RootState) => state.categories);
-  const { data, status } = DEPARTMENTView;
+  const { data, status, error } = DEPARTMENTView;
   const DEPARTMENTViewData = data as DEPARTMENTViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -58,7 +58,7 @@ export default function ManageDEPARTMENTPageHistory() {
             setSingleDEPARTMENTOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Branch found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Branch Epic hasn\'t been set up, please contact your frontend developer': 'There is no DEPARTMENT to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

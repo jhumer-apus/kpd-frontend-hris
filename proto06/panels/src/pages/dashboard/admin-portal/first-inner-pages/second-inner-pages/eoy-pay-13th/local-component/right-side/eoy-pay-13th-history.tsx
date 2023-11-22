@@ -22,7 +22,7 @@ export default function EOYPAY13THPageHistory() {
   });
   const dispatch = useDispatch();
   const { PAY13THView } = useSelector((state: RootState) => state.payrollEOY);
-  const { data, status } = PAY13THView;
+  const { data, status, error } = PAY13THView;
   const PAY13THViewData = data as PAY13THViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -60,7 +60,7 @@ export default function EOYPAY13THPageHistory() {
             setSinglePAY13THOpenModal(true);
           }}
           disableRowSelectionOnClick
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No 13th Month Pay found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for 13th Month Pay Epic hasn\'t been set up, please contact your frontend developer': 'There is no 13th Month Pay to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

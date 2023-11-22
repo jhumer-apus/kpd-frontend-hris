@@ -32,7 +32,7 @@ export default function QuickAccessOVERTIMEPageHistory() {
   });
   const dispatch = useDispatch();
   const { OVERTIMEViewFilterEmployee } = useSelector((state: RootState) => state.procedurals);
-  const { data, status } = OVERTIMEViewFilterEmployee;
+  const { data, status, error } = OVERTIMEViewFilterEmployee;
   const OVERTIMEViewData = data as OVERTIMEViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -70,7 +70,7 @@ export default function QuickAccessOVERTIMEPageHistory() {
             setSingleOVERTIMEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No OT found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for OVERTIME Epic hasn\'t been set up, please contact your frontend developer': 'There is no OVERTIME to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

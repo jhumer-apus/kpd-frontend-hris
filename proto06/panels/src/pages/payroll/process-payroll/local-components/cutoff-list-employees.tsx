@@ -77,7 +77,7 @@ interface CutOffListEmployees {
 export default function CutOffListEmployees(props: CutOffListEmployees) { 
   const { employees, selectedRows, setSelectedRows} = props;
   const dispatch = useDispatch();
-  const {status} = useSelector((state: RootState)=> state.dtr.getCutoffListEmployees);
+  const { status, error } = useSelector((state: RootState)=> state.dtr.getCutoffListEmployees);
   
   const booleanValues = Object.values(selectedRows).filter(
     value => typeof value === 'boolean'
@@ -134,7 +134,7 @@ export default function CutOffListEmployees(props: CutOffListEmployees) {
         }}
         checkboxSelection
         onRowSelectionModelChange={handleSelection}
-        localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'Choose a cutoff period to display employee list': 'SUCCEEDED...'}` }}
+        localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         pageSizeOptions={[25, 50, 75, 100]}
       />
       </div>

@@ -32,7 +32,7 @@ export default function QuickAccessLEAVEPageHistory() {
   });
   const dispatch = useDispatch();
   const { LEAVEViewFilterEmployee } = useSelector((state: RootState) => state.procedurals);
-  const { data, status } = LEAVEViewFilterEmployee;
+  const { data, status, error } = LEAVEViewFilterEmployee;
   const LEAVEViewData = data as LEAVEViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -70,7 +70,7 @@ export default function QuickAccessLEAVEPageHistory() {
             setSingleLEAVEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Leave found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Leave Epic hasn\'t been set up, please contact your frontend developer': 'There is no Leave to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

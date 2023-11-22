@@ -14,7 +14,7 @@ export default function QuickAccessOBTPageHistory() {
   const [singleOBTDetailsData, setSingleOBTDetailsData] = useState<OBTViewInterface>(OBTViewFilterEmployeeInitialState);
   const dispatch = useDispatch();
   const { OBTViewFilterEmployee } = useSelector((state: RootState) => state.procedurals);
-  const { data, status } = OBTViewFilterEmployee;
+  const { data, status, error } = OBTViewFilterEmployee;
   const OBTViewData = data as OBTViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -52,7 +52,7 @@ export default function QuickAccessOBTPageHistory() {
             setSingleOBTOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No OBT found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for OBT Epic hasn\'t been set up, please contact your frontend developer': 'There is no OBT to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

@@ -31,9 +31,7 @@ export default function ProceduralSCHEDULEDAILYPageHistory(props: ProceduralSCHE
       is_night_shift: false,
       date_deleted: '',
     },
-    business_date_from: null,
-    business_date_to: null,
-    emp_no: [],
+    emp_no: NaN,
     is_restday: false,
     business_date: ''
   });

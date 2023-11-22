@@ -41,7 +41,7 @@ export default function ApprovalUAPage() {
   });
   const dispatch = useDispatch();
   const { UAViewFilterApprover, UAViewFilterEmployeeAndUA } = useSelector((state: RootState) => state.procedurals);
-  const { data, status } = UAViewFilterApprover;
+  const { data, status, error } = UAViewFilterApprover;
   const UAViewData = data as UAViewInterface[];
 
   useEffect(()=> {
@@ -85,8 +85,8 @@ export default function ApprovalUAPage() {
             setSingleUAOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No UA found. Contact your administrator/support.' : (status === null || status === undefined) ? 'You have no pending UA approvals.': 'There is no UA to generate.'}` }}
-        />
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          />
       </div>
     </Fragment>
   );

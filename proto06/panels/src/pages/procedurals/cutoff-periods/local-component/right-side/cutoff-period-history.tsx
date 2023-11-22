@@ -24,7 +24,7 @@ export default function ProceduralCUTOFFPERIODPageHistory() {
   });
   const dispatch = useDispatch();
   const { CUTOFFPERIODView } = useSelector((state: RootState) => state.procedurals);
-  const { data } = CUTOFFPERIODView;
+  const { data, status, error } = CUTOFFPERIODView;
   const CUTOFFPERIODViewData = data as CUTOFFPERIODViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -62,8 +62,8 @@ export default function ProceduralCUTOFFPERIODPageHistory() {
             setSingleCUTOFFPERIODOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff period found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for CUTOFFPERIOD Epic hasn\'t been set up, please contact your frontend developer': 'There is no CUTOFFPERIOD to generate.'}` }}
-        />
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          />
       </div>
     </Fragment>
   );

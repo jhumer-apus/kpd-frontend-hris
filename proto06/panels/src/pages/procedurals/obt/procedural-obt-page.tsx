@@ -14,7 +14,7 @@ export default function ProceduralOBTPage() {
   const [singleOBTDetailsData, setSingleOBTDetailsData] = useState<OBTViewInterface>(OBTViewFilterEmployeeInitialState);
   const dispatch = useDispatch();
   const { OBTView } = useSelector((state: RootState) => state.procedurals);
-  const { data, status } = OBTView;
+  const { data, status, error } = OBTView;
   const OBTViewData = data as OBTViewInterface[];
 
   useEffect(()=> {
@@ -58,8 +58,8 @@ export default function ProceduralOBTPage() {
             setSingleOBTOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No OBT found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for OBT Epic hasn\'t been set up, please contact your frontend developer': 'There is no OBT to generate.'}` }}
-        />
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          />
       </div>
     </Fragment>
   );

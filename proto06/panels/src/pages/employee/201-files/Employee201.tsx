@@ -203,7 +203,7 @@ export default function DataTable() {
             dispatchSpecificEmployeeInfo(e.row?.emp_no)
           }}
           style={{ cursor: 'pointer'}}
-          localeText={{ noRowsLabel: 'Loading...' }}
+          localeText={{ noRowsLabel: 'Loading...' }} // To do: can optimize after reducer optimized
         />
         <Modal
           open={open}

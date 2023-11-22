@@ -19,7 +19,7 @@ export default function ProceduralLEAVETYPEPageHistory() {
   });
   const dispatch = useDispatch();
   const { LEAVETYPEView } = useSelector((state: RootState) => state.procedurals);
-  const { data, status } = LEAVETYPEView;
+  const { data, status, error } = LEAVETYPEView;
   const LEAVETYPEViewData = data as LEAVETYPEViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -57,8 +57,8 @@ export default function ProceduralLEAVETYPEPageHistory() {
             setSingleLEAVETYPEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Leave Type found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Leave Type Epic hasn\'t been set up, please contact your frontend developer': 'There is no Leave Type to generate.'}` }}
-        />
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          />
       </div>
     </Fragment>
   );

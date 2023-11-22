@@ -31,7 +31,7 @@ export default function AppraisalConfirmationKPICOREPage() {
   });
   const dispatch = useDispatch();
   const { KPICOREView } = useSelector((state: RootState) => state.employeeAndApplicants);
-  const { data, status } = KPICOREView;
+  const { data, status, error } = KPICOREView;
   const KPICOREViewData = data as KPICOREViewInterface[];
 
   const FilteredKPICOREViewData = Array.isArray(KPICOREViewData) ?  KPICOREViewData.filter((item) => item?.status === 'Pending' && item?.sup_no === curr_user ) : [];
@@ -68,8 +68,8 @@ export default function AppraisalConfirmationKPICOREPage() {
             setSingleKPICOREOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No KPICORE found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for KPICORE Epic hasn\'t been set up, please contact your frontend developer': 'There is no KPICORE to generate.'}` }}
-        />
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          />
       </div>
     </Fragment>
   );

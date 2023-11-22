@@ -22,7 +22,7 @@ export default function PVMSSSPageHistory() {
   });
   const dispatch = useDispatch();
   const { SSSView } = useSelector((state: RootState) => state.payrollVariables);
-  const { data, status } = SSSView;
+  const { data, status, error } = SSSView;
   const SSSViewData = data as SSSViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -60,7 +60,7 @@ export default function PVMSSSPageHistory() {
             setSingleSSSOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No SSS found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for SSS Epic hasn\'t been set up, please contact your frontend developer': 'There is no SSS to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

@@ -106,7 +106,7 @@ function EOYPAY13THCreate(props: CreatePAY13THModalInterface) {
                         onRowSelectionModelChange={handleSelection}
                         checkboxSelection
                         disableRowSelectionOnClick
-                        localeText={{ noRowsLabel: `Loading...` }}
+                        localeText={{ noRowsLabel: `Loading...` }} // To do: after employee reducer code optimization has been done
                         />
                     </div>
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>

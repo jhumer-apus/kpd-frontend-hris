@@ -213,7 +213,7 @@ function EAKPICORECreate(props: CreateKPICOREModalInterface) {
                         onRowSelectionModelChange={handleSelection}
                         checkboxSelection
                         disableRowSelectionOnClick
-                        localeText={{ noRowsLabel: `Loading...` }}
+                        localeText={{ noRowsLabel: `Loading...` }} // To do: when the reducer state has been optimized, this can also be optimized.
                         />
                     </div>
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>

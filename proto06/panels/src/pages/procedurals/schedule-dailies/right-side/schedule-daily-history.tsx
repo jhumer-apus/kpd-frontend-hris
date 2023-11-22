@@ -31,15 +31,13 @@ export default function ProceduralSCHEDULEDAILYPageHistory(props: ProceduralSCHE
       is_night_shift: false,
       date_deleted: '',
     },
-    business_date_from: null,
-    business_date_to: null,
-    emp_no: [],
+    business_date: '',
+    emp_no: NaN,
     is_restday: false,
-    business_date: ''
   });
   const dispatch = useDispatch();
   const { SCHEDULEDAILYViewFilterEmployee } = useSelector((state: RootState) => state.procedurals);
-  const { data, status } = SCHEDULEDAILYViewFilterEmployee;
+  const { data, status, error } = SCHEDULEDAILYViewFilterEmployee;
   const SCHEDULEDAILYViewData = data as SCHEDULEDAILYViewInterface[];
 
   useEffect(()=> {
@@ -74,8 +72,8 @@ export default function ProceduralSCHEDULEDAILYPageHistory(props: ProceduralSCHE
             setSingleSCHEDULEDAILYOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'Fetching Failed. Contact your administrator/support.' : (status === null || status === undefined) ? `Fetch Undefined. Refresh Page.`: `No Daily Schedule found for Employee #${currEmployee}`}` }}
-        />
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          />
       </div>
     </Fragment>
   );

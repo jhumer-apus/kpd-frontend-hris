@@ -21,7 +21,7 @@ export default function PVMALLOWANCEENTRYPageHistory() {
   });
   const dispatch = useDispatch();
   const { ALLOWANCEENTRYView } = useSelector((state: RootState) => state.payrollVariables);
-  const { data, status } = ALLOWANCEENTRYView;
+  const { data, status, error } = ALLOWANCEENTRYView;
   const ALLOWANCEENTRYViewData = data as ALLOWANCEENTRYViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -59,7 +59,7 @@ export default function PVMALLOWANCEENTRYPageHistory() {
             setSingleALLOWANCEENTRYOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Allowance Entry found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for ALLOWANCEENTRY Epic hasn\'t been set up, please contact your frontend developer': 'There is no ALLOWANCEENTRY to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

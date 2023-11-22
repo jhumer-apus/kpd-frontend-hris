@@ -19,7 +19,7 @@ export default function EAEVALQUESTIONSPageHistory() {
   });
   const dispatch = useDispatch();
   const { EVALQUESTIONSView } = useSelector((state: RootState) => state.employeeAndApplicants);
-  const { data, status } = EVALQUESTIONSView;
+  const { data, status, error } = EVALQUESTIONSView;
   const EVALQUESTIONSViewData = data as EVALQUESTIONSViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -57,7 +57,7 @@ export default function EAEVALQUESTIONSPageHistory() {
             setSingleEVALQUESTIONSOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Asset Lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Asset List Epic hasn\'t been set up, please contact your frontend developer': 'There is no EVALQUESTIONS to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

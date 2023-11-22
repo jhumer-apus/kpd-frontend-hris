@@ -13,7 +13,7 @@ export default function ApprovalOBTPage() {
   const [singleOBTDetailsData, setSingleOBTDetailsData] = useState<OBTViewInterface>(OBTViewFilterEmployeeInitialState);
   const dispatch = useDispatch();
   const { OBTViewFilterApprover } = useSelector((state: RootState) => state.procedurals);
-  const { data, status } = OBTViewFilterApprover;
+  const { data, status, error } = OBTViewFilterApprover;
   const OBTViewData = data as OBTViewInterface[];
 
   useEffect(()=> {
@@ -48,8 +48,8 @@ export default function ApprovalOBTPage() {
             setSingleOBTOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No OBT found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for OBT Epic hasn\'t been set up, please contact your frontend developer': 'There is no OBT to generate.'}` }}
-        />
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          />
       </div>
     </Fragment>
   );

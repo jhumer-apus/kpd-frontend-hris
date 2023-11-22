@@ -23,8 +23,8 @@ Priority Level: 01-10 (10 With Highest Impact)
 
 
 - 05 See if you can optimize the animated svg in the home page
+- 05 Employees.ts also needs code optimization -> Linked to all data table grids loading employee lists
 - 04 Check import sizes on all components and check when you can reduce bundle size
 - 02 Code optimization of reducer/dtr.ts 
-- 02 Check if employees.ts also needs code optimization
 - 02 Code optimziation of tree file dependency for reducer/auth.ts
 - 01 Remove all dead codes or commented codes and unused components to all tree files

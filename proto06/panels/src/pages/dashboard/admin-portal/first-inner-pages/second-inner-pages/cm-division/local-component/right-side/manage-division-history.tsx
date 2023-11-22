@@ -20,7 +20,7 @@ export default function ManageDIVISIONPageHistory() {
   });
   const dispatch = useDispatch();
   const { DIVISIONView } = useSelector((state: RootState) => state.categories);
-  const { data, status } = DIVISIONView;
+  const { data, status, error } = DIVISIONView;
   const DIVISIONViewData = data as DIVISIONViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -58,7 +58,7 @@ export default function ManageDIVISIONPageHistory() {
             setSingleDIVISIONOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Division found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for DIVISION Epic hasn\'t been set up, please contact your frontend developer': 'There is no Division to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

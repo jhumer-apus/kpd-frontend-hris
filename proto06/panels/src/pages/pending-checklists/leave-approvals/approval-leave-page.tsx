@@ -43,7 +43,7 @@ export default function ApprovalLEAVEPage() {
   });
   const dispatch = useDispatch();
   const { LEAVEViewFilterApprover } = useSelector((state: RootState) => state.procedurals);
-  const { data, status } = LEAVEViewFilterApprover;
+  const { data, status, error } = LEAVEViewFilterApprover;
   const LEAVEViewData = data as LEAVEViewInterface[];
 
   useEffect(()=> {
@@ -88,8 +88,8 @@ export default function ApprovalLEAVEPage() {
             setSingleLEAVEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Leave found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for LEAVE Epic hasn\'t been set up, please contact your frontend developer': 'There is no LEAVE to generate.'}` }}
-        />
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          />
         {/* <GeneratePDFButton data={LEAVEViewData} columns={ApprovalLEAVEPageColumns} /> */}
       </div>
     </Fragment>

@@ -107,6 +107,7 @@ export default function EAAPPLICANTSLIST() {
   const [type, setType] = useState("staticInfo");
   const APPLICANTSListState = useSelector((state: RootState) => state.employeeAndApplicants.APPLICANTSView);
 
+  const { status, error} = APPLICANTSListState;
   const [open, setOpen] = useState(false);
   const [modalEntranceDelay, setModalEntranceDelay] = useState(false);
   const [secondOptionModalEntranceDelay, setSecondOptionModalEntranceDelay] = useState(false);
@@ -172,7 +173,7 @@ export default function EAAPPLICANTSLIST() {
             dispatchSpecificEmployeeInfo(e.row?.emp_no)
           }}
           style={{ cursor: 'pointer'}}
-          localeText={ { noRowsLabel: APPLICANTSListState.status === 'loading' ? 'Loading...' :  APPLICANTSListState.status !== 'succeeded' ? 'No Data Fetched' : 'Success...' }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
         <Modal
           open={open}

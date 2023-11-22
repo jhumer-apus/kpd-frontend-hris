@@ -21,7 +21,7 @@ export default function ManageRANKPageHistory() {
   });
   const dispatch = useDispatch();
   const { RANKView } = useSelector((state: RootState) => state.categories);
-  const { data, status } = RANKView;
+  const { data, status, error } = RANKView;
   const RANKViewData = data as RANKViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -58,7 +58,7 @@ export default function ManageRANKPageHistory() {
             setSingleRANKOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Rank found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Rank Epic hasn\'t been set up, please contact your frontend developer': 'There is no Rank to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

@@ -19,7 +19,7 @@ export default function ManagePOSITIONPageHistory() {
   });
   const dispatch = useDispatch();
   const { POSITIONView } = useSelector((state: RootState) => state.categories);
-  const { data, status } = POSITIONView;
+  const { data, status, error } = POSITIONView;
   const POSITIONViewData = data as POSITIONViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -56,7 +56,7 @@ export default function ManagePOSITIONPageHistory() {
             setSinglePOSITIONOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Position found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Position Epic hasn\'t been set up, please contact your frontend developer': 'There is no Position to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

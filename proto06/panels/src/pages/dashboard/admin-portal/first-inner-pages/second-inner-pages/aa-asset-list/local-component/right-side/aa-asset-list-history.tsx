@@ -12,14 +12,19 @@ export default function AAASSETLISTPageHistory() {
   const [singleASSETLISTOpenModal, setSingleASSETLISTOpenModal] = useState<boolean>(false);
   const [singleASSETLISTDetailsData, setSingleASSETLISTDetailsData] = useState<ASSETLISTViewInterface>({
     id: NaN,
-    name: '',
+    asset_name: '',
+    model: '',
+    year: NaN,
+    batch_no: '',
     description: '',
-    amount: NaN,
+    remarks: '',
+    quantity: NaN,
     date_added: '',
+    added_by: NaN,
   });
   const dispatch = useDispatch();
   const { ASSETLISTView } = useSelector((state: RootState) => state.payrollEOY);
-  const { data, status } = ASSETLISTView;
+  const { data, status, error } = ASSETLISTView;
   const ASSETLISTViewData = data as ASSETLISTViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -57,7 +62,7 @@ export default function AAASSETLISTPageHistory() {
             setSingleASSETLISTOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Asset Lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Asset List Epic hasn\'t been set up, please contact your frontend developer': 'There is no ASSETLIST to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

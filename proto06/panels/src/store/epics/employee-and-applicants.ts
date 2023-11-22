@@ -896,7 +896,7 @@ export const ONBOARDINGREQUIREMENTSDeleteEpic: Epic = (action$, state$) =>
 
 // OFFBOARDINGSTATUS API SECTION // OFFBOARDINGSTATUS API SECTION // OFFBOARDINGSTATUS API SECTION // OFFBOARDINGSTATUS API SECTION // OFFBOARDINGSTATUS API SECTION
 const OFFBOARDINGSTATUSEditApiCall = async (payload: _Interface.OFFBOARDINGSTATUSEditInterface) => {
-    const response = await axios.put(`${APILink}offboarding_status/${payload.id}/`,
+    const response = await axios.put(`${APILink}offboard_req/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -911,7 +911,7 @@ const OFFBOARDINGSTATUSEditApiCall = async (payload: _Interface.OFFBOARDINGSTATU
 };
   
 const OFFBOARDINGSTATUSCreateApiCall = async (payload: _Interface.OFFBOARDINGSTATUSCreateInterface) => {
-    const response = await axios.post(`${APILink}offboarding_status/`,
+    const response = await axios.post(`${APILink}offboard_req/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -926,7 +926,7 @@ const OFFBOARDINGSTATUSCreateApiCall = async (payload: _Interface.OFFBOARDINGSTA
 };
 
 const OFFBOARDINGSTATUSViewSpecificApiCall = async (payload: {offboarding_status_id: number }) => {
-    const response = await axios.get(`${APILink}offboarding_status/${payload.offboarding_status_id}/`,
+    const response = await axios.get(`${APILink}offboard_req/${payload.offboarding_status_id}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
@@ -941,7 +941,7 @@ const OFFBOARDINGSTATUSViewSpecificApiCall = async (payload: {offboarding_status
 
 
 const OFFBOARDINGSTATUSViewApiCall = async () => {
-    const response = await axios.get(`${APILink}offboarding_status/`,
+    const response = await axios.get(`${APILink}offboard_req/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){

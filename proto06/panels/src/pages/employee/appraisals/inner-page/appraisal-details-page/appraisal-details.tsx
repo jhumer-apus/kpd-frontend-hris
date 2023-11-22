@@ -24,15 +24,15 @@ export default function APPRAISALDETAILSPage() {
     eval_date: '',
     status: 'Pending',
     final_rating: '',
-    self_eval_points: NaN,
-    sup_eval_points: NaN,
-    core_compe_points: NaN,
+    total_self_eval_points: NaN,
+    total_sup_eval_points: NaN,
+    total_core_compe_points: NaN,
     percentage_total: NaN,
 
   });
   const dispatch = useDispatch();
   const { KPICOREViewSpecificEmployee } = useSelector((state: RootState) => state.employeeAndApplicants);
-  const { data, status } = KPICOREViewSpecificEmployee;
+  const { data, status, error } = KPICOREViewSpecificEmployee;
   const KPICOREViewData = data as KPICOREViewInterface[];
 
   // const FilteredKPICOREViewData = KPICOREViewData.filter((item) => item.emp_no === curr_user );
@@ -71,8 +71,8 @@ export default function APPRAISALDETAILSPage() {
             setSingleKPICOREOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No KPICORE found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for KPICORE Epic hasn\'t been set up, please contact your frontend developer': 'There is no KPICORE to generate.'}` }}
-        />
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          />
       </div>
     </Fragment>
   );

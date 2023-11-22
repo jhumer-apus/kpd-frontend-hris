@@ -33,7 +33,7 @@ export default function ManageUSERPageHistory() {
   });
   const dispatch = useDispatch();
   const { USERView } = useSelector((state: RootState) => state.users);
-  const { data, status } = USERView;
+  const { data, status, error } = USERView;
   const USERViewData = data as USERViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -71,7 +71,7 @@ export default function ManageUSERPageHistory() {
             setSingleUSEROpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Users found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for USER Epic hasn\'t been set up, please contact your frontend developer': 'There is no USER to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

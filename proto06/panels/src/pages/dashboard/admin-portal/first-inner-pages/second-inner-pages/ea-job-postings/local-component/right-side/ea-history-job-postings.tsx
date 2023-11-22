@@ -24,7 +24,7 @@ export default function EAJOBPOSTINGSPageHistory() {
   });
   const dispatch = useDispatch();
   const { JOBPOSTINGSView } = useSelector((state: RootState) => state.employeeAndApplicants);
-  const { data, status } = JOBPOSTINGSView;
+  const { data, status, error } = JOBPOSTINGSView;
   const JOBPOSTINGSViewData = data as JOBPOSTINGSViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -62,7 +62,7 @@ export default function EAJOBPOSTINGSPageHistory() {
             setSingleJOBPOSTINGSOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Asset Lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Asset List Epic hasn\'t been set up, please contact your frontend developer': 'There is no JOBPOSTINGS to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

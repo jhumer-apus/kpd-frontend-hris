@@ -22,7 +22,7 @@ export default function ManageBRANCHPageHistory() {
   });
   const dispatch = useDispatch();
   const { BRANCHView } = useSelector((state: RootState) => state.categories);
-  const { data, status } = BRANCHView;
+  const { data, status, error } = BRANCHView;
   const BRANCHViewData = data as BRANCHViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -60,7 +60,7 @@ export default function ManageBRANCHPageHistory() {
             setSingleBRANCHOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Branch found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Branch Epic hasn\'t been set up, please contact your frontend developer': 'There is no BRANCH to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

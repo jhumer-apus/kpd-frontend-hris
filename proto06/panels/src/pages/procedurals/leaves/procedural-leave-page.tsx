@@ -33,7 +33,7 @@ export default function ProceduralLEAVEPage() {
   });
   const dispatch = useDispatch();
   const { LEAVEView } = useSelector((state: RootState) => state.procedurals);
-  const { data, status } = LEAVEView;
+  const { data, status, error } = LEAVEView;
   const LEAVEViewData = data as LEAVEViewInterface[];
 
   useEffect(()=> {
@@ -77,8 +77,8 @@ export default function ProceduralLEAVEPage() {
             setSingleLEAVEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Leave found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Leave Epic hasn\'t been set up, please contact your frontend developer': 'There is no Leave to generate.'}` }}
-        />
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          />
         {/* <GeneratePDFButton data={LEAVEViewData} columns={ProceduralLEAVEPageColumns} /> */}
       </div>
     </Fragment>

@@ -22,7 +22,7 @@ export default function ProceduralSCHEDULESHIFTPageHistory() {
   });
   const dispatch = useDispatch();
   const { SCHEDULESHIFTView } = useSelector((state: RootState) => state.procedurals);
-  const { data, status } = SCHEDULESHIFTView;
+  const { data, status, error } = SCHEDULESHIFTView;
   const SCHEDULESHIFTViewData = data as SCHEDULESHIFTViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -60,7 +60,7 @@ export default function ProceduralSCHEDULESHIFTPageHistory() {
             setSingleSCHEDULESHIFTOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Schedule Shift found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for SCHEDULESHIFT Epic hasn\'t been set up, please contact your frontend developer': 'There is no SCHEDULESHIFT to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

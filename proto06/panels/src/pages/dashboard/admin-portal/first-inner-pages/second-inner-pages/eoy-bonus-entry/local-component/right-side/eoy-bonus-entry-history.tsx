@@ -21,7 +21,7 @@ export default function EOYBONUSENTRYPageHistory() {
   });
   const dispatch = useDispatch();
   const { BONUSENTRYView } = useSelector((state: RootState) => state.payrollEOY);
-  const { data, status } = BONUSENTRYView;
+  const { data, status, error } = BONUSENTRYView;
   const BONUSENTRYViewData = data as BONUSENTRYViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -59,7 +59,7 @@ export default function EOYBONUSENTRYPageHistory() {
             setSingleBONUSENTRYOpenModal(true);
           }}
           disableRowSelectionOnClick
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Bonus Entry found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Bonus Entry Epic hasn\'t been set up, please contact your frontend developer': 'There is no Bonus Entry to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

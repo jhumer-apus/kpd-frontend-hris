@@ -179,7 +179,7 @@ function EAOFFBOARDINGSTATUSCreate(props: CreateOFFBOARDINGSTATUSModalInterface)
                         onRowSelectionModelChange={handleSelection}
                         checkboxSelection
                         disableRowSelectionOnClick
-                        localeText={{ noRowsLabel: `Loading...` }}
+                        localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
                         />
                     </div>
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>

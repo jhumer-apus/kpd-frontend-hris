@@ -12,7 +12,7 @@ export default function EOYTAXCOLLECTEDPage() {
   // const [singleTAXCOLLECTEDDetailsData, setSingleTAXCOLLECTEDDetailsData] = useState<TAXCOLLECTEDViewInterface>(TAXCOLLECTEDViewFilterEmployeeInitialState);
   const dispatch = useDispatch();
   const { TAXCOLLECTEDView } = useSelector((state: RootState) => state.payrollEOY);
-  const { data, status } = TAXCOLLECTEDView;
+  const { data, status, error } = TAXCOLLECTEDView;
   const TAXCOLLECTEDViewData = data as TAXCOLLECTEDViewInterface[];
 
   useEffect(()=> {
@@ -47,7 +47,7 @@ export default function EOYTAXCOLLECTEDPage() {
           //   setSingleTAXCOLLECTEDOpenModal(true);
           // }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Tax Collected found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Tax Collected Epic hasn\'t been set up, please contact your frontend developer': 'There is no Tax Collected to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

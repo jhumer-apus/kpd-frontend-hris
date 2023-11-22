@@ -405,7 +405,7 @@ export default function EmployeesAppraisalPage() {
             // setStatisticsChartsData((prevState)=> console.log(prevState))
           }}
           style={{ cursor: 'pointer'}}
-          localeText={{ noRowsLabel: 'Loading...' }}
+          localeText={{ noRowsLabel: 'Loading...' }} // To do: can optimize after employee reducer has been optimized 
         />
       </div>
     </Fragment>

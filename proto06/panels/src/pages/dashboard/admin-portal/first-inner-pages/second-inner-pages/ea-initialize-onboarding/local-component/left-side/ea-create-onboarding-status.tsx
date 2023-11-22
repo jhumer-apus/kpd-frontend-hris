@@ -88,7 +88,7 @@ function EAONBOARDINGSTATUSCreate(props: CreateONBOARDINGSTATUSModalInterface) {
                         onRowSelectionModelChange={handleSelection}
                         checkboxSelection
                         disableRowSelectionOnClick
-                        localeText={{ noRowsLabel: `Loading...` }}
+                        localeText={{ noRowsLabel: `Loading...` }} // To do: reducer needs to be updated with status state
                         />
                     </div>
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>

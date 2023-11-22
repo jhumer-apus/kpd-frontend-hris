@@ -24,7 +24,7 @@ export default function PVMPAGIBIGPageHistory() {
   });
   const dispatch = useDispatch();
   const { PAGIBIGView } = useSelector((state: RootState) => state.payrollVariables);
-  const { data, status } = PAGIBIGView;
+  const { data, status, error } = PAGIBIGView;
   const PAGIBIGViewData = data as PAGIBIGViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -62,7 +62,7 @@ export default function PVMPAGIBIGPageHistory() {
             setSinglePAGIBIGOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Pagibig found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for Pagibig Epic hasn\'t been set up, please contact your frontend developer': 'There is no Pagibig to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

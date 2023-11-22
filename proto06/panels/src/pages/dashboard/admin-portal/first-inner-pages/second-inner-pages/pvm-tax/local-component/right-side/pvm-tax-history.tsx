@@ -12,7 +12,7 @@ export default function PVMTAXPageHistory() {
   const [singleTAXOpenModal, setSingleTAXOpenModal] = useState<boolean>(false);
   const [singleTAXDetailsData, setSingleTAXDetailsData] = useState<TAXViewInterface>({
     id: NaN,
-    tin_no: '',
+    tin_no: NaN,
     tax_form: '',
     tax_description: '',
     tax_percentage: NaN,
@@ -21,7 +21,7 @@ export default function PVMTAXPageHistory() {
   });
   const dispatch = useDispatch();
   const { TAXView } = useSelector((state: RootState) => state.payrollVariables);
-  const { data, status } = TAXView;
+  const { data, status, error } = TAXView;
   const TAXViewData = data as TAXViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -59,7 +59,7 @@ export default function PVMTAXPageHistory() {
             setSingleTAXOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No Tax found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for TAX Epic hasn\'t been set up, please contact your frontend developer': 'There is no TAX to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

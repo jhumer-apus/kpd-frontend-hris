@@ -29,7 +29,7 @@ export default function QuickAccessUAPageHistory() {
   });
   const dispatch = useDispatch();
   const { UAViewFilterEmployee } = useSelector((state: RootState) => state.procedurals);
-  const { data, status } = UAViewFilterEmployee;
+  const { data, status,error } = UAViewFilterEmployee;
   const UAViewData = data as UAViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
 
@@ -67,7 +67,7 @@ export default function QuickAccessUAPageHistory() {
             setSingleUAOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No UA found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for UA Epic hasn\'t been set up, please contact your frontend developer': 'There is no UA to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

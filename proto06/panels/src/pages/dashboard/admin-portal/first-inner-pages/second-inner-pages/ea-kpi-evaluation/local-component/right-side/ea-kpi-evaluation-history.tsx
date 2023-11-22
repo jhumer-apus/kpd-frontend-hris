@@ -22,17 +22,16 @@ export default function EAKPICOREPageHistory() {
     eval_date: '',
     status: '',
     final_rating: '',
-    self_eval_points: NaN,
-    sup_eval_points: NaN,
-    core_compe_points: NaN,
+    total_self_eval_points: NaN,
+    total_sup_eval_points: NaN,
+    total_core_compe_points: NaN,
     percentage_total: NaN,
   });
   const dispatch = useDispatch();
   const { KPICOREView } = useSelector((state: RootState) => state.employeeAndApplicants);
-  const { data, status } = KPICOREView;
+  const { data, status, error } = KPICOREView;
   const KPICOREViewData = data as KPICOREViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
-  console.log(data, "1231231231231")
   useEffect(()=> {
     if((KPICOREViewData?.length <= 0 || KPICOREViewData === null || KPICOREViewData === undefined ) && curr_user){
       dispatch(KPICOREViewAction())
@@ -67,7 +66,7 @@ export default function EAKPICOREPageHistory() {
             setSingleKPICOREOpenModal(true);
           }}
           disableRowSelectionOnClick
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No 13th Month Pay found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for 13th Month Pay Epic hasn\'t been set up, please contact your frontend developer': 'There is no 13th Month Pay to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

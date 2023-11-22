@@ -2,9 +2,10 @@ import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { GridColDef, GridValueGetterParams, GridValueFormatterParams, GridRowSelectionModel } from '@mui/x-data-grid';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalDate } from '@/store/configureStore';
 import { ViewPayrollPayPerEmployee } from '@/types/types-pages';
 import { Button, Typography } from '@mui/material';
+import dayjs from 'dayjs';
 
 const GenerateListColumns: GridColDef[] = [
     {
@@ -13,7 +14,7 @@ const GenerateListColumns: GridColDef[] = [
         width: 150,
         valueGetter: (params: GridValueGetterParams) => {
           const date = new Date(params.row.cutoff.credit_date);
-          return date.toLocaleDateString();
+          return date ? dayjs(date).format(`${globalDate}`) : '-';
         },
       },
       { field: 'emp_cname', headerName: 'Employee Name', width: 160 },
@@ -38,12 +39,12 @@ interface GenerateListInterface {
 
 
 function GenerateList(props: GenerateListInterface) {
-    const { data: currentPayrollListData, status: currentPayrollListStatus } = useSelector((state: RootState)=> state.payroll.viewPayroll);
+    const { data, status, error } = useSelector((state: RootState)=> state.payroll.viewPayroll);
     const { setMultiplePayslipsData } = props;
     const handleSelection = (newSelection: GridRowSelectionModel) => {
         let multiple_payslips_data_locale = [] as Array<ViewPayrollPayPerEmployee>;
         newSelection.forEach((id) => {
-          const row = currentPayrollListData?.find((row) => row.id === id);
+          const row = data?.find((row) => row.id === id);
           if (row) {
             multiple_payslips_data_locale.push(row);
           }
@@ -57,7 +58,7 @@ function GenerateList(props: GenerateListInterface) {
             </Typography>
             <div style={{height: '600px'}}>
             <DataGrid
-                rows={currentPayrollListData}
+                rows={data}
                 columns={GenerateListColumns}
                 initialState={{
                     pagination: {
@@ -67,8 +68,8 @@ function GenerateList(props: GenerateListInterface) {
                 pageSizeOptions={[25, 50, 75, 100]}
                 onRowSelectionModelChange={handleSelection}
                 checkboxSelection
-                localeText={{ noRowsLabel: `${currentPayrollListStatus === 'loading' ? `${currentPayrollListStatus?.toUpperCase()}...` : currentPayrollListStatus === 'failed' ?  'No employee lists found. Contact your administrator/support.' : (currentPayrollListStatus === null || currentPayrollListStatus === undefined) ? 'Server Error. Contact your admin/developers.': 'SUCCEEDED...'}` }}
-            />
+                localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+                />
             </div>
         </div>
     );
