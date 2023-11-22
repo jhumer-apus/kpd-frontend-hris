@@ -148,6 +148,7 @@ import {
     RANKViewInterface,
     RankDataInterface,
 } from '@/types/types-pages';
+import { globalReducerFailed, globalReducerLoading, globalReducerRefreshed, globalReducerSuccess } from '../configureStore';
 
 type CategoriesPayloads = 
 string |
@@ -476,14 +477,14 @@ const initialState: OverallCategoriesState = {
 };
 
 const setLoadingState = (path: string) => (state: OverallCategoriesState) => {
-  state[path].status = 'loading';
+  state[path].status = `${globalReducerLoading}`;
   state[path].data = [];
   state[path].error = null;
   state[path].progress = 0;
 };
 
 const setSuccessState = (state: OverallCategoriesState, payload: CategoriesPayloads, path: string) => {
-  state[path].status = 'succeeded';
+  state[path].status = `${globalReducerSuccess}`;
   state[path].data = payload;
   state[path].error = null;
 };
@@ -493,14 +494,14 @@ const setProgressState = (state: OverallCategoriesState, payload: number, path: 
 };
 
 const setFailureState = (state: OverallCategoriesState, payload: string, path: string) => {
-  state[path].status = 'failed';
+  state[path].status = `${globalReducerFailed}`;
   state[path].data = [];
   state[path].error = payload;
 };
 
 
 const setRefreshedState = (path: string) => (state: OverallCategoriesState) => {
-  state[path].status = 'refreshed';
+  state[path].status = `${globalReducerRefreshed}`;
   state[path].data = [];
   state[path].error = null;
 };

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import * as _Actions from '../actions/employee-and-applicants';
 import * as _Interface from '@/types/types-employee-and-applicants';
+import { globalReducerFailed, globalReducerLoading, globalReducerRefreshed, globalReducerSuccess } from '../configureStore';
 
 type EmployeeAndApplicantsPayloads = 
 string |
@@ -520,14 +521,14 @@ const initialState: OverallEmployeeAndApplicantsState = {
 };
 
 const setLoadingState = (path: string) => (state: OverallEmployeeAndApplicantsState) => {
-  state[path].status = 'loading';
+  state[path].status = `${globalReducerLoading}`;
   state[path].data = [];
   state[path].error = null;
   state[path].progress = 0;
 };
 
 const setSuccessState = (state: OverallEmployeeAndApplicantsState, payload: EmployeeAndApplicantsPayloads, path: string) => {
-  state[path].status = 'succeeded';
+  state[path].status = `${globalReducerSuccess}`;
   state[path].data = payload;
   state[path].error = null;
 };
@@ -537,14 +538,14 @@ const setProgressState = (state: OverallEmployeeAndApplicantsState, payload: num
 };
 
 const setFailureState = (state: OverallEmployeeAndApplicantsState, payload: string, path: string) => {
-  state[path].status = 'failed';
+  state[path].status = `${globalReducerFailed}`;
   state[path].data = [];
   state[path].error = payload;
 };
 
 
 const setRefreshedState = (path: string) => (state: OverallEmployeeAndApplicantsState) => {
-  state[path].status = 'refreshed';
+  state[path].status = `${globalReducerRefreshed}`;
   state[path].data = [];
   state[path].error = null;
 };

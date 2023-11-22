@@ -33,6 +33,7 @@ import {
     USERResetPasswordInterface,
     USERViewInterface
 } from '@/types/types-pages';
+import { globalReducerFailed, globalReducerLoading, globalReducerRefreshed, globalReducerSuccess } from '../configureStore';
 
 type UsersPayloads = 
 string |
@@ -116,14 +117,14 @@ const initialState: OverallUsersState = {
 };
 
 const setLoadingState = (path: string) => (state: OverallUsersState) => {
-  state[path].status = 'loading';
+  state[path].status = `${globalReducerLoading}`;
   state[path].data = [];
   state[path].error = null;
   state[path].progress = 0;
 };
 
 const setSuccessState = (state: OverallUsersState, payload: UsersPayloads, path: string) => {
-  state[path].status = 'succeeded';
+  state[path].status = `${globalReducerSuccess}`;
   state[path].data = payload;
   state[path].error = null;
 };
@@ -133,14 +134,14 @@ const setProgressState = (state: OverallUsersState, payload: number, path: strin
 };
 
 const setFailureState = (state: OverallUsersState, payload: string, path: string) => {
-  state[path].status = 'failed';
+  state[path].status = `${globalReducerFailed}`;
   state[path].data = [];
   state[path].error = payload;
 };
 
 
 const setRefreshedState = (path: string) => (state: OverallUsersState) => {
-  state[path].status = 'refreshed';
+  state[path].status = `${globalReducerRefreshed}`;
   state[path].data = [];
   state[path].error = null;
 };

@@ -293,6 +293,7 @@ import {
   SCHEDULEDAILYEditInterface, 
   SCHEDULEDAILYViewInterface, 
 } from '@/types/types-pages';
+import { globalReducerFailed, globalReducerLoading, globalReducerRefreshed, globalReducerSuccess } from '../configureStore';
 
 type ProceduralsPayloads = 
 string |
@@ -879,14 +880,14 @@ const initialState: OverallProceduralState = {
 };
 
 const setLoadingState = (path: string) => (state: OverallProceduralState) => {
-  state[path].status = 'loading';
+  state[path].status = `${globalReducerLoading}`;
   state[path].data = [];
   state[path].error = null;
   state[path].progress = 0;
 };
 
 const setSuccessState = (state: OverallProceduralState, payload: ProceduralsPayloads, path: string) => {
-  state[path].status = 'succeeded';
+  state[path].status = `${globalReducerSuccess}`;
   state[path].data = payload;
   state[path].error = null;
 };
@@ -896,14 +897,14 @@ const setProgressState = (state: OverallProceduralState, payload: number, path: 
 };
 
 const setFailureState = (state: OverallProceduralState, payload: string, path: string) => {
-  state[path].status = 'failed';
+  state[path].status = `${globalReducerFailed}`;
   state[path].data = [];
   state[path].error = payload;
 };
 
 
 const setRefreshedState = (path: string) => (state: OverallProceduralState) => {
-  state[path].status = 'refreshed';
+  state[path].status = `${globalReducerRefreshed}`;
   state[path].data = [];
   state[path].error = null;
 };

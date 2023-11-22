@@ -341,4 +341,8 @@ export const JSONServer = 'http://localhost:3030/';
 export const globalDate = 'MM/DD/YYYY';
 export const globalTime = 'hh:mm a';
 export const globalAPIDate = 'YYYY-MM-DDTHH:mm:ss';
+export const globalReducerLoading = 'loading';
+export const globalReducerSuccess = 'succeeded';
+export const globalReducerFailed = 'failed';
+export const globalReducerRefreshed = 'refreshed';
 export default store;

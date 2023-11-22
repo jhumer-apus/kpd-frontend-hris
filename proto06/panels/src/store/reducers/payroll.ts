@@ -12,6 +12,7 @@ import {
     processPayrollFailureCleanup
 } from '../actions/payroll';
 import { ViewPayrollPayPerEmployee } from '@/types/types-pages';
+import { globalReducerFailed, globalReducerLoading, globalReducerRefreshed, globalReducerSuccess } from '../configureStore';
 
 type PayrollPayloads = ViewPayrollPayPerEmployee[] | string;
 
@@ -51,14 +52,14 @@ const initialState: OverallPayrollState = {
 };
 
 const setLoadingState = (path: string) => (state: OverallPayrollState) => {
-  state[path].status = 'loading';
+  state[path].status = `${globalReducerLoading}`;
   state[path].data = [];
   state[path].error = null;
   state[path].progress = 0;
 };
 
 const setSuccessState = (state: OverallPayrollState, payload: PayrollPayloads, path: string) => {
-  state[path].status = 'succeeded';
+  state[path].status = `${globalReducerSuccess}`;
   state[path].data = payload;
   state[path].error = null;
 };
@@ -68,14 +69,14 @@ const setProgressState = (state: OverallPayrollState, payload: number, path: str
 };
 
 const setFailureState = (state: OverallPayrollState, payload: string, path: string) => {
-  state[path].status = 'failed';
+  state[path].status = `${globalReducerFailed}`;
   state[path].data = [];
   state[path].error = payload;
 };
 
 
 const setRefreshedState = (state: OverallPayrollState, payload: string, path: string) => {
-  state[path].status = 'refreshed';
+  state[path].status = `${globalReducerRefreshed}`;
   state[path].data = [];
   state[path].error = null;
 };

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import * as _Actions from '../actions/payroll-variables';
 import * as _Interface from '@/types/types-payroll-variables';
+import { globalReducerFailed, globalReducerLoading, globalReducerRefreshed, globalReducerSuccess } from '../configureStore';
 
 type PayrollVariablesPayloads = 
 string |
@@ -378,14 +379,14 @@ const initialState: OverallPayrollVariablesState = {
 };
 
 const setLoadingState = (path: string) => (state: OverallPayrollVariablesState) => {
-  state[path].status = 'loading';
+  state[path].status = `${globalReducerLoading}`;
   state[path].data = [];
   state[path].error = null;
   state[path].progress = 0;
 };
 
 const setSuccessState = (state: OverallPayrollVariablesState, payload: PayrollVariablesPayloads, path: string) => {
-  state[path].status = 'succeeded';
+  state[path].status = `${globalReducerSuccess}`;
   state[path].data = payload;
   state[path].error = null;
 };
@@ -395,14 +396,14 @@ const setProgressState = (state: OverallPayrollVariablesState, payload: number, 
 };
 
 const setFailureState = (state: OverallPayrollVariablesState, payload: string, path: string) => {
-  state[path].status = 'failed';
+  state[path].status = `${globalReducerFailed}`;
   state[path].data = [];
   state[path].error = payload;
 };
 
 
 const setRefreshedState = (path: string) => (state: OverallPayrollVariablesState) => {
-  state[path].status = 'refreshed';
+  state[path].status = `${globalReducerRefreshed}`;
   state[path].data = [];
   state[path].error = null;
 };

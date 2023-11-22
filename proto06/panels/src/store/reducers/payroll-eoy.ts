@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import * as _Actions from '../actions/payroll-eoy';
 import * as _Interface from '@/types/types-payroll-eoy';
 import { DEPARTMENTViewInterface, RANKViewInterface } from '@/types/types-pages';
+import { globalReducerFailed, globalReducerLoading, globalReducerRefreshed, globalReducerSuccess } from '../configureStore';
 
 type PayrollEOYPayloads = 
 string |
@@ -408,14 +409,14 @@ const initialState: OverallPayrollEOYState = {
 };
 
 const setLoadingState = (path: string) => (state: OverallPayrollEOYState) => {
-  state[path].status = 'loading';
+  state[path].status = `${globalReducerLoading}`;
   state[path].data = [];
   state[path].error = null;
   state[path].progress = 0;
 };
 
 const setSuccessState = (state: OverallPayrollEOYState, payload: PayrollEOYPayloads, path: string) => {
-  state[path].status = 'succeeded';
+  state[path].status = `${globalReducerSuccess}`;
   state[path].data = payload;
   state[path].error = null;
 };
@@ -425,14 +426,14 @@ const setProgressState = (state: OverallPayrollEOYState, payload: number, path: 
 };
 
 const setFailureState = (state: OverallPayrollEOYState, payload: string, path: string) => {
-  state[path].status = 'failed';
+  state[path].status = `${globalReducerFailed}`;
   state[path].data = [];
   state[path].error = payload;
 };
 
 
 const setRefreshedState = (path: string) => (state: OverallPayrollEOYState) => {
-  state[path].status = 'refreshed';
+  state[path].status = `${globalReducerRefreshed}`;
   state[path].data = [];
   state[path].error = null;
 };
