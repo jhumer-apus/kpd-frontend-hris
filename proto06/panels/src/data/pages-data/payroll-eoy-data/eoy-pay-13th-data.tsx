@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 
 
 export const EOYPAY13THPageDescriptions = [
-  "On this table, you will find the list of HRIS Bonus Entry of the employee of your company and their details each.",
+  "On this table, you will find the list of 13th Month Pays of the employee of your company and their details each.",
 ];
 
 
