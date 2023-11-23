@@ -24,7 +24,7 @@ export const ProceduralSCHEDULEDAILYPageColumns: GridColDef[] =
     width: 140,
     valueGetter: (params: GridValueGetterParams) => {
       const formattedTime = params.row.schedule_shift_code?.time_in ? dayjs(params.row.schedule_shift_code.time_in, "HH:mm:ss").format("hh:mm a") : null;
-      return formattedTime ?? 'Rest Day';
+      return formattedTime ?? '-';
     } 
   },
   { 
@@ -33,7 +33,7 @@ export const ProceduralSCHEDULEDAILYPageColumns: GridColDef[] =
     width: 130,
     valueGetter: (params: GridValueGetterParams) => {
       const formattedTime = params.row.schedule_shift_code?.time_out ? dayjs(params.row.schedule_shift_code.time_out, "HH:mm:ss").format("hh:mm a") : null;
-      return formattedTime ?? 'Rest Day';
+      return formattedTime ?? '-';
     } 
   },
   { 
@@ -42,7 +42,7 @@ export const ProceduralSCHEDULEDAILYPageColumns: GridColDef[] =
     width: 210,
     valueGetter: (params: GridValueGetterParams) => {
       const name = (params.row.schedule_shift_code?.name) ? (params.row.schedule_shift_code.name) : null;
-      return name ?? 'Rest Day';
+      return name ?? 'No Schedule';
     } 
   },
 ];
