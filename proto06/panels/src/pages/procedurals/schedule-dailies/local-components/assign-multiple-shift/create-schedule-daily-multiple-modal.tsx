@@ -8,7 +8,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalAPIDate } from '@/store/configureStore';
 import dayjs from 'dayjs';
 import { SCHEDULEDAILYCreateInterface } from '@/types/types-pages';
 import { SCHEDULEDAILYCreateAction, SCHEDULEDAILYCreateActionFailureCleanup } from '@/store/actions/procedurals';
@@ -98,7 +98,7 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
                         onChange={(newValue) => {
                             setCreateSCHEDULEDAILYForm((prevState)=> ({
                                 ...prevState,
-                                business_date_from: dayjs(newValue).format('YYYY-MM-DD')
+                                business_date_from: dayjs(newValue).format(`${globalAPIDate}`)
                             }))
                         }}
                         label="Date Range From"
@@ -113,7 +113,7 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
                         onChange={(newValue) => {
                             setCreateSCHEDULEDAILYForm((prevState)=> ({
                                 ...prevState,
-                                business_date_to: (newValue !== null ? dayjs(newValue).format('YYYY-MM-DD') :  null) 
+                                business_date_to: (newValue !== null ? dayjs(newValue).format(`${globalAPIDate}`) :  null) 
                             }))
                         }}
                         label="Date Range To (Optional)"
