@@ -161,12 +161,12 @@ export interface OFFBOARDINGSTATUSGenericInterface {
 
 
 export interface OFFBOARDINGSTATUSViewInterface extends OFFBOARDINGSTATUSGenericInterface{
-    readonly id: number | string
+    readonly id: number
 	readonly date_added: string
 }
 
-export interface OFFBOARDINGSTATUSCreateInterface extends OFFBOARDINGSTATUSGenericInterface{
-	id: string //only on mockup, can delete after backend implementation is complete
+export interface OFFBOARDINGSTATUSCreateInterface extends Omit<OFFBOARDINGSTATUSGenericInterface, "emp_no" | "status" | "final_remarks" | "offboarding_codes" | "id" | "date_added">{
+	emp_no: number[]
 }
 
 export interface OFFBOARDINGSTATUSEditInterface extends OFFBOARDINGSTATUSGenericInterface, Pick<OFFBOARDINGSTATUSViewInterface, "id">{}

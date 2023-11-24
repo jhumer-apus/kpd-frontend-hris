@@ -15,11 +15,9 @@ import MultiEmployeeAutoCompleteLeft from './inner-ui-components/employee-autoco
 import { DataGrid, GridCallbackDetails, GridRowSelectionModel } from '@mui/x-data-grid';
 // import { Typography } from "@material-tailwind/react";
 import { EAOFFBOARDINGSTATUSPageDescriptions, EAOFFBOARDINGSTATUSPageColumns, EAProcessOFFBOARDINGSTATUSPageColumns } from '@/data/pages-data/employee-and-applicants-data/ea-initialize-offboarding-data';
-import { OFFBOARDINGSTATUSViewInterface } from '@/types/types-employee-and-applicants';
-import { OFFBOARDINGSTATUSViewAction } from '@/store/actions/employee-and-applicants';
 import { getEmployeesList } from '@/store/actions/employees';
 import { GetEmployeesListsType } from '@/types/types-store';
-import axios from 'axios';
+import DateFieldCreate from './inner-ui-components/date-field';
 
 
 
@@ -33,78 +31,34 @@ function EAOFFBOARDINGSTATUSCreate(props: CreateOFFBOARDINGSTATUSModalInterface)
     const dispatch = useDispatch();
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail?.emp_no);
     const OFFBOARDINGSTATUSCreatestate = useSelector((state: RootState)=> state.employeeAndApplicants.OFFBOARDINGSTATUSCreate);
-    const [createOFFBOARDINGSTATUS, setCreateOFFBOARDINGSTATUS] = useState<{emp_no: number[]}>({
-        emp_no: [],
-    });
-    const [submitMode, setSubmitMode] = useState(0)
+    // const [createOFFBOARDINGSTATUS, setCreateOFFBOARDINGSTATUS] = useState<{emp_no: number[]}>({
+    //     emp_no: [],
+    // });
+    const { status, error, data } = OFFBOARDINGSTATUSCreatestate
 
     const [ createOFFBOARDINGSTATUSPayload, setCreateOFFBOARDINGSTATUSPayload ] = useState<OFFBOARDINGSTATUSCreateInterface>({
-        id: Math.random().toString(36).substring(2, 9),
-        emp_no: NaN,
-        start_date: '',
-        status: 'Pending',
-        final_remarks: '',
-        date_added: (new Date()).toISOString(),
-        requirements: OFFBOARDINGREQUIREMENTSViewData?.map((item) => {
-            return(
-                {
-                    facilitator: item.facilitator,
-                    offboarding_title: item.offboarding_title,
-                    accomplished_date: '',
-                    emp_remarks: '',
-                    facilitator_remarks: '',
-                    status: 'Pending'
-                }
-            )
-        }) as Omit<OFFBOARDINGREQUIREMENTSViewInterface[], "id" | "added_by" |"date_added" | "date_deleted">
+        emp_no: [],
+        date_resigned: null,
+        added_by: NaN,
     })
 
     const onClickSubmit = () => {
-
-        setSubmitMode(1)
+        dispatch(OFFBOARDINGSTATUSCreateAction(createOFFBOARDINGSTATUSPayload))
     };
 
 
-    useEffect(()=> {
-
-        if(!!submitMode){
-            createOFFBOARDINGSTATUS.emp_no.forEach((emp_no)=> {
-                // await dispatch(OFFBOARDINGSTATUSCreateAction({
-                //     ...createOFFBOARDINGSTATUSPayload,
-                //     emp_no: emp_no
-                // }))
-                try {
-                    axios.post(`${JSONServer}offboarding_status/`, {
-                        id: Math.random().toString(36).substring(2, 9),
-                        emp_no: emp_no,
-                        start_date: '2022-08-13T05:54:22.523Z',
-                        status: 'Completed',
-                        final_remarks: '',
-                        date_added: (new Date()).toISOString(),
-                        added_by: curr_user,
-                        requirements: OFFBOARDINGREQUIREMENTSViewData?.map((item) => {
-                            return(
-                                {
-                                    facilitator: item.facilitator,
-                                    offboarding_title: item.offboarding_title,
-                                    accomplished_date: '2022-08-13T05:54:22.523Z',
-                                    emp_remarks: '-',
-                                    facilitator_remarks: 'Good',
-                                    status: 'Completed'
-                                }
-                            )
-                        }) as Omit<OFFBOARDINGREQUIREMENTSViewInterface[], "id" | "added_by" | "date_added" | "date_deleted">,
-                    })
-                } catch (error) {
-                    throw console.error("Creation of Status Failed:", error)
-                }
-
-            })
+    useEffect(()=>{
+        if(status === 'succeeded'){
+            window.alert('Request Successful');
+            window.location.reload();
+        }else if(status === 'failed'){
+            window.alert(`Request Failed, ${error}`)
+            setTimeout(()=> {
+                dispatch(OFFBOARDINGSTATUSCreateActionFailureCleanup());
+            }, 500)
         }
-        return(()=> {
-            setSubmitMode(0)
-        })
-    }, [submitMode])
+    }, [status])
+
     useEffect(()=> {
         if((OFFBOARDINGREQUIREMENTSViewData?.length <= 0 || OFFBOARDINGREQUIREMENTSViewData === null || OFFBOARDINGREQUIREMENTSViewData === undefined ) && curr_user){
           dispatch(OFFBOARDINGREQUIREMENTSViewAction())
@@ -113,7 +67,7 @@ function EAOFFBOARDINGSTATUSCreate(props: CreateOFFBOARDINGSTATUSModalInterface)
 
     useEffect(()=> {
         if(state.employees_list?.length === 0 || !state.employees_list ){
-            getEmployeesList()
+            getEmployeesList() 
         }
         
     }, [])
@@ -130,17 +84,6 @@ function EAOFFBOARDINGSTATUSCreate(props: CreateOFFBOARDINGSTATUSModalInterface)
         }
     }, [curr_user]) 
 
-    // useEffect(()=>{
-    //     if(OFFBOARDINGSTATUSCreatestate.status === 'succeeded'){
-    //         window.alert('Request Successful');
-    //         window.location.reload();
-    //     }else if(OFFBOARDINGSTATUSCreatestate.status === 'failed'){
-    //         window.alert(`Request Failed, ${OFFBOARDINGSTATUSCreatestate.error}`)
-    //         setTimeout(()=> {
-    //             dispatch(OFFBOARDINGSTATUSCreateActionFailureCleanup());
-    //         }, 1000)
-    //     }
-    // }, [OFFBOARDINGSTATUSCreatestate.status])
 
     const handleSelection = (newSelection: GridRowSelectionModel, details: GridCallbackDetails) => {
         let emp_no_locale = [] as Array<number>;
@@ -151,7 +94,7 @@ function EAOFFBOARDINGSTATUSCreate(props: CreateOFFBOARDINGSTATUSModalInterface)
           }
         });
     
-        setCreateOFFBOARDINGSTATUS((prevState) => ({
+        setCreateOFFBOARDINGSTATUSPayload((prevState) => ({
           ...prevState,
           emp_no: emp_no_locale,
         }));
@@ -179,12 +122,14 @@ function EAOFFBOARDINGSTATUSCreate(props: CreateOFFBOARDINGSTATUSModalInterface)
                         onRowSelectionModelChange={handleSelection}
                         checkboxSelection
                         disableRowSelectionOnClick
-                        localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+                        localeText={{ noRowsLabel: `Data Loaded - Showing 0 Results` }}
                         />
                     </div>
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
                         <Button variant='contained' onClick={onClickSubmit}>Initialize Offboarding Requirements</Button>
+                        <DateFieldCreate initialState={createOFFBOARDINGSTATUSPayload} setInitialState={setCreateOFFBOARDINGSTATUSPayload}/>
+
                     </div>
                 </div>
             </div>
