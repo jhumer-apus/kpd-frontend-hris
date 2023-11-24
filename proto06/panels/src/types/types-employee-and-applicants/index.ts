@@ -156,7 +156,7 @@ export interface OFFBOARDINGSTATUSGenericInterface {
 		offboarding_requirement_code: number
 	}>
 	added_by?: number
-	offboarding_codes: number[]
+	offboarding_codes?: number[]
 }
 
 
@@ -169,7 +169,9 @@ export interface OFFBOARDINGSTATUSCreateInterface extends Omit<OFFBOARDINGSTATUS
 	emp_no: number[]
 }
 
-export interface OFFBOARDINGSTATUSEditInterface extends OFFBOARDINGSTATUSGenericInterface, Pick<OFFBOARDINGSTATUSViewInterface, "id">{}
+export interface OFFBOARDINGSTATUSEditInterface extends Omit<OFFBOARDINGSTATUSGenericInterface, "status">, Pick<OFFBOARDINGSTATUSViewInterface, "id">{
+
+}
 
 // ======================================
 

@@ -5,7 +5,7 @@ import { RootState } from '@/store/configureStore';
 import { Typography } from '@mui/material';
 // import { Typography } from "@material-tailwind/react";
 import { EAOFFBOARDINGSTATUSPageDescriptions, EAOFFBOARDINGSTATUSPageColumns } from '@/data/pages-data/employee-and-applicants-data/ea-initialize-offboarding-data';
-import ViewOFFBOARDINGSTATUSSingleModal from './local-components/main-modals/eoy-pay-13th-single-modal';
+import ViewOFFBOARDINGSTATUSSingleModal from './local-components/main-modals/ea-initialize-offboarding-single-modal';
 import { OFFBOARDINGSTATUSViewInterface } from '@/types/types-employee-and-applicants';
 import { OFFBOARDINGSTATUSViewAction } from '@/store/actions/employee-and-applicants';
 
@@ -54,7 +54,7 @@ export default function EAOFFBOARDINGSTATUSPageHistory() {
     <Fragment>
       <div className="my-2 flex flex-wrap justify-between items-start gap-6">
         <div>
-          {/* <ViewOFFBOARDINGSTATUSSingleModal setSingleOFFBOARDINGSTATUSDetailsData={setSingleOFFBOARDINGSTATUSDetailsData} singleOFFBOARDINGSTATUSDetailsData={singleOFFBOARDINGSTATUSDetailsData} singleOFFBOARDINGSTATUSOpenModal={singleOFFBOARDINGSTATUSOpenModal} setSingleOFFBOARDINGSTATUSOpenModal={setSingleOFFBOARDINGSTATUSOpenModal}/> */}
+          <ViewOFFBOARDINGSTATUSSingleModal setSingleOFFBOARDINGSTATUSDetailsData={setSingleOFFBOARDINGSTATUSDetailsData} singleOFFBOARDINGSTATUSDetailsData={singleOFFBOARDINGSTATUSDetailsData} singleOFFBOARDINGSTATUSOpenModal={singleOFFBOARDINGSTATUSOpenModal} setSingleOFFBOARDINGSTATUSOpenModal={setSingleOFFBOARDINGSTATUSOpenModal}/>
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
           <p>{EAOFFBOARDINGSTATUSPageDescriptions}</p>
         </Typography>
