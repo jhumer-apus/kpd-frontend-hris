@@ -40,23 +40,23 @@ function OFFBOARDINGREQUIREMENTSModalUI(props: OFFBOARDINGREQUIREMENTSModalUIInt
                     />
                     <TextField 
                         sx={{width: '100%', minWidth: '160px'}} 
-                        label='Onboarding Requirement ID:' 
+                        label='Offboarding Requirement ID:' 
                         value={ThisProps.id ? ThisProps.id : '-'} 
                         InputProps={{readOnly: true,}} 
                         variant='filled'
                     />
                     <TextField 
                         sx={{width: '100%'}} 
-                        label='Onboarding Requirement Title:' 
+                        label='Offboarding Requirement Title:' 
                         multiline 
                         rows={5} 
-                        value={ThisProps?.offboard_title} 
+                        value={ThisProps?.offboarding_title} 
                         onChange={(event) => {
                             setSingleOFFBOARDINGREQUIREMENTSDetailsData((prevState)=> {
                                 const value = event.target.value;
                                 return({
                                     ...prevState,
-                                    offboard_title: value
+                                    offboarding_title: value
                                 })
                             })
                         }}

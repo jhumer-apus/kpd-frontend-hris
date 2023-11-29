@@ -15,7 +15,7 @@ export default function EAOFFBOARDINGSTATUSPageHistory() {
   const [singleOFFBOARDINGSTATUSDetailsData, setSingleOFFBOARDINGSTATUSDetailsData] = useState<OFFBOARDINGSTATUSViewInterface>({
     id: NaN,
     date_added: '',
-    date_resigned: '',
+    date_offboard: '',
     status: 'Pending',
     final_remarks: '',
     emp_no: NaN,

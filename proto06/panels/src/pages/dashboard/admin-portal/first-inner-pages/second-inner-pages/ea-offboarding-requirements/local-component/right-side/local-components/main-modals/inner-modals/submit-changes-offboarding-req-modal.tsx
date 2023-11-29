@@ -24,7 +24,7 @@ export default function EditSubmitOFFBOARDINGREQUIREMENTSModal(props: EditOFFBOA
   const {openModal, setOpenModal, initialState, setInitialState} = props;
 
   const [editObject, setEditObject] = useState<OFFBOARDINGREQUIREMENTSEditInterface>({
-    offboard_title: '',
+    offboarding_title: '',
     facilitator: NaN,
     id: NaN,
   })
@@ -55,7 +55,7 @@ export default function EditSubmitOFFBOARDINGREQUIREMENTSModal(props: EditOFFBOA
             return (
                 {
                     ...prevState,
-                    offboard_title: `${initialState.offboard_title}`,
+                    offboarding_title: `${initialState.offboarding_title}`,
                     facilitator: initialState.facilitator,
                     id: initialState.id,
                     added_by: state?.emp_no

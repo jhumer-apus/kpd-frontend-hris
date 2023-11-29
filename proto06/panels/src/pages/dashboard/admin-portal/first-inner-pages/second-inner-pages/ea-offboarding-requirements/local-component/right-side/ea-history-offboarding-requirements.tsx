@@ -15,7 +15,7 @@ export default function EAOFFBOARDINGREQUIREMENTSPageHistory() {
     date_deleted: '',
     date_added: '',
     facilitator: NaN,
-    offboard_title: '',
+    offboarding_title: '',
   });
   const dispatch = useDispatch();
   const { OFFBOARDINGREQUIREMENTSView } = useSelector((state: RootState) => state.employeeAndApplicants);

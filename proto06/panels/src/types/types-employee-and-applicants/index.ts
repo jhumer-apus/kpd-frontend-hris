@@ -121,7 +121,7 @@ export interface ONBOARDINGSTATUSEditInterface extends Omit<ONBOARDINGSTATUSGene
 
 export interface ONBOARDINGREQUIREMENTSGenericInterface {
 	facilitator: number
-	onboard_title: string,
+	onboarding_title: string,
 	added_by?: number
 }
 
@@ -142,7 +142,7 @@ export interface ONBOARDINGREQUIREMENTSEditInterface extends ONBOARDINGREQUIREME
 
 
 export interface OFFBOARDINGSTATUSGenericInterface {
-	date_resigned: string | null
+	date_offboard: string | null
 	status: "Pending" | "Completed"
 	final_remarks: string | null
 	emp_no: number
@@ -178,7 +178,7 @@ export interface OFFBOARDINGSTATUSEditInterface extends Omit<OFFBOARDINGSTATUSGe
 
 
 export interface OFFBOARDINGREQUIREMENTSGenericInterface {
-	offboard_title: string
+	offboarding_title: string
 	facilitator: number
 	added_by?: number
 }

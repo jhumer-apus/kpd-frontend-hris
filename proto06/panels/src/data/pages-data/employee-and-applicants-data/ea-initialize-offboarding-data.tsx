@@ -1,3 +1,4 @@
+import { globalDate } from "@/store/configureStore";
 import { GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import dayjs from "dayjs";
 
@@ -17,12 +18,12 @@ export const EAOFFBOARDINGSTATUSPageColumns: GridColDef[] =
     headerName: 'Status',
     width: 100,
   },
-  { field: 'resign_date', 
-    headerName: 'Resign Date:', 
+  { field: 'date_offboard', 
+    headerName: 'Offboard Date:', 
     width: 150,
     valueGetter: (params: GridValueGetterParams) => {
-      const date = new Date(params.row.resign_date);
-      return params.row.resign_date ? dayjs(date).format("MM-DD-YYYY") : 'No Date';
+      const date = new Date(params.row.date_offboard);
+      return params.row.date_offboard ? dayjs(date).format(`${globalDate}`) : 'No Date';
     }
   },
   { field: 'emp_no', 
@@ -54,7 +55,7 @@ export const EAProcessOFFBOARDINGSTATUSPageColumns: GridColDef[] =
     width: 150,
     valueGetter: (params: GridValueGetterParams) => {
       const date = new Date(params.row.date_resigned);
-      return params.row.date_resigned ? dayjs(date).format("MM-DD-YYYY") : '-';
+      return params.row.date_resigned ? dayjs(date).format(`${globalDate}`) : '-';
     }
   }, 
 ];

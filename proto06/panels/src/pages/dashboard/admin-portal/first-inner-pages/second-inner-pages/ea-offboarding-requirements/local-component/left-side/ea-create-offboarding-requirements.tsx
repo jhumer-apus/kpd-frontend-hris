@@ -20,11 +20,6 @@ function EAOFFBOARDINGREQUIREMENTSCreate(props: CreateOFFBOARDINGREQUIREMENTSMod
     const [createOFFBOARDINGREQUIREMENTS, setCreateOFFBOARDINGREQUIREMENTS] = useState<OFFBOARDINGREQUIREMENTSCreateInterface>({
         facilitator: NaN,
         offboarding_title: '',
-        accomplished_date: '',
-        emp_remarks: '',
-        facilitator_remarks: '',
-        status: 'Pending',
-        date_added: (new Date()).toISOString(),
     });
     const onClickSubmit = () => {
         dispatch(OFFBOARDINGREQUIREMENTSCreateAction(createOFFBOARDINGREQUIREMENTS))
@@ -66,7 +61,7 @@ function EAOFFBOARDINGREQUIREMENTSCreate(props: CreateOFFBOARDINGREQUIREMENTSMod
                         <TextField
                             required 
                             sx={{width: '100%'}} 
-                            label='Onboarding Requirement Title:'
+                            label='Offboarding Requirement Title:'
                             aria-required  
                             variant='outlined' 
                             type="text"

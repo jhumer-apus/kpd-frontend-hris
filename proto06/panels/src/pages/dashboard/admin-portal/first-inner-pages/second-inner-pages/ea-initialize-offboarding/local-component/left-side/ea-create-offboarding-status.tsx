@@ -1,20 +1,15 @@
 import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { Button } from '@mui/material';
-import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { JSONServer, RootState } from '@/store/configureStore';
-import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
+import { RootState } from '@/store/configureStore';
 import { Typography } from '@mui/joy';
-import { OFFBOARDINGREQUIREMENTSViewInterface, OFFBOARDINGSTATUSCreateInterface } from '@/types/types-employee-and-applicants';
+import { OFFBOARDINGSTATUSCreateInterface } from '@/types/types-employee-and-applicants';
 import { OFFBOARDINGREQUIREMENTSViewAction, OFFBOARDINGSTATUSCreateAction, OFFBOARDINGSTATUSCreateActionFailureCleanup } from '@/store/actions/employee-and-applicants';
-import CutoffAutoComplete from './inner-ui-components/cutoff-code-autocomplete';
-import BonusListAutoComplete from './inner-ui-components/bonus-type-autocomplete';
-import MultiEmployeeAutoCompleteLeft from './inner-ui-components/employee-autocomplete';
 
 
 import { DataGrid, GridCallbackDetails, GridRowSelectionModel } from '@mui/x-data-grid';
 // import { Typography } from "@material-tailwind/react";
-import { EAOFFBOARDINGSTATUSPageDescriptions, EAOFFBOARDINGSTATUSPageColumns, EAProcessOFFBOARDINGSTATUSPageColumns } from '@/data/pages-data/employee-and-applicants-data/ea-initialize-offboarding-data';
+import { EAProcessOFFBOARDINGSTATUSPageColumns } from '@/data/pages-data/employee-and-applicants-data/ea-initialize-offboarding-data';
 import { getEmployeesList } from '@/store/actions/employees';
 import { GetEmployeesListsType } from '@/types/types-store';
 import DateFieldCreate from './inner-ui-components/date-field';
@@ -38,7 +33,7 @@ function EAOFFBOARDINGSTATUSCreate(props: CreateOFFBOARDINGSTATUSModalInterface)
 
     const [ createOFFBOARDINGSTATUSPayload, setCreateOFFBOARDINGSTATUSPayload ] = useState<OFFBOARDINGSTATUSCreateInterface>({
         emp_no: [],
-        date_resigned: null,
+        date_offboard: null,
         added_by: NaN,
     })
 

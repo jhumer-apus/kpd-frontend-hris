@@ -32,7 +32,7 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
                 return(
                     {
                         ...prevState,
-                        assigned_to: selectedEmployeeId
+                        facilitator: selectedEmployeeId
                     }
                 )
             })

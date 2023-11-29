@@ -36,7 +36,7 @@ function OFFBOARDINGSTATUSModalUI(props: OFFBOARDINGSTATUSModalUIInterface) {
     const [ editData, setEditData ] = useState<OFFBOARDINGSTATUSEditInterface>({
         id: NaN,
         emp_no: NaN,
-        date_resigned: null,
+        date_offboard: null,
         final_remarks: '',
         added_by: NaN,
     })
@@ -48,7 +48,7 @@ function OFFBOARDINGSTATUSModalUI(props: OFFBOARDINGSTATUSModalUIInterface) {
                 ...prevState,
                 id: ThisProps.id,
                 emp_no: ThisProps.emp_no,
-                date_resigned: ThisProps.date_resigned,
+                date_offboard: ThisProps.date_offboard,
                 final_remarks: ThisProps.final_remarks,
                 added_by: curr_user
             }
@@ -112,8 +112,8 @@ function OFFBOARDINGSTATUSModalUI(props: OFFBOARDINGSTATUSModalUIInterface) {
                     />
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DateTimePicker
-                                label="Resign Date"
-                                value={ThisProps?.date_resigned ? dayjs(ThisProps?.date_resigned) : null}
+                                label="Offboard Date"
+                                value={ThisProps?.date_offboard ? dayjs(ThisProps?.date_offboard) : null}
                                 onChange={(newValue) => {
                                     const formattedDate = dayjs(newValue).format(`${globalAPIDate}`);
                                     return (
@@ -121,7 +121,7 @@ function OFFBOARDINGSTATUSModalUI(props: OFFBOARDINGSTATUSModalUIInterface) {
                                             return(
                                                 {
                                                     ...prevState,
-                                                    date_resigned: formattedDate
+                                                    date_offboard: formattedDate
                                                 }
                                             )
                                         })
@@ -139,7 +139,7 @@ function OFFBOARDINGSTATUSModalUI(props: OFFBOARDINGSTATUSModalUIInterface) {
                             return(
                                 <>
                                 <FormControl className='w-1/2 justify-center' sx={{marginTop: '16px'}} disabled>
-                                    <FormLabel id="is-locked-manage-user-edit">#{(index + 1)} - {item.offboard_title}</FormLabel>
+                                    <FormLabel id="is-locked-manage-user-edit">#{(index + 1)} - {item.offboarding_title}</FormLabel>
                                     <FormLabel style={{fontSize: '12px'}}>Facilitator Employee #: {item.offboarding_facilitator}</FormLabel>
                                     <RadioGroup
                                         className='flex w-full'
