@@ -1,39 +1,45 @@
 // ======================================
 
 export interface KPICOREGenericInterface {
-	id?: number | string,
-	date_added: string
-	emp_no: number
-	emp_name: string
-	sup_name: string
-	sup_no: number
-	eval_date: string
-	status: string
-	final_rating: string
-	total_self_eval_points: number
-	total_sup_eval_points: number
-    total_core_compe_points: number
-    percentage_total: number
-	added_by?: number
+
 	questions?: Omit<EVALQUESTIONSViewInterface, "date_deleted" | "added_by" | "date_added">[] & {
-		sup_eval_points: number
-		sup_feedback: string | null
-		self_eval_points: number
+		self_eval_point: number | null
 		self_comment: string | null
+		approver_eval_point: number | null
+		approver_eval_comment: string | null
+		sup_feedback: string | null
+
+
 		date_eval: string | null,
 		emp_no: number
 	}[]
 	core_competencies?: CORECOMPEViewInterface[] & {
 		points: number | null
 	}[]
-
+	emp_name: string
+	approver_name: string
+	date_evaluation_deadline: string | null // If created with no value, defaults to 28th of the month,
+	status: "Pending" | "Confirmed"
+	total_self_eval_points: number | null
+	total_approver_eval_points: number | null
+	total_core_compe_points: number | null
+    percentage_total: number | null
+	final_rating: "A" | "B" | "C" | null 
+	emp_no: number
+	emp_no_approver: number
+	added_by?: number
+	kpi_codes: number[] //pk of kpi questions 
+	corecompe_codes: number [] //pk of core competencies
 }
 
 
-export interface KPICOREViewInterface extends KPICOREGenericInterface{}
+export interface KPICOREViewInterface extends KPICOREGenericInterface{
+	readonly id: number
+	readonly date_added: string
+}
 
 
-export interface KPICORECreateInterface extends Omit<KPICOREGenericInterface, "emp_no">{
+export interface KPICORECreateInterface extends Pick<KPICOREGenericInterface, "date_evaluation_deadline" | "added_by">{
 	emp_no: number[] | number,
 }
 
