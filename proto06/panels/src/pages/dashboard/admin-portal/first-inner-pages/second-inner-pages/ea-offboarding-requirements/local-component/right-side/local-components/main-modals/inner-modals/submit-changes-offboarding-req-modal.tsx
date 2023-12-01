@@ -21,7 +21,7 @@ export default function EditSubmitOFFBOARDINGREQUIREMENTSModal(props: EditOFFBOA
   const dispatch = useDispatch();
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
   const OFFBOARDINGREQUIREMENTSEditState = useSelector((state: RootState)=> state.employeeAndApplicants.OFFBOARDINGREQUIREMENTSEdit)
-  const {openModal, setOpenModal, initialState, setInitialState} = props;
+  const { openModal, setOpenModal, initialState } = props;
 
   const [editObject, setEditObject] = useState<OFFBOARDINGREQUIREMENTSEditInterface>({
     offboarding_title: '',

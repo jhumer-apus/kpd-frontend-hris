@@ -92,12 +92,15 @@ export const SpecificEmployee = (props: initialState) => {
             loadingEffect();
             window.alert(`${response.status >= 200 && response.status < 300 && 'Request Successful'}`)
             setTimeout(()=> {
-                location.reload();
+                // location.reload();
             }, 800)
           } catch (err: any) {
             window.alert(`Error: ${beautifyJSON(err?.response?.data)}`)
           }
     };
+
+
+
     const onSubmit = async (data: GetEmployeesListsType, type: string) => {
         const formData = new FormData();
         const keyChecker = (key: string) => {
@@ -129,6 +132,7 @@ export const SpecificEmployee = (props: initialState) => {
             }
         }
         await fetchData(formData);
+        console.log(formData, typeof formData, "jhaha")
     };
 
     return (
@@ -549,7 +553,7 @@ export const SpecificEmployee = (props: initialState) => {
                                         labelProps={{style: {color: true? "unset" : ''}}} 
                                         label="Approver #1 (Employee #):" 
                                         disabled={!editMode2} 
-                                        value={typeof (userData?.approver1) === 'number'? userData?.approver1 : undefined }
+                                        value={userData?.approver1 as number}
                                         icon={
                                         <WindowIcon className="h-5 w-5 text-blue-gray-300" />
                                         }
