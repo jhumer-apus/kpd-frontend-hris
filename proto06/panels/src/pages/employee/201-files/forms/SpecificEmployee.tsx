@@ -543,13 +543,13 @@ export const SpecificEmployee = (props: initialState) => {
                                         }
                                     />
                                     <Input
-                                        {...register('approver')} 
-                                        type="text" 
+                                        {...register('approver1')} 
+                                        type="number" 
                                         containerProps={{ className: "min-w-[72px] focused" }} 
                                         labelProps={{style: {color: true? "unset" : ''}}} 
-                                        label="Approver:" 
+                                        label="Approver #1 (Employee #):" 
                                         disabled={!editMode2} 
-                                        value={`${userData?.approver ? userData?.approver : ''}`}
+                                        value={typeof (userData?.approver1) === 'number'? userData?.approver1 : undefined }
                                         icon={
                                         <WindowIcon className="h-5 w-5 text-blue-gray-300" />
                                         }
