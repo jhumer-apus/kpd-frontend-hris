@@ -16,29 +16,32 @@ export default function AppraisalConfirmationKPICOREPage() {
   const [singleKPICOREDetailsData, setSingleKPICOREDetailsData] = useState<KPICOREViewInterface>({
     id: NaN,
     date_added: '',
-    emp_no: NaN,
     emp_name: '',
-    sup_name: '',
-    sup_no: NaN,
-    eval_date: '',
+    approver_name: '',
+    date_evaluation_deadline: '',
     status: 'Pending',
-    final_rating: '',
     total_self_eval_points: NaN,
-    total_sup_eval_points: NaN,
+    total_approver_eval_points: NaN,
     total_core_compe_points: NaN,
     percentage_total: NaN,
-
+    final_rating: null,
+    emp_no: NaN,
+    emp_no_approver: NaN,
+    kpi_codes: [],
+    corecompe_codes: [],
   });
   const dispatch = useDispatch();
   const { KPICOREView } = useSelector((state: RootState) => state.employeeAndApplicants);
   const { data, status, error } = KPICOREView;
   const KPICOREViewData = data as KPICOREViewInterface[];
 
-  const FilteredKPICOREViewData = Array.isArray(KPICOREViewData) ?  KPICOREViewData.filter((item) => item?.status === 'Pending' && item?.sup_no === curr_user ) : [];
+  const FilteredKPICOREViewData = Array.isArray(KPICOREViewData) ?  KPICOREViewData.filter((item) => item?.status === 'Pending' && item?.emp_no_approver === curr_user ) : [];
 
   useEffect(()=> {
-    dispatch(KPICOREViewAction())
-  }, []);
+    if(data?.length === 0){
+      dispatch(KPICOREViewAction())
+    }
+  }, [curr_user]);
 
   return (
     <Fragment>

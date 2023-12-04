@@ -603,7 +603,7 @@ const JSXRouteWrapper = () => {
             {
               id: 14500,
               icon: <RuleFolderOutlinedIcon {...icon} />,
-              name: "KPI Appraisal Confirmations",
+              name: "KPI Confirmations",
               path: "/pending-checklists/Appraisal-Confirmations",
               element: <AppraisalConfirmationKPICOREPage/>, 
               badgeAccessor: 'UAViewFilterApprover',

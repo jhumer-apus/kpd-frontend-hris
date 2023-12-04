@@ -17,6 +17,7 @@ import { RootState } from "@/store/configureStore";
 import { UAViewFilterApproverAction, LEAVEViewFilterApproverAction, OVERTIMEViewFilterApproverAction, OBTViewFilterApproverAction } from "@/store/actions/procedurals";
 import { LEAVEViewInterface, OBTViewInterface, OVERTIMEViewInterface, UAViewInterface } from "@/types/types-pages";
 import JSXRouteWrapper from "@/routes";
+import { KPICOREViewAction, OFFBOARDINGSTATUSViewAction, ONBOARDINGSTATUSViewAction } from "@/store/actions/employee-and-applicants";
 
 export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
   const dispatchRedux = useDispatch();
@@ -25,21 +26,36 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
   const EAState = useSelector((state:RootState) => state.employeeAndApplicants)
   const { UAViewFilterApprover, LEAVEViewFilterApprover, OVERTIMEViewFilterApprover, OBTViewFilterApprover } = proceduralState;
   const currUserEmpNo = currUserState?.emp_no as number;
-  const PendingKPICore = EAState.KPICOREView.data.length > 0 ? EAState?.KPICOREView?.data?.filter((item)=> item?.status ==='Pending' && item?.sup_no === currUserEmpNo) : [];
+  const PendingKPICore = EAState.KPICOREView.data.length > 0 ? EAState?.KPICOREView?.data?.filter((item)=> item?.status ==='Pending' && item?.emp_no_approver === currUserEmpNo) : [];
+  const PendingOffboarding = EAState.OFFBOARDINGSTATUSView.data.length > 0 ? EAState?.OFFBOARDINGSTATUSView?.data?.filter((item)=> item?.status ==='Pending' && item?.emp_offboard_reqs?.some((item) => item.offboarding_facilitator === currUserEmpNo)) : [];
+  const PendingOnboarding = EAState.ONBOARDINGSTATUSView.data.length > 0 ? EAState?.ONBOARDINGSTATUSView?.data?.filter((item)=> item?.status ==='Pending' && item?.emp_onboard_reqs?.some((item) => item.onboarding_facilitator === currUserEmpNo)) : [];
 
   const proceduralActions = [
     UAViewFilterApproverAction,
     LEAVEViewFilterApproverAction,
     OVERTIMEViewFilterApproverAction,
-    OBTViewFilterApproverAction
+    OBTViewFilterApproverAction,
   ];
+  const employeeAndApplicantsActions = [
+    OFFBOARDINGSTATUSViewAction,
+    ONBOARDINGSTATUSViewAction,
+    KPICOREViewAction,
+  ]
 
   const dispatchActions = useCallback(() => {
     proceduralActions.forEach((action) => {
+      console.log(`${action}`, "asd1?")
       const stringifiedAction = `${action}`
       const formattedString = stringifiedAction.replace(/Action$/, '')
       if (!proceduralState[formattedString]?.data) {
         dispatchRedux(action({ emp_no: currUserEmpNo }));
+      }
+    });
+    employeeAndApplicantsActions.forEach((action) => {
+      const stringifiedAction = `${action}`
+      const formattedString = stringifiedAction.replace(/Action$/, '')
+      if (!proceduralState[formattedString]?.data) {
+        dispatchRedux(action());
       }
     });
   }, [currUserEmpNo]);
@@ -48,7 +64,7 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
     dispatchActions();
   }, [dispatchActions]);
   
-  const approvalNames = ['OBT Approvals', 'OT Approvals', 'LEAVE Approvals', 'UA Approvals', 'KPI Appraisal Confirmations'];
+  const approvalNames = ['OBT Approvals', 'OT Approvals', 'LEAVE Approvals', 'UA Approvals', 'KPI Confirmations', 'Onboarding CF', 'Offboarding CF'];
 
   const arrayLengthChecker = (key: string) => {
     type objectChecker = {
@@ -59,8 +75,10 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
       'OT Approvals': (OVERTIMEViewFilterApprover?.data as OVERTIMEViewInterface[])?.length,
       'LEAVE Approvals': (LEAVEViewFilterApprover?.data as LEAVEViewInterface[])?.length,
       'UA Approvals': (UAViewFilterApprover?.data as UAViewInterface[])?.length,
-      'KPI Appraisal Confirmations': PendingKPICore.length,
-      'Pending Checklists': ((OBTViewFilterApprover?.data as OBTViewInterface[])?.length + (OVERTIMEViewFilterApprover?.data as OVERTIMEViewInterface[])?.length + (LEAVEViewFilterApprover?.data as LEAVEViewInterface[])?.length + (UAViewFilterApprover?.data as UAViewInterface[])?.length + PendingKPICore.length),
+      'KPI Confirmations': PendingKPICore.length,
+      'Onboarding CF': PendingOnboarding.length,
+      'Offboarding CF': PendingOffboarding.length,
+      'Pending Checklists': ((OBTViewFilterApprover?.data as OBTViewInterface[])?.length + (OVERTIMEViewFilterApprover?.data as OVERTIMEViewInterface[])?.length + (LEAVEViewFilterApprover?.data as LEAVEViewInterface[])?.length + (UAViewFilterApprover?.data as UAViewInterface[])?.length + PendingKPICore.length + PendingOnboarding.length + PendingOffboarding.length),
       'default': 0
     };
     return keyProcessor[key] || keyProcessor['default']
