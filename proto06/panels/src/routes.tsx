@@ -113,6 +113,7 @@ import APPRAISALDETAILSPage from "./pages/employee/appraisals/inner-page/apprais
 import AboutAppraisalsPage from "./pages/employee/about-appraisals/about-appraisals";
 import EAAPPLICANTSLIST from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-applicants-list/ea-applicants-list";
 import EAJOBPOSTINGS from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-job-postings/ea-job-postings";
+import OnboardingCF from "./pages/pending-checklists/onboarding-cf/onboarding-cf";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -614,7 +615,7 @@ const JSXRouteWrapper = () => {
               icon: <AddLocationAltIcon {...icon} />,
               name: "Onboarding CF",
               path: "/pending-checklists/Onboarding-Confirmations",
-              element: <ApprovalUAPage/>, 
+              element: <OnboardingCF/>, 
               badgeAccessor: 'UAViewFilterApprover',
               hasSubItems: false,
             },

@@ -15,12 +15,12 @@ export const AppraisalConfirmationKPICOREPageDescriptions = [
 export const AppraisalConfirmationKPICOREPageColumns: GridColDef[] = 
 [
   {
-    field: 'eval_date',
-    headerName: 'Evaluation Date:',
+    field: 'date_evaluation_deadline',
+    headerName: 'Date Deadline:',
     width: 150,
     valueGetter: (params: GridValueGetterParams) => {
-      const date = new Date(params.row.eval_date);
-      return params.row.eval_date ? dayjs(date).format(`${globalDate}`) : 'No Date';
+      const date = new Date(params.row.date_evaluation_deadline);
+      return params.row.date_evaluation_deadline ? dayjs(date).format(`${globalDate}`) : 'No Date';
     }
   },
   { field: 'status', headerName: 'Status', width: 120 },
@@ -36,14 +36,16 @@ export const AppraisalConfirmationKPICOREPageColumns: GridColDef[] =
     headerName: 'Employee Name:',
     width: 150,
   },
-  { field: 'sup_eval_points', headerName: 'Confirmed KPI Points', width: 180 },
+  { field: 'total_approver_eval_points', headerName: 'Confirmed KPI Points', width: 180 },
   {
-    field: 'core_compe_points',
+    field: 'total_core_compe_points',
     headerName: 'Core Points',
     width: 150,
   },
-  { field: 'sup_no', headerName: 'Supervisor #:',  width: 300, 
+  { field: 'emp_no_approver', headerName: 'Approver Emp #:',  width: 140, 
   },
+  { field: 'approver_name', headerName: 'Approver Name',  width: 180, 
+},
 ];
 
   
