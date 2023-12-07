@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
 import OBTTypeAutoComplete from './inner-ui-components/obt-type-autocomplete';
-import DateFromToOBTCreate from './inner-ui-components/date-from-to-field';
+import DateFromToOBTCreate from './inner-ui-components/date-field';
 import { Typography } from '@mui/joy';
 import { ModalClose } from '@mui/joy';
 import { OBTCreateInterface } from '@/types/types-pages';

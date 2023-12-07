@@ -1,7 +1,7 @@
 import React, { Fragment, MutableRefObject, useState } from 'react';
 import { ViewPayrollPayPerEmployee } from '@/types/types-pages';
 import { Box } from '@mui/material';
-import PayslipUI from '../../ui-components/obt-modal-ui';
+import PayslipUI from '../../ui-components/onboarding-status-modal-ui';
 import { CSSProperties } from 'react';
 
 

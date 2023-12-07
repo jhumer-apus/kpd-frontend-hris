@@ -3,7 +3,7 @@ import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
 import { ONBOARDINGSTATUSViewInterface } from '@/types/types-employee-and-applicants';
-import ONBOARDINGSTATUSModalComponent from './inner-modals/evaluation-modal-component';
+import ONBOARDINGSTATUSModalComponent from './inner-modals/onboarding-status-modal-component';
 
 
 interface SinglePayslipInterface {
@@ -56,7 +56,7 @@ export default function ViewONBOARDINGSTATUSSingleModal(props: SinglePayslipInte
                 overflow: 'auto',
             }}
         >
-          {/* <ONBOARDINGSTATUSModalComponent setSingleONBOARDINGSTATUSDetailsData={setSingleONBOARDINGSTATUSDetailsData} singleONBOARDINGSTATUSDetailsData={singleONBOARDINGSTATUSDetailsData} scroll={scroll} setScroll={setScroll}/> */}
+          <ONBOARDINGSTATUSModalComponent setSingleONBOARDINGSTATUSDetailsData={setSingleONBOARDINGSTATUSDetailsData} singleONBOARDINGSTATUSDetailsData={singleONBOARDINGSTATUSDetailsData} scroll={scroll} setScroll={setScroll}/>
         </ModalDialog>
       </Modal>
         )}
