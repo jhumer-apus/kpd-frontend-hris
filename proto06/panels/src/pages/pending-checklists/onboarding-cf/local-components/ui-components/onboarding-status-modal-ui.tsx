@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ONBOARDINGSTATUSViewInterface } from '@/types/types-employee-and-applicants';
+import { ONBOARDINGSTATUSUpdateInterface, ONBOARDINGSTATUSViewInterface } from '@/types/types-employee-and-applicants';
 import { convertDaysToHHMM, convertMinutesToHHMM,  } from '@/helpers/utils';
 import { Button, Typography } from '@mui/material';
 import dayjs from 'dayjs';
@@ -32,6 +32,71 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
         
     };
 
+
+    const [ updatedItems, setUpdatedItems ] = useState<ONBOARDINGSTATUSUpdateInterface>({
+        emp_no: NaN,
+        onboarding_requirement_code_array: [],
+        date_commencement: "",
+        emp_remarks_array: [],
+        facilitator_remarks_array: [],
+        status_array: [],
+        added_by: NaN,
+    });
+
+    console.log(updatedItems, "check1`")
+
+    useEffect(()=> {
+
+        if(singleONBOARDINGSTATUSDetailsData.emp_onboard_reqs){
+            singleONBOARDINGSTATUSDetailsData?.emp_onboard_reqs.forEach((item) => {
+                setUpdatedItems((prevState)=> {
+                    return({
+                        ...prevState,
+                        onboarding_requirement_code_array: [...prevState.onboarding_requirement_code_array, item.onboarding_requirement_code as number],
+                        emp_remarks_array: [...prevState.emp_remarks_array, item.emp_remarks as string],
+                        facilitator_remarks_array: [item.facilitator_remarks as string],
+                        status_array: [...prevState.status_array, item.status as string],
+                    })
+                })
+            })
+        };
+        setUpdatedItems((prevState) => {
+            return(
+                {
+                    ...prevState,
+                    date_commencement: `${new Date().toISOString()}`
+                }
+            )
+        })
+
+    }, [])
+
+
+    useEffect(()=> {
+        if(singleONBOARDINGSTATUSDetailsData.emp_no){
+            setUpdatedItems((prevState) => {
+                return (
+                    {
+                        ...prevState,
+                        emp_no: singleONBOARDINGSTATUSDetailsData.emp_no
+                    }
+                )
+            })
+        };
+        if(curr_user?.emp_no){
+            setUpdatedItems((prevState) => {
+                return (
+                    {
+                        ...prevState,
+                        added_by: curr_user?.emp_no
+                    }
+                )
+            })
+        }
+
+    }, [singleONBOARDINGSTATUSDetailsData.emp_no, curr_user])
+
+
     const [saveChangesButton, setSaveChangesButton] = useState<boolean>(false); 
 
     const buttonAction = () => {
@@ -43,6 +108,23 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
             //submit changes or dispatch post action
         }
         // setSaveChangesButton(!saveChangesButton);
+    }
+
+
+    const updateItemValue = (itemId: number, newValue: any) => {
+        const updatedArray = singleONBOARDINGSTATUSDetailsData.emp_onboard_reqs?.map((item) => {
+
+            return( item.id === itemId ? {...item, newValue}: item)
+
+        })
+
+        setSingleONBOARDINGSTATUSDetailsData((prevState)=> {
+            return ({
+                ...prevState,
+                emp_onboard_reqs: updatedArray
+            })
+        })
+
     }
     return (
         <React.Fragment>
@@ -94,13 +176,18 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
                                 <TextField 
                                     sx={{width: '100%', fontStyle: 'italic'}} 
                                     label={`Facilitator Remarks to #${index + 1}`} 
+                                    placeholder='You can input if the employee has completed this requirement with date here.'
                                     value={item.facilitator_remarks} 
-                                    InputProps={{readOnly: true,}} 
+                                    InputProps={{readOnly: !saveChangesButton,}} 
                                     variant='outlined' 
                                     multiline 
                                     rows={2}
+                                    onChange={(event) => {
+                                        const newValue = event.target.value;
+                                        updateItemValue(item.onboarding_requirement_code, {facilitator_remarks: newValue})
+                                    }}
                                 />
-                                <div className='flex justify-center gap-4'>
+                                <div className='flex justify-start gap-4'>
                                     <TextField 
                                         sx={{width: '30%'}} 
                                         placeholder={'Emp #'} 
@@ -116,17 +203,13 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
                                         InputProps={{readOnly: true,}} 
                                         variant='outlined' 
                                     /> */}
-                                    <DateFieldInput
-                                        initialState={singleONBOARDINGSTATUSDetailsData}
-                                        setInitialState={setSingleONBOARDINGSTATUSDetailsData}
-                                    />
-                                    <TextField 
+                                    {/* <TextField 
                                         sx={{width: '40%'}} 
                                         label={`Supervisor Remarks #${index + 1}`} 
                                         value={item.sup_remarks} 
                                         InputProps={{readOnly: true,}} 
                                         variant='outlined' 
-                                    />
+                                    /> */}
                                 </div>
 
                                 </>
