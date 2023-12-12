@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import {TextField} from '@mui/material';
 import ApproveONBOARDINGSTATUSModal from '../main-modals/inner-modals/approve-obt-modal';
 import DenyONBOARDINGSTATUSModal from '../main-modals/inner-modals/deny-obt-modal';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import DateFieldInput from './inner-ui-components/date-field';
 
@@ -17,6 +17,7 @@ interface ONBOARDINGSTATUSModalUIInterface {
 }
 
 function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
+    const dispatch = useDispatch();
     const [ approveONBOARDINGSTATUSOpenModal, setApproveONBOARDINGSTATUSOpenModal ] = useState(false);
     const [ denyONBOARDINGSTATUSOpenModal, setDenyONBOARDINGSTATUSOpenModal ] = useState(false);
     const { setSingleONBOARDINGSTATUSDetailsData, singleONBOARDINGSTATUSDetailsData } = props;
@@ -43,34 +44,25 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
         added_by: NaN,
     });
 
-    console.log(updatedItems, "check1`")
-
     useEffect(()=> {
-
-        if(singleONBOARDINGSTATUSDetailsData.emp_onboard_reqs){
-            singleONBOARDINGSTATUSDetailsData?.emp_onboard_reqs.forEach((item) => {
-                setUpdatedItems((prevState)=> {
-                    return({
-                        ...prevState,
-                        onboarding_requirement_code_array: [...prevState.onboarding_requirement_code_array, item.onboarding_requirement_code as number],
-                        emp_remarks_array: [...prevState.emp_remarks_array, item.emp_remarks as string],
-                        facilitator_remarks_array: [item.facilitator_remarks as string],
-                        status_array: [...prevState.status_array, item.status as string],
-                    })
-                })
-            })
-        };
-        setUpdatedItems((prevState) => {
-            return(
-                {
-                    ...prevState,
-                    date_commencement: `${new Date().toISOString()}`
-                }
-            )
-        })
-
-    }, [])
-
+        if (singleONBOARDINGSTATUSDetailsData.emp_onboard_reqs) {
+            const initialItems = singleONBOARDINGSTATUSDetailsData.emp_onboard_reqs.map((item) => ({
+                onboarding_requirement_code: item.onboarding_requirement_code,
+                emp_remarks: item.emp_remarks || "",
+                facilitator_remarks: item.facilitator_remarks || "",
+                status: item.status || "",
+            }));
+        
+            setUpdatedItems((prevState) => ({
+                ...prevState,
+                onboarding_requirement_code_array: initialItems.map((item) => item.onboarding_requirement_code),
+                emp_remarks_array: initialItems.map((item) => item.emp_remarks),
+                facilitator_remarks_array: initialItems.map((item) => item.facilitator_remarks),
+                status_array: initialItems.map((item) => item.status),
+                date_commencement: new Date().toISOString(),
+            }));
+        }
+    }, [singleONBOARDINGSTATUSDetailsData])
 
     useEffect(()=> {
         if(singleONBOARDINGSTATUSDetailsData.emp_no){
@@ -105,27 +97,44 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
             return
         }else{
             setSaveChangesButton(!saveChangesButton);
+            // dispatch(ONBOARDINGSTATUSUpdate)
             //submit changes or dispatch post action
         }
-        // setSaveChangesButton(!saveChangesButton);
     }
 
-
-    const updateItemValue = (itemId: number, newValue: any) => {
-        const updatedArray = singleONBOARDINGSTATUSDetailsData.emp_onboard_reqs?.map((item) => {
-
-            return( item.id === itemId ? {...item, newValue}: item)
-
-        })
-
-        setSingleONBOARDINGSTATUSDetailsData((prevState)=> {
-            return ({
-                ...prevState,
-                emp_onboard_reqs: updatedArray
-            })
-        })
-
+    function debounce(func: Function, wait: number) {
+        let timeout: ReturnType<typeof setTimeout>;
+      
+        return function executedFunction(...args: any[]) {
+          const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+          };
+      
+          clearTimeout(timeout);
+          timeout = setTimeout(later, wait);
+        };
     }
+
+    const updateItemValue = (index: number, field: string, value: string) => {
+        setUpdatedItems((prevState) => {
+          const updatedArray = [...(prevState as any)[field]];
+          updatedArray[index] = value;
+      
+          const updatedState: Partial<ONBOARDINGSTATUSUpdateInterface> = {
+            [field]: updatedArray,
+          };
+      
+          return {
+            ...prevState,
+            ...updatedState,
+          };
+        });
+    };
+
+    const debouncedUpdateItemValue = debounce(updateItemValue, 300);
+
+
     return (
         <React.Fragment>
             {/* <ApproveONBOARDINGSTATUSModal singleONBOARDINGSTATUSDetailsData={singleONBOARDINGSTATUSDetailsData} setSingleONBOARDINGSTATUSDetailsData={setSingleONBOARDINGSTATUSDetailsData} approveONBOARDINGSTATUSOpenModal={approveONBOARDINGSTATUSOpenModal} setApproveONBOARDINGSTATUSOpenModal={setApproveONBOARDINGSTATUSOpenModal}/>
@@ -184,7 +193,7 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
                                     rows={2}
                                     onChange={(event) => {
                                         const newValue = event.target.value;
-                                        updateItemValue(item.onboarding_requirement_code, {facilitator_remarks: newValue})
+                                        debouncedUpdateItemValue(index, "facilitator_remarks_array", newValue);
                                     }}
                                 />
                                 <div className='flex justify-start gap-4'>
