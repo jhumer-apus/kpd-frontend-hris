@@ -21,6 +21,7 @@ _Interface.ONBOARDINGSTATUSViewInterface[] |
 _Interface.ONBOARDINGSTATUSViewInterface | 
 _Interface.ONBOARDINGSTATUSCreateInterface |
 _Interface.ONBOARDINGSTATUSEditInterface |
+_Interface.ONBOARDINGSTATUSUpdateInterface |
 _Interface.ONBOARDINGREQUIREMENTSViewInterface[] | 
 _Interface.ONBOARDINGREQUIREMENTSViewInterface | 
 _Interface.ONBOARDINGREQUIREMENTSCreateInterface |
@@ -105,6 +106,10 @@ interface ONBOARDINGSTATUSEditState extends CommonEmployeeAndApplicantsState {
   data: ONBOARDINGSTATUSViewState | null;
 }
 
+interface ONBOARDINGSTATUSUpdateState extends CommonEmployeeAndApplicantsState {
+  data: string | null;
+}
+
 // ONBOARDINGREQUIREMENTS SECTION // ONBOARDINGREQUIREMENTS SECTION // ONBOARDINGREQUIREMENTS SECTION // ONBOARDINGREQUIREMENTS SECTION // ONBOARDINGREQUIREMENTS SECTION 
 interface ONBOARDINGREQUIREMENTSViewState extends CommonEmployeeAndApplicantsState{
   data: _Interface.ONBOARDINGREQUIREMENTSViewInterface[] | [];
@@ -187,6 +192,7 @@ interface OverallEmployeeAndApplicantsState {
   ONBOARDINGSTATUSViewState | 
   ONBOARDINGSTATUSCreateState | 
   ONBOARDINGSTATUSEditState |
+  ONBOARDINGSTATUSUpdateState |
   ONBOARDINGREQUIREMENTSViewState | 
   ONBOARDINGREQUIREMENTSCreateState | 
   ONBOARDINGREQUIREMENTSEditState |
@@ -226,6 +232,7 @@ interface OverallEmployeeAndApplicantsState {
   ONBOARDINGSTATUSViewSpecific: ONBOARDINGSTATUSViewState,
   ONBOARDINGSTATUSCreate: ONBOARDINGSTATUSCreateState,
   ONBOARDINGSTATUSEdit: ONBOARDINGSTATUSEditState,
+  ONBOARDINGSTATUSUpdate: ONBOARDINGSTATUSUpdateState,
   //ONBOARDINGREQUIREMENTS SECTION
   ONBOARDINGREQUIREMENTSView: ONBOARDINGREQUIREMENTSViewState,
   ONBOARDINGREQUIREMENTSViewSpecific: ONBOARDINGREQUIREMENTSViewState,
@@ -370,6 +377,12 @@ const initialState: OverallEmployeeAndApplicantsState = {
     error: '',
   },
   ONBOARDINGSTATUSEdit: {
+    status: null,
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  ONBOARDINGSTATUSUpdate: {
     status: null,
     progress: 0,
     data: null,
@@ -644,6 +657,10 @@ const employeeAndApplicantsSlice = createSlice({
       .addCase(_Actions.ONBOARDINGSTATUSEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ONBOARDINGSTATUSEdit"))
       .addCase(_Actions.ONBOARDINGSTATUSEditActionProgress, (state, action) => setProgressState(state, action.payload, "ONBOARDINGSTATUSEdit"))
       .addCase(_Actions.ONBOARDINGSTATUSEditActionFailure, (state, action) => setFailureState(state, action.payload, "ONBOARDINGSTATUSEdit"))
+      .addCase(_Actions.ONBOARDINGSTATUSUpdateAction, setLoadingState("ONBOARDINGSTATUSUpdate"))
+      .addCase(_Actions.ONBOARDINGSTATUSUpdateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ONBOARDINGSTATUSUpdate"))
+      .addCase(_Actions.ONBOARDINGSTATUSUpdateActionProgress, (state, action) => setProgressState(state, action.payload, "ONBOARDINGSTATUSUpdate"))
+      .addCase(_Actions.ONBOARDINGSTATUSUpdateActionFailure, (state, action) => setFailureState(state, action.payload, "ONBOARDINGSTATUSUpdate"))
       //ONBOARDINGREQUIREMENTS SECTION
       .addCase(_Actions.ONBOARDINGREQUIREMENTSViewAction, setLoadingState("ONBOARDINGREQUIREMENTSView"))
       .addCase(_Actions.ONBOARDINGREQUIREMENTSViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ONBOARDINGREQUIREMENTSView"))

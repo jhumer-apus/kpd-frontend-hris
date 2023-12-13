@@ -564,6 +564,21 @@ export const EVALQUESTIONSDeleteEpic: Epic = (action$, state$) =>
   
 
 // ONBOARDINGSTATUS API SECTION // ONBOARDINGSTATUS API SECTION // ONBOARDINGSTATUS API SECTION // ONBOARDINGSTATUS API SECTION // ONBOARDINGSTATUS API SECTION
+const ONBOARDINGSTATUSUpdateApiCall = async (payload: _Interface.ONBOARDINGSTATUSUpdateInterface) => {
+    const response = await axios.put(`${APILink}update_onboard/`,
+    payload,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.ONBOARDINGSTATUSUpdateActionProgress(progress));
+          }
+        }
+      }
+    );
+    return response.data;
+};
+
 const ONBOARDINGSTATUSEditApiCall = async (payload: _Interface.ONBOARDINGSTATUSEditInterface) => {
     const response = await axios.put(`${APILink}onboarding/${payload.id}/`,
     payload,
@@ -702,6 +717,27 @@ export const ONBOARDINGSTATUSEditEpic: Epic = (action$, state$) =>
                 return of(_Action.ONBOARDINGSTATUSEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
             } else {
                 return of(_Action.ONBOARDINGSTATUSEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+export const ONBOARDINGSTATUSUpdateEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.ONBOARDINGSTATUSUpdateAction.type),
+        switchMap((action: ReturnType<typeof _Action.ONBOARDINGSTATUSUpdateAction>) =>
+        from(
+            ONBOARDINGSTATUSUpdateApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.ONBOARDINGSTATUSUpdateActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.ONBOARDINGSTATUSUpdateActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.ONBOARDINGSTATUSUpdateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
             }
             })
         )

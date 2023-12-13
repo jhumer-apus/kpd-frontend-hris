@@ -155,6 +155,14 @@ export const ONBOARDINGSTATUSEditActionProgress = createAction<number>("ONBOARDI
 export const ONBOARDINGSTATUSEditActionFailure = createAction<string>("ONBOARDINGSTATUS_EDIT_ACTION_FAILURE");
 export const ONBOARDINGSTATUSEditActionFailureCleanup = createAction("ONBOARDINGSTATUS_EDIT_ACTION_FAILURE_CLEANUP");
 
+export const ONBOARDINGSTATUSUpdateAction = createAction<_Type.ONBOARDINGSTATUSUpdateInterface>("ONBOARDINGSTATUS_UPDATE_ACTION");
+export const ONBOARDINGSTATUSUpdateActionSuccess = createAction("ONBOARDINGSTATUS_UPDATE_ACTION_SUCCESS", (SuccessMessage: _Type.ONBOARDINGSTATUSUpdateInterface) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const ONBOARDINGSTATUSUpdateActionProgress = createAction<number>("ONBOARDINGSTATUS_UPDATE_ACTION_PROGRESS");
+export const ONBOARDINGSTATUSUpdateActionFailure = createAction<string>("ONBOARDINGSTATUS_UPDATE_ACTION_FAILURE");
+export const ONBOARDINGSTATUSUpdateActionFailureCleanup = createAction("ONBOARDINGSTATUS_UPDATE_ACTION_FAILURE_CLEANUP");
+
 // ONBOARDINGREQUIREMENTS SECTION
 export const ONBOARDINGREQUIREMENTSViewAction = createAction("ONBOARDINGREQUIREMENTS_VIEW_ACTION");
 export const ONBOARDINGREQUIREMENTSViewActionSuccess = createAction("ONBOARDINGREQUIREMENTS_VIEW_ACTION_SUCCESS", (SuccessMessage: _Type.ONBOARDINGREQUIREMENTSViewInterface[]) => { 
