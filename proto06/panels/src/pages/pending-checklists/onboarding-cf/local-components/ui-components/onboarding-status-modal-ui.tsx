@@ -7,8 +7,9 @@ import {TextField} from '@mui/material';
 import ApproveONBOARDINGSTATUSModal from '../main-modals/inner-modals/approve-obt-modal';
 import DenyONBOARDINGSTATUSModal from '../main-modals/inner-modals/deny-obt-modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalAPIDate } from '@/store/configureStore';
 import DateFieldInput from './inner-ui-components/date-field';
+import { ONBOARDINGSTATUSUpdateAction, ONBOARDINGSTATUSUpdateActionFailureCleanup } from '@/store/actions/employee-and-applicants';
 
 interface ONBOARDINGSTATUSModalUIInterface {
     singleONBOARDINGSTATUSDetailsData: ONBOARDINGSTATUSViewInterface;
@@ -18,6 +19,7 @@ interface ONBOARDINGSTATUSModalUIInterface {
 
 function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
     const dispatch = useDispatch();
+    const ONBOARDINGSTATUS = useSelector((state: RootState) => state.employeeAndApplicants.ONBOARDINGSTATUSUpdate);
     const [ approveONBOARDINGSTATUSOpenModal, setApproveONBOARDINGSTATUSOpenModal ] = useState(false);
     const [ denyONBOARDINGSTATUSOpenModal, setDenyONBOARDINGSTATUSOpenModal ] = useState(false);
     const { setSingleONBOARDINGSTATUSDetailsData, singleONBOARDINGSTATUSDetailsData } = props;
@@ -59,7 +61,7 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
                 emp_remarks_array: initialItems.map((item) => item.emp_remarks),
                 facilitator_remarks_array: initialItems.map((item) => item.facilitator_remarks),
                 status_array: initialItems.map((item) => item.status),
-                date_commencement: new Date().toISOString(),
+                date_commencement: dayjs(new Date()).format(`${globalAPIDate}`),
             }));
         }
     }, [singleONBOARDINGSTATUSDetailsData])
@@ -89,17 +91,39 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
     }, [singleONBOARDINGSTATUSDetailsData.emp_no, curr_user])
 
 
+    useEffect(()=>{
+        if(ONBOARDINGSTATUS.status === 'succeeded'){
+            window.alert('Request Successful');
+            window.location.reload();
+        }else if(ONBOARDINGSTATUS.status === 'failed'){
+            window.alert(`Request Failed, ${ONBOARDINGSTATUS.error}`)
+            setTimeout(()=> {
+                dispatch(ONBOARDINGSTATUSUpdateActionFailureCleanup());
+            }, 400)
+        }
+    }, [ONBOARDINGSTATUS.status])
+
     const [saveChangesButton, setSaveChangesButton] = useState<boolean>(false); 
 
-    const buttonAction = () => {
-        if(singleONBOARDINGSTATUSDetailsData.status === "Completed"){
-            window.alert("You cannot modify this already confirmed document.")
-            return
-        }else{
+    const buttonAction = (mode: number) => {
+        const InputDetails = () => {
+            if(singleONBOARDINGSTATUSDetailsData.status === "Completed"){
+                window.alert("You cannot modify this already confirmed document.")
+                return
+            }else{
+                setSaveChangesButton(!saveChangesButton);
+            }
+        };
+        const SubmitChanges = () => {
             setSaveChangesButton(!saveChangesButton);
-            // dispatch(ONBOARDINGSTATUSUpdate)
-            //submit changes or dispatch post action
-        }
+            dispatch(ONBOARDINGSTATUSUpdateAction(updatedItems))
+        };
+        switch(mode){
+            case 0: InputDetails();
+            break;
+            case 1: SubmitChanges();
+            break;
+        };  
     }
 
     function debounce(func: Function, wait: number) {
@@ -149,12 +173,24 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
                         Status: {singleONBOARDINGSTATUSDetailsData.status}
                 </Typography>
                 <Typography variant='subtitle1' className='flex justify-center text-center'>
-                        Onboarding Date: {dayjs(singleONBOARDINGSTATUSDetailsData.date_start).format("MMMM DD, YYYY")}
+                        Onboarding Date: {singleONBOARDINGSTATUSDetailsData.date_start ? dayjs(singleONBOARDINGSTATUSDetailsData.date_start).format("MMMM DD, YYYY") : "No Date Indicated"}
                 </Typography>
                 <div className='flex justify-center my-6' container-name='obt_buttons_container'>
                     <div className='flex justify-center' style={{width:'300px'}} container-name='obt_buttons'>
-                        <Button variant='contained' sx={{display: `${saveChangesButton ? 'none': 'block'}`}} aria-hidden={saveChangesButton} hidden={saveChangesButton} onClick={buttonAction}>Input Details</Button>
-                        <Button variant='outlined' sx={{display: `${!saveChangesButton ? 'none': 'block'}`}} aria-hidden={!saveChangesButton} hidden={!saveChangesButton} onClick={buttonAction}>Submit Changes</Button>
+                        <Button 
+                            variant='contained' 
+                            sx={{display: `${saveChangesButton ? 'none': 'block'}`}} 
+                            aria-hidden={saveChangesButton} 
+                            hidden={saveChangesButton} 
+                            onClick={() => buttonAction(0)}
+                        >Input Details</Button>
+                        <Button 
+                            variant='outlined' 
+                            sx={{display: `${!saveChangesButton ? 'none': 'block'}`}} 
+                            aria-hidden={!saveChangesButton} 
+                            hidden={!saveChangesButton} 
+                            onClick={() => buttonAction(1)}
+                        >Submit Changes</Button>
                     </div>
                 </div>
             </div>
