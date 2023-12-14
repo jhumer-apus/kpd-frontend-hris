@@ -97,6 +97,7 @@ export interface ONBOARDINGSTATUSGenericInterface {
 	final_remarks: string | null
 	emp_no: number
 	emp_onboard_reqs?: Array<Omit<ONBOARDINGREQUIREMENTSViewInterface, "date_deleted" | "facilitator"> & {
+		[key: string]: string | null | number
 		emp_remarks: string | null
 		facilitator_remarks: string | null
 		date_commencement: string | null
