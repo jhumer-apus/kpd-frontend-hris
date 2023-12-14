@@ -25,16 +25,6 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
     const { setSingleONBOARDINGSTATUSDetailsData, singleONBOARDINGSTATUSDetailsData } = props;
     const ThisProps = props.singleONBOARDINGSTATUSDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
-    const onClickModal = (mode: number) => {
-        switch(mode){
-            case 0: setApproveONBOARDINGSTATUSOpenModal(true);
-            break;
-            case 1: setDenyONBOARDINGSTATUSOpenModal(true);
-            break;
-        }   
-        
-    };
-
 
     const [ updatedItems, setUpdatedItems ] = useState<ONBOARDINGSTATUSUpdateInterface>({
         emp_no: NaN,
@@ -138,26 +128,46 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
           clearTimeout(timeout);
           timeout = setTimeout(later, wait);
         };
-    }
+    };
 
-    const updateItemValue = (index: number, field: string, value: string) => {
-        setUpdatedItems((prevState) => {
-          const updatedArray = [...(prevState as any)[field]];
-          updatedArray[index] = value;
-      
-          const updatedState: Partial<ONBOARDINGSTATUSUpdateInterface> = {
-            [field]: updatedArray,
-          };
-      
-          return {
-            ...prevState,
-            ...updatedState,
-          };
+    const updateItemValueWithoutDebounce = (index: number, field_get: string, value: string) => {
+        setSingleONBOARDINGSTATUSDetailsData((prevState) => {
+            const updatedEmpOnboardReqs = [...(prevState?.emp_onboard_reqs || [])];
+            const updatedValue = { ...updatedEmpOnboardReqs[index] };
+
+            // const updatedValue = prevState?.emp_onboard_reqs?.[index]
+            if(updatedValue){
+                updatedValue[field_get] = value;
+                updatedEmpOnboardReqs[index] = updatedValue;
+            };
+            return{
+                ...prevState,
+                emp_onboard_reqs: updatedEmpOnboardReqs
+            };
         });
     };
 
-    const debouncedUpdateItemValue = debounce(updateItemValue, 300);
 
+    const debouncedSetUpdatedItems = debounce((index: number, field_submit: string, field_get: string, value: string) => {
+        setUpdatedItems((prevState) => {
+            const updatedArray = [...(prevState as any)[field_submit]];
+            updatedArray[index] = value;
+            const updatedState: Partial<ONBOARDINGSTATUSUpdateInterface> = {
+            [field_submit]: updatedArray,
+            };
+        
+            return {
+            ...prevState,
+            ...updatedState,
+            };
+        });
+
+    }, 400); // This needs to be improved 
+
+    const debouncedUpdateItemValue = (index: number, field_submit: string, field_get: string, value: string) => {
+        debouncedSetUpdatedItems(index, field_submit, value);
+        updateItemValueWithoutDebounce(index, field_get, value);
+    };
 
     return (
         <React.Fragment>
@@ -229,7 +239,7 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
                                     rows={2}
                                     onChange={(event) => {
                                         const newValue = event.target.value;
-                                        debouncedUpdateItemValue(index, "facilitator_remarks_array", newValue);
+                                        debouncedUpdateItemValue(index, "facilitator_remarks_array", "facilitator_remarks", newValue);
                                     }}
                                 />
                                 <div className='flex justify-start gap-4'>
