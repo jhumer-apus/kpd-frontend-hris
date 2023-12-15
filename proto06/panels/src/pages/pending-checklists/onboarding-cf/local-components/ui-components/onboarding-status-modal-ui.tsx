@@ -220,9 +220,6 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
                                     sx={{width: '100%'}} 
                                     label={`Requirement #${index + 1}`} 
                                     value={item.onboarding_title} 
-                                    // onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-
-                                    // }}
                                     InputProps={{readOnly: true,}} 
                                     variant='filled' 
                                     multiline 
@@ -233,7 +230,8 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
                                     label={`Facilitator Remarks to #${index + 1}`} 
                                     placeholder='You can input if the employee has completed this requirement with date here.'
                                     value={item.facilitator_remarks} 
-                                    InputProps={{readOnly: !saveChangesButton,}} 
+                                    disabled={!saveChangesButton}
+                                    focused={saveChangesButton}
                                     variant='outlined' 
                                     multiline 
                                     rows={2}
@@ -244,27 +242,23 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
                                 />
                                 <div className='flex justify-start gap-4'>
                                     <TextField 
-                                        sx={{width: '30%'}} 
-                                        placeholder={'Emp #'} 
+                                        sx={{width: '20%'}} 
+                                        type='number'
+                                        placeholder={'Employee #'} 
                                         label={`Facilitator Emp #${index + 1}`} 
                                         value={item.onboarding_facilitator} 
                                         InputProps={{readOnly: true,}} 
                                         variant='outlined' 
                                     />
-                                    {/* <TextField 
+                                    <TextField 
                                         sx={{width: '30%'}} 
-                                        label={`Supervisor Points #${index + 1}`} 
-                                        value={item.sup_eval_points} 
+                                        type='number'
+                                        placeholder={'Employee #'} 
+                                        label={`Facilitator Emp #${index + 1}`} 
+                                        value={item.onboarding_facilitator} 
                                         InputProps={{readOnly: true,}} 
                                         variant='outlined' 
-                                    /> */}
-                                    {/* <TextField 
-                                        sx={{width: '40%'}} 
-                                        label={`Supervisor Remarks #${index + 1}`} 
-                                        value={item.sup_remarks} 
-                                        InputProps={{readOnly: true,}} 
-                                        variant='outlined' 
-                                    /> */}
+                                    />
                                 </div>
 
                                 </>
