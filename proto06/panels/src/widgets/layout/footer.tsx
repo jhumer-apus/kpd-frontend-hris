@@ -22,8 +22,8 @@ export function Footer({ brandName, brandLink, routes }) {
           {/* for a better web. */} All Rights Reserved.
         </Typography>
         <ul className="flex items-center gap-4">
-          {JSXRouteWrapper().routes.map(({ name, path }) => (
-            <li key={name}>
+          {JSXRouteWrapper().routes.map(({ id, path }) => (
+            <li key={`${id}_li_footer`}>
               <Typography
                 as="a"
                 href={path}

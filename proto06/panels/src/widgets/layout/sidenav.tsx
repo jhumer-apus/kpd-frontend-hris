@@ -44,7 +44,6 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
 
   const dispatchActions = useCallback(() => {
     proceduralActions.forEach((action) => {
-      console.log(`${action}`, "asd1?")
       const stringifiedAction = `${action}`
       const formattedString = stringifiedAction.replace(/Action$/, '')
       if (!proceduralState[formattedString]?.data) {
@@ -143,6 +142,7 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
                   variant="small"
                   color={sidenavType === "dark" ? "white" : "blue-gray"}
                   className="font-black uppercase opacity-75"
+                  key={`${key}_li_sidenav`}
                 >
                   {title}
                 </Typography>
