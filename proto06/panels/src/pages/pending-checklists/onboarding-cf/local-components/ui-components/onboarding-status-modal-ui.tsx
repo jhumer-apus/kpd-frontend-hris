@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ONBOARDINGSTATUSUpdateInterface, ONBOARDINGSTATUSViewInterface } from '@/types/types-employee-and-applicants';
+import { EMP_ONBOARD_REQS_Interface, ONBOARDINGSTATUSUpdateInterface, ONBOARDINGSTATUSViewInterface } from '@/types/types-employee-and-applicants';
 import { convertDaysToHHMM, convertMinutesToHHMM,  } from '@/helpers/utils';
 import { Button, Typography } from '@mui/material';
 import dayjs from 'dayjs';
@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState, globalAPIDate } from '@/store/configureStore';
 import DateFieldInput from './inner-ui-components/date-field';
 import { ONBOARDINGSTATUSUpdateAction, ONBOARDINGSTATUSUpdateActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import ONBOARDINGSTATUSTypeAutoComplete from './inner-ui-components/onboarding-status-autocomplete';
 
 interface ONBOARDINGSTATUSModalUIInterface {
     singleONBOARDINGSTATUSDetailsData: ONBOARDINGSTATUSViewInterface;
@@ -243,13 +244,14 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
                                 <div className='flex justify-start gap-4'>
                                     <TextField 
                                         sx={{width: '20%'}} 
-                                        type='number'
-                                        placeholder={'Employee #'} 
-                                        label={`Facilitator Emp #${index + 1}`} 
-                                        value={item.onboarding_facilitator} 
+                                        type='text'
+                                        placeholder={'Status'} 
+                                        label={`Status`} 
+                                        value={item.status}
                                         InputProps={{readOnly: true,}} 
                                         variant='outlined' 
                                     />
+                                    <ONBOARDINGSTATUSTypeAutoComplete createONBOARDINGSTATUS={item} itemIndex={index} setCreateONBOARDINGSTATUS={updateItemValueWithoutDebounce} />
                                     <TextField 
                                         sx={{width: '30%'}} 
                                         type='number'

@@ -96,19 +96,21 @@ export interface ONBOARDINGSTATUSGenericInterface {
 	status: "Pending" | "Completed"
 	final_remarks: string | null
 	emp_no: number
-	emp_onboard_reqs?: Array<Omit<ONBOARDINGREQUIREMENTSViewInterface, "date_deleted" | "facilitator"> & {
-		[key: string]: string | null | number
-		emp_remarks: string | null
-		facilitator_remarks: string | null
-		date_commencement: string | null
-		status: "Pending" | "Completed"
-		emp_no: number
-		onboarding_requirement_code: number
-		onboarding_facilitator: number
-	}>
+	emp_onboard_reqs?: Array<EMP_ONBOARD_REQS_Interface>
 	added_by?: number
 	onboarding_codes?: number[]
 }
+
+export interface EMP_ONBOARD_REQS_Interface extends Omit<ONBOARDINGREQUIREMENTSViewInterface, "date_deleted" | "facilitator"> {
+	[key: string]: string | null | number | undefined
+	emp_remarks: string | null
+	facilitator_remarks: string | null
+	date_commencement: string | null
+	status: "Pending" | "Completed"
+	emp_no: number
+	onboarding_requirement_code: number
+	onboarding_facilitator: number
+} 
 
 
 export interface ONBOARDINGSTATUSViewInterface extends ONBOARDINGSTATUSGenericInterface{

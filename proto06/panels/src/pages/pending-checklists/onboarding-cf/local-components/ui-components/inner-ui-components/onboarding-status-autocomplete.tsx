@@ -1,28 +1,23 @@
 import { Dispatch, MutableRefObject, SetStateAction, useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import { ONBOARDINGSTATUSCreateInterface } from '@/types/types-employee-and-applicants';
+import { EMP_ONBOARD_REQS_Interface, ONBOARDINGSTATUSCreateInterface } from '@/types/types-employee-and-applicants';
 import { AutocompleteInputChangeReason } from '@mui/joy';
 
 interface ONBOARDINGSTATUSTypeAutoCompleteInterface{
-    createONBOARDINGSTATUS: ONBOARDINGSTATUSCreateInterface;
-    setCreateONBOARDINGSTATUS: Dispatch<SetStateAction<ONBOARDINGSTATUSCreateInterface>>;
+    createONBOARDINGSTATUS: EMP_ONBOARD_REQS_Interface;
+    itemIndex: number;
+    setCreateONBOARDINGSTATUS: (index: number, field_get: string, value: string) => void;
 }
 
 
 
 
 export default function ONBOARDINGSTATUSTypeAutoComplete(props: ONBOARDINGSTATUSTypeAutoCompleteInterface) {
-    const { createONBOARDINGSTATUS, setCreateONBOARDINGSTATUS } = props;
+    const { createONBOARDINGSTATUS, setCreateONBOARDINGSTATUS, itemIndex } = props;
     const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string | null) => {
-        setCreateONBOARDINGSTATUS((prevState)=>{
-            return(
-                {
-                    ...prevState,
-                    obt_type: newInputValue
-                }
-            )
-        })
+        const newValue= event.currentTarget;
+        // setCreateONBOARDINGSTATUS(itemIndex, "status",)
     };
 
     return (
