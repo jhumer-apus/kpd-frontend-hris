@@ -7,33 +7,26 @@ import { DatePicker } from '@mui/x-date-pickers';
 import { ONBOARDINGSTATUSViewInterface } from '@/types/types-employee-and-applicants';
 
 interface DateONBOARDINGSTATUSViewInterface{
-    initialState: ONBOARDINGSTATUSViewInterface;
-    setInitialState: Dispatch<SetStateAction<ONBOARDINGSTATUSViewInterface>>;
+    index: number;
+    initialDate: string | null;
+    setInitialDate: (index: number, field_get: string, value: string) => void;
 }
 
 
 export default function DateFieldInput(props: DateONBOARDINGSTATUSViewInterface) {
-    const { initialState, setInitialState } = props;
-    console.log(initialState, "asds?")
+    const { index, initialDate, setInitialDate } = props;
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
-                    label="Onboarding Date Start"
-                    // value={initialState?.date_start}
-                    // onChange={(newValue) => {
-                    //     const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
-                    //     return (
-                    //         setInitialState((prevState)=>{
-                    //             return(
-                    //                 {
-                    //                     ...prevState,
-                    //                     date_start: formattedDate
-                    //                 }
-                    //             )
-                    //         })
-                    //     )
-                    // }}
+                    label="Commencement Date"
+                    value={dayjs(initialDate)}
+                    disabled
+                    onChange={(newValue) => {
+                        const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
+                        setInitialDate(index, "date_commencement", formattedDate)
+                    }}
+
                 />
         </LocalizationProvider>
     );

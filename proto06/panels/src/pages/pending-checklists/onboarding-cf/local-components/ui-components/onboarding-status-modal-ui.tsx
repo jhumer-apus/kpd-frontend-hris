@@ -1,16 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { EMP_ONBOARD_REQS_Interface, ONBOARDINGSTATUSUpdateInterface, ONBOARDINGSTATUSViewInterface } from '@/types/types-employee-and-applicants';
-import { convertDaysToHHMM, convertMinutesToHHMM,  } from '@/helpers/utils';
+import React, { useEffect, useState } from 'react';
+import { ONBOARDINGSTATUSUpdateInterface, ONBOARDINGSTATUSViewInterface } from '@/types/types-employee-and-applicants';
 import { Button, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import {TextField} from '@mui/material';
-import ApproveONBOARDINGSTATUSModal from '../main-modals/inner-modals/approve-obt-modal';
-import DenyONBOARDINGSTATUSModal from '../main-modals/inner-modals/deny-obt-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, globalAPIDate } from '@/store/configureStore';
-import DateFieldInput from './inner-ui-components/date-field';
 import { ONBOARDINGSTATUSUpdateAction, ONBOARDINGSTATUSUpdateActionFailureCleanup } from '@/store/actions/employee-and-applicants';
-import ONBOARDINGSTATUSTypeAutoComplete from './inner-ui-components/onboarding-status-autocomplete';
+import ONBOARDINGSTATUSTypeAutoComplete from './inner-ui-components/onboarding-status-radiogroup';
+import DateFieldInput from './inner-ui-components/date-field';
 
 interface ONBOARDINGSTATUSModalUIInterface {
     singleONBOARDINGSTATUSDetailsData: ONBOARDINGSTATUSViewInterface;
@@ -21,13 +18,11 @@ interface ONBOARDINGSTATUSModalUIInterface {
 function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
     const dispatch = useDispatch();
     const ONBOARDINGSTATUS = useSelector((state: RootState) => state.employeeAndApplicants.ONBOARDINGSTATUSUpdate);
-    const [ approveONBOARDINGSTATUSOpenModal, setApproveONBOARDINGSTATUSOpenModal ] = useState(false);
-    const [ denyONBOARDINGSTATUSOpenModal, setDenyONBOARDINGSTATUSOpenModal ] = useState(false);
     const { setSingleONBOARDINGSTATUSDetailsData, singleONBOARDINGSTATUSDetailsData } = props;
     const ThisProps = props.singleONBOARDINGSTATUSDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
 
-    const [ updatedItems, setUpdatedItems ] = useState<ONBOARDINGSTATUSUpdateInterface>({
+    const [ forAPIUpdate, setForAPIUpdate ] = useState<ONBOARDINGSTATUSUpdateInterface>({
         emp_no: NaN,
         onboarding_requirement_code_array: [],
         date_commencement: "",
@@ -36,6 +31,8 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
         status_array: [],
         added_by: NaN,
     });
+
+    const [saveChangesButton, setSaveChangesButton] = useState<boolean>(false); 
 
     useEffect(()=> {
         if (singleONBOARDINGSTATUSDetailsData.emp_onboard_reqs) {
@@ -46,7 +43,7 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
                 status: item.status || "",
             }));
         
-            setUpdatedItems((prevState) => ({
+            setForAPIUpdate((prevState) => ({
                 ...prevState,
                 onboarding_requirement_code_array: initialItems.map((item) => item.onboarding_requirement_code),
                 emp_remarks_array: initialItems.map((item) => item.emp_remarks),
@@ -55,32 +52,18 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
                 date_commencement: dayjs(new Date()).format(`${globalAPIDate}`),
             }));
         }
-    }, [singleONBOARDINGSTATUSDetailsData])
-
-    useEffect(()=> {
-        if(singleONBOARDINGSTATUSDetailsData.emp_no){
-            setUpdatedItems((prevState) => {
+        if(singleONBOARDINGSTATUSDetailsData.emp_no || curr_user?.emp_no){
+            setForAPIUpdate((prevState) => {
                 return (
                     {
                         ...prevState,
-                        emp_no: singleONBOARDINGSTATUSDetailsData.emp_no
-                    }
-                )
-            })
-        };
-        if(curr_user?.emp_no){
-            setUpdatedItems((prevState) => {
-                return (
-                    {
-                        ...prevState,
+                        emp_no: singleONBOARDINGSTATUSDetailsData.emp_no,
                         added_by: curr_user?.emp_no
                     }
                 )
             })
-        }
-
-    }, [singleONBOARDINGSTATUSDetailsData.emp_no, curr_user])
-
+        };
+    }, [singleONBOARDINGSTATUSDetailsData, singleONBOARDINGSTATUSDetailsData.emp_no, curr_user])
 
     useEffect(()=>{
         if(ONBOARDINGSTATUS.status === 'succeeded'){
@@ -94,7 +77,6 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
         }
     }, [ONBOARDINGSTATUS.status])
 
-    const [saveChangesButton, setSaveChangesButton] = useState<boolean>(false); 
 
     const buttonAction = (mode: number) => {
         const InputDetails = () => {
@@ -107,7 +89,7 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
         };
         const SubmitChanges = () => {
             setSaveChangesButton(!saveChangesButton);
-            dispatch(ONBOARDINGSTATUSUpdateAction(updatedItems))
+            dispatch(ONBOARDINGSTATUSUpdateAction(forAPIUpdate))
         };
         switch(mode){
             case 0: InputDetails();
@@ -117,26 +99,10 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
         };  
     }
 
-    function debounce(func: Function, wait: number) {
-        let timeout: ReturnType<typeof setTimeout>;
-      
-        return function executedFunction(...args: any[]) {
-          const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-          };
-      
-          clearTimeout(timeout);
-          timeout = setTimeout(later, wait);
-        };
-    };
-
-    const updateItemValueWithoutDebounce = (index: number, field_get: string, value: string) => {
+    const updatePassedState = (index: number, field_get: string, value: string) => {
         setSingleONBOARDINGSTATUSDetailsData((prevState) => {
             const updatedEmpOnboardReqs = [...(prevState?.emp_onboard_reqs || [])];
             const updatedValue = { ...updatedEmpOnboardReqs[index] };
-
-            // const updatedValue = prevState?.emp_onboard_reqs?.[index]
             if(updatedValue){
                 updatedValue[field_get] = value;
                 updatedEmpOnboardReqs[index] = updatedValue;
@@ -149,8 +115,8 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
     };
 
 
-    const debouncedSetUpdatedItems = debounce((index: number, field_submit: string, field_get: string, value: string) => {
-        setUpdatedItems((prevState) => {
+    const updateAPIState = (index: number, field_submit: string, value: string) => {
+        setForAPIUpdate((prevState) => {
             const updatedArray = [...(prevState as any)[field_submit]];
             updatedArray[index] = value;
             const updatedState: Partial<ONBOARDINGSTATUSUpdateInterface> = {
@@ -163,19 +129,15 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
             };
         });
 
-    }, 400); // This needs to be improved 
+    }; 
 
-    const debouncedUpdateItemValue = (index: number, field_submit: string, field_get: string, value: string) => {
-        debouncedSetUpdatedItems(index, field_submit, value);
-        updateItemValueWithoutDebounce(index, field_get, value);
+    const dualStateUpdate = (index: number, field_submit: string, field_get: string, value: string) => {
+        updateAPIState(index, field_submit, value);
+        updatePassedState(index, field_get, value);
     };
 
     return (
-        <React.Fragment>
-            {/* <ApproveONBOARDINGSTATUSModal singleONBOARDINGSTATUSDetailsData={singleONBOARDINGSTATUSDetailsData} setSingleONBOARDINGSTATUSDetailsData={setSingleONBOARDINGSTATUSDetailsData} approveONBOARDINGSTATUSOpenModal={approveONBOARDINGSTATUSOpenModal} setApproveONBOARDINGSTATUSOpenModal={setApproveONBOARDINGSTATUSOpenModal}/>
-            <DenyONBOARDINGSTATUSModal singleONBOARDINGSTATUSDetailsData={singleONBOARDINGSTATUSDetailsData} setSingleONBOARDINGSTATUSDetailsData={setSingleONBOARDINGSTATUSDetailsData} denyONBOARDINGSTATUSOpenModal={denyONBOARDINGSTATUSOpenModal} setDenyONBOARDINGSTATUSOpenModal={setDenyONBOARDINGSTATUSOpenModal}/> */}
-            
-            
+        <React.Fragment>           
             <div className='flex justify-center flex-col'>
                 <Typography variant='h5' className='flex justify-center text-center'>
                         Employee Number: {singleONBOARDINGSTATUSDetailsData.emp_no}
@@ -238,29 +200,32 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
                                     rows={2}
                                     onChange={(event) => {
                                         const newValue = event.target.value;
-                                        debouncedUpdateItemValue(index, "facilitator_remarks_array", "facilitator_remarks", newValue);
+                                        dualStateUpdate(index, "facilitator_remarks_array", "facilitator_remarks", newValue);
                                     }}
                                 />
                                 <div className='flex justify-start gap-4'>
-                                    <TextField 
-                                        sx={{width: '20%'}} 
-                                        type='text'
-                                        placeholder={'Status'} 
-                                        label={`Status`} 
-                                        value={item.status}
-                                        InputProps={{readOnly: true,}} 
-                                        variant='outlined' 
+                                    <DateFieldInput 
+                                        index={index} 
+                                        initialDate={item.date_commencement} 
+                                        setInitialDate={updatePassedState} 
                                     />
-                                    <ONBOARDINGSTATUSTypeAutoComplete createONBOARDINGSTATUS={item} itemIndex={index} setCreateONBOARDINGSTATUS={updateItemValueWithoutDebounce} />
                                     <TextField 
-                                        sx={{width: '30%'}} 
+                                        sx={{width: '20%', marginTop: '5px'}} 
                                         type='number'
                                         placeholder={'Employee #'} 
                                         label={`Facilitator Emp #${index + 1}`} 
                                         value={item.onboarding_facilitator} 
                                         InputProps={{readOnly: true,}} 
-                                        variant='outlined' 
+                                        variant='standard' 
                                     />
+                                    <ONBOARDINGSTATUSTypeAutoComplete 
+                                        initialValue={item} 
+                                        itemIndex={index} 
+                                        setInitialValue={updatePassedState}
+                                        disabled={saveChangesButton}
+                                        setDisabled={setSaveChangesButton} 
+                                    />
+
                                 </div>
 
                                 </>
@@ -268,24 +233,6 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
                         })
                     }
                 </div>
-                {/* <div className='flex gap-6 flex-col mt-4'>
-                    {
-                        singleONBOARDINGSTATUSDetailsData?.questions?.map((item, index) => {
-                            return(
-                                <TextField sx={{width: '100%'}} label={`Answer to #${index + 1}`} value={item.answer} InputProps={{readOnly: true,}} variant='outlined' multiline rows={10}/>
-                            )
-                        })
-                    }
-                </div>
-                <div className='flex gap-6 flex-col mt-4'>
-                    {
-                        singleONBOARDINGSTATUSDetailsData?.questions?.map((item, index) => {
-                            return(
-                                <TextField sx={{width: '100%'}} label={`Self-Eval Points #${index + 1}`} value={item.self_eval_points} InputProps={{readOnly: true,}} variant='outlined' multiline rows={10}/>
-                            )
-                        })
-                    }
-                </div> */}
 
             </div>
 
