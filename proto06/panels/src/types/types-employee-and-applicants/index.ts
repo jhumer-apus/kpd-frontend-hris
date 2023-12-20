@@ -127,7 +127,7 @@ export interface ONBOARDINGSTATUSEditInterface extends Omit<ONBOARDINGSTATUSGene
 
 export interface ONBOARDINGSTATUSUpdateInterface extends Pick <ONBOARDINGSTATUSGenericInterface, "emp_no" | "added_by">{
 	onboarding_requirement_code_array: number[]
-	date_commencement: string
+	date_commencement_array: string[]
 	emp_remarks_array: string[]
 	facilitator_remarks_array: string[]
 	status_array: string[]

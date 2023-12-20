@@ -10,6 +10,8 @@ interface DateONBOARDINGSTATUSViewInterface{
     index: number;
     initialDate: string | null;
     setInitialDate: (index: number, field_get: string, value: string) => void;
+    disabledDate: boolean;
+    setDisabledDate: Dispatch<SetStateAction<boolean>>;
 }
 
 
@@ -24,7 +26,7 @@ export default function DateFieldInput(props: DateONBOARDINGSTATUSViewInterface)
                     disabled
                     onChange={(newValue) => {
                         const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
-                        setInitialDate(index, "date_commencement", formattedDate)
+                        setInitialDate(index, "date_commencement_array", formattedDate)
                     }}
 
                 />

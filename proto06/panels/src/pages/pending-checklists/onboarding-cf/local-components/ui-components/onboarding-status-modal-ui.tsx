@@ -22,38 +22,24 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
     const ThisProps = props.singleONBOARDINGSTATUSDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
 
-    const [ forAPIUpdate, setForAPIUpdate ] = useState<ONBOARDINGSTATUSUpdateInterface>({
+    const [ forAPIPayload, setForAPIPayload ] = useState<ONBOARDINGSTATUSUpdateInterface>({
         emp_no: NaN,
         onboarding_requirement_code_array: [],
-        date_commencement: "",
+        date_commencement_array: [],
         emp_remarks_array: [],
         facilitator_remarks_array: [],
         status_array: [],
         added_by: NaN,
     });
 
+    // const [ secondAPI ]
+    // console.log(forAPIPayload, "asdasdasd")
+
     const [saveChangesButton, setSaveChangesButton] = useState<boolean>(false); 
 
     useEffect(()=> {
-        if (singleONBOARDINGSTATUSDetailsData.emp_onboard_reqs) {
-            const initialItems = singleONBOARDINGSTATUSDetailsData.emp_onboard_reqs.map((item) => ({
-                onboarding_requirement_code: item.onboarding_requirement_code,
-                emp_remarks: item.emp_remarks || "",
-                facilitator_remarks: item.facilitator_remarks || "",
-                status: item.status || "",
-            }));
-        
-            setForAPIUpdate((prevState) => ({
-                ...prevState,
-                onboarding_requirement_code_array: initialItems.map((item) => item.onboarding_requirement_code),
-                emp_remarks_array: initialItems.map((item) => item.emp_remarks),
-                facilitator_remarks_array: initialItems.map((item) => item.facilitator_remarks),
-                status_array: initialItems.map((item) => item.status),
-                date_commencement: dayjs(new Date()).format(`${globalAPIDate}`),
-            }));
-        }
         if(singleONBOARDINGSTATUSDetailsData.emp_no || curr_user?.emp_no){
-            setForAPIUpdate((prevState) => {
+            setForAPIPayload((prevState) => {
                 return (
                     {
                         ...prevState,
@@ -63,7 +49,27 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
                 )
             })
         };
-    }, [singleONBOARDINGSTATUSDetailsData, singleONBOARDINGSTATUSDetailsData.emp_no, curr_user])
+    }, [singleONBOARDINGSTATUSDetailsData.emp_no, curr_user])
+
+    useEffect(()=> {
+        if (singleONBOARDINGSTATUSDetailsData.emp_onboard_reqs) {
+            const initialItems = singleONBOARDINGSTATUSDetailsData.emp_onboard_reqs.map((item) => ({
+                onboarding_requirement_code: item.id,
+                emp_remarks: item.emp_remarks || "",
+                facilitator_remarks: item.facilitator_remarks || "",
+                status: item.status || "",
+                date_commencement: item.date_commencement ? dayjs(item.date_commencement).format(`${globalAPIDate}`) || "" : "",
+            }));
+            setForAPIPayload((prevState) => ({
+                ...prevState,
+                onboarding_requirement_code_array: initialItems.map((item) => item.onboarding_requirement_code),
+                emp_remarks_array: initialItems.map((item) => item.emp_remarks),
+                facilitator_remarks_array: initialItems.map((item) => item.facilitator_remarks),
+                status_array: initialItems.map((item) => item.status),
+                date_commencement_array: initialItems.map((item) => item.date_commencement),
+            }));
+        }
+    }, [singleONBOARDINGSTATUSDetailsData])
 
     useEffect(()=>{
         if(ONBOARDINGSTATUS.status === 'succeeded'){
@@ -89,7 +95,7 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
         };
         const SubmitChanges = () => {
             setSaveChangesButton(!saveChangesButton);
-            dispatch(ONBOARDINGSTATUSUpdateAction(forAPIUpdate))
+            dispatch(ONBOARDINGSTATUSUpdateAction(forAPIPayload))
         };
         switch(mode){
             case 0: InputDetails();
@@ -116,7 +122,7 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
 
 
     const updateAPIState = (index: number, field_submit: string, value: string) => {
-        setForAPIUpdate((prevState) => {
+        setForAPIPayload((prevState) => {
             const updatedArray = [...(prevState as any)[field_submit]];
             updatedArray[index] = value;
             const updatedState: Partial<ONBOARDINGSTATUSUpdateInterface> = {
@@ -205,6 +211,8 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
                                 />
                                 <div className='flex justify-start gap-4'>
                                     <DateFieldInput 
+                                        disabledDate={}
+                                        setDisabledDate={}
                                         index={index} 
                                         initialDate={item.date_commencement} 
                                         setInitialDate={updatePassedState} 
