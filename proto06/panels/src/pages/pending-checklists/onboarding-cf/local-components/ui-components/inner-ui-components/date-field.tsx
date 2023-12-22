@@ -11,22 +11,21 @@ interface DateONBOARDINGSTATUSViewInterface{
     initialDate: string | null;
     setInitialDate: (index: number, field_get: string, value: string) => void;
     disabledDate: boolean;
-    setDisabledDate: Dispatch<SetStateAction<boolean>>;
 }
 
 
 export default function DateFieldInput(props: DateONBOARDINGSTATUSViewInterface) {
-    const { index, initialDate, setInitialDate } = props;
+    const { index, initialDate, setInitialDate, disabledDate } = props;
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                     label="Commencement Date"
                     value={dayjs(initialDate)}
-                    disabled
+                    disabled={!disabledDate}
                     onChange={(newValue) => {
                         const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
-                        setInitialDate(index, "date_commencement_array", formattedDate)
+                        setInitialDate(index, "date_commencement", formattedDate)
                     }}
 
                 />

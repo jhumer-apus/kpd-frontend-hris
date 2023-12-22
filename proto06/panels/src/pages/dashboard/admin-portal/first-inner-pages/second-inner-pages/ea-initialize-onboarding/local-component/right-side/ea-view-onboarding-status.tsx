@@ -22,7 +22,7 @@ export default function EAONBOARDINGSTATUSPageHistory() {
     emp_onboard_reqs: [{
       id: NaN,
       date_added: '',
-      onboard_title: '',
+      onboarding_title: '',
       emp_remarks: '',
       facilitator_remarks: '',
       date_commencement: '',

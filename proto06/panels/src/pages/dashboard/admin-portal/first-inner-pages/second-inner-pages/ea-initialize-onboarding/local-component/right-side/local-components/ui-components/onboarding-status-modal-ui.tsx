@@ -139,7 +139,7 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
                             return(
                                 <>
                                 <FormControl className='w-1/2 justify-center' sx={{marginTop: '16px'}} disabled>
-                                    <FormLabel id="is-locked-manage-user-edit">#{(index + 1)} - {item.onboard_title}</FormLabel>
+                                    <FormLabel id="is-locked-manage-user-edit">#{(index + 1)} - {item.onboarding_title}</FormLabel>
                                     <FormLabel style={{fontSize: '12px'}}>Facilitator Employee #: {item.onboarding_facilitator}</FormLabel>
                                     <RadioGroup
                                         className='flex w-full'

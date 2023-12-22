@@ -33,7 +33,7 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
     });
 
     // const [ secondAPI ]
-    // console.log(forAPIPayload, "asdasdasd")
+    console.log(forAPIPayload, "asdasdasd")
 
     const [saveChangesButton, setSaveChangesButton] = useState<boolean>(false); 
 
@@ -211,8 +211,7 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
                                 />
                                 <div className='flex justify-start gap-4'>
                                     <DateFieldInput 
-                                        disabledDate={}
-                                        setDisabledDate={}
+                                        disabledDate={saveChangesButton}
                                         index={index} 
                                         initialDate={item.date_commencement} 
                                         setInitialDate={updatePassedState} 
