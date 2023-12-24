@@ -234,6 +234,14 @@ export const OFFBOARDINGSTATUSEditActionProgress = createAction<number>("OFFBOAR
 export const OFFBOARDINGSTATUSEditActionFailure = createAction<string>("OFFBOARDINGSTATUS_EDIT_ACTION_FAILURE");
 export const OFFBOARDINGSTATUSEditActionFailureCleanup = createAction("OFFBOARDINGSTATUS_EDIT_ACTION_FAILURE_CLEANUP");
 
+export const OFFBOARDINGSTATUSUpdateAction = createAction<_Type.OFFBOARDINGSTATUSUpdateInterface>("OFFBOARDINGSTATUS_UPDATE_ACTION");
+export const OFFBOARDINGSTATUSUpdateActionSuccess = createAction("OFFBOARDINGSTATUS_UPDATE_ACTION_SUCCESS", (SuccessMessage: _Type.OFFBOARDINGSTATUSUpdateInterface) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const OFFBOARDINGSTATUSUpdateActionProgress = createAction<number>("OFFBOARDINGSTATUS_UPDATE_ACTION_PROGRESS");
+export const OFFBOARDINGSTATUSUpdateActionFailure = createAction<string>("OFFBOARDINGSTATUS_UPDATE_ACTION_FAILURE");
+export const OFFBOARDINGSTATUSUpdateActionFailureCleanup = createAction("OFFBOARDINGSTATUS_UPDATE_ACTION_FAILURE_CLEANUP");
+
 
 // OFFBOARDINGREQUIREMENTS SECTION
 export const OFFBOARDINGREQUIREMENTSViewAction = createAction("OFFBOARDINGREQUIREMENTS_VIEW_ACTION");

@@ -930,7 +930,23 @@ export const ONBOARDINGREQUIREMENTSDeleteEpic: Epic = (action$, state$) =>
 
 
 
-// OFFBOARDINGSTATUS API SECTION // OFFBOARDINGSTATUS API SECTION // OFFBOARDINGSTATUS API SECTION // OFFBOARDINGSTATUS API SECTION // OFFBOARDINGSTATUS API SECTION
+// OFFBOARDINGSTATUS API SECTION // OFFBOARDINGSTATUS API SECTION // OFFBOARDINGSTATUS API SECTION // OFFBOARDINGSTATUS API SECTION // OFFBOARDINGSTATUS API SECTION\
+const OFFBOARDINGSTATUSUpdateApiCall = async (payload: _Interface.OFFBOARDINGSTATUSUpdateInterface) => {
+    const response = await axios.put(`${APILink}update_offboard/`,
+    payload,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.OFFBOARDINGSTATUSUpdateActionProgress(progress));
+          }
+        }
+      }
+    );
+    return response.data;
+};
+
+
 const OFFBOARDINGSTATUSEditApiCall = async (payload: _Interface.OFFBOARDINGSTATUSEditInterface) => {
     const response = await axios.put(`${APILink}offboarding/${payload.id}/`,
     payload,
@@ -1074,6 +1090,30 @@ export const OFFBOARDINGSTATUSEditEpic: Epic = (action$, state$) =>
         )
         )
 );
+
+
+export const OFFBOARDINGSTATUSUpdateEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.OFFBOARDINGSTATUSUpdateAction.type),
+        switchMap((action: ReturnType<typeof _Action.OFFBOARDINGSTATUSUpdateAction>) =>
+        from(
+            OFFBOARDINGSTATUSUpdateApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.OFFBOARDINGSTATUSUpdateActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.OFFBOARDINGSTATUSUpdateActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.OFFBOARDINGSTATUSUpdateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+
 
 
 // OFFBOARDINGREQUIREMENTS API SECTION // OFFBOARDINGREQUIREMENTS API SECTION // OFFBOARDINGREQUIREMENTS API SECTION // OFFBOARDINGREQUIREMENTS API SECTION // OFFBOARDINGREQUIREMENTS API SECTION

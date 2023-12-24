@@ -30,6 +30,7 @@ _Interface.OFFBOARDINGSTATUSViewInterface[] |
 _Interface.OFFBOARDINGSTATUSViewInterface | 
 _Interface.OFFBOARDINGSTATUSCreateInterface |
 _Interface.OFFBOARDINGSTATUSEditInterface |
+_Interface.OFFBOARDINGSTATUSUpdateInterface |
 _Interface.OFFBOARDINGREQUIREMENTSViewInterface[] | 
 _Interface.OFFBOARDINGREQUIREMENTSViewInterface | 
 _Interface.OFFBOARDINGREQUIREMENTSCreateInterface |
@@ -137,6 +138,10 @@ interface OFFBOARDINGSTATUSEditState extends CommonEmployeeAndApplicantsState {
   data: OFFBOARDINGSTATUSViewState | null;
 }
 
+interface OFFBOARDINGSTATUSUpdateState extends CommonEmployeeAndApplicantsState {
+  data: string | null;
+}
+
 // OFFBOARDINGREQUIREMENTS SECTION // OFFBOARDINGREQUIREMENTS SECTION // OFFBOARDINGREQUIREMENTS SECTION // OFFBOARDINGREQUIREMENTS SECTION // OFFBOARDINGREQUIREMENTS SECTION 
 interface OFFBOARDINGREQUIREMENTSViewState extends CommonEmployeeAndApplicantsState{
   data: _Interface.OFFBOARDINGREQUIREMENTSViewInterface[] | [];
@@ -199,6 +204,7 @@ interface OverallEmployeeAndApplicantsState {
   OFFBOARDINGSTATUSViewState | 
   OFFBOARDINGSTATUSCreateState | 
   OFFBOARDINGSTATUSEditState |
+  OFFBOARDINGSTATUSUpdateState |
   OFFBOARDINGREQUIREMENTSViewState | 
   OFFBOARDINGREQUIREMENTSCreateState | 
   OFFBOARDINGREQUIREMENTSEditState |
@@ -244,6 +250,7 @@ interface OverallEmployeeAndApplicantsState {
   OFFBOARDINGSTATUSViewSpecific: OFFBOARDINGSTATUSViewState,
   OFFBOARDINGSTATUSCreate: OFFBOARDINGSTATUSCreateState,
   OFFBOARDINGSTATUSEdit: OFFBOARDINGSTATUSEditState,
+  OFFBOARDINGSTATUSUpdate: ONBOARDINGSTATUSUpdateState,
   //OFFBOARDINGREQUIREMENTS SECTION
   OFFBOARDINGREQUIREMENTSView: OFFBOARDINGREQUIREMENTSViewState,
   OFFBOARDINGREQUIREMENTSViewSpecific: OFFBOARDINGREQUIREMENTSViewState,
@@ -439,6 +446,12 @@ const initialState: OverallEmployeeAndApplicantsState = {
     error: '',
   },
   OFFBOARDINGSTATUSEdit: {
+    status: null,
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  OFFBOARDINGSTATUSUpdate: {
     status: null,
     progress: 0,
     data: null,
@@ -702,6 +715,10 @@ const employeeAndApplicantsSlice = createSlice({
       .addCase(_Actions.OFFBOARDINGSTATUSEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OFFBOARDINGSTATUSEdit"))
       .addCase(_Actions.OFFBOARDINGSTATUSEditActionProgress, (state, action) => setProgressState(state, action.payload, "OFFBOARDINGSTATUSEdit"))
       .addCase(_Actions.OFFBOARDINGSTATUSEditActionFailure, (state, action) => setFailureState(state, action.payload, "OFFBOARDINGSTATUSEdit"))
+      .addCase(_Actions.OFFBOARDINGSTATUSUpdateAction, setLoadingState("OFFBOARDINGSTATUSUpdate"))
+      .addCase(_Actions.OFFBOARDINGSTATUSUpdateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OFFBOARDINGSTATUSUpdate"))
+      .addCase(_Actions.OFFBOARDINGSTATUSUpdateActionProgress, (state, action) => setProgressState(state, action.payload, "OFFBOARDINGSTATUSUpdate"))
+      .addCase(_Actions.OFFBOARDINGSTATUSUpdateActionFailure, (state, action) => setFailureState(state, action.payload, "OFFBOARDINGSTATUSUpdate"))
       //OFFBOARDINGREQUIREMENTS SECTION
       .addCase(_Actions.OFFBOARDINGREQUIREMENTSViewAction, setLoadingState("OFFBOARDINGREQUIREMENTSView"))
       .addCase(_Actions.OFFBOARDINGREQUIREMENTSViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OFFBOARDINGREQUIREMENTSView"))

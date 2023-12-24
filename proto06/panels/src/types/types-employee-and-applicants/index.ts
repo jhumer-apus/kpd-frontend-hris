@@ -165,19 +165,22 @@ export interface OFFBOARDINGSTATUSGenericInterface {
 	status: "Pending" | "Completed"
 	final_remarks: string | null
 	emp_no: number
-	emp_offboard_reqs?: Array<Omit<OFFBOARDINGREQUIREMENTSViewInterface, "date_deleted" | "facilitator"> & {
-		offboarding_facilitator: number
-		date_accomplished: string | null
-		emp_remarks: string | null
-		facilitator_remarks: string | null
-		status: "Pending" | "Completed"
-		emp_no: number
-		offboarding_requirement_code: number
-	}>
+	emp_offboard_reqs?: Array<EMP_OFFBOARD_REQS_Interface>
 	added_by?: number
+	date_added?: string | null
 	offboarding_codes?: number[]
 }
 
+export interface EMP_OFFBOARD_REQS_Interface extends Omit<OFFBOARDINGREQUIREMENTSViewInterface, "date_deleted" | "facilitator"> {
+	[key: string]: string | null | number | undefined
+	emp_remarks: string | null
+	facilitator_remarks: string | null
+	date_accomplished: string | null
+	status: "Pending" | "Completed"
+	emp_no: number
+	offboarding_requirement_code: number
+	offboarding_facilitator: number
+} 
 
 export interface OFFBOARDINGSTATUSViewInterface extends OFFBOARDINGSTATUSGenericInterface{
     readonly id: number
@@ -191,6 +194,15 @@ export interface OFFBOARDINGSTATUSCreateInterface extends Omit<OFFBOARDINGSTATUS
 export interface OFFBOARDINGSTATUSEditInterface extends Omit<OFFBOARDINGSTATUSGenericInterface, "status">, Pick<OFFBOARDINGSTATUSViewInterface, "id">{
 
 }
+
+export interface OFFBOARDINGSTATUSUpdateInterface extends Pick <OFFBOARDINGSTATUSGenericInterface, "emp_no" | "added_by">{
+	offboarding_requirement_code_array: number[]
+	date_accomplished_array: string[]
+	emp_remarks_array: string[]
+	facilitator_remarks_array: string[]
+	status_array: string[]
+}
+
 
 // ======================================
 
