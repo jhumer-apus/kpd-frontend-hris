@@ -25,7 +25,7 @@ export default function DateFieldInput(props: DateONBOARDINGSTATUSViewInterface)
                     disabled={!disabledDate}
                     onChange={(newValue) => {
                         const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
-                        setInitialDate(index, "date_commencement", formattedDate)
+                        setInitialDate(index, "date_accomplished", formattedDate)
                     }}
 
                 />

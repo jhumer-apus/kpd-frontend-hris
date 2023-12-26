@@ -32,9 +32,6 @@ function OFFBOARDINGSTATUSModalUI(props: OFFBOARDINGSTATUSModalUIInterface) {
         added_by: NaN,
     });
 
-    // const [ secondAPI ]
-    console.log(forAPIPayload, "asdasdasd")
-
     const [saveChangesButton, setSaveChangesButton] = useState<boolean>(false); 
 
     useEffect(()=> {
@@ -58,7 +55,7 @@ function OFFBOARDINGSTATUSModalUI(props: OFFBOARDINGSTATUSModalUIInterface) {
                 emp_remarks: item.emp_remarks || "",
                 facilitator_remarks: item.facilitator_remarks || "",
                 status: item.status || "",
-                date_commencement: item.date_commencement ? dayjs(item.date_commencement).format(`${globalAPIDate}`) || "" : "",
+                date_accomplished: item.date_accomplished ? dayjs(item.date_accomplished).format(`${globalAPIDate}`) : "",
             }));
             setForAPIPayload((prevState) => ({
                 ...prevState,
@@ -66,7 +63,7 @@ function OFFBOARDINGSTATUSModalUI(props: OFFBOARDINGSTATUSModalUIInterface) {
                 emp_remarks_array: initialItems.map((item) => item.emp_remarks),
                 facilitator_remarks_array: initialItems.map((item) => item.facilitator_remarks),
                 status_array: initialItems.map((item) => item.status),
-                date_commencement_array: initialItems.map((item) => item.date_commencement),
+                date_accomplished_array: initialItems.map((item) => item.date_accomplished),
             }));
         }
     }, [singleOFFBOARDINGSTATUSDetailsData])
