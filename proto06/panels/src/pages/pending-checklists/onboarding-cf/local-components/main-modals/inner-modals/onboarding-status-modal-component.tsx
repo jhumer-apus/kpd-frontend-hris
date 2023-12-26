@@ -18,7 +18,7 @@ const ONBOARDINGSTATUSModalComponent = ((props:ONBOARDINGSTATUSModalComponentInt
 
     return (
         <Fragment>
-            <Typography variant='solid'>KPI and Core Competencies Evaluation Data</Typography>
+            <Typography variant='solid'>Onboarding Data</Typography>
             <ModalClose sx={{marginTop: '4px'}}/>
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <ONBOARDINGSTATUSModalUI setSingleONBOARDINGSTATUSDetailsData={setSingleONBOARDINGSTATUSDetailsData} singleONBOARDINGSTATUSDetailsData={singleONBOARDINGSTATUSDetailsData}/>
