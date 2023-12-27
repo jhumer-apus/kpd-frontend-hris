@@ -22,7 +22,7 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
     const ThisProps = props.singleONBOARDINGSTATUSDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
 
-    const [ forAPIPayload, setForAPIPayload ] = useState<ONBOARDINGSTATUSUpdateInterface>({
+    const [ forReqsAPIPayload, setForReqsAPIPayload ] = useState<ONBOARDINGSTATUSUpdateInterface>({
         emp_no: NaN,
         onboarding_requirement_code_array: [],
         date_commencement_array: [],
@@ -32,14 +32,11 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
         added_by: NaN,
     });
 
-    // const [ secondAPI ]
-    console.log(forAPIPayload, "asdasdasd")
-
     const [saveChangesButton, setSaveChangesButton] = useState<boolean>(false); 
 
     useEffect(()=> {
         if(singleONBOARDINGSTATUSDetailsData.emp_no || curr_user?.emp_no){
-            setForAPIPayload((prevState) => {
+            setForReqsAPIPayload((prevState) => {
                 return (
                     {
                         ...prevState,
@@ -58,9 +55,9 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
                 emp_remarks: item.emp_remarks || "",
                 facilitator_remarks: item.facilitator_remarks || "",
                 status: item.status || "",
-                date_commencement: item.date_commencement ? dayjs(item.date_commencement).format(`${globalAPIDate}`) || "" : "",
+                date_commencement: item.date_commencement ? dayjs(item.date_commencement).format(`${globalAPIDate}`) : null,
             }));
-            setForAPIPayload((prevState) => ({
+            setForReqsAPIPayload((prevState) => ({
                 ...prevState,
                 onboarding_requirement_code_array: initialItems.map((item) => item.onboarding_requirement_code),
                 emp_remarks_array: initialItems.map((item) => item.emp_remarks),
@@ -95,7 +92,7 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
         };
         const SubmitChanges = () => {
             setSaveChangesButton(!saveChangesButton);
-            dispatch(ONBOARDINGSTATUSUpdateAction(forAPIPayload))
+            dispatch(ONBOARDINGSTATUSUpdateAction(forReqsAPIPayload))
         };
         switch(mode){
             case 0: InputDetails();
@@ -122,7 +119,7 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
 
 
     const updateAPIState = (index: number, field_submit: string, value: string) => {
-        setForAPIPayload((prevState) => {
+        setForReqsAPIPayload((prevState) => {
             const updatedArray = [...(prevState as any)[field_submit]];
             updatedArray[index] = value;
             const updatedState: Partial<ONBOARDINGSTATUSUpdateInterface> = {

@@ -55,7 +55,7 @@ function OFFBOARDINGSTATUSModalUI(props: OFFBOARDINGSTATUSModalUIInterface) {
                 emp_remarks: item.emp_remarks || "",
                 facilitator_remarks: item.facilitator_remarks || "",
                 status: item.status || "",
-                date_accomplished: item.date_accomplished ? dayjs(item.date_accomplished).format(`${globalAPIDate}`) : "",
+                date_accomplished: item.date_accomplished ? dayjs(item.date_accomplished).format(`${globalAPIDate}`) : null,
             }));
             setForAPIPayload((prevState) => ({
                 ...prevState,
