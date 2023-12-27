@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { ONBOARDINGSTATUSUpdateInterface, ONBOARDINGSTATUSViewInterface } from '@/types/types-employee-and-applicants';
+import { ONBOARDINGSTATUSEditInterface, ONBOARDINGSTATUSUpdateInterface, ONBOARDINGSTATUSViewInterface } from '@/types/types-employee-and-applicants';
 import { Button, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, globalAPIDate } from '@/store/configureStore';
-import { ONBOARDINGSTATUSUpdateAction, ONBOARDINGSTATUSUpdateActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import { ONBOARDINGSTATUSEditAction, ONBOARDINGSTATUSUpdateAction, ONBOARDINGSTATUSUpdateActionFailureCleanup } from '@/store/actions/employee-and-applicants';
 import ONBOARDINGSTATUSTypeAutoComplete from './inner-ui-components/onboarding-status-radiogroup';
 import DateFieldInput from './inner-ui-components/date-field';
 
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers';
 interface ONBOARDINGSTATUSModalUIInterface {
     singleONBOARDINGSTATUSDetailsData: ONBOARDINGSTATUSViewInterface;
     multiplePayslipMode?: boolean;
@@ -32,6 +40,15 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
         added_by: NaN,
     });
 
+    const [ documentPayload, setDocumentPayload ] = useState<ONBOARDINGSTATUSEditInterface>({
+        id: NaN,
+        date_start: null,
+        status: 'Pending',
+        final_remarks: '',
+        emp_no: NaN,
+        added_by: NaN
+    });
+
     const [saveChangesButton, setSaveChangesButton] = useState<boolean>(false); 
 
     useEffect(()=> {
@@ -40,6 +57,19 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
                 return (
                     {
                         ...prevState,
+                        emp_no: singleONBOARDINGSTATUSDetailsData.emp_no,
+                        added_by: curr_user?.emp_no
+                    }
+                )
+            })
+            setDocumentPayload((prevState) => {
+                return (
+                    {
+                        ...prevState,
+                        id: singleONBOARDINGSTATUSDetailsData.id,
+                        date_start: singleONBOARDINGSTATUSDetailsData.date_start,
+                        status: singleONBOARDINGSTATUSDetailsData.status,
+                        final_remarks: singleONBOARDINGSTATUSDetailsData.final_remarks,
                         emp_no: singleONBOARDINGSTATUSDetailsData.emp_no,
                         added_by: curr_user?.emp_no
                     }
@@ -92,7 +122,8 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
         };
         const SubmitChanges = () => {
             setSaveChangesButton(!saveChangesButton);
-            dispatch(ONBOARDINGSTATUSUpdateAction(forReqsAPIPayload))
+            dispatch(ONBOARDINGSTATUSUpdateAction(forReqsAPIPayload));
+            dispatch(ONBOARDINGSTATUSEditAction(documentPayload));
         };
         switch(mode){
             case 0: InputDetails();
@@ -139,6 +170,24 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
         updatePassedState(index, field_get, value);
     };
 
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const newValue= event.target.value as "Pending" | "Completed";
+        setDocumentPayload((prevState) => {
+            return (
+                {
+                    ...prevState,
+                    status: newValue,
+                }
+            )
+        })
+        setSingleONBOARDINGSTATUSDetailsData((prevState) => {
+            return ({
+                ...prevState,
+                status: newValue,
+            })
+        })
+    };
+
     return (
         <React.Fragment>           
             <div className='flex justify-center flex-col'>
@@ -146,27 +195,70 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
                         Employee Number: {singleONBOARDINGSTATUSDetailsData.emp_no}
                 </Typography>
                 <Typography variant='subtitle1' className='flex justify-center text-center'>
-                        Status: {singleONBOARDINGSTATUSDetailsData.status}
+                        Onboarding Data ID: {singleONBOARDINGSTATUSDetailsData.id}
                 </Typography>
-                <Typography variant='subtitle1' className='flex justify-center text-center'>
-                        Onboarding Date: {singleONBOARDINGSTATUSDetailsData.date_start ? dayjs(singleONBOARDINGSTATUSDetailsData.date_start).format("MMMM DD, YYYY") : "No Date Indicated"}
-                </Typography>
-                <div className='flex justify-center my-6' container-name='obt_buttons_container'>
-                    <div className='flex justify-center' style={{width:'300px'}} container-name='obt_buttons'>
-                        <Button 
-                            variant='contained' 
-                            sx={{display: `${saveChangesButton ? 'none': 'block'}`}} 
-                            aria-hidden={saveChangesButton} 
-                            hidden={saveChangesButton} 
-                            onClick={() => buttonAction(0)}
-                        >Input Details</Button>
-                        <Button 
-                            variant='outlined' 
-                            sx={{display: `${!saveChangesButton ? 'none': 'block'}`}} 
-                            aria-hidden={!saveChangesButton} 
-                            hidden={!saveChangesButton} 
-                            onClick={() => buttonAction(1)}
-                        >Submit Changes</Button>
+                <div className='flex justify-center my-4'>
+                    <div style={{border: '0px solid blue'}} className='flex flex-col align-center justify-center text-center'>
+                            <div style={{border: '0px solid yellow'}}>
+                            <FormControl>
+                                {/* <FormLabel id="_onboarding_status">Status</FormLabel> */}
+                                <RadioGroup
+                                    row
+                                    aria-labelledby="demo-controlled-radio-buttons-group"
+                                    name="controlled-radio-buttons-group"
+                                    value={singleONBOARDINGSTATUSDetailsData.status}
+                                    onChange={handleInputChange}
+
+                                >
+                                <FormControlLabel disabled={!saveChangesButton} value="Pending" control={<Radio />} label="Pending" />
+                                <FormControlLabel disabled={!saveChangesButton} value="Completed" control={<Radio />} label="Completed" />
+                                </RadioGroup>
+                            </FormControl> 
+                            </div>
+                            <div style={{border: '0px solid red'}} className='flex' container-name='obt_buttons_container'>
+                                <div className='flex justify-center' style={{width:'300px'}} container-name='obt_buttons'>
+                                    <Button 
+                                        variant='contained' 
+                                        sx={{display: `${saveChangesButton ? 'none': 'block'}`}} 
+                                        aria-hidden={saveChangesButton} 
+                                        hidden={saveChangesButton} 
+                                        onClick={() => buttonAction(0)}
+                                    >Input Details</Button>
+                                    <Button 
+                                        variant='outlined' 
+                                        sx={{display: `${!saveChangesButton ? 'none': 'block'}`}} 
+                                        aria-hidden={!saveChangesButton} 
+                                        hidden={!saveChangesButton} 
+                                        onClick={() => buttonAction(1)}
+                                    >Submit Changes</Button>
+                                </div>
+                            </div>
+                    </div>
+                    <div className='flex flex-col justify-center align-center text-center'>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DatePicker
+                                    label="Date Start"
+                                    value={dayjs(singleONBOARDINGSTATUSDetailsData.date_start)}
+                                    disabled={!saveChangesButton}
+                                    onChange={(newValue) => {
+                                        const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
+                                        setDocumentPayload((prevState) => {
+                                            return (
+                                                {
+                                                    ...prevState,
+                                                    date_start: formattedDate,
+                                                }
+                                            )
+                                        })
+                                        setSingleONBOARDINGSTATUSDetailsData((prevState) => {
+                                            return ({
+                                                ...prevState,
+                                                date_start: formattedDate,
+                                            })
+                                        })
+                                    }}
+                                />
+                            </LocalizationProvider>
                     </div>
                 </div>
             </div>

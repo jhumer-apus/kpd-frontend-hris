@@ -40,7 +40,7 @@ export default function OffboardingCF() {
   const { data, status, error } = OFFBOARDINGSTATUSView;
   const OFFBOARDINGSTATUSViewData = data as OFFBOARDINGSTATUSViewInterface[];
 
-  const FilteredOFFBOARDINGSTATUSViewData = Array.isArray(OFFBOARDINGSTATUSViewData) ?  OFFBOARDINGSTATUSViewData.filter((item) => item?.status === 'Pending' && item?.emp_offboard_reqs?.some((item) => item.offboarding_facilitator === curr_user)) : [];
+  const FilteredOFFBOARDINGSTATUSViewData = Array.isArray(OFFBOARDINGSTATUSViewData) ?  OFFBOARDINGSTATUSViewData.filter((item) => item?.emp_offboard_reqs?.some((item) => item.offboarding_facilitator === curr_user)) : [];
 
   useEffect(()=> {
     if(data?.length === 0){

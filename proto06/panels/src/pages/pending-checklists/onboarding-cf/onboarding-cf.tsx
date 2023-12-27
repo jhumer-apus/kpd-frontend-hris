@@ -40,7 +40,7 @@ export default function OnboardingCF() {
   const { data, status, error } = ONBOARDINGSTATUSView;
   const ONBOARDINGSTATUSViewData = data as ONBOARDINGSTATUSViewInterface[];
 
-  const FilteredONBOARDINGSTATUSViewData = Array.isArray(ONBOARDINGSTATUSViewData) ?  ONBOARDINGSTATUSViewData.filter((item) => item?.status === 'Pending' && item?.emp_onboard_reqs?.some((item) => item.onboarding_facilitator === curr_user)) : [];
+  const FilteredONBOARDINGSTATUSViewData = Array.isArray(ONBOARDINGSTATUSViewData) ?  ONBOARDINGSTATUSViewData.filter((item) => item?.emp_onboard_reqs?.some((item) => item.onboarding_facilitator === curr_user)) : [];
 
   useEffect(()=> {
     if(data?.length === 0){

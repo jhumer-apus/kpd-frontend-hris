@@ -122,7 +122,7 @@ export interface ONBOARDINGSTATUSCreateInterface extends Omit<ONBOARDINGSTATUSGe
 	emp_no: number[]
 }
 
-export interface ONBOARDINGSTATUSEditInterface extends Omit<ONBOARDINGSTATUSGenericInterface, "status">, Pick<ONBOARDINGSTATUSViewInterface, "id" >{}
+export interface ONBOARDINGSTATUSEditInterface extends ONBOARDINGSTATUSGenericInterface, Pick<ONBOARDINGSTATUSViewInterface, "id" >{}
 
 
 export interface ONBOARDINGSTATUSUpdateInterface extends Pick <ONBOARDINGSTATUSGenericInterface, "emp_no" | "added_by">{
@@ -191,7 +191,7 @@ export interface OFFBOARDINGSTATUSCreateInterface extends Omit<OFFBOARDINGSTATUS
 	emp_no: number[]
 }
 
-export interface OFFBOARDINGSTATUSEditInterface extends Omit<OFFBOARDINGSTATUSGenericInterface, "status">, Pick<OFFBOARDINGSTATUSViewInterface, "id">{
+export interface OFFBOARDINGSTATUSEditInterface extends OFFBOARDINGSTATUSGenericInterface, Pick<OFFBOARDINGSTATUSViewInterface, "id">{
 
 }
 
