@@ -475,8 +475,8 @@ const JSXRouteWrapper = () => {
             {
               id: 12200,
               icon: <InsertChartOutlinedIcon {...icon} />,
-              name: "Appraisals",
-              path: "/employees/Appraisal",
+              name: "KPI Appraisals",
+              path: "/employees/KPI Appraisals",
               element:<EmployeesAppraisalPage/>,
               hasSubItems: true,
               subItems: [
@@ -493,7 +493,7 @@ const JSXRouteWrapper = () => {
             {
               id: 12300,
               icon: <PrivacyTipOutlinedIcon {...icon} />,
-              name: "About Appraisals",
+              name: "About KPI",
               path: "/employees/About-Appraisal",
               element: <AboutAppraisalsPage/>,
               hasSubItems: false,
