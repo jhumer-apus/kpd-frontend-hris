@@ -9,6 +9,8 @@ _Interface.KPICOREViewInterface[] |
 _Interface.KPICOREViewInterface | 
 _Interface.KPICORECreateInterface |
 _Interface.KPICOREEditInterface |
+_Interface.KPICOREUpdateSupervisorInterface |
+_Interface.KPICOREUpdateSelfInterface |
 _Interface.CORECOMPEViewInterface[] | 
 _Interface.CORECOMPEViewInterface | 
 _Interface.CORECOMPECreateInterface |
@@ -67,6 +69,15 @@ interface KPICORECreateState extends CommonEmployeeAndApplicantsState{
 interface KPICOREEditState extends CommonEmployeeAndApplicantsState {
   data: KPICOREViewState | null;
 }
+
+interface KPICOREUpdateSelfState extends CommonEmployeeAndApplicantsState {
+  data: string | null;
+}
+
+interface KPICOREUpdateSupervisorState extends CommonEmployeeAndApplicantsState {
+  data: string | null;
+}
+
 
 // CORECOMPE SECTION // CORECOMPE SECTION // CORECOMPE SECTION // CORECOMPE SECTION // CORECOMPE SECTION 
 interface CORECOMPEViewState extends CommonEmployeeAndApplicantsState{
@@ -188,6 +199,8 @@ interface OverallEmployeeAndApplicantsState {
   KPICOREViewState | 
   KPICORECreateState | 
   KPICOREEditState |
+  KPICOREUpdateSelfState |
+  KPICOREUpdateSupervisorState |
   CORECOMPEViewState | 
   CORECOMPECreateState | 
   CORECOMPEEditState |
@@ -221,6 +234,8 @@ interface OverallEmployeeAndApplicantsState {
   KPICOREViewSpecificEmployee: KPICOREViewState,
   KPICORECreate: KPICORECreateState,
   KPICOREEdit: KPICOREEditState,
+  KPICOREUpdateSupervisor: KPICOREUpdateSupervisorState,
+  KPICOREUpdateSelf: KPICOREUpdateSelfState,
   //CORECOMPE SECTION
   CORECOMPEView: CORECOMPEViewState,
   CORECOMPEViewSpecific: CORECOMPEViewState,
@@ -297,6 +312,18 @@ const initialState: OverallEmployeeAndApplicantsState = {
     error: '',
   },
   KPICOREEdit: {
+    status: null,
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  KPICOREUpdateSelf: {
+    status: null,
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  KPICOREUpdateSupervisor: {
     status: null,
     progress: 0,
     data: null,
@@ -605,6 +632,14 @@ const employeeAndApplicantsSlice = createSlice({
       .addCase(_Actions.KPICOREEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "KPICOREEdit"))
       .addCase(_Actions.KPICOREEditActionProgress, (state, action) => setProgressState(state, action.payload, "KPICOREEdit"))
       .addCase(_Actions.KPICOREEditActionFailure, (state, action) => setFailureState(state, action.payload, "KPICOREEdit"))
+      .addCase(_Actions.KPICOREUpdateSelfAction, setLoadingState("KPICOREUpdateSelf"))
+      .addCase(_Actions.KPICOREUpdateSelfActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "KPICOREUpdateSelf"))
+      .addCase(_Actions.KPICOREUpdateSelfActionProgress, (state, action) => setProgressState(state, action.payload, "KPICOREUpdateSelf"))
+      .addCase(_Actions.KPICOREUpdateSelfActionFailure, (state, action) => setFailureState(state, action.payload, "KPICOREUpdateSelf"))
+      .addCase(_Actions.KPICOREUpdateSupervisorAction, setLoadingState("KPICOREUpdateSupervisor"))
+      .addCase(_Actions.KPICOREUpdateSupervisorActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "KPICOREUpdateSupervisor"))
+      .addCase(_Actions.KPICOREUpdateSupervisorActionProgress, (state, action) => setProgressState(state, action.payload, "KPICOREUpdateSupervisor"))
+      .addCase(_Actions.KPICOREUpdateSupervisorActionFailure, (state, action) => setFailureState(state, action.payload, "KPICOREUpdateSupervisor"))
       //CORECOMPE SECTION
       .addCase(_Actions.CORECOMPEViewAction, setLoadingState("CORECOMPEView"))
       .addCase(_Actions.CORECOMPEViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "CORECOMPEView"))

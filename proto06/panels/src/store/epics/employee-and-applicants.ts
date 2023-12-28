@@ -11,6 +11,38 @@ import store, { APILink } from '../configureStore';
 
 
 // KPICORE API SECTION // KPICORE API SECTION // KPICORE API SECTION // KPICORE API SECTION // KPICORE API SECTION
+const KPICOREUpdateSelfApiCall = async (payload: _Interface.KPICOREUpdateSelfInterface) => {
+    const response = await axios.put(`${APILink}emp_kpi_self/`,
+    payload,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.KPICOREUpdateSelfActionProgress(progress));
+          }
+        }
+      }
+    );
+    return response.data;
+};
+
+
+const KPICOREUpdateSupervisorApiCall = async (payload: _Interface.KPICOREUpdateSupervisorInterface) => {
+    const response = await axios.put(`${APILink}emp_kpi_core_sup/`,
+    payload,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.KPICOREUpdateSupervisorActionProgress(progress));
+          }
+        }
+      }
+    );
+    return response.data;
+};
+
+
 const KPICOREEditApiCall = async (payload: _Interface.KPICOREEditInterface) => {
     const response = await axios.put(`${APILink}emp_kpi_core/${payload.id}/`,
     payload,
@@ -186,6 +218,50 @@ export const KPICOREEditEpic: Epic = (action$, state$) =>
                 return of(_Action.KPICOREEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
             } else {
                 return of(_Action.KPICOREEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+
+
+export const KPICOREUpdateSupervisorEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.KPICOREUpdateSupervisorAction.type),
+        switchMap((action: ReturnType<typeof _Action.KPICOREUpdateSupervisorAction>) =>
+        from(
+            KPICOREUpdateSupervisorApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.KPICOREUpdateSupervisorActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.KPICOREUpdateSupervisorActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.KPICOREUpdateSupervisorActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+export const KPICOREUpdateSelfEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.KPICOREUpdateSelfAction.type),
+        switchMap((action: ReturnType<typeof _Action.KPICOREUpdateSelfAction>) =>
+        from(
+            KPICOREUpdateSelfApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.KPICOREUpdateSelfActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.KPICOREUpdateSelfActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.KPICOREUpdateSelfActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
             }
             })
         )

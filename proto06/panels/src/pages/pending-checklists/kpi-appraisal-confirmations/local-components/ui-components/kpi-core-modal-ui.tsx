@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { KPICOREViewInterface } from '@/types/types-employee-and-applicants';
+import { KPICOREUpdateSupervisorInterface, KPICOREViewInterface, ONBOARDINGSTATUSUpdateInterface } from '@/types/types-employee-and-applicants';
 import { convertDaysToHHMM, convertMinutesToHHMM,  } from '@/helpers/utils';
 import { Button, Typography } from '@mui/material';
 import dayjs from 'dayjs';
@@ -31,6 +31,16 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
         
     };
 
+    const [ forReqsAPIPayload, setForReqsAPIPayload ] = useState<KPICOREUpdateSupervisorInterface>({
+        emp_no: NaN,
+        kpi_question_code_array: [],
+        approver_eval_point_array: [],
+        approver_feedback_array: [],
+        corecompe_code_array: [],
+        corecompe_points: [],
+        added_by: NaN,
+    });
+
     const [saveChangesButton, setSaveChangesButton] = useState<boolean>(false); 
 
     const buttonAction = () => {
@@ -41,7 +51,6 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
             setSaveChangesButton(!saveChangesButton);
             //submit changes or dispatch post action
         }
-        // setSaveChangesButton(!saveChangesButton);
     }
     return (
         <React.Fragment>
@@ -60,7 +69,7 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
                         Final Rating: {singleKPICOREDetailsData.status === 'Pending' ? 'Pending...' : singleKPICOREDetailsData.final_rating} | Supervisor: {singleKPICOREDetailsData.sup_name}
                 </Typography>
                 <Typography variant='subtitle1' className='flex justify-center text-center'>
-                        Evaluation Date: {dayjs(singleKPICOREDetailsData.eval_date).format("MMMM DD, YYYY")}
+                        Eval Deadline Date: {dayjs(singleKPICOREDetailsData.date_evaluation_deadline).format("MMMM DD, YYYY")}
                 </Typography>
                 <div className='flex justify-center my-6' container-name='obt_buttons_container'>
                     <div className='flex justify-center' style={{width:'300px'}} container-name='obt_buttons'>
@@ -96,7 +105,7 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
                                 <TextField 
                                     sx={{width: '100%', fontStyle: 'italic'}} 
                                     label={`Answer to #${index + 1}`} 
-                                    value={item.answer} 
+                                    value={item.self_comment} 
                                     InputProps={{readOnly: true,}} 
                                     variant='outlined' 
                                     multiline 
@@ -107,21 +116,21 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
                                         sx={{width: '30%'}} 
                                         placeholder={'1-10'} 
                                         label={`Self-Eval Points #${index + 1}`} 
-                                        value={item.self_eval_points} 
+                                        value={item.self_eval_point} 
                                         InputProps={{readOnly: true,}} 
                                         variant='outlined' 
                                     />
                                     <TextField 
                                         sx={{width: '30%'}} 
                                         label={`Supervisor Points #${index + 1}`} 
-                                        value={item.sup_eval_points} 
+                                        value={item.approver_eval_point} 
                                         InputProps={{readOnly: true,}} 
                                         variant='outlined' 
                                     />
                                     <TextField 
                                         sx={{width: '40%'}} 
                                         label={`Supervisor Remarks #${index + 1}`} 
-                                        value={item.sup_remarks} 
+                                        value={item.approver_eval_comment} 
                                         InputProps={{readOnly: true,}} 
                                         variant='outlined' 
                                     />

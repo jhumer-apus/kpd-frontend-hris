@@ -1,21 +1,8 @@
 // ======================================
 
 export interface KPICOREGenericInterface {
-
-	questions?: Omit<EVALQUESTIONSViewInterface, "date_deleted" | "added_by" | "date_added">[] & {
-		self_eval_point: number | null
-		self_comment: string | null
-		approver_eval_point: number | null
-		approver_eval_comment: string | null
-		sup_feedback: string | null
-
-
-		date_eval: string | null,
-		emp_no: number
-	}[]
-	core_competencies?: CORECOMPEViewInterface[] & {
-		points: number | null
-	}[]
+	questions?: Array<KPICOREQuestions>
+	core_competencies?: Array<KPICORECoreCompetencies>
 	emp_name: string
 	approver_name: string
 	date_evaluation_deadline: string | null // If created with no value, defaults to 28th of the month,
@@ -33,6 +20,19 @@ export interface KPICOREGenericInterface {
 }
 
 
+export interface KPICOREQuestions extends Pick<EVALQUESTIONSViewInterface, "question" | "id" > {
+	self_eval_point: number | null
+	self_comment: string | null
+	approver_eval_point: number | null
+	approver_eval_comment: string | null
+	sup_feedback: string | null
+	date_eval: string | null,
+	emp_no: number
+}
+
+export interface KPICORECoreCompetencies extends CORECOMPEViewInterface {
+	points: number | null
+}
 export interface KPICOREViewInterface extends KPICOREGenericInterface{
 	readonly id: number
 	readonly date_added: string
@@ -45,6 +45,19 @@ export interface KPICORECreateInterface extends Pick<KPICOREGenericInterface, "d
 
 export interface KPICOREEditInterface extends KPICOREGenericInterface, Pick<KPICOREViewInterface, "id">{}
 
+export interface KPICOREUpdateSelfInterface extends Pick<KPICOREGenericInterface, "emp_no" | "added_by">{
+	kpi_question_code_array: number[]
+	self_eval_point_array: number[]
+	self_eval_comment_array: string[]
+}
+
+export interface KPICOREUpdateSupervisorInterface extends Pick<KPICOREGenericInterface, "emp_no" | "added_by">{
+	kpi_question_code_array: number[]
+	approver_eval_point_array: number[]
+	approver_feedback_array: string[]
+	corecompe_code_array: number[]
+	corecompe_points: number[]
+}
 
 // ======================================
 

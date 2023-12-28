@@ -40,6 +40,23 @@ export const KPICOREEditActionProgress = createAction<number>("KPICORE_EDIT_ACTI
 export const KPICOREEditActionFailure = createAction<string>("KPICORE_EDIT_ACTION_FAILURE");
 export const KPICOREEditActionFailureCleanup = createAction("KPICORE_EDIT_ACTION_FAILURE_CLEANUP");
 
+export const KPICOREUpdateSupervisorAction = createAction<_Type.KPICOREUpdateSupervisorInterface>("KPICORE_UPDATE_SUPERVISOR_ACTION");
+export const KPICOREUpdateSupervisorActionSuccess = createAction("KPICORE_UPDATE_SUPERVISOR_ACTION_SUCCESS", (SuccessMessage: _Type.KPICOREUpdateSupervisorInterface) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const KPICOREUpdateSupervisorActionProgress = createAction<number>("KPICORE_UPDATE_SUPERVISOR_ACTION_PROGRESS");
+export const KPICOREUpdateSupervisorActionFailure = createAction<string>("KPICORE_UPDATE_SUPERVISOR_ACTION_FAILURE");
+export const KPICOREUpdateSupervisorActionFailureCleanup = createAction("KPICORE_UPDATE_SUPERVISOR_ACTION_FAILURE_CLEANUP");
+
+export const KPICOREUpdateSelfAction = createAction<_Type.KPICOREUpdateSelfInterface>("KPICORE_UPDATE_SELF_ACTION");
+export const KPICOREUpdateSelfActionSuccess = createAction("KPICORE_UPDATE_SELF_ACTION_SUCCESS", (SuccessMessage: _Type.KPICOREUpdateSelfInterface) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const KPICOREUpdateSelfActionProgress = createAction<number>("KPICORE_UPDATE_SELF_ACTION_PROGRESS");
+export const KPICOREUpdateSelfActionFailure = createAction<string>("KPICORE_UPDATE_SELF_ACTION_FAILURE");
+export const KPICOREUpdateSelfActionFailureCleanup = createAction("KPICORE_UPDATE_SELF_ACTION_FAILURE_CLEANUP");
+
+
 
 
 // CORECOMPE SECTION
