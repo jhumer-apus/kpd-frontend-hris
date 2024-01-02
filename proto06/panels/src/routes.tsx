@@ -115,6 +115,7 @@ import EAAPPLICANTSLIST from "./pages/dashboard/admin-portal/first-inner-pages/s
 import EAJOBPOSTINGS from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-job-postings/ea-job-postings";
 import OnboardingCF from "./pages/pending-checklists/onboarding-cf/onboarding-cf";
 import OffboardingCF from "./pages/pending-checklists/offboarding-cf/offboarding-cf";
+import PrintV1Forms from "./pages/forms/print-v1-forms/print-v1-forms";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -773,12 +774,102 @@ const JSXRouteWrapper = () => {
           hasSubItems: true,
           subItems: [
             {
-              id: 18100,
+              id: 181000,
               icon: <TableCellsIcon {...icon} />,
-              name: "COE",
-              path: "/forms/COE",
-              element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">CERTIFICATE OF EMPLOYMENT FILING AND PRINTING PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
-              hasSubItems: false,
+              name: "Print V1 Forms",
+              path: "/forms/Print-V1-Forms",
+              element: <PrintV1Forms/>,
+              hasSubItems: true,
+              subItems: [
+                {
+                  id: 181001,
+                  icon: null,
+                  name: "Non Punching Form",
+                  path: "/forms/Print-V1-Forms/Non-Punching-Form",
+                  element: <></>,
+                  hasSubItems: false,
+                },
+                {
+                  id: 181002,
+                  icon: null,
+                  name: "Request Premium Pay Form",
+                  path: "/forms/Print-V1-Forms/Request-Premium-Pay-Form",
+                  element: <AAASSETLIST/>,
+                  hasSubItems: false,
+                },
+                {
+                  id: 181003,
+                  icon: null,
+                  name: "Request Leave of Absence Form",
+                  path: "/forms/Print-V1-Forms/Request-Leave-Of-Absence-Form",
+                  element: <AAANNOUNCEMENT/>,
+                  hasSubItems: false,
+                },
+                {
+                  id: 181004,
+                  icon: null,
+                  name: "Request Overtime Form",
+                  path: "/forms/Print-V1-Forms/Request-Overtime-Form",
+                  element: <AAANNOUNCEMENT/>,
+                  hasSubItems: false,
+                },
+                {
+                  id: 181005,
+                  icon: null,
+                  name: "Personnel Requisition Form",
+                  path: "/forms/Print-V1-Forms/Personnel-Requisition-Form",
+                  element: <AAANNOUNCEMENT/>,
+                  hasSubItems: false,
+                },
+                {
+                  id: 181006,
+                  icon: null,
+                  name: "Employee Training Record Form",
+                  path: "/forms/Print-V1-Forms/Employee-Training-Record-Form",
+                  element: <AAANNOUNCEMENT/>,
+                  hasSubItems: false,
+                },
+                {
+                  id: 181007,
+                  icon: null,
+                  name: "Orientation Checklist Form",
+                  path: "/forms/Print-V1-Forms/Orientation-Checklist-Form",
+                  element: <AAANNOUNCEMENT/>,
+                  hasSubItems: false,
+                },
+                {
+                  id: 181008,
+                  icon: null,
+                  name: "Application Form",
+                  path: "/forms/Print-V1-Forms/Application-Form",
+                  element: <AAANNOUNCEMENT/>,
+                  hasSubItems: false,
+                },
+                {
+                  id: 181009,
+                  icon: null,
+                  name: "Performance Evaluation Form",
+                  path: "/forms/Print-V1-Forms/Performance-Evaluation-Form",
+                  element: <AAANNOUNCEMENT/>,
+                  hasSubItems: false,
+                },
+                {
+                  id: 181010,
+                  icon: null,
+                  name: "Employee Uniform Responsibility Form",
+                  path: "/forms/Print-V1-Forms/Employee-Uniform-Responsibility-Form",
+                  element: <AAANNOUNCEMENT/>,
+                  hasSubItems: false,
+                },
+                {
+                  id: 181011,
+                  icon: null,
+                  name: "Employment Requirement Slip",
+                  path: "/forms/Print-V1-Forms/Employment-Requirement-Slip",
+                  element: <AAANNOUNCEMENT/>,
+                  hasSubItems: false,
+                },
+              ]
             },
           ]
         },
