@@ -11,8 +11,30 @@ import { EasyAccessCardProps } from "@/types/types-widgets";
 import { UnderDevelopmentMsg } from "@/pages/dashboard/hris-portal/local-components/projects-card";
 import { useNavigate } from "react-router-dom";
 // import './custom-styles/StatisticsCard.css'
+import axios from 'axios';
 
-export function EasyAccessCard({ color, icon, title, value, footer, custom, link, onClickDetails, onClickHandler }: EasyAccessCardProps) {
+
+
+const downloadFile = async (url: string, fileName: string) => {
+  try {
+    const response = await axios.get(url, { responseType: 'blob' });
+    const blob = new Blob([response.data], { type: response.headers['content-type'] });
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = fileName;
+    link.click();
+  } catch (error) {
+    console.error('Error downloading file:', error);
+  }
+};
+
+
+const handleDownload = (apiUrl: string, fileName: string) => {
+  console.log("asdhjhj")
+  downloadFile(apiUrl, fileName);
+};
+
+export function EasyAccessCard({ color, icon, title, value, footer, custom, link, onClickDetails, onClickHandler, fileDownload, fileName }: EasyAccessCardProps) {
   const navigate = useNavigate();
   return (
     <Card className={(link !== 'development' ? styles.cardWrap : '')} style={{position: 'relative'}} >
@@ -22,8 +44,13 @@ export function EasyAccessCard({ color, icon, title, value, footer, custom, link
       <UnderDevelopmentMsg fontSize={12}/> 
       :
       <div className="absolute w-full h-full" onClick={()=> { 
-        onClickHandler && onClickDetails && onClickHandler(onClickDetails)
-        setTimeout(()=> {navigate(`${link}`)}, 400) 
+
+        if(!fileDownload){
+          onClickHandler && onClickDetails && onClickHandler(onClickDetails)
+          setTimeout(()=> {navigate(`${link}`)}, 400)
+        } else {
+          link && fileName && handleDownload(link, fileName)
+        }
       }}></div>
       }
       <CardHeader

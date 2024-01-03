@@ -4,13 +4,13 @@ import {
 } from "@material-tailwind/react";
 // import { Typography } from "@mui/material";
 import { EasyAccessCard } from "@/widgets/cards";
-import { PrintV1FormsData } from "@/data/pages-data/print-v1-forms-data/print-v1-forms-data";
+import { B2FormsData } from "@/data/pages-data/forms/b2-forms-data/b2-forms-data";
 
 export interface DivAnimate {
   [key: string]: boolean
 }
 
-export function PrintV1Forms() {
+export function B2Forms() {
   const [isVisible, setIsVisible] = useState<DivAnimate>({});
   const [pageLoaded, setPageLoaded] = useState(false);
 
@@ -33,7 +33,7 @@ export function PrintV1Forms() {
   return (
     <div className="mt-12" style={{height: '90vh'}}>
       <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-3">
-        {PrintV1FormsData.map(({ icon, title, footer, value, ...rest }, index) => (
+        {B2FormsData.map(({ icon, title, footer, value, ...rest }, index) => (
           <div style={{
             transition: 'transform 0.5s ease, opacity 0.5s ease',
             transform: !isVisible[`${value}${index}`] && pageLoaded ? 'translateY(0)' : 'translateY(-100%)',
@@ -63,4 +63,4 @@ export function PrintV1Forms() {
   );
 }
 
-export default PrintV1Forms;
+export default B2Forms;

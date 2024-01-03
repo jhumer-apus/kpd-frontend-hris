@@ -44,6 +44,8 @@ export interface EasyAccessCardProps {
     link?: string;
     onClickHandler?: (key:string)=> void;
     onClickDetails?: string;
+    fileDownload?: boolean
+    fileName?: string
 }
 
 export interface CelebrantsDataProps {
