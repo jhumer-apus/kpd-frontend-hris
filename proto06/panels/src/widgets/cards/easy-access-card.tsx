@@ -30,7 +30,6 @@ const downloadFile = async (url: string, fileName: string) => {
 
 
 const handleDownload = (apiUrl: string, fileName: string) => {
-  console.log("asdhjhj")
   downloadFile(apiUrl, fileName);
 };
 
@@ -39,18 +38,16 @@ export function EasyAccessCard({ color, icon, title, value, footer, custom, link
   return (
     <Card className={(link !== 'development' ? styles.cardWrap : '')} style={{position: 'relative'}} >
       {
-      link === 'development' 
-      ? 
+      link === 'development' ? 
       <UnderDevelopmentMsg fontSize={12}/> 
       :
-      <div className="absolute w-full h-full" onClick={()=> { 
-
-        if(!fileDownload){
+      fileDownload ? 
+      <a className="absolute w-full h-full" target={"_blank"} href={link} download={"asdasdasd"}>
+      </a>
+      :
+      <div className="absolute w-full h-full" onClick={()=> {
           onClickHandler && onClickDetails && onClickHandler(onClickDetails)
           setTimeout(()=> {navigate(`${link}`)}, 400)
-        } else {
-          link && fileName && handleDownload(link, fileName)
-        }
       }}></div>
       }
       <CardHeader
