@@ -21,6 +21,7 @@ export interface KPICOREGenericInterface {
 
 
 export interface KPICOREQuestions extends Pick<EVALQUESTIONSViewInterface, "question" | "id" > {
+	[key: string]: number | null | string
 	self_eval_point: number | null
 	self_comment: string | null
 	approver_eval_point: number | null
@@ -43,7 +44,7 @@ export interface KPICORECreateInterface extends Pick<KPICOREGenericInterface, "d
 	emp_no: number[] | number,
 }
 
-export interface KPICOREEditInterface extends KPICOREGenericInterface, Pick<KPICOREViewInterface, "id">{}
+export interface KPICOREEditInterface extends Pick<KPICOREGenericInterface, "emp_no_approver" | "date_evaluation_deadline" | "added_by">, Pick<KPICOREViewInterface, "id">{}
 
 export interface KPICOREUpdateSelfInterface extends Pick<KPICOREGenericInterface, "emp_no" | "added_by">{
 	kpi_question_code_array: number[]
@@ -70,7 +71,7 @@ export interface CORECOMPEGenericInterface {
 
 
 export interface CORECOMPEViewInterface extends CORECOMPEGenericInterface{
-	readonly id?: number
+	readonly id: number
     readonly date_added: string
 	readonly date_deleted: string | null
 }
