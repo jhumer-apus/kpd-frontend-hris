@@ -32,6 +32,7 @@ export interface KPICOREQuestions extends Pick<EVALQUESTIONSViewInterface, "ques
 }
 
 export interface KPICORECoreCompetencies extends CORECOMPEViewInterface {
+	[key: string]: number | null | string | undefined
 	points: number | null
 }
 export interface KPICOREViewInterface extends KPICOREGenericInterface{

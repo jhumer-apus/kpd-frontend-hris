@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { KPICOREUpdateSupervisorInterface, KPICOREViewInterface, ONBOARDINGSTATUSUpdateInterface } from '@/types/types-employee-and-applicants';
+import { KPICOREEditInterface, KPICOREUpdateSupervisorInterface, KPICOREViewInterface, ONBOARDINGSTATUSUpdateInterface } from '@/types/types-employee-and-applicants';
 import { convertDaysToHHMM, convertMinutesToHHMM,  } from '@/helpers/utils';
 import { Button, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import {TextField} from '@mui/material';
 import ApproveKPICOREModal from '../main-modals/inner-modals/approve-obt-modal';
 import DenyKPICOREModal from '../main-modals/inner-modals/deny-obt-modal';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
+import { KPICOREEditAction, KPICOREEditActionFailureCleanup, KPICOREUpdateSupervisorAction, KPICOREUpdateSupervisorActionFailureCleanup } from '@/store/actions/employee-and-applicants';
 
 interface KPICOREModalUIInterface {
     singleKPICOREDetailsData: KPICOREViewInterface;
@@ -16,6 +17,8 @@ interface KPICOREModalUIInterface {
 }
 
 function KPICOREModalUI(props: KPICOREModalUIInterface) {
+    const dispatch = useDispatch();
+    const EAStoreState = useSelector((state: RootState) => state.employeeAndApplicants);
     const [ approveKPICOREOpenModal, setApproveKPICOREOpenModal ] = useState(false);
     const [ denyKPICOREOpenModal, setDenyKPICOREOpenModal ] = useState(false);
     const { setSingleKPICOREDetailsData, singleKPICOREDetailsData } = props;
@@ -41,17 +44,181 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
         added_by: NaN,
     });
 
+    const [ documentPayload, setDocumentPayload ] = useState<KPICOREEditInterface>({
+        id: NaN,
+        emp_no_approver: NaN,
+        date_evaluation_deadline: '',
+        added_by: NaN
+    });
+
     const [saveChangesButton, setSaveChangesButton] = useState<boolean>(false); 
 
-    const buttonAction = () => {
-        if(singleKPICOREDetailsData.status === "Confirmed"){
-            window.alert("You cannot modify this already confirmed document.")
-            return
-        }else{
+    useEffect(()=> {
+        if(singleKPICOREDetailsData.emp_no || curr_user?.emp_no){
+            setForReqsAPIPayload((prevState) => {
+                return (
+                    {
+                        ...prevState,
+                        emp_no: singleKPICOREDetailsData.emp_no,
+                        added_by: curr_user?.emp_no
+                    }
+                )
+            })
+            setDocumentPayload((prevState) => {
+                return (
+                    {
+                        ...prevState,
+                        id: singleKPICOREDetailsData.id,
+                        emp_no_approver: singleKPICOREDetailsData.emp_no_approver,
+                        date_evaluation_deadline: singleKPICOREDetailsData.date_evaluation_deadline,
+                        added_by: curr_user?.emp_no
+                    }
+                )
+            })
+        };
+    }, [singleKPICOREDetailsData.emp_no, curr_user])
+
+    useEffect(()=> {
+            
+            if(singleKPICOREDetailsData.questions && singleKPICOREDetailsData.core_competencies){
+                const initialQuestionsArr = singleKPICOREDetailsData.questions.map((item) => ({
+                    kpi_question_code: item.id,
+                    approver_eval_point: item.approver_eval_point || NaN,
+                    approver_feedback: item.approver_eval_comment || "",
+                }));
+                const initalCoreCompeArr = singleKPICOREDetailsData.core_competencies.map((item) => ({
+                    corecompe_code: item.id,
+                    corecompe_points: item.points || NaN,
+                }));
+                
+                setForReqsAPIPayload((prevState) => ({
+                    ...prevState,
+                    kpi_question_code_array: initialQuestionsArr.map((item) => item.kpi_question_code),
+                    approver_eval_point_array: initialQuestionsArr.map((item) => item.approver_eval_point),
+                    approver_feedback_array: initialQuestionsArr.map((item) => item.approver_feedback),
+                    corecompe_code_array: initalCoreCompeArr.map((item) => item.corecompe_code),
+                    corecompe_points: initalCoreCompeArr.map((item) => item.corecompe_points)
+                }));
+            }
+
+
+    }, [singleKPICOREDetailsData])
+
+    useEffect(()=>{
+        if(EAStoreState.KPICOREEdit.status === 'succeeded' || EAStoreState.KPICOREUpdateSupervisor.status === 'succeeded' ){
+            window.alert('Request Successful');
+            window.location.reload();
+        }else if(EAStoreState.KPICOREEdit.status === 'failed' || EAStoreState.KPICOREUpdateSupervisor.status === 'failed'){
+            if(EAStoreState.KPICOREUpdateSupervisor.status === 'failed') {
+                window.alert(`Request Failed, ${EAStoreState.KPICOREUpdateSupervisor.error}`)
+                setTimeout(()=> {
+                    dispatch(KPICOREUpdateSupervisorActionFailureCleanup());
+                }, 400)
+            }else if(EAStoreState.KPICOREEdit.status === 'failed'){
+                window.alert(`Request Failed, ${EAStoreState.KPICOREEdit.error}`)
+                setTimeout(()=> {
+                    dispatch(KPICOREEditActionFailureCleanup());
+                }, 400)
+            }
+        }
+    }, [EAStoreState.KPICOREEdit.status, EAStoreState.KPICOREUpdateSupervisor.status])
+
+    const buttonAction = (mode: number) => {
+
+        const InputDetails = () => {
+            if(singleKPICOREDetailsData.status === "Confirmed"){
+                window.alert("You cannot modify this already confirmed document.")
+                return
+            }else{
+                setSaveChangesButton(!saveChangesButton);
+            }
+        }
+
+        const SubmitChanges = () => {
             setSaveChangesButton(!saveChangesButton);
-            //submit changes or dispatch post action
+            dispatch(KPICOREUpdateSupervisorAction(forReqsAPIPayload));
+            dispatch(KPICOREEditAction(documentPayload));
+        };
+        switch(mode){
+            case 0: InputDetails();
+            break;
+            case 1: SubmitChanges();
+            break;
         }
     }
+
+    const updatePassedState = (index: number, field_get: string, value: string, type: "Question" | "Core") => {
+        if(type === "Question"){
+            setSingleKPICOREDetailsData((prevState) => {
+                const updatedQuestions = [...(prevState?.questions || [])];
+                const updatedValue = { ...updatedQuestions[index] };
+                if(updatedValue){
+                    updatedValue[field_get] = value;
+                    updatedQuestions[index] = updatedValue;
+                };
+                return{
+                    ...prevState,
+                    questions: updatedQuestions
+                };
+            });
+        } else if (type === "Core"){
+            setSingleKPICOREDetailsData((prevState) => {
+                const updatedCoreCompe = [...(prevState?.core_competencies || [])];
+                const updatedValue = { ...updatedCoreCompe[index] };
+                if(updatedValue){
+                    updatedValue[field_get] = value;
+                    updatedCoreCompe[index] = updatedValue;
+                };
+                return{
+                    ...prevState,
+                    core_competencies: updatedCoreCompe
+                };
+            });
+        }
+        
+
+    };
+
+
+    const updateAPIState = (index: number, field_submit: string, value: string) => {
+        setForReqsAPIPayload((prevState) => {
+            const updatedArray = [...(prevState as any)[field_submit]];
+            updatedArray[index] = value;
+            const updatedState: Partial<KPICOREUpdateInterface> = {
+            [field_submit]: updatedArray,
+            };
+        
+            return {
+            ...prevState,
+            ...updatedState,
+            };
+        });
+
+    }; 
+
+    const dualStateUpdate = (index: number, field_submit: string, field_get: string, value: string) => {
+        updateAPIState(index, field_submit, value);
+        updatePassedState(index, field_get, value);
+    };
+
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const newValue= event.target.value as "Pending" | "Completed";
+        setDocumentPayload((prevState) => {
+            return (
+                {
+                    ...prevState,
+                    status: newValue,
+                }
+            )
+        })
+        setSingleKPICOREDetailsData((prevState) => {
+            return ({
+                ...prevState,
+                status: newValue,
+            })
+        })
+    };
+
     return (
         <React.Fragment>
             {/* <ApproveKPICOREModal singleKPICOREDetailsData={singleKPICOREDetailsData} setSingleKPICOREDetailsData={setSingleKPICOREDetailsData} approveKPICOREOpenModal={approveKPICOREOpenModal} setApproveKPICOREOpenModal={setApproveKPICOREOpenModal}/>
@@ -63,10 +230,10 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
                             Employee Name: {singleKPICOREDetailsData.emp_name}
                 </Typography>
                 <Typography variant='subtitle1' className='flex justify-center text-center'>
-                        Status: {singleKPICOREDetailsData.status} | KPI Score: {singleKPICOREDetailsData.sup_eval_points} | Core: {singleKPICOREDetailsData.core_compe_points} | Total %: {singleKPICOREDetailsData.percentage_total}
+                        Status: {singleKPICOREDetailsData.status} | KPI Score: {singleKPICOREDetailsData.total_approver_eval_points} | Core: {singleKPICOREDetailsData.total_core_compe_points} | Total %: {singleKPICOREDetailsData.percentage_total}
                 </Typography>
                 <Typography variant='subtitle1' className='flex justify-center text-center'>
-                        Final Rating: {singleKPICOREDetailsData.status === 'Pending' ? 'Pending...' : singleKPICOREDetailsData.final_rating} | Supervisor: {singleKPICOREDetailsData.sup_name}
+                        Final Rating: {singleKPICOREDetailsData.status === 'Pending' ? 'Pending...' : singleKPICOREDetailsData.final_rating} | Supervisor: {singleKPICOREDetailsData.approver_name}
                 </Typography>
                 <Typography variant='subtitle1' className='flex justify-center text-center'>
                         Eval Deadline Date: {dayjs(singleKPICOREDetailsData.date_evaluation_deadline).format("MMMM DD, YYYY")}
@@ -146,7 +313,7 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
                                 <>
                                 <TextField sx={{width: '100%'}} label={`Competency #${index + 1}`} value={item.checklist_title} InputProps={{readOnly: true,}} variant='filled' multiline rows={2}/>
                                 <div className='flex justify-center gap-20'>
-                                <TextField sx={{width: '100%', fontStyle: 'italic'}} label={`Limits For Core#${index + 1}`} value={item.checklist_limits} InputProps={{readOnly: true,}} variant='outlined'/>
+                                <TextField sx={{width: '100%', fontStyle: 'italic'}} label={`Limits For Core#${index + 1}`} value={item.checklist_limit} InputProps={{readOnly: true,}} variant='outlined'/>
 
                                 {/* <TextField sx={{width: '20%'}} label={`Self-Eval Points #${index + 1}`} value={item.self_eval_points} InputProps={{readOnly: true,}} variant='outlined' /> */}
                                 <TextField sx={{width: '20%'}} label={`CL Points #${index + 1}`} value={item.points} InputProps={{readOnly: true,}} variant='outlined' />
