@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, globalAPIDate } from '@/store/configureStore';
-import { OFFBOARDINGSTATUSEditAction, OFFBOARDINGSTATUSUpdateAction, OFFBOARDINGSTATUSUpdateActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import { OFFBOARDINGSTATUSEditAction, OFFBOARDINGSTATUSEditActionFailureCleanup, OFFBOARDINGSTATUSUpdateAction, OFFBOARDINGSTATUSUpdateActionFailureCleanup } from '@/store/actions/employee-and-applicants';
 import OFFBOARDINGSTATUSTypeAutoComplete from './inner-ui-components/offboarding-status-radiogroup';
 import DateFieldInput from './inner-ui-components/date-field';
 
@@ -26,7 +26,7 @@ interface OFFBOARDINGSTATUSModalUIInterface {
 
 function OFFBOARDINGSTATUSModalUI(props: OFFBOARDINGSTATUSModalUIInterface) {
     const dispatch = useDispatch();
-    const OFFBOARDINGSTATUS = useSelector((state: RootState) => state.employeeAndApplicants.OFFBOARDINGSTATUSUpdate);
+    const EAStoreState = useSelector((state: RootState) => state.employeeAndApplicants);
     const { setSingleOFFBOARDINGSTATUSDetailsData, singleOFFBOARDINGSTATUSDetailsData } = props;
     const ThisProps = props.singleOFFBOARDINGSTATUSDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
@@ -100,16 +100,23 @@ function OFFBOARDINGSTATUSModalUI(props: OFFBOARDINGSTATUSModalUIInterface) {
     }, [singleOFFBOARDINGSTATUSDetailsData])
 
     useEffect(()=>{
-        if(OFFBOARDINGSTATUS.status === 'succeeded'){
+        if(EAStoreState.OFFBOARDINGSTATUSUpdate.status === 'succeeded' || EAStoreState.OFFBOARDINGSTATUSEdit.status === 'succeeded'){
             window.alert('Request Successful');
             window.location.reload();
-        }else if(OFFBOARDINGSTATUS.status === 'failed'){
-            window.alert(`Request Failed, ${OFFBOARDINGSTATUS.error}`)
-            setTimeout(()=> {
-                dispatch(OFFBOARDINGSTATUSUpdateActionFailureCleanup());
-            }, 400)
+        }else if(EAStoreState.OFFBOARDINGSTATUSUpdate.status === 'failed' || EAStoreState.OFFBOARDINGSTATUSEdit.status === 'failed'){
+            if(EAStoreState.OFFBOARDINGSTATUSEdit.status === 'failed'){
+                window.alert(`Request Failed, ${EAStoreState.OFFBOARDINGSTATUSEdit.error}`)
+                setTimeout(()=> {
+                    dispatch(OFFBOARDINGSTATUSEditActionFailureCleanup());
+                }, 400)
+            }else if(EAStoreState.OFFBOARDINGSTATUSUpdate.status === 'failed'){
+                window.alert(`Request Failed, ${EAStoreState.OFFBOARDINGSTATUSUpdate.error}`)
+                setTimeout(()=> {
+                    dispatch(OFFBOARDINGSTATUSUpdateActionFailureCleanup());
+                }, 400)
+            }
         }
-    }, [OFFBOARDINGSTATUS.status])
+    }, [EAStoreState.OFFBOARDINGSTATUSUpdate.status, EAStoreState.OFFBOARDINGSTATUSEdit.status])
 
 
     const buttonAction = (mode: number) => {
