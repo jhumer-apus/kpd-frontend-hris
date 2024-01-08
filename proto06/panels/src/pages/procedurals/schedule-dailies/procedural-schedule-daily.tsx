@@ -56,10 +56,10 @@ export default function ProceduralSCHEDULEDAILYpage() {
                 <Typography variant={'h6'}>
                   Daily Schedule of an Employee
                 </Typography>
-                <Typography variant={'small'} className='italic'>
+                <Typography variant={'small'} className='italic text-left'>
                   Some Restdays have schedules', make sure to be guided accordingly.
                 </Typography>
-                <Typography variant={'small'} className='italic'>
+                <Typography variant={'small'} className='italic text-left'>
                   Hover date to check details. And make sure this is intended.
                 </Typography>
               </div>

@@ -10,6 +10,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { KPICOREEditAction, KPICOREEditActionFailureCleanup, KPICOREUpdateSupervisorAction, KPICOREUpdateSupervisorActionFailureCleanup } from '@/store/actions/employee-and-applicants';
 
+
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers';
+
+
+
 interface KPICOREModalUIInterface {
     singleKPICOREDetailsData: KPICOREViewInterface;
     multiplePayslipMode?: boolean;
@@ -147,7 +154,7 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
         }
     }
 
-    const updatePassedState = (index: number, field_get: string, value: string, type: "Question" | "Core") => {
+    const updatePassedState = (index: number, field_get: string, value: string | number, type: "Question" | "Core") => {
         if(type === "Question"){
             setSingleKPICOREDetailsData((prevState) => {
                 const updatedQuestions = [...(prevState?.questions || [])];
@@ -180,11 +187,11 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
     };
 
 
-    const updateAPIState = (index: number, field_submit: string, value: string) => {
+    const updateAPIState = (index: number, field_submit: string, value: string | number) => {
         setForReqsAPIPayload((prevState) => {
             const updatedArray = [...(prevState as any)[field_submit]];
             updatedArray[index] = value;
-            const updatedState: Partial<KPICOREUpdateInterface> = {
+            const updatedState: Partial<KPICOREUpdateSupervisorInterface> = {
             [field_submit]: updatedArray,
             };
         
@@ -196,28 +203,28 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
 
     }; 
 
-    const dualStateUpdate = (index: number, field_submit: string, field_get: string, value: string) => {
+    const dualStateUpdate = (index: number, field_submit: string, field_get: string, value: string | number, type: "Question" | "Core") => {
         updateAPIState(index, field_submit, value);
-        updatePassedState(index, field_get, value);
+        updatePassedState(index, field_get, value, type);
     };
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newValue= event.target.value as "Pending" | "Completed";
-        setDocumentPayload((prevState) => {
-            return (
-                {
-                    ...prevState,
-                    status: newValue,
-                }
-            )
-        })
-        setSingleKPICOREDetailsData((prevState) => {
-            return ({
-                ...prevState,
-                status: newValue,
-            })
-        })
-    };
+    // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     const newValue= event.target.value as "Pending" | "Completed";
+    //     setDocumentPayload((prevState) => {
+    //         return (
+    //             {
+    //                 ...prevState,
+    //                 status: newValue,
+    //             }
+    //         )
+    //     })
+    //     setSingleKPICOREDetailsData((prevState) => {
+    //         return ({
+    //             ...prevState,
+    //             status: newValue,
+    //         })
+    //     })
+    // };
 
     return (
         <React.Fragment>
@@ -235,13 +242,13 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
                 <Typography variant='subtitle1' className='flex justify-center text-center'>
                         Final Rating: {singleKPICOREDetailsData.status === 'Pending' ? 'Pending...' : singleKPICOREDetailsData.final_rating} | Supervisor: {singleKPICOREDetailsData.approver_name}
                 </Typography>
-                <Typography variant='subtitle1' className='flex justify-center text-center'>
+                <Typography variant='subtitle1' style={{marginTop: "20px"}} className='flex justify-center text-center'>
                         Eval Deadline Date: {dayjs(singleKPICOREDetailsData.date_evaluation_deadline).format("MMMM DD, YYYY")}
                 </Typography>
                 <div className='flex justify-center my-6' container-name='obt_buttons_container'>
                     <div className='flex justify-center' style={{width:'300px'}} container-name='obt_buttons'>
-                        <Button variant='contained' sx={{display: `${saveChangesButton ? 'none': 'block'}`}} aria-hidden={saveChangesButton} hidden={saveChangesButton} onClick={buttonAction}>Input Details</Button>
-                        <Button variant='outlined' sx={{display: `${!saveChangesButton ? 'none': 'block'}`}} aria-hidden={!saveChangesButton} hidden={!saveChangesButton} onClick={buttonAction}>Submit Changes</Button>
+                        <Button variant='contained' sx={{display: `${saveChangesButton ? 'none': 'block'}`}} aria-hidden={saveChangesButton} hidden={saveChangesButton} onClick={()=> buttonAction(0)}>Input Details</Button>
+                        <Button variant='outlined' sx={{display: `${!saveChangesButton ? 'none': 'block'}`}} aria-hidden={!saveChangesButton} hidden={!saveChangesButton} onClick={function(){buttonAction(1)}}>Submit Changes</Button>
                     </div>
                 </div>
             </div>
@@ -262,7 +269,6 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
                                     label={`Question #${index + 1}`} 
                                     value={item.question} 
                                     // onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-
                                     // }}
                                     InputProps={{readOnly: true,}} 
                                     variant='filled' 
@@ -271,7 +277,7 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
                                 />
                                 <TextField 
                                     sx={{width: '100%', fontStyle: 'italic'}} 
-                                    label={`Answer to #${index + 1}`} 
+                                    label={`Employee's Answer to #${index + 1}`} 
                                     value={item.self_comment} 
                                     InputProps={{readOnly: true,}} 
                                     variant='outlined' 
@@ -290,16 +296,33 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
                                     <TextField 
                                         sx={{width: '30%'}} 
                                         label={`Supervisor Points #${index + 1}`} 
+                                        type='number'
+                                        placeholder='Points from 1-10'
+                                        variant='outlined'
                                         value={item.approver_eval_point} 
-                                        InputProps={{readOnly: true,}} 
-                                        variant='outlined' 
+                                        disabled={!saveChangesButton}
+                                        focused={saveChangesButton}
+                                        onChange={(event)=> {
+                                            const newValue = +event.target.value;
+                                            if(newValue > 10 || newValue < 0){
+                                                return
+                                            }
+                                            dualStateUpdate(index, "approver_eval_point_array", "approver_eval_point", newValue, "Question")
+                                        }}
+
+                                         
                                     />
                                     <TextField 
                                         sx={{width: '40%'}} 
                                         label={`Supervisor Remarks #${index + 1}`} 
                                         value={item.approver_eval_comment} 
-                                        InputProps={{readOnly: true,}} 
-                                        variant='outlined' 
+                                        variant='outlined'
+                                        disabled={!saveChangesButton}
+                                        focused={saveChangesButton}
+                                        onChange={(event)=> {
+                                            const newValue = event.target.value;
+                                            dualStateUpdate(index, "approver_feedback_array", "approver_eval_comment", newValue, "Question")
+                                        }}
                                     />
                                 </div>
 
@@ -311,12 +334,30 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
                         singleKPICOREDetailsData?.core_competencies?.map((item, index) => {
                             return(
                                 <>
-                                <TextField sx={{width: '100%'}} label={`Competency #${index + 1}`} value={item.checklist_title} InputProps={{readOnly: true,}} variant='filled' multiline rows={2}/>
+                                <TextField 
+                                    sx={{width: '100%'}} 
+                                    label={`Competency #${index + 1}`} 
+                                    value={item.checklist_title} 
+                                    InputProps={{readOnly: true,}} 
+                                    variant='filled' 
+                                    multiline 
+                                    rows={2}
+                                />
                                 <div className='flex justify-center gap-20'>
-                                <TextField sx={{width: '100%', fontStyle: 'italic'}} label={`Limits For Core#${index + 1}`} value={item.checklist_limit} InputProps={{readOnly: true,}} variant='outlined'/>
-
-                                {/* <TextField sx={{width: '20%'}} label={`Self-Eval Points #${index + 1}`} value={item.self_eval_points} InputProps={{readOnly: true,}} variant='outlined' /> */}
-                                <TextField sx={{width: '20%'}} label={`CL Points #${index + 1}`} value={item.points} InputProps={{readOnly: true,}} variant='outlined' />
+                                <TextField 
+                                    sx={{width: '100%', fontStyle: 'italic'}} 
+                                    label={`Limits For Core#${index + 1}`} 
+                                    value={item.checklist_limit} 
+                                    InputProps={{readOnly: true,}} 
+                                    variant='outlined'
+                                />
+                                <TextField 
+                                    sx={{width: '20%'}} 
+                                    label={`CL Points #${index + 1}`} 
+                                    value={item.points} 
+                                    InputProps={{readOnly: true,}} 
+                                    variant='outlined' 
+                                />
                                 </div>
 
                                 </>
