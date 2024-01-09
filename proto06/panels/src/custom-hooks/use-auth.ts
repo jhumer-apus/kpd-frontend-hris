@@ -21,7 +21,7 @@ export function useAuth() {
 
     setTimeout(() => {
         setLoading(false);
-    }, 800);
+    }, 200);
     
 
   }, [dispatch]);
