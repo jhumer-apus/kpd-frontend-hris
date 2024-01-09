@@ -1,5 +1,14 @@
 import { RankDataInterface } from "../types-pages";
 
+
+export enum Internal_User_Role {
+    Developer = 1,
+    HR_Super_Admin = 2,
+    HR_Admin = 3,
+    HR_Staff = 4,
+    Employee = 5,
+}
+
 export interface UserType {
     readonly id?: number,
     is_superuser: Boolean,
@@ -9,7 +18,7 @@ export interface UserType {
     is_staff: Boolean,
     date_joined: Date,
     username: string,
-    role: number,
+    role: Internal_User_Role,
     is_active: Boolean,
     is_locked: Boolean,
     is_logged_in: Boolean,
