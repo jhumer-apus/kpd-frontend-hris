@@ -234,7 +234,7 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
             
             <div className='flex justify-center flex-col'>
                 <Typography variant='h5' className='flex justify-center text-center'>
-                            Employee Name: {singleKPICOREDetailsData.emp_name}
+                            Employee Name: {singleKPICOREDetailsData.emp_name} [# {singleKPICOREDetailsData.emp_no}]
                 </Typography>
                 <Typography variant='subtitle1' className='flex justify-center text-center'>
                         Status: {singleKPICOREDetailsData.status} | KPI Score: {singleKPICOREDetailsData.total_approver_eval_points} | Core: {singleKPICOREDetailsData.total_core_compe_points} | Total %: {singleKPICOREDetailsData.percentage_total}
