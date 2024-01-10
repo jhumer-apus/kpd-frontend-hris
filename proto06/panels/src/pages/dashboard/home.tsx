@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Typography,
   Card,
   CardHeader,
   CardBody,
@@ -13,6 +12,7 @@ import {
   Tooltip,
   Button,
 } from "@material-tailwind/react";
+import { Typography } from "@mui/material";
 import {
   EllipsisVerticalIcon,
   ArrowUpIcon,
@@ -27,6 +27,8 @@ import employeeEasyAccessData from "@/data/employee-easy-access-data";
 import filedRequestsData from "@/data/filed-requests-data";
 import { UnderDevelopmentMsg } from "./hris-portal/local-components/projects-card";
 import { useNavigate } from "react-router-dom";
+import PerfectAttendanceTable from "./home-components/perfect-attendance-table";
+import MonthYearDropdown from "./home-components/month-year-dropdown";
 
 
 
@@ -40,8 +42,8 @@ export function ChooseDashboard() {
         <Card className={styles.greetingsBar}>
           <CarouselUI className={styles.greetingsBar}/>
         </Card>
-        <Card className={styles.requestsBar} style={{marginTop: '24px'}}>
-          <UnderDevelopmentMsg/>
+        <Card className={styles.requestsBar} style={{marginTop: '24px', height: '480px'}}>
+          {/* <UnderDevelopmentMsg/> */}
           <CardHeader
             floated={false}
             shadow={false}
@@ -50,7 +52,10 @@ export function ChooseDashboard() {
           >
             <div>
               <Typography variant="h6" color="blue-gray" className="mb-1">
-                FILED REQUESTS
+                Perfect Attendance Attainment 
+              </Typography>
+              <Typography variant="subtitle1" color="blue-gray" className="mb-1">
+                Congratulations! (No lates, absent, and leaves)
               </Typography>
             </div>
             <Menu placement="left-start">
@@ -64,13 +69,13 @@ export function ChooseDashboard() {
                 </IconButton>
               </MenuHandler>
               <MenuList>
-                <MenuItem>Action</MenuItem>
-                <MenuItem>Another Action</MenuItem>
-                <MenuItem>Something else here</MenuItem>
+                <MenuItem>Extract as CSV</MenuItem>
+                {/* <MenuItem>Another Action</MenuItem>
+                <MenuItem>Something else here</MenuItem> */}
               </MenuList>
             </Menu>
           </CardHeader>
-          <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
+          {/* <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
             <table className="w-full min-w-[640px] table-auto">
               <thead>
                 <tr>
@@ -81,7 +86,7 @@ export function ChooseDashboard() {
                         className="border-b border-blue-gray-50 py-3 px-6 text-left"
                       >
                         <Typography
-                          variant="small"
+                          variant="subtitle2"
                           className="text-[11px] font-medium uppercase text-blue-gray-400"
                         >
                           {el}
@@ -93,7 +98,7 @@ export function ChooseDashboard() {
               </thead>
               <tbody>
                 {filedRequestsData.map(
-                  ({ img, name, members, budget, completion, icon }, key) => {
+                  ({ img, name, members, month, completion, icon }, key) => {
                     const className = `py-3 px-5 ${
                       key === projectsTableData.length - 1
                         ? ""
@@ -105,9 +110,8 @@ export function ChooseDashboard() {
                         <td className={className}>
                           <div className="flex items-center gap-4">
                             {icon}
-                            {/* <BriefcaseIcon style={{height: "36px", width: "36px"}}/> */}
                             <Typography
-                              variant="small"
+                              variant="subtitle1"
                               color="blue-gray"
                               className="font-bold"
                             >
@@ -132,16 +136,16 @@ export function ChooseDashboard() {
                         </td>
                         <td className={className}>
                           <Typography
-                            variant="small"
+                            variant="subtitle2"
                             className="text-xs font-medium text-blue-gray-600"
                           >
-                            {budget}
+                            {month}
                           </Typography>
                         </td>
                         <td className={className}>
                           <div className="w-10/12">
                             <Typography
-                              variant="small"
+                              variant="subtitle2"
                               className="mb-1 block text-xs font-medium text-blue-gray-600"
                               style={{color: completion?.includes("Approved") ? "darkgreen": completion?.includes("Rejected") ? "maroon" : "orange"}}
                             >
@@ -156,7 +160,9 @@ export function ChooseDashboard() {
                 )}
               </tbody>
             </table>
-          </CardBody>
+          </CardBody> */}
+        <MonthYearDropdown/>
+        <PerfectAttendanceTable/>
         </Card>
         <Card className={styles.announcementBar}>
           <CardHeader
@@ -169,7 +175,7 @@ export function ChooseDashboard() {
               EASY ACCESS PANEL
             </Typography>
             <Typography
-              variant="small"
+              variant="subtitle2"
               className="flex items-center gap-1 font-normal text-blue-gray-600"
             >
               <ArrowUpIcon
@@ -201,7 +207,7 @@ export function ChooseDashboard() {
                       <Tooltip key={title} content={description}>
                       <div>
                         <Typography
-                          variant="small"
+                          variant="subtitle1"
                           color="gray"
                           className="block font-medium text-start"
                         >
