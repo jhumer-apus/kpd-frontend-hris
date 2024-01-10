@@ -48,7 +48,7 @@ export const filedRequestsData = [
         { img: "/img/team-3.jpeg", name: "Jessica Doe" },
         { img: "/img/team-4.jpeg", name: "Alexander Smith" },
       ],
-      budget: "05/15/2023",
+      month: "05/15/2023",
       completion: "Approved",
       icon: <AppRegistrationOutlinedIcon {...icon} />
     },
@@ -59,7 +59,7 @@ export const filedRequestsData = [
         { img: "/img/team-2.jpeg", name: "Ryan Tompson" },
         { img: "/img/team-4.jpeg", name: "Alexander Smith" },
       ],
-      budget: "05/10/2023",
+      month: "05/10/2023",
       completion: "Pending",
       icon: <BadgeOutlinedIcon {...icon} />
     },
@@ -70,7 +70,7 @@ export const filedRequestsData = [
         { img: "/img/team-3.jpeg", name: "Jessica Doe" },
         { img: "/img/team-1.jpeg", name: "Romina Hadid" },
       ],
-      budget: "05/05/2023",
+      month: "05/05/2023",
       completion: "Pending",
       icon: <CalendarTodayOutlinedIcon {...icon} />
     },
@@ -82,8 +82,12 @@ export const filedRequestsData = [
         { img: "/img/team-3.jpeg", name: "Jessica Doe" },
         { img: "/img/team-2.jpeg", name: "Ryan Tompson" },
         { img: "/img/team-1.jpeg", name: "Romina Hadid" },
+        { img: "/img/team-1.jpeg", name: "Romina Hadid" },
+        { img: "/img/team-1.jpeg", name: "Romina Hadid" },
+        { img: "/img/team-1.jpeg", name: "Romina Hadid" },
+        { img: "/img/team-1.jpeg", name: "Romina Hadid" },
       ],
-      budget: "05/02/2023",
+      month: "05/02/2023",
       completion: "Rejected",
       icon: <ApprovalOutlinedIcon  {...icon} />
     },
@@ -91,7 +95,7 @@ export const filedRequestsData = [
       img: "/img/logo-jira.svg",
       name: "Leave Request",
       members: [{ img: "/img/team-4.jpeg", name: "Alexander Smith" }],
-      budget: "04/25/2023",
+      month: "04/25/2023",
       completion: "Rejected",
       icon: <AppRegistrationOutlinedIcon {...icon} />
     },
@@ -102,12 +106,12 @@ export const filedRequestsData = [
         { img: "/img/team-1.jpeg", name: "Romina Hadid" },
         { img: "/img/team-4.jpeg", name: "Alexander Smith" },
       ],
-      budget: "04/22/2023",
+      month: "04/22/2023",
       completion: "Approved",
       icon: <PublishedWithChangesOutlinedIcon {...icon} />
     },
     
-  ];
+];
   
   export default filedRequestsData;
   
