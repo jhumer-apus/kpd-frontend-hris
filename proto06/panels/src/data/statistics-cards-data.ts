@@ -33,18 +33,18 @@ export const statisticsCardsData = [
     },
     link: '/home/DTR/View-DTR',
   },
-  {
-    color: "green",
-    icon: UserPlusIcon,
-    title: "Overall Reports",
-    value: "Files",
-    footer: {
-      color: "text-green-500",
-      value: "<",
-      label: "Summaries, etc.",
-    },
-    link: 'development'
-  },
+  // {
+  //   color: "green",
+  //   icon: UserPlusIcon,
+  //   title: "Overall Reports",
+  //   value: "Files",
+  //   footer: {
+  //     color: "text-green-500",
+  //     value: "<",
+  //     label: "Summaries, etc.",
+  //   },
+  //   link: 'development'
+  // },
   {
     color: "orange",
     icon: ChartBarIcon,
@@ -57,18 +57,18 @@ export const statisticsCardsData = [
     },
     link: '/home/payroll/view-payroll'
   },
-  {
-    color: "orange",
-    icon: Cog8ToothIcon,
-    title: "Table Maintenance",
-    value: "Settings",
-    footer: {
-      color: "text-green-500",
-      value: "<",
-      label: "Pages, Tables, etc.",
-    },
-    link: 'development'
-  },
+  // {
+  //   color: "orange",
+  //   icon: Cog8ToothIcon,
+  //   title: "Table Maintenance",
+  //   value: "Settings",
+  //   footer: {
+  //     color: "text-green-500",
+  //     value: "<",
+  //     label: "Pages, Tables, etc.",
+  //   },
+  //   link: 'development'
+  // },
   {
     color: "pink",
     icon: ClockIcon,
