@@ -54,10 +54,10 @@ export function HRISDashboard() {
 
       </div>
       <div className="mb-4 grid grid-cols-1 gap-6 xl:grid-cols-3">
-        <ProjectsCard/>
-        <OrdersOverviewData/>
-        <BirthdayCard celebrants={celebrantsData} />
-        <UpcomingAnniversary celebrants={anniversaryData}/>
+        {/* <ProjectsCard/> */}
+        {/* <OrdersOverviewData/> */}
+        {/* <BirthdayCard celebrants={celebrantsData} /> */}
+        {/* <UpcomingAnniversary celebrants={anniversaryData}/> */}
       </div>
     </div>
   );

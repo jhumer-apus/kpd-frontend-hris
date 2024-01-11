@@ -33,7 +33,7 @@ const CarouselUI = ({ items }: any) => {
           imageUrl2: "/img/team-1.jpeg",
           date: "",
           altText: "Image 1",
-          message: "There is no pinned announcement found. Check the announcement page/tab.",
+          message: "In accordance with the Black Nazarene. There will be a holiday for Manila Area on Jan. 09, 2024..",
           posted_by: "Admin "
         },
         {
