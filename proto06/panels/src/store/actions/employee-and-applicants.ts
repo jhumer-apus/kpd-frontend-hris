@@ -374,3 +374,10 @@ export const JOBPOSTINGSDeleteActionProgress = createAction<number>("JOBPOSTINGS
 export const JOBPOSTINGSDeleteActionFailure = createAction<string>("JOBPOSTINGS_DELETE_ACTION_FAILURE");
 export const JOBPOSTINGSDeleteActionFailureCleanup = createAction("JOBPOSTINGS_DELETE_ACTION_FAILURE_CLEANUP");
 
+export const PERFECTATTENDANCEViewSpecificAction = createAction<{month: number, year: number}>("PERFECT_ATTENDANCE_VIEW_SPECIFIC_ACTION");
+export const PERFECTATTENDANCEViewSpecificActionSuccess = createAction("PERFECT_ATTENDANCE_VIEW_SPECIFIC_ACTION_SUCCESS", (SuccessMessage: _Type.PERFECT_ATTENDANCEViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const PERFECTATTENDANCEViewSpecificActionProgress = createAction<number>("PERFECT_ATTENDANCE_VIEW_SPECIFIC_ACTION_PROGRESS");
+export const PERFECTATTENDANCEViewSpecificActionFailure = createAction<string>("PERFECT_ATTENDANCE_VIEW_SPECIFIC_ACTION_FAILURE");
+export const PERFECTATTENDANCEViewSpecificActionFailureCleanup = createAction("PERFECT_ATTENDANCE_VIEW_SPECIFIC_ACTION_FAILURE_CLEANUP");
+

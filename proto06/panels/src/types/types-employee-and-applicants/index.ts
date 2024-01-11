@@ -312,3 +312,11 @@ export interface JOBPOSTINGSEditInterface extends JOBPOSTINGSGenericInterface, P
 // ======================================
 
 
+export interface PERFECTATTENDANCEInterface {
+	id: number
+	rank_hierarchy: number
+	user: string | null
+	employee_image: string | null
+	age: number
+	tax_data: string | null
+}

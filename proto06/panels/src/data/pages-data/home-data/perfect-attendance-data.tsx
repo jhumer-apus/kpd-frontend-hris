@@ -14,36 +14,38 @@ export const QuickAccessOBTPageDescriptions = [
 
 export const QuickAccessOBTPageColumns: GridColDef[] = 
 [
-  {
-    field: 'obt_date_filed',
-    headerName: 'Date Filed',
-    width: 150,
-    valueGetter: (params: GridValueGetterParams) => {
-      const date = new Date(params.row.obt_date_filed);
-      return dayjs(date).format(`${globalDate}`);
-    }
-  },
-  { field: 'emp_no', headerName: 'Filed By:', width: 120 },
-  { field: 'obt_approval_status', headerName: 'Status', width: 100,
-    renderCell: (params: GridCellParams) => {
-      const status = params.row?.obt_approval_status as string;
+  // {
+  //   field: 'last_name',
+  //   headerName: 'Last Name',
+  //   width: 150,
+  //   valueGetter: (params: GridValueGetterParams) => {
+  //     const date = new Date(params.row.obt_date_filed);
+  //     return dayjs(date).format(`${globalDate}`);
+  //   }
+  // },
+  { field: 'emp_no', headerName: 'Emp No:', width: 120 },
+  { field: 'last_name', headerName: 'Last Name:', width: 120 },
+  { field: 'first_name', headerName: 'Last Name:', width: 120 },
+  // { field: 'obt_approval_status', headerName: 'Status', width: 100,
+  //   renderCell: (params: GridCellParams) => {
+  //     const status = params.row?.obt_approval_status as string;
 
-      let cellColor = '';
-      if (status === 'P1' || status === 'P2') {
-        cellColor = '#ff9100'; // Orange
-      } else if ( status==='DIS' ){
-        cellColor = '#aa2e25'; // Red
-      }
+  //     let cellColor = '';
+  //     if (status === 'P1' || status === 'P2') {
+  //       cellColor = '#ff9100'; // Orange
+  //     } else if ( status==='DIS' ){
+  //       cellColor = '#aa2e25'; // Red
+  //     }
 
-      return(
-        <div className='relative'>
-          <div style={{ top:'', left: '26px', position: 'absolute', backgroundColor: cellColor, height:'5px', width: '5px', borderRadius: '100px'}}></div>
-          {status}
-        </div>
-      );
-    }  
-  },
-  { field: 'obt_reason_disapproval', headerName: 'Disapproval Reason',  width: 200 },
+  //     return(
+  //       <div className='relative'>
+  //         <div style={{ top:'', left: '26px', position: 'absolute', backgroundColor: cellColor, height:'5px', width: '5px', borderRadius: '100px'}}></div>
+  //         {status}
+  //       </div>
+  //     );
+  //   }  
+  // },
+  // { field: 'obt_reason_disapproval', headerName: 'Disapproval Reason',  width: 200 },
 ];
   
 export default {

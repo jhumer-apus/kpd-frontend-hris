@@ -26,7 +26,7 @@ export default function MonthYearDropdown(props: MonthYearDropdownInterface) {
     };
 
     return (
-        <div className='flex' style={{width: "50%"}}>
+        <div className='flex justify-between mr-2.5 gap-2.5 self-end' style={{width: "50%", zIndex: ""}}>
             <Autocomplete
                 value={null}
                 // onChange={(event: React.SyntheticEvent<Element, Event>, newValue ) => {

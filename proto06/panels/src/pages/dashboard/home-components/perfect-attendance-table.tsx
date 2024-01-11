@@ -1,11 +1,12 @@
 import { Fragment, useEffect, useState } from 'react';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridCellParams, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '@/store/configureStore';
-import { QuickAccessOBTPageColumns } from '@/data/pages-data/quick-accesses-data/obt-data';
+import { APILink, RootState, globalTime } from '@/store/configureStore';
+// import { QuickAccessOBTPageColumns } from '@/data/pages-data/quick-accesses-data/obt-data';
 import { OBTViewFilterEmployeeInitialState, OBTViewInterface } from '@/types/types-pages';
 
 import { OBTViewFilterEmployeeAction } from '@/store/actions/procedurals';
+import dayjs from 'dayjs';
 
 export default function PerfectAttendanceTable() {
   const [singleOBTOpenModal, setSingleOBTOpenModal] = useState<boolean>(false);
@@ -15,6 +16,41 @@ export default function PerfectAttendanceTable() {
   const { data, status, error } = OBTViewFilterEmployee;
   const OBTViewData = data as OBTViewInterface[];
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
+
+  const PerfectAttendanceField: GridColDef[] = 
+  [
+    {
+      field: 'employee_image',
+      headerName: 'Display Pic',
+      width: 150,
+      renderCell: (params: GridCellParams) => {
+        if (params.value){
+          return(
+            
+            <img src={`${APILink.replace('/api/v1/', '')}${params.value as string}`} alt="" width="50" height="50" style={{borderRadius: "10px", height: "40px", width: "40px", objectFit: "cover", border: "1px solid white", boxShadow: "1px 1px 10px gray"}}/>
+            )
+        } else {
+          return (
+            null
+          )    
+        }
+      },
+    },
+    { field: 'emp_no', headerName: 'Emp No:', width: 120 },
+    { field: 'last_name', headerName: 'Last Name:', width: 120 },
+    { field: 'first_name', headerName: 'Last Name:', width: 120 },
+    {
+      field: 'datetime_bio_time',
+      headerName: 'Time',
+      width: 150,
+      description: 'This column has a value getter and is not sortable. Use Filter instead, by clicking on the three dots beside this header.',
+      sortable: true,
+      valueGetter: (params: GridValueGetterParams) => {
+        const shio = new Date(params.row.datetime_bio);
+        return params.row.datetime_bio ? dayjs(shio).format(`${globalTime}`) : '-';
+      },
+    },
+  ];
 
   useEffect(()=> {
     if((OBTViewData?.length <= 0 || OBTViewData === null || OBTViewData === undefined ) && curr_user){
@@ -26,8 +62,9 @@ export default function PerfectAttendanceTable() {
     <Fragment>
       <div style={{ height: '600px', width: '100%' , padding: "10px"}}>
         <DataGrid
-          rows={OBTViewData? OBTViewData as OBTViewInterface[]:[]}
-          columns={QuickAccessOBTPageColumns}
+          // rows={OBTViewData? OBTViewData as OBTViewInterface[]:[]}
+          rows={[]}
+          columns={PerfectAttendanceField}
           initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 15 },

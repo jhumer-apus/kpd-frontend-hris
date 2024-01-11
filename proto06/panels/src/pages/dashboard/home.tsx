@@ -48,7 +48,7 @@ export function ChooseDashboard() {
             floated={false}
             shadow={false}
             color="transparent"
-            className="m-0 flex items-center justify-between p-6"
+            className="m-0 flex items-center justify-between p-6 z-50"
           >
             <div>
               <Typography variant="h6" color="blue-gray" className="mb-1">
@@ -70,8 +70,6 @@ export function ChooseDashboard() {
               </MenuHandler>
               <MenuList>
                 <MenuItem>Extract as CSV</MenuItem>
-                {/* <MenuItem>Another Action</MenuItem>
-                <MenuItem>Something else here</MenuItem> */}
               </MenuList>
             </Menu>
           </CardHeader>
@@ -161,8 +159,8 @@ export function ChooseDashboard() {
               </tbody>
             </table>
           </CardBody> */}
-        <MonthYearDropdown/>
-        <PerfectAttendanceTable/>
+          <MonthYearDropdown/>
+          <PerfectAttendanceTable/>
         </Card>
         <Card className={styles.announcementBar}>
           <CardHeader

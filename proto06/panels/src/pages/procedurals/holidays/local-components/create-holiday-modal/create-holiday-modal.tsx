@@ -11,7 +11,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { HolidayGetType } from '@/types/types-pages';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalAPIDate } from '@/store/configureStore';
 import dayjs from 'dayjs';
 import { HolidayCreate } from '@/store/actions/procedurals';
 
@@ -118,7 +118,7 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
                         onChange={(newValue) => {
                             setCreateHolidayForm((prevState)=> ({
                                 ...prevState,
-                                holiday_date: dayjs(newValue).format('YYYY-MM-DD')
+                                holiday_date: dayjs(newValue).format(`${globalAPIDate}`)
                             }))
                         }}
                         label="Choose Which Date"
