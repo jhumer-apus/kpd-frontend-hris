@@ -43,7 +43,6 @@ export default function DeactivateCORECOMPEModal(props: DeactivateCORECOMPEModal
     }
   }, [CORECOMPEDeactivateState])
 
-  console.log(CORECOMPEDeactivateState.status, "haha?")
   return (
     <React.Fragment>
       <Transition in={DeactivateCORECOMPEOpenModal} timeout={400}>
