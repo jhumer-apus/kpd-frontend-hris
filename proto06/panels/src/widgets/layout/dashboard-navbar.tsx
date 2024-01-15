@@ -186,8 +186,8 @@ export function DashboardNavbar() {
             </MenuHandler>
             <MenuList className="w-max border-0">
               <Link
-                to="" 
-                // to="/home/profile"
+                // to="" 
+                to="/home/profile"
               >
                 <MenuItem className="flex items-center gap-3">
                   {/* <Avatar
@@ -198,7 +198,7 @@ export function DashboardNavbar() {
                   /> */}
                   <UserIcon className="h-8 w-8 text-blue-gray-500" />
                   <div className="relative w-full">
-                    <UnderDevelopmentMsg fontSize={8} borderRadius={4}/>
+                    {/* <UnderDevelopmentMsg fontSize={8} borderRadius={4}/> */}
                     <Typography
                       variant="small"
                       color="blue-gray"

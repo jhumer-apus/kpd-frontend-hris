@@ -118,6 +118,7 @@ import OffboardingCF from "./pages/pending-checklists/offboarding-cf/offboarding
 import B1Forms from "./pages/forms/b1-forms/b1-forms";
 import B2Forms from "./pages/forms/b2-forms/b2-forms";
 import { Internal_User_Role } from "./types/types-store";
+import { Profile } from "./pages";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -850,6 +851,33 @@ const JSXRouteWrapper = () => {
               hasSubItems: false,
             }]:[] ,
           ]
+        },
+        {
+          id: 20001,
+          icon: null,
+          name: "Profile",
+          path: "/profile",
+          element: <Profile/>,
+          hasSubItems: false,
+          // subItems: [
+          //   {
+          //     id: 20100,
+          //     icon: <SpeakerWaveIcon {...icon} />,
+          //     name: "Post Announcements",
+          //     path: "/announcements/post-announcements",
+          //     element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">POST ANNOUNCEMENT PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
+          //     hasSubItems: false,
+          //   },
+          //   ...(state?.emp_no !== undefined && state?.emp_no === 9990) ? [{
+          //     id: 20200,
+          //     icon: <SpeakerWaveIcon {...icon} />,
+          //     name: "Test View",
+          //     path: "/announcements/test-view",
+          //     element: <TestView />,
+          //     hasSubItems: false,
+          //   }]:[] ,
+          // ]
+          subItems: []
         },
       ],
     },
