@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { DataGrid, GridColDef, GridValueGetterParams, GridCellParams } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
 import { getEmployeesList } from '@/store/actions/employees';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalDate } from '@/store/configureStore';
 import { getSpecificEmployeeInfo } from '@/store/actions/employees';
 import { Modal } from '@mui/material';
 import { SpecificEmployee } from './forms/SpecificEmployee';
@@ -31,7 +31,7 @@ const columns: GridColDef[] = [
     // },
     valueGetter: (params: GridValueGetterParams) => {
       const date = new Date(params.row.date_applied);
-      return params.row.date_applied ? dayjs(date).format("MM-DD-YYYY") : '-';
+      return params.row.date_applied ? dayjs(date).format(`${globalDate}`) : '-';
     }
   },
   { field: 'application_status', headerName: 'Application Status', width: 140 },
@@ -41,7 +41,7 @@ const columns: GridColDef[] = [
     width: 150,
     valueGetter: (params: GridValueGetterParams) => {
       const date = new Date(params.row.date_next_appointment);
-      return params.row.date_next_appointment ? dayjs(date).format("MM-DD-YYYY") : '-';
+      return params.row.date_next_appointment ? dayjs(date).format(`${globalDate}`) : '-';
     } 
   },
   { field: 'id', headerName: 'Applicant ID', width: 130 },

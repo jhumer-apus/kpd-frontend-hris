@@ -344,6 +344,7 @@ export const APILink = 'https://mercovsk1.pythonanywhere.com/api/v1/';
 export const JSONServer = 'http://localhost:3030/';
 export const globalDate = 'MM/DD/YYYY';
 export const globalTime = 'hh:mm a';
+export const globalDateTime = 'MM/DD/YYYY - hh:mm a';
 export const globalAPIDate = 'YYYY-MM-DDTHH:mm:ss';
 export const globalReducerLoading = 'loading';
 export const globalReducerSuccess = 'succeeded';

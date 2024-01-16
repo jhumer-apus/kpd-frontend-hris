@@ -24,6 +24,7 @@ export default function EditSubmitCORECOMPEModal(props: EditCORECOMPEModalInterf
   const {EditSubmitCORECOMPEOpenModal, setEditSubmitCORECOMPEOpenModal, singleCORECOMPEDetailsData, setSingleCORECOMPEDetailsData} = props;
 
   const [editObject, setEditObject] = useState<CORECOMPEEditInterface>({
+    id: NaN,
     checklist_title: '',
     checklist_limit: ''
   })
@@ -35,7 +36,6 @@ export default function EditSubmitCORECOMPEModal(props: EditCORECOMPEModalInterf
       window.alert('No Core Competency ID found.')
     } 
   }
-  console.log(editObject, "hah?", singleCORECOMPEDetailsData, "haaa?")
   useEffect(()=>{
     if(CORECOMPEEditState.status === 'succeeded'){
       window.alert(`Success: ${CORECOMPEEditState.status?.charAt(0).toUpperCase()}${CORECOMPEEditState.status.slice(1)}`)

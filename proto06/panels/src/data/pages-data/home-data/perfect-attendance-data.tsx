@@ -29,14 +29,12 @@ export const QuickAccessOBTPageColumns: GridColDef[] =
   // { field: 'obt_approval_status', headerName: 'Status', width: 100,
   //   renderCell: (params: GridCellParams) => {
   //     const status = params.row?.obt_approval_status as string;
-
   //     let cellColor = '';
   //     if (status === 'P1' || status === 'P2') {
   //       cellColor = '#ff9100'; // Orange
   //     } else if ( status==='DIS' ){
   //       cellColor = '#aa2e25'; // Red
   //     }
-
   //     return(
   //       <div className='relative'>
   //         <div style={{ top:'', left: '26px', position: 'absolute', backgroundColor: cellColor, height:'5px', width: '5px', borderRadius: '100px'}}></div>

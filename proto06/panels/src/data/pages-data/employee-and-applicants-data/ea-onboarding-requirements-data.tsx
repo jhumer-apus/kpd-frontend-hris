@@ -1,3 +1,4 @@
+import { globalDate } from "@/store/configureStore";
 import { GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import dayjs from "dayjs";
 
@@ -22,7 +23,7 @@ export const EAONBOARDINGREQUIREMENTSPageColumns: GridColDef[] =
     width: 130,
     valueGetter: (params: GridValueGetterParams) => {
       const date = new Date(params.row.date_added);
-      return params.row.date_added ? dayjs(date).format("MM-DD-YYYY") : 'No Date';
+      return params.row.date_added ? dayjs(date).format(`${globalDate}`) : 'No Date';
     }
   },
   { field: 'facilitator', headerName: 'Facilitator Emp #:', width: 140 },

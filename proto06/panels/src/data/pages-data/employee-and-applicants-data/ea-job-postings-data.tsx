@@ -1,3 +1,4 @@
+import { globalDate } from "@/store/configureStore";
 import { GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import dayjs from "dayjs";
 
@@ -29,7 +30,7 @@ export const EAJOBPOSTINGSPageColumns: GridColDef[] =
     sortable: false,
     valueGetter: (params: GridValueGetterParams) => {
       const date = new Date(params.row.date_added);
-      return params.row.date_added ? dayjs(date).format("MM/DD/YYYY") : '-';
+      return params.row.date_added ? dayjs(date).format(`${globalDate}`) : '-';
     }
 
   },

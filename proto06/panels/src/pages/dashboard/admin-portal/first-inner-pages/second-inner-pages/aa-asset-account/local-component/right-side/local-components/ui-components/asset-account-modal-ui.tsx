@@ -25,7 +25,7 @@ function ASSETACCOUNTModalUI(props: ASSETACCOUNTModalUIInterface) {
             break;
             case 1: setEditASSETACCOUNTOpenModal(true);
             break;
-        }   
+        }
         
     };
 

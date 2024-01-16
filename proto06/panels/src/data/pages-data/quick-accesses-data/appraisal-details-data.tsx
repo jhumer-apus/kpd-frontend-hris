@@ -1,3 +1,4 @@
+import { globalDate } from "@/store/configureStore";
 import { GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import dayjs from "dayjs";
 
@@ -19,7 +20,7 @@ export const APPRAISALDETAILSPageColumns: GridColDef[] =
     width: 150,
     valueGetter: (params: GridValueGetterParams) => {
       const date = new Date(params.row.eval_date);
-      return params.row.eval_date ? dayjs(date).format('MM-DD-YYYY') : 'No Date';
+      return params.row.eval_date ? dayjs(date).format(`${globalDate}`) : 'No Date';
     }
   },
   { field: 'status', headerName: 'Status', width: 120 },

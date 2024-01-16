@@ -4,6 +4,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { ANNOUNCEMENTViewInterface } from '@/types/types-payroll-eoy';
+import { globalAPIDate } from '@/store/configureStore';
 
 interface DateFromToANNOUNCEMENTViewInterface{
     editANNOUNCEMENT: ANNOUNCEMENTViewInterface;
@@ -19,7 +20,7 @@ export default function DateAssignedANNOUNCEMENTEdit(props: DateFromToANNOUNCEME
             label="Announcement Post Date"
             value={dayjs(editANNOUNCEMENT?.date_posted)}
             onChange={(newValue) => {
-                const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
+                const formattedDate = dayjs(newValue).format(`${globalAPIDate}`);
                 return (
                     setEditANNOUNCEMENT((prevState)=>{
                         return(
@@ -36,7 +37,7 @@ export default function DateAssignedANNOUNCEMENTEdit(props: DateFromToANNOUNCEME
             label="Announcement Expiry Date"
             value={dayjs(editANNOUNCEMENT?.expiry_date) ?? null}
             onChange={(newValue) => {
-                const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
+                const formattedDate = dayjs(newValue).format(`${globalAPIDate}`);
                 return (
                     setEditANNOUNCEMENT((prevState)=>{
                         return(
