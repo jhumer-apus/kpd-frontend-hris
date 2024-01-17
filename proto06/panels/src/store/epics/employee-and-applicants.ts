@@ -1704,3 +1704,46 @@ export const JOBPOSTINGSDeleteEpic: Epic = (action$, state$) =>
         )
         )
 );
+
+
+// PERFECTATTENDANCE Section
+
+
+const PERFECTATTENDANCEViewSpecificApiCall = async (payload: {month: number, year: number }) => {
+    const response = await axios.get(`${APILink}perfect/?month=${payload.month}&year=${payload.year}/`,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.PERFECTATTENDANCEViewSpecificActionProgress(progress));
+            }
+        }
+        }
+    );
+    return response.data;
+};
+
+
+
+
+export const PERFECTATTENDANCEViewSpecificEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.PERFECTATTENDANCEViewSpecificAction.type),
+        switchMap((action: ReturnType<typeof _Action.PERFECTATTENDANCEViewSpecificAction>) =>
+        from(
+            PERFECTATTENDANCEViewSpecificApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.PERFECTATTENDANCEViewSpecificActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.PERFECTATTENDANCEViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.PERFECTATTENDANCEViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+

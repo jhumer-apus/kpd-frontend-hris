@@ -44,7 +44,9 @@ _Interface.APPLICANTSEditInterface |
 _Interface.JOBPOSTINGSViewInterface[] | 
 _Interface.JOBPOSTINGSViewInterface | 
 _Interface.JOBPOSTINGSCreateInterface |
-_Interface.JOBPOSTINGSEditInterface
+_Interface.JOBPOSTINGSEditInterface |
+_Interface.PERFECTATTENDANCEViewInterface[] |
+_Interface.PERFECTATTENDANCEViewInterface  
 ;
 
 interface CommonEmployeeAndApplicantsState {
@@ -54,12 +56,12 @@ interface CommonEmployeeAndApplicantsState {
 }
 
 interface CommonEmployeeAndApplicantsDataStringState extends CommonEmployeeAndApplicantsState {
-  data: string | null | unknown | [];
+  data: string | null | unknown;
 }
 
 // KPICORE SECTION // KPICORE SECTION // KPICORE SECTION // KPICORE SECTION // KPICORE SECTION 
 interface KPICOREViewState extends CommonEmployeeAndApplicantsState{
-  data: _Interface.KPICOREViewInterface[] | [];
+  data: _Interface.KPICOREViewInterface[];
 }
 
 interface KPICORECreateState extends CommonEmployeeAndApplicantsState{
@@ -81,7 +83,7 @@ interface KPICOREUpdateSupervisorState extends CommonEmployeeAndApplicantsState 
 
 // CORECOMPE SECTION // CORECOMPE SECTION // CORECOMPE SECTION // CORECOMPE SECTION // CORECOMPE SECTION 
 interface CORECOMPEViewState extends CommonEmployeeAndApplicantsState{
-  data: _Interface.CORECOMPEViewInterface[] | [];
+  data: _Interface.CORECOMPEViewInterface[];
 }
 
 interface CORECOMPECreateState extends CommonEmployeeAndApplicantsState{
@@ -94,7 +96,7 @@ interface CORECOMPEEditState extends CommonEmployeeAndApplicantsState {
 
 // EVALQUESTIONS SECTION // EVALQUESTIONS SECTION // EVALQUESTIONS SECTION // EVALQUESTIONS SECTION // EVALQUESTIONS SECTION 
 interface EVALQUESTIONSViewState extends CommonEmployeeAndApplicantsState{
-  data: _Interface.EVALQUESTIONSViewInterface[] | [];
+  data: _Interface.EVALQUESTIONSViewInterface[];
 }
 
 interface EVALQUESTIONSCreateState extends CommonEmployeeAndApplicantsState{
@@ -107,7 +109,7 @@ interface EVALQUESTIONSEditState extends CommonEmployeeAndApplicantsState {
 
 // ONBOARDINGSTATUS SECTION // ONBOARDINGSTATUS SECTION // ONBOARDINGSTATUS SECTION // ONBOARDINGSTATUS SECTION // ONBOARDINGSTATUS SECTION 
 interface ONBOARDINGSTATUSViewState extends CommonEmployeeAndApplicantsState{
-  data: _Interface.ONBOARDINGSTATUSViewInterface[] | [];
+  data: _Interface.ONBOARDINGSTATUSViewInterface[];
 }
 
 interface ONBOARDINGSTATUSCreateState extends CommonEmployeeAndApplicantsState{
@@ -124,7 +126,7 @@ interface ONBOARDINGSTATUSUpdateState extends CommonEmployeeAndApplicantsState {
 
 // ONBOARDINGREQUIREMENTS SECTION // ONBOARDINGREQUIREMENTS SECTION // ONBOARDINGREQUIREMENTS SECTION // ONBOARDINGREQUIREMENTS SECTION // ONBOARDINGREQUIREMENTS SECTION 
 interface ONBOARDINGREQUIREMENTSViewState extends CommonEmployeeAndApplicantsState{
-  data: _Interface.ONBOARDINGREQUIREMENTSViewInterface[] | [];
+  data: _Interface.ONBOARDINGREQUIREMENTSViewInterface[];
 }
 
 interface ONBOARDINGREQUIREMENTSCreateState extends CommonEmployeeAndApplicantsState{
@@ -138,7 +140,7 @@ interface ONBOARDINGREQUIREMENTSEditState extends CommonEmployeeAndApplicantsSta
 
 // OFFBOARDINGSTATUS SECTION // OFFBOARDINGSTATUS SECTION // OFFBOARDINGSTATUS SECTION // OFFBOARDINGSTATUS SECTION // OFFBOARDINGSTATUS SECTION 
 interface OFFBOARDINGSTATUSViewState extends CommonEmployeeAndApplicantsState{
-  data: _Interface.OFFBOARDINGSTATUSViewInterface[] | [];
+  data: _Interface.OFFBOARDINGSTATUSViewInterface[];
 }
 
 interface OFFBOARDINGSTATUSCreateState extends CommonEmployeeAndApplicantsState{
@@ -155,7 +157,7 @@ interface OFFBOARDINGSTATUSUpdateState extends CommonEmployeeAndApplicantsState 
 
 // OFFBOARDINGREQUIREMENTS SECTION // OFFBOARDINGREQUIREMENTS SECTION // OFFBOARDINGREQUIREMENTS SECTION // OFFBOARDINGREQUIREMENTS SECTION // OFFBOARDINGREQUIREMENTS SECTION 
 interface OFFBOARDINGREQUIREMENTSViewState extends CommonEmployeeAndApplicantsState{
-  data: _Interface.OFFBOARDINGREQUIREMENTSViewInterface[] | [];
+  data: _Interface.OFFBOARDINGREQUIREMENTSViewInterface[];
 }
 
 interface OFFBOARDINGREQUIREMENTSCreateState extends CommonEmployeeAndApplicantsState{
@@ -168,7 +170,7 @@ interface OFFBOARDINGREQUIREMENTSEditState extends CommonEmployeeAndApplicantsSt
 
 // APPLICANTS SECTION // APPLICANTS SECTION // APPLICANTS SECTION // APPLICANTS SECTION // APPLICANTS SECTION 
 interface APPLICANTSViewState extends CommonEmployeeAndApplicantsState{
-  data: _Interface.APPLICANTSViewInterface[] | [];
+  data: _Interface.APPLICANTSViewInterface[];
 }
 
 interface APPLICANTSCreateState extends CommonEmployeeAndApplicantsState{
@@ -181,7 +183,7 @@ interface APPLICANTSEditState extends CommonEmployeeAndApplicantsState {
 
 // JOBPOSTINGS SECTION // JOBPOSTINGS SECTION // JOBPOSTINGS SECTION // JOBPOSTINGS SECTION // JOBPOSTINGS SECTION 
 interface JOBPOSTINGSViewState extends CommonEmployeeAndApplicantsState{
-  data: _Interface.JOBPOSTINGSViewInterface[] | [];
+  data: _Interface.JOBPOSTINGSViewInterface[];
 }
 
 interface JOBPOSTINGSCreateState extends CommonEmployeeAndApplicantsState{
@@ -191,6 +193,13 @@ interface JOBPOSTINGSCreateState extends CommonEmployeeAndApplicantsState{
 interface JOBPOSTINGSEditState extends CommonEmployeeAndApplicantsState {
   data: JOBPOSTINGSViewState | null;
 }
+
+// PERFECTATTENDANCE SECTION
+
+interface PERFECTATTENDANCEViewState extends CommonEmployeeAndApplicantsState{
+  data: _Interface.PERFECTATTENDANCEViewInterface[];
+}
+
 
 
 
@@ -226,7 +235,8 @@ interface OverallEmployeeAndApplicantsState {
   APPLICANTSEditState |
   JOBPOSTINGSViewState | 
   JOBPOSTINGSCreateState | 
-  JOBPOSTINGSEditState 
+  JOBPOSTINGSEditState |
+  PERFECTATTENDANCEViewState
   ,
   //KPICORE SECTION
   KPICOREView: KPICOREViewState,
@@ -283,6 +293,8 @@ interface OverallEmployeeAndApplicantsState {
   JOBPOSTINGSCreate: JOBPOSTINGSCreateState,
   JOBPOSTINGSEdit: JOBPOSTINGSEditState,
   JOBPOSTINGSDelete: CommonEmployeeAndApplicantsDataStringState,
+  //PERFECTATTENDANCE SECTION
+  PERFECTATTENDANCEViewSpecific: PERFECTATTENDANCEViewState,
 }
 
 const initialState: OverallEmployeeAndApplicantsState = {
@@ -571,6 +583,13 @@ const initialState: OverallEmployeeAndApplicantsState = {
     data: null,
     error: '',
   },
+  //PERFECTATTENDANCE SECTION
+  PERFECTATTENDANCEViewSpecific: {
+    status: null,
+    progress: 0,
+    data: [],
+    error: '',
+  },
 };
 
 const setLoadingState = (path: string) => (state: OverallEmployeeAndApplicantsState) => {
@@ -817,6 +836,11 @@ const employeeAndApplicantsSlice = createSlice({
       .addCase(_Actions.JOBPOSTINGSDeleteActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "JOBPOSTINGSDelete"))
       .addCase(_Actions.JOBPOSTINGSDeleteActionProgress, (state, action) => setProgressState(state, action.payload, "JOBPOSTINGSDelete"))
       .addCase(_Actions.JOBPOSTINGSDeleteActionFailure, (state, action) => setFailureState(state, action.payload, "JOBPOSTINGSDelete"))
+      //PERFECTATTENDANCE SECTION
+      .addCase(_Actions.PERFECTATTENDANCEViewSpecificAction, setLoadingState("PERFECTATTENDANCEViewSpecific"))
+      .addCase(_Actions.PERFECTATTENDANCEViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "PERFECTATTENDANCEViewSpecific"))
+      .addCase(_Actions.PERFECTATTENDANCEViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "PERFECTATTENDANCEViewSpecific"))
+      .addCase(_Actions.PERFECTATTENDANCEViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "PERFECTATTENDANCEViewSpecific"))
     },
 });
 
