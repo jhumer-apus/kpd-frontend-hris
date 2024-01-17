@@ -1,4 +1,4 @@
-import { RankDataInterface } from "../types-pages";
+import { RankDataInterface, USERViewInterface } from "../types-pages";
 import { PAGIBIGViewInterface, PHILHEALTHViewInterface, SSSViewInterface, TAXViewInterface } from "../types-payroll-variables";
 
 
@@ -28,31 +28,6 @@ export type Internal_User_Role = ObjectValues<typeof INTERNAL_USER_ROLE>
 //     Employee = 6,
 // }
 
-export interface UserType {
-    readonly id?: number,
-    is_superuser: Boolean,
-    first_name: string,
-    last_name: string,
-    email: string,
-    is_staff: Boolean,
-    date_joined: Date,
-    username: string,
-    role: Internal_User_Role,
-    is_active: Boolean,
-    is_locked: Boolean,
-    is_logged_in: Boolean,
-    date_added: Date,
-    date_deleted?: Date,
-    failed_login_attempts: number,
-    last_login: Date,
-    old_password: string,
-    date_password_changed?: Date,
-    employee_number: number,
-    groups: Array<number>,
-    user_permissions: Array<number>,
-}
-
-
 /** 
  * Order of Field is based on the postman tests of API response.
  * Do check with the backend team. 
@@ -62,7 +37,7 @@ export interface EMPLOYEESViewInterface {
     [key: string]: any,
     readonly id?: number
     rank_hierarchy: number
-    user: UserType | null
+    user: USERViewInterface | null
     employee_image: string
     age: number | null //new 
     tax_data: TAXViewInterface | null | string  //new 

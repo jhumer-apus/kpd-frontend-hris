@@ -8,14 +8,14 @@ import {
   fetchUserDataSuccess,
   // fetchUserDataFailure,
 } from '../actions/auth';
-import { UserType, EMPLOYEESViewInterface } from '@/types/types-store';
-
+import { EMPLOYEESViewInterface } from '@/types/types-store';
+import { USERViewInterface } from '@/types/types-pages';
 
 interface AuthState {
   status: string;
   isAuthenticated: boolean;
   token: string | null;
-  user: UserType | null; // Add user and employee fields
+  user: USERViewInterface | null; // Add user and employee fields
   employee_detail: EMPLOYEESViewInterface | null;
   error: string | null;
 }

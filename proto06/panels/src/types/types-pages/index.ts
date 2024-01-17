@@ -672,7 +672,7 @@ export interface USERViewInterface extends Omit<USERGenericInterface, "added_by?
     is_locked: boolean
     readonly failed_login_attempts: number
     readonly last_login: string
-    readonly old_password: string
+    readonly old_password: string //writeonly on database
     readonly date_password_changed: string | null
     readonly date_added: string
     readonly date_deleted: string | null

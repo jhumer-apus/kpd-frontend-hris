@@ -1,6 +1,7 @@
 // ======================================
 
 import { USERViewInterface } from "../types-pages"
+import { EMPLOYEESViewInterface } from "../types-store"
 
 export interface KPICOREGenericInterface {
 	questions?: Array<KPICOREQuestions>
@@ -314,6 +315,4 @@ export interface JOBPOSTINGSEditInterface extends JOBPOSTINGSGenericInterface, P
 // ======================================
 
 
-export interface PERFECTATTENDANCEViewInterface extends USERViewInterface{
-	user: USERViewInterface | null 
-}
+export interface PERFECTATTENDANCEViewInterface extends EMPLOYEESViewInterface {}

@@ -1,5 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
-import { UserType, EMPLOYEESViewInterface } from '@/types/types-store';
+import { EMPLOYEESViewInterface } from '@/types/types-store';
+import { USERViewInterface } from '@/types/types-pages';
 
 
 export const userLoginAction = createAction<{username: string, password: string, twoFactorToken?: string}>('USER_LOGIN_ACTION');
@@ -11,7 +12,7 @@ export const userLoginActionFailure = createAction<string>('USER_LOGIN_ACTION_FA
 export const userLogout = createAction('USER_LOGOUT');
 export const userLoginActionSuccess = createAction(
     "USER_LOGIN_SUCCESS",
-    (jwt: string, user: UserType, employee_detail: EMPLOYEESViewInterface) => ({ payload: { jwt, user, employee_detail } })
+    (jwt: string, user: USERViewInterface, employee_detail: EMPLOYEESViewInterface) => ({ payload: { jwt, user, employee_detail } })
   );
 
 
