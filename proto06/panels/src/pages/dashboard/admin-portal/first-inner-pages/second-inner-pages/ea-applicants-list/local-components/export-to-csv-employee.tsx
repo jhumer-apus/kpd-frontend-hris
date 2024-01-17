@@ -1,4 +1,4 @@
-import { GetEmployeesListsType } from "@/types/types-store";
+import { EMPLOYEESViewInterface } from "@/types/types-store";
 // import { Button } from "@material-tailwind/react";
 import { Button } from "@mui/material";
 import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
@@ -6,7 +6,7 @@ import { flattenObject } from "@/helpers/utils";
 
 
 interface EmployeeExportToCsvButtonInterface {
-    data: GetEmployeesListsType[] | null;
+    data: EMPLOYEESViewInterface[] | null;
     
     
 }
@@ -14,7 +14,7 @@ interface EmployeeExportToCsvButtonInterface {
 function EmployeeExportToCsvButton(props: EmployeeExportToCsvButtonInterface) {
     const { data } = props;
 
-    function convertToCSV(data: GetEmployeesListsType[]) {
+    function convertToCSV(data: EMPLOYEESViewInterface[]) {
         const replacer = (key: string, value: any) => value === null ? '' : value;
         // const header = Object.keys(data[0]);
         // const csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));

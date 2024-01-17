@@ -33,7 +33,7 @@ import { useSelector } from 'react-redux';
 import { Input, Typography } from '@material-tailwind/react';
 import { useForm } from 'react-hook-form';
 import { APILink, RootState } from '@/store/configureStore';
-import { GetEmployeesListsType } from '@/types/types-store';
+import { EMPLOYEESViewInterface } from '@/types/types-store';
 import FormData from 'form-data';
 import { beautifyJSON } from '@/helpers/utils';
 
@@ -63,7 +63,7 @@ export const SpecificEmployee = (props: initialState) => {
         }
     };
     const {modalEntranceDelay, secondOptionModalEntranceDelay, loadingEffect} = props;
-    const { register, handleSubmit, setValue, formState: { errors } } = useForm<GetEmployeesListsType>();
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm<EMPLOYEESViewInterface>();
     const userData = useSelector((state: RootState) => state.employees.specific_employee_info);
     const [editMode, setEditMode] = useState(false);
     const [editMode2, setEditMode2] = useState(false);
@@ -98,7 +98,7 @@ export const SpecificEmployee = (props: initialState) => {
             window.alert(`Error: ${beautifyJSON(err?.response?.data)}`)
           }
     };
-    const onSubmit = async (data: GetEmployeesListsType, type: string) => {
+    const onSubmit = async (data: EMPLOYEESViewInterface, type: string) => {
         const formData = new FormData();
         const keyChecker = (key: string) => {
             const keyProcessed: { [key: string]: () => void } = {
@@ -203,53 +203,41 @@ export const SpecificEmployee = (props: initialState) => {
                                     </Typography>
                                     <div className="my-4 flex items-center gap-4">
                                     <Input 
-                                        {...register('id')}
-                                        type="number" 
-                                        containerProps={{ className: "min-w-[72px]" }} 
-                                        labelProps={{style: {color: true? "unset" : ''}}} 
-                                        label="Database ID: (readonly)" 
-                                        disabled={true} 
-                                        icon={
-                                        <TagIcon className="h-5 w-5 text-blue-gray-300" />
-                                        }
-                                    />
+                                                crossOrigin={undefined} {...register('id')}
+                                                type="number"
+                                                containerProps={{ className: "min-w-[72px]" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Database ID: (readonly)"
+                                                disabled={true}
+                                                icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     <Input 
-                                        {...register('bio_id')}
-                                        type="number"
-                                        max={99999} 
-                                        maxLength={5}
-                                        containerProps={{ className: "min-w-[72px] focused" }} 
-                                        labelProps={{style: {color: true? "unset" : ''}}} 
-                                        label="Biometric ID: (max 5 dig)" 
-                                        disabled={!editMode} 
-                                        icon={
-                                        <FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />
-                                        }
-                                    />
+                                                crossOrigin={undefined} {...register('bio_id')}
+                                                type="number"
+                                                max={99999}
+                                                maxLength={5}
+                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Biometric ID: (max 5 dig)"
+                                                disabled={!editMode}
+                                                icon={<FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     </div>
                                     <div className="flex items-center gap-4">
                                     <Input 
-                                        {...register('is_superuser')}
-                                        type="text" 
-                                        containerProps={{ className: "min-w-[72px] focused" }} 
-                                        labelProps={{style: {color: true? "unset" : ''}}} 
-                                        label="Account Superuser(?):" 
-                                        disabled={true} 
-                                        icon={
-                                        <AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />
-                                        }
-                                    />
+                                                crossOrigin={undefined} {...register('is_superuser')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Account Superuser(?):"
+                                                disabled={true}
+                                                icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     <Input 
-                                        {...register('is_active')}
-                                        type="text" 
-                                        containerProps={{ className: "min-w-[72px] focused" }} 
-                                        labelProps={{style: {color: true? "unset" : ''}}} 
-                                        label="Account Active(?):" 
-                                        disabled={true} 
-                                        icon={
-                                        <WindowIcon className="h-5 w-5 text-blue-gray-300" />
-                                        }
-                                    />
+                                                crossOrigin={undefined} {...register('is_active')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Account Active(?):"
+                                                disabled={true}
+                                                icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     </div>
                                 </div>
                                 <div style={{width: "100%"}}>
@@ -262,43 +250,36 @@ export const SpecificEmployee = (props: initialState) => {
                                     </Typography>
                                     <div className="my-4 flex items-center gap-4">
                                     <Input
-                                        {...register('emp_no')} 
-                                        type="text" 
-                                        containerProps={{ className: "min-w-[72px]" }} 
-                                        label="Emp #:" 
-                                        labelProps={{style: {color: true? "unset" : ''}}} 
-                                        disabled={!editMode}
-                                    />
+                                                crossOrigin={undefined} {...register('emp_no')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px]" }}
+                                                label="Emp #:"
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                disabled={!editMode}                                    />
                                     <Input
-                                        {...register('user.username')} 
-                                        type="text" 
-                                        containerProps={{ className: "min-w-[72px] focused" }} 
-                                        labelProps={{style: {color: true? "unset" : ''}}} 
-                                        label="Username:" 
-                                        disabled={true} 
-                                        icon={
-                                        <TagIcon className="h-5 w-5 text-blue-gray-300" />
-                                        }                                    />
+                                                crossOrigin={undefined} {...register('user.username')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Username:"
+                                                disabled={true}
+                                                icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     <Input
-                                        {...register('user.role')} 
-                                        type="number" 
-                                        containerProps={{ className: "min-w-[72px]" }} 
-                                        label="Role #:" 
-                                        labelProps={{style: {color: true? "unset" : ''}}} 
-                                        disabled={true} 
-                                        icon={
-                                        <UserGroupIcon className="h-5 w-5 text-blue-gray-300" />
-                                        }
-                                    />
+                                                crossOrigin={undefined} {...register('user.role')}
+                                                type="number"
+                                                containerProps={{ className: "min-w-[72px]" }}
+                                                label="Role #:"
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                disabled={true}
+                                                icon={<UserGroupIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     </div>
                                     <Input
-                                        {...register('email_address')} 
-                                        type="email" 
-                                        className="" 
-                                        label="Email Address:" 
-                                        labelProps={{style: {color: true? "unset" : ''}}} 
-                                        disabled={!editMode}
-                                    />
+                                            crossOrigin={undefined} {...register('email_address')}
+                                            type="email"
+                                            className=""
+                                            label="Email Address:"
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            disabled={!editMode}                                    />
                                 </div>
                             </div>
                             <div className="my-6">
@@ -311,72 +292,53 @@ export const SpecificEmployee = (props: initialState) => {
                                 </Typography>
                                 <div className="my-4 flex flex-wrap xl:flex-nowrap items-center gap-4">
                                 <Input
-                                    {...register('user.is_locked')}
-                                    label="Account Lock Status:"
-                                    labelProps={{style: {color: true? "unset" : ''}}}
-                                    disabled={true}
-                                    icon={
-                                    <LockClosedOutline className="h-5 w-5 text-blue-gray-300" />
-                                    }
-                                />
+                                            crossOrigin={undefined} {...register('user.is_locked')}
+                                            label="Account Lock Status:"
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            disabled={true}
+                                            icon={<LockClosedOutline className="h-5 w-5 text-blue-gray-300" />}                                />
                                 <Input
-                                    {...register('user.last_login')}
-                                    label="Last Login:"
-                                    labelProps={{style: {color: true? "unset" : ''}}}
-                                    disabled={true}
-                                    icon={ 
-                                    <CheckCircleIcon className="h-5 w-5 text-blue-gray-300" />
-                                    }
-                                />
+                                            crossOrigin={undefined} {...register('user.last_login')}
+                                            label="Last Login:"
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            disabled={true}
+                                            icon={<CheckCircleIcon className="h-5 w-5 text-blue-gray-300" />}                                />
                                 <Input
-                                    {...register('user.old_password')}
-                                    type="password"
-                                    label="Old Password:"
-                                    labelProps={{style: {color: true? "unset" : ''}}}
-                                    disabled={true}
-                                    icon={ 
-                                    <LockOpenIcon className="h-5 w-5 text-blue-gray-300" />
-                                    }
-                                />
+                                            crossOrigin={undefined} {...register('user.old_password')}
+                                            type="password"
+                                            label="Old Password:"
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            disabled={true}
+                                            icon={<LockOpenIcon className="h-5 w-5 text-blue-gray-300" />}                                />
                                 <Input
-                                    {...register('user.date_added')}
-                                    label="Date Added:"
-                                    labelProps={{style: {color: true? "unset" : ''}}}
-                                    disabled={true}
-                                    icon={
-                                    <UserPlusIcon className="h-5 w-5 text-blue-gray-300" />
-                                    }
-                                />
+                                            crossOrigin={undefined} {...register('user.date_added')}
+                                            label="Date Added:"
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            disabled={true}
+                                            icon={<UserPlusIcon className="h-5 w-5 text-blue-gray-300" />}                                />
                                 <Input
-                                    {...register('user.date_deleted')}
-                                    label="Date Deactivated:"
-                                    containerProps={{ className: "min-w-[72px]" }} 
-                                    labelProps={{style: {color: true? "unset" : ''}}}
-                                    disabled={true}
-                                    icon={
-                                    <XMarkIcon className="h-5 w-5 text-blue-gray-300" />
-                                    }
-                                />
+                                            crossOrigin={undefined} {...register('user.date_deleted')}
+                                            label="Date Deactivated:"
+                                            containerProps={{ className: "min-w-[72px]" }}
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            disabled={true}
+                                            icon={<XMarkIcon className="h-5 w-5 text-blue-gray-300" />}                                />
                                 </div>
                                 <div className="my-4 flex flex-wrap md:flex-nowrap items-center gap-4">
                                 <Input
-                                    {...register('user.failed_login_attempts')}
-                                    label="Failed Login Attempts:"
-                                    labelProps={{style: {color: true? "unset" : ''}}}
-                                    disabled={true}
-                                    icon={
-                                    <XCircleIcon className="h-5 w-5 text-blue-gray-300" />
-                                    }
-                                />
+                                            crossOrigin={undefined} {...register('user.failed_login_attempts')}
+                                            label="Failed Login Attempts:"
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            disabled={true}
+                                            icon={<XCircleIcon className="h-5 w-5 text-blue-gray-300" />}                                />
                                 <Input
-                                    {...register('user.date_password_changed')}
-                                    label="Date Password Changed:"
-                                    labelProps={{style: {color: true? "unset" : ''}}}
-                                    disabled={true}
-                                    icon={ null
-                                    // <CreditCardIcon className="h-5 w-5 text-blue-gray-300" />
-                                    }
-                                />
+                                            crossOrigin={undefined} {...register('user.date_password_changed')}
+                                            label="Date Password Changed:"
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            disabled={true}
+                                            icon={null
+                                                // <CreditCardIcon className="h-5 w-5 text-blue-gray-300" />
+                                            }                                />
                                 </div>
                             </div>
                             <div className="my-4 flex items-center gap-4">
@@ -449,51 +411,39 @@ export const SpecificEmployee = (props: initialState) => {
                                     />
                                     <div className="my-4 flex items-center gap-4">
                                     <Input
-                                        {...register('first_name')} 
-                                        type="text" 
-                                        containerProps={{ className: "min-w-[72px]" }} 
-                                        labelProps={{style: {color: true? "unset" : ''}}} 
-                                        label="First Name:" 
-                                        disabled={!editMode2} 
-                                        icon={
-                                        <TagIcon className="h-5 w-5 text-blue-gray-300" />
-                                        }
-                                    />
+                                                crossOrigin={undefined} {...register('first_name')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px]" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="First Name:"
+                                                disabled={!editMode2}
+                                                icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     <Input 
-                                        {...register('middle_name')}
-                                        type="text" 
-                                        containerProps={{ className: "min-w-[72px] focused" }} 
-                                        labelProps={{style: {color: true? "unset" : ''}}} 
-                                        label="Middle Name:" 
-                                        disabled={!editMode2} 
-                                        icon={
-                                        <FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />
-                                        }
-                                    />
+                                                crossOrigin={undefined} {...register('middle_name')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Middle Name:"
+                                                disabled={!editMode2}
+                                                icon={<FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     </div>
                                     <div className="flex items-center gap-4">
                                     <Input
-                                        {...register('last_name')} 
-                                        type="text" 
-                                        containerProps={{ className: "min-w-[72px] focused" }} 
-                                        labelProps={{style: {color: true? "unset" : ''}}} 
-                                        label="Last Name:" 
-                                        disabled={!editMode2} 
-                                        icon={
-                                        <AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />
-                                        }
-                                    />
+                                                crossOrigin={undefined} {...register('last_name')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Last Name:"
+                                                disabled={!editMode2}
+                                                icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     <Input
-                                        {...register('suffix')} 
-                                        type="text" 
-                                        containerProps={{ className: "min-w-[72px] focused" }} 
-                                        labelProps={{style: {color: true? "unset" : ''}}} 
-                                        label="Suffix:" 
-                                        disabled={!editMode2} 
-                                        icon={
-                                        <WindowIcon className="h-5 w-5 text-blue-gray-300" />
-                                        }
-                                    />
+                                                crossOrigin={undefined} {...register('suffix')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Suffix:"
+                                                disabled={!editMode2}
+                                                icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     </div>
                                 </div>
                             </div>
@@ -508,52 +458,40 @@ export const SpecificEmployee = (props: initialState) => {
                                     </Typography>
                                     <div className="my-4 flex items-center gap-4">
                                     <Input
-                                        {...register('birthday')} 
-                                        type="text" 
-                                        containerProps={{ className: "min-w-[72px]" }} 
-                                        labelProps={{style: {color: true? "unset" : ''}}} 
-                                        label="Birthday: YYYY-MM-DD" 
-                                        disabled={!editMode2} 
-                                        icon={
-                                        <TagIcon className="h-5 w-5 text-blue-gray-300" />
-                                        }
-                                    />
+                                                crossOrigin={undefined} {...register('birthday')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px]" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Birthday: YYYY-MM-DD"
+                                                disabled={!editMode2}
+                                                icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     <Input 
-                                        {...register('birth_place')}
-                                        type="text" 
-                                        containerProps={{ className: "min-w-[72px] focused" }} 
-                                        labelProps={{style: {color: true? "unset" : ''}}} 
-                                        label="Birthplace:" 
-                                        disabled={!editMode2} 
-                                        icon={
-                                        <FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />
-                                        }
-                                    />
+                                                crossOrigin={undefined} {...register('birth_place')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Birthplace:"
+                                                disabled={!editMode2}
+                                                icon={<FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     </div>
                                     <div className="flex items-center gap-4">
                                     <Input
-                                        {...register('mobile_phone')} 
-                                        type="text" 
-                                        containerProps={{ className: "min-w-[72px] focused" }} 
-                                        labelProps={{style: {color: true? "unset" : ''}}} 
-                                        label="Mobile Phone:" 
-                                        disabled={!editMode2} 
-                                        icon={
-                                        <AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />
-                                        }
-                                    />
+                                                crossOrigin={undefined} {...register('mobile_phone')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Mobile Phone:"
+                                                disabled={!editMode2}
+                                                icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     <Input
-                                        {...register('approver')} 
-                                        type="text" 
-                                        containerProps={{ className: "min-w-[72px] focused" }} 
-                                        labelProps={{style: {color: true? "unset" : ''}}} 
-                                        label="Approver:" 
-                                        disabled={!editMode2} 
-                                        value={`${userData?.approver ? userData?.approver : ''}`}
-                                        icon={
-                                        <WindowIcon className="h-5 w-5 text-blue-gray-300" />
-                                        }
-                                    />
+                                                crossOrigin={undefined} {...register('approver')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Approver:"
+                                                disabled={!editMode2}
+                                                value={`${userData?.approver ? userData?.approver : ''}`}
+                                                icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     </div>
                                 </div>
                                 <div style={{width: "100%"}}>
@@ -566,46 +504,38 @@ export const SpecificEmployee = (props: initialState) => {
                                     </Typography>
                                     <div className="my-4 flex items-center gap-4">
                                     <Input
-                                        {...register('civil_status')} 
-                                        type="text" 
-                                        containerProps={{ className: "min-w-[72px]" }} 
-                                        label="Civil Status:" 
-                                        labelProps={{style: {color: true? "unset" : ''}}} 
-                                        disabled={!editMode2} 
-                                    />
+                                                crossOrigin={undefined} {...register('civil_status')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px]" }}
+                                                label="Civil Status:"
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                disabled={!editMode2}                                    />
                                     <Input
-                                        {...register('gender')} 
-                                        type="text" 
-                                        containerProps={{ className: "min-w-[72px] focused" }} 
-                                        labelProps={{style: {color: true? "unset" : ''}}} 
-                                        label="Gender:" 
-                                        disabled={!editMode2} 
-                                        icon={
-                                        <TagIcon className="h-5 w-5 text-blue-gray-300" />
-                                        }
-                                    />
+                                                crossOrigin={undefined} {...register('gender')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Gender:"
+                                                disabled={!editMode2}
+                                                icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     </div>
                                     <Input
-                                        {...register('address')} 
-                                        type="text" 
-                                        className="" 
-                                        label="Present Address:" 
-                                        labelProps={{style: {color: true? "unset" : ''}}} 
-                                        disabled={!editMode2}
-                                    />
+                                            crossOrigin={undefined} {...register('address')}
+                                            type="text"
+                                            className=""
+                                            label="Present Address:"
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            disabled={!editMode2}                                    />
                                 </div>
                             </div>
                             <div className="my-0">
                                 <div className="my-0 flex flex-wrap xl:flex-nowrap items-center gap-4">
                                 <Input
-                                    {...register('provincial_address')}
-                                    label="Provincial Address:"
-                                    labelProps={{style: {color: true? "unset" : ''}}}
-                                    disabled={!editMode2}
-                                    icon={
-                                    <LockClosedOutline className="h-5 w-5 text-blue-gray-300" />
-                                    }
-                                />
+                                            crossOrigin={undefined} {...register('provincial_address')}
+                                            label="Provincial Address:"
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            disabled={!editMode2}
+                                            icon={<LockClosedOutline className="h-5 w-5 text-blue-gray-300" />}                                />
                                 </div>
                             </div>
                             <div className="my-4 flex items-center gap-4">
@@ -651,66 +581,51 @@ export const SpecificEmployee = (props: initialState) => {
                                     </Typography>
                                     <div className="my-4 flex items-center gap-4">
                                         <Input
-                                            {...register('date_hired')} 
-                                            type="text" 
-                                            containerProps={{ className: "min-w-[72px]" }} 
-                                            labelProps={{style: {color: true? "unset" : ''}}} 
-                                            label="Date Hired:" 
-                                            disabled={!editMode3} 
-                                            // value={`${userData?.date_hired ? userData?.date_hired : ''}`}
-                                            icon={
-                                                <TagIcon className="h-5 w-5 text-blue-gray-300" />
-                                        }
-                                        />
+                                                crossOrigin={undefined} {...register('date_hired')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px]" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Date Hired:"
+                                                disabled={!editMode3}
+                                                // value={`${userData?.date_hired ? userData?.date_hired : ''}`}
+                                                icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
                                         <Input
-                                            {...register('date_resigned')} 
-                                            type="text" 
-                                            containerProps={{ className: "min-w-[72px] focused" }} 
-                                            labelProps={{style: {color: true? "unset" : ''}}} 
-                                            label="Date Resigned:" 
-                                            disabled={!editMode3} 
-                                            icon={
-                                                <FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />
-                                            }
-                                        />
+                                                crossOrigin={undefined} {...register('date_resigned')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Date Resigned:"
+                                                disabled={!editMode3}
+                                                icon={<FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
                                     </div>
                                     <div className="flex items-center gap-4">
                                         <Input
-                                            {...register('division_code')} 
-                                            type="text" 
-                                            containerProps={{ className: "min-w-[72px] focused" }} 
-                                            labelProps={{style: {color: true? "unset" : ''}}} 
-                                            label="Division Code:" 
-                                            disabled={!editMode3} 
-                                            icon={
-                                                <AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />
-                                            }
-                                        />
+                                                crossOrigin={undefined} {...register('division_code')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Division Code:"
+                                                disabled={!editMode3}
+                                                icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
                                         <Input
-                                            {...register('position_code')} 
-                                            type="text" 
-                                            containerProps={{ className: "min-w-[72px] focused" }} 
-                                            labelProps={{style: {color: true? "unset" : ''}}} 
-                                            label="Position Code:" 
-                                            disabled={!editMode3} 
-                                            icon={
-                                                <WindowIcon className="h-5 w-5 text-blue-gray-300" />
-                                            }
-                                        />
+                                                crossOrigin={undefined} {...register('position_code')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Position Code:"
+                                                disabled={!editMode3}
+                                                icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
                                         
                                     </div>
                                     <div className="mt-4 flex items-center gap-4">
                                         <Input
-                                            {...register('accnt_no')} 
-                                            type="text" 
-                                            containerProps={{ className: "min-w-[72px] focused" }} 
-                                            labelProps={{style: {color: true? "unset" : ''}}} 
-                                            label="Account Number:" 
-                                            disabled={!editMode3} 
-                                            icon={
-                                                <AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />
-                                            }
-                                        />       
+                                                crossOrigin={undefined} {...register('accnt_no')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Account Number:"
+                                                disabled={!editMode3}
+                                                icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}                                        />       
                                     </div>
 
                                 </div>
@@ -724,80 +639,63 @@ export const SpecificEmployee = (props: initialState) => {
                                     </Typography>
                                     <div className="my-4 flex items-center gap-4">
                                         <Input
-                                            {...register('city_code')} 
-                                            type="text" 
-                                            containerProps={{ className: "min-w-[72px]" }} 
-                                            label="City Code:" 
-                                            labelProps={{style: {color: true? "unset" : ''}}} 
-                                            disabled={!editMode3} 
-                                        />
+                                                crossOrigin={undefined} {...register('city_code')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px]" }}
+                                                label="City Code:"
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                disabled={!editMode3}                                        />
                                         <Input
-                                            {...register('branch_code')} 
-                                            type="text" 
-                                            containerProps={{ className: "min-w-[72px] focused" }} 
-                                            labelProps={{style: {color: true? "unset" : '', textOverflow: 'ellipsis', overflow: 'hidden'}}} 
-                                            label="Branch Code:" 
-                                            disabled={!editMode3} 
-                                            icon={
-                                                <TagIcon className="h-5 w-5 text-blue-gray-300" />
-                                            }
-                                        />
+                                                crossOrigin={undefined} {...register('branch_code')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '', textOverflow: 'ellipsis', overflow: 'hidden' } }}
+                                                label="Branch Code:"
+                                                disabled={!editMode3}
+                                                icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
                                         <Input
-                                            {...register('department_code')} 
-                                            type="text" 
-                                            containerProps={{ className: "min-w-[72px]" }} 
-                                            label="Department Code:" 
-                                            labelProps={{style: {color: true? "unset" : '', textOverflow: 'ellipsis', overflow: 'hidden'}}} 
-                                            disabled={!editMode3} 
-                                            icon={
-                                                <UserGroupIcon className="h-5 w-5 text-blue-gray-300" />
-                                            }
-                                        />
+                                                crossOrigin={undefined} {...register('department_code')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px]" }}
+                                                label="Department Code:"
+                                                labelProps={{ style: { color: true ? "unset" : '', textOverflow: 'ellipsis', overflow: 'hidden' } }}
+                                                disabled={!editMode3}
+                                                icon={<UserGroupIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
                                     </div>
                                     <div className="my-0 flex items-center gap-4">
                                         <Input
-                                            {...register('rank_code')} 
-                                            type="text" 
-                                            containerProps={{ className: "min-w-[72px]" }} 
-                                            label="Rank Code:" 
-                                            labelProps={{style: {color: true? "unset" : ''}}} 
-                                            disabled={!editMode3} 
-                                        />
+                                                crossOrigin={undefined} {...register('rank_code')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px]" }}
+                                                label="Rank Code:"
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                disabled={!editMode3}                                        />
                                         <Input 
-                                            {...register('payroll_group_code')}
-                                            type="text" 
-                                            containerProps={{ className: "min-w-[72px] focused" }} 
-                                            labelProps={{style: {color: true? "unset" : '', textOverflow: 'ellipsis', overflow: 'hidden'}}} 
-                                            label="Payroll Group Code:" 
-                                            disabled={!editMode3} 
-                                            icon={
-                                                <TagIcon className="h-5 w-5 text-blue-gray-300" />
-                                            }
-                                        />
+                                                crossOrigin={undefined} {...register('payroll_group_code')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '', textOverflow: 'ellipsis', overflow: 'hidden' } }}
+                                                label="Payroll Group Code:"
+                                                disabled={!editMode3}
+                                                icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
                                     </div>
                                     <div className="mt-4 flex items-center gap-4">
                                         <Input
-                                            {...register('emp_salary_basic')} 
-                                            type="text" 
-                                            containerProps={{ className: "min-w-[72px] focused" }} 
-                                            labelProps={{style: {color: true? "unset" : ''}}} 
-                                            label="Basic Salary Amount:" 
-                                            disabled={!editMode3} 
-                                            icon={
-                                                <AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />
-                                            }
-                                        />
+                                                crossOrigin={undefined} {...register('emp_salary_basic')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Basic Salary Amount:"
+                                                disabled={!editMode3}
+                                                icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
                                         <Input
-                                            {...register('emp_salary_type')} 
-                                            type="text" 
-                                            containerProps={{ className: "min-w-[72px] focused" }} 
-                                            labelProps={{style: {color: true? "unset" : ''}}} 
-                                            label="Salary Type:" 
-                                            disabled={!editMode3} 
-                                            icon={
-                                                <WindowIcon className="h-5 w-5 text-blue-gray-300" />
-                                            }
-                                        />
+                                                crossOrigin={undefined} {...register('emp_salary_type')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Salary Type:"
+                                                disabled={!editMode3}
+                                                icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
                                         
                                     </div>
                                 </div>
@@ -812,41 +710,29 @@ export const SpecificEmployee = (props: initialState) => {
                                 </Typography>
                                 <div className="my-4 flex flex-wrap xl:flex-nowrap items-center gap-4">
                                     <Input
-                                        {...register('tax_code')}
-                                        label="Tax Identification #:"
-                                        labelProps={{style: {color: true? "unset" : ''}}}
-                                        disabled={!editMode3}
-                                        icon={
-                                            <LockClosedOutline className="h-5 w-5 text-blue-gray-300" />
-                                        }
-                                    />
+                                            crossOrigin={undefined} {...register('tax_code')}
+                                            label="Tax Identification #:"
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            disabled={!editMode3}
+                                            icon={<LockClosedOutline className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     <Input
-                                        {...register('pagibig_code')}
-                                        label="HDMF Pagibig:"
-                                        labelProps={{style: {color: true? "unset" : ''}}}
-                                        disabled={!editMode3}
-                                        icon={ 
-                                            <CheckCircleIcon className="h-5 w-5 text-blue-gray-300" />
-                                        }
-                                    />
+                                            crossOrigin={undefined} {...register('pagibig_code')}
+                                            label="HDMF Pagibig:"
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            disabled={!editMode3}
+                                            icon={<CheckCircleIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     <Input
-                                        {...register('sssid_code')}
-                                        label="SSS ID:"
-                                        labelProps={{style: {color: true? "unset" : ''}}}
-                                        disabled={!editMode3}
-                                        icon={ 
-                                            <LockOpenIcon className="h-5 w-5 text-blue-gray-300" />
-                                        }
-                                    />
+                                            crossOrigin={undefined} {...register('sssid_code')}
+                                            label="SSS ID:"
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            disabled={!editMode3}
+                                            icon={<LockOpenIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     <Input
-                                        {...register('philhealth_code')}
-                                        label="Philhealth #:"
-                                        labelProps={{style: {color: true? "unset" : ''}}}
-                                        disabled={!editMode3}
-                                        icon={
-                                            <UserPlusIcon className="h-5 w-5 text-blue-gray-300" />
-                                        }
-                                    />
+                                            crossOrigin={undefined} {...register('philhealth_code')}
+                                            label="Philhealth #:"
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            disabled={!editMode3}
+                                            icon={<UserPlusIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                 </div>
                                 </div>
                                 <div className="my-4 flex items-center gap-4">

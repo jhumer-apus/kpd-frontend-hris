@@ -117,7 +117,7 @@ import OnboardingCF from "./pages/pending-checklists/onboarding-cf/onboarding-cf
 import OffboardingCF from "./pages/pending-checklists/offboarding-cf/offboarding-cf";
 import B1Forms from "./pages/forms/b1-forms/b1-forms";
 import B2Forms from "./pages/forms/b2-forms/b2-forms";
-import { Internal_User_Role } from "./types/types-store";
+import { INTERNAL_USER_ROLE } from "./types/types-store";
 import { Profile } from "./pages";
 
 const icon = {
@@ -131,7 +131,7 @@ const JSXRouteWrapper = () => {
       id: 10000,
       layout: "home",
       pages: [
-        ...(state?.user?.role !== Internal_User_Role.Employee || !state.user) ? [
+        ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee || !state.user) ? [
           {
             id: 11000,
             icon: null,
@@ -460,7 +460,7 @@ const JSXRouteWrapper = () => {
           element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-orange-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">EMPLOYEE ELEMENTS UNDER DEVELOPMENT</strong>,
           hasSubItems: true,
           subItems: [
-            ...(state?.user?.role !== Internal_User_Role.Employee || !state.user) ? [
+            ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee || !state.user) ? [
               {
                 id: 12100,
                 icon: <PersonOutlineOutlinedIcon {...icon} />,
@@ -566,7 +566,7 @@ const JSXRouteWrapper = () => {
             },
           ]
         },
-        ...(state?.user?.role !== Internal_User_Role.Employee || !state.user) ? [
+        ...(state?.user?.role !== 6 || !state.user) ? [
           {
             id: 14000,
             icon: null,

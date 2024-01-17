@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { GetEmployeesListsType } from '@/types/types-store';
+import { EMPLOYEESViewInterface } from '@/types/types-store';
 import { 
   getSpecificEmployeeInfo,
   getSpecificEmployeeInfoSuccess, 
@@ -10,8 +10,8 @@ import {
 
 
 interface AuthState {
-  employees_list: Array<GetEmployeesListsType> | null;
-  specific_employee_info: GetEmployeesListsType | null;
+  employees_list: Array<EMPLOYEESViewInterface> | null;
+  specific_employee_info: EMPLOYEESViewInterface | null;
   error: String | null;
 }
 

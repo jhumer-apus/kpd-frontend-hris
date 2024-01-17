@@ -9,7 +9,7 @@ import { KPICORECreateAction, KPICORECreateActionFailureCleanup } from '@/store/
 import { DataGrid, GridCallbackDetails, GridRowSelectionModel } from '@mui/x-data-grid';
 import { EAProcessKPICOREPageColumns } from '@/data/pages-data/employee-and-applicants-data/ea-kpi-core-data';
 import { getEmployeesList } from '@/store/actions/employees';
-import { GetEmployeesListsType } from '@/types/types-store';
+import { EMPLOYEESViewInterface } from '@/types/types-store';
 import DateFieldCreate from './inner-ui-components/date-field';
 
 
@@ -84,7 +84,7 @@ function EAKPICORECreate(props: CreateKPICOREModalInterface) {
                     <p>You can choose one or more employees (or all) to initialize their KPI Evaluation.</p>
                     <div style={{ height: '450px', width: '100%' }}>
                         <DataGrid
-                        rows={state.employees_list as GetEmployeesListsType[]}
+                        rows={state.employees_list as EMPLOYEESViewInterface[]}
                         columns={EAProcessKPICOREPageColumns}
                         initialState={{
                             pagination: {

@@ -18,7 +18,7 @@ import { EOYPAY13THPageDescriptions, EOYPAY13THPageColumns, EOYProcessPAY13THPag
 import { PAY13THViewInterface } from '@/types/types-payroll-eoy';
 import { PAY13THViewAction } from '@/store/actions/payroll-eoy';
 import { getEmployeesList } from '@/store/actions/employees';
-import { GetEmployeesListsType } from '@/types/types-store';
+import { EMPLOYEESViewInterface } from '@/types/types-store';
 
 
 
@@ -91,7 +91,7 @@ function EOYPAY13THCreate(props: CreatePAY13THModalInterface) {
                     <p>You can choose one or more employees to process their 13th month pay. Otherwise check all.</p>
                     <div style={{ height: '450px', width: '100%' }}>
                         <DataGrid
-                        rows={state.employees_list as GetEmployeesListsType[]}
+                        rows={state.employees_list as EMPLOYEESViewInterface[]}
                         columns={EOYProcessPAY13THPageColumns}
                         initialState={{
                             pagination: {

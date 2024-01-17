@@ -1,5 +1,7 @@
 // ======================================
 
+import { USERViewInterface } from "../types-pages"
+
 export interface KPICOREGenericInterface {
 	questions?: Array<KPICOREQuestions>
 	core_competencies?: Array<KPICORECoreCompetencies>
@@ -312,11 +314,6 @@ export interface JOBPOSTINGSEditInterface extends JOBPOSTINGSGenericInterface, P
 // ======================================
 
 
-export interface PERFECTATTENDANCEInterface {
-	id: number
-	rank_hierarchy: number
-	user: string | null
-	employee_image: string | null
-	age: number
-	tax_data: string | null
+export interface PERFECTATTENDANCEViewInterface extends USERViewInterface{
+	user: USERViewInterface | null 
 }

@@ -11,7 +11,7 @@ import { DataGrid, GridCallbackDetails, GridRowSelectionModel } from '@mui/x-dat
 // import { Typography } from "@material-tailwind/react";
 import { EAProcessOFFBOARDINGSTATUSPageColumns } from '@/data/pages-data/employee-and-applicants-data/ea-initialize-offboarding-data';
 import { getEmployeesList } from '@/store/actions/employees';
-import { GetEmployeesListsType } from '@/types/types-store';
+import { EMPLOYEESViewInterface } from '@/types/types-store';
 import DateFieldCreate from './inner-ui-components/date-field';
 
 
@@ -102,7 +102,7 @@ function EAOFFBOARDINGSTATUSCreate(props: CreateOFFBOARDINGSTATUSModalInterface)
                     <Typography level="body2" className='flex justify-center text-center align-center italic'>You can choose one or more employees to notify facilitators the ongoing employee's offboarding requirements. You may also filter and check all that applies.</Typography>
                     <div style={{ height: '450px', width: '100%' }}>
                         <DataGrid
-                        rows={state.employees_list as GetEmployeesListsType[]}
+                        rows={state.employees_list as EMPLOYEESViewInterface[]}
                         columns={EAProcessOFFBOARDINGSTATUSPageColumns}
                         initialState={{
                             pagination: {

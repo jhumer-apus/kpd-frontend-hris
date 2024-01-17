@@ -18,7 +18,7 @@ import { UAViewFilterApproverAction, LEAVEViewFilterApproverAction, OVERTIMEView
 import { LEAVEViewInterface, OBTViewInterface, OVERTIMEViewInterface, UAViewInterface } from "@/types/types-pages";
 import JSXRouteWrapper from "@/routes";
 import { KPICOREViewAction, OFFBOARDINGSTATUSViewAction, ONBOARDINGSTATUSViewAction } from "@/store/actions/employee-and-applicants";
-import { Internal_User_Role } from "@/types/types-store";
+import { INTERNAL_USER_ROLE } from "@/types/types-store";
 
 export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
   const dispatchRedux = useDispatch();
@@ -61,8 +61,8 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
   }, [currUserEmpNo]);
 
   useEffect(() => {
-    // role === 5 is Employee only
-    if(currUserState?.user?.role === Internal_User_Role.Employee || !currUserState){
+    // role === 6 is Employee only
+    if(currUserState?.user?.role === INTERNAL_USER_ROLE.Employee || !currUserState){
       return
     }else {
       dispatchActions();

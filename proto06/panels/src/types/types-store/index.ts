@@ -1,13 +1,32 @@
 import { RankDataInterface } from "../types-pages";
+import { PAGIBIGViewInterface, PHILHEALTHViewInterface, SSSViewInterface, TAXViewInterface } from "../types-payroll-variables";
 
 
-export enum Internal_User_Role {
-    Developer = 1,
-    HR_Super_Admin = 2,
-    HR_Admin = 3,
-    HR_Staff = 4,
-    Employee = 5,
-}
+
+
+export const INTERNAL_USER_ROLE = {
+    Developer: 1,
+    HR_Super_Admin: 2,
+    HR_Director_Manager: 3,
+    HR_Staff: 4,
+    Manager: 5,
+    Employee: 6,
+} as const;
+
+export type ObjectValues<T> = T[keyof T];
+export type Internal_User_Role = ObjectValues<typeof INTERNAL_USER_ROLE>
+
+
+// Enum is said to be dangerous and risky as it is unpredictable, please refer to this link:
+// https://www.youtube.com/watch?v=jjMbPt_H3RQ
+// export enum Internal_User_Role {
+//     Developer = 1,
+//     HR_Super_Admin = 2,
+//     HR_Director_Manager = 3,
+//     HR_Staff = 4,
+//     Manager = 5,
+//     Employee = 6,
+// }
 
 export interface UserType {
     readonly id?: number,
@@ -33,50 +52,71 @@ export interface UserType {
     user_permissions: Array<number>,
 }
 
-export interface GetEmployeesListsType {
+
+/** 
+ * Order of Field is based on the postman tests of API response.
+ * Do check with the backend team. 
+ * @member Marc Rovic Baja
+*/
+export interface EMPLOYEESViewInterface {
     [key: string]: any,
-    accnt_no: string,
-    address: string,
-    approver1: number | null, 
-    approver2: number | null, 
-    bio_id: number, 
-    birth_place: string,
-    birthday: string,
-    branch_code: number, 
-    city_code: string | null, 
-    civil_status: string,
-    date_added: string,
-    date_deleted: string | null,
-    date_hired: string,
-    date_resigned: string | null,
-    department_code: string | null,
-    division_code: string | null,
-    ecola: number | string | null,
-    email_address: string,
-    emp_no: number,
-    emp_salary_basic: number,
-    emp_salary_type: string,
-    employee_image: string,
-    first_name: string,
-    gender: string,
-    readonly id?: number,
-    insurance_life: string | null,
-    last_name: string,
-    middle_name: string | null,
-    mobile_phone: string,
-    other_deductible: string | null,
-    pagibig_code: string | null,
-    payroll_group_code: number | null,
-    philhealth_code: string | null,
-    position_code: string | null,
-    provincial_address: string | null,
-    rank_code: number,
-    rank_data: RankDataInterface,
-    sssid_code: string,
-    suffix: string,
-    tax_code: string,
-    user: UserType | null,
-    rank_hierarchy: number,
+    readonly id?: number
+    rank_hierarchy: number
+    user: UserType | null
+    employee_image: string
+    age: number | null //new 
+    tax_data: TAXViewInterface | null | string  //new 
+    pagibig_data: PAGIBIGViewInterface | null | string //new 
+    sss_data:  SSSViewInterface | null | string //new 
+    philhealth_data: PHILHEALTHViewInterface | null | string //new 
+    emp_no: number
+    first_name: string
+    middle_name: string | null
+    last_name: string
+    suffix: string
+    birthday: string | null
+    birth_place: string | null
+    civil_status: string
+    gender: "M" | "F"
+    address: string
+    provincial_address: string | null
+    mobile_phone: string
+    email_address: string
+    bio_id: EMPLOYEESViewInterface["emp_no"]
+    telephone: string | null //new
+    blood_type: string | null //new
+    graduated_school: string | null //new
+    profession: string | null //new 
+    license_no: string | null //new 
+    emergency_contact_person: string | null //new
+    emergency_contact_number: string | null //new
+    hmo: string | null
+    other_duties_responsibilities: string | null //new
+    payroll_no: string | null //new
+    date_hired: string
+    date_resigned: string | null
+    date_added: string
+    date_deleted: string | null
+    accnt_no: string
+    emp_salary_basic: number
+    emp_salary_type: string
+    insurance_life: string | null
+    other_deductible: string | null
+    ecola: number | string | null
+    approver1: number
+    approver2: number | null 
+    city_code: string | null 
+    branch_code: number 
+    department_code: string | null
+    division_code: string | null
+    position_code: string | null
+    rank_code: number
+    payroll_group_code: number | null
+    tax_code: string | null
+    pagibig_code: string | null
+    sssid_code: string
+    philhealth_code: string | null
+    // rank_data: RankDataInterface //deprecated
 }
 
 export interface ViewAllDtrLogsType {

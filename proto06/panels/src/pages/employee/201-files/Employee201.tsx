@@ -7,7 +7,7 @@ import { getSpecificEmployeeInfo } from '@/store/actions/employees';
 import { Modal, Box } from '@mui/material';
 import { UserProfile } from './forms/AddEmployee';
 import { useForm } from 'react-hook-form';
-import { GetEmployeesListsType } from '@/types/types-store';
+import { EMPLOYEESViewInterface } from '@/types/types-store';
 import { ImportEmployee } from './forms/ImportEmployee';
 import { Button } from "@material-tailwind/react";
 import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
@@ -69,7 +69,7 @@ const style = {
 
 export default function DataTable() {
   const dispatch = useDispatch();
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm<GetEmployeesListsType>();
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm<EMPLOYEESViewInterface>();
   const { employees_list, specific_employee_info } = useSelector((state: RootState) => state.employees);
   const [type, setType] = useState("staticInfo");
 
