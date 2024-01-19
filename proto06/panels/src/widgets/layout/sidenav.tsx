@@ -61,7 +61,7 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
   }, [currUserEmpNo]);
 
   useEffect(() => {
-    // role === 6 is Employee only
+    // role === 1 is Employee only
     if(currUserState?.user?.role === INTERNAL_USER_ROLE.Employee || !currUserState){
       return
     }else {

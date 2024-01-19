@@ -5,12 +5,12 @@ import { PAGIBIGViewInterface, PHILHEALTHViewInterface, SSSViewInterface, TAXVie
 
 
 export const INTERNAL_USER_ROLE = {
-    Developer: 1,
-    HR_Super_Admin: 2,
-    HR_Director_Manager: 3,
-    HR_Staff: 4,
-    Manager: 5,
-    Employee: 6,
+    Developer: 6,
+    HR_Super_Admin: 5,
+    HR_Director_Manager: 4,
+    HR_Staff: 3,
+    Manager: 2,
+    Employee: 1,
 } as const;
 
 export type ObjectValues<T> = T[keyof T];
@@ -20,12 +20,12 @@ export type Internal_User_Role = ObjectValues<typeof INTERNAL_USER_ROLE>
 // Enum is said to be dangerous and risky as it is unpredictable, please refer to this link:
 // https://www.youtube.com/watch?v=jjMbPt_H3RQ
 // export enum Internal_User_Role {
-//     Developer = 1,
-//     HR_Super_Admin = 2,
-//     HR_Director_Manager = 3,
-//     HR_Staff = 4,
-//     Manager = 5,
-//     Employee = 6,
+//     Developer = 6,
+//     HR_Super_Admin = 5,
+//     HR_Director_Manager = 4,
+//     HR_Staff = 3,
+//     Manager = 2,
+//     Employee = 1,
 // }
 
 /** 

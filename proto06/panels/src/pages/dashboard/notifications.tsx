@@ -40,7 +40,7 @@ export function Notifications() {
           {alerts.map((color) => (
             <Alert
               key={color}
-              show={showAlerts[color]}
+              show={showAlerts[color as keyof typeof showAlerts]}
               color={color}
               dismissible={{
                 onClose: () =>

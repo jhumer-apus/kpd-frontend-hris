@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -29,12 +29,26 @@ import { UnderDevelopmentMsg } from "./hris-portal/local-components/projects-car
 import { useNavigate } from "react-router-dom";
 import PerfectAttendanceTable from "./home-components/perfect-attendance-table";
 import MonthYearDropdown from "./home-components/month-year-dropdown";
+import dayjs from "dayjs";
+import { PERFECTATTENDANCEViewSpecificAction } from "@/store/actions/employee-and-applicants";
+import { useDispatch } from "react-redux";
+import { Perfect_Attendace_Filter_Interface } from "@/types/types-employee-and-applicants";
 
 
 
 export function ChooseDashboard() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [ filter, setFilter ] = useState<Perfect_Attendace_Filter_Interface>({
+    month: +(dayjs(new Date()).format('MM')),
+    year: +(dayjs(new Date()).format('YYYY'))
+  });
 
+  useEffect(()=>{
+    if(filter.month && filter.year){
+      dispatch(PERFECTATTENDANCEViewSpecificAction(filter))
+    }
+  }, [filter.month, filter.year]);
 
   return (
     <div className="mt-12">
