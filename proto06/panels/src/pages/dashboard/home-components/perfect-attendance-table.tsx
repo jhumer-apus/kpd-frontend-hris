@@ -46,7 +46,7 @@ export default function PerfectAttendanceTable(props: Perfect_Attendance_Table_P
     },
     { field: 'emp_no', headerName: 'Emp No:', width: 120 },
     { field: 'last_name', headerName: 'Last Name:', width: 120 },
-    { field: 'first_name', headerName: 'Last Name:', width: 120 },
+    { field: 'first_name', headerName: 'First Name:', width: 120 },
     {
       field: 'datetime_bio_time',
       headerName: 'Time',
