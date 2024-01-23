@@ -3,36 +3,33 @@ import TextField from '@mui/material/TextField';
 import Autocomplete, { AutocompleteChangeDetails, AutocompleteChangeReason } from '@mui/material/Autocomplete';
 import { OBTCreateInterface } from '@/types/types-pages';
 import { AutocompleteInputChangeReason } from '@mui/joy';
+import { Perfect_Attendace_Filter_Interface } from '@/types/types-employee-and-applicants';
 
 interface MonthYearDropdownInterface{
-    filter?: boolean;
-    setCreateOBT?: Dispatch<SetStateAction<OBTCreateInterface>>;
+    filter: Perfect_Attendace_Filter_Interface;
+    setFilter: Dispatch<SetStateAction<Perfect_Attendace_Filter_Interface>>;
 }
 
 
 
 
 export default function MonthYearDropdown(props: MonthYearDropdownInterface) {
-    // const { createOBT, setCreateOBT } = props;
+    const { filter, setFilter } = props;
     const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string | null, reason: AutocompleteChangeReason, details: AutocompleteChangeDetails<string> | undefined, type: "month" | "year") => {
-        // setCreateOBT((prevState)=>{
-        //     return(
-        //         {
-        //             ...prevState,
-        //             obt_type: newInputValue
-        //         }
-        //     )
-        // })
-        console.log(reason, "reason", details, "detail", type)
+        setFilter((prevState)=>{
+            return(
+                {
+                    ...prevState,
+                    [`${type}`]: newInputValue
+                }
+            )
+        })
     };
 
     return (
-        <div className='flex justify-around mr-2.5 gap-2.5 self-end' style={{width: "23%", zIndex: ""}}>
+        <div className='flex justify-around mr-2.5 gap-2.5 self-end' style={{width: "28%", zIndex: ""}}>
             <Autocomplete
-                value={null}
-                // onChange={(event: React.SyntheticEvent<Element, Event>, newValue ) => {
-                //     setLocalOBTTypeState(newValue.label)
-                // }}
+                value={filter.month ? `${filter.month}` : null}
                 onChange={(e, v, r, d) => handleInputChange(e, v, r ,d, "month")}
                 disablePortal
                 id="perfect-attendance-month"
@@ -41,15 +38,12 @@ export default function MonthYearDropdown(props: MonthYearDropdownInterface) {
                 renderInput={(params) => <TextField {...params} label="Month" />}
             />
             <Autocomplete
-                value={null}
-                // onChange={(event: React.SyntheticEvent<Element, Event>, newValue ) => {
-                //     setLocalOBTTypeState(newValue.label)
-                // }}
+                value={filter.year ? `${filter.year}` : null}
                 onChange={(e, v, r, d) => handleInputChange(e, v, r ,d, "year")}
                 disablePortal
                 id="perfect-attendance-year"
                 options={Years_List}
-                sx={{ width: 100 }}
+                sx={{ width: 200 }}
                 renderInput={(params) => <TextField {...params} label="Year" />}
             />
         </div>

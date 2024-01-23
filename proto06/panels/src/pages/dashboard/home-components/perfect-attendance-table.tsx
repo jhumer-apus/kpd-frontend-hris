@@ -7,8 +7,16 @@ import { OBTViewFilterEmployeeInitialState, OBTViewInterface } from '@/types/typ
 
 import { OBTViewFilterEmployeeAction } from '@/store/actions/procedurals';
 import dayjs from 'dayjs';
+import { PERFECTATTENDANCEViewInterface } from '@/types/types-employee-and-applicants';
 
-export default function PerfectAttendanceTable() {
+
+
+interface Perfect_Attendance_Table_Props{
+  state: PERFECTATTENDANCEViewInterface[]
+}
+
+export default function PerfectAttendanceTable(props: Perfect_Attendance_Table_Props) {
+  const { state } = props;
   const [singleOBTOpenModal, setSingleOBTOpenModal] = useState<boolean>(false);
   const [singleOBTDetailsData, setSingleOBTDetailsData] = useState<OBTViewInterface>(OBTViewFilterEmployeeInitialState);
   const dispatch = useDispatch();
@@ -62,8 +70,8 @@ export default function PerfectAttendanceTable() {
     <Fragment>
       <div style={{ height: '600px', width: '100%' , padding: "10px"}}>
         <DataGrid
-          // rows={OBTViewData? OBTViewData as OBTViewInterface[]:[]}
-          rows={[]}
+          rows={state ? state : []}
+          // rows={[]}
           columns={PerfectAttendanceField}
           initialState={{
             pagination: {

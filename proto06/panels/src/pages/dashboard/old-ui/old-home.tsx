@@ -8,6 +8,7 @@ import {
   MenuHandler,
   MenuList,
   MenuItem,
+  Avatar,
   Tooltip,
   Button,
 } from "@material-tailwind/react";
@@ -17,9 +18,13 @@ import {
   ArrowUpIcon,
   BriefcaseIcon
 } from "@heroicons/react/24/outline";
+import {
+  projectsTableData,
+} from "@/data";
 import styles from './custom-styles/home.module.scss';
 import CarouselUI from "@/widgets/banner/banner";
 import employeeEasyAccessData from "@/data/employee-easy-access-data";
+import filedRequestsData from "@/data/filed-requests-data";
 import { UnderDevelopmentMsg } from "./hris-portal/local-components/projects-card";
 import { useNavigate } from "react-router-dom";
 import PerfectAttendanceTable from "./home-components/perfect-attendance-table";
@@ -30,22 +35,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { Perfect_Attendace_Filter_Interface } from "@/types/types-employee-and-applicants";
 import { RootState } from "@/store/configureStore";
 
-
+// NOTE: THIS IS THE OLD "home.tsx" <Not Being Used, can delete if no use> 
 
 export function ChooseDashboard() {
   const EmployeeState = useSelector((state: RootState) => state.employeeAndApplicants);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [ filterState, setFilterState ] = useState<Perfect_Attendace_Filter_Interface>({
+  const [ filter, setFilter ] = useState<Perfect_Attendace_Filter_Interface>({
     month: +(dayjs(new Date()).format('MM')),
     year: +(dayjs(new Date()).format('YYYY'))
   });
 
   useEffect(()=>{
-    if(filterState.month && filterState.year){
-      dispatch(PERFECTATTENDANCEViewSpecificAction(filterState))
+    if(filter.month && filter.year){
+      dispatch(PERFECTATTENDANCEViewSpecificAction(filter))
     }
-  }, [filterState.month, filterState.year]);
+  }, [filter.month, filter.year]);
 
   return (
     <div className="mt-12">
@@ -84,8 +89,94 @@ export function ChooseDashboard() {
               </MenuList>
             </Menu>
           </CardHeader>
-          <MonthYearDropdown filter={filterState} setFilter={setFilterState}/>
-          <PerfectAttendanceTable state={EmployeeState.PERFECTATTENDANCEViewSpecific.data}/>
+          {/* <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
+            <table className="w-full min-w-[640px] table-auto">
+              <thead>
+                <tr>
+                  {["File-Type", "Approvers", "Date", "Status"].map(
+                    (el) => (
+                      <th
+                        key={el}
+                        className="border-b border-blue-gray-50 py-3 px-6 text-left"
+                      >
+                        <Typography
+                          variant="subtitle2"
+                          className="text-[11px] font-medium uppercase text-blue-gray-400"
+                        >
+                          {el}
+                        </Typography>
+                      </th>
+                    )
+                  )}
+                </tr>
+              </thead>
+              <tbody>
+                {filedRequestsData.map(
+                  ({ img, name, members, month, completion, icon }, key) => {
+                    const className = `py-3 px-5 ${
+                      key === projectsTableData.length - 1
+                        ? ""
+                        : "border-b border-blue-gray-50"
+                    }`;
+
+                    return (
+                      <tr key={name}>
+                        <td className={className}>
+                          <div className="flex items-center gap-4">
+                            {icon}
+                            <Typography
+                              variant="subtitle1"
+                              color="blue-gray"
+                              className="font-bold"
+                            >
+                              {name}
+                            </Typography>
+                          </div>
+                        </td>
+                        <td className={className}>
+                          {members.map(({ img, name }, key) => (
+                            <Tooltip key={name} content={name}>
+                              <Avatar
+                                src={img}
+                                alt={name}
+                                size="xs"
+                                variant="circular"
+                                className={`cursor-pointer border-2 border-white ${
+                                  key === 0 ? "" : "-ml-2.5"
+                                }`}
+                              />
+                            </Tooltip>
+                          ))}
+                        </td>
+                        <td className={className}>
+                          <Typography
+                            variant="subtitle2"
+                            className="text-xs font-medium text-blue-gray-600"
+                          >
+                            {month}
+                          </Typography>
+                        </td>
+                        <td className={className}>
+                          <div className="w-10/12">
+                            <Typography
+                              variant="subtitle2"
+                              className="mb-1 block text-xs font-medium text-blue-gray-600"
+                              style={{color: completion?.includes("Approved") ? "darkgreen": completion?.includes("Rejected") ? "maroon" : "orange"}}
+                            >
+                              {completion}
+                            </Typography>
+                            
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  }
+                )}
+              </tbody>
+            </table>
+          </CardBody> */}
+          <MonthYearDropdown/>
+          <PerfectAttendanceTable/>
         </Card>
         <Card className={styles.announcementBar}>
           <CardHeader
