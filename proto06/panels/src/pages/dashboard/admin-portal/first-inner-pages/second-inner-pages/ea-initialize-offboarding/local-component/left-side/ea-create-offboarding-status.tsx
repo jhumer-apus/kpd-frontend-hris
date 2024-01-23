@@ -1,8 +1,9 @@
 import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
-import { Typography } from '@mui/joy';
+// import { Typography } from '@mui/joy';
+
 import { OFFBOARDINGSTATUSCreateInterface } from '@/types/types-employee-and-applicants';
 import { OFFBOARDINGREQUIREMENTSViewAction, OFFBOARDINGSTATUSCreateAction, OFFBOARDINGSTATUSCreateActionFailureCleanup } from '@/store/actions/employee-and-applicants';
 
@@ -97,9 +98,9 @@ function EAOFFBOARDINGSTATUSCreate(props: CreateOFFBOARDINGSTATUSModalInterface)
 
     return (
         <React.Fragment>
-            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain' level="h6">Initialize Offboarding Requirements Data</Typography>
+            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}}  variant='subtitle2'>Initialize Offboarding Requirements Data</Typography>
             <div className='flex flex-col gap-6 overflow-auto w-full'>
-                    <Typography level="body2" className='flex justify-center text-center align-center italic'>You can choose one or more employees to notify facilitators the ongoing employee's offboarding requirements. You may also filter and check all that applies.</Typography>
+                    <Typography variant='body2' className='flex justify-center text-center align-center italic'>You can choose one or more employees to notify facilitators the ongoing employee's offboarding requirements. You may also filter and check all that applies.</Typography>
                     <div style={{ height: '450px', width: '100%' }}>
                         <DataGrid
                         rows={state.employees_list as EMPLOYEESViewInterface[]}

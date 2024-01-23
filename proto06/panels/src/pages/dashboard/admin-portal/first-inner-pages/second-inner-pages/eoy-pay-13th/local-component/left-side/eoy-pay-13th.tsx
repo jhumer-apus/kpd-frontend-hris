@@ -1,10 +1,10 @@
 import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
-import { Typography } from '@mui/joy';
+
 import { PAY13THCreateInterface } from '@/types/types-payroll-eoy';
 import { PAY13THCreateAction, PAY13THCreateActionFailureCleanup } from '@/store/actions/payroll-eoy';
 import CutoffAutoComplete from './inner-ui-components/cutoff-code-autocomplete';
@@ -86,7 +86,7 @@ function EOYPAY13THCreate(props: CreatePAY13THModalInterface) {
 
     return (
         <React.Fragment>
-            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain' level="h6">Process 13th Month Pay Data</Typography>
+            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='h6'>Process 13th Month Pay Data</Typography>
             <div className='flex flex-col gap-6 overflow-auto w-full'>
                     <p>You can choose one or more employees to process their 13th month pay. Otherwise check all.</p>
                     <div style={{ height: '450px', width: '100%' }}>
