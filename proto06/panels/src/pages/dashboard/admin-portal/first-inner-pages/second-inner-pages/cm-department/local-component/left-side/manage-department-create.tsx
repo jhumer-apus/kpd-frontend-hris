@@ -55,7 +55,7 @@ function ManageDEPARTMENTCreate(props: CreateDEPARTMENTModalInterface) {
 
     return (
         <React.Fragment>
-            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain' level="h6">Create DEPARTMENT Individual Data</Typography>
+            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create DEPARTMENT Individual Data</Typography>
             <div className='flex flex-col gap-3 overflow-auto relative'>
                     <div className='flex flex-col gap-3 pt-4'>
                         <EmployeeAutoComplete createDEPARTMENT={createDEPARTMENT} setCreateDEPARTMENT={setCreateDEPARTMENT}/>
