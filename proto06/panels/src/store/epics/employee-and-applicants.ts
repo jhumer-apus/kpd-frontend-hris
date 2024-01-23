@@ -1710,7 +1710,7 @@ export const JOBPOSTINGSDeleteEpic: Epic = (action$, state$) =>
 
 
 const PERFECTATTENDANCEViewSpecificApiCall = async (payload: {month: number, year: number }) => {
-    const response = await axios.get(`${APILink}perfect/?month=${payload.month}&year=${payload.year}/`,
+    const response = await axios.get(`${APILink}perfect/?month=${payload.month}&year=${payload.year}`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){

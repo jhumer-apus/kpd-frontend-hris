@@ -131,7 +131,7 @@ const JSXRouteWrapper = () => {
       id: 10000,
       layout: "home",
       pages: [
-        ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee || !state.user) ? [
+        ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee) ? [
           {
             id: 11000,
             icon: null,
@@ -460,7 +460,7 @@ const JSXRouteWrapper = () => {
           element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-orange-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">EMPLOYEE ELEMENTS UNDER DEVELOPMENT</strong>,
           hasSubItems: true,
           subItems: [
-            ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee || !state.user) ? [
+            ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee ) ? [
               {
                 id: 12100,
                 icon: <PersonOutlineOutlinedIcon {...icon} />,
@@ -566,7 +566,7 @@ const JSXRouteWrapper = () => {
             },
           ]
         },
-        ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee || !state.user) ? [
+        ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee ) ? [
           {
             id: 14000,
             icon: null,
