@@ -39,7 +39,7 @@ export default function CreateSummaryPage() {
   }, [selectedRows?.cutoff_code])
   
     const theme = useTheme();
-    const matches = useMediaQuery(theme.breakpoints.down('lg'));
+    const matches = useMediaQuery(theme.breakpoints.down('xl'));
 
     return (
       <Fragment>

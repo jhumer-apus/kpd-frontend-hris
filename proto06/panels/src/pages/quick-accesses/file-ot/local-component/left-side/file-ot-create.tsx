@@ -44,7 +44,7 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain' level="h6">Create OVERTIME Individual Data</Typography>
             <div className='flex flex-col gap-6 overflow-auto relative'>
-                <div className='flex flex-wrap gap-6 pt-4'>
+                <div className='flex gap-6 pt-4'>
                     <div className='flex flex-col gap-6'>
                         <EmployeeAutoComplete createOVERTIME={createOVERTIME} setCreateOVERTIME={setCreateOVERTIME}/>
                         <OVERTIMETypeAutoComplete createOVERTIME={createOVERTIME} setCreateOVERTIME={setCreateOVERTIME}/>
@@ -74,7 +74,7 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
                     </div>
                 </div>
                 <div className='flex justify-center mt-6' container-name='ot_buttons_container'>
-                    <div className='flex justify-between' style={{width:'1000%'}} container-name='ot_buttons'>
+                    <div className='flex justify-between' style={{width:'100%'}} container-name='ot_buttons'>
                         <Button variant='contained' onClick={onClickSubmit}>Create OVERTIME</Button>
                     </div>
                 </div>

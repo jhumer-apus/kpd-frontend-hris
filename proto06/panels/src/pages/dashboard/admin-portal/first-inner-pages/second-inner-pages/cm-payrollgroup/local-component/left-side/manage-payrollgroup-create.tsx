@@ -54,7 +54,7 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain' level="h6">Create PAYROLLGROUP Individual Data</Typography>
-            <div className='flex flex-col gap-6 w-3/4 items-center'>
+            <div className='flex flex-col gap-3 w-3/4 items-center'>
                 <TextField
                     required 
                     sx={{width: '100%'}} 
@@ -119,7 +119,7 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
                     }}
                 />
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
-                    <div className='flex justify-between' style={{width:'1000%'}} container-name='leave_buttons'>
+                    <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
                         <Button variant='contained' onClick={onClickSubmit}>Create PAYROLLGROUP</Button>
                     </div>
                 </div>

@@ -31,7 +31,7 @@ export default function YourSCHEDULEDAILYpage() {
   const theme = useTheme();
   const curr_emp = useSelector((state: RootState) => state.auth);
   const [value, setValue] = useState<dayjs.Dayjs | null>(dayjs());
-  const matches = useMediaQuery(theme.breakpoints.down('lg'));
+  const matches = useMediaQuery(theme.breakpoints.down('xl'));
   const curr_emp_no = curr_emp.employee_detail?.emp_no;
   const [currEmployee, setCurrEmployee] = useState<number>((curr_emp_no) || 0);
 

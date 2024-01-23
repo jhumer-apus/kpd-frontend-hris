@@ -37,7 +37,7 @@ export default function ProceduralSCHEDULEDAILYpage() {
   const theme = useTheme();
   const curr_emp = useSelector((state: RootState) => state.auth);
   const [value, setValue] = useState<dayjs.Dayjs | null>(dayjs());
-  const matches = useMediaQuery(theme.breakpoints.down('lg'));
+  const matches = useMediaQuery(theme.breakpoints.down('xl'));
   const [open2, setOpen2] = useState(false);
   const handleOpen2 = () => setOpen2(true);
   const handleClose2 = () => setOpen2(false);

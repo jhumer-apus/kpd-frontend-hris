@@ -128,7 +128,7 @@ function ProceduralSCHEDULESHIFTCreate(props: CreateSCHEDULESHIFTModalInterface)
                     </div>
                 </div>
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
-                    <div className='flex justify-between' style={{width:'1000%'}} container-name='leave_buttons'>
+                    <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
                         <Button variant='contained' onClick={onClickSubmit}>Create SCHEDULESHIFT</Button>
                     </div>
                 </div>

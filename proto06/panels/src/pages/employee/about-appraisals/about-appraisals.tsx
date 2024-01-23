@@ -46,7 +46,7 @@ export default function AboutAppraisalsPage() {
     };
 
     const theme = useTheme();
-    const matches = useMediaQuery(theme.breakpoints.down('lg'));
+    const matches = useMediaQuery(theme.breakpoints.down('xl'));
 
     const [activeStep, setActiveStep] = useState(0);
     const [skipped, setSkipped] = useState(new Set<number>());

@@ -34,16 +34,16 @@ function PAYROLLGROUPModalUI(props: PAYROLLGROUPModalUIInterface) {
         <Fragment>
             <AllowedDaysPAYROLLGROUPModal singlePAYROLLGROUPDetailsData={singlePAYROLLGROUPDetailsData} setSinglePAYROLLGROUPDetailsData={setSinglePAYROLLGROUPDetailsData} allowedDaysPAYROLLGROUPOpenModal={allowedDaysPAYROLLGROUPOpenModal} setAllowedDaysPAYROLLGROUPOpenModal={setAllowedDaysPAYROLLGROUPOpenModal}/>
             <div className='flex overflow-auto justify-around gap-4 relative'>
-                <div className='flex gap-6 flex-col'>
+                <div className='flex gap-3 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Payroll Group ID:' value={ThisProps.id ? ThisProps.id : '-'} InputProps={{readOnly: true,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Accounts Linked' value={(ThisProps?.used_account || "-")} InputProps={{readOnly: true,}} variant='standard'/>
                 </div>
-                <div className='flex gap-6 flex-col'>
+                <div className='flex gap-3 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px', color: 'green'}} label='Payroll Name' value={ThisProps.name || '-'} InputProps={{readOnly: true,}} variant='filled' focused/>
                     <TextField sx={{width: '100%'}} label='Date Added:' value={ThisProps.date_added? dayjs(ThisProps.date_added).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Date Deactivated:' value={ThisProps.date_deleted? dayjs(ThisProps.date_deleted).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
                 </div>
-                <div className='flex gap-6 flex-col'>
+                <div className='flex gap-3 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Pay Frequency(Per Month)' value={ThisProps.payroll_freq || '-'} InputProps={{readOnly: true,}} variant='filled'/>
                     <TextField sx={{width: '100%', minWidth: '160px'}} multiline rows={4} label='Description' value={ThisProps.payroll_description || '-'} InputProps={{readOnly: true,}} variant='outlined'/>
                 </div>
