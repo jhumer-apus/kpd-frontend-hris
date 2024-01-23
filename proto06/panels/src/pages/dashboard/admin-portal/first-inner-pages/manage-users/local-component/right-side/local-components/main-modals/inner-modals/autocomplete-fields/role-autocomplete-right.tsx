@@ -6,6 +6,7 @@ import { RootState } from '@/store/configureStore';
 import { AutocompleteInputChangeReason } from '@mui/material/Autocomplete';
 import { BRANCHViewInterface, USERViewInterface } from '@/types/types-pages';
 import { BRANCHViewAction } from '@/store/actions/categories';
+import { INTERNAL_USER_ROLE, Internal_User_Role } from '@/types/types-store';
 
 
 interface RoleAutoCompleteInterface{
@@ -19,30 +20,34 @@ export default function RoleAutoCompleteRight(props: RoleAutoCompleteInterface) 
     const dispatch = useDispatch();
     const [state, setState] = useState({data: [
         {
-            id: 1,
+            id: INTERNAL_USER_ROLE.Developer,
             role_name: "Developer"
         },
         {
-            id: 2,
+            id: INTERNAL_USER_ROLE.HR_Super_Admin,
             role_name: "HR Super Admin"
         },
         {
-            id: 3,
-            role_name: "HR Admin"
+            id: INTERNAL_USER_ROLE.HR_Director_Manager,
+            role_name: "HR Director / Manager"
         },
         {
-            id: 4,
+            id: INTERNAL_USER_ROLE.HR_Staff,
             role_name: "HR Staff"
         },
         {
-            id: 5,
+            id: INTERNAL_USER_ROLE.Manager,
+            role_name: "Manager"
+        },
+        {
+            id: INTERNAL_USER_ROLE.Employee,
             role_name: "Employee"
         },
     ]
     })
     // const state = useSelector((state:RootState)=> state.categories.BRANCHView);
-    const [roleList, setRoleList] = useState<{role_name: string, role_id: number}[]>([])
-    const [selectedRoleID, setSelectedRoleID] = useState<number | null>(null);
+    const [roleList, setRoleList] = useState<{role_name: string, role_id: Internal_User_Role}[]>([])
+    const [selectedRoleID, setSelectedRoleID] = useState<Internal_User_Role | null>(null);
     useEffect(()=> {
         if(selectedRoleID){
             setCreateUSER((prevState)=> {
@@ -89,7 +94,6 @@ export default function RoleAutoCompleteRight(props: RoleAutoCompleteInterface) 
             setSelectedRoleID(matchingRole.role_id);
         } else {
           setSelectedRoleID(null);
-        // window.alert('No Matched Role in the list is found. Create an employee entry first')
         }
     };
 
