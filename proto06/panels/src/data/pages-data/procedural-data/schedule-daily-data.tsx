@@ -29,7 +29,7 @@ export const ProceduralSCHEDULEDAILYPageColumns: GridColDef[] =
   },
   { 
     field: 'schedule_shift_code.time_out', 
-    headerName: 'Time In:', 
+    headerName: 'Time Out:', 
     width: 130,
     valueGetter: (params: GridValueGetterParams) => {
       const formattedTime = params.row.schedule_shift_code?.time_out ? dayjs(params.row.schedule_shift_code.time_out, "HH:mm:ss").format("hh:mm a") : null;
