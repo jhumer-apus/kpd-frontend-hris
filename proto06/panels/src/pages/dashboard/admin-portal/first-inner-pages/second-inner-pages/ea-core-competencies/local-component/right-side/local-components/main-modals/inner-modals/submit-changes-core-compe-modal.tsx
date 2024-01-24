@@ -109,16 +109,17 @@ export default function EditSubmitCORECOMPEModal(props: EditCORECOMPEModalInterf
             }}
             size='sm'
         > 
-          <Typography variant='h6' className='border-b-2 border-red-700'>Confirmation</Typography>
+          <Typography variant='h6' className='border-b-2 border-green-700'>Confirmation</Typography>
+          
           <div className='flex justify-center flex-col item-center h-full'>
-            <div className='flex flex-col justify-between w-full h-2/4'>
-              <div className='flex justify-center flex-col items-center gap-2 mb-4'>
+            <div className='flex flex-col justify-between w-full h-4/4'>
+              <div className='flex justify-center flex-col items-center gap-2 mb-8'>
                 <Typography>Are you sure you want to submit the edited changes of this Core Competency?</Typography>
                 <Typography className='italic' variant='caption'>Please review the details carefully before submitting .</Typography>
                 <Typography className='italic' variant='caption'>Your ID will be recorded on audit trail for submitting the changes.</Typography>
               </div>
               <div className='flex justify-around'>
-                <Button variant={'contained'} color="error" onClick={EditCORECOMPE}>Confirm</Button>
+                <Button variant={'contained'} color="success" onClick={EditCORECOMPE}>Confirm</Button>
                 <Button variant={'outlined'} color="warning" onClick={()=>{setEditSubmitCORECOMPEOpenModal(false)}}>Cancel</Button>
               </div>
             </div>
