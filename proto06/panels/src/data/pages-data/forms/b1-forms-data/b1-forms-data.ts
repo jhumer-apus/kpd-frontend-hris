@@ -15,7 +15,7 @@ import { APILink } from '@/store/configureStore';
 
 const IconColor = 'linear-gradient(56deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,90,255,1) 100%)';
 
-
+// Note: This has been moved inside the jsx/tsx component because of the need to use the useSelector hook. This is just a copy.
 export const B1FormsData = [
   {
     // color: "red",

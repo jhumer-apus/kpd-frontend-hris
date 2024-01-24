@@ -790,95 +790,99 @@ const JSXRouteWrapper = () => {
               element: <B1Forms/>,
               hasSubItems: false,
             },
-            {
-              id: 182000,
-              icon: <TableCellsIcon {...icon} />,
-              name: "B2 Forms",
-              path: "/forms/B2-Forms",
-              element: <B2Forms/>,
-              hasSubItems: false,
-            },
+            ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee) ? [
+              {
+                id: 182000,
+                icon: <TableCellsIcon {...icon} />,
+                name: "B2 Forms",
+                path: "/forms/B2-Forms",
+                element: <B2Forms/>,
+                hasSubItems: false,
+              },
+            ]:[],
           ]
         },
-        {
-          id: 19000,
-          icon: null,
-          name: "Payroll",
-          path: "/payroll",
-          element: null,
-          hasSubItems: true,
-          subItems: [
-            {
-              id: 19100,
-              icon: <DocumentIcon {...icon} />,
-              name: "View Payroll",
-              path: "/payroll/view-payroll",
-              element: <ViewPayroll/>,
-              hasSubItems: false,
-            },
-            {
-              id: 19200,
-              icon: <DocumentIcon {...icon} />,
-              name: "Process Payroll",
-              path: "/payroll/process-payroll",
-              element: <ProcessPayrollPage/>,
-              hasSubItems: false,
-            },
-          ]
-        },
-        {
-          id: 20000,
-          icon: null,
-          name: "Announcement",
-          path: "/announcements",
-          element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">ANNOUNCEMENT PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
-          hasSubItems: true,
-          subItems: [
-            {
-              id: 20100,
-              icon: <SpeakerWaveIcon {...icon} />,
-              name: "Post Announcements",
-              path: "/announcements/post-announcements",
-              element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">POST ANNOUNCEMENT PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
-              hasSubItems: false,
-            },
-            ...(state?.emp_no !== undefined && state?.emp_no === 9990) ? [{
-              id: 20200,
-              icon: <SpeakerWaveIcon {...icon} />,
-              name: "Test View",
-              path: "/announcements/test-view",
-              element: <TestView />,
-              hasSubItems: false,
-            }]:[] ,
-          ]
-        },
-        {
-          id: 20001,
-          icon: null,
-          name: "Profile",
-          path: "/profile",
-          element: <Profile/>,
-          hasSubItems: true,
-          subItems: [
-            {
-              id: 20100,
-              icon: <SpeakerWaveIcon {...icon} />,
-              name: "Post Announcements",
-              path: "/announcements/post-announcements",
-              element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">POST ANNOUNCEMENT PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
-              hasSubItems: false,
-            },
-            ...(state?.emp_no !== undefined && state?.emp_no === 9990) ? [{
-              id: 20200,
-              icon: <SpeakerWaveIcon {...icon} />,
-              name: "Test View",
-              path: "/announcements/test-view",
-              element: <TestView />,
-              hasSubItems: false,
-            }]:[] ,
-          ]
-          // subItems: []
-        },
+        ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee) ? [
+          {
+            id: 19000,
+            icon: null,
+            name: "Payroll",
+            path: "/payroll",
+            element: null,
+            hasSubItems: true,
+            subItems: [
+              {
+                id: 19100,
+                icon: <DocumentIcon {...icon} />,
+                name: "View Payroll",
+                path: "/payroll/view-payroll",
+                element: <ViewPayroll/>,
+                hasSubItems: false,
+              },
+              {
+                id: 19200,
+                icon: <DocumentIcon {...icon} />,
+                name: "Process Payroll",
+                path: "/payroll/process-payroll",
+                element: <ProcessPayrollPage/>,
+                hasSubItems: false,
+              },
+            ]
+          },
+        ] : [],
+        // {
+        //   id: 20000,
+        //   icon: null,
+        //   name: "Announcement",
+        //   path: "/announcements",
+        //   element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">ANNOUNCEMENT PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
+        //   hasSubItems: true,
+        //   subItems: [
+        //     {
+        //       id: 20100,
+        //       icon: <SpeakerWaveIcon {...icon} />,
+        //       name: "Post Announcements",
+        //       path: "/announcements/post-announcements",
+        //       element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">POST ANNOUNCEMENT PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
+        //       hasSubItems: false,
+        //     },
+        //     ...(state?.emp_no !== undefined && state?.emp_no === 9990) ? [{
+        //       id: 20200,
+        //       icon: <SpeakerWaveIcon {...icon} />,
+        //       name: "Test View",
+        //       path: "/announcements/test-view",
+        //       element: <TestView />,
+        //       hasSubItems: false,
+        //     }]:[] ,
+        //   ]
+        // },
+        // {
+        //   id: 20001,
+        //   icon: null,
+        //   name: "Profile",
+        //   path: "/profile",
+        //   element: <Profile/>,
+        //   hasSubItems: true,
+        //   subItems: [
+        //     {
+        //       id: 20100,
+        //       icon: <SpeakerWaveIcon {...icon} />,
+        //       name: "Post Announcements",
+        //       path: "/announcements/post-announcements",
+        //       element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">POST ANNOUNCEMENT PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
+        //       hasSubItems: false,
+        //     },
+        //     ...(state?.emp_no !== undefined && state?.emp_no === 9990) ? [{
+        //       id: 20200,
+        //       icon: <SpeakerWaveIcon {...icon} />,
+        //       name: "Test View",
+        //       path: "/announcements/test-view",
+        //       element: <TestView />,
+        //       hasSubItems: false,
+        //     }]:[] ,
+        //   ]
+        //   // subItems: []
+        // },
       ],
     },
     {

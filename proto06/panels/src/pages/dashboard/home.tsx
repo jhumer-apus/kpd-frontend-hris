@@ -29,6 +29,7 @@ import { PERFECTATTENDANCEViewSpecificAction } from "@/store/actions/employee-an
 import { useDispatch, useSelector } from "react-redux";
 import { Perfect_Attendace_Filter_Interface } from "@/types/types-employee-and-applicants";
 import { RootState } from "@/store/configureStore";
+import ExportToCsv from "@/public-components/ExportToCSVButton";
 
 
 
@@ -80,7 +81,7 @@ export function ChooseDashboard() {
                 </IconButton>
               </MenuHandler>
               <MenuList>
-                <MenuItem>Extract as CSV</MenuItem>
+                <MenuItem><ExportToCsv data={EmployeeState.PERFECTATTENDANCEViewSpecific.data} /></MenuItem>
               </MenuList>
             </Menu>
           </CardHeader>

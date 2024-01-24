@@ -21,9 +21,9 @@ export const employeeEasyAccessData = [
   {
     icon: BellIcon,
     color: "text-green-500",
-    title: "Admin DTR",
+    title: "OBT Section",
     description: "View Summary",
-    link: "/home/DTR/View-DTR",
+    link: "/home/quick-accesses/file-OBT",
   },
   {
     icon: ArchiveBoxIcon,
