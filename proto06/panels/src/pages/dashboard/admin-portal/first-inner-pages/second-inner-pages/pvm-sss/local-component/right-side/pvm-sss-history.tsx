@@ -7,6 +7,8 @@ import { PVMSSSPageDescriptions, PVMSSSPageColumns } from '@/data/pages-data/pay
 import ViewSSSSingleModal from './local-components/main-modals/pvm-sss-single-modal';
 import { SSSViewInterface } from '@/types/types-payroll-variables';
 import { SSSViewAction } from '@/store/actions/payroll-variables';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 export default function PVMSSSPageHistory() {
   const [singleSSSOpenModal, setSingleSSSOpenModal] = useState<boolean>(false);
@@ -60,7 +62,7 @@ export default function PVMSSSPageHistory() {
             setSingleSSSOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

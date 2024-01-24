@@ -7,6 +7,8 @@ import { EACORECOMPEPageDescriptions, EACORECOMPEPageColumns } from '@/data/page
 import ViewCORECOMPESingleModal from './local-components/main-modals/ea-core-compe-history-single-modal';
 import { CORECOMPEViewInterface } from '@/types/types-employee-and-applicants';
 import { CORECOMPEViewAction } from '@/store/actions/employee-and-applicants';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 export default function EACORECOMPEPageHistory() {
   const [singleCORECOMPEOpenModal, setSingleCORECOMPEOpenModal] = useState<boolean>(false);
@@ -58,7 +60,7 @@ export default function EACORECOMPEPageHistory() {
             setSingleCORECOMPEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

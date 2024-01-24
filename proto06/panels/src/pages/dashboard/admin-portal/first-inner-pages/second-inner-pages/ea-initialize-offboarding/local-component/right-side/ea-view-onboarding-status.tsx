@@ -8,7 +8,7 @@ import { EAOFFBOARDINGSTATUSPageDescriptions, EAOFFBOARDINGSTATUSPageColumns } f
 import ViewOFFBOARDINGSTATUSSingleModal from './local-components/main-modals/ea-initialize-offboarding-single-modal';
 import { OFFBOARDINGSTATUSViewInterface } from '@/types/types-employee-and-applicants';
 import { OFFBOARDINGSTATUSViewAction } from '@/store/actions/employee-and-applicants';
-
+import { globalServerErrorMsg } from '@/store/configureStore';
 
 export default function EAOFFBOARDINGSTATUSPageHistory() {
   const [singleOFFBOARDINGSTATUSOpenModal, setSingleOFFBOARDINGSTATUSOpenModal] = useState<boolean>(false);
@@ -23,7 +23,7 @@ export default function EAOFFBOARDINGSTATUSPageHistory() {
       {
         id: NaN,
         date_added: '',
-        offboard_title: '',
+        offboarding_title: '',
         offboarding_facilitator: NaN,
         date_accomplished: '',
         emp_remarks: '',
@@ -78,7 +78,7 @@ export default function EAOFFBOARDINGSTATUSPageHistory() {
             setSingleOFFBOARDINGSTATUSOpenModal(true);
           }}
           disableRowSelectionOnClick
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

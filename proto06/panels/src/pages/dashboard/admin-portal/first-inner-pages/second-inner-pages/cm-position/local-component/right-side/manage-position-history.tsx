@@ -7,6 +7,8 @@ import { ManagePOSITIONPageDescriptions, ManagePOSITIONPageColumns } from '@/dat
 import ViewPOSITIONSingleModal from './local-components/main-modals/view-position-single-modal';
 import { POSITIONViewInterface } from '@/types/types-pages';
 import { POSITIONViewAction } from '@/store/actions/categories';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 export default function ManagePOSITIONPageHistory() {
   const [singlePOSITIONOpenModal, setSinglePOSITIONOpenModal] = useState<boolean>(false);
@@ -56,7 +58,7 @@ export default function ManagePOSITIONPageHistory() {
             setSinglePOSITIONOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

@@ -7,6 +7,8 @@ import { EAOFFBOARDINGREQUIREMENTSPageDescriptions, EAOFFBOARDINGREQUIREMENTSPag
 import ViewOFFBOARDINGREQUIREMENTSSingleModal from './local-components/main-modals/ea-offboarding-req-single-modal';
 import { OFFBOARDINGREQUIREMENTSViewInterface } from '@/types/types-employee-and-applicants';
 import { OFFBOARDINGREQUIREMENTSViewAction } from '@/store/actions/employee-and-applicants';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 export default function EAOFFBOARDINGREQUIREMENTSPageHistory() {
   const [singleOFFBOARDINGREQUIREMENTSOpenModal, setSingleOFFBOARDINGREQUIREMENTSOpenModal] = useState<boolean>(false);
@@ -57,7 +59,7 @@ export default function EAOFFBOARDINGREQUIREMENTSPageHistory() {
             setSingleOFFBOARDINGREQUIREMENTSOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

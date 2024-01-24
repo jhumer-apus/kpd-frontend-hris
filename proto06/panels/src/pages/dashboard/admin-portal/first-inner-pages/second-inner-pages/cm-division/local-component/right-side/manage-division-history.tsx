@@ -7,6 +7,8 @@ import { ManageDIVISIONPageDescriptions, ManageDIVISIONPageColumns } from '@/dat
 import ViewDIVISIONSingleModal from './local-components/main-modals/view-division-single-modal';
 import { DIVISIONViewInterface } from '@/types/types-pages';
 import { DIVISIONViewAction } from '@/store/actions/categories';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 export default function ManageDIVISIONPageHistory() {
   const [singleDIVISIONOpenModal, setSingleDIVISIONOpenModal] = useState<boolean>(false);
@@ -58,7 +60,7 @@ export default function ManageDIVISIONPageHistory() {
             setSingleDIVISIONOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

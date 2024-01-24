@@ -6,6 +6,8 @@ import { RootState, globalDate } from '@/store/configureStore';
 import { ViewPayrollPayPerEmployee } from '@/types/types-pages';
 import { Button, Typography } from '@mui/material';
 import dayjs from 'dayjs';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 const GenerateListColumns: GridColDef[] = [
     {
@@ -68,7 +70,7 @@ function GenerateList(props: GenerateListInterface) {
                 pageSizeOptions={[25, 50, 75, 100]}
                 onRowSelectionModelChange={handleSelection}
                 checkboxSelection
-                localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+                localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
                 />
             </div>
         </div>

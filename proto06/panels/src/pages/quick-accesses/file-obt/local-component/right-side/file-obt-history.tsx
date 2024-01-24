@@ -6,7 +6,7 @@ import { Typography } from "@material-tailwind/react";
 import { QuickAccessOBTPageDescriptions, QuickAccessOBTPageColumns } from '@/data/pages-data/quick-accesses-data/obt-data';
 import ViewOBTSingleModal from './local-components/main-modals/view-obt-single-modal';
 import { OBTViewFilterEmployeeInitialState, OBTViewInterface } from '@/types/types-pages';
-
+import { globalServerErrorMsg } from '@/store/configureStore';
 import { OBTViewFilterEmployeeAction } from '@/store/actions/procedurals';
 
 export default function QuickAccessOBTPageHistory() {
@@ -52,7 +52,7 @@ export default function QuickAccessOBTPageHistory() {
             setSingleOBTOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

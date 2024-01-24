@@ -7,6 +7,8 @@ import { ManageRANKPageDescriptions, ManageRANKPageColumns } from '@/data/pages-
 import ViewRANKSingleModal from './local-components/main-modals/view-rank-single-modal';
 import { RANKViewInterface } from '@/types/types-pages';
 import { RANKViewAction } from '@/store/actions/categories';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 export default function ManageRANKPageHistory() {
   const [singleRANKOpenModal, setSingleRANKOpenModal] = useState<boolean>(false);
@@ -58,7 +60,7 @@ export default function ManageRANKPageHistory() {
             setSingleRANKOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

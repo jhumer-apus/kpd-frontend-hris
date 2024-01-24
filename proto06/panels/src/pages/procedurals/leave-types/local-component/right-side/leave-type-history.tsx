@@ -7,6 +7,8 @@ import { ProceduralLEAVETYPEPageDescriptions, ProceduralLEAVETYPEPageColumns } f
 import ViewLEAVETYPESingleModal from './local-components/main-modals/view-leave-type-single-modal';
 import { LEAVETYPEViewInterface } from '@/types/types-pages';
 import { LEAVETYPEViewAction } from '@/store/actions/procedurals';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 export default function ProceduralLEAVETYPEPageHistory() {
   const [singleLEAVETYPEOpenModal, setSingleLEAVETYPEOpenModal] = useState<boolean>(false);
@@ -57,7 +59,7 @@ export default function ProceduralLEAVETYPEPageHistory() {
             setSingleLEAVETYPEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
           />
       </div>
     </Fragment>

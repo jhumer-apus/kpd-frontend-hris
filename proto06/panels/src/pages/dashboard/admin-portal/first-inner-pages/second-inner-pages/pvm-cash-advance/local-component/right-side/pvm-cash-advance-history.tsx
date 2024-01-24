@@ -7,6 +7,8 @@ import { PVMCASHADVANCEPageDescriptions, PVMCASHADVANCEPageColumns } from '@/dat
 import ViewCASHADVANCESingleModal from './local-components/main-modals/pvm-cash-advance-single-modal';
 import { CASHADVANCEViewInterface } from '@/types/types-payroll-variables';
 import { CASHADVANCEViewAction } from '@/store/actions/payroll-variables';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 export default function PVMCASHADVANCEPageHistory() {
   const [singleCASHADVANCEOpenModal, setSingleCASHADVANCEOpenModal] = useState<boolean>(false);
@@ -61,7 +63,7 @@ export default function PVMCASHADVANCEPageHistory() {
             setSingleCASHADVANCEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

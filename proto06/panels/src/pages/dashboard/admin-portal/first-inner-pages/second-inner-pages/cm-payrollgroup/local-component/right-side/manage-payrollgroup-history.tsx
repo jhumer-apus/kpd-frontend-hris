@@ -7,6 +7,8 @@ import { ManagePAYROLLGROUPPageDescriptions, ManagePAYROLLGROUPPageColumns } fro
 import ViewPAYROLLGROUPSingleModal from './local-components/main-modals/view-payrollgroup-single-modal';
 import { PAYROLLGROUPViewInterface } from '@/types/types-pages';
 import { PAYROLLGROUPViewAction } from '@/store/actions/categories';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 export default function ManagePAYROLLGROUPPageHistory() {
   const [singlePAYROLLGROUPOpenModal, setSinglePAYROLLGROUPOpenModal] = useState<boolean>(false);
@@ -59,7 +61,7 @@ export default function ManagePAYROLLGROUPPageHistory() {
             setSinglePAYROLLGROUPOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

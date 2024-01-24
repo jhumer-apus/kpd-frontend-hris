@@ -7,6 +7,8 @@ import { EAEVALQUESTIONSPageDescriptions, EAEVALQUESTIONSPageColumns } from '@/d
 import ViewEVALQUESTIONSSingleModal from './local-components/main-modals/view-eval-questions-single-modal';
 import { EVALQUESTIONSViewInterface } from '@/types/types-employee-and-applicants';
 import { EVALQUESTIONSViewAction } from '@/store/actions/employee-and-applicants';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 export default function EAEVALQUESTIONSPageHistory() {
   const [singleEVALQUESTIONSOpenModal, setSingleEVALQUESTIONSOpenModal] = useState<boolean>(false);
@@ -57,7 +59,7 @@ export default function EAEVALQUESTIONSPageHistory() {
             setSingleEVALQUESTIONSOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

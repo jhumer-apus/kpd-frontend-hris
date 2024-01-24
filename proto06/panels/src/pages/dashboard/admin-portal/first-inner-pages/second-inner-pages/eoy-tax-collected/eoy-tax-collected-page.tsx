@@ -6,6 +6,8 @@ import { Typography } from '@mui/material';
 import { EOYTAXCOLLECTEDPageDescriptions, EOYTAXCOLLECTEDPageColumns } from '@/data/pages-data/payroll-eoy-data/eoy-tax-collected-data';
 import { TAXCOLLECTEDViewInterface, } from '@/types/types-payroll-eoy';
 import { TAXCOLLECTEDViewAction } from '@/store/actions/payroll-eoy';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 export default function EOYTAXCOLLECTEDPage() {
   // const [singleTAXCOLLECTEDOpenModal, setSingleTAXCOLLECTEDOpenModal] = useState<boolean>(false);
@@ -47,7 +49,7 @@ export default function EOYTAXCOLLECTEDPage() {
           //   setSingleTAXCOLLECTEDOpenModal(true);
           // }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

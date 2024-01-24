@@ -7,6 +7,8 @@ import { EAJOBPOSTINGSPageDescriptions, EAJOBPOSTINGSPageColumns } from '@/data/
 import ViewJOBPOSTINGSSingleModal from './local-components/main-modals/ea-job-postings-single-modal';
 import { JOBPOSTINGSViewInterface } from '@/types/types-employee-and-applicants';
 import { JOBPOSTINGSViewAction } from '@/store/actions/employee-and-applicants';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 export default function EAJOBPOSTINGSPageHistory() {
   const [singleJOBPOSTINGSOpenModal, setSingleJOBPOSTINGSOpenModal] = useState<boolean>(false);
@@ -62,7 +64,7 @@ export default function EAJOBPOSTINGSPageHistory() {
             setSingleJOBPOSTINGSOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

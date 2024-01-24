@@ -7,6 +7,8 @@ import { PVMALLOWANCETYPEPageDescriptions, PVMALLOWANCETYPEPageColumns } from '@
 import ViewALLOWANCETYPESingleModal from './local-components/main-modals/pvm-allowance-type-single-modal';
 import { ALLOWANCETYPEViewInterface } from '@/types/types-payroll-variables';
 import { ALLOWANCETYPEViewAction } from '@/store/actions/payroll-variables';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 export default function PVMALLOWANCETYPEPageHistory() {
   const [singleALLOWANCETYPEOpenModal, setSingleALLOWANCETYPEOpenModal] = useState<boolean>(false);
@@ -57,7 +59,7 @@ export default function PVMALLOWANCETYPEPageHistory() {
             setSingleALLOWANCETYPEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

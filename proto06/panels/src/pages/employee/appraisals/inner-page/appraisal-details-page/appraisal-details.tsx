@@ -8,6 +8,8 @@ import ViewKPICORESingleModal from './local-components/main-modals/view-evaluati
 import { KPICOREViewInterface } from '@/types/types-employee-and-applicants';
 import { KPICOREViewAction, KPICOREViewSpecificEmployeeAction } from '@/store/actions/employee-and-applicants';
 import { useParams } from 'react-router-dom';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 export default function APPRAISALDETAILSPage() {
   const { emp_no } = useParams();
@@ -19,16 +21,17 @@ export default function APPRAISALDETAILSPage() {
     date_added: '',
     emp_no: NaN,
     emp_name: '',
-    sup_name: '',
-    sup_no: NaN,
-    eval_date: '',
+    approver_name: '',
+    emp_no_approver: NaN,
+    date_evaluation_deadline: '',
     status: 'Pending',
-    final_rating: '',
+    final_rating: null,
     total_self_eval_points: NaN,
-    total_sup_eval_points: NaN,
+    total_approver_eval_points: NaN,
     total_core_compe_points: NaN,
     percentage_total: NaN,
-
+    corecompe_codes: [],
+    kpi_codes: []
   });
   const dispatch = useDispatch();
   const { KPICOREViewSpecificEmployee } = useSelector((state: RootState) => state.employeeAndApplicants);
@@ -71,7 +74,7 @@ export default function APPRAISALDETAILSPage() {
             setSingleKPICOREOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
           />
       </div>
     </Fragment>

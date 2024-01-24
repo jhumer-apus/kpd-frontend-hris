@@ -14,6 +14,8 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
+import { globalServerErrorMsg } from "@/store/configureStore";
+
 
 const columns = [
   {
@@ -134,7 +136,7 @@ export default function CutOffListEmployees(props: CutOffListEmployees) {
         }}
         checkboxSelection
         onRowSelectionModelChange={handleSelection}
-        localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+        localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         pageSizeOptions={[25, 50, 75, 100]}
       />
       </div>

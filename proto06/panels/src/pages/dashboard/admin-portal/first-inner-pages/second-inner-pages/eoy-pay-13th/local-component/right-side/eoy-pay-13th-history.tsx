@@ -8,7 +8,7 @@ import { EOYPAY13THPageDescriptions, EOYPAY13THPageColumns } from '@/data/pages-
 import ViewPAY13THSingleModal from './local-components/main-modals/eoy-pay-13th-single-modal';
 import { PAY13THViewInterface } from '@/types/types-payroll-eoy';
 import { PAY13THViewAction } from '@/store/actions/payroll-eoy';
-
+import { globalServerErrorMsg } from '@/store/configureStore';
 
 export default function EOYPAY13THPageHistory() {
   const [singlePAY13THOpenModal, setSinglePAY13THOpenModal] = useState<boolean>(false);
@@ -60,7 +60,7 @@ export default function EOYPAY13THPageHistory() {
             setSinglePAY13THOpenModal(true);
           }}
           disableRowSelectionOnClick
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

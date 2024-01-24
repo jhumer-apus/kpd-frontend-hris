@@ -7,6 +7,8 @@ import { ProceduralCUTOFFPERIODPageDescriptions, ProceduralCUTOFFPERIODPageColum
 import ViewCUTOFFPERIODSingleModal from './local-components/main-modals/view-cutoff-period-single-modal';
 import { CUTOFFPERIODViewInterface } from '@/types/types-pages';
 import { CUTOFFPERIODViewAction } from '@/store/actions/procedurals';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 export default function ProceduralCUTOFFPERIODPageHistory() {
   const [singleCUTOFFPERIODOpenModal, setSingleCUTOFFPERIODOpenModal] = useState<boolean>(false);
@@ -62,7 +64,7 @@ export default function ProceduralCUTOFFPERIODPageHistory() {
             setSingleCUTOFFPERIODOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
           />
       </div>
     </Fragment>

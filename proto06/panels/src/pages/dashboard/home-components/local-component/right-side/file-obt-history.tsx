@@ -8,6 +8,9 @@ import ViewOBTSingleModal from './local-components/main-modals/view-obt-single-m
 import { OBTViewFilterEmployeeInitialState, OBTViewInterface } from '@/types/types-pages';
 
 import { OBTViewFilterEmployeeAction } from '@/store/actions/procedurals';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
+
 
 export default function QuickAccessOBTPageHistory() {
   const [singleOBTOpenModal, setSingleOBTOpenModal] = useState<boolean>(false);
@@ -52,7 +55,7 @@ export default function QuickAccessOBTPageHistory() {
             setSingleOBTOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

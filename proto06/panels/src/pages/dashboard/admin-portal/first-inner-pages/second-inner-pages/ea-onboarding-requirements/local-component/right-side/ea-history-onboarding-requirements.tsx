@@ -7,6 +7,7 @@ import { EAONBOARDINGREQUIREMENTSPageDescriptions, EAONBOARDINGREQUIREMENTSPageC
 import ViewONBOARDINGREQUIREMENTSSingleModal from './local-components/main-modals/ea-onboarding-req-single-modal';
 import { ONBOARDINGREQUIREMENTSViewInterface } from '@/types/types-employee-and-applicants';
 import { ONBOARDINGREQUIREMENTSViewAction } from '@/store/actions/employee-and-applicants';
+import { globalServerErrorMsg } from '@/store/configureStore';
 
 export default function EAONBOARDINGREQUIREMENTSPageHistory() {
   const [singleONBOARDINGREQUIREMENTSOpenModal, setSingleONBOARDINGREQUIREMENTSOpenModal] = useState<boolean>(false);
@@ -15,7 +16,7 @@ export default function EAONBOARDINGREQUIREMENTSPageHistory() {
     date_deleted: '',
     date_added: '',
     facilitator: NaN,
-    onboard_title: '',
+    onboarding_title: '',
   });
   const dispatch = useDispatch();
   const { ONBOARDINGREQUIREMENTSView } = useSelector((state: RootState) => state.employeeAndApplicants);
@@ -57,7 +58,7 @@ export default function EAONBOARDINGREQUIREMENTSPageHistory() {
             setSingleONBOARDINGREQUIREMENTSOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

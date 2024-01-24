@@ -17,7 +17,7 @@ import dayjs from 'dayjs';
 import { LEAVEViewAction } from '@/store/actions/procedurals';
 import { GridColDef, GridValueGetterParams, GridCellParams, GridValueFormatterParams } from "@mui/x-data-grid";
 import GeneratePDFButton from './local-components/additional-features/generate-pdf-button';
-
+import { globalServerErrorMsg } from '@/store/configureStore';
 
 export default function ApprovalLEAVEPage() {
   const [printing, setIsPrinting] = useState(false);
@@ -88,7 +88,7 @@ export default function ApprovalLEAVEPage() {
             setSingleLEAVEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
           />
         {/* <GeneratePDFButton data={LEAVEViewData} columns={ApprovalLEAVEPageColumns} /> */}
       </div>

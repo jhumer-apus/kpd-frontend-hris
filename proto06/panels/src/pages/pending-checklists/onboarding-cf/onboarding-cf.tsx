@@ -8,6 +8,8 @@ import { OnboardingCFDescriptions, OnboardingCFColumns } from '@/data/pages-data
 import ViewONBOARDINGSTATUSSingleModal from './local-components/main-modals/view-onboarding-status-single-modal';
 import { ONBOARDINGSTATUSViewInterface } from '@/types/types-employee-and-applicants';
 import { ONBOARDINGSTATUSViewAction } from '@/store/actions/employee-and-applicants';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 export default function OnboardingCF() {
   const [printing, setIsPrinting] = useState(false);
@@ -76,7 +78,7 @@ export default function OnboardingCF() {
             setSingleONBOARDINGSTATUSOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
           />
       </div>
     </Fragment>

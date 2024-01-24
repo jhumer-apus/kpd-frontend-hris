@@ -7,7 +7,7 @@ import { ProceduralLEAVEPageDescriptions, ProceduralLEAVEPageColumns } from '@/d
 import ViewLEAVESingleModal from './local-components/main-modals/view-leaves-single-modal';
 import { LEAVEViewInterface } from '@/types/types-pages';
 import { LEAVEViewAction } from '@/store/actions/procedurals';
-
+import { globalServerErrorMsg } from '@/store/configureStore';
 
 export default function ProceduralLEAVEPage() {
   const [printing, setIsPrinting] = useState(false);
@@ -77,7 +77,7 @@ export default function ProceduralLEAVEPage() {
             setSingleLEAVEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
           />
         {/* <GeneratePDFButton data={LEAVEViewData} columns={ProceduralLEAVEPageColumns} /> */}
       </div>

@@ -9,6 +9,8 @@ import {Button} from "@mui/material";
 import { RootState } from "@/store/configureStore";
 import { CutoffListMergeSelectionState } from "@/types/types-pages";
 import CircularStatic from "../local-progress/circular-progress";
+import { globalServerErrorMsg } from "@/store/configureStore";
+
 
 const columns = [
   {
@@ -117,7 +119,7 @@ export default function CutOffListEmployees(props: CutOffListEmployees) {
         checkboxSelection
         onRowSelectionModelChange={handleSelection}
         // rowSelectionModel={ !selectedRows?.emp_no ? selectedRows?.emp_no : [] }
-        localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+        localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         pageSizeOptions={[25, 50, 75, 100]}
       />
       </div>

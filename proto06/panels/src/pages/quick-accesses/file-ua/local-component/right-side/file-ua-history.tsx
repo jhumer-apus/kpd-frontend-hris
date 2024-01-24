@@ -7,6 +7,8 @@ import { QuickAccessUAPageDescriptions, QuickAccessUAPageColumns } from '@/data/
 import ViewUASingleModal from './local-components/main-modals/view-ua-single-modal';
 import { UAViewInterface } from '@/types/types-pages';
 import { UAViewFilterEmployeeAction } from '@/store/actions/procedurals';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 export default function QuickAccessUAPageHistory() {
   const [singleUAOpenModal, setSingleUAOpenModal] = useState<boolean>(false);
@@ -39,6 +41,7 @@ export default function QuickAccessUAPageHistory() {
     }
   }, [curr_user]);
 
+  console.log(data, status, error, "haha?")
   return (
     <Fragment>
       <div className="my-2 flex flex-wrap justify-between items-start gap-6">
@@ -67,7 +70,7 @@ export default function QuickAccessUAPageHistory() {
             setSingleUAOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

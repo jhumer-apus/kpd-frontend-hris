@@ -7,6 +7,8 @@ import { ManageDEPARTMENTPageDescriptions, ManageDEPARTMENTPageColumns } from '@
 import ViewDEPARTMENTSingleModal from './local-components/main-modals/view-department-single-modal';
 import { DEPARTMENTViewInterface } from '@/types/types-pages';
 import { DEPARTMENTViewAction } from '@/store/actions/categories';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 export default function ManageDEPARTMENTPageHistory() {
   const [singleDEPARTMENTOpenModal, setSingleDEPARTMENTOpenModal] = useState<boolean>(false);
@@ -58,7 +60,7 @@ export default function ManageDEPARTMENTPageHistory() {
             setSingleDEPARTMENTOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

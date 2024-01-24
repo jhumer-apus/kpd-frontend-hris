@@ -7,6 +7,9 @@ import { PVMALLOWANCEENTRYPageDescriptions, PVMALLOWANCEENTRYPageColumns } from 
 import ViewALLOWANCEENTRYSingleModal from './local-components/main-modals/pvm-allowance-entry-single-modal';
 import { ALLOWANCEENTRYViewInterface } from '@/types/types-payroll-variables';
 import { ALLOWANCEENTRYViewAction } from '@/store/actions/payroll-variables';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
+
 
 export default function PVMALLOWANCEENTRYPageHistory() {
   const [singleALLOWANCEENTRYOpenModal, setSingleALLOWANCEENTRYOpenModal] = useState<boolean>(false);
@@ -59,7 +62,7 @@ export default function PVMALLOWANCEENTRYPageHistory() {
             setSingleALLOWANCEENTRYOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

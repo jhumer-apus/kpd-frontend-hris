@@ -351,4 +351,5 @@ export const globalReducerLoading = 'loading';
 export const globalReducerSuccess = 'succeeded';
 export const globalReducerFailed = 'failed';
 export const globalReducerRefreshed = 'refreshed';
+export const globalServerErrorMsg = 'Internal server error. Contact developer for assistance.';
 export default store;

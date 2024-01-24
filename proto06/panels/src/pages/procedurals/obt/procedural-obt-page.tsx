@@ -7,6 +7,8 @@ import { ProceduralOBTPageDescriptions, ProceduralOBTPageColumns } from '@/data/
 import ViewOBTSingleModal from './local-components/main-modals/view-obt-single-modal';
 import { OBTViewFilterEmployeeInitialState, OBTViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
 import { OBTViewAction } from '@/store/actions/procedurals';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 export default function ProceduralOBTPage() {
   const [printing, setIsPrinting] = useState(false);
@@ -58,7 +60,7 @@ export default function ProceduralOBTPage() {
             setSingleOBTOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
           />
       </div>
     </Fragment>

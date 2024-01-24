@@ -8,6 +8,7 @@ import { EOYBONUSENTRYPageDescriptions, EOYBONUSENTRYPageColumns } from '@/data/
 import ViewBONUSENTRYSingleModal from './local-components/main-modals/eoy-bonus-entry-single-modal';
 import { BONUSENTRYViewInterface } from '@/types/types-payroll-eoy';
 import { BONUSENTRYViewAction } from '@/store/actions/payroll-eoy';
+import { globalServerErrorMsg } from '@/store/configureStore';
 
 export default function EOYBONUSENTRYPageHistory() {
   const [singleBONUSENTRYOpenModal, setSingleBONUSENTRYOpenModal] = useState<boolean>(false);
@@ -59,7 +60,7 @@ export default function EOYBONUSENTRYPageHistory() {
             setSingleBONUSENTRYOpenModal(true);
           }}
           disableRowSelectionOnClick
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

@@ -8,6 +8,8 @@ import { OffboardingCFDescriptions, OffboardingCFColumns } from '@/data/pages-da
 import ViewOFFBOARDINGSTATUSSingleModal from './local-components/main-modals/view-offboarding-status-single-modal';
 import { OFFBOARDINGSTATUSViewInterface } from '@/types/types-employee-and-applicants';
 import { OFFBOARDINGSTATUSViewAction } from '@/store/actions/employee-and-applicants';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 export default function OffboardingCF() {
   const [printing, setIsPrinting] = useState(false);
@@ -76,7 +78,7 @@ export default function OffboardingCF() {
             setSingleOFFBOARDINGSTATUSOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
           />
       </div>
     </Fragment>

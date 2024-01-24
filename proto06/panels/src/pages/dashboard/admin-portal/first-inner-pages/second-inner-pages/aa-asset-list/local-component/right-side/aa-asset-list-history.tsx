@@ -7,6 +7,7 @@ import { AAASSETLISTPageDescriptions, AAASSETLISTPageColumns } from '@/data/page
 import ViewASSETLISTSingleModal from './local-components/main-modals/aa-asset-list-single-modal';
 import { ASSETLISTViewInterface } from '@/types/types-payroll-eoy';
 import { ASSETLISTViewAction } from '@/store/actions/payroll-eoy';
+import { globalServerErrorMsg } from '@/store/configureStore';
 
 export default function AAASSETLISTPageHistory() {
   const [singleASSETLISTOpenModal, setSingleASSETLISTOpenModal] = useState<boolean>(false);
@@ -62,7 +63,7 @@ export default function AAASSETLISTPageHistory() {
             setSingleASSETLISTOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

@@ -7,6 +7,8 @@ import { PVMTAXPageDescriptions, PVMTAXPageColumns } from '@/data/pages-data/pay
 import ViewTAXSingleModal from './local-components/main-modals/pvm-tax-single-modal';
 import { TAXViewInterface } from '@/types/types-payroll-variables';
 import { TAXViewAction } from '@/store/actions/payroll-variables';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 export default function PVMTAXPageHistory() {
   const [singleTAXOpenModal, setSingleTAXOpenModal] = useState<boolean>(false);
@@ -59,7 +61,7 @@ export default function PVMTAXPageHistory() {
             setSingleTAXOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

@@ -8,6 +8,8 @@ import { AppraisalConfirmationKPICOREPageDescriptions, AppraisalConfirmationKPIC
 import ViewKPICORESingleModal from './local-components/main-modals/view-evaluation-single-modal';
 import { KPICOREViewInterface } from '@/types/types-employee-and-applicants';
 import { KPICOREViewAction } from '@/store/actions/employee-and-applicants';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 export default function AppraisalConfirmationKPICOREPage() {
   const [printing, setIsPrinting] = useState(false);
@@ -71,7 +73,7 @@ export default function AppraisalConfirmationKPICOREPage() {
             setSingleKPICOREOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
           />
       </div>
     </Fragment>

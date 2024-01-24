@@ -11,6 +11,8 @@ import EmployeeExportToCsvButton from './local-components/export-to-csv-employee
 import AddEmployeeComponent from './local-components/add-employee';
 import dayjs from 'dayjs';
 import { APPLICANTSViewAction } from '@/store/actions/employee-and-applicants';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 const columns: GridColDef[] = [
   {
@@ -173,7 +175,7 @@ export default function EAAPPLICANTSLIST() {
             dispatchSpecificEmployeeInfo(e.row?.emp_no)
           }}
           style={{ cursor: 'pointer'}}
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
         <Modal
           open={open}

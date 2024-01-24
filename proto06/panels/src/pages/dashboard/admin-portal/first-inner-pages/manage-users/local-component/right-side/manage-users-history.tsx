@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
-
+import { globalServerErrorMsg } from '@/store/configureStore';
 // import { Typography } from "@material-tailwind/react";
 
 import { Typography } from '@mui/material';
@@ -17,7 +17,7 @@ export default function ManageUSERPageHistory() {
     id: NaN,
     is_superuser: false,
     username: '',
-    role: NaN,
+    role: 1,
     is_active: false,
     is_logged_in: false,
     is_locked: false,
@@ -71,7 +71,7 @@ export default function ManageUSERPageHistory() {
             setSingleUSEROpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

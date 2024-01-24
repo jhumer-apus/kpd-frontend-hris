@@ -9,6 +9,8 @@ import {Button} from "@mui/material";
 import { DTRCutoffListType } from "@/types/types-pages";
 import { RootState } from "@/store/configureStore";
 import { CutoffListMergeSelectionState } from "@/types/types-pages";
+import { globalServerErrorMsg } from "@/store/configureStore";
+
 
 const columns = [
   {
@@ -113,7 +115,7 @@ export default function CutOffListTable(props: CutOffListTable) {
         checkboxSelection
         onRowSelectionModelChange={handleSelection}
         rowSelectionModel={ Number.isNaN(selectedRows.cutoff_code) ? [] : selectedRows.cutoff_code}
-        localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+        localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         pageSizeOptions={[25, 50, 75, 100]}
       />
       </div>

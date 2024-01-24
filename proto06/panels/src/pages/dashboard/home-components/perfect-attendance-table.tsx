@@ -8,7 +8,7 @@ import { OBTViewFilterEmployeeInitialState, OBTViewInterface } from '@/types/typ
 import { OBTViewFilterEmployeeAction } from '@/store/actions/procedurals';
 import dayjs from 'dayjs';
 import { PERFECTATTENDANCEViewInterface } from '@/types/types-employee-and-applicants';
-
+import { globalServerErrorMsg } from '@/store/configureStore';
 
 
 interface Perfect_Attendance_Table_Props{
@@ -84,7 +84,7 @@ export default function PerfectAttendanceTable(props: Perfect_Attendance_Table_P
             setSingleOBTOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

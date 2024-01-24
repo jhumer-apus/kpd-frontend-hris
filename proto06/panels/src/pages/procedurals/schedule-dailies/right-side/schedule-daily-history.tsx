@@ -7,6 +7,7 @@ import { ProceduralSCHEDULEDAILYPageDescriptions, ProceduralSCHEDULEDAILYPageCol
 import ViewSCHEDULEDAILYSingleModal from './local-components/main-modals/view-schedule-daily-single-modal';
 import { SCHEDULEDAILYViewInterface } from '@/types/types-pages';
 import { SCHEDULEDAILYViewFilterEmployeeAction } from '@/store/actions/procedurals';
+import { globalServerErrorMsg } from '@/store/configureStore';
 
 
 interface ProceduralSCHEDULEDAILYPageHistoryInterface {
@@ -72,7 +73,7 @@ export default function ProceduralSCHEDULEDAILYPageHistory(props: ProceduralSCHE
             setSingleSCHEDULEDAILYOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
           />
       </div>
     </Fragment>

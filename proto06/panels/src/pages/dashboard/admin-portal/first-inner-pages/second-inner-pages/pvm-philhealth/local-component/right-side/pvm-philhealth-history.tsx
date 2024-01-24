@@ -7,6 +7,8 @@ import { PVMPHILHEALTHPageDescriptions, PVMPHILHEALTHPageColumns } from '@/data/
 import ViewPHILHEALTHSingleModal from './local-components/main-modals/pvm-philhealth-single-modal';
 import { PHILHEALTHViewInterface } from '@/types/types-payroll-variables';
 import { PHILHEALTHViewAction } from '@/store/actions/payroll-variables';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 export default function PVMPHILHEALTHPageHistory() {
   const [singlePHILHEALTHOpenModal, setSinglePHILHEALTHOpenModal] = useState<boolean>(false);
@@ -57,7 +59,7 @@ export default function PVMPHILHEALTHPageHistory() {
             setSinglePHILHEALTHOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

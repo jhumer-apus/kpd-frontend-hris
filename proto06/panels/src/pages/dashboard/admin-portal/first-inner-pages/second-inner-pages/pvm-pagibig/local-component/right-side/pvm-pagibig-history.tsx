@@ -7,6 +7,8 @@ import { PVMPAGIBIGPageDescriptions, PVMPAGIBIGPageColumns } from '@/data/pages-
 import ViewPAGIBIGSingleModal from './local-components/main-modals/pvm-pagibig-single-modal';
 import { PAGIBIGViewInterface } from '@/types/types-payroll-variables';
 import { PAGIBIGViewAction } from '@/store/actions/payroll-variables';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 export default function PVMPAGIBIGPageHistory() {
   const [singlePAGIBIGOpenModal, setSinglePAGIBIGOpenModal] = useState<boolean>(false);
@@ -62,7 +64,7 @@ export default function PVMPAGIBIGPageHistory() {
             setSinglePAGIBIGOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

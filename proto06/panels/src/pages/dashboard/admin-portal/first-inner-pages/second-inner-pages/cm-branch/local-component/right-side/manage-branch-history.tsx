@@ -7,6 +7,8 @@ import { ManageBRANCHPageDescriptions, ManageBRANCHPageColumns } from '@/data/pa
 import ViewBRANCHSingleModal from './local-components/main-modals/view-branch-single-modal';
 import { BRANCHViewInterface } from '@/types/types-pages';
 import { BRANCHViewAction } from '@/store/actions/categories';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 export default function ManageBRANCHPageHistory() {
   const [singleBRANCHOpenModal, setSingleBRANCHOpenModal] = useState<boolean>(false);
@@ -60,7 +62,7 @@ export default function ManageBRANCHPageHistory() {
             setSingleBRANCHOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

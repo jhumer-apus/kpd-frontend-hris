@@ -15,6 +15,8 @@ import GeneratePayslipSingle from './local-components/generate-payslip-single';
 import { ViewPayrollPayPerEmployee } from '@/types/types-pages';
 import { PaySlipDataInitialState } from '@/types/types-pages';
 import GeneratePDFButton from './local-components/generate-pdf-button';
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 export default function ViewPayroll() {
   const [printing, setIsPrinting] = useState(false);
@@ -68,7 +70,7 @@ export default function ViewPayroll() {
             setSinglePayslipOpen(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
           />
         <GeneratePDFButton data={data} columns={dynamicPayrollColumns[0]} />
       </div>

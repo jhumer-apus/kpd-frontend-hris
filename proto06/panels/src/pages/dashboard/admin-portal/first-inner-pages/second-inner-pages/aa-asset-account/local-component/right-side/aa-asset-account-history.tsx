@@ -7,6 +7,7 @@ import { AAASSETACCOUNTPageDescriptions, AAASSETACCOUNTPageColumns } from '@/dat
 import ViewASSETACCOUNTSingleModal from './local-components/main-modals/eoy-asset-account-single-modal';
 import { ASSETACCOUNTViewInterface } from '@/types/types-payroll-eoy';
 import { ASSETACCOUNTViewAction } from '@/store/actions/payroll-eoy';
+import { globalServerErrorMsg } from '@/store/configureStore';
 
 export default function AAASSETACCOUNTPageHistory() {
   const [singleASSETACCOUNTOpenModal, setSingleASSETACCOUNTOpenModal] = useState<boolean>(false);
@@ -59,7 +60,7 @@ export default function AAASSETACCOUNTPageHistory() {
             setSingleASSETACCOUNTOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

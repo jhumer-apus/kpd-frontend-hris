@@ -7,6 +7,7 @@ import { ProceduralOVERTIMEPageDescriptions, ProceduralOVERTIMEPageColumns } fro
 import ViewOVERTIMESingleModal from './local-components/main-modals/view-overtime-single-modal';
 import { OVERTIMEViewInterface } from '@/types/types-pages';
 import { OVERTIMEViewAction } from '@/store/actions/procedurals';
+import { globalServerErrorMsg } from '@/store/configureStore';
 
 
 export default function ProceduralOvertimePage() {
@@ -66,7 +67,7 @@ export default function ProceduralOvertimePage() {
             setSingleOVERTIMEOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
           />
       </div>
     </Fragment>

@@ -8,6 +8,7 @@ import { EAKPICOREPageDescriptions, EAKPICOREPageColumns } from '@/data/pages-da
 import ViewKPICORESingleModal from './local-components/main-modals/eoy-pay-13th-single-modal';
 import { KPICOREViewInterface } from '@/types/types-employee-and-applicants';
 import { KPICOREViewAction } from '@/store/actions/employee-and-applicants';
+import { globalServerErrorMsg } from '@/store/configureStore';
 
 
 export default function EAKPICOREPageHistory() {
@@ -17,15 +18,17 @@ export default function EAKPICOREPageHistory() {
     date_added: '',
     emp_no: NaN,
     emp_name: '',
-    sup_name: '',
-    sup_no: NaN,
-    eval_date: '',
-    status: '',
-    final_rating: '',
+    approver_name: '',
+    emp_no_approver: NaN,
+    date_evaluation_deadline: '',
+    status: 'Pending',
+    final_rating: null,
     total_self_eval_points: NaN,
-    total_sup_eval_points: NaN,
+    total_approver_eval_points: NaN,
     total_core_compe_points: NaN,
     percentage_total: NaN,
+    kpi_codes: [],
+    corecompe_codes: [],
   });
   const dispatch = useDispatch();
   const { KPICOREView } = useSelector((state: RootState) => state.employeeAndApplicants);
@@ -66,7 +69,7 @@ export default function EAKPICOREPageHistory() {
             setSingleKPICOREOpenModal(true);
           }}
           disableRowSelectionOnClick
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${error}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>
