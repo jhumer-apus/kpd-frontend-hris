@@ -18,7 +18,7 @@ function ExportToCsv<T extends ObjectFlat>(props: ExportToCsvButtonInterface<T>)
         // const csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
         // csv.unshift(header.join(','));
         // return csv.join('\r\n');
-        if(data){
+        if(data.length > 0){
             const flattenedData = data.map(item => flattenObject(item));
             const header = Object.keys(flattenedData[0]);
             const csv = flattenedData.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));

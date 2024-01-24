@@ -41,12 +41,30 @@ export function ChooseDashboard() {
     month: +(dayjs(new Date()).format('MM')),
     year: +(dayjs(new Date()).format('YYYY'))
   });
+  const [ forCSVExtract, setForCSVExtract ] = useState<unknown>(null);
 
+  // console.log(forCSVExtract, "hahahasd12")
   useEffect(()=>{
     if(filterState.month && filterState.year){
       dispatch(PERFECTATTENDANCEViewSpecificAction(filterState))
     }
   }, [filterState.month, filterState.year]);
+
+  useEffect(()=> {
+
+      
+      const data = EmployeeState.PERFECTATTENDANCEViewSpecific.data.map((data)=> {
+        return ({
+          id: data.id,
+          Employee_Name: `${data.last_name}, ${data.first_name} ${data.middle_name !== null ? data.middle_name : ''} ${data.suffix !== null? data.suffix : ''}`,
+          Department_ID: `${data.department_code !== null ? data.department_code : ''}`, 
+          Division_ID: `${data.division_code !== null ? data.division_code : ''}`,
+          Position_ID: `${data.position_code !== null ? data.position_code : ''}`,
+          Payroll_Group: `${data.payroll_group_code !== null ? data.payroll_group_code : ''}`,
+        })
+      })
+      setForCSVExtract(data) 
+  }, [EmployeeState.PERFECTATTENDANCEViewSpecific.data.length])
 
   return (
     <div className="mt-12">
@@ -81,12 +99,12 @@ export function ChooseDashboard() {
                 </IconButton>
               </MenuHandler>
               <MenuList>
-                <MenuItem><ExportToCsv data={EmployeeState.PERFECTATTENDANCEViewSpecific.data} /></MenuItem>
+                <MenuItem><ExportToCsv data={forCSVExtract instanceof Array ? forCSVExtract : []} /></MenuItem>
               </MenuList>
             </Menu>
           </CardHeader>
           <MonthYearDropdown filter={filterState} setFilter={setFilterState}/>
-          <PerfectAttendanceTable state={EmployeeState.PERFECTATTENDANCEViewSpecific.data}/>
+          <PerfectAttendanceTable state={forCSVExtract instanceof Array ? forCSVExtract : []}/>
         </Card>
         <Card className={styles.announcementBar}>
           <CardHeader

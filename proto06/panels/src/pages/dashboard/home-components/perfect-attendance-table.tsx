@@ -11,11 +11,11 @@ import { PERFECTATTENDANCEViewInterface } from '@/types/types-employee-and-appli
 import { globalServerErrorMsg } from '@/store/configureStore';
 
 
-interface Perfect_Attendance_Table_Props{
-  state: PERFECTATTENDANCEViewInterface[]
+interface Perfect_Attendance_Table_Props<T>{
+  state: T[]
 }
 
-export default function PerfectAttendanceTable(props: Perfect_Attendance_Table_Props) {
+export default function PerfectAttendanceTable<T>(props: Perfect_Attendance_Table_Props<T>) {
   const { state } = props;
   const [singleOBTOpenModal, setSingleOBTOpenModal] = useState<boolean>(false);
   const [singleOBTDetailsData, setSingleOBTDetailsData] = useState<OBTViewInterface>(OBTViewFilterEmployeeInitialState);
@@ -28,8 +28,8 @@ export default function PerfectAttendanceTable(props: Perfect_Attendance_Table_P
   const PerfectAttendanceField: GridColDef[] = 
   [
     {
-      field: 'employee_image',
-      headerName: 'Display Pic',
+      field: 'Image_Source',
+      headerName: 'Profile Picture',
       width: 150,
       renderCell: (params: GridCellParams) => {
         if (params.value){
@@ -44,20 +44,19 @@ export default function PerfectAttendanceTable(props: Perfect_Attendance_Table_P
         }
       },
     },
-    { field: 'emp_no', headerName: 'Emp No:', width: 120 },
-    { field: 'last_name', headerName: 'Last Name:', width: 120 },
-    { field: 'first_name', headerName: 'First Name:', width: 120 },
-    {
-      field: 'datetime_bio_time',
-      headerName: 'Time',
-      width: 150,
-      description: 'This column has a value getter and is not sortable. Use Filter instead, by clicking on the three dots beside this header.',
-      sortable: true,
-      valueGetter: (params: GridValueGetterParams) => {
-        const shio = new Date(params.row.datetime_bio);
-        return params.row.datetime_bio ? dayjs(shio).format(`${globalTime}`) : '-';
-      },
-    },
+    
+    { field: 'Department_ID', headerName: 'Department ID', width: 120 },
+    { field: 'Division_ID', headerName: 'Division ID', width: 120 },
+    // {
+    //   field: 'datetime_bio_time',
+    //   headerName: 'Time',
+    //   width: 150,
+    //   description: 'This column has a value getter and is not sortable. Use Filter instead, by clicking on the three dots beside this header.',
+    //   sortable: true,
+
+    // },
+    { field: 'Position_ID', headerName: 'Position ID', width: 120 },
+    { field: 'Employee_Name', headerName: 'Employee Full Name:', width: 300 },
   ];
 
   useEffect(()=> {
