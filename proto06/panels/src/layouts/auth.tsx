@@ -22,7 +22,7 @@ export function Auth() {
       icon: UserIcon,
     },
     {
-      name: "Employee Mgmnt",
+      name: "Employee Managemnt",
       path: "/auth/sign-up",
       icon: UserPlusIcon,
     },
