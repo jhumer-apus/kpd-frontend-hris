@@ -21,7 +21,7 @@ function ManageUSERCreate(props: CreateUSERModalInterface) {
     const [createUSER, setCreateUSER] = useState<USERCreateInterface>({
         username: "",
         password: "",
-        role: NaN,
+        role: 1,
         emp_no: NaN,
         added_by: NaN,
     });
@@ -56,12 +56,12 @@ function ManageUSERCreate(props: CreateUSERModalInterface) {
 
     return (
         <React.Fragment>
-            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain' level="h6">Create USER Individual Data</Typography>
-            <div className='flex flex-col gap-6 overflow-auto relative'>
-                    <div className='flex flex-col gap-6 pt-4'>
+            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create USER Individual Data</Typography>
+            <div className='flex flex-col gap-3 overflow-auto relative'>
+                    <div className='flex flex-col gap-3 pt-4'>
                         <EmployeeAutoComplete createUSER={createUSER} setCreateUSER={setCreateUSER}/>
                     </div>
-                    <div className='flex flex-col gap-6'>
+                    <div className='flex flex-col gap-3'>
                         <TextField
                             required 
                             sx={{width: '100%'}} 
@@ -105,7 +105,7 @@ function ManageUSERCreate(props: CreateUSERModalInterface) {
                         <RoleAutoComplete createUSER={createUSER} setCreateUSER={setCreateUSER}/>
                     </div>
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
-                    <div className='flex justify-between' style={{width:'1000%'}} container-name='leave_buttons'>
+                    <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
                         <Button variant='contained' onClick={onClickSubmit}>Create USER</Button>
                     </div>
                 </div>

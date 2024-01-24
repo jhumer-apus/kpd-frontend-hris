@@ -39,7 +39,7 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
 export default function HolidaysPage() {
   const theme = useTheme();
   const [value, setValue] = React.useState<dayjs.Dayjs | null>(dayjs());
-  const matches = useMediaQuery(theme.breakpoints.down('lg'));
+  const matches = useMediaQuery(theme.breakpoints.down('xl'));
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);

@@ -10,7 +10,7 @@ import {
 
 
 interface AuthState {
-  employees_list: Array<EMPLOYEESViewInterface> | null;
+  employees_list: EMPLOYEESViewInterface[];
   specific_employee_info: EMPLOYEESViewInterface | null;
   error: String | null;
 }
@@ -33,7 +33,7 @@ export const employeesSlice = createSlice({
         state.error = null;
       })
       .addCase(getEmployeesListFailure, (state, action) => {
-        state.employees_list = null;
+        state.employees_list = [];
         // state.employees_specific_info = null;
         state.error = action.payload;
       })

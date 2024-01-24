@@ -79,7 +79,7 @@ function EAKPICORECreate(props: CreateKPICOREModalInterface) {
 
     return (
         <React.Fragment>
-            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain' level="h6">Initialize KPI Evaluation Data</Typography>
+            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Initialize KPI Evaluation Data</Typography>
             <div className='flex flex-col gap-6 overflow-auto w-full'>
                     <p>You can choose one or more employees (or all) to initialize their KPI Evaluation.</p>
                     <div style={{ height: '450px', width: '100%' }}>

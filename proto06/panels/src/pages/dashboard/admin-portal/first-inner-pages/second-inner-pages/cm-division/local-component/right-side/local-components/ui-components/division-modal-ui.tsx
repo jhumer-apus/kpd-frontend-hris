@@ -34,15 +34,15 @@ function DIVISIONModalUI(props: DIVISIONModalUIInterface) {
         <Fragment>
             <AllowedDaysDIVISIONModal singleDIVISIONDetailsData={singleDIVISIONDetailsData} setSingleDIVISIONDetailsData={setSingleDIVISIONDetailsData} allowedDaysDIVISIONOpenModal={allowedDaysDIVISIONOpenModal} setAllowedDaysDIVISIONOpenModal={setAllowedDaysDIVISIONOpenModal}/>
             <div className='flex overflow-auto justify-around gap-4 relative'>
-                <div className='flex gap-6 flex-col'>
+                <div className='flex gap-3 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Division ID:' value={ThisProps.id ? ThisProps.id : '-'} InputProps={{readOnly: true,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Connected to Branch:' value={(ThisProps?.div_branch_code || "-")} InputProps={{readOnly: true,}} variant='standard'/>
                 </div>
-                <div className='flex gap-6 flex-col'>
+                <div className='flex gap-3 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px', color: 'green'}} label='Division Name' value={ThisProps.div_name || '-'} InputProps={{readOnly: true,}} variant='filled' focused/>
                     <TextField sx={{width: '100%'}} label='Date Added:' value={ThisProps.date_added? dayjs(ThisProps.date_added).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
                 </div>
-                <div className='flex gap-6 flex-col'>
+                <div className='flex gap-3 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Division Lead' value={ThisProps.div_lead || '-'} InputProps={{readOnly: true,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Date Deactivated:' value={ThisProps.date_deleted? dayjs(ThisProps.date_deleted).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
                 </div>
