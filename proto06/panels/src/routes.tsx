@@ -827,6 +827,14 @@ const JSXRouteWrapper = () => {
                 element: <ProcessPayrollPage/>,
                 hasSubItems: false,
               },
+              {
+                id: 19300,
+                icon: <DocumentIcon {...icon} />,
+                name: "Payslip Sample",
+                path: "/payroll/payslip-sample",
+                element: <TestView/>,
+                hasSubItems: false,
+              },
             ]
           },
         ] : [],
