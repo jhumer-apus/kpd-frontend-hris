@@ -90,6 +90,13 @@ export const dynamicDTRColumns: Array<GridColDef[]> =
     { field: 'shift_name', headerName: 'Shift Name', width: 130 },
     { field: 'sched_timein', headerName: 'Scheduled In', width: 130 },
     { field: 'sched_timeout', headerName: 'Scheduled Out', width: 130 },
+    { field: 'nd_total_hours', headerName: 'Night Differential', width: 150, 
+      valueGetter: (params: GridValueGetterParams) => {
+        const convertedMinsToHours = parseFloat((params.row.nd_total_hours / 60).toFixed(2));
+        return convertedMinsToHours;
+      },
+    },
+
   ],
   [
     { field: 'id', headerName: 'Data ID', width: 100 },
@@ -167,6 +174,7 @@ export const dynamicDTRColumns: Array<GridColDef[]> =
       width: 110 
     },
     { field: 'is_processed', headerName: 'Processed', width: 110 },
+    { field: 'nd_total_hours', headerName: 'Night Differential', width: 150 },
   ],
 ];
   

@@ -2,16 +2,16 @@ import { globalDate, globalDateTime } from "@/store/configureStore";
 import { GridColDef, GridValueGetterParams, GridCellParams } from "@mui/x-data-grid";
 import dayjs from "dayjs";
 
-export const ProceduralLEAVEPageDescriptions = [
+export const ALLSCHEDULESPageDescriptions = [
   "P1 - Pending Approver1 | P2 - Pending Approver2 | APD - Approved | DIS - Disapproved",
 ];
 
 
-export const ProceduralLEAVEPageColumns: GridColDef[] = 
+export const ALLSCHEDULESPageColumns: GridColDef[] = 
 [
   {
     field: 'leave_date_filed',
-    headerName: 'Date Filed',
+    headerName: 'Date & Time Filed',
     width: 150,
     valueGetter: (params: GridValueGetterParams) => {
       const date = new Date(params.row.leave_date_filed);
@@ -70,7 +70,7 @@ export const ProceduralLEAVEPageColumns: GridColDef[] =
 ];
   
 export default {
-  ProceduralLEAVEPageDescriptions,
-  ProceduralLEAVEPageColumns
+  ALLSCHEDULESPageDescriptions,
+  ALLSCHEDULESPageColumns
 };
   

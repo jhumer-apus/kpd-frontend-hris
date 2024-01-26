@@ -1,4 +1,6 @@
+import { globalDateTime } from "@/store/configureStore";
 import { GridColDef, GridValueGetterParams, GridCellParams, GridValueFormatterParams } from "@mui/x-data-grid";
+import dayjs from "dayjs";
 
 // export const viewPayrollOptions = [
 //   "View Payroll Per Employee",
@@ -23,7 +25,7 @@ export const ApprovalUAPageColumns: GridColDef[] =
     width: 150,
     valueGetter: (params: GridValueGetterParams) => {
       const date = new Date(params.row.ua_date_filed);
-      return date.toLocaleDateString();
+      return date ? dayjs(date).format(`${globalDateTime}`) : '';
     }
   },
   { field: 'emp_no', headerName: 'Filed By:', width: 120 },

@@ -1,6 +1,6 @@
 // ======================================
 
-import { USERViewInterface } from "../types-pages"
+import { SCHEDULEDAILYViewInterface, USERViewInterface } from "../types-pages"
 import { EMPLOYEESViewInterface } from "../types-store"
 
 export interface KPICOREGenericInterface {
@@ -322,3 +322,9 @@ export interface Perfect_Attendace_Filter_Interface {
 	year: number
 };
   
+export interface ALLSCHEDULEViewInterface extends SCHEDULEDAILYViewInterface{}
+
+export interface All_Schedule_Filter_Interface {
+	month: number,
+	year: number
+};

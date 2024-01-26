@@ -2,6 +2,7 @@ import { Fragment, Dispatch, SetStateAction } from 'react';
 import { LEAVEViewInterface } from '@/types/types-pages';
 import dayjs from 'dayjs';
 import {TextField} from '@mui/material';
+import { globalDateTime } from '@/store/configureStore';
 
 interface LEAVEModalUIInterface {
     singleLEAVEDetailsData: LEAVEViewInterface;
@@ -15,7 +16,7 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
         <Fragment>
             <div className='flex gap-10 overflow-auto relative'>
                 <div className='flex gap-6 flex-col'>
-                    <TextField sx={{width: '100%', minWidth: '160px'}} label='Date Filed:' value={ThisProps.leave_date_filed ? dayjs(ThisProps.leave_date_filed).format('MM-DD-YYYY') : '-'} InputProps={{readOnly: false,}} variant='filled'/>
+                    <TextField sx={{width: '100%', minWidth: '160px'}} label='Date & Time Filed:' value={ThisProps.leave_date_filed ? dayjs(ThisProps.leave_date_filed).format(`${globalDateTime}`) : '-'} InputProps={{readOnly: false,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Total hrs:' value={(ThisProps.leave_total_hours / 60).toFixed(2) || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Cutoff Code:' value={ThisProps.cutoff_code || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Approver1:' value={ThisProps.leave_approver1_empno || 'Any Higher Ranking Officer'} InputProps={{readOnly: true,}} variant='standard'/>

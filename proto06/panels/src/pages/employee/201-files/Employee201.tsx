@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { DataGrid, GridColDef, GridValueGetterParams, GridCellParams } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
 import { getEmployeesList } from '@/store/actions/employees';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalDate } from '@/store/configureStore';
 import { getSpecificEmployeeInfo } from '@/store/actions/employees';
 import { Modal, Box } from '@mui/material';
 import { UserProfile } from './forms/AddEmployee';
@@ -14,6 +14,7 @@ import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
 import { SpecificEmployee } from './forms/SpecificEmployee';
 import { APILink } from '@/store/configureStore';
 import EmployeeExportToCsvButton from './local-components/export-to-csv-employee';
+import dayjs from 'dayjs';
 
 const columns: GridColDef[] = [
   {
@@ -45,7 +46,15 @@ const columns: GridColDef[] = [
     valueGetter: (params: GridValueGetterParams) =>
       `${params.row.first_name || ''} ${params.row.last_name || ''}`,
   },
-  { field: 'date_hired', headerName: 'Date Hired', width: 150 },
+  { 
+    field: 'date_hired', 
+    headerName: 'Date Hired', 
+    width: 150,
+    valueGetter: (params: GridValueGetterParams) => {
+      const date = new Date(params.row.date_hired);
+      return params.row.date_hired ? dayjs(date).format(`${globalDate}`) : '-';
+    }, 
+  },
   { field: 'branch_code', headerName: 'Branch Code', width: 150 },
   { field: 'mobile_phone', headerName: 'Mobile Number', width: 150 },
   { field: `user`, headerName: 'Has HRIS Access', width: 150, valueGetter: (params: GridValueGetterParams) => `${params.row.user?.is_active ? 'Active' : 'No Access'}` },
