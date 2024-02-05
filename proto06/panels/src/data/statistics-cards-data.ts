@@ -55,7 +55,7 @@ export const statisticsCardsData = [
       value: "<",
       label: "Payslips, Tax, etc.",
     },
-    link: '/home/payroll/view-payroll'
+    link: '/home/payroll/view-all-payroll'
   },
   // {
   //   color: "orange",

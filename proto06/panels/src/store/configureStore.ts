@@ -8,7 +8,7 @@ import { employeesListEpic, employeesSpecificEpic } from './epics/employees';
 import { dtrReducer } from './reducers/dtr';
 import { viewAllDtrLogsEpic, viewMergedDtrLogsEpic, viewCutoffDtrSummaryEpic, getCutoffDTRListEpic, getCutoffDTRListEmployeeEpic, mergeCutoffListAndEmployeeEpic, summarizeCutoffListAndEmployeeEpic } from './epics/dtr';
 import { payrollReducer } from './reducers/payroll';
-import { processPayrollEpic, viewPayrollListEpic } from './epics/payroll';
+import { processPayrollEpic, viewPayrollListEpic, viewSpecificPayrollListEpic } from './epics/payroll';
 import { 
   HolidayCreateEpic, 
   HolidayEditSubmitEpic, 
@@ -140,6 +140,7 @@ epicMiddleware.run(combineEpics(
   mergeCutoffListAndEmployeeEpic,
   summarizeCutoffListAndEmployeeEpic,
   viewPayrollListEpic,
+  viewSpecificPayrollListEpic,
   processPayrollEpic,
   HolidayCreateEpic,
   HolidaysGetEpic,

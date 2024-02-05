@@ -5,10 +5,10 @@ import { RootState } from '@/store/configureStore';
 import {
   Typography,
 } from "@material-tailwind/react";
-import { viewPayrollDescriptions } from '@/data/pages-data/view-payroll-data/view-payroll';
+import { viewPayrollDescriptions } from '@/data/pages-data/view-all-payroll-data/view-all-payroll';
 import PrintTableButton from './local-components/print-table-button';
 import ExportToCsvButton from './local-components/export-to-csv-button';
-import { dynamicPayrollColumns } from '@/data/pages-data/view-payroll-data/view-payroll';
+import { dynamicPayrollColumns } from '@/data/pages-data/view-all-payroll-data/view-all-payroll';
 import { viewPayrollList } from '@/store/actions/payroll';
 import GeneratePayslipMultiple from './local-components/generate-payslip-multiple';
 import GeneratePayslipSingle from './local-components/generate-payslip-single';

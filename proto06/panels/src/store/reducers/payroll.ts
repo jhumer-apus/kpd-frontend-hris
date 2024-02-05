@@ -9,7 +9,11 @@ import {
     processPayrollSuccess,
     processPayrollProgress,
     processPayrollFailure,
-    processPayrollFailureCleanup
+    processPayrollFailureCleanup,
+    viewSpecificPayrollList,
+    viewSpecificPayrollListProgress,
+    viewSpecificPayrollListSuccess,
+    viewSpecificPayrollListFailure,
 } from '../actions/payroll';
 import { ViewPayrollPayPerEmployee } from '@/types/types-pages';
 import { globalReducerFailed, globalReducerLoading, globalReducerRefreshed, globalReducerSuccess } from '../configureStore';
@@ -34,6 +38,7 @@ interface OverallPayrollState {
   [key: string]: ViewPayrollState | processPayrollInterface,
   viewPayroll: ViewPayrollState,
   processPayroll: processPayrollInterface,
+  viewSpecificPayroll: ViewPayrollState,
 }
 
 const initialState: OverallPayrollState = {
@@ -48,7 +53,13 @@ const initialState: OverallPayrollState = {
     progress: 0,
     data: '',
     error: '',
-  }
+  },
+  viewSpecificPayroll: {
+    status: '',
+    progress: 0,
+    data: [],
+    error: '',
+},
 };
 
 const setLoadingState = (path: string) => (state: OverallPayrollState) => {
@@ -97,7 +108,11 @@ const payrollSlice = createSlice({
       .addCase(processPayrollProgress, (state, action) => setProgressState(state, action.payload, "processPayroll"))
       .addCase(processPayrollFailure, (state, action) => setFailureState(state, action.payload, "processPayroll"))
       .addCase(processPayrollFailureCleanup, setLoadingState("processPayroll"))
-  },
+      .addCase(viewSpecificPayrollList, setLoadingState("viewSpecificPayroll"))
+      .addCase(viewSpecificPayrollListSuccess, (state, action) => setSuccessState(state, action.payload, "viewSpecificPayroll"))
+      .addCase(viewSpecificPayrollListProgress, (state, action) => setProgressState(state, action.payload, "viewSpecificPayroll"))
+      .addCase(viewSpecificPayrollListFailure, (state, action) => setFailureState(state, action.payload, "viewSpecificPayroll"))
+    },
 });
 
 

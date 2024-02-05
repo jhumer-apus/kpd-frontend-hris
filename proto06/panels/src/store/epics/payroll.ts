@@ -11,6 +11,10 @@ import {
     viewPayrollListFailure,
     viewPayrollListProgress,
     viewPayrollListSuccess,
+    viewSpecificPayrollList,
+    viewSpecificPayrollListFailure,
+    viewSpecificPayrollListProgress,
+    viewSpecificPayrollListSuccess,
 } from '../actions/payroll';
 import { Epic } from 'redux-observable';
 import store, { APILink } from '../configureStore';
@@ -44,6 +48,41 @@ const viewPayrollListApiCall = async () => {
     );
     return response.data;
 };
+
+const viewSpecificPayrollListApiCall = async (payload: {emp_no: number}) => {
+  const response = await axios.get(`${APILink}payroll/${payload.emp_no}`, 
+  {
+      onDownloadProgress: (progressEvent) => {
+        if(progressEvent.total){
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          store.dispatch(viewSpecificPayrollListProgress(progress));
+        }
+      }
+    }
+  );
+  return response.data;
+};
+
+export const viewSpecificPayrollListEpic: Epic = (action$, state$) =>
+action$.pipe(
+  ofType(viewSpecificPayrollList.type),
+  switchMap((action: ReturnType<typeof viewSpecificPayrollList>) =>
+    from(
+      viewSpecificPayrollListApiCall(action?.payload)
+    ).pipe(
+      map((data) => {
+        return viewSpecificPayrollListSuccess(data);
+      }),
+      catchError((error) => {
+        if (error.response && error.response.data && error.response.data.error) {
+          return of(viewSpecificPayrollListFailure(error.response.data.error)); 
+        } else {
+          return of(viewSpecificPayrollListFailure(error.message)); 
+        }
+      })
+    )
+  )
+);
 
 export const viewPayrollListEpic: Epic = (action$, state$) =>
   action$.pipe(
