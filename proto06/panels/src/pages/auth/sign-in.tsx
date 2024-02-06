@@ -27,8 +27,9 @@ export function SignIn() {
     dispatch(userLoginAction({username: passedEmail, password: passedPassword}));
   }
   const handleKeyDown = (e:KeyboardEvent<HTMLInputElement>) => {
+
+    // When enter, sign in
     if (e.key === 'Enter') {
-      // Call your function or perform the desired action here
       handleSignIn(email, password)
     }
   }
