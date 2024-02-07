@@ -3,7 +3,7 @@ import { GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import dayjs from "dayjs";
 
 export const EMPSEMINARSPageDescriptions = [
-  "On this table, you will find the employment history of an employee and their details each.",
+  "On this table, you will find the trainings and seminars of an employee and their details each.",
 ];
 
 
