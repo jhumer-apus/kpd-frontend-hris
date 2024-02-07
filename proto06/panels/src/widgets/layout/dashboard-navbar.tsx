@@ -186,8 +186,8 @@ export function DashboardNavbar() {
             </MenuHandler>
             <MenuList className="w-max border-0">
               <Link
-                to="" 
-                // to="/home/profile"
+                // to="" 
+                to="/home/profile"
               >
                 <MenuItem className="flex items-center gap-3">
                   {/* <Avatar

@@ -131,13 +131,14 @@ const JSXRouteWrapper = () => {
       id: 10000,
       layout: "home",
       pages: [
-        ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee) ? [
+        ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee) ? 
+        [
           {
             id: 11000,
             icon: null,
             name: "Dashboards",
             path: "/Dashboards",
-            element: <strong style={{height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px'}} className="text-red-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200"> </strong>,
+            element: <strong style={{height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px'}} className="text-red-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">YOU SHALL NOT PASS!!</strong>,
             hasSubItems: true,
             subItems: [
               {
@@ -155,7 +156,8 @@ const JSXRouteWrapper = () => {
                 path: "/Dashboards/Admin-Portal",
                 element: <AdminPortal/>,
                 hasSubItems: true,
-                subItems: [
+                subItems: 
+                [
                   {
                     id: 111000,
                     icon: null,

@@ -18,7 +18,7 @@ import EmployeeExportToCsvButton from './local-components/export-to-csv-employee
 const columns: GridColDef[] = [
   {
     field: 'employee_image',
-    headerName: 'Display Pic',
+    headerName: 'Display Pic',  
     width: 150,
     renderCell: (params: GridCellParams) => {
       if (params.value){
@@ -29,7 +29,7 @@ const columns: GridColDef[] = [
       } else {
         return (
           null
-        )    
+        )                                             
       }
     },
   },

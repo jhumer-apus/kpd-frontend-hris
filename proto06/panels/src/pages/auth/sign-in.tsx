@@ -48,6 +48,7 @@ export function SignIn() {
           >
             <Typography variant="h3" color="white">
               Sign In
+              {/* BITVERSE HRIS */}
             </Typography>
           </CardHeader>
           <CardBody className="flex flex-col gap-4">
