@@ -1975,3 +1975,188 @@ export const EMPHISTORYDeleteEpic: Epic = (action$, state$) =>
         )
         )
 );
+
+
+
+// EMPSEMINARS API SECTION // EMPSEMINARS API SECTION // EMPSEMINARS API SECTION // EMPSEMINARS API SECTION // EMPSEMINARS API SECTION
+const EMPSEMINARSDeleteApiCall = async (payload: {es_id: number, added_by: number}) => {
+    const response = await axios.delete(`${APILink}emp_train_sem/${payload.es_id}/?added_by=${payload.added_by}`,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.EMPSEMINARSDeleteActionProgress(progress));
+          }
+        }
+      }
+    );
+    return response.data;
+};
+
+
+
+const EMPSEMINARSEditApiCall = async (payload: _Interface.EMPSEMINARSEditInterface) => {
+    const response = await axios.put(`${APILink}emp_train_sem/${payload.id}/`,
+    payload,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.EMPSEMINARSEditActionProgress(progress));
+          }
+        }
+      }
+    );
+    return response.data;
+};
+  
+const EMPSEMINARSCreateApiCall = async (payload: _Interface.EMPSEMINARSCreateInterface) => {
+    const response = await axios.post(`${APILink}emp_train_sem/`,
+    payload,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.EMPSEMINARSCreateActionProgress(progress));
+            }
+        }
+        }
+    );
+    return response.data;
+};
+
+const EMPSEMINARSViewSpecificApiCall = async (payload: {emp_no: number }) => {
+    const response = await axios.get(`${APILink}emp_train_sem/?emp_no=${payload.emp_no}`,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.EMPSEMINARSViewSpecificActionProgress(progress));
+            }
+        }
+        }
+    );
+    return response.data;
+};
+
+
+const EMPSEMINARSViewApiCall = async () => {
+    const response = await axios.get(`${APILink}emp_train_sem/`,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.EMPSEMINARSViewActionProgress(progress));
+            }
+        }
+        }
+    );
+    return response.data;
+};
+
+export const EMPSEMINARSViewEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.EMPSEMINARSViewAction.type),
+        switchMap(() =>
+        from(
+            EMPSEMINARSViewApiCall()
+        ).pipe(
+            map((data) => {
+            return _Action.EMPSEMINARSViewActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.EMPSEMINARSViewActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.EMPSEMINARSViewActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+export const EMPSEMINARSViewSpecificEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.EMPSEMINARSViewSpecificAction.type),
+        switchMap((action: ReturnType<typeof _Action.EMPSEMINARSViewSpecificAction>) =>
+        from(
+            EMPSEMINARSViewSpecificApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.EMPSEMINARSViewSpecificActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.EMPSEMINARSViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.EMPSEMINARSViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+
+export const EMPSEMINARSCreateEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.EMPSEMINARSCreateAction.type),
+        switchMap((action: ReturnType<typeof _Action.EMPSEMINARSCreateAction>) =>
+        from(
+            EMPSEMINARSCreateApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.EMPSEMINARSCreateActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data) {
+                return of(_Action.EMPSEMINARSCreateActionFailure(`${beautifyJSON(error.response.data)}`)); // Extract error message from the response
+            } else {
+                return of(_Action.EMPSEMINARSCreateActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+export const EMPSEMINARSEditEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.EMPSEMINARSEditAction.type),
+        switchMap((action: ReturnType<typeof _Action.EMPSEMINARSEditAction>) =>
+        from(
+            EMPSEMINARSEditApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.EMPSEMINARSEditActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.EMPSEMINARSEditActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.EMPSEMINARSEditActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+
+export const EMPSEMINARSDeleteEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.EMPSEMINARSDeleteAction.type),
+        switchMap((action: ReturnType<typeof _Action.EMPSEMINARSDeleteAction>) =>
+        from(
+            EMPSEMINARSDeleteApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.EMPSEMINARSDeleteActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.EMPSEMINARSDeleteActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.EMPSEMINARSDeleteActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);

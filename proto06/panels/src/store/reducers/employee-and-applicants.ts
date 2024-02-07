@@ -52,7 +52,11 @@ _Interface.ALLSCHEDULEViewInterface |
 _Interface.EMPHISTORYViewInterface[] | 
 _Interface.EMPHISTORYViewInterface | 
 _Interface.EMPHISTORYCreateInterface |
-_Interface.EMPHISTORYEditInterface 
+_Interface.EMPHISTORYEditInterface |
+_Interface.EMPSEMINARSViewInterface[] | 
+_Interface.EMPSEMINARSViewInterface | 
+_Interface.EMPSEMINARSCreateInterface |
+_Interface.EMPSEMINARSEditInterface 
 ;
 
 interface CommonEmployeeAndApplicantsState {
@@ -226,6 +230,21 @@ interface EMPHISTORYEditState extends CommonEmployeeAndApplicantsState {
 }
 
 
+// EMPSEMINARS SECTION // EMPSEMINARS SECTION // EMPSEMINARS SECTION // EMPSEMINARS SECTION // EMPSEMINARS SECTION 
+interface EMPSEMINARSViewState extends CommonEmployeeAndApplicantsState{
+  data: _Interface.EMPSEMINARSViewInterface[];
+}
+
+interface EMPSEMINARSCreateState extends CommonEmployeeAndApplicantsState{
+  data: _Interface.EMPSEMINARSCreateInterface | null | {};
+}
+
+interface EMPSEMINARSEditState extends CommonEmployeeAndApplicantsState {
+  data: EMPSEMINARSViewState | null;
+}
+
+
+
 interface OverallEmployeeAndApplicantsState {
   [key: string]: CommonEmployeeAndApplicantsDataStringState | 
   KPICOREViewState | 
@@ -262,6 +281,9 @@ interface OverallEmployeeAndApplicantsState {
   EMPHISTORYViewState | 
   EMPHISTORYCreateState | 
   EMPHISTORYEditState |
+  EMPSEMINARSViewState | 
+  EMPSEMINARSCreateState | 
+  EMPSEMINARSEditState |
   PERFECTATTENDANCEViewState |
   ALLSCHEDULEViewState
   ,
@@ -330,6 +352,12 @@ interface OverallEmployeeAndApplicantsState {
   EMPHISTORYCreate: EMPHISTORYCreateState,
   EMPHISTORYEdit: EMPHISTORYEditState,
   EMPHISTORYDelete: CommonEmployeeAndApplicantsDataStringState,
+  //EMPSEMINARS SECTION
+  EMPSEMINARSView: EMPSEMINARSViewState,
+  EMPSEMINARSViewSpecific: EMPSEMINARSViewState,
+  EMPSEMINARSCreate: EMPSEMINARSCreateState,
+  EMPSEMINARSEdit: EMPSEMINARSEditState,
+  EMPSEMINARSDelete: CommonEmployeeAndApplicantsDataStringState,
 }
 
 const initialState: OverallEmployeeAndApplicantsState = {
@@ -663,6 +691,37 @@ const initialState: OverallEmployeeAndApplicantsState = {
     data: null,
     error: '',
   },
+  //EMPSEMINARS SECTION
+  EMPSEMINARSView: {
+    status: null,
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  EMPSEMINARSViewSpecific: {
+    status: null,
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  EMPSEMINARSCreate: {
+    status: null,
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  EMPSEMINARSEdit: {
+    status: null,
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  EMPSEMINARSDelete: {
+    status: null,
+    progress: 0,
+    data: null,
+    error: '',
+  },
 };
 
 const setLoadingState = (path: string) => (state: OverallEmployeeAndApplicantsState) => {
@@ -941,6 +1000,28 @@ const employeeAndApplicantsSlice = createSlice({
       .addCase(_Actions.EMPHISTORYDeleteActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "EMPHISTORYDelete"))
       .addCase(_Actions.EMPHISTORYDeleteActionProgress, (state, action) => setProgressState(state, action.payload, "EMPHISTORYDelete"))
       .addCase(_Actions.EMPHISTORYDeleteActionFailure, (state, action) => setFailureState(state, action.payload, "EMPHISTORYDelete"))
+      //EMPSEMINARS SECTION
+      .addCase(_Actions.EMPSEMINARSViewAction, setLoadingState("EMPSEMINARSView"))
+      .addCase(_Actions.EMPSEMINARSViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "EMPSEMINARSView"))
+      .addCase(_Actions.EMPSEMINARSViewActionProgress, (state, action) => setProgressState(state, action.payload, "EMPSEMINARSView"))
+      .addCase(_Actions.EMPSEMINARSViewActionFailure, (state, action) => setFailureState(state, action.payload, "EMPSEMINARSView"))
+      .addCase(_Actions.EMPSEMINARSViewSpecificAction, setLoadingState("EMPSEMINARSViewSpecific"))
+      .addCase(_Actions.EMPSEMINARSViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "EMPSEMINARSViewSpecific"))
+      .addCase(_Actions.EMPSEMINARSViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "EMPSEMINARSViewSpecific"))
+      .addCase(_Actions.EMPSEMINARSViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "EMPSEMINARSViewSpecific"))
+      .addCase(_Actions.EMPSEMINARSCreateAction, setLoadingState("EMPSEMINARSCreate"))
+      .addCase(_Actions.EMPSEMINARSCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "EMPSEMINARSCreate"))
+      .addCase(_Actions.EMPSEMINARSCreateActionProgress, (state, action) => setProgressState(state, action.payload, "EMPSEMINARSCreate"))
+      .addCase(_Actions.EMPSEMINARSCreateActionFailure, (state, action) => setFailureState(state, action.payload, "EMPSEMINARSCreate"))
+      .addCase(_Actions.EMPSEMINARSCreateActionFailureCleanup, setRefreshedState("EMPSEMINARSCreate"))
+      .addCase(_Actions.EMPSEMINARSEditAction, setLoadingState("EMPSEMINARSEdit"))
+      .addCase(_Actions.EMPSEMINARSEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "EMPSEMINARSEdit"))
+      .addCase(_Actions.EMPSEMINARSEditActionProgress, (state, action) => setProgressState(state, action.payload, "EMPSEMINARSEdit"))
+      .addCase(_Actions.EMPSEMINARSEditActionFailure, (state, action) => setFailureState(state, action.payload, "EMPSEMINARSEdit"))
+      .addCase(_Actions.EMPSEMINARSDeleteAction, setLoadingState("EMPSEMINARSDelete"))
+      .addCase(_Actions.EMPSEMINARSDeleteActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "EMPSEMINARSDelete"))
+      .addCase(_Actions.EMPSEMINARSDeleteActionProgress, (state, action) => setProgressState(state, action.payload, "EMPSEMINARSDelete"))
+      .addCase(_Actions.EMPSEMINARSDeleteActionFailure, (state, action) => setFailureState(state, action.payload, "EMPSEMINARSDelete"))
     },
 });
 

@@ -350,3 +350,24 @@ export interface EMPHISTORYViewInterface extends EMPHISTORYGenericInterface{
 export interface EMPHISTORYCreateInterface extends EMPHISTORYGenericInterface{}
 export interface EMPHISTORYEditInterface extends EMPHISTORYViewInterface{}
 export interface EMPHISTORYDeleteInterface extends EMPHISTORYGenericInterface, Pick<EMPHISTORYGenericInterface, "added_by">{}
+
+
+// ======================================
+
+export interface EMPSEMINARSGenericInterface {
+	emp_no: number
+	subject: string
+	date_accomplished: string | null
+	category: string | "Seminar" | "Training"
+    added_by: number
+}
+
+
+export interface EMPSEMINARSViewInterface extends EMPSEMINARSGenericInterface{
+	readonly id: number
+}
+
+
+export interface EMPSEMINARSCreateInterface extends EMPSEMINARSGenericInterface{}
+export interface EMPSEMINARSEditInterface extends EMPSEMINARSViewInterface{}
+export interface EMPSEMINARSDeleteInterface extends EMPSEMINARSGenericInterface, Pick<EMPHISTORYGenericInterface, "added_by">{}
