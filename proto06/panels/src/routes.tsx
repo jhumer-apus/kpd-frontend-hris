@@ -499,24 +499,24 @@ const JSXRouteWrapper = () => {
                   },
                 ]
               },
-              // {
-              //   id: 12400,
-              //   icon: <InsertChartOutlinedIcon {...icon} />,
-              //   name: "Employment History",
-              //   path: "/employees/Employment-History",
-              //   element:<EmploymentHistoryPage/>,
-              //   hasSubItems: false,
-              //   // subItems: [
-              //   //   {
-              //   //     id: 121000,
-              //   //     icon: <UserCircleIcon {...icon} />,
-              //   //     name: "201 Files",
-              //   //     path: "/employees/KPI-Appraisals/:emp_no",
-              //   //     element: <APPRAISALDETAILSPage/>, 
-              //   //     hasSubItems: false,
-              //   //   },
-              //   // ]
-              // },
+              {
+                id: 12400,
+                icon: <InsertChartOutlinedIcon {...icon} />,
+                name: "Employment History",
+                path: "/employees/Employment-History",
+                element:<EmploymentHistoryPage/>,
+                hasSubItems: false,
+                // subItems: [
+                //   {
+                //     id: 121000,
+                //     icon: <UserCircleIcon {...icon} />,
+                //     name: "201 Files",
+                //     path: "/employees/KPI-Appraisals/:emp_no",
+                //     element: <APPRAISALDETAILSPage/>, 
+                //     hasSubItems: false,
+                //   },
+                // ]
+              },
             ] : [],
             {
               id: 12300,

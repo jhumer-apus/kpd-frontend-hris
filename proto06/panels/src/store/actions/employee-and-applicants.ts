@@ -388,3 +388,44 @@ export const ALLSCHEDULEViewSpecificActionSuccess = createAction("ALLSCHEDULE_VI
 export const ALLSCHEDULEViewSpecificActionProgress = createAction<number>("ALLSCHEDULE_VIEW_SPECIFIC_ACTION_PROGRESS");
 export const ALLSCHEDULEViewSpecificActionFailure = createAction<string>("ALLSCHEDULE_VIEW_SPECIFIC_ACTION_FAILURE");
 export const ALLSCHEDULEViewSpecificActionFailureCleanup = createAction("ALLSCHEDULE_VIEW_SPECIFIC_ACTION_FAILURE_CLEANUP");
+
+
+
+// EMPHISTORY SECTION
+export const EMPHISTORYViewAction = createAction("EMPHISTORY_VIEW_ACTION");
+export const EMPHISTORYViewActionSuccess = createAction("EMPHISTORY_VIEW_ACTION_SUCCESS", (SuccessMessage: _Type.EMPHISTORYViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const EMPHISTORYViewActionProgress = createAction<number>("EMPHISTORY_VIEW_ACTION_PROGRESS");
+export const EMPHISTORYViewActionFailure = createAction<string>("EMPHISTORY_VIEW_ACTION_FAILURE");
+export const EMPHISTORYViewActionFailureCleanup = createAction("EMPHISTORY_VIEW_ACTION_FAILURE_CLEANUP");
+
+export const EMPHISTORYViewSpecificAction = createAction<{ emp_no: number}>("EMPHISTORY_VIEW_SPECIFIC_ACTION");
+export const EMPHISTORYViewSpecificActionSuccess = createAction("EMPHISTORY_VIEW_SPECIFIC_ACTION_SUCCESS", (SuccessMessage: _Type.EMPHISTORYViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const EMPHISTORYViewSpecificActionProgress = createAction<number>("EMPHISTORY_VIEW_SPECIFIC_ACTION_PROGRESS");
+export const EMPHISTORYViewSpecificActionFailure = createAction<string>("EMPHISTORY_VIEW_SPECIFIC_ACTION_FAILURE");
+export const EMPHISTORYViewSpecificActionFailureCleanup = createAction("EMPHISTORY_VIEW_SPECIFIC_ACTION_FAILURE_CLEANUP");
+
+export const EMPHISTORYCreateAction = createAction<_Type.EMPHISTORYCreateInterface>("EMPHISTORY_CREATE_ACTION");
+export const EMPHISTORYCreateActionSuccess = createAction("EMPHISTORY_CREATE_ACTION_SUCCESS", (SuccessMessage: _Type.EMPHISTORYCreateInterface) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const EMPHISTORYCreateActionProgress = createAction<number>("EMPHISTORY_CREATE_ACTION_PROGRESS");
+export const EMPHISTORYCreateActionFailure = createAction<string>("EMPHISTORY_CREATE_ACTION_FAILURE");
+export const EMPHISTORYCreateActionFailureCleanup = createAction("EMPHISTORY_CREATE_ACTION_FAILURE_CLEANUP");
+
+export const EMPHISTORYEditAction = createAction<_Type.EMPHISTORYEditInterface>("EMPHISTORY_EDIT_ACTION");
+export const EMPHISTORYEditActionSuccess = createAction("EMPHISTORY_EDIT_ACTION_SUCCESS", (SuccessMessage: _Type.EMPHISTORYEditInterface) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const EMPHISTORYEditActionProgress = createAction<number>("EMPHISTORY_EDIT_ACTION_PROGRESS");
+export const EMPHISTORYEditActionFailure = createAction<string>("EMPHISTORY_EDIT_ACTION_FAILURE");
+export const EMPHISTORYEditActionFailureCleanup = createAction("EMPHISTORY_EDIT_ACTION_FAILURE_CLEANUP");
+
+export const EMPHISTORYDeleteAction = createAction<{eh_id: number, added_by: number}>("EMPHISTORY_DELETE_ACTION");
+export const EMPHISTORYDeleteActionSuccess = createAction("EMPHISTORY_DELETE_ACTION_SUCCESS", (SuccessMessage: string) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const EMPHISTORYDeleteActionProgress = createAction<number>("EMPHISTORY_DELETE_ACTION_PROGRESS");
+export const EMPHISTORYDeleteActionFailure = createAction<string>("EMPHISTORY_DELETE_ACTION_FAILURE");
+export const EMPHISTORYDeleteActionFailureCleanup = createAction("EMPHISTORY_DELETE_ACTION_FAILURE_CLEANUP");

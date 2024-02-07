@@ -328,3 +328,25 @@ export interface All_Schedule_Filter_Interface {
 	month: number,
 	year: number
 };
+
+
+
+
+// ======================================
+
+export interface EMPHISTORYGenericInterface {
+	emp_no: number
+	employment_position: string
+	date_promoted: string
+    added_by: number
+}
+
+
+export interface EMPHISTORYViewInterface extends EMPHISTORYGenericInterface{
+	readonly id: number
+}
+
+
+export interface EMPHISTORYCreateInterface extends EMPHISTORYGenericInterface{}
+export interface EMPHISTORYEditInterface extends EMPHISTORYViewInterface{}
+export interface EMPHISTORYDeleteInterface extends EMPHISTORYGenericInterface, Pick<EMPHISTORYGenericInterface, "added_by">{}

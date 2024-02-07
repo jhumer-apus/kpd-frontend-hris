@@ -48,7 +48,11 @@ _Interface.JOBPOSTINGSEditInterface |
 _Interface.PERFECTATTENDANCEViewInterface[] |
 _Interface.PERFECTATTENDANCEViewInterface  |
 _Interface.ALLSCHEDULEViewInterface[] |
-_Interface.ALLSCHEDULEViewInterface  
+_Interface.ALLSCHEDULEViewInterface |
+_Interface.EMPHISTORYViewInterface[] | 
+_Interface.EMPHISTORYViewInterface | 
+_Interface.EMPHISTORYCreateInterface |
+_Interface.EMPHISTORYEditInterface 
 ;
 
 interface CommonEmployeeAndApplicantsState {
@@ -208,6 +212,19 @@ interface ALLSCHEDULEViewState extends CommonEmployeeAndApplicantsState{
 }
 
 
+// EMPHISTORY SECTION // EMPHISTORY SECTION // EMPHISTORY SECTION // EMPHISTORY SECTION // EMPHISTORY SECTION 
+interface EMPHISTORYViewState extends CommonEmployeeAndApplicantsState{
+  data: _Interface.EMPHISTORYViewInterface[];
+}
+
+interface EMPHISTORYCreateState extends CommonEmployeeAndApplicantsState{
+  data: _Interface.EMPHISTORYCreateInterface | null | {};
+}
+
+interface EMPHISTORYEditState extends CommonEmployeeAndApplicantsState {
+  data: EMPHISTORYViewState | null;
+}
+
 
 interface OverallEmployeeAndApplicantsState {
   [key: string]: CommonEmployeeAndApplicantsDataStringState | 
@@ -242,6 +259,9 @@ interface OverallEmployeeAndApplicantsState {
   JOBPOSTINGSViewState | 
   JOBPOSTINGSCreateState | 
   JOBPOSTINGSEditState |
+  EMPHISTORYViewState | 
+  EMPHISTORYCreateState | 
+  EMPHISTORYEditState |
   PERFECTATTENDANCEViewState |
   ALLSCHEDULEViewState
   ,
@@ -304,6 +324,12 @@ interface OverallEmployeeAndApplicantsState {
   PERFECTATTENDANCEViewSpecific: PERFECTATTENDANCEViewState,
   //ALLSCHEDULE SECTION
   ALLSCHEDULEViewSpecific: ALLSCHEDULEViewState,
+  //EMPHISTORY SECTION
+  EMPHISTORYView: EMPHISTORYViewState,
+  EMPHISTORYViewSpecific: EMPHISTORYViewState,
+  EMPHISTORYCreate: EMPHISTORYCreateState,
+  EMPHISTORYEdit: EMPHISTORYEditState,
+  EMPHISTORYDelete: CommonEmployeeAndApplicantsDataStringState,
 }
 
 const initialState: OverallEmployeeAndApplicantsState = {
@@ -606,6 +632,37 @@ const initialState: OverallEmployeeAndApplicantsState = {
     data: [],
     error: '',
   },
+  //EMPHISTORY SECTION
+  EMPHISTORYView: {
+    status: null,
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  EMPHISTORYViewSpecific: {
+    status: null,
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  EMPHISTORYCreate: {
+    status: null,
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  EMPHISTORYEdit: {
+    status: null,
+    progress: 0,
+    data: null,
+    error: '',
+  },
+  EMPHISTORYDelete: {
+    status: null,
+    progress: 0,
+    data: null,
+    error: '',
+  },
 };
 
 const setLoadingState = (path: string) => (state: OverallEmployeeAndApplicantsState) => {
@@ -862,6 +919,28 @@ const employeeAndApplicantsSlice = createSlice({
       .addCase(_Actions.ALLSCHEDULEViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ALLSCHEDULEViewSpecific"))
       .addCase(_Actions.ALLSCHEDULEViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "ALLSCHEDULEViewSpecific"))
       .addCase(_Actions.ALLSCHEDULEViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "ALLSCHEDULEViewSpecific"))
+      //EMPHISTORY SECTION
+      .addCase(_Actions.EMPHISTORYViewAction, setLoadingState("EMPHISTORYView"))
+      .addCase(_Actions.EMPHISTORYViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "EMPHISTORYView"))
+      .addCase(_Actions.EMPHISTORYViewActionProgress, (state, action) => setProgressState(state, action.payload, "EMPHISTORYView"))
+      .addCase(_Actions.EMPHISTORYViewActionFailure, (state, action) => setFailureState(state, action.payload, "EMPHISTORYView"))
+      .addCase(_Actions.EMPHISTORYViewSpecificAction, setLoadingState("EMPHISTORYViewSpecific"))
+      .addCase(_Actions.EMPHISTORYViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "EMPHISTORYViewSpecific"))
+      .addCase(_Actions.EMPHISTORYViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "EMPHISTORYViewSpecific"))
+      .addCase(_Actions.EMPHISTORYViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "EMPHISTORYViewSpecific"))
+      .addCase(_Actions.EMPHISTORYCreateAction, setLoadingState("EMPHISTORYCreate"))
+      .addCase(_Actions.EMPHISTORYCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "EMPHISTORYCreate"))
+      .addCase(_Actions.EMPHISTORYCreateActionProgress, (state, action) => setProgressState(state, action.payload, "EMPHISTORYCreate"))
+      .addCase(_Actions.EMPHISTORYCreateActionFailure, (state, action) => setFailureState(state, action.payload, "EMPHISTORYCreate"))
+      .addCase(_Actions.EMPHISTORYCreateActionFailureCleanup, setRefreshedState("EMPHISTORYCreate"))
+      .addCase(_Actions.EMPHISTORYEditAction, setLoadingState("EMPHISTORYEdit"))
+      .addCase(_Actions.EMPHISTORYEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "EMPHISTORYEdit"))
+      .addCase(_Actions.EMPHISTORYEditActionProgress, (state, action) => setProgressState(state, action.payload, "EMPHISTORYEdit"))
+      .addCase(_Actions.EMPHISTORYEditActionFailure, (state, action) => setFailureState(state, action.payload, "EMPHISTORYEdit"))
+      .addCase(_Actions.EMPHISTORYDeleteAction, setLoadingState("EMPHISTORYDelete"))
+      .addCase(_Actions.EMPHISTORYDeleteActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "EMPHISTORYDelete"))
+      .addCase(_Actions.EMPHISTORYDeleteActionProgress, (state, action) => setProgressState(state, action.payload, "EMPHISTORYDelete"))
+      .addCase(_Actions.EMPHISTORYDeleteActionFailure, (state, action) => setFailureState(state, action.payload, "EMPHISTORYDelete"))
     },
 });
 
