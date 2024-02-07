@@ -4,6 +4,7 @@ import {
   UserIcon,
   ChartBarIcon,
   Cog8ToothIcon,
+  CurrencyDollarIcon,
   ClockIcon,
 } from "@heroicons/react/24/solid";
 
@@ -33,6 +34,19 @@ export const statisticsCardsData = [
     },
     link: '/home/DTR/View-DTR',
   },
+  {
+    color: "pink",
+    icon: ClockIcon,
+    title: "Schedule Lists",
+    value: "Schedule",
+    footer: {
+      color: "text-green-500",
+      value: "<",
+      label: "Modification, etc.",
+    },
+    // link: 'development'
+    link: '/home/procedurals/schedule-dailies'
+  },
   // {
   //   color: "green",
   //   icon: UserPlusIcon,
@@ -47,7 +61,7 @@ export const statisticsCardsData = [
   // },
   {
     color: "orange",
-    icon: ChartBarIcon,
+    icon: CurrencyDollarIcon,
     title: "Payroll Division",
     value: "Info",
     footer: {
@@ -69,19 +83,6 @@ export const statisticsCardsData = [
   //   },
   //   link: 'development'
   // },
-  {
-    color: "pink",
-    icon: ClockIcon,
-    title: "Schedule Lists",
-    value: "Schedule",
-    footer: {
-      color: "text-green-500",
-      value: "<",
-      label: "Modification, etc.",
-    },
-    // link: 'development'
-    link: '/home/procedurals/schedule-dailies'
-  },
 ];
 
 export default statisticsCardsData;
