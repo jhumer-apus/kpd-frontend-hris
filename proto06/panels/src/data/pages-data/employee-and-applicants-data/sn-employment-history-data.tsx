@@ -30,8 +30,8 @@ export const EMPHISTORYPageColumns: GridColDef[] =
   },
   { 
     field: 'employment_position', 
-    headerName: 'Time Out:', 
-    width: 200,
+    headerName: 'Employment Position:', 
+    width: 220,
   },
 ];
   
