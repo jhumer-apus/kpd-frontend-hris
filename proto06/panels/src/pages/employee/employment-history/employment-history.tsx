@@ -66,7 +66,7 @@ export default function EmploymentHistoryPage() {
         <Grid item xs={6}>
           <Paper elevation={3} style={PaperStyle}>
             <div className='flex justify-between'>
-            <Typography variant={'h6'} style={{alignItems: 'center', display: 'flex'}}>Choose Employee to view Daily Schedule</Typography>
+            <Typography variant={'h6'} style={{alignItems: 'center', display: 'flex'}}>Employment History of Emp # </Typography>
             <EmployeeAutoCompleteRight currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/>
             </div>
             <EmploymentHistoryTable currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/>

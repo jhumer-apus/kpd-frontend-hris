@@ -1841,7 +1841,7 @@ const EMPHISTORYCreateApiCall = async (payload: _Interface.EMPHISTORYCreateInter
 };
 
 const EMPHISTORYViewSpecificApiCall = async (payload: {emp_no: number }) => {
-    const response = await axios.get(`${APILink}emp_history/${payload.emp_no}/`,
+    const response = await axios.get(`${APILink}emp_history/?emp_no=${payload.emp_no}`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
             if(progressEvent.total){
