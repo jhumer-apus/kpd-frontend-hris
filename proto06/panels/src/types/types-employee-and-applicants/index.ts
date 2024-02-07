@@ -337,7 +337,7 @@ export interface All_Schedule_Filter_Interface {
 export interface EMPHISTORYGenericInterface {
 	emp_no: number
 	employment_position: string
-	date_promoted: string
+	date_promoted: string | null
     added_by: number
 }
 
