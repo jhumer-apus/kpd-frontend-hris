@@ -120,6 +120,7 @@ import B2Forms from "./pages/forms/b2-forms/b2-forms";
 import { INTERNAL_USER_ROLE } from "./types/types-store";
 import { Profile } from "./pages";
 import ViewSpecificPayroll from "./pages/payroll/view-specific-payroll/view-specific-payroll";
+import EmploymentHistoryPage from "./pages/employee/employment-history/employment-history";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -498,12 +499,30 @@ const JSXRouteWrapper = () => {
                   },
                 ]
               },
+              // {
+              //   id: 12400,
+              //   icon: <InsertChartOutlinedIcon {...icon} />,
+              //   name: "Employment History",
+              //   path: "/employees/Employment-History",
+              //   element:<EmploymentHistoryPage/>,
+              //   hasSubItems: false,
+              //   // subItems: [
+              //   //   {
+              //   //     id: 121000,
+              //   //     icon: <UserCircleIcon {...icon} />,
+              //   //     name: "201 Files",
+              //   //     path: "/employees/KPI-Appraisals/:emp_no",
+              //   //     element: <APPRAISALDETAILSPage/>, 
+              //   //     hasSubItems: false,
+              //   //   },
+              //   // ]
+              // },
             ] : [],
             {
               id: 12300,
               icon: <PrivacyTipOutlinedIcon {...icon} />,
               name: "About KPI",
-              path: "/employees/About-Appraisal",
+              path: "/employees/About-KPI",
               element: <AboutAppraisalsPage/>,
               hasSubItems: false,
             },
