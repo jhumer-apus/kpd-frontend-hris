@@ -18,7 +18,7 @@ const EMPHISTORYModalComponent = ((props:EMPHISTORYModalComponentInterface) => {
 
     return (
         <Fragment>
-            <Typography variant='soft'>EMPHISTORY Individual Data</Typography>
+            <Typography variant='soft'>Employment History Individual Data</Typography>
             <ModalClose sx={{marginTop: '4px'}}/>
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <EMPHISTORYModalUI setSingleEMPHISTORYDetailsData={setSingleEMPHISTORYDetailsData} singleEMPHISTORYDetailsData={singleEMPHISTORYDetailsData}/>
