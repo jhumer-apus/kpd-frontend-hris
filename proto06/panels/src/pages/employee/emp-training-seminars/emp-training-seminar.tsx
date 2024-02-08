@@ -8,12 +8,12 @@ import { RootState } from '@/store/configureStore';
 import { Typography } from '@material-tailwind/react';
 import { ScheduleDailyColor } from '@/types/index';
 import dayjs from 'dayjs';
-import EmploymentHistoryTable from './right-side/employment-history-table';
+import EMPSEMINARSTable from './right-side/emp-seminars-table';
 import EmployeeAutoCompleteRight from './local-components/employee-autocomplete/employee-autocomplete-right';
 import CreateSCHEDULEDAILYMultipleModal from './local-components/assign-multiple-shift/create-schedule-daily-multiple-modal';
 import { All_Schedule_Filter_Interface } from '@/types/types-employee-and-applicants';
 import { ALLSCHEDULEViewSpecificAction } from '@/store/actions/employee-and-applicants';
-import EMPHISTORYCreate from './left-side/emp-history-create';
+import EMPSEMINARSCreate from './left-side/emp-seminars-create';
 
 
 const PaperStyle: CSSProperties = {
@@ -36,7 +36,7 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
 
 
 
-export default function EmploymentHistoryPage() {
+export default function EMPSEMINARSPage() {
   const dispatch = useDispatch();
   const theme = useTheme();
   const curr_emp = useSelector((state: RootState) => state.auth);
@@ -62,17 +62,17 @@ export default function EmploymentHistoryPage() {
         <Grid item xs={6}>
           <Paper elevation={3} style={PaperStyle}>
             <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
-              <EMPHISTORYCreate/>
+              <EMPSEMINARSCreate/>
             </Box>
           </Paper>
         </Grid>
         <Grid item xs={6}>
           <Paper elevation={3} style={PaperStyle}>
             <div className='flex justify-between'>
-            <Typography variant={'h6'} style={{alignItems: 'center', display: 'flex'}}>Employment History of Emp # </Typography>
+            <Typography variant={'h6'} style={{alignItems: 'center', display: 'flex'}}>Trainings / Seminars of Emp # </Typography>
             <EmployeeAutoCompleteRight currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/>
             </div>
-            <EmploymentHistoryTable currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/>
+            <EMPSEMINARSTable currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/>
           </Paper>
         </Grid>
       </Grid>

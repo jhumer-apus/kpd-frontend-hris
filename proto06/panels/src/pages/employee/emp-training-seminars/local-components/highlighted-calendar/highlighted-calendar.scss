@@ -1,0 +1,22 @@
+.custom-static-datepicker {
+    overflow: auto !important; /* Override the overflow property */
+    zoom: 1.2 !important;
+    padding-bottom: 30px !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .custom-static-datepicker {
+      zoom: unset !important;
+    }
+  }
+
+// .css-4pax7l-MuiPickersLayout-root .MuiPickersLayout-shortcuts{
+//     // border: 1px solid red !important;
+//     grid-row: 1/3 !important;
+//     min-width: 200px !important;
+// }
+
+
+.css-4pax7l-MuiPickersLayout-root .MuiPickersLayout-actionBar {
+    display: none;
+}

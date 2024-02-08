@@ -2,29 +2,29 @@ import { Dispatch, SetStateAction, Fragment, useState } from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
-import { SCHEDULEDAILYViewInterface } from '@/types/types-pages';
-import SCHEDULEDAILYModalComponent from './inner-modals/schedule-daily-modal-component';
+import { EMPHISTORYViewInterface } from '@/types/types-employee-and-applicants';
+import EMPHISTORYModalComponent from './inner-modals/emp-history-modal-component';
 
 
-interface SingleSCHEDULEDAILYInterface {
-    singleSCHEDULEDAILYOpenModal: boolean; 
-    setSingleSCHEDULEDAILYOpenModal: Dispatch<SetStateAction<boolean>>;
-    singleSCHEDULEDAILYDetailsData: SCHEDULEDAILYViewInterface;
-    setSingleSCHEDULEDAILYDetailsData: Dispatch<SetStateAction<SCHEDULEDAILYViewInterface>>;
+interface SingleEMPHISTORYInterface {
+    singleEMPHISTORYOpenModal: boolean; 
+    setSingleEMPHISTORYOpenModal: Dispatch<SetStateAction<boolean>>;
+    singleEMPHISTORYDetailsData: EMPHISTORYViewInterface;
+    setSingleEMPHISTORYDetailsData: Dispatch<SetStateAction<EMPHISTORYViewInterface>>;
 }
 
-export default function ViewSCHEDULEDAILYSingleModal(props: SingleSCHEDULEDAILYInterface) {
-    const {singleSCHEDULEDAILYOpenModal, setSingleSCHEDULEDAILYOpenModal, setSingleSCHEDULEDAILYDetailsData, singleSCHEDULEDAILYDetailsData} = props;
+export default function ViewEMPHISTORYSingleModal(props: SingleEMPHISTORYInterface) {
+    const {singleEMPHISTORYOpenModal, setSingleEMPHISTORYOpenModal, setSingleEMPHISTORYDetailsData, singleEMPHISTORYDetailsData} = props;
   const [scroll, setScroll] = useState<boolean>(true);
   return (
     <Fragment>
-      <Transition in={singleSCHEDULEDAILYOpenModal} timeout={400}>
+      <Transition in={singleEMPHISTORYOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
         keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setSingleSCHEDULEDAILYOpenModal(false);
+          setSingleEMPHISTORYOpenModal(false);
         }}
         slotProps={{
             backdrop: {
@@ -47,7 +47,7 @@ export default function ViewSCHEDULEDAILYSingleModal(props: SingleSCHEDULEDAILYI
             aria-labelledby="dialog-vertical-scroll-title" 
             layout={'center'}
             sx={{
-              ...SCHEDULEDAILYModalArea,
+              ...EMPHISTORYModalArea,
                 opacity: 0,
                 transition: `opacity 300ms`,
                 ...{
@@ -57,7 +57,7 @@ export default function ViewSCHEDULEDAILYSingleModal(props: SingleSCHEDULEDAILYI
                 overflow: 'auto',
             }}
         >
-          <SCHEDULEDAILYModalComponent setSingleSCHEDULEDAILYDetailsData={setSingleSCHEDULEDAILYDetailsData} singleSCHEDULEDAILYDetailsData={singleSCHEDULEDAILYDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <EMPHISTORYModalComponent setSingleEMPHISTORYDetailsData={setSingleEMPHISTORYDetailsData} singleEMPHISTORYDetailsData={singleEMPHISTORYDetailsData} scroll={scroll} setScroll={setScroll}/>
         </ModalDialog>
       </Modal>
         )}
@@ -68,8 +68,8 @@ export default function ViewSCHEDULEDAILYSingleModal(props: SingleSCHEDULEDAILYI
 
 
 // Styles
-const SCHEDULEDAILYModalArea = {
-  height: '128.5mm',
+const EMPHISTORYModalArea = {
+  height: '88.5mm',
   width: '210mm',
   margin: '0 auto',
   background: 'white',

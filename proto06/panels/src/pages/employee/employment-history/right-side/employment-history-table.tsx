@@ -3,10 +3,10 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { Typography } from "@material-tailwind/react";
-import { ProceduralSCHEDULEDAILYPageDescriptions, ProceduralSCHEDULEDAILYPageColumns } from '@/data/pages-data/procedural-data/schedule-daily-data';
-import ViewSCHEDULEDAILYSingleModal from './local-components/main-modals/view-schedule-daily-single-modal';
-import { SCHEDULEDAILYViewInterface } from '@/types/types-pages';
-import { SCHEDULEDAILYViewFilterEmployeeAction } from '@/store/actions/procedurals';
+import { EMPHISTORYPageDescriptions, EMPHISTORYPageColumns } from '@/data/pages-data/employee-and-applicants-data/sn-employment-history-data';
+import ViewEMPHISTORYSingleModal from './local-components/main-modals/view-emp-history-single-modal';
+import { EMPHISTORYViewInterface } from '@/types/types-employee-and-applicants';
+import { EMPHISTORYViewSpecificAction } from '@/store/actions/employee-and-applicants';
 import { globalServerErrorMsg } from '@/store/configureStore';
 
 
@@ -17,42 +17,31 @@ interface EmploymentHistoryTableInterface {
 
 export default function EmploymentHistoryTable(props: EmploymentHistoryTableInterface) {
   const {currEmployee} = props;
-  const [singleSCHEDULEDAILYOpenModal, setSingleSCHEDULEDAILYOpenModal] = useState<boolean>(false);
-  const [singleSCHEDULEDAILYDetailsData, setSingleSCHEDULEDAILYDetailsData] = useState<SCHEDULEDAILYViewInterface>({
+  const [singleEMPHISTORYOpenModal, setSingleEMPHISTORYOpenModal] = useState<boolean>(false);
+  const [singleEMPHISTORYDetailsData, setSingleEMPHISTORYDetailsData] = useState<EMPHISTORYViewInterface>({
     id: NaN,
-    is_processed: null,
-    sched_default: null,
-    schedule_shift_code: {
-      name: null,
-      time_in: null,
-      time_out: null,
-      grace_period: null,
-      with_overtime: null,
-      id: NaN,
-      is_night_shift: false,
-      date_deleted: '',
-    },
-    business_date: '',
     emp_no: NaN,
-    is_restday: false,
-    full_name: '',
+    employment_position: '',
+    date_promoted: '',
+    added_by: NaN,
   });
   const dispatch = useDispatch();
-  const { SCHEDULEDAILYViewFilterEmployee } = useSelector((state: RootState) => state.procedurals);
-  const { data, status, error } = SCHEDULEDAILYViewFilterEmployee;
-  const SCHEDULEDAILYViewData = data as SCHEDULEDAILYViewInterface[];
+  const { EMPHISTORYViewSpecific } = useSelector((state: RootState) => state.employeeAndApplicants);
+  const { data, status, error } = EMPHISTORYViewSpecific;
+  const EMPHISTORYViewData = data as EMPHISTORYViewInterface[];
 
   useEffect(()=> {
-      dispatch(SCHEDULEDAILYViewFilterEmployeeAction({emp_no: currEmployee}))
+      dispatch(EMPHISTORYViewSpecificAction({emp_no: currEmployee}))
   }, [currEmployee]);
 
+  console.log(Array.isArray(EMPHISTORYViewData), "asd")
   return (
     <Fragment>
       <div className="my-2 flex flex-wrap justify-between items-start gap-6">
         <div>
-          <ViewSCHEDULEDAILYSingleModal setSingleSCHEDULEDAILYDetailsData={setSingleSCHEDULEDAILYDetailsData} singleSCHEDULEDAILYDetailsData={singleSCHEDULEDAILYDetailsData} singleSCHEDULEDAILYOpenModal={singleSCHEDULEDAILYOpenModal} setSingleSCHEDULEDAILYOpenModal={setSingleSCHEDULEDAILYOpenModal}/>
+          <ViewEMPHISTORYSingleModal setSingleEMPHISTORYDetailsData={setSingleEMPHISTORYDetailsData} singleEMPHISTORYDetailsData={singleEMPHISTORYDetailsData} singleEMPHISTORYOpenModal={singleEMPHISTORYOpenModal} setSingleEMPHISTORYOpenModal={setSingleEMPHISTORYOpenModal}/>
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
-          <p>{ProceduralSCHEDULEDAILYPageDescriptions}</p>
+          <p>{EMPHISTORYPageDescriptions}</p>
         </Typography>
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400"}}>
           <i>Click on the Table Headers to Customize View, Sort, or Add/Remove Columns</i>
@@ -61,8 +50,8 @@ export default function EmploymentHistoryTable(props: EmploymentHistoryTableInte
       </div>
       <div style={{ height: '600px', width: '100%' }}>
         <DataGrid
-          rows={SCHEDULEDAILYViewData? SCHEDULEDAILYViewData as SCHEDULEDAILYViewInterface[]:[]}
-          columns={ProceduralSCHEDULEDAILYPageColumns}
+          rows={EMPHISTORYViewData? EMPHISTORYViewData as EMPHISTORYViewInterface[]:[]}
+          columns={EMPHISTORYPageColumns}
           initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 100 },
@@ -70,8 +59,8 @@ export default function EmploymentHistoryTable(props: EmploymentHistoryTableInte
           }}
           pageSizeOptions={[25, 50, 75, 100]}
           onRowClick={(e) => {
-            setSingleSCHEDULEDAILYDetailsData(e.row);
-            setSingleSCHEDULEDAILYOpenModal(true);
+            setSingleEMPHISTORYDetailsData(e.row);
+            setSingleEMPHISTORYOpenModal(true);
           }}
           disableRowSelectionOnClick 
           localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
