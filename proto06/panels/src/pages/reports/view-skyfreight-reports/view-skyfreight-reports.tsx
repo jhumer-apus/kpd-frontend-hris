@@ -14,27 +14,51 @@ export default function ViewSkyFreightReports() {
     const [isLoading, setIsLoading] = useState<Boolean>(false);
     const [rows, setRows] = useState<GridRowsProp[]>([]);
 
+    const [month, setMonth] = useState<Number|null>(10);
+    const [year, setYear] = useState<Number|null>(2023);
+
+    const [listOfCurrentMonth, setListOfCurrentMonth] = useState<String[]>([]);
+
+    const getLastDayOfMonth = (year: number, month: number) => {
+        
+        const lastDay = new Date(year, month, 0).getDate();
+        return lastDay;
+    }
+
     const getSkyFreightReports = async () => {
+
         setIsLoading(true);
-        await axios.get(`${APILink}schedule_daily/?month=10&year=2023`).then(response => {
+
+        await axios.get(`${APILink}schedule_daily/?month=${month}&year=${year}`).then(response => {
             setRows(currentRows => response.data);
             setIsLoading(false)
         })
+
     }
-    // getSkyFreightReports();
 
     useEffect(() => {
         getSkyFreightReports();
     }, []);
 
+    const organizeDailySchedulesOfemployees = () => {};
+
+    // const result = data.reduce((acc, obj) => {
+    //     const found = acc.find(item => item[0].id === obj.id);
+    //     if (found) {
+    //         found.push(obj);
+    //     } else {
+    //         acc.push([obj]);
+    //     }
+    //     return acc;
+    // }, []);
 
     useEffect(() => {
         console.log(rows);
     }, [rows])
 
     const columns: GridColDef[] = [
-        { field: 'col1', headerName: 'Column 1', width: 150 },
-        { field: 'col2', headerName: 'Column 2', width: 150 },
+        { field: 'id', headerName: '#', width: 150 },
+        { field: 'full_name', headerName: 'NAME', width: 150 },
     ];
       
       
@@ -55,7 +79,7 @@ export default function ViewSkyFreightReports() {
                     //     setSingleUSEROpenModal(true);
                     // }}
                     // disableRowSelectionOnClick 
-                    localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
+                    // localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
                 />
             </div>
             

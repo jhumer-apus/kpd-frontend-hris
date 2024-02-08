@@ -67,19 +67,19 @@ export const ProceduralLEAVEPageColumns: GridColDef[] =
 
         cellColor = '#ff9100'; // Orange DEFAULT
 
-        const employeeNumber: number = params.row?.emp_no;
+        // const employeeNumber: number = params.row?.emp_no;
 
-        getEmployeeLeaves(employeeNumber).then(leaves => {
+        // getEmployeeLeaves(employeeNumber).then(leaves => {
 
-          const numberOfSickLeavesApproved: number = leaves.filter((leave:any) => leave.leave_type == 1 && leave.leave_approval_status == 'APD').length;
+        //   const numberOfSickLeavesApproved: number = leaves.filter((leave:any) => leave.leave_type == 1 && leave.leave_approval_status == 'APD').length;
 
-          if(numberOfSickLeavesApproved >= 3) {
+        //   if(numberOfSickLeavesApproved >= 3) {
 
-            cellColor = '#ADD8E6'; // light blue
+        //     cellColor = '#ADD8E6'; // light blue
             
-          }
+        //   }
 
-        })
+        // })
 
       } else if ( status ==='DIS' ) { //Disapprove
 
