@@ -31,6 +31,7 @@ import  TextField  from '@mui/material';
 import axios from 'axios';
 import { useSelector } from "react-redux";
 import { APILink, RootState } from "@/store/configureStore";
+import styled from "@emotion/styled/types/base";
 
 const apiUrl = 'https://mercovsk1.pythonanywhere.com/api/v1/'; // Replace with your actual API endpoint
 
@@ -75,8 +76,8 @@ export function Profile() {
       setUserData(userData);
     });
   }, []);
-
-  const defaultImageSrc = '/img/defaultPic.jpg';
+  const defaultImageStyle = { width: 250, height: 250 };
+  const defaultImageSrc = '/img/default.png';
   const getImageSrc = () => {
     if (curr_user?.employee_image) {
       return `${APILink.replace('/api/v1', '')}${curr_user.employee_image}`;
@@ -138,7 +139,7 @@ export function Profile() {
             
             alt=" "
             className="border rounded p-2"
-            style={{ maxWidth: '100px', maxHeight: '100px' }} 
+            style={{ maxWidth: '150px', maxHeight: '110px' }} 
               />
           
               <div>
