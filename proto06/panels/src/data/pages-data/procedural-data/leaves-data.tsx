@@ -46,12 +46,12 @@ export const ProceduralLEAVEPageColumns: GridColDef[] =
     
         return newDate;
     }
-    const getEmployeeLeaves = async (employeeNumber: Number) => {
-      return await axios.get(`${APILink}leave/${employeeNumber}/`).then(response => response.data)
-    }
+    // const getEmployeeLeaves = async (employeeNumber: Number) => {
+    //   return await axios.get(`${APILink}leave/${employeeNumber}/`).then(response => response.data)
+    // }
 
       const leaveDateFiled: Date = new Date(params.row?.leave_date_filed);
-      const fiveAmLeaveDateFiled: Date = getFiveAmDate(leaveDateFiled);
+      const fiveAmLeaveDateFiled: Date = getFiveAmDate(params.row?.leave_date_from);
 
       const leaveTimestamp: number = leaveDateFiled.getTime();
       const fiveAmLeaveTimestamp: number = fiveAmLeaveDateFiled.getTime();
