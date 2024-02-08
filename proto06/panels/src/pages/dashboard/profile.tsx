@@ -76,7 +76,6 @@ export function Profile() {
       setUserData(userData);
     });
   }, []);
-  const defaultImageStyle = { width: 250, height: 250 };
   const defaultImageSrc = '/img/default.png';
   const getImageSrc = () => {
     if (curr_user?.employee_image) {
@@ -179,25 +178,25 @@ export function Profile() {
               <Typography variant="h6" color="blue-gray" className="mb-3">
                FIRSTNAME
                <div className="flex flex-col gap-12">
-               <input type="text"  value={`${curr_user?.first_name || ''}`} className="border rounded p-2" disabled={true}  />
+               <input type="text"  value={`${curr_user?.first_name || 'N/a'}`} className="border rounded p-2" disabled={true}  />
                </div>
               </Typography>
               <Typography variant="h6" color="blue-gray" className="mb-3">
                SUFFIX
                <div className="flex flex-col gap-12">
-               <input type="text" value={`${curr_user?.suffix || ''}`} className="border rounded p-2" disabled={true}  />
+               <input type="text" value={`${curr_user?.suffix || 'N/a'}`} className="border rounded p-2" disabled={true}  />
                </div>
               </Typography>
               <Typography variant="h6" color="blue-gray" className="mb-3">
                CIVIL STATUS
                <div className="flex flex-col gap-12">
-               <input type="text"  value={`${curr_user?.civil_status || ''}`} className="border rounded p-2" disabled={true}  />
+               <input type="text"  value={`${curr_user?.civil_status || 'N/a'}`} className="border rounded p-2" disabled={true}  />
                </div>
               </Typography>
               <Typography variant="h6" color="blue-gray" className="mb-3">
                PRESENT ADDRESS
                <div className="flex flex-col gap-12">
-               <input type="text" value={`${curr_user?.address || ''}`} className="border rounded p-2" disabled={true}  />
+               <input type="text" value={`${curr_user?.address || 'N/a'}`} className="border rounded p-2" disabled={true}  />
                </div>
               </Typography>
             </div>
@@ -205,25 +204,25 @@ export function Profile() {
               <Typography variant="h6" color="blue-gray" className="mb-3">
                MIDDLENAME
                <div className="flex flex-col gap-12">
-               <input type="text" value={`${curr_user?.middle_name || ''}`} className="border rounded p-2" disabled={true}  />
+               <input type="text" value={`${curr_user?.middle_name || 'N/a'}`} className="border rounded p-2" disabled={true}  />
                </div>
               </Typography>
               <Typography variant="h6" color="blue-gray" className="mb-3">
                BIRTHDAY
                <div className="flex flex-col gap-12">
-               <input type="text" placeholder="BIRTHDAY" value={`${curr_user?.birthday || ''}`} className="border rounded p-2" disabled={true}  />
+               <input type="text" placeholder="BIRTHDAY" value={`${curr_user?.birthday || 'N/a'}`} className="border rounded p-2" disabled={true}  />
                </div>
               </Typography>
               <Typography variant="h6" color="blue-gray" className="mb-3">
                GENDER
                <div className="flex flex-col gap-12">
-               <input type="text" value={`${curr_user?.gender || ''}`} className="border rounded p-2" disabled={true}  />
+               <input type="text" value={`${curr_user?.gender || 'N/a'}`} className="border rounded p-2" disabled={true}  />
                </div>
               </Typography>
               <Typography variant="h6" color="blue-gray" className="mb-3">
                PROVINCIAL ADDRESS
                <div className="flex flex-col gap-12">
-               <input type="text" value={`${curr_user?.provincial_address || ''}`} className="border rounded p-2" disabled={true}  disabled={true} />
+               <input type="text" value={`${curr_user?.provincial_address || 'N/a'}`} className="border rounded p-2" disabled={true}  disabled={true} />
                </div>
               </Typography>
             </div>
@@ -231,19 +230,19 @@ export function Profile() {
             <Typography variant="h6" color="blue-gray" className="mb-3">
                LASTNAME
                <div className="flex flex-col gap-12">
-               <input type="text" value={`${curr_user?.last_name || ''}`} className="border rounded p-2" disabled={true}  />
+               <input type="text" value={`${curr_user?.last_name || 'N/a'}`} className="border rounded p-2" disabled={true}  />
                </div>
               </Typography>
               <Typography variant="h6" color="blue-gray" className="mb-3">
                BIRTHPLACE
                <div className="flex flex-col gap-12">
-               <input type="text" value={`${curr_user?.birth_place || ''}`} className="border rounded p-2" disabled={true}  />
+               <input type="text" value={`${curr_user?.birth_place || 'N/a'}`} className="border rounded p-2" disabled={true}  />
                </div>
               </Typography>
               <Typography variant="h6" color="blue-gray" className="mb-3">
                MOBILE PHONE
                <div className="flex flex-col gap-12">
-               <input type="text" value={`${curr_user?.mobile_phone || ''}`} className="border rounded p-2" disabled={true}  />
+               <input type="text" value={`${curr_user?.mobile_phone || 'N/a'}`} className="border rounded p-2" disabled={true}  />
                </div>
               </Typography>
             </div>
@@ -255,13 +254,13 @@ export function Profile() {
             <Typography variant="h6" color="blue-gray" className="mb-3">
                Biometric ID
                <div className="flex flex-col gap-12">
-               <input type="text" value={`${curr_user?.bio_id || ''}`} className="border rounded p-2" disabled={true}  />
+               <input type="text" value={`${curr_user?.bio_id || 'N/a'}`} className="border rounded p-2" disabled={true}  />
                </div>
               </Typography> 
               <Typography variant="h6" color="blue-gray" className="mb-3">
                Date Added
                <div className="flex flex-col gap-12">
-               <input type="text"  value={`${curr_user?.date_added || ''}`} className="border rounded p-2" disabled={true}  />
+               <input type="text"  value={`${curr_user?.date_added || 'N/a'}`} className="border rounded p-2" disabled={true}  />
                </div>
               </Typography>
             </div>
@@ -269,13 +268,13 @@ export function Profile() {
               <Typography variant="h6" color="blue-gray" className="mb-3">
                Email Address
                <div className="flex flex-col gap-12">
-               <input type="text" defaultValue={`${curr_user?.email_address || ''}`} className="border rounded p-2" disabled={true}  />
+               <input type="text" defaultValue={`${curr_user?.email_address || 'N/a'}`} className="border rounded p-2" disabled={true}  />
                </div>
               </Typography>
               <Typography variant="h6" color="blue-gray" className="mb-3">
                Date Deactivated
                <div className="flex flex-col gap-12">
-               <input type="text" value={`${curr_user?.date_deleted || ''}`} className="border rounded p-2" disabled={true}  />
+               <input type="text" value={`${curr_user?.date_deleted || 'N/a'}`} className="border rounded p-2" disabled={true}  />
                </div>
               </Typography>
             </div>
@@ -283,7 +282,7 @@ export function Profile() {
             <Typography variant="h6" color="blue-gray" className="mb-3">
                Emp ID
                <div className="flex flex-col gap-12">
-               <input type="text" value={`${curr_user?.emp_no || ''}`} className="border rounded p-2" disabled={true}  />
+               <input type="text" value={`${curr_user?.emp_no || 'N/a'}`} className="border rounded p-2" disabled={true}  />
                </div>
               </Typography>
               
@@ -298,25 +297,25 @@ export function Profile() {
               <Typography variant="h6" color="blue-gray" className="mb-3">
                Date Hired
                <div className="flex flex-col gap-12">
-               <input type="text" value={`${curr_user?.date_hired || ''}`} className="border rounded p-2" disabled={true}  />
+               <input type="text" value={`${curr_user?.date_hired || 'N/a'}`} className="border rounded p-2" disabled={true}  />
                </div>
               </Typography>
               <Typography variant="h6" color="blue-gray" className="mb-3">
                Branch Code
                <div className="flex flex-col gap-12">
-               <input type="text"  value={`${curr_user?.branch_code || ''}`}  className="border rounded p-2" disabled={true}  />
+               <input type="text"  value={`${curr_user?.branch_code || 'N/a'}`}  className="border rounded p-2" disabled={true}  />
                </div>
               </Typography>
               <Typography variant="h6" color="blue-gray" className="mb-3">
                Position Code
                <div className="flex flex-col gap-12">
-               <input type="text"  value={`${curr_user?.position_code || ''}`} className="border rounded p-2" disabled={true}  />
+               <input type="text"  value={`${curr_user?.position_code || 'N/a'}`} className="border rounded p-2" disabled={true}  />
                </div>
               </Typography>
               <Typography variant="h6" color="blue-gray" className="mb-3">
                Account Number
                <div className="flex flex-col gap-12">
-               <input type="text"  value={`${curr_user?.accnt_no || ''}`} className="border rounded p-2" disabled={true}  />
+               <input type="text"  value={`${curr_user?.accnt_no || 'N/a'}`} className="border rounded p-2" disabled={true}  />
                </div>
               </Typography>
             </div>
@@ -324,25 +323,25 @@ export function Profile() {
               <Typography variant="h6" color="blue-gray" className="mb-3">
                Date Resigned
                <div className="flex flex-col gap-12">
-               <input type="text"  value={`${curr_user?.date_resigned || ''}`} className="border rounded p-2" disabled={true}  />
+               <input type="text"  value={`${curr_user?.date_resigned || 'N/a'}`} className="border rounded p-2" disabled={true}  />
                </div>
               </Typography>
               <Typography variant="h6" color="blue-gray" className="mb-3">
                Department Code
                <div className="flex flex-col gap-12">
-               <input type="text"  value={`${curr_user?.department_code || ''}`} className="border rounded p-2" disabled={true}  />
+               <input type="text"  value={`${curr_user?.department_code || 'N/a'}`} className="border rounded p-2" disabled={true}  />
                </div>
               </Typography>
               <Typography variant="h6" color="blue-gray" className="mb-3">
                Ranked Code
                <div className="flex flex-col gap-12">
-               <input type="text"  value={`${curr_user?.rank_code || ''}`} className="border rounded p-2" disabled={true}  />
+               <input type="text"  value={`${curr_user?.rank_code || 'N/a'}`} className="border rounded p-2" disabled={true}  />
                </div>
               </Typography>
               <Typography variant="h6" color="blue-gray" className="mb-3">
                Basic Salary Amount
                <div className="flex flex-col gap-12">
-               <input type="text"  value={`${curr_user?.emp_salary_basic || ''}`} className="border rounded p-2" disabled={true}  />
+               <input type="text"  value={`${curr_user?.emp_salary_basic || 'N/a'}`} className="border rounded p-2" disabled={true}  />
                </div>
               </Typography>
             </div>
@@ -350,25 +349,25 @@ export function Profile() {
             <Typography variant="h6" color="blue-gray" className="mb-3">
                City Code
                <div className="flex flex-col gap-12">
-               <input type="text"  value={`${curr_user?.city_code || ''}`} className="border rounded p-2" disabled={true}  />
+               <input type="text"  value={`${curr_user?.city_code || 'N/a'}`} className="border rounded p-2" disabled={true}  />
                </div>
               </Typography>
               <Typography variant="h6" color="blue-gray" className="mb-3">
                Division Code
                <div className="flex flex-col gap-12">
-               <input type="text"  value={`${curr_user?.division_code || ''}`} className="border rounded p-2" disabled={true}  />
+               <input type="text"  value={`${curr_user?.division_code || 'N/a'}`} className="border rounded p-2" disabled={true}  />
                </div>
               </Typography>
               <Typography variant="h6" color="blue-gray" className="mb-3">
                Payphone Group Code
                <div className="flex flex-col gap-12">
-               <input type="text" value={`${curr_user?.payroll_group_code || ''}`} className="border rounded p-2" disabled={true}  />
+               <input type="text" value={`${curr_user?.payroll_group_code || 'N/a'}`} className="border rounded p-2" disabled={true}  />
                </div>
               </Typography>
               <Typography variant="h6" color="blue-gray" className="mb-3">
                Salary Type
                <div className="flex flex-col gap-12">
-               <input type="text" value={`${curr_user?.emp_salary_type || ''}`} className="border rounded p-2" disabled={true}  />
+               <input type="text" value={`${curr_user?.emp_salary_type || 'N/a'}`} className="border rounded p-2" disabled={true}  />
                </div>
               </Typography>
             </div>
