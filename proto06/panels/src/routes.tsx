@@ -122,6 +122,8 @@ import { Profile } from "./pages";
 import ViewSpecificPayroll from "./pages/payroll/view-specific-payroll/view-specific-payroll";
 import EmploymentHistoryPage from "./pages/employee/employment-history/employment-history";
 
+import ViewSkyFreightReports from "./pages/reports/view-skyfreight-reports/view-skyfreight-reports";
+
 const icon = {
   className: "w-5 h-5 text-inherit",
 };
@@ -868,6 +870,8 @@ const JSXRouteWrapper = () => {
             ] : [],
           ]
         },
+        
+        
         // {
         //   id: 20000,
         //   icon: null,
@@ -894,6 +898,29 @@ const JSXRouteWrapper = () => {
         //     }]:[] ,
         //   ]
         // },
+        {
+          id: 19000,
+          icon: null,
+          name: "Reports",
+          path: "/reports",
+          element: null,
+          hasSubItems: true,
+          subItems: [
+            ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee) ? [
+              {
+                id: 19100,
+                icon: <DocumentIcon {...icon} />,
+                name: "View SkyFreight Reports",
+                path: "/report/view-skyfreight-reports",
+                element: <ViewSkyFreightReports/>,
+                hasSubItems: false,
+              },
+      
+            ] : [],
+          ]
+        },
+        
+        
       ],
     },
     {

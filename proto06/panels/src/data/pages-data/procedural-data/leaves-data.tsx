@@ -1,6 +1,12 @@
-import { globalDate, globalDateTime } from "@/store/configureStore";
 import { GridColDef, GridValueGetterParams, GridCellParams } from "@mui/x-data-grid";
+import axios from 'axios';
 import dayjs from "dayjs";
+
+//STORES
+import { APILink } from '@/store/configureStore';
+import { globalDate, globalDateTime } from "@/store/configureStore";
+
+
 
 export const ProceduralLEAVEPageDescriptions = [
   "P1 - Pending Approver1 | P2 - Pending Approver2 | APD - Approved | DIS - Disapproved",
@@ -21,26 +27,11 @@ export const ProceduralLEAVEPageColumns: GridColDef[] =
   { field: 'emp_no', headerName: 'Filed By:', width: 120 },
   { field: 'leave_approval_status', headerName: 'Status', width: 100,
     renderCell: (params: GridCellParams) => {
+
       const status = params.row?.leave_approval_status as string;
 
-      // const getFiveAmNextDate = (date: Date) => {
-
-      //     // Get next date
-      //     date.setDate(date.getDate() + 1)
-
-      //     // Set hours to 5
-      //     date.setHours(5);
-
-      //     // Set minutes and seconds to 0 to ensure it's exactly 5:00 AM
-      //     date.setMinutes(0);
-      //     date.setSeconds(0);
-      //     date.setMilliseconds(0);
-
-      //     return date;
-
-      // }
-
-      const getFiveAmDate = (date: Date) => {
+      //Functions
+      const getFiveAmDate = (date: Date): Date => {
 
         // Create a new Date object to avoid modifying the original one
         const newDate = new Date(date);
@@ -55,29 +46,40 @@ export const ProceduralLEAVEPageColumns: GridColDef[] =
     
         return newDate;
     }
+    const getEmployeeLeaves = async (employeeNumber: Number) => {
+      return await axios.get(`${APILink}leave/${employeeNumber}/`).then(response => response.data)
+    }
 
       const leaveDateFiled: Date = new Date(params.row?.leave_date_filed);
       const fiveAmLeaveDateFiled: Date = getFiveAmDate(leaveDateFiled);
 
-      console.log(leaveDateFiled);
-      console.log(fiveAmLeaveDateFiled);
-
-      const leaveTimestamp = leaveDateFiled.getTime();
-      const fiveAmLeaveTimestamp = fiveAmLeaveDateFiled.getTime();
-
-      console.log(leaveTimestamp);
-      console.log(fiveAmLeaveTimestamp);
+      const leaveTimestamp: number = leaveDateFiled.getTime();
+      const fiveAmLeaveTimestamp: number = fiveAmLeaveDateFiled.getTime();
 
 
       let cellColor = '';
 
-      if (status === 'P1' || status === 'P2') { //Pending
-
-        cellColor = '#ff9100'; // Orange
-
-      } else if (leaveDateFiled > fiveAmLeaveDateFiled) { //Invalid leave: File leave should not be after 5 am of tomorrow's start date of leave
+      if (leaveTimestamp > fiveAmLeaveTimestamp && status != 'APD' ) { //Invalid leave
 
         cellColor = '#aa2e25'; // Red
+
+      } else if (status === 'P1' || status === 'P2') { //Pending
+
+        cellColor = '#ff9100'; // Orange DEFAULT
+
+        // const employeeNumber: number = params.row?.emp_no;
+
+        // getEmployeeLeaves(employeeNumber).then(leaves => {
+
+        //   const numberOfSickLeavesApproved: number = leaves.filter((leave:any) => leave.leave_type == 1 && leave.leave_approval_status == 'APD').length;
+
+        //   if(numberOfSickLeavesApproved >= 3) {
+
+        //     cellColor = '#ADD8E6'; // light blue
+            
+        //   }
+
+        // })
 
       } else if ( status ==='DIS' ) { //Disapprove
 
