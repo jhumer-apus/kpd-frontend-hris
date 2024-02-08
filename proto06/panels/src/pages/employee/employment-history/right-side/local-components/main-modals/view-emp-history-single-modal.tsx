@@ -69,7 +69,7 @@ export default function ViewEMPHISTORYSingleModal(props: SingleEMPHISTORYInterfa
 
 // Styles
 const EMPHISTORYModalArea = {
-  height: '88.5mm',
+  height: '128.5mm',
   width: '210mm',
   margin: '0 auto',
   background: 'white',
