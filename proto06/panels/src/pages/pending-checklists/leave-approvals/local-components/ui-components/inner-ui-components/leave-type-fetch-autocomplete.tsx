@@ -48,7 +48,7 @@ export default function LEAVETYPEFetchAutoComplete(props: LEAVETYPEFetchAutoComp
                 dataArray?.map(({ id, name, is_paid }) => {
                     return {
                         LEAVETYPE: `${id} - ${name} [${is_paid ? 'Paid': 'Unpaid'}]`,
-                        LEAVETYPE_id: id,
+                        LEAVETYPE_id: id || NaN,
                     };
                 }) || [];
                 setLEAVETYPEList(updatedLEAVETYPEList);
@@ -84,7 +84,7 @@ export default function LEAVETYPEFetchAutoComplete(props: LEAVETYPEFetchAutoComp
     return (
         <Autocomplete
         // disableCloseOnSelect
-        id="grouped-demo"
+        noOptionsText={'Loading... Please Wait.'}
         options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
         groupBy={(option) => option.firstLetter}
         getOptionLabel={(option) => option.LEAVETYPE}

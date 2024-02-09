@@ -85,6 +85,7 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
                     Make sure to double check all the fields and entry.
                 </Typography>
                 <Autocomplete
+                    noOptionsText={'Loading... Please Wait.'}
                     inputValue={createHolidayForm['holiday_type']}
                     onInputChange={(event, newInputValue) => {
                             setCreateHolidayForm((prevState)=> ({
@@ -99,6 +100,7 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
                     renderInput={(params) => <TextField {...params} required label="Holiday Type" />}
                 />
                 <Autocomplete
+                    noOptionsText={'Loading... Please Wait.'}
                     inputValue={createHolidayForm['holiday_location']}
                     onInputChange={(event, newInputValue) => {
                             setCreateHolidayForm((prevState)=> ({

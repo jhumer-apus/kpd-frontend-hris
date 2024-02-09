@@ -86,7 +86,7 @@ export default function MultiRankAutoCompleteLeft(props: RankAutoCompleteInterfa
         // disableCloseOnSelect
         multiple
         limitTags={2}
-        id="grouped-demo"
+        noOptionsText={'Loading... Please Wait.'}
         options={ranksList?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
         groupBy={(ranksList) => ranksList.firstLetter}
         getOptionLabel={(ranksList) => ranksList.rank}

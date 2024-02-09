@@ -81,7 +81,6 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
         <Autocomplete
         noOptionsText={'Loading... Please Wait.'}
         // noOptionsText={<><p>Not found. <i style={{cursor: 'pointer', color: 'blue'}} onClick={()=> navigate('/home/employees/201-files')}>Add Employee?</i></p></>}
-        id="grouped-demo"
         defaultValue={controlledValue}
         onInputChange={handleInputChange}
         options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}

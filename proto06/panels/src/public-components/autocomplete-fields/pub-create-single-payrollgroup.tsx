@@ -89,7 +89,7 @@ export default function PayrollGroupAutoCompleteCreateSingle<LocalState>(props: 
         <Autocomplete
         // disableCloseOnSelect
         // key={localState.div_payrollgroup_code}
-        id="grouped-demo"
+        noOptionsText={'Loading... Please Wait.'}
         options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
         groupBy={(option) => option.payrollgroup_name}
         getOptionLabel={(option) => option.payrollgroup_name}

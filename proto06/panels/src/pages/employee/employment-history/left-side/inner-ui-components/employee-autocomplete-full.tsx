@@ -80,7 +80,6 @@ export default function EmployeeAutoCompleteFull(props: EmployeeAutoCompleteInte
         <Autocomplete
         // disableCloseOnSelect
         noOptionsText={'Loading... Please Wait.'}
-        id="grouped-demo"
         options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
         groupBy={(option) => option.firstLetter}
         getOptionLabel={(option) => option.employee}

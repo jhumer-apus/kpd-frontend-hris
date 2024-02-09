@@ -79,7 +79,7 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
         <Autocomplete
         // disableCloseOnSelect
         // key={createUSER.dept_lead}
-        id="grouped-demo"
+        noOptionsText={'Loading... Please Wait.'}
         options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
         groupBy={(option) => option.firstLetter}
         getOptionLabel={(option) => option.employee}
@@ -100,7 +100,7 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
         }
         {!defaultOption &&
         <Autocomplete
-        id="grouped-demo"
+        noOptionsText={'Loading... Please Wait.'}
         options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
         groupBy={(option) => option.firstLetter}
         getOptionLabel={(option) => option.employee}

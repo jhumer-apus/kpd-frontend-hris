@@ -17,6 +17,7 @@ export default function OVERTIMETypeAutoComplete(props: OVERTIMETypeAutoComplete
 
     return (
         <Autocomplete
+            noOptionsText={'Loading... Please Wait.'}
             value={createOVERTIME?.ot_type}
             onChange={(event: React.SyntheticEvent<Element, Event>, newValue: string | null ) => {
                 setCreateOVERTIME((prevState)=>{

@@ -17,6 +17,7 @@ export default function UATypeAutoComplete(props: UATypeAutoCompleteInterface) {
 
     return (
         <Autocomplete
+            noOptionsText={'Loading... Please Wait.'}
             value={`${createUA?.ua_type}` ?? ''}
             onChange={(event: React.SyntheticEvent<Element, Event>, newValue: string | null ) => {
                 setCreateUA((prevState)=>{

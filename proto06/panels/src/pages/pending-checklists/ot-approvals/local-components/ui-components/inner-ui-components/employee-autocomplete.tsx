@@ -78,8 +78,8 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
     return (
         <Autocomplete
         // disableCloseOnSelect
-        id="grouped-demo"
-        noOptionsText={<><p>Not found. <i style={{cursor: 'pointer', color: 'blue'}} onClick={()=> navigate('/home/employees/201-files')}>Add Employee?</i></p></>}
+        noOptionsText={'Loading... Please Wait.'}
+        // noOptionsText={<><p>Not found. <i style={{cursor: 'pointer', color: 'blue'}} onClick={()=> navigate('/home/employees/201-files')}>Add Employee?</i></p></>}
         options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
         groupBy={(option) => option.firstLetter}
         getOptionLabel={(option) => option.employee}

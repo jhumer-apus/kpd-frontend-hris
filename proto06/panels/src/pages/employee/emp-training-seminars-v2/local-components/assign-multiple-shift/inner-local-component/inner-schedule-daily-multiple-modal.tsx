@@ -79,9 +79,9 @@ export default function MultiEmployeeAutoCompleteLeft(props: EmployeeAutoComplet
     return (
         <Autocomplete
         // disableCloseOnSelect
+        noOptionsText={'Loading... Please Wait.'}
         multiple
         limitTags={2}
-        id="grouped-demo"
         options={employeesList?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
         groupBy={(employeesList) => employeesList.firstLetter}
         getOptionLabel={(employeesList) => employeesList.employee}

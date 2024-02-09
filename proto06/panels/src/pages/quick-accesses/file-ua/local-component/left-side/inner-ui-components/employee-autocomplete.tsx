@@ -33,7 +33,7 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
         <Autocomplete
         // disableCloseOnSelect
         classes={{focused: 'true'}}
-        id="grouped-demo"
+        noOptionsText={'Loading... Please Wait.'}
         options={[`${curr_emp}`]}
         // groupBy={(option) => option.firstLetter}
         value={`${curr_emp} - ${curr_user?.last_name} ${curr_user?.first_name}`}

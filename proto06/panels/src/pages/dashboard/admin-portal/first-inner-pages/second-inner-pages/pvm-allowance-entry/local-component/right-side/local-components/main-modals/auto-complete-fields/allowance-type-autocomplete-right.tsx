@@ -87,7 +87,7 @@ export default function AllowanceAutoCompleteRight(props: AllowanceAutoCompleteR
         defaultOption &&
         <Autocomplete
         // disableCloseOnSelect
-        id="grouped-demo"
+        noOptionsText={'Loading... Please Wait.'}
         defaultValue={defaultOption}
         options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
         groupBy={(option) => option.firstLetter}
@@ -109,6 +109,7 @@ export default function AllowanceAutoCompleteRight(props: AllowanceAutoCompleteR
         {
         !defaultOption &&
         <Autocomplete
+        noOptionsText={'Loading... Please Wait.'}
         options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
         groupBy={(option) => option.firstLetter}
         getOptionLabel={(option) => option.allowance}

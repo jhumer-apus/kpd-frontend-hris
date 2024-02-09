@@ -86,7 +86,7 @@ export default function BranchAutoCompleteRight(props: BranchAutoCompleteInterfa
         <Autocomplete
         // disableCloseOnSelect
         // key={createDIVISION.div_branch_code}
-        id="grouped-demo"
+        noOptionsText={'Loading... Please Wait.'}
         options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
         defaultValue={defaultOption}
         groupBy={(option) => option.firstLetter}
