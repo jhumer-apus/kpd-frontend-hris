@@ -5,17 +5,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { getEmployeesList } from '@/store/actions/employees';
 import { AutocompleteInputChangeReason } from '@mui/material/Autocomplete';
-import { SCHEDULEDAILYCreateInterface } from '@/types/types-pages';
-
+import { EMPHISTORYCreateInterface } from '@/types/types-employee-and-applicants';
 
 interface EmployeeAutoCompleteInterface{
-    createSCHEDULEDAILY: SCHEDULEDAILYCreateInterface;
-    setCreateSCHEDULEDAILY: Dispatch<SetStateAction<SCHEDULEDAILYCreateInterface>>;
+    createEMPHISTORY: EMPHISTORYCreateInterface;
+    setCreateEMPHISTORY: Dispatch<SetStateAction<EMPHISTORYCreateInterface>>;
 }
 
 
 export default function EmployeeAutoCompleteLeft(props: EmployeeAutoCompleteInterface) {
-    const {setCreateSCHEDULEDAILY, createSCHEDULEDAILY} = props;
+    const {setCreateEMPHISTORY, createEMPHISTORY} = props;
     const dispatch = useDispatch();
     const state = useSelector((state:RootState)=> state.employees);
     const [employeesList, setEmployeesList] = useState<{employee: string, emp_no: number}[]>([])
@@ -28,13 +27,13 @@ export default function EmployeeAutoCompleteLeft(props: EmployeeAutoCompleteInte
 
     useEffect(()=> {
         if(selectedEmployeeId && typeof selectedEmployeeId === 'number'){
-            // const updatedForm = { ...createSCHEDULEDAILY };
+            // const updatedForm = { ...createEMPHISTORY };
             // updatedForm.emp_no.push(selectedEmployeeId);
-            setCreateSCHEDULEDAILY((prevState)=> {
+            setCreateEMPHISTORY((prevState)=> {
                 return(
                     {
                         ...prevState,
-                        emp_no: [...prevState.emp_no, selectedEmployeeId]
+                        emp_no: selectedEmployeeId
                     }
                 )
             })
@@ -94,7 +93,7 @@ export default function EmployeeAutoCompleteLeft(props: EmployeeAutoCompleteInte
         renderInput={(params) => 
             {   
                 return(
-                    <TextField {...params} label="Employee #" />
+                    <TextField {...params} label="For Employee #" />
                 )
 
             }

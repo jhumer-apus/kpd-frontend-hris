@@ -34,7 +34,6 @@ export default function EmploymentHistoryTable(props: EmploymentHistoryTableInte
       dispatch(EMPHISTORYViewSpecificAction({emp_no: currEmployee}))
   }, [currEmployee]);
 
-  console.log(Array.isArray(EMPHISTORYViewData), "asd")
   return (
     <Fragment>
       <div className="my-2 flex flex-wrap justify-between items-start gap-6">

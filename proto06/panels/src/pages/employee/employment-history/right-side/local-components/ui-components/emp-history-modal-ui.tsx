@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import {TextField} from '@mui/material';
 import EditEMPHISTORYModal from '../main-modals/inner-modals/edit-emp-history-modal';
 import { globalDate } from '@/store/configureStore';
+import DeactivateEMPHISTORYModal from '../main-modals/inner-modals/delete-emp-history-modal';
 
 interface EMPHISTORYModalUIInterface {
     singleEMPHISTORYDetailsData: EMPHISTORYViewInterface;
@@ -13,13 +14,13 @@ interface EMPHISTORYModalUIInterface {
 }
 
 function EMPHISTORYModalUI(props: EMPHISTORYModalUIInterface) {
-    const [ approveEMPHISTORYOpenModal, setApproveEMPHISTORYOpenModal ] = useState(false);
+    const [ DeactivateEMPHISTORYOpenModal, setDeactivateEMPHISTORYOpenModal ] = useState(false);
     const [ EditEMPHISTORYOpenModal, setEditEMPHISTORYOpenModal ] = useState(false);
     const { setSingleEMPHISTORYDetailsData, singleEMPHISTORYDetailsData } = props;
     const ThisProps = props.singleEMPHISTORYDetailsData;
     const onClickModal = (mode: number) => {
         switch(mode){
-            case 0: setApproveEMPHISTORYOpenModal(true);
+            case 0: setDeactivateEMPHISTORYOpenModal(true);
             break;
             case 1: setEditEMPHISTORYOpenModal(true);
             break;
@@ -37,6 +38,12 @@ function EMPHISTORYModalUI(props: EMPHISTORYModalUIInterface) {
                     setEditEMPHISTORYOpenModal={setEditEMPHISTORYOpenModal}
                 />
             }
+            {/* <DeactivateEMPHISTORYModal 
+                DeactivateEMPHISTORYOpenModal={DeactivateEMPHISTORYOpenModal} 
+                setDeactivateEMPHISTORYOpenModal={setDeactivateEMPHISTORYOpenModal} 
+                singleEMPHISTORYDetailsData={singleEMPHISTORYDetailsData} 
+                setSingleEMPHISTORYDetailsData={setSingleEMPHISTORYDetailsData} 
+            /> */}
             <div className='flex flex-col gap-10 relative'>
                 <div className='flex gap-6 flex-col mt-4'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Business Date:' value={ThisProps.date_promoted ? dayjs(ThisProps.date_promoted).format(`${globalDate}`) : '-'} InputProps={{readOnly: false,}} variant='filled'/>
@@ -52,6 +59,7 @@ function EMPHISTORYModalUI(props: EMPHISTORYModalUIInterface) {
             <div className='flex justify-center mt-12' container-name='leave_buttons_container'>
                 <div className='flex justify-between' style={{width:'200px', marginTop: '20px'}} container-name='leave_buttons'>
                     <Button variant='contained' onClick={()=> onClickModal(1)}>Edit Daily Schedule</Button>
+                    {/* <Button variant='outlined' color={"error"} onClick={() => onClickModal(0)}>Delete</Button> */}
                 </div>
             </div>
             </div>
