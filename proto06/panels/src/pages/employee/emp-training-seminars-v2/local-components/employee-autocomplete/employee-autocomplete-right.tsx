@@ -15,17 +15,27 @@ interface EmployeeAutoCompleteInterface{
 
 
 export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInterface) {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const {currEmployee, setCurrEmployee} = props;
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
+    const curr_emp = useSelector((state: RootState) => state.auth.employee_detail);
     const state = useSelector((state:RootState)=> state.employees);
     const [employeesList, setEmployeesList] = useState<{employee: string, emp_no: number}[]>([])
     const [selectedEmployeeId, setSelectedEmployeeId] = useState<number | null>(null);
-    useEffect(()=> {
-        if(state.employees_list?.length === 0){
-            dispatch(getEmployeesList());
+    const [ controlledValue, setControlledValue ] = useState(
+        {
+        firstLetter: curr_emp && `${curr_emp?.last_name.charAt(0)}` || '', 
+        employee: curr_emp && `${curr_emp?.last_name} ${curr_emp?.first_name} - ${curr_emp?.emp_no}` || '', 
+        emp_no: curr_emp && curr_emp?.emp_no || NaN
         }
-    }, []);
+    )
+    
+    
+    // useEffect(()=> {
+    //     if(state.employees_list?.length === 0){
+    //         dispatch(getEmployeesList());
+    //     }
+    // }, []);
 
     useEffect(()=> {
         if(selectedEmployeeId){
@@ -55,7 +65,7 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
         ...option,
         };
     });
-    
+
     const defaultOption = options?.find((option) => option.emp_no === currEmployee);
     const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string, reason: AutocompleteInputChangeReason) => {
         const matchingEmployee = employeesList.find(
@@ -73,18 +83,19 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
     const isOptionEqualToValue = (option: { employee: string; emp_no: number }, value: { employee: string; emp_no: number }) => {
         return option.emp_no === value.emp_no;
     };
-    
+
     return (
         <>
-        {defaultOption && 
+        {/* {defaultOption &&  */}
         <Autocomplete
-        noOptionsText={<><p>Not found. <i style={{cursor: 'pointer', color: 'blue'}} onClick={()=> navigate('/home/employees/201-files')}>Add Employee?</i></p></>}
+        noOptionsText={'Loading... Please Wait.'}
+        // noOptionsText={<><p>Not found. <i style={{cursor: 'pointer', color: 'blue'}} onClick={()=> navigate('/home/employees/201-files')}>Add Employee?</i></p></>}
         id="grouped-demo"
-        defaultValue={defaultOption}
+        defaultValue={controlledValue}
+        onInputChange={handleInputChange}
         options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
         groupBy={(option) => option.firstLetter}
         getOptionLabel={(option) => option.employee}
-        onInputChange={handleInputChange}
         sx={{ width: '300px' }}
         isOptionEqualToValue={isOptionEqualToValue}
         renderInput={(params) => 
@@ -97,7 +108,7 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
 
         }
         />
-        }
+        {/* } */}
         </>
 
     );

@@ -2,12 +2,12 @@ import {useEffect, Dispatch, SetStateAction, useState, Fragment, CSSProperties}f
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
-import { SCHEDULEDAILYEditInterface, SCHEDULEDAILYViewInterface } from '@/types/types-pages';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalAPIDate } from '@/store/configureStore';
 import dayjs from 'dayjs';
-import { SCHEDULEDAILYCreateActionFailureCleanup, SCHEDULEDAILYEditAction } from '@/store/actions/procedurals';
+import { EMPSEMINARSEditInterface, EMPSEMINARSViewInterface } from '@/types/types-employee-and-applicants';
+import { EMPSEMINARSCreateActionFailureCleanup, EMPSEMINARSEditAction, EMPSEMINARSEditActionFailureCleanup, EMPSEMINARSViewSpecificAction} from '@/store/actions/employee-and-applicants';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers';
@@ -16,23 +16,25 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import SCHEDULESHIFTFetchAutoCompleteOnSCHEDULEDAILYEditPage from './schedule-shift-autocomplete/schedule-shift-autocomplete';
+import SCHEDULESHIFTFetchAutoCompleteOnEMPSEMINARSEditPage from './schedule-shift-autocomplete/schedule-shift-autocomplete';
 
 
 import { Box } from '@mui/material';
 import { CircularProgress } from '@mui/material';
 
-interface AllowedDaysSCHEDULEDAILYModalInterface {
-    singleSCHEDULEDAILYDetailsData: SCHEDULEDAILYViewInterface;
-    allowedDaysSCHEDULEDAILYOpenModal: boolean; 
-    setAllowedDaysSCHEDULEDAILYOpenModal: Dispatch<SetStateAction<boolean>>;
-    setSingleSCHEDULEDAILYDetailsData: Dispatch<SetStateAction<SCHEDULEDAILYViewInterface>>;
+interface EditEMPSEMINARSModalInterface {
+    singleEMPSEMINARSDetailsData: EMPSEMINARSViewInterface
+    EditEMPSEMINARSOpenModal: boolean 
+    setSingleEMPSEMINARSOpenModal: Dispatch<SetStateAction<boolean>> 
+    setEditEMPSEMINARSOpenModal: Dispatch<SetStateAction<boolean>>
+    setSingleEMPSEMINARSDetailsData: Dispatch<SetStateAction<EMPSEMINARSViewInterface>>
 }
 
-export default function AllowedDaysSCHEDULEDAILYModal(props: AllowedDaysSCHEDULEDAILYModalInterface) {
+export default function EditEMPSEMINARSModal(props: EditEMPSEMINARSModalInterface) {
   const dispatch = useDispatch();
-  const SCHEDULEDAILYAllowedDaysState = useSelector((state: RootState)=> state.procedurals.SCHEDULEDAILYEdit)
-  const {allowedDaysSCHEDULEDAILYOpenModal, setAllowedDaysSCHEDULEDAILYOpenModal, singleSCHEDULEDAILYDetailsData, setSingleSCHEDULEDAILYDetailsData} = props;
+  const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
+  const EMPSEMINARSEditState = useSelector((state: RootState)=> state.employeeAndApplicants.EMPSEMINARSEdit)
+  const {EditEMPSEMINARSOpenModal, setEditEMPSEMINARSOpenModal, singleEMPSEMINARSDetailsData, setSingleEMPSEMINARSDetailsData, setSingleEMPSEMINARSOpenModal} = props;
   const [ circular, setCircular ] = useState({
     show: true,
     transition: true,
@@ -50,52 +52,62 @@ export default function AllowedDaysSCHEDULEDAILYModal(props: AllowedDaysSCHEDULE
     transition: 'opacity 0.5s ease',
   };
 
-  const [ initialEditState, setInitialEditState ] = useState<SCHEDULEDAILYEditInterface>(
+  const [ initialEditState, setInitialEditState ] = useState<EMPSEMINARSEditInterface>(
     {
-      id: singleSCHEDULEDAILYDetailsData.id,
-      business_date: singleSCHEDULEDAILYDetailsData.business_date,
-      is_restday: singleSCHEDULEDAILYDetailsData.is_restday,
-      emp_no: singleSCHEDULEDAILYDetailsData.emp_no,
-      schedule_shift_code: singleSCHEDULEDAILYDetailsData.schedule_shift_code?.id ?? 0,
-      sched_default: singleSCHEDULEDAILYDetailsData.sched_default,
+      id: singleEMPSEMINARSDetailsData.id,
+      subject: singleEMPSEMINARSDetailsData.subject,
+      date_accomplished: singleEMPSEMINARSDetailsData.date_accomplished,
+      emp_no: singleEMPSEMINARSDetailsData.emp_no,
+      category: singleEMPSEMINARSDetailsData.category,
+      added_by: curr_user as number
     }
   );
 
-  const nullValues = Object.values(singleSCHEDULEDAILYDetailsData).filter(
+  const nullValues = Object.values(singleEMPSEMINARSDetailsData).filter(
     value => typeof value === null
   );
+    console.log(EditEMPSEMINARSOpenModal, "h123")
+  const EditEMPSEMINARS = () => { 
 
-  const allowedDaysSCHEDULEDAILY = () => { 
-    dispatch(SCHEDULEDAILYEditAction(initialEditState))
+    setEditEMPSEMINARSOpenModal(false)
+
+    dispatch(EMPSEMINARSEditAction(initialEditState))
+
   };
 
   useEffect(()=>{
-    if(SCHEDULEDAILYAllowedDaysState.status){      
-      if(SCHEDULEDAILYAllowedDaysState.status === 'succeeded'){
-        window.alert(`${SCHEDULEDAILYAllowedDaysState.status.charAt(0).toUpperCase()}${SCHEDULEDAILYAllowedDaysState.status.slice(1)}`)
+    if(EMPSEMINARSEditState.status){      
+      if(EMPSEMINARSEditState.status === 'succeeded'){
+        window.alert(`${EMPSEMINARSEditState.status.charAt(0).toUpperCase()}${EMPSEMINARSEditState.status.slice(1)}`)
         setTimeout(()=>{
-          window.location.reload();
+          dispatch(EMPSEMINARSViewSpecificAction({emp_no: singleEMPSEMINARSDetailsData.emp_no}))
+          // window.location.reload(); //Old version and slow version is to reload the whole page to refresh the data... not good.
         }, 400)
-      }else if (SCHEDULEDAILYAllowedDaysState.status === 'failed'){
-        window.alert(`${SCHEDULEDAILYAllowedDaysState.error}`)
-        dispatch(SCHEDULEDAILYCreateActionFailureCleanup());
+        setTimeout(() => {
+          dispatch(EMPSEMINARSEditActionFailureCleanup());
+        }, 500)
+        setSingleEMPSEMINARSOpenModal(false)
+      }else if (EMPSEMINARSEditState.status === 'failed'){
+        window.alert(`${EMPSEMINARSEditState.error}`)
+        dispatch(EMPSEMINARSCreateActionFailureCleanup());
       }
     };
 
-    if(SCHEDULEDAILYAllowedDaysState.status === 'loading' || SCHEDULEDAILYAllowedDaysState.status === 'succeeded'){
+    if(EMPSEMINARSEditState.status === 'loading' || EMPSEMINARSEditState.status === 'refreshed'){
       return
     } else {
       setInitialEditState({
-        id: singleSCHEDULEDAILYDetailsData.id,
-        business_date: singleSCHEDULEDAILYDetailsData.business_date,
-        is_restday: singleSCHEDULEDAILYDetailsData.is_restday,
-        emp_no: singleSCHEDULEDAILYDetailsData.emp_no,
-        schedule_shift_code: singleSCHEDULEDAILYDetailsData.schedule_shift_code?.id || 0,
-        sched_default: singleSCHEDULEDAILYDetailsData.sched_default,
+        id: singleEMPSEMINARSDetailsData.id,
+        subject: singleEMPSEMINARSDetailsData.subject,
+        date_accomplished: singleEMPSEMINARSDetailsData.date_accomplished,
+        emp_no: singleEMPSEMINARSDetailsData.emp_no,
+        category: singleEMPSEMINARSDetailsData.category,
+        added_by: curr_user as number,
       });
     };
-  }, [SCHEDULEDAILYAllowedDaysState.status, singleSCHEDULEDAILYDetailsData]);
+  }, [EMPSEMINARSEditState.status, singleEMPSEMINARSDetailsData]);
 
+  console.log(EMPSEMINARSEditState.status, "huh?")
 
   useEffect(()=> {
 
@@ -119,16 +131,16 @@ export default function AllowedDaysSCHEDULEDAILYModal(props: AllowedDaysSCHEDULE
       }));
     })
 
-  }, [allowedDaysSCHEDULEDAILYOpenModal])
+  }, [EditEMPSEMINARSOpenModal])
 
   return (
     <Fragment>
-      <Transition in={allowedDaysSCHEDULEDAILYOpenModal} timeout={400}>
+      <Transition in={EditEMPSEMINARSOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setAllowedDaysSCHEDULEDAILYOpenModal(false);
+          setEditEMPSEMINARSOpenModal(false);
         }}
         slotProps={{
             backdrop: {
@@ -151,7 +163,7 @@ export default function AllowedDaysSCHEDULEDAILYModal(props: AllowedDaysSCHEDULE
             aria-labelledby="dialog-vertical-scroll-title" 
             layout={'center'}
             sx={{
-              ...allowedDaysSCHEDULEDAILYArea,
+              ...EditEMPSEMINARSArea,
                 opacity: 0,
                 transition: `opacity 300ms`,
                 ...{
@@ -163,44 +175,44 @@ export default function AllowedDaysSCHEDULEDAILYModal(props: AllowedDaysSCHEDULE
             size='sm'
         > 
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <Typography variant='h6' className='border-b-2 border-green-700'>Editing Daily Schedule</Typography>
+              <Typography variant='h6' className='border-b-2 border-green-700'>Editing Employment History Details</Typography>
               <div>
                 {/* <Box sx={CircularProgressStyle}>
                     <span style={{marginLeft: "50%", marginTop: "20%"}}><CircularProgress /></span>
                 </Box> */}
                 <div className='flex flex-col gap-10 overflow-auto relative mt-4 p-4'>
                     <DatePicker
-                      label="Business Date:"
-                      value={dayjs(initialEditState.business_date)}
+                      label="Date Promoted:"
+                      value={dayjs(initialEditState.date_accomplished)}
                       onChange={(newValue) => {
-                          const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
+                          const formattedDate = dayjs(newValue).format(`${globalAPIDate}`);
                           return (
                             setInitialEditState((prevState)=> {
                               return (
                                 {
                                   ...prevState,
-                                  business_date: formattedDate,
+                                  date_accomplished: formattedDate,
                                 }
                               )
                             })
                           )
                       }}
                     />
-                    <SCHEDULESHIFTFetchAutoCompleteOnSCHEDULEDAILYEditPage createSCHEDULEDAILYEdit={initialEditState} setSCHEDULEDAILYEdit={setInitialEditState}/>
-                    <FormControl>
+                    {/* <SCHEDULESHIFTFetchAutoCompleteOnEMPSEMINARSEditPage createEMPSEMINARSEdit={initialEditState} setEMPSEMINARSEdit={setInitialEditState}/> */}
+                    {/* <FormControl>
                         <FormLabel id="demo-controlled-radio-buttons-group">Is Restday</FormLabel>
                         <RadioGroup
                             row
                             aria-labelledby="demo-controlled-radio-buttons-group"
                             name="controlled-radio-buttons-group"
-                            value={`${initialEditState.is_restday}`}
+                            value={`${initialEditState.date_accomplished}`}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value = (event.target.value=== 'true' ? true : false);
                                 setInitialEditState((prevState)=> {
                                     return (
                                         {
                                             ...prevState,
-                                            is_restday: value
+                                            date_accomplished: value
                                         }
                                     )
                                 })
@@ -209,31 +221,33 @@ export default function AllowedDaysSCHEDULEDAILYModal(props: AllowedDaysSCHEDULE
                             <FormControlLabel value="true" control={<Radio />} label="Yes" />
                             <FormControlLabel value="false" control={<Radio />} label="No" />
                         </RadioGroup>
-                    </FormControl>
-                    {/* <TextField 
+                    </FormControl> */}
+                    <TextField 
                       sx={{width: '100%'}} 
-                      label='Shift Code:'
-                      value={(initialEditState.schedule_shift_code)}
-                      type='number'
+                      label='Employment Position:'
+                      value={(initialEditState.subject)}
+                      type='text'
+                      multiline
+                      rows={3}
                       onChange={(newValue)=> {
-                        const value = parseInt(newValue.target.value);
+                        const value = newValue.target.value;
                         setInitialEditState((prevState)=> {
                           return (
                             {
                               ...prevState,
-                              schedule_shift_code: value,
+                              subject: value,
                             }
                           )
                         })
                       }}
-                      variant='standard'
-                    /> */}
+                      variant='outlined'
+                    />
                 </div>
                 <div className='flex flex-col justify-center items-center'>
                   <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
                       <div className='flex justify-between' style={{width:'200px', marginTop: '20px'}} container-name='leave_buttons'>
-                          <Button variant={'contained'} onClick={allowedDaysSCHEDULEDAILY}>Submit</Button>
-                          <Button variant={'outlined'} onClick={()=>{setAllowedDaysSCHEDULEDAILYOpenModal(false)}}>Cancel</Button>
+                          <Button variant={'contained'} onClick={EditEMPSEMINARS}>Submit</Button>
+                          <Button variant={'outlined'} onClick={()=>{setEditEMPSEMINARSOpenModal(false)}}>Cancel</Button>
                       </div>
                   </div>
                 </div>
@@ -249,7 +263,7 @@ export default function AllowedDaysSCHEDULEDAILYModal(props: AllowedDaysSCHEDULE
 
 
 // Styles
-const allowedDaysSCHEDULEDAILYArea = {
+const EditEMPSEMINARSArea = {
   height: '128.5mm',
   width: '120mm',
   margin: '0 auto',

@@ -123,9 +123,8 @@ import ViewSpecificPayroll from "./pages/payroll/view-specific-payroll/view-spec
 import EmploymentHistoryPage from "./pages/employee/employment-history/employment-history";
 import AutoStoriesOutlinedIcon from '@mui/icons-material/AutoStoriesOutlined';
 import Diversity3OutlinedIcon from '@mui/icons-material/Diversity3Outlined';
-import EMPSEMINARSPage from "./pages/employee/emp-training-seminars/emp-training-seminar";
-
 import ViewSkyFreightReports from "./pages/reports/view-skyfreight-reports/view-skyfreight-reports";
+import EMPSEMINARSPageV2 from "./pages/employee/emp-training-seminars-v2/emp-training-seminars";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -527,7 +526,7 @@ const JSXRouteWrapper = () => {
                 icon: <Diversity3OutlinedIcon {...icon} />,
                 name: "Training & Seminars",
                 path: "/employees/Training-and-Seminars",
-                element:<EMPSEMINARSPage/>,
+                element:<EMPSEMINARSPageV2/>,
                 hasSubItems: false,
                 // subItems: [
                 //   {

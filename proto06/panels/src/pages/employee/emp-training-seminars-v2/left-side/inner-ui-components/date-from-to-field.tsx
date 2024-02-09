@@ -21,7 +21,7 @@ export default function DateFromToEMPSEMINARSCreate(props: DateFromToEMPSEMINARS
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             {/* <div title="Make sure this field is logical. (i.e, `Date & Time From` should come first and not the `Date & Time To`)"> */}
             <DateTimePicker
-            label="Date of Changes"
+            label="Date of Accomplishment"
             value={createEMPSEMINARS?.date_accomplished }
             onChange={(newValue) => {
                 const formattedDate = dayjs(newValue).format(`${globalAPIDate}`);

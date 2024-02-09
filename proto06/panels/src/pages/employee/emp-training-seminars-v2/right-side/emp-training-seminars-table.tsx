@@ -4,18 +4,18 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { Typography } from "@material-tailwind/react";
 import { EMPSEMINARSPageDescriptions, EMPSEMINARSPageColumns } from '@/data/pages-data/employee-and-applicants-data/sn-emp-seminars-data';
-import ViewEMPSEMINARSSingleModal from './local-components/main-modals/view-emp-seminars-single-modal';
+import ViewEMPSEMINARSSingleModal from './local-components/main-modals/view-emp-training-seminars-single-modal';
 import { EMPSEMINARSViewInterface } from '@/types/types-employee-and-applicants';
 import { EMPSEMINARSViewSpecificAction } from '@/store/actions/employee-and-applicants';
 import { globalServerErrorMsg } from '@/store/configureStore';
 
 
-interface EMPSEMINARSTableInterface {
+interface EmploymentHistoryTableInterface {
   currEmployee: number,
   setCurrEmployee: Dispatch<SetStateAction<number>>,
 }
 
-export default function EMPSEMINARSTable(props: EMPSEMINARSTableInterface) {
+export default function EmploymentHistoryTable(props: EmploymentHistoryTableInterface) {
   const {currEmployee} = props;
   const [singleEMPSEMINARSOpenModal, setSingleEMPSEMINARSOpenModal] = useState<boolean>(false);
   const [singleEMPSEMINARSDetailsData, setSingleEMPSEMINARSDetailsData] = useState<EMPSEMINARSViewInterface>({
@@ -39,7 +39,12 @@ export default function EMPSEMINARSTable(props: EMPSEMINARSTableInterface) {
     <Fragment>
       <div className="my-2 flex flex-wrap justify-between items-start gap-6">
         <div>
-          <ViewEMPSEMINARSSingleModal setSingleEMPSEMINARSDetailsData={setSingleEMPSEMINARSDetailsData} singleEMPSEMINARSDetailsData={singleEMPSEMINARSDetailsData} singleEMPSEMINARSOpenModal={singleEMPSEMINARSOpenModal} setSingleEMPSEMINARSOpenModal={setSingleEMPSEMINARSOpenModal}/>
+          <ViewEMPSEMINARSSingleModal 
+            setSingleEMPSEMINARSDetailsData={setSingleEMPSEMINARSDetailsData} 
+            singleEMPSEMINARSDetailsData={singleEMPSEMINARSDetailsData} 
+            singleEMPSEMINARSOpenModal={singleEMPSEMINARSOpenModal} 
+            setSingleEMPSEMINARSOpenModal={setSingleEMPSEMINARSOpenModal}
+          />
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
           <p>{EMPSEMINARSPageDescriptions}</p>
         </Typography>

@@ -3,7 +3,7 @@ import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
 import { EMPSEMINARSViewInterface } from '@/types/types-employee-and-applicants';
-import EMPSEMINARSModalComponent from './inner-modals/emp-seminars-modal-component';
+import EMPSEMINARSModalComponent from './inner-modals/emp-training-seminars-modal-component';
 
 
 interface SingleEMPSEMINARSInterface {
@@ -21,7 +21,7 @@ export default function ViewEMPSEMINARSSingleModal(props: SingleEMPSEMINARSInter
       <Transition in={singleEMPSEMINARSOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
+        // keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSingleEMPSEMINARSOpenModal(false);
@@ -57,7 +57,13 @@ export default function ViewEMPSEMINARSSingleModal(props: SingleEMPSEMINARSInter
                 overflow: 'auto',
             }}
         >
-          <EMPSEMINARSModalComponent setSingleEMPSEMINARSDetailsData={setSingleEMPSEMINARSDetailsData} singleEMPSEMINARSDetailsData={singleEMPSEMINARSDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <EMPSEMINARSModalComponent 
+            setSingleEMPSEMINARSDetailsData={setSingleEMPSEMINARSDetailsData} 
+            singleEMPSEMINARSDetailsData={singleEMPSEMINARSDetailsData} 
+            scroll={scroll} 
+            setScroll={setScroll}
+            setSingleEMPSEMINARSOpenModal={setSingleEMPSEMINARSOpenModal}
+          />
         </ModalDialog>
       </Modal>
         )}
@@ -69,7 +75,7 @@ export default function ViewEMPSEMINARSSingleModal(props: SingleEMPSEMINARSInter
 
 // Styles
 const EMPSEMINARSModalArea = {
-  height: '88.5mm',
+  height: '128.5mm',
   width: '210mm',
   margin: '0 auto',
   background: 'white',

@@ -3,15 +3,17 @@ import { Button } from '@mui/material';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
-import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
 import DateFromToEMPSEMINARSCreate from './inner-ui-components/date-from-to-field';
 import { Typography } from '@mui/joy';
 // import { EMPSEMINARSCreateInterface } from '@/types/types-pages';
 import { EMPSEMINARSCreateInterface } from '@/types/types-employee-and-applicants';
-import { EMPSEMINARSCreateAction, EMPSEMINARSCreateActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import { EMPSEMINARSCreateAction, EMPSEMINARSCreateActionFailureCleanup, EMPSEMINARSViewSpecificAction } from '@/store/actions/employee-and-applicants';
+import EmployeeAutoCompleteFull from './inner-ui-components/employee-autocomplete-full';
 
 interface CreateEMPSEMINARSModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
+    currEmployee: number;
+    setCurrEmployee: Dispatch<React.SetStateAction<number>>
 }
 
 function EMPSEMINARSCreate(props: CreateEMPSEMINARSModalInterface) {
@@ -21,9 +23,9 @@ function EMPSEMINARSCreate(props: CreateEMPSEMINARSModalInterface) {
     const [createEMPSEMINARS, setCreateEMPSEMINARS] = useState<EMPSEMINARSCreateInterface>({
         subject: '',
         date_accomplished: null,
-        emp_no: NaN,
-        added_by: NaN,
         category: '',
+        emp_no: NaN,
+        added_by: NaN
     });
     useEffect(()=> {
         if(curr_user){
@@ -41,26 +43,31 @@ function EMPSEMINARSCreate(props: CreateEMPSEMINARSModalInterface) {
     useEffect(()=>{
         if(EMPSEMINARSCreatestate.status === 'succeeded'){
             window.alert('Request Successful');
-            window.location.reload();
+            props.setCurrEmployee(createEMPSEMINARS.emp_no)
+            // dispatch((EMPSEMINARSViewSpecificAction(({emp_no: createEMPSEMINARS.emp_no}))))
+            setTimeout(()=> {
+                dispatch(EMPSEMINARSCreateActionFailureCleanup());
+            }, 300)
+            // window.location.reload();
         }else if(EMPSEMINARSCreatestate.status === 'failed'){
             window.alert(`Request Failed, ${EMPSEMINARSCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(EMPSEMINARSCreateActionFailureCleanup());
-            }, 1000)
+            }, 300)
         }
     }, [EMPSEMINARSCreatestate.status])
-
+    
     return (
         <React.Fragment>
-            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a Training / Seminar History for an Individual Data</Typography>
+            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a record of Training/Seminar for Individual Data</Typography>
             <div className='flex flex-col gap-6 overflow-auto relative'>
                 <div className='flex gap-6 pt-4'>
                     <div className='flex flex-col gap-6'>
-                        <EmployeeAutoComplete createEMPSEMINARS={createEMPSEMINARS} setCreateEMPSEMINARS={setCreateEMPSEMINARS}/>
+                        <EmployeeAutoCompleteFull currEmployee={props.currEmployee} createEMPSEMINARS={createEMPSEMINARS} setCreateEMPSEMINARS={setCreateEMPSEMINARS}/>
                         <TextField
                             required 
                             sx={{width: '100%'}} 
-                            label='Subject Title:'  
+                            label='Subject'  
                             variant='outlined' 
                             multiline rows={4}
                             value={createEMPSEMINARS?.subject}
@@ -83,8 +90,8 @@ function EMPSEMINARSCreate(props: CreateEMPSEMINARSModalInterface) {
                         <TextField
                             required 
                             sx={{width: '100%'}} 
-                            label='Training or Seminar:'
-                            placeholder='Declare whether a "Training" or a "Seminar (Case Sensitive)"'  
+                            label='Training or Seminar'
+                            placeholder='Declare whether a "Training" or a "Seminar" (Case Sensitive)'  
                             variant='outlined' 
                             multiline rows={4}
                             value={createEMPSEMINARS?.category}
@@ -105,7 +112,7 @@ function EMPSEMINARSCreate(props: CreateEMPSEMINARSModalInterface) {
                 </div>
                 <div className='flex justify-center mt-6' container-name='ot_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='ot_buttons'>
-                        <Button variant='contained' onClick={onClickSubmit}>Create Training / Seminar</Button>
+                        <Button variant='contained' onClick={onClickSubmit}>Create a Record of Training/Seminar</Button>
                     </div>
                 </div>
             </div>
