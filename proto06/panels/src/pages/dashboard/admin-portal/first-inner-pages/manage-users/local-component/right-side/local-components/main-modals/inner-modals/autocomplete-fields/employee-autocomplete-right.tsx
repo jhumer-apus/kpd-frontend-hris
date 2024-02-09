@@ -16,15 +16,9 @@ interface EmployeeAutoCompleteInterface{
 
 export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInterface) {
     const {setCreateUSER, createUSER} = props;
-    const dispatch = useDispatch();
     const state = useSelector((state:RootState)=> state.employees);
     const [employeesList, setEmployeesList] = useState<{employee: string, emp_no: number}[]>([])
     const [selectedEmployeeId, setSelectedEmployeeId] = useState<number | null>(null);
-    useEffect(()=> {
-        if(state.employees_list?.length === 0){
-            dispatch(getEmployeesList());
-        }
-    }, []);
 
     useEffect(()=> {
         if(selectedEmployeeId){

@@ -29,16 +29,9 @@ interface optionsInterface {
 
 export default function MultiEmployeeAutoCompleteLeft(props: EmployeeAutoCompleteInterface) {
     const {setCreateSCHEDULEDAILY, createSCHEDULEDAILY} = props;
-    const dispatch = useDispatch();
     const state = useSelector((state:RootState)=> state.employees);
     const [employeesList, setEmployeesList] = useState<optionsInterface[]>([])
     const [selectedEmployeeId, setSelectedEmployeeId] = useState<number[]>([]);
-
-    useEffect(()=> {
-        if(state.employees_list?.length === 0){
-            dispatch(getEmployeesList());
-        }
-    }, []);
 
     useEffect(()=> {
         if(selectedEmployeeId){
