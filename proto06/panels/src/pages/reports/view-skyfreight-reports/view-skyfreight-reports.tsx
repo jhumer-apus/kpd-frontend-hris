@@ -8,20 +8,25 @@ import axios from 'axios';
 import { APILink } from '@/store/configureStore';
 import { globalServerErrorMsg } from '@/store/configureStore';
 
+//COMPONENTS
+import ExportToCsvButton from './local-components/export-to-csv-button';
+
 interface EmployeeData {
     id: number;
     emp_no: number;
     full_name: string;
     [date: string]: string | number;
 }
+
 export default function ViewSkyFreightReports() {
 
     const [isLoading, setIsLoading] = useState<Boolean>(false);
     
     // dont need the local state because, better to declare the data coming from API into the central state?
-    const [columnsApi, setColumnsApi] = useState<[]>([])
+    // const [columnsApi, setColumnsApi] = useState<[]>([])
     const [dateColumns, setDateColumns] = useState<GridColDef []>([]);
-    const [rows, setRows] = useState<EmployeeData[]>([]);
+    const [dataRows, setDataRows] = useState<EmployeeData[]>([]);
+
 
     // useEffect(()=> {
     //     //set dispatch action here to get response from Marc's API with query of whatever month / year to check report
@@ -32,14 +37,24 @@ export default function ViewSkyFreightReports() {
     //     //dont forget to set the dependencies of useEffect
     // }, [])
 
-    const [month, setMonth] = useState<number>(10);
-    const [year, setYear] = useState<number>(2023);
+    const [month, setMonth] = useState<number>();
+    const [year, setYear] = useState<number>();
+
+    const handleMonthChange = (e:any) => {
+        setMonth(e.target.value);
+    };
+
+    const handleYearChange = (e:any) => {
+        setYear(e.target.value);
+    };
 
     const getLastDayOfMonth = (year: number, month: number) => {
         
         const lastDay = new Date(year, month, 0).getDate();
         return lastDay;
     }
+
+    
 
     const getColumnsDailyOnSpecificMonth = (year: number, month: number): any[] => {
 
@@ -53,7 +68,7 @@ export default function ViewSkyFreightReports() {
             const column = { 
                 field: convertedDateToLocaleString, 
                 headerName: convertedDateToLocaleString, 
-                width: 150 
+                width: 200 
             }
             listOfDaysInMonth.push(column)
         }
@@ -61,6 +76,10 @@ export default function ViewSkyFreightReports() {
     }
 
     const convertTimeToAMPMFormat = (timeString:string): string => {
+
+        if(!timeString) {
+            return ""
+        }
         // Split the time string into hours, minutes, and seconds
         const [hours, minutes, seconds] = timeString.split(':');
     
@@ -85,20 +104,24 @@ export default function ViewSkyFreightReports() {
 
         await axios.get(`${APILink}schedule_daily/?month=${month}&year=${year}`).then(response => {
 
-            const data = response.data;
+            const data = response.data
+            const rows:any = [];
 
             data.forEach((emp_orig:any) => {
 
-                const foundEmployeeIndex = rows.findIndex(emp_strut => {
-                    return emp_strut.emp_no == emp_orig.emp_no
-                });
+                const foundEmployeeIndex = rows.findIndex((emp_struct:any) => emp_struct.emp_no == emp_orig.emp_no);
+
+                const timeIn = emp_orig.schedule_shift_code?.time_in
+                const timeOut = emp_orig.schedule_shift_code?.time_out
 
                 if(foundEmployeeIndex > -1) {
 
                     const dateKey = convertDateToLocalString(emp_orig.business_date);
-                    rows[foundEmployeeIndex][dateKey] = convertTimeToAMPMFormat(emp_orig.schedule_shift_code?.time_in) + "-" + convertTimeToAMPMFormat(emp_orig.schedule_shift_code?.time_out)
-
+                    rows[foundEmployeeIndex][dateKey] = timeIn || timeOut? convertTimeToAMPMFormat(timeIn) + " - " + convertTimeToAMPMFormat(timeOut): "OFF"
+                    // rows[foundEmployeeIndex][dateKey] = emp_orig.schedule_shift_code?.time_in + "-" + emp_orig.schedule_shift_code?.time_out
+                    
                 } else {
+
                     const dateKey = convertDateToLocalString(emp_orig.business_date);
                     
                     let employee: EmployeeData = {
@@ -106,14 +129,14 @@ export default function ViewSkyFreightReports() {
                         full_name: emp_orig.full_name,
                         emp_no: emp_orig.emp_no,
                     } 
-                    employee[dateKey] = convertTimeToAMPMFormat(emp_orig.schedule_shift_code?.time_in) + "-" + convertTimeToAMPMFormat(emp_orig.schedule_shift_code?.time_out);
+
+                    employee[dateKey] = timeIn || timeOut? convertTimeToAMPMFormat(timeIn) + " - " + convertTimeToAMPMFormat(timeOut): "OFF"
+                    // employee[dateKey] = emp_orig.schedule_shift_code?.time_in + "-" + emp_orig.schedule_shift_code?.time_out;
+                    
                     rows.push(employee);
                 }
             })
-            
-
-            
-
+            setDataRows(curr => rows);
             setIsLoading(false)
         })
 
@@ -129,30 +152,15 @@ export default function ViewSkyFreightReports() {
 
         const formattedDate = `${month}/${day}/${year}`;
 
-        console.log(formattedDate);
         return formattedDate;
     }
 
-
-    // const organizeDailySchedulesOfemployees = () => {};
-
-    // const result = data.reduce((acc, obj) => {
-    //     const found = acc.find(item => item[0].id === obj.id);
-    //     if (found) {
-    //         found.push(obj);
-    //     } else {
-    //         acc.push([obj]);
-    //     }
-    //     return acc;
-    // }, []);
-
-    // useEffect(() => {
-    //     console.log(rows);
-    // }, [rows])
-
     useEffect(() => {
-        setDateColumns(() => getColumnsDailyOnSpecificMonth(year, month));
-        getSkyFreightReports();
+
+        const currentMonth = new Date().getMonth() + 1;
+        const currentYear = new Date().getFullYear();
+        setMonth(currentMonth);
+        setYear(currentYear);
         // setRows([
         //     {
         //       id: 1,
@@ -196,7 +204,6 @@ export default function ViewSkyFreightReports() {
     }, [])
 
 
-
     // Extracting all unique date keys from the rows
     // const allDates = rows.reduce((dates, row) => {
     //     Object.keys(row).forEach(key => {
@@ -213,6 +220,13 @@ export default function ViewSkyFreightReports() {
     //     headerName: date,
     //     width: 150,
     // }));
+
+    useEffect(() => {
+        if(year && month) {
+            setDateColumns(() => getColumnsDailyOnSpecificMonth(year, month));
+            getSkyFreightReports();
+        }
+    }, [month, year]);
     
     const columns: GridColDef[] = [
         { 
@@ -220,7 +234,7 @@ export default function ViewSkyFreightReports() {
             headerName: 'Employee #', 
             width: 150,
             valueGetter: (params: GridValueGetterParams) => {
-            return params.row.emp_no as number;
+                return params.row.emp_no as number;
             },
         },
         { 
@@ -234,29 +248,60 @@ export default function ViewSkyFreightReports() {
   
     return (
         <Fragment>
-            <div className="h-56 w-[1500px]">
+            <div className="my-10">
 
-                {/* add a loading interface here to indicate that the report needed is loading */}
-                <DataGrid
-                rows={rows}
-                columns={columns}
-                initialState={{
-                    pagination: {
-                    paginationModel: { page: 0, pageSize: 100 },
-                    },
-                }}
-                pageSizeOptions={[25, 50, 75, 100]}
-                // onRowClick={(e) => {
-                //     setSingleUSERDetailsData(e.row);
-                //     setSingleUSEROpenModal(true);
-                // }}
-                // disableRowSelectionOnClick 
-                // localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
-            />
+                <ExportToCsvButton data={dataRows} />
+                <div>
+                    <label htmlFor="monthSelect">Select a month:</label>
+                    <select id="monthSelect" value={month} onChange={handleMonthChange}>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label htmlFor="yearInput">Enter a year:</label>
+                    <input
+                        type="number"
+                        id="yearInput"
+                        value={year}
+                        onChange={handleYearChange}
+                        placeholder="Enter Year"
+                    />
+                </div>
+
+                <div className="my-6 h-[500PX] w-[1500px]">
+                    {/* add a loading interface here to indicate that the report needed is loading */}
+                    <DataGrid
+                    rows={dataRows}
+                    columns={columns}
+                    initialState={{
+                        pagination: {
+                        paginationModel: { page: 0, pageSize: 100 },
+                        },
+                    }}
+                    pageSizeOptions={[25, 50, 75, 100]}
+                    // onRowClick={(e) => {
+                    //     setSingleUSERDetailsData(e.row);
+                    //     setSingleUSEROpenModal(true);
+                    // }}
+                    // disableRowSelectionOnClick 
+                    // localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
+                    />
 
 
+                </div>
             </div>
-            
         </Fragment>
     )
 }
