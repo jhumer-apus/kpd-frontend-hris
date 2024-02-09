@@ -3,15 +3,17 @@ import { Button } from '@mui/material';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
-import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
 import DateFromToEMPHISTORYCreate from './inner-ui-components/date-from-to-field';
 import { Typography } from '@mui/joy';
 // import { EMPHISTORYCreateInterface } from '@/types/types-pages';
 import { EMPHISTORYCreateInterface } from '@/types/types-employee-and-applicants';
-import { EMPHISTORYCreateAction, EMPHISTORYCreateActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import { EMPHISTORYCreateAction, EMPHISTORYCreateActionFailureCleanup, EMPHISTORYViewSpecificAction } from '@/store/actions/employee-and-applicants';
+import EmployeeAutoCompleteFull from './inner-ui-components/employee-autocomplete-full';
 
 interface CreateEMPHISTORYModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
+    currEmployee: number;
+    setCurrEmployee: Dispatch<React.SetStateAction<number>>
 }
 
 function EMPHISTORYCreate(props: CreateEMPHISTORYModalInterface) {
@@ -40,22 +42,28 @@ function EMPHISTORYCreate(props: CreateEMPHISTORYModalInterface) {
     useEffect(()=>{
         if(EMPHISTORYCreatestate.status === 'succeeded'){
             window.alert('Request Successful');
-            window.location.reload();
+            props.setCurrEmployee(createEMPHISTORY.emp_no)
+            // dispatch((EMPHISTORYViewSpecificAction(({emp_no: createEMPHISTORY.emp_no}))))
+            setTimeout(()=> {
+                dispatch(EMPHISTORYCreateActionFailureCleanup());
+            }, 300)
+            // window.location.reload();
         }else if(EMPHISTORYCreatestate.status === 'failed'){
             window.alert(`Request Failed, ${EMPHISTORYCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(EMPHISTORYCreateActionFailureCleanup());
-            }, 1000)
+            }, 300)
         }
     }, [EMPHISTORYCreatestate.status])
-
+    
+    console.log(EMPHISTORYCreatestate.status, "Asd1")
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create an Employment History Individual Data</Typography>
             <div className='flex flex-col gap-6 overflow-auto relative'>
                 <div className='flex gap-6 pt-4'>
                     <div className='flex flex-col gap-6'>
-                        <EmployeeAutoComplete createEMPHISTORY={createEMPHISTORY} setCreateEMPHISTORY={setCreateEMPHISTORY}/>
+                        <EmployeeAutoCompleteFull currEmployee={props.currEmployee} createEMPHISTORY={createEMPHISTORY} setCreateEMPHISTORY={setCreateEMPHISTORY}/>
                         <TextField
                             required 
                             sx={{width: '100%'}} 

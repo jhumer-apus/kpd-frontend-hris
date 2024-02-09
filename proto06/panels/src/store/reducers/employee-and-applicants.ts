@@ -996,10 +996,12 @@ const employeeAndApplicantsSlice = createSlice({
       .addCase(_Actions.EMPHISTORYEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "EMPHISTORYEdit"))
       .addCase(_Actions.EMPHISTORYEditActionProgress, (state, action) => setProgressState(state, action.payload, "EMPHISTORYEdit"))
       .addCase(_Actions.EMPHISTORYEditActionFailure, (state, action) => setFailureState(state, action.payload, "EMPHISTORYEdit"))
+      .addCase(_Actions.EMPHISTORYEditActionFailureCleanup, setRefreshedState("EMPHISTORYEdit"))
       .addCase(_Actions.EMPHISTORYDeleteAction, setLoadingState("EMPHISTORYDelete"))
       .addCase(_Actions.EMPHISTORYDeleteActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "EMPHISTORYDelete"))
       .addCase(_Actions.EMPHISTORYDeleteActionProgress, (state, action) => setProgressState(state, action.payload, "EMPHISTORYDelete"))
       .addCase(_Actions.EMPHISTORYDeleteActionFailure, (state, action) => setFailureState(state, action.payload, "EMPHISTORYDelete"))
+      .addCase(_Actions.EMPHISTORYDeleteActionFailureCleanup, setRefreshedState("EMPHISTORYDelete"))
       //EMPSEMINARS SECTION
       .addCase(_Actions.EMPSEMINARSViewAction, setLoadingState("EMPSEMINARSView"))
       .addCase(_Actions.EMPSEMINARSViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "EMPSEMINARSView"))

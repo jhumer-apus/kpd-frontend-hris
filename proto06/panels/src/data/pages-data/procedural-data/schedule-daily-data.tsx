@@ -1,4 +1,4 @@
-import { globalDate } from "@/store/configureStore";
+import { globalDate, globalTime } from "@/store/configureStore";
 import { GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import dayjs from "dayjs";
 
@@ -23,7 +23,7 @@ export const ProceduralSCHEDULEDAILYPageColumns: GridColDef[] =
     headerName: 'Time In:', 
     width: 140,
     valueGetter: (params: GridValueGetterParams) => {
-      const formattedTime = params.row.schedule_shift_code?.time_in ? dayjs(params.row.schedule_shift_code.time_in, "HH:mm:ss").format("hh:mm a") : null;
+      const formattedTime = params.row.schedule_shift_code?.time_in ? dayjs(params.row.schedule_shift_code.time_in, "HH:mm:ss").format(`${globalTime}`) : null;
       return formattedTime ?? '-';
     } 
   },
@@ -32,7 +32,7 @@ export const ProceduralSCHEDULEDAILYPageColumns: GridColDef[] =
     headerName: 'Time Out:', 
     width: 130,
     valueGetter: (params: GridValueGetterParams) => {
-      const formattedTime = params.row.schedule_shift_code?.time_out ? dayjs(params.row.schedule_shift_code.time_out, "HH:mm:ss").format("hh:mm a") : null;
+      const formattedTime = params.row.schedule_shift_code?.time_out ? dayjs(params.row.schedule_shift_code.time_out, "HH:mm:ss").format(`${globalTime}`) : null;
       return formattedTime ?? '-';
     } 
   },

@@ -5,32 +5,21 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { getEmployeesList } from '@/store/actions/employees';
 import { AutocompleteInputChangeReason } from '@mui/material/Autocomplete';
-import { useNavigate } from 'react-router-dom';
-
+import { EMPHISTORYCreateInterface } from '@/types/types-employee-and-applicants';
 
 interface EmployeeAutoCompleteInterface{
-    currEmployee: number;
-    setCurrEmployee: Dispatch<SetStateAction<number>>;
+    createEMPHISTORY: EMPHISTORYCreateInterface;
+    setCreateEMPHISTORY: Dispatch<SetStateAction<EMPHISTORYCreateInterface>>;
+    currEmployee: number
 }
 
 
-export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInterface) {
-    // const navigate = useNavigate();
-    const {currEmployee, setCurrEmployee} = props;
-    // const dispatch = useDispatch();
-    const curr_emp = useSelector((state: RootState) => state.auth.employee_detail);
+export default function EmployeeAutoCompleteFull(props: EmployeeAutoCompleteInterface) {
+    const {setCreateEMPHISTORY, createEMPHISTORY} = props;
+    const dispatch = useDispatch();
     const state = useSelector((state:RootState)=> state.employees);
     const [employeesList, setEmployeesList] = useState<{employee: string, emp_no: number}[]>([])
     const [selectedEmployeeId, setSelectedEmployeeId] = useState<number | null>(null);
-    const [ controlledValue, setControlledValue ] = useState(
-        {
-        firstLetter: curr_emp && `${curr_emp?.last_name.charAt(0)}` || '', 
-        employee: curr_emp && `${curr_emp?.last_name} ${curr_emp?.first_name} - ${curr_emp?.emp_no}` || '', 
-        emp_no: curr_emp && curr_emp?.emp_no || NaN
-        }
-    )
-    
-    
     // useEffect(()=> {
     //     if(state.employees_list?.length === 0){
     //         dispatch(getEmployeesList());
@@ -39,13 +28,20 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
 
     useEffect(()=> {
         if(selectedEmployeeId){
-            setCurrEmployee(selectedEmployeeId)
+            setCreateEMPHISTORY((prevState)=> {
+                return(
+                    {
+                        ...prevState,
+                        emp_no: selectedEmployeeId
+                    }
+                )
+            })
         }
     }, [selectedEmployeeId])
 
     useEffect(() => {
         if (state.employees_list) {
-            // setTimeout(() => {
+            setTimeout(() => {
                 const updatedEmployeesList = 
                 state.employees_list?.map(({ emp_no, last_name, first_name }) => {
                     return {
@@ -54,7 +50,7 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
                     };
                 }) || [];
                 setEmployeesList(updatedEmployeesList);
-            // }, 800);
+            }, 1000);
         }
     }, [state.employees_list]);
 
@@ -65,9 +61,11 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
         ...option,
         };
     });
+    const defaultOption = options?.find((option) => option.emp_no === props.currEmployee);
 
-    const defaultOption = options?.find((option) => option.emp_no === currEmployee);
+    
     const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string, reason: AutocompleteInputChangeReason) => {
+        console.log(defaultOption, "asdasd")
         const matchingEmployee = employeesList.find(
         //   (employeeItems) => employeeItems.employee === newInputValue
         (employeeItems) => employeeItems.employee.toLowerCase().includes(newInputValue.toLowerCase())
@@ -83,20 +81,17 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
     const isOptionEqualToValue = (option: { employee: string; emp_no: number }, value: { employee: string; emp_no: number }) => {
         return option.emp_no === value.emp_no;
     };
-
+    
     return (
-        <>
-        {/* {defaultOption &&  */}
         <Autocomplete
+        // disableCloseOnSelect
         noOptionsText={'Loading... Please Wait.'}
-        // noOptionsText={<><p>Not found. <i style={{cursor: 'pointer', color: 'blue'}} onClick={()=> navigate('/home/employees/201-files')}>Add Employee?</i></p></>}
         id="grouped-demo"
-        defaultValue={controlledValue}
-        onInputChange={handleInputChange}
         options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
         groupBy={(option) => option.firstLetter}
         getOptionLabel={(option) => option.employee}
-        sx={{ width: '300px' }}
+        onInputChange={handleInputChange}
+        sx={{ width: 300 }}
         isOptionEqualToValue={isOptionEqualToValue}
         renderInput={(params) => 
             {   
@@ -108,8 +103,5 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
 
         }
         />
-        {/* } */}
-        </>
-
     );
 }

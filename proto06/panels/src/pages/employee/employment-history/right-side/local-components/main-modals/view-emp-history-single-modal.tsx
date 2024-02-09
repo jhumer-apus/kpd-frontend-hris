@@ -21,7 +21,7 @@ export default function ViewEMPHISTORYSingleModal(props: SingleEMPHISTORYInterfa
       <Transition in={singleEMPHISTORYOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
+        // keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSingleEMPHISTORYOpenModal(false);
@@ -57,7 +57,13 @@ export default function ViewEMPHISTORYSingleModal(props: SingleEMPHISTORYInterfa
                 overflow: 'auto',
             }}
         >
-          <EMPHISTORYModalComponent setSingleEMPHISTORYDetailsData={setSingleEMPHISTORYDetailsData} singleEMPHISTORYDetailsData={singleEMPHISTORYDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <EMPHISTORYModalComponent 
+            setSingleEMPHISTORYDetailsData={setSingleEMPHISTORYDetailsData} 
+            singleEMPHISTORYDetailsData={singleEMPHISTORYDetailsData} 
+            scroll={scroll} 
+            setScroll={setScroll}
+            setSingleEMPHISTORYOpenModal={setSingleEMPHISTORYOpenModal}
+          />
         </ModalDialog>
       </Modal>
         )}

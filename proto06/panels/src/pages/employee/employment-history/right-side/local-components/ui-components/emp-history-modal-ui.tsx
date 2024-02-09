@@ -10,13 +10,14 @@ import DeactivateEMPHISTORYModal from '../main-modals/inner-modals/delete-emp-hi
 interface EMPHISTORYModalUIInterface {
     singleEMPHISTORYDetailsData: EMPHISTORYViewInterface;
     multiplePayslipMode?: boolean;
+    setSingleEMPHISTORYOpenModal: Dispatch<SetStateAction<boolean>>, 
     setSingleEMPHISTORYDetailsData: Dispatch<SetStateAction<EMPHISTORYViewInterface>>;
 }
 
 function EMPHISTORYModalUI(props: EMPHISTORYModalUIInterface) {
     const [ DeactivateEMPHISTORYOpenModal, setDeactivateEMPHISTORYOpenModal ] = useState(false);
     const [ EditEMPHISTORYOpenModal, setEditEMPHISTORYOpenModal ] = useState(false);
-    const { setSingleEMPHISTORYDetailsData, singleEMPHISTORYDetailsData } = props;
+    const { setSingleEMPHISTORYDetailsData, singleEMPHISTORYDetailsData, setSingleEMPHISTORYOpenModal } = props;
     const ThisProps = props.singleEMPHISTORYDetailsData;
     const onClickModal = (mode: number) => {
         switch(mode){
@@ -32,18 +33,21 @@ function EMPHISTORYModalUI(props: EMPHISTORYModalUIInterface) {
         <Fragment>
             { singleEMPHISTORYDetailsData &&
                 <EditEMPHISTORYModal 
+                    setSingleEMPHISTORYOpenModal={setSingleEMPHISTORYOpenModal}
                     singleEMPHISTORYDetailsData={singleEMPHISTORYDetailsData} 
                     setSingleEMPHISTORYDetailsData={setSingleEMPHISTORYDetailsData} 
                     EditEMPHISTORYOpenModal={EditEMPHISTORYOpenModal} 
                     setEditEMPHISTORYOpenModal={setEditEMPHISTORYOpenModal}
                 />
             }
-            {/* <DeactivateEMPHISTORYModal 
+            <DeactivateEMPHISTORYModal 
                 DeactivateEMPHISTORYOpenModal={DeactivateEMPHISTORYOpenModal} 
                 setDeactivateEMPHISTORYOpenModal={setDeactivateEMPHISTORYOpenModal} 
                 singleEMPHISTORYDetailsData={singleEMPHISTORYDetailsData} 
                 setSingleEMPHISTORYDetailsData={setSingleEMPHISTORYDetailsData} 
-            /> */}
+                setSingleEMPHISTORYOpenModal={setSingleEMPHISTORYOpenModal}
+
+            />
             <div className='flex flex-col gap-10 relative'>
                 <div className='flex gap-6 flex-col mt-4'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Business Date:' value={ThisProps.date_promoted ? dayjs(ThisProps.date_promoted).format(`${globalDate}`) : '-'} InputProps={{readOnly: false,}} variant='filled'/>
@@ -57,9 +61,9 @@ function EMPHISTORYModalUI(props: EMPHISTORYModalUIInterface) {
             </div>
             <div className='flex flex-col justify-center items-center'>
             <div className='flex justify-center mt-12' container-name='leave_buttons_container'>
-                <div className='flex justify-between' style={{width:'200px', marginTop: '20px'}} container-name='leave_buttons'>
+                <div className='flex justify-between' style={{width:'300px', marginTop: '20px'}} container-name='leave_buttons'>
                     <Button variant='contained' onClick={()=> onClickModal(1)}>Edit Daily Schedule</Button>
-                    {/* <Button variant='outlined' color={"error"} onClick={() => onClickModal(0)}>Delete</Button> */}
+                    <Button variant='outlined' color={"error"} onClick={() => onClickModal(0)}>Delete</Button>
                 </div>
             </div>
             </div>

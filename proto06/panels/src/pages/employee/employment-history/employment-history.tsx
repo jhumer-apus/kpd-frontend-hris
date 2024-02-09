@@ -13,7 +13,7 @@ import EmployeeAutoCompleteRight from './local-components/employee-autocomplete/
 import CreateSCHEDULEDAILYMultipleModal from './local-components/assign-multiple-shift/create-schedule-daily-multiple-modal';
 import { All_Schedule_Filter_Interface } from '@/types/types-employee-and-applicants';
 import { ALLSCHEDULEViewSpecificAction } from '@/store/actions/employee-and-applicants';
-import EMPHISTORYCreate from './left-side/emp-history-create';
+import EMPHISTORYCreate from './left-side/create-emp-history';
 
 
 const PaperStyle: CSSProperties = {
@@ -42,7 +42,7 @@ export default function EmploymentHistoryPage() {
   const curr_emp = useSelector((state: RootState) => state.auth);
   const matches = useMediaQuery(theme.breakpoints.down('xl'));
   const curr_emp_no = curr_emp.employee_detail?.emp_no;
-  const [currEmployee, setCurrEmployee] = useState<number>((curr_emp_no) || 0);
+  const [currEmployee, setCurrEmployee] = useState<number>((curr_emp_no) || 1);
 
   const [ filterState, setFilterState ] = useState<All_Schedule_Filter_Interface>({
     month: +(dayjs(new Date()).format('MM')),
@@ -62,7 +62,7 @@ export default function EmploymentHistoryPage() {
         <Grid item xs={6}>
           <Paper elevation={3} style={PaperStyle}>
             <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
-              <EMPHISTORYCreate/>
+              <EMPHISTORYCreate currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/>
             </Box>
           </Paper>
         </Grid>

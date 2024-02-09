@@ -38,7 +38,12 @@ export default function EmploymentHistoryTable(props: EmploymentHistoryTableInte
     <Fragment>
       <div className="my-2 flex flex-wrap justify-between items-start gap-6">
         <div>
-          <ViewEMPHISTORYSingleModal setSingleEMPHISTORYDetailsData={setSingleEMPHISTORYDetailsData} singleEMPHISTORYDetailsData={singleEMPHISTORYDetailsData} singleEMPHISTORYOpenModal={singleEMPHISTORYOpenModal} setSingleEMPHISTORYOpenModal={setSingleEMPHISTORYOpenModal}/>
+          <ViewEMPHISTORYSingleModal 
+            setSingleEMPHISTORYDetailsData={setSingleEMPHISTORYDetailsData} 
+            singleEMPHISTORYDetailsData={singleEMPHISTORYDetailsData} 
+            singleEMPHISTORYOpenModal={singleEMPHISTORYOpenModal} 
+            setSingleEMPHISTORYOpenModal={setSingleEMPHISTORYOpenModal}
+          />
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
           <p>{EMPHISTORYPageDescriptions}</p>
         </Typography>

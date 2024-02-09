@@ -8,12 +8,13 @@ import { EMPHISTORYViewInterface } from '@/types/types-employee-and-applicants';
 interface EMPHISTORYModalComponentInterface {
     singleEMPHISTORYDetailsData: EMPHISTORYViewInterface,
     scroll: boolean,
+    setSingleEMPHISTORYOpenModal: Dispatch<SetStateAction<boolean>>, 
     setScroll: Dispatch<SetStateAction<boolean>>,
     setSingleEMPHISTORYDetailsData: React.Dispatch<React.SetStateAction<EMPHISTORYViewInterface>>;
 };
 
 const EMPHISTORYModalComponent = ((props:EMPHISTORYModalComponentInterface) => {
-    const { singleEMPHISTORYDetailsData, setSingleEMPHISTORYDetailsData } = props;
+    const { singleEMPHISTORYDetailsData, setSingleEMPHISTORYDetailsData, setSingleEMPHISTORYOpenModal } = props;
     const componentRef = useRef<HTMLDivElement | null>(null);
 
     return (
@@ -21,7 +22,11 @@ const EMPHISTORYModalComponent = ((props:EMPHISTORYModalComponentInterface) => {
             <Typography variant='soft'>Employment History Individual Data</Typography>
             <ModalClose sx={{marginTop: '4px'}}/>
             <div ref={componentRef} id="printable-area" className='mt-4'>
-                <EMPHISTORYModalUI setSingleEMPHISTORYDetailsData={setSingleEMPHISTORYDetailsData} singleEMPHISTORYDetailsData={singleEMPHISTORYDetailsData}/>
+                <EMPHISTORYModalUI 
+                    setSingleEMPHISTORYDetailsData={setSingleEMPHISTORYDetailsData} 
+                    singleEMPHISTORYDetailsData={singleEMPHISTORYDetailsData}
+                    setSingleEMPHISTORYOpenModal={setSingleEMPHISTORYOpenModal}
+                />
             </div>
         </Fragment>
     );

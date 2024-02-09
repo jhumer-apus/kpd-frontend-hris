@@ -6,12 +6,13 @@ import { EMPHISTORYViewInterface } from '@/types/types-employee-and-applicants';
 import { Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
-import { EMPHISTORYDeleteAction, EMPHISTORYDeleteActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import { EMPHISTORYDeleteAction, EMPHISTORYDeleteActionFailureCleanup, EMPHISTORYViewSpecificAction } from '@/store/actions/employee-and-applicants';
 
 
 
 interface DeactivateEMPHISTORYModalInterface {
     singleEMPHISTORYDetailsData: EMPHISTORYViewInterface;
+    setSingleEMPHISTORYOpenModal: React.Dispatch<React.SetStateAction<boolean>>; 
     DeactivateEMPHISTORYOpenModal: boolean; 
     setDeactivateEMPHISTORYOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
     setSingleEMPHISTORYDetailsData: React.Dispatch<React.SetStateAction<EMPHISTORYViewInterface>>;
@@ -21,22 +22,24 @@ export default function DeactivateEMPHISTORYModal(props: DeactivateEMPHISTORYMod
   const dispatch = useDispatch();
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
   const EMPHISTORYDeactivateState = useSelector((state: RootState)=> state.employeeAndApplicants.EMPHISTORYDelete)
-  const {DeactivateEMPHISTORYOpenModal, setDeactivateEMPHISTORYOpenModal, singleEMPHISTORYDetailsData, setSingleEMPHISTORYDetailsData} = props;
+  const {DeactivateEMPHISTORYOpenModal, setDeactivateEMPHISTORYOpenModal, singleEMPHISTORYDetailsData, setSingleEMPHISTORYOpenModal, setSingleEMPHISTORYDetailsData} = props;
 
   const DeactivateEMPHISTORY = () => {
-    if(singleEMPHISTORYDetailsData.id){
-      dispatch(EMPHISTORYDeleteAction({eh_id: singleEMPHISTORYDetailsData.id, added_by: (state?.emp_no as number)}))
-    } else {
-      window.alert('No Core Competency ID found.')
-    } 
+    setDeactivateEMPHISTORYOpenModal(false) //to close the second modal
+    dispatch(EMPHISTORYDeleteAction({eh_id: singleEMPHISTORYDetailsData.id, added_by: (state?.emp_no as number)}))
   }
 
   React.useEffect(()=>{
     if(EMPHISTORYDeactivateState.status === 'succeeded'){
       window.alert(`Success: ${EMPHISTORYDeactivateState.status?.charAt(0).toUpperCase()}${EMPHISTORYDeactivateState.status.slice(1)}`)
       setTimeout(()=>{
-        window.location.reload();
-      }, 800)
+        dispatch((EMPHISTORYViewSpecificAction({emp_no: singleEMPHISTORYDetailsData.emp_no})))
+        // window.location.reload();
+      }, 200) //let's reduce the waiting time and do the func
+      setTimeout(()=> {
+        dispatch((EMPHISTORYDeleteActionFailureCleanup()));
+      }, 300)
+      setSingleEMPHISTORYOpenModal(false) //to close the first modal
     } else if(EMPHISTORYDeactivateState.status === 'failed') {
       window.alert(`Error: ${EMPHISTORYDeactivateState.error}`)
       dispatch(EMPHISTORYDeleteActionFailureCleanup());

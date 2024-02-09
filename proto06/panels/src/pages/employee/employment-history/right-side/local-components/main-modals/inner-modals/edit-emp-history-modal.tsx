@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState, globalAPIDate } from '@/store/configureStore';
 import dayjs from 'dayjs';
 import { EMPHISTORYEditInterface, EMPHISTORYViewInterface } from '@/types/types-employee-and-applicants';
-import { EMPHISTORYCreateActionFailureCleanup, EMPHISTORYEditAction} from '@/store/actions/employee-and-applicants';
+import { EMPHISTORYCreateActionFailureCleanup, EMPHISTORYEditAction, EMPHISTORYEditActionFailureCleanup, EMPHISTORYViewSpecificAction} from '@/store/actions/employee-and-applicants';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers';
@@ -23,17 +23,18 @@ import { Box } from '@mui/material';
 import { CircularProgress } from '@mui/material';
 
 interface EditEMPHISTORYModalInterface {
-    singleEMPHISTORYDetailsData: EMPHISTORYViewInterface;
-    EditEMPHISTORYOpenModal: boolean; 
-    setEditEMPHISTORYOpenModal: Dispatch<SetStateAction<boolean>>;
-    setSingleEMPHISTORYDetailsData: Dispatch<SetStateAction<EMPHISTORYViewInterface>>;
+    singleEMPHISTORYDetailsData: EMPHISTORYViewInterface
+    EditEMPHISTORYOpenModal: boolean 
+    setSingleEMPHISTORYOpenModal: Dispatch<SetStateAction<boolean>> 
+    setEditEMPHISTORYOpenModal: Dispatch<SetStateAction<boolean>>
+    setSingleEMPHISTORYDetailsData: Dispatch<SetStateAction<EMPHISTORYViewInterface>>
 }
 
 export default function EditEMPHISTORYModal(props: EditEMPHISTORYModalInterface) {
   const dispatch = useDispatch();
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
   const EMPHISTORYEditState = useSelector((state: RootState)=> state.employeeAndApplicants.EMPHISTORYEdit)
-  const {EditEMPHISTORYOpenModal, setEditEMPHISTORYOpenModal, singleEMPHISTORYDetailsData, setSingleEMPHISTORYDetailsData} = props;
+  const {EditEMPHISTORYOpenModal, setEditEMPHISTORYOpenModal, singleEMPHISTORYDetailsData, setSingleEMPHISTORYDetailsData, setSingleEMPHISTORYOpenModal} = props;
   const [ circular, setCircular ] = useState({
     show: true,
     transition: true,
@@ -64,9 +65,13 @@ export default function EditEMPHISTORYModal(props: EditEMPHISTORYModalInterface)
   const nullValues = Object.values(singleEMPHISTORYDetailsData).filter(
     value => typeof value === null
   );
-
+    console.log(EditEMPHISTORYOpenModal, "h123")
   const EditEMPHISTORY = () => { 
+
+    setEditEMPHISTORYOpenModal(false)
+
     dispatch(EMPHISTORYEditAction(initialEditState))
+
   };
 
   useEffect(()=>{
@@ -74,15 +79,20 @@ export default function EditEMPHISTORYModal(props: EditEMPHISTORYModalInterface)
       if(EMPHISTORYEditState.status === 'succeeded'){
         window.alert(`${EMPHISTORYEditState.status.charAt(0).toUpperCase()}${EMPHISTORYEditState.status.slice(1)}`)
         setTimeout(()=>{
-          window.location.reload();
+          dispatch(EMPHISTORYViewSpecificAction({emp_no: singleEMPHISTORYDetailsData.emp_no}))
+          // window.location.reload(); //Old version and slow version is to reload the whole page to refresh the data... not good.
         }, 400)
+        setTimeout(() => {
+          dispatch(EMPHISTORYEditActionFailureCleanup());
+        }, 500)
+        setSingleEMPHISTORYOpenModal(false)
       }else if (EMPHISTORYEditState.status === 'failed'){
         window.alert(`${EMPHISTORYEditState.error}`)
         dispatch(EMPHISTORYCreateActionFailureCleanup());
       }
     };
 
-    if(EMPHISTORYEditState.status === 'loading' || EMPHISTORYEditState.status === 'succeeded'){
+    if(EMPHISTORYEditState.status === 'loading' || EMPHISTORYEditState.status === 'refreshed'){
       return
     } else {
       setInitialEditState({
@@ -95,6 +105,7 @@ export default function EditEMPHISTORYModal(props: EditEMPHISTORYModalInterface)
     };
   }, [EMPHISTORYEditState.status, singleEMPHISTORYDetailsData]);
 
+  console.log(EMPHISTORYEditState.status, "huh?")
 
   useEffect(()=> {
 
