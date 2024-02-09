@@ -18,7 +18,7 @@ const PAYROLLGROUPModalComponent = ((props:PAYROLLGROUPModalComponentInterface) 
 
     return (
         <Fragment>
-            <Typography variant='soft'>PAYROLLGROUP Individual Data</Typography>
+            <Typography variant='soft'>Payroll Group Data</Typography>
             <ModalClose sx={{marginTop: '4px'}}/>
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <PAYROLLGROUPModalUI setSinglePAYROLLGROUPDetailsData={setSinglePAYROLLGROUPDetailsData} singlePAYROLLGROUPDetailsData={singlePAYROLLGROUPDetailsData}/>

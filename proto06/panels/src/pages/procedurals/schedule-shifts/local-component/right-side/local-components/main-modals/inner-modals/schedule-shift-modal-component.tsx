@@ -18,7 +18,7 @@ const SCHEDULESHIFTModalComponent = ((props:SCHEDULESHIFTModalComponentInterface
 
     return (
         <Fragment>
-            <Typography variant='soft'>SCHEDULESHIFT Individual Data</Typography>
+            <Typography variant='soft'>Schedule Shift Data</Typography>
             <ModalClose sx={{marginTop: '4px'}}/>
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <SCHEDULESHIFTModalUI setSingleSCHEDULESHIFTDetailsData={setSingleSCHEDULESHIFTDetailsData} singleSCHEDULESHIFTDetailsData={singleSCHEDULESHIFTDetailsData}/>

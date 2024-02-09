@@ -18,7 +18,7 @@ const SCHEDULEDAILYModalComponent = ((props:SCHEDULEDAILYModalComponentInterface
 
     return (
         <Fragment>
-            <Typography variant='soft'>SCHEDULEDAILY Individual Data</Typography>
+            <Typography variant='soft'>Daily Schedule Data</Typography>
             <ModalClose sx={{marginTop: '4px'}}/>
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <SCHEDULEDAILYModalUI setSingleSCHEDULEDAILYDetailsData={setSingleSCHEDULEDAILYDetailsData} singleSCHEDULEDAILYDetailsData={singleSCHEDULEDAILYDetailsData}/>

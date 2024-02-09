@@ -18,7 +18,7 @@ const PAY13THModalComponent = ((props:PAY13THModalComponentInterface) => {
 
     return (
         <Fragment>
-            <Typography variant='soft'>PAY13TH Individual Data</Typography>
+            <Typography variant='soft'>13th Month Pay Data</Typography>
             <ModalClose sx={{marginTop: '4px'}}/>
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <PAY13THModalUI setSinglePAY13THDetailsData={setSinglePAY13THDetailsData} singlePAY13THDetailsData={singlePAY13THDetailsData}/>

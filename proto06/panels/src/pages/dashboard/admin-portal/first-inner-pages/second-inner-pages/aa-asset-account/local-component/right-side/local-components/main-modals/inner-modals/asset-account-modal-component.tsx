@@ -18,7 +18,7 @@ const ASSETACCOUNTModalComponent = ((props:ASSETACCOUNTModalComponentInterface) 
 
     return (
         <Fragment>
-            <Typography variant='soft'>ASSETACCOUNT Individual Data</Typography>
+            <Typography variant='soft'>Asset Account Data</Typography>
             <ModalClose sx={{marginTop: '4px'}}/>
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <ASSETACCOUNTModalUI setSingleASSETACCOUNTDetailsData={setSingleASSETACCOUNTDetailsData} singleASSETACCOUNTDetailsData={singleASSETACCOUNTDetailsData}/>

@@ -18,7 +18,7 @@ const ALLOWANCETYPEModalComponent = ((props:ALLOWANCETYPEModalComponentInterface
 
     return (
         <Fragment>
-            <Typography variant='soft'>ALLOWANCETYPE Individual Data</Typography>
+            <Typography variant='soft'>Allowance Type Data</Typography>
             <ModalClose sx={{marginTop: '4px'}}/>
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <ALLOWANCETYPEModalUI setSingleALLOWANCETYPEDetailsData={setSingleALLOWANCETYPEDetailsData} singleALLOWANCETYPEDetailsData={singleALLOWANCETYPEDetailsData}/>

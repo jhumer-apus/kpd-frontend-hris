@@ -18,7 +18,7 @@ const DEPARTMENTModalComponent = ((props:DEPARTMENTModalComponentInterface) => {
 
     return (
         <Fragment>
-            <Typography variant='soft'>DEPARTMENT Individual Data</Typography>
+            <Typography variant='soft'>Department Data</Typography>
             <ModalClose sx={{marginTop: '4px'}}/>
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <DEPARTMENTModalUI setSingleDEPARTMENTDetailsData={setSingleDEPARTMENTDetailsData} singleDEPARTMENTDetailsData={singleDEPARTMENTDetailsData}/>

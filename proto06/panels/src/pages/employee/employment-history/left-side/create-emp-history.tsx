@@ -59,7 +59,7 @@ function EMPHISTORYCreate(props: CreateEMPHISTORYModalInterface) {
     console.log(EMPHISTORYCreatestate.status, "Asd1")
     return (
         <React.Fragment>
-            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create an Employment History Individual Data</Typography>
+            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create an Employment History Data</Typography>
             <div className='flex flex-col gap-6 overflow-auto relative'>
                 <div className='flex gap-6 pt-4'>
                     <div className='flex flex-col gap-6'>

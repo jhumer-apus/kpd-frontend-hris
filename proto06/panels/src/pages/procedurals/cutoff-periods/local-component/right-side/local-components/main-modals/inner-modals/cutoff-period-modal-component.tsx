@@ -18,7 +18,7 @@ const CUTOFFPERIODModalComponent = ((props:CUTOFFPERIODModalComponentInterface) 
 
     return (
         <Fragment>
-            <Typography variant='soft'>CUTOFFPERIOD Individual Data</Typography>
+            <Typography variant='soft'>Cutoff Period Data</Typography>
             <ModalClose sx={{marginTop: '4px'}}/>
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <CUTOFFPERIODModalUI setSingleCUTOFFPERIODDetailsData={setSingleCUTOFFPERIODDetailsData} singleCUTOFFPERIODDetailsData={singleCUTOFFPERIODDetailsData}/>
