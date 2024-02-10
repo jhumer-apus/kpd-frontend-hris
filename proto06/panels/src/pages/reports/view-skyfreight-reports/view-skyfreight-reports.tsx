@@ -10,6 +10,8 @@ import { globalServerErrorMsg } from '@/store/configureStore';
 
 //COMPONENTS
 import ExportToCsvButton from './local-components/export-to-csv-button';
+import SelectForm from '../../../public-components/forms/SelectForm';
+import InputForm from '../../../public-components/forms/InputForm';
 
 interface EmployeeData {
     id: number;
@@ -24,8 +26,13 @@ export default function ViewSkyFreightReports() {
     
     // dont need the local state because, better to declare the data coming from API into the central state?
     // const [columnsApi, setColumnsApi] = useState<[]>([])
+
+    //STATES
     const [dateColumns, setDateColumns] = useState<GridColDef []>([]);
     const [dataRows, setDataRows] = useState<EmployeeData[]>([]);
+    const [month, setMonth] = useState<number | string | undefined>();
+    const [year, setYear] = useState<number | string | undefined>();
+    const [isFetchReportError, setIsFetchReportError] = useState<Boolean>(false);
 
 
     // useEffect(()=> {
@@ -36,9 +43,6 @@ export default function ViewSkyFreightReports() {
 
     //     //dont forget to set the dependencies of useEffect
     // }, [])
-
-    const [month, setMonth] = useState<number>();
-    const [year, setYear] = useState<number>();
 
     const handleMonthChange = (e:any) => {
         setMonth(e.target.value);
@@ -56,7 +60,7 @@ export default function ViewSkyFreightReports() {
 
     
 
-    const getColumnsDailyOnSpecificMonth = (year: number, month: number): any[] => {
+    const getColumnsDailyOnSpecificMonth = (year:any, month:any): any[] => {
 
         const listOfDaysInMonth: any[] = []
         const lastDay = getLastDayOfMonth(year, month);
@@ -104,10 +108,11 @@ export default function ViewSkyFreightReports() {
 
         await axios.get(`${APILink}schedule_daily/?month=${month}&year=${year}`).then(response => {
 
-            const data = response.data
+            const data = response.data ? response.data: []
+            console.log(data);
             const rows:any = [];
 
-            data.forEach((emp_orig:any) => {
+            data?.forEach((emp_orig:any) => {
 
                 const foundEmployeeIndex = rows.findIndex((emp_struct:any) => emp_struct.emp_no == emp_orig.emp_no);
 
@@ -136,8 +141,11 @@ export default function ViewSkyFreightReports() {
                     rows.push(employee);
                 }
             })
-            setDataRows(curr => rows);
+            setDataRows((curr:any) => rows);
             setIsLoading(false)
+
+        }).catch((error: any) => {
+            setIsFetchReportError(true)
         })
 
     }
@@ -154,6 +162,10 @@ export default function ViewSkyFreightReports() {
 
         return formattedDate;
     }
+
+    const fetchApiSkyFreightReports = ():void => {
+
+    } 
 
     useEffect(() => {
 
@@ -245,39 +257,83 @@ export default function ViewSkyFreightReports() {
         ...dateColumns,
 
     ];
+
+    
+        const options= [
+            {
+                name: "January",
+                value: "1"
+            },
+            {
+                name: "February",
+                value: "2"
+            },
+            {
+                name: "March",
+                value: "3"
+            },
+            {
+                name: "April",
+                value: "4"
+            },
+            {
+                name: "May",
+                value: "5"
+            },
+            {
+                name: "June",
+                value: "6"
+            },
+            {
+                name: "July",
+                value: "7"
+            },
+            {
+                name: "August",
+                value: "8"
+            },
+            {
+                name: "September",
+                value: "9"
+            },
+            {
+                name: "October",
+                value: "10"
+            },
+            {
+                name: "November",
+                value: "11"
+            },
+            {
+                name: "December",
+                value: "12"
+            }
+        ]
   
     return (
         <Fragment>
             <div className="my-10">
 
                 <ExportToCsvButton data={dataRows} />
-                <div>
-                    <label htmlFor="monthSelect">Select a month:</label>
-                    <select id="monthSelect" value={month} onChange={handleMonthChange}>
-                        <option value="1">January</option>
-                        <option value="2">February</option>
-                        <option value="3">March</option>
-                        <option value="4">April</option>
-                        <option value="5">May</option>
-                        <option value="6">June</option>
-                        <option value="7">July</option>
-                        <option value="8">August</option>
-                        <option value="9">September</option>
-                        <option value="10">October</option>
-                        <option value="11">November</option>
-                        <option value="12">December</option>
-                    </select>
-                </div>
 
-                <div>
-                    <label htmlFor="yearInput">Enter a year:</label>
-                    <input
-                        type="number"
-                        id="yearInput"
-                        value={year}
-                        onChange={handleYearChange}
-                        placeholder="Enter Year"
+                <div className="md:flex md:space-x-4">
+                    <SelectForm         
+                        label="Select Month"
+                        variant="standard"
+                        placeholder="Select A Month"
+                        currValue={month?.toString()}
+                        setState={setMonth}
+                        options={options}
                     />
+                    <InputForm 
+                        val={year?.toString()}
+                        label="Year"
+                        variant="standard"
+                        placeholder="Enter A Year"
+
+                    />
+
+
                 </div>
 
                 <div className="my-6 h-[500PX] w-[1500px]">
@@ -296,7 +352,7 @@ export default function ViewSkyFreightReports() {
                     //     setSingleUSEROpenModal(true);
                     // }}
                     // disableRowSelectionOnClick 
-                    // localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
+                    localeText={{ noRowsLabel: 'No Data'}}
                     />
 
 
