@@ -918,27 +918,26 @@ const JSXRouteWrapper = () => {
         //     }]:[] ,
         //   ]
         // },
-        {
-          id: 19000,
-          icon: null,
-          name: "Reports",
-          path: "/reports",
-          element: null,
-          hasSubItems: true,
-          subItems: [
-            ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee) ? [
-              {
-                id: 19100,
-                icon: <DocumentIcon {...icon} />,
-                name: "View Monthly Schedule",
-                path: "/report/view-monthly-schedule",
-                element: <ViewMonthlySchedule/>,
-                hasSubItems: false,
-              },
-      
-            ] : [],
-          ]
-        },
+        ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee) ? [
+            {
+              id: 19000,
+              icon: null,
+              name: "Reports",
+              path: "/reports",
+              element: null,
+              hasSubItems: true,
+              subItems: [
+                  {
+                    id: 19100,
+                    icon: <DocumentIcon {...icon} />,
+                    name: "Monthly Schedule",
+                    path: "/report/monthly-schedule",
+                    element: <ViewMonthlySchedule/>,
+                    hasSubItems: false,
+                  },
+              ]
+            }
+        ]: [],
         
         
       ],
