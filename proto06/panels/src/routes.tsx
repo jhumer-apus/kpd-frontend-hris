@@ -503,7 +503,7 @@ const JSXRouteWrapper = () => {
             {
               id: 12300,
               icon: <PrivacyTipOutlinedIcon {...icon} />,
-              name: "About KPI",
+              name: "About Appraisal",
               path: "/employees/About-Appraisal",
               element: <AboutAppraisalsPage/>,
               hasSubItems: false,
