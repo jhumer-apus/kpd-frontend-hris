@@ -33,6 +33,9 @@ function ExportToCsvButton(props: ExportToCsvButtonInterface)  {
           for(let i = 0; i < headerCopy.length; i++) {
 
             const key = headerCopy[i];
+
+            // const offDay = isWeekend(key)? "<span style='color: green;'>OFF</span>" : "<span style='color: green;'>OFF</span>"
+
             let value = row[key]? row[key]: 'OFF'
  
             const cleanVal = cleanValue(value);
@@ -63,6 +66,21 @@ function ExportToCsvButton(props: ExportToCsvButtonInterface)  {
         //   window.alert("No Data is Found")
         // }
     };
+
+    const isWeekend = (dateString:string) => {
+
+      const dateParts = dateString.split("/");
+      const year = parseInt(dateParts[2], 10);
+      const month = parseInt(dateParts[0], 10) - 1; // Months are 0-based in JavaScript
+      const day = parseInt(dateParts[1], 10);
+
+      const date = new Date(year, month, day);
+
+      // Get the day of the week (0 for Sunday, 1 for Monday, ..., 6 for Saturday)
+      const dayOfWeek = date.getDay();
+
+      return dayOfWeek == 0 || dayOfWeek == 6;
+    }
 
     const cleanValue = (value:string) => {
 

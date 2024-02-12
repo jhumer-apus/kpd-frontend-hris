@@ -109,50 +109,7 @@ export default function ViewSkyFreightReports() {
         await axios.get(`${APILink}schedule_daily/?month=${thisMonth}&year=${thisYear}`).then(response => {
 
             const data = response.data ? response.data: []
-            const rows:any = [];
-
-            data?.forEach((emp_orig:any) => {
-
-                const foundEmployeeIndex = rows.findIndex((emp_struct:any) => emp_struct.emp_no == emp_orig.emp_no);
-
-                const timeIn = emp_orig.schedule_shift_code?.time_in
-                const timeOut = emp_orig.schedule_shift_code?.time_out
-
-                if(foundEmployeeIndex > -1) {
-
-                    const dateKey = convertDateToLocalString(emp_orig.business_date);
-                    rows[foundEmployeeIndex][dateKey] = timeIn || timeOut? (convertTimeToAMPMFormat(timeIn) + " - " + convertTimeToAMPMFormat(timeOut)): "OFF"
-                    // rows[foundEmployeeIndex][dateKey] = emp_orig.schedule_shift_code?.time_in + "-" + emp_orig.schedule_shift_code?.time_out
-                    
-                } else {
-
-                    const dateKey = convertDateToLocalString(emp_orig.business_date);
-                    
-                    let employee: EmployeeData = {
-                        id: emp_orig.id,
-                        full_name: emp_orig.full_name,
-                        emp_no: emp_orig.emp_no,
-                    } 
-                    employee[dateKey] = timeIn || timeOut? (convertTimeToAMPMFormat(timeIn) + " - " + convertTimeToAMPMFormat(timeOut)): "OFF"
-                    // employee[dateKey] = emp_orig.schedule_shift_code?.time_in + "-" + emp_orig.schedule_shift_code?.time_out;
-                    
-                    rows.push(employee);
-                }
-            })
-
-            const columnDates = getColumnsDailyOnSpecificMonth(thisYear, thisMonth);
-
-            rows.forEach((row:EmployeeData, index:number) => {
-                columnDates.forEach(date => {
-                    if(!row.hasOwnProperty(date.field)) {
-                        rows[index][date.field] = "OFF"
-                    }
-                })
-            })
-
-            setDateColumns(() => columnDates);
-            setDataRows((curr:any) => rows);
-            setIsLoading(false)
+            organizeRowsAndColumns(data, thisYear, thisMonth)
 
         }).catch((error: any) => {
 
@@ -161,6 +118,54 @@ export default function ViewSkyFreightReports() {
 
         })
 
+    }
+
+    const organizeRowsAndColumns = (data:any, thisYear:any, thisMonth:any) => {
+
+        const rows:any = [];
+
+        data?.forEach((emp_orig:any) => {
+
+            const foundEmployeeIndex = rows.findIndex((emp_struct:any) => emp_struct.emp_no == emp_orig.emp_no);
+
+            const timeIn = emp_orig.schedule_shift_code?.time_in
+            const timeOut = emp_orig.schedule_shift_code?.time_out
+
+            if(foundEmployeeIndex > -1) {
+
+                const dateKey = convertDateToLocalString(emp_orig.business_date);
+                rows[foundEmployeeIndex][dateKey] = timeIn || timeOut? (convertTimeToAMPMFormat(timeIn) + " - " + convertTimeToAMPMFormat(timeOut)): "OFF"
+                // rows[foundEmployeeIndex][dateKey] = emp_orig.schedule_shift_code?.time_in + "-" + emp_orig.schedule_shift_code?.time_out
+                
+            } else {
+
+                const dateKey = convertDateToLocalString(emp_orig.business_date);
+                
+                let employee: EmployeeData = {
+                    id: emp_orig.id,
+                    full_name: emp_orig.full_name,
+                    emp_no: emp_orig.emp_no,
+                } 
+                employee[dateKey] = timeIn || timeOut? (convertTimeToAMPMFormat(timeIn) + " - " + convertTimeToAMPMFormat(timeOut)): "OFF"
+                // employee[dateKey] = emp_orig.schedule_shift_code?.time_in + "-" + emp_orig.schedule_shift_code?.time_out;
+                
+                rows.push(employee);
+            }
+        })
+
+        const columnDates = getColumnsDailyOnSpecificMonth(thisYear, thisMonth);
+
+        rows.forEach((row:EmployeeData, index:number) => {
+            columnDates.forEach(date => {
+                if(!row.hasOwnProperty(date.field)) {
+                    rows[index][date.field] = "OFF"
+                }
+            })
+        })
+
+        setDateColumns(() => columnDates);
+        setDataRows((curr:any) => rows);
+        setIsLoading(false)
     }
 
     const convertDateToLocalString = (date: Date) => {
