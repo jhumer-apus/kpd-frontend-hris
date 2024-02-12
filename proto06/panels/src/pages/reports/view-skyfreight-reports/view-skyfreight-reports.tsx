@@ -118,8 +118,6 @@ export default function ViewSkyFreightReports() {
                 const timeIn = emp_orig.schedule_shift_code?.time_in
                 const timeOut = emp_orig.schedule_shift_code?.time_out
 
-                console.log(emp_orig.schedule_shift_code? true: false);
-
                 if(foundEmployeeIndex > -1) {
 
                     const dateKey = convertDateToLocalString(emp_orig.business_date);
@@ -142,12 +140,25 @@ export default function ViewSkyFreightReports() {
                 }
             })
 
+            const columnDates = getColumnsDailyOnSpecificMonth(thisYear, thisMonth);
+
+            rows.forEach((row:EmployeeData, index:number) => {
+                columnDates.forEach(date => {
+                    if(!row.hasOwnProperty(date.field)) {
+                        rows[index][date.field] = "OFF"
+                    }
+                })
+            })
+
+            setDateColumns(() => columnDates);
             setDataRows((curr:any) => rows);
             setIsLoading(false)
 
         }).catch((error: any) => {
+
             setIsFetchReportError(true)
             setIsLoading(false)
+
         })
 
     }
