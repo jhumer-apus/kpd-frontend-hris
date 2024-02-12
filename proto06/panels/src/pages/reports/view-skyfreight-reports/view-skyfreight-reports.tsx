@@ -102,6 +102,7 @@ export default function ViewSkyFreightReports() {
 
     const getSkyFreightReports = async (thisYear:any, thisMonth:any) => {
 
+        setDataRows(curr => []);
         setIsFetchReportError(false)
         setIsLoading(true);
 
@@ -117,10 +118,12 @@ export default function ViewSkyFreightReports() {
                 const timeIn = emp_orig.schedule_shift_code?.time_in
                 const timeOut = emp_orig.schedule_shift_code?.time_out
 
+                console.log(emp_orig.schedule_shift_code? true: false);
+
                 if(foundEmployeeIndex > -1) {
 
                     const dateKey = convertDateToLocalString(emp_orig.business_date);
-                    rows[foundEmployeeIndex][dateKey] = timeIn || timeOut? convertTimeToAMPMFormat(timeIn) + " - " + convertTimeToAMPMFormat(timeOut): "OFF"
+                    rows[foundEmployeeIndex][dateKey] = timeIn || timeOut? (convertTimeToAMPMFormat(timeIn) + " - " + convertTimeToAMPMFormat(timeOut)): "OFF"
                     // rows[foundEmployeeIndex][dateKey] = emp_orig.schedule_shift_code?.time_in + "-" + emp_orig.schedule_shift_code?.time_out
                     
                 } else {
@@ -132,13 +135,13 @@ export default function ViewSkyFreightReports() {
                         full_name: emp_orig.full_name,
                         emp_no: emp_orig.emp_no,
                     } 
-
-                    employee[dateKey] = timeIn || timeOut? convertTimeToAMPMFormat(timeIn) + " - " + convertTimeToAMPMFormat(timeOut): "OFF"
+                    employee[dateKey] = timeIn || timeOut? (convertTimeToAMPMFormat(timeIn) + " - " + convertTimeToAMPMFormat(timeOut)): "OFF"
                     // employee[dateKey] = emp_orig.schedule_shift_code?.time_in + "-" + emp_orig.schedule_shift_code?.time_out;
                     
                     rows.push(employee);
                 }
             })
+
             setDataRows((curr:any) => rows);
             setIsLoading(false)
 
@@ -212,7 +215,6 @@ export default function ViewSkyFreightReports() {
         //     }
         //   ]);
     }, [])
-
 
     // Extracting all unique date keys from the rows
     // const allDates = rows.reduce((dates, row) => {

@@ -22,7 +22,7 @@ function ExportToCsvButton(props: ExportToCsvButtonInterface)  {
         let content = [];
         const headerCopy = header
         const headerString = header.join(",");
-        const headerDateOnly = headerCopy.splice(0, 2)
+        headerCopy.splice(0, 2)
 
         content.push(headerString);
 
@@ -33,7 +33,7 @@ function ExportToCsvButton(props: ExportToCsvButtonInterface)  {
           for(let i = 0; i < headerCopy.length; i++) {
 
             const key = headerCopy[i];
-            let value = row[key]? row[key]: ''
+            let value = row[key]? row[key]: 'OFF'
  
             const cleanVal = cleanValue(value);
             singleRow.push(cleanVal)
