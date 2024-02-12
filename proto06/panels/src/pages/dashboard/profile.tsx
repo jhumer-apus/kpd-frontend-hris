@@ -99,7 +99,7 @@
                   style={{ maxWidth: '150px', maxHeight: '110px' }} 
                 />
                 <div>
-                  <Typography variant="h5" color="blue-gray" className="mb-1" style={{ display: 'inline-block', maxWidth: '150px', whiteSpace: 'nowrap' }}>
+                  <Typography variant="h5" color="blue-gray" className="mb-1" style={{ whiteSpace: 'nowrap' }}>
                     {`${curr_user?.first_name }`} {`${curr_user?.last_name }`}
                   </Typography>
                   <Typography
@@ -108,20 +108,20 @@
                   ></Typography>
                 </div>
               </div>
-              <div className="w-full flex justify-center" style={{ paddingLeft: '30rem', position: 'fixed', top: '380px', left: '250px', width: '100%' }}>
-                <div className="w-96" style={{ width: '700px' }}>
+              <div className="w-full flex justify-center">
+                <div className="w-96" style={{ width: '500px' }}>
                   <Tabs value={activeTab}>
                     <TabsHeader>
                       <Tab value="personal" onClick={() => handleTabClick('personal')} className="flex items-center">
-                        <HomeIcon className="-mt-1 mr-2 inline-block h-5 w-5" style={{ width: '100px' }} />
+                        <HomeIcon className="-mt-1 mr-2 inline-block h-5 w-5" />
                         Personal
                       </Tab>
                       <Tab value="static_info" onClick={() => handleTabClick('static_info')} className="flex items-center">
-                        <ChatBubbleLeftEllipsisIcon className="-mt-0.5 mr-2 inline-block h-5 w-5" style={{ width: '100px' }} />
+                        <ChatBubbleLeftEllipsisIcon className="-mt-0.5 mr-2 inline-block h-5 w-5" />
                         Static Info
                       </Tab>
                       <Tab value="employment" onClick={() => handleTabClick('employment')} className="flex items-center">
-                        <Cog6ToothIcon className="-mt-1 mr-2 inline-block h-5 w-5" style={{ width: '100px' }} />
+                        <Cog6ToothIcon className="-mt-1 mr-2 inline-block h-5 w-5" />
                         Employment
                       </Tab>  
                     </TabsHeader>
@@ -133,115 +133,161 @@
 
             </div>
             {activeTab === 'personal' && (
-              <div className="gird-cols-1 mb-12 grid gap-12 px-4 lg:grid-cols-2 xl:grid-cols-3" style={{ marginTop: '-30px',  marginBottom: '80px' }}>
-                <div>
-                  <Typography variant="h6" color="blue-gray" className="mb-3">
-                    <TextField  id="outlined-basic" label="Firstname" variant="outlined" style={{ width: '100%', top: '15px' }} value={curr_user?.first_name || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
-                  </Typography>
-                  <Typography variant="h6" color="blue-gray" className="mb-3">
-                    <TextField  id="outlined-basic" label="Suffix" variant="outlined" style={{ width: '100%', top: '30px' }} value={curr_user?.suffix || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
-                  </Typography>
-                  <Typography variant="h6" color="blue-gray" className="mb-3">
-                    <TextField  id="outlined-basic" label="Civil Status" variant="outlined" style={{ width: '100%', top: '45px' }} value={curr_user?.civil_status || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
-                  </Typography>
-                  <Typography variant="h6" color="blue-gray" className="mb-3">
-                    <TextField  id="outlined-basic" label="Present Address" variant="outlined" style={{ width: '100%', top: '60px' }} value={curr_user?.address || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
-                  </Typography>
+              <div className="grid-cols-1 mb-12 grid gap-12 px-4 lg:grid-cols-2 xl:grid-cols-3" style={{ marginTop: '-30px', marginBottom: '50px', position: 'relative' }}>
+              <div>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+                  <TextField  id="Firstname" label="Firstname" variant="outlined" style={{ width: '100%' }} value={curr_user?.first_name || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+                  <TextField  id="Suffix" label="Suffix" variant="outlined" style={{ width: '100%' }} value={curr_user?.suffix || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+                  <TextField  id="Civil Status" label="Civil Status" variant="outlined" style={{ width: '100%' }} value={curr_user?.civil_status || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+                  <TextField  id="Approver Number" label="Approver Number" variant="outlined" style={{ width: '100%' }} value={curr_user?.approver1 || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
                 </div>
                 <div>
-                  <Typography variant="h6" color="blue-gray" className="mb-3">
-                    <TextField id="outlined-basic" label="Middlename" variant="outlined" style={{ width: '100%', top: '15px'}} value={curr_user?.middle_name || '-'} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
-                  </Typography>
-                  <Typography variant="h6" color="blue-gray" className="mb-3">
-                    <TextField  id="outlined-basic" label="Birthday" variant="outlined" style={{ width: '100%', top: '30px' }} value={curr_user?.birthday || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
-                  </Typography>
-                  <Typography variant="h6" color="blue-gray" className="mb-3">
-                    <TextField  id="outlined-basic" label="Gender" variant="outlined" style={{ width: '100%', top: '45px' }} value={curr_user?.gender || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
-                  </Typography>
-                  <Typography variant="h6" color="blue-gray" className="mb-3">
-                    <TextField  id="outlined-basic" label="Provincial Address" variant="outlined" style={{ width: '100%', top: '60px' }} value={curr_user?.provincial_address || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
-                  </Typography>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+                  <TextField  id="Middlename" label="Middlename" variant="outlined" style={{ width: '100%' }} value={curr_user?.middle_name || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+                  <TextField  id="Birthday : YYYY-MM-DD" label="Birthday : YYYY-MM-DD" variant="outlined" style={{ width: '100%' }} value={curr_user?.birthday || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+                  <TextField  id="Gender" label="Gender" variant="outlined" style={{ width: '100%' }} value={curr_user?.gender || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+                  <TextField  id="Present Address" label="Present Address" variant="outlined" style={{ width: '100%' }} value={curr_user?.address || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
                 </div>
                 <div>
-                  <Typography variant="h6" color="blue-gray" className="mb-3">
-                    <TextField id="outlined-basic" label="Lastname" variant="outlined" style={{ width: '100%', top: '15px'}} value={curr_user?.last_name || '-'} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
-                  </Typography>
-                  <Typography variant="h6" color="blue-gray" className="mb-3">
-                    <TextField  id="outlined-basic" label="Birthplace" variant="outlined" style={{ width: '100%', top: '30px' }} value={curr_user?.birth_place || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
-                  </Typography>
-                  <Typography variant="h6" color="blue-gray" className="mb-3">
-                    <TextField  id="outlined-basic" label="Mobile phone" variant="outlined" style={{ width: '100%', top: '45px' }} value={curr_user?.mobile_phone || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
-                  </Typography>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+                  <TextField  id="Lastname" label="Lastname" variant="outlined" style={{ width: '100%' }} value={curr_user?.last_name || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+                  <TextField  id="Birthplace" label="Birthplace" variant="outlined" style={{ width: '100%' }} value={curr_user?.birth_place || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+                  <TextField  id="Mobile Phone" label="Mobile Phone" variant="outlined" style={{ width: '100%' }} value={curr_user?.mobile_phone || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+                  <TextField  id="Provincial Address" label="Provincial Address" variant="outlined" style={{ width: '100%' }} value={curr_user?.provincial_address || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
                 </div>
               </div>
             )}
-              {activeTab === 'static_info' && (
-            <div className="gird-cols-1 mb-12 grid gap-12 px-4 lg:grid-cols-2 xl:grid-cols-3" style={{ marginTop: '-30px',  marginBottom: '50px' }}>
-            <div>
-              <Typography variant="h6" color="blue-gray" className="mb-3">
-                <TextField  id="outlined-basic" label="Biometric ID" variant="outlined" style={{ width: '100%', top: '15px' }} value={curr_user?.bio_id || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
-              </Typography>
-              <Typography variant="h6" color="blue-gray" className="mb-3">
-                <TextField  id="outlined-basic" label="Date Added" variant="outlined" style={{ width: '100%', top: '30px' }} value={curr_user?.date_added || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
-              </Typography>
+           {activeTab === 'static_info' && (
+            <div className="grid-cols-1 mb-12 grid gap-12 px-4 lg:grid-cols-2 xl:grid-cols-3" style={{ marginTop: '-30px', marginBottom: '50px', position: 'relative' }}>
+              <div>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+                  <TextField  id="Database ID" label="Database ID" variant="outlined" style={{ width: '100%' }} value={curr_user?.id || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+                  <TextField  id="Username" label="Username" variant="outlined" style={{ width: '100%' }} value={curr_user?.user?.username || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}> 
+                  <TextField  id="Account Active" label="Account Active" variant="outlined" style={{ width: '100%' }} value={ '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+                  <TextField  id="Last Login" label="Last Login" variant="outlined" style={{ width: '100%' }} value={ '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+                  <TextField  id="Date Deactivated" label="Date Deactivated" variant="outlined" style={{ width: '100%' }} value={ '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
+              </div>     
+              <div>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+                  <TextField  id="bio-id" label="Biometric ID" variant="outlined" style={{ width: '100%' }} value={curr_user?.bio_id || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+                  <TextField  id="Role Number" label="Role Number" variant="outlined" style={{ width: '100%' }} value={curr_user?.rank_code  || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+                  <TextField  id="Email Address" label="Email Address" variant="outlined" style={{ width: '100%' }} value={curr_user?.email_address || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+                  <TextField  id="Old Password" label="Old Password" variant="outlined" style={{ width: '100%' }} value={ '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+                  <TextField  id="Failed Login Attempts" label="Failed Login Attempts" variant="outlined" style={{ width: '100%' }} value={ '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
+              </div>  
+              <div>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+                  <TextField  id="Employee Number" label="Employee Number" variant="outlined" style={{ width: '100%' }} value={curr_user?.emp_no || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+                  <TextField  id="Account SuperUser" label="Account SuperUser" variant="outlined" style={{ width: '100%' }} value={ '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+                  <TextField  id="Account Lock Status" label="Account Lock Status" variant="outlined" style={{ width: '100%' }} value={ '-' } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+                  <TextField  id="Date Added" label="Date Added" variant="outlined" style={{ width: '100%' }} value={curr_user?.date_added || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
+                <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+                  <TextField  id="Date Password Changed" label="Date Password Changed" variant="outlined" style={{ width: '100%' }} value={ '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                </Typography>
+              </div>  
             </div>
-            <div>
-              <Typography variant="h6" color="blue-gray" className="mb-3">
-                <TextField  id="outlined-basic" label="Email Address" variant="outlined" style={{ width: '100%', top: '15px' }} value={curr_user?.email_address || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
-              </Typography>
-              <Typography variant="h6" color="blue-gray" className="mb-3">
-                <TextField  id="outlined-basic" label="Date Deactivated" variant="outlined" style={{ width: '100%', top: '30px' }} value={curr_user?.date_deleted || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
-              </Typography>
-            </div>
-            <div>
-              <Typography variant="h6" color="blue-gray" className="mb-3">
-                <TextField  id="outlined-basic" label="Employee ID" variant="outlined" style={{ width: '100%', top: '15px' }} value={curr_user?.emp_no || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
-              </Typography>
-            </div>
-              </div>
-            )}
+          )}
+
             {activeTab === 'employment' && (
-          <div className="gird-cols-1 mb-12 grid gap-12 px-4 lg:grid-cols-2 xl:grid-cols-3" style={{ marginTop: '-30px',  marginBottom: '80px' }}>
+          <div className="grid-cols-1 mb-12 grid gap-12 px-4 lg:grid-cols-2 xl:grid-cols-3" style={{ marginTop: '-30px', marginBottom: '50px', position: 'relative' }}>
           <div>
-            <Typography variant="h6" color="blue-gray" className="mb-3">
-              <TextField  id="outlined-basic" label="Date Hired" variant="outlined" style={{ width: '100%', top: '15px' }} value={curr_user?.date_hired || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+             <TextField  id="Date Hired" label="Date Hired" variant="outlined" style={{ width: '100%' }} value={curr_user?.date_hired || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
             </Typography>
-            <Typography variant="h6" color="blue-gray" className="mb-3">
-              <TextField  id="outlined-basic" label="Branch Code" variant="outlined" style={{ width: '100%', top: '30px' }} value={curr_user?.branch_code || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+            <TextField  id="Branch Code" label="Branch Code" variant="outlined" style={{ width: '100%' }} value={curr_user?.branch_code ||'-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
             </Typography>
-            <Typography variant="h6" color="blue-gray" className="mb-3">
-              <TextField  id="outlined-basic" label="Position Code" variant="outlined" style={{ width: '100%', top: '45px' }} value={curr_user?.position_code || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+            <TextField  id="Position Code" label="Position Code" variant="outlined" style={{ width: '100%' }} value={curr_user?.position_code ||'-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
             </Typography>
-            <Typography variant="h6" color="blue-gray" className="mb-3">
-              <TextField  id="outlined-basic" label="Account Number" variant="outlined" style={{ width: '100%', top: '60px' }} value={curr_user?.accnt_no || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+            <TextField  id="Account Number" label="Account Number" variant="outlined" style={{ width: '100%' }} value={curr_user?.accnt_no || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            </Typography>
+            <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+            <TextField  id="Tax Identification" label="Tax Identification" variant="outlined" style={{ width: '100%' }} value={curr_user?.tax_code || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            </Typography>
+            <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+            <TextField  id="Philhealth" label="Philhealth" variant="outlined" style={{ width: '100%' }} value={curr_user?.philhealth_code || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
             </Typography>
           </div>
           <div>
-            <Typography variant="h6" color="blue-gray" className="mb-3">
-              <TextField  id="outlined-basic" label="Date Resigned" variant="outlined" style={{ width: '100%', top: '15px' }} value={curr_user?.date_resigned || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+             <TextField  id="Date Resigned" label="Date Resigned" variant="outlined" style={{ width: '100%' }} value={curr_user?.date_resigned ||'-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
             </Typography>
-            <Typography variant="h6" color="blue-gray" className="mb-3">
-              <TextField  id="outlined-basic" label="Department Code" variant="outlined" style={{ width: '100%', top: '30px' }} value={curr_user?.department_code || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+            <TextField  id="Department Code" label="Department Code" variant="outlined" style={{ width: '100%' }} value={curr_user?.department_code ||'-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
             </Typography>
-            <Typography variant="h6" color="blue-gray" className="mb-3">
-              <TextField  id="outlined-basic" label="Ranked Code" variant="outlined" style={{ width: '100%', top: '45px' }} value={curr_user?.rank_code || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+            <TextField  id="Ranked Code" label="Ranked Code" variant="outlined" style={{ width: '100%' }} value={curr_user?.rank_code || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
             </Typography>
-            <Typography variant="h6" color="blue-gray" className="mb-3">
-              <TextField  id="outlined-basic" label="Basic Salary Amount" variant="outlined" style={{ width: '100%', top: '60px' }} value={curr_user?.emp_salary_basic || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+            <TextField  id="Basic Salary Amount" label="Basic Salary Amount" variant="outlined" style={{ width: '100%' }} value={curr_user?.emp_salary_basic ||'-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            </Typography>
+            <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+            <TextField  id="HDMF Pagibig" label="HDMF Pagibig" variant="outlined" style={{ width: '100%' }} value={curr_user?.pagibig_code ||'-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
             </Typography>
           </div>
           <div>
-            <Typography variant="h6" color="blue-gray" className="mb-3">
-              <TextField  id="outlined-basic" label="City Code" variant="outlined" style={{ width: '100%', top: '15px' }} value={curr_user?.city_code || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+             <TextField  id="City Code" label="City Code" variant="outlined" style={{ width: '100%' }} value={curr_user?.city_code || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
             </Typography>
-            <Typography variant="h6" color="blue-gray" className="mb-3">
-              <TextField  id="outlined-basic" label="Division Code" variant="outlined" style={{ width: '100%', top: '30px' }} value={curr_user?.division_code || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+            <TextField  id="Division Code" label="Division Code" variant="outlined" style={{ width: '100%' }} value={curr_user?.division_code ||'-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
             </Typography>
-            <Typography variant="h6" color="blue-gray" className="mb-3">
-              <TextField  id="outlined-basic" label="Payphone Group Code" variant="outlined" style={{ width: '100%', top: '45px' }} value={curr_user?.payroll_group_code || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+            <TextField  id="Payroll Group Code" label="Payroll Group Code" variant="outlined" style={{ width: '100%' }} value={curr_user?.payroll_group_code ||'-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
             </Typography>
-            <Typography variant="h6" color="blue-gray" className="mb-3">
-              <TextField  id="outlined-basic" label="Salary Type" variant="outlined" style={{ width: '100%', top: '60px' }} value={curr_user?.emp_salary_type || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+            <TextField  id="Salary Type" label="Salary Type" variant="outlined" style={{ width: '100%' }} value={curr_user?.emp_salary_type || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            </Typography>
+            <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+            <TextField  id="SSS ID" label="SSS ID" variant="outlined" style={{ width: '100%' }} value={curr_user?.sssid_code || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
             </Typography>
           </div>
           </div>
