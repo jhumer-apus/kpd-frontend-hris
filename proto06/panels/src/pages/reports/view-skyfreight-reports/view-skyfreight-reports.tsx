@@ -107,8 +107,6 @@ export default function ViewSkyFreightReports() {
 
         await axios.get(`${APILink}schedule_daily/?month=${thisMonth}&year=${thisYear}`).then(response => {
 
-            console.log(response);
-
             const data = response.data ? response.data: []
             const rows:any = [];
 
@@ -140,7 +138,6 @@ export default function ViewSkyFreightReports() {
                     
                     rows.push(employee);
                 }
-                console.log(rows);
             })
             setDataRows((curr:any) => rows);
             setIsLoading(false)
@@ -305,7 +302,6 @@ export default function ViewSkyFreightReports() {
     ]
 
     const csvHeader = columns.map(column => column.headerName);
-    console.log(csvHeader);
 
     
   

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Button} from '@material-tailwind/react';
+import { single } from 'rxjs';
 
 
 interface ExportToCsvButtonInterface {
@@ -19,23 +20,33 @@ function ExportToCsvButton(props: ExportToCsvButtonInterface)  {
       if(data) {
 
         let content = [];
-        const headerString = header.join(",") + "\r\n";
+        const headerString = header.join(",");
 
         content.push(headerString);
 
         const dataContent = data.map((row:any) => {
 
-          let singleRow = [row.emp_no, row.full_name];
+          let singleRow = [cleanValue(row.emp_no), cleanValue(row.full_name)];
 
           for(let i = 0; i < header.length; i++) {
-            const value = row[header[i]]? row[header[i]]: ''
-            singleRow.push(value)
+
+            const key = header[i];
+            let value = row[key]? row[key]: ''
+ 
+            const cleanVal = cleanValue(value);
+            singleRow.push(cleanVal)
           }
-          return singleRow.join(",") + "\r\n";
+
+          console.log(singleRow);
+
+          return singleRow.join(",");
+
         });
 
-        content.push(dataContent.join(","))
-        return content;
+        const dataContentString = dataContent.join("\n");
+        content.push(dataContentString)
+
+        return content.join("\n");
 
       } else {
 
@@ -52,6 +63,16 @@ function ExportToCsvButton(props: ExportToCsvButtonInterface)  {
         //   window.alert("No Data is Found")
         // }
     };
+
+    const cleanValue = (value:string) => {
+
+      const valueString = value.toString();
+
+      if(valueString.includes(",")) {
+        return `"${value}"`;
+      }
+      return valueString;
+    }
 
     const getMonthName = (monthNumber:any) => {
       const date = new Date(Date.UTC(2000, monthNumber - 1, 1)); // Subtract 1 from the month number since JavaScript months are zero-indexed
@@ -75,7 +96,7 @@ function ExportToCsvButton(props: ExportToCsvButtonInterface)  {
         }
         const csv = convertToCSV(header, data);
         if(csv){
-          downloadCSV(csv, `${window.prompt(`Enter the file name", "Skyfreight-Reports-${getMonthName(monthNumber)}-${yearNumber}`)}`);
+          downloadCSV(csv, `${window.prompt("Enter the file name", `Skyfreight-Reports-${getMonthName(monthNumber)}-${yearNumber}`)}`);
         }
     };
 
