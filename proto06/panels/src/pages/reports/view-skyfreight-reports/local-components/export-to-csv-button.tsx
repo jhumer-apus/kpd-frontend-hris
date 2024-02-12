@@ -4,15 +4,42 @@ import {Button} from '@material-tailwind/react';
 
 interface ExportToCsvButtonInterface {
     data: any;
-    header: (string | undefined)[];
+    header: string[];
     isDisable: boolean;
 }
 
 function ExportToCsvButton(props: ExportToCsvButtonInterface)  {
-    const {data, isDisable} = props;
+    const {header, data, isDisable} = props;
 
 
-    const convertToCSV = (data: any) => {
+    const convertToCSV = (header:string[], data:any):any => {
+
+      if(data) {
+
+        let content = [];
+        const headerString = header.join(",") + "\r\n";
+
+        content.push(headerString);
+
+        const dataContent = data.map((row:any) => {
+
+          let singleRow = [row.emp_no, row.full_name];
+
+          for(let i = 0; i < header.length; i++) {
+            const value = row[header[i]]? row[header[i]]: ''
+            singleRow.push(value)
+          }
+          return singleRow.join(",") + "\r\n";
+        });
+
+        content.push(dataContent.join(","))
+        return content;
+
+      } else {
+
+        window.alert("No Data is Found")
+
+      }
         // const replacer = (key: string, value: any) => value === null ? '' : value;
         // if(data){
         //   const header = Object.keys(data[0]);
@@ -38,7 +65,7 @@ function ExportToCsvButton(props: ExportToCsvButtonInterface)  {
         if(!data){
           return; //Todo: Error Handling 
         }
-        const csv = convertToCSV(data);
+        const csv = convertToCSV(header, data);
         if(csv){
           downloadCSV(csv, `${window.prompt("Enter the file name", "default_name")}`);
         }

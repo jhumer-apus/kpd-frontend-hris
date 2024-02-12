@@ -101,7 +101,7 @@ export default function ViewSkyFreightReports() {
     };
 
     const getSkyFreightReports = async (thisYear:any, thisMonth:any) => {
-
+        setIsFetchReportError(false)
         setIsLoading(true);
 
         await axios.get(`${APILink}schedule_daily/?month=${thisMonth}&year=${thisYear}`).then(response => {
