@@ -366,7 +366,7 @@ export default function ViewSkyFreightReports() {
 
                 </div>
 
-                <div className="my-6 h-[500PX] w-[1500px]">
+                <div className="my-6 h-[500PX] w-full">
                     {/* add a loading interface here to indicate that the report needed is loading */}
                     <DataGrid
                     rows={dataRows}
