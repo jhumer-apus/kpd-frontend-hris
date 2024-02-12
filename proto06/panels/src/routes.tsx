@@ -123,7 +123,7 @@ import ViewSpecificPayroll from "./pages/payroll/view-specific-payroll/view-spec
 import EmploymentHistoryPage from "./pages/employee/employment-history/employment-history";
 import AutoStoriesOutlinedIcon from '@mui/icons-material/AutoStoriesOutlined';
 import Diversity3OutlinedIcon from '@mui/icons-material/Diversity3Outlined';
-import ViewSkyFreightReports from "./pages/reports/view-skyfreight-reports/view-skyfreight-reports";
+import ViewMonthlySchedule from "./pages/reports/view-monthly-schedule";
 import EMPSEMINARSPageV2 from "./pages/employee/emp-training-seminars-v2/emp-training-seminars";
 
 const icon = {
@@ -930,9 +930,9 @@ const JSXRouteWrapper = () => {
               {
                 id: 19100,
                 icon: <DocumentIcon {...icon} />,
-                name: "View SkyFreight Reports",
-                path: "/report/view-skyfreight-reports",
-                element: <ViewSkyFreightReports/>,
+                name: "View Monthly Schedule",
+                path: "/report/view-monthly-schedule",
+                element: <ViewMonthlySchedule/>,
                 hasSubItems: false,
               },
       

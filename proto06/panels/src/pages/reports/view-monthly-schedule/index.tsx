@@ -21,7 +21,7 @@ interface EmployeeData {
     [date: string]: string | number;
 }
 
-export default function ViewSkyFreightReports() {
+export default function ViewMonthlySchedule() {
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     

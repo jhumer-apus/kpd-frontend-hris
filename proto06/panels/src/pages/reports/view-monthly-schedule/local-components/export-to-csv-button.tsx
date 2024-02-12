@@ -114,7 +114,7 @@ function ExportToCsvButton(props: ExportToCsvButtonInterface)  {
         }
         const csv = convertToCSV(header, data);
         if(csv){
-          downloadCSV(csv, `${window.prompt("Enter the file name", `Skyfreight-Reports-${getMonthName(monthNumber)}-${yearNumber}`)}`);
+          downloadCSV(csv, `${window.prompt("Enter the file name", `Employee-Schedules-${getMonthName(monthNumber)}-${yearNumber}`)}`);
         }
     };
 
