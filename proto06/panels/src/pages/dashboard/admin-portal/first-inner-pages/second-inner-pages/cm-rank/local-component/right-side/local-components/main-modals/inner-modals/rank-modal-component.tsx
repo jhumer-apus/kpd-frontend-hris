@@ -17,7 +17,7 @@ const RANKModalComponent = ((props:RANKModalComponentInterface) => {
     const componentRef = useRef<HTMLDivElement | null>(null);
     return (
         <Fragment>
-            <Typography variant='soft'>RANK Individual Data</Typography>
+            <Typography variant='soft'>Rank Data</Typography>
             <ModalClose sx={{marginTop: '4px'}}/>
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <RANKModalUI setSingleRANKDetailsData={setSingleRANKDetailsData} singleRANKDetailsData={singleRANKDetailsData}/>

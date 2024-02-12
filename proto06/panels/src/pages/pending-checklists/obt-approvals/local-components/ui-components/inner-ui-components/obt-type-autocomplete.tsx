@@ -31,9 +31,9 @@ export default function OBTTypeAutoComplete(props: OBTTypeAutoCompleteInterface)
             // onChange={(event: React.SyntheticEvent<Element, Event>, newValue ) => {
             //     setLocalOBTTypeState(newValue.label)
             // }}
+            noOptionsText={'Loading... Please Wait.'}
             onChange={handleInputChange}
             disablePortal
-            id="combo-box-demo"
             options={OBTTypeOptions}
             sx={{ width: 300 }}
             renderInput={(params) => <TextField {...params} label="OBT Type" />}

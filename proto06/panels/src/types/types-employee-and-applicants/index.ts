@@ -1,6 +1,6 @@
 // ======================================
 
-import { USERViewInterface } from "../types-pages"
+import { SCHEDULEDAILYViewInterface, USERViewInterface } from "../types-pages"
 import { EMPLOYEESViewInterface } from "../types-store"
 
 export interface KPICOREGenericInterface {
@@ -322,3 +322,52 @@ export interface Perfect_Attendace_Filter_Interface {
 	year: number
 };
   
+export interface ALLSCHEDULEViewInterface extends SCHEDULEDAILYViewInterface{}
+
+export interface All_Schedule_Filter_Interface {
+	month: number,
+	year: number
+};
+
+
+
+
+// ======================================
+
+export interface EMPHISTORYGenericInterface {
+	emp_no: number
+	employment_position: string
+	date_promoted: string | null
+    added_by: number
+}
+
+
+export interface EMPHISTORYViewInterface extends EMPHISTORYGenericInterface{
+	readonly id: number
+}
+
+
+export interface EMPHISTORYCreateInterface extends EMPHISTORYGenericInterface{}
+export interface EMPHISTORYEditInterface extends EMPHISTORYViewInterface{}
+export interface EMPHISTORYDeleteInterface extends EMPHISTORYGenericInterface, Pick<EMPHISTORYGenericInterface, "added_by">{}
+
+
+// ======================================
+
+export interface EMPSEMINARSGenericInterface {
+	emp_no: number
+	subject: string
+	date_accomplished: string | null
+	category: string | "Seminar" | "Training"
+    added_by: number
+}
+
+
+export interface EMPSEMINARSViewInterface extends EMPSEMINARSGenericInterface{
+	readonly id: number
+}
+
+
+export interface EMPSEMINARSCreateInterface extends EMPSEMINARSGenericInterface{}
+export interface EMPSEMINARSEditInterface extends EMPSEMINARSViewInterface{}
+export interface EMPSEMINARSDeleteInterface extends EMPSEMINARSGenericInterface, Pick<EMPHISTORYGenericInterface, "added_by">{}

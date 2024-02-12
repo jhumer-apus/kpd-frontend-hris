@@ -18,7 +18,7 @@ const TAXModalComponent = ((props:TAXModalComponentInterface) => {
 
     return (
         <Fragment>
-            <Typography variant='soft'>TAX Individual Data</Typography>
+            <Typography variant='soft'>'Tax/TIN' Data</Typography>
             <ModalClose sx={{marginTop: '4px'}}/>
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <TAXModalUI setSingleTAXDetailsData={setSingleTAXDetailsData} singleTAXDetailsData={singleTAXDetailsData}/>

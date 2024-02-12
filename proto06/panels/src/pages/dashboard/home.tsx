@@ -41,9 +41,8 @@ export function ChooseDashboard() {
     month: +(dayjs(new Date()).format('MM')),
     year: +(dayjs(new Date()).format('YYYY'))
   });
-  const [ forCSVExtract, setForCSVExtract ] = useState<unknown>(null);
+  const [ forCSVExtract, setForCSVExtract ] = useState<unknown>([]);
 
-  // console.log(forCSVExtract, "hahahasd12")
   useEffect(()=>{
     if(filterState.month && filterState.year){
       dispatch(PERFECTATTENDANCEViewSpecificAction(filterState))
@@ -52,8 +51,8 @@ export function ChooseDashboard() {
 
   useEffect(()=> {
 
-      
-      const data = EmployeeState.PERFECTATTENDANCEViewSpecific.data.map((data)=> {
+    if(Array.isArray(EmployeeState?.PERFECTATTENDANCEViewSpecific?.data)){
+      const data = EmployeeState?.PERFECTATTENDANCEViewSpecific?.data?.map((data)=> {
         return ({
           id: data.id,
           Employee_Name: `${data.last_name}, ${data.first_name} ${data.middle_name !== null ? data.middle_name : ''} ${data.suffix !== null? data.suffix : ''}`,
@@ -62,8 +61,11 @@ export function ChooseDashboard() {
           Position_ID: `${data.position_code !== null ? data.position_code : ''}`,
           Payroll_Group: `${data.payroll_group_code !== null ? data.payroll_group_code : ''}`,
         })
-      })
+      });
       setForCSVExtract(data) 
+      // console.log(forCSVExtract, "hahah123", data)
+    }
+
   }, [EmployeeState.PERFECTATTENDANCEViewSpecific.data.length])
 
   return (
@@ -73,7 +75,7 @@ export function ChooseDashboard() {
         <Card className={styles.greetingsBar}>
           <CarouselUI className={styles.greetingsBar}/>
         </Card>
-        <Card className={styles.requestsBar} style={{marginTop: '24px', height: '480px'}}>
+        <Card className={styles.requestsBar} style={{marginTop: '24px', height: '480px', overflow: 'auto'}}>
           {/* <UnderDevelopmentMsg/> */}
           <CardHeader
             floated={false}
@@ -105,7 +107,7 @@ export function ChooseDashboard() {
             </Menu>
           </CardHeader>
           <MonthYearDropdown filter={filterState} setFilter={setFilterState}/>
-          <PerfectAttendanceTable state={forCSVExtract instanceof Array ? forCSVExtract : []}/>
+          <PerfectAttendanceTable state={forCSVExtract instanceof Array ? forCSVExtract : []} status={EmployeeState.PERFECTATTENDANCEViewSpecific.status} />
         </Card>
         <Card className={styles.announcementBar}>
           <CardHeader

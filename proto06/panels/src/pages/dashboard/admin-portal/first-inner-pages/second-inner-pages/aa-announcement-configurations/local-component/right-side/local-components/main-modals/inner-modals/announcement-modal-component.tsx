@@ -18,7 +18,7 @@ const ANNOUNCEMENTModalComponent = ((props:ANNOUNCEMENTModalComponentInterface) 
 
     return (
         <Fragment>
-            <Typography variant='soft'>ANNOUNCEMENT Individual Data</Typography>
+            <Typography variant='soft'>Announcement Data</Typography>
             <ModalClose sx={{marginTop: '4px'}}/>
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <ANNOUNCEMENTModalUI setSingleANNOUNCEMENTDetailsData={setSingleANNOUNCEMENTDetailsData} singleANNOUNCEMENTDetailsData={singleANNOUNCEMENTDetailsData}/>

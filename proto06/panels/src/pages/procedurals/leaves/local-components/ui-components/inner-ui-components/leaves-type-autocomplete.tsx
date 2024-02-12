@@ -17,6 +17,7 @@ export default function LEAVETypeAutoComplete(props: LEAVETypeAutoCompleteInterf
 
     return (
         <Autocomplete
+            noOptionsText={'Loading... Please Wait.'}
             value={`${createLEAVE?.leave_type}` ?? ''}
             onChange={(event: React.SyntheticEvent<Element, Event>, newValue: string | null ) => {
                 setCreateLEAVE((prevState)=>{

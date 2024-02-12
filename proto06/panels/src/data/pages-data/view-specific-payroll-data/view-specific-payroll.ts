@@ -8,7 +8,7 @@ export const viewPayrollOptions = [
 ];
 
 export const viewPayrollDescriptions = [
-  "Click on Employee Details to View Individual Payslips. Otherwise, Check the boxes then generate multiple payslips.",
+  "Click on Details to View Individual Payslips. Otherwise, click the generate payslip - multiple.",
 ];
 
 export const dynamicPayrollColumns: Array<GridColDef[]> = 

@@ -33,7 +33,7 @@ export default function OBTTypeAutoComplete(props: OBTTypeAutoCompleteInterface)
             // }}
             onChange={handleInputChange}
             disablePortal
-            id="combo-box-demo"
+            noOptionsText={'Loading... Please Wait.'}
             options={OBTTypeOptions}
             sx={{ width: 300 }}
             renderInput={(params) => <TextField {...params} label="OBT Type" />}

@@ -20,7 +20,6 @@ function CORECOMPEModalUI(props: CORECOMPEModalUIInterface) {
     const [DeactivateCORECOMPEOpenModal, setDeactivateCORECOMPEOpenModal] = useState(false);
     const [EditSubmitCORECOMPEOpenModal, setEditSubmitCORECOMPEOpenModal] = useState(false);
 
-    console.log(singleCORECOMPEDetailsData, "cgheclk")
     return (
         <Fragment>
             <EditSubmitCORECOMPEModal EditSubmitCORECOMPEOpenModal={EditSubmitCORECOMPEOpenModal} setEditSubmitCORECOMPEOpenModal={setEditSubmitCORECOMPEOpenModal} singleCORECOMPEDetailsData={singleCORECOMPEDetailsData} setSingleCORECOMPEDetailsData={setSingleCORECOMPEDetailsData} />

@@ -1,9 +1,9 @@
-import { Fragment, useState, CSSProperties } from 'react';
+import { Fragment, useState, CSSProperties, useEffect } from 'react';
 import HighlightedCalendar from './local-components/highlighted-calendar/highlighted-calendar';
 import { styled } from '@mui/material/styles';
 import MuiGrid from '@mui/material/Grid';
 import { Paper, useTheme, useMediaQuery, Button } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { Typography } from '@material-tailwind/react';
 import { ScheduleDailyColor } from '@/types/index';
@@ -11,6 +11,9 @@ import dayjs from 'dayjs';
 import ProceduralSCHEDULEDAILYPageHistory from './right-side/schedule-daily-history';
 import EmployeeAutoCompleteRight from './local-components/employee-autocomplete/employee-autocomplete-right';
 import CreateSCHEDULEDAILYMultipleModal from './local-components/assign-multiple-shift/create-schedule-daily-multiple-modal';
+import { All_Schedule_Filter_Interface } from '@/types/types-employee-and-applicants';
+import ExportToCsv from '@/public-components/ExportToCSVButton';
+import { ALLSCHEDULEViewSpecificAction } from '@/store/actions/employee-and-applicants';
 
 
 const PaperStyle: CSSProperties = {
@@ -34,6 +37,8 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
 
 
 export default function ProceduralSCHEDULEDAILYpage() {
+  const dispatch = useDispatch();
+  const allScheduleState = useSelector((state: RootState) => state.employeeAndApplicants.ALLSCHEDULEViewSpecific);
   const theme = useTheme();
   const curr_emp = useSelector((state: RootState) => state.auth);
   const [value, setValue] = useState<dayjs.Dayjs | null>(dayjs());
@@ -43,11 +48,33 @@ export default function ProceduralSCHEDULEDAILYpage() {
   const handleClose2 = () => setOpen2(false);
   const curr_emp_no = curr_emp.employee_detail?.emp_no;
   const [currEmployee, setCurrEmployee] = useState<number>((curr_emp_no) || 0);
+  const [ forCSVExtract, setForCSVExtract ] = useState<unknown>(null);
+
+  const [ filterState, setFilterState ] = useState<All_Schedule_Filter_Interface>({
+    month: +(dayjs(new Date()).format('MM')),
+    year: +(dayjs(new Date()).format('YYYY'))
+  });
 
 
+
+  useEffect(()=>{
+    dispatch(ALLSCHEDULEViewSpecificAction(filterState))
+    // const data = allScheduleState.data.map((data)=> {
+    //   return ({
+    //     id: data.id,
+    //     F: `${data.last_name}, ${data.first_name} ${data.middle_name !== null ? data.middle_name : ''} ${data.suffix !== null? data.suffix : ''}`,
+    //     October_01_2023: `${data.schedule !== null ? data.schedule : ''}`, 
+    //     October_02_2024: `${data.division_code !== null ? data.division_code : ''}`,
+    //     October_03_2024: `${data.position_code !== null ? data.position_code : ''}`,
+    //     October_04_2024: `${data.payroll_group_code !== null ? data.payroll_group_code : ''}`,
+    //   })
+    // })
+    // setForCSVExtract(data) 
+  }, [])
 
   return (
     <Fragment>
+      {/* <div style={{border: '1px solid red'}}><ExportToCsv/></div> */}
       <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
         <Grid item xs={6}>
           <Paper elevation={3} style={PaperStyle}>

@@ -1,7 +1,7 @@
 import { Dispatch, Fragment, SetStateAction, useRef } from 'react';
 import ModalClose from '@mui/joy/ModalClose';
 import Typography from '@mui/joy/Typography';
-import CORECOMPEModalUI from '../../ui-components/asset-list-modal-ui';
+import CORECOMPEModalUI from '../../ui-components/core-compe-modal-ui';
 import { CORECOMPEViewInterface } from '@/types/types-employee-and-applicants';
 
 

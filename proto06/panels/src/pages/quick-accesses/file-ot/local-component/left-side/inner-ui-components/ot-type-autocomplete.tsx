@@ -33,7 +33,7 @@ export default function OVERTIMETypeAutoComplete(props: OVERTIMETypeAutoComplete
             // }}
             onChange={handleInputChange}
             disablePortal
-            id="combo-box-demo"
+            noOptionsText={'Loading... Please Wait.'}
             options={OVERTIMETypeOptions}
             sx={{ width: 300 }}
             renderInput={(params) => <TextField {...params} label="OVERTIME Type" />}

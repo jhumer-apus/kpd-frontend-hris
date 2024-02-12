@@ -11,19 +11,17 @@ import { PERFECTATTENDANCEViewInterface } from '@/types/types-employee-and-appli
 import { globalServerErrorMsg } from '@/store/configureStore';
 
 
-interface Perfect_Attendance_Table_Props<T>{
+interface Perfect_Attendance_Table_Props<T, Status>{
   state: T[]
+  status: Status
 }
 
-export default function PerfectAttendanceTable<T>(props: Perfect_Attendance_Table_Props<T>) {
-  const { state } = props;
+export default function PerfectAttendanceTable<T, Status>(props: Perfect_Attendance_Table_Props<T, Status>) {
+  const { state, status } = props;
   const [singleOBTOpenModal, setSingleOBTOpenModal] = useState<boolean>(false);
   const [singleOBTDetailsData, setSingleOBTDetailsData] = useState<OBTViewInterface>(OBTViewFilterEmployeeInitialState);
-  const dispatch = useDispatch();
   const { OBTViewFilterEmployee } = useSelector((state: RootState) => state.procedurals);
-  const { data, status, error } = OBTViewFilterEmployee;
-  const OBTViewData = data as OBTViewInterface[];
-  const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no)
+  const { data, error } = OBTViewFilterEmployee;
 
   const PerfectAttendanceField: GridColDef[] = 
   [
@@ -59,12 +57,6 @@ export default function PerfectAttendanceTable<T>(props: Perfect_Attendance_Tabl
     { field: 'Employee_Name', headerName: 'Employee Full Name:', width: 300 },
   ];
 
-  useEffect(()=> {
-    if((OBTViewData?.length <= 0 || OBTViewData === null || OBTViewData === undefined ) && curr_user){
-      dispatch(OBTViewFilterEmployeeAction({emp_no: curr_user}))
-    }
-  }, [curr_user]);
-
   return (
     <Fragment>
       <div style={{ height: '600px', width: '100%' , padding: "10px"}}>
@@ -83,7 +75,7 @@ export default function PerfectAttendanceTable<T>(props: Perfect_Attendance_Tabl
             setSingleOBTOpenModal(true);
           }}
           disableRowSelectionOnClick 
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${typeof status === 'string' ? status.toUpperCase() : status}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

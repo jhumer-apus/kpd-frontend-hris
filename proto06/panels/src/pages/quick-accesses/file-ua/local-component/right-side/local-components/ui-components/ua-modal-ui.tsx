@@ -6,7 +6,7 @@ import {TextField} from '@mui/material';
 import ApproveUAModal from '../main-modals/inner-modals/approve-ua-modal';
 import DenyUAModal from '../main-modals/inner-modals/deny-ua-modal';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalDateTime } from '@/store/configureStore';
 
 interface UAModalUIInterface {
     singleUADetailsData: UAViewInterface;
@@ -36,7 +36,7 @@ function UAModalUI(props: UAModalUIInterface) {
             <DenyUAModal singleUADetailsData={singleUADetailsData} setSingleUADetailsData={setSingleUADetailsData} denyUAOpenModal={denyUAOpenModal} setDenyUAOpenModal={setDenyUAOpenModal}/>
             <div className='flex gap-10 overflow-auto relative'>
                 <div className='flex gap-6 flex-col'>
-                    <TextField sx={{width: '100%', minWidth: '160px'}} label='Date Filed:' value={ThisProps.ua_date_filed ? dayjs(ThisProps.ua_date_filed).format('MM-DD-YYYY') : '-'} InputProps={{readOnly: false,}} variant='filled'/>
+                    <TextField sx={{width: '100%', minWidth: '160px'}} label='Date & Time Filed:' value={ThisProps.ua_date_filed ? dayjs(ThisProps.ua_date_filed).format(`${globalDateTime}`) : '-'} InputProps={{readOnly: false,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Total hrs:' value={(ThisProps.ua_total_hours / 60).toFixed(2) || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Cutoff Code:' value={ThisProps.cutoff_code || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Approver1:' value={ThisProps.ua_approver1_empno || 'Any Higher Ranking Officer'} InputProps={{readOnly: true,}} variant='standard'/>

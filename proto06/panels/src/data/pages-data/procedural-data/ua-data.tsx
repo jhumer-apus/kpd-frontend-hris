@@ -1,4 +1,4 @@
-import { globalDate } from "@/store/configureStore";
+import { globalDate, globalDateTime } from "@/store/configureStore";
 import { GridColDef, GridValueGetterParams, GridCellParams } from "@mui/x-data-grid";
 import dayjs from "dayjs";
 
@@ -15,7 +15,7 @@ export const ProceduralUAPageColumns: GridColDef[] =
     width: 150,
     valueGetter: (params: GridValueGetterParams) => {
       const date = new Date(params.row.ua_date_filed);
-      return dayjs(date).format(`${globalDate}`);
+      return dayjs(date).format(`${globalDateTime}`);
     }
   },
   { field: 'emp_no', headerName: 'Filed By:', width: 120 },

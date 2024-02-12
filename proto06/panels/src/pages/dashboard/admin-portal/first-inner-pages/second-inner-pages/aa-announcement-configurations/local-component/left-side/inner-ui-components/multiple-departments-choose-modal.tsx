@@ -94,7 +94,7 @@ export default function MultiDepartmentAutoCompleteLeft(props: DepartmentAutoCom
         // disableCloseOnSelect
         multiple
         limitTags={2}
-        id="grouped-demo"
+        noOptionsText={'Loading... Please Wait.'}
         options={departmentsList?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
         groupBy={(departmentsList) => departmentsList.firstLetter}
         getOptionLabel={(departmentsList) => departmentsList.department}

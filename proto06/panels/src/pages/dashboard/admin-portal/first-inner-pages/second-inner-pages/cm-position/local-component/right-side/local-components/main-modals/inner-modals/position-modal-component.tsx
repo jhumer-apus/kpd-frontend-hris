@@ -17,7 +17,7 @@ const POSITIONModalComponent = ((props:POSITIONModalComponentInterface) => {
     const componentRef = useRef<HTMLDivElement | null>(null);
     return (
         <Fragment>
-            <Typography variant='soft'>POSITION Individual Data</Typography>
+            <Typography variant='soft'>Position Data</Typography>
             <ModalClose sx={{marginTop: '4px'}}/>
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <POSITIONModalUI setSinglePOSITIONDetailsData={setSinglePOSITIONDetailsData} singlePOSITIONDetailsData={singlePOSITIONDetailsData}/>

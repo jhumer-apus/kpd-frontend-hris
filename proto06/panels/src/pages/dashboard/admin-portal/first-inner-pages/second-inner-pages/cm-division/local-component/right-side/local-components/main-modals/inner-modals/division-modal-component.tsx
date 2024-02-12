@@ -18,7 +18,7 @@ const DIVISIONModalComponent = ((props:DIVISIONModalComponentInterface) => {
 
     return (
         <Fragment>
-            <Typography variant='soft'>DIVISION Individual Data</Typography>
+            <Typography variant='soft'>Division Data</Typography>
             <ModalClose sx={{marginTop: '4px'}}/>
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <DIVISIONModalUI setSingleDIVISIONDetailsData={setSingleDIVISIONDetailsData} singleDIVISIONDetailsData={singleDIVISIONDetailsData}/>

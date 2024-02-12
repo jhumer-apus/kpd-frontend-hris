@@ -9,7 +9,7 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
-import { CSSProperties, useEffect, useState } from "react";
+import { CSSProperties, useEffect, useState, KeyboardEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userLoginAction } from "@/store/actions/auth";
 import { RootState } from "@/store/configureStore";
@@ -25,6 +25,13 @@ export function SignIn() {
   function handleSignIn(passedEmail: string, passedPassword: string) {
     // Implement your login logic here
     dispatch(userLoginAction({username: passedEmail, password: passedPassword}));
+  }
+  const handleKeyDown = (e:KeyboardEvent<HTMLInputElement>) => {
+
+    // When enter, sign in
+    if (e.key === 'Enter') {
+      handleSignIn(email, password)
+    }
   }
 
   useEffect(()=>{
@@ -52,8 +59,22 @@ export function SignIn() {
             </Typography>
           </CardHeader>
           <CardBody className="flex flex-col gap-4">
-            <Input type="text" label="Username" size="lg" value={email} onChange={(e)=> setEmail(e.target.value)}/>
-            <Input type={showPassword ? "text" : "password" } label="Password" size="lg" value={password} onChange={(e)=> setPassword(e.target.value)}/>
+            <Input 
+              type="text" 
+              label="Username" 
+              size="lg" 
+              value={email} 
+              onChange={(e)=> setEmail(e.target.value)}
+              onKeyDown = { handleKeyDown }
+            />
+            <Input 
+              type={showPassword ? "text" : "password" } 
+              label="Password" 
+              size="lg" 
+              value={password} 
+              onChange={(e)=> setPassword(e.target.value)}
+              onKeyDown = { handleKeyDown }
+            />
             <div className="-ml-2.5" >
               <Checkbox onClick={() => setShowPassword(!showPassword)} label="Show Password" />
             </div>

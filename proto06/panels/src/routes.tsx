@@ -22,7 +22,7 @@ import ViewDtrReports from "./pages/dtr/view-dtr-reports/view-dtr-reports";
 import UploadDtrLogs from "./pages/dtr/upload-dtr-logs/upload-dtr-logs";
 import MergeDtrLogs from "./pages/dtr/merge-dtr-logs/merge-dtr-logs";
 import CreateSummaryPage from "./pages/dtr/create-summary/create-summary";
-import ViewPayroll from "./pages/payroll/view-payroll/view-payroll";
+import ViewPayroll from "./pages/payroll/view-all-payroll/view-all-payroll";
 import ProcessPayrollPage from "./pages/payroll/process-payroll/process-payroll";
 import ApprovalOutlinedIcon from '@mui/icons-material/ApprovalOutlined';
 import AlarmOnOutlinedIcon from '@mui/icons-material/AlarmOnOutlined';
@@ -119,6 +119,12 @@ import B1Forms from "./pages/forms/b1-forms/b1-forms";
 import B2Forms from "./pages/forms/b2-forms/b2-forms";
 import { INTERNAL_USER_ROLE } from "./types/types-store";
 import { Profile } from "./pages";
+import ViewSpecificPayroll from "./pages/payroll/view-specific-payroll/view-specific-payroll";
+import EmploymentHistoryPage from "./pages/employee/employment-history/employment-history";
+import AutoStoriesOutlinedIcon from '@mui/icons-material/AutoStoriesOutlined';
+import Diversity3OutlinedIcon from '@mui/icons-material/Diversity3Outlined';
+import ViewMonthlySchedule from "./pages/reports/view-monthly-schedule";
+import EMPSEMINARSPageV2 from "./pages/employee/emp-training-seminars-v2/emp-training-seminars";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -499,12 +505,48 @@ const JSXRouteWrapper = () => {
                   },
                 ]
               },
+              {
+                id: 12400,
+                icon: <AutoStoriesOutlinedIcon {...icon} />,
+                name: "Employment History",
+                path: "/employees/Employment-History",
+                element:<EmploymentHistoryPage/>,
+                hasSubItems: false,
+                // subItems: [
+                //   {
+                //     id: 121000,
+                //     icon: <UserCircleIcon {...icon} />,
+                //     name: "201 Files",
+                //     path: "/employees/KPI-Appraisals/:emp_no",
+                //     element: <APPRAISALDETAILSPage/>, 
+                //     hasSubItems: false,
+                //   },
+                // ]
+              },
+              {
+                id: 12500,
+                icon: <Diversity3OutlinedIcon {...icon} />,
+                name: "Training & Seminars",
+                path: "/employees/Training-and-Seminars",
+                element:<EMPSEMINARSPageV2/>,
+                hasSubItems: false,
+                // subItems: [
+                //   {
+                //     id: 121000,
+                //     icon: <UserCircleIcon {...icon} />,
+                //     name: "201 Files",
+                //     path: "/employees/KPI-Appraisals/:emp_no",
+                //     element: <APPRAISALDETAILSPage/>, 
+                //     hasSubItems: false,
+                //   },
+                // ]
+              },
             ] : [],
             {
               id: 12300,
               icon: <PrivacyTipOutlinedIcon {...icon} />,
-              name: "About Appraisal",
-              path: "/employees/About-Appraisal",
+              name: "About KPI",
+              path: "/employees/About-KPI",
               element: <AboutAppraisalsPage/>,
               hasSubItems: false,
             },
@@ -804,20 +846,20 @@ const JSXRouteWrapper = () => {
             ]:[],
           ]
         },
-        ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee) ? [
-          {
-            id: 19000,
-            icon: null,
-            name: "Payroll",
-            path: "/payroll",
-            element: null,
-            hasSubItems: true,
-            subItems: [
+        {
+          id: 19000,
+          icon: null,
+          name: "Payroll",
+          path: "/payroll",
+          element: null,
+          hasSubItems: true,
+          subItems: [
+            ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee) ? [
               {
                 id: 19100,
                 icon: <DocumentIcon {...icon} />,
-                name: "View Payroll",
-                path: "/payroll/view-payroll",
+                name: "View All Payroll",
+                path: "/payroll/view-all-payroll",
                 element: <ViewPayroll/>,
                 hasSubItems: false,
               },
@@ -829,9 +871,29 @@ const JSXRouteWrapper = () => {
                 element: <ProcessPayrollPage/>,
                 hasSubItems: false,
               },
-            ]
-          },
-        ] : [],
+              {
+                id: 19300,
+                icon: <DocumentIcon {...icon} />,
+                name: "Payslip Sample",
+                path: "/payroll/payslip-sample",
+                element: <TestView/>,
+                hasSubItems: false,
+              },
+            ] : [],
+            ...(state?.user?.role === INTERNAL_USER_ROLE.Employee) ? [
+              {
+                id: 19100,
+                icon: <DocumentIcon {...icon} />,
+                name: "View Specific Payroll",
+                path: "/payroll/view-specific-payroll",
+                element: <ViewSpecificPayroll/>,
+                hasSubItems: false,
+              },
+            ] : [],
+          ]
+        },
+        
+        
         // {
         //   id: 20000,
         //   icon: null,
@@ -858,33 +920,28 @@ const JSXRouteWrapper = () => {
         //     }]:[] ,
         //   ]
         // },
-        // {
-        //   id: 20001,
-        //   icon: null,
-        //   name: "Profile",
-        //   path: "/profile",
-        //   element: <Profile/>,
-        //   hasSubItems: true,
-        //   subItems: [
-        //     {
-        //       id: 20100,
-        //       icon: <SpeakerWaveIcon {...icon} />,
-        //       name: "Post Announcements",
-        //       path: "/announcements/post-announcements",
-        //       element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">POST ANNOUNCEMENT PAGE UX UI ELEMENTS UNDER DEVELOPMENT</strong>,
-        //       hasSubItems: false,
-        //     },
-        //     ...(state?.emp_no !== undefined && state?.emp_no === 9990) ? [{
-        //       id: 20200,
-        //       icon: <SpeakerWaveIcon {...icon} />,
-        //       name: "Test View",
-        //       path: "/announcements/test-view",
-        //       element: <TestView />,
-        //       hasSubItems: false,
-        //     }]:[] ,
-        //   ]
-        //   // subItems: []
-        // },
+        ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee) ? [
+            {
+              id: 19000,
+              icon: null,
+              name: "Reports",
+              path: "/reports",
+              element: null,
+              hasSubItems: true,
+              subItems: [
+                  {
+                    id: 19100,
+                    icon: <DocumentIcon {...icon} />,
+                    name: "Monthly Schedule",
+                    path: "/report/monthly-schedule",
+                    element: <ViewMonthlySchedule/>,
+                    hasSubItems: false,
+                  },
+              ]
+            }
+        ]: [],
+        
+        
       ],
     },
     {

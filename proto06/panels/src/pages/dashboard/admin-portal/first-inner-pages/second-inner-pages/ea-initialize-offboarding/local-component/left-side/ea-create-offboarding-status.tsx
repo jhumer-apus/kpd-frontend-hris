@@ -62,12 +62,6 @@ function EAOFFBOARDINGSTATUSCreate(props: CreateOFFBOARDINGSTATUSModalInterface)
       }, [curr_user]);
 
     useEffect(()=> {
-        if(state.employees_list?.length === 0 || !state.employees_list ){
-            getEmployeesList() 
-        }
-        
-    }, [])
-    useEffect(()=> {
         if(curr_user){
             setCreateOFFBOARDINGSTATUSPayload((prevState) => {
                 return (

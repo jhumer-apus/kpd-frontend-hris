@@ -108,7 +108,7 @@ export default function PaymentFrequencyAutoCompleteRight(props: PaymentFrequenc
         {defaultOption &&
             <Autocomplete
             // disableCloseOnSelect
-            id="grouped-demo"
+            noOptionsText={'Loading... Please Wait.'}
             options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
             defaultValue={defaultOption}
             groupBy={(option) => option.firstLetter}
@@ -130,7 +130,7 @@ export default function PaymentFrequencyAutoCompleteRight(props: PaymentFrequenc
         {!defaultOption &&
             <Autocomplete
             // disableCloseOnSelect
-            id="grouped-demo"
+            noOptionsText={'Loading... Please Wait.'}
             options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
             defaultValue={defaultOption}
             groupBy={(option) => option.firstLetter}

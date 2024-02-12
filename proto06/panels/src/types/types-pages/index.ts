@@ -511,11 +511,12 @@ export interface SCHEDULEDAILYCreateInterface extends SCHEDULEDAILYGeneric{
 }
 
 export interface SCHEDULEDAILYViewInterface extends SCHEDULEDAILYGeneric { 
-    readonly id: number;
-    schedule_shift_code: SCHEDULESHIFTViewInterface;
-    business_date: string;
-    is_processed: boolean | null;
-    emp_no: number;
+    readonly id: number
+    full_name: string
+    schedule_shift_code: SCHEDULESHIFTViewInterface
+    business_date: string
+    is_processed: boolean | null
+    emp_no: number
 }
 
 export interface SCHEDULEDAILYEditInterface extends SCHEDULEDAILYGeneric {

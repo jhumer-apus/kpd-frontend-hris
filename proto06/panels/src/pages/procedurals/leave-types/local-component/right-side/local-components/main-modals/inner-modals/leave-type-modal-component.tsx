@@ -18,7 +18,7 @@ const LEAVETYPEModalComponent = ((props:LEAVETYPEModalComponentInterface) => {
 
     return (
         <Fragment>
-            <Typography variant='soft'>LEAVETYPE Individual Data</Typography>
+            <Typography variant='soft'>Leave Type Data</Typography>
             <ModalClose sx={{marginTop: '4px'}}/>
             <div ref={componentRef} id="printable-area" className='mt-6'>
                 <LEAVETYPEModalUI setSingleLEAVETYPEDetailsData={setSingleLEAVETYPEDetailsData} singleLEAVETYPEDetailsData={singleLEAVETYPEDetailsData}/>

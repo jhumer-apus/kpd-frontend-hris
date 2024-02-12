@@ -34,11 +34,6 @@ export default function MultiEmployeeAutoCompleteLeft(props: EmployeeAutoComplet
     const [employeesList, setEmployeesList] = useState<optionsInterface[]>([])
     const [selectedEmployeeId, setSelectedEmployeeId] = useState<number[]>([]);
     const [selectAll, setSelectAll] = useState(false);
-    useEffect(()=> {
-        if(state.employees_list?.length === 0){
-            dispatch(getEmployeesList());
-        }
-    }, []);
 
     useEffect(()=> {
         if(selectedEmployeeId){
@@ -93,7 +88,7 @@ export default function MultiEmployeeAutoCompleteLeft(props: EmployeeAutoComplet
         // disableCloseOnSelect
         multiple
         limitTags={2}
-        id="grouped-demo"
+        noOptionsText={'Loading... Please Wait.'}
         options={employeesList?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
         groupBy={(employeesList) => employeesList.firstLetter}
         getOptionLabel={(employeesList) => employeesList.employee}

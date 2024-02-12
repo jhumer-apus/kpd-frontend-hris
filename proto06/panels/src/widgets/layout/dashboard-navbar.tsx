@@ -101,7 +101,7 @@ export function DashboardNavbar() {
                 color="blue-gray"
                 className="font-normal"
               >
-                {page?.replace("-", " ")}
+                {page?.replaceAll("-", " ")}
               </Typography>
             </Link>
             :
@@ -111,7 +111,7 @@ export function DashboardNavbar() {
               color="blue-gray"
               className="font-normal"
             >
-              {page?.replace("-", " ")}
+              {page?.replaceAll("-", " ")}
             </Typography>
             :
             null
@@ -123,7 +123,7 @@ export function DashboardNavbar() {
                   color="blue-gray"
                   className="font-normal"
                 >
-                  {innermostpage?.replace("-", " ")}
+                  {innermostpage?.replaceAll("-", " ")}
                 </Typography>
             </Link>
             :
@@ -158,7 +158,7 @@ export function DashboardNavbar() {
             }
           </Breadcrumbs>
           <Typography variant="h6" color="blue-gray">
-            {secondInner? secondInner.replace("-", " ") : firstInner? firstInner.replaceAll("-", " ") : innermostpage ? innermostpage?.replace("-", " ") : page?.replace("-", " ")}
+            {secondInner? secondInner.replaceAll("-", " ") : firstInner? firstInner.replaceAll("-", " ") : innermostpage ? innermostpage?.replaceAll("-", " ") : page?.replaceAll("-", " ")}
           </Typography>
         </div>
         <div className="flex items-center">

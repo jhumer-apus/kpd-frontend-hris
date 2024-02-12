@@ -18,7 +18,7 @@ const LEAVECREDITModalComponent = ((props:LEAVECREDITModalComponentInterface) =>
 
     return (
         <Fragment>
-            <Typography variant='soft'>LEAVECREDIT Individual Data</Typography>
+            <Typography variant='soft'>Leave Credit Data</Typography>
             <ModalClose sx={{marginTop: '4px'}}/>
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <LEAVECREDITModalUI setSingleLEAVECREDITDetailsData={setSingleLEAVECREDITDetailsData} singleLEAVECREDITDetailsData={singleLEAVECREDITDetailsData}/>

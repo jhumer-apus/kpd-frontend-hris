@@ -17,7 +17,6 @@ import { DataGrid, GridCallbackDetails, GridRowSelectionModel } from '@mui/x-dat
 import { EOYPAY13THPageDescriptions, EOYPAY13THPageColumns, EOYProcessPAY13THPageColumns } from '@/data/pages-data/payroll-eoy-data/eoy-pay-13th-data';
 import { PAY13THViewInterface } from '@/types/types-payroll-eoy';
 import { PAY13THViewAction } from '@/store/actions/payroll-eoy';
-import { getEmployeesList } from '@/store/actions/employees';
 import { EMPLOYEESViewInterface } from '@/types/types-store';
 
 
@@ -39,11 +38,6 @@ function EOYPAY13THCreate(props: CreatePAY13THModalInterface) {
         dispatch(PAY13THCreateAction(createPAY13TH))
     };
 
-    useEffect(()=> {
-        if(state.employees_list?.length === 0 || !state.employees_list ){
-            getEmployeesList()
-        }
-    }, [])
     useEffect(()=> {
         if(curr_user){
             setCreatePAY13TH((prevState) => {

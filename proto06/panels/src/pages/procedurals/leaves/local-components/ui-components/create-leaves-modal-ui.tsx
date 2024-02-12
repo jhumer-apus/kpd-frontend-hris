@@ -57,7 +57,7 @@ function CreateLEAVEModal(props: createLEAVEModalInterface) {
 
     return (
         <React.Fragment>
-            <Typography variant='soft'>Create LEAVE Entry Individual Data</Typography>
+            <Typography variant='soft'>Create a Leave Data</Typography>
             <ModalClose sx={{marginTop: '4px'}}/>
             <div className='flex flex-col gap-10 overflow-auto relative pt-10'>
                 <div className='flex flex-wrap gap-6'>

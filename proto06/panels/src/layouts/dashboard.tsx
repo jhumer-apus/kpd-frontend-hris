@@ -58,6 +58,7 @@ export function Dashboard() {
           {SecondInnerRoutePath}
           {ThirdInnerRoutePath}
           {UndeclaredRouteReplace}
+          {/* Declare page routes here if you don't want to have the options to appear on the side navigation*/}
           <Route path="/profile/*" element={<Profile/>}/>
         </Routes>
         <div className="text-blue-gray-600">

@@ -18,7 +18,7 @@ const OFFBOARDINGREQUIREMENTSModalComponent = ((props:OFFBOARDINGREQUIREMENTSMod
 
     return (
         <Fragment>
-            <Typography variant='soft'>OFFBOARDINGREQUIREMENTS Individual Data</Typography>
+            <Typography variant='soft'>Offboarding Requirements Data</Typography>
             <ModalClose sx={{marginTop: '4px'}}/>
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <OFFBOARDINGREQUIREMENTSModalUI setSingleOFFBOARDINGREQUIREMENTSDetailsData={setSingleOFFBOARDINGREQUIREMENTSDetailsData} singleOFFBOARDINGREQUIREMENTSDetailsData={singleOFFBOARDINGREQUIREMENTSDetailsData}/>

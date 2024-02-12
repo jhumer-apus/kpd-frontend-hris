@@ -29,6 +29,7 @@ export default function MonthYearDropdown(props: MonthYearDropdownInterface) {
     return (
         <div className='flex justify-around mr-2.5 gap-2.5 self-end' style={{width: "28%", zIndex: ""}}>
             <Autocomplete
+                noOptionsText={'Loading... Please Wait.'}
                 value={filter.month ? `${filter.month}` : null}
                 onChange={(e, v, r, d) => handleInputChange(e, v, r ,d, "month")}
                 disablePortal
@@ -38,6 +39,7 @@ export default function MonthYearDropdown(props: MonthYearDropdownInterface) {
                 renderInput={(params) => <TextField {...params} label="Month" />}
             />
             <Autocomplete
+                noOptionsText={'Loading... Please Wait.'}
                 value={filter.year ? `${filter.year}` : null}
                 onChange={(e, v, r, d) => handleInputChange(e, v, r ,d, "year")}
                 disablePortal

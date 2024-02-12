@@ -16,15 +16,9 @@ interface EmployeeAutoCompleteInterface{
 
 export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterface) {
     const {setCreateOFFBOARDINGREQUIREMENTS, createOFFBOARDINGREQUIREMENTS} = props;
-    const dispatch = useDispatch();
     const state = useSelector((state:RootState)=> state.employees);
     const [employeesList, setEmployeesList] = useState<{employee: string, emp_no: number}[]>([])
     const [selectedEmployeeId, setSelectedEmployeeId] = useState<number | null>(null);
-    useEffect(()=> {
-        if(state.employees_list?.length === 0){
-            dispatch(getEmployeesList());
-        }
-    }, []);
 
     useEffect(()=> {
         if(selectedEmployeeId){
@@ -85,7 +79,7 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
     return (
         <Autocomplete
         // disableCloseOnSelect
-        id="grouped-demo"
+        noOptionsText={'Loading... Please Wait.'}
         options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
         groupBy={(option) => option.firstLetter}
         getOptionLabel={(option) => option.employee}

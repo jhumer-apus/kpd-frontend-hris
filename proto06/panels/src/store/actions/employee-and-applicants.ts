@@ -381,3 +381,91 @@ export const PERFECTATTENDANCEViewSpecificActionProgress = createAction<number>(
 export const PERFECTATTENDANCEViewSpecificActionFailure = createAction<string>("PERFECT_ATTENDANCE_VIEW_SPECIFIC_ACTION_FAILURE");
 export const PERFECTATTENDANCEViewSpecificActionFailureCleanup = createAction("PERFECT_ATTENDANCE_VIEW_SPECIFIC_ACTION_FAILURE_CLEANUP");
 
+
+export const ALLSCHEDULEViewSpecificAction = createAction<{month: number, year: number}>("ALLSCHEDULE_VIEW_SPECIFIC_ACTION");
+export const ALLSCHEDULEViewSpecificActionSuccess = createAction("ALLSCHEDULE_VIEW_SPECIFIC_ACTION_SUCCESS", (SuccessMessage: _Type.ALLSCHEDULEViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const ALLSCHEDULEViewSpecificActionProgress = createAction<number>("ALLSCHEDULE_VIEW_SPECIFIC_ACTION_PROGRESS");
+export const ALLSCHEDULEViewSpecificActionFailure = createAction<string>("ALLSCHEDULE_VIEW_SPECIFIC_ACTION_FAILURE");
+export const ALLSCHEDULEViewSpecificActionFailureCleanup = createAction("ALLSCHEDULE_VIEW_SPECIFIC_ACTION_FAILURE_CLEANUP");
+
+
+
+// EMPHISTORY SECTION
+export const EMPHISTORYViewAction = createAction("EMPHISTORY_VIEW_ACTION");
+export const EMPHISTORYViewActionSuccess = createAction("EMPHISTORY_VIEW_ACTION_SUCCESS", (SuccessMessage: _Type.EMPHISTORYViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const EMPHISTORYViewActionProgress = createAction<number>("EMPHISTORY_VIEW_ACTION_PROGRESS");
+export const EMPHISTORYViewActionFailure = createAction<string>("EMPHISTORY_VIEW_ACTION_FAILURE");
+export const EMPHISTORYViewActionFailureCleanup = createAction("EMPHISTORY_VIEW_ACTION_FAILURE_CLEANUP");
+
+export const EMPHISTORYViewSpecificAction = createAction<{ emp_no: number}>("EMPHISTORY_VIEW_SPECIFIC_ACTION");
+export const EMPHISTORYViewSpecificActionSuccess = createAction("EMPHISTORY_VIEW_SPECIFIC_ACTION_SUCCESS", (SuccessMessage: _Type.EMPHISTORYViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const EMPHISTORYViewSpecificActionProgress = createAction<number>("EMPHISTORY_VIEW_SPECIFIC_ACTION_PROGRESS");
+export const EMPHISTORYViewSpecificActionFailure = createAction<string>("EMPHISTORY_VIEW_SPECIFIC_ACTION_FAILURE");
+export const EMPHISTORYViewSpecificActionFailureCleanup = createAction("EMPHISTORY_VIEW_SPECIFIC_ACTION_FAILURE_CLEANUP");
+
+export const EMPHISTORYCreateAction = createAction<_Type.EMPHISTORYCreateInterface>("EMPHISTORY_CREATE_ACTION");
+export const EMPHISTORYCreateActionSuccess = createAction("EMPHISTORY_CREATE_ACTION_SUCCESS", (SuccessMessage: _Type.EMPHISTORYCreateInterface) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const EMPHISTORYCreateActionProgress = createAction<number>("EMPHISTORY_CREATE_ACTION_PROGRESS");
+export const EMPHISTORYCreateActionFailure = createAction<string>("EMPHISTORY_CREATE_ACTION_FAILURE");
+export const EMPHISTORYCreateActionFailureCleanup = createAction("EMPHISTORY_CREATE_ACTION_FAILURE_CLEANUP");
+
+export const EMPHISTORYEditAction = createAction<_Type.EMPHISTORYEditInterface>("EMPHISTORY_EDIT_ACTION");
+export const EMPHISTORYEditActionSuccess = createAction("EMPHISTORY_EDIT_ACTION_SUCCESS", (SuccessMessage: _Type.EMPHISTORYEditInterface) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const EMPHISTORYEditActionProgress = createAction<number>("EMPHISTORY_EDIT_ACTION_PROGRESS");
+export const EMPHISTORYEditActionFailure = createAction<string>("EMPHISTORY_EDIT_ACTION_FAILURE");
+export const EMPHISTORYEditActionFailureCleanup = createAction("EMPHISTORY_EDIT_ACTION_FAILURE_CLEANUP");
+
+export const EMPHISTORYDeleteAction = createAction<{eh_id: number, added_by: number}>("EMPHISTORY_DELETE_ACTION");
+export const EMPHISTORYDeleteActionSuccess = createAction("EMPHISTORY_DELETE_ACTION_SUCCESS", (SuccessMessage: string) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const EMPHISTORYDeleteActionProgress = createAction<number>("EMPHISTORY_DELETE_ACTION_PROGRESS");
+export const EMPHISTORYDeleteActionFailure = createAction<string>("EMPHISTORY_DELETE_ACTION_FAILURE");
+export const EMPHISTORYDeleteActionFailureCleanup = createAction("EMPHISTORY_DELETE_ACTION_FAILURE_CLEANUP");
+
+
+// EMPSEMINARS SECTION
+export const EMPSEMINARSViewAction = createAction("EMPSEMINARS_VIEW_ACTION");
+export const EMPSEMINARSViewActionSuccess = createAction("EMPSEMINARS_VIEW_ACTION_SUCCESS", (SuccessMessage: _Type.EMPSEMINARSViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const EMPSEMINARSViewActionProgress = createAction<number>("EMPSEMINARS_VIEW_ACTION_PROGRESS");
+export const EMPSEMINARSViewActionFailure = createAction<string>("EMPSEMINARS_VIEW_ACTION_FAILURE");
+export const EMPSEMINARSViewActionFailureCleanup = createAction("EMPSEMINARS_VIEW_ACTION_FAILURE_CLEANUP");
+
+export const EMPSEMINARSViewSpecificAction = createAction<{ emp_no: number}>("EMPSEMINARS_VIEW_SPECIFIC_ACTION");
+export const EMPSEMINARSViewSpecificActionSuccess = createAction("EMPSEMINARS_VIEW_SPECIFIC_ACTION_SUCCESS", (SuccessMessage: _Type.EMPSEMINARSViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const EMPSEMINARSViewSpecificActionProgress = createAction<number>("EMPSEMINARS_VIEW_SPECIFIC_ACTION_PROGRESS");
+export const EMPSEMINARSViewSpecificActionFailure = createAction<string>("EMPSEMINARS_VIEW_SPECIFIC_ACTION_FAILURE");
+export const EMPSEMINARSViewSpecificActionFailureCleanup = createAction("EMPSEMINARS_VIEW_SPECIFIC_ACTION_FAILURE_CLEANUP");
+
+export const EMPSEMINARSCreateAction = createAction<_Type.EMPSEMINARSCreateInterface>("EMPSEMINARS_CREATE_ACTION");
+export const EMPSEMINARSCreateActionSuccess = createAction("EMPSEMINARS_CREATE_ACTION_SUCCESS", (SuccessMessage: _Type.EMPSEMINARSCreateInterface) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const EMPSEMINARSCreateActionProgress = createAction<number>("EMPSEMINARS_CREATE_ACTION_PROGRESS");
+export const EMPSEMINARSCreateActionFailure = createAction<string>("EMPSEMINARS_CREATE_ACTION_FAILURE");
+export const EMPSEMINARSCreateActionFailureCleanup = createAction("EMPSEMINARS_CREATE_ACTION_FAILURE_CLEANUP");
+
+export const EMPSEMINARSEditAction = createAction<_Type.EMPSEMINARSEditInterface>("EMPSEMINARS_EDIT_ACTION");
+export const EMPSEMINARSEditActionSuccess = createAction("EMPSEMINARS_EDIT_ACTION_SUCCESS", (SuccessMessage: _Type.EMPSEMINARSEditInterface) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const EMPSEMINARSEditActionProgress = createAction<number>("EMPSEMINARS_EDIT_ACTION_PROGRESS");
+export const EMPSEMINARSEditActionFailure = createAction<string>("EMPSEMINARS_EDIT_ACTION_FAILURE");
+export const EMPSEMINARSEditActionFailureCleanup = createAction("EMPSEMINARS_EDIT_ACTION_FAILURE_CLEANUP");
+
+export const EMPSEMINARSDeleteAction = createAction<{es_id: number, added_by: number}>("EMPSEMINARS_DELETE_ACTION");
+export const EMPSEMINARSDeleteActionSuccess = createAction("EMPSEMINARS_DELETE_ACTION_SUCCESS", (SuccessMessage: string) => { 
+    return({ payload: {SuccessMessage} })
+});
+export const EMPSEMINARSDeleteActionProgress = createAction<number>("EMPSEMINARS_DELETE_ACTION_PROGRESS");
+export const EMPSEMINARSDeleteActionFailure = createAction<string>("EMPSEMINARS_DELETE_ACTION_FAILURE");
+export const EMPSEMINARSDeleteActionFailureCleanup = createAction("EMPSEMINARS_DELETE_ACTION_FAILURE_CLEANUP");
