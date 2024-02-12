@@ -20,7 +20,9 @@ function ExportToCsvButton(props: ExportToCsvButtonInterface)  {
       if(data) {
 
         let content = [];
+        const headerCopy = header
         const headerString = header.join(",");
+        const headerDateOnly = headerCopy.splice(0, 2)
 
         content.push(headerString);
 
@@ -28,16 +30,14 @@ function ExportToCsvButton(props: ExportToCsvButtonInterface)  {
 
           let singleRow = [cleanValue(row.emp_no), cleanValue(row.full_name)];
 
-          for(let i = 0; i < header.length; i++) {
+          for(let i = 0; i < headerCopy.length; i++) {
 
-            const key = header[i];
+            const key = headerCopy[i];
             let value = row[key]? row[key]: ''
  
             const cleanVal = cleanValue(value);
             singleRow.push(cleanVal)
           }
-
-          console.log(singleRow);
 
           return singleRow.join(",");
 
