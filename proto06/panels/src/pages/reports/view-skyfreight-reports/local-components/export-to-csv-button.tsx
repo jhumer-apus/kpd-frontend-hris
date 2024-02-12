@@ -3,27 +3,25 @@ import {Button} from '@material-tailwind/react';
 
 
 interface ExportToCsvButtonInterface {
-    data: any
+    data: any;
+    header: (string | undefined)[];
+    isDisable: boolean;
 }
 
 function ExportToCsvButton(props: ExportToCsvButtonInterface)  {
-    const {data} = props;
-    // const data:any = [
-    //   ["A","B","C"],
-    //   ["a","b","c"],
-    //   ["1","2","3"]
-    // ]
+    const {data, isDisable} = props;
+
 
     const convertToCSV = (data: any) => {
-        const replacer = (key: string, value: any) => value === null ? '' : value;
-        if(data){
-          const header = Object.keys(data[0]);
-          const csv = data.map((row:any) => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
-          csv.unshift(header.join(','));
-          return csv.join('\r\n');
-        }else {
-          window.alert("No Data is Found")
-        }
+        // const replacer = (key: string, value: any) => value === null ? '' : value;
+        // if(data){
+        //   const header = Object.keys(data[0]);
+        //   const csv = data.map((row:any) => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
+        //   csv.unshift(header.join(','));
+        //   return csv.join('\r\n');
+        // }else {
+        //   window.alert("No Data is Found")
+        // }
     };
     const downloadCSV = (csv: string, filename: string) => {
         const blob = new Blob([csv], { type: 'text/csv' });
@@ -52,6 +50,7 @@ function ExportToCsvButton(props: ExportToCsvButtonInterface)  {
           color='indigo'
           variant='gradient'
           onClick={handleDownload}
+          disabled={isDisable}
         >
             Export / Download as CSV
         </Button>

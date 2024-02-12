@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from 'react';
 
 //LIBRARIES
 import { DataGrid, GridRowsProp, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { Button } from "@material-tailwind/react";
 import axios from 'axios';
 
 //STORES
@@ -22,7 +23,7 @@ interface EmployeeData {
 
 export default function ViewSkyFreightReports() {
 
-    const [isLoading, setIsLoading] = useState<Boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     
     // dont need the local state because, better to declare the data coming from API into the central state?
     // const [columnsApi, setColumnsApi] = useState<[]>([])
@@ -44,13 +45,10 @@ export default function ViewSkyFreightReports() {
     //     //dont forget to set the dependencies of useEffect
     // }, [])
 
-    const handleMonthChange = (e:any) => {
-        setMonth(e.target.value);
-    };
-
-    const handleYearChange = (e:any) => {
-        setYear(e.target.value);
-    };
+    const viewReports = () => {
+        setDateColumns(() => getColumnsDailyOnSpecificMonth(year, month));
+        getSkyFreightReports(year,month);
+    }
 
     const getLastDayOfMonth = (year: number, month: number) => {
         
@@ -102,14 +100,15 @@ export default function ViewSkyFreightReports() {
         return `${formattedHours}:${formattedMinutes}:${formattedSeconds} ${amOrPm}`;
     };
 
-    const getSkyFreightReports = async () => {
+    const getSkyFreightReports = async (thisYear:any, thisMonth:any) => {
 
         setIsLoading(true);
 
-        await axios.get(`${APILink}schedule_daily/?month=${month}&year=${year}`).then(response => {
+        await axios.get(`${APILink}schedule_daily/?month=${thisMonth}&year=${thisYear}`).then(response => {
+
+            console.log(response);
 
             const data = response.data ? response.data: []
-            console.log(data);
             const rows:any = [];
 
             data?.forEach((emp_orig:any) => {
@@ -140,12 +139,14 @@ export default function ViewSkyFreightReports() {
                     
                     rows.push(employee);
                 }
+                console.log(rows);
             })
             setDataRows((curr:any) => rows);
             setIsLoading(false)
 
         }).catch((error: any) => {
             setIsFetchReportError(true)
+            setIsLoading(false)
         })
 
     }
@@ -163,21 +164,20 @@ export default function ViewSkyFreightReports() {
         return formattedDate;
     }
 
-    const fetchApiSkyFreightReports = ():void => {
-
-    } 
-
     useEffect(() => {
 
         const currentMonth = new Date().getMonth() + 1;
         const currentYear = new Date().getFullYear();
         setMonth(currentMonth);
         setYear(currentYear);
-        // setRows([
+
+        setDateColumns(() => getColumnsDailyOnSpecificMonth(currentYear, currentMonth));
+        getSkyFreightReports(currentYear, currentMonth);
+        // setDataRows([
         //     {
         //       id: 1,
         //       emp_no: 1001,
-        //       emp_full_name: "john_doe1",
+        //       full_name: "john_doe1",
         //       "10/01/2023": "7:00AM-5:45PM",
         //       "10/02/2023": "",
         //       "10/03/2023": "7:00AM-5:45PM",
@@ -186,7 +186,7 @@ export default function ViewSkyFreightReports() {
         //     {
         //       id: 2,
         //       emp_no: 1002,
-        //       emp_full_name: "john_doe2",
+        //       full_name: "john_doe2",
         //       "10/01/2023": "7:00AM-5:45PM",
         //       "10/02/2023": "",
         //       "10/03/2023": "7:00AM-5:45PM",
@@ -195,7 +195,7 @@ export default function ViewSkyFreightReports() {
         //     {
         //       id: 3,
         //       emp_no: 1003,
-        //       emp_full_name: "john_doe3",
+        //       full_name: "john_doe3",
         //       "10/01/2023": "7:00AM-5:45PM",
         //       "10/02/2023": "",
         //       "10/03/2023": "7:00AM-5:45PM",
@@ -205,7 +205,7 @@ export default function ViewSkyFreightReports() {
         //     {
         //       id: 4,
         //       emp_no: 1004,
-        //       emp_full_name: "john_doe4",
+        //       full_name: "john_doe4",
         //       "10/01/2023": "7:00AM-5:45PM",
         //       "10/02/2023": "",
         //       "10/03/2023": "7:00AM-5:45PM",
@@ -232,13 +232,6 @@ export default function ViewSkyFreightReports() {
     //     headerName: date,
     //     width: 150,
     // }));
-
-    useEffect(() => {
-        if(year && month) {
-            setDateColumns(() => getColumnsDailyOnSpecificMonth(year, month));
-            getSkyFreightReports();
-        }
-    }, [month, year]);
     
     const columns: GridColDef[] = [
         { 
@@ -259,64 +252,73 @@ export default function ViewSkyFreightReports() {
     ];
 
     
-        const options= [
-            {
-                name: "January",
-                value: "1"
-            },
-            {
-                name: "February",
-                value: "2"
-            },
-            {
-                name: "March",
-                value: "3"
-            },
-            {
-                name: "April",
-                value: "4"
-            },
-            {
-                name: "May",
-                value: "5"
-            },
-            {
-                name: "June",
-                value: "6"
-            },
-            {
-                name: "July",
-                value: "7"
-            },
-            {
-                name: "August",
-                value: "8"
-            },
-            {
-                name: "September",
-                value: "9"
-            },
-            {
-                name: "October",
-                value: "10"
-            },
-            {
-                name: "November",
-                value: "11"
-            },
-            {
-                name: "December",
-                value: "12"
-            }
-        ]
+    const options= [
+        {
+            name: "January",
+            value: "1"
+        },
+        {
+            name: "February",
+            value: "2"
+        },
+        {
+            name: "March",
+            value: "3"
+        },
+        {
+            name: "April",
+            value: "4"
+        },
+        {
+            name: "May",
+            value: "5"
+        },
+        {
+            name: "June",
+            value: "6"
+        },
+        {
+            name: "July",
+            value: "7"
+        },
+        {
+            name: "August",
+            value: "8"
+        },
+        {
+            name: "September",
+            value: "9"
+        },
+        {
+            name: "October",
+            value: "10"
+        },
+        {
+            name: "November",
+            value: "11"
+        },
+        {
+            name: "December",
+            value: "12"
+        }
+    ]
+
+    const csvHeader = columns.map(column => column.headerName);
+    console.log(csvHeader);
+
+    
   
     return (
         <Fragment>
             <div className="my-10">
 
-                <ExportToCsvButton data={dataRows} />
+                <ExportToCsvButton 
+                    data={dataRows} 
+                    isDisable={!dataRows || dataRows.length == 0} 
+                    header={csvHeader}
+                />
 
-                <div className="md:flex md:space-x-4">
+                <div className="md:flex md:space-x-4 md:items-center">
                     <SelectForm         
                         label="Select Month"
                         variant="standard"
@@ -324,14 +326,25 @@ export default function ViewSkyFreightReports() {
                         currValue={month?.toString()}
                         setState={setMonth}
                         options={options}
+                        isDisable={isLoading}
                     />
                     <InputForm 
-                        val={year?.toString()}
+                        currVal={year?.toString()}
                         label="Year"
                         variant="standard"
                         placeholder="Enter A Year"
-
+                        setState={setYear}
+                        isDisable={isLoading}
                     />
+                    <Button 
+                        variant="filled"
+                        size="lg"
+                        color='indigo'
+                        onClick={() => viewReports()}
+                        disabled={isLoading}
+                    >
+                        View
+                    </Button>
 
 
                 </div>
@@ -352,7 +365,7 @@ export default function ViewSkyFreightReports() {
                     //     setSingleUSEROpenModal(true);
                     // }}
                     // disableRowSelectionOnClick 
-                    localeText={{ noRowsLabel: 'No Data'}}
+                    localeText={{ noRowsLabel: isFetchReportError? 'Something Went Wrong': isLoading? 'Loading Data...': 'No Data'}}
                     />
 
 
