@@ -4,12 +4,14 @@ import {Button} from '@material-tailwind/react';
 
 interface ExportToCsvButtonInterface {
     data: any;
-    header: string[];
+    header: any;
     isDisable: boolean;
+    yearNumber: string | number;
+    monthNumber: string | number;
 }
 
 function ExportToCsvButton(props: ExportToCsvButtonInterface)  {
-    const {header, data, isDisable} = props;
+    const {header, data, isDisable, monthNumber, yearNumber} = props;
 
 
     const convertToCSV = (header:string[], data:any):any => {
@@ -50,6 +52,12 @@ function ExportToCsvButton(props: ExportToCsvButtonInterface)  {
         //   window.alert("No Data is Found")
         // }
     };
+
+    const getMonthName = (monthNumber:any) => {
+      const date = new Date(Date.UTC(2000, monthNumber - 1, 1)); // Subtract 1 from the month number since JavaScript months are zero-indexed
+      return date.toLocaleString('en', { month: 'long' }); // Return the full name of the month
+    }
+
     const downloadCSV = (csv: string, filename: string) => {
         const blob = new Blob([csv], { type: 'text/csv' });
         const url = window.URL.createObjectURL(blob);
@@ -67,7 +75,7 @@ function ExportToCsvButton(props: ExportToCsvButtonInterface)  {
         }
         const csv = convertToCSV(header, data);
         if(csv){
-          downloadCSV(csv, `${window.prompt("Enter the file name", "default_name")}`);
+          downloadCSV(csv, `${window.prompt(`Enter the file name", "Skyfreight-Reports-${getMonthName(monthNumber)}-${yearNumber}`)}`);
         }
     };
 

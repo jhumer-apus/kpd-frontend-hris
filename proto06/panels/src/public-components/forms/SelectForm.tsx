@@ -7,7 +7,7 @@ interface SelectProps {
     placeholder?: string; // Make it optional by adding `?`
     options: OptionInterface[],
     currValue: string | undefined,
-    setState: Dispatch<SetStateAction<string | number | undefined>>;
+    setState: Dispatch<SetStateAction<string | number>>;
     isDisable: boolean | undefined;
 }
     

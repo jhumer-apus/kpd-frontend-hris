@@ -31,8 +31,8 @@ export default function ViewSkyFreightReports() {
     //STATES
     const [dateColumns, setDateColumns] = useState<GridColDef []>([]);
     const [dataRows, setDataRows] = useState<EmployeeData[]>([]);
-    const [month, setMonth] = useState<number | string | undefined>();
-    const [year, setYear] = useState<number | string | undefined>();
+    const [month, setMonth] = useState<number | string>(new Date().getMonth() + 1);
+    const [year, setYear] = useState<number | string>(new Date().getFullYear());
     const [isFetchReportError, setIsFetchReportError] = useState<Boolean>(false);
 
 
@@ -101,6 +101,7 @@ export default function ViewSkyFreightReports() {
     };
 
     const getSkyFreightReports = async (thisYear:any, thisMonth:any) => {
+
         setIsFetchReportError(false)
         setIsLoading(true);
 
@@ -314,7 +315,9 @@ export default function ViewSkyFreightReports() {
 
                 <ExportToCsvButton 
                     data={dataRows} 
-                    isDisable={!dataRows || dataRows.length == 0} 
+                    isDisable={!dataRows || dataRows.length == 0}
+                    monthNumber={month}
+                    yearNumber={year}
                     header={csvHeader}
                 />
 

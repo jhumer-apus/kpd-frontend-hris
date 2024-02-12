@@ -8,7 +8,7 @@ interface InputProps {
     label: string,
     variant: VariantType,
     placeholder: string,
-    setState: Dispatch<SetStateAction<string | number | undefined>>;
+    setState: Dispatch<SetStateAction<string | number>>;
     isDisable: boolean | undefined;
 }
 export default function InputVariants(props: InputProps) {
