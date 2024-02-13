@@ -46,9 +46,38 @@ export const ProceduralLEAVEPageColumns: GridColDef[] =
     
         return newDate;
     }
-    // const getEmployeeLeaves = async (employeeNumber: Number) => {
-    //   return await axios.get(`${APILink}leave/${employeeNumber}/`).then(response => response.data)
-    // }
+      const getEmployeeLeaves = async (employeeNumber: Number) => {
+        return await axios.get(`${APILink}leave/${employeeNumber}/`).then(response => response.data)
+      }
+
+      const getStartDayOfTheWeekDays = (dateString: Date | string) => {
+        let originalDate = new Date(dateString);
+
+        let currentWeekDay = originalDate.getDay();
+        
+        let difference = 5 - currentWeekDay //Friday minus the weekday
+
+        originalDate.setDate(originalDate.getDate() + difference);
+
+        console.log(originalDate);
+
+        return originalDate;
+      }
+
+      const getEndDayOfTheWeekDays = (dateString: Date | string) => {
+
+        let originalDate = new Date(dateString);
+
+        let currentWeekDay = originalDate.getDay();
+        
+        let difference = currentWeekDay - 1 //Weekday minus the Monday
+
+        originalDate.setDate(originalDate.getDate() - difference);
+
+        console.log(originalDate);
+
+        return originalDate;
+      }
 
       const leaveDateFiled: Date = new Date(params.row?.leave_date_filed);
       const fiveAmLeaveDateFiled: Date = getFiveAmDate(params.row?.leave_date_from);
@@ -65,21 +94,24 @@ export const ProceduralLEAVEPageColumns: GridColDef[] =
 
       } else if (status === 'P1' || status === 'P2') { //Pending
 
+
+        const cellColor = await leaveStatusColor(status, params);
         cellColor = '#ff9100'; // Orange DEFAULT
 
-        // const employeeNumber: number = params.row?.emp_no;
+        const employeeNumber: number = params.row?.emp_no;
 
-        // getEmployeeLeaves(employeeNumber).then(leaves => {
+        const leaves = await getEmployeeLeaves(employeeNumber)
 
-        //   const numberOfSickLeavesApproved: number = leaves.filter((leave:any) => leave.leave_type == 1 && leave.leave_approval_status == 'APD').length;
+        const numberOfSickLeavesApproved = leaves.filter((leave: any) => 
+            leave.leave_type === 1 && 
+            leave.leave_approval_status === 'APD' && 
+            getStartDayOfTheWeekDays(leave.leave_date_filed) <= leave.leave_date_filed &&
+            getEndDayOfTheWeekDays(leave.leave_date_filed) >= leave.leave_date_filed
+        ).length;
 
-        //   if(numberOfSickLeavesApproved >= 3) {
-
-        //     cellColor = '#ADD8E6'; // light blue
-            
-        //   }
-
-        // })
+        if (numberOfSickLeavesApproved >= 3) {
+            cellColor = '#ADD8E6'; // Light blue
+        }
 
       } else if ( status ==='DIS' ) { //Disapprove
 
