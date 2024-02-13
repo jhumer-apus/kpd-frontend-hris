@@ -50,13 +50,13 @@ function ONBOARDINGREQUIREMENTSModalUI(props: ONBOARDINGREQUIREMENTSModalUIInter
                         label='Onboarding Requirement Title:' 
                         multiline 
                         rows={5} 
-                        value={ThisProps?.onboard_title} 
+                        value={ThisProps?.onboarding_title} 
                         onChange={(event) => {
                             setSingleONBOARDINGREQUIREMENTSDetailsData((prevState)=> {
                                 const value = event.target.value;
                                 return({
                                     ...prevState,
-                                    onboard_title: value
+                                    onboarding_title: value
                                 })
                             })
                         }}
