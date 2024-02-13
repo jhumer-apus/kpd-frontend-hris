@@ -65,6 +65,7 @@ function PVMPHILHEALTHCreate(props: CreatePHILHEALTHModalInterface) {
                             required 
                             sx={{width: '100%'}} 
                             label='PHILHEALTH Number:'
+                            placeholder='Input 12 digit number'
                             aria-required  
                             variant='outlined' 
                             type="number"

@@ -68,6 +68,7 @@ function PVMTAXCreate(props: CreateTAXModalInterface) {
                             required 
                             sx={{width: '100%'}} 
                             label='TIN Number'
+                            placeholder='Input 12 Digit number'
                             aria-required  
                             variant='outlined' 
                             type="number"

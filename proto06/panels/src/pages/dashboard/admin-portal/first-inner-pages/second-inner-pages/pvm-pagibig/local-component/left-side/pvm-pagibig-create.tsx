@@ -73,6 +73,7 @@ function PVMPAGIBIGCreate(props: CreatePAGIBIGModalInterface) {
                             required 
                             sx={{width: '100%'}} 
                             label='Pagibig Number: (PHDMF)'
+                            placeholder='Input 12 digit number'
                             aria-required  
                             variant='outlined' 
                             type="number"

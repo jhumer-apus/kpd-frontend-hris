@@ -112,6 +112,7 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                             aria-required
                             sx={{width: '100%'}} 
                             label='Branch Email'  
+                            placeholder='abc@gmail.com'
                             variant='outlined' 
                             type="text"
                             value={createBRANCH?.branch_email}
@@ -132,6 +133,7 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                             aria-required
                             sx={{width: '100%'}} 
                             label='Branch Contact Number'  
+                            placeholder='091234567890 or +639876543210'
                             variant='outlined' 
                             type="text"
                             value={createBRANCH?.branch_contact_number}
