@@ -43,7 +43,7 @@ function EMPHISTORYCreate(props: CreateEMPHISTORYModalInterface) {
         if(EMPHISTORYCreatestate.status === 'succeeded'){
             window.alert('Request Successful');
             props.setCurrEmployee(createEMPHISTORY.emp_no)
-            // dispatch((EMPHISTORYViewSpecificAction(({emp_no: createEMPHISTORY.emp_no}))))
+            dispatch((EMPHISTORYViewSpecificAction(({emp_no: createEMPHISTORY.emp_no}))))
             setTimeout(()=> {
                 dispatch(EMPHISTORYCreateActionFailureCleanup());
             }, 300)

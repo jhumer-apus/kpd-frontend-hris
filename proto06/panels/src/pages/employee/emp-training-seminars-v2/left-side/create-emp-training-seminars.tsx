@@ -44,7 +44,7 @@ function EMPSEMINARSCreate(props: CreateEMPSEMINARSModalInterface) {
         if(EMPSEMINARSCreatestate.status === 'succeeded'){
             window.alert('Request Successful');
             props.setCurrEmployee(createEMPSEMINARS.emp_no)
-            // dispatch((EMPSEMINARSViewSpecificAction(({emp_no: createEMPSEMINARS.emp_no}))))
+            dispatch((EMPSEMINARSViewSpecificAction(({emp_no: createEMPSEMINARS.emp_no}))))
             setTimeout(()=> {
                 dispatch(EMPSEMINARSCreateActionFailureCleanup());
             }, 300)
