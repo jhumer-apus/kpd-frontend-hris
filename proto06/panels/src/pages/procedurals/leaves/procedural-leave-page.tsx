@@ -39,6 +39,52 @@ export default function ProceduralLEAVEPage() {
   useEffect(()=> {
     dispatch(LEAVEViewAction())
   }, []);
+  
+  console.log(LEAVEViewData)
+
+  const getEndDayOfTheWeekDays = (dateString: Date | string) => {
+
+    let originalDate = convertDateStringtoDate(dateString);
+
+    let currentWeekDay = originalDate.getDay();
+    
+    let difference = 5 - currentWeekDay //Friday minus the weekday
+
+    originalDate.setDate(originalDate.getDate() + difference);
+
+    return originalDate;
+  }
+
+  const getStartDayOfTheWeekDays = (dateString: Date | string) => {
+
+    let originalDate = convertDateStringtoDate(dateString);
+
+    let currentWeekDay = originalDate.getDay();
+    
+    let difference = currentWeekDay - 1 //Weekday minus the Monday
+
+    originalDate.setDate(originalDate.getDate() - difference);
+
+    return originalDate;
+  }
+
+  const convertDateStringtoDate = (dateString: Date | string) => {
+    return new Date(dateString);
+  }
+
+  let employeeLeaveData = LEAVEViewData.map(empData => {
+
+    if(["P1", "P2"].includes(empData.leave_approval_status) && empData.leave_type == 1) {
+      const nnumberOfSickLeavesApproved  = LEAVEViewData.filter((leave: any) => 
+          leave.leave_type === 1 
+          && leave.leave_approval_status === 'APD' 
+          && getStartDayOfTheWeekDays(leave.leave_date_filed) <= convertDateStringtoDate(leave.leave_date_filed) 
+          && getEndDayOfTheWeekDays(leave.leave_date_filed) >= convertDateStringtoDate(leave.leave_date_filed)
+
+        ).length;
+    }
+
+  })
 
   const printableArea = () => {
     // Calculate px; solves printable area bug, Do not easily modify

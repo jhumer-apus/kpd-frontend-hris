@@ -49,74 +49,73 @@ export const ProceduralLEAVEPageColumns: GridColDef[] =
     
         return newDate;
     }
-      const getEmployeeLeaves = (employeeNumber: Number) => {
-        return axios.get(`${APILink}leave/${employeeNumber}/`)
-      }
+    const getEmployeeLeaves = (employeeNumber: Number) => {
+      // return axios.get(`${APILink}leave/${employeeNumber}/`)
+    }
 
-      const getEndDayOfTheWeekDays = (dateString: Date | string) => {
+    const getEndDayOfTheWeekDays = (dateString: Date | string) => {
 
+      let originalDate = convertDateStringtoDate(dateString);
 
-        let originalDate = convertDateStringtoDate(dateString);
+      let currentWeekDay = originalDate.getDay();
+      
+      let difference = 5 - currentWeekDay //Friday minus the weekday
 
-        let currentWeekDay = originalDate.getDay();
-        
-        let difference = 5 - currentWeekDay //Friday minus the weekday
+      originalDate.setDate(originalDate.getDate() + difference);
 
-        originalDate.setDate(originalDate.getDate() + difference);
+      return originalDate;
+    }
 
-        return originalDate;
-      }
+    const getStartDayOfTheWeekDays = (dateString: Date | string) => {
 
-      const getStartDayOfTheWeekDays = (dateString: Date | string) => {
+      let originalDate = convertDateStringtoDate(dateString);
 
-        let originalDate = convertDateStringtoDate(dateString);
+      let currentWeekDay = originalDate.getDay();
+      
+      let difference = currentWeekDay - 1 //Weekday minus the Monday
 
-        let currentWeekDay = originalDate.getDay();
-        
-        let difference = currentWeekDay - 1 //Weekday minus the Monday
+      originalDate.setDate(originalDate.getDate() - difference);
 
-        originalDate.setDate(originalDate.getDate() - difference);
+      return originalDate;
+    }
 
-        return originalDate;
-      }
+    const convertDateStringtoDate = (dateString: Date | string) => {
+      return new Date(dateString);
+    }
 
-      const convertDateStringtoDate = (dateString: Date | string) => {
-        return new Date(dateString);
-      }
+    const leaveDateFiled: Date = new Date(params.row?.leave_date_filed);
+    const fiveAmLeaveDateFiled: Date = getFiveAmDate(params.row?.leave_date_from);
 
-      const leaveDateFiled: Date = new Date(params.row?.leave_date_filed);
-      const fiveAmLeaveDateFiled: Date = getFiveAmDate(params.row?.leave_date_from);
+    const leaveTimestamp: number = leaveDateFiled.getTime();
+    const fiveAmLeaveTimestamp: number = fiveAmLeaveDateFiled.getTime();
 
-      const leaveTimestamp: number = leaveDateFiled.getTime();
-      const fiveAmLeaveTimestamp: number = fiveAmLeaveDateFiled.getTime();
+    const employeeNumber: number = params.row?.emp_no;
 
-      const employeeNumber: number = params.row?.emp_no;
+    const leaves = getEmployeeLeaves(employeeNumber);
 
-      const leaves = getEmployeeLeaves(employeeNumber);
+    if (leaveTimestamp > fiveAmLeaveTimestamp && status != 'APD' ) { //Invalid leave
 
-      if (leaveTimestamp > fiveAmLeaveTimestamp && status != 'APD' ) { //Invalid leave
-
-            cellColor = '#aa2e25'; // Red
-    
-      } else if (status === 'P1' || status === 'P2') {
+          cellColor = '#aa2e25'; // Red
   
-          cellColor = '#ff9100'; // Orange DEFAULT
+    } else if (status === 'P1' || status === 'P2') {
 
-          const leaves = getEmployeeLeaves(employeeNumber);
+        cellColor = '#ff9100'; // Orange DEFAULT
 
-          leaves.filter((leave: any) => 
-            leave.leave_type === 1 
-            && leave.leave_approval_status === 'APD' 
-            // && getStartDayOfTheWeekDays(leave.leave_date_filed) <= convertDateStringtoDate(leave.leave_date_filed) 
-            // && getEndDayOfTheWeekDays(leave.leave_date_filed) >= convertDateStringtoDate(leave.leave_date_filed)
+        // const leaves = getEmployeeLeaves(employeeNumber);
 
-          ).length;
-            
-          if (numberOfSickLeavesApproved >= 3) {
-  
-              cellColor = '#ADD8E6'; // Light blue
-  
-            }
+        // leaves.filter((leave: any) => 
+        //   leave.leave_type === 1 
+        //   && leave.leave_approval_status === 'APD' 
+        //   // && getStartDayOfTheWeekDays(leave.leave_date_filed) <= convertDateStringtoDate(leave.leave_date_filed) 
+        //   // && getEndDayOfTheWeekDays(leave.leave_date_filed) >= convertDateStringtoDate(leave.leave_date_filed)
+
+        // ).length;
+          
+        // if (numberOfSickLeavesApproved >= 3) {
+
+        //     cellColor = '#ADD8E6'; // Light blue
+
+        //   }
   
       } else if ( status === 'DIS' ) { //Disapprove
   
