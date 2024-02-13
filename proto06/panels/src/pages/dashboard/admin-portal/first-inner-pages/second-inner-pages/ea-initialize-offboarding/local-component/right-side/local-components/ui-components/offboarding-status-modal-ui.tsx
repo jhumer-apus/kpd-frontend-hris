@@ -39,6 +39,7 @@ function OFFBOARDINGSTATUSModalUI(props: OFFBOARDINGSTATUSModalUIInterface) {
         date_offboard: null,
         final_remarks: '',
         added_by: NaN,
+        status: 'Pending',
     })
 
     useEffect(() => {
