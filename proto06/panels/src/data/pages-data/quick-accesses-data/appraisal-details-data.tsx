@@ -15,12 +15,12 @@ export const APPRAISALDETAILSPageDescriptions = [
 export const APPRAISALDETAILSPageColumns: GridColDef[] = 
 [
   {
-    field: 'eval_date',
+    field: 'date_evaluation_deadline',
     headerName: 'Evaluation Date:',
     width: 150,
     valueGetter: (params: GridValueGetterParams) => {
-      const date = new Date(params.row.eval_date);
-      return params.row.eval_date ? dayjs(date).format(`${globalDate}`) : 'No Date';
+      const date = new Date(params.row.date_evaluation_deadline);
+      return params.row.date_evaluation_deadline ? dayjs(date).format(`${globalDate}`) : 'No Date';
     }
   },
   { field: 'status', headerName: 'Status', width: 120 },
