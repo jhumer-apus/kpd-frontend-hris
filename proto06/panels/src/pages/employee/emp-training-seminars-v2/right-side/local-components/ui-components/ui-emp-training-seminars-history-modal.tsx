@@ -59,7 +59,7 @@ function EMPSEMINARSModalUI(props: EMPSEMINARSModalUIInterface) {
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Subject:' value={ThisProps.subject || '-'} InputProps={{readOnly: true,}} variant='filled'/>
                 </div>
                 <div className='flex gap-6 flex-col'>
-                    <TextField sx={{width: '100%', minWidth: '160px'}} label='Category:' value={ThisProps.subject || '-'} InputProps={{readOnly: true,}} variant='filled'/>
+                    <TextField sx={{width: '100%', minWidth: '160px'}} label='Category:' value={ThisProps.category || '-'} InputProps={{readOnly: true,}} variant='filled'/>
                 </div>
             </div>
             <div className='flex flex-col justify-center items-center'>
