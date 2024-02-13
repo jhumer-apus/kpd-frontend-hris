@@ -886,52 +886,52 @@ const JSXRouteWrapper = () => {
             ]:[],
           ]
         },
-        {
-          id: 19000,
-          icon: null,
-          name: "Payroll",
-          path: "/payroll",
-          element: null,
-          hasSubItems: true,
-          subItems: [
-            ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee) ? [
-              {
-                id: 19100,
-                icon: <DocumentIcon {...icon} />,
-                name: "View All Payroll",
-                path: "/payroll/view-all-payroll",
-                element: <ViewPayroll/>,
-                hasSubItems: false,
-              },
-              {
-                id: 19200,
-                icon: <DocumentIcon {...icon} />,
-                name: "Process Payroll",
-                path: "/payroll/process-payroll",
-                element: <ProcessPayrollPage/>,
-                hasSubItems: false,
-              },
-              {
-                id: 19300,
-                icon: <DocumentIcon {...icon} />,
-                name: "Payslip Sample",
-                path: "/payroll/payslip-sample",
-                element: <TestView/>,
-                hasSubItems: false,
-              },
-            ] : [],
-            ...(state?.user?.role === INTERNAL_USER_ROLE.Employee) ? [
-              {
-                id: 19100,
-                icon: <DocumentIcon {...icon} />,
-                name: "View Specific Payroll",
-                path: "/payroll/view-specific-payroll",
-                element: <ViewSpecificPayroll/>,
-                hasSubItems: false,
-              },
-            ] : [],
-          ]
-        },
+        // {
+        //   id: 19000,
+        //   icon: null,
+        //   name: "Payroll",
+        //   path: "/payroll",
+        //   element: null,
+        //   hasSubItems: true,
+        //   subItems: [
+        //     ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee) ? [
+        //       {
+        //         id: 19100,
+        //         icon: <DocumentIcon {...icon} />,
+        //         name: "View All Payroll",
+        //         path: "/payroll/view-all-payroll",
+        //         element: <ViewPayroll/>,
+        //         hasSubItems: false,
+        //       },
+        //       {
+        //         id: 19200,
+        //         icon: <DocumentIcon {...icon} />,
+        //         name: "Process Payroll",
+        //         path: "/payroll/process-payroll",
+        //         element: <ProcessPayrollPage/>,
+        //         hasSubItems: false,
+        //       },
+        //       {
+        //         id: 19300,
+        //         icon: <DocumentIcon {...icon} />,
+        //         name: "Payslip Sample",
+        //         path: "/payroll/payslip-sample",
+        //         element: <TestView/>,
+        //         hasSubItems: false,
+        //       },
+        //     ] : [],
+        //     ...(state?.user?.role === INTERNAL_USER_ROLE.Employee) ? [
+        //       {
+        //         id: 19100,
+        //         icon: <DocumentIcon {...icon} />,
+        //         name: "View Specific Payroll",
+        //         path: "/payroll/view-specific-payroll",
+        //         element: <ViewSpecificPayroll/>,
+        //         hasSubItems: false,
+        //       },
+        //     ] : [],
+        //   ]
+        // },
         
         
         // {
