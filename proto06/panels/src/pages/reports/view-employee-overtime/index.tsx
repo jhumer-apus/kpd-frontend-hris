@@ -29,25 +29,11 @@ export default function ViewEmployeeLeaves() {
 
     const [isFetchReportError, setIsFetchReportError] = useState<Boolean>(false);
 
-    const [leaveTypes, setLeaveTypes] = useState<any>([]);
-
-    const getEmployeeLeaves = async () => {
+    const getEmployeeOvertime = async () => {
 
         setIsLoading(true);
-        await axios.get(`${APILink}leave/ot`).then(response => {
 
-            const data = response.data.map((obj:any) => {
-                return {
-                    id: obj.id,
-                    "Employee No.": obj.emp_no,
-                    "Employee Name": "Wala Pa",
-                    "Type Of Leave": obj.leave_type_name,
-                    "Date Start": convertDateToLocalString(obj.leave_date_from),
-                    "Date End": convertDateToLocalString(obj.leave_date_to),
-                    "Day/s": obj.leave_number_days
-                }
-
-            })
+        await axios.get(`${APILink}ot`).then(response => {
 
             setDataRows(curr => response.data);
             setIsLoading(false)
@@ -57,14 +43,6 @@ export default function ViewEmployeeLeaves() {
             setIsFetchReportError(true)
             setIsLoading(false)
 
-        })
-    }
-
-    const getAllLeaveTypes = async () => {
-
-        await axios.get(`${APILink}leave_type`).then(response => { 
-
-            setLeaveTypes((curr:any) => response.data)
         })
     }
 
@@ -83,14 +61,13 @@ export default function ViewEmployeeLeaves() {
 
     useEffect(() => {
 
-        getAllLeaveTypes();
-        getEmployeeLeaves();
+        getEmployeeOvertime();
 
     }, [])
 
     const viewReports = () => {
 
-        getEmployeeLeaves();
+        getEmployeeOvertime();
 
     }
 
@@ -98,10 +75,9 @@ export default function ViewEmployeeLeaves() {
         return {
             "Employee No.": obj.emp_no,
             "Employee Name": "Wala Pa",
-            "Type Of Leave": obj.leave_type_name,
-            "Date Start": convertDateToLocalString(obj.leave_date_from),
-            "Date End": convertDateToLocalString(obj.leave_date_to),
-            "Day/s": obj.leave_number_days
+            "Date": obj.ot_date_filed,
+            "OT Type": obj.ot_type,
+            "OT Hours": obj.ot_total_hours,
         }
 
     })
@@ -119,7 +95,7 @@ export default function ViewEmployeeLeaves() {
             },
         },
         { 
-            field: 'full_name', 
+            field: 'emp_name', 
             headerName: 'Employee Name', 
             width: 150,
             valueGetter: (params: GridValueGetterParams) => {
@@ -127,31 +103,23 @@ export default function ViewEmployeeLeaves() {
             },
         },
         {
-            field: 'leave_type_name', 
-            headerName: 'Type Of Leave', 
-            width: 150,
-        },
-        {
-            field: 'leave_date_from', 
-            headerName: 'Date Start', 
+            field: 'ot_date_filed', 
+            headerName: 'Date', 
             width: 150,
             valueGetter: (params: GridValueGetterParams) => {
-                return convertDateToLocalString(params.row.leave_date_from);
+                return convertDateToLocalString(params.row.ot_date_filed);
             },
         },
         {
-            field: 'leave_date_to', 
-            headerName: 'Date End', 
+            field: 'ot_type', 
+            headerName: 'Over Type', 
             width: 150,
-            valueGetter: (params: GridValueGetterParams) => {
-                return convertDateToLocalString(params.row.leave_date_to);
-            },
         },
         {
-            field: 'leave_number_days', 
-            headerName: 'Day/s', 
+            field: 'ot_total_hours', 
+            headerName: 'OT Hours', 
             width: 150,
-        }
+        },
 
     ];
 
@@ -220,7 +188,7 @@ export default function ViewEmployeeLeaves() {
                 />
 
                 <div className="md:flex md:space-x-4 md:items-center">
-                    <SelectForm         
+                    {/* <SelectForm         
                         label="Select Month"
                         variant="standard"
                         placeholder="Select A Month"
@@ -236,8 +204,8 @@ export default function ViewEmployeeLeaves() {
                         placeholder="Enter A Year"
                         setState={setYear}
                         isDisable={isLoading}
-                    />
-                    <Button 
+                    /> */}
+                    {/* <Button 
                         variant="filled"
                         size="lg"
                         color='indigo'
@@ -245,7 +213,7 @@ export default function ViewEmployeeLeaves() {
                         disabled={isLoading}
                     >
                         View
-                    </Button>
+                    </Button> */}
 
 
                 </div>
