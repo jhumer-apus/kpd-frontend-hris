@@ -27,28 +27,32 @@ export default function MonthYearDropdown(props: MonthYearDropdownInterface) {
     };
 
     return (
-        <div className='flex justify-around mr-2.5 gap-2.5 self-end' style={{width: "28%", zIndex: ""}}>
-            <Autocomplete
-                noOptionsText={'Loading... Please Wait.'}
-                value={filter.month ? `${filter.month}` : null}
-                onChange={(e, v, r, d) => handleInputChange(e, v, r ,d, "month")}
-                disablePortal
-                id="perfect-attendance-month"
-                options={Months_List}
-                sx={{ width: 100 }}
-                renderInput={(params) => <TextField {...params} label="Month" />}
-            />
-            <Autocomplete
-                noOptionsText={'Loading... Please Wait.'}
-                value={filter.year ? `${filter.year}` : null}
-                onChange={(e, v, r, d) => handleInputChange(e, v, r ,d, "year")}
-                disablePortal
-                id="perfect-attendance-year"
-                options={Years_List}
-                sx={{ width: 200 }}
-                renderInput={(params) => <TextField {...params} label="Year" />}
-            />
-        </div>
+        <div className='flex justify-end mr-2.5 gap-2.5 self-end' style={{  width: "100%", zIndex: "" }}>
+    <Autocomplete
+        noOptionsText={'Loading... Please Wait.'}
+        value={filter.month ? `${filter.month}` : null}
+        onChange={(e, v, r, d) => handleInputChange(e, v, r ,d, "month")}
+        disablePortal
+        id="perfect-attendance-month"
+        options={Months_List}
+        sx={{ width: "100%", maxWidth: "100px" }}
+        renderInput={(params) => <TextField {...params} label="Month" />}
+    />
+    <Autocomplete
+        noOptionsText={'Loading... Please Wait.'}
+        value={filter.year ? `${filter.year}` : null}
+        onChange={(e, v, r, d) => handleInputChange(e, v, r ,d, "year")}
+        disablePortal
+        id="perfect-attendance-year"
+        options={Years_List}
+        sx={{ width: "100%", maxWidth: "130px" }}
+        renderInput={(params) => <TextField {...params} label="Year" />}
+    />
+</div>
+
+
+
+
     );
 }
 

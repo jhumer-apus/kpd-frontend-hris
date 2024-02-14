@@ -71,6 +71,7 @@ function PVMSSSCreate(props: CreateSSSModalInterface) {
                             required 
                             sx={{width: '100%'}} 
                             label='SSS Number: (E1/ID)'
+                            placeholder='Input 10 digit number'
                             aria-required  
                             variant='outlined' 
                             type="number"

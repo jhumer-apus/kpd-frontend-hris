@@ -92,12 +92,12 @@ export default function AllowanceAutoComplete(props: AllowanceAutoCompleteInterf
         renderInput={(params) => 
             {   
                 return(
-                    <TextField {...params} label="Allowance Type:" />
+                    <TextField {...params} label="Allowance Type:" placeholder='Make Sure To Declare First The Allowance Type ' />
                 )
 
             }
 
         }
-        />
+        />  
     );
 }
