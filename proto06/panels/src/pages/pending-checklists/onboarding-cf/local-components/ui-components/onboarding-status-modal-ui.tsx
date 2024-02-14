@@ -69,7 +69,7 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
                         id: singleONBOARDINGSTATUSDetailsData.id,
                         date_start: singleONBOARDINGSTATUSDetailsData.date_start,
                         status: singleONBOARDINGSTATUSDetailsData.status,
-                        final_remarks: singleONBOARDINGSTATUSDetailsData.final_remarks,
+                        final_remarks: singleONBOARDINGSTATUSDetailsData.final_remarks !== null ?  singleONBOARDINGSTATUSDetailsData.final_remarks : '...',
                         emp_no: singleONBOARDINGSTATUSDetailsData.emp_no,
                         added_by: curr_user?.emp_no
                     }

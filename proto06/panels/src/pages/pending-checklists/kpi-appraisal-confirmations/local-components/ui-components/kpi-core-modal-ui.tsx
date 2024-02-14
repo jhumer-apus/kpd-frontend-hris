@@ -269,6 +269,7 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
                                     InputProps={{readOnly: true,}} 
                                     variant='outlined' 
                                     multiline 
+                                    disabled
                                     rows={2}
                                 />
                                 <div className='flex justify-center gap-4'>
@@ -278,6 +279,7 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
                                         label={`Self-Eval Points #${index + 1}`} 
                                         value={item.self_eval_point} 
                                         InputProps={{readOnly: true,}} 
+                                        disabled
                                         variant='outlined' 
                                     />
                                     <TextField 
