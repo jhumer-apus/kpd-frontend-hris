@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react';
 import { Button } from '@mui/material';
-import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
+import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import { ImportEmployee } from '../forms/ImportEmployee';
 import { Modal, Box } from '@mui/material';
 
@@ -23,7 +23,7 @@ function ImportBulkEmployeeComponent() {
           // icon={<ArrowUpTrayIcon/>}
           onClick={()=>{handleOpen3()}}
         >
-          <ArrowUpTrayIcon style={{height: '15px'}}/> Import / Bulk Entry Employee CSV 
+          <ArrowDownTrayIcon style={{height: '15px'}}/> Import / Bulk Entry Employee CSV 
         </Button>
         <Modal
             open={open3}

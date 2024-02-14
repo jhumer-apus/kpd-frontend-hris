@@ -118,7 +118,7 @@ export default function ViewDtrReports() {
         </div>
         <div className='flex justify-between gap-6'>
         <ExportToCsvButton data={dtrData} />
-        <PrintTableButton setIsPrinting={setIsPrinting}/>
+        <PrintTableButton printing={printing} setIsPrinting={setIsPrinting}/>
         </div>
       </div>
       <div style={{ height: `${printing? `${printableArea()}px` : '660px'}`, width: '100%' }} id="printable-area">

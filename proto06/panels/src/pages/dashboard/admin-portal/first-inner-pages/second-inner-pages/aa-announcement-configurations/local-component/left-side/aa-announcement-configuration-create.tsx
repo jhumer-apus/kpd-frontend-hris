@@ -61,7 +61,7 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
             window.alert(`Request Failed, ${ANNOUNCEMENTCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(ANNOUNCEMENTCreateActionFailureCleanup());
-            }, 1000)
+            }, 300)
         }
     }, [ANNOUNCEMENTCreatestate.status])
 

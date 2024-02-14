@@ -45,6 +45,7 @@ export const mergeCutoffListAndEmployeeSuccess = createAction("MERGE_CUTOFF_LIST
     return({ payload: {SuccessMessage} })});
 export const mergeCutoffListAndEmployeeProgress = createAction<number>('MERGE_CUTOFF_LIST_AND_EMPLOYEE_PROGRESS');
 export const mergeCutoffListAndEmployeeFailure = createAction<string>("MERGE_CUTOFF_LIST_AND_EMPLOYEE_FAILURE");
+export const mergeCutoffListAndEmployeeFailureCleanup = createAction("MERGE_CUTOFF_LIST_AND_EMPLOYEE_FAILURE_CLEANUP");
 
 
 export const summarizeCutoffListAndEmployee = createAction<{emp_no: number[], cutoff_code: number}>("SUMMARIZE_CUTOFF_LIST_AND_EMPLOYEE");
@@ -52,3 +53,4 @@ export const summarizeCutoffListAndEmployeeSuccess = createAction("SUMMARIZE_CUT
     return({ payload: {SuccessMessage} })});
 export const summarizeCutoffListAndEmployeeProgress = createAction<number>('SUMMARIZE_CUTOFF_LIST_AND_EMPLOYEE_PROGRESS');
 export const summarizeCutoffListAndEmployeeFailure = createAction<string>("SUMMARIZE_CUTOFF_LIST_AND_EMPLOYEE_FAILURE");
+export const summarizeCutoffListAndEmployeeFailureCleanup = createAction("SUMMARIZE_CUTOFF_LIST_AND_EMPLOYEE_FAILURE_CLEANUP");

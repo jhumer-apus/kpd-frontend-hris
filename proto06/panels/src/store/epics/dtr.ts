@@ -32,6 +32,7 @@ import {
 import { Epic } from 'redux-observable';
 import { CutoffListMergeSelectionState } from '@/types/types-pages';
 import store from '../configureStore';
+import { beautifyJSON } from '@/helpers/utils';
 
 const viewAllDtrLogsApiCall = async () => {
     const response = await axios.get(`${APILink}dtr/`);
@@ -141,6 +142,7 @@ export const viewMergedDtrLogsEpic: Epic = (action$, state$) =>
           return viewMergedDtrLogsSuccess(data);
         }),
         catchError((error) => {
+
           if (error.response && error.response.data && error.response.data.error) {
             return of(viewMergedDtrLogsFailure(error.response.data.error)); // Extract error message from the response
           } else {
@@ -226,8 +228,8 @@ export const mergeCutoffListAndEmployeeEpic: Epic = (action$, state$) =>
           return mergeCutoffListAndEmployeeSuccess(data);
         }),
         catchError((error) => {
-          if (error.response && error.response.data && error.response.data.error) {
-            return of(mergeCutoffListAndEmployeeFailure(error.response.data.error)); // Extract error message from the response
+          if (error.response && error.response.data && (error.response.data.error || error.response.data['Error Message'])) {
+            return of(mergeCutoffListAndEmployeeFailure((error.response.data.error || error.response.data['Error Message']))); // Extract error message from the response
           } else {
             return of(mergeCutoffListAndEmployeeFailure(error.message)); // If there is no custom error message, use the default one
           }
@@ -247,8 +249,8 @@ export const summarizeCutoffListAndEmployeeEpic: Epic = (action$, state$) =>
           return summarizeCutoffListAndEmployeeSuccess(data);
         }),
         catchError((error) => {
-          if (error.response && error.response.data && error.response.data.error) {
-            return of(summarizeCutoffListAndEmployeeFailure(error.response.data.error)); // Extract error message from the response
+          if (error.response && error.response.data && (error.response.data.error || error.response.data['Error Message'])) {
+            return of(summarizeCutoffListAndEmployeeFailure((error.response.data.error || error.response.data['Error Message']))); // Extract error message from the response
           } else {
             return of(summarizeCutoffListAndEmployeeFailure(error.message)); // If there is no custom error message, use the default one
           }
