@@ -24,6 +24,8 @@ function ProceduralLEAVETYPECreate(props: CreateLEAVETYPEModalInterface) {
     const [createLEAVETYPE, setCreateLEAVETYPE] = useState<LEAVETYPECreateInterface>({
         name: null,
         is_paid: false,
+        is_sl: false,
+        is_vl: false,
     });
     const onClickSubmit = () => {
         dispatch(LEAVETYPECreateAction(createLEAVETYPE))
@@ -89,6 +91,58 @@ function ProceduralLEAVETYPECreate(props: CreateLEAVETYPEModalInterface) {
                             >
                                 <FormControlLabel value="true" control={<Radio />} label="Paid" />
                                 <FormControlLabel value="false" control={<Radio />} label="Unpaid" />
+                            </RadioGroup>
+                        </FormControl>
+                    </div>
+                </div>
+                <div className='flex flex-wrap gap-6 pt-4'>
+                    <div className='flex flex-col gap-6'>
+                        <FormControl>
+                            <FormLabel id="demo-controlled-radio-buttons-group">Vacation Leave</FormLabel>
+                            <RadioGroup
+                                row
+                                aria-labelledby="demo-controlled-radio-buttons-group"
+                                name="controlled-radio-buttons-group"
+                                value={`${!!createLEAVETYPE.is_vl}`}
+                                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                    const value = (event.target.value=== 'true' ? true : false);
+                                    setCreateLEAVETYPE((prevState)=> {
+                                        return (
+                                            {
+                                                ...prevState,
+                                                is_vl: value
+                                            }
+                                        )
+                                    })
+                                }}
+                            >
+                                <FormControlLabel value="true" control={<Radio />} label="True" />
+                                <FormControlLabel value="false" control={<Radio />} label="False" />
+                            </RadioGroup>
+                        </FormControl>
+                    </div>
+                    <div className='flex flex-col gap-6'>
+                        <FormControl>
+                            <FormLabel id="demo-controlled-radio-buttons-group">Sick Leave</FormLabel>
+                            <RadioGroup
+                                row
+                                aria-labelledby="demo-controlled-radio-buttons-group"
+                                name="controlled-radio-buttons-group"
+                                value={`${!!createLEAVETYPE.is_sl}`}
+                                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                    const value = (event.target.value=== 'true' ? true : false);
+                                    setCreateLEAVETYPE((prevState)=> {
+                                        return (
+                                            {
+                                                ...prevState,
+                                                is_sl: value
+                                            }
+                                        )
+                                    })
+                                }}
+                            >
+                                <FormControlLabel value="true" control={<Radio />} label="True" />
+                                <FormControlLabel value="false" control={<Radio />} label="False" />
                             </RadioGroup>
                         </FormControl>
                     </div>

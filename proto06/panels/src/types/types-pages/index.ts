@@ -445,7 +445,9 @@ export interface LEAVECREDITEditInterface extends LEAVECREDITViewInterface {}
 
 export interface LEAVETYPECreateInterface {
     name: string | null,
-    is_paid: boolean | null,
+    is_paid: boolean,
+    is_sl: boolean
+    is_vl: boolean
 }
 
 export interface LEAVETYPEViewInterface extends LEAVETYPECreateInterface { 
