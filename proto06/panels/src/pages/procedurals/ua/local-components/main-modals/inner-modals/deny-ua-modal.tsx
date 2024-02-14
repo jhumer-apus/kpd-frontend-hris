@@ -118,7 +118,7 @@ export default function DenyUAModal(props: DenyUAModalInterface) {
                     setSingleUADetailsData((prevState)=> {
                       return({
                         ...prevState,
-                        ot_reason_disapproval: `${event.target.value}`
+                        ua_reason_disapproval: `${event.target.value}`
                       })
                     })
                   }}

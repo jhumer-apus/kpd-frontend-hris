@@ -56,7 +56,7 @@ export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
         window.alert(`Error: ${LEAVEDenyState.error}`)
       }
     }, [LEAVEDenyState.status])
-    
+
   return (
     <React.Fragment>
       <Transition in={denyLEAVEOpenModal} timeout={400}>
@@ -118,7 +118,7 @@ export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
                     setSingleLEAVEDetailsData((prevState)=> {
                       return({
                         ...prevState,
-                        ot_reason_disapproval: `${event.target.value}`
+                        leave_reason_disapproval: `${event.target.value}`
                       })
                     })
                   }}
