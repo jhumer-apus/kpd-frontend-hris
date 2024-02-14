@@ -39,8 +39,6 @@ export default function ProceduralLEAVEPage() {
   useEffect(()=> {
     dispatch(LEAVEViewAction())
   }, []);
-  
-  console.log(LEAVEViewData)
 
   const getEndDayOfTheWeekDays = (dateString: Date | string) => {
 
@@ -72,18 +70,31 @@ export default function ProceduralLEAVEPage() {
     return new Date(dateString);
   }
 
-  let employeeLeaveData = LEAVEViewData.map(empData => {
+  let employeeLeaveData = LEAVEViewData?.map(empData => {
 
     if(["P1", "P2"].includes(empData.leave_approval_status) && empData.leave_type == 1) {
-      const nnumberOfSickLeavesApproved  = LEAVEViewData.filter((leave: any) => 
+      const filteredLeaves  = LEAVEViewData?.filter((leave: any) => 
           leave.leave_type === 1 
           && leave.leave_approval_status === 'APD' 
           && getStartDayOfTheWeekDays(leave.leave_date_filed) <= convertDateStringtoDate(leave.leave_date_filed) 
           && getEndDayOfTheWeekDays(leave.leave_date_filed) >= convertDateStringtoDate(leave.leave_date_filed)
+          && empData.emp_no == leave.emp_no
 
-        ).length;
+        );
+        const numberOfSickLeavesApproved = filteredLeaves.length
+        
+        if (numberOfSickLeavesApproved >= 3) {
+
+            const data = {
+              ...empData,
+              additional_status: "OSL" //Over Sick Leaves Approved
+            }
+            return data
+
+        }
+        return empData
     }
-
+    return empData
   })
 
   const printableArea = () => {
@@ -110,7 +121,8 @@ export default function ProceduralLEAVEPage() {
       </div>
       <div style={{ height: `${printing? `${printableArea()}px` : '660px'}`, width: '100%' }} id="printable-area">
         <DataGrid
-          rows={LEAVEViewData? LEAVEViewData as LEAVEViewInterface[]:[]}
+          // rows={LEAVEViewData? LEAVEViewData as LEAVEViewInterface[]:[]}
+          rows={employeeLeaveData ? employeeLeaveData : []}
           columns={ProceduralLEAVEPageColumns}
           initialState={{
             pagination: {

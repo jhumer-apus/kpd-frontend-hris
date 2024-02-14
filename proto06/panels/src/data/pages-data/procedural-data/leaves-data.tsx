@@ -49,35 +49,6 @@ export const ProceduralLEAVEPageColumns: GridColDef[] =
     
         return newDate;
     }
-    const getEmployeeLeaves = (employeeNumber: Number) => {
-      // return axios.get(`${APILink}leave/${employeeNumber}/`)
-    }
-
-    const getEndDayOfTheWeekDays = (dateString: Date | string) => {
-
-      let originalDate = convertDateStringtoDate(dateString);
-
-      let currentWeekDay = originalDate.getDay();
-      
-      let difference = 5 - currentWeekDay //Friday minus the weekday
-
-      originalDate.setDate(originalDate.getDate() + difference);
-
-      return originalDate;
-    }
-
-    const getStartDayOfTheWeekDays = (dateString: Date | string) => {
-
-      let originalDate = convertDateStringtoDate(dateString);
-
-      let currentWeekDay = originalDate.getDay();
-      
-      let difference = currentWeekDay - 1 //Weekday minus the Monday
-
-      originalDate.setDate(originalDate.getDate() - difference);
-
-      return originalDate;
-    }
 
     const convertDateStringtoDate = (dateString: Date | string) => {
       return new Date(dateString);
@@ -89,33 +60,19 @@ export const ProceduralLEAVEPageColumns: GridColDef[] =
     const leaveTimestamp: number = leaveDateFiled.getTime();
     const fiveAmLeaveTimestamp: number = fiveAmLeaveDateFiled.getTime();
 
-    const employeeNumber: number = params.row?.emp_no;
-
-    const leaves = getEmployeeLeaves(employeeNumber);
-
     if (leaveTimestamp > fiveAmLeaveTimestamp && status != 'APD' ) { //Invalid leave
 
           cellColor = '#aa2e25'; // Red
   
-    } else if (status === 'P1' || status === 'P2') {
+    } else if (['P1', 'P2'].includes(status)) {
 
         cellColor = '#ff9100'; // Orange DEFAULT
 
-        // const leaves = getEmployeeLeaves(employeeNumber);
+        if(params.row?.additional_status == 'OSL') {
 
-        // leaves.filter((leave: any) => 
-        //   leave.leave_type === 1 
-        //   && leave.leave_approval_status === 'APD' 
-        //   // && getStartDayOfTheWeekDays(leave.leave_date_filed) <= convertDateStringtoDate(leave.leave_date_filed) 
-        //   // && getEndDayOfTheWeekDays(leave.leave_date_filed) >= convertDateStringtoDate(leave.leave_date_filed)
+          cellColor = '#581845'; // Purple red
 
-        // ).length;
-          
-        // if (numberOfSickLeavesApproved >= 3) {
-
-        //     cellColor = '#ADD8E6'; // Light blue
-
-        //   }
+        }
   
       } else if ( status === 'DIS' ) { //Disapprove
   
@@ -126,49 +83,6 @@ export const ProceduralLEAVEPageColumns: GridColDef[] =
         cellColor = '#008000'; // Green
 
       } 
-
-      // return getEmployeeLeaves(employeeNumber).then(leaves => {
-
-      //   let cellColor = ''
-      //   const numberOfSickLeavesApproved = leaves.filter((leave: any) => 
-      //     leave.leave_type === 1 
-      //     && leave.leave_approval_status === 'APD' 
-      //     // && getStartDayOfTheWeekDays(leave.leave_date_filed) <= convertDateStringtoDate(leave.leave_date_filed) 
-      //     // && getEndDayOfTheWeekDays(leave.leave_date_filed) >= convertDateStringtoDate(leave.leave_date_filed)
-
-      //   ).length;
-
-      //   if (leaveTimestamp > fiveAmLeaveTimestamp && status != 'APD' ) { //Invalid leave
-
-      //     cellColor = '#aa2e25'; // Red
-  
-      //   }else if (status === 'P1' || status === 'P2') {
-
-      //     cellColor = '#ff9100'; // Orange DEFAULT
-          
-      //     if (numberOfSickLeavesApproved >= 3) {
-
-      //       cellColor = '#ADD8E6'; // Light blue
-
-      //     }
-
-      //   } else if ( status === 'DIS' ) { //Disapprove
-
-      //     cellColor = '#aa2e25'; // Red
-  
-      //   } else if ( status === 'APD' ) { //Approve
-
-      //     cellColor = '#008000'; // Green
-      //   } 
-
-
-      //   return(
-      //     <div className='relative'>
-      //       <div style={{ top:'', left: '26px', position: 'absolute', backgroundColor: cellColor, height:'5px', width: '5px', borderRadius: '100px'}}></div>
-      //       {status}
-      //     </div>
-      //   );
-      // })
 
         return(
           <div className='relative'>
