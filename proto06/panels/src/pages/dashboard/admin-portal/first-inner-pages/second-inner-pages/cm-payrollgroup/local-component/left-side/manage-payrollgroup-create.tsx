@@ -104,6 +104,7 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
                     sx={{width: '100%'}} 
                     label='Pay Frequency (Per Month)'
                     aria-required  
+                    placeholder='1 - Monthly | 2 - Bi-Monthly | 3 - Daily'
                     variant='outlined' 
                     type="number"
                     value={createPAYROLLGROUP?.payroll_freq}
