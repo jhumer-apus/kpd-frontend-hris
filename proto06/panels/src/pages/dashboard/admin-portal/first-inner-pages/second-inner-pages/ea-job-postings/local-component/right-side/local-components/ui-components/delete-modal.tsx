@@ -31,12 +31,12 @@ export default function DeleteJOBPOSTINGSModal(props: DeleteJOBPOSTINGSModalInte
 
   React.useEffect(()=>{
     if(JOBPOSTINGSDeleteState){      
-      if(JOBPOSTINGSDeleteState.status === 'succeeded'){
+      if(JOBPOSTINGSDeleteState.status === 'succeeded' && deleteJOBPOSTINGSOpenModal){
         window.alert(beautifyJSON(JOBPOSTINGSDeleteState.data as JSON))
         setTimeout(()=>{
           window.location.reload();
         }, 800)
-      } else if (JOBPOSTINGSDeleteState.status === 'failed'){
+      } else if (JOBPOSTINGSDeleteState.status === 'failed' && deleteJOBPOSTINGSOpenModal){
         window.alert(beautifyJSON(JOBPOSTINGSDeleteState.data as JSON))
       }
     }

@@ -57,12 +57,12 @@ export default function ApproveOBTModal(props: ApproveOBTModalInterface) {
   }
 
   React.useEffect(()=>{
-    if(OBTApproveState.status === 'succeeded'){
+    if(OBTApproveState.status === 'succeeded' && approveOBTOpenModal){
       window.alert(`${OBTApproveState.status.charAt(0).toUpperCase()}${OBTApproveState.status.slice(1)}`)
       setTimeout(()=>{
         window.location.reload();
       }, 800)
-    } else if(OBTApproveState.status === 'failed'){
+    } else if(OBTApproveState.status === 'failed' && approveOBTOpenModal){
       window.alert(`Error: ${OBTApproveState.error}`)
     }
   }, [OBTApproveState.status])

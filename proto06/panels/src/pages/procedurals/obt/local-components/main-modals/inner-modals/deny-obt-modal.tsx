@@ -47,12 +47,12 @@ export default function DenyOBTModal(props: DenyOBTModalInterface) {
     }
 
     React.useEffect(()=>{
-      if(OBTDenyState.status === 'succeeded'){
+      if(OBTDenyState.status === 'succeeded' && denyOBTOpenModal){
         window.alert(`${OBTDenyState.status.charAt(0).toUpperCase()}${OBTDenyState.status.slice(1)}`)
         setTimeout(()=>{
           window.location.reload();
         }, 800)
-      } else if(OBTDenyState.status === 'failed'){
+      } else if(OBTDenyState.status === 'failed' && denyOBTOpenModal){
         window.alert(`Error: ${OBTDenyState.error}`)
       }
     }, [OBTDenyState.status])

@@ -57,12 +57,12 @@ export default function ApproveOVERTIMEModal(props: ApproveOVERTIMEModalInterfac
   }
 
   React.useEffect(()=>{
-    if(OVERTIMEApproveData.status === 'succeeded'){
+    if(OVERTIMEApproveData.status === 'succeeded' && approveOVERTIMEOpenModal){
       window.alert(`${OVERTIMEApproveData.status.charAt(0).toUpperCase()}${OVERTIMEApproveData.status.slice(1)}`)
       setTimeout(()=>{
         window.location.reload();
       }, 800)
-    } else if(OVERTIMEApproveData.status === 'failed'){
+    } else if(OVERTIMEApproveData.status === 'failed' && approveOVERTIMEOpenModal){
       window.alert(OVERTIMEApproveData.error)
     }
   }, [OVERTIMEApproveData.status])

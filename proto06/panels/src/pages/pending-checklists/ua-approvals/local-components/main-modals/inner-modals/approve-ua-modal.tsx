@@ -57,12 +57,12 @@ export default function ApproveUAModal(props: ApproveUAModalInterface) {
   }
 
   React.useEffect(()=>{
-    if(UAApproveData.status === 'succeeded'){
+    if(UAApproveData.status === 'succeeded' && approveUAOpenModal){
       window.alert(`${UAApproveData.status.charAt(0).toUpperCase()}${UAApproveData.status.slice(1)}`)
       setTimeout(()=>{
         window.location.reload();
       }, 800)
-    } else if(UAApproveData.status === 'failed'){
+    } else if(UAApproveData.status === 'failed' && approveUAOpenModal){
       window.alert(UAApproveData.error)
     }
   }, [UAApproveData.status])

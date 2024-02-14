@@ -32,12 +32,12 @@ export default function DeactivateEVALQUESTIONSModal(props: DeactivateEVALQUESTI
   }
 
   React.useEffect(()=>{
-    if(EVALQUESTIONSDeactivateState.status === 'succeeded'){
+    if(EVALQUESTIONSDeactivateState.status === 'succeeded' && DeactivateEVALQUESTIONSOpenModal){
       window.alert(`Success: ${EVALQUESTIONSDeactivateState.status?.charAt(0).toUpperCase()}${EVALQUESTIONSDeactivateState.status.slice(1)}`)
       setTimeout(()=>{
         window.location.reload();
       }, 800)
-    } else if(EVALQUESTIONSDeactivateState.status === 'failed') {
+    } else if(EVALQUESTIONSDeactivateState.status === 'failed' && DeactivateEVALQUESTIONSOpenModal) {
       window.alert(`Error: ${EVALQUESTIONSDeactivateState.error}`)
       dispatch(EVALQUESTIONSDeleteActionFailureCleanup());
     }
