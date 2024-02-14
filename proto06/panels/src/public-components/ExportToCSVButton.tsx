@@ -50,9 +50,14 @@ function ExportToCsv<T extends ObjectFlat>(props: ExportToCsvButtonInterface<T>)
     };
 
     return (
-        <p onClick={handleDownload}>
-            Export / Download as CSV
-        </p>
+      <Button 
+        className='gap-2'
+        color='indigo'
+        variant='gradient'
+        onClick={handleDownload}
+    >
+        Export / Download as CSV
+    </Button>
     );
 }
 
