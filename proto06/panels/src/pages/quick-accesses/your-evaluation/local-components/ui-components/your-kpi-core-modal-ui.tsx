@@ -1,11 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { KPICOREViewInterface } from '@/types/types-employee-and-applicants';
-import { convertDaysToHHMM, convertMinutesToHHMM,  } from '@/helpers/utils';
 import { Button, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import {TextField} from '@mui/material';
-import ApproveKPICOREModal from '../main-modals/inner-modals/approve-obt-modal';
-import DenyKPICOREModal from '../main-modals/inner-modals/deny-obt-modal';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 
@@ -44,23 +41,19 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
         // setSaveChangesButton(!saveChangesButton);
     }
     return (
-        <React.Fragment>
-            {/* <ApproveKPICOREModal singleKPICOREDetailsData={singleKPICOREDetailsData} setSingleKPICOREDetailsData={setSingleKPICOREDetailsData} approveKPICOREOpenModal={approveKPICOREOpenModal} setApproveKPICOREOpenModal={setApproveKPICOREOpenModal}/>
-            <DenyKPICOREModal singleKPICOREDetailsData={singleKPICOREDetailsData} setSingleKPICOREDetailsData={setSingleKPICOREDetailsData} denyKPICOREOpenModal={denyKPICOREOpenModal} setDenyKPICOREOpenModal={setDenyKPICOREOpenModal}/> */}
-            
-            
+        <React.Fragment>            
             <div className='flex justify-center flex-col'>
                 <Typography variant='h5' className='flex justify-center text-center'>
                             Employee Name: {singleKPICOREDetailsData.emp_name}
                 </Typography>
                 <Typography variant='subtitle1' className='flex justify-center text-center'>
-                        Status: {singleKPICOREDetailsData.status} | KPI Score: {singleKPICOREDetailsData.sup_eval_points} | Core: {singleKPICOREDetailsData.core_compe_points} | Total %: {singleKPICOREDetailsData.percentage_total}
+                        Status: {singleKPICOREDetailsData.status} | KPI Score: {singleKPICOREDetailsData.total_approver_eval_points} | Core: {singleKPICOREDetailsData.total_core_compe_points} | Total %: {singleKPICOREDetailsData.percentage_total}
                 </Typography>
                 <Typography variant='subtitle1' className='flex justify-center text-center'>
-                        Final Rating: {singleKPICOREDetailsData.status === 'Pending' ? 'Pending...' : singleKPICOREDetailsData.final_rating} | Supervisor: {singleKPICOREDetailsData.sup_name}
+                        Final Rating: {singleKPICOREDetailsData.status === 'Pending' ? 'Pending...' : singleKPICOREDetailsData.final_rating} | Supervisor: {singleKPICOREDetailsData.approver_name}
                 </Typography>
                 <Typography variant='subtitle1' className='flex justify-center text-center'>
-                        Evaluation Date: {dayjs(singleKPICOREDetailsData.eval_date).format("MMMM DD, YYYY")}
+                        Evaluation Date: {dayjs(singleKPICOREDetailsData.date_evaluation_deadline).format("MMMM DD, YYYY")}
                 </Typography>
                 <div className='flex justify-center my-6' container-name='obt_buttons_container'>
                     <div className='flex justify-center' style={{width:'300px'}} container-name='obt_buttons'>

@@ -1,7 +1,7 @@
 import { Dispatch, Fragment, SetStateAction, useRef } from 'react';
 import ModalClose from '@mui/joy/ModalClose';
 import Typography from '@mui/joy/Typography';
-import KPICOREModalUI from '../../ui-components/obt-modal-ui';
+import KPICOREModalUI from '../../ui-components/your-kpi-core-modal-ui';
 import { KPICOREViewInterface } from '@/types/types-employee-and-applicants';
 
 
