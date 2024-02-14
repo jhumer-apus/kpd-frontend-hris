@@ -18,7 +18,7 @@ const SinglePayslip = ((props:SinglePayslip) => {
     return (
         <Fragment>
             <PrintPayslipButton content={componentRef}/>
-            <ModalClose />
+            {/* <ModalClose /> */}
             <div ref={componentRef} id="printable-area" className='flex justify-center m-2'>
                 <PayslipUI payslipData={singlePayslipData}/>
             </div>

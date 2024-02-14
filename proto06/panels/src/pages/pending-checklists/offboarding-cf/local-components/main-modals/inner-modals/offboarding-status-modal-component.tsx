@@ -19,7 +19,7 @@ const OFFBOARDINGSTATUSModalComponent = ((props:OFFBOARDINGSTATUSModalComponentI
     return (
         <Fragment>
             <Typography variant='solid'>Offboarding Data</Typography>
-            <ModalClose sx={{marginTop: '4px'}}/>
+            {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <OFFBOARDINGSTATUSModalUI setSingleOFFBOARDINGSTATUSDetailsData={setSingleOFFBOARDINGSTATUSDetailsData} singleOFFBOARDINGSTATUSDetailsData={singleOFFBOARDINGSTATUSDetailsData}/>
             </div>

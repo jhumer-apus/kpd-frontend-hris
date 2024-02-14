@@ -19,7 +19,7 @@ const OVERTIMEModalComponent = ((props:OVERTIMEModalComponentInterface) => {
     return (
         <Fragment>
             <Typography variant='soft'>Overtime Data</Typography>
-            <ModalClose sx={{marginTop: '4px'}}/>
+            {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <OVERTIMEModalUI setSingleOVERTIMEDetailsData={setSingleOVERTIMEDetailsData} singleOVERTIMEDetailsData={singleOVERTIMEDetailsData}/>
             </div>

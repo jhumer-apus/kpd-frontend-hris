@@ -19,7 +19,7 @@ const CASHADVANCEModalComponent = ((props:CASHADVANCEModalComponentInterface) =>
     return (
         <Fragment>
             <Typography variant='soft'>Cash Advance Data</Typography>
-            <ModalClose sx={{marginTop: '4px'}}/>
+            {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <CASHADVANCEModalUI setSingleCASHADVANCEDetailsData={setSingleCASHADVANCEDetailsData} singleCASHADVANCEDetailsData={singleCASHADVANCEDetailsData}/>
             </div>

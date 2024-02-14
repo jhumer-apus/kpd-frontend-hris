@@ -19,7 +19,7 @@ const ONBOARDINGREQUIREMENTSModalComponent = ((props:ONBOARDINGREQUIREMENTSModal
     return (
         <Fragment>
             <Typography variant='soft'>Onboarding Requirements Details</Typography>
-            <ModalClose sx={{marginTop: '4px'}}/>
+            {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <ONBOARDINGREQUIREMENTSModalUI setSingleONBOARDINGREQUIREMENTSDetailsData={setSingleONBOARDINGREQUIREMENTSDetailsData} singleONBOARDINGREQUIREMENTSDetailsData={singleONBOARDINGREQUIREMENTSDetailsData}/>
             </div>

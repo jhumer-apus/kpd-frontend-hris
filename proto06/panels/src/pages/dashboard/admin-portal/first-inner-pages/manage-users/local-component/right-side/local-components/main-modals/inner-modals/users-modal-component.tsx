@@ -19,7 +19,7 @@ const USERModalComponent = ((props:USERModalComponentInterface) => {
     return (
         <Fragment>
             <Typography variant='soft'>HRIS User Data</Typography>
-            <ModalClose sx={{marginTop: '4px'}}/>
+            {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <USERModalUI setSingleUSERDetailsData={setSingleUSERDetailsData} singleUSERDetailsData={singleUSERDetailsData}/>
             </div>

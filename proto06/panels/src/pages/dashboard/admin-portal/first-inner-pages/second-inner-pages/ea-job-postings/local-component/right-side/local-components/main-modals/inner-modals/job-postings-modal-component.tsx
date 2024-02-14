@@ -19,7 +19,7 @@ const JOBPOSTINGSModalComponent = ((props:JOBPOSTINGSModalComponentInterface) =>
     return (
         <Fragment>
             <Typography variant='soft'>Job Posting Data</Typography>
-            <ModalClose sx={{marginTop: '4px'}}/>
+            {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <JOBPOSTINGSModalUI setSingleJOBPOSTINGSDetailsData={setSingleJOBPOSTINGSDetailsData} singleJOBPOSTINGSDetailsData={singleJOBPOSTINGSDetailsData}/>
             </div>

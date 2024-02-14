@@ -17,7 +17,7 @@ const SSSModalComponent = ((props:SSSModalComponentInterface) => {
     return (
         <Fragment>
             <Typography variant='soft'>'SSS' Data</Typography>
-            <ModalClose sx={{marginTop: '4px'}}/>
+            {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <SSSModalUI setCreateSSSDetailsData={setCreateSSSDetailsData} createSSSDetailsData={createSSSDetailsData}/>
             </div>

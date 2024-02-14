@@ -19,7 +19,7 @@ const BONUSLISTModalComponent = ((props:BONUSLISTModalComponentInterface) => {
     return (
         <Fragment>
             <Typography variant='soft'>Bonus List Data</Typography>
-            <ModalClose sx={{marginTop: '4px'}}/>
+            {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <BONUSLISTModalUI setSingleBONUSLISTDetailsData={setSingleBONUSLISTDetailsData} singleBONUSLISTDetailsData={singleBONUSLISTDetailsData}/>
             </div>

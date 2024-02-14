@@ -19,7 +19,7 @@ const BONUSENTRYModalComponent = ((props:BONUSENTRYModalComponentInterface) => {
     return (
         <Fragment>
             <Typography variant='soft'>Bonus Entry Data</Typography>
-            <ModalClose sx={{marginTop: '4px'}}/>
+            {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <BONUSENTRYModalUI setSingleBONUSENTRYDetailsData={setSingleBONUSENTRYDetailsData} singleBONUSENTRYDetailsData={singleBONUSENTRYDetailsData}/>
             </div>

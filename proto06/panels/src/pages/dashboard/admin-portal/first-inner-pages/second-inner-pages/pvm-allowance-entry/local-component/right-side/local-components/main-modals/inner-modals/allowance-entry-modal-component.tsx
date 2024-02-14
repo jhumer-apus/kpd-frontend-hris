@@ -19,7 +19,7 @@ const ALLOWANCEENTRYModalComponent = ((props:ALLOWANCEENTRYModalComponentInterfa
     return (
         <Fragment>
             <Typography variant='soft'>Allowance Entry Data</Typography>
-            <ModalClose sx={{marginTop: '4px'}}/>
+            {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <ALLOWANCEENTRYModalUI setSingleALLOWANCEENTRYDetailsData={setSingleALLOWANCEENTRYDetailsData} singleALLOWANCEENTRYDetailsData={singleALLOWANCEENTRYDetailsData}/>
             </div>
