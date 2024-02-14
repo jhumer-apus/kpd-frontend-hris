@@ -20,6 +20,7 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
         name: "",
         payroll_description: "",
         payroll_freq: NaN,
+        used_account: 0,
         added_by: NaN,
     });
     const onClickSubmit = () => {

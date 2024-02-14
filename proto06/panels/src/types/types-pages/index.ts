@@ -599,7 +599,7 @@ export interface PAYROLLGROUPViewInterface extends PAYROLLGROUPGenericInterface{
     used_account: number,
 }
 
-export interface PAYROLLGROUPCreateInterface extends PAYROLLGROUPGenericInterface{
+export interface PAYROLLGROUPCreateInterface extends PAYROLLGROUPGenericInterface, Pick<PAYROLLGROUPViewInterface, "used_account">{
     added_by?: number,
 }
 
