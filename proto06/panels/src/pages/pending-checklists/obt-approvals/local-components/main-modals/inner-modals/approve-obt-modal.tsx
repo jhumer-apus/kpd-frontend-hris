@@ -8,7 +8,7 @@ import { Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
-import { OBTEditAction } from '@/store/actions/procedurals';
+import { OBTEditAction, OBTEditActionFailureCleanup } from '@/store/actions/procedurals';
 
 
 
@@ -59,13 +59,16 @@ export default function ApproveOBTModal(props: ApproveOBTModalInterface) {
   React.useEffect(()=>{
     if(OBTApproveData.status === 'succeeded'){
       window.alert(`${OBTApproveData.status.charAt(0).toUpperCase()}${OBTApproveData.status.slice(1)}`)
-      setTimeout(()=>{
-        window.location.reload();
-      }, 800)
+      window.location.reload();
+      // dispatch(OBTEditActionFailureCleanup())
+      // setTimeout(()=>{
+
+      // }, 200)
     } else if(OBTApproveData.status === 'failed'){
       window.alert(OBTApproveData.error)
+      dispatch(OBTEditActionFailureCleanup())
     }
-  }, [])
+  }, [OBTApproveData.status])
   return (
     <React.Fragment>
       <Transition in={approveOBTOpenModal} timeout={400}>

@@ -1,7 +1,7 @@
 
 
 export interface TAXGenericInterface {
-    tin_no: number,
+    tin_no: string,
     tax_form: string,
     tax_description: string,
     tax_percentage: number,

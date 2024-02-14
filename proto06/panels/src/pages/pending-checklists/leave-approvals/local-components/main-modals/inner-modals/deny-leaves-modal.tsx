@@ -55,7 +55,7 @@ export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
       } else if(LEAVEDenyData.status === 'failed'){
         window.alert(LEAVEDenyData.error)
       }
-    }, [])
+    }, [LEAVEDenyData.status])
   return (
     <React.Fragment>
       <Transition in={denyLEAVEOpenModal} timeout={400}>

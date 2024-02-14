@@ -954,6 +954,7 @@ const proceduralsSlice = createSlice({
       .addCase(OBTEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OBTEdit"))
       .addCase(OBTEditActionProgress, (state, action) => setProgressState(state, action.payload, "OBTEdit"))
       .addCase(OBTEditActionFailure, (state, action) => setFailureState(state, action.payload, "OBTEdit"))
+      .addCase(OBTEditActionFailureCleanup, setRefreshedState("OBTEdit"))
       //OVERTIME SECTION
       .addCase(OVERTIMEViewAction, setLoadingState("OVERTIMEView"))
       .addCase(OVERTIMEViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OVERTIMEView"))

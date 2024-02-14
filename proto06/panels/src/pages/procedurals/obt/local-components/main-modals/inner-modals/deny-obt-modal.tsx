@@ -22,7 +22,7 @@ interface DenyOBTModalInterface {
 export default function DenyOBTModal(props: DenyOBTModalInterface) {
   const dispatch = useDispatch();
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
-  const OBTDenyState = useSelector((state: RootState)=> state.procedurals.OBTEdit.status)
+  const OBTDenyState = useSelector((state: RootState)=> state.procedurals.OBTEdit)
   const {denyOBTOpenModal, setDenyOBTOpenModal, singleOBTDetailsData, setSingleOBTDetailsData} = props;
   const DateNow = new Date();
   const denyDate = dayjs(DateNow).format('MMM-DD-YY LT');
@@ -34,7 +34,7 @@ export default function DenyOBTModal(props: DenyOBTModalInterface) {
             dispatch(OBTEditAction({
               ...prevState,
               obt_reason_disapproval: `${prevState.obt_reason_disapproval}  <Updated: ${denyDate}>`
-            }))  
+            }))
             return({
               ...prevState,
               obt_reason_disapproval: `${prevState.obt_reason_disapproval} <Updated: ${denyDate}>`
@@ -46,16 +46,17 @@ export default function DenyOBTModal(props: DenyOBTModalInterface) {
       }
     }
 
-  React.useEffect(()=>{
-    if(OBTDenyState){      
-      if(OBTDenyState === 'succeeded'){
-        window.alert(`${OBTDenyState.charAt(0).toUpperCase()}${OBTDenyState.slice(1)}`)
+    React.useEffect(()=>{
+      if(OBTDenyState.status === 'succeeded'){
+        window.alert(`${OBTDenyState.status.charAt(0).toUpperCase()}${OBTDenyState.status.slice(1)}`)
         setTimeout(()=>{
           window.location.reload();
         }, 800)
+      } else if(OBTDenyState.status === 'failed'){
+        window.alert(`Error: ${OBTDenyState.error}`)
       }
-    }
-  }, [OBTDenyState])
+    }, [OBTDenyState.status])
+    
   return (
     <React.Fragment>
       <Transition in={denyOBTOpenModal} timeout={400}>

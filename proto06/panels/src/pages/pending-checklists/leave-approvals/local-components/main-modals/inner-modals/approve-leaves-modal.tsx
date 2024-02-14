@@ -65,7 +65,7 @@ export default function ApproveLEAVEModal(props: ApproveLEAVEModalInterface) {
     } else if(LEAVEApproveData.status === 'failed'){
       window.alert(LEAVEApproveData.error)
     }
-  }, [])
+  }, [LEAVEApproveData.status])
   return (
     <React.Fragment>
       <Transition in={approveLEAVEOpenModal} timeout={400}>

@@ -607,6 +607,7 @@ export const OBTEditEpic: Epic = (action$, state$) =>
         OBTEditApiCall(action?.payload)
       ).pipe(
         map((data) => {
+          console.log(data, "123123data")
           return OBTEditActionSuccess(data);
         }),
         catchError((error) => {

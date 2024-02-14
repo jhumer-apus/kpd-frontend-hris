@@ -55,7 +55,7 @@ export default function DenyUAModal(props: DenyUAModalInterface) {
       } else if(UADenyData.status === 'failed'){
         window.alert(UADenyData.error)
       }
-    }, [])
+    }, [UADenyData.status])
   return (
     <React.Fragment>
       <Transition in={denyUAOpenModal} timeout={400}>

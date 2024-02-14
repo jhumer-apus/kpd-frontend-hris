@@ -55,7 +55,7 @@ export default function DenyOVERTIMEModal(props: DenyOVERTIMEModalInterface) {
       } else if(OVERTIMEDenyData.status === 'failed'){
         window.alert(OVERTIMEDenyData.error)
       }
-    }, [])
+    }, [OVERTIMEDenyData.status])
   return (
     <React.Fragment>
       <Transition in={denyOVERTIMEOpenModal} timeout={400}>

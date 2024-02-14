@@ -65,7 +65,7 @@ export default function ApproveUAModal(props: ApproveUAModalInterface) {
     } else if(UAApproveData.status === 'failed'){
       window.alert(UAApproveData.error)
     }
-  }, [])
+  }, [UAApproveData.status])
   return (
     <React.Fragment>
       <Transition in={approveUAOpenModal} timeout={400}>

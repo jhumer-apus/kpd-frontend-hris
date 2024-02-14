@@ -22,7 +22,7 @@ interface DenyLEAVEModalInterface {
 export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
   const dispatch = useDispatch();
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
-  const LEAVEDenyState = useSelector((state: RootState)=> state.procedurals.LEAVEEdit.status)
+  const LEAVEDenyState = useSelector((state: RootState)=> state.procedurals.LEAVEEdit)
   const {denyLEAVEOpenModal, setDenyLEAVEOpenModal, singleLEAVEDetailsData, setSingleLEAVEDetailsData} = props;
   const DateNow = new Date();
   const denyDate = dayjs(DateNow).format('MMM-DD-YY LT');
@@ -46,16 +46,17 @@ export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
       }
     }
 
-  React.useEffect(()=>{
-    if(LEAVEDenyState){      
-      if(LEAVEDenyState === 'succeeded'){
-        window.alert(`${LEAVEDenyState.charAt(0).toUpperCase()}${LEAVEDenyState.slice(1)}`)
+    React.useEffect(()=>{
+      if(LEAVEDenyState.status === 'succeeded'){
+        window.alert(`${LEAVEDenyState.status.charAt(0).toUpperCase()}${LEAVEDenyState.status.slice(1)}`)
         setTimeout(()=>{
           window.location.reload();
         }, 800)
+      } else if(LEAVEDenyState.status === 'failed'){
+        window.alert(`Error: ${LEAVEDenyState.error}`)
       }
-    }
-  }, [LEAVEDenyState])
+    }, [LEAVEDenyState.status])
+    
   return (
     <React.Fragment>
       <Transition in={denyLEAVEOpenModal} timeout={400}>

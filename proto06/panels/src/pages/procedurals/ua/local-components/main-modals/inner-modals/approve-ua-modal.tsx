@@ -22,7 +22,7 @@ interface ApproveUAModalInterface {
 export default function ApproveUAModal(props: ApproveUAModalInterface) {
   const dispatch = useDispatch();
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
-  const UAApproveState = useSelector((state: RootState)=> state.procedurals.UAEdit.status)
+  const UAApproveState = useSelector((state: RootState)=> state.procedurals.UAEdit)
   const {approveUAOpenModal, setApproveUAOpenModal, singleUADetailsData, setSingleUADetailsData} = props;
 
   const approveUA = () => { 
@@ -57,15 +57,16 @@ export default function ApproveUAModal(props: ApproveUAModalInterface) {
   }
 
   React.useEffect(()=>{
-    if(UAApproveState){
-      window.alert(`${UAApproveState.charAt(0).toUpperCase()}${UAApproveState.slice(1)}`)
-      if(UAApproveState !== 'failed'){
-        setTimeout(()=>{
-          window.location.reload();
-        }, 800)
-      }
+    if(UAApproveState.status === 'succeeded'){
+      window.alert(`${UAApproveState.status.charAt(0).toUpperCase()}${UAApproveState.status.slice(1)}`)
+      setTimeout(()=>{
+        window.location.reload();
+      }, 800)
+    } else if(UAApproveState.status === 'failed'){
+      window.alert(`Error: ${UAApproveState.error}`)
     }
-  }, [UAApproveState])
+  }, [UAApproveState.status])
+  
   return (
     <React.Fragment>
       <Transition in={approveUAOpenModal} timeout={400}>
