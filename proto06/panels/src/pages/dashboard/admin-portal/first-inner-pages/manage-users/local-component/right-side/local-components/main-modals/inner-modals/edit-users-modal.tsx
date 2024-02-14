@@ -113,7 +113,7 @@ export default function EditUSERModal(props: EditUSERModalInterface) {
                   }}
                 />
                 <RoleAutoCompleteRight createUSER={singleUSERDetailsData} setCreateUSER={setSingleUSERDetailsData}/>
-                <EmployeeAutoCompleteRight createUSER={singleUSERDetailsData} setCreateUSER={setSingleUSERDetailsData}/>
+                {/* <EmployeeAutoCompleteRight createUSER={singleUSERDetailsData} setCreateUSER={setSingleUSERDetailsData}/> */}
                 {/* <BranchAutoCompleteRight createUSER={singleUSERDetailsData} setCreateUSER={setSingleUSERDetailsData}/> */}
                 <FormControl className='w-3/4 justify-center items-center'>
                     <FormLabel id="is-locked-manage-user-edit">Account Locked Status</FormLabel>

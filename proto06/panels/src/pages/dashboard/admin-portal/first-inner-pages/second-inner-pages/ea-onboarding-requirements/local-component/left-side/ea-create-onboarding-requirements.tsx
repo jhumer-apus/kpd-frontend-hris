@@ -20,11 +20,6 @@ function EAONBOARDINGREQUIREMENTSCreate(props: CreateONBOARDINGREQUIREMENTSModal
     const [createONBOARDINGREQUIREMENTS, setCreateONBOARDINGREQUIREMENTS] = useState<ONBOARDINGREQUIREMENTSCreateInterface>({
         facilitator: NaN,
         onboarding_title: '',
-        commencement_date: '',
-        emp_remarks: '',
-        facilitator_remarks: '',
-        status: 'Pending',
-        date_added: (new Date()).toISOString(),
     });
     const onClickSubmit = () => {
         dispatch(ONBOARDINGREQUIREMENTSCreateAction(createONBOARDINGREQUIREMENTS))

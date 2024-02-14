@@ -42,11 +42,11 @@ export const UnderDevelopmentMsg = (props: {left?: number, top?: number, fontSiz
         zIndex: 20,
         borderRadius: `${props.borderRadius ? props.borderRadius : 16}px`,
     }
-    return(
-        <div style={UnderDevelopmentTag}>
-            <p>LOCKED</p>
-        </div>
-    )
+    // return(
+    //     <div style={UnderDevelopmentTag}>
+    //         <p>LOCKED</p>
+    //     </div>
+    // )
 };
 
 

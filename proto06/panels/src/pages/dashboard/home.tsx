@@ -30,7 +30,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Perfect_Attendace_Filter_Interface } from "@/types/types-employee-and-applicants";
 import { RootState } from "@/store/configureStore";
 import ExportToCsv from "@/public-components/ExportToCSVButton";
-
+import YearlyReminder from "./YearlyReminder";
 
 
 export function ChooseDashboard() {
@@ -71,6 +71,7 @@ export function ChooseDashboard() {
   return (
     <div className="mt-12">
       <div className={styles.homeWrap}>
+      <YearlyReminder /> {/* Add this line to include the YearlyReminder component */}
         <Card className={styles.greetingsBar}>
           <CarouselUI className={styles.greetingsBar}/>
         </Card>

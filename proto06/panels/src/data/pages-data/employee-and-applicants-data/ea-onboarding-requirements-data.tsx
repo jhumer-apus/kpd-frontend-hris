@@ -27,7 +27,7 @@ export const EAONBOARDINGREQUIREMENTSPageColumns: GridColDef[] =
     }
   },
   { field: 'facilitator', headerName: 'Facilitator Emp #:', width: 140 },
-  { field: 'onboard_title', headerName: 'Onboarding Title',  width: 230 },
+  { field: 'onboarding_title', headerName: 'Onboarding Title',  width: 230 },
 ];
   
 export default {

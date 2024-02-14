@@ -70,7 +70,7 @@ export default function EmployeesAppraisalPage() {
             //   </Button>
             <ArrowCircleRightOutlinedIcon color={'info'} 
             onClick={()=> {
-              navigate(`/home/employees/Appraisal/${params.row.emp_no}`)
+              navigate(`/home/employees/KPI-Appraisals/${params.row.emp_no}`)
               // window.alert(`${params.row.emp_no}`)
             }
               }

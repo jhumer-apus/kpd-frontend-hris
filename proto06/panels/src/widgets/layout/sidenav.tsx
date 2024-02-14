@@ -304,7 +304,7 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
 
 Sidenav.defaultProps = {
   brandImg: "/img/logo-ct.png",
-  brandName: "HR Integrated System",
+  brandName: "Bit HR",
 };
 
 Sidenav.propTypes = {

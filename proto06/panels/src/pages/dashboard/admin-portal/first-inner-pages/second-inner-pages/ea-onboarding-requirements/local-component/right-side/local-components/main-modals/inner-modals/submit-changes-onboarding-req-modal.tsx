@@ -24,7 +24,7 @@ export default function EditSubmitONBOARDINGREQUIREMENTSModal(props: EditONBOARD
   const {openModal, setOpenModal, initialState, setInitialState} = props;
 
   const [editObject, setEditObject] = useState<ONBOARDINGREQUIREMENTSEditInterface>({
-    onboard_title: '',
+    onboarding_title: '',
     facilitator: NaN,
     id: NaN,
   })
@@ -55,7 +55,7 @@ export default function EditSubmitONBOARDINGREQUIREMENTSModal(props: EditONBOARD
             return (
                 {
                     ...prevState,
-                    onboard_title: `${initialState.onboard_title}`,
+                    onboarding_title: `${initialState.onboarding_title}`,
                     facilitator: initialState.facilitator,
                     id: initialState.id,
                     added_by: state?.emp_no

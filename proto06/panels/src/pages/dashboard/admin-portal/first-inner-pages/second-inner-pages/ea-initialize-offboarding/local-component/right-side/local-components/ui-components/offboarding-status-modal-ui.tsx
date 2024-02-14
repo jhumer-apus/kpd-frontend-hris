@@ -39,6 +39,7 @@ function OFFBOARDINGSTATUSModalUI(props: OFFBOARDINGSTATUSModalUIInterface) {
         date_offboard: null,
         final_remarks: '',
         added_by: NaN,
+        status: 'Pending',
     })
 
     useEffect(() => {
@@ -132,7 +133,7 @@ function OFFBOARDINGSTATUSModalUI(props: OFFBOARDINGSTATUSModalUIInterface) {
                     </LocalizationProvider>
                 </div>
             </div>
-            <Typography className='italic' style={{marginTop: '16px'}}>Onboarding Lists:</Typography>
+            <Typography className='italic' style={{marginTop: '16px'}}>Offboarding Lists:</Typography>
             <div className='flex flex-wrap mt-4 pl-2'>
                     {
                         ThisProps?.emp_offboard_reqs?.map((item, index)=> {
