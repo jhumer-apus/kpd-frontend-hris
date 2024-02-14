@@ -26,7 +26,7 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
                 return(
                     {
                         ...prevState,
-                        assigned_to: selectedEmployeeId
+                        facilitator: selectedEmployeeId
                     }
                 )
             })
@@ -47,7 +47,7 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
 
                 
                 setEmployeesList(updatedEmployeesList.filter((item)=> (item?.rank_code > 2)));
-            }, 1000);
+            }, 400);
         }
     }, [state.employees_list]);
 

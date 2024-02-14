@@ -125,6 +125,8 @@ import AutoStoriesOutlinedIcon from '@mui/icons-material/AutoStoriesOutlined';
 import Diversity3OutlinedIcon from '@mui/icons-material/Diversity3Outlined';
 import ViewMonthlySchedule from "./pages/reports/view-monthly-schedule";
 import EMPSEMINARSPageV2 from "./pages/employee/emp-training-seminars-v2/emp-training-seminars";
+import EmploymentHistoryPageEmpView from "./pages/employee/employment-history-emp-view/employment-history-emp-view";
+import EMPSEMINARSPageV2EmpView from "./pages/employee/emp-training-seminars-v2-emp-view/emp-training-seminars-emp-view";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -487,24 +489,24 @@ const JSXRouteWrapper = () => {
                   },
                 ]
               },
-              {
-                id: 12200,
-                icon: <InsertChartOutlinedIcon {...icon} />,
-                name: "KPI Appraisals",
-                path: "/employees/KPI-Appraisals",
-                element:<EmployeesAppraisalPage/>,
-                hasSubItems: true,
-                subItems: [
-                  {
-                    id: 121000,
-                    icon: <UserCircleIcon {...icon} />,
-                    name: "201 Files",
-                    path: "/employees/KPI-Appraisals/:emp_no",
-                    element: <APPRAISALDETAILSPage/>, 
-                    hasSubItems: false,
-                  },
-                ]
-              },
+              // {
+              //   id: 12200,
+              //   icon: <InsertChartOutlinedIcon {...icon} />,
+              //   name: "KPI Appraisals",
+              //   path: "/employees/KPI-Appraisals",
+              //   element:<EmployeesAppraisalPage/>,
+              //   hasSubItems: true,
+              //   subItems: [
+              //     {
+              //       id: 121000,
+              //       icon: <UserCircleIcon {...icon} />,
+              //       name: "201 Files",
+              //       path: "/employees/KPI-Appraisals/:emp_no",
+              //       element: <APPRAISALDETAILSPage/>, 
+              //       hasSubItems: false,
+              //     },
+              //   ]
+              // },
               {
                 id: 12400,
                 icon: <AutoStoriesOutlinedIcon {...icon} />,
@@ -542,14 +544,52 @@ const JSXRouteWrapper = () => {
                 // ]
               },
             ] : [],
-            {
-              id: 12300,
-              icon: <PrivacyTipOutlinedIcon {...icon} />,
-              name: "About KPI",
-              path: "/employees/About-KPI",
-              element: <AboutAppraisalsPage/>,
-              hasSubItems: false,
-            },
+            // {
+            //   id: 12300,
+            //   icon: <PrivacyTipOutlinedIcon {...icon} />,
+            //   name: "About KPI",
+            //   path: "/employees/About-KPI",
+            //   element: <AboutAppraisalsPage/>,
+            //   hasSubItems: false,
+            // },
+            ...(state?.user?.role === INTERNAL_USER_ROLE.Employee ) ? [
+              {
+                id: 12400,
+                icon: <AutoStoriesOutlinedIcon {...icon} />,
+                name: "Employment History",
+                path: "/employees/Employment-History-E1",
+                element:<EmploymentHistoryPageEmpView/>,
+                hasSubItems: false,
+                // subItems: [
+                //   {
+                //     id: 121000,
+                //     icon: <UserCircleIcon {...icon} />,
+                //     name: "201 Files",
+                //     path: "/employees/KPI-Appraisals/:emp_no",
+                //     element: <APPRAISALDETAILSPage/>, 
+                //     hasSubItems: false,
+                //   },
+                // ]
+              },
+              {
+                id: 12500,
+                icon: <Diversity3OutlinedIcon {...icon} />,
+                name: "Training & Seminars",
+                path: "/employees/Training-and-Seminars-E1",
+                element:<EMPSEMINARSPageV2EmpView/>,
+                hasSubItems: false,
+                // subItems: [
+                //   {
+                //     id: 121000,
+                //     icon: <UserCircleIcon {...icon} />,
+                //     name: "201 Files",
+                //     path: "/employees/KPI-Appraisals/:emp_no",
+                //     element: <APPRAISALDETAILSPage/>, 
+                //     hasSubItems: false,
+                //   },
+                // ]
+              },
+            ] : [],
           ]
         },
         {
@@ -846,52 +886,52 @@ const JSXRouteWrapper = () => {
             ]:[],
           ]
         },
-        {
-          id: 19000,
-          icon: null,
-          name: "Payroll",
-          path: "/payroll",
-          element: null,
-          hasSubItems: true,
-          subItems: [
-            ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee) ? [
-              {
-                id: 19100,
-                icon: <DocumentIcon {...icon} />,
-                name: "View All Payroll",
-                path: "/payroll/view-all-payroll",
-                element: <ViewPayroll/>,
-                hasSubItems: false,
-              },
-              {
-                id: 19200,
-                icon: <DocumentIcon {...icon} />,
-                name: "Process Payroll",
-                path: "/payroll/process-payroll",
-                element: <ProcessPayrollPage/>,
-                hasSubItems: false,
-              },
-              {
-                id: 19300,
-                icon: <DocumentIcon {...icon} />,
-                name: "Payslip Sample",
-                path: "/payroll/payslip-sample",
-                element: <TestView/>,
-                hasSubItems: false,
-              },
-            ] : [],
-            ...(state?.user?.role === INTERNAL_USER_ROLE.Employee) ? [
-              {
-                id: 19100,
-                icon: <DocumentIcon {...icon} />,
-                name: "View Specific Payroll",
-                path: "/payroll/view-specific-payroll",
-                element: <ViewSpecificPayroll/>,
-                hasSubItems: false,
-              },
-            ] : [],
-          ]
-        },
+        // {
+        //   id: 19000,
+        //   icon: null,
+        //   name: "Payroll",
+        //   path: "/payroll",
+        //   element: null,
+        //   hasSubItems: true,
+        //   subItems: [
+        //     ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee) ? [
+        //       {
+        //         id: 19100,
+        //         icon: <DocumentIcon {...icon} />,
+        //         name: "View All Payroll",
+        //         path: "/payroll/view-all-payroll",
+        //         element: <ViewPayroll/>,
+        //         hasSubItems: false,
+        //       },
+        //       {
+        //         id: 19200,
+        //         icon: <DocumentIcon {...icon} />,
+        //         name: "Process Payroll",
+        //         path: "/payroll/process-payroll",
+        //         element: <ProcessPayrollPage/>,
+        //         hasSubItems: false,
+        //       },
+        //       {
+        //         id: 19300,
+        //         icon: <DocumentIcon {...icon} />,
+        //         name: "Payslip Sample",
+        //         path: "/payroll/payslip-sample",
+        //         element: <TestView/>,
+        //         hasSubItems: false,
+        //       },
+        //     ] : [],
+        //     ...(state?.user?.role === INTERNAL_USER_ROLE.Employee) ? [
+        //       {
+        //         id: 19100,
+        //         icon: <DocumentIcon {...icon} />,
+        //         name: "View Specific Payroll",
+        //         path: "/payroll/view-specific-payroll",
+        //         element: <ViewSpecificPayroll/>,
+        //         hasSubItems: false,
+        //       },
+        //     ] : [],
+        //   ]
+        // },
         
         
         // {

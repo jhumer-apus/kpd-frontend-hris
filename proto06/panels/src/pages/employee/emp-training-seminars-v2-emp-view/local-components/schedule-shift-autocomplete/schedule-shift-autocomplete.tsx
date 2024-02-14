@@ -1,0 +1,104 @@
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '@/store/configureStore';
+import { AutocompleteInputChangeReason } from '@mui/material/Autocomplete';
+import { SCHEDULEDAILYCreateInterface, SCHEDULESHIFTViewInterface } from '@/types/types-pages';
+import { SCHEDULESHIFTViewAction } from '@/store/actions/procedurals';
+import dayjs from 'dayjs';
+
+
+interface SCHEDULESHIFTFetchAutoCompleteOnSCHEDULEDAILYPageInterface{
+    createSCHEDULEDAILY: SCHEDULEDAILYCreateInterface;
+    setCreateSCHEDULEDAILY: Dispatch<SetStateAction<SCHEDULEDAILYCreateInterface>>;
+}
+
+
+export default function SCHEDULESHIFTFetchAutoCompleteOnSCHEDULEDAILYPage(props: SCHEDULESHIFTFetchAutoCompleteOnSCHEDULEDAILYPageInterface) {
+    const {setCreateSCHEDULEDAILY, createSCHEDULEDAILY} = props;
+    const dispatch = useDispatch();
+    const state = useSelector((state:RootState)=> state.procedurals.SCHEDULESHIFTView);
+    const dataArray = state.data as SCHEDULESHIFTViewInterface[];
+    const [SCHEDULESHIFTList, setSCHEDULESHIFTList] = useState<{SCHEDULESHIFT: string, SCHEDULESHIFT_id: number }[]>([])
+    const [selectedSCHEDULESHIFTId, setSelectedSCHEDULESHIFTId] = useState<number | null>(null);
+    useEffect(()=> {
+        if(dataArray?.length === 0 || !dataArray ){
+            dispatch(SCHEDULESHIFTViewAction());
+        }
+    }, []);
+
+    useEffect(()=> {
+        if(selectedSCHEDULESHIFTId){
+            setCreateSCHEDULEDAILY((prevState)=> {
+                return(
+                    {
+                        ...prevState,
+                        schedule_shift_code: selectedSCHEDULESHIFTId
+                    }
+                )
+            })
+        }
+    }, [selectedSCHEDULESHIFTId])
+
+    useEffect(() => {
+        if (dataArray) {
+            setTimeout(() => {
+                const updatedSCHEDULESHIFTList = 
+                dataArray?.map(({ id, name, time_in, time_out }) => {
+                    return {
+                        SCHEDULESHIFT: `${id} - ${name} [${dayjs(time_in, "HH:mm:ss").format("hh:mm a")} - ${dayjs(time_out, "HH:mm:ss").format("hh:mm a")}]`,
+                        SCHEDULESHIFT_id: id ?? NaN,
+                    };
+                });
+                setSCHEDULESHIFTList(updatedSCHEDULESHIFTList);
+            }, 1000);
+        }
+    }, [dataArray]);
+
+    const options = SCHEDULESHIFTList?.map((option) => {
+        const firstLetter = option.SCHEDULESHIFT[0].toUpperCase();
+        return {
+        firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
+        ...option,
+        };
+    });
+    
+    const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string, reason: AutocompleteInputChangeReason) => {
+        const matchingSCHEDULESHIFT = SCHEDULESHIFTList.find(
+        //   (employeeItems) => employeeItems.employee === newInputValue
+        (SCHEDULESHIFTItems) => SCHEDULESHIFTItems.SCHEDULESHIFT.toLowerCase().includes(newInputValue.toLowerCase())
+        );
+        if (matchingSCHEDULESHIFT) {
+            setSelectedSCHEDULESHIFTId(matchingSCHEDULESHIFT.SCHEDULESHIFT_id);
+        } else {
+            setSelectedSCHEDULESHIFTId(null);
+        }
+    };
+
+    const isOptionEqualToValue = (option: { SCHEDULESHIFT: string; SCHEDULESHIFT_id: number }, value: { SCHEDULESHIFT: string; SCHEDULESHIFT_id: number }) => {
+        return option.SCHEDULESHIFT_id === value.SCHEDULESHIFT_id;
+    };
+    
+    return (
+        <Autocomplete
+        // disableCloseOnSelect
+        noOptionsText={'Loading... Please Wait.'}
+        options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
+        groupBy={(option) => option.firstLetter}
+        getOptionLabel={(option) => option.SCHEDULESHIFT}
+        onInputChange={handleInputChange}
+        sx={{ width: '100%' }}
+        isOptionEqualToValue={isOptionEqualToValue}
+        renderInput={(params) => 
+            {   
+                return(
+                    <TextField {...params} label="Schedule Shifts" />
+                )
+
+            }
+
+        }
+        />
+    );
+}

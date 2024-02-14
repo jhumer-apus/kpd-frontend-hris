@@ -19,10 +19,10 @@ export default function RoleAutoComplete(props: RoleAutoCompleteInterface) {
     const {setCreateUSER, createUSER} = props;
     const dispatch = useDispatch();
     const [state, setState] = useState({data: [
-        {
-            id: INTERNAL_USER_ROLE.Developer,
-            role_name: "Developer"
-        },
+        // {
+        //     id: INTERNAL_USER_ROLE.Developer,
+        //     role_name: "Developer"
+        // },
         {
             id: INTERNAL_USER_ROLE.HR_Super_Admin,
             role_name: "HR Super Admin"
