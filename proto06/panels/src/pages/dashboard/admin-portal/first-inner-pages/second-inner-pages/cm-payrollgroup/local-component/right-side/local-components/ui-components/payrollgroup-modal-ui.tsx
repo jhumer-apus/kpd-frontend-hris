@@ -44,7 +44,7 @@ function PAYROLLGROUPModalUI(props: PAYROLLGROUPModalUIInterface) {
                     <TextField sx={{width: '100%'}} label='Date Deactivated:' value={ThisProps.date_deleted? dayjs(ThisProps.date_deleted).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
                 </div>
                 <div className='flex gap-3 flex-col'>
-                    <TextField sx={{width: '100%', minWidth: '160px'}} label='Pay Frequency(Per Month - 1|2|3 )' value={ThisProps.payroll_freq || '-'} InputProps={{readOnly: true,}} variant='filled'/>
+                    <TextField sx={{width: '100%', minWidth: '160px'}} helperText={<p>1 - Monthly | 2 - Bi Monthly | 3 - Daily</p>} label='Pay Frequency(Per Month)' value={ThisProps.payroll_freq || '-'} InputProps={{readOnly: true,}} variant='filled'/>
                     <TextField sx={{width: '100%', minWidth: '160px'}} multiline rows={4} label='Description' value={ThisProps.payroll_description || '-'} InputProps={{readOnly: true,}} variant='outlined'/>
                 </div>
             </div>
