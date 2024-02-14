@@ -112,6 +112,7 @@ export default function AllowedDaysPAYROLLGROUPModal(props: AllowedDaysPAYROLLGR
                 <TextField
                 sx={{width: '90%'}}
                   label='Pay Frequency(Per Month)'
+                  placeholder='1 - Monthly | 2 - Bi-Monthly | 3 - Daily'
                   type='number'
                   required
                   value={singlePAYROLLGROUPDetailsData.payroll_freq}
