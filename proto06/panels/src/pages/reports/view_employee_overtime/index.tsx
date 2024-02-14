@@ -34,7 +34,20 @@ export default function ViewEmployeeLeaves() {
     const getEmployeeLeaves = async () => {
 
         setIsLoading(true);
-        await axios.get(`${APILink}leave/?month=${month}&year=${year}`).then(response => {
+        await axios.get(`${APILink}leave/ot`).then(response => {
+
+            const data = response.data.map((obj:any) => {
+                return {
+                    id: obj.id,
+                    "Employee No.": obj.emp_no,
+                    "Employee Name": "Wala Pa",
+                    "Type Of Leave": obj.leave_type_name,
+                    "Date Start": convertDateToLocalString(obj.leave_date_from),
+                    "Date End": convertDateToLocalString(obj.leave_date_to),
+                    "Day/s": obj.leave_number_days
+                }
+
+            })
 
             setDataRows(curr => response.data);
             setIsLoading(false)
