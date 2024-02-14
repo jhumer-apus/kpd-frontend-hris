@@ -14,7 +14,7 @@ export default function PVMTAXPageHistory() {
   const [singleTAXOpenModal, setSingleTAXOpenModal] = useState<boolean>(false);
   const [singleTAXDetailsData, setSingleTAXDetailsData] = useState<TAXViewInterface>({
     id: NaN,
-    tin_no: NaN,
+    tin_no: '',
     tax_form: '',
     tax_description: '',
     tax_percentage: NaN,

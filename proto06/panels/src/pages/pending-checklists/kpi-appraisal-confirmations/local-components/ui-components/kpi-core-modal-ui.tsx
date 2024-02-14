@@ -1,21 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { KPICOREEditInterface, KPICOREUpdateSupervisorInterface, KPICOREViewInterface, ONBOARDINGSTATUSUpdateInterface } from '@/types/types-employee-and-applicants';
-import { convertDaysToHHMM, convertMinutesToHHMM,  } from '@/helpers/utils';
 import { Button, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import {TextField} from '@mui/material';
-import ApproveKPICOREModal from '../main-modals/inner-modals/approve-obt-modal';
-import DenyKPICOREModal from '../main-modals/inner-modals/deny-obt-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { KPICOREEditAction, KPICOREEditActionFailureCleanup, KPICOREUpdateSupervisorAction, KPICOREUpdateSupervisorActionFailureCleanup } from '@/store/actions/employee-and-applicants';
-
-
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers';
-
-
 
 interface KPICOREModalUIInterface {
     singleKPICOREDetailsData: KPICOREViewInterface;
@@ -228,10 +218,7 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
 
     return (
         <React.Fragment>
-            {/* <ApproveKPICOREModal singleKPICOREDetailsData={singleKPICOREDetailsData} setSingleKPICOREDetailsData={setSingleKPICOREDetailsData} approveKPICOREOpenModal={approveKPICOREOpenModal} setApproveKPICOREOpenModal={setApproveKPICOREOpenModal}/>
-            <DenyKPICOREModal singleKPICOREDetailsData={singleKPICOREDetailsData} setSingleKPICOREDetailsData={setSingleKPICOREDetailsData} denyKPICOREOpenModal={denyKPICOREOpenModal} setDenyKPICOREOpenModal={setDenyKPICOREOpenModal}/> */}
-            
-            
+                    
             <div className='flex justify-center flex-col'>
                 <Typography variant='h5' className='flex justify-center text-center'>
                             Employee Name: {singleKPICOREDetailsData.emp_name} [# {singleKPICOREDetailsData.emp_no}]
@@ -282,6 +269,7 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
                                     InputProps={{readOnly: true,}} 
                                     variant='outlined' 
                                     multiline 
+                                    disabled
                                     rows={2}
                                 />
                                 <div className='flex justify-center gap-4'>
@@ -291,6 +279,7 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
                                         label={`Self-Eval Points #${index + 1}`} 
                                         value={item.self_eval_point} 
                                         InputProps={{readOnly: true,}} 
+                                        disabled
                                         variant='outlined' 
                                     />
                                     <TextField 

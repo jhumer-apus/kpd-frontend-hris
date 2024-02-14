@@ -11,13 +11,13 @@ export const ManageRANKPageDescriptions = [
 
 export const ManageRANKPageColumns: GridColDef[] = 
 [
+  { field: 'id', headerName: 'ID', width: 100 },
   {
     field: 'rank_name',
     headerName: 'Rank Name',
     width: 150,
 
   },
-  { field: 'id', headerName: 'Rank ID', width: 100 },
   { field: 'date_added', 
     headerName: 'Date Added', 
     width: 120,
@@ -26,7 +26,7 @@ export const ManageRANKPageColumns: GridColDef[] =
       return params.row.date_added ? dayjs(date).format(`${globalDate}`) : 'No Date';
     } 
   },
-  { field: 'rank_description', headerName: 'Rank Description',  width: 200 },
+  { field: 'rank_description', headerName: 'Rank Description',  width: 250 },
 ];
   
 export default {

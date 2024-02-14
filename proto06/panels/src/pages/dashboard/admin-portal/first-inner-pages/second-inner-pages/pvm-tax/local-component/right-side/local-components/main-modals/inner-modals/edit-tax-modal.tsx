@@ -106,7 +106,7 @@ export default function EditTAXModal(props: EditTAXModalInterface) {
                                     return (
                                         {
                                             ...prevState,
-                                            tin_no: value
+                                            tin_no: `${value}`
                                         }
                                     )
                                 })

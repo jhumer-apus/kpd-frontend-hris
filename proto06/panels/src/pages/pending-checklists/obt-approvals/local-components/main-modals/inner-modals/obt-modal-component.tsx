@@ -19,7 +19,7 @@ const OBTModalComponent = ((props:OBTModalComponentInterface) => {
     return (
         <Fragment>
             <Typography variant='soft'>Official Business Time/Trip Data</Typography>
-            <ModalClose sx={{marginTop: '4px'}}/>
+            {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <OBTModalUI setSingleOBTDetailsData={setSingleOBTDetailsData} singleOBTDetailsData={singleOBTDetailsData}/>
             </div>

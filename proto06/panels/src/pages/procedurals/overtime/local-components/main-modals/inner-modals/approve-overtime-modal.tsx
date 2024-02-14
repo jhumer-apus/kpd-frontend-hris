@@ -22,7 +22,7 @@ interface ApproveOVERTIMEModalInterface {
 export default function ApproveOVERTIMEModal(props: ApproveOVERTIMEModalInterface) {
   const dispatch = useDispatch();
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
-  const OVERTIMEApproveState = useSelector((state: RootState)=> state.procedurals.OVERTIMEEdit.status)
+  const OVERTIMEApproveState = useSelector((state: RootState)=> state.procedurals.OVERTIMEEdit)
   const {approveOVERTIMEOpenModal, setApproveOVERTIMEOpenModal, singleOVERTIMEDetailsData, setSingleOVERTIMEDetailsData} = props;
 
   const approveOVERTIME = () => { 
@@ -57,15 +57,16 @@ export default function ApproveOVERTIMEModal(props: ApproveOVERTIMEModalInterfac
   }
 
   React.useEffect(()=>{
-    if(OVERTIMEApproveState){
-      window.alert(`${OVERTIMEApproveState.charAt(0).toUpperCase()}${OVERTIMEApproveState.slice(1)}`)
-      if(OVERTIMEApproveState !== 'failed'){
-        setTimeout(()=>{
-          window.location.reload();
-        }, 800)
-      }
+    if(OVERTIMEApproveState.status === 'succeeded'){
+      window.alert(`${OVERTIMEApproveState.status.charAt(0).toUpperCase()}${OVERTIMEApproveState.status.slice(1)}`)
+      setTimeout(()=>{
+        window.location.reload();
+      }, 800)
+    } else if(OVERTIMEApproveState.status === 'failed'){
+      window.alert(`Error: ${OVERTIMEApproveState.error}`)
     }
-  }, [OVERTIMEApproveState])
+  }, [OVERTIMEApproveState.status])
+  
   return (
     <React.Fragment>
       <Transition in={approveOVERTIMEOpenModal} timeout={400}>

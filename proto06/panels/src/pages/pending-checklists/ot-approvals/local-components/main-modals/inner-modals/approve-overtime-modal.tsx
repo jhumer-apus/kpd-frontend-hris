@@ -65,7 +65,7 @@ export default function ApproveOVERTIMEModal(props: ApproveOVERTIMEModalInterfac
     } else if(OVERTIMEApproveData.status === 'failed'){
       window.alert(OVERTIMEApproveData.error)
     }
-  }, [])
+  }, [OVERTIMEApproveData.status])
   return (
     <React.Fragment>
       <Transition in={approveOVERTIMEOpenModal} timeout={400}>

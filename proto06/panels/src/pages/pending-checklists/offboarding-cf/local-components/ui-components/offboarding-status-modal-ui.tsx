@@ -43,7 +43,7 @@ function OFFBOARDINGSTATUSModalUI(props: OFFBOARDINGSTATUSModalUIInterface) {
 
     const [ documentPayload, setDocumentPayload ] = useState<OFFBOARDINGSTATUSEditInterface>({
         id: NaN,
-        date_offboard: null,
+        date_resigned: '',
         status: 'Pending',
         final_remarks: '',
         emp_no: NaN,
@@ -68,9 +68,9 @@ function OFFBOARDINGSTATUSModalUI(props: OFFBOARDINGSTATUSModalUIInterface) {
                     {
                         ...prevState,
                         id: singleOFFBOARDINGSTATUSDetailsData.id,
-                        date_offboard: singleOFFBOARDINGSTATUSDetailsData.date_offboard,
+                        date_resigned: singleOFFBOARDINGSTATUSDetailsData.date_offboard === null ? '2000-01-01T00:00:00' : singleOFFBOARDINGSTATUSDetailsData.date_offboard,
                         status: singleOFFBOARDINGSTATUSDetailsData.status,
-                        final_remarks: singleOFFBOARDINGSTATUSDetailsData.final_remarks,
+                        final_remarks: singleOFFBOARDINGSTATUSDetailsData.final_remarks !== null ? singleOFFBOARDINGSTATUSDetailsData.final_remarks : "...",
                         emp_no: singleOFFBOARDINGSTATUSDetailsData.emp_no,
                         added_by: curr_user?.emp_no
                     }

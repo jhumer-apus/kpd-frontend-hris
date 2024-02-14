@@ -112,7 +112,7 @@ export interface EVALQUESTIONSEditInterface extends EVALQUESTIONSGenericInterfac
 export interface ONBOARDINGSTATUSGenericInterface {
 	date_start: string | null
 	status: "Pending" | "Completed"
-	final_remarks: string | null
+	final_remarks: string 
 	emp_no: number
 	emp_onboard_reqs?: Array<EMP_ONBOARD_REQS_Interface>
 	added_by?: number
@@ -181,7 +181,7 @@ export interface ONBOARDINGREQUIREMENTSEditInterface extends ONBOARDINGREQUIREME
 export interface OFFBOARDINGSTATUSGenericInterface {
 	date_offboard: string | null
 	status: "Pending" | "Completed"
-	final_remarks: string | null
+	final_remarks: string
 	emp_no: number
 	emp_offboard_reqs?: Array<EMP_OFFBOARD_REQS_Interface>
 	added_by?: number
@@ -209,8 +209,8 @@ export interface OFFBOARDINGSTATUSCreateInterface extends Omit<OFFBOARDINGSTATUS
 	emp_no: number[]
 }
 
-export interface OFFBOARDINGSTATUSEditInterface extends OFFBOARDINGSTATUSGenericInterface, Pick<OFFBOARDINGSTATUSViewInterface, "id">{
-
+export interface OFFBOARDINGSTATUSEditInterface extends Omit<OFFBOARDINGSTATUSGenericInterface, "date_offboard">, Pick<OFFBOARDINGSTATUSViewInterface, "id">{
+ date_resigned: string
 }
 
 export interface OFFBOARDINGSTATUSUpdateInterface extends Pick <OFFBOARDINGSTATUSGenericInterface, "emp_no" | "added_by">{

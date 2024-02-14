@@ -55,7 +55,7 @@ export default function DenyOBTModal(props: DenyOBTModalInterface) {
       } else if(OBTDenyData.status === 'failed'){
         window.alert(OBTDenyData.error)
       }
-    }, [])
+    }, [OBTDenyData.status])
   return (
     <React.Fragment>
       <Transition in={denyOBTOpenModal} timeout={400}>

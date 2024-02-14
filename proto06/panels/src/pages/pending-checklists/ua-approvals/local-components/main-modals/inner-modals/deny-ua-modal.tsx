@@ -55,7 +55,7 @@ export default function DenyUAModal(props: DenyUAModalInterface) {
       } else if(UADenyData.status === 'failed'){
         window.alert(UADenyData.error)
       }
-    }, [])
+    }, [UADenyData.status])
   return (
     <React.Fragment>
       <Transition in={denyUAOpenModal} timeout={400}>
@@ -117,7 +117,7 @@ export default function DenyUAModal(props: DenyUAModalInterface) {
                     setSingleUADetailsData((prevState)=> {
                       return({
                         ...prevState,
-                        ot_reason_disapproval: `${event.target.value}`
+                        ua_reason_disapproval: `${event.target.value}`
                       })
                     })
                   }}

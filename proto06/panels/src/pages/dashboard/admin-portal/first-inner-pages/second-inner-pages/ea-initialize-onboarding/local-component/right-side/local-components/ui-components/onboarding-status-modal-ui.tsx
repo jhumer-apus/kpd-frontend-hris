@@ -38,6 +38,7 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
         emp_no: NaN,
         date_start: null,
         final_remarks: '',
+        status: 'Pending',
         added_by: NaN,
     })
 

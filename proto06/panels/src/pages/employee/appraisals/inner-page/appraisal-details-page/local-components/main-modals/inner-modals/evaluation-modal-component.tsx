@@ -1,7 +1,7 @@
 import { Dispatch, Fragment, SetStateAction, useRef } from 'react';
 import ModalClose from '@mui/joy/ModalClose';
 import Typography from '@mui/joy/Typography';
-import KPICOREModalUI from '../../ui-components/obt-modal-ui';
+import KPICOREModalUI from '../../ui-components/kpi-core-modal-ui';
 import { KPICOREViewInterface } from '@/types/types-employee-and-applicants';
 
 
@@ -19,7 +19,7 @@ const KPICOREModalComponent = ((props:KPICOREModalComponentInterface) => {
     return (
         <Fragment>
             <Typography variant='solid'>KPI and Core Competencies Evaluation Data</Typography>
-            <ModalClose sx={{marginTop: '4px'}}/>
+            {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <KPICOREModalUI setSingleKPICOREDetailsData={setSingleKPICOREDetailsData} singleKPICOREDetailsData={singleKPICOREDetailsData}/>
             </div>

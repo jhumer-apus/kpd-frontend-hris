@@ -19,7 +19,7 @@ const LEAVEModalComponent = ((props:LEAVEModalComponentInterface) => {
     return (
         <Fragment>
             <Typography variant='soft'>Leave Data</Typography>
-            <ModalClose sx={{marginTop: '4px'}}/>
+            {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <LEAVEModalUI setSingleLEAVEDetailsData={setSingleLEAVEDetailsData} singleLEAVEDetailsData={singleLEAVEDetailsData}/>
             </div>

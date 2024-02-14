@@ -17,7 +17,7 @@ const PAGIBIGModalComponent = ((props:PAGIBIGModalComponentInterface) => {
     return (
         <Fragment>
             <Typography variant='soft'>'Pagibig' Data</Typography>
-            <ModalClose sx={{marginTop: '4px'}}/>
+            {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
                 <PAGIBIGModalUI setCreatePAGIBIGDetailsData={setCreatePAGIBIGDetailsData} createPAGIBIGDetailsData={createPAGIBIGDetailsData}/>
             </div>
