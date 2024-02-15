@@ -40,7 +40,12 @@ function CircularProgressWithLabel(
   );
 }
 
-export default function CircularStatic() {
+
+interface CircularStaticProps {
+  status: string
+}
+export default function CircularStatic(props: CircularStaticProps) {
+    const { status } = props;
     const progress = useSelector ((state: RootState)=> state?.dtr?.mergeCutoffListAndEmployee?.progress);
     // const [progress, setProgress] = React.useState(10);
 
@@ -54,5 +59,5 @@ export default function CircularStatic() {
     //     };
     // }, []);
 
-    return <CircularProgressWithLabel value={progress} />;
+    return status === 'succeeded' ? <CircularProgressWithLabel value={progress} /> : null;
 }

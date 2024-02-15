@@ -22,7 +22,9 @@ import {
   summarizeCutoffListAndEmployee,
   summarizeCutoffListAndEmployeeSuccess,
   summarizeCutoffListAndEmployeeFailure,
-  summarizeCutoffListAndEmployeeProgress
+  summarizeCutoffListAndEmployeeProgress,
+  mergeCutoffListAndEmployeeFailureCleanup,
+  summarizeCutoffListAndEmployeeFailureCleanup
 } from '../actions/dtr';
 import { DtrData, ViewAllDtrLogsType, ViewCutoffDtrSummaryType } from '@/types/types-store';
 import { DTRCutoffListType, DTRCutoffListEmployees } from '@/types/types-pages';
@@ -38,7 +40,7 @@ interface DtrState {
     currentView: {
       dtrStatus: string | null;
       dtrError: string | null;
-      dtrData: DtrData;
+      dtrData: DtrData | null;
     };
   };
   getCutoffList: {
@@ -196,6 +198,19 @@ const setSummarizeListEmployeeFailureState = (state: DtrState, payload: string) 
   state.summarizeCutoffListAndEmployee.error = payload;
 };
 
+
+
+const setMergeListEmployeeFailureCleanupState = (state: DtrState) => {
+  state.mergeCutoffListAndEmployee.status = 'refreshed';
+  state.mergeCutoffListAndEmployee.message = null;
+  state.mergeCutoffListAndEmployee.error = null;
+};
+
+const setSummarizeListEmployeeFailureCleanupState = (state: DtrState) => {
+  state.summarizeCutoffListAndEmployee.status = 'refreshed';
+  state.summarizeCutoffListAndEmployee.message = null;
+  state.summarizeCutoffListAndEmployee.error = null;
+};
 // To do: improvement for the static typing
 // const set1LoadingState = (path: string) => (state: DtrState) => {
 //   state[path].status = 'loading';
@@ -245,12 +260,14 @@ const dtrSlice = createSlice({
       .addCase(mergeCutoffListAndEmployee, setMergeListEmployeeLoadingState)
       .addCase(mergeCutoffListAndEmployeeSuccess, (state, action) => setMergeListEmployeeSuccessState(state, action.payload.SuccessMessage))
       .addCase(mergeCutoffListAndEmployeeFailure, (state, action) => setMergeListEmployeeFailureState(state, action.payload))
+      .addCase(mergeCutoffListAndEmployeeFailureCleanup, (state, action) => setMergeListEmployeeFailureCleanupState(state))
       .addCase(mergeCutoffListAndEmployeeProgress, (state, action) => {
         state.mergeCutoffListAndEmployee.progress = action.payload;
       })
       .addCase(summarizeCutoffListAndEmployee, setSummarizeListEmployeeLoadingState)
       .addCase(summarizeCutoffListAndEmployeeSuccess, (state, action) => setSummarizeListEmployeeSuccessState(state, action.payload.SuccessMessage))
       .addCase(summarizeCutoffListAndEmployeeFailure, (state, action) => setSummarizeListEmployeeFailureState(state, action.payload))
+      .addCase(summarizeCutoffListAndEmployeeFailureCleanup, (state, action) => setSummarizeListEmployeeFailureCleanupState(state))
       .addCase(summarizeCutoffListAndEmployeeProgress, (state, action) => {
         state.summarizeCutoffListAndEmployee.progress = action.payload;
       })

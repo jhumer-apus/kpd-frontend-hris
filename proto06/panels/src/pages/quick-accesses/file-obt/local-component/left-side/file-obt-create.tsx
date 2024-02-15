@@ -40,7 +40,8 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
             }, 1000)
         }
     }, [OBTCreatestate.status])
-
+    
+    console.log(OBTCreatestate.status, "124124create_obt")
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '2px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create an Official Business Time/Trip Data</Typography>

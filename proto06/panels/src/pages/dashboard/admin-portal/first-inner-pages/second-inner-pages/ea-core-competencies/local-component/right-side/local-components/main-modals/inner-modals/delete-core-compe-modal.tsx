@@ -32,12 +32,12 @@ export default function DeactivateCORECOMPEModal(props: DeactivateCORECOMPEModal
   }
 
   React.useEffect(()=>{
-    if(CORECOMPEDeactivateState.status === 'succeeded'){
+    if(CORECOMPEDeactivateState.status === 'succeeded' && DeactivateCORECOMPEOpenModal){
       window.alert(`Success: ${CORECOMPEDeactivateState.status?.charAt(0).toUpperCase()}${CORECOMPEDeactivateState.status.slice(1)}`)
       setTimeout(()=>{
         window.location.reload();
       }, 800)
-    } else if(CORECOMPEDeactivateState.status === 'failed') {
+    } else if(CORECOMPEDeactivateState.status === 'failed' && DeactivateCORECOMPEOpenModal) {
       window.alert(`Error: ${CORECOMPEDeactivateState.error}`)
       dispatch(CORECOMPEDeleteActionFailureCleanup());
     }

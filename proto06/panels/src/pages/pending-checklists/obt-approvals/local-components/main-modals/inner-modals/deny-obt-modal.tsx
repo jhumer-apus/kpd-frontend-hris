@@ -45,14 +45,14 @@ export default function DenyOBTModal(props: DenyOBTModalInterface) {
         window.alert('Please insert reason');
       }
     }
-
+    console.log(denyOBTOpenModal, "124124")
     React.useEffect(()=>{
-      if(OBTDenyData.status === 'succeeded'){
+      if(OBTDenyData.status === 'succeeded' && denyOBTOpenModal){
         window.alert(`${OBTDenyData.status.charAt(0).toUpperCase()}${OBTDenyData.status.slice(1)}`)
         setTimeout(()=>{
           window.location.reload();
         }, 800)
-      } else if(OBTDenyData.status === 'failed'){
+      } else if(OBTDenyData.status === 'failed' && denyOBTOpenModal){
         window.alert(OBTDenyData.error)
       }
     }, [OBTDenyData.status])
@@ -61,7 +61,7 @@ export default function DenyOBTModal(props: DenyOBTModalInterface) {
       <Transition in={denyOBTOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
+        // keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setDenyOBTOpenModal(false);

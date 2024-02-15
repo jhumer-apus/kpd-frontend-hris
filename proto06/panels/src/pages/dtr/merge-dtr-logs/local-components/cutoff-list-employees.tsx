@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import { DataGrid, GridValueGetterParams, GridRowSelectionModel, GridCallbackDetails } from "@mui/x-data-grid";
 import { DTRCutoffListEmployees, previewDtrCsvItem } from "@/types/types-pages";
 import { useSelector, useDispatch } from "react-redux";
-import { getCutoffList, mergeCutoffListAndEmployee } from "@/store/actions/dtr";
+import { getCutoffList, mergeCutoffListAndEmployee, mergeCutoffListAndEmployeeFailureCleanup } from "@/store/actions/dtr";
 import MergeDTRHelp from "../local-popovers/merge-dtr-help";
 import {Button} from "@mui/material";
 import { RootState } from "@/store/configureStore";
@@ -62,7 +62,7 @@ const columns = [
 interface CutOffListEmployees {
   status: string | null,
   employees: DTRCutoffListEmployees[] | null,
-  // error: string | null,
+  error: string | null,
   selectedRows: CutoffListMergeSelectionState,
   setSelectedRows: (value: SetStateAction<CutoffListMergeSelectionState>) => void,
 }
@@ -71,6 +71,7 @@ interface CutOffListEmployees {
 export default function CutOffListEmployees(props: CutOffListEmployees) { 
   const {employees, selectedRows, setSelectedRows, status} = props;
   const dispatch = useDispatch();
+  const page_state = useSelector((state: RootState) => state.dtr.mergeCutoffListAndEmployee) 
   const handleSelection = (newSelection: GridRowSelectionModel, details: GridCallbackDetails) => {
     let emp_no_locale = [] as Array<number>;
     newSelection.forEach((id) => {
@@ -85,21 +86,33 @@ export default function CutOffListEmployees(props: CutOffListEmployees) {
       emp_no: emp_no_locale,
     }));
   };
-  
-  function initializeMerge(){
-    
+
+  console.log (page_state, "asdasd")
+  function initializeMerge(){  
     if(!Number.isNaN(selectedRows.cutoff_code)){
       dispatch(mergeCutoffListAndEmployee(selectedRows))
     } else {
       alert("There is no selected cutoff period. Make sure to select one.")
     }
   };
+  useEffect(()=>{
+    if(page_state.status === 'succeeded'){
+      window.alert(`${page_state.status.charAt(0).toUpperCase()}${page_state.status.slice(1)}`)
+      // setTimeout(()=>{
+      //   window.location.reload(); //no need to reload
+      // }, 800)
+    } else if(page_state.status === 'failed'){
+      window.alert(page_state.error)
+      dispatch(mergeCutoffListAndEmployeeFailureCleanup())
+    }
+  }, [page_state.status])
+
   return (
     <>
       <div className='flex justify-between items-center'>
       <b className="flex items-center">Choose Employees to Merge:</b>
       <div className="flex justify-between">
-      <CircularStatic/>
+      <CircularStatic status={page_state.status ? page_state.status : ""}/>
       <Button onClick={initializeMerge} variant={'contained'}> Initialize Merge</Button>
       </div>
       </div>

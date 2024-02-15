@@ -57,24 +57,25 @@ export default function ApproveOBTModal(props: ApproveOBTModalInterface) {
   }
 
   React.useEffect(()=>{
-    if(OBTApproveData.status === 'succeeded'){
+    if(OBTApproveData.status === 'succeeded' && approveOBTOpenModal){
       window.alert(`${OBTApproveData.status.charAt(0).toUpperCase()}${OBTApproveData.status.slice(1)}`)
       window.location.reload();
-      // dispatch(OBTEditActionFailureCleanup())
+      dispatch(OBTEditActionFailureCleanup())
       // setTimeout(()=>{
 
       // }, 200)
-    } else if(OBTApproveData.status === 'failed'){
+    } else if(OBTApproveData.status === 'failed' && approveOBTOpenModal){
       window.alert(OBTApproveData.error)
       dispatch(OBTEditActionFailureCleanup())
     }
   }, [OBTApproveData.status])
+  
   return (
     <React.Fragment>
       <Transition in={approveOBTOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
+        // keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setApproveOBTOpenModal(false);

@@ -30,7 +30,7 @@ export default function DeactivateEMPSEMINARSModal(props: DeactivateEMPSEMINARSM
   }
 
   React.useEffect(()=>{
-    if(EMPSEMINARSDeactivateState.status === 'succeeded'){
+    if(EMPSEMINARSDeactivateState.status === 'succeeded' && DeactivateEMPSEMINARSOpenModal){
       window.alert(`Success: ${EMPSEMINARSDeactivateState.status?.charAt(0).toUpperCase()}${EMPSEMINARSDeactivateState.status.slice(1)}`)
       setTimeout(()=>{
         dispatch((EMPSEMINARSViewSpecificAction({emp_no: singleEMPSEMINARSDetailsData.emp_no})))
@@ -40,7 +40,7 @@ export default function DeactivateEMPSEMINARSModal(props: DeactivateEMPSEMINARSM
         dispatch((EMPSEMINARSDeleteActionFailureCleanup()));
       }, 300)
       setSingleEMPSEMINARSOpenModal(false) //to close the first modal
-    } else if(EMPSEMINARSDeactivateState.status === 'failed') {
+    } else if(EMPSEMINARSDeactivateState.status === 'failed' && DeactivateEMPSEMINARSOpenModal) {
       window.alert(`Error: ${EMPSEMINARSDeactivateState.error}`)
       dispatch(EMPSEMINARSDeleteActionFailureCleanup());
     }

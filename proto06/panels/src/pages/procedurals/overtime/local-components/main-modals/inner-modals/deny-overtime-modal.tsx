@@ -47,12 +47,12 @@ export default function DenyOVERTIMEModal(props: DenyOVERTIMEModalInterface) {
     }
 
     React.useEffect(()=>{
-      if(OVERTIMEDenyState.status === 'succeeded'){
+      if(OVERTIMEDenyState.status === 'succeeded' && denyOVERTIMEOpenModal){
         window.alert(`${OVERTIMEDenyState.status.charAt(0).toUpperCase()}${OVERTIMEDenyState.status.slice(1)}`)
         setTimeout(()=>{
           window.location.reload();
         }, 800)
-      } else if(OVERTIMEDenyState.status === 'failed'){
+      } else if(OVERTIMEDenyState.status === 'failed' && denyOVERTIMEOpenModal){
         window.alert(`Error: ${OVERTIMEDenyState.error}`)
       }
     }, [OVERTIMEDenyState.status])

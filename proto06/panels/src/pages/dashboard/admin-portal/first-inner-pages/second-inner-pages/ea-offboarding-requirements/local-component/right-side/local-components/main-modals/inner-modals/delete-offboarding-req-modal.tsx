@@ -32,12 +32,12 @@ export default function DeactivateOFFBOARDINGREQUIREMENTSModal(props: Deactivate
   }
 
   React.useEffect(()=>{
-    if(OFFBOARDINGREQUIREMENTSDeactivateState.status === 'succeeded'){
+    if(OFFBOARDINGREQUIREMENTSDeactivateState.status === 'succeeded' && openModal){
       window.alert(`Success: ${OFFBOARDINGREQUIREMENTSDeactivateState.status?.charAt(0).toUpperCase()}${OFFBOARDINGREQUIREMENTSDeactivateState.status.slice(1)}`)
       setTimeout(()=>{
         window.location.reload();
       }, 800)
-    } else if(OFFBOARDINGREQUIREMENTSDeactivateState.status === 'failed') {
+    } else if(OFFBOARDINGREQUIREMENTSDeactivateState.status === 'failed' && openModal) {
       window.alert(`Error: ${OFFBOARDINGREQUIREMENTSDeactivateState.error}`)
       dispatch(OFFBOARDINGREQUIREMENTSDeleteActionFailureCleanup());
     }

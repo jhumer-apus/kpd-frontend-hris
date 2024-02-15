@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 import { EMPLOYEESViewInterface } from '@/types/types-store';
 import { ImportEmployee } from './forms/ImportEmployee';
 import { Button } from "@material-tailwind/react";
-import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
+import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import { SpecificEmployee } from './forms/SpecificEmployee';
 import { APILink } from '@/store/configureStore';
 import EmployeeExportToCsvButton from './local-components/export-to-csv-employee';
@@ -178,7 +178,7 @@ export default function DataTable() {
           // icon={<ArrowUpTrayIcon/>}
           onClick={()=>{handleOpen3()}}
         >
-        <ArrowUpTrayIcon style={{height: '15px'}}/> Import / Bulk Entry Employee CSV 
+        <ArrowDownTrayIcon style={{height: '15px'}}/> Import / Bulk Entry Employee CSV 
         </Button>
         <Modal
             open={open3}

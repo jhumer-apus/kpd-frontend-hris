@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import { DataGrid, GridValueGetterParams, GridRowSelectionModel, GridCallbackDetails } from "@mui/x-data-grid";
 import { DTRCutoffListEmployees, previewDtrCsvItem } from "@/types/types-pages";
 import { useSelector, useDispatch } from "react-redux";
-import { getCutoffList, mergeCutoffListAndEmployee, summarizeCutoffListAndEmployee } from "@/store/actions/dtr";
+import { getCutoffList, mergeCutoffListAndEmployee, summarizeCutoffListAndEmployee, summarizeCutoffListAndEmployeeFailureCleanup } from "@/store/actions/dtr";
 import MergeDTRHelp from "../local-popovers/merge-dtr-help";
 import {Button} from "@mui/material";
 import { RootState } from "@/store/configureStore";
@@ -73,6 +73,7 @@ interface CutOffListEmployees {
 export default function CutOffListEmployees(props: CutOffListEmployees) { 
   const { employees, selectedRows, setSelectedRows} = props;
   const dispatch = useDispatch();
+  const page_state = useSelector((state: RootState)=> state.dtr.summarizeCutoffListAndEmployee)
   const { status, error } = useSelector((state: RootState)=> state.dtr.getCutoffListEmployees);
   const handleSelection = (newSelection: GridRowSelectionModel, details: GridCallbackDetails) => {
     let emp_no_locale = [] as Array<number>;
@@ -95,12 +96,27 @@ export default function CutOffListEmployees(props: CutOffListEmployees) {
       alert("There is no selected cutoff period. Make sure to select one.")
     }
   };
+
+  useEffect(()=>{
+    if(page_state.status === 'succeeded'){
+      window.alert(`${page_state.status.charAt(0).toUpperCase()}${page_state.status.slice(1)}`)
+      // setTimeout(()=>{
+      //   window.location.reload(); //no need to reload
+      // }, 800)
+    } else if(page_state.status === 'failed'){
+      window.alert(page_state.error)
+      dispatch(summarizeCutoffListAndEmployeeFailureCleanup())
+    }
+  }, [page_state.status])
+
+  console.log(page_state.status, "123123")
+
   return (
     <>
       <div className='flex justify-between items-center'>
       <b className="flex items-center">Choose Which to Summarize:</b>
       <div className="flex justify-between">
-      <CircularStatic/>
+      <CircularStatic status={page_state.status ? page_state.status : "" }/>
       <Button onClick={initializeMerge} variant={'contained'}> Create Summary</Button>
       </div>
       </div>

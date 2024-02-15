@@ -47,12 +47,12 @@ export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
     }
 
     React.useEffect(()=>{
-      if(LEAVEDenyData.status === 'succeeded'){
+      if(LEAVEDenyData.status === 'succeeded' && denyLEAVEOpenModal){
         window.alert(`${LEAVEDenyData.status.charAt(0).toUpperCase()}${LEAVEDenyData.status.slice(1)}`)
         setTimeout(()=>{
           window.location.reload();
         }, 800)
-      } else if(LEAVEDenyData.status === 'failed'){
+      } else if(LEAVEDenyData.status === 'failed' && denyLEAVEOpenModal){
         window.alert(LEAVEDenyData.error)
       }
     }, [LEAVEDenyData.status])

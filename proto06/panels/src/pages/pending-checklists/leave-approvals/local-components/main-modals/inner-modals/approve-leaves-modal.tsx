@@ -57,12 +57,12 @@ export default function ApproveLEAVEModal(props: ApproveLEAVEModalInterface) {
   }
 
   React.useEffect(()=>{
-    if(LEAVEApproveData.status === 'succeeded'){
+    if(LEAVEApproveData.status === 'succeeded' && approveLEAVEOpenModal){
       window.alert(`${LEAVEApproveData.status.charAt(0).toUpperCase()}${LEAVEApproveData.status.slice(1)}`)
       setTimeout(()=>{
         window.location.reload();
       }, 800)
-    } else if(LEAVEApproveData.status === 'failed'){
+    } else if(LEAVEApproveData.status === 'failed' && approveLEAVEOpenModal){
       window.alert(LEAVEApproveData.error)
     }
   }, [LEAVEApproveData.status])

@@ -47,12 +47,12 @@ export default function DenyUAModal(props: DenyUAModalInterface) {
     }
 
     React.useEffect(()=>{
-      if(UADenyData.status === 'succeeded'){
+      if(UADenyData.status === 'succeeded' && denyUAOpenModal){
         window.alert(`${UADenyData.status.charAt(0).toUpperCase()}${UADenyData.status.slice(1)}`)
         setTimeout(()=>{
           window.location.reload();
         }, 800)
-      } else if(UADenyData.status === 'failed'){
+      } else if(UADenyData.status === 'failed' && denyUAOpenModal){
         window.alert(UADenyData.error)
       }
     }, [UADenyData.status])

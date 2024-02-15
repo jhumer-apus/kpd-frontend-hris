@@ -33,12 +33,12 @@ export default function DeactivateLEAVETYPEModal(props: DeactivateLEAVETYPEModal
   }
 
   React.useEffect(()=>{
-    if(LEAVETYPEDeactivateState.status === 'succeeded'){
+    if(LEAVETYPEDeactivateState.status === 'succeeded' && DeactivateLEAVETYPEOpenModal){
       window.alert(`Success: ${LEAVETYPEDeactivateState.status?.charAt(0).toUpperCase()}${LEAVETYPEDeactivateState.status.slice(1)}`)
       setTimeout(()=>{
         window.location.reload();
       }, 800)
-    } else if(LEAVETYPEDeactivateState.status === 'failed') {
+    } else if(LEAVETYPEDeactivateState.status === 'failed' && DeactivateLEAVETYPEOpenModal) {
       window.alert(`Error: ${LEAVETYPEDeactivateState.error}`)
       dispatch(LEAVETYPEDeleteActionFailureCleanup());
     }
