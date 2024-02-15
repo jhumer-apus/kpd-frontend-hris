@@ -71,7 +71,7 @@ function PVMPHILHEALTHCreate(props: CreatePHILHEALTHModalInterface) {
                             type="number"
                             value={createPHILHEALTH?.ph_no}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = parseInt(event.target.value)
+                                const value = String(event.target.value)
                                 setCreatePHILHEALTH((prevState)=> {
                                     return (
                                         {

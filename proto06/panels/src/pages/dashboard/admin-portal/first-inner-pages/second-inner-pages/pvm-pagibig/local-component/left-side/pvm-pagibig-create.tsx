@@ -79,7 +79,7 @@ function PVMPAGIBIGCreate(props: CreatePAGIBIGModalInterface) {
                             type="number"
                             value={createPAGIBIG?.pagibig_no}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = parseInt(event.target.value)
+                                const value = String(event.target.value)
                                 setCreatePAGIBIG((prevState)=> {
                                     return (
                                         {

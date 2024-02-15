@@ -77,7 +77,7 @@ function PVMSSSCreate(props: CreateSSSModalInterface) {
                             type="number"
                             value={createSSS?.sss_no}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = parseInt(event.target.value)
+                                const value = String(event.target.value)
                                 setCreateSSS((prevState)=> {
                                     return (
                                         {

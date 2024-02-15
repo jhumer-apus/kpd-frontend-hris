@@ -15,6 +15,24 @@ function PAGIBIGModalUI(props: PAGIBIGModalUIInterface) {
             <div className='flex flex-col gap-6 mt-6 w-full items-center align-center justify-center'>
                 <TextField 
                     sx={{width: '90%'}} 
+                    label='Deduction of Pagibig MP2 (Total Per Month):'
+                    variant='outlined' 
+                    type="number"
+                    value={createPAGIBIGDetailsData?.pagibig_with_cloan_amount}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                        const value = parseInt(event.target.value)
+                        setCreatePAGIBIGDetailsData((prevState)=> {
+                            return (
+                                {
+                                    ...prevState,
+                                    pagibig_mp2_deduction_amount: value
+                                }
+                            )
+                        })
+                    }}
+                />
+                <TextField 
+                    sx={{width: '90%'}} 
                     label='Deduction of Pagibig Cash Loan (Total Per Month):'
                     variant='outlined' 
                     type="number"
