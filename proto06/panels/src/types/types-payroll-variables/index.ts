@@ -26,6 +26,7 @@ export interface TAXEditInterface extends TAXGenericInterface{}
 export interface PAGIBIGGenericInterface {
     pagibig_no: number | string, //to check
     pagibig_contribution_month: number,
+    pagibig_mp2_deduction_amount: number,
     pagibig_with_cloan_amount: number | null,
     pagibig_rem_cloan_amount: number | null,
     pagibig_with_hloan_amount: number | null,

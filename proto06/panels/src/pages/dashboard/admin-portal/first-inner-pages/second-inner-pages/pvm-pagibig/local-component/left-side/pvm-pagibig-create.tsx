@@ -22,6 +22,7 @@ function PVMPAGIBIGCreate(props: CreatePAGIBIGModalInterface) {
     const PAGIBIGCreatestate = useSelector((state: RootState)=> state.payrollVariables.PAGIBIGCreate);
     const [createPAGIBIG, setCreatePAGIBIG] = useState<PAGIBIGCreateInterface>({
         pagibig_no: NaN,
+        pagibig_mp2_deduction_amount: 0,
         pagibig_contribution_month: NaN,
         pagibig_with_cloan_amount: null,
         pagibig_rem_cloan_amount: null,
