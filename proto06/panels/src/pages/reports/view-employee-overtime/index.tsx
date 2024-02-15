@@ -186,6 +186,7 @@ export default function ViewEmployeeLeaves() {
                 <ExportToCsvButton
                     data={exportCsvData}
                     defaultName="Employee-Overtime"
+                    isDisable={isLoading}
                 />
 
                 <div className="md:flex md:space-x-4 md:items-center">

@@ -7,10 +7,11 @@ import { ObjectFlat } from "@/types/index";
 interface ExportToCsvButtonInterface<T> {
     data: T[];
     defaultName: string;
+    isDisable: boolean
 }
 
 function ExportToCsv<T extends ObjectFlat>(props: ExportToCsvButtonInterface<T>) {
-    const { data, defaultName } = props;
+    const { data, defaultName, isDisable } = props;
 
 
     function convertToCSV(data: T[]) {
@@ -56,6 +57,7 @@ function ExportToCsv<T extends ObjectFlat>(props: ExportToCsvButtonInterface<T>)
         color='indigo'
         variant='gradient'
         onClick={handleDownload}
+        disabled={isDisable}
     >
         Export / Download as CSV
     </Button>
