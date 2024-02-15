@@ -40,13 +40,19 @@ function EmployeeExportToCsvButton<T extends ObjectFlat>(props: EmployeeExportTo
         document.body.removeChild(link);
     };
 
+
     const handleDownload = () => {
         if(!data){
           return; //Todo: Error Handling 
         }
         const csv = convertToCSV(data);
         if(csv){
-          downloadCSV(csv, `${window.prompt("File Name", "export_file_name")}`);
+          let userInput: null | string = null;
+          const askInput = () => {
+            userInput = window.prompt("File Name", "export_file_name");
+          }
+          askInput();
+          userInput !== null ? downloadCSV(csv, userInput) : '';
         }
     };
 

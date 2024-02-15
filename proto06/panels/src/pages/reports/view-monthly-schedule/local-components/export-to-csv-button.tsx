@@ -114,7 +114,12 @@ function ExportToCsvButton(props: ExportToCsvButtonInterface)  {
         }
         const csv = convertToCSV(header, data);
         if(csv){
-          downloadCSV(csv, `${window.prompt("Enter the file name", `Employee-Schedules-${getMonthName(monthNumber)}-${yearNumber}`)}`);
+          let userInput: null | string = null;
+          const askInput = () => {
+            userInput = window.prompt("Enter the file name", `Employee-Schedules-${getMonthName(monthNumber)}-${yearNumber}`)
+          }
+          askInput();
+          userInput !== null ? downloadCSV(csv, userInput): '';
         }
     };
 

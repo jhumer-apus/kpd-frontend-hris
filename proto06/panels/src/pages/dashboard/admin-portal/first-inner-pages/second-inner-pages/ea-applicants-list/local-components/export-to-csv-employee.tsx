@@ -42,12 +42,19 @@ function EmployeeExportToCsvButton(props: EmployeeExportToCsvButtonInterface) {
     };
 
     const handleDownload = () => {
-        if(!data){
-          return; //Todo: Error Handling 
+      if(!data){
+        return; //Todo: Error Handling 
+      }
+      const csv = convertToCSV(data);
+      if(csv){
+        let userInput: null | string = null;
+        const askInput = () => {
+          userInput = window.prompt("File Name", "export_file_name");
         }
-        const csv = convertToCSV(data);
-        downloadCSV(csv as string, `${window.prompt("File Name", "export_file_name")}`);
-    };
+        askInput();
+        userInput !== null ? downloadCSV(csv, userInput) : '';
+      }
+  };
     return (
         <Button 
           className='mb-4 flex gap-2'

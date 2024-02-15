@@ -42,14 +42,19 @@ function ExportToCsv<T extends ObjectFlat>(props: ExportToCsvButtonInterface<T>)
     };
 
     const handleDownload = () => {
-        if(!data){
-          return; //Todo: Error Handling 
+      if(!data){
+        return; //Todo: Error Handling 
+      }
+      const csv = convertToCSV(data);
+      if(csv){
+        let userInput: null | string = null;
+        const askInput = () => {
+          userInput = window.prompt("File Name", defaultName);
         }
-        const csv = convertToCSV(data);
-        if(csv){
-          downloadCSV(csv, `${window.prompt("File Name", defaultName)}`);
-        }
-    };
+        askInput();
+        userInput !== null ? downloadCSV(csv, userInput) : '';
+      }
+  };
 
     return (
       <Button 
