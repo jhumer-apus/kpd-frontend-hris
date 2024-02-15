@@ -74,7 +74,7 @@ export default function ViewEmployeeLeaves() {
     const exportCsvData = dataRows.map((obj:any) => {
         return {
             "Employee No.": obj.emp_no,
-            "Employee Name": "Wala Pa",
+            "Employee Name": obj.emp_name,
             "Date": obj.ot_date_filed,
             "OT Type": obj.ot_type,
             "OT Hours": obj.ot_total_hours,
@@ -99,7 +99,7 @@ export default function ViewEmployeeLeaves() {
             headerName: 'Employee Name', 
             width: 150,
             valueGetter: (params: GridValueGetterParams) => {
-                return params.row.full_name as string;
+                return params.row.emp_name as string;
             },
         },
         {
@@ -184,7 +184,8 @@ export default function ViewEmployeeLeaves() {
             <div className="my-10">
 
                 <ExportToCsvButton
-                    data={exportCsvData} 
+                    data={exportCsvData}
+                    defaultName="Employee-Overtime"
                 />
 
                 <div className="md:flex md:space-x-4 md:items-center">

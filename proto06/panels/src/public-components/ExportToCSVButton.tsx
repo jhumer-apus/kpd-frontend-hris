@@ -6,10 +6,11 @@ import { ObjectFlat } from "@/types/index";
 
 interface ExportToCsvButtonInterface<T> {
     data: T[];
+    defaultName: string;
 }
 
 function ExportToCsv<T extends ObjectFlat>(props: ExportToCsvButtonInterface<T>) {
-    const { data } = props;
+    const { data, defaultName } = props;
 
 
     function convertToCSV(data: T[]) {
@@ -45,7 +46,7 @@ function ExportToCsv<T extends ObjectFlat>(props: ExportToCsvButtonInterface<T>)
         }
         const csv = convertToCSV(data);
         if(csv){
-          downloadCSV(csv, `${window.prompt("File Name", "export_file_name")}`);
+          downloadCSV(csv, `${window.prompt("File Name", defaultName)}`);
         }
     };
 

@@ -84,7 +84,7 @@ export default function ViewEmployeeLeaves() {
     const exportCsvData = dataRows.map((obj:any) => {
         return {
             "Employee No.": obj.emp_no,
-            "Employee Name": "Wala Pa",
+            "Employee Name": obj.emp_name,
             "Type Of Leave": obj.leave_type_name,
             "Date Start": convertDateToLocalString(obj.leave_date_from),
             "Date End": convertDateToLocalString(obj.leave_date_to),
@@ -110,7 +110,7 @@ export default function ViewEmployeeLeaves() {
             headerName: 'Employee Name', 
             width: 150,
             valueGetter: (params: GridValueGetterParams) => {
-                return params.row.full_name as string;
+                return params.row.emp_name as string;
             },
         },
         {
@@ -204,6 +204,7 @@ export default function ViewEmployeeLeaves() {
 
                 <ExportToCsvButton
                     data={exportCsvData} 
+                    defaultName={`Employee-Leaves-${options[(month as number) -1].name}-${year}`}
                 />
 
                 <div className="md:flex md:space-x-4 md:items-center">
