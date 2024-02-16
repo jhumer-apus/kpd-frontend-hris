@@ -81,7 +81,7 @@ export function ChooseDashboard() {
             floated={false}
             shadow={false}
             color="transparent"
-            className="m-0 flex items-center justify-between p-6 z-0"
+            className="m-0 flex items-center justify-between p-7 z-0 mb-5"
           >
             <div>
               <Typography variant="h6" color="blue-gray" className="mb-1">

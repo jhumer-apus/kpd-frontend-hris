@@ -542,6 +542,9 @@ export const SpecificEmployee = (props: initialState) => {
                                             icon={<LockClosedOutline className="h-5 w-5 text-blue-gray-300" />}                                />
                                 </div>
                             </div>
+
+
+                            
                             <div className="my-4 flex items-center gap-4">
                                 <Button2 
                                     disabled={editMode2}
@@ -553,7 +556,7 @@ export const SpecificEmployee = (props: initialState) => {
                                 >
                                     Edit
                                 </Button2>
-                                {true && <Button2 
+                                {editMode2 && <Button2 
                                     type="submit"
                                     color={"teal"} 
                                     size="lg" 
@@ -561,6 +564,8 @@ export const SpecificEmployee = (props: initialState) => {
                                 >
                                     Save
                                 </Button2>  }
+  
+
                             </div>
                             <Typography
                                 variant="small"
