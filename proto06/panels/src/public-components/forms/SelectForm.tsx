@@ -6,9 +6,12 @@ interface SelectProps {
     variant: "static" | "standard" | "outlined";
     placeholder?: string; // Make it optional by adding `?`
     options: OptionInterface[],
-    currValue: string | undefined,
-    setState: Dispatch<SetStateAction<string | number>>;
-    isDisable: boolean | undefined;
+    currValue?: string | undefined,
+    setState?: Dispatch<SetStateAction<string | number | undefined>>;
+    isDisable?: boolean | undefined;
+    isRequired?: boolean | undefined;
+    register?: any;
+    name?:string
 }
     
 
@@ -19,7 +22,7 @@ interface OptionInterface {
 
 export default function SelectForm(props: SelectProps) {
 
-    const { options, label, variant, placeholder, currValue, isDisable, setState } = props;
+    const { options, name, register, label, variant, placeholder, currValue, isDisable, isRequired, setState } = props;
 
     return (
     <div className="flex w-72 my-8">
@@ -28,8 +31,11 @@ export default function SelectForm(props: SelectProps) {
             variant={variant} 
             label={label} 
             placeholder={placeholder} 
-            onChange={(val:any) => setState(val)}
+            onChange={(val:any) => setState? setState(val):null}
             disabled={isDisable}
+            name={name}
+            // require={isRequired}
+            ref={register}
         >
             {options.map((option: OptionInterface, i: number) => (
                 <Option key={i} value={option.value}>{option.name}</Option>
