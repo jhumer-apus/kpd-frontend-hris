@@ -118,7 +118,7 @@
                       </Tab>
                       <Tab value="static_info" onClick={() => handleTabClick('static_info')} className="flex items-center">
                         <ChatBubbleLeftEllipsisIcon className="-mt-0.5 mr-2 inline-block h-5 w-5" />
-                        Static Info
+                        Information
                       </Tab>
                       <Tab value="employment" onClick={() => handleTabClick('employment')} className="flex items-center">
                         <Cog6ToothIcon className="-mt-1 mr-2 inline-block h-5 w-5" />
@@ -157,7 +157,7 @@
                   <TextField  id="Birthday : YYYY-MM-DD" label="Birthday : YYYY-MM-DD" variant="outlined" style={{ width: '100%' }} value={curr_user?.birthday || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
                 </Typography>
                 <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
-                  <TextField  id="Gender" label="Gender" variant="outlined" style={{ width: '100%' }} value={curr_user?.gender || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                  <TextField  id="Sex" label="Sex" variant="outlined" style={{ width: '100%' }} value={curr_user?.gender || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
                 </Typography>
                 <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
                   <TextField  id="Present Address" label="Present Address" variant="outlined" style={{ width: '100%' }} value={curr_user?.address || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
@@ -244,9 +244,6 @@
             <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
             <TextField  id="TIN" label="TIN" variant="outlined" style={{ width: '100%' }} value={curr_user?.tax_code || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
             </Typography>
-            <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
-            <TextField  id="Philhealth" label="Philhealth" variant="outlined" style={{ width: '100%' }} value={curr_user?.philhealth_code || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
-            </Typography>
           </div>
           <div>
             <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
@@ -256,7 +253,7 @@
             <TextField  id="Department" label="Department" variant="outlined" style={{ width: '100%' }} value={curr_user?.department_code ||'-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
             </Typography>
             <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
-            <TextField  id="Ranked" label="Ranked" variant="outlined" style={{ width: '100%' }} value={curr_user?.rank_code || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <TextField  id="Rank" label="Rank" variant="outlined" style={{ width: '100%' }} value={curr_user?.rank_code || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
             </Typography>
             <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
             <TextField  id="Basic Salary Amount" label="Basic Salary Amount" variant="outlined" style={{ width: '100%' }} value={curr_user?.emp_salary_basic ||'-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
@@ -278,6 +275,9 @@
             </Typography>
             <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
             <TextField  id="SSS" label="SSS" variant="outlined" style={{ width: '100%' }} value={curr_user?.sssid_code || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            </Typography>
+            <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
+            <TextField  id="Philhealth" label="Philhealth" variant="outlined" style={{ width: '100%' }} value={curr_user?.philhealth_code || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
             </Typography>
           </div>
           </div>
