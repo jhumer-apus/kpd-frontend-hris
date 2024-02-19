@@ -25,6 +25,14 @@ import DatePicker from '@/public-components/forms/DatePickerForm'
 //   // Add other properties as needed
 // }
 
+interface DropDownData {
+  branches: any[],
+  departments: any[],
+  payrollGroups: any[],
+  employmentStatuses: any[],
+  positions: any[]
+}
+
 export const UserProfile = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<EMPLOYEESViewInterface>();
     const [editMode, setEditMode] = useState(true);
@@ -36,13 +44,14 @@ export const UserProfile = () => {
     })
     const [profileImage, setProfileImage] = useState<any>(null);
 
-    const [branches, setBranches] = useState([]);
-    const [departments, setDepartments] = useState([]);
-    const [payrollGroups, setPayrollGroups] = useState([]);
-    const [employmentStatuses, setEmploymentStatuses] = useState([]);
-    const [approversOne, setApproversOne] = useState([]);
-    const [approversTwo, setApproversTwo] = useState([]);
-    const [positions, setPositions] = useState([]);
+    const [dropDownData, setDropDownData] = useState<DropDownData>({
+      branches:[],
+      departments:[],
+      payrollGroups:[],
+      employmentStatuses:[],
+      positions:[]
+    })
+
 
     // useEffects
     useEffect(() => {
@@ -67,7 +76,7 @@ export const UserProfile = () => {
             name: payroll.name
           }
         })
-        setPayrollGroups(curr => responsePayrollGroups);
+        setDropDownData((curr:any) => ({...curr, payrollGroups: responsePayrollGroups}));
       })
     }
 
@@ -79,11 +88,12 @@ export const UserProfile = () => {
             name: branch.branch_name
           }
         })
-        setBranches(curr => responseBranches);
+        setDropDownData((curr:any) => ({...curr, branches: responseBranches}));
       })
     }
 
     const fetchDepartments = (id:number) => {
+
       axios.get(`${APILink}department/`).then((response:any) => {
         
         const responseDepartments = response.data
@@ -94,20 +104,19 @@ export const UserProfile = () => {
             name: department.dept_name
           }
         })
-        setDepartments(curr => responseDepartments);
+        setDropDownData((curr:any) => ({...curr, departments: responseDepartments}));
       })
     }
 
     const fetchEmploymentStatus = () => {
       axios.get(`${APILink}emp_status_type/`).then((response:any) => {
-        const responseEmploymentStatuses= response.data.map((employmentStatus:any) => {
+        const responseEmploymentStatuses = response.data.map((employmentStatus:any) => {
           return {
             id: employmentStatus.id,
             name: employmentStatus.name
           }
         })
-
-        setEmploymentStatuses(curr => responseEmploymentStatuses);
+        setDropDownData((curr:any) => ({...curr, employmentStatuses: responseEmploymentStatuses}));
       })
     }
 
@@ -120,7 +129,7 @@ export const UserProfile = () => {
           }
         })
 
-        setPositions(curr => responsePositions);
+        setDropDownData((curr:any) => ({...curr, positions: responsePositions}));
       })
     }
 
@@ -215,7 +224,7 @@ export const UserProfile = () => {
           <div>
             <label 
               htmlFor="fileInput" 
-              className="w-24 h-24 rounded-full border border-4 border-slate-900 cursor-pointer flex items-center justify-center"
+              className="w-24 h-24 m-auto rounded-full border border-4 border-slate-900 cursor-pointer flex items-center justify-center"
               style={{ backgroundImage: `url(${profileImage})`, backgroundSize: 'cover' }}
             >
               <div className='w-fit h-fit rounded-full p-2'>
@@ -228,7 +237,13 @@ export const UserProfile = () => {
               className="hidden"
               onChange={handleProfilePic}
             />
-            <span className='text-slate-500'>Profile Picture</span>
+            <Typography
+              variant="h6"
+              color="blue-gray"
+              className="mb-4 font-medium"
+            >
+            Upload Profile Picture
+        </Typography>  
           </div>
         </div>
 
@@ -567,7 +582,7 @@ export const UserProfile = () => {
                     label="Payroll Group"
                   >
                     {
-                      payrollGroups.length > 0 ? payrollGroups.map((payroll:any) => (
+                      dropDownData.payrollGroups.length > 0 ? dropDownData.payrollGroups.map((payroll:any) => (
                         <Option value={payroll.id}>{payroll.name}</Option>
                       ))
                       : <Option disabled>No payrolls available</Option>
@@ -614,7 +629,7 @@ export const UserProfile = () => {
                   variant="outlined"
                   label="Branch"
                 >
-                  {branches.length > 0 ? branches.map((branch:any)=> (
+                  {dropDownData.branches.length > 0 ? dropDownData.branches.map((branch:any)=> (
                     <Option value={branch.id}>{branch.name}</Option>
                   )): (
                     <Option disabled>No branch available</Option>
@@ -638,7 +653,7 @@ export const UserProfile = () => {
                   variant="outlined"
                   label="Department"
                 >
-                  {departments.length > 0 ? departments.map((department:any)=> (
+                  {dropDownData.departments.length > 0 ? dropDownData.departments.map((department:any)=> (
                     <Option value={department.id}>{department.name}</Option>
                   )): (
                     <Option disabled>No department available</Option>
@@ -709,7 +724,7 @@ export const UserProfile = () => {
                     variant="outlined"
                     label="Employment status"
                   >
-                    {employmentStatuses.map((employmentStatus:any) => (
+                    {dropDownData.employmentStatuses.map((employmentStatus:any) => (
                       <Option value={employmentStatus.id}>{employmentStatus.name}</Option>
                     ))}
                 </Select>
@@ -794,7 +809,7 @@ export const UserProfile = () => {
                     variant="outlined"
                     label="Position Code: (optional, ID)"
                   >
-                    {positions.length > 0 ? positions.map((pos:any)=> (
+                    {dropDownData.positions.length > 0 ? dropDownData.positions.map((pos:any)=> (
                       <Option value={pos.id}>{pos.name}</Option>
                     )): (
                       <Option disabled>No positions available</Option>
