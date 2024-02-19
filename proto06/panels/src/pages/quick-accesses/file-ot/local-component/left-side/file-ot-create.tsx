@@ -42,10 +42,10 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
 
     return (
         <React.Fragment>
-            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create an Overtime Data</Typography>
-            <div className='flex flex-col gap-6 overflow-auto relative'>
-                <div className='flex gap-6 pt-4'>
-                    <div className='flex flex-col gap-6'>
+            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '2px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create an Overtime Data</Typography>
+            <div className='flex flex-col gap-3 overflow-auto relative'>
+                <div className='flex flex-wrap gap-3 pt-4'>
+                    <div className='flex flex-col gap-3' style={{width : '100%'}}>
                         <EmployeeAutoComplete createOVERTIME={createOVERTIME} setCreateOVERTIME={setCreateOVERTIME}/>
                         <OVERTIMETypeAutoComplete createOVERTIME={createOVERTIME} setCreateOVERTIME={setCreateOVERTIME}/>
                         <TextField
@@ -53,7 +53,7 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
                             sx={{width: '100%'}} 
                             label='OVERTIME Description:'  
                             variant='outlined' 
-                            multiline rows={4}
+                            multiline rows={2}
                             value={createOVERTIME?.ot_remarks}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 // event.target.value
@@ -69,7 +69,7 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
                             
                         />
                     </div>
-                    <div className='flex flex-col gap-6'>
+                    <div className='flex flex-col gap-6' style={{width : '100%'}}>
                         <DateFromToOVERTIMECreate createOVERTIME={createOVERTIME} setCreateOVERTIME={setCreateOVERTIME}/>
                     </div>
                 </div>

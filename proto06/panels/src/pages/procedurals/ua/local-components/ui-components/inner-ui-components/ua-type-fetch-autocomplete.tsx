@@ -92,12 +92,12 @@ export default function UATYPEFetchAutoComplete(props: UATYPEFetchAutoCompleteIn
         groupBy={(option) => option.firstLetter}
         getOptionLabel={(option) => option.UATYPE}
         onInputChange={handleInputChange}
-        sx={{ width: 300 }}
+        sx={{ width: '100%' }}
         isOptionEqualToValue={isOptionEqualToValue}
         renderInput={(params) => 
             {   
                 return(
-                    <TextField {...params} label="Leave Types" />
+                    <TextField {...params} label="Leave Type" />
                 )
 
             }

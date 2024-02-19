@@ -35,7 +35,7 @@ export default function OBTTypeAutoComplete(props: OBTTypeAutoCompleteInterface)
             onChange={handleInputChange}
             disablePortal
             options={OBTTypeOptions}
-            sx={{ width: 300 }}
+            sx={{ width: '300' }}
             renderInput={(params) => <TextField {...params} label="OBT Type" />}
         />
     );

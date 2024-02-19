@@ -35,7 +35,7 @@ export default function OBTTypeAutoComplete(props: OBTTypeAutoCompleteInterface)
             disablePortal
             noOptionsText={'Loading... Please Wait.'}
             options={OBTTypeOptions}
-            sx={{ width: 300 }}
+            sx={{ width: '100%' }}
             renderInput={(params) => <TextField {...params} label="OBT Type" />}
         />
     );

@@ -88,7 +88,7 @@ export default function LEAVETYPEFetchAutoComplete(props: LEAVETYPEFetchAutoComp
         groupBy={(option) => option.firstLetter}
         getOptionLabel={(option) => option.LEAVETYPE}
         onInputChange={handleInputChange}
-        sx={{ width: 300 }}
+        sx={{ width: '100%' }}
         isOptionEqualToValue={isOptionEqualToValue}
         renderInput={(params) => 
             {   

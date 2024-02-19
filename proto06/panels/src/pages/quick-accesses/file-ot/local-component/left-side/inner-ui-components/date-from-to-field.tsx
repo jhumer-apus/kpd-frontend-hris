@@ -33,6 +33,7 @@ export default function DateFromToOVERTIMECreate(props: DateFromToOVERTIMECreate
                     })
                 )
             }}
+            sx={{ width: '100%' }} 
             />
             </div>
             <div title="Make sure this field is logical. (i.e, `Date & Time From` should come first and not the `Date & Time To`)">
@@ -52,6 +53,7 @@ export default function DateFromToOVERTIMECreate(props: DateFromToOVERTIMECreate
                     })
                 )
             }}
+            sx={{ width: '100%' }} 
             />
             </div>
         </LocalizationProvider>

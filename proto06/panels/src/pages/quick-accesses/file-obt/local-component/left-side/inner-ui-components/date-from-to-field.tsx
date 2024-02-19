@@ -33,6 +33,7 @@ export default function DateFromToOBTCreate(props: DateFromToOBTCreateInterface)
                     })
                 )
             }}
+            sx={{ width: '100%' }}
             />
             </div>
             <div title="Make sure this field is logical. (i.e, `Date From` should come first and not the `Date To`)">
@@ -52,6 +53,7 @@ export default function DateFromToOBTCreate(props: DateFromToOBTCreateInterface)
                     })
                 )
             }}
+            sx={{ width: '100%' }}
             />
             </div>
         </LocalizationProvider>

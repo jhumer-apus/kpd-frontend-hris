@@ -35,7 +35,7 @@ export default function OVERTIMETypeAutoComplete(props: OVERTIMETypeAutoComplete
             disablePortal
             noOptionsText={'Loading... Please Wait.'}
             options={OVERTIMETypeOptions}
-            sx={{ width: 300 }}
+            sx={{ width: '100%' }}
             renderInput={(params) => <TextField {...params} label="OVERTIME Type" />}
         />
     );

@@ -47,15 +47,15 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '2px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create an Official Business Time/Trip Data</Typography>
             <div className='flex flex-col gap-3 overflow-auto relative'>
                 <div className='flex flex-wrap gap-3 pt-4'>
-                    <div className='flex flex-col gap-3'>
-                        <EmployeeAutoComplete createOBT={createOBT} setCreateOBT={setCreateOBT}/>
+                    <div className='flex flex-col gap-3' style={{width: '100%'}}>
+                        <EmployeeAutoComplete createOBT={createOBT} setCreateOBT={setCreateOBT}  />
                         <OBTTypeAutoComplete createOBT={createOBT} setCreateOBT={setCreateOBT}/>
                         <TextField
                             required 
                             sx={{width: '100%'}} 
                             label='OBT Description:'  
                             variant='outlined' 
-                            multiline rows={4}
+                            multiline rows={2}
                             value={createOBT?.obt_remarks}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 // event.target.value
@@ -71,14 +71,14 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
                             
                         />
                     </div>
-                    <div className='flex flex-col gap-3'>
+                    <div className='flex flex-col gap-3' style={{width: '100%'}}>
                         <DateFromToOBTCreate createOBT={createOBT} setCreateOBT={setCreateOBT}/>
                         <TextField 
                             required
                             sx={{width: '100%'}} 
                             label='Location:'  
                             variant='outlined' 
-                            multiline rows={4}
+                            multiline rows={2}
                             value={createOBT?.obt_location}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 // event.target.value

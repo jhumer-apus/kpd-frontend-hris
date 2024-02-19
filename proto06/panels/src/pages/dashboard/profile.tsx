@@ -91,23 +91,23 @@
         <Card className="mx-3 -mt-16 mb-6 lg:mx-4">
           <CardBody className="p-4">
           <div className="mb-10 flex items-center justify-between gap-6 flex-col md:flex-row md:items-center md:justify-between md:gap-6">
-            <div className="flex items-center gap-6">
-              <img
-                src={getImageSrc()}
-                alt=" "
-                className="border rounded p-2"
-                style={{ maxWidth: '150px', maxHeight: '110px' }} 
-              />
-              <div>
-                <Typography variant="h5" color="blue-gray" className="mb-1" style={{ whiteSpace: 'nowrap' }}>
-                  {`${curr_user?.first_name }`} {`${curr_user?.last_name }`}
-                </Typography>
-                <Typography
-                  variant="small"
-                  className="font-normal text-blue-gray-600"
-                ></Typography>
+              <div className="flex items-center gap-6">
+                <img
+                  src={getImageSrc()}
+                  alt=" "
+                  className="border rounded p-2"
+                  style={{ maxWidth: '150px', maxHeight: '110px' }} 
+                />
+                <div>
+                  <Typography variant="h5" color="blue-gray" className="mb-1" style={{ whiteSpace: 'nowrap' }}>
+                    {`${curr_user?.first_name }`} {`${curr_user?.last_name }`}
+                  </Typography>
+                  <Typography
+                    variant="small"
+                    className="font-normal text-blue-gray-600"
+                  ></Typography>
+                </div>
               </div>
-            </div>
               <div className="w-full flex justify-end">
                 <div className="w-full" style={{ maxWidth: '500px', width: '100%' }}>
                   <Tabs value={activeTab}>
@@ -154,7 +154,7 @@
                   <TextField  id="Middlename" label="Middlename" variant="outlined" style={{ width: '100%' }} value={curr_user?.middle_name || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
                 </Typography>
                 <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
-                  <TextField  id="Birthday : YYYY-MM-DD" label="Birthday : YYYY-MM-DD" variant="outlined" style={{ width: '100%' }} value={curr_user?.birthday || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                  <TextField  id="Birthday :MM-DD-YYYY" label="Birthday : MM-DD-YYYY" variant="outlined" style={{ width: '100%' }} value={curr_user?.birthday ?new Date (curr_user?.birthday).toLocaleDateString() : '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
                 </Typography>
                 <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
                   <TextField  id="Sex" label="Sex" variant="outlined" style={{ width: '100%' }} value={curr_user?.gender || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
@@ -189,7 +189,7 @@
                   <TextField  id="Account Active" label="Account Active" variant="outlined" style={{ width: '100%' }} value={ curr_user?.user?.is_active   } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
                 </Typography>
                 <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
-                  <TextField  id="Last Login" label="Last Login" variant="outlined" style={{ width: '100%' }} value={curr_user?.user?.last_login || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                  <TextField  id="Last Login" label="Last Login" variant="outlined" style={{ width: '100%' }} value={curr_user?.user?.last_login ? new Date (curr_user.user?.last_login).toLocaleDateString() : '-' } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
                 </Typography>
                 <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
                   <TextField  id="Date Deactivated" label="Date Deactivated" variant="outlined" style={{ width: '100%' }} value={ curr_user?.user?.date_deleted || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
@@ -207,7 +207,7 @@
                   <TextField  id="Email Address" label="Email Address" variant="outlined" style={{ width: '100%' }} value={curr_user?.email_address || '-' } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
                 </Typography>
                 <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
-                  <TextField  id="Date Password Changed" label="Date Password Changed" variant="outlined" style={{ width: '100%' }} value={ curr_user?.user?.date_password_changed || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                  <TextField  id="Date Password Changed" label="Date Password Changed" variant="outlined" style={{ width: '100%' }} value={ curr_user?.user?.date_password_changed ? new Date (curr_user?.user?.date_password_changed).toLocaleDateString() : '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
                 </Typography>
               </div>  
               <div>
@@ -219,7 +219,7 @@
                   <TextField  id="Account Lock Status" label="Account Lock Status" variant="outlined" style={{ width: '100%' }} value={ curr_user?.user?.is_locked   } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
                 </Typography>
                 <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
-                  <TextField  id="Date Added" label="Date Added" variant="outlined" style={{ width: '100%' }} value={curr_user?.date_added || '-' } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                  <TextField  id="Date Added" label="Date Added" variant="outlined" style={{ width: '100%' }} value={ curr_user?.date_added ? new Date (curr_user?.date_added).toLocaleDateString() : '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
                 </Typography>
                 
               </div>  
@@ -230,7 +230,7 @@
           <div className="grid-cols-1 mb-12 grid gap-12 px-4 lg:grid-cols-2 xl:grid-cols-3" style={{ marginTop: '-10px', marginBottom: '20px', position: 'relative' }}>
           <div>
             <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
-             <TextField  id="Date Hired" label="Date Hired" variant="outlined" style={{ width: '100%' }} value={curr_user?.date_hired || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+             <TextField  id="Date Hired" label="Date Hired" variant="outlined" style={{ width: '100%' }} value={curr_user?.date_hired ? new Date(curr_user?.date_hired).toLocaleDateString() : '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
             </Typography>
             <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
             <TextField  id="Branch" label="Branch" variant="outlined" style={{ width: '100%' }} value={curr_user?.branch_code || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
@@ -247,7 +247,7 @@
           </div>
           <div>
             <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
-            <TextField  id="Date Resigned" label="Date Resigned" variant="outlined" style={{ width: '100%' }} value={curr_user?.date_resigned ||'-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <TextField  id="Date Resigned" label="Date Resigned" variant="outlined" style={{ width: '100%' }} value={curr_user?.date_resigned ? new Date(curr_user?.date_resigned).toLocaleDateString() : '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
             </Typography>
             <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
             <TextField  id="Department" label="Department" variant="outlined" style={{ width: '100%' }} value={curr_user?.department_code ||'-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
@@ -279,6 +279,7 @@
             <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
             <TextField  id="Philhealth" label="Philhealth" variant="outlined" style={{ width: '100%' }} value={curr_user?.philhealth_code || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
             </Typography>
+            
           </div>
           </div>
               )}
