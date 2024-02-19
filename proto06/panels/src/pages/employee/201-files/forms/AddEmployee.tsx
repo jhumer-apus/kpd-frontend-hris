@@ -40,7 +40,6 @@ export const UserProfile = () => {
       gender: null,
       branch_code: null,
       department_code: null,
-
     })
     const [profileImage, setProfileImage] = useState<any>(null);
 

@@ -10,6 +10,7 @@ import {
   TabsBody,
   TabPanel,
   Button as Button2,
+  Select, Option 
 } from "@material-tailwind/react";
 import {
   LockClosedIcon,
@@ -25,6 +26,8 @@ import {
   CheckCircleIcon,
   LockOpenIcon,
   UserPlusIcon,
+  DevicePhoneMobileIcon,
+  PhoneIcon,
   XMarkIcon,
   TagIcon,
 } from "@heroicons/react/24/outline";
@@ -37,6 +40,13 @@ import { EMPLOYEESViewInterface } from '@/types/types-store';
 import FormData from 'form-data';
 import { beautifyJSON } from '@/helpers/utils';
 
+interface DropDownData {
+    branches: any[],
+    departments: any[],
+    payrollGroups: any[],
+    employmentStatuses: any[],
+    positions: any[]
+  }
 
 type initialState = {
     secondOptionModalEntranceDelay?: Boolean;
@@ -47,6 +57,11 @@ type initialState = {
 export const SpecificEmployee = (props: initialState) => {
     const [file, setFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+    const [formSelectData, setFormSelectData] = useState({
+        gender: null,
+        branch_code: null,
+        department_code: null,
+    })
     
     const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = event.target.files ? event.target.files[0] : null;
@@ -70,8 +85,98 @@ export const SpecificEmployee = (props: initialState) => {
     const [editMode3, setEditMode3] = useState(false);
     const [type, setType] = useState("staticInfo");
 
+    const [dropDownData, setDropDownData] = useState<DropDownData>({
+        branches:[],
+        departments:[],
+        payrollGroups:[],
+        employmentStatuses:[],
+        positions:[]
+      })
+
+      // useEffects
+      useEffect(() => {
+        fetchBranches()
+        fetchPayrollGroups()
+        fetchEmploymentStatus()
+        fetchPositions()
+      }, [])
+  
+      useEffect(() => {
+        if(formSelectData?.branch_code) {
+          fetchDepartments(formSelectData.branch_code)
+        }
+      },[formSelectData]);
+  
+      // Fetch selects information
+      const fetchPayrollGroups = () => {
+        axios.get(`${APILink}payrollgroup`).then((response:any) => {
+          const responsePayrollGroups = response.data.map((payroll:any) => {
+            return {
+              id: payroll.id,
+              name: payroll.name
+            }
+          })
+          setDropDownData((curr:any) => ({...curr, payrollGroups: responsePayrollGroups}));
+        })
+      }
+  
+      const fetchBranches = () => {
+        axios.get(`${APILink}branch`).then((response:any) => {
+          const responseBranches = response.data.map((branch:any) => {
+            return {
+              id: branch.id,
+              name: branch.branch_name
+            }
+          })
+          setDropDownData((curr:any) => ({...curr, branches: responseBranches}));
+        })
+      }
+  
+      const fetchDepartments = (id:number) => {
+  
+        axios.get(`${APILink}department/`).then((response:any) => {
+          
+          const responseDepartments = response.data
+          .filter((department:any) => department.dept_branch_code == id)
+          .map((department:any) => {
+            return {
+              id: department.id,
+              name: department.dept_name
+            }
+          })
+          setDropDownData((curr:any) => ({...curr, departments: responseDepartments}));
+        })
+      }
+  
+      const fetchEmploymentStatus = () => {
+        axios.get(`${APILink}emp_status_type/`).then((response:any) => {
+          const responseEmploymentStatuses = response.data.map((employmentStatus:any) => {
+            return {
+              id: employmentStatus.id,
+              name: employmentStatus.name
+            }
+          })
+          setDropDownData((curr:any) => ({...curr, employmentStatuses: responseEmploymentStatuses}));
+        })
+      }
+  
+      const fetchPositions = () => {
+        axios.get(`${APILink}position/`).then((response:any) => {
+          const responsePositions = response.data.map((position:any) => {
+            return {
+              id: position.id,
+              name: position.pos_name
+            }
+          })
+  
+          setDropDownData((curr:any) => ({...curr, positions: responsePositions}));
+        })
+      }
+  
+
     useEffect(() => {
         if (userData) {
+            console.log(userData)
         for (const key in userData) {
             setValue(key, userData[key]);
         }
@@ -431,7 +536,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                 disabled={!editMode2}
                                                 icon={<FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     </div>
-                                    <div className="flex items-center gap-4">
+                                    <div className="my-4 flex items-center gap-4">
                                     <Input
                                                 crossOrigin={undefined} {...register('last_name')}
                                                 type="text"
@@ -449,6 +554,16 @@ export const SpecificEmployee = (props: initialState) => {
                                                 disabled={!editMode2}
                                                 icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     </div>
+                                    <div className="flex items-center gap-4">
+                                        <Input
+                                            crossOrigin={undefined} {...register('graduated_school')}
+                                            type="text"
+                                            containerProps={{ className: "min-w-[72px] focused" }}
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            label="School Graduated:"
+                                            disabled={!editMode2}
+                                            icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
+                                    </div>
                                 </div>
                             </div>
                             <div className="my-0 flex flex-wrap md:flex-nowrap items-center gap-4">
@@ -463,12 +578,14 @@ export const SpecificEmployee = (props: initialState) => {
                                     <div className="my-4 flex items-center gap-4">
                                     <Input
                                                 crossOrigin={undefined} {...register('birthday')}
-                                                type="text"
+                                                type="date"
                                                 containerProps={{ className: "min-w-[72px]" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Birthday: YYYY-MM-DD"
+                                                value={userData?.birthday?.split("T")[0]}
                                                 disabled={!editMode2}
-                                                icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
+                                                // icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                    
+                                        />
                                     <Input 
                                                 crossOrigin={undefined} {...register('birth_place')}
                                                 type="text"
@@ -478,7 +595,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                 disabled={!editMode2}
                                                 icon={<FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     </div>
-                                    <div className="flex items-center gap-4">
+                                    <div className="my-4 flex items-center gap-4">
                                     <Input
                                                 crossOrigin={undefined} {...register('mobile_phone')}
                                                 type="text"
@@ -486,7 +603,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Mobile Phone:"
                                                 disabled={!editMode2}
-                                                icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
+                                                icon={<DevicePhoneMobileIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     <Input
                                                 crossOrigin={undefined} {...register('approver1')}
                                                 type="number"
@@ -495,6 +612,45 @@ export const SpecificEmployee = (props: initialState) => {
                                                 label="Approver #1 (Employee #):"
                                                 disabled={!editMode2}
                                                 value={userData?.approver1 as number}
+                                                icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
+                                    </div>
+                                    <div className="my-4 flex items-center gap-4">
+                                    <Input
+                                                crossOrigin={undefined} {...register('telephone')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Telephone:"
+                                                disabled={!editMode2}
+                                                icon={<PhoneIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
+                                    <Input
+                                                crossOrigin={undefined} {...register('approver2')}
+                                                type="number"
+                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Approver #2 (Employee #):"
+                                                disabled={!editMode2}
+                                                value={userData?.approver2 as number}
+                                                icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
+                                    </div>
+
+                                    <div className="my-4 flex items-center gap-4">
+                                    <Input
+                                                crossOrigin={undefined} {...register('emergency_contact_person')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Emergency Contact Person:"
+                                                disabled={!editMode2}
+                                                icon={<PhoneIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
+                                    <Input
+                                                crossOrigin={undefined} {...register('emergency_contact_number')}
+                                                type="number"
+                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Emergency Contact No:"
+                                                disabled={!editMode2}
+                                                value={userData?.approver2 as number}
                                                 icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     </div>
                                 </div>
@@ -507,11 +663,57 @@ export const SpecificEmployee = (props: initialState) => {
                                     Additional Details
                                     </Typography>
                                     <div className="my-4 flex items-center gap-4">
-                                    <Input
+
+                                    <Select
+                                        onChange={(val:any) => setFormSelectData(curr => ({...curr, civil_status: val}))}
+                                        placeholder="Select Civil Status"
+                                        name="civil_status"
+                                        variant="outlined"
+                                        label="Civil Status"
+                                        disabled={!editMode2} 
+                                    >
+                                        <Option value="S">Single</Option>
+                                        <Option value="M">Married</Option>
+                                        <Option value="A">Anull</Option>
+                                        <Option value="W">Widowed</Option>
+                                        <Option value="D">Divorced</Option>
+                                    </Select>
+                                    <Select
+                                        onChange={(val:any) => setFormSelectData(curr => ({
+                                            ...curr,
+                                            gender: val
+                                        }))}
+                                        placeholder="Select Sex"
+                                        name="gender"
+                                        variant="outlined"
+                                        label="Sex"
+                                        disabled={!editMode2} 
+                                    >
+                                        <Option value="M">Male</Option>
+                                        <Option value="F">Female</Option>
+                                    </Select>
+                                    {/* <Input
                                                 crossOrigin={undefined} {...register('civil_status')}
                                                 type="text"
                                                 containerProps={{ className: "min-w-[72px]" }}
                                                 label="Civil Status:"
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                disabled={!editMode2}                                    /> */}
+                                    {/* <Input
+                                                crossOrigin={undefined} {...register('gender')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Gender:"
+                                                disabled={!editMode2}
+                                                icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                    /> */}
+                                    </div>
+                                    <div className="my-4 flex items-center gap-4">
+                                    <Input
+                                                crossOrigin={undefined} {...register('blood_type')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px]" }}
+                                                label="Blood Type:"
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 disabled={!editMode2}                                    />
                                     <Input
@@ -523,16 +725,41 @@ export const SpecificEmployee = (props: initialState) => {
                                                 disabled={!editMode2}
                                                 icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     </div>
-                                    <Input
-                                            crossOrigin={undefined} {...register('address')}
-                                            type="text"
-                                            className=""
-                                            label="Present Address:"
+
+                                    <div className="my-4 flex items-center gap-4">
+                                        <Input
+                                                crossOrigin={undefined} {...register('address')}
+                                                type="text"
+                                                className=""
+                                                label="Present Address:"
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                disabled={!editMode2}                                    />
+                                        <Input
+                                            crossOrigin={undefined} {...register('provincial_address')}
+                                            label="Provincial Address:"
                                             labelProps={{ style: { color: true ? "unset" : '' } }}
-                                            disabled={!editMode2}                                    />
+                                            disabled={!editMode2}
+                                            icon={<LockClosedOutline className="h-5 w-5 text-blue-gray-300" />}                                />
+                                    </div>
+                                    <div className="my-4 flex items-center gap-4">
+                                        <Input
+                                                crossOrigin={undefined} {...register('profession')}
+                                                type="text"
+                                                className=""
+                                                label="Profession:"
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                disabled={!editMode2}                                    />
+                                        <Input
+                                            crossOrigin={undefined} {...register('license_no')}
+                                            label="License No:"
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            disabled={!editMode2}
+                                            icon={<LockClosedOutline className="h-5 w-5 text-blue-gray-300" />}                                />
+                                    </div>
+                                    
                                 </div>
                             </div>
-                            <div className="my-0">
+                            {/* <div className="my-0">
                                 <div className="my-0 flex flex-wrap xl:flex-nowrap items-center gap-4">
                                 <Input
                                             crossOrigin={undefined} {...register('provincial_address')}
@@ -541,7 +768,7 @@ export const SpecificEmployee = (props: initialState) => {
                                             disabled={!editMode2}
                                             icon={<LockClosedOutline className="h-5 w-5 text-blue-gray-300" />}                                />
                                 </div>
-                            </div>
+                            </div> */}
 
 
                             
@@ -679,14 +906,30 @@ export const SpecificEmployee = (props: initialState) => {
                                                 label="Rank Code:"
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 disabled={!editMode3}                                        />
-                                        <Input 
+                                        <Select
+                                            onChange={(val:any) => setFormSelectData(curr => ({...curr, payroll_group_code: val}))}
+                                            placeholder="Select Payroll Group"
+                                            name="payroll_group_code"
+                                            variant="outlined"
+                                            label="Payroll Group"
+                                            disabled={!editMode3} 
+                                            value={userData?.payroll_group_code}
+                                        >
+                                            {
+                                            dropDownData.payrollGroups.length > 0 ? dropDownData.payrollGroups.map((payroll:any) => (
+                                                <Option value={payroll.id}>{payroll.name}</Option>
+                                            ))
+                                            : <Option disabled>No payrolls available</Option>
+                                            }
+                                        </Select>
+                                        {/* <Input 
                                                 crossOrigin={undefined} {...register('payroll_group_code')}
                                                 type="text"
                                                 containerProps={{ className: "min-w-[72px] focused" }}
                                                 labelProps={{ style: { color: true ? "unset" : '', textOverflow: 'ellipsis', overflow: 'hidden' } }}
                                                 label="Payroll Group Code:"
                                                 disabled={!editMode3}
-                                                icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
+                                                icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                        /> */}
                                     </div>
                                     <div className="mt-4 flex items-center gap-4">
                                         <Input
@@ -705,7 +948,26 @@ export const SpecificEmployee = (props: initialState) => {
                                                 label="Salary Type:"
                                                 disabled={!editMode3}
                                                 icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
-                                        
+                                    </div>
+                                    <div className="my-4 flex items-center gap-4">
+                                        <Input
+                                            crossOrigin={undefined} {...register('payroll_no')}
+                                            type="text"
+                                            containerProps={{ className: "min-w-[72px] focused" }}
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            label="Payroll No:"
+                                            disabled={!editMode3}
+                                            icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                        
+                                        />
+                                        <Input
+                                            crossOrigin={undefined} {...register('payroll_no')}
+                                            type="text"
+                                            containerProps={{ className: "min-w-[72px] focused" }}
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            label="Payroll No:"
+                                            disabled={!editMode3}
+                                            icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                        
+                                        />
                                     </div>
                                 </div>
                                 </div>

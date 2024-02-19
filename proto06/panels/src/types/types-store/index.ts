@@ -86,7 +86,7 @@ export interface EMPLOYEESViewInterface {
     division_code: string | null
     position_code: string | null
     rank_code: number
-    payroll_group_code: number | null
+    payroll_group_code: number | string | null
     tax_code: string | null
     pagibig_code: string | null
     sssid_code: string
