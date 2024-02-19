@@ -136,7 +136,6 @@ export const SpecificEmployee = (props: initialState) => {
             
             <Card className="w-full max-w-[110rem] xl:max-w-[90rem] ml-auto mr-auto" style={{zoom: 0.95}}>
             <Tabs value={type}>
-                hahahah
                     <CardHeader
                         color="teal"
                         variant="gradient"
