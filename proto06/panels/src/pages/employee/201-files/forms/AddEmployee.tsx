@@ -10,10 +10,16 @@ import { beautifyJSON } from '@/helpers/utils';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
-//Components
-// import SelectForm from '@/public-components/forms/SelectForm'
+// Icons
+import {
+  PlusIcon,
+} from "@heroicons/react/24/solid";
 
-//Interace
+// Components
+// import SelectForm from '@/public-components/forms/SelectForm'
+import DatePicker from '@/public-components/forms/DatePickerForm'
+
+//Interface
 // interface FormSelectData {
 //   branch_code?: string;
 //   // Add other properties as needed
@@ -28,18 +34,22 @@ export const UserProfile = () => {
       department_code: null,
 
     })
-
+    const [profileImage, setProfileImage] = useState<any>(null);
 
     const [branches, setBranches] = useState([]);
     const [departments, setDepartments] = useState([]);
     const [payrollGroups, setPayrollGroups] = useState([]);
-    const [employmentStatuses, setEmploymentstatuses] = useState([]);
-    const [aprrovers, setApprovers] = useState([]);
+    const [employmentStatuses, setEmploymentStatuses] = useState([]);
+    const [approversOne, setApproversOne] = useState([]);
+    const [approversTwo, setApproversTwo] = useState([]);
+    const [positions, setPositions] = useState([]);
 
     // useEffects
     useEffect(() => {
       fetchBranches()
       fetchPayrollGroups()
+      fetchEmploymentStatus()
+      fetchPositions()
     }, [])
 
     useEffect(() => {
@@ -60,6 +70,7 @@ export const UserProfile = () => {
         setPayrollGroups(curr => responsePayrollGroups);
       })
     }
+
     const fetchBranches = () => {
       axios.get(`${APILink}branch`).then((response:any) => {
         const responseBranches = response.data.map((branch:any) => {
@@ -87,6 +98,71 @@ export const UserProfile = () => {
       })
     }
 
+    const fetchEmploymentStatus = () => {
+      axios.get(`${APILink}emp_status_type/`).then((response:any) => {
+        const responseEmploymentStatuses= response.data.map((employmentStatus:any) => {
+          return {
+            id: employmentStatus.id,
+            name: employmentStatus.name
+          }
+        })
+
+        setEmploymentStatuses(curr => responseEmploymentStatuses);
+      })
+    }
+
+    const fetchPositions = () => {
+      axios.get(`${APILink}position/`).then((response:any) => {
+        const responsePositions = response.data.map((position:any) => {
+          return {
+            id: position.id,
+            name: position.pos_name
+          }
+        })
+
+        setPositions(curr => responsePositions);
+      })
+    }
+
+    // const fetchApprovers = () => {
+    //   axios.get(`${APILink}position/`).then((response:any) => {
+    //     const responsePositions = response.data.map((position:any) => {
+    //       return {
+    //         id: position.id,
+    //         name: position.pos_name
+    //       }
+    //     })
+
+    //     setPositions(curr => responsePositions);
+    //   })
+    // }
+
+    // const fetchDivisions = () => {
+    //   axios.get(`${APILink}division/`).then((response:any) => {
+    //     const responseDivisions = response.data.map((div:any) => {
+    //       return {
+    //         id: div.id,
+    //         name: position.pos_name
+    //       }
+    //     })
+
+    //     setPositions(curr => responsePositions);
+    //   })
+    // }
+
+    const handleProfilePic = (e:any) => {
+      const file = e.target.files[0];
+      setFormSelectData((curr:any) => ({...curr, employee_image:file}))
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          setProfileImage(reader.result);
+        };
+        reader.readAsDataURL(file);
+      }
+
+    }
+
 
   const onSubmit = async (data: EMPLOYEESViewInterface) => {
     const formData = new FormData();
@@ -98,25 +174,25 @@ export const UserProfile = () => {
     for (const key in data) {
         formData.append(key, data[key as keyof EMPLOYEESViewInterface]);
     }
-    // try {
-    //     const response = await axios.post(
-    //       `${APILink}employees/`,
-    //       formData,
-    //       {
-    //         headers: {
-    //           'Content-Type': 'multipart/form-data',
-    //         },
-    //       }
-    //     );
-    //     window.alert(`${response.status >= 200 && response.status < 300 && 'Request Successful'}`)
-    //     setTimeout(()=>{
-    //         location.reload();
-    //     }, 800)
-    //   } catch (err: any) {
-    //     console.error(err);
-    //     window.alert(`${beautifyJSON(err.response?.data)}`)
-    //     setEditMode(true);
-    //   }
+    try {
+        const response = await axios.post(
+          `${APILink}employees/`,
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          }
+        );
+        window.alert(`${response.status >= 200 && response.status < 300 && 'Request Successful'}`)
+        setTimeout(()=>{
+            location.reload();
+        }, 800)
+      } catch (err: any) {
+        console.error(err);
+        window.alert(`${beautifyJSON(err.response?.data)}`)
+        setEditMode(true);
+      }
   };
 
   return (
@@ -135,6 +211,26 @@ export const UserProfile = () => {
         >
             Required Information
         </Typography> */}
+        <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
+          <div>
+            <label 
+              htmlFor="fileInput" 
+              className="w-24 h-24 rounded-full border border-4 border-slate-900 cursor-pointer flex items-center justify-center"
+              style={{ backgroundImage: `url(${profileImage})`, backgroundSize: 'cover' }}
+            >
+              <div className='w-fit h-fit rounded-full p-2'>
+                {!profileImage && <PlusIcon className="h-12 text-gray-500" />}
+              </div>
+            </label>
+            <input 
+              id="fileInput"
+              type="file"
+              className="hidden"
+              onChange={handleProfilePic}
+            />
+            <span className='text-slate-500'>Profile Picture</span>
+          </div>
+        </div>
 
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
           <div style={{position: 'relative', width: '100%'}}>
@@ -285,10 +381,13 @@ export const UserProfile = () => {
         </div>
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
           <div style={{position: 'relative', width: '100%'}}>
+            {/* <DatePicker 
+              setState={setFormSelectData}
+            /> */}
             <Input
               crossOrigin={undefined} {...register('birthday', { required: true })}
               label="Birthday: YYYY-MM-DD (required)"
-              type='string'
+              type='date'
               disabled={!editMode}                />
             {errors.birthday && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Birthday is required.</sub>}
           </div>
@@ -388,9 +487,10 @@ export const UserProfile = () => {
                 <Input
                   crossOrigin={undefined} {...register('date_hired', { required: true })}
                   label="Date Hired: YYYY-MM-DD*"
-                  type='text'
+                  type='date'
                   disabled={!editMode}
-                  pattern='[0-9]{4}-[0-9]{2}-[0-9]{2}'                />
+                  // pattern='[0-9]{4}-[0-9]{2}-[0-9]{2}'                
+                />
                 {errors.date_hired && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Date Hired is required.</sub>}
             </div>
         </div>
@@ -541,7 +641,7 @@ export const UserProfile = () => {
                   {departments.length > 0 ? departments.map((department:any)=> (
                     <Option value={department.id}>{department.name}</Option>
                   )): (
-                    <Option disabled>No branch available</Option>
+                    <Option disabled>No department available</Option>
                   )}
                 </Select>
   
@@ -582,20 +682,43 @@ export const UserProfile = () => {
               {errors.payroll_no && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Payroll # is required.</sub>}
           </div>
           <div style={{position: 'relative', width: '100%'}}>
-              <Input
+
+              <Select
+                  onChange={(val:any) => setFormSelectData(curr => ({...curr, employee_type: val}))}
+                  placeholder="Select Employee Type"
+                  name="employee_type"
+                  variant="outlined"
+                  label="Employee Type:"
+                >
+                  <Option value="Compressed">Compressed</Option>
+                  <Option value="Normal">Normal</Option>
+                  <Option value="Field">Field</Option>
+              </Select>
+              {/* <Input
                 crossOrigin={undefined} {...register('employee_type', { required: true })}
                 label="Employee Type:"
                 disabled={!editMode}
                 type='text'                />
-              {errors.employee_type && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Employee Type is required.</sub>}
+              {errors.employee_type && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Employee Type is required.</sub>} */}
           </div>
           <div style={{position: 'relative', width: '100%'}}>
-              <Input
+                <Select
+                    onChange={(val:any) => setFormSelectData(curr => ({...curr, employment_status: val}))}
+                    placeholder="Select Employment Status"
+                    name="employment_status"
+                    variant="outlined"
+                    label="Employment status"
+                  >
+                    {employmentStatuses.map((employmentStatus:any) => (
+                      <Option value={employmentStatus.id}>{employmentStatus.name}</Option>
+                    ))}
+                </Select>
+              {/* <Input
                 crossOrigin={undefined} {...register('employment_status', { required: true })}
                 label="Employment Status:"
                 disabled={!editMode}
                 type='text'                />
-              {errors.employment_status && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Employment Status is required.</sub>}
+              {errors.employment_status && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Employment Status is required.</sub>} */}
           </div>
         </div>
 
@@ -653,29 +776,46 @@ export const UserProfile = () => {
             </div>
         </div> 
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
-            <div style={{position: 'relative', width: '100%'}}>
+            {/* <div style={{position: 'relative', width: '100%'}}>
                 <Input
                   crossOrigin={undefined} {...register('division_code', { required: false })}
                   label="Division Code: (optional, ID)"
                   disabled={!editMode}                />
-            </div>
+            </div> */}
             <div style={{position: 'relative', width: '100%'}}>
-                <Input
+
+                  <Select
+                    onChange={(val:any) => setFormSelectData(curr => ({
+                      ...curr,
+                      position_code: val
+                    }))}
+                    placeholder="Select Position Code"
+                    name="position_code"
+                    variant="outlined"
+                    label="Position Code: (optional, ID)"
+                  >
+                    {positions.length > 0 ? positions.map((pos:any)=> (
+                      <Option value={pos.id}>{pos.name}</Option>
+                    )): (
+                      <Option disabled>No positions available</Option>
+                    )}
+                </Select>
+                {/* <Input
                   crossOrigin={undefined} {...register('position_code', { required: false })}
                   label="Position Code: (optional, ID)"
-                  disabled={!editMode}                />
+                  disabled={!editMode}                /> */}
+            </div>
+            <div style={{position: 'relative', width: '100%'}}>
+              <Input
+                crossOrigin={undefined} {...register('insurance_life', { required: false })}
+                label="Insurance Life: (optional)"
+                type="number"
+                step="0.01" 
+                min="0"
+                disabled={!editMode}                />
             </div>
         </div>
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
-            <div style={{position: 'relative', width: '100%'}}>
-                <Input
-                  crossOrigin={undefined} {...register('insurance_life', { required: false })}
-                  label="Insurance Life: (optional)"
-                  type="number"
-                  step="0.01" 
-                  min="0"
-                  disabled={!editMode}                />
-            </div>
             <div style={{position: 'relative', width: '100%'}}>
                 <Input
                   crossOrigin={undefined} {...register('ecola', { required: false })}
