@@ -52,7 +52,7 @@ export interface EMPLOYEESViewInterface {
     birthday: string | null
     birth_place: string | null
     civil_status: string
-    gender: "M" | "F"
+    gender: "M" | "F" | null
     address: string
     provincial_address: string | null
     mobile_phone: string
@@ -81,7 +81,7 @@ export interface EMPLOYEESViewInterface {
     approver1: number
     approver2: number | null 
     city_code: string | null 
-    branch_code: number 
+    branch_code: number |null
     department_code: string | null
     division_code: string | null
     position_code: string | null

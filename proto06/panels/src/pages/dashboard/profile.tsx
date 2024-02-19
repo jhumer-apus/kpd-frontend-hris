@@ -65,7 +65,7 @@
 
     const placeholderImageUrl = 'placeholder_image_url.jpg';
     const [userData, setUserData] = useState(null);
-    const handleTabClick = (tab) => {
+    const handleTabClick = (tab:any) => {
       setActiveTab(tab);
     };
     useEffect(() => {
