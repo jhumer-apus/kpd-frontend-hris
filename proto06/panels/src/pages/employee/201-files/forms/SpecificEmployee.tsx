@@ -169,7 +169,7 @@ export const SpecificEmployee = (props: initialState) => {
                         </Typography>
                         <TabsHeader className="relative z-0 w-full">
                             <Tab value="staticInfo" onClick={() => setType("staticInfo")}>
-                            Static Info
+                            Static Info hahaha
                             </Tab>
                             <Tab value="personalInfo" onClick={() => setType("personalInfo")}>
                             Personal
