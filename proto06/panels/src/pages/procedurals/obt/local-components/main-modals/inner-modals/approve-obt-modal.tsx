@@ -72,7 +72,6 @@ export default function ApproveOBTModal(props: ApproveOBTModalInterface) {
       <Transition in={approveOBTOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setApproveOBTOpenModal(false);

@@ -21,7 +21,6 @@ export default function ViewSSSSingleModal(props: SingleSSSInterface) {
       <Transition in={singleSSSOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSingleSSSOpenModal(false);

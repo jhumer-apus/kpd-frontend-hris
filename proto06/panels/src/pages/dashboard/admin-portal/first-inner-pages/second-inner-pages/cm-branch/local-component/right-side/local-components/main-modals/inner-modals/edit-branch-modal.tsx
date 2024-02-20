@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
 import { BRANCHEditAction } from '@/store/actions/categories';
+import { clearFields } from '@/helpers/utils';
 
 
 
@@ -58,7 +59,6 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
       <Transition in={allowedDaysBRANCHOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setAllowedDaysBRANCHOpenModal(false);
@@ -190,7 +190,15 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
               </div>
               <div className='flex justify-around'>
                 <Button variant={'contained'} onClick={allowedDaysBRANCH}>Submit</Button>
-                <Button variant={'outlined'} onClick={()=>{setAllowedDaysBRANCHOpenModal(false)}}>Cancel</Button>
+                <Button 
+                  variant={'outlined'} 
+                  onClick={()=>{
+                    clearFields(setSingleBRANCHDetailsData, ['branch_name', 'branch_oic', 'branch_contact_number', 'branch_email', 'branch_address'], ['', NaN, '', '', ''])
+                    setAllowedDaysBRANCHOpenModal(false)
+                    }}
+                  >
+                    Cancel
+                  </Button>
               </div>
             </div>
           </div>

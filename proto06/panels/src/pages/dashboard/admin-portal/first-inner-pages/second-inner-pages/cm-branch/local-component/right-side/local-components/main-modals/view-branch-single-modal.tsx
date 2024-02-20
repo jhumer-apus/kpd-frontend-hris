@@ -21,7 +21,6 @@ export default function ViewBRANCHSingleModal(props: SingleBRANCHInterface) {
       <Transition in={singleBRANCHOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSingleBRANCHOpenModal(false);

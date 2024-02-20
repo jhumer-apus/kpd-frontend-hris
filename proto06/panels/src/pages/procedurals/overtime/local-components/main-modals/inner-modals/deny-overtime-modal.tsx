@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
 import { OVERTIMEEditAction } from '@/store/actions/procedurals';
+import { clearFields } from '@/helpers/utils';
 
 
 
@@ -62,7 +63,6 @@ export default function DenyOVERTIMEModal(props: DenyOVERTIMEModalInterface) {
       <Transition in={denyOVERTIMEOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setDenyOVERTIMEOpenModal(false);
@@ -126,7 +126,15 @@ export default function DenyOVERTIMEModal(props: DenyOVERTIMEModalInterface) {
               </div>
               <div className='flex justify-around'>
                 <Button variant={'contained'} onClick={denyOVERTIME}>Submit</Button>
-                <Button variant={'outlined'} onClick={()=>{setDenyOVERTIMEOpenModal(false)}}>Cancel</Button>
+                <Button 
+                  variant={'outlined'} 
+                  onClick={()=>{
+                    clearFields(setSingleOVERTIMEDetailsData, ['ot_reason_disapproval'], [null])
+                    setDenyOVERTIMEOpenModal(false)
+                  }}
+                >
+                  Cancel
+                </Button>
               </div>
             </div>
           </div>

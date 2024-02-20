@@ -21,7 +21,6 @@ export default function ViewONBOARDINGREQUIREMENTSSingleModal(props: SingleONBOA
       <Transition in={singleONBOARDINGREQUIREMENTSOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSingleONBOARDINGREQUIREMENTSOpenModal(false);

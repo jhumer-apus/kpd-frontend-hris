@@ -48,7 +48,6 @@ export default function DeactivateLEAVETYPEModal(props: DeactivateLEAVETYPEModal
       <Transition in={DeactivateLEAVETYPEOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setDeactivateLEAVETYPEOpenModal(false);

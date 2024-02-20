@@ -21,7 +21,6 @@ export default function ViewDIVISIONSingleModal(props: SingleDIVISIONInterface) 
       <Transition in={singleDIVISIONOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSingleDIVISIONOpenModal(false);

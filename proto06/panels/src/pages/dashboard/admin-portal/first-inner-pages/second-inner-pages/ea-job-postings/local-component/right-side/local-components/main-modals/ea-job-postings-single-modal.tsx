@@ -21,7 +21,6 @@ export default function ViewJOBPOSTINGSSingleModal(props: SingleJOBPOSTINGSInter
       <Transition in={singleJOBPOSTINGSOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSingleJOBPOSTINGSOpenModal(false);

@@ -22,7 +22,6 @@ export default function CreateOBTComponent() {
       <Transition in={open} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
             setOpen(false);

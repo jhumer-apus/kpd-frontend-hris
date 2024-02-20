@@ -46,7 +46,6 @@ export default function DeleteJOBPOSTINGSModal(props: DeleteJOBPOSTINGSModalInte
       <Transition in={deleteJOBPOSTINGSOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setDeleteJOBPOSTINGSOpenModal(false);

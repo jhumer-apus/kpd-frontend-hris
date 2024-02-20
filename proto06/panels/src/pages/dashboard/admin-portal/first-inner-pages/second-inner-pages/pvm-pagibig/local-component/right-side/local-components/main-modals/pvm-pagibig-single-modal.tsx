@@ -21,7 +21,6 @@ export default function ViewPAGIBIGSingleModal(props: SinglePAGIBIGInterface) {
       <Transition in={singlePAGIBIGOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSinglePAGIBIGOpenModal(false);

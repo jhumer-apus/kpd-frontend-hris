@@ -21,7 +21,6 @@ export default function ViewEVALQUESTIONSSingleModal(props: SingleEVALQUESTIONSI
       <Transition in={singleEVALQUESTIONSOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSingleEVALQUESTIONSOpenModal(false);

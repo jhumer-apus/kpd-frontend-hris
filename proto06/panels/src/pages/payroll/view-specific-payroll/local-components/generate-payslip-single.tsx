@@ -20,7 +20,6 @@ export default function GeneratePayslipSingle(props: SinglePayslipInterface) {
       <Transition in={singlePayslipOpen} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
             setSinglePayslipOpen(false);

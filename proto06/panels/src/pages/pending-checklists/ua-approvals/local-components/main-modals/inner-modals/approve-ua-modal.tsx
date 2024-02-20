@@ -71,7 +71,6 @@ export default function ApproveUAModal(props: ApproveUAModalInterface) {
       <Transition in={approveUAOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setApproveUAOpenModal(false);

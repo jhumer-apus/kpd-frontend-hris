@@ -7,6 +7,7 @@ import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { USERResetPasswordAction } from '@/store/actions/users';
+import { clearFields } from '@/helpers/utils';
 
 
 
@@ -54,7 +55,6 @@ export default function ResetPasswordUSERModal(props: ResetPasswordUSERModalInte
       <Transition in={resetPasswordUSEROpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setResetPasswordUSEROpenModal(false);
@@ -135,7 +135,16 @@ export default function ResetPasswordUSERModal(props: ResetPasswordUSERModalInte
               </div>
               <div className='flex justify-around'>
                 <Button variant={'contained'} color={"warning"} onClick={resetPasswordUSERSubmit}>Reset Password</Button>
-                <Button variant={'outlined'} color={"warning"} onClick={()=>{setResetPasswordUSEROpenModal(false)}}>Cancel</Button>
+                <Button 
+                  variant={'outlined'} 
+                  color={"warning"} 
+                  onClick={()=>{
+                    clearFields(setSingleUSERDetailsData, ['new_password', 'repeat_new_password'], ['', ''])
+                    setResetPasswordUSEROpenModal(false)
+                  }}
+                >
+                Cancel
+                </Button>
               </div>
             </div>
           </div>

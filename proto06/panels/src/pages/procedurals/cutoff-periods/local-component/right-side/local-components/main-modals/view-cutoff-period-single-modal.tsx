@@ -21,7 +21,6 @@ export default function ViewCUTOFFPERIODSingleModal(props: SingleCUTOFFPERIODInt
       <Transition in={singleCUTOFFPERIODOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSingleCUTOFFPERIODOpenModal(false);

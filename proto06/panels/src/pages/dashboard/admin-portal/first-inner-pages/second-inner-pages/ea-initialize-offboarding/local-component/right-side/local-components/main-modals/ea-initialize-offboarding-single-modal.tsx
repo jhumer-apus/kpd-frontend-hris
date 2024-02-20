@@ -21,7 +21,6 @@ export default function ViewOFFBOARDINGSTATUSSingleModal(props: SingleOFFBOARDIN
       <Transition in={singleOFFBOARDINGSTATUSOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSingleOFFBOARDINGSTATUSOpenModal(false);

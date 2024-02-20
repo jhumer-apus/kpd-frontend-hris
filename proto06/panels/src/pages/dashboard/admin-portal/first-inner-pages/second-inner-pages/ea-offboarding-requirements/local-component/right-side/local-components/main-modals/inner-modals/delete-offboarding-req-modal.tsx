@@ -48,7 +48,6 @@ export default function DeactivateOFFBOARDINGREQUIREMENTSModal(props: Deactivate
       <Transition in={openModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setOpenModal(false);

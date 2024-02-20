@@ -21,7 +21,6 @@ export default function ViewASSETACCOUNTSingleModal(props: SingleASSETACCOUNTInt
       <Transition in={singleASSETACCOUNTOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSingleASSETACCOUNTOpenModal(false);

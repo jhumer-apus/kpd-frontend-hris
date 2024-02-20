@@ -48,7 +48,6 @@ export default function DeactivateCORECOMPEModal(props: DeactivateCORECOMPEModal
       <Transition in={DeactivateCORECOMPEOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setDeactivateCORECOMPEOpenModal(false);

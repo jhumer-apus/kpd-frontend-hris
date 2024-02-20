@@ -21,7 +21,6 @@ export default function ViewLEAVESingleModal(props: ViewLEAVESingleModalInterfac
       <Transition in={singleLEAVEOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSingleLEAVEOpenModal(false);

@@ -21,7 +21,6 @@ export default function ViewOVERTIMESingleModal(props: ViewOVERTIMESingleModalIn
       <Transition in={singleOVERTIMEOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSingleOVERTIMEOpenModal(false);

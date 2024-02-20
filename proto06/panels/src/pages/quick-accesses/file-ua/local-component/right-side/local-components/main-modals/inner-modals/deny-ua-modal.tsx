@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
 import { UAEditAction } from '@/store/actions/procedurals';
+import { clearFields } from '@/helpers/utils';
 
 
 
@@ -59,7 +60,6 @@ export default function DenyUAModal(props: DenyUAModalInterface) {
       <Transition in={denyUAOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setDenyUAOpenModal(false);
@@ -123,7 +123,15 @@ export default function DenyUAModal(props: DenyUAModalInterface) {
               </div>
               <div className='flex justify-around'>
                 <Button variant={'contained'} onClick={denyUA}>Submit</Button>
-                <Button variant={'outlined'} onClick={()=>{setDenyUAOpenModal(false)}}>Cancel</Button>
+                <Button 
+                  variant={'outlined'} 
+                  onClick={()=>{
+                    clearFields(setSingleUADetailsData, ['ua_reason_disapproval'], [null])
+                    setDenyUAOpenModal(false)
+                  }}
+                >
+                  Cancel
+                </Button>
               </div>
             </div>
           </div>
