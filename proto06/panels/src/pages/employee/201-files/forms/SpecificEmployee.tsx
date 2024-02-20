@@ -31,7 +31,7 @@ import {
   XMarkIcon,
   TagIcon,
 } from "@heroicons/react/24/outline";
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Input, Typography } from '@material-tailwind/react';
 import { useForm } from 'react-hook-form';
@@ -95,22 +95,58 @@ export const SpecificEmployee = (props: initialState) => {
         positions:[]
       })
 
-      // useEffects
-      useEffect(() => {
-        fetchBranches()
-        fetchPayrollGroups()
-        fetchEmploymentStatus()
-        fetchPositions()
-      }, [])
-  
-      useEffect(() => {
+      const fetchDataSelects = async () => {
+        await Promise.all([
+            fetchBranches(),
+            fetchPayrollGroups(),
+            fetchEmploymentStatus(),
+            fetchPositions(),
+            fetchDepartments()
+        ]);
+    };
 
-        if(formSelectData?.branch_code) {
-          fetchDepartments(formSelectData.branch_code)
+    // USE EFFECTS
+
+    useEffect(() => {
+        fetchDataSelects();
+    }, []);
+
+    // useEffect(() => {
+    //     // setUserData((curr:any) => userDataStore);
+    //     if(dropDownData.branches.length > 0 && dropDownData.departments.length > 0 && dropDownData.payrollGroups.length > 0 && dropDownData.employmentStatuses.length > 0 && dropDownData.positions.length > 0) {
+    //         setUserData((curr:any) => userDataStore)
+    //         console.log(dropDownData)
+    //     }
+    // }, [dropDownData])
+
+    // useEffect(() => {
+    //     if (
+    //         dropDownData.branches.length > 0 &&
+    //         dropDownData.departments.length > 0 &&
+    //         dropDownData.payrollGroups.length > 0 &&
+    //         dropDownData.employmentStatuses.length > 0 &&
+    //         dropDownData.positions.length > 0
+    //     ) {
+    //         setUserData(userDataStore);
+    //         console.log(dropDownData);
+    //     }
+    // }, [dropDownData, userDataStore]);
+
+    useEffect(() => {
+        if (userData) {
+            for (const key in userData) {
+                setValue(key, userData[key]);
+            }
         }
-      },[formSelectData]);
+    }, [userData, setValue]);
   
       // Fetch selects information
+    //   const fetchUserData = () => {
+    //     axios.get(`${APILink}employees/${userDataStore?.emp_no}`).then(response => {
+    //         console.log(response.data)
+    //         setUserData(curr => response.data)
+    //     })
+    //   }
       const fetchPayrollGroups = () => {
         axios.get(`${APILink}payrollgroup`).then((response:any) => {
           const responsePayrollGroups = response.data.map((payroll:any) => {
@@ -135,13 +171,11 @@ export const SpecificEmployee = (props: initialState) => {
         })
       }
   
-      const fetchDepartments = (id:number) => {
+      const fetchDepartments = () => {
   
         axios.get(`${APILink}department/`).then((response:any) => {
           
-          const responseDepartments = response.data
-          .filter((department:any) => department.dept_branch_code == id)
-          .map((department:any) => {
+          const responseDepartments = response.data.map((department:any) => {
             return {
               id: department.id.toString(),
               name: department.dept_name
@@ -175,19 +209,7 @@ export const SpecificEmployee = (props: initialState) => {
           setDropDownData((curr:any) => ({...curr, positions: responsePositions}));
         })
       }
-  
 
-    useEffect(() => {
-        if (userData) {
-            console.log(userData)
-            if(userData?.branch_code) {
-                fetchDepartments(userData.branch_code)
-            }
-            for (const key in userData) {
-                setValue(key, userData[key]);
-            }
-        }
-    }, [userData, setValue]);
 
     const fetchData = async function (formData: FormData) {
         try {
@@ -213,6 +235,12 @@ export const SpecificEmployee = (props: initialState) => {
 
 
     const onSubmit = async (data: EMPLOYEESViewInterface, type: string) => {
+
+        data = {
+            ...data,
+            ...formSelectData
+
+        }
         const formData = new FormData();
         const keyChecker = (key: string) => {
             const keyProcessed: { [key: string]: () => void } = {
@@ -571,17 +599,6 @@ export const SpecificEmployee = (props: initialState) => {
                                             disabled={!editMode2}
                                             icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     </div>
-                                    <div className="flex items-center gap-4">
-                                        <Input
-                                            crossOrigin={undefined} {...register('url_google_map')}
-                                            type="text"
-                                            containerProps={{ className: "min-w-[72px] focused" }}
-                                            labelProps={{ style: { color: true ? "unset" : '' } }}
-                                            label="URL Google Map:"
-                                            disabled={!editMode2}
-                                            icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}    
-                                        />
-                                    </div>
                                 </div>
                             </div>
                             <div className="my-0 flex flex-wrap md:flex-nowrap items-center gap-4">
@@ -737,13 +754,14 @@ export const SpecificEmployee = (props: initialState) => {
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 disabled={!editMode2}                                    />
                                     <Input
-                                                crossOrigin={undefined} {...register('gender')}
-                                                type="text"
-                                                containerProps={{ className: "min-w-[72px] focused" }}
-                                                labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                label="Gender:"
-                                                disabled={!editMode2}
-                                                icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
+                                            crossOrigin={undefined} {...register('url_google_map')}
+                                            type="text"
+                                            containerProps={{ className: "min-w-[72px] focused" }}
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            label="URL Google Map:"
+                                            disabled={!editMode2}
+                                            icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}    
+                                        />
                                     </div>
 
                                     <div className="my-4 flex items-center gap-4">
@@ -972,8 +990,8 @@ export const SpecificEmployee = (props: initialState) => {
                                             labelProps={{ style: { color: true ? "unset" : '' } }}
                                             disabled={!editMode3}             
                                         />
-  
-                                        <Select
+                                        {dropDownData.branches.length > 0 && 
+                                            <Select
                                             onChange={(val:any) => setFormSelectData(curr => ({...curr, branch_code: val}))}
                                             placeholder="Select Branch"
                                             name="branch_code"
@@ -990,6 +1008,25 @@ export const SpecificEmployee = (props: initialState) => {
                                             : <Option disabled>No branches available</Option>
                                             }
                                         </Select>
+                                        }
+                                        {/* <Select
+                                            onChange={(val:any) => setFormSelectData(curr => ({...curr, branch_code: val}))}
+                                            placeholder="Select Branch"
+                                            name="branch_code"
+                                            variant="outlined"
+                                            label="Branch"
+                                            disabled={!editMode3}
+                                            value={userData?.branch_code?.toString()}
+                                        >
+                                            {
+                                            dropDownData.branches.length > 0 ? dropDownData.branches.map((branch:any) => (
+                                                <Option key={branch.id} value={branch.id}>{branch.name}</Option>
+
+                                            ))
+                                            : <Option disabled>No branches available</Option>
+                                            }
+                                        </Select> */}
+                                        {dropDownData.departments.length > 0 &&
                                         <Select
                                             onChange={(val:any) => setFormSelectData(curr => ({...curr, department_code: val}))}
                                             placeholder="Select Departments"
@@ -1006,6 +1043,23 @@ export const SpecificEmployee = (props: initialState) => {
                                             : <Option disabled>No departments available</Option>
                                             }
                                         </Select>
+                                        }
+                                        {/* <Select
+                                            onChange={(val:any) => setFormSelectData(curr => ({...curr, department_code: val}))}
+                                            placeholder="Select Departments"
+                                            name="department_code"
+                                            variant="outlined"
+                                            label="Department"
+                                            disabled={!editMode3} 
+                                            value={userData?.department_code?.toString()}
+                                        >
+                                            {
+                                            dropDownData.departments.length > 0 ? dropDownData.departments.map((department:any) => (
+                                                <Option key={department.id} value={department.id}>{department.name}</Option>
+                                            ))
+                                            : <Option disabled>No departments available</Option>
+                                            }
+                                        </Select> */}
                                         {/* <Input
                                                 crossOrigin={undefined} {...register('branch_code')}
                                                 type="text"
