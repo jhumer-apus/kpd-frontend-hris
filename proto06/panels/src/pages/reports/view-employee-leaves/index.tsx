@@ -36,7 +36,8 @@ export default function ViewEmployeeLeaves() {
         setIsLoading(true);
         await axios.get(`${APILink}leave/?month=${month}&year=${year}`).then(response => {
 
-            setDataRows(curr => response.data);
+            const approvedLeaves = response.data.filter((data:any)=> data.leave_approval_status== "APD");
+            setDataRows(curr => approvedLeaves);
             setIsLoading(false)
 
         }).catch((error: any) => {

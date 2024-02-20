@@ -256,7 +256,7 @@
             <TextField  id="Rank" label="Rank" variant="outlined" style={{ width: '100%' }} value={curr_user?.rank_code || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
             </Typography>
             <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
-            <TextField  id="Basic Salary Amount" label="Basic Salary Amount" variant="outlined" style={{ width: '100%' }} value={curr_user?.emp_salary_basic ||'-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <TextField  id="Basic Salary Amount" label="Basic Salary Amount" variant="outlined" style={{ width: '100%' }} value={curr_user?.emp_salary_basic ||'-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  disabled/>
             </Typography>
             <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
             <TextField  id="Pagibig" label="Pagibig" variant="outlined" style={{ width: '100%' }} value={curr_user?.pagibig_code ||'-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />

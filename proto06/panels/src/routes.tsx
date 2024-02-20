@@ -124,9 +124,11 @@ import EmploymentHistoryPage from "./pages/employee/employment-history/employmen
 import AutoStoriesOutlinedIcon from '@mui/icons-material/AutoStoriesOutlined';
 import Diversity3OutlinedIcon from '@mui/icons-material/Diversity3Outlined';
 
+
 import ViewMonthlySchedule from "./pages/reports/view-monthly-schedule";
 import ViewEmployeeLeaves from "./pages/reports/view-employee-leaves";
 import ViewEmployeeOvertime from "./pages/reports/view-employee-overtime";
+import ViewEmployeeObt from "./pages/reports/view-employee-obt";
 
 import EMPSEMINARSPageV2 from "./pages/employee/emp-training-seminars-v2/emp-training-seminars";
 import EmploymentHistoryPageEmpView from "./pages/employee/employment-history-emp-view/employment-history-emp-view";
@@ -995,6 +997,14 @@ const JSXRouteWrapper = () => {
                     name: "Employee Overtime",
                     path: "/report/employee-overtime",
                     element: <ViewEmployeeOvertime/>,
+                    hasSubItems: false,
+                  },
+                  {
+                    id: 19200,
+                    icon: <DocumentIcon {...icon} />,
+                    name: "Employee OBT",
+                    path: "/report/employee-obt",
+                    element: <ViewEmployeeObt/>,
                     hasSubItems: false,
                   }
               ]

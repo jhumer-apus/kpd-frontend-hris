@@ -14,7 +14,7 @@ import ExportToCsvButton from '../../../public-components/ExportToCSVButton';
 import SelectForm from '../../../public-components/forms/SelectForm';
 import InputForm from '../../../public-components/forms/InputForm';
 
-export default function ViewEmployeeLeaves() {
+export default function ViewEmployeeObt() {
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     
@@ -29,14 +29,14 @@ export default function ViewEmployeeLeaves() {
 
     const [isFetchReportError, setIsFetchReportError] = useState<Boolean>(false);
 
-    const getEmployeeOvertime = async () => {
+    const getEmployeeObt = async () => {
 
         setIsLoading(true);
 
-        await axios.get(`${APILink}ot`).then(response => {
+        await axios.get(`${APILink}obt`).then(response => {
 
-            const approvedOvertime = response.data.filter((data:any)=> data.ot_approval_status== "APD");
-            setDataRows(curr => approvedOvertime);
+            const approvedObt = response.data.filter((data:any)=> data.obt_approval_status == "APD");
+            setDataRows(curr => approvedObt);
             setIsLoading(false)
 
         }).catch((error: any) => {
@@ -62,13 +62,13 @@ export default function ViewEmployeeLeaves() {
 
     useEffect(() => {
 
-        getEmployeeOvertime();
+        getEmployeeObt();
 
     }, [])
 
     const viewReports = () => {
 
-        getEmployeeOvertime();
+        getEmployeeObt();
 
     }
 
@@ -76,9 +76,10 @@ export default function ViewEmployeeLeaves() {
         return {
             "Employee No.": obj.emp_no,
             "Employee Name": obj.emp_name,
-            "Date": obj.ot_date_filed,
-            "OT Type": obj.ot_type,
-            "OT Hours": obj.ot_total_hours,
+            "Date": obj.obt_date_filed,
+            "OBT Type": obj.obt_type,
+            "OBT Location": obj.obt_location,
+            "OBT Hours": obj.obt_total_hours,
         }
 
     })
@@ -104,21 +105,21 @@ export default function ViewEmployeeLeaves() {
             },
         },
         {
-            field: 'ot_date_filed', 
+            field: 'obt_date_filed', 
             headerName: 'Date', 
             width: 150,
             valueGetter: (params: GridValueGetterParams) => {
-                return convertDateToLocalString(params.row.ot_date_filed);
+                return convertDateToLocalString(params.row.obt_date_filed);
             },
         },
         {
-            field: 'ot_type', 
+            field: 'obt_type', 
             headerName: 'Over Type', 
             width: 150,
         },
         {
-            field: 'ot_total_hours', 
-            headerName: 'OT Hours', 
+            field: 'obt_total_hours', 
+            headerName: 'OBT Hours', 
             width: 150,
         },
 
@@ -186,7 +187,7 @@ export default function ViewEmployeeLeaves() {
 
                 <ExportToCsvButton
                     data={exportCsvData}
-                    defaultName="Employee-Overtime"
+                    defaultName="Employee-OBT"
                     isDisable={isLoading}
                 />
 

@@ -47,7 +47,18 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
                 <div className='flex flex-wrap gap-3 pt-4'>
                     <div className='flex flex-col gap-3' style={{width : '100%'}}>
                         <EmployeeAutoComplete createOVERTIME={createOVERTIME} setCreateOVERTIME={setCreateOVERTIME}/>
-                        <OVERTIMETypeAutoComplete createOVERTIME={createOVERTIME} setCreateOVERTIME={setCreateOVERTIME}/>
+                        {/* <OVERTIMETypeAutoComplete createOVERTIME={createOVERTIME} setCreateOVERTIME={setCreateOVERTIME}/> */}
+                        <TextField
+                            required 
+                            sx={{width: '100%'}} 
+                            label='OVERTIME Type:'  
+                            variant='outlined' 
+                            multiline rows={1}
+                            value={"After Duty"}
+                            disabled
+                            
+                            
+                        />
                         <TextField
                             required 
                             sx={{width: '100%'}} 
