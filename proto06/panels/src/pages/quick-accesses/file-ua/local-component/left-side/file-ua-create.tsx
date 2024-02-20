@@ -9,6 +9,9 @@ import { Typography } from '@mui/joy';
 import { UACreateInterface } from '@/types/types-pages';
 import { UACreateAction, UACreateActionFailureCleanup } from '@/store/actions/procedurals';
 
+// Components
+import UAReasons from '../forms/UAReasons';
+
 interface CreateUAModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
 }
@@ -16,6 +19,7 @@ interface CreateUAModalInterface {
 function QuickAccessUACreate(props: CreateUAModalInterface) {
 
     const dispatch = useDispatch();
+    const [isSubmittingRequest, setIsSubmittingRequest] = useState<boolean>(false);
     const UACreatestate = useSelector((state: RootState)=> state.procedurals.UACreate);
     const [createUA, setCreateUA] = useState<UACreateInterface>({
         emp_no: NaN,
@@ -24,13 +28,16 @@ function QuickAccessUACreate(props: CreateUAModalInterface) {
         ua_date_to: null,
     });
     const onClickSubmit = () => {
+        setIsSubmittingRequest(true)
         dispatch(UACreateAction(createUA))
     };
     useEffect(()=>{
         if(UACreatestate.status === 'succeeded'){
+            setIsSubmittingRequest(false)
             window.alert('Request Successful');
             window.location.reload();
         }else if(UACreatestate.status === 'failed'){
+            setIsSubmittingRequest(false)
             window.alert(`Request Failed, ${UACreatestate.error}`)
             setTimeout(()=> {
                 dispatch(UACreateActionFailureCleanup());
@@ -45,7 +52,8 @@ function QuickAccessUACreate(props: CreateUAModalInterface) {
                 <div className='flex flex-wrap gap-3 pt-4'>
                     <div className='flex flex-col gap-3' style={{width:'100%'}}>
                         <EmployeeAutoComplete createUA={createUA} setCreateUA={setCreateUA}/>
-                        <TextField
+                        <UAReasons setState={setCreateUA}/>
+                        {/* <TextField
                             required 
                             sx={{width: '100%'}} 
                             label='UA Description:'  
@@ -64,7 +72,7 @@ function QuickAccessUACreate(props: CreateUAModalInterface) {
                                 })
                             }}
                             
-                        />
+                        /> */}
                     </div>
                     <div className='flex flex-col gap-6'>
                         <DateFromToUACreate createUA={createUA} setCreateUA={setCreateUA}/>
@@ -72,7 +80,13 @@ function QuickAccessUACreate(props: CreateUAModalInterface) {
                 </div>
                 <div className='flex justify-center mt-6' container-name='ua_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='ua_buttons'>
-                        <Button variant='contained' onClick={onClickSubmit}>Create UA</Button>
+                        <Button 
+                            variant='contained' 
+                            onClick={onClickSubmit} 
+                            disabled={isSubmittingRequest}
+                        >
+                                Create UA
+                    </Button>
                     </div>
                 </div>
             </div>

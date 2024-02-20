@@ -369,6 +369,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                 type="text"
                                                 containerProps={{ className: "min-w-[72px]" }}
                                                 label="Emp #:"
+                                                maxLength={7}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 disabled={!editMode}                                    />
                                     <Input

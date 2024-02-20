@@ -17,6 +17,7 @@ interface CreateOBTModalInterface {
 function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
 
     const dispatch = useDispatch();
+    const [isSubmittingRequest, setIsSubmittingRequest] = useState<boolean>(false);
     const OBTCreatestate = useSelector((state: RootState)=> state.procedurals.OBTCreate);
     const [createOBT, setCreateOBT] = useState<OBTCreateInterface>({
         emp_no: NaN,
@@ -27,13 +28,16 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
         obt_date_to: null,
     });
     const onClickSubmit = () => {
+        setIsSubmittingRequest(true)
         dispatch(OBTCreateAction(createOBT))
     };
     useEffect(()=>{
         if(OBTCreatestate.status === 'succeeded'){
+            setIsSubmittingRequest(false)
             window.alert('Request Successful');
             window.location.reload();
         }else if(OBTCreatestate.status === 'failed'){
+            setIsSubmittingRequest(false)
             window.alert(`Request Failed, ${OBTCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(OBTCreateActionFailureCleanup());
@@ -50,7 +54,7 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
                     <div className='flex flex-col gap-3' style={{width: '100%'}}>
                         <EmployeeAutoComplete createOBT={createOBT} setCreateOBT={setCreateOBT}  />
                         <OBTTypeAutoComplete createOBT={createOBT} setCreateOBT={setCreateOBT}/>
-                        <TextField
+                        {/* <TextField
                             required 
                             sx={{width: '100%'}} 
                             label='OBT Description:'  
@@ -69,7 +73,7 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
                                 })
                             }}
                             
-                        />
+                        /> */}
                     </div>
                     <div className='flex flex-col gap-3' style={{width: '100%'}}>
                         <DateFromToOBTCreate createOBT={createOBT} setCreateOBT={setCreateOBT}/>
@@ -96,7 +100,13 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
                 </div>
                 <div className='flex justify-center mt-6' container-name='obt_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='obt_buttons'>
-                        <Button variant='contained' onClick={onClickSubmit}>Create OBT</Button>
+                        <Button 
+                            variant='contained' 
+                            onClick={onClickSubmit}
+                            disabled={isSubmittingRequest}
+                        >
+                            Create OBT
+                        </Button>
                         {/* <Button variant='outlined' onClick={()=> setOpen(false)}>Cancel</Button> */}
                     </div>
                 </div>
