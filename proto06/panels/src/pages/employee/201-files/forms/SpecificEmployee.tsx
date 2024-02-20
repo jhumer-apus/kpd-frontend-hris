@@ -39,6 +39,7 @@ import { APILink, RootState } from '@/store/configureStore';
 import { EMPLOYEESViewInterface } from '@/types/types-store';
 import FormData from 'form-data';
 import { beautifyJSON } from '@/helpers/utils';
+import { drop } from 'lodash';
 
 interface DropDownData {
     branches: any[],
@@ -84,6 +85,7 @@ export const SpecificEmployee = (props: initialState) => {
     const [editMode2, setEditMode2] = useState(false);
     const [editMode3, setEditMode3] = useState(false);
     const [type, setType] = useState("staticInfo");
+    
 
     const [dropDownData, setDropDownData] = useState<DropDownData>({
         branches:[],
@@ -102,6 +104,7 @@ export const SpecificEmployee = (props: initialState) => {
       }, [])
   
       useEffect(() => {
+
         if(formSelectData?.branch_code) {
           fetchDepartments(formSelectData.branch_code)
         }
@@ -112,7 +115,7 @@ export const SpecificEmployee = (props: initialState) => {
         axios.get(`${APILink}payrollgroup`).then((response:any) => {
           const responsePayrollGroups = response.data.map((payroll:any) => {
             return {
-              id: payroll.id,
+              id: payroll.id.toString(),
               name: payroll.name
             }
           })
@@ -124,7 +127,7 @@ export const SpecificEmployee = (props: initialState) => {
         axios.get(`${APILink}branch`).then((response:any) => {
           const responseBranches = response.data.map((branch:any) => {
             return {
-              id: branch.id,
+              id: branch.id.toString(),
               name: branch.branch_name
             }
           })
@@ -140,7 +143,7 @@ export const SpecificEmployee = (props: initialState) => {
           .filter((department:any) => department.dept_branch_code == id)
           .map((department:any) => {
             return {
-              id: department.id,
+              id: department.id.toString(),
               name: department.dept_name
             }
           })
@@ -152,7 +155,7 @@ export const SpecificEmployee = (props: initialState) => {
         axios.get(`${APILink}emp_status_type/`).then((response:any) => {
           const responseEmploymentStatuses = response.data.map((employmentStatus:any) => {
             return {
-              id: employmentStatus.id,
+              id: employmentStatus.id.toString(),
               name: employmentStatus.name
             }
           })
@@ -164,7 +167,7 @@ export const SpecificEmployee = (props: initialState) => {
         axios.get(`${APILink}position/`).then((response:any) => {
           const responsePositions = response.data.map((position:any) => {
             return {
-              id: position.id,
+              id: position.id.toString(),
               name: position.pos_name
             }
           })
@@ -177,9 +180,12 @@ export const SpecificEmployee = (props: initialState) => {
     useEffect(() => {
         if (userData) {
             console.log(userData)
-        for (const key in userData) {
-            setValue(key, userData[key]);
-        }
+            if(userData?.branch_code) {
+                fetchDepartments(userData.branch_code)
+            }
+            for (const key in userData) {
+                setValue(key, userData[key]);
+            }
         }
     }, [userData, setValue]);
 
@@ -554,7 +560,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                 disabled={!editMode2}
                                                 icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     </div>
-                                    <div className="flex items-center gap-4">
+                                    <div className="my-4 flex items-center gap-4">
                                         <Input
                                             crossOrigin={undefined} {...register('graduated_school')}
                                             type="text"
@@ -563,6 +569,17 @@ export const SpecificEmployee = (props: initialState) => {
                                             label="School Graduated:"
                                             disabled={!editMode2}
                                             icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
+                                    </div>
+                                    <div className="flex items-center gap-4">
+                                        <Input
+                                            crossOrigin={undefined} {...register('url_google_map')}
+                                            type="text"
+                                            containerProps={{ className: "min-w-[72px] focused" }}
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            label="URL Google Map:"
+                                            disabled={!editMode2}
+                                            icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}    
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -670,7 +687,8 @@ export const SpecificEmployee = (props: initialState) => {
                                         name="civil_status"
                                         variant="outlined"
                                         label="Civil Status"
-                                        disabled={!editMode2} 
+                                        disabled={!editMode2}
+                                        value={userData?.civil_status}
                                     >
                                         <Option value="S">Single</Option>
                                         <Option value="M">Married</Option>
@@ -688,6 +706,7 @@ export const SpecificEmployee = (props: initialState) => {
                                         variant="outlined"
                                         label="Sex"
                                         disabled={!editMode2} 
+                                        value={userData?.gender}
                                     >
                                         <Option value="M">Male</Option>
                                         <Option value="F">Female</Option>
@@ -834,7 +853,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                 disabled={!editMode3}
                                                 icon={<FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
                                     </div>
-                                    <div className="flex items-center gap-4">
+                                    <div className="my-4 flex items-center gap-4">
                                         <Input
                                                 crossOrigin={undefined} {...register('division_code')}
                                                 type="text"
@@ -853,7 +872,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                 icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
                                         
                                     </div>
-                                    <div className="mt-4 flex items-center gap-4">
+                                    <div className="my-4 flex items-center gap-4">
                                         <Input
                                                 crossOrigin={undefined} {...register('accnt_no')}
                                                 type="text"
@@ -861,7 +880,77 @@ export const SpecificEmployee = (props: initialState) => {
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Account Number:"
                                                 disabled={!editMode3}
-                                                icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}                                        />       
+                                                icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}             
+                                        />       
+                                        <Input
+                                            crossOrigin={undefined} {...register('hmo')}
+                                            type="text"
+                                            containerProps={{ className: "min-w-[72px] focused" }}
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            label="HMO:"
+                                            disabled={!editMode3}
+                                            icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}             
+                                        />      
+                                    </div>
+                                    <div className="my-4 flex items-center gap-4">
+                                        <Select
+                                            onChange={(val:any) => setFormSelectData(curr => ({...curr, employee_type: val}))}
+                                            placeholder="Select Employee Type"
+                                            name="employee_type"
+                                            variant="outlined"
+                                            label="Employee Type:"
+                                            value={userData?.employee_type}
+                                            disabled={!editMode3}
+                                            >
+                                            <Option value="Compressed">Compressed</Option>
+                                            <Option value="Normal">Normal</Option>
+                                            <Option value="Field">Field</Option>
+                                        </Select>     
+                                        <Select
+                                                onChange={(val:any) => setFormSelectData(curr => ({...curr, employment_status: val}))}
+                                                placeholder="Select Employee status"
+                                                name="employment_status"
+                                                variant="outlined"
+                                                label="Employment Status"
+                                                disabled={!editMode3}
+                                                value={userData?.employment_status?.toString()}
+                                            >
+                                                {
+                                                dropDownData.employmentStatuses.length > 0 ? dropDownData.employmentStatuses.map((emp_status:any) => (
+                                                    <Option key={emp_status.id} value={emp_status.id}>{emp_status.name}</Option>
+
+                                                ))
+                                                : <Option disabled>No employment status available</Option>
+                                                }
+                                        </Select>
+                                    </div>
+                                    <div className="my-4 flex items-center gap-4">
+                                        <Select
+                                            onChange={(val:any) => setFormSelectData(curr => ({...curr, position_code: val}))}
+                                            placeholder="Select Position"
+                                            name="position_code"
+                                            variant="outlined"
+                                            label="Position"
+                                            disabled={!editMode3}
+                                            value={userData?.position_code?.toString()}
+                                        >
+                                            {
+                                            dropDownData.positions.length > 0 ? dropDownData.positions.map((pos:any) => (
+                                                <Option key={pos.id} value={pos.id}>{pos.name}</Option>
+
+                                            ))
+                                            : <Option disabled>No positions available</Option>
+                                            }
+                                        </Select>
+                                        <Input
+                                            crossOrigin={undefined} {...register('other_duties_responsibilities')}
+                                            type="text"
+                                            containerProps={{ className: "min-w-[72px] focused" }}
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            label="Other Duties Responsibilties:"
+                                            disabled={!editMode3}
+                                            icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}             
+                                        />    
                                     </div>
 
                                 </div>
@@ -875,28 +964,63 @@ export const SpecificEmployee = (props: initialState) => {
                                     </Typography>
                                     <div className="my-4 flex items-center gap-4">
                                         <Input
-                                                crossOrigin={undefined} {...register('city_code')}
-                                                type="text"
-                                                containerProps={{ className: "min-w-[72px]" }}
-                                                label="City Code:"
-                                                labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                disabled={!editMode3}                                        />
-                                        <Input
+                                            crossOrigin={undefined} {...register('city_code')}
+                                            type="text"
+                                            containerProps={{ className: "min-w-[72px]" }}
+                                            label="City Code:"
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            disabled={!editMode3}             
+                                        />
+  
+                                        <Select
+                                            onChange={(val:any) => setFormSelectData(curr => ({...curr, branch_code: val}))}
+                                            placeholder="Select Branch"
+                                            name="branch_code"
+                                            variant="outlined"
+                                            label="Branch"
+                                            disabled={!editMode3}
+                                            value={userData?.branch_code?.toString()}
+                                        >
+                                            {
+                                            dropDownData.branches.length > 0 ? dropDownData.branches.map((branch:any) => (
+                                                <Option key={branch.id} value={branch.id}>{branch.name}</Option>
+
+                                            ))
+                                            : <Option disabled>No branches available</Option>
+                                            }
+                                        </Select>
+                                        <Select
+                                            onChange={(val:any) => setFormSelectData(curr => ({...curr, department_code: val}))}
+                                            placeholder="Select Departments"
+                                            name="department_code"
+                                            variant="outlined"
+                                            label="Department"
+                                            disabled={!editMode3} 
+                                            value={userData?.department_code?.toString()}
+                                        >
+                                            {
+                                            dropDownData.departments.length > 0 ? dropDownData.departments.map((department:any) => (
+                                                <Option key={department.id} value={department.id}>{department.name}</Option>
+                                            ))
+                                            : <Option disabled>No departments available</Option>
+                                            }
+                                        </Select>
+                                        {/* <Input
                                                 crossOrigin={undefined} {...register('branch_code')}
                                                 type="text"
                                                 containerProps={{ className: "min-w-[72px] focused" }}
                                                 labelProps={{ style: { color: true ? "unset" : '', textOverflow: 'ellipsis', overflow: 'hidden' } }}
                                                 label="Branch Code:"
                                                 disabled={!editMode3}
-                                                icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
-                                        <Input
+                                                icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                        /> */}
+                                        {/* <Input
                                                 crossOrigin={undefined} {...register('department_code')}
                                                 type="text"
                                                 containerProps={{ className: "min-w-[72px]" }}
                                                 label="Department Code:"
                                                 labelProps={{ style: { color: true ? "unset" : '', textOverflow: 'ellipsis', overflow: 'hidden' } }}
                                                 disabled={!editMode3}
-                                                icon={<UserGroupIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
+                                                icon={<UserGroupIcon className="h-5 w-5 text-blue-gray-300" />}                                        /> */}
                                     </div>
                                     <div className="my-0 flex items-center gap-4">
                                         <Input
@@ -906,6 +1030,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                 label="Rank Code:"
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 disabled={!editMode3}                                        />
+                                  
                                         <Select
                                             onChange={(val:any) => setFormSelectData(curr => ({...curr, payroll_group_code: val}))}
                                             placeholder="Select Payroll Group"
@@ -913,15 +1038,16 @@ export const SpecificEmployee = (props: initialState) => {
                                             variant="outlined"
                                             label="Payroll Group"
                                             disabled={!editMode3} 
-                                            value={userData?.payroll_group_code}
+                                            value={userData?.payroll_group_code?.toString()}
                                         >
                                             {
                                             dropDownData.payrollGroups.length > 0 ? dropDownData.payrollGroups.map((payroll:any) => (
-                                                <Option value={payroll.id}>{payroll.name}</Option>
+                                                <Option key={payroll.id} value={payroll.id}>{payroll.name}</Option>
                                             ))
                                             : <Option disabled>No payrolls available</Option>
                                             }
                                         </Select>
+                                        
                                         {/* <Input 
                                                 crossOrigin={undefined} {...register('payroll_group_code')}
                                                 type="text"
@@ -939,15 +1065,34 @@ export const SpecificEmployee = (props: initialState) => {
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Basic Salary Amount:"
                                                 disabled={!editMode3}
-                                                icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
-                                        <Input
+                                                icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}       
+                                        />
+                                        <Select
+                                            onChange={(val:any) => setFormSelectData(curr => ({
+                                            ...curr,
+                                            emp_salary_type: val
+                                            }))}
+                                            placeholder="Select Salary Type"
+                                            name="emp_salary_type"
+                                            variant="outlined"
+                                            label="Salary Type"
+                                            disabled={!editMode3}
+                                            value={userData?.emp_salary_type}
+                                        >
+                                            <Option value="1">Monthly</Option>
+                                            <Option value="2">Semi-Monthly</Option>
+                                            <Option value="3">Project-Based</Option>
+                                            <Option value="4">Weekly</Option>
+                                        </Select>
+                                        {/* <Input
                                                 crossOrigin={undefined} {...register('emp_salary_type')}
                                                 type="text"
                                                 containerProps={{ className: "min-w-[72px] focused" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Salary Type:"
                                                 disabled={!editMode3}
-                                                icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
+                                                icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}         
+                                        /> */}
                                     </div>
                                     <div className="my-4 flex items-center gap-4">
                                         <Input
@@ -965,6 +1110,38 @@ export const SpecificEmployee = (props: initialState) => {
                                             containerProps={{ className: "min-w-[72px] focused" }}
                                             labelProps={{ style: { color: true ? "unset" : '' } }}
                                             label="Payroll No:"
+                                            disabled={!editMode3}
+                                            icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                        
+                                        />
+                                    </div>
+                                    <div className="my-4 flex items-center gap-4">
+                                        <Input
+                                            crossOrigin={undefined} {...register('insurance_life')}
+                                            type="number"
+                                            step="0.01"
+                                            containerProps={{ className: "min-w-[72px] focused" }}
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            label="Insurance Life:"
+                                            disabled={!editMode3}
+                                            icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                        
+                                        />
+                                        <Input
+                                            crossOrigin={undefined} {...register('ecola')}
+                                            type="number"
+                                            step="0.01"
+                                            containerProps={{ className: "min-w-[72px] focused" }}
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            label="Ecola:"
+                                            disabled={!editMode3}
+                                            icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                        
+                                        />
+                                        <Input
+                                            crossOrigin={undefined} {...register('other_deductible')}
+                                            type="number"
+                                            step="0.01"
+                                            containerProps={{ className: "min-w-[72px] focused" }}
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            label="Other Deductibles:"
                                             disabled={!editMode3}
                                             icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                        
                                         />

@@ -246,6 +246,7 @@ export const UserProfile = () => {
               type="file"
               className="hidden"
               onChange={handleProfilePic}
+              accept="image/*"
             />
             <Typography
               variant="h6"
@@ -571,8 +572,10 @@ export const UserProfile = () => {
                     variant="outlined"
                     label="Salary Type"
                 >
-                    <Option value="monthly">Monthly</Option>
-                    <Option value="yearly">Yearly</Option>
+                    <Option value="1">Monthly</Option>
+                    <Option value="2">Semi-Monthly</Option>
+                    <Option value="3">Project-Based</Option>
+                    <Option value="4">Weekly</Option>
                 </Select>
                 {/* <Input
                   crossOrigin={undefined} {...register('emp_salary_type', { required: true })}
