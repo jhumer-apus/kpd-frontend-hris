@@ -52,7 +52,7 @@ export const UserProfile = () => {
     })
 
 
-    // useEffects
+    // USE EFFECTS
     useEffect(() => {
       fetchBranches()
       fetchPayrollGroups()
@@ -168,7 +168,6 @@ export const UserProfile = () => {
         };
         reader.readAsDataURL(file);
       }
-
     }
 
   const onSubmit = async (data: EMPLOYEESViewInterface) => {

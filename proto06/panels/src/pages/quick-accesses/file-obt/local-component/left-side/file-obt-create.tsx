@@ -28,6 +28,7 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
         obt_date_to: null,
     });
     const onClickSubmit = () => {
+        console.log(createOBT)
         setIsSubmittingRequest(true)
         dispatch(OBTCreateAction(createOBT))
     };
