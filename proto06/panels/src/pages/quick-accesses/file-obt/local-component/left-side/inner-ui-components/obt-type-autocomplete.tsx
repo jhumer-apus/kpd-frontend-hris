@@ -19,7 +19,8 @@ export default function OBTTypeAutoComplete(props: OBTTypeAutoCompleteInterface)
             return(
                 {
                     ...prevState,
-                    obt_type: newInputValue
+                    obt_type: newInputValue,
+                    obt_remarks: newInputValue
                 }
             )
         })

@@ -47,7 +47,7 @@ interface DropDownData {
     payrollGroups: any[],
     employmentStatuses: any[],
     positions: any[]
-  }
+}
 
 type initialState = {
     secondOptionModalEntranceDelay?: Boolean;
@@ -95,20 +95,13 @@ export const SpecificEmployee = (props: initialState) => {
         positions:[]
       })
 
-      const fetchDataSelects = async () => {
-        await Promise.all([
-            fetchBranches(),
-            fetchPayrollGroups(),
-            fetchEmploymentStatus(),
-            fetchPositions(),
-            fetchDepartments()
-        ]);
-    };
 
     // USE EFFECTS
-
     useEffect(() => {
-        fetchDataSelects();
+        fetchBranches()
+        fetchPayrollGroups()
+        fetchEmploymentStatus()
+        fetchPositions()
     }, []);
 
     // useEffect(() => {
@@ -134,81 +127,75 @@ export const SpecificEmployee = (props: initialState) => {
 
     useEffect(() => {
         if (userData) {
+            userData.branch_code && fetchDepartments()
             for (const key in userData) {
                 setValue(key, userData[key]);
             }
         }
     }, [userData, setValue]);
   
-      // Fetch selects information
-    //   const fetchUserData = () => {
-    //     axios.get(`${APILink}employees/${userDataStore?.emp_no}`).then(response => {
-    //         console.log(response.data)
-    //         setUserData(curr => response.data)
-    //     })
-    //   }
-      const fetchPayrollGroups = () => {
-        axios.get(`${APILink}payrollgroup`).then((response:any) => {
-          const responsePayrollGroups = response.data.map((payroll:any) => {
-            return {
-              id: payroll.id.toString(),
-              name: payroll.name
-            }
-          })
-          setDropDownData((curr:any) => ({...curr, payrollGroups: responsePayrollGroups}));
+    const fetchPayrollGroups = () => {
+    axios.get(`${APILink}payrollgroup`).then((response:any) => {
+        const responsePayrollGroups = response.data.map((payroll:any) => {
+        return {
+            id: payroll.id.toString(),
+            name: payroll.name
+        }
         })
-      }
-  
-      const fetchBranches = () => {
-        axios.get(`${APILink}branch`).then((response:any) => {
-          const responseBranches = response.data.map((branch:any) => {
-            return {
-              id: branch.id.toString(),
-              name: branch.branch_name
-            }
-          })
-          setDropDownData((curr:any) => ({...curr, branches: responseBranches}));
+        setDropDownData((curr:any) => ({...curr, payrollGroups: responsePayrollGroups}));
+    })
+    }
+
+    const fetchBranches = () => {
+    axios.get(`${APILink}branch`).then((response:any) => {
+        const responseBranches = response.data.map((branch:any) => {
+        return {
+            id: branch.id.toString(),
+            name: branch.branch_name
+        }
         })
-      }
-  
-      const fetchDepartments = () => {
-  
-        axios.get(`${APILink}department/`).then((response:any) => {
-          
-          const responseDepartments = response.data.map((department:any) => {
-            return {
-              id: department.id.toString(),
-              name: department.dept_name
-            }
-          })
-          setDropDownData((curr:any) => ({...curr, departments: responseDepartments}));
+        setDropDownData((curr:any) => ({...curr, branches: responseBranches}));
+    })
+    }
+
+    const fetchDepartments = () => {
+
+    axios.get(`${APILink}department/`).then((response:any) => {
+        
+        const responseDepartments = response.data.filter((obj:any) => obj.dept_branch_code == userData?.branch_code).map((department:any) => {
+        return {
+            id: department.id.toString(),
+            name: department.dept_name
+        }
         })
-      }
-  
-      const fetchEmploymentStatus = () => {
-        axios.get(`${APILink}emp_status_type/`).then((response:any) => {
-          const responseEmploymentStatuses = response.data.map((employmentStatus:any) => {
-            return {
-              id: employmentStatus.id.toString(),
-              name: employmentStatus.name
-            }
-          })
-          setDropDownData((curr:any) => ({...curr, employmentStatuses: responseEmploymentStatuses}));
+            setDropDownData((curr:any) => ({...curr, departments: responseDepartments}));
         })
-      }
-  
-      const fetchPositions = () => {
-        axios.get(`${APILink}position/`).then((response:any) => {
-          const responsePositions = response.data.map((position:any) => {
-            return {
-              id: position.id.toString(),
-              name: position.pos_name
-            }
-          })
-  
-          setDropDownData((curr:any) => ({...curr, positions: responsePositions}));
+    }
+
+    const fetchEmploymentStatus = () => {
+    axios.get(`${APILink}emp_status_type/`).then((response:any) => {
+        const responseEmploymentStatuses = response.data.map((employmentStatus:any) => {
+        return {
+            id: employmentStatus.id.toString(),
+            name: employmentStatus.name
+        }
         })
-      }
+        setDropDownData((curr:any) => ({...curr, employmentStatuses: responseEmploymentStatuses}));
+    })
+    }
+
+    const fetchPositions = () => {
+    axios.get(`${APILink}position/`).then((response:any) => {
+        const responsePositions = response.data.map((position:any) => {
+        return {
+            id: position.id.toString(),
+            name: position.pos_name
+        }
+        })
+
+        setDropDownData((curr:any) => ({...curr, positions: responsePositions}));
+    })
+    }
 
 
     const fetchData = async function (formData: FormData) {
@@ -924,8 +911,9 @@ export const SpecificEmployee = (props: initialState) => {
                                             <Option value="Compressed">Compressed</Option>
                                             <Option value="Normal">Normal</Option>
                                             <Option value="Field">Field</Option>
-                                        </Select>     
-                                        <Select
+                                        </Select>
+                                        {dropDownData.employmentStatuses.length > 0 && 
+                                            <Select
                                                 onChange={(val:any) => setFormSelectData(curr => ({...curr, employment_status: val}))}
                                                 placeholder="Select Employee status"
                                                 name="employment_status"
@@ -941,26 +929,29 @@ export const SpecificEmployee = (props: initialState) => {
                                                 ))
                                                 : <Option disabled>No employment status available</Option>
                                                 }
-                                        </Select>
+                                            </Select>
+                                        }
                                     </div>
                                     <div className="my-4 flex items-center gap-4">
-                                        <Select
-                                            onChange={(val:any) => setFormSelectData(curr => ({...curr, position_code: val}))}
-                                            placeholder="Select Position"
-                                            name="position_code"
-                                            variant="outlined"
-                                            label="Position"
-                                            disabled={!editMode3}
-                                            value={userData?.position_code?.toString()}
-                                        >
-                                            {
-                                            dropDownData.positions.length > 0 ? dropDownData.positions.map((pos:any) => (
-                                                <Option key={pos.id} value={pos.id}>{pos.name}</Option>
-
-                                            ))
-                                            : <Option disabled>No positions available</Option>
-                                            }
-                                        </Select>
+                                        {dropDownData.positions.length > 0 && 
+                                            <Select
+                                                onChange={(val:any) => setFormSelectData(curr => ({...curr, position_code: val}))}
+                                                placeholder="Select Position"
+                                                name="position_code"
+                                                variant="outlined"
+                                                label="Position"
+                                                disabled={!editMode3}
+                                                value={userData?.position_code?.toString()}
+                                            >
+                                                {
+                                                dropDownData.positions.length > 0 ? dropDownData.positions.map((pos:any) => (
+                                                    <Option key={pos.id} value={pos.id}>{pos.name}</Option>
+    
+                                                ))
+                                                : <Option disabled>No positions available</Option>
+                                                }
+                                            </Select>
+                                        }
                                         <Input
                                             crossOrigin={undefined} {...register('other_duties_responsibilities')}
                                             type="text"
@@ -1084,24 +1075,26 @@ export const SpecificEmployee = (props: initialState) => {
                                                 containerProps={{ className: "min-w-[72px]" }}
                                                 label="Rank Code:"
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                disabled={!editMode3}                                        />
-                                  
-                                        <Select
-                                            onChange={(val:any) => setFormSelectData(curr => ({...curr, payroll_group_code: val}))}
-                                            placeholder="Select Payroll Group"
-                                            name="payroll_group_code"
-                                            variant="outlined"
-                                            label="Payroll Group"
-                                            disabled={!editMode3} 
-                                            value={userData?.payroll_group_code?.toString()}
-                                        >
-                                            {
-                                            dropDownData.payrollGroups.length > 0 ? dropDownData.payrollGroups.map((payroll:any) => (
-                                                <Option key={payroll.id} value={payroll.id}>{payroll.name}</Option>
-                                            ))
-                                            : <Option disabled>No payrolls available</Option>
-                                            }
-                                        </Select>
+                                                disabled={!editMode3}                                        
+                                        />
+                                        {dropDownData.payrollGroups.length > 0 && 
+                                            <Select
+                                                onChange={(val:any) => setFormSelectData(curr => ({...curr, payroll_group_code: val}))}
+                                                placeholder="Select Payroll Group"
+                                                name="payroll_group_code"
+                                                variant="outlined"
+                                                label="Payroll Group"
+                                                disabled={!editMode3} 
+                                                value={userData?.payroll_group_code?.toString()}
+                                            >
+                                                {
+                                                dropDownData.payrollGroups.length > 0 ? dropDownData.payrollGroups.map((payroll:any) => (
+                                                    <Option key={payroll.id} value={payroll.id}>{payroll.name}</Option>
+                                                ))
+                                                : <Option disabled>No payrolls available</Option>
+                                                }
+                                            </Select>
+                                        }
                                         
                                         {/* <Input 
                                                 crossOrigin={undefined} {...register('payroll_group_code')}
