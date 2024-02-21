@@ -25,6 +25,7 @@
   import { Routes, Route } from "react-router-dom";
   import React, { useState, useEffect } from 'react';
   import TextField from '@mui/material/TextField'; // Import TextField from Material-UI
+  import { beautifyJSON } from '@/helpers/utils';
 
   import axios from 'axios';
   import { useSelector } from "react-redux";
@@ -61,22 +62,24 @@
     const [activeTab, setActiveTab] = useState('personal');
     const [isEdit, setIsEdit] =useState<boolean>(false)
     const curr_user = useSelector((state: RootState) => state.auth.employee_detail);
-    const [file, setFile] = useState<File | null>(null);
-    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-    const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-          const selectedFile = event.target.files ? event.target.files[0] : null;
-          setFile(selectedFile);
+    // const [file, setFile] = useState<File | null>(null);
+    const [profileImage, setProfileImage] = useState<any>(null);
+    const [isSubmittingRequest, setIsSubmittingRequest] = useState<boolean>(false)
+
+    // const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //       const selectedFile = event.target.files ? event.target.files[0] : null;
+    //       setFile(selectedFile);
       
-          if (selectedFile) {
-            const reader = new FileReader();
-          reader.onloadend = () => {
-              setPreviewUrl(reader.result as string);
-            };
-            reader.readAsDataURL(selectedFile);
-          } else {
-            setPreviewUrl(null);
-          }
-      };
+    //       if (selectedFile) {
+    //         const reader = new FileReader();
+    //       reader.onloadend = () => {
+    //           setPreviewUrl(reader.result as string);
+    //         };
+    //         reader.readAsDataURL(selectedFile);
+    //       } else {
+    //         setPreviewUrl(null);
+    //       }
+    //   };
 
     const placeholderImageUrl = 'placeholder_image_url.jpg';
     const [userData, setUserData] = useState<any>(null);
@@ -110,19 +113,26 @@
           ...curr_user
         }
       ))
-      // getAllUserData().then((userData) => {
-      //   setUserData(userData);
-      // });
+      console.log('natrigger')
     }, [curr_user]);
 
     useEffect(() => {
       if(userData) {
         userData.branch_code && fetchDepartments()
+      } else {
+        setUserData((curr:any) => (
+          {
+            ...curr_user
+          }
+        ))
       }
+      console.log('updated user')
+      console.log(userData)
     },[userData])
 
     const rollBackData = () => {
       setUserData((curr:any) => null)
+      setProfileImage(null);
     }
 
     // FETCH SELECT DATA
@@ -136,9 +146,9 @@
           })
           setDropDownData((curr:any) => ({...curr, payrollGroups: responsePayrollGroups}));
       })
-      }
+    }
   
-      const fetchBranches = () => {
+    const fetchBranches = () => {
       axios.get(`${APILink}branch`).then((response:any) => {
           const responseBranches = response.data.map((branch:any) => {
           return {
@@ -147,24 +157,24 @@
           }
           })
           setDropDownData((curr:any) => ({...curr, branches: responseBranches}));
-      })
+        })
       }
   
-      const fetchDepartments = () => {
-  
-      axios.get(`${APILink}department/`).then((response:any) => {
-          
-          const responseDepartments = response.data.filter((obj:any) => obj.dept_branch_code == userData?.branch_code).map((department:any) => {
-          return {
-              id: department.id.toString(),
-              name: department.dept_name
-          }
-          })
-              setDropDownData((curr:any) => ({...curr, departments: responseDepartments}));
-          })
+    const fetchDepartments = () => {
+
+    axios.get(`${APILink}department/`).then((response:any) => {
+        
+        const responseDepartments = response.data.filter((obj:any) => obj.dept_branch_code == userData?.branch_code).map((department:any) => {
+        return {
+            id: department.id.toString(),
+            name: department.dept_name
+        }
+        })
+            setDropDownData((curr:any) => ({...curr, departments: responseDepartments}));
+        })
       }
   
-      const fetchEmploymentStatus = () => {
+    const fetchEmploymentStatus = () => {
       axios.get(`${APILink}emp_status_type/`).then((response:any) => {
           const responseEmploymentStatuses = response.data.map((employmentStatus:any) => {
           return {
@@ -174,9 +184,9 @@
           })
           setDropDownData((curr:any) => ({...curr, employmentStatuses: responseEmploymentStatuses}));
       })
-      }
+    }
   
-      const fetchPositions = () => {
+    const fetchPositions = () => {
       axios.get(`${APILink}position/`).then((response:any) => {
           const responsePositions = response.data.map((position:any) => {
           return {
@@ -184,17 +194,16 @@
               name: position.pos_name
           }
           })
-  
+
           setDropDownData((curr:any) => ({...curr, positions: responsePositions}));
       })
-      }
-
-    const defaultImageSrc = '/img/default.png';
+    }
+    
     const getImageSrc = () => {
       if (curr_user?.employee_image) {
         return `${APILink.replace('/api/v1', '')}${curr_user.employee_image}`;
       } else {
-        return defaultImageSrc;
+        return '/img/default.png'; //default image
       }
     };
 
@@ -203,23 +212,24 @@
       updatePersonalInfo()
     };
 
-    const handleProfilePic = (e:any) => {
-      const file = e.target.files[0];
-      // setFormSelectData((curr:any) => ({...curr, employee_image:file}))
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          // setProfileImage(reader.result);
-        };
-        reader.readAsDataURL(file);
-      }
+  const handleProfilePic = (e:any) => {
+    const file = e.target.files[0];
+    setUserData((curr:any) => ({...curr, employee_image:file}))
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setProfileImage(reader.result);
+      };
+      reader.readAsDataURL(file);
     }
+  }
 
     const updatePersonalInfo = async () => {
 
-      setIsEdit(false)
+      setIsSubmittingRequest(true)
 
       const formData = new FormData ();
+      console.log('submit')
       console.log(userData)
       
       for(const key in userData) {
@@ -227,14 +237,16 @@
       }
       await axios.put(`${APILink}employees/${userData.emp_no}/`, formData).then(res => {
 
+        setIsSubmittingRequest(false)
         setIsEdit(false)
         window.alert("Update personal information successful")
 
       }).catch(err => {
 
+        setIsSubmittingRequest(false)
         setIsEdit(false)
         console.log(err)
-        window.alert(`Error: ${err}`);
+        window.alert(`Error: ${beautifyJSON(err.response?.data)}`);
 
       });
     }
@@ -303,18 +315,18 @@
                 <div className="flex items-center gap-6">
                   <div className="h-fit">
                     <img
-                      src={getImageSrc()}
+                      src={profileImage?? getImageSrc()}
                       alt=" "
                       className="border rounded p-2 w-48 my-4"
                     />
-                    <label htmlFor="uploadImage" className={`w-full block text-center text-white p-2 rounded-md ${isEdit? 'bg-blue-600 cursor-pointer': 'bg-gray-500'}`}>Edit Photo</label>
+                    <label htmlFor="uploadImage" className={`w-full block text-center text-white p-2 rounded-md ${isEdit && !isSubmittingRequest? 'bg-blue-600 cursor-pointer': 'bg-gray-500'}`}>Edit Photo</label>
                     <input 
                         id="uploadImage"
                         type="file"
                         className="hidden"
                         onChange={handleProfilePic}
                         accept="image/*"
-                        disabled={!isEdit}
+                        disabled={!isEdit || isSubmittingRequest}
                       />
                   </div>
                 <div>
@@ -397,9 +409,9 @@
                           />
                       }
 
-                      <TextField  disabled={!isEdit} required id="Birthplace" label="Birthplace" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} defaultValue={userData?.birth_place} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                      <TextField  disabled={!isEdit} id="Birthplace" label="Birthplace" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} defaultValue={userData?.birth_place} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
-                      <TextField  disabled={!isEdit} required id="graduated_school" label="School Graduated" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} defaultValue={userData?.graduated_school} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                      <TextField  disabled={!isEdit} id="graduated_school" label="School Graduated" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} defaultValue={userData?.graduated_school} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
                     </div>
                     <div className="md:flex md:space-x-4">
@@ -444,10 +456,12 @@
                             <Button className="w-24" onClick={()=> {
                               setIsEdit(false)
                               rollBackData()
-                            }}>
+                            }}
+                            disabled={isSubmittingRequest}
+                            >
                               Cancel
                             </Button>
-                            <Button className="w-24" type="submit">
+                            <Button className="w-24" type="submit" disabled={isSubmittingRequest}>
                               Save
                             </Button>
                           </div>
