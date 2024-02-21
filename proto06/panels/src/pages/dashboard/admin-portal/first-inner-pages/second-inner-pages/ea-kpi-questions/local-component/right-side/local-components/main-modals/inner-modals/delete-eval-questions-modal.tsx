@@ -49,7 +49,6 @@ export default function DeactivateEVALQUESTIONSModal(props: DeactivateEVALQUESTI
       <Transition in={DeactivateEVALQUESTIONSOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setDeactivateEVALQUESTIONSOpenModal(false);

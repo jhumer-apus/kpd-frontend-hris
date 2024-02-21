@@ -21,7 +21,6 @@ export default function ViewUASingleModal(props: SingleUAInterface) {
       <Transition in={singleUAOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSingleUAOpenModal(false);

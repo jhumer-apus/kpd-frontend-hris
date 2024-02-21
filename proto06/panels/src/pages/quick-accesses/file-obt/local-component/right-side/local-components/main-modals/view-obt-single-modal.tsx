@@ -21,7 +21,6 @@ export default function ViewOBTSingleModal(props: SinglePayslipInterface) {
       <Transition in={singleOBTOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSingleOBTOpenModal(false);

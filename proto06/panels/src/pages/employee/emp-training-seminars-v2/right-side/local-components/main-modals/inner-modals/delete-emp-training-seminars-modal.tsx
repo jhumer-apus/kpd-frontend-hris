@@ -51,7 +51,6 @@ export default function DeactivateEMPSEMINARSModal(props: DeactivateEMPSEMINARSM
       <Transition in={DeactivateEMPSEMINARSOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setDeactivateEMPSEMINARSOpenModal(false);

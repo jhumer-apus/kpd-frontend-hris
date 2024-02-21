@@ -141,7 +141,6 @@ export default function CutOffListEmployees(props: CutOffListEmployees) {
       />
       </div>
       <Modal
-        keepMounted
         open={open}
         onClose={handleClose}
         aria-labelledby="keep-mounted-modal-title"

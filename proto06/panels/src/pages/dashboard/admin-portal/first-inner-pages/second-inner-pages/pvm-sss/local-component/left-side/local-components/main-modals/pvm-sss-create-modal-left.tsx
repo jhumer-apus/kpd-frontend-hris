@@ -20,7 +20,6 @@ export default function DeductionsSSSCreateModal(props: CreateSSSInterface) {
       <Transition in={createSSSOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setCreateSSSOpenModal(false);

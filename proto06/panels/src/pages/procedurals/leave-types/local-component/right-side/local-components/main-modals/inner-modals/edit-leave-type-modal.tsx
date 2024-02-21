@@ -14,6 +14,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import { clearFields } from '@/helpers/utils';
 
 
 
@@ -54,12 +55,12 @@ export default function EditLEAVETYPEModal(props: EditLEAVETYPEModalInterface) {
     }
     }
   }, [LEAVETYPEEditState])
+  const origBool = singleLEAVETYPEDetailsData.is_paid;
   return (
     <Fragment>
       <Transition in={allowedDaysLEAVETYPEOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setEditLEAVETYPEOpenModal(false);
@@ -142,7 +143,13 @@ export default function EditLEAVETYPEModal(props: EditLEAVETYPEModalInterface) {
               </div>
               <div className='flex justify-around'>
                 <Button variant={'contained'} onClick={allowedDaysLEAVETYPE}>Submit</Button>
-                <Button variant={'outlined'} onClick={()=>{setEditLEAVETYPEOpenModal(false)}}>Cancel</Button>
+                <Button variant={'outlined'} onClick={()=>{
+                  clearFields(setSingleLEAVETYPEDetailsData, ['name', 'is_paid'], [null, origBool])
+                  setEditLEAVETYPEOpenModal(false)
+                }}
+                >
+                  Cancel
+                </Button>
               </div>
             </div>
           </div>

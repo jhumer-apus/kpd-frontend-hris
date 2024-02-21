@@ -21,7 +21,6 @@ export default function ViewSCHEDULEDAILYSingleModal(props: SingleSCHEDULEDAILYI
       <Transition in={singleSCHEDULEDAILYOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSingleSCHEDULEDAILYOpenModal(false);

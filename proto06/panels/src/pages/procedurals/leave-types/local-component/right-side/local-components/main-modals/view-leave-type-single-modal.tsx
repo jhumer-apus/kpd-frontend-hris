@@ -21,7 +21,6 @@ export default function ViewLEAVETYPESingleModal(props: SingleLEAVETYPEInterface
       <Transition in={singleLEAVETYPEOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSingleLEAVETYPEOpenModal(false);

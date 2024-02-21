@@ -10,6 +10,7 @@ import dayjs from 'dayjs';
 import { PAYROLLGROUPEditAction } from '@/store/actions/categories';
 import EmployeeAutoCompleteRight from './autocomplete-fields/employee-autocomplete-right';
 import BranchAutoCompleteRight from './autocomplete-fields/branch-autocomplete-right';
+import { clearFields } from '@/helpers/utils';
 
 
 
@@ -49,7 +50,6 @@ export default function AllowedDaysPAYROLLGROUPModal(props: AllowedDaysPAYROLLGR
       <Transition in={allowedDaysPAYROLLGROUPOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setAllowedDaysPAYROLLGROUPOpenModal(false);
@@ -104,7 +104,7 @@ export default function AllowedDaysPAYROLLGROUPModal(props: AllowedDaysPAYROLLGR
                       const value = event.target.value;
                       return({
                         ...prevState,
-                        div_name: value,
+                        name: value,
                       })
                     })
                   }}
@@ -147,7 +147,15 @@ export default function AllowedDaysPAYROLLGROUPModal(props: AllowedDaysPAYROLLGR
               </div>
               <div className='flex justify-around'>
                 <Button variant={'contained'} onClick={allowedDaysPAYROLLGROUP}>Submit</Button>
-                <Button variant={'outlined'} onClick={()=>{setAllowedDaysPAYROLLGROUPOpenModal(false)}}>Cancel</Button>
+                <Button 
+                  variant={'outlined'} 
+                  onClick={()=>{
+                    clearFields(setSinglePAYROLLGROUPDetailsData, ['name', 'payroll_freq', 'payroll_description'], ['', NaN, null])
+                    setAllowedDaysPAYROLLGROUPOpenModal(false)
+                  }}
+                >
+                  Cancel
+                </Button>
               </div>
             </div>
           </div>

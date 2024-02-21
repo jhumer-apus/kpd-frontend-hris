@@ -51,7 +51,6 @@ export default function DeactivateEMPHISTORYModal(props: DeactivateEMPHISTORYMod
       <Transition in={DeactivateEMPHISTORYOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setDeactivateEMPHISTORYOpenModal(false);

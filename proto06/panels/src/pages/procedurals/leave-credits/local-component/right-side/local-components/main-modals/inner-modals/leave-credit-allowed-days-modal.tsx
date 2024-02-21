@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
 import { LEAVECREDITEditAction } from '@/store/actions/procedurals';
+import { clearFields } from '@/helpers/utils';
 
 
 
@@ -58,7 +59,6 @@ export default function AllowedDaysLEAVECREDITModal(props: AllowedDaysLEAVECREDI
       <Transition in={allowedDaysLEAVECREDITOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setAllowedDaysLEAVECREDITOpenModal(false);
@@ -122,7 +122,13 @@ export default function AllowedDaysLEAVECREDITModal(props: AllowedDaysLEAVECREDI
               </div>
               <div className='flex justify-around'>
                 <Button variant={'contained'} onClick={allowedDaysLEAVECREDIT}>Submit</Button>
-                <Button variant={'outlined'} onClick={()=>{setAllowedDaysLEAVECREDITOpenModal(false)}}>Cancel</Button>
+                <Button variant={'outlined'} onClick={()=>{
+                  clearFields(setSingleLEAVECREDITDetailsData, ['allowed_days'], [null])
+                  setAllowedDaysLEAVECREDITOpenModal(false)
+                }}
+                >
+                  Cancel
+                </Button>
               </div>
             </div>
           </div>

@@ -21,7 +21,6 @@ export default function ViewLEAVECREDITSingleModal(props: SingleLEAVECREDITInter
       <Transition in={singleLEAVECREDITOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSingleLEAVECREDITOpenModal(false);

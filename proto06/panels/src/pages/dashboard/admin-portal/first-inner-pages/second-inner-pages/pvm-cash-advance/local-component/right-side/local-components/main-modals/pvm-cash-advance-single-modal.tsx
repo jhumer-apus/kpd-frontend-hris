@@ -21,7 +21,6 @@ export default function ViewCASHADVANCESingleModal(props: SingleCASHADVANCEInter
       <Transition in={singleCASHADVANCEOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSingleCASHADVANCEOpenModal(false);

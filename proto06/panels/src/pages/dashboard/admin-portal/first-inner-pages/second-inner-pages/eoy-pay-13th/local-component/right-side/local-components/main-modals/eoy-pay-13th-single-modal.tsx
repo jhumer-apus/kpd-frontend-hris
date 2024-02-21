@@ -21,7 +21,6 @@ export default function ViewPAY13THSingleModal(props: SinglePAY13THInterface) {
       <Transition in={singlePAY13THOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSinglePAY13THOpenModal(false);

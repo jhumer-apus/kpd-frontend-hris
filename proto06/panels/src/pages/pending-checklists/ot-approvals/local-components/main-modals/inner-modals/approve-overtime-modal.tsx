@@ -71,7 +71,6 @@ export default function ApproveOVERTIMEModal(props: ApproveOVERTIMEModalInterfac
       <Transition in={approveOVERTIMEOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setApproveOVERTIMEOpenModal(false);

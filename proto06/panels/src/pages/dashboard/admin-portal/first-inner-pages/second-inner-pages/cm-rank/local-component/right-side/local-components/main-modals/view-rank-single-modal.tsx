@@ -21,7 +21,6 @@ export default function ViewRANKSingleModal(props: SingleRANKInterface) {
       <Transition in={singleRANKOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSingleRANKOpenModal(false);

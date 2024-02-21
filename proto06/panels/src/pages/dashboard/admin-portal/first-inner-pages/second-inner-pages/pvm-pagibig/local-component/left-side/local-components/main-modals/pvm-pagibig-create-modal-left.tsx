@@ -20,7 +20,6 @@ export default function DeductionsPAGIBIGCreateModal(props: CreatePAGIBIGInterfa
       <Transition in={createPAGIBIGOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setCreatePAGIBIGOpenModal(false);

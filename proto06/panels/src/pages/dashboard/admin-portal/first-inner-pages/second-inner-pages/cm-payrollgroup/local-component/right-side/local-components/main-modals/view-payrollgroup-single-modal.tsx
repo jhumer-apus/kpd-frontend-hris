@@ -21,7 +21,6 @@ export default function ViewPAYROLLGROUPSingleModal(props: SinglePAYROLLGROUPInt
       <Transition in={singlePAYROLLGROUPOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSinglePAYROLLGROUPOpenModal(false);

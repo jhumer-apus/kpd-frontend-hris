@@ -48,7 +48,6 @@ export default function AllowedDaysDEPARTMENTModal(props: AllowedDaysDEPARTMENTM
       <Transition in={allowedDaysDEPARTMENTOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setAllowedDaysDEPARTMENTOpenModal(false);
@@ -113,7 +112,14 @@ export default function AllowedDaysDEPARTMENTModal(props: AllowedDaysDEPARTMENTM
               </div>
               <div className='flex justify-around'>
                 <Button variant={'contained'} onClick={allowedDaysDEPARTMENT}>Submit</Button>
-                <Button variant={'outlined'} onClick={()=>{setAllowedDaysDEPARTMENTOpenModal(false)}}>Cancel</Button>
+                <Button 
+                  variant={'outlined'} 
+                  onClick={()=>{
+                    setAllowedDaysDEPARTMENTOpenModal(false)
+                  }}
+                >
+                Cancel
+                </Button>
               </div>
             </div>
           </div>

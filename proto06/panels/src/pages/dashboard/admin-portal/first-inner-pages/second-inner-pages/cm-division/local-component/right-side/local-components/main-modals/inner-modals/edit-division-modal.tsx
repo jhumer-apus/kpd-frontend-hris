@@ -9,6 +9,7 @@ import { RootState } from '@/store/configureStore';
 import { DIVISIONEditAction } from '@/store/actions/categories';
 import EmployeeAutoCompleteRight from './autocomplete-fields/employee-autocomplete-right';
 import BranchAutoCompleteRight from './autocomplete-fields/branch-autocomplete-right';
+import { clearFields } from '@/helpers/utils';
 
 
 
@@ -48,7 +49,6 @@ export default function AllowedDaysDIVISIONModal(props: AllowedDaysDIVISIONModal
       <Transition in={allowedDaysDIVISIONOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setAllowedDaysDIVISIONOpenModal(false);
@@ -113,7 +113,15 @@ export default function AllowedDaysDIVISIONModal(props: AllowedDaysDIVISIONModal
               </div>
               <div className='flex justify-around'>
                 <Button variant={'contained'} onClick={allowedDaysDIVISION}>Submit</Button>
-                <Button variant={'outlined'} onClick={()=>{setAllowedDaysDIVISIONOpenModal(false)}}>Cancel</Button>
+                <Button 
+                  variant={'outlined'} 
+                  onClick={()=>{
+                    clearFields(setSingleDIVISIONDetailsData, ['div_name'], [''])
+                    setAllowedDaysDIVISIONOpenModal(false)
+                  }}
+                >
+                  Cancel
+                </Button>
               </div>
             </div>
           </div>

@@ -143,3 +143,26 @@ export const checkDevice = () => {
     }
   )
 }
+
+
+type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
+/**
+@author Ms. Galaxy Matty <3
+https://github.com/Mattttyyyy
+@abstract 
+There's a lot of local state in the codebase, redeclaring them one by one is a bit of a work.
+@requires
+a setState type of a local useState, which you can pass an array of fields to modify, and an array of values to put it in. 
+Please note that this function assumes that the fields and values arrays are of the same length and that the types of the values in the values array are assignable to the corresponding fields in the state. You might want to add some error checking to handle cases where these assumptions are not met. Also, this function does not check if the fields exist in the state object, so you’ll need to ensure that you only pass valid field names. If you want to make it safer, you could add some type checking or use a library like lodash’s set function to safely set the values.
+@returns
+void. Because it works as a setState function invoked.
+*/ 
+export const clearFields = <T>(setState: SetState<T>, fields: (keyof T)[], values: any[]): void => {
+  setState((prevState: T) => {
+    const newState = { ...prevState };
+    fields.forEach((field, index) => {
+      newState[field] = values[index];
+    });
+    return newState;
+  });
+};

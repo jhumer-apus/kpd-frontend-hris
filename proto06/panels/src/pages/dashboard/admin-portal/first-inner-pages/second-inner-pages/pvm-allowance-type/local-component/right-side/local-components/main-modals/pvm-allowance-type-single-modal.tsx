@@ -21,7 +21,6 @@ export default function ViewALLOWANCETYPESingleModal(props: SingleALLOWANCETYPEI
       <Transition in={singleALLOWANCETYPEOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSingleALLOWANCETYPEOpenModal(false);

@@ -73,7 +73,6 @@ export default function EditSubmitOFFBOARDINGREQUIREMENTSModal(props: EditOFFBOA
       <Transition in={openModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setOpenModal(false);

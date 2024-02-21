@@ -62,7 +62,6 @@ export default function DenyOBTModal(props: DenyOBTModalInterface) {
       <Transition in={denyOBTOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setDenyOBTOpenModal(false);

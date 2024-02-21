@@ -21,7 +21,6 @@ export default function ViewPOSITIONSingleModal(props: SinglePOSITIONInterface) 
       <Transition in={singlePOSITIONOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
-        keepMounted
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
           setSinglePOSITIONOpenModal(false);
