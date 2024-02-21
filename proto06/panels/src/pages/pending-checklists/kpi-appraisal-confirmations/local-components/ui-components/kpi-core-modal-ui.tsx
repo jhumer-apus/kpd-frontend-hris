@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { KPICOREEditInterface, KPICOREUpdateSupervisorInterface, KPICOREViewInterface, ONBOARDINGSTATUSUpdateInterface } from '@/types/types-employee-and-applicants';
-import { Button, Typography } from '@mui/material';
+import { Button, IconButton, Tooltip, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalAPIDate } from '@/store/configureStore';
 import { KPICOREEditAction, KPICOREEditActionFailureCleanup, KPICOREUpdateSupervisorAction, KPICOREUpdateSupervisorActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import EditCalendarOutlinedIcon from '@mui/icons-material/EditCalendarOutlined';
+import CreditScoreOutlinedIcon from '@mui/icons-material/CreditScoreOutlined';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers';
+import { clearFields } from '@/helpers/utils';
 
 interface KPICOREModalUIInterface {
     singleKPICOREDetailsData: KPICOREViewInterface;
@@ -18,6 +25,7 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
     const EAStoreState = useSelector((state: RootState) => state.employeeAndApplicants);
     const [ approveKPICOREOpenModal, setApproveKPICOREOpenModal ] = useState(false);
     const [ denyKPICOREOpenModal, setDenyKPICOREOpenModal ] = useState(false);
+    const [ editDateState, setEditDateState ] = useState(false);
     const { setSingleKPICOREDetailsData, singleKPICOREDetailsData } = props;
     const ThisProps = props.singleKPICOREDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
@@ -126,6 +134,9 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
             if(singleKPICOREDetailsData.status === "Confirmed"){
                 window.alert("You cannot modify this already confirmed document.")
                 return
+            }else if(new Date(singleKPICOREDetailsData.date_evaluation_deadline as string) < new Date() ){
+                window.alert("The evaluation deadline is past due. Edit the date field in order to proceed")
+                return 
             }else{
                 setSaveChangesButton(!saveChangesButton);
             }
@@ -134,7 +145,7 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
         const SubmitChanges = () => {
             setSaveChangesButton(!saveChangesButton);
             dispatch(KPICOREUpdateSupervisorAction(forReqsAPIPayload));
-            dispatch(KPICOREEditAction(documentPayload));
+            // dispatch(KPICOREEditAction(documentPayload));
         };
         switch(mode){
             case 0: InputDetails();
@@ -193,7 +204,9 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
 
     }; 
 
+    console.log(singleKPICOREDetailsData, "asdasd")
     const dualStateUpdate = (index: number, field_submit: string, field_get: string, value: string | number, type: "Question" | "Core") => {
+        console.log("check number dstate", index,"val:", value )
         updateAPIState(index, field_submit, value);
         updatePassedState(index, field_get, value, type);
     };
@@ -229,8 +242,64 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
                 <Typography variant='subtitle1' className='flex justify-center text-center'>
                         Final Rating: {singleKPICOREDetailsData.status === 'Pending' ? 'Pending...' : singleKPICOREDetailsData.final_rating} | Supervisor: {singleKPICOREDetailsData.approver_name}
                 </Typography>
-                <Typography variant='subtitle1' style={{marginTop: "20px"}} className='flex justify-center text-center'>
-                        Eval Deadline Date: {dayjs(singleKPICOREDetailsData.date_evaluation_deadline).format("MMMM DD, YYYY")}
+                <Typography variant='subtitle1' style={{marginTop: "20px"}} className='flex justify-center text-center items-center '>
+                        { 
+                        !editDateState ?  
+                        <>
+                        Eval Deadline Date: 
+                        {dayjs(singleKPICOREDetailsData.date_evaluation_deadline).format("MMMM DD, YYYY")}
+                        <Tooltip title="Edit Date">
+                            <IconButton aria-label="Submit Date">
+                                <EditCalendarOutlinedIcon color='primary' onClick={()=> setEditDateState(true)}/>
+                            </IconButton>
+                        </Tooltip>
+                        </>
+                        : 
+                        <>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DatePicker
+                                    label="Eval Deadline Date"
+                                    value={dayjs(singleKPICOREDetailsData.date_evaluation_deadline)}
+                                    disabled={!editDateState}
+                                    onChange={(newValue) => {
+                                        const formattedDate = dayjs(newValue).format(`${globalAPIDate}`);
+                                        setDocumentPayload((prevState) => {
+                                            return (
+                                                {
+                                                    ...prevState,
+                                                    date_evaluation_deadline: formattedDate,
+                                                }
+                                            )
+                                        })
+                                    }}
+
+                                />
+                        </LocalizationProvider>
+                        <Tooltip title="Submit New Date">
+                                <IconButton aria-label="Submit New Date">
+                                <CreditScoreOutlinedIcon 
+                                    color='success' 
+                                    onClick={()=> {
+                                        dispatch(KPICOREEditAction(documentPayload))                             
+                                    }}
+                                />     
+                                </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Cancel Edit">
+                            <IconButton aria-label="Cancel Edit">
+                            <CancelOutlinedIcon 
+                                color='warning' 
+                                onClick={()=> {
+                                    clearFields(setDocumentPayload, ['date_evaluation_deadline'], [`${singleKPICOREDetailsData.date_evaluation_deadline}`])
+                                    setEditDateState(false)
+                                }}
+                            />     
+                            </IconButton>
+                        </Tooltip>
+
+
+                        </>
+                        }
                 </Typography>
                 <div className='flex justify-center my-6' container-name='obt_buttons_container'>
                     <div className='flex justify-center' style={{width:'300px'}} container-name='obt_buttons'>
@@ -285,15 +354,14 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
                                     <TextField 
                                         sx={{width: '30%'}} 
                                         label={`Supervisor Points #${index + 1}`} 
-                                        type='number'
                                         placeholder='Points from 1-10'
                                         variant='outlined'
                                         value={item.approver_eval_point} 
                                         disabled={!saveChangesButton}
                                         focused={saveChangesButton}
                                         onChange={(event)=> {
-                                            const newValue = +event.target.value;
-                                            if(newValue > 10 || newValue < 0){
+                                            const newValue = Number(event.target.value);
+                                            if(newValue > 10 || newValue < 0 || isNaN(newValue)){
                                                 return
                                             }
                                             dualStateUpdate(index, "approver_eval_point_array", "approver_eval_point", newValue, "Question")
@@ -334,18 +402,29 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
                                 />
                                 <div className='flex justify-center gap-20'>
                                 <TextField 
-                                    sx={{width: '100%', fontStyle: 'italic'}} 
+                                    sx={{width: '70%', fontStyle: 'italic'}} 
                                     label={`Limits For Core#${index + 1}`} 
                                     value={item.checklist_limit} 
                                     InputProps={{readOnly: true,}} 
                                     variant='outlined'
                                 />
                                 <TextField 
-                                    sx={{width: '20%'}} 
-                                    label={`CL Points #${index + 1}`} 
+                                    sx={{width: '30%'}} 
+                                    label={`Approver's Points #${index + 1}`} 
                                     value={item.points} 
-                                    InputProps={{readOnly: true,}} 
                                     variant='outlined' 
+                                    placeholder='Points from 1-10'
+                                    disabled={!saveChangesButton}
+                                    focused={saveChangesButton}
+                                    inputProps={{ min: 0, max: 10 }}
+                                    onWheel={(event) => event.preventDefault()}
+                                    onChange={(event)=> {
+                                        const newValue = Number(event.target.value);
+                                        if(newValue > 10 || newValue < 0 || isNaN(newValue)){
+                                            return
+                                        }
+                                        dualStateUpdate(index, "corecompe_points", "points", newValue, "Core")
+                                    }}
                                 />
                                 </div>
 
