@@ -19,7 +19,8 @@ export default function OBTTypeAutoComplete(props: OBTTypeAutoCompleteInterface)
             return(
                 {
                     ...prevState,
-                    obt_type: newInputValue
+                    obt_type: newInputValue,
+                    obt_remarks: newInputValue
                 }
             )
         })
@@ -44,5 +45,4 @@ export default function OBTTypeAutoComplete(props: OBTTypeAutoCompleteInterface)
 const OBTTypeOptions = [
     'On Client Meeting',
     'On-Site Project',
-    'Others'
 ]

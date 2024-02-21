@@ -17,6 +17,7 @@ interface CreateLEAVEModalInterface {
 function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
 
     const dispatch = useDispatch();
+    const [isSubmittingRequest, setIsSubmittingRequest] = useState<boolean>(false);
     const LEAVECreatestate = useSelector((state: RootState)=> state.procedurals.LEAVECreate);
     const [createLEAVE, setCreateLEAVE] = useState<LEAVECreateInterface>({
         emp_no: NaN,
@@ -26,13 +27,16 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         leave_date_to: null,
     });
     const onClickSubmit = () => {
+        setIsSubmittingRequest(true)
         dispatch(LEAVECreateAction(createLEAVE))
     };
     useEffect(()=>{
         if(LEAVECreatestate.status === 'succeeded'){
+            setIsSubmittingRequest(false)
             window.alert('Request Successful');
             window.location.reload();
         }else if(LEAVECreatestate.status === 'failed'){
+            setIsSubmittingRequest(false)
             window.alert(`Request Failed, ${LEAVECreatestate.error}`)
             setTimeout(()=> {
                 dispatch(LEAVECreateActionFailureCleanup());

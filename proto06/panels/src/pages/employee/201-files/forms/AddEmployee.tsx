@@ -52,7 +52,7 @@ export const UserProfile = () => {
     })
 
 
-    // useEffects
+    // USE EFFECTS
     useEffect(() => {
       fetchBranches()
       fetchPayrollGroups()
@@ -168,7 +168,6 @@ export const UserProfile = () => {
         };
         reader.readAsDataURL(file);
       }
-
     }
 
   const onSubmit = async (data: EMPLOYEESViewInterface) => {
@@ -524,8 +523,10 @@ export const UserProfile = () => {
             <div style={{position: 'relative', width: '100%'}}>
                 <Input
                   crossOrigin={undefined} {...register('emp_no', { required: true })}
-                  label="Assigned Employee No:* (max 5 digits)"
-                  disabled={!editMode}                />
+                  label="Assigned Employee No:* (max 7 digits)"
+                  disabled={!editMode}
+                  maxLength={7}        
+                />
                 {errors.emp_no && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Emp # is required.</sub>}
             </div>
             <div style={{position: 'relative', width: '100%'}}>
