@@ -85,7 +85,7 @@ export interface BONUSENTRYEditInterface extends Omit<BONUSENTRYViewInterface, "
 
 export interface ANNOUNCEMENTGenericInterface {
     date_posted: string | null,
-    expiry_date: string | null,
+    date_expiry: string | null,
     order_by_no: number | null,
     message:string,
     for_departments_code: number[],

@@ -316,12 +316,17 @@ export interface JOBPOSTINGSEditInterface extends JOBPOSTINGSGenericInterface, P
 
 
 export interface PERFECTATTENDANCEViewInterface extends EMPLOYEESViewInterface {}
+export interface IMPERFECTATTENDANCEViewInterface extends EMPLOYEESViewInterface {}
 
 export interface Perfect_Attendace_Filter_Interface {
 	month: number,
 	year: number
 };
   
+export interface Imperfect_Attendace_Filter_Interface {
+	month: number,
+	year: number
+};
 export interface ALLSCHEDULEViewInterface extends SCHEDULEDAILYViewInterface{}
 
 export interface All_Schedule_Filter_Interface {

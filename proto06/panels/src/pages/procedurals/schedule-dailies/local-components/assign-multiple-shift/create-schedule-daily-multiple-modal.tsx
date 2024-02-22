@@ -16,8 +16,10 @@ import SCHEDULESHIFTFetchAutoCompleteOnSCHEDULEDAILYPage from '../schedule-shift
 
 
 import Radio from '@mui/material/Radio';
+import Checkbox from '@mui/material/Checkbox'
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import EmployeeAutoCompleteLeft from '../employee-autocomplete/employee-autocomplete-left';
@@ -60,9 +62,11 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
         emp_no: [],
         is_restday: false,
         sched_default: false,
+        exclude_days: 'default'
     })
     const submitNewSCHEDULEDAILY = () => {
-        dispatch(SCHEDULEDAILYCreateAction(createSCHEDULEDAILYForm));
+        console.log(createSCHEDULEDAILYForm)
+        // dispatch(SCHEDULEDAILYCreateAction(createSCHEDULEDAILYForm));
     };
 
     useEffect(()=>{
@@ -126,6 +130,25 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
                 </LocalizationProvider>
                 {/* <EmployeeAutoCompleteLeft createSCHEDULEDAILY={createSCHEDULEDAILYForm} setCreateSCHEDULEDAILY={setCreateSCHEDULEDAILYForm}/> */}
                 <MultiEmployeeAutoCompleteLeft createSCHEDULEDAILY={createSCHEDULEDAILYForm} setCreateSCHEDULEDAILY={setCreateSCHEDULEDAILYForm}/>
+                <FormControl>
+                    <FormLabel id="demo-radio-buttons-group-label">Exclude Days (OFF Days)</FormLabel>
+                    <RadioGroup
+                        aria-labelledby="demo-radio-buttons-group-label"
+                        name="radio-buttons-group"
+                        defaultValue={createSCHEDULEDAILYForm.exclude_days}
+                        onChange={(e:React.ChangeEvent<HTMLInputElement>)=>{
+                            setCreateSCHEDULEDAILYForm(curr => ({
+                                ...curr,
+                                exclude_days: (e.target as HTMLInputElement).value
+                            }))
+                        }}
+                    >
+                        <FormControlLabel value="saturday" control={<Radio />} label="Saturday" />
+                        <FormControlLabel value="sunday" control={<Radio />} label="Sunday" />
+                        <FormControlLabel value="saturday_sunday" control={<Radio />} label="Saturday and Sunday" />
+                        <FormControlLabel value="default" control={<Radio />} label="Default"/>
+                    </RadioGroup>
+                </FormControl>
                 <FormControl>
                     <FormLabel id="demo-controlled-radio-buttons-group">Is Restday</FormLabel>
                     <RadioGroup

@@ -28,7 +28,7 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
     const ANNOUNCEMENTCreatestate = useSelector((state: RootState)=> state.payrollEOY.ANNOUNCEMENTCreate);
     const [createANNOUNCEMENT, setCreateANNOUNCEMENT] = useState<ANNOUNCEMENTCreateInterface>({
         date_posted: null,
-        expiry_date: null,
+        date_expiry: null,
         order_by_no: null,
         message: '',
         for_departments_code: [],

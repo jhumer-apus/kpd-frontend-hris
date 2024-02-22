@@ -15,14 +15,12 @@ import SelectForm from '../../../public-components/forms/SelectForm';
 import InputForm from '../../../public-components/forms/InputForm';
 
 export default function ViewEmployeeLeaves() {
-
-    const [isLoading, setIsLoading] = useState<boolean>(false);
     
 
-
     //STATES
-    const [dateColumns, setDateColumns] = useState<GridColDef []>([]);
     const [dataRows, setDataRows] = useState([]);
+
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const [month, setMonth] = useState<number | string>(new Date().getMonth() + 1);
     const [year, setYear] = useState<number | string>(new Date().getFullYear());
@@ -33,9 +31,9 @@ export default function ViewEmployeeLeaves() {
 
         setIsLoading(true);
 
-        await axios.get(`${APILink}ot`).then(response => {
+        await axios.get(`${APILink}ot?month=${month}&year=${year}&status=APD`).then(response => {
 
-            const approvedOvertime = response.data.filter((data:any)=> data.ot_approval_status== "APD");
+            const approvedOvertime = response.data;
             setDataRows(curr => approvedOvertime);
             setIsLoading(false)
 
@@ -191,7 +189,7 @@ export default function ViewEmployeeLeaves() {
                 />
 
                 <div className="md:flex md:space-x-4 md:items-center">
-                    {/* <SelectForm         
+                    <SelectForm         
                         label="Select Month"
                         variant="standard"
                         placeholder="Select A Month"
@@ -207,8 +205,8 @@ export default function ViewEmployeeLeaves() {
                         placeholder="Enter A Year"
                         setState={setYear}
                         isDisable={isLoading}
-                    /> */}
-                    {/* <Button 
+                    />
+                    <Button 
                         variant="filled"
                         size="lg"
                         color='indigo'
@@ -216,7 +214,7 @@ export default function ViewEmployeeLeaves() {
                         disabled={isLoading}
                     >
                         View
-                    </Button> */}
+                    </Button>
 
 
                 </div>

@@ -24,12 +24,12 @@ export const AAANNOUNCEMENTPageColumns: GridColDef[] =
       return params.row.date_posted ? dayjs(date).format(`${globalDate}`) : 'No Date';
     }
   },
-  { field: 'expiry_date', 
+  { field: 'date_expiry', 
     headerName: 'Expiry Date', 
     width: 150,
     valueGetter: (params: GridValueGetterParams) => {
-      const date = new Date(params.row.expiry_date);
-      return params.row.expiry_date ? dayjs(date).format(`${globalDate}`) : 'No Date';
+      const date = new Date(params.row.date_expiry);
+      return params.row.date_expiry ? dayjs(date).format(`${globalDate}`) : 'No Date';
     }
   },
   { field: 'message', headerName: 'Message',  width: 200 },

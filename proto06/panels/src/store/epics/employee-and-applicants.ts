@@ -1723,6 +1723,19 @@ const PERFECTATTENDANCEViewSpecificApiCall = async (payload: {month: number, yea
     return response.data;
 };
 
+const IMPERFECTATTENDANCEViewSpecificApiCall = async (payload: {month: number, year: number }) => {
+    const response = await axios.get(`${APILink}imperfect/?month=${payload.month}&year=${payload.year}`,
+    {
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(_Action.IMPERFECTATTENDANCEViewSpecificActionProgress(progress));
+            }
+        }
+        }
+    );
+    return response.data;
+};
 
 
 
@@ -1741,6 +1754,27 @@ export const PERFECTATTENDANCEViewSpecificEpic: Epic = (action$, state$) =>
                 return of(_Action.PERFECTATTENDANCEViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
             } else {
                 return of(_Action.PERFECTATTENDANCEViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            }
+            })
+        )
+        )
+);
+
+export const IMPERFECTATTENDANCEViewSpecificEpic: Epic = (action$, state$) =>
+    action$.pipe(
+        ofType(_Action.IMPERFECTATTENDANCEViewSpecificAction.type),
+        switchMap((action: ReturnType<typeof _Action.IMPERFECTATTENDANCEViewSpecificAction>) =>
+        from(
+            IMPERFECTATTENDANCEViewSpecificApiCall(action?.payload)
+        ).pipe(
+            map((data) => {
+            return _Action.IMPERFECTATTENDANCEViewSpecificActionSuccess(data);
+            }),
+            catchError((error) => {
+            if (error.response && error.response.data && error.response.data['Error Message']) {
+                return of(_Action.IMPERFECTATTENDANCEViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
+            } else {
+                return of(_Action.IMPERFECTATTENDANCEViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
             }
             })
         )
