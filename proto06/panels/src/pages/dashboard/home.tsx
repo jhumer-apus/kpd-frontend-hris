@@ -10,6 +10,11 @@ import {
   MenuItem,
   Tooltip,
   Button,
+  Tabs,
+  TabsHeader,
+  TabsBody,
+  Tab,
+  TabPanel,
 } from "@material-tailwind/react";
 import { Typography } from "@mui/material";
 import {
@@ -26,6 +31,8 @@ import PerfectAttendanceTable from "./home-components/perfect-attendance-table";
 import MonthYearDropdown from "./home-components/month-year-dropdown";
 import dayjs from "dayjs";
 import { PERFECTATTENDANCEViewSpecificAction } from "@/store/actions/employee-and-applicants";
+import { IMPERFECTATTENDANCEViewSpecificAction } from "@/store/actions/employee-and-applicants";
+import AttendanceTable from  "./home-components/perfect-attendance-table"
 import { useDispatch, useSelector } from "react-redux";
 import { Perfect_Attendace_Filter_Interface } from "@/types/types-employee-and-applicants";
 import { RootState } from "@/store/configureStore";
@@ -35,6 +42,7 @@ import YearlyReminder from "./YearlyReminder";
 
 export function ChooseDashboard() {
   const EmployeeState = useSelector((state: RootState) => state.employeeAndApplicants);
+  const [currentAttendanceTab, setCurrentAttendanceTab] = useState<string>("perfect_attendance");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [ filterState, setFilterState ] = useState<Perfect_Attendace_Filter_Interface>({
@@ -46,37 +54,70 @@ export function ChooseDashboard() {
   useEffect(()=>{
     if(filterState.month && filterState.year){
       dispatch(PERFECTATTENDANCEViewSpecificAction(filterState))
+      dispatch(IMPERFECTATTENDANCEViewSpecificAction(filterState))
     }
   }, [filterState.month, filterState.year]);
 
+  useEffect(() => {
+    dispatch(PERFECTATTENDANCEViewSpecificAction(filterState))
+    dispatch(IMPERFECTATTENDANCEViewSpecificAction(filterState))
+  }, [currentAttendanceTab])
+
   useEffect(()=> {
-
-    if(Array.isArray(EmployeeState?.PERFECTATTENDANCEViewSpecific?.data)){
-      const data = EmployeeState?.PERFECTATTENDANCEViewSpecific?.data?.map((data)=> {
-        return ({
-          id: data.id,
-          Employee_Name: `${data.last_name}, ${data.first_name} ${data.middle_name !== null ? data.middle_name : ''} ${data.suffix !== null? data.suffix : ''}`,
-          Department_ID: `${data.department_code !== null ? data.department_code : ''}`, 
-          Division_ID: `${data.division_code !== null ? data.division_code : ''}`,
-          Position_ID: `${data.position_code !== null ? data.position_code : ''}`,
-          Payroll_Group: `${data.payroll_group_code !== null ? data.payroll_group_code : ''}`,
-        })
-      });
-      setForCSVExtract(data) 
-      // console.log(forCSVExtract, "hahah123", data)
+    
+    if(currentAttendanceTab == "perfect_attendance") {
+      if(Array.isArray(EmployeeState?.PERFECTATTENDANCEViewSpecific?.data)){
+        const data = EmployeeState?.PERFECTATTENDANCEViewSpecific?.data?.map((data)=> {
+          return ({
+            id: data.id,
+            Employee_Name: `${data.last_name}, ${data.first_name} ${data.middle_name !== null ? data.middle_name : ''} ${data.suffix !== null? data.suffix : ''}`,
+            Department_ID: `${data.department_code !== null ? data.department_code : ''}`, 
+            Division_ID: `${data.division_code !== null ? data.division_code : ''}`,
+            Position_ID: `${data.position_code !== null ? data.position_code : ''}`,
+            Payroll_Group: `${data.payroll_group_code !== null ? data.payroll_group_code : ''}`,
+          })
+        });
+        setForCSVExtract(data) 
+      }
+    } else {
+      if(Array.isArray(EmployeeState?.IMPERFECTATTENDANCEViewSpecific?.data)){
+        const data = EmployeeState?.IMPERFECTATTENDANCEViewSpecific?.data?.map((data)=> {
+          return ({
+            id: data.id,
+            Employee_Name: `${data.last_name}, ${data.first_name} ${data.middle_name !== null ? data.middle_name : ''} ${data.suffix !== null? data.suffix : ''}`,
+            Department_ID: `${data.department_code !== null ? data.department_code : ''}`, 
+            Division_ID: `${data.division_code !== null ? data.division_code : ''}`,
+            Position_ID: `${data.position_code !== null ? data.position_code : ''}`,
+            Payroll_Group: `${data.payroll_group_code !== null ? data.payroll_group_code : ''}`,
+          })
+        });
+        setForCSVExtract(data) 
+      }
     }
+    console.log(EmployeeState.IMPERFECTATTENDANCEViewSpecific.data.length)
+  }, [EmployeeState.PERFECTATTENDANCEViewSpecific.data.length, EmployeeState.IMPERFECTATTENDANCEViewSpecific.data.length])
 
-  }, [EmployeeState.PERFECTATTENDANCEViewSpecific.data.length])
+  const tabsAttendance = [
+    {
+      id: "perfect_attendance",
+      name: "PERFECT ATTENDANCE",
+      additional_details: "Congratulations! (No lates, absent, and leaves)"
+    },
+    {
+      id: "imperfect_attendance",
+      name: "IMPERFECT ATTENDANCE"
+    }
+  ]
 
   return (
     <div className="mt-12">
-      <div className={styles.homeWrap}>
-      <YearlyReminder /> {/* Add this line to include the YearlyReminder component */}
+      <div className={`${styles.homeWrap} bg-red-10`}>
+        <YearlyReminder /> {/* Add this line to include the YearlyReminder component */}
         <Card className={styles.greetingsBar}>
           <CarouselUI className={styles.greetingsBar}/>
         </Card>
-        <Card className={styles.requestsBar} style={{marginTop: '24px', height: '480px', overflow: 'auto'}}>
-          {/* <UnderDevelopmentMsg/> */}
+        {/* <UnderDevelopmentMsg/> */}
+        {/* <Card className={styles.requestsBar} style={{marginTop: '24px', height: '480px', overflow: 'auto'}}>
           <CardHeader
             floated={false}
             shadow={false}
@@ -108,7 +149,67 @@ export function ChooseDashboard() {
           </CardHeader>
           <MonthYearDropdown filter={filterState} setFilter={setFilterState}/>
           <PerfectAttendanceTable state={forCSVExtract instanceof Array ? forCSVExtract : []} status={EmployeeState.PERFECTATTENDANCEViewSpecific.status} />
+        </Card> */}
+        <Card className={`${styles.requestsBar} mt-4 overflow-auto h-[50opx]`}>
+          <CardBody>
+
+            <Tabs value={currentAttendanceTab}>
+              <TabsHeader>
+                {tabsAttendance.map(tab => (
+                  <Tab 
+                    key={tab.id} 
+                    value={tab.id}
+                    onClick={() => setCurrentAttendanceTab(tab.id)}
+                  >
+                    {tab.name}
+                  </Tab>
+                ))}
+              </TabsHeader>
+
+              <TabsBody>
+
+                {tabsAttendance.map(tab => (
+                    <TabPanel key={tab.id} value={tab.id}>
+                      <div className="flex items-center justify-between my-4">
+                        <div>
+                          <Typography variant="h6" color="blue-gray" className="mb-1">
+                            {tab.name}
+                          </Typography>
+                          {tab.additional_details && 
+                            (
+                              <Typography variant="subtitle1" color="blue-gray" className="mb-1">
+                                {tab.additional_details}
+                              </Typography>
+                            )
+                          }
+                        </div>
+                        <Menu placement="left-start">
+                          <MenuHandler>
+                            <IconButton size="sm" variant="text" color="blue-gray">
+                              <EllipsisVerticalIcon
+                                strokeWidth={3}
+                                fill="currenColor"
+                                className="h-6 w-6"
+                              />
+                            </IconButton>
+                          </MenuHandler>
+                          <MenuList>
+                            <MenuItem><ExportToCsv data={forCSVExtract instanceof Array ? forCSVExtract : []} /></MenuItem>
+                          </MenuList>
+                        </Menu>
+                      </div>
+                      <MonthYearDropdown filter={filterState} setFilter={setFilterState}/>
+                      <AttendanceTable state={forCSVExtract instanceof Array ? forCSVExtract : []} status={currentAttendanceTab == "perfect_attendance"? EmployeeState.PERFECTATTENDANCEViewSpecific.status: EmployeeState.IMPERFECTATTENDANCEViewSpecific.status}/>
+                      {/* <PerfectAttendanceTable state={forCSVExtract instanceof Array ? forCSVExtract : []} status={EmployeeState.PERFECTATTENDANCEViewSpecific.status} /> */}
+                    </TabPanel>
+                  ))}
+              </TabsBody>
+            </Tabs>
+          </CardBody>
         </Card>
+        
+
+
         <Card className={styles.announcementBar}>
           <CardHeader
             floated={false}

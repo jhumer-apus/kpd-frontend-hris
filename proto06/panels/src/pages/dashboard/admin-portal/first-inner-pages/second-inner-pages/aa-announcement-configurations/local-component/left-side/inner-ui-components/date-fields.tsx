@@ -36,7 +36,7 @@ export default function DateAssignedANNOUNCEMENTCreate(props: DateFromToANNOUNCE
             />
             <DateTimePicker
             label="Announcement Expiry Date"
-            value={createANNOUNCEMENT?.expiry_date ?? null}
+            value={createANNOUNCEMENT?.date_expiry ?? null}
             onChange={(newValue) => {
                 const formattedDate = dayjs(newValue).format(`${globalAPIDate}`);
                 return (
@@ -44,7 +44,7 @@ export default function DateAssignedANNOUNCEMENTCreate(props: DateFromToANNOUNCE
                         return(
                             {
                                 ...prevState,
-                                expiry_date: formattedDate
+                                date_expiry: formattedDate
                             }
                         )
                     })

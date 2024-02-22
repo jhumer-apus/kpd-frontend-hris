@@ -47,6 +47,8 @@ _Interface.JOBPOSTINGSCreateInterface |
 _Interface.JOBPOSTINGSEditInterface |
 _Interface.PERFECTATTENDANCEViewInterface[] |
 _Interface.PERFECTATTENDANCEViewInterface  |
+_Interface.IMPERFECTATTENDANCEViewInterface[] |
+_Interface.IMPERFECTATTENDANCEViewInterface  |
 _Interface.ALLSCHEDULEViewInterface[] |
 _Interface.ALLSCHEDULEViewInterface |
 _Interface.EMPHISTORYViewInterface[] | 
@@ -209,6 +211,11 @@ interface PERFECTATTENDANCEViewState extends CommonEmployeeAndApplicantsState{
   data: _Interface.PERFECTATTENDANCEViewInterface[];
 }
 
+// IMPERFECTATTENDANCE SECTION
+interface IMPERFECTATTENDANCEViewState extends CommonEmployeeAndApplicantsState{
+  data: _Interface.IMPERFECTATTENDANCEViewInterface[];
+}
+
 
 // ALLSCHEDULE SECTION
 interface ALLSCHEDULEViewState extends CommonEmployeeAndApplicantsState{
@@ -285,6 +292,7 @@ interface OverallEmployeeAndApplicantsState {
   EMPSEMINARSCreateState | 
   EMPSEMINARSEditState |
   PERFECTATTENDANCEViewState |
+  IMPERFECTATTENDANCEViewState |
   ALLSCHEDULEViewState
   ,
   //KPICORE SECTION
@@ -344,6 +352,8 @@ interface OverallEmployeeAndApplicantsState {
   JOBPOSTINGSDelete: CommonEmployeeAndApplicantsDataStringState,
   //PERFECTATTENDANCE SECTION
   PERFECTATTENDANCEViewSpecific: PERFECTATTENDANCEViewState,
+  //IMPERFECTATTENDANCE SECTION
+  IMPERFECTATTENDANCEViewSpecific: IMPERFECTATTENDANCEViewState,
   //ALLSCHEDULE SECTION
   ALLSCHEDULEViewSpecific: ALLSCHEDULEViewState,
   //EMPHISTORY SECTION
@@ -648,6 +658,13 @@ const initialState: OverallEmployeeAndApplicantsState = {
   },
   //PERFECTATTENDANCE SECTION
   PERFECTATTENDANCEViewSpecific: {
+    status: null,
+    progress: 0,
+    data: [],
+    error: '',
+  },
+  //IMPERFECTATTENDANCE SECTION
+  IMPERFECTATTENDANCEViewSpecific: {
     status: null,
     progress: 0,
     data: [],
@@ -973,6 +990,13 @@ const employeeAndApplicantsSlice = createSlice({
       .addCase(_Actions.PERFECTATTENDANCEViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "PERFECTATTENDANCEViewSpecific"))
       .addCase(_Actions.PERFECTATTENDANCEViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "PERFECTATTENDANCEViewSpecific"))
       .addCase(_Actions.PERFECTATTENDANCEViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "PERFECTATTENDANCEViewSpecific"))
+
+      //IMPERFECTATTENDANCE SECTION
+      .addCase(_Actions.IMPERFECTATTENDANCEViewSpecificAction, setLoadingState("IMPERFECTATTENDANCEViewSpecific"))
+      .addCase(_Actions.IMPERFECTATTENDANCEViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "IMPERFECTATTENDANCEViewSpecific"))
+      .addCase(_Actions.IMPERFECTATTENDANCEViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "IMPERFECTATTENDANCEViewSpecific"))
+      .addCase(_Actions.IMPERFECTATTENDANCEViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "IMPERFECTATTENDANCEViewSpecific"))
+      
       //ALLSCHEDULE SECTION
       .addCase(_Actions.ALLSCHEDULEViewSpecificAction, setLoadingState("ALLSCHEDULEViewSpecific"))
       .addCase(_Actions.ALLSCHEDULEViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ALLSCHEDULEViewSpecific"))

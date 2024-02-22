@@ -46,7 +46,7 @@ function ANNOUNCEMENTModalUI(props: ANNOUNCEMENTModalUIInterface) {
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Created By Emp #:' value={ThisProps.emp_no || '-'} InputProps={{readOnly: true,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Date Posted:' value={ThisProps.date_posted? dayjs(ThisProps.date_posted).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
-                    <TextField sx={{width: '100%'}} label='Expiry Date:' value={ThisProps.expiry_date? dayjs(ThisProps.expiry_date).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%'}} label='Expiry Date:' value={ThisProps.date_expiry? dayjs(ThisProps.date_expiry).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     {/* <MultiDepartmentAutoCompleteRight viewANNOUNCEMENT={singleANNOUNCEMENTDetailsData} setViewANNOUNCEMENT={setSingleANNOUNCEMENTDetailsData}/> */}
                 </div>
             </div>

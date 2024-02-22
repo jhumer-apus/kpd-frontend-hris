@@ -386,7 +386,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                 label="Emp #:"
                                                 maxLength={7}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                disabled={!editMode}                                    />
+                                                disabled                                 />
                                     <Input
                                                 crossOrigin={undefined} {...register('user.username')}
                                                 type="text"

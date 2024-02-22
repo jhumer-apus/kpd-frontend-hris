@@ -381,6 +381,13 @@ export const PERFECTATTENDANCEViewSpecificActionProgress = createAction<number>(
 export const PERFECTATTENDANCEViewSpecificActionFailure = createAction<string>("PERFECT_ATTENDANCE_VIEW_SPECIFIC_ACTION_FAILURE");
 export const PERFECTATTENDANCEViewSpecificActionFailureCleanup = createAction("PERFECT_ATTENDANCE_VIEW_SPECIFIC_ACTION_FAILURE_CLEANUP");
 
+export const IMPERFECTATTENDANCEViewSpecificAction = createAction<{month: number, year: number}>("IMPERFECT_ATTENDANCE_VIEW_SPECIFIC_ACTION");
+export const IMPERFECTATTENDANCEViewSpecificActionSuccess = createAction("IMPERFECT_ATTENDANCE_VIEW_SPECIFIC_ACTION_SUCCESS", (SuccessMessage: _Type.PERFECTATTENDANCEViewInterface[]) => { 
+    return({ payload: {SuccessMessage} })});
+export const IMPERFECTATTENDANCEViewSpecificActionProgress = createAction<number>("IMPERFECT_ATTENDANCE_VIEW_SPECIFIC_ACTION_PROGRESS");
+export const IMPERFECTATTENDANCEViewSpecificActionFailure = createAction<string>("IMPERFECT_ATTENDANCE_VIEW_SPECIFIC_ACTION_FAILURE");
+export const IMPERFECTATTENDANCEViewSpecificActionFailureCleanup = createAction("IMPERFECT_ATTENDANCE_VIEW_SPECIFIC_ACTION_FAILURE_CLEANUP");
+
 
 export const ALLSCHEDULEViewSpecificAction = createAction<{month: number, year: number}>("ALLSCHEDULE_VIEW_SPECIFIC_ACTION");
 export const ALLSCHEDULEViewSpecificActionSuccess = createAction("ALLSCHEDULE_VIEW_SPECIFIC_ACTION_SUCCESS", (SuccessMessage: _Type.ALLSCHEDULEViewInterface[]) => { 

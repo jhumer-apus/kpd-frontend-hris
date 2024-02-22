@@ -17,7 +17,7 @@ export default function AAANNOUNCEMENTPageHistory() {
     date_added: '',
     is_posted: false,
     date_posted: null,
-    expiry_date: null,
+    date_expiry: null,
     order_by_no: null,
     message: '',
     for_departments_code: [],
