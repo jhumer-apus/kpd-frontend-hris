@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { Typography } from '@mui/joy';
 import { KPICORECreateInterface } from '@/types/types-employee-and-applicants';
-import { KPICORECreateAction, KPICORECreateActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import { KPICORECreateAction, KPICORECreateActionFailureCleanup, KPICOREViewAction, KPICOREViewActionFailureCleanup } from '@/store/actions/employee-and-applicants';
 
 import { DataGrid, GridCallbackDetails, GridRowSelectionModel } from '@mui/x-data-grid';
 import { EAProcessKPICOREPageColumns } from '@/data/pages-data/employee-and-applicants-data/ea-kpi-core-data';
@@ -47,13 +47,14 @@ function EAKPICORECreate(props: CreateKPICOREModalInterface) {
     useEffect(()=>{
         if(KPICORECreatestate.status === 'succeeded'){
             window.alert('Request Successful');
-            window.location.reload();
+            dispatch(KPICOREViewAction());
+            // window.location.reload();
         }else if(KPICORECreatestate.status === 'failed'){
             window.alert(`Request Failed, ${KPICORECreatestate.error}`)
-            setTimeout(()=> {
-                dispatch(KPICORECreateActionFailureCleanup());
-            }, 1000)
         }
+        return(()=> {
+            dispatch(KPICORECreateActionFailureCleanup());
+        })
     }, [KPICORECreatestate.status])
 
     const handleSelection = (newSelection: GridRowSelectionModel, details: GridCallbackDetails) => {
