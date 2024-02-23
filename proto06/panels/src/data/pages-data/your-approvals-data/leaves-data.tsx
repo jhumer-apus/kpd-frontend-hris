@@ -2,6 +2,9 @@ import { globalDate, globalDateTime } from "@/store/configureStore";
 import { GridColDef, GridValueGetterParams, GridCellParams } from "@mui/x-data-grid";
 import dayjs from "dayjs";
 
+//HELPERS
+import { getNumberOfSickLeaves } from '@/helpers/SickLeavesRemarks';
+
 export const ApprovalLEAVEPageDescriptions = [
   "Once you have successfully approved/rejected a request, the item will no longer be shown, go to procedurals for list instead",
 ];
@@ -24,10 +27,28 @@ export const ApprovalLEAVEPageColumns: GridColDef[] =
       const status = params.row?.leave_approval_status as string;
 
       let cellColor = '';
+      
       if (status === 'P1' || status === 'P2') {
+
         cellColor = '#ff9100'; // Orange
+
+        if(params.row?.leave_type == 2) {
+
+          if(getNumberOfSickLeaves(params.row?.leave_remarks) >= 3) {
+  
+            cellColor = '#581845'; // Purple red
+  
+          }
+        }
+
       } else if ( status==='DIS' ){
+
         cellColor = '#aa2e25'; // Red
+
+      } else if ( status==='APD' ){
+
+        cellColor = '#008000'; // Green
+
       }
 
       return(
@@ -38,6 +59,7 @@ export const ApprovalLEAVEPageColumns: GridColDef[] =
       );
     }  
   },
+  { field: 'leave_type_name', headerName: 'Leave Type:', width: 120 },
   { 
     field: 'leave_approver1_empno', 
     headerName: 'Approver #1', 

@@ -9,6 +9,15 @@ import { useSelector } from 'react-redux';
 import { RootState, globalDateTime } from '@/store/configureStore';
 import { ApprovalStateInterface } from '@/types/index';
 
+//LIBARIES
+import { Typography } from "@material-tailwind/react";
+
+//ICONS
+import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
+
+//HELPERS
+import { getNumberOfSickLeaves, cleanRemarks } from '@/helpers/SickLeavesRemarks';
+
 interface LEAVEModalUIInterface {
     singleLEAVEDetailsData: LEAVEViewInterface;
     multiplePayslipMode?: boolean;
@@ -40,6 +49,7 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
     const fileApprover1Approved = ThisProps.leave_date_approved1
     const fileApprover2Approved = ThisProps.leave_date_approved2
     const userIsHigherRank =  ((curr_user?.rank_data?.hierarchy as number) > singleLEAVEDetailsData?.applicant_rank)
+
     
     useEffect(()=> {
         if(fileHasTwoApprovers){
@@ -96,7 +106,7 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
                     <TextField sx={{width: '100%'}} label='Cutoff Code:' value={ThisProps.cutoff_code || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Approver1:' value={ThisProps.leave_approver1_empno || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Approver2:' value={ThisProps.leave_approver2_empno || '-'} InputProps={{readOnly: true,}} variant='standard'/>
-                    <TextField sx={{width: '100%'}} label='LEAVE Description:' value={ThisProps.leave_remarks || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
+                    <TextField sx={{width: '100%'}} label='LEAVE Description:' value={ThisProps.leave_type == 2? cleanRemarks(ThisProps.leave_remarks): ThisProps.leave_remarks || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
                 </div>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px', color: 'green'}} label='Status:' value={ThisProps.leave_approval_status || '-'} InputProps={{readOnly: true,}} color={ThisProps.leave_approval_status === 'APD' ? 'success' : ThisProps.leave_approval_status === 'DIS' ? 'error' : 'warning'} variant='filled' focused/>
@@ -104,6 +114,15 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
                     <TextField sx={{width: '100%'}} label='Date Until:' value={ThisProps.leave_date_to? dayjs(ThisProps.leave_date_to).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Date Approved: #1' value={ThisProps.leave_date_approved1? dayjs(ThisProps.leave_date_approved1).format('MM-DD-YYYY LT') : '-'} focused={!!ThisProps.leave_date_approved1} color={ThisProps.leave_date_approved1 ? 'success' : 'warning'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Date Approved: #2' value={ThisProps.leave_date_approved2? dayjs(ThisProps.leave_date_approved2).format('MM-DD-YYYY LT') : '-'} focused={!!ThisProps.leave_date_approved2} color={ThisProps.leave_date_approved2 ? 'success' : 'warning'} InputProps={{readOnly: true,}} variant='standard'/>
+                    {ThisProps.leave_type == 2 && getNumberOfSickLeaves(ThisProps.leave_remarks) >= 3 && (
+                        <div className='flex items-center space-x-4'>
+                            <ExclamationCircleIcon className="h-16" color="red"/>
+                            <Typography>
+                            {/* <ExclamationCircleIcon className="h-8" color="red"/> */}
+                                This employee reaches 3 or more sick leaves in a week
+                            </Typography>
+                        </div>
+                    )}
                 </div>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Employee #:' value={ThisProps.emp_no || '-'} InputProps={{readOnly: true,}} variant='filled'/>

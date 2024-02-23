@@ -28,6 +28,8 @@ export const ProceduralOVERTIMEPageColumns: GridColDef[] =
         cellColor = '#ff9100'; // Orange
       } else if ( status==='DIS' ){
         cellColor = '#aa2e25'; // Red
+      } else if ( status==='APD' ){
+        cellColor = '#008000'; // Green
       }
 
       return(
