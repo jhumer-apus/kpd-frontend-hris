@@ -43,6 +43,15 @@ export default function OBTTypeAutoComplete(props: OBTTypeAutoCompleteInterface)
 
 const OBTTypeOptions = [
     'On Client Meeting',
+    'Pick-up Documents',
+    'Deliver Documents',
+    'Process Import Documents',
+    'On Training/Seminar/Convention',
+    'SSS Transaction',
+    'BIR Transaction',
+    'HDMF Transaction',
+    'PhilHealth Transaction',
+    'Blank Transaction',
+    'Process Legal Documents',
     'On-Site Project',
-    'Others'
 ]

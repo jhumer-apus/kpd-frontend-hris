@@ -114,7 +114,7 @@ export default function RoleAutoComplete(props: RoleAutoCompleteInterface) {
         groupBy={(option) => option.firstLetter}
         getOptionLabel={(option) => option.role_name}
         onInputChange={handleInputChange}
-        sx={{ width: 300 }}
+        sx={{ width: '100%' }}
         isOptionEqualToValue={isOptionEqualToValue}
         renderInput={(params) => 
             {   

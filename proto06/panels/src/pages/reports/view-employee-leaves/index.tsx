@@ -33,15 +33,18 @@ export default function ViewEmployeeLeaves() {
 
     const getEmployeeLeaves = async () => {
 
+        setDataRows(curr => []);
+        setIsFetchReportError(false)
         setIsLoading(true);
-        await axios.get(`${APILink}leave/?month=${month}&year=${year}`).then(response => {
 
-            const approvedLeaves = response.data.filter((data:any)=> data.leave_approval_status== "APD");
-            setDataRows(curr => approvedLeaves);
+        await axios.get(`${APILink}leave/?month=${month}&year=${year}&status=APD`).then(response => {
+
+            setDataRows(curr => response.data);
             setIsLoading(false)
 
         }).catch((error: any) => {
 
+            setDataRows(curr => []);
             setIsFetchReportError(true)
             setIsLoading(false)
 
@@ -82,7 +85,7 @@ export default function ViewEmployeeLeaves() {
 
     }
 
-    const exportCsvData = dataRows.map((obj:any) => {
+    const exportCsvData = dataRows ? dataRows.map((obj:any) => {
         return {
             "Employee No.": obj.emp_no,
             "Employee Name": obj.emp_name,
@@ -92,7 +95,7 @@ export default function ViewEmployeeLeaves() {
             "Day/s": obj.leave_number_days
         }
 
-    })
+    }): []
 
   
 

@@ -113,6 +113,7 @@ export default function ViewMonthlySchedule() {
 
         }).catch((error: any) => {
 
+            setDataRows(curr => []);
             setIsFetchReportError(true)
             setIsLoading(false)
 
