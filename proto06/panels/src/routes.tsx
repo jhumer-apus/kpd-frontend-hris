@@ -145,7 +145,7 @@ const JSXRouteWrapper = () => {
       id: 10000,
       layout: "home",
       pages: [
-        ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee) ? 
+        ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee && state?.user?.role !== INTERNAL_USER_ROLE.Manager) ? 
         [
           {
             id: 11000,
@@ -476,7 +476,7 @@ const JSXRouteWrapper = () => {
           element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-orange-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">EMPLOYEE ELEMENTS UNDER DEVELOPMENT</strong>,
           hasSubItems: true,
           subItems: [
-            ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee ) ? [
+            ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee && state?.user?.role !== INTERNAL_USER_ROLE.Manager ) ? [
               {
                 id: 12100,
                 icon: <PersonOutlineOutlinedIcon {...icon} />,
@@ -558,7 +558,7 @@ const JSXRouteWrapper = () => {
             //   element: <AboutAppraisalsPage/>,
             //   hasSubItems: false,
             // },
-            ...(state?.user?.role === INTERNAL_USER_ROLE.Employee ) ? [
+            ...(state?.user?.role === INTERNAL_USER_ROLE.Employee || state?.user?.role === INTERNAL_USER_ROLE.Manager ) ? [
               {
                 id: 12400,
                 icon: <AutoStoriesOutlinedIcon {...icon} />,
@@ -656,7 +656,7 @@ const JSXRouteWrapper = () => {
             },
           ]
         },
-        ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee ) ? [
+        ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee && state?.user?.role !== INTERNAL_USER_ROLE.Manager ) ? [
           {
             id: 14000,
             icon: null,
@@ -863,24 +863,22 @@ const JSXRouteWrapper = () => {
               },
             ]
           },
-        ]:[],
-        {
-          id: 18000,
-          icon: null,
-          name: "Forms",
-          path: "/forms",
-          element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">FORMS PRINTING PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
-          hasSubItems: true,
-          subItems: [
-            {
-              id: 181000,
-              icon: <TableCellsIcon {...icon} />,
-              name: "B1 Forms",
-              path: "/forms/B1-Forms",
-              element: <B1Forms/>,
-              hasSubItems: false,
-            },
-            ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee) ? [
+          {
+            id: 18000,
+            icon: null,
+            name: "Forms",
+            path: "/forms",
+            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">FORMS PRINTING PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+            hasSubItems: true,
+            subItems: [
+              {
+                id: 181000,
+                icon: <TableCellsIcon {...icon} />,
+                name: "B1 Forms",
+                path: "/forms/B1-Forms",
+                element: <B1Forms/>,
+                hasSubItems: false,
+              },
               {
                 id: 182000,
                 icon: <TableCellsIcon {...icon} />,
@@ -889,9 +887,9 @@ const JSXRouteWrapper = () => {
                 element: <B2Forms/>,
                 hasSubItems: false,
               },
-            ]:[],
-          ]
-        },
+            ]
+          },
+        ]:[],
         {
           id: 19000,
           icon: null,
@@ -900,7 +898,7 @@ const JSXRouteWrapper = () => {
           element: null,
           hasSubItems: true,
           subItems: [
-            ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee) ? [
+            ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee && state?.user?.role !== INTERNAL_USER_ROLE.Manager ) ? [
               {
                 id: 19100,
                 icon: <DocumentIcon {...icon} />,
@@ -926,7 +924,7 @@ const JSXRouteWrapper = () => {
                 hasSubItems: false,
               },
             ] : [],
-            ...(state?.user?.role === INTERNAL_USER_ROLE.Employee) ? [
+            ...(state?.user?.role === INTERNAL_USER_ROLE.Employee || state?.user?.role === INTERNAL_USER_ROLE.Manager) ? [
               {
                 id: 19100,
                 icon: <DocumentIcon {...icon} />,
@@ -966,7 +964,7 @@ const JSXRouteWrapper = () => {
         //     }]:[] ,
         //   ]
         // },
-        ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee) ? [
+        ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee && state?.user?.role !== INTERNAL_USER_ROLE.Manager) ? [
             {
               id: 19000,
               icon: null,

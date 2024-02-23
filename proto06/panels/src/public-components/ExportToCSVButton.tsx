@@ -6,8 +6,8 @@ import { ObjectFlat } from "@/types/index";
 
 interface ExportToCsvButtonInterface<T> {
     data: T[];
-    defaultName: string;
-    isDisable: boolean
+    defaultName?: string;
+    isDisable?: boolean
 }
 
 function ExportToCsv<T extends ObjectFlat>(props: ExportToCsvButtonInterface<T>) {
