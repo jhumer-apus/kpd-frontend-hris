@@ -16,12 +16,9 @@ import InputForm from '../../../public-components/forms/InputForm';
 
 export default function ViewEmployeeObt() {
 
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    
-
-
     //STATES
-    const [dateColumns, setDateColumns] = useState<GridColDef []>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
     const [dataRows, setDataRows] = useState([]);
 
     const [month, setMonth] = useState<number | string>(new Date().getMonth() + 1);
@@ -31,16 +28,18 @@ export default function ViewEmployeeObt() {
 
     const getEmployeeObt = async () => {
 
+        setDataRows(curr => []);
+        setIsFetchReportError(false)
         setIsLoading(true);
 
-        await axios.get(`${APILink}obt`).then(response => {
+        await axios.get(`${APILink}obt/?month=${month}&year=${year}&status=APD`).then(response => {
 
-            const approvedObt = response.data.filter((data:any)=> data.obt_approval_status == "APD");
-            setDataRows(curr => approvedObt);
+            setDataRows(curr => response.data);
             setIsLoading(false)
 
         }).catch((error: any) => {
 
+            setDataRows(curr => []);
             setIsFetchReportError(true)
             setIsLoading(false)
 
@@ -72,17 +71,18 @@ export default function ViewEmployeeObt() {
 
     }
 
-    const exportCsvData = dataRows.map((obj:any) => {
+    const exportCsvData = dataRows? dataRows.map((obj:any) => {
         return {
             "Employee No.": obj.emp_no,
             "Employee Name": obj.emp_name,
-            "Date": obj.obt_date_filed,
+            "Date Start": obj.obt_date_from,
+            "Date End": obj.obt_date_to,
             "OBT Type": obj.obt_type,
             "OBT Location": obj.obt_location,
             "OBT Hours": obj.obt_total_hours,
         }
 
-    })
+    }): [];
 
   
 
@@ -105,11 +105,19 @@ export default function ViewEmployeeObt() {
             },
         },
         {
-            field: 'obt_date_filed', 
-            headerName: 'Date', 
+            field: 'obt_date_from', 
+            headerName: 'Date Start', 
             width: 150,
             valueGetter: (params: GridValueGetterParams) => {
-                return convertDateToLocalString(params.row.obt_date_filed);
+                return convertDateToLocalString(params.row.obt_date_from);
+            },
+        },
+        {
+            field: 'obt_date_to', 
+            headerName: 'Date End',
+            width: 150,
+            valueGetter: (params: GridValueGetterParams) => {
+                return convertDateToLocalString(params.row.obt_date_to);
             },
         },
         {
@@ -187,12 +195,12 @@ export default function ViewEmployeeObt() {
 
                 <ExportToCsvButton
                     data={exportCsvData}
-                    defaultName="Employee-OBT"
+                    defaultName={`Employee-OBT-${options[(month as number) -1].name}-${year}`}
                     isDisable={isLoading}
                 />
 
                 <div className="md:flex md:space-x-4 md:items-center">
-                    {/* <SelectForm         
+                    <SelectForm         
                         label="Select Month"
                         variant="standard"
                         placeholder="Select A Month"
@@ -208,8 +216,8 @@ export default function ViewEmployeeObt() {
                         placeholder="Enter A Year"
                         setState={setYear}
                         isDisable={isLoading}
-                    /> */}
-                    {/* <Button 
+                    />
+                    <Button 
                         variant="filled"
                         size="lg"
                         color='indigo'
@@ -217,7 +225,7 @@ export default function ViewEmployeeObt() {
                         disabled={isLoading}
                     >
                         View
-                    </Button> */}
+                    </Button>
 
 
                 </div>

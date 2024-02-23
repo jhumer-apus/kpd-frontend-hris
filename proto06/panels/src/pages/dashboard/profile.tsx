@@ -94,6 +94,7 @@
 
 
     const handleTabClick = (tab:any) => {
+      setIsEdit(false)
       setActiveTab(tab);
     };
 
@@ -319,15 +320,20 @@
                       alt=" "
                       className="border rounded p-2 w-48 my-4"
                     />
-                    <label htmlFor="uploadImage" className={`w-full block text-center text-white p-2 rounded-md ${isEdit && !isSubmittingRequest? 'bg-blue-600 cursor-pointer': 'bg-gray-500'}`}>Edit Photo</label>
-                    <input 
-                        id="uploadImage"
-                        type="file"
-                        className="hidden"
-                        onChange={handleProfilePic}
-                        accept="image/*"
-                        disabled={!isEdit || isSubmittingRequest}
-                      />
+                    {isEdit && 
+                      <div>
+                        <label htmlFor="uploadImage" className={`w-full block text-center text-white p-2 rounded-md ${isEdit && !isSubmittingRequest? 'bg-blue-600 cursor-pointer': 'bg-gray-500'}`}>Edit Photo</label>
+                      <input 
+                          id="uploadImage"
+                          type="file"
+                          className="hidden"
+                          onChange={handleProfilePic}
+                          accept="image/*"
+                          disabled={!isEdit || isSubmittingRequest}
+                        />
+                      </div>
+                    }
+
                   </div>
                 <div>
                   <Typography variant="h5" color="blue-gray" className="mb-1" style={{ whiteSpace: 'nowrap' }}>

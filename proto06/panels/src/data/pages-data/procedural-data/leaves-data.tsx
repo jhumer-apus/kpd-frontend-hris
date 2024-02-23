@@ -6,6 +6,9 @@ import dayjs from "dayjs";
 import { APILink } from '@/store/configureStore';
 import { globalDate, globalDateTime } from "@/store/configureStore";
 
+//HELPERS
+import { getNumberOfSickLeaves } from '@/helpers/SickLeavesRemarks';
+
 
 
 export const ProceduralLEAVEPageDescriptions = [
@@ -50,9 +53,6 @@ export const ProceduralLEAVEPageColumns: GridColDef[] =
         return newDate;
     }
 
-    const convertDateStringtoDate = (dateString: Date | string) => {
-      return new Date(dateString);
-    }
 
     const leaveDateFiled: Date = new Date(params.row?.leave_date_filed);
     const fiveAmLeaveDateFiled: Date = getFiveAmDate(params.row?.leave_date_from);
@@ -68,28 +68,31 @@ export const ProceduralLEAVEPageColumns: GridColDef[] =
 
         cellColor = '#ff9100'; // Orange DEFAULT
 
-        if(params.row?.additional_status == 'OSL') {
+      if(params.row?.leave_type == 2) {
+
+        if(getNumberOfSickLeaves(params.row?.leave_remarks) >= 3) {
 
           cellColor = '#581845'; // Purple red
 
         }
+      }
   
-      } else if ( status === 'DIS' ) { //Disapprove
-  
-        cellColor = '#aa2e25'; // Red
-    
-      } else if ( status === 'APD' ) { //Approve
-  
-        cellColor = '#008000'; // Green
+    } else if ( status === 'DIS' ) { //Disapprove
 
-      } 
+      cellColor = '#aa2e25'; // Red
+  
+    } else if ( status === 'APD' ) { //Approve
 
-        return(
-          <div className='relative'>
-            <div style={{ top:'', left: '26px', position: 'absolute', backgroundColor: cellColor, height:'5px', width: '5px', borderRadius: '100px'}}></div>
-            {status}
-          </div>
-        );
+      cellColor = '#008000'; // Green
+
+    } 
+
+      return(
+        <div className='relative'>
+          <div style={{ top:'', left: '26px', position: 'absolute', backgroundColor: cellColor, height:'5px', width: '5px', borderRadius: '100px'}}></div>
+          {status}
+        </div>
+      );
     }  
   },
   { field: 'leave_approver1_empno', headerName: 'Approver #1', width: 120 },

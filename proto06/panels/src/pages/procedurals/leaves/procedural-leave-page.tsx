@@ -40,62 +40,62 @@ export default function ProceduralLEAVEPage() {
     dispatch(LEAVEViewAction())
   }, []);
 
-  const getEndDayOfTheWeekDays = (dateString: Date | string) => {
+  // const getEndDayOfTheWeekDays = (dateString: Date | string) => {
 
-    let originalDate = convertDateStringtoDate(dateString);
+  //   let originalDate = convertDateStringtoDate(dateString);
 
-    let currentWeekDay = originalDate.getDay();
+  //   let currentWeekDay = originalDate.getDay();
     
-    let difference = 5 - currentWeekDay //Friday minus the weekday
+  //   let difference = 5 - currentWeekDay //Friday minus the weekday
 
-    originalDate.setDate(originalDate.getDate() + difference);
+  //   originalDate.setDate(originalDate.getDate() + difference);
 
-    return originalDate;
-  }
+  //   return originalDate;
+  // }
 
-  const getStartDayOfTheWeekDays = (dateString: Date | string) => {
+  // const getStartDayOfTheWeekDays = (dateString: Date | string) => {
 
-    let originalDate = convertDateStringtoDate(dateString);
+  //   let originalDate = convertDateStringtoDate(dateString);
 
-    let currentWeekDay = originalDate.getDay();
+  //   let currentWeekDay = originalDate.getDay();
     
-    let difference = currentWeekDay - 1 //Weekday minus the Monday
+  //   let difference = currentWeekDay - 1 //Weekday minus the Monday
 
-    originalDate.setDate(originalDate.getDate() - difference);
+  //   originalDate.setDate(originalDate.getDate() - difference);
 
-    return originalDate;
-  }
+  //   return originalDate;
+  // }
 
-  const convertDateStringtoDate = (dateString: Date | string) => {
-    return new Date(dateString);
-  }
+  // const convertDateStringtoDate = (dateString: Date | string) => {
+  //   return new Date(dateString);
+  // }
 
-  let employeeLeaveData = LEAVEViewData?.map(empData => {
+  // let employeeLeaveData = LEAVEViewData?.map(empData => {
 
-    if(["P1", "P2"].includes(empData.leave_approval_status) && empData.leave_type == 1) {
-      const filteredLeaves  = LEAVEViewData?.filter((leave: any) => 
-          leave.leave_type === 1 
-          && leave.leave_approval_status === 'APD' 
-          && getStartDayOfTheWeekDays(leave.leave_date_filed) <= convertDateStringtoDate(leave.leave_date_filed) 
-          && getEndDayOfTheWeekDays(leave.leave_date_filed) >= convertDateStringtoDate(leave.leave_date_filed)
-          && empData.emp_no == leave.emp_no
+  //   if(["P1", "P2"].includes(empData.leave_approval_status) && empData.leave_type == 1) {
+  //     const filteredLeaves  = LEAVEViewData?.filter((leave: any) => 
+  //         leave.leave_type === 1 
+  //         && leave.leave_approval_status === 'APD' 
+  //         && getStartDayOfTheWeekDays(leave.leave_date_filed) <= convertDateStringtoDate(leave.leave_date_filed) 
+  //         && getEndDayOfTheWeekDays(leave.leave_date_filed) >= convertDateStringtoDate(leave.leave_date_filed)
+  //         && empData.emp_no == leave.emp_no
 
-        );
-        const numberOfSickLeavesApproved = filteredLeaves.length
+  //       );
+  //       const numberOfSickLeavesApproved = filteredLeaves.length
         
-        if (numberOfSickLeavesApproved >= 3) {
+  //       if (numberOfSickLeavesApproved >= 3) {
 
-            const data = {
-              ...empData,
-              additional_status: "OSL" //Over Sick Leaves Approved
-            }
-            return data
+  //           const data = {
+  //             ...empData,
+  //             additional_status: "OSL" //Over Sick Leaves Approved
+  //           }
+  //           return data
 
-        }
-        return empData
-    }
-    return empData
-  })
+  //       }
+  //       return empData
+  //   }
+  //   return empData
+  // })
 
   const printableArea = () => {
     // Calculate px; solves printable area bug, Do not easily modify
@@ -122,7 +122,7 @@ export default function ProceduralLEAVEPage() {
       <div style={{ height: `${printing? `${printableArea()}px` : '660px'}`, width: '100%' }} id="printable-area">
         <DataGrid
           // rows={LEAVEViewData? LEAVEViewData as LEAVEViewInterface[]:[]}
-          rows={employeeLeaveData ? employeeLeaveData : []}
+          rows={LEAVEViewData ? LEAVEViewData : []}
           columns={ProceduralLEAVEPageColumns}
           initialState={{
             pagination: {

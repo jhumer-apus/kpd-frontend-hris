@@ -29,6 +29,8 @@ export default function ViewEmployeeLeaves() {
 
     const getEmployeeOvertime = async () => {
 
+        setDataRows(curr => []);
+        setIsFetchReportError(false)
         setIsLoading(true);
 
         await axios.get(`${APILink}ot?month=${month}&year=${year}&status=APD`).then(response => {
@@ -39,6 +41,7 @@ export default function ViewEmployeeLeaves() {
 
         }).catch((error: any) => {
 
+            setDataRows(curr => []);
             setIsFetchReportError(true)
             setIsLoading(false)
 
@@ -70,16 +73,17 @@ export default function ViewEmployeeLeaves() {
 
     }
 
-    const exportCsvData = dataRows.map((obj:any) => {
+    const exportCsvData = dataRows? dataRows.map((obj:any) => {
         return {
             "Employee No.": obj.emp_no,
             "Employee Name": obj.emp_name,
-            "Date": obj.ot_date_filed,
+            "Date Start": obj.ot_date_from,
+            "Date End": obj.ot_date_to,
             "OT Type": obj.ot_type,
             "OT Hours": obj.ot_total_hours,
         }
 
-    })
+    }):[]
 
   
 
@@ -102,11 +106,19 @@ export default function ViewEmployeeLeaves() {
             },
         },
         {
-            field: 'ot_date_filed', 
-            headerName: 'Date', 
+            field: 'ot_date_from', 
+            headerName: 'Date Start', 
             width: 150,
             valueGetter: (params: GridValueGetterParams) => {
-                return convertDateToLocalString(params.row.ot_date_filed);
+                return convertDateToLocalString(params.row.ot_date_from);
+            },
+        },
+        {
+            field: 'ot_date_to', 
+            headerName: 'Date End', 
+            width: 150,
+            valueGetter: (params: GridValueGetterParams) => {
+                return convertDateToLocalString(params.row.ot_date_to);
             },
         },
         {
@@ -184,7 +196,7 @@ export default function ViewEmployeeLeaves() {
 
                 <ExportToCsvButton
                     data={exportCsvData}
-                    defaultName="Employee-Overtime"
+                    defaultName={`Employee-Overtime-${options[(month as number) -1].name}-${year}`}
                     isDisable={isLoading}
                 />
 

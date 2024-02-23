@@ -24,10 +24,19 @@ export const QuickAccessOVERTIMEPageColumns: GridColDef[] =
       const status = params.row?.ot_approval_status as string;
 
       let cellColor = '';
+
       if (status === 'P1' || status === 'P2') {
+
         cellColor = '#ff9100'; // Orange
+
       } else if ( status==='DIS' ){
+
         cellColor = '#aa2e25'; // Red
+
+      } else if ( status==='APD' ){
+
+        cellColor = '#008000'; // Green
+        
       }
 
       return(

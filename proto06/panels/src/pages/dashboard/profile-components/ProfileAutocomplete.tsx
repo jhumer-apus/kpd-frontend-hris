@@ -1,4 +1,5 @@
 
+import * as React from 'react';
 import {ChangeEvent} from 'react'
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -28,8 +29,9 @@ export default function ProfileAutocomplete(props: Props) {
 
         }))
     }
-
-    const selectedOption = value ? options.find(option => option.id === value) : null;
+    const selectedOption = value ? React.useMemo(() => options.find(option => option.id === value), options): null
+    // const selectedOption = defaultValue ? options.find(option => option.id === defaultValue) : null;
+    console.log(selectedOption)
 
     return (
       <Autocomplete
@@ -39,7 +41,7 @@ export default function ProfileAutocomplete(props: Props) {
         options={options}
         getOptionLabel={(option) => option.name}
         onChange={(handleChange)}
-        value={selectedOption || null}
+        defaultValue={selectedOption || null}
         renderInput={(params) => <TextField {...params} label={label} />}
         disabled={disabled}
       />

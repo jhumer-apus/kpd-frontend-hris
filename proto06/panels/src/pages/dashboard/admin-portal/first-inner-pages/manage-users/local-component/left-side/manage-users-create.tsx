@@ -9,6 +9,9 @@ import { USERCreateInterface } from '@/types/types-pages';
 import { USERCreateAction, USERCreateActionFailureCleanup } from '@/store/actions/users';
 import RoleAutoComplete from './inner-ui-components/role-autocomplete';
 
+// COMPONENTS
+import PasswordGenerator from '@/public-components/PasswordGenerator';
+
 interface CreateUSERModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
 }
@@ -16,6 +19,7 @@ interface CreateUSERModalInterface {
 function ManageUSERCreate(props: CreateUSERModalInterface) {
 
     const dispatch = useDispatch();
+    const [isOpenPasswordGenerator, setIsOpenPasswordGenerator] = useState<boolean>(false);
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail?.emp_no);
     const USERCreatestate = useSelector((state: RootState)=> state.users.USERCreate);
     const [createUSER, setCreateUSER] = useState<USERCreateInterface>({
@@ -57,13 +61,14 @@ function ManageUSERCreate(props: CreateUSERModalInterface) {
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create an HRIS User Data</Typography>
-            <div className='flex flex-col gap-3 overflow-auto relative'>
-                    <div className='flex flex-col gap-3 pt-4'>
+            <div className='flex flex-col gap-3 relative p-4'>
+                    <div className='flex flex-col pt-4 w-full'>
                         <EmployeeAutoComplete createUSER={createUSER} setCreateUSER={setCreateUSER}/>
                     </div>
                     <div className='flex flex-col gap-3'>
                         <TextField
                             required 
+                            className="text-center"
                             sx={{width: '100%'}} 
                             label='Assign Username'
                             aria-required  
@@ -82,6 +87,10 @@ function ManageUSERCreate(props: CreateUSERModalInterface) {
                                 })
                             }}
                         />
+                        {isOpenPasswordGenerator && <PasswordGenerator />}
+                        <Button onClick={() => setIsOpenPasswordGenerator(!isOpenPasswordGenerator)}>
+                            {isOpenPasswordGenerator? 'Close Password Generator': 'Open Password Generator'}
+                        </Button>
                         <TextField
                             required 
                             sx={{width: '100%'}} 
