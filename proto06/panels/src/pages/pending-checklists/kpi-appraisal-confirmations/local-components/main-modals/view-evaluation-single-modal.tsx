@@ -56,7 +56,13 @@ export default function ViewKPICORESingleModal(props: SinglePayslipInterface) {
                 overflow: 'auto',
             }}
         >
-          <KPICOREModalComponent setSingleKPICOREDetailsData={setSingleKPICOREDetailsData} singleKPICOREDetailsData={singleKPICOREDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <KPICOREModalComponent
+            setSingleKPICOREDetailsData={setSingleKPICOREDetailsData} 
+            singleKPICOREDetailsData={singleKPICOREDetailsData} 
+            scroll={scroll} 
+            setScroll={setScroll}
+            setSingleKPICOREOpenModal={setSingleKPICOREOpenModal}
+          />
         </ModalDialog>
       </Modal>
         )}

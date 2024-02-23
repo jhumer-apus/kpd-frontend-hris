@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { KPICOREEditInterface, KPICOREUpdateSupervisorInterface, KPICOREViewInterface, ONBOARDINGSTATUSUpdateInterface } from '@/types/types-employee-and-applicants';
 import { Button, IconButton, Tooltip, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, globalAPIDate } from '@/store/configureStore';
-import { KPICOREEditAction, KPICOREEditActionFailureCleanup, KPICOREUpdateSupervisorAction, KPICOREUpdateSupervisorActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import { KPICOREEditAction, KPICOREEditActionFailureCleanup, KPICOREUpdateSupervisorAction, KPICOREUpdateSupervisorActionFailureCleanup, KPICOREViewAction } from '@/store/actions/employee-and-applicants';
 import EditCalendarOutlinedIcon from '@mui/icons-material/EditCalendarOutlined';
 import CreditScoreOutlinedIcon from '@mui/icons-material/CreditScoreOutlined';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
@@ -16,6 +16,7 @@ import { clearFields } from '@/helpers/utils';
 
 interface KPICOREModalUIInterface {
     singleKPICOREDetailsData: KPICOREViewInterface;
+    setSingleKPICOREOpenModal: Dispatch<SetStateAction<boolean>>;
     multiplePayslipMode?: boolean;
     setSingleKPICOREDetailsData: React.Dispatch<React.SetStateAction<KPICOREViewInterface>>;
 }
@@ -112,7 +113,13 @@ function KPICOREModalUI(props: KPICOREModalUIInterface) {
     useEffect(()=>{
         if(EAStoreState.KPICOREEdit.status === 'succeeded' || EAStoreState.KPICOREUpdateSupervisor.status === 'succeeded' ){
             window.alert('Request Successful');
-            window.location.reload();
+            // window.location.reload();
+            dispatch(KPICOREViewAction())
+            props.setSingleKPICOREOpenModal(false)
+            setTimeout(()=> {
+                dispatch(KPICOREEditActionFailureCleanup())
+                dispatch(KPICOREUpdateSupervisorActionFailureCleanup())
+            }, 300)
         }else if(EAStoreState.KPICOREEdit.status === 'failed' || EAStoreState.KPICOREUpdateSupervisor.status === 'failed'){
             if(EAStoreState.KPICOREUpdateSupervisor.status === 'failed') {
                 window.alert(`Request Failed, ${EAStoreState.KPICOREUpdateSupervisor.error}`)

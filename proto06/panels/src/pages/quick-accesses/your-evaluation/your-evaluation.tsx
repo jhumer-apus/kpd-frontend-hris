@@ -6,7 +6,7 @@ import { Typography } from "@material-tailwind/react";
 import { YourKPICOREPageDescriptions, YourKPICOREPageColumns } from '@/data/pages-data/quick-accesses-data/your-evaluation-data';
 import ViewKPICORESingleModal from './local-components/main-modals/view-evaluation-single-modal';
 import { KPICOREViewInterface } from '@/types/types-employee-and-applicants';
-import { KPICOREViewAction } from '@/store/actions/employee-and-applicants';
+import { KPICOREViewAction, KPICOREViewSpecificEmployeeAction } from '@/store/actions/employee-and-applicants';
 import { globalServerErrorMsg } from '@/store/configureStore';
 
 
@@ -32,8 +32,8 @@ export default function YourKPICOREPage() {
     kpi_codes: []
   });
   const dispatch = useDispatch();
-  const { KPICOREView } = useSelector((state: RootState) => state.employeeAndApplicants);
-  const { data, status,error } = KPICOREView;
+  const { KPICOREViewSpecific } = useSelector((state: RootState) => state.employeeAndApplicants);
+  const { data, status,error } = KPICOREViewSpecific;
   const KPICOREViewData = data as KPICOREViewInterface[];
 
   const FilteredKPICOREViewData = Array.isArray(KPICOREViewData) ? KPICOREViewData?.filter((item) => item?.emp_no === curr_user ) : [];
@@ -41,8 +41,8 @@ export default function YourKPICOREPage() {
 
 
   useEffect(()=> {
-    dispatch(KPICOREViewAction())
-  }, []);
+    curr_user && dispatch(KPICOREViewSpecificEmployeeAction({emp_no: (+curr_user)}))
+  }, [])
 
   return (
     <Fragment>

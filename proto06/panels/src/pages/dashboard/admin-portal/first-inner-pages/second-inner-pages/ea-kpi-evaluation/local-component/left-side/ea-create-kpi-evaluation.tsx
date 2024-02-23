@@ -49,6 +49,9 @@ function EAKPICORECreate(props: CreateKPICOREModalInterface) {
             window.alert('Request Successful');
             dispatch(KPICOREViewAction());
             // window.location.reload();
+            setTimeout(()=> {
+                dispatch(KPICORECreateActionFailureCleanup())
+            }, 200)
         }else if(KPICORECreatestate.status === 'failed'){
             window.alert(`Request Failed, ${KPICORECreatestate.error}`)
         }

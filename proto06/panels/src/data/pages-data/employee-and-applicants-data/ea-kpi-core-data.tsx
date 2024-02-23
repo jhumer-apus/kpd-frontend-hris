@@ -49,6 +49,8 @@ export const EAProcessKPICOREPageColumns: GridColDef[] =
     width: 130,
   },
   { field: 'rank_code', headerName: 'Rank Code:',  width: 150 }, //50
+  { field: 'approver1', headerName: 'First Approver:',  width: 150 }, //50
+  { field: 'approver2', headerName: 'Second Approver:',  width: 150 },
 ];
   
 export default {

@@ -6,11 +6,6 @@ import EAKPICOREPageHistory from './local-component/right-side/ea-kpi-evaluation
 import EAKPIEVALCreate from './local-component/left-side/ea-create-kpi-evaluation';
 
 
-const PaperStyle = {
-    padding: "20px",
-    height: "700px",
-    overflow: 'auto'
-}
 
 const Grid = styled(MuiGrid)(({ theme }) => ({
     width: '100%',
@@ -24,7 +19,13 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
 export default function EAKPIEVAL() {
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.down('xl'));
-
+    const PaperStyle = {
+        padding: "20px",
+        height: "700px",
+        width: `${matches? '100%' : '630px'}`,
+        overflow: 'auto'
+    }
+    
   return (
     <Fragment>
         <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
