@@ -221,6 +221,7 @@ export default function DataTable() {
           }
           aria-labelledby="parent-modal-title"
           aria-describedby="parent-modal-description"
+          className='overflow-auto'
         >
           <SpecificEmployee modalEntranceDelay={modalEntranceDelay} secondOptionModalEntranceDelay={secondOptionModalEntranceDelay} loadingEffect={handleModalEntranceDelay}/>
         </Modal>

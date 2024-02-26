@@ -314,6 +314,7 @@ export interface LEAVECreateInterface {
     leave_date_from: string | null;
     leave_date_to: string | null;
     emp_no: number | null;
+    uploaded_file?: File | null;
 }
 
 export interface LEAVEViewInterface extends LEAVECreateInterface { 

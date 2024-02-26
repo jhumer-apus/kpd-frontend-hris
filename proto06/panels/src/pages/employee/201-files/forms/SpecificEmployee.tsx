@@ -135,27 +135,27 @@ export const SpecificEmployee = (props: initialState) => {
     }, [userData, setValue]);
   
     const fetchPayrollGroups = () => {
-    axios.get(`${APILink}payrollgroup`).then((response:any) => {
-        const responsePayrollGroups = response.data.map((payroll:any) => {
-        return {
-            id: payroll.id.toString(),
-            name: payroll.name
-        }
+        axios.get(`${APILink}payrollgroup`).then((response:any) => {
+            const responsePayrollGroups = response.data.map((payroll:any) => {
+            return {
+                id: payroll.id.toString(),
+                name: payroll.name
+            }
+            })
+            setDropDownData((curr:any) => ({...curr, payrollGroups: responsePayrollGroups}));
         })
-        setDropDownData((curr:any) => ({...curr, payrollGroups: responsePayrollGroups}));
-    })
     }
 
     const fetchBranches = () => {
-    axios.get(`${APILink}branch`).then((response:any) => {
-        const responseBranches = response.data.map((branch:any) => {
-        return {
-            id: branch.id.toString(),
-            name: branch.branch_name
-        }
+        axios.get(`${APILink}branch`).then((response:any) => {
+            const responseBranches = response.data.map((branch:any) => {
+            return {
+                id: branch.id.toString(),
+                name: branch.branch_name
+            }
+            })
+            setDropDownData((curr:any) => ({...curr, branches: responseBranches}));
         })
-        setDropDownData((curr:any) => ({...curr, branches: responseBranches}));
-    })
     }
 
     const fetchDepartments = () => {
@@ -163,10 +163,10 @@ export const SpecificEmployee = (props: initialState) => {
     axios.get(`${APILink}department/`).then((response:any) => {
         
         const responseDepartments = response.data.filter((obj:any) => obj.dept_branch_code == userData?.branch_code).map((department:any) => {
-        return {
-            id: department.id.toString(),
-            name: department.dept_name
-        }
+            return {
+                id: department.id.toString(),
+                name: department.dept_name
+            }
         })
             setDropDownData((curr:any) => ({...curr, departments: responseDepartments}));
         })
@@ -196,7 +196,6 @@ export const SpecificEmployee = (props: initialState) => {
         setDropDownData((curr:any) => ({...curr, positions: responsePositions}));
     })
     }
-
 
     const fetchData = async function (formData: FormData) {
         try {
@@ -331,11 +330,11 @@ export const SpecificEmployee = (props: initialState) => {
                                     >
                                     HR System Details
                                     </Typography>
-                                    <div className="my-4 flex items-center gap-4">
+                                    <div className="my-4 md:flex md:items-center md:gap-4">
                                     <Input 
                                                 crossOrigin={undefined} {...register('id')}
                                                 type="number"
-                                                containerProps={{ className: "min-w-[72px]" }}
+                                                containerProps={{ className: "min-w-[72px] mb-2" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Database ID: (readonly)"
                                                 disabled={true}
@@ -345,17 +344,17 @@ export const SpecificEmployee = (props: initialState) => {
                                                 type="number"
                                                 max={99999}
                                                 maxLength={5}
-                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                containerProps={{ className: "min-w-[72px]  mb-2 focused" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Biometric ID: (max 5 dig)"
                                                 disabled={!editMode}
                                                 icon={<FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     </div>
-                                    <div className="flex items-center gap-4">
+                                    <div className="md:flex md:items-center gap-4">
                                     <Input 
                                                 crossOrigin={undefined} {...register('is_superuser')}
                                                 type="text"
-                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                containerProps={{ className: "min-w-[72px] focused  mb-2" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Account Superuser(?):"
                                                 disabled={true}
@@ -363,7 +362,7 @@ export const SpecificEmployee = (props: initialState) => {
                                     <Input 
                                                 crossOrigin={undefined} {...register('is_active')}
                                                 type="text"
-                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                containerProps={{ className: "min-w-[72px]  mb-2 focused" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Account Active(?):"
                                                 disabled={true}
@@ -378,11 +377,11 @@ export const SpecificEmployee = (props: initialState) => {
                                     >
                                     Technical Details
                                     </Typography>
-                                    <div className="my-4 flex items-center gap-4">
+                                    <div className="my-4 md:flex md:items-center gap-4">
                                     <Input
                                                 crossOrigin={undefined} {...register('emp_no')}
                                                 type="text"
-                                                containerProps={{ className: "min-w-[72px]" }}
+                                                containerProps={{ className: "min-w-[72px] mb-2" }}
                                                 label="Emp #:"
                                                 maxLength={7}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
@@ -390,7 +389,7 @@ export const SpecificEmployee = (props: initialState) => {
                                     <Input
                                                 crossOrigin={undefined} {...register('user.username')}
                                                 type="text"
-                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                containerProps={{ className: "min-w-[72px] focused mb-2" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Username:"
                                                 disabled={true}
@@ -398,7 +397,7 @@ export const SpecificEmployee = (props: initialState) => {
                                     <Input
                                                 crossOrigin={undefined} {...register('user.role')}
                                                 type="number"
-                                                containerProps={{ className: "min-w-[72px]" }}
+                                                containerProps={{ className: "min-w-[72px] mb-2" }}
                                                 label="Role #:"
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 disabled={true}
@@ -421,17 +420,19 @@ export const SpecificEmployee = (props: initialState) => {
                                 >
                                 Static Info Details
                                 </Typography>
-                                <div className="my-4 flex flex-wrap xl:flex-nowrap items-center gap-4">
+                                <div className="my-4 md:flex md:flex-wrap xl:flex-nowrap md:items-center gap-4">
                                 <Input
                                             crossOrigin={undefined} {...register('user.is_locked')}
                                             label="Account Lock Status:"
                                             labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            containerProps={{ className: "mb-2" }}
                                             disabled={true}
                                             icon={<LockClosedOutline className="h-5 w-5 text-blue-gray-300" />}                                />
                                 <Input
                                             crossOrigin={undefined} {...register('user.last_login')}
                                             label="Last Login:"
                                             labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            containerProps={{ className: "mb-2" }}
                                             disabled={true}
                                             icon={<CheckCircleIcon className="h-5 w-5 text-blue-gray-300" />}                                />
                                 <Input
@@ -439,27 +440,30 @@ export const SpecificEmployee = (props: initialState) => {
                                             type="password"
                                             label="Old Password:"
                                             labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            containerProps={{ className: "mb-2" }}
                                             disabled={true}
                                             icon={<LockOpenIcon className="h-5 w-5 text-blue-gray-300" />}                                />
                                 <Input
                                             crossOrigin={undefined} {...register('user.date_added')}
                                             label="Date Added:"
                                             labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            containerProps={{ className: "mb-2" }}
                                             disabled={true}
                                             icon={<UserPlusIcon className="h-5 w-5 text-blue-gray-300" />}                                />
                                 <Input
                                             crossOrigin={undefined} {...register('user.date_deleted')}
                                             label="Date Deactivated:"
-                                            containerProps={{ className: "min-w-[72px]" }}
+                                            containerProps={{ className: "min-w-[72px] mb-2" }}
                                             labelProps={{ style: { color: true ? "unset" : '' } }}
                                             disabled={true}
                                             icon={<XMarkIcon className="h-5 w-5 text-blue-gray-300" />}                                />
                                 </div>
-                                <div className="my-4 flex flex-wrap md:flex-nowrap items-center gap-4">
+                                <div className="my-4 md:flex flex-wrap md:flex-nowrap items-center gap-4">
                                 <Input
                                             crossOrigin={undefined} {...register('user.failed_login_attempts')}
                                             label="Failed Login Attempts:"
                                             labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            containerProps={{ className: "mb-2" }}
                                             disabled={true}
                                             icon={<XCircleIcon className="h-5 w-5 text-blue-gray-300" />}                                />
                                 <Input
@@ -472,7 +476,7 @@ export const SpecificEmployee = (props: initialState) => {
                                             }                                />
                                 </div>
                             </div>
-                            <div className="my-4 flex items-center gap-4">
+                            <div className="my-4 md:flex md:items-center gap-4">
                                 <Button2 
                                     disabled={editMode}
                                     color={editMode? "gray" :"teal"} 
@@ -510,7 +514,7 @@ export const SpecificEmployee = (props: initialState) => {
                                 onSubmit={handleSubmit((data)=> onSubmit(data, "type2"))}
                                 // onSubmit={()=> window.alert("submitted")}
                             >
-                            <div className="my-0 flex flex-wrap md:flex-nowrap items-center gap-4">
+                            <div className="my-0 md:flex flex-wrap md:flex-nowrap items-center gap-4">
                                 <div style={{width: "100%"}}>
                                     <Typography
                                     variant="small"
@@ -540,11 +544,11 @@ export const SpecificEmployee = (props: initialState) => {
                                             }
                                         }} 
                                     />
-                                    <div className="my-4 flex items-center gap-4">
+                                    <div className="my-4 md:flex md:items-center gap-4">
                                     <Input
                                                 crossOrigin={undefined} {...register('first_name')}
                                                 type="text"
-                                                containerProps={{ className: "min-w-[72px]" }}
+                                                containerProps={{ className: "min-w-[72px] mb-2" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="First Name:"
                                                 disabled={!editMode2}
@@ -552,17 +556,17 @@ export const SpecificEmployee = (props: initialState) => {
                                     <Input 
                                                 crossOrigin={undefined} {...register('middle_name')}
                                                 type="text"
-                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                containerProps={{ className: "min-w-[72px] mb-2 focused" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Middle Name:"
                                                 disabled={!editMode2}
                                                 icon={<FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     </div>
-                                    <div className="my-4 flex items-center gap-4">
+                                    <div className="my-4 md:flex md:items-center gap-4">
                                     <Input
                                                 crossOrigin={undefined} {...register('last_name')}
                                                 type="text"
-                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                containerProps={{ className: "min-w-[72px] mb-2 focused" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Last Name:"
                                                 disabled={!editMode2}
@@ -576,7 +580,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                 disabled={!editMode2}
                                                 icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     </div>
-                                    <div className="my-4 flex items-center gap-4">
+                                    <div className="my-4 md:flex md:items-center gap-4">
                                         <Input
                                             crossOrigin={undefined} {...register('graduated_school')}
                                             type="text"
@@ -588,7 +592,7 @@ export const SpecificEmployee = (props: initialState) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="my-0 flex flex-wrap md:flex-nowrap items-center gap-4">
+                            <div className="my-0 md:flex md:flex-wrap md:flex-nowrap md:items-center gap-4">
                                 <div style={{width: "100%"}}>
                                     <Typography
                                     variant="small"
@@ -597,11 +601,11 @@ export const SpecificEmployee = (props: initialState) => {
                                     >
                                     Personal Details
                                     </Typography>
-                                    <div className="my-4 flex items-center gap-4">
+                                    <div className="my-4 md:flex md:items-center gap-4">
                                     <Input
                                                 crossOrigin={undefined} {...register('birthday')}
                                                 type="date"
-                                                containerProps={{ className: "min-w-[72px]" }}
+                                                containerProps={{ className: "min-w-[72px] mb-2" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Birthday: YYYY-MM-DD"
                                                 value={userData?.birthday?.split("T")[0]}
@@ -611,17 +615,17 @@ export const SpecificEmployee = (props: initialState) => {
                                     <Input 
                                                 crossOrigin={undefined} {...register('birth_place')}
                                                 type="text"
-                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                containerProps={{ className: "min-w-[72px] mb-2 focused" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Birthplace:"
                                                 disabled={!editMode2}
                                                 icon={<FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     </div>
-                                    <div className="my-4 flex items-center gap-4">
+                                    <div className="my-4 md:flex md:items-center gap-4">
                                     <Input
                                                 crossOrigin={undefined} {...register('mobile_phone')}
-                                                type="text"
-                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                type="tel"
+                                                containerProps={{ className: "min-w-[72px] mb-2 focused" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Mobile Phone:"
                                                 disabled={!editMode2}
@@ -629,18 +633,18 @@ export const SpecificEmployee = (props: initialState) => {
                                     <Input
                                                 crossOrigin={undefined} {...register('approver1')}
                                                 type="number"
-                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                containerProps={{ className: "min-w-[72px] mb-2 focused" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Approver #1 (Employee #):"
                                                 disabled={!editMode2}
                                                 value={userData?.approver1 as number}
                                                 icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     </div>
-                                    <div className="my-4 flex items-center gap-4">
+                                    <div className="my-4 md:flex md:items-center gap-4">
                                     <Input
                                                 crossOrigin={undefined} {...register('telephone')}
                                                 type="text"
-                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                containerProps={{ className: "min-w-[72px] mb-2 focused" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Telephone:"
                                                 disabled={!editMode2}
@@ -648,7 +652,7 @@ export const SpecificEmployee = (props: initialState) => {
                                     <Input
                                                 crossOrigin={undefined} {...register('approver2')}
                                                 type="number"
-                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                containerProps={{ className: "min-w-[72px] mb-2 focused" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Approver #2 (Employee #):"
                                                 disabled={!editMode2}
@@ -656,11 +660,11 @@ export const SpecificEmployee = (props: initialState) => {
                                                 icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     </div>
 
-                                    <div className="my-4 flex items-center gap-4">
+                                    <div className="my-4 md:flex md:items-center gap-4">
                                     <Input
                                                 crossOrigin={undefined} {...register('emergency_contact_person')}
                                                 type="text"
-                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                containerProps={{ className: "min-w-[72px] mb-2 focused" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Emergency Contact Person:"
                                                 disabled={!editMode2}
@@ -668,7 +672,7 @@ export const SpecificEmployee = (props: initialState) => {
                                     <Input
                                                 crossOrigin={undefined} {...register('emergency_contact_number')}
                                                 type="number"
-                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                containerProps={{ className: "min-w-[72px] mb-2 focused" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Emergency Contact No:"
                                                 disabled={!editMode2}
@@ -684,23 +688,25 @@ export const SpecificEmployee = (props: initialState) => {
                                     >
                                     Additional Details
                                     </Typography>
-                                    <div className="my-4 flex items-center gap-4">
-
-                                    <Select
-                                        onChange={(val:any) => setFormSelectData(curr => ({...curr, civil_status: val}))}
-                                        placeholder="Select Civil Status"
-                                        name="civil_status"
-                                        variant="outlined"
-                                        label="Civil Status"
-                                        disabled={!editMode2}
-                                        value={userData?.civil_status}
-                                    >
-                                        <Option value="S">Single</Option>
-                                        <Option value="M">Married</Option>
-                                        <Option value="A">Anull</Option>
-                                        <Option value="W">Widowed</Option>
-                                        <Option value="D">Divorced</Option>
-                                    </Select>
+                                    <div className="my-4 md:flex md:items-center gap-4">
+                                    
+                                        <div className='mb-2 md:mb-0'>
+                                            <Select
+                                                onChange={(val:any) => setFormSelectData(curr => ({...curr, civil_status: val}))}
+                                                placeholder="Select Civil Status"
+                                                name="civil_status"
+                                                variant="outlined"
+                                                label="Civil Status"
+                                                disabled={!editMode2}
+                                                value={userData?.civil_status}
+                                            >
+                                                <Option value="S">Single</Option>
+                                                <Option value="M">Married</Option>
+                                                <Option value="A">Anull</Option>
+                                                <Option value="W">Widowed</Option>
+                                                <Option value="D">Divorced</Option>
+                                            </Select>
+                                        </div>
                                     <Select
                                         onChange={(val:any) => setFormSelectData(curr => ({
                                             ...curr,
@@ -732,18 +738,18 @@ export const SpecificEmployee = (props: initialState) => {
                                                 disabled={!editMode2}
                                                 icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                    /> */}
                                     </div>
-                                    <div className="my-4 flex items-center gap-4">
+                                    <div className="my-4 md:flex md:items-center gap-4">
                                     <Input
                                                 crossOrigin={undefined} {...register('blood_type')}
                                                 type="text"
-                                                containerProps={{ className: "min-w-[72px]" }}
+                                                containerProps={{ className: "min-w-[72px] mb-2 md:mb-0" }}
                                                 label="Blood Type:"
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 disabled={!editMode2}                                    />
                                     <Input
                                             crossOrigin={undefined} {...register('url_google_map')}
                                             type="text"
-                                            containerProps={{ className: "min-w-[72px] focused" }}
+                                            containerProps={{ className: "min-w-[72px] mb-2 md:mb-0 focused" }}
                                             labelProps={{ style: { color: true ? "unset" : '' } }}
                                             label="URL Google Map:"
                                             disabled={!editMode2}
@@ -751,11 +757,11 @@ export const SpecificEmployee = (props: initialState) => {
                                         />
                                     </div>
 
-                                    <div className="my-4 flex items-center gap-4">
+                                    <div className="my-4 md:flex md:items-center gap-4">
                                         <Input
                                                 crossOrigin={undefined} {...register('address')}
                                                 type="text"
-                                                className=""
+                                                containerProps={{ className: "mb-2 md:mb-0" }}
                                                 label="Present Address:"
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 disabled={!editMode2}                                    />
@@ -766,12 +772,13 @@ export const SpecificEmployee = (props: initialState) => {
                                             disabled={!editMode2}
                                             icon={<LockClosedOutline className="h-5 w-5 text-blue-gray-300" />}                                />
                                     </div>
-                                    <div className="my-4 flex items-center gap-4">
+                                    <div className="my-4 md:flex md:items-center gap-4">
                                         <Input
                                                 crossOrigin={undefined} {...register('profession')}
                                                 type="text"
                                                 className=""
                                                 label="Profession:"
+                                                containerProps={{ className: "mb-2 md:mb-0" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 disabled={!editMode2}                                    />
                                         <Input
@@ -840,11 +847,11 @@ export const SpecificEmployee = (props: initialState) => {
                                     >
                                     Employment Info
                                     </Typography>
-                                    <div className="my-4 flex items-center gap-4">
+                                    <div className="my-4 md:flex md:items-center gap-4">
                                         <Input
                                                 crossOrigin={undefined} {...register('date_hired')}
                                                 type="text"
-                                                containerProps={{ className: "min-w-[72px]" }}
+                                                containerProps={{ className: "min-w-[72px] mb-2 md:mb-0" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Date Hired:"
                                                 disabled={!editMode3}
@@ -853,17 +860,17 @@ export const SpecificEmployee = (props: initialState) => {
                                         <Input
                                                 crossOrigin={undefined} {...register('date_resigned')}
                                                 type="text"
-                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                containerProps={{ className: "min-w-[72px] mb-2 focused" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Date Resigned:"
                                                 disabled={!editMode3}
                                                 icon={<FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
                                     </div>
-                                    <div className="my-4 flex items-center gap-4">
+                                    <div className="my-4 md:flex md:items-center gap-4">
                                         <Input
                                                 crossOrigin={undefined} {...register('division_code')}
                                                 type="text"
-                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                containerProps={{ className: "min-w-[72px] mb-2 md:mb-0 focused" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Division Code:"
                                                 disabled={!editMode3}
@@ -878,11 +885,11 @@ export const SpecificEmployee = (props: initialState) => {
                                                 icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
                                         
                                     </div>
-                                    <div className="my-4 flex items-center gap-4">
+                                    <div className="my-4 md:flex md:items-center gap-4">
                                         <Input
                                                 crossOrigin={undefined} {...register('accnt_no')}
                                                 type="text"
-                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                containerProps={{ className: "min-w-[72px] mb-2 md:mb-0 focused" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Account Number:"
                                                 disabled={!editMode3}
@@ -891,14 +898,14 @@ export const SpecificEmployee = (props: initialState) => {
                                         <Input
                                             crossOrigin={undefined} {...register('hmo')}
                                             type="text"
-                                            containerProps={{ className: "min-w-[72px] focused" }}
+                                            containerProps={{ className: "min-w-[72px] mb-2 md:mb-0 focused" }}
                                             labelProps={{ style: { color: true ? "unset" : '' } }}
                                             label="HMO:"
                                             disabled={!editMode3}
                                             icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}             
                                         />      
                                     </div>
-                                    <div className="my-4 flex items-center gap-4">
+                                    <div className="my-4 flex md:items-center flex-col md:flex-row gap-4">
                                         <Select
                                             onChange={(val:any) => setFormSelectData(curr => ({...curr, employee_type: val}))}
                                             placeholder="Select Employee Type"
@@ -932,7 +939,7 @@ export const SpecificEmployee = (props: initialState) => {
                                             </Select>
                                         }
                                     </div>
-                                    <div className="my-4 flex items-center gap-4">
+                                    <div className="my-4 flex flex-col md:flex-row md:items-center gap-4">
                                         {dropDownData.positions.length > 0 && 
                                             <Select
                                                 onChange={(val:any) => setFormSelectData(curr => ({...curr, position_code: val}))}
@@ -972,7 +979,7 @@ export const SpecificEmployee = (props: initialState) => {
                                     >
                                     Payroll Code
                                     </Typography>
-                                    <div className="my-4 flex items-center gap-4">
+                                    <div className="my-4 flex flex-col md:flex-row md:items-center gap-4">
                                         <Input
                                             crossOrigin={undefined} {...register('city_code')}
                                             type="text"
@@ -1068,7 +1075,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                 disabled={!editMode3}
                                                 icon={<UserGroupIcon className="h-5 w-5 text-blue-gray-300" />}                                        /> */}
                                     </div>
-                                    <div className="my-0 flex items-center gap-4">
+                                    <div className="my-0 flex flex-col md:flex-row md:items-center gap-4">
                                         <Input
                                                 crossOrigin={undefined} {...register('rank_code')}
                                                 type="text"
@@ -1105,7 +1112,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                 disabled={!editMode3}
                                                 icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                        /> */}
                                     </div>
-                                    <div className="mt-4 flex items-center gap-4">
+                                    <div className="mt-4 flex flex-col md:flex-row md:items-center gap-4">
                                         <Input
                                                 crossOrigin={undefined} {...register('emp_salary_basic')}
                                                 type="text"
@@ -1142,16 +1149,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                 icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}         
                                         /> */}
                                     </div>
-                                    <div className="my-4 flex items-center gap-4">
-                                        <Input
-                                            crossOrigin={undefined} {...register('payroll_no')}
-                                            type="text"
-                                            containerProps={{ className: "min-w-[72px] focused" }}
-                                            labelProps={{ style: { color: true ? "unset" : '' } }}
-                                            label="Payroll No:"
-                                            disabled={!editMode3}
-                                            icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                        
-                                        />
+                                    <div className="my-4 md:flex md:items-center gap-4">
                                         <Input
                                             crossOrigin={undefined} {...register('payroll_no')}
                                             type="text"
@@ -1162,7 +1160,7 @@ export const SpecificEmployee = (props: initialState) => {
                                             icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                        
                                         />
                                     </div>
-                                    <div className="my-4 flex items-center gap-4">
+                                    <div className="my-4 flex flex-col md:flex-row md:items-center gap-4">
                                         <Input
                                             crossOrigin={undefined} {...register('insurance_life')}
                                             type="number"

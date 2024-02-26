@@ -1,6 +1,7 @@
 import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { Button } from '@mui/material';
 import {TextField} from '@mui/material';
+import { Input } from "@material-tailwind/react";
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
@@ -25,10 +26,26 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         leave_remarks: null,
         leave_date_from: null,
         leave_date_to: null,
+        uploaded_file: null
     });
     const onClickSubmit = () => {
+
         setIsSubmittingRequest(true)
-        dispatch(LEAVECreateAction(createLEAVE))
+
+        const formData = new FormData();
+
+        for(const key in createLEAVE) {
+
+            if (Object.prototype.hasOwnProperty.call(createLEAVE, key)) {
+                const value = createLEAVE[key as keyof LEAVECreateInterface];
+                // Check if the value is not null and not undefined
+                if (value !== null && value !== undefined) {
+                    formData.append(key, value.toString());
+                }
+            }
+        }
+        
+        dispatch(LEAVECreateAction(formData))
     };
     useEffect(()=>{
         if(LEAVECreatestate.status === 'succeeded'){
@@ -43,6 +60,19 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
             }, 1000)
         }
     }, [LEAVECreatestate.status])
+
+    const handleChangeImage = (e:React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFiles: FileList | null = e.target.files;
+
+        if (selectedFiles) {
+
+            setCreateLEAVE((curr:any) => ({
+                ...curr,
+                uploaded_file: selectedFiles
+            }))
+
+          }
+    }
 
     return (
         <React.Fragment>
@@ -76,6 +106,13 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                         <DateFromToLEAVECreate createLEAVE={createLEAVE} setCreateLEAVE={setCreateLEAVE}/>
                     </div>
                 </div>
+                <Input 
+                    type="file"
+                    accept="image/*"
+                    label=" Supporting Documents(Image)"
+                    onChange={handleChangeImage}
+                    multiple
+                />
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
                         <Button variant='contained' onClick={onClickSubmit}>Create LEAVE</Button>
