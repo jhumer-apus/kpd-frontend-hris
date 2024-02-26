@@ -25,7 +25,7 @@ export default function ProfileAutocomplete(props: Props) {
     const handleChange = (e: any, val: Option | null) => {
         setState((curr:any) => ({
             ...curr,
-            [customKey]: val?.name
+            [customKey]: val?.id
 
         }))
     }

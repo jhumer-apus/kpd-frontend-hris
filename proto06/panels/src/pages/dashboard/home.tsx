@@ -42,6 +42,8 @@ import YearlyReminder from "./YearlyReminder";
 
 export function ChooseDashboard() {
   const EmployeeState = useSelector((state: RootState) => state.employeeAndApplicants);
+  const currUser = useSelector((state: RootState) => state.auth.employee_detail);
+  console.log(currUser.user.role);
   const [currentAttendanceTab, setCurrentAttendanceTab] = useState<string>("perfect_attendance");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -150,63 +152,67 @@ export function ChooseDashboard() {
           <MonthYearDropdown filter={filterState} setFilter={setFilterState}/>
           <PerfectAttendanceTable state={forCSVExtract instanceof Array ? forCSVExtract : []} status={EmployeeState.PERFECTATTENDANCEViewSpecific.status} />
         </Card> */}
-        <Card className={`${styles.requestsBar} mt-4 overflow-auto h-[50opx]`}>
-          <CardBody>
 
-            <Tabs value={currentAttendanceTab}>
-              <TabsHeader>
-                {tabsAttendance.map(tab => (
-                  <Tab 
-                    key={tab.id} 
-                    value={tab.id}
-                    onClick={() => setCurrentAttendanceTab(tab.id)}
-                  >
-                    {tab.name}
-                  </Tab>
-                ))}
-              </TabsHeader>
+        {currUser.user.role >= 3 &&
+          <Card className={`${styles.requestsBar} mt-4 overflow-auto h-[500px]`}>
+            <CardBody>
 
-              <TabsBody>
-
-                {tabsAttendance.map(tab => (
-                    <TabPanel key={tab.id} value={tab.id}>
-                      <div className="flex items-center justify-between my-4">
-                        <div>
-                          <Typography variant="h6" color="blue-gray" className="mb-1">
-                            {tab.name}
-                          </Typography>
-                          {tab.additional_details && 
-                            (
-                              <Typography variant="subtitle1" color="blue-gray" className="mb-1">
-                                {tab.additional_details}
-                              </Typography>
-                            )
-                          }
-                        </div>
-                        <Menu placement="left-start">
-                          <MenuHandler>
-                            <IconButton size="sm" variant="text" color="blue-gray">
-                              <EllipsisVerticalIcon
-                                strokeWidth={3}
-                                fill="currenColor"
-                                className="h-6 w-6"
-                              />
-                            </IconButton>
-                          </MenuHandler>
-                          <MenuList>
-                            <MenuItem><ExportToCsv data={forCSVExtract instanceof Array ? forCSVExtract : []} /></MenuItem>
-                          </MenuList>
-                        </Menu>
-                      </div>
-                      <MonthYearDropdown filter={filterState} setFilter={setFilterState}/>
-                      <AttendanceTable state={forCSVExtract instanceof Array ? forCSVExtract : []} status={currentAttendanceTab == "perfect_attendance"? EmployeeState.PERFECTATTENDANCEViewSpecific.status: EmployeeState.IMPERFECTATTENDANCEViewSpecific.status}/>
-                      {/* <PerfectAttendanceTable state={forCSVExtract instanceof Array ? forCSVExtract : []} status={EmployeeState.PERFECTATTENDANCEViewSpecific.status} /> */}
-                    </TabPanel>
+              <Tabs value={currentAttendanceTab}>
+                <TabsHeader>
+                  {tabsAttendance.map(tab => (
+                    <Tab 
+                      key={tab.id} 
+                      value={tab.id}
+                      onClick={() => setCurrentAttendanceTab(tab.id)}
+                    >
+                      {tab.name}
+                    </Tab>
                   ))}
-              </TabsBody>
-            </Tabs>
-          </CardBody>
-        </Card>
+                </TabsHeader>
+
+                <TabsBody>
+
+                  {tabsAttendance.map(tab => (
+                      <TabPanel key={tab.id} value={tab.id}>
+                        <div className="flex items-center justify-between my-4">
+                          <div>
+                            <Typography variant="h6" color="blue-gray" className="mb-1">
+                              {tab.name}
+                            </Typography>
+                            {tab.additional_details && 
+                              (
+                                <Typography variant="subtitle1" color="blue-gray" className="mb-1">
+                                  {tab.additional_details}
+                                </Typography>
+                              )
+                            }
+                          </div>
+                          <Menu placement="left-start">
+                            <MenuHandler>
+                              <IconButton size="sm" variant="text" color="blue-gray">
+                                <EllipsisVerticalIcon
+                                  strokeWidth={3}
+                                  fill="currenColor"
+                                  className="h-6 w-6"
+                                />
+                              </IconButton>
+                            </MenuHandler>
+                            <MenuList>
+                              <MenuItem><ExportToCsv data={forCSVExtract instanceof Array ? forCSVExtract : []} /></MenuItem>
+                            </MenuList>
+                          </Menu>
+                        </div>
+                        <MonthYearDropdown filter={filterState} setFilter={setFilterState}/>
+                        <AttendanceTable state={forCSVExtract instanceof Array ? forCSVExtract : []} status={currentAttendanceTab == "perfect_attendance"? EmployeeState.PERFECTATTENDANCEViewSpecific.status: EmployeeState.IMPERFECTATTENDANCEViewSpecific.status}/>
+                        {/* <PerfectAttendanceTable state={forCSVExtract instanceof Array ? forCSVExtract : []} status={EmployeeState.PERFECTATTENDANCEViewSpecific.status} /> */}
+                      </TabPanel>
+                    ))}
+                </TabsBody>
+              </Tabs>
+            </CardBody>
+          </Card>
+        }
+        
         
 
 

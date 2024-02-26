@@ -66,7 +66,7 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
     })
     const submitNewSCHEDULEDAILY = () => {
         console.log(createSCHEDULEDAILYForm)
-        // dispatch(SCHEDULEDAILYCreateAction(createSCHEDULEDAILYForm));
+        dispatch(SCHEDULEDAILYCreateAction(createSCHEDULEDAILYForm));
     };
 
     useEffect(()=>{
@@ -145,7 +145,7 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
                     >
                         <FormControlLabel value="saturday" control={<Radio />} label="Saturday" />
                         <FormControlLabel value="sunday" control={<Radio />} label="Sunday" />
-                        <FormControlLabel value="saturday_sunday" control={<Radio />} label="Saturday and Sunday" />
+                        <FormControlLabel value="saturday_and_sunday" control={<Radio />} label="Saturday and Sunday" />
                         <FormControlLabel value="default" control={<Radio />} label="Default"/>
                     </RadioGroup>
                 </FormControl>

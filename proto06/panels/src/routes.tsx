@@ -863,6 +863,7 @@ const JSXRouteWrapper = () => {
               },
             ]
           },
+          // ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee && state?.user?.role !== INTERNAL_USER_ROLE.Manager ) ? [],
           {
             id: 18000,
             icon: null,

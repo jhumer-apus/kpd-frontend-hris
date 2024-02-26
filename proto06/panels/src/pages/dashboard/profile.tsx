@@ -405,15 +405,13 @@
                       />
                   </div>
                     <div className="md:flex md:space-x-4 mb-2">
-                      {userData?.birthday && 
-                          <DatePickerForm 
-                            label="Birthday"
-                            defaultValue={userData?.birthday}
-                            setState={setUserData}
-                            customKey="birthday"
-                            disabled={!isEdit}
-                          />
-                      }
+                        <DatePickerForm 
+                          label="Birthday"
+                          defaultValue={userData?.birthday}
+                          setState={setUserData}
+                          customKey="birthday"
+                          disabled={!isEdit}
+                        />
 
                       <TextField  disabled={!isEdit} id="Birthplace" label="Birthplace" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} defaultValue={userData?.birth_place} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
@@ -535,15 +533,15 @@
           <div className="grid-cols-1 mb-12 grid gap-12 px-4 lg:grid-cols-2 xl:grid-cols-3" style={{ marginTop: '-10px', marginBottom: '20px', position: 'relative' }}>
           <div>
 
-             {userData?.date_hired && 
-                <DatePickerForm 
-                  label="Date Hired"
-                  defaultValue={userData?.date_hired}
-                  setState={setUserData}
-                  customKey="date_hired"
-                  disabled={true}
-                />
-            }
+
+            <DatePickerForm 
+              label="Date Hired"
+              defaultValue={userData?.date_hired}
+              setState={setUserData}
+              customKey="date_hired"
+              disabled={true}
+            />
+
             {dropDownData.branches.length > 0 && 
               <ProfileAutocomplete
                 id='branch_code'
