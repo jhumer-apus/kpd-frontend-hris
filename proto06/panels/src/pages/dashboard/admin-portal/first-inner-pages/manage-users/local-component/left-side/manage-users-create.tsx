@@ -61,7 +61,10 @@ function ManageUSERCreate(props: CreateUSERModalInterface) {
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create an HRIS User Data</Typography>
-            <div className='flex flex-col gap-3 relative p-4'>
+            <div 
+                // className='flex flex-col gap-3 relative p-4'
+                className='flex flex-col gap-3 md:w-[500px]'
+            >
                     <div className='flex flex-col pt-4 w-full'>
                         <EmployeeAutoComplete createUSER={createUSER} setCreateUSER={setCreateUSER}/>
                     </div>

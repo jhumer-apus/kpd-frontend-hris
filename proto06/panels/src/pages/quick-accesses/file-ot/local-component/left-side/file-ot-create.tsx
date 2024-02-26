@@ -20,7 +20,7 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
     const OVERTIMECreatestate = useSelector((state: RootState)=> state.procedurals.OVERTIMECreate);
     const [createOVERTIME, setCreateOVERTIME] = useState<OVERTIMECreateInterface>({
         emp_no: NaN,
-        ot_type: null,
+        ot_type: 'After Duty',
         ot_remarks: null,
         ot_date_from: null,
         ot_date_to: null,
