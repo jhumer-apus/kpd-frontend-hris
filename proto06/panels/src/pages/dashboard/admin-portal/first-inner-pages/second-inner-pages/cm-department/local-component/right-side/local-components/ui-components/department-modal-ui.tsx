@@ -4,27 +4,32 @@ import { Button } from '@mui/material';
 import dayjs from 'dayjs';
 import {TextField} from '@mui/material';
 // import ApproveDEPARTMENTModal from '../main-modals/inner-modals/approve-leave-modal';
-import AllowedDaysDEPARTMENTModal from '../main-modals/inner-modals/edit-department-modal';
+import EditDEPARTMENTModal from '../main-modals/inner-modals/edit-department-modal';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 
 interface DEPARTMENTModalUIInterface {
     singleDEPARTMENTDetailsData: DEPARTMENTViewInterface;
+    setSingleDEPARTMENTOpenModal: Dispatch<SetStateAction<boolean>>;
     multiplePayslipMode?: boolean;
     setSingleDEPARTMENTDetailsData: Dispatch<SetStateAction<DEPARTMENTViewInterface>>;
 }
 
 function DEPARTMENTModalUI(props: DEPARTMENTModalUIInterface) {
     const [ approveDEPARTMENTOpenModal, setApproveDEPARTMENTOpenModal ] = useState(false);
-    const [ allowedDaysDEPARTMENTOpenModal, setAllowedDaysDEPARTMENTOpenModal ] = useState(false);
-    const { setSingleDEPARTMENTDetailsData, singleDEPARTMENTDetailsData } = props;
+    const [ editDEPARTMENTOpenModal, setEditDEPARTMENTOpenModal ] = useState(false);
+    const { 
+        setSingleDEPARTMENTDetailsData, 
+        singleDEPARTMENTDetailsData,
+        setSingleDEPARTMENTOpenModal 
+    } = props;
     const ThisProps = props.singleDEPARTMENTDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
     const onClickModal = (mode: number) => {
         switch(mode){
             case 0: setApproveDEPARTMENTOpenModal(true);
             break;
-            case 1: setAllowedDaysDEPARTMENTOpenModal(true);
+            case 1: setEditDEPARTMENTOpenModal(true);
             break;
         }   
         
@@ -32,7 +37,13 @@ function DEPARTMENTModalUI(props: DEPARTMENTModalUIInterface) {
 
     return (
         <Fragment>
-            <AllowedDaysDEPARTMENTModal singleDEPARTMENTDetailsData={singleDEPARTMENTDetailsData} setSingleDEPARTMENTDetailsData={setSingleDEPARTMENTDetailsData} allowedDaysDEPARTMENTOpenModal={allowedDaysDEPARTMENTOpenModal} setAllowedDaysDEPARTMENTOpenModal={setAllowedDaysDEPARTMENTOpenModal}/>
+            <EditDEPARTMENTModal 
+                singleDEPARTMENTDetailsData={singleDEPARTMENTDetailsData} 
+                setSingleDEPARTMENTDetailsData={setSingleDEPARTMENTDetailsData} 
+                editDEPARTMENTOpenModal={editDEPARTMENTOpenModal} 
+                setSingleDEPARTMENTOpenModal={setSingleDEPARTMENTOpenModal}
+                setEditDEPARTMENTOpenModal={setEditDEPARTMENTOpenModal}
+            />
             <div className='flex overflow-auto justify-around gap-4 relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Department ID:' value={ThisProps.id ? ThisProps.id : '-'} InputProps={{readOnly: true,}} variant='filled'/>

@@ -5,52 +5,65 @@ import { Transition } from 'react-transition-group';
 import { DEPARTMENTViewInterface } from '@/types/types-pages';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
-import { DEPARTMENTEditAction } from '@/store/actions/categories';
+import { RootState, globalReducerFailed } from '@/store/configureStore';
+import { DEPARTMENTEditAction, DEPARTMENTEditActionFailureCleanup, DEPARTMENTViewAction } from '@/store/actions/categories';
 import EmployeeAutoCompleteRight from './autocomplete-fields/employee-autocomplete-right';
 import BranchAutoCompleteRight from './autocomplete-fields/branch-autocomplete-right';
 
 
 
-interface AllowedDaysDEPARTMENTModalInterface {
+interface EditDEPARTMENTModalInterface {
     singleDEPARTMENTDetailsData: DEPARTMENTViewInterface;
-    allowedDaysDEPARTMENTOpenModal: boolean; 
-    setAllowedDaysDEPARTMENTOpenModal: Dispatch<SetStateAction<boolean>>;
+    editDEPARTMENTOpenModal: boolean; 
+    setSingleDEPARTMENTOpenModal: Dispatch<SetStateAction<boolean>>;
+    setEditDEPARTMENTOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleDEPARTMENTDetailsData: Dispatch<SetStateAction<DEPARTMENTViewInterface>>;
 }
 
-export default function AllowedDaysDEPARTMENTModal(props: AllowedDaysDEPARTMENTModalInterface) {
+export default function EditDEPARTMENTModal(props: EditDEPARTMENTModalInterface) {
   const dispatch = useDispatch();
-  const DEPARTMENTAllowedDaysState = useSelector((state: RootState)=> state.categories.DEPARTMENTEdit.status)
+  const DEPARTMENTEditState = useSelector((state: RootState)=> state.categories.DEPARTMENTEdit)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
-  const {allowedDaysDEPARTMENTOpenModal, setAllowedDaysDEPARTMENTOpenModal, singleDEPARTMENTDetailsData, setSingleDEPARTMENTDetailsData} = props;
+  const {
+    editDEPARTMENTOpenModal, 
+    setEditDEPARTMENTOpenModal, 
+    singleDEPARTMENTDetailsData, 
+    setSingleDEPARTMENTDetailsData,
+    setSingleDEPARTMENTOpenModal
+  } = props;
 
 
-  const allowedDaysDEPARTMENT = () => { 
+  const editDEPARTMENT = () => { 
     dispatch(DEPARTMENTEditAction({
       ...singleDEPARTMENTDetailsData,
       added_by: curr_user || NaN
     }))
   }
 
-  useEffect(()=>{
-    if(DEPARTMENTAllowedDaysState){      
-      if(DEPARTMENTAllowedDaysState === 'succeeded'){
-        window.alert(`${DEPARTMENTAllowedDaysState.charAt(0).toUpperCase()}${DEPARTMENTAllowedDaysState.slice(1)}`)
-        setTimeout(()=>{
-          window.location.reload();
-        }, 800)
-      }
+  useEffect(()=>{  
+    if(DEPARTMENTEditState.status === 'succeeded'){
+      window.alert(`${DEPARTMENTEditState.status.charAt(0).toUpperCase()}${DEPARTMENTEditState.status.slice(1)}`)
+      setEditDEPARTMENTOpenModal(false);
+      setSingleDEPARTMENTOpenModal(false);
+      dispatch(DEPARTMENTViewAction());
+      setTimeout(()=>{
+        dispatch(DEPARTMENTEditActionFailureCleanup())
+      }, 200)
+    } else if (DEPARTMENTEditState.status === `${globalReducerFailed}`){
+      window.alert(`Request Failed, ${DEPARTMENTEditState.error}`)
+      setTimeout(()=> {
+        dispatch(DEPARTMENTEditActionFailureCleanup())
+      }, 200)
     }
-  }, [DEPARTMENTAllowedDaysState])
+  }, [DEPARTMENTEditState.status])
   return (
     <Fragment>
-      <Transition in={allowedDaysDEPARTMENTOpenModal} timeout={400}>
+      <Transition in={editDEPARTMENTOpenModal} timeout={400}>
       {(state: string) => (
       <Modal
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setAllowedDaysDEPARTMENTOpenModal(false);
+          setEditDEPARTMENTOpenModal(false);
         }}
         slotProps={{
             backdrop: {
@@ -73,7 +86,7 @@ export default function AllowedDaysDEPARTMENTModal(props: AllowedDaysDEPARTMENTM
             aria-labelledby="dialog-vertical-scroll-title" 
             layout={'center'}
             sx={{
-              ...allowedDaysDEPARTMENTArea,
+              ...editDEPARTMENTArea,
                 opacity: 0,
                 transition: `opacity 300ms`,
                 ...{
@@ -111,11 +124,11 @@ export default function AllowedDaysDEPARTMENTModal(props: AllowedDaysDEPARTMENTM
                 <BranchAutoCompleteRight createDEPARTMENT={singleDEPARTMENTDetailsData} setCreateDEPARTMENT={setSingleDEPARTMENTDetailsData}/>
               </div>
               <div className='flex justify-around'>
-                <Button variant={'contained'} onClick={allowedDaysDEPARTMENT}>Submit</Button>
+                <Button variant={'contained'} onClick={editDEPARTMENT}>Submit</Button>
                 <Button 
                   variant={'outlined'} 
                   onClick={()=>{
-                    setAllowedDaysDEPARTMENTOpenModal(false)
+                    setEditDEPARTMENTOpenModal(false)
                   }}
                 >
                 Cancel
@@ -133,7 +146,7 @@ export default function AllowedDaysDEPARTMENTModal(props: AllowedDaysDEPARTMENTM
 
 
 // Styles
-const allowedDaysDEPARTMENTArea = {
+const editDEPARTMENTArea = {
   height: '164.5mm',
   width: '180mm',
   margin: '0 auto',

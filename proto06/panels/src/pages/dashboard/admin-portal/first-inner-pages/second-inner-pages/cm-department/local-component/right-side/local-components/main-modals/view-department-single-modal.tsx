@@ -56,7 +56,11 @@ export default function ViewDEPARTMENTSingleModal(props: SingleDEPARTMENTInterfa
                 overflow: 'auto',
             }}
         >
-          <DEPARTMENTModalComponent setSingleDEPARTMENTDetailsData={setSingleDEPARTMENTDetailsData} singleDEPARTMENTDetailsData={singleDEPARTMENTDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <DEPARTMENTModalComponent 
+            setSingleDEPARTMENTDetailsData={setSingleDEPARTMENTDetailsData} 
+            singleDEPARTMENTDetailsData={singleDEPARTMENTDetailsData} 
+            setSingleDEPARTMENTOpenModal={setSingleDEPARTMENTOpenModal}
+          />
         </ModalDialog>
       </Modal>
         )}
