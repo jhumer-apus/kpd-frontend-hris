@@ -1,6 +1,7 @@
 import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { Button } from '@mui/material';
 import {TextField} from '@mui/material';
+import Autocomplete from '@mui/material/Autocomplete';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import DateFromToEMPSEMINARSCreate from './inner-ui-components/date-from-to-field';
@@ -56,7 +57,24 @@ function EMPSEMINARSCreate(props: CreateEMPSEMINARSModalInterface) {
             }, 300)
         }
     }, [EMPSEMINARSCreatestate.status])
+
+    const handleChangeCategory = (e: any, newVal: any) => {
+        if(newVal) {
+            setCreateEMPSEMINARS(curr => ({
+                ...curr,
+                category: newVal.label
+            }))
+        }
+    }
     
+    const options = [
+        {
+            label: 'Training'
+        },
+        {
+            label: 'Seminar'
+        },
+    ]
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '2px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a record of Training/Seminar for Data</Typography>
@@ -87,7 +105,21 @@ function EMPSEMINARSCreate(props: CreateEMPSEMINARSModalInterface) {
                     </div>
                     <div className='flex flex-col gap-6' style={{ width: '100%' }}>
                         <DateFromToEMPSEMINARSCreate createEMPSEMINARS={createEMPSEMINARS} setCreateEMPSEMINARS={setCreateEMPSEMINARS}/>
-                        <TextField
+                        <Autocomplete
+                            className="w-full mb-4"
+                            disablePortal
+                            options={options}
+                            onChange={(handleChangeCategory)}
+                            renderInput={(params) => <TextField {...params} label={'Training or Seminar'} />}
+                        />
+                        {/* <Autocomplete
+                            disablePortal
+                            id="training_seminar"
+                            options={top100Films}
+                            sx={{ width: 300 }}
+                            renderInput={(params) => <TextField {...params} label="Movie" />}
+                        /> */}
+                        {/* <TextField
                             required 
                             sx={{width: '100%'}} 
                             label='Training or Seminar'
@@ -106,8 +138,7 @@ function EMPSEMINARSCreate(props: CreateEMPSEMINARSModalInterface) {
                                     )
                                 })
                             }}
-                            
-                        />
+                        /> */}
                     </div>
                 </div>
                 <div className='flex justify-center mt-6' container-name='ot_buttons_container'>
