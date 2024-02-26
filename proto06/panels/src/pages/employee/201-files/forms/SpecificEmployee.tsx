@@ -264,7 +264,7 @@ export const SpecificEmployee = (props: initialState) => {
     return (
         <Fragment>
             
-            <Card className="w-full max-w-[110rem] xl:max-w-[90rem] ml-auto mr-auto" style={{zoom: 0.95}}>
+            <Card className="w-full max-w-[110rem] xl:max-w-[90rem] ml-auto mr-auto" style={{zoom: 0.85}}>
             <Tabs value={type}>
                     <CardHeader
                         color="teal"
