@@ -12,8 +12,11 @@ export default function UAReasons(props: Props){
     const { setState } = props
 
     const reasons:string[] = [
-      "Late",
-      "Undertime"
+      "Fingerprint/password issue",
+      "Poor Network Connectivity",
+      "Incorrect Data Entry",
+      // "Late",
+      // "Undertime"
     ];
     const handleChangeValue = (e:any,val:any) => {
       console.log(val)
