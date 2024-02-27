@@ -18,6 +18,7 @@ interface CreateLEAVEModalInterface {
 function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
 
     const dispatch = useDispatch();
+    const userData = useSelector((state: RootState) => state.auth.employee_detail);
     const [isSubmittingRequest, setIsSubmittingRequest] = useState<boolean>(false);
     const LEAVECreatestate = useSelector((state: RootState)=> state.procedurals.LEAVECreate);
     const [createLEAVE, setCreateLEAVE] = useState<LEAVECreateInterface>({
@@ -26,8 +27,11 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         leave_remarks: null,
         leave_date_from: null,
         leave_date_to: null,
-        uploaded_file: null
+        added_by: userData?.emp_no,
+        uploaded_file: null,
     });
+
+    console.log(userData);
     const onClickSubmit = () => {
 
         setIsSubmittingRequest(true)
@@ -48,30 +52,45 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         dispatch(LEAVECreateAction(formData))
     };
     useEffect(()=>{
+
         if(LEAVECreatestate.status === 'succeeded'){
+
             setIsSubmittingRequest(false)
             window.alert('Request Successful');
             window.location.reload();
+
         }else if(LEAVECreatestate.status === 'failed'){
+
             setIsSubmittingRequest(false)
+
             window.alert(`Request Failed, ${LEAVECreatestate.error}`)
+
             setTimeout(()=> {
                 dispatch(LEAVECreateActionFailureCleanup());
             }, 1000)
+
         }
     }, [LEAVECreatestate.status])
 
     const handleChangeImage = (e:React.ChangeEvent<HTMLInputElement>) => {
-        const selectedFiles: FileList | null = e.target.files;
 
-        if (selectedFiles) {
+        const selectedFile: File | null = e.target.files && e.target.files[0];
+        const MAX_FILE_SIZE_MB = 5;
 
-            setCreateLEAVE((curr:any) => ({
-                ...curr,
-                uploaded_file: selectedFiles
-            }))
+        if (selectedFile) {
 
-          }
+            if(selectedFile.size <= MAX_FILE_SIZE_MB * 1024 * 1024) {
+
+                setCreateLEAVE((curr:any) => ({
+                    ...curr,
+                    uploaded_file: selectedFile
+                }))
+
+            } else {
+                window.alert('Image should be not more than 5MB');
+            }
+
+        }
     }
 
     return (
@@ -111,7 +130,6 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                     accept="image/*"
                     label=" Supporting Documents(Image)"
                     onChange={handleChangeImage}
-                    multiple
                 />
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>

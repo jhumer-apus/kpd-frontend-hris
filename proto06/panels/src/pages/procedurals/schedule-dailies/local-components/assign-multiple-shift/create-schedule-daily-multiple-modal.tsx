@@ -16,7 +16,7 @@ import SCHEDULESHIFTFetchAutoCompleteOnSCHEDULEDAILYPage from '../schedule-shift
 
 
 import Radio from '@mui/material/Radio';
-import Checkbox from '@mui/material/Checkbox'
+import { Checkbox } from "@material-tailwind/react";
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
@@ -52,6 +52,7 @@ interface CreateSCHEDULEDAILYMultipleModalInterface {
 }
 
 export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDAILYMultipleModalInterface) {
+
     const dispatch = useDispatch();
     const {open2, handleClose2} = props;
     const createSCHEDULEDAILY = useSelector((state: RootState)=> state.procedurals.SCHEDULEDAILYCreate);
@@ -62,24 +63,51 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
         emp_no: [],
         is_restday: false,
         sched_default: false,
-        exclude_days: 'default'
+        exclude_days: []
     })
     const submitNewSCHEDULEDAILY = () => {
         console.log(createSCHEDULEDAILYForm)
         dispatch(SCHEDULEDAILYCreateAction(createSCHEDULEDAILYForm));
     };
 
-    useEffect(()=>{
-        if(createSCHEDULEDAILY?.status === 'succeeded'){
+    useEffect(() => {
+
+        if(createSCHEDULEDAILY?.status === 'succeeded') {
+            
             window.alert("SCHEDULEDAILY has been successfully created");
             setTimeout(()=> {
                 window.location.reload();
             }, 1000)
-        } else if (createSCHEDULEDAILY?.status === 'failed'){
+
+        } else if (createSCHEDULEDAILY?.status === 'failed') {
+
             window.alert(`Error: ${createSCHEDULEDAILY.error}`)
             dispatch(SCHEDULEDAILYCreateActionFailureCleanup())
+
         }
     }, [createSCHEDULEDAILY?.status])
+
+    const handleChangeExcludeDays = (e:React.ChangeEvent<HTMLInputElement>) => {
+
+        const { value, checked } = e.target
+
+        if (checked) {
+
+            setCreateSCHEDULEDAILYForm((curr:any) => ({
+                ...curr,
+                exclude_days: [...curr.exclude_days, value]
+            }))
+
+        } else {
+
+            setCreateSCHEDULEDAILYForm((curr:any) => ({
+                ...curr,
+                exclude_days: curr.exclude_days.filter((item:string) => item !== value)
+            }))
+
+        }
+    }
+
     return (
         <div>
             <Modal
@@ -130,7 +158,21 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
                 </LocalizationProvider>
                 {/* <EmployeeAutoCompleteLeft createSCHEDULEDAILY={createSCHEDULEDAILYForm} setCreateSCHEDULEDAILY={setCreateSCHEDULEDAILYForm}/> */}
                 <MultiEmployeeAutoCompleteLeft createSCHEDULEDAILY={createSCHEDULEDAILYForm} setCreateSCHEDULEDAILY={setCreateSCHEDULEDAILYForm}/>
-                <FormControl>
+                
+                <div className="flex flex-col">
+                    <Typography sx={{ mt: 2 }}>
+                        Exclude Days:
+                    </Typography>
+                    <Checkbox onChange={handleChangeExcludeDays} label="Sunday" value="sunday"/>
+                    <Checkbox onChange={handleChangeExcludeDays} label="Monday" value="monday"/>
+                    <Checkbox onChange={handleChangeExcludeDays} label="Tuesday" value="tuesday"/>
+                    <Checkbox onChange={handleChangeExcludeDays} label="Wednesday" value="wednesday"/>
+                    <Checkbox onChange={handleChangeExcludeDays} label="Thursday" value="thursday"/>
+                    <Checkbox onChange={handleChangeExcludeDays} label="Friday" value="friday"/>
+                    <Checkbox onChange={handleChangeExcludeDays} label="Saturday" value="saturday"/>
+                </div>
+                
+                {/* <FormControl>
                     <FormLabel id="demo-radio-buttons-group-label">Exclude Days (OFF Days)</FormLabel>
                     <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
@@ -148,7 +190,7 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
                         <FormControlLabel value="saturday_and_sunday" control={<Radio />} label="Saturday and Sunday" />
                         <FormControlLabel value="default" control={<Radio />} label="Default"/>
                     </RadioGroup>
-                </FormControl>
+                </FormControl> */}
                 <FormControl>
                     <FormLabel id="demo-controlled-radio-buttons-group">Is Restday</FormLabel>
                     <RadioGroup

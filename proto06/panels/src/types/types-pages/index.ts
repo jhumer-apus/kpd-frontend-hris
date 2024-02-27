@@ -243,6 +243,7 @@ export interface OBTCreateInterface {
     obt_remarks: string | null;
     obt_date_from: Dayjs | string | null;
     obt_date_to: Dayjs | string | null;
+    added_by?: string | number | null
 }
 
 export interface OBTViewInterface extends OBTCreateInterface { 
@@ -289,6 +290,7 @@ export interface OVERTIMECreateInterface {
     ot_remarks: string | null;
     ot_date_from: string | null;
     ot_date_to: string | null;
+    added_by?: string | number | null
 }
 
 export interface OVERTIMEViewInterface extends OVERTIMECreateInterface { 
@@ -315,6 +317,7 @@ export interface LEAVECreateInterface {
     leave_date_to: string | null;
     emp_no: number | null;
     uploaded_file?: File | null;
+    added_by?: string | number | null;
 }
 
 export interface LEAVEViewInterface extends LEAVECreateInterface { 
@@ -342,6 +345,7 @@ export interface UACreateInterface {
     ua_date_from: string | null;
     ua_date_to: string | null;
     emp_no: number;
+    added_by?: string | number | null
 }
 
 export interface UAViewInterface extends UACreateInterface { 
@@ -510,7 +514,7 @@ export interface SCHEDULEDAILYCreateInterface extends SCHEDULEDAILYGeneric{
     business_date_to: string | null;  
     emp_no: number[] | [];
     schedule_shift_code: number;
-    exclude_days?: string | null
+    exclude_days?: string[]
 
 }
 

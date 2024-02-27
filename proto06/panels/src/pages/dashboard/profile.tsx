@@ -111,27 +111,34 @@
       // Fetch user data when the component mounts
       setUserData((curr:any) => (
         {
-          ...curr_user
+          ...curr_user,
+          added_by: curr_user?.emp_no
         }
       ))
       console.log('natrigger')
     }, [curr_user]);
 
     useEffect(() => {
+
       if(userData) {
+
         userData.branch_code && fetchDepartments()
+
       } else {
+
         setUserData((curr:any) => (
           {
-            ...curr_user
+            ...curr_user,
+            added_by: curr_user?.emp_no
           }
+
         ))
       }
-      console.log('updated user')
-      console.log(userData)
+
     },[userData])
 
     const rollBackData = () => {
+
       setUserData((curr:any) => null)
       setProfileImage(null);
     }
@@ -201,27 +208,47 @@
     }
     
     const getImageSrc = () => {
+
       if (curr_user?.employee_image) {
+
         return `${APILink.replace('/api/v1', '')}${curr_user.employee_image}`;
+
       } else {
+
         return '/img/default.png'; //default image
+
       }
     };
 
     const handleSubmitPersonal = (event:any) => {
+
       event.preventDefault();
       updatePersonalInfo()
     };
 
   const handleProfilePic = (e:any) => {
+
     const file = e.target.files[0];
-    setUserData((curr:any) => ({...curr, employee_image:file}))
+    const MAX_FILE_SIZE_MB = 5;
+
     if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setProfileImage(reader.result);
-      };
-      reader.readAsDataURL(file);
+
+      if (file.size <= MAX_FILE_SIZE_MB * 1024 * 1024) {
+
+          setUserData((curr:any) => ({...curr, employee_image:file}))
+
+          const reader = new FileReader();
+          reader.onload = () => {
+            setProfileImage(reader.result);
+          };
+    
+          reader.readAsDataURL(file);
+
+      } else {
+
+        window.alert('Image should be not more than 5MB');
+
+      }
     }
   }
 
@@ -230,13 +257,35 @@
       setIsSubmittingRequest(true)
 
       const formData = new FormData ();
-      console.log('submit')
-      console.log(userData)
       
       for(const key in userData) {
-        formData.append(key, userData[key])
+
+        switch(key) {
+
+          case "employee_image":
+
+            const isFile = userData.employee_image instanceof File
+
+            if(isFile) {
+
+              formData.append('employee_image', userData.employee_image)
+
+            } else {
+
+              formData.append('employee_image', '')
+            }
+
+            break;
+
+          default:
+
+            formData.append(key, userData[key])
+
+            break;
+        }
+
       }
-      await axios.put(`${APILink}employees/${userData.emp_no}/`, formData).then(res => {
+      await axios.put(`${APILink}update_personal_profile/${userData.emp_no}/`, formData).then(res => {
 
         setIsSubmittingRequest(false)
         setIsEdit(false)

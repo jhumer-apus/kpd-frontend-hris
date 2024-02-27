@@ -208,7 +208,7 @@ export default function ViewEmployeeLeaves() {
 
                 <ExportToCsvButton
                     data={exportCsvData} 
-                    isDisable={isLoading}
+                    isDisable={!dataRows || dataRows.length == 0}
                     defaultName={`Employee-Leaves-${options[(month as number) -1].name}-${year}`}
                 />
 

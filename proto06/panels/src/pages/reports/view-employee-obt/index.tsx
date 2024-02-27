@@ -196,7 +196,7 @@ export default function ViewEmployeeObt() {
                 <ExportToCsvButton
                     data={exportCsvData}
                     defaultName={`Employee-OBT-${options[(month as number) -1].name}-${year}`}
-                    isDisable={isLoading}
+                    isDisable={!dataRows || dataRows.length == 0}
                 />
 
                 <div className="md:flex md:space-x-4 md:items-center">
