@@ -48,30 +48,45 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         dispatch(LEAVECreateAction(formData))
     };
     useEffect(()=>{
+
         if(LEAVECreatestate.status === 'succeeded'){
+
             setIsSubmittingRequest(false)
             window.alert('Request Successful');
             window.location.reload();
+
         }else if(LEAVECreatestate.status === 'failed'){
+
             setIsSubmittingRequest(false)
+
             window.alert(`Request Failed, ${LEAVECreatestate.error}`)
+
             setTimeout(()=> {
                 dispatch(LEAVECreateActionFailureCleanup());
             }, 1000)
+
         }
     }, [LEAVECreatestate.status])
 
     const handleChangeImage = (e:React.ChangeEvent<HTMLInputElement>) => {
-        const selectedFiles: FileList | null = e.target.files;
 
-        if (selectedFiles) {
+        const selectedFile: File | null = e.target.files && e.target.files[0];
+        const MAX_FILE_SIZE_MB = 5;
 
-            setCreateLEAVE((curr:any) => ({
-                ...curr,
-                uploaded_file: selectedFiles
-            }))
+        if (selectedFile) {
 
-          }
+            if(selectedFile.size <= MAX_FILE_SIZE_MB * 1024 * 1024) {
+
+                setCreateLEAVE((curr:any) => ({
+                    ...curr,
+                    uploaded_file: selectedFile
+                }))
+
+            } else {
+                window.alert('Image should be not more than 5MB');
+            }
+
+        }
     }
 
     return (
@@ -111,7 +126,6 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                     accept="image/*"
                     label=" Supporting Documents(Image)"
                     onChange={handleChangeImage}
-                    multiple
                 />
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
