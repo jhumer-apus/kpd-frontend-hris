@@ -18,12 +18,14 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
 
     const dispatch = useDispatch();
     const OVERTIMECreatestate = useSelector((state: RootState)=> state.procedurals.OVERTIMECreate);
+    const userData = useSelector((state: RootState) => state.auth.employee_detail);
     const [createOVERTIME, setCreateOVERTIME] = useState<OVERTIMECreateInterface>({
         emp_no: NaN,
         ot_type: 'After Duty',
         ot_remarks: null,
         ot_date_from: null,
         ot_date_to: null,
+        added_by: userData?.emp_no,
     });
     const onClickSubmit = () => {
         dispatch(OVERTIMECreateAction(createOVERTIME))

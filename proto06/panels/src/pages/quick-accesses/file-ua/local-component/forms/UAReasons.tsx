@@ -18,7 +18,8 @@ export default function UAReasons(props: Props){
       // "Late",
       // "Undertime"
     ];
-    const handleChangeValue = (e:any,val:any) => {
+    
+    const handleChangeValue = (e:any, val:any) => {
       console.log(val)
       setState((curr:any) => ({
         ...curr,

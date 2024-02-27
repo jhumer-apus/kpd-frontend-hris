@@ -19,6 +19,7 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
     const dispatch = useDispatch();
     const [isSubmittingRequest, setIsSubmittingRequest] = useState<boolean>(false);
     const OBTCreatestate = useSelector((state: RootState)=> state.procedurals.OBTCreate);
+    const userData = useSelector((state: RootState) => state.auth.employee_detail);
     const [createOBT, setCreateOBT] = useState<OBTCreateInterface>({
         emp_no: NaN,
         obt_type: null,
@@ -26,6 +27,7 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
         obt_remarks: null,
         obt_date_from: null,
         obt_date_to: null,
+        added_by: userData?.emp_no,
     });
     const onClickSubmit = () => {
         console.log(createOBT)

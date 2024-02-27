@@ -21,11 +21,13 @@ function QuickAccessUACreate(props: CreateUAModalInterface) {
     const dispatch = useDispatch();
     const [isSubmittingRequest, setIsSubmittingRequest] = useState<boolean>(false);
     const UACreatestate = useSelector((state: RootState)=> state.procedurals.UACreate);
+    const userData = useSelector((state: RootState) => state.auth.employee_detail);
     const [createUA, setCreateUA] = useState<UACreateInterface>({
         emp_no: NaN,
         ua_description: null,
         ua_date_from: null,
         ua_date_to: null,
+        added_by: userData?.emp_no,
     });
     const onClickSubmit = () => {
         setIsSubmittingRequest(true)

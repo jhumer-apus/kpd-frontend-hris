@@ -18,6 +18,7 @@ interface CreateLEAVEModalInterface {
 function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
 
     const dispatch = useDispatch();
+    const userData = useSelector((state: RootState) => state.auth.employee_detail);
     const [isSubmittingRequest, setIsSubmittingRequest] = useState<boolean>(false);
     const LEAVECreatestate = useSelector((state: RootState)=> state.procedurals.LEAVECreate);
     const [createLEAVE, setCreateLEAVE] = useState<LEAVECreateInterface>({
@@ -26,8 +27,11 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         leave_remarks: null,
         leave_date_from: null,
         leave_date_to: null,
-        uploaded_file: null
+        added_by: userData?.emp_no,
+        uploaded_file: null,
     });
+
+    console.log(userData);
     const onClickSubmit = () => {
 
         setIsSubmittingRequest(true)
