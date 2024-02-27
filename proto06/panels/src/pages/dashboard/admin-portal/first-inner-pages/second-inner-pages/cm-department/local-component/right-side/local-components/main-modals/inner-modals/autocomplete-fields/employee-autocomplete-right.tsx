@@ -1,4 +1,4 @@
-import { Dispatch, MutableRefObject, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, MutableRefObject, SetStateAction, useEffect, useMemo, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useSelector, useDispatch } from 'react-redux';
@@ -44,7 +44,7 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
                     };
                 }) || [];
                 setEmployeesList(updatedEmployeesList);
-            }, 1000);
+            }, 500);
         }
     }, [state.employees_list]);
 

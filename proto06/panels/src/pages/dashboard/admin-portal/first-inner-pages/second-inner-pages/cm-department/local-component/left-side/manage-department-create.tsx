@@ -6,7 +6,7 @@ import { RootState } from '@/store/configureStore';
 import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
 import { Typography } from '@mui/joy';
 import { DEPARTMENTCreateInterface } from '@/types/types-pages';
-import { DEPARTMENTCreateAction, DEPARTMENTCreateActionFailureCleanup } from '@/store/actions/categories';
+import { DEPARTMENTCreateAction, DEPARTMENTCreateActionFailureCleanup, DEPARTMENTViewAction } from '@/store/actions/categories';
 import BranchAutoComplete from './inner-ui-components/branch-autocomplete';
 
 interface CreateDEPARTMENTModalInterface {
@@ -44,12 +44,16 @@ function ManageDEPARTMENTCreate(props: CreateDEPARTMENTModalInterface) {
     useEffect(()=>{
         if(DEPARTMENTCreatestate.status === 'succeeded'){
             window.alert('Request Successful');
-            window.location.reload();
+            dispatch(DEPARTMENTViewAction());
+            setTimeout(()=>{
+                dispatch(DEPARTMENTCreateActionFailureCleanup())
+            }, 200)
+            // window.location.reload();
         }else if(DEPARTMENTCreatestate.status === 'failed'){
             window.alert(`Request Failed, ${DEPARTMENTCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(DEPARTMENTCreateActionFailureCleanup());
-            }, 1000)
+            }, 200)
         }
     }, [DEPARTMENTCreatestate.status])
 

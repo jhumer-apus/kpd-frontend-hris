@@ -36,7 +36,12 @@ export default function ManageDEPARTMENTPageHistory() {
     <Fragment>
       <div className="my-2 flex flex-wrap justify-between items-start gap-6">
         <div>
-          <ViewDEPARTMENTSingleModal setSingleDEPARTMENTDetailsData={setSingleDEPARTMENTDetailsData} singleDEPARTMENTDetailsData={singleDEPARTMENTDetailsData} singleDEPARTMENTOpenModal={singleDEPARTMENTOpenModal} setSingleDEPARTMENTOpenModal={setSingleDEPARTMENTOpenModal}/>
+          <ViewDEPARTMENTSingleModal 
+            setSingleDEPARTMENTDetailsData={setSingleDEPARTMENTDetailsData} 
+            singleDEPARTMENTDetailsData={singleDEPARTMENTDetailsData} 
+            singleDEPARTMENTOpenModal={singleDEPARTMENTOpenModal} 
+            setSingleDEPARTMENTOpenModal={setSingleDEPARTMENTOpenModal}
+          />
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
           <p>{ManageDEPARTMENTPageDescriptions}</p>
         </Typography>

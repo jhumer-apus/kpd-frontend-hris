@@ -144,7 +144,8 @@ export default function EditLEAVETYPEModal(props: EditLEAVETYPEModalInterface) {
               <div className='flex justify-around'>
                 <Button variant={'contained'} onClick={allowedDaysLEAVETYPE}>Submit</Button>
                 <Button variant={'outlined'} onClick={()=>{
-                  clearFields(setSingleLEAVETYPEDetailsData, ['name', 'is_paid'], [null, origBool])
+                  // Edit Fields Are Should Not Have ClearFields // 
+                  // clearFields(setSingleLEAVETYPEDetailsData, ['name', 'is_paid'], [null, origBool])
                   setEditLEAVETYPEOpenModal(false)
                 }}
                 >

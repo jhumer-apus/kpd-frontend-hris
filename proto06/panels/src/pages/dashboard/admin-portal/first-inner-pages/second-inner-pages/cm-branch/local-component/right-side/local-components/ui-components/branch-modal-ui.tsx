@@ -10,6 +10,7 @@ import { RootState } from '@/store/configureStore';
 
 interface BRANCHModalUIInterface {
     singleBRANCHDetailsData: BRANCHViewInterface;
+    setSingleBRANCHOpenModal: Dispatch<SetStateAction<boolean>>;
     multiplePayslipMode?: boolean;
     setSingleBRANCHDetailsData: Dispatch<SetStateAction<BRANCHViewInterface>>;
 }
@@ -17,7 +18,7 @@ interface BRANCHModalUIInterface {
 function BRANCHModalUI(props: BRANCHModalUIInterface) {
     const [ approveBRANCHOpenModal, setApproveBRANCHOpenModal ] = useState(false);
     const [ allowedDaysBRANCHOpenModal, setAllowedDaysBRANCHOpenModal ] = useState(false);
-    const { setSingleBRANCHDetailsData, singleBRANCHDetailsData } = props;
+    const { setSingleBRANCHDetailsData, singleBRANCHDetailsData, setSingleBRANCHOpenModal } = props;
     const ThisProps = props.singleBRANCHDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
     const onClickModal = (mode: number) => {
@@ -32,7 +33,13 @@ function BRANCHModalUI(props: BRANCHModalUIInterface) {
 
     return (
         <Fragment>
-            <AllowedDaysBRANCHModal singleBRANCHDetailsData={singleBRANCHDetailsData} setSingleBRANCHDetailsData={setSingleBRANCHDetailsData} allowedDaysBRANCHOpenModal={allowedDaysBRANCHOpenModal} setAllowedDaysBRANCHOpenModal={setAllowedDaysBRANCHOpenModal}/>
+            <AllowedDaysBRANCHModal 
+                singleBRANCHDetailsData={singleBRANCHDetailsData} 
+                setSingleBRANCHDetailsData={setSingleBRANCHDetailsData} 
+                allowedDaysBRANCHOpenModal={allowedDaysBRANCHOpenModal} 
+                setAllowedDaysBRANCHOpenModal={setAllowedDaysBRANCHOpenModal}
+                setSingleBRANCHOpenModal={setSingleBRANCHOpenModal}
+            />
             <div className='flex gap-10 overflow-auto relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Branch ID:' value={ThisProps.id ? ThisProps.id : '-'} InputProps={{readOnly: true,}} variant='filled'/>

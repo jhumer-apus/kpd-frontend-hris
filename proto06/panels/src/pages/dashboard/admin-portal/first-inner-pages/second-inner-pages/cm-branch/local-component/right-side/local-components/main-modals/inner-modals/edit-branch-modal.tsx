@@ -5,15 +5,16 @@ import { Transition } from 'react-transition-group';
 import { BRANCHViewInterface } from '@/types/types-pages';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
 import dayjs from 'dayjs';
-import { BRANCHEditAction } from '@/store/actions/categories';
+import { BRANCHEditAction, BRANCHEditActionFailureCleanup, BRANCHViewAction } from '@/store/actions/categories';
 import { clearFields } from '@/helpers/utils';
 
 
 
 interface AllowedDaysBRANCHModalInterface {
     singleBRANCHDetailsData: BRANCHViewInterface;
+    setSingleBRANCHOpenModal: Dispatch<SetStateAction<boolean>>;
     allowedDaysBRANCHOpenModal: boolean; 
     setAllowedDaysBRANCHOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleBRANCHDetailsData: Dispatch<SetStateAction<BRANCHViewInterface>>;
@@ -21,9 +22,15 @@ interface AllowedDaysBRANCHModalInterface {
 
 export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInterface) {
   const dispatch = useDispatch();
-  const BRANCHAllowedDaysState = useSelector((state: RootState)=> state.categories.BRANCHEdit.status)
+  const BRANCHEditState = useSelector((state: RootState)=> state.categories.BRANCHEdit)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
-  const {allowedDaysBRANCHOpenModal, setAllowedDaysBRANCHOpenModal, singleBRANCHDetailsData, setSingleBRANCHDetailsData} = props;
+  const {
+    allowedDaysBRANCHOpenModal, 
+    setSingleBRANCHOpenModal, 
+    setAllowedDaysBRANCHOpenModal, 
+    singleBRANCHDetailsData, 
+    setSingleBRANCHDetailsData 
+  } = props;
 
 
   const allowedDaysBRANCH = () => { 
@@ -45,15 +52,23 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
   }
 
   useEffect(()=>{
-    if(BRANCHAllowedDaysState){      
-      if(BRANCHAllowedDaysState === 'succeeded'){
-        window.alert(`${BRANCHAllowedDaysState.charAt(0).toUpperCase()}${BRANCHAllowedDaysState.slice(1)}`)
+ 
+      if(BRANCHEditState.status === `${globalReducerSuccess}`){
+        window.alert(`${BRANCHEditState.status.charAt(0).toUpperCase()}${BRANCHEditState.status.slice(1)}`)
+        setAllowedDaysBRANCHOpenModal(false);
+        setSingleBRANCHOpenModal(false);
         setTimeout(()=>{
-          window.location.reload();
-        }, 800)
+          dispatch(BRANCHViewAction());
+          dispatch(BRANCHEditActionFailureCleanup());
+          // window.location.reload();
+        }, 200)
+      } else if (BRANCHEditState.status === `${globalReducerFailed}`){
+        window.alert(`Request Failed, ${BRANCHEditState.error}`)
+        setTimeout(()=> {
+            dispatch(BRANCHEditActionFailureCleanup());
+        }, 200)
       }
-    }
-  }, [BRANCHAllowedDaysState])
+  }, [BRANCHEditState.status])
   return (
     <Fragment>
       <Transition in={allowedDaysBRANCHOpenModal} timeout={400}>
@@ -193,7 +208,8 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
                 <Button 
                   variant={'outlined'} 
                   onClick={()=>{
-                    clearFields(setSingleBRANCHDetailsData, ['branch_name', 'branch_oic', 'branch_contact_number', 'branch_email', 'branch_address'], ['', NaN, '', '', ''])
+                    // Edit Fields Are Should Not Have ClearFields // 
+                    // clearFields(setSingleBRANCHDetailsData, ['branch_name', 'branch_oic', 'branch_contact_number', 'branch_email', 'branch_address'], ['', NaN, '', '', ''])
                     setAllowedDaysBRANCHOpenModal(false)
                     }}
                   >

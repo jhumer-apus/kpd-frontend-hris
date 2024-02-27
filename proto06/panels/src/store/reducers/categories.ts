@@ -518,109 +518,150 @@ const categoriesSlice = createSlice({
       .addCase(BRANCHViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "BRANCHView"))
       .addCase(BRANCHViewActionProgress, (state, action) => setProgressState(state, action.payload, "BRANCHView"))
       .addCase(BRANCHViewActionFailure, (state, action) => setFailureState(state, action.payload, "BRANCHView"))
+      .addCase(BRANCHViewActionFailureCleanup, setRefreshedState("BRANCHView"))
+
       .addCase(BRANCHViewSpecificAction, setLoadingState("BRANCHViewSpecific"))
       .addCase(BRANCHViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "BRANCHViewSpecific"))
       .addCase(BRANCHViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "BRANCHViewSpecific"))
       .addCase(BRANCHViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "BRANCHViewSpecific"))
+      .addCase(BRANCHViewSpecificActionFailureCleanup, setRefreshedState("BRANCHViewSpecific"))
+
       .addCase(BRANCHCreateAction, setLoadingState("BRANCHCreate"))
       .addCase(BRANCHCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "BRANCHCreate"))
       .addCase(BRANCHCreateActionProgress, (state, action) => setProgressState(state, action.payload, "BRANCHCreate"))
       .addCase(BRANCHCreateActionFailure, (state, action) => setFailureState(state, action.payload, "BRANCHCreate"))
       .addCase(BRANCHCreateActionFailureCleanup, setRefreshedState("BRANCHCreate"))
+      
       .addCase(BRANCHEditAction, setLoadingState("BRANCHEdit"))
       .addCase(BRANCHEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "BRANCHEdit"))
       .addCase(BRANCHEditActionProgress, (state, action) => setProgressState(state, action.payload, "BRANCHEdit"))
       .addCase(BRANCHEditActionFailure, (state, action) => setFailureState(state, action.payload, "BRANCHEdit"))
+      .addCase(BRANCHEditActionFailureCleanup, setRefreshedState("BRANCHEdit"))
+
       //DEPARTMENT SECTION
       .addCase(DEPARTMENTViewAction, setLoadingState("DEPARTMENTView"))
       .addCase(DEPARTMENTViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "DEPARTMENTView"))
       .addCase(DEPARTMENTViewActionProgress, (state, action) => setProgressState(state, action.payload, "DEPARTMENTView"))
       .addCase(DEPARTMENTViewActionFailure, (state, action) => setFailureState(state, action.payload, "DEPARTMENTView"))
+      .addCase(DEPARTMENTViewActionFailureCleanup, setRefreshedState("DEPARTMENTView"))
+
       .addCase(DEPARTMENTViewSpecificAction, setLoadingState("DEPARTMENTViewSpecific"))
       .addCase(DEPARTMENTViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "DEPARTMENTViewSpecific"))
       .addCase(DEPARTMENTViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "DEPARTMENTViewSpecific"))
       .addCase(DEPARTMENTViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "DEPARTMENTViewSpecific"))
+      .addCase(DEPARTMENTViewSpecificActionFailureCleanup, setRefreshedState("DEPARTMENTViewSpecific"))
+
       .addCase(DEPARTMENTCreateAction, setLoadingState("DEPARTMENTCreate"))
       .addCase(DEPARTMENTCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "DEPARTMENTCreate"))
       .addCase(DEPARTMENTCreateActionProgress, (state, action) => setProgressState(state, action.payload, "DEPARTMENTCreate"))
       .addCase(DEPARTMENTCreateActionFailure, (state, action) => setFailureState(state, action.payload, "DEPARTMENTCreate"))
       .addCase(DEPARTMENTCreateActionFailureCleanup, setRefreshedState("DEPARTMENTCreate"))
+      
       .addCase(DEPARTMENTEditAction, setLoadingState("DEPARTMENTEdit"))
       .addCase(DEPARTMENTEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "DEPARTMENTEdit"))
       .addCase(DEPARTMENTEditActionProgress, (state, action) => setProgressState(state, action.payload, "DEPARTMENTEdit"))
       .addCase(DEPARTMENTEditActionFailure, (state, action) => setFailureState(state, action.payload, "DEPARTMENTEdit"))
+      .addCase(DEPARTMENTEditActionFailureCleanup, setRefreshedState("DEPARTMENTEdit"))
+
       //DIVISION SECTION
       .addCase(DIVISIONViewAction, setLoadingState("DIVISIONView"))
       .addCase(DIVISIONViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "DIVISIONView"))
       .addCase(DIVISIONViewActionProgress, (state, action) => setProgressState(state, action.payload, "DIVISIONView"))
       .addCase(DIVISIONViewActionFailure, (state, action) => setFailureState(state, action.payload, "DIVISIONView"))
+      .addCase(DIVISIONViewActionFailureCleanup, setRefreshedState("DIVISIONView"))
+
       .addCase(DIVISIONViewSpecificAction, setLoadingState("DIVISIONViewSpecific"))
       .addCase(DIVISIONViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "DIVISIONViewSpecific"))
       .addCase(DIVISIONViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "DIVISIONViewSpecific"))
       .addCase(DIVISIONViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "DIVISIONViewSpecific"))
+      .addCase(DIVISIONViewSpecificActionFailureCleanup, setRefreshedState("DIVISIONViewSpecific"))
+
       .addCase(DIVISIONCreateAction, setLoadingState("DIVISIONCreate"))
-      .addCase(DIVISIONCreateActionFailureCleanup, setRefreshedState("DIVISIONCreate"))
       .addCase(DIVISIONCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "DIVISIONCreate"))
       .addCase(DIVISIONCreateActionProgress, (state, action) => setProgressState(state, action.payload, "DIVISIONCreate"))
       .addCase(DIVISIONCreateActionFailure, (state, action) => setFailureState(state, action.payload, "DIVISIONCreate"))
+      .addCase(DIVISIONCreateActionFailureCleanup, setRefreshedState("DIVISIONCreate"))
+
       .addCase(DIVISIONEditAction, setLoadingState("DIVISIONEdit"))
       .addCase(DIVISIONEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "DIVISIONEdit"))
       .addCase(DIVISIONEditActionProgress, (state, action) => setProgressState(state, action.payload, "DIVISIONEdit"))
       .addCase(DIVISIONEditActionFailure, (state, action) => setFailureState(state, action.payload, "DIVISIONEdit"))
+      .addCase(DIVISIONEditActionFailureCleanup, setRefreshedState("DIVISIONEdit"))
+
       //PAYROLLGROUP SECTION
       .addCase(PAYROLLGROUPViewAction, setLoadingState("PAYROLLGROUPView"))
       .addCase(PAYROLLGROUPViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "PAYROLLGROUPView"))
       .addCase(PAYROLLGROUPViewActionProgress, (state, action) => setProgressState(state, action.payload, "PAYROLLGROUPView"))
       .addCase(PAYROLLGROUPViewActionFailure, (state, action) => setFailureState(state, action.payload, "PAYROLLGROUPView"))
+      .addCase(PAYROLLGROUPViewActionFailureCleanup, setRefreshedState("PAYROLLGROUPView"))
+
       .addCase(PAYROLLGROUPViewSpecificAction, setLoadingState("PAYROLLGROUPViewSpecific"))
       .addCase(PAYROLLGROUPViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "PAYROLLGROUPViewSpecific"))
       .addCase(PAYROLLGROUPViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "PAYROLLGROUPViewSpecific"))
       .addCase(PAYROLLGROUPViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "PAYROLLGROUPViewSpecific"))
+      .addCase(PAYROLLGROUPViewSpecificActionFailureCleanup, setRefreshedState("PAYROLLGROUPViewSpecific"))
+
       .addCase(PAYROLLGROUPCreateAction, setLoadingState("PAYROLLGROUPCreate"))
       .addCase(PAYROLLGROUPCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "PAYROLLGROUPCreate"))
       .addCase(PAYROLLGROUPCreateActionProgress, (state, action) => setProgressState(state, action.payload, "PAYROLLGROUPCreate"))
       .addCase(PAYROLLGROUPCreateActionFailure, (state, action) => setFailureState(state, action.payload, "PAYROLLGROUPCreate"))
       .addCase(PAYROLLGROUPCreateActionFailureCleanup, setRefreshedState("PAYROLLGROUPCreate"))
+      
       .addCase(PAYROLLGROUPEditAction, setLoadingState("PAYROLLGROUPEdit"))
       .addCase(PAYROLLGROUPEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "PAYROLLGROUPEdit"))
       .addCase(PAYROLLGROUPEditActionProgress, (state, action) => setProgressState(state, action.payload, "PAYROLLGROUPEdit"))
       .addCase(PAYROLLGROUPEditActionFailure, (state, action) => setFailureState(state, action.payload, "PAYROLLGROUPEdit"))
+      .addCase(PAYROLLGROUPEditActionFailureCleanup, setRefreshedState("PAYROLLGROUPEdit"))
+
       //POSITION SECTION
       .addCase(POSITIONViewAction, setLoadingState("POSITIONView"))
       .addCase(POSITIONViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "POSITIONView"))
       .addCase(POSITIONViewActionProgress, (state, action) => setProgressState(state, action.payload, "POSITIONView"))
       .addCase(POSITIONViewActionFailure, (state, action) => setFailureState(state, action.payload, "POSITIONView"))
+      .addCase(POSITIONViewActionFailureCleanup, setRefreshedState("POSITIONView"))
+
       .addCase(POSITIONViewSpecificAction, setLoadingState("POSITIONViewSpecific"))
       .addCase(POSITIONViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "POSITIONViewSpecific"))
       .addCase(POSITIONViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "POSITIONViewSpecific"))
       .addCase(POSITIONViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "POSITIONViewSpecific"))
+      .addCase(POSITIONViewSpecificActionFailureCleanup, setRefreshedState("POSITIONViewSpecific"))
+
       .addCase(POSITIONCreateAction, setLoadingState("POSITIONCreate"))
       .addCase(POSITIONCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "POSITIONCreate"))
       .addCase(POSITIONCreateActionProgress, (state, action) => setProgressState(state, action.payload, "POSITIONCreate"))
       .addCase(POSITIONCreateActionFailure, (state, action) => setFailureState(state, action.payload, "POSITIONCreate"))
       .addCase(POSITIONCreateActionFailureCleanup, setRefreshedState("POSITIONCreate"))
+      
       .addCase(POSITIONEditAction, setLoadingState("POSITIONEdit"))
       .addCase(POSITIONEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "POSITIONEdit"))
       .addCase(POSITIONEditActionProgress, (state, action) => setProgressState(state, action.payload, "POSITIONEdit"))
       .addCase(POSITIONEditActionFailure, (state, action) => setFailureState(state, action.payload, "POSITIONEdit"))
+      .addCase(POSITIONEditActionFailureCleanup, setRefreshedState("POSITIONEdit"))
+
       //RANK SECTION
       .addCase(RANKViewAction, setLoadingState("RANKView"))
       .addCase(RANKViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "RANKView"))
       .addCase(RANKViewActionProgress, (state, action) => setProgressState(state, action.payload, "RANKView"))
       .addCase(RANKViewActionFailure, (state, action) => setFailureState(state, action.payload, "RANKView"))
+      .addCase(RANKViewActionFailureCleanup, setRefreshedState("RANKView"))
+
       .addCase(RANKViewSpecificAction, setLoadingState("RANKViewSpecific"))
       .addCase(RANKViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "RANKViewSpecific"))
       .addCase(RANKViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "RANKViewSpecific"))
       .addCase(RANKViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "RANKViewSpecific"))
+      .addCase(RANKViewSpecificActionFailureCleanup, setRefreshedState("RANKViewSpecific"))
+
       .addCase(RANKCreateAction, setLoadingState("RANKCreate"))
       .addCase(RANKCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "RANKCreate"))
       .addCase(RANKCreateActionProgress, (state, action) => setProgressState(state, action.payload, "RANKCreate"))
       .addCase(RANKCreateActionFailure, (state, action) => setFailureState(state, action.payload, "RANKCreate"))
       .addCase(RANKCreateActionFailureCleanup, setRefreshedState("RANKCreate"))
+      
       .addCase(RANKEditAction, setLoadingState("RANKEdit"))
       .addCase(RANKEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "RANKEdit"))
       .addCase(RANKEditActionProgress, (state, action) => setProgressState(state, action.payload, "RANKEdit"))
       .addCase(RANKEditActionFailure, (state, action) => setFailureState(state, action.payload, "RANKEdit"))
+      .addCase(RANKEditActionFailureCleanup, setRefreshedState("RANKEdit"))
   },
 });
 

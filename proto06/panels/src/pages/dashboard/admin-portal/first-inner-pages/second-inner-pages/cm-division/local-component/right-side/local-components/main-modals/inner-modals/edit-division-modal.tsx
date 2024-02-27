@@ -116,7 +116,8 @@ export default function AllowedDaysDIVISIONModal(props: AllowedDaysDIVISIONModal
                 <Button 
                   variant={'outlined'} 
                   onClick={()=>{
-                    clearFields(setSingleDIVISIONDetailsData, ['div_name'], [''])
+                    // Edit Fields Are Should Not Have ClearFields // 
+                    // clearFields(setSingleDIVISIONDetailsData, ['div_name'], [''])
                     setAllowedDaysDIVISIONOpenModal(false)
                   }}
                 >

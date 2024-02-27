@@ -150,7 +150,8 @@ export default function AllowedDaysPAYROLLGROUPModal(props: AllowedDaysPAYROLLGR
                 <Button 
                   variant={'outlined'} 
                   onClick={()=>{
-                    clearFields(setSinglePAYROLLGROUPDetailsData, ['name', 'payroll_freq', 'payroll_description'], ['', NaN, null])
+                    // Edit Fields Are Should Not Have ClearFields // 
+                    // clearFields(setSinglePAYROLLGROUPDetailsData, ['name', 'payroll_freq', 'payroll_description'], ['', NaN, null])
                     setAllowedDaysPAYROLLGROUPOpenModal(false)
                   }}
                 >
