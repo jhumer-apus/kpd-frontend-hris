@@ -59,18 +59,18 @@ export const statisticsCardsData = [
   //   },
   //   link: 'development'
   // },
-  // {
-  //   color: "orange",
-  //   icon: CurrencyDollarIcon,
-  //   title: "Payroll Division",
-  //   value: "Info",
-  //   footer: {
-  //     color: "text-green-500",
-  //     value: "<",
-  //     label: "Payslips, Tax, etc.",
-  //   },
-  //   link: '/home/payroll/view-all-payroll'
-  // },
+  {
+    color: "orange",
+    icon: CurrencyDollarIcon,
+    title: "Payroll Division",
+    value: "Info",
+    footer: {
+      color: "text-green-500",
+      value: "<",
+      label: "Payslips, Tax, etc.",
+    },
+    link: '/home/payroll/view-all-payroll'
+  },
   // {
   //   color: "orange",
   //   icon: Cog8ToothIcon,
