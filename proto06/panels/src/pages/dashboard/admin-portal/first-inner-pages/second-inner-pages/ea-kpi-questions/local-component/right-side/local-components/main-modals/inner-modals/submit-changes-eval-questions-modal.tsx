@@ -6,13 +6,14 @@ import { EVALQUESTIONSEditInterface, EVALQUESTIONSViewInterface } from '@/types/
 import { Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
-import { EVALQUESTIONSEditAction, EVALQUESTIONSEditActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import { EVALQUESTIONSEditAction, EVALQUESTIONSEditActionFailureCleanup, EVALQUESTIONSViewAction } from '@/store/actions/employee-and-applicants';
 
 
 
 interface EditEVALQUESTIONSModalInterface {
     singleEVALQUESTIONSDetailsData: EVALQUESTIONSViewInterface;
     EditSubmitEVALQUESTIONSOpenModal: boolean; 
+    setSingleEVALQUESTIONSOpenModal: Dispatch<SetStateAction<boolean>>;
     setEditSubmitEVALQUESTIONSOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleEVALQUESTIONSDetailsData: Dispatch<SetStateAction<EVALQUESTIONSViewInterface>>;
 }
@@ -21,7 +22,13 @@ export default function EditSubmitEVALQUESTIONSModal(props: EditEVALQUESTIONSMod
   const dispatch = useDispatch();
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
   const EVALQUESTIONSEditState = useSelector((state: RootState)=> state.employeeAndApplicants.EVALQUESTIONSEdit)
-  const {EditSubmitEVALQUESTIONSOpenModal, setEditSubmitEVALQUESTIONSOpenModal, singleEVALQUESTIONSDetailsData, setSingleEVALQUESTIONSDetailsData} = props;
+  const {
+    EditSubmitEVALQUESTIONSOpenModal, 
+    setEditSubmitEVALQUESTIONSOpenModal, 
+    singleEVALQUESTIONSDetailsData, 
+    setSingleEVALQUESTIONSDetailsData,
+    setSingleEVALQUESTIONSOpenModal
+  } = props;
 
   const [editObject, setEditObject] = useState<EVALQUESTIONSEditInterface>({
     question: '',
@@ -39,10 +46,14 @@ export default function EditSubmitEVALQUESTIONSModal(props: EditEVALQUESTIONSMod
 
   useEffect(()=>{
     if(EVALQUESTIONSEditState.status === 'succeeded'){
-      window.alert(`Success: ${EVALQUESTIONSEditState.status?.charAt(0).toUpperCase()}${EVALQUESTIONSEditState.status.slice(1)}`)
+      window.alert(`Request: ${EVALQUESTIONSEditState.status?.charAt(0).toUpperCase()}${EVALQUESTIONSEditState.status.slice(1)}`)
+      // window.location.reload();
+      setEditSubmitEVALQUESTIONSOpenModal(false);
+      setSingleEVALQUESTIONSOpenModal(false);
+      dispatch(EVALQUESTIONSViewAction());
       setTimeout(()=>{
-        window.location.reload();
-      }, 800)
+        dispatch(EVALQUESTIONSEditActionFailureCleanup());
+      }, 200)
     } else if(EVALQUESTIONSEditState.status === 'failed') {
       window.alert(`Error: ${EVALQUESTIONSEditState.error}`)
       dispatch(EVALQUESTIONSEditActionFailureCleanup());

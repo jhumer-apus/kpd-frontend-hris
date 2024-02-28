@@ -6,13 +6,14 @@ import { EVALQUESTIONSViewInterface } from '@/types/types-employee-and-applicant
 import { Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
-import { EVALQUESTIONSDeleteAction, EVALQUESTIONSDeleteActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import { EVALQUESTIONSDeleteAction, EVALQUESTIONSDeleteActionFailureCleanup, EVALQUESTIONSViewAction } from '@/store/actions/employee-and-applicants';
 
 
 
 interface DeactivateEVALQUESTIONSModalInterface {
     singleEVALQUESTIONSDetailsData: EVALQUESTIONSViewInterface;
     DeactivateEVALQUESTIONSOpenModal: boolean; 
+    setSingleEVALQUESTIONSOpenModal:  React.Dispatch<React.SetStateAction<boolean>>;
     setDeactivateEVALQUESTIONSOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
     setSingleEVALQUESTIONSDetailsData: React.Dispatch<React.SetStateAction<EVALQUESTIONSViewInterface>>;
 }
@@ -21,7 +22,13 @@ export default function DeactivateEVALQUESTIONSModal(props: DeactivateEVALQUESTI
   const dispatch = useDispatch();
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
   const EVALQUESTIONSDeactivateState = useSelector((state: RootState)=> state.employeeAndApplicants.EVALQUESTIONSDelete)
-  const {DeactivateEVALQUESTIONSOpenModal, setDeactivateEVALQUESTIONSOpenModal, singleEVALQUESTIONSDetailsData, setSingleEVALQUESTIONSDetailsData} = props;
+  const {
+    DeactivateEVALQUESTIONSOpenModal, 
+    setDeactivateEVALQUESTIONSOpenModal, 
+    singleEVALQUESTIONSDetailsData, 
+    setSingleEVALQUESTIONSDetailsData,
+    setSingleEVALQUESTIONSOpenModal
+  } = props;
 
   const DeactivateEVALQUESTIONS = () => {
     if(singleEVALQUESTIONSDetailsData.id){
@@ -34,9 +41,13 @@ export default function DeactivateEVALQUESTIONSModal(props: DeactivateEVALQUESTI
   React.useEffect(()=>{
     if(EVALQUESTIONSDeactivateState.status === 'succeeded' && DeactivateEVALQUESTIONSOpenModal){
       window.alert(`Success: ${EVALQUESTIONSDeactivateState.status?.charAt(0).toUpperCase()}${EVALQUESTIONSDeactivateState.status.slice(1)}`)
+      // window.location.reload();
+      setDeactivateEVALQUESTIONSOpenModal(false);
+      setSingleEVALQUESTIONSOpenModal(false);
+      dispatch(EVALQUESTIONSViewAction());
       setTimeout(()=>{
-        window.location.reload();
-      }, 800)
+        dispatch(EVALQUESTIONSDeleteActionFailureCleanup());
+      }, 200)
     } else if(EVALQUESTIONSDeactivateState.status === 'failed' && DeactivateEVALQUESTIONSOpenModal) {
       window.alert(`Error: ${EVALQUESTIONSDeactivateState.error}`)
       dispatch(EVALQUESTIONSDeleteActionFailureCleanup());

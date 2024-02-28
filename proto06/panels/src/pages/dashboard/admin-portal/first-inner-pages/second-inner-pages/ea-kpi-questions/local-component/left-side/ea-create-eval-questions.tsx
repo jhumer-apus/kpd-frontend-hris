@@ -3,9 +3,10 @@ import { Button } from '@mui/material';
 import { TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
-import { Typography } from '@mui/joy';
+// import { Typography } from '@mui/joy';
+import { Typography } from '@mui/material';
 import { EVALQUESTIONSCreateInterface } from '@/types/types-employee-and-applicants';
-import { EVALQUESTIONSCreateAction, EVALQUESTIONSCreateActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import { EVALQUESTIONSCreateAction, EVALQUESTIONSCreateActionFailureCleanup, EVALQUESTIONSViewAction } from '@/store/actions/employee-and-applicants';
 
 
 interface CreateEVALQUESTIONSModalInterface {
@@ -39,7 +40,11 @@ function EAEVALQUESTIONSCreate(props: CreateEVALQUESTIONSModalInterface) {
     useEffect(()=>{
         if(EVALQUESTIONSCreatestate.status === 'succeeded'){
             window.alert('Request Successful');
-            window.location.reload();
+            dispatch(EVALQUESTIONSViewAction())
+            setTimeout(()=>{
+                EVALQUESTIONSCreateActionFailureCleanup()
+            }, 200)
+            // window.location.reload();
         }else if(EVALQUESTIONSCreatestate.status === 'failed'){
             window.alert(`Request Failed, ${EVALQUESTIONSCreatestate.error}`)
             setTimeout(()=> {
@@ -50,7 +55,11 @@ function EAEVALQUESTIONSCreate(props: CreateEVALQUESTIONSModalInterface) {
 
     return (
         <React.Fragment>
-            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain' level="h6">Create and add an "Evaluation Question"</Typography>
+            <Typography 
+                style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} 
+                variant='subtitle1' 
+            >Create and add an "Evaluation Question"
+            </Typography>
             <Typography className="italic p-8 flex justify-center text-center items-center" >Newly added questions will reflect to the current "pending" and future KPI Evaluations only</Typography>
             
             <div className='flex flex-col gap-6 overflow-auto w-3/4'>
