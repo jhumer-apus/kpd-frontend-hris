@@ -56,7 +56,11 @@ export default function ViewONBOARDINGSTATUSSingleModal(props: SingleONBOARDINGS
                 overflow: 'auto',
             }}
         >
-          <ONBOARDINGSTATUSModalComponent setSingleONBOARDINGSTATUSDetailsData={setSingleONBOARDINGSTATUSDetailsData} singleONBOARDINGSTATUSDetailsData={singleONBOARDINGSTATUSDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <ONBOARDINGSTATUSModalComponent 
+            setSingleONBOARDINGSTATUSDetailsData={setSingleONBOARDINGSTATUSDetailsData} 
+            singleONBOARDINGSTATUSDetailsData={singleONBOARDINGSTATUSDetailsData} 
+            setSingleONBOARDINGSTATUSOpenModal={setSingleONBOARDINGSTATUSOpenModal}
+          />
         </ModalDialog>
       </Modal>
         )}

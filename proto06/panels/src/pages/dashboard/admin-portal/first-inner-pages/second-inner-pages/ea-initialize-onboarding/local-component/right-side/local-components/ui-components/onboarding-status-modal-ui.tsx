@@ -18,17 +18,19 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, globalAPIDate } from '@/store/configureStore';
-import { ONBOARDINGSTATUSEditAction, ONBOARDINGSTATUSEditActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import { ONBOARDINGSTATUSEditAction, ONBOARDINGSTATUSEditActionFailureCleanup, ONBOARDINGSTATUSViewAction } from '@/store/actions/employee-and-applicants';
 
 
 interface ONBOARDINGSTATUSModalUIInterface {
     singleONBOARDINGSTATUSDetailsData: ONBOARDINGSTATUSViewInterface;
     multiplePayslipMode?: boolean;
+    setSingleONBOARDINGSTATUSOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleONBOARDINGSTATUSDetailsData: Dispatch<SetStateAction<ONBOARDINGSTATUSViewInterface>>;
 }
 
 function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
     const dispatch = useDispatch();
+    const { setSingleONBOARDINGSTATUSOpenModal } = props;
     const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
     const editState = useSelector((state: RootState) => state.employeeAndApplicants.ONBOARDINGSTATUSEdit)
     const [ editMode, setEditMode ] = useState(false);
@@ -61,12 +63,17 @@ function ONBOARDINGSTATUSModalUI(props: ONBOARDINGSTATUSModalUIInterface) {
     useEffect(()=>{
         if(editState.status === 'succeeded'){
             window.alert('Request Successful');
-            window.location.reload();
+            // window.location.reload();
+            setSingleONBOARDINGSTATUSOpenModal(false);
+            dispatch(ONBOARDINGSTATUSViewAction());
+            setTimeout(()=>{
+                dispatch(ONBOARDINGSTATUSEditActionFailureCleanup())
+            }, 200)
         }else if(editState.status === 'failed'){
             window.alert(`Request Failed, ${editState.error}`)
             setTimeout(()=> {
                 dispatch(ONBOARDINGSTATUSEditActionFailureCleanup());
-            }, 500)
+            }, 200)
         }
     }, [editState.status])
 
