@@ -30,12 +30,25 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
     const { setSingleLEAVEDetailsData, singleLEAVEDetailsData } = props;
     const ThisProps = props.singleLEAVEDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
+
+    const updateRemarksWithEmpNo = () => {
+        setSingleLEAVEDetailsData(curr => ({
+            ...curr,
+            leave_remarks: singleLEAVEDetailsData.leave_remarks + ` (${curr_user?.emp_no})`
+        }))
+    }
+
     const onClickModal = (mode: number) => {
         switch(mode){
-            case 0: setApproveLEAVEOpenModal(true);
-            break;
-            case 1: setDenyLEAVEOpenModal(true);
-            break;
+            case 0: 
+                updateRemarksWithEmpNo()
+                setApproveLEAVEOpenModal(true);
+                break;
+
+            case 1: 
+                updateRemarksWithEmpNo()
+                setDenyLEAVEOpenModal(true);
+                break;
         }   
         
     };
@@ -49,7 +62,7 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
     const fileApprover1Approved = ThisProps.leave_date_approved1
     const fileApprover2Approved = ThisProps.leave_date_approved2
     const userIsHigherRank =  ((curr_user?.rank_data?.hierarchy as number) > singleLEAVEDetailsData?.applicant_rank)
-
+    const isSuperAdmin = curr_user?.rank_hierarchy == 6;
     
     useEffect(()=> {
         if(fileHasTwoApprovers){
@@ -91,6 +104,16 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
                     )
                 })
             }
+        }
+        if(!UserApprover1 && !UserApprover2) {
+            setApprovalState((prevState: ApprovalStateInterface) => {
+                return (
+                    {
+                        buttonDisabled: true,
+                        message1Show: false,
+                    }
+                )
+            })
         }
 
     }, [approvalState])

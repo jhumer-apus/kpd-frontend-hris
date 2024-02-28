@@ -126,7 +126,8 @@ import Diversity3OutlinedIcon from '@mui/icons-material/Diversity3Outlined';
 
 
 import ViewMonthlySchedule from "./pages/reports/view-monthly-schedule";
-import ViewEmployeeLeaves from "./pages/reports/view-employee-leaves";
+// import ViewEmployeeLeaves from "./pages/reports/view-employee-leaves";
+import ViewEmployeeLeaves from "./pages/reports/view-employee-leaves/by-cutoff";
 import ViewEmployeeOvertime from "./pages/reports/view-employee-overtime";
 import ViewEmployeeObt from "./pages/reports/view-employee-obt";
 
@@ -982,6 +983,14 @@ const JSXRouteWrapper = () => {
                     element: <ViewMonthlySchedule/>,
                     hasSubItems: false,
                   },
+                  // {
+                  //   id: 19200,
+                  //   icon: <DocumentIcon {...icon} />,
+                  //   name: "Employee Leaves",
+                  //   path: "/report/employee-leaves",
+                  //   element: <ViewEmployeeLeaves/>,
+                  //   hasSubItems: false,
+                  // },
                   {
                     id: 19200,
                     icon: <DocumentIcon {...icon} />,
