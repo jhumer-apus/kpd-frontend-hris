@@ -40,7 +40,7 @@ export default function DeactivateEVALQUESTIONSModal(props: DeactivateEVALQUESTI
 
   React.useEffect(()=>{
     if(EVALQUESTIONSDeactivateState.status === 'succeeded' && DeactivateEVALQUESTIONSOpenModal){
-      window.alert(`Success: ${EVALQUESTIONSDeactivateState.status?.charAt(0).toUpperCase()}${EVALQUESTIONSDeactivateState.status.slice(1)}`)
+      window.alert(`Request: ${EVALQUESTIONSDeactivateState.status?.charAt(0).toUpperCase()}${EVALQUESTIONSDeactivateState.status.slice(1)}`)
       // window.location.reload();
       setDeactivateEVALQUESTIONSOpenModal(false);
       setSingleEVALQUESTIONSOpenModal(false);

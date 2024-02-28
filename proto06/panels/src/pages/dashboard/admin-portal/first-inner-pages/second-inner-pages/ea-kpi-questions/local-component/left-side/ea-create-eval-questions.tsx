@@ -42,14 +42,14 @@ function EAEVALQUESTIONSCreate(props: CreateEVALQUESTIONSModalInterface) {
             window.alert('Request Successful');
             dispatch(EVALQUESTIONSViewAction())
             setTimeout(()=>{
-                EVALQUESTIONSCreateActionFailureCleanup()
+                dispatch(EVALQUESTIONSCreateActionFailureCleanup())
             }, 200)
             // window.location.reload();
         }else if(EVALQUESTIONSCreatestate.status === 'failed'){
             window.alert(`Request Failed, ${EVALQUESTIONSCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(EVALQUESTIONSCreateActionFailureCleanup());
-            }, 1000)
+            }, 200)
         }
     }, [EVALQUESTIONSCreatestate.status])
 
