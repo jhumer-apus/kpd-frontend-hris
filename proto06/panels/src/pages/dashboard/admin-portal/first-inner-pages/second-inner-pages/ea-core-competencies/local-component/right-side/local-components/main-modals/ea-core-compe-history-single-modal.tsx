@@ -57,7 +57,11 @@ export default function ViewCORECOMPESingleModal(props: SingleCORECOMPEInterface
                 overflow: 'auto',
             }}
         >
-          <CORECOMPEModalComponent setSingleCORECOMPEDetailsData={setSingleCORECOMPEDetailsData} singleCORECOMPEDetailsData={singleCORECOMPEDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <CORECOMPEModalComponent 
+            setSingleCORECOMPEDetailsData={setSingleCORECOMPEDetailsData} 
+            singleCORECOMPEDetailsData={singleCORECOMPEDetailsData}
+            setSingleCORECOMPEOpenModal={setSingleCORECOMPEOpenModal}
+          />
         </ModalDialog>
       </Modal>
         )}

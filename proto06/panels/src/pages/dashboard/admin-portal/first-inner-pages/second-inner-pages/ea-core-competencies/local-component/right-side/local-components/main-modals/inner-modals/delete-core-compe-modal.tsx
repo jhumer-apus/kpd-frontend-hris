@@ -6,13 +6,14 @@ import { CORECOMPEViewInterface } from '@/types/types-employee-and-applicants';
 import { Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
-import { CORECOMPEDeleteAction, CORECOMPEDeleteActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import { CORECOMPEDeleteAction, CORECOMPEDeleteActionFailureCleanup, CORECOMPEViewAction } from '@/store/actions/employee-and-applicants';
 
 
 
 interface DeactivateCORECOMPEModalInterface {
     singleCORECOMPEDetailsData: CORECOMPEViewInterface;
     DeactivateCORECOMPEOpenModal: boolean; 
+    setSingleCORECOMPEOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
     setDeactivateCORECOMPEOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
     setSingleCORECOMPEDetailsData: React.Dispatch<React.SetStateAction<CORECOMPEViewInterface>>;
 }
@@ -21,7 +22,13 @@ export default function DeactivateCORECOMPEModal(props: DeactivateCORECOMPEModal
   const dispatch = useDispatch();
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
   const CORECOMPEDeactivateState = useSelector((state: RootState)=> state.employeeAndApplicants.CORECOMPEDelete)
-  const {DeactivateCORECOMPEOpenModal, setDeactivateCORECOMPEOpenModal, singleCORECOMPEDetailsData, setSingleCORECOMPEDetailsData} = props;
+  const {
+    DeactivateCORECOMPEOpenModal, 
+    setDeactivateCORECOMPEOpenModal, 
+    singleCORECOMPEDetailsData, 
+    setSingleCORECOMPEDetailsData,
+    setSingleCORECOMPEOpenModal
+  } = props;
 
   const DeactivateCORECOMPE = () => {
     if(singleCORECOMPEDetailsData.id){
@@ -34,9 +41,13 @@ export default function DeactivateCORECOMPEModal(props: DeactivateCORECOMPEModal
   React.useEffect(()=>{
     if(CORECOMPEDeactivateState.status === 'succeeded' && DeactivateCORECOMPEOpenModal){
       window.alert(`Success: ${CORECOMPEDeactivateState.status?.charAt(0).toUpperCase()}${CORECOMPEDeactivateState.status.slice(1)}`)
+      // window.location.reload();
+      setDeactivateCORECOMPEOpenModal(false);
+      setSingleCORECOMPEOpenModal(false);
+      dispatch(CORECOMPEViewAction());
       setTimeout(()=>{
-        window.location.reload();
-      }, 800)
+        dispatch(CORECOMPEDeleteActionFailureCleanup());
+      }, 200)
     } else if(CORECOMPEDeactivateState.status === 'failed' && DeactivateCORECOMPEOpenModal) {
       window.alert(`Error: ${CORECOMPEDeactivateState.error}`)
       dispatch(CORECOMPEDeleteActionFailureCleanup());

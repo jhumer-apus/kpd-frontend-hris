@@ -8,12 +8,17 @@ import { CORECOMPEViewInterface } from '@/types/types-employee-and-applicants';
 interface CORECOMPEModalComponentInterface {
     singleCORECOMPEDetailsData: CORECOMPEViewInterface,
     scroll: boolean,
+    setSingleCORECOMPEOpenModal: Dispatch<SetStateAction<boolean>>, 
     setScroll: Dispatch<SetStateAction<boolean>>,
     setSingleCORECOMPEDetailsData: React.Dispatch<React.SetStateAction<CORECOMPEViewInterface>>;
 };
 
 const CORECOMPEModalComponent = ((props:CORECOMPEModalComponentInterface) => {
-    const { singleCORECOMPEDetailsData, setSingleCORECOMPEDetailsData } = props;
+    const { 
+        singleCORECOMPEDetailsData, 
+        setSingleCORECOMPEDetailsData,
+        setSingleCORECOMPEOpenModal
+    } = props;
     const componentRef = useRef<HTMLDivElement | null>(null);
 
     return (
@@ -21,7 +26,11 @@ const CORECOMPEModalComponent = ((props:CORECOMPEModalComponentInterface) => {
             <Typography variant='soft'>Core Competency Details</Typography>
             {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
-                <CORECOMPEModalUI setSingleCORECOMPEDetailsData={setSingleCORECOMPEDetailsData} singleCORECOMPEDetailsData={singleCORECOMPEDetailsData}/>
+                <CORECOMPEModalUI 
+                    setSingleCORECOMPEDetailsData={setSingleCORECOMPEDetailsData} 
+                    singleCORECOMPEDetailsData={singleCORECOMPEDetailsData}
+                    setSingleCORECOMPEOpenModal={setSingleCORECOMPEOpenModal}
+                />
             </div>
         </Fragment>
     );
