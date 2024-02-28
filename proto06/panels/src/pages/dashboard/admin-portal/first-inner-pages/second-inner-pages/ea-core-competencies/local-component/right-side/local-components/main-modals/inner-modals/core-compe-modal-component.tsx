@@ -7,9 +7,7 @@ import { CORECOMPEViewInterface } from '@/types/types-employee-and-applicants';
 
 interface CORECOMPEModalComponentInterface {
     singleCORECOMPEDetailsData: CORECOMPEViewInterface,
-    scroll: boolean,
     setSingleCORECOMPEOpenModal: Dispatch<SetStateAction<boolean>>, 
-    setScroll: Dispatch<SetStateAction<boolean>>,
     setSingleCORECOMPEDetailsData: React.Dispatch<React.SetStateAction<CORECOMPEViewInterface>>;
 };
 
