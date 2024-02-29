@@ -28,7 +28,7 @@ export default function ApproveLEAVEModal(props: ApproveLEAVEModalInterface) {
   const approveLEAVE = () => { 
     const DateNow = new Date();
     const approvedDate = dayjs(DateNow).format('YYYY-MM-DDTHH:mm:ss');
-    if(state?.emp_no === singleLEAVEDetailsData.leave_approver1_empno || state?.rank_code as number > singleLEAVEDetailsData?.applicant_rank){
+    if(state?.emp_no === singleLEAVEDetailsData.leave_approver1_empno || state?.rank_code as number > singleLEAVEDetailsData?.applicant_rank || state?.rank_hierarchy == 6){
       setSingleLEAVEDetailsData((prevState)=> {
         dispatch(LEAVEEditAction({
           ...prevState,

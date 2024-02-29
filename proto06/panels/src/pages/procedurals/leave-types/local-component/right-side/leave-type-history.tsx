@@ -16,6 +16,9 @@ export default function ProceduralLEAVETYPEPageHistory() {
     id: null,
     name: null,
     is_paid: null,
+    is_vl: null,
+    is_sl: null,
+    is_el: null,
     date_added: null,
     date_deleted: null,
   });

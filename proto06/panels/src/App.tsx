@@ -10,7 +10,6 @@ function App() {
   if (loading) {
     return <LoadingComponent />;
   }
-
   return (
     <Routes>
       <Route path="/" element={ isAuthenticated ? <Navigate to="/home"/> : <Auth/>} />
