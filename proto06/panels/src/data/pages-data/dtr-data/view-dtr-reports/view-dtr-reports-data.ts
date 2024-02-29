@@ -21,7 +21,12 @@ export const dynamicDTRColumns: Array<GridColDef[]> =
   [
     { field: 'id', headerName: 'Entry ID', width: 120 },
     { field: 'emp_no', headerName: 'Employee #', width: 120 },
-    { field: 'entry_type', headerName: 'Entry Type', width: 120 },
+    { field: 'flag1_in_out', headerName: 'Entry Type', width: 120, 
+      valueGetter: (params: GridValueGetterParams) => {
+        const entryType = params.row.flag1_in_out? "Duty Out": "Duty In";
+        return entryType;
+      },
+    },
     {
       field: 'datetime_bio_date',
       headerName: 'Entry Date',

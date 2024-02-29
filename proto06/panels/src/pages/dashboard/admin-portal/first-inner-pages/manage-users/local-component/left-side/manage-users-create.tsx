@@ -28,6 +28,7 @@ function ManageUSERCreate(props: CreateUSERModalInterface) {
         role: 1,
         emp_no: NaN,
         added_by: NaN,
+        is_temp: true
     });
     const onClickSubmit = () => {
         dispatch(USERCreateAction(createUSER))
