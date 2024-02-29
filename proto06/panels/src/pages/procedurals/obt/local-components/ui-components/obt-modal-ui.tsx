@@ -21,17 +21,35 @@ function OBTModalUI(props: OBTModalUIInterface) {
     const { setSingleOBTDetailsData, singleOBTDetailsData } = props;
     const ThisProps = props.singleOBTDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
+
+    const updateRemarksWithEmpNo = () => {
+        setSingleOBTDetailsData(curr => ({
+            ...curr,
+            obt_remarks: singleOBTDetailsData.obt_remarks + ` (${curr_user?.emp_no})`
+        }))
+    }
+
     const onClickModal = (mode: number) => {
+
         switch(mode){
-            case 0: setApproveOBTOpenModal(true);
-            break;
-            case 1: setDenyOBTOpenModal(true);
-            break;
+
+            case 0:
+                updateRemarksWithEmpNo()
+                setApproveOBTOpenModal(true);
+                break;
+
+            case 1: 
+                updateRemarksWithEmpNo()
+                setDenyOBTOpenModal(true);
+                break;
         }   
         
     };
 
-    const userIsApprover = curr_user?.emp_no === ThisProps.obt_approver1_empno || curr_user?.emp_no === ThisProps.obt_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleOBTDetailsData?.applicant_rank);
+    // const userIsApprover = curr_user?.emp_no === ThisProps.obt_approver1_empno || curr_user?.emp_no === ThisProps.obt_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleOBTDetailsData?.applicant_rank);
+
+    const userIsApprover = curr_user?.emp_no === ThisProps.obt_approver1_empno || curr_user?.emp_no === ThisProps.obt_approver2_empno || ((curr_user?.rank_hierarchy as number) == 6);
+
     return (
         <React.Fragment>
             <ApproveOBTModal singleOBTDetailsData={singleOBTDetailsData} setSingleOBTDetailsData={setSingleOBTDetailsData} approveOBTOpenModal={approveOBTOpenModal} setApproveOBTOpenModal={setApproveOBTOpenModal}/>

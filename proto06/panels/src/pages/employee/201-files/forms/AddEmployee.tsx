@@ -34,6 +34,7 @@ interface DropDownData {
 }
 
 export const UserProfile = () => {
+
     const { register, handleSubmit, formState: { errors } } = useForm<EMPLOYEESViewInterface>();
     const [editMode, setEditMode] = useState(true);
     const [formSelectData, setFormSelectData] = useState({
@@ -721,6 +722,7 @@ export const UserProfile = () => {
                 >
                   <Option value="Compressed">Compressed</Option>
                   <Option value="Normal">Normal</Option>
+                  <Option value="Field">Field-Auto</Option>
                   <Option value="Field">Field</Option>
               </Select>
               {/* <Input

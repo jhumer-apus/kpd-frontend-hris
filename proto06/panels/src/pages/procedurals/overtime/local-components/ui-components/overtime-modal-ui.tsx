@@ -21,16 +21,30 @@ function OVERTIMEModalUI(props: OVERTIMEModalUIInterface) {
     const { setSingleOVERTIMEDetailsData, singleOVERTIMEDetailsData } = props;
     const ThisProps = props.singleOVERTIMEDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
+
+    const updateRemarksWithEmpNo = () => {
+        setSingleOVERTIMEDetailsData(curr => ({
+            ...curr,
+            ot_remarks: singleOVERTIMEDetailsData.ot_remarks + ` (${curr_user?.emp_no})`
+        }))
+    }
+
+
     const onClickModal = (mode: number) => {
         switch(mode){
-            case 0: setApproveOVERTIMEOpenModal(true);
-            break;
-            case 1: setDenyOVERTIMEOpenModal(true);
-            break;
+            case 0: 
+                updateRemarksWithEmpNo()
+                setApproveOVERTIMEOpenModal(true);
+                break;
+            case 1: 
+                updateRemarksWithEmpNo()
+                setDenyOVERTIMEOpenModal(true);
+                break;
         }   
         
     };
-    const userIsApprover = curr_user?.emp_no === ThisProps.ot_approver1_empno || curr_user?.emp_no === ThisProps.ot_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleOVERTIMEDetailsData?.applicant_rank);
+    // const userIsApprover = curr_user?.emp_no === ThisProps.ot_approver1_empno || curr_user?.emp_no === ThisProps.ot_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleOVERTIMEDetailsData?.applicant_rank);
+    const userIsApprover = curr_user?.emp_no === ThisProps.ot_approver1_empno || curr_user?.emp_no === ThisProps.ot_approver2_empno || ((curr_user?.rank_hierarchy as number) == 6);
     return (
         <React.Fragment>
             <ApproveOVERTIMEModal singleOVERTIMEDetailsData={singleOVERTIMEDetailsData} setSingleOVERTIMEDetailsData={setSingleOVERTIMEDetailsData} approveOVERTIMEOpenModal={approveOVERTIMEOpenModal} setApproveOVERTIMEOpenModal={setApproveOVERTIMEOpenModal}/>

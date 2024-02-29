@@ -21,12 +21,25 @@ function UAModalUI(props: UAModalUIInterface) {
     const { setSingleUADetailsData, singleUADetailsData } = props;
     const ThisProps = props.singleUADetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
+
+    const updateRemarksWithEmpNo = () => {
+        setSingleUADetailsData(curr => ({
+            ...curr,
+            ua_description: singleUADetailsData.ua_description + ` (${curr_user?.emp_no})`
+        }))
+    }
+
     const onClickModal = (mode: number) => {
         switch(mode){
-            case 0: setApproveUAOpenModal(true);
-            break;
-            case 1: setDenyUAOpenModal(true);
-            break;
+            case 0: 
+                updateRemarksWithEmpNo()
+                setApproveUAOpenModal(true);
+                break;
+
+            case 1: 
+                updateRemarksWithEmpNo()
+                setDenyUAOpenModal(true);
+                break;
         }   
         
     };
@@ -81,6 +94,16 @@ function UAModalUI(props: UAModalUIInterface) {
                     )
                 })
             }
+        }
+        if(!UserApprover1 && !UserApprover2) {
+            setApprovalState((prevState: ApprovalStateInterface) => {
+                return (
+                    {
+                        buttonDisabled: true,
+                        message1Show: false,
+                    }
+                )
+            })
         }
 
     }, [approvalState])

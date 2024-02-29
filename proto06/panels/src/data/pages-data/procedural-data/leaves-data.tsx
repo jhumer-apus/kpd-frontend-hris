@@ -83,6 +83,8 @@ export const ProceduralLEAVEPageColumns: GridColDef[] =
   
     } else if ( status === 'APD' ) { //Approve
 
+      console.log(params.row)
+
       cellColor = '#008000'; // Green
 
     } 
@@ -95,6 +97,7 @@ export const ProceduralLEAVEPageColumns: GridColDef[] =
       );
     }  
   },
+  { field: 'leave_type_name', headerName: 'Leave Type', width: 120 },
   { field: 'leave_approver1_empno', headerName: 'Approver #1', width: 120 },
   {
     field: 'leave_date_approved1',

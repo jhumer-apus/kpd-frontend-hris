@@ -21,12 +21,25 @@ function OVERTIMEModalUI(props: OVERTIMEModalUIInterface) {
     const { setSingleOVERTIMEDetailsData, singleOVERTIMEDetailsData } = props;
     const ThisProps = props.singleOVERTIMEDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
+
+    const updateRemarksWithEmpNo = () => {
+        setSingleOVERTIMEDetailsData(curr => ({
+            ...curr,
+            ot_remarks: singleOVERTIMEDetailsData.ot_remarks + ` (${curr_user?.emp_no})`
+        }))
+    }
+
     const onClickModal = (mode: number) => {
         switch(mode){
-            case 0: setApproveOVERTIMEOpenModal(true);
-            break;
-            case 1: setDenyOVERTIMEOpenModal(true);
-            break;
+            case 0: 
+                updateRemarksWithEmpNo()
+                setApproveOVERTIMEOpenModal(true);
+                break;
+
+            case 1: 
+                updateRemarksWithEmpNo()
+                setDenyOVERTIMEOpenModal(true);
+                break;
         }   
         
     };
@@ -81,6 +94,17 @@ function OVERTIMEModalUI(props: OVERTIMEModalUIInterface) {
                     )
                 })
             }
+        }
+
+        if(!UserApprover1 && !UserApprover1) {
+            setApprovalState((prevState: ApprovalStateInterface) => {
+                return (
+                    {
+                        buttonDisabled: true,
+                        message1Show: false,
+                    }
+                )
+            })
         }
 
     }, [approvalState])

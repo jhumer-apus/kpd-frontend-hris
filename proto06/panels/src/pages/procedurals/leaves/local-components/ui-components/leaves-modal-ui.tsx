@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LEAVEViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
 import { convertDaysToHHMM, convertMinutesToHHMM,  } from '@/helpers/utils';
 import { Button } from '@mui/material';
@@ -17,6 +17,7 @@ import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 
 //HELPERS
 import { getNumberOfSickLeaves, cleanRemarks } from '@/helpers/SickLeavesRemarks';
+import { single } from 'rxjs';
 
 interface LEAVEModalUIInterface {
     singleLEAVEDetailsData: LEAVEViewInterface;
@@ -30,16 +31,30 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
     const { setSingleLEAVEDetailsData, singleLEAVEDetailsData } = props;
     const ThisProps = props.singleLEAVEDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
+
+    const updateRemarksWithEmpNo = () => {
+        setSingleLEAVEDetailsData((curr:any) => ({
+            ...curr,
+            leave_remarks: singleLEAVEDetailsData.leave_remarks + ` (${curr_user?.emp_no})`
+        }))
+    }
+
     const onClickModal = (mode: number) => {
         switch(mode){
-            case 0: setApproveLEAVEOpenModal(true);
-            break;
-            case 1: setDenyLEAVEOpenModal(true);
-            break;
+            case 0: 
+                updateRemarksWithEmpNo()
+                setApproveLEAVEOpenModal(true);
+                break;
+            case 1: 
+                updateRemarksWithEmpNo()
+                setDenyLEAVEOpenModal(true);
+                break;
         }   
         
     };
-    const userIsApprover = (curr_user?.emp_no === ThisProps.leave_approver1_empno || curr_user?.emp_no === ThisProps.leave_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleLEAVEDetailsData?.applicant_rank));
+
+    // const userIsApprover = (curr_user?.emp_no === ThisProps.leave_approver1_empno || curr_user?.emp_no === ThisProps.leave_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleLEAVEDetailsData?.applicant_rank));
+    const userIsApprover = (curr_user?.emp_no === ThisProps.leave_approver1_empno || curr_user?.emp_no === ThisProps.leave_approver2_empno || ((curr_user?.rank_hierarchy as number) == 6));
     return (
         <React.Fragment>
             <ApproveLEAVEModal singleLEAVEDetailsData={singleLEAVEDetailsData} setSingleLEAVEDetailsData={setSingleLEAVEDetailsData} approveLEAVEOpenModal={approveLEAVEOpenModal} setApproveLEAVEOpenModal={setApproveLEAVEOpenModal}/>

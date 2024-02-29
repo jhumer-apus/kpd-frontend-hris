@@ -21,16 +21,30 @@ function UAModalUI(props: UAModalUIInterface) {
     const { setSingleUADetailsData, singleUADetailsData } = props;
     const ThisProps = props.singleUADetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
+
+    const updateRemarksWithEmpNo = () => {
+        setSingleUADetailsData(curr => ({
+            ...curr,
+            ua_description: singleUADetailsData.ua_description + ` (${curr_user?.emp_no})`
+        }))
+    }
+
     const onClickModal = (mode: number) => {
         switch(mode){
-            case 0: setApproveUAOpenModal(true);
-            break;
-            case 1: setDenyUAOpenModal(true);
-            break;
+            case 0: 
+                updateRemarksWithEmpNo()
+                setApproveUAOpenModal(true);
+                break;
+
+            case 1: 
+                updateRemarksWithEmpNo()
+                setDenyUAOpenModal(true);
+                break;
         }   
         
     };
-    const userIsApprover = curr_user?.emp_no === ThisProps.ua_approver1_empno || curr_user?.emp_no === ThisProps.ua_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleUADetailsData?.applicant_rank);
+    // const userIsApprover = curr_user?.emp_no === ThisProps.ua_approver1_empno || curr_user?.emp_no === ThisProps.ua_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleUADetailsData?.applicant_rank);
+    const userIsApprover = curr_user?.emp_no === ThisProps.ua_approver1_empno || curr_user?.emp_no === ThisProps.ua_approver2_empno || ((curr_user?.rank_hierarchy as number) == 6);
     return (
         <React.Fragment>
             <ApproveUAModal singleUADetailsData={singleUADetailsData} setSingleUADetailsData={setSingleUADetailsData} approveUAOpenModal={approveUAOpenModal} setApproveUAOpenModal={setApproveUAOpenModal}/>
