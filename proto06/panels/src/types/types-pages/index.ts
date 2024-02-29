@@ -692,6 +692,7 @@ export interface USERViewInterface extends Omit<USERGenericInterface, "added_by?
 
 export interface USERCreateInterface extends USERGenericInterface{
     password: string,
+    is_temp: boolean
 }
 
 export interface USEREditInterface extends USERGenericInterface, Pick<USERViewInterface, "is_active" | "is_locked" | "id"> {}
@@ -699,4 +700,5 @@ export interface USEREditInterface extends USERGenericInterface, Pick<USERViewIn
 export interface USERResetPasswordInterface extends Pick<USERGenericInterface, "added_by">, Pick<USERViewInterface, "id">{
     new_password: string,
     repeat_new_password: string,
+    is_temp: boolean
 }

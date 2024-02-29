@@ -25,6 +25,7 @@ export default function ResetPasswordUSERModal(props: ResetPasswordUSERModalInte
   const [singleUSERDetailsData, setSingleUSERDetailsData] = useState<Omit<USERResetPasswordInterface, "id" | "added_by">>({
     new_password: '',
     repeat_new_password: '',
+    is_temp: true
   })
 
   const resetPasswordUSERSubmit = () => { 
