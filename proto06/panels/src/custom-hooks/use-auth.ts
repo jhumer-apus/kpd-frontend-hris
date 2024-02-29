@@ -26,7 +26,7 @@ export function useAuth() {
 
   }, [dispatch]);
 
-  return { isAuthenticated, loading };
+  return { isAuthenticated, loading, user };
 }
 
 

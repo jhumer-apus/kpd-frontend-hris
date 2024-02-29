@@ -688,6 +688,7 @@ export interface USERViewInterface extends Omit<USERGenericInterface, "added_by?
     readonly date_deleted: string | null
     readonly groups: number[] | string[]
     readonly user_permissions: number[] | string []
+    readonly is_temp: boolean
 }
 
 
