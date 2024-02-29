@@ -127,9 +127,11 @@ import Diversity3OutlinedIcon from '@mui/icons-material/Diversity3Outlined';
 
 import ViewMonthlySchedule from "./pages/reports/view-monthly-schedule";
 // import ViewEmployeeLeaves from "./pages/reports/view-employee-leaves";
-import ViewEmployeeLeaves from "./pages/reports/view-employee-leaves/by-cutoff";
-import ViewEmployeeOvertime from "./pages/reports/view-employee-overtime";
-import ViewEmployeeObt from "./pages/reports/view-employee-obt";
+import ViewEmployeeLeaves from "./pages/reports/view-employee-leaves/leaves-by-cutoff";
+// import ViewEmployeeOvertime from "./pages/reports/view-employee-overtime";
+import ViewEmployeeOvertime from "./pages/reports/view-employee-overtime/ot-by-cutoff";
+// import ViewEmployeeObt from "./pages/reports/view-employee-obt";
+import ViewEmployeeObt from "./pages/reports/view-employee-obt/obt-by-cutoff";
 
 import EMPSEMINARSPageV2 from "./pages/employee/emp-training-seminars-v2/emp-training-seminars";
 import EmploymentHistoryPageEmpView from "./pages/employee/employment-history-emp-view/employment-history-emp-view";

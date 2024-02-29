@@ -41,6 +41,58 @@ function ProceduralLEAVETYPECreate(props: CreateLEAVETYPEModalInterface) {
             }, 1000)
         }
     }, [LEAVETYPECreatestate.status])
+    
+    const handleLeaveType = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        let is_vl:boolean = false;
+        let is_sl:boolean = false;
+        let is_el:boolean = false;
+
+        switch (e.target.value) {
+            
+            case "vl":
+                is_vl = true
+                is_sl = false
+                is_el = false
+                break
+
+            case "sl":
+                is_vl = false
+                is_sl = true
+                is_el = false
+                break
+
+            case "el":
+                is_vl = false
+                is_sl = false
+                is_el = true
+                break
+
+            case "none":
+                is_vl = false
+                is_sl = false
+                is_el = false
+                break
+
+            default:
+                is_vl = false
+                is_sl = false
+                is_el = false
+                break
+        }
+        setCreateLEAVETYPE((prevState)=> {
+            return (
+                {
+                    ...prevState,
+                    is_sl: is_sl,
+                    is_vl: is_vl,
+                    is_el: is_el
+
+                }
+            )
+        })
+            
+    }
 
     return (
         <React.Fragment>
@@ -54,7 +106,7 @@ function ProceduralLEAVETYPECreate(props: CreateLEAVETYPEModalInterface) {
                             label='Leave Type Name:'  
                             variant='outlined' 
                             // type="number"
-                            value={createLEAVETYPE?.name}
+                            defaultValue={createLEAVETYPE?.name}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 // const value = event.target.value;
                                 setCreateLEAVETYPE((prevState)=> {
@@ -71,7 +123,7 @@ function ProceduralLEAVETYPECreate(props: CreateLEAVETYPEModalInterface) {
                     </div>
                     <div className='flex flex-col gap-6'>
                         <FormControl>
-                            <FormLabel id="demo-controlled-radio-buttons-group">Type</FormLabel>
+                            <FormLabel id="demo-controlled-radio-buttons-group">Compensation Type</FormLabel>
                             <RadioGroup
                                 row
                                 aria-labelledby="demo-controlled-radio-buttons-group"
@@ -95,33 +147,24 @@ function ProceduralLEAVETYPECreate(props: CreateLEAVETYPEModalInterface) {
                         </FormControl>
                     </div>
                 </div>
-                <div className='flex flex-wrap gap-6 pt-4'>
+                <div className='flex flex-wrap gap-6'>
                     <div className='flex flex-col gap-6'>
                         <FormControl>
-                            <FormLabel id="demo-controlled-radio-buttons-group">Vacation Leave</FormLabel>
-                            <RadioGroup
-                                row
+                            <FormLabel id="demo-controlled-radio-buttons-group">Leave Type</FormLabel>
+                            <RadioGroup                           
                                 aria-labelledby="demo-controlled-radio-buttons-group"
                                 name="controlled-radio-buttons-group"
-                                value={`${!!createLEAVETYPE.is_vl}`}
-                                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                    const value = (event.target.value=== 'true' ? true : false);
-                                    setCreateLEAVETYPE((prevState)=> {
-                                        return (
-                                            {
-                                                ...prevState,
-                                                is_vl: value
-                                            }
-                                        )
-                                    })
-                                }}
+                                // value={`${!!createLEAVETYPE.is_vl}`}
+                                onChange={handleLeaveType}
                             >
-                                <FormControlLabel value="true" control={<Radio />} label="True" />
-                                <FormControlLabel value="false" control={<Radio />} label="False" />
+                                <FormControlLabel value="vl" control={<Radio />} label="Vacation Leave" />
+                                <FormControlLabel value="sl" control={<Radio />} label="Sick Leave" />
+                                <FormControlLabel value="el" control={<Radio />} label="Emergency Leave" />
+                                <FormControlLabel value="none" control={<Radio />} label="None" />
                             </RadioGroup>
                         </FormControl>
                     </div>
-                    <div className='flex flex-col gap-6'>
+                    {/* <div className='flex flex-col gap-6'>
                         <FormControl>
                             <FormLabel id="demo-controlled-radio-buttons-group">Sick Leave</FormLabel>
                             <RadioGroup
@@ -145,7 +188,7 @@ function ProceduralLEAVETYPECreate(props: CreateLEAVETYPEModalInterface) {
                                 <FormControlLabel value="false" control={<Radio />} label="False" />
                             </RadioGroup>
                         </FormControl>
-                    </div>
+                    </div> */}
                 </div>
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>

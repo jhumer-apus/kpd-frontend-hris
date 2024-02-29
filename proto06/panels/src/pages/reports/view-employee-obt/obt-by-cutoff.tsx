@@ -4,12 +4,10 @@ import { Fragment, useEffect, useState } from 'react';
 import { DataGrid, GridRowsProp, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { Button } from "@material-tailwind/react";
 import axios from 'axios';
-import * as React from 'react';
+import dayjs from 'dayjs';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import debounce from 'lodash/debounce';
-import dayjs from 'dayjs';
-
 
 //STORES
 import { APILink } from '@/store/configureStore';
@@ -23,34 +21,42 @@ import InputForm from '../../../public-components/forms/InputForm';
 //HELPERS
 import { fetchCutOffPeriods } from '@/helpers/ApiCalls'
 
-
-
-
-export default function ViewEmployeeLeaves() {
-
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [isCutOffPeriodLoading, setIsCutOffPeriodLoading] = useState<boolean>(false);
-    
-
+export default function ViewEmployeeObt() {
 
     //STATES
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isCutOffPeriodLoading, setIsCutOffPeriodLoading] = useState<boolean>(false);
+
     const [dataRows, setDataRows] = useState([]);
-
+    
     const [year, setYear] = useState<number | string>(new Date().getFullYear());
-
     const [cutoffPeriods, setCutOffPeriods] = useState<any[]>([]);
     const [selectedCutOff, setSelectedCutOff] = useState<any>()
 
     const [isFetchReportError, setIsFetchReportError] = useState<Boolean>(false);
 
-    const getEmployeeLeaves = async () => {
+    //USE EFFECTS
+    useEffect(() => {
+
+        // getEmployeeLeaves();
+        debounceFetchCutOffPeriods()
+        getEmployeeObt();
+
+    }, [])
+
+    useEffect(() => {
+        setIsCutOffPeriodLoading(true)
+        debounceFetchCutOffPeriods()
+    }, [year])
+
+    const getEmployeeObt = async () => {
 
         setDataRows(curr => []);
         setIsFetchReportError(false)
         setIsLoading(true);
 
-        await axios.get(`${APILink}leave`, {
-            params: {
+        await axios.get(`${APILink}obt`, {
+            params:{
                 cutoff: selectedCutOff?.id,
                 status: "APD"
             }
@@ -68,19 +74,6 @@ export default function ViewEmployeeLeaves() {
         })
     }
 
-    useEffect(() => {
-
-        // getEmployeeLeaves();
-        debounceFetchCutOffPeriods()
-
-
-    }, [])
-
-    const readableFormatDate = (date:string) => {
-        const parsedDate = dayjs(date);
-        return parsedDate.format('MMM DD, YYYY');
-    }
-
     const convertDateToLocalString = (date: Date | string) => {
 
         const dateObject = new Date(date);
@@ -92,6 +85,11 @@ export default function ViewEmployeeLeaves() {
         const formattedDate = `${month}/${day}/${year}`;
 
         return formattedDate;
+    }
+
+    const readableFormatDate = (date:string) => {
+        const parsedDate = dayjs(date);
+        return parsedDate.format('MMM DD, YYYY');
     }
 
     const debounceFetchCutOffPeriods = debounce(() => {
@@ -113,26 +111,30 @@ export default function ViewEmployeeLeaves() {
         });
     }, 1500);
 
+    // const viewReports = () => {
+
+    //     getEmployeeObt();
+
+    // }
+
     const handleChangeFilter = (e: any, val: any) => {
         setSelectedCutOff((curr:any) => val)
     }
 
-    useEffect(() => {
-        setIsCutOffPeriodLoading(true)
-        debounceFetchCutOffPeriods()
-    }, [year])
 
-    const exportCsvData = dataRows ? dataRows.map((obj:any) => {
+
+    const exportCsvData = dataRows? dataRows.map((obj:any) => {
         return {
             "Employee No.": obj.emp_no,
             "Employee Name": obj.emp_name,
-            "Type Of Leave": obj.leave_type_name,
-            "Date Start": convertDateToLocalString(obj.leave_date_from),
-            "Date End": convertDateToLocalString(obj.leave_date_to),
-            "Day/s": obj.leave_number_days
+            "Date Start": obj.obt_date_from,
+            "Date End": obj.obt_date_to,
+            "OBT Type": obj.obt_type,
+            "OBT Location": obj.obt_location,
+            "OBT Hours": obj.obt_total_hours,
         }
 
-    }): []
+    }): [];
 
   
 
@@ -147,7 +149,7 @@ export default function ViewEmployeeLeaves() {
             },
         },
         { 
-            field: 'full_name', 
+            field: 'emp_name', 
             headerName: 'Employee Name', 
             width: 150,
             valueGetter: (params: GridValueGetterParams) => {
@@ -155,31 +157,31 @@ export default function ViewEmployeeLeaves() {
             },
         },
         {
-            field: 'leave_type_name', 
-            headerName: 'Type Of Leave', 
-            width: 150,
-        },
-        {
-            field: 'leave_date_from', 
+            field: 'obt_date_from', 
             headerName: 'Date Start', 
             width: 150,
             valueGetter: (params: GridValueGetterParams) => {
-                return convertDateToLocalString(params.row.leave_date_from);
+                return convertDateToLocalString(params.row.obt_date_from);
             },
         },
         {
-            field: 'leave_date_to', 
-            headerName: 'Date End', 
+            field: 'obt_date_to', 
+            headerName: 'Date End',
             width: 150,
             valueGetter: (params: GridValueGetterParams) => {
-                return convertDateToLocalString(params.row.leave_date_to);
+                return convertDateToLocalString(params.row.obt_date_to);
             },
         },
         {
-            field: 'leave_number_days', 
-            headerName: 'Day/s', 
+            field: 'obt_type', 
+            headerName: 'Over Type', 
             width: 150,
-        }
+        },
+        {
+            field: 'obt_total_hours', 
+            headerName: 'OBT Hours', 
+            width: 150,
+        },
 
     ];
 
@@ -246,18 +248,10 @@ export default function ViewEmployeeLeaves() {
                 <ExportToCsvButton
                     data={exportCsvData} 
                     isDisable={!dataRows || dataRows.length == 0}
-                    defaultName={`Employee-Leaves-${selectedCutOff?.cleanDateFrom}-${selectedCutOff?.cleanDateTo}`}
+                    defaultName={`Employee On Business Trip ${(selectedCutOff?.cleanDateFrom && selectedCutOff?.cleanDateTo) ? selectedCutOff?.cleanDateFrom +" - "+ selectedCutOff?.cleanDateTo: "" } `}
                 />
 
                 <div className="md:flex md:space-x-4 md:items-center mt-8">
-                    {/* <InputForm 
-                        currVal={year?.toString()}
-                        label="Year"
-                        variant="standard"
-                        placeholder="Enter A Year"
-                        setState={setYear}
-                        isDisable={isLoading}
-                    /> */}
                     <TextField
                         defaultValue={year?.toString()}
                         label="Year"
@@ -284,12 +278,20 @@ export default function ViewEmployeeLeaves() {
                         setState={setMonth}
                         options={options}
                         isDisable={isLoading}
+                    />
+                    <InputForm 
+                        currVal={year?.toString()}
+                        label="Year"
+                        variant="standard"
+                        placeholder="Enter A Year"
+                        setState={setYear}
+                        isDisable={isLoading}
                     /> */}
                     <Button 
                         variant="filled"
                         size="lg"
                         color='indigo'
-                        onClick={() => getEmployeeLeaves()}
+                        onClick={() => getEmployeeObt()}
                         disabled={isLoading}
                     >
                         View
