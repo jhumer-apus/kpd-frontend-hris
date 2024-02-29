@@ -2,9 +2,9 @@ import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
-import { Typography } from '@mui/joy';
+import { Typography } from '@mui/material';
 import { ONBOARDINGSTATUSCreateInterface } from '@/types/types-employee-and-applicants';
-import { ONBOARDINGSTATUSCreateAction, ONBOARDINGSTATUSCreateActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import { ONBOARDINGSTATUSCreateAction, ONBOARDINGSTATUSCreateActionFailureCleanup, ONBOARDINGSTATUSViewAction } from '@/store/actions/employee-and-applicants';
 import { DataGrid, GridCallbackDetails, GridRowSelectionModel } from '@mui/x-data-grid';
 import { EAProcessONBOARDINGSTATUSPageColumns } from '@/data/pages-data/employee-and-applicants-data/ea-initialize-onboarding-data';
 import { getEmployeesList } from '@/store/actions/employees';
@@ -33,7 +33,11 @@ function EAONBOARDINGSTATUSCreate(props: CreateONBOARDINGSTATUSModalInterface) {
 
         if(SelectorContainer.status === 'succeeded'){
             window.alert('Request Successful');
-            window.location.reload();
+            dispatch(ONBOARDINGSTATUSViewAction());
+            setTimeout(()=> {
+                dispatch(ONBOARDINGSTATUSCreateActionFailureCleanup());
+            }, 200)
+            // window.location.reload();
         }else if (SelectorContainer.status === 'failed'){
             window.alert(`Request Failed, ${SelectorContainer.error}`)
             setTimeout(()=> {
@@ -72,9 +76,17 @@ function EAONBOARDINGSTATUSCreate(props: CreateONBOARDINGSTATUSModalInterface) {
 
     return (
         <React.Fragment>
-            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain' level="h6">Initialize Onboarding Status Data</Typography>
+            <Typography 
+                style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} 
+                variant='subtitle1' 
+            >Initialize Onboarding Status Data
+            </Typography>
             <div className='flex flex-col gap-6 overflow-auto w-full'>
-                    <Typography level="body2" className='flex justify-center text-center align-center italic'>You can choose one or more employees to notify facilitators the ongoing employee's onboarding requirements. You may also filter and check all that applies.</Typography>
+                    <Typography 
+                        variant='inherit'
+                        className='flex justify-center text-center align-center italic'
+                    >You can choose one or more employees to notify facilitators the ongoing employee's onboarding requirements. You may also filter and check all that applies.
+                    </Typography>
                     <div style={{ height: '450px', width: '100%' }}>
                         <DataGrid
                         rows={state.employees_list as EMPLOYEESViewInterface[]}

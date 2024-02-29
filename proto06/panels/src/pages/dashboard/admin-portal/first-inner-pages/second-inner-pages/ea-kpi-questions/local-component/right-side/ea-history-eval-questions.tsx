@@ -35,7 +35,11 @@ export default function EAEVALQUESTIONSPageHistory() {
     <Fragment>
       <div className="my-2 flex flex-wrap justify-between items-start gap-6">
         <div>
-          <ViewEVALQUESTIONSSingleModal setSingleEVALQUESTIONSDetailsData={setSingleEVALQUESTIONSDetailsData} singleEVALQUESTIONSDetailsData={singleEVALQUESTIONSDetailsData} singleEVALQUESTIONSOpenModal={singleEVALQUESTIONSOpenModal} setSingleEVALQUESTIONSOpenModal={setSingleEVALQUESTIONSOpenModal}/>
+          <ViewEVALQUESTIONSSingleModal 
+            setSingleEVALQUESTIONSDetailsData={setSingleEVALQUESTIONSDetailsData} 
+            singleEVALQUESTIONSDetailsData={singleEVALQUESTIONSDetailsData} 
+            singleEVALQUESTIONSOpenModal={singleEVALQUESTIONSOpenModal} 
+            setSingleEVALQUESTIONSOpenModal={setSingleEVALQUESTIONSOpenModal}/>
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
           <p>{EAEVALQUESTIONSPageDescriptions}</p>
         </Typography>

@@ -36,7 +36,12 @@ export default function EACORECOMPEPageHistory() {
     <Fragment>
       <div className="my-2 flex flex-wrap justify-between items-start gap-6">
         <div>
-          <ViewCORECOMPESingleModal setSingleCORECOMPEDetailsData={setSingleCORECOMPEDetailsData} singleCORECOMPEDetailsData={singleCORECOMPEDetailsData} singleCORECOMPEOpenModal={singleCORECOMPEOpenModal} setSingleCORECOMPEOpenModal={setSingleCORECOMPEOpenModal}/>
+          <ViewCORECOMPESingleModal 
+            setSingleCORECOMPEDetailsData={setSingleCORECOMPEDetailsData} 
+            singleCORECOMPEDetailsData={singleCORECOMPEDetailsData} 
+            singleCORECOMPEOpenModal={singleCORECOMPEOpenModal} 
+            setSingleCORECOMPEOpenModal={setSingleCORECOMPEOpenModal}
+          />
         <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400", marginTop: '4px'}}>
           <p>{EACORECOMPEPageDescriptions}</p>
         </Typography>

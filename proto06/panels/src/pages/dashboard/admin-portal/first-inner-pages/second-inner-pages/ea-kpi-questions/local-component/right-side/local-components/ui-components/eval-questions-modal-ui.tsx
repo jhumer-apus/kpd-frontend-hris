@@ -11,13 +11,18 @@ import DeactivateEVALQUESTIONSModal from '../main-modals/inner-modals/delete-eva
 interface EVALQUESTIONSModalUIInterface {
     singleEVALQUESTIONSDetailsData: EVALQUESTIONSViewInterface;
     multiplePayslipMode?: boolean;
+    setSingleEVALQUESTIONSOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleEVALQUESTIONSDetailsData: Dispatch<SetStateAction<EVALQUESTIONSViewInterface>>;
 }
 
 function EVALQUESTIONSModalUI(props: EVALQUESTIONSModalUIInterface) {
     const [ DeactivateEVALQUESTIONSOpenModal, setDeactivateEVALQUESTIONSOpenModal ] = useState(false);
     const [ EditSubmitEVALQUESTIONSOpenModal, setEditSubmitEVALQUESTIONSOpenModal ] = useState(false);
-    const { setSingleEVALQUESTIONSDetailsData, singleEVALQUESTIONSDetailsData } = props;
+    const { 
+        setSingleEVALQUESTIONSDetailsData, 
+        singleEVALQUESTIONSDetailsData,
+        setSingleEVALQUESTIONSOpenModal
+    } = props;
     const ThisProps = props.singleEVALQUESTIONSDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
 
@@ -26,8 +31,20 @@ function EVALQUESTIONSModalUI(props: EVALQUESTIONSModalUIInterface) {
     const [editEVALQUESTIONS, setEditEVALQUESTIONS] = useState(false);
     return (
         <Fragment>
-            <EditSubmitEVALQUESTIONSModal EditSubmitEVALQUESTIONSOpenModal={EditSubmitEVALQUESTIONSOpenModal} setEditSubmitEVALQUESTIONSOpenModal={setEditSubmitEVALQUESTIONSOpenModal} singleEVALQUESTIONSDetailsData={singleEVALQUESTIONSDetailsData} setSingleEVALQUESTIONSDetailsData={setSingleEVALQUESTIONSDetailsData} />
-            <DeactivateEVALQUESTIONSModal DeactivateEVALQUESTIONSOpenModal={DeactivateEVALQUESTIONSOpenModal} setDeactivateEVALQUESTIONSOpenModal={setDeactivateEVALQUESTIONSOpenModal} singleEVALQUESTIONSDetailsData={singleEVALQUESTIONSDetailsData} setSingleEVALQUESTIONSDetailsData={setSingleEVALQUESTIONSDetailsData} />
+            <EditSubmitEVALQUESTIONSModal 
+                EditSubmitEVALQUESTIONSOpenModal={EditSubmitEVALQUESTIONSOpenModal} 
+                setEditSubmitEVALQUESTIONSOpenModal={setEditSubmitEVALQUESTIONSOpenModal} 
+                singleEVALQUESTIONSDetailsData={singleEVALQUESTIONSDetailsData} 
+                setSingleEVALQUESTIONSDetailsData={setSingleEVALQUESTIONSDetailsData} 
+                setSingleEVALQUESTIONSOpenModal={setSingleEVALQUESTIONSOpenModal}
+            />
+            <DeactivateEVALQUESTIONSModal 
+                DeactivateEVALQUESTIONSOpenModal={DeactivateEVALQUESTIONSOpenModal} 
+                setDeactivateEVALQUESTIONSOpenModal={setDeactivateEVALQUESTIONSOpenModal} 
+                singleEVALQUESTIONSDetailsData={singleEVALQUESTIONSDetailsData} 
+                setSingleEVALQUESTIONSDetailsData={setSingleEVALQUESTIONSDetailsData}
+                setSingleEVALQUESTIONSOpenModal={setSingleEVALQUESTIONSOpenModal} 
+            />
             <div className='flex overflow-auto justify-around gap-4 relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField 

@@ -6,13 +6,14 @@ import { CORECOMPEEditInterface, CORECOMPEViewInterface } from '@/types/types-em
 import { Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
-import { CORECOMPEEditAction, CORECOMPEEditActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import { CORECOMPEEditAction, CORECOMPEEditActionFailureCleanup, CORECOMPEViewAction } from '@/store/actions/employee-and-applicants';
 
 
 
 interface EditCORECOMPEModalInterface {
     singleCORECOMPEDetailsData: CORECOMPEViewInterface;
     EditSubmitCORECOMPEOpenModal: boolean; 
+    setSingleCORECOMPEOpenModal: Dispatch<SetStateAction<boolean>>;
     setEditSubmitCORECOMPEOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleCORECOMPEDetailsData: Dispatch<SetStateAction<CORECOMPEViewInterface>>;
 }
@@ -21,7 +22,13 @@ export default function EditSubmitCORECOMPEModal(props: EditCORECOMPEModalInterf
   const dispatch = useDispatch();
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
   const CORECOMPEEditState = useSelector((state: RootState)=> state.employeeAndApplicants.CORECOMPEEdit)
-  const {EditSubmitCORECOMPEOpenModal, setEditSubmitCORECOMPEOpenModal, singleCORECOMPEDetailsData, setSingleCORECOMPEDetailsData} = props;
+  const {
+    EditSubmitCORECOMPEOpenModal, 
+    setEditSubmitCORECOMPEOpenModal, 
+    singleCORECOMPEDetailsData, 
+    setSingleCORECOMPEDetailsData,
+    setSingleCORECOMPEOpenModal
+  } = props;
 
   const [editObject, setEditObject] = useState<CORECOMPEEditInterface>({
     id: NaN,
@@ -38,10 +45,14 @@ export default function EditSubmitCORECOMPEModal(props: EditCORECOMPEModalInterf
   }
   useEffect(()=>{
     if(CORECOMPEEditState.status === 'succeeded'){
-      window.alert(`Success: ${CORECOMPEEditState.status?.charAt(0).toUpperCase()}${CORECOMPEEditState.status.slice(1)}`)
+      window.alert(`Request: ${CORECOMPEEditState.status?.charAt(0).toUpperCase()}${CORECOMPEEditState.status.slice(1)}`)
+      // window.location.reload();
+      setEditSubmitCORECOMPEOpenModal(false);
+      setSingleCORECOMPEOpenModal(false);
+      dispatch(CORECOMPEViewAction());
       setTimeout(()=>{
-        window.location.reload();
-      }, 800)
+        dispatch(CORECOMPEEditActionFailureCleanup())
+      }, 200)
     } else if(CORECOMPEEditState.status === 'failed') {
       window.alert(`Error: ${CORECOMPEEditState.error}`)
       dispatch(CORECOMPEEditActionFailureCleanup());

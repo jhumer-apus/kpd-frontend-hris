@@ -7,13 +7,16 @@ import { EVALQUESTIONSViewInterface } from '@/types/types-employee-and-applicant
 
 interface EVALQUESTIONSModalComponentInterface {
     singleEVALQUESTIONSDetailsData: EVALQUESTIONSViewInterface,
-    scroll: boolean,
-    setScroll: Dispatch<SetStateAction<boolean>>,
+    setSingleEVALQUESTIONSOpenModal: Dispatch<SetStateAction<boolean>>,
     setSingleEVALQUESTIONSDetailsData: React.Dispatch<React.SetStateAction<EVALQUESTIONSViewInterface>>;
 };
 
 const EVALQUESTIONSModalComponent = ((props:EVALQUESTIONSModalComponentInterface) => {
-    const { singleEVALQUESTIONSDetailsData, setSingleEVALQUESTIONSDetailsData } = props;
+    const { 
+        singleEVALQUESTIONSDetailsData, 
+        setSingleEVALQUESTIONSOpenModal, 
+        setSingleEVALQUESTIONSDetailsData 
+    } = props;
     const componentRef = useRef<HTMLDivElement | null>(null);
 
     return (
@@ -21,7 +24,11 @@ const EVALQUESTIONSModalComponent = ((props:EVALQUESTIONSModalComponentInterface
             <Typography variant='soft'>Evaluation Question Details</Typography>
             {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
-                <EVALQUESTIONSModalUI setSingleEVALQUESTIONSDetailsData={setSingleEVALQUESTIONSDetailsData} singleEVALQUESTIONSDetailsData={singleEVALQUESTIONSDetailsData}/>
+                <EVALQUESTIONSModalUI 
+                    setSingleEVALQUESTIONSDetailsData={setSingleEVALQUESTIONSDetailsData} 
+                    singleEVALQUESTIONSDetailsData={singleEVALQUESTIONSDetailsData}
+                    setSingleEVALQUESTIONSOpenModal={setSingleEVALQUESTIONSOpenModal}
+                />
             </div>
         </Fragment>
     );
