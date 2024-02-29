@@ -28,7 +28,7 @@ export default function ApproveOBTModal(props: ApproveOBTModalInterface) {
   const approveOBT = () => { 
     const DateNow = new Date();
     const approvedDate = dayjs(DateNow).format('YYYY-MM-DDTHH:mm:ss');
-    if(state?.emp_no === singleOBTDetailsData.obt_approver1_empno  || ((state?.rank_code as number) > singleOBTDetailsData?.applicant_rank)){
+    if(state?.emp_no === singleOBTDetailsData.obt_approver1_empno  || ((state?.rank_code as number) > singleOBTDetailsData?.applicant_rank) || state?.rank_hierarchy == 6){
       setSingleOBTDetailsData((prevState)=> {
         dispatch(OBTEditAction({
           ...prevState,

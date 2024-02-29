@@ -27,7 +27,7 @@ export default function ApproveOVERTIMEModal(props: ApproveOVERTIMEModalInterfac
   const approveOVERTIME = () => { 
     const DateNow = new Date();
     const approvedDate = dayjs(DateNow).format('YYYY-MM-DDTHH:mm:ss');
-    if(state?.emp_no === singleOVERTIMEDetailsData.ot_approver1_empno  || ((state?.rank_code as number) > singleOVERTIMEDetailsData?.applicant_rank)){
+    if(state?.emp_no === singleOVERTIMEDetailsData.ot_approver1_empno  || ((state?.rank_code as number) > singleOVERTIMEDetailsData?.applicant_rank) || state?.rank_hierarchy == 6){
       setSingleOVERTIMEDetailsData((prevState)=> {
         dispatch(OVERTIMEEditAction({
           ...prevState,
