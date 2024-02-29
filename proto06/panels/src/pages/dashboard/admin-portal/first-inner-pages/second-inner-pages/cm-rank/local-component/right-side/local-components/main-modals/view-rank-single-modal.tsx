@@ -56,7 +56,11 @@ export default function ViewRANKSingleModal(props: SingleRANKInterface) {
                 overflow: 'auto',
             }}
         >
-          <RANKModalComponent setSingleRANKDetailsData={setSingleRANKDetailsData} singleRANKDetailsData={singleRANKDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <RANKModalComponent 
+            setSingleRANKDetailsData={setSingleRANKDetailsData} 
+            singleRANKDetailsData={singleRANKDetailsData} 
+            setSingleRANKOpenModal={setSingleRANKOpenModal}
+            />
         </ModalDialog>
       </Modal>
         )}

@@ -10,13 +10,18 @@ import { RootState } from '@/store/configureStore';
 interface RANKModalUIInterface {
     singleRANKDetailsData: RANKViewInterface;
     multiplePayslipMode?: boolean;
+    setSingleRANKOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleRANKDetailsData: Dispatch<SetStateAction<RANKViewInterface>>;
 }
 
 function RANKModalUI(props: RANKModalUIInterface) {
     const [ approveRANKOpenModal, setApproveRANKOpenModal ] = useState(false);
     const [ allowedDaysRANKOpenModal, setAllowedDaysRANKOpenModal ] = useState(false);
-    const { setSingleRANKDetailsData, singleRANKDetailsData } = props;
+    const { 
+        setSingleRANKDetailsData, 
+        singleRANKDetailsData,
+        setSingleRANKOpenModal
+    } = props;
     const ThisProps = props.singleRANKDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
     const onClickModal = (mode: number) => {
@@ -31,7 +36,13 @@ function RANKModalUI(props: RANKModalUIInterface) {
 
     return (
         <Fragment>
-            <AllowedDaysRANKModal singleRANKDetailsData={singleRANKDetailsData} setSingleRANKDetailsData={setSingleRANKDetailsData} allowedDaysRANKOpenModal={allowedDaysRANKOpenModal} setAllowedDaysRANKOpenModal={setAllowedDaysRANKOpenModal}/>
+            <AllowedDaysRANKModal 
+                singleRANKDetailsData={singleRANKDetailsData} 
+                setSingleRANKDetailsData={setSingleRANKDetailsData} 
+                allowedDaysRANKOpenModal={allowedDaysRANKOpenModal} 
+                setAllowedDaysRANKOpenModal={setAllowedDaysRANKOpenModal}
+                setSingleRANKOpenModal={setSingleRANKOpenModal}
+            />
             <div className='flex overflow-auto justify-around relative gap-6'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Position ID:' value={ThisProps.id ? ThisProps.id : '-'} InputProps={{readOnly: true,}} variant='filled'/>

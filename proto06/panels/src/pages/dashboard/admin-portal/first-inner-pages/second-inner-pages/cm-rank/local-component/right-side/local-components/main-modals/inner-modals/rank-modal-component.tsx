@@ -7,20 +7,27 @@ import { RANKViewInterface } from '@/types/types-pages';
 
 interface RANKModalComponentInterface {
     singleRANKDetailsData: RANKViewInterface,
-    scroll: boolean,
-    setScroll: Dispatch<SetStateAction<boolean>>,
+    setSingleRANKOpenModal: Dispatch<SetStateAction<boolean>>,
     setSingleRANKDetailsData: React.Dispatch<React.SetStateAction<RANKViewInterface>>;
 };
 
 const RANKModalComponent = ((props:RANKModalComponentInterface) => {
-    const { singleRANKDetailsData, setSingleRANKDetailsData } = props;
+    const { 
+        singleRANKDetailsData, 
+        setSingleRANKOpenModal, 
+        setSingleRANKDetailsData 
+    } = props;
     const componentRef = useRef<HTMLDivElement | null>(null);
     return (
         <Fragment>
             <Typography variant='soft'>Rank Data</Typography>
             {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
-                <RANKModalUI setSingleRANKDetailsData={setSingleRANKDetailsData} singleRANKDetailsData={singleRANKDetailsData}/>
+                <RANKModalUI 
+                    setSingleRANKDetailsData={setSingleRANKDetailsData} 
+                    singleRANKDetailsData={singleRANKDetailsData}
+                    setSingleRANKOpenModal={setSingleRANKOpenModal}
+                />
             </div>
         </Fragment>
     );

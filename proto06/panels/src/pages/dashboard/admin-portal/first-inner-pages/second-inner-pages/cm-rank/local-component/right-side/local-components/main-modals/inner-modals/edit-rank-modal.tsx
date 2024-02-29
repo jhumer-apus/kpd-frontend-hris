@@ -5,8 +5,8 @@ import { Transition } from 'react-transition-group';
 import { RANKViewInterface } from '@/types/types-pages';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
-import { RANKEditAction } from '@/store/actions/categories';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
+import { RANKEditAction, RANKEditActionFailureCleanup, RANKViewAction } from '@/store/actions/categories';
 
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -19,15 +19,22 @@ import FormLabel from '@mui/material/FormLabel';
 interface AllowedDaysRANKModalInterface {
     singleRANKDetailsData: RANKViewInterface;
     allowedDaysRANKOpenModal: boolean; 
+    setSingleRANKOpenModal: Dispatch<SetStateAction<boolean>>;
     setAllowedDaysRANKOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleRANKDetailsData: Dispatch<SetStateAction<RANKViewInterface>>;
 }
 
 export default function AllowedDaysRANKModal(props: AllowedDaysRANKModalInterface) {
   const dispatch = useDispatch();
-  const RANKAllowedDaysState = useSelector((state: RootState)=> state.categories.RANKEdit.status)
+  const RANKState = useSelector((state: RootState)=> state.categories.RANKEdit)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
-  const {allowedDaysRANKOpenModal, setAllowedDaysRANKOpenModal, singleRANKDetailsData, setSingleRANKDetailsData} = props;
+  const {
+    allowedDaysRANKOpenModal, 
+    setAllowedDaysRANKOpenModal, 
+    singleRANKDetailsData, 
+    setSingleRANKDetailsData,
+    setSingleRANKOpenModal
+  } = props;
 
   const allowedDaysRANK = () => { 
     dispatch(RANKEditAction({
@@ -37,15 +44,22 @@ export default function AllowedDaysRANKModal(props: AllowedDaysRANKModalInterfac
   }
 
   useEffect(()=>{
-    if(RANKAllowedDaysState){      
-      if(RANKAllowedDaysState === 'succeeded'){
-        window.alert(`${RANKAllowedDaysState.charAt(0).toUpperCase()}${RANKAllowedDaysState.slice(1)}`)
+      if(RANKState.status === `${globalReducerSuccess}`){
+        window.alert(`${RANKState.status.charAt(0).toUpperCase()}${RANKState.status.slice(1)}`)
+        // window.location.reload();
+        setAllowedDaysRANKOpenModal(false);
+        setSingleRANKOpenModal(false);
+        dispatch(RANKViewAction());
         setTimeout(()=>{
-          window.location.reload();
-        }, 800)
+          dispatch(RANKEditActionFailureCleanup());
+        }, 200)
+      } else if (RANKState.status === `${globalReducerFailed}`){
+        window.alert(`${RANKState.error}`);
+        setTimeout(()=>{
+          dispatch(RANKEditActionFailureCleanup());
+        }, 200)
       }
-    }
-  }, [RANKAllowedDaysState])
+  }, [RANKState.status])
   return (
     <Fragment>
       <Transition in={allowedDaysRANKOpenModal} timeout={400}>
