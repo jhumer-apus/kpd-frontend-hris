@@ -56,7 +56,11 @@ export default function ViewDIVISIONSingleModal(props: SingleDIVISIONInterface) 
                 overflow: 'auto',
             }}
         >
-          <DIVISIONModalComponent setSingleDIVISIONDetailsData={setSingleDIVISIONDetailsData} singleDIVISIONDetailsData={singleDIVISIONDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <DIVISIONModalComponent 
+            setSingleDIVISIONDetailsData={setSingleDIVISIONDetailsData} 
+            singleDIVISIONDetailsData={singleDIVISIONDetailsData} 
+            setSingleDIVISIONOpenModal={setSingleDIVISIONOpenModal}
+            />
         </ModalDialog>
       </Modal>
         )}
