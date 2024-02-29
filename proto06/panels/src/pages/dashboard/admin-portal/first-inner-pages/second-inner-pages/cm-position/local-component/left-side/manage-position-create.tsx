@@ -2,10 +2,10 @@ import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { Button } from '@mui/material';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
 import { Typography } from '@mui/joy';
 import { POSITIONCreateInterface } from '@/types/types-pages';
-import { POSITIONCreateAction, POSITIONCreateActionFailureCleanup } from '@/store/actions/categories';
+import { POSITIONCreateAction, POSITIONCreateActionFailureCleanup, POSITIONViewAction } from '@/store/actions/categories';
 
 interface CreatePOSITIONModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -39,14 +39,18 @@ function ManagePOSITIONCreate(props: CreatePOSITIONModalInterface) {
     }, [curr_user]) 
 
     useEffect(()=>{
-        if(POSITIONCreatestate.status === 'succeeded'){
+        if(POSITIONCreatestate.status === `${globalReducerSuccess}`){
             window.alert('Request Successful');
-            window.location.reload();
-        }else if(POSITIONCreatestate.status === 'failed'){
+            // window.location.reload();
+            dispatch(POSITIONViewAction());
+            setTimeout(()=> {
+                dispatch(POSITIONCreateActionFailureCleanup());
+            }, 200);
+        }else if(POSITIONCreatestate.status === `${globalReducerFailed}`){
             window.alert(`Request Failed, ${POSITIONCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(POSITIONCreateActionFailureCleanup());
-            }, 1000)
+            }, 200);
         }
     }, [POSITIONCreatestate.status])
 

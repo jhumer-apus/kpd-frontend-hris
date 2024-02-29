@@ -11,13 +11,18 @@ import { RootState } from '@/store/configureStore';
 interface POSITIONModalUIInterface {
     singlePOSITIONDetailsData: POSITIONViewInterface;
     multiplePayslipMode?: boolean;
+    setSinglePOSITIONOpenModal: Dispatch<SetStateAction<boolean>>;
     setSinglePOSITIONDetailsData: Dispatch<SetStateAction<POSITIONViewInterface>>;
 }
 
 function POSITIONModalUI(props: POSITIONModalUIInterface) {
     const [ approvePOSITIONOpenModal, setApprovePOSITIONOpenModal ] = useState(false);
     const [ allowedDaysPOSITIONOpenModal, setAllowedDaysPOSITIONOpenModal ] = useState(false);
-    const { setSinglePOSITIONDetailsData, singlePOSITIONDetailsData } = props;
+    const { 
+        setSinglePOSITIONDetailsData, 
+        singlePOSITIONDetailsData,
+        setSinglePOSITIONOpenModal
+    } = props;
     const ThisProps = props.singlePOSITIONDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
     const onClickModal = (mode: number) => {
@@ -31,7 +36,13 @@ function POSITIONModalUI(props: POSITIONModalUIInterface) {
     };
     return (
         <Fragment>
-            <AllowedDaysPOSITIONModal singlePOSITIONDetailsData={singlePOSITIONDetailsData} setSinglePOSITIONDetailsData={setSinglePOSITIONDetailsData} allowedDaysPOSITIONOpenModal={allowedDaysPOSITIONOpenModal} setAllowedDaysPOSITIONOpenModal={setAllowedDaysPOSITIONOpenModal}/>
+            <AllowedDaysPOSITIONModal 
+                singlePOSITIONDetailsData={singlePOSITIONDetailsData} 
+                setSinglePOSITIONDetailsData={setSinglePOSITIONDetailsData} 
+                allowedDaysPOSITIONOpenModal={allowedDaysPOSITIONOpenModal} 
+                setAllowedDaysPOSITIONOpenModal={setAllowedDaysPOSITIONOpenModal}
+                setSinglePOSITIONOpenModal={setSinglePOSITIONOpenModal}
+            />
             <div className='flex overflow-auto justify-around relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Position ID:' value={ThisProps.id ? ThisProps.id : '-'} InputProps={{readOnly: true,}} variant='filled'/>
