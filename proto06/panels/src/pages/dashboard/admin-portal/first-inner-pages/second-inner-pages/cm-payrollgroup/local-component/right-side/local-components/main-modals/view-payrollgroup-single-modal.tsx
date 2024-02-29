@@ -56,7 +56,11 @@ export default function ViewPAYROLLGROUPSingleModal(props: SinglePAYROLLGROUPInt
                 overflow: 'auto',
             }}
         >
-          <PAYROLLGROUPModalComponent setSinglePAYROLLGROUPDetailsData={setSinglePAYROLLGROUPDetailsData} singlePAYROLLGROUPDetailsData={singlePAYROLLGROUPDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <PAYROLLGROUPModalComponent 
+            setSinglePAYROLLGROUPDetailsData={setSinglePAYROLLGROUPDetailsData} 
+            singlePAYROLLGROUPDetailsData={singlePAYROLLGROUPDetailsData} 
+            setSinglePAYROLLGROUPOpenModal={setSinglePAYROLLGROUPOpenModal}
+          />
         </ModalDialog>
       </Modal>
         )}

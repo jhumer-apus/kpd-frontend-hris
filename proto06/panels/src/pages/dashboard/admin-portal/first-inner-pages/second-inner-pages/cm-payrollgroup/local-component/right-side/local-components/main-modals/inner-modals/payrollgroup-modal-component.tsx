@@ -7,13 +7,16 @@ import { PAYROLLGROUPViewInterface } from '@/types/types-pages';
 
 interface PAYROLLGROUPModalComponentInterface {
     singlePAYROLLGROUPDetailsData: PAYROLLGROUPViewInterface,
-    scroll: boolean,
-    setScroll: Dispatch<SetStateAction<boolean>>,
+    setSinglePAYROLLGROUPOpenModal: React.Dispatch<React.SetStateAction<boolean>>,
     setSinglePAYROLLGROUPDetailsData: React.Dispatch<React.SetStateAction<PAYROLLGROUPViewInterface>>;
 };
 
 const PAYROLLGROUPModalComponent = ((props:PAYROLLGROUPModalComponentInterface) => {
-    const { singlePAYROLLGROUPDetailsData, setSinglePAYROLLGROUPDetailsData } = props;
+    const { 
+        singlePAYROLLGROUPDetailsData, 
+        setSinglePAYROLLGROUPDetailsData, 
+        setSinglePAYROLLGROUPOpenModal
+    } = props;
     const componentRef = useRef<HTMLDivElement | null>(null);
 
     return (
@@ -21,7 +24,11 @@ const PAYROLLGROUPModalComponent = ((props:PAYROLLGROUPModalComponentInterface) 
             <Typography variant='soft'>Payroll Group Data</Typography>
             {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
-                <PAYROLLGROUPModalUI setSinglePAYROLLGROUPDetailsData={setSinglePAYROLLGROUPDetailsData} singlePAYROLLGROUPDetailsData={singlePAYROLLGROUPDetailsData}/>
+                <PAYROLLGROUPModalUI 
+                    setSinglePAYROLLGROUPDetailsData={setSinglePAYROLLGROUPDetailsData} 
+                    singlePAYROLLGROUPDetailsData={singlePAYROLLGROUPDetailsData}
+                    setSinglePAYROLLGROUPOpenModal={setSinglePAYROLLGROUPOpenModal}
+                />
             </div>
         </Fragment>
     );

@@ -2,10 +2,10 @@ import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { Button } from '@mui/material';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
 import { Typography } from '@mui/joy';
 import { PAYROLLGROUPCreateInterface } from '@/types/types-pages';
-import { PAYROLLGROUPCreateAction, PAYROLLGROUPCreateActionFailureCleanup } from '@/store/actions/categories';
+import { PAYROLLGROUPCreateAction, PAYROLLGROUPCreateActionFailureCleanup, PAYROLLGROUPViewAction } from '@/store/actions/categories';
 
 interface CreatePAYROLLGROUPModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -41,14 +41,18 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
     }, [curr_user]) 
 
     useEffect(()=>{
-        if(PAYROLLGROUPCreatestate.status === 'succeeded'){
+        if(PAYROLLGROUPCreatestate.status === `${globalReducerSuccess}`){
             window.alert('Request Successful');
-            window.location.reload();
-        }else if(PAYROLLGROUPCreatestate.status === 'failed'){
+            // window.location.reload();
+            dispatch(PAYROLLGROUPViewAction());
+            setTimeout(()=>{
+                dispatch(PAYROLLGROUPCreateActionFailureCleanup());
+            }, 200)
+        }else if(PAYROLLGROUPCreatestate.status === `${globalReducerFailed}`){
             window.alert(`Request Failed, ${PAYROLLGROUPCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(PAYROLLGROUPCreateActionFailureCleanup());
-            }, 1000)
+            }, 200)
         }
     }, [PAYROLLGROUPCreatestate.status])
 
