@@ -46,7 +46,7 @@ export default function CutoffAutoComplete(props: CutoffAutoCompleteInterface) {
                 const updatedCutoffsList = 
                 state.data?.map(({ co_name, id, payroll_group_code, division_code }) => {
                     return {
-                        cutoff: `Pay Group: ${payroll_group_code} Div: ${division_code} ${co_name} - #: ${id}`,
+                        cutoff: `Pay Group: ${payroll_group_code} Div: ${!division_code ? '__':division_code} ${co_name} - #: ${id}`,
                         cutoff_code: id,
                     };
                 }) || [];

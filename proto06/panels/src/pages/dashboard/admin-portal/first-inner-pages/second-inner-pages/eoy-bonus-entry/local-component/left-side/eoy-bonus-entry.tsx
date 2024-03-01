@@ -2,11 +2,11 @@ import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { Button } from '@mui/material';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
 import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
 import { Typography } from '@mui/joy';
 import { BONUSENTRYCreateInterface } from '@/types/types-payroll-eoy';
-import { BONUSENTRYCreateAction, BONUSENTRYCreateActionFailureCleanup } from '@/store/actions/payroll-eoy';
+import { BONUSENTRYCreateAction, BONUSENTRYCreateActionFailureCleanup, BONUSENTRYViewAction } from '@/store/actions/payroll-eoy';
 import CutoffAutoComplete from './inner-ui-components/cutoff-code-autocomplete';
 import BonusListAutoComplete from './inner-ui-components/bonus-type-autocomplete';
 
@@ -42,14 +42,18 @@ function EOYBONUSENTRYCreate(props: CreateBONUSENTRYModalInterface) {
     }, [curr_user]) 
 
     useEffect(()=>{
-        if(BONUSENTRYCreatestate.status === 'succeeded'){
+        if(BONUSENTRYCreatestate.status === `${globalReducerSuccess}`){
             window.alert('Request Successful');
-            window.location.reload();
-        }else if(BONUSENTRYCreatestate.status === 'failed'){
+            // window.location.reload();
+            dispatch(BONUSENTRYViewAction());
+            setTimeout(()=> {
+                dispatch(BONUSENTRYCreateActionFailureCleanup());
+            }, 200)
+        }else if(BONUSENTRYCreatestate.status === `${globalReducerFailed}`){
             window.alert(`Request Failed, ${BONUSENTRYCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(BONUSENTRYCreateActionFailureCleanup());
-            }, 1000)
+            }, 200)
         }
     }, [BONUSENTRYCreatestate.status])
 

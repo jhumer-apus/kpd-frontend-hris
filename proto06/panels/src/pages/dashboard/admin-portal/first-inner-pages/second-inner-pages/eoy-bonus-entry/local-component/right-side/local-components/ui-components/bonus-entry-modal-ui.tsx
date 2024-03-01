@@ -10,13 +10,18 @@ import dayjs from 'dayjs';
 interface BONUSENTRYModalUIInterface {
     singleBONUSENTRYDetailsData: BONUSENTRYViewInterface;
     multiplePayslipMode?: boolean;
+    setSingleBONUSENTRYOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleBONUSENTRYDetailsData: Dispatch<SetStateAction<BONUSENTRYViewInterface>>;
 }
 
 function BONUSENTRYModalUI(props: BONUSENTRYModalUIInterface) {
     const [ resetPasswordBONUSENTRYOpenModal, setResetPasswordBONUSENTRYOpenModal ] = useState(false);
     const [ editBONUSENTRYOpenModal, setEditBONUSENTRYOpenModal ] = useState(false);
-    const { setSingleBONUSENTRYDetailsData, singleBONUSENTRYDetailsData } = props;
+    const { 
+        setSingleBONUSENTRYDetailsData, 
+        singleBONUSENTRYDetailsData,
+        setSingleBONUSENTRYOpenModal
+    } = props;
     const ThisProps = props.singleBONUSENTRYDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
     const onClickModal = (mode: number) => {
@@ -31,7 +36,13 @@ function BONUSENTRYModalUI(props: BONUSENTRYModalUIInterface) {
 
     return (
         <Fragment>
-            <EditBONUSENTRYModal singleBONUSENTRYDetailsData={singleBONUSENTRYDetailsData} setSingleBONUSENTRYDetailsData={setSingleBONUSENTRYDetailsData} editBONUSENTRYOpenModal={editBONUSENTRYOpenModal} setEditBONUSENTRYOpenModal={setEditBONUSENTRYOpenModal}/>
+            <EditBONUSENTRYModal 
+                singleBONUSENTRYDetailsData={singleBONUSENTRYDetailsData} 
+                setSingleBONUSENTRYDetailsData={setSingleBONUSENTRYDetailsData} 
+                editBONUSENTRYOpenModal={editBONUSENTRYOpenModal} 
+                setEditBONUSENTRYOpenModal={setEditBONUSENTRYOpenModal}
+                setSingleBONUSENTRYOpenModal={setSingleBONUSENTRYOpenModal}
+            />
             {/* <ResetPasswordBONUSENTRYModal primaryKey={ThisProps.id} resetPasswordBONUSENTRYOpenModal={resetPasswordBONUSENTRYOpenModal} setResetPasswordBONUSENTRYOpenModal={setResetPasswordBONUSENTRYOpenModal}/> */}
             <div className='flex overflow-auto justify-around gap-4 relative'>
                 <div className='flex gap-6 flex-col'>
