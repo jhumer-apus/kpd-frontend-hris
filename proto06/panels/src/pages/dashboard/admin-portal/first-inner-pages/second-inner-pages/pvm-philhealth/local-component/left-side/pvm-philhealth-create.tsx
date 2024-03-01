@@ -103,7 +103,6 @@ function PVMPHILHEALTHCreate(props: CreatePHILHEALTHModalInterface) {
                             }}
                         />
                         <TextField
-                            required 
                             sx={{width: '100%'}} 
                             label='Philhealth Category'
                             aria-required  

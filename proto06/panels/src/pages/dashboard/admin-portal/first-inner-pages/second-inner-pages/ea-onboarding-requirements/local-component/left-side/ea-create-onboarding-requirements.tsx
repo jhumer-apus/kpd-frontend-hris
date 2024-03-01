@@ -61,7 +61,7 @@ function EAONBOARDINGREQUIREMENTSCreate(props: CreateONBOARDINGREQUIREMENTSModal
                         <TextField
                             required 
                             sx={{width: '100%'}} 
-                            label='Onboarding Requirement Title:'
+                            label='Onboarding Requirement Titles:'
                             aria-required  
                             variant='outlined' 
                             type="text"

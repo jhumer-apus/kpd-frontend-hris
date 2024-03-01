@@ -31,7 +31,7 @@ export default function UAReasons(props: Props){
         disablePortal
         id="ua-reasons"
         options={reasons.sort((a, b) => a.localeCompare(b))}
-        sx={{ width: 300 }}
+        sx={{ width: '67%' }}
         renderInput={(params) => <TextField {...params} label="UA Reasons" />}
         onChange={handleChangeValue}
       />

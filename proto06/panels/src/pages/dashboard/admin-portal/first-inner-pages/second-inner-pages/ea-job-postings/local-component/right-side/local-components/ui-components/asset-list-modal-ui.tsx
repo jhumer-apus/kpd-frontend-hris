@@ -104,7 +104,7 @@ function JOBPOSTINGSModalUI(props: JOBPOSTINGSModalUIInterface) {
                         aria-disabled={viewMode}
                         multiline 
                         rows={7} 
-                        value={(ThisProps?.objectives ? `${ThisProps?.objectives}` : '-')} 
+                        value={(ThisProps?.objectives ? `${ThisProps?.objectives}` : '')} 
                         onChange={(event: ChangeEvent<HTMLInputElement>) => {
                             setSingleJOBPOSTINGSDetailsData((prevState) => {
                                 const value = (event.target.value)
@@ -120,7 +120,7 @@ function JOBPOSTINGSModalUI(props: JOBPOSTINGSModalUIInterface) {
                     <TextField 
                         sx={{width: '100%'}} 
                         label='Date Deleted:' 
-                        value={ThisProps.date_deleted? dayjs(ThisProps.date_deleted).format('MM-DD-YYYY - HH:mm a') : '-'} 
+                        value={ThisProps.date_deleted? dayjs(ThisProps.date_deleted).format('MM-DD-YYYY - HH:mm a') : ' '} 
                         InputProps={{readOnly: true,}} 
                         variant='standard'
                     />
@@ -129,7 +129,7 @@ function JOBPOSTINGSModalUI(props: JOBPOSTINGSModalUIInterface) {
                     <TextField 
                         sx={{width: '100%'}} 
                         label='Position Name:' 
-                        value={ThisProps.position_title ? `${ThisProps.position_title}`: '-'} 
+                        value={ThisProps.position_title ? `${ThisProps.position_title}`: ' '} 
                         InputProps={{readOnly: true,}} 
                         variant='filled'
                     />

@@ -92,7 +92,6 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                             
                         />
                         <TextField
-                            required 
                             aria-required
                             sx={{width: '100%'}} 
                             label='Branch Address'  
@@ -113,7 +112,6 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                             
                         />
                         <TextField
-                            required 
                             aria-required
                             sx={{width: '100%'}} 
                             label='Branch Email'  
@@ -134,7 +132,6 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                             }}
                         />
                         <TextField
-                            required 
                             aria-required
                             sx={{width: '100%'}} 
                             label='Branch Contact Number'  

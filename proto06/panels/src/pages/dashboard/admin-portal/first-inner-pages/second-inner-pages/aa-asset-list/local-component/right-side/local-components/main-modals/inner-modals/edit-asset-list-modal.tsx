@@ -248,7 +248,6 @@ export default function EditASSETLISTModal(props: EditASSETLISTModalInterface) {
 
 // Styles
 const editASSETLISTArea = {
-  height: '245.5mm',
   width: '180mm',
   margin: '0 auto',
   background: 'white',

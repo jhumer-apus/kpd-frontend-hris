@@ -87,7 +87,7 @@ export function Navbar({ brandName, routes, action }) {
 }
 
 Navbar.defaultProps = {
-  brandName: "Bitverse HRIS",
+  brandName: "",
   action: (
     <a
       href="https://site.bitverseph.com/contact-us"

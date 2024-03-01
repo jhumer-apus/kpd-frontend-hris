@@ -113,7 +113,7 @@ function PVMALLOWANCETYPECreate(props: CreateALLOWANCETYPEModalInterface) {
                     </div>
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
-                        <Button variant='contained' onClick={onClickSubmit}>Create ALLOWANCETYPE</Button>
+                        <Button variant='contained' onClick={onClickSubmit}>Create ALLOWANCE TYPE</Button>
                     </div>
                 </div>
             </div>

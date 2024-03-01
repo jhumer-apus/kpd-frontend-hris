@@ -6,7 +6,7 @@ import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/co
 import { Typography } from '@mui/joy';
 import { PAYROLLGROUPCreateInterface } from '@/types/types-pages';
 import { PAYROLLGROUPCreateAction, PAYROLLGROUPCreateActionFailureCleanup, PAYROLLGROUPViewAction } from '@/store/actions/categories';
-
+import { Select, MenuItem } from '@mui/material';
 interface CreatePAYROLLGROUPModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
 }
@@ -103,27 +103,30 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
                     }}
                     
                 />
-                <TextField
-                    required 
-                    sx={{width: '100%'}} 
-                    label='Pay Frequency (Per Month)'
-                    aria-required  
-                    placeholder='1 - Monthly | 2 - Bi-Monthly | 3 - Daily'
-                    variant='outlined' 
-                    type="number"
-                    value={createPAYROLLGROUP?.payroll_freq}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                        const value = parseInt(event.target.value)
-                        setCreatePAYROLLGROUP((prevState)=> {
-                            return (
-                                {
-                                    ...prevState,
-                                    payroll_freq: value
-                                }
-                            )
-                        })
-                    }}
-                />
+                        
+              <TextField
+                required 
+                sx={{width: '100%'}} 
+                label="Pay Frequency (Per Month)"
+                aria-required  
+                placeholder='1 - Monthly | 2 - Bi-Monthly | 3 - Daily'
+                variant='outlined' 
+                type="number"
+                value={createPAYROLLGROUP?.payroll_freq}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    const value = parseInt(event.target.value)
+                    setCreatePAYROLLGROUP((prevState)=> ({
+                        ...prevState,
+                        payroll_freq: value
+                    }));
+                }}
+                select
+            >
+                <MenuItem value={1}>1 - Monthly</MenuItem>
+                <MenuItem value={2}>2 - Bi-Monthly</MenuItem>
+                <MenuItem value={3}>3 - Daily</MenuItem>
+            </TextField>    
+
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
                         <Button variant='contained' onClick={onClickSubmit}>Create PAYROLLGROUP</Button>

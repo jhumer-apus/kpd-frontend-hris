@@ -88,8 +88,8 @@ export default function DeleteJOBPOSTINGSModal(props: DeleteJOBPOSTINGSModalInte
               <div className='flex justify-center item-center'>
                 <Typography>Are you sure you want to delete this Job Post?</Typography>
               </div>
-              <div className='flex justify-center item-center'>
-                {/* <TextField
+              {/* <div className='flex justify-center item-center'>
+                <TextField
                 sx={{width: '90%'}}
                   label='Reason'
                   multiline
@@ -105,8 +105,8 @@ export default function DeleteJOBPOSTINGSModal(props: DeleteJOBPOSTINGSModalInte
                       })
                     })
                   }}
-                /> */}
-              </div>
+                />
+              </div> */}
               <div className='flex justify-around'>
                 <Button variant={'contained'} onClick={deleteJOBPOSTINGS}>Delete</Button>
                 <Button variant={'outlined'} onClick={()=>{setDeleteJOBPOSTINGSOpenModal(false)}}>Cancel</Button>
@@ -124,7 +124,7 @@ export default function DeleteJOBPOSTINGSModal(props: DeleteJOBPOSTINGSModalInte
 
 // Styles
 const deleteJOBPOSTINGSArea = {
-  height: '124.5mm',
+  height: '80mm',
   width: '100mm',
   margin: '0 auto',
   background: 'white',
