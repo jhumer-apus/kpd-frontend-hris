@@ -5,12 +5,13 @@ import { Transition } from 'react-transition-group';
 import { BONUSLISTViewInterface } from '@/types/types-payroll-eoy';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
-import { BONUSLISTEditAction } from '@/store/actions/payroll-eoy';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
+import { BONUSLISTEditAction, BONUSLISTEditActionFailureCleanup, BONUSLISTViewAction } from '@/store/actions/payroll-eoy';
 
 interface EditBONUSLISTModalInterface {
     singleBONUSLISTDetailsData: BONUSLISTViewInterface;
-    editBONUSLISTOpenModal: boolean; 
+    editBONUSLISTOpenModal: boolean;
+    setSingleBONUSLISTOpenModal: Dispatch<SetStateAction<boolean>>;
     setEditBONUSLISTOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleBONUSLISTDetailsData: Dispatch<SetStateAction<BONUSLISTViewInterface>>;
 }
@@ -19,7 +20,13 @@ export default function EditBONUSLISTModal(props: EditBONUSLISTModalInterface) {
   const dispatch = useDispatch();
   const BONUSLISTEditState = useSelector((state: RootState)=> state.payrollEOY.BONUSLISTEdit)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
-  const {editBONUSLISTOpenModal, setEditBONUSLISTOpenModal, singleBONUSLISTDetailsData, setSingleBONUSLISTDetailsData} = props;
+  const {
+    editBONUSLISTOpenModal, 
+    setEditBONUSLISTOpenModal, 
+    singleBONUSLISTDetailsData, 
+    setSingleBONUSLISTDetailsData,
+    setSingleBONUSLISTOpenModal
+  } = props;
 
 
   const editBONUSLIST = () => { 
@@ -30,15 +37,20 @@ export default function EditBONUSLISTModal(props: EditBONUSLISTModalInterface) {
   }
 
   useEffect(()=>{
-    if(BONUSLISTEditState.status){      
-      if(BONUSLISTEditState.status === 'succeeded'){
-        window.alert(`${BONUSLISTEditState.status.charAt(0).toUpperCase()}${BONUSLISTEditState.status.slice(1)}`)
-        setTimeout(()=>{
-          window.location.reload();
-        }, 800)
-      }else if(BONUSLISTEditState.status === 'failed'){
-        window.alert(`${BONUSLISTEditState.error}`)
-      }
+    if(BONUSLISTEditState.status === `${globalReducerSuccess}`){
+      window.alert(`${BONUSLISTEditState.status.charAt(0).toUpperCase()}${BONUSLISTEditState.status.slice(1)}`)
+      // window.location.reload();
+      setEditBONUSLISTOpenModal(false);
+      setSingleBONUSLISTOpenModal(false);
+      dispatch(BONUSLISTViewAction());
+      setTimeout(()=>{
+        dispatch(BONUSLISTEditActionFailureCleanup());
+      }, 200)
+    }else if(BONUSLISTEditState.status === `${globalReducerFailed}`){
+      window.alert(`${BONUSLISTEditState.error}`)
+      setTimeout(()=>{
+        dispatch(BONUSLISTEditActionFailureCleanup());
+      }, 200)
     }
   }, [BONUSLISTEditState.status])
   return (

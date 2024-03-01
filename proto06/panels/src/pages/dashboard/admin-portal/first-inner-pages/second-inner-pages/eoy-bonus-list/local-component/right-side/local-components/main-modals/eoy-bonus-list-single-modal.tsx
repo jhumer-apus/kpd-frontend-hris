@@ -56,7 +56,11 @@ export default function ViewBONUSLISTSingleModal(props: SingleBONUSLISTInterface
                 overflow: 'auto',
             }}
         >
-          <BONUSLISTModalComponent setSingleBONUSLISTDetailsData={setSingleBONUSLISTDetailsData} singleBONUSLISTDetailsData={singleBONUSLISTDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <BONUSLISTModalComponent 
+            setSingleBONUSLISTDetailsData={setSingleBONUSLISTDetailsData} 
+            singleBONUSLISTDetailsData={singleBONUSLISTDetailsData} 
+            setSingleBONUSLISTOpenModal={setSingleBONUSLISTOpenModal}
+          />
         </ModalDialog>
       </Modal>
         )}

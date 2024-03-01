@@ -2,10 +2,10 @@ import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { Button } from '@mui/material';
 import { TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
 import { Typography } from '@mui/joy';
 import { BONUSLISTCreateInterface } from '@/types/types-payroll-eoy';
-import { BONUSLISTCreateAction, BONUSLISTCreateActionFailureCleanup } from '@/store/actions/payroll-eoy';
+import { BONUSLISTCreateAction, BONUSLISTCreateActionFailureCleanup, BONUSLISTViewAction } from '@/store/actions/payroll-eoy';
 
 
 interface CreateBONUSLISTModalInterface {
@@ -39,14 +39,18 @@ function EOYBONUSLISTCreate(props: CreateBONUSLISTModalInterface) {
     }, [curr_user]) 
 
     useEffect(()=>{
-        if(BONUSLISTCreatestate.status === 'succeeded'){
+        if(BONUSLISTCreatestate.status === `${globalReducerSuccess}`){
             window.alert('Request Successful');
-            window.location.reload();
-        }else if(BONUSLISTCreatestate.status === 'failed'){
+            // window.location.reload();
+            dispatch(BONUSLISTViewAction());
+            setTimeout(()=> {
+                dispatch(BONUSLISTCreateActionFailureCleanup());
+            }, 200)
+        }else if(BONUSLISTCreatestate.status === `${globalReducerFailed}`){
             window.alert(`Request Failed, ${BONUSLISTCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(BONUSLISTCreateActionFailureCleanup());
-            }, 1000)
+            }, 200)
         }
     }, [BONUSLISTCreatestate.status])
 
