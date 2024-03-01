@@ -5,8 +5,8 @@ import { Transition } from 'react-transition-group';
 import { ALLOWANCETYPEViewInterface } from '@/types/types-payroll-variables';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
-import { ALLOWANCETYPEEditAction } from '@/store/actions/payroll-variables';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
+import { ALLOWANCETYPEEditAction, ALLOWANCETYPEEditActionFailureCleanup, ALLOWANCETYPEViewAction } from '@/store/actions/payroll-variables';
 
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -16,7 +16,8 @@ import FormLabel from '@mui/material/FormLabel';
 
 interface EditALLOWANCETYPEModalInterface {
     singleALLOWANCETYPEDetailsData: ALLOWANCETYPEViewInterface;
-    editALLOWANCETYPEOpenModal: boolean; 
+    editALLOWANCETYPEOpenModal: boolean;
+    setSingleALLOWANCETYPEOpenModal: Dispatch<SetStateAction<boolean>>;
     setEditALLOWANCETYPEOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleALLOWANCETYPEDetailsData: Dispatch<SetStateAction<ALLOWANCETYPEViewInterface>>;
 }
@@ -25,7 +26,13 @@ export default function EditALLOWANCETYPEModal(props: EditALLOWANCETYPEModalInte
   const dispatch = useDispatch();
   const ALLOWANCETYPEEditState = useSelector((state: RootState)=> state.payrollVariables.ALLOWANCETYPEEdit)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
-  const {editALLOWANCETYPEOpenModal, setEditALLOWANCETYPEOpenModal, singleALLOWANCETYPEDetailsData, setSingleALLOWANCETYPEDetailsData} = props;
+  const {
+    editALLOWANCETYPEOpenModal, 
+    setEditALLOWANCETYPEOpenModal, 
+    singleALLOWANCETYPEDetailsData, 
+    setSingleALLOWANCETYPEDetailsData,
+    setSingleALLOWANCETYPEOpenModal
+  } = props;
 
 
   const editALLOWANCETYPE = () => { 
@@ -35,17 +42,22 @@ export default function EditALLOWANCETYPEModal(props: EditALLOWANCETYPEModalInte
     }))
   }
 
-  useEffect(()=>{
-    if(ALLOWANCETYPEEditState.status){      
-      if(ALLOWANCETYPEEditState.status === 'succeeded'){
+  useEffect(()=>{   
+      if(ALLOWANCETYPEEditState.status === `${globalReducerSuccess}`){
         window.alert(`${ALLOWANCETYPEEditState.status.charAt(0).toUpperCase()}${ALLOWANCETYPEEditState.status.slice(1)}`)
+        // window.location.reload();
+        setEditALLOWANCETYPEOpenModal(false)
+        setSingleALLOWANCETYPEOpenModal(false);
+        dispatch(ALLOWANCETYPEViewAction());
         setTimeout(()=>{
-          window.location.reload();
-        }, 800)
-      }else if(ALLOWANCETYPEEditState.status === 'failed'){
+          dispatch(ALLOWANCETYPEEditActionFailureCleanup());
+        }, 200)
+      }else if(ALLOWANCETYPEEditState.status === `${globalReducerFailed}`){
         window.alert(`${ALLOWANCETYPEEditState.error}`)
+        setTimeout(()=>{
+          dispatch(ALLOWANCETYPEEditActionFailureCleanup());
+        }, 200)
       }
-    }
   }, [ALLOWANCETYPEEditState.status])
   return (
     <Fragment>
@@ -123,14 +135,14 @@ export default function EditALLOWANCETYPEModal(props: EditALLOWANCETYPEModalInte
                                 row
                                 aria-labelledby="is-approver-manage-rank-create w-full"
                                 name="name-is-approver-manage-rank-create"
-                                value={`${singleALLOWANCETYPEDetailsData.taxable}`}
+                                value={`${singleALLOWANCETYPEDetailsData.is_taxable}`}
                                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                     const value = (event.target.value=== 'true' ? true : false);
                                     setSingleALLOWANCETYPEDetailsData((prevState)=> {
                                         return (
                                             {
                                                 ...prevState,
-                                                taxable: value
+                                                is_taxable: value
                                             }
                                         )
                                     })

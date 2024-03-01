@@ -2,11 +2,11 @@ import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { Button } from '@mui/material';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
 import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
 import { Typography } from '@mui/joy';
 import { ALLOWANCETYPECreateInterface } from '@/types/types-payroll-variables';
-import { ALLOWANCETYPECreateAction, ALLOWANCETYPECreateActionFailureCleanup } from '@/store/actions/payroll-variables';
+import { ALLOWANCETYPECreateAction, ALLOWANCETYPECreateActionFailureCleanup, ALLOWANCETYPEViewAction } from '@/store/actions/payroll-variables';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -26,7 +26,7 @@ function PVMALLOWANCETYPECreate(props: CreateALLOWANCETYPEModalInterface) {
     const ALLOWANCETYPECreatestate = useSelector((state: RootState)=> state.payrollVariables.ALLOWANCETYPECreate);
     const [createALLOWANCETYPE, setCreateALLOWANCETYPE] = useState<ALLOWANCETYPECreateInterface>({
         allowance_name: '',
-        taxable: false,
+        is_taxable: false,
         added_by: NaN,
     });
     const onClickSubmit = () => {
@@ -47,10 +47,14 @@ function PVMALLOWANCETYPECreate(props: CreateALLOWANCETYPEModalInterface) {
     }, [curr_user]) 
 
     useEffect(()=>{
-        if(ALLOWANCETYPECreatestate.status === 'succeeded'){
+        if(ALLOWANCETYPECreatestate.status === `${globalReducerSuccess}`){
             window.alert('Request Successful');
-            window.location.reload();
-        }else if(ALLOWANCETYPECreatestate.status === 'failed'){
+            // window.location.reload();
+            dispatch(ALLOWANCETYPEViewAction());
+            setTimeout(()=>{
+                dispatch(ALLOWANCETYPECreateActionFailureCleanup());
+            }, 200)
+        }else if(ALLOWANCETYPECreatestate.status === `${globalReducerFailed}`){
             window.alert(`Request Failed, ${ALLOWANCETYPECreatestate.error}`)
             setTimeout(()=> {
                 dispatch(ALLOWANCETYPECreateActionFailureCleanup());
@@ -93,14 +97,14 @@ function PVMALLOWANCETYPECreate(props: CreateALLOWANCETYPEModalInterface) {
                                 row
                                 aria-labelledby="is-approver-manage-rank-create w-full"
                                 name="name-is-approver-manage-rank-create"
-                                value={`${createALLOWANCETYPE.taxable}`}
+                                value={`${createALLOWANCETYPE.is_taxable}`}
                                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                     const value = (event.target.value=== 'true' ? true : false);
                                     setCreateALLOWANCETYPE((prevState)=> {
                                         return (
                                             {
                                                 ...prevState,
-                                                taxable: value
+                                                is_taxable: value
                                             }
                                         )
                                     })

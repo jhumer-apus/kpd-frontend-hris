@@ -7,13 +7,16 @@ import { ALLOWANCETYPEViewInterface } from '@/types/types-payroll-variables';
 
 interface ALLOWANCETYPEModalComponentInterface {
     singleALLOWANCETYPEDetailsData: ALLOWANCETYPEViewInterface,
-    scroll: boolean,
-    setScroll: Dispatch<SetStateAction<boolean>>,
+    setSingleALLOWANCETYPEOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
     setSingleALLOWANCETYPEDetailsData: React.Dispatch<React.SetStateAction<ALLOWANCETYPEViewInterface>>;
 };
 
 const ALLOWANCETYPEModalComponent = ((props:ALLOWANCETYPEModalComponentInterface) => {
-    const { singleALLOWANCETYPEDetailsData, setSingleALLOWANCETYPEDetailsData } = props;
+    const { 
+        singleALLOWANCETYPEDetailsData, 
+        setSingleALLOWANCETYPEDetailsData, 
+        setSingleALLOWANCETYPEOpenModal
+    } = props;
     const componentRef = useRef<HTMLDivElement | null>(null);
 
     return (
@@ -21,7 +24,11 @@ const ALLOWANCETYPEModalComponent = ((props:ALLOWANCETYPEModalComponentInterface
             <Typography variant='soft'>Allowance Type Data</Typography>
             {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
-                <ALLOWANCETYPEModalUI setSingleALLOWANCETYPEDetailsData={setSingleALLOWANCETYPEDetailsData} singleALLOWANCETYPEDetailsData={singleALLOWANCETYPEDetailsData}/>
+                <ALLOWANCETYPEModalUI 
+                    setSingleALLOWANCETYPEDetailsData={setSingleALLOWANCETYPEDetailsData} 
+                    singleALLOWANCETYPEDetailsData={singleALLOWANCETYPEDetailsData}
+                    setSingleALLOWANCETYPEOpenModal={setSingleALLOWANCETYPEOpenModal}
+                />
             </div>
         </Fragment>
     );

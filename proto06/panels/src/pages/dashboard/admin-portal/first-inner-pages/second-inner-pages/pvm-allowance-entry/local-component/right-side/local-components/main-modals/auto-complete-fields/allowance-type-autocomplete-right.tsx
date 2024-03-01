@@ -43,9 +43,9 @@ export default function AllowanceAutoCompleteRight(props: AllowanceAutoCompleteR
         if (state.data) {
             setTimeout(() => {
                 const updatedAllowanceList = 
-                state.data?.map(({ id, allowance_name, taxable }) => {
+                state.data?.map(({ id, allowance_name, is_taxable }) => {
                     return {
-                        allowance: `${allowance_name}, Taxable: ${taxable? 'Yes': 'No'} - #${id}`,
+                        allowance: `${allowance_name}, Taxable: ${is_taxable? 'Yes': 'No'} - #${id}`,
                         allowance_code: id,
                     };
                 }) || [];

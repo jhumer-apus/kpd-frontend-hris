@@ -126,7 +126,7 @@ export interface CASHADVANCEEditInterface extends Pick<CASHADVANCEGenericInterfa
 export interface ALLOWANCETYPEGenericInterface {
     readonly id: number,
     allowance_name: string,
-    taxable: boolean,
+    is_taxable: boolean,
     added_by?: number,
 }
 
