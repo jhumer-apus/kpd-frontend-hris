@@ -56,7 +56,11 @@ export default function ViewANNOUNCEMENTSingleModal(props: SingleANNOUNCEMENTInt
                 overflow: 'auto',
             }}
         >
-          <ANNOUNCEMENTModalComponent setSingleANNOUNCEMENTDetailsData={setSingleANNOUNCEMENTDetailsData} singleANNOUNCEMENTDetailsData={singleANNOUNCEMENTDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <ANNOUNCEMENTModalComponent 
+            setSingleANNOUNCEMENTDetailsData={setSingleANNOUNCEMENTDetailsData} 
+            singleANNOUNCEMENTDetailsData={singleANNOUNCEMENTDetailsData} 
+            setSingleANNOUNCEMENTOpenModal={setSingleANNOUNCEMENTOpenModal}
+          />
         </ModalDialog>
       </Modal>
         )}

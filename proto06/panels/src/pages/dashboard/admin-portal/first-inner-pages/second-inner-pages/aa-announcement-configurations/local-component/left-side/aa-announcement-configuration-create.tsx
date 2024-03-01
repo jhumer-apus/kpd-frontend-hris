@@ -2,10 +2,10 @@ import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { Button } from '@mui/material';
 import { TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
 import { Typography } from '@mui/joy';
 import { ANNOUNCEMENTCreateInterface } from '@/types/types-payroll-eoy';
-import { ANNOUNCEMENTCreateAction, ANNOUNCEMENTCreateActionFailureCleanup } from '@/store/actions/payroll-eoy';
+import { ANNOUNCEMENTCreateAction, ANNOUNCEMENTCreateActionFailureCleanup, ANNOUNCEMENTViewAction } from '@/store/actions/payroll-eoy';
 import DateAssignedANNOUNCEMENTCreate from './inner-ui-components/date-fields';
 
 import Radio from '@mui/material/Radio';
@@ -54,14 +54,18 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
     }, [curr_user]) 
 
     useEffect(()=>{
-        if(ANNOUNCEMENTCreatestate.status === 'succeeded'){
+        if(ANNOUNCEMENTCreatestate.status === `${globalReducerSuccess}`){
             window.alert('Request Successful');
-            window.location.reload();
-        }else if(ANNOUNCEMENTCreatestate.status === 'failed'){
+            // window.location.reload();
+            dispatch(ANNOUNCEMENTViewAction());
+            setTimeout(()=> {
+                dispatch(ANNOUNCEMENTCreateActionFailureCleanup());
+            }, 200)
+        }else if(ANNOUNCEMENTCreatestate.status === `${globalReducerFailed}`){
             window.alert(`Request Failed, ${ANNOUNCEMENTCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(ANNOUNCEMENTCreateActionFailureCleanup());
-            }, 300)
+            }, 200)
         }
     }, [ANNOUNCEMENTCreatestate.status])
 

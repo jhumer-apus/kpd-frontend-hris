@@ -5,13 +5,14 @@ import { Transition } from 'react-transition-group';
 import { ANNOUNCEMENTViewInterface } from '@/types/types-payroll-eoy';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
-import { ANNOUNCEMENTEditAction } from '@/store/actions/payroll-eoy';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
+import { ANNOUNCEMENTEditAction, ANNOUNCEMENTEditActionFailureCleanup, ANNOUNCEMENTViewAction } from '@/store/actions/payroll-eoy';
 import DateAssignedANNOUNCEMENTEdit from './fields/date-fields-right';
 
 interface EditANNOUNCEMENTModalInterface {
     singleANNOUNCEMENTDetailsData: ANNOUNCEMENTViewInterface;
-    editANNOUNCEMENTOpenModal: boolean; 
+    editANNOUNCEMENTOpenModal: boolean;
+    setSingleANNOUNCEMENTOpenModal: Dispatch<SetStateAction<boolean>>;
     setEditANNOUNCEMENTOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleANNOUNCEMENTDetailsData: Dispatch<SetStateAction<ANNOUNCEMENTViewInterface>>;
 }
@@ -20,7 +21,13 @@ export default function EditANNOUNCEMENTModal(props: EditANNOUNCEMENTModalInterf
   const dispatch = useDispatch();
   const ANNOUNCEMENTEditState = useSelector((state: RootState)=> state.payrollEOY.ANNOUNCEMENTEdit)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
-  const {editANNOUNCEMENTOpenModal, setEditANNOUNCEMENTOpenModal, singleANNOUNCEMENTDetailsData, setSingleANNOUNCEMENTDetailsData} = props;
+  const {
+    editANNOUNCEMENTOpenModal, 
+    setEditANNOUNCEMENTOpenModal, 
+    singleANNOUNCEMENTDetailsData, 
+    setSingleANNOUNCEMENTDetailsData,
+    setSingleANNOUNCEMENTOpenModal
+  } = props;
 
 
   const editANNOUNCEMENT = () => { 
@@ -32,13 +39,20 @@ export default function EditANNOUNCEMENTModal(props: EditANNOUNCEMENTModalInterf
 
   useEffect(()=>{
     if(ANNOUNCEMENTEditState.status){      
-      if(ANNOUNCEMENTEditState.status === 'succeeded'){
+      if(ANNOUNCEMENTEditState.status === `${globalReducerSuccess}`){
         window.alert(`${ANNOUNCEMENTEditState.status.charAt(0).toUpperCase()}${ANNOUNCEMENTEditState.status.slice(1)}`)
+        // window.location.reload();
+        setEditANNOUNCEMENTOpenModal(false);
+        setSingleANNOUNCEMENTOpenModal(false);
+        dispatch(ANNOUNCEMENTViewAction());
         setTimeout(()=>{
-          window.location.reload();
-        }, 800)
-      }else if(ANNOUNCEMENTEditState.status === 'failed'){
+          dispatch(ANNOUNCEMENTEditActionFailureCleanup());
+        }, 200)
+      }else if(ANNOUNCEMENTEditState.status === `${globalReducerFailed}`){
         window.alert(`${ANNOUNCEMENTEditState.error}`)
+        setTimeout(()=>{
+          dispatch(ANNOUNCEMENTEditActionFailureCleanup());
+        }, 200)
       }
     }
   }, [ANNOUNCEMENTEditState.status])
