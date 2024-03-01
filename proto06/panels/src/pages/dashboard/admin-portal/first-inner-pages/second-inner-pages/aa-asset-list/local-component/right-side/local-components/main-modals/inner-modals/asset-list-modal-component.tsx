@@ -7,13 +7,16 @@ import { ASSETLISTViewInterface } from '@/types/types-payroll-eoy';
 
 interface ASSETLISTModalComponentInterface {
     singleASSETLISTDetailsData: ASSETLISTViewInterface,
-    scroll: boolean,
-    setScroll: Dispatch<SetStateAction<boolean>>,
+    setSingleASSETLISTOpenModal: Dispatch<SetStateAction<boolean>>, 
     setSingleASSETLISTDetailsData: React.Dispatch<React.SetStateAction<ASSETLISTViewInterface>>;
 };
 
 const ASSETLISTModalComponent = ((props:ASSETLISTModalComponentInterface) => {
-    const { singleASSETLISTDetailsData, setSingleASSETLISTDetailsData } = props;
+    const { 
+        singleASSETLISTDetailsData, 
+        setSingleASSETLISTDetailsData, 
+        setSingleASSETLISTOpenModal
+    } = props;
     const componentRef = useRef<HTMLDivElement | null>(null);
 
     return (
@@ -21,7 +24,11 @@ const ASSETLISTModalComponent = ((props:ASSETLISTModalComponentInterface) => {
             <Typography variant='soft'>Asset List Data</Typography>
             {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
-                <ASSETLISTModalUI setSingleASSETLISTDetailsData={setSingleASSETLISTDetailsData} singleASSETLISTDetailsData={singleASSETLISTDetailsData}/>
+                <ASSETLISTModalUI 
+                    setSingleASSETLISTDetailsData={setSingleASSETLISTDetailsData} 
+                    singleASSETLISTDetailsData={singleASSETLISTDetailsData}
+                    setSingleASSETLISTOpenModal={setSingleASSETLISTOpenModal}    
+                />
             </div>
         </Fragment>
     );

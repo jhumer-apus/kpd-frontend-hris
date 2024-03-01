@@ -56,7 +56,11 @@ export default function ViewASSETLISTSingleModal(props: SingleASSETLISTInterface
                 overflow: 'auto',
             }}
         >
-          <ASSETLISTModalComponent setSingleASSETLISTDetailsData={setSingleASSETLISTDetailsData} singleASSETLISTDetailsData={singleASSETLISTDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <ASSETLISTModalComponent 
+            setSingleASSETLISTDetailsData={setSingleASSETLISTDetailsData} 
+            singleASSETLISTDetailsData={singleASSETLISTDetailsData} 
+            setSingleASSETLISTOpenModal={setSingleASSETLISTOpenModal}
+          />
         </ModalDialog>
       </Modal>
         )}
