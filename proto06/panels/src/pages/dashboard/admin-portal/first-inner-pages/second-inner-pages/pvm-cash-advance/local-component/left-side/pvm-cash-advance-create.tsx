@@ -6,7 +6,7 @@ import { RootState } from '@/store/configureStore';
 import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
 import { Typography } from '@mui/joy';
 import { CASHADVANCECreateInterface } from '@/types/types-payroll-variables';
-import { CASHADVANCECreateAction, CASHADVANCECreateActionFailureCleanup } from '@/store/actions/payroll-variables';
+import { CASHADVANCECreateAction, CASHADVANCECreateActionFailureCleanup, CASHADVANCEViewAction } from '@/store/actions/payroll-variables';
 
 
 interface CreateCASHADVANCEModalInterface {
@@ -43,12 +43,16 @@ function PVMCASHADVANCECreate(props: CreateCASHADVANCEModalInterface) {
     useEffect(()=>{
         if(CASHADVANCECreatestate.status === 'succeeded'){
             window.alert('Request Successful');
-            window.location.reload();
+            // window.location.reload();
+            dispatch(CASHADVANCEViewAction());
+            setTimeout(()=> {
+                dispatch(CASHADVANCECreateActionFailureCleanup());
+            }, 200)
         }else if(CASHADVANCECreatestate.status === 'failed'){
             window.alert(`Request Failed, ${CASHADVANCECreatestate.error}`)
             setTimeout(()=> {
                 dispatch(CASHADVANCECreateActionFailureCleanup());
-            }, 1000)
+            }, 200)
         }
     }, [CASHADVANCECreatestate.status])
 

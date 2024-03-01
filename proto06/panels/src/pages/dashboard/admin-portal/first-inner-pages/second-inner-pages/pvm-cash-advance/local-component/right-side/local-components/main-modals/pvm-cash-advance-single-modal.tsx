@@ -56,7 +56,11 @@ export default function ViewCASHADVANCESingleModal(props: SingleCASHADVANCEInter
                 overflow: 'auto',
             }}
         >
-          <CASHADVANCEModalComponent setSingleCASHADVANCEDetailsData={setSingleCASHADVANCEDetailsData} singleCASHADVANCEDetailsData={singleCASHADVANCEDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <CASHADVANCEModalComponent 
+            setSingleCASHADVANCEDetailsData={setSingleCASHADVANCEDetailsData} 
+            singleCASHADVANCEDetailsData={singleCASHADVANCEDetailsData} 
+            setSingleCASHADVANCEOpenModal={setSingleCASHADVANCEOpenModal}  
+          />
         </ModalDialog>
       </Modal>
         )}

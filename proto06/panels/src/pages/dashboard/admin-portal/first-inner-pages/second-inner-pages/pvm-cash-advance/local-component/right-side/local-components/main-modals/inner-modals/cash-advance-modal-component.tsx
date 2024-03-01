@@ -7,13 +7,16 @@ import { CASHADVANCEViewInterface } from '@/types/types-payroll-variables';
 
 interface CASHADVANCEModalComponentInterface {
     singleCASHADVANCEDetailsData: CASHADVANCEViewInterface,
-    scroll: boolean,
-    setScroll: Dispatch<SetStateAction<boolean>>,
+    setSingleCASHADVANCEOpenModal: Dispatch<SetStateAction<boolean>>,
     setSingleCASHADVANCEDetailsData: React.Dispatch<React.SetStateAction<CASHADVANCEViewInterface>>;
 };
 
 const CASHADVANCEModalComponent = ((props:CASHADVANCEModalComponentInterface) => {
-    const { singleCASHADVANCEDetailsData, setSingleCASHADVANCEDetailsData } = props;
+    const { 
+        singleCASHADVANCEDetailsData, 
+        setSingleCASHADVANCEDetailsData, 
+        setSingleCASHADVANCEOpenModal
+    } = props;
     const componentRef = useRef<HTMLDivElement | null>(null);
 
     return (
@@ -21,7 +24,11 @@ const CASHADVANCEModalComponent = ((props:CASHADVANCEModalComponentInterface) =>
             <Typography variant='soft'>Cash Advance Data</Typography>
             {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
-                <CASHADVANCEModalUI setSingleCASHADVANCEDetailsData={setSingleCASHADVANCEDetailsData} singleCASHADVANCEDetailsData={singleCASHADVANCEDetailsData}/>
+                <CASHADVANCEModalUI 
+                    setSingleCASHADVANCEDetailsData={setSingleCASHADVANCEDetailsData} 
+                    singleCASHADVANCEDetailsData={singleCASHADVANCEDetailsData}
+                    setSingleCASHADVANCEOpenModal={setSingleCASHADVANCEOpenModal}
+                />
             </div>
         </Fragment>
     );
