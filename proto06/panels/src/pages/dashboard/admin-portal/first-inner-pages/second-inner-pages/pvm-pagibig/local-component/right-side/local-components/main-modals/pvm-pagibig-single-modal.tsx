@@ -56,7 +56,11 @@ export default function ViewPAGIBIGSingleModal(props: SinglePAGIBIGInterface) {
                 overflow: 'auto',
             }}
         >
-          <PAGIBIGModalComponent setSinglePAGIBIGDetailsData={setSinglePAGIBIGDetailsData} singlePAGIBIGDetailsData={singlePAGIBIGDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <PAGIBIGModalComponent 
+            setSinglePAGIBIGDetailsData={setSinglePAGIBIGDetailsData} 
+            singlePAGIBIGDetailsData={singlePAGIBIGDetailsData} 
+            setSinglePAGIBIGOpenModal={setSinglePAGIBIGOpenModal}
+          />
         </ModalDialog>
       </Modal>
         )}

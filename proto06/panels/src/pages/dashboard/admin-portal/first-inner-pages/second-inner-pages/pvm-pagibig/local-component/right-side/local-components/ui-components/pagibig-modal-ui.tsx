@@ -7,17 +7,23 @@ import EditPAGIBIGModal from '../main-modals/inner-modals/edit-pagibig-modal';
 import ResetPasswordPAGIBIGModal from '../main-modals/inner-modals/reset-password-users-modal';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
+import { BasePickerProps } from '@mui/x-date-pickers/internals';
 
 interface PAGIBIGModalUIInterface {
     singlePAGIBIGDetailsData: PAGIBIGViewInterface;
     multiplePayslipMode?: boolean;
+    setSinglePAGIBIGOpenModal: Dispatch<SetStateAction<boolean>>;
     setSinglePAGIBIGDetailsData: Dispatch<SetStateAction<PAGIBIGViewInterface>>;
 }
 
 function PAGIBIGModalUI(props: PAGIBIGModalUIInterface) {
     const [ resetPasswordPAGIBIGOpenModal, setResetPasswordPAGIBIGOpenModal ] = useState(false);
     const [ editPAGIBIGOpenModal, setEditPAGIBIGOpenModal ] = useState(false);
-    const { setSinglePAGIBIGDetailsData, singlePAGIBIGDetailsData } = props;
+    const { 
+        setSinglePAGIBIGDetailsData, 
+        singlePAGIBIGDetailsData,
+        setSinglePAGIBIGOpenModal
+    } = props;
     const ThisProps = props.singlePAGIBIGDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
     const onClickModal = (mode: number) => {
@@ -32,7 +38,13 @@ function PAGIBIGModalUI(props: PAGIBIGModalUIInterface) {
 
     return (
         <Fragment>
-            <EditPAGIBIGModal singlePAGIBIGDetailsData={singlePAGIBIGDetailsData} setSinglePAGIBIGDetailsData={setSinglePAGIBIGDetailsData} editPAGIBIGOpenModal={editPAGIBIGOpenModal} setEditPAGIBIGOpenModal={setEditPAGIBIGOpenModal}/>
+            <EditPAGIBIGModal 
+                singlePAGIBIGDetailsData={singlePAGIBIGDetailsData} 
+                setSinglePAGIBIGDetailsData={setSinglePAGIBIGDetailsData} 
+                editPAGIBIGOpenModal={editPAGIBIGOpenModal} 
+                setEditPAGIBIGOpenModal={setEditPAGIBIGOpenModal}
+                setSinglePAGIBIGOpenModal={setSinglePAGIBIGOpenModal}
+            />
             {/* <ResetPasswordPAGIBIGModal primaryKey={ThisProps.id} resetPasswordPAGIBIGOpenModal={resetPasswordPAGIBIGOpenModal} setResetPasswordPAGIBIGOpenModal={setResetPasswordPAGIBIGOpenModal}/> */}
             <div className='flex overflow-auto justify-around gap-4 relative'>
                 <div className='flex gap-6 flex-col'>

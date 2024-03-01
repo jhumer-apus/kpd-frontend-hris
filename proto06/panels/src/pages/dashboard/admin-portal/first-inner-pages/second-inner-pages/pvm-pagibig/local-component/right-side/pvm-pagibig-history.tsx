@@ -14,7 +14,7 @@ export default function PVMPAGIBIGPageHistory() {
   const [singlePAGIBIGOpenModal, setSinglePAGIBIGOpenModal] = useState<boolean>(false);
   const [singlePAGIBIGDetailsData, setSinglePAGIBIGDetailsData] = useState<PAGIBIGViewInterface>({
     id: NaN,
-    pagibig_no: NaN,
+    pagibig_no: '',
     pagibig_contribution_month: NaN,
     pagibig_with_cloan_amount: null,
     pagibig_rem_cloan_amount: null,
@@ -22,6 +22,7 @@ export default function PVMPAGIBIGPageHistory() {
     pagibig_rem_hloan_amount: null,
     pagibig_with_calloan_amount: null,
     pagibig_rem_calloan_amount: null,
+    pagibig_mp2_deduction_amount: NaN,
     emp_no: NaN,
   });
   const dispatch = useDispatch();
