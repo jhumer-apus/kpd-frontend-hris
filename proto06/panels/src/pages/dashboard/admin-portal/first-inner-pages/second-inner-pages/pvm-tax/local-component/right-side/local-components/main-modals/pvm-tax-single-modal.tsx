@@ -56,7 +56,11 @@ export default function ViewTAXSingleModal(props: SingleTAXInterface) {
                 overflow: 'auto',
             }}
         >
-          <TAXModalComponent setSingleTAXDetailsData={setSingleTAXDetailsData} singleTAXDetailsData={singleTAXDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <TAXModalComponent 
+            setSingleTAXDetailsData={setSingleTAXDetailsData} 
+            singleTAXDetailsData={singleTAXDetailsData} 
+            setSingleTAXOpenModal={setSingleTAXOpenModal}
+            />
         </ModalDialog>
       </Modal>
         )}

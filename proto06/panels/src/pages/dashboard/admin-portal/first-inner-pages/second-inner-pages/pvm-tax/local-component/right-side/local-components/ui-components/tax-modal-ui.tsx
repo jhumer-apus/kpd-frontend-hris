@@ -9,13 +9,18 @@ import { RootState } from '@/store/configureStore';
 interface TAXModalUIInterface {
     singleTAXDetailsData: TAXViewInterface;
     multiplePayslipMode?: boolean;
+    setSingleTAXOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleTAXDetailsData: Dispatch<SetStateAction<TAXViewInterface>>;
 }
 
 function TAXModalUI(props: TAXModalUIInterface) {
     const [ resetPasswordTAXOpenModal, setResetPasswordTAXOpenModal ] = useState(false);
     const [ editTAXOpenModal, setEditTAXOpenModal ] = useState(false);
-    const { setSingleTAXDetailsData, singleTAXDetailsData } = props;
+    const { 
+        setSingleTAXDetailsData, 
+        singleTAXDetailsData,
+        setSingleTAXOpenModal
+    } = props;
     const ThisProps = props.singleTAXDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
     const onClickModal = (mode: number) => {
@@ -30,7 +35,13 @@ function TAXModalUI(props: TAXModalUIInterface) {
 
     return (
         <Fragment>
-            <EditTAXModal singleTAXDetailsData={singleTAXDetailsData} setSingleTAXDetailsData={setSingleTAXDetailsData} editTAXOpenModal={editTAXOpenModal} setEditTAXOpenModal={setEditTAXOpenModal}/>
+            <EditTAXModal 
+                singleTAXDetailsData={singleTAXDetailsData} 
+                setSingleTAXDetailsData={setSingleTAXDetailsData} 
+                editTAXOpenModal={editTAXOpenModal} 
+                setEditTAXOpenModal={setEditTAXOpenModal}
+                setSingleTAXOpenModal={setSingleTAXOpenModal}
+            />
             {/* <ResetPasswordTAXModal primaryKey={ThisProps.id} resetPasswordTAXOpenModal={resetPasswordTAXOpenModal} setResetPasswordTAXOpenModal={setResetPasswordTAXOpenModal}/> */}
             <div className='flex overflow-auto justify-around gap-4 relative'>
                 <div className='flex gap-6 flex-col'>
