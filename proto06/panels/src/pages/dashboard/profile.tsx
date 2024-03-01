@@ -590,7 +590,6 @@
               customKey="date_hired"
               disabled={true}
             />
-
             {dropDownData.branches.length > 0 && 
               <ProfileAutocomplete
                 id='branch_code'

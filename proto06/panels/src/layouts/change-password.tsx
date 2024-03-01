@@ -15,7 +15,7 @@ import { Transition } from 'react-transition-group';
 import { USERResetPasswordInterface } from '@/types/types-pages';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { APILink, RootState } from '@/store/configureStore';
 import { USERResetPasswordAction } from '@/store/actions/users';
 import { clearFields } from '@/helpers/utils';
 import { fetchUserData, userLogout } from "@/store/actions/auth";
@@ -28,34 +28,60 @@ import {
   CardBody,
   CardFooter,
 } from "@material-tailwind/react";
+import axios from 'axios'
+import { beautifyJSON } from '@/helpers/utils';
 
-interface ResetPasswordUSERModalInterface {
-  primaryKey: number,
-  resetPasswordUSEROpenModal: boolean; 
-  setResetPasswordUSEROpenModal: Dispatch<SetStateAction<boolean>>;
-}
+// interface ResetPasswordUSERModalInterface {
+//   primaryKey: number,
+//   resetPasswordUSEROpenModal: boolean; 
+//   setResetPasswordUSEROpenModal: Dispatch<SetStateAction<boolean>>;
+// }
 
-export function ChangePassword(props:any) {
-const dispatch = useDispatch();
+export function ChangePassword() {
+// const dispatch = useDispatch();
 const USERResetPasswordState = useSelector((state: RootState)=> state.users.USERResetPassword.status)
 const curr_user = useSelector((state: RootState) => state.auth.employee_detail);
-const {resetPasswordUSEROpenModal, setResetPasswordUSEROpenModal, primaryKey} = props;
 const [singleUSERDetailsData, setSingleUSERDetailsData] = useState<Omit<USERResetPasswordInterface, "id" | "added_by">>({
   new_password: '',
   repeat_new_password: '',
   is_temp: false
 })
 
-const resetPasswordUSERSubmit = () => { 
-  console.log(singleUSERDetailsData);
-  if(curr_user){
-    dispatch(USERResetPasswordAction({
-      ...singleUSERDetailsData,
-      id: curr_user.id as number,
-      added_by: curr_user.emp_no || NaN
-    }))
+const resetPasswordApi = async () => {
+  await axios.post(`${APILink}reset-password/`, singleUSERDetailsData).then(res => handleLogout())
+}
+
+const resetPasswordUSERSubmit = async () => { 
+
+  if(singleUSERDetailsData.new_password == singleUSERDetailsData.repeat_new_password) {
+
+    if(curr_user) {
+
+      const passwordData = {
+        ...singleUSERDetailsData,
+        id: curr_user.user?.id as number,
+        added_by: curr_user.emp_no || NaN
+
+      }
+      await axios.post(`${APILink}reset-password/${passwordData.id}/`, passwordData)
+        .then(res => window.alert("success"))
+        .then(res => handleLogout())
+        .catch(err => window.alert(beautifyJSON(err.response.data)))
+      // dispatch(USERResetPasswordAction({
+      //   ...singleUSERDetailsData,
+      //   id: curr_user.user?.id as number,
+      //   added_by: curr_user.emp_no || NaN
+      // }))
+
+    } else {
+
+      window.alert("User does not exist. Try to reload your page")
+
+    }
   } else {
-    window.alert("User does not exist. Try to reload your page")
+
+    window.alert("Password Mismatch")
+
   }
 
 }
@@ -107,9 +133,9 @@ return (
                 <Typography>Please Change Your Password First Before Proceeding To The Dashboard</Typography>
               </div>
               <TextField
-              sx={{width: '90%'}}
+                sx={{width: '90%'}}
                 label='New Password'
-                type='text'
+                type='password'
                 required
                 value={singleUSERDetailsData.new_password}
                 onChange={(event: ChangeEvent<HTMLInputElement>)=> {
@@ -123,9 +149,9 @@ return (
                 }}
               />
               <TextField
-              sx={{width: '90%'}}
+                sx={{width: '90%'}}
                 label='Repeat New Password'
-                type='text'
+                type='password'
                 required
                 value={singleUSERDetailsData.repeat_new_password}
                 onChange={(event: ChangeEvent<HTMLInputElement>)=> {
@@ -158,7 +184,7 @@ return (
                   setResetPasswordUSEROpenModal(false)
                 }}
               >
-              Cancel
+              Clear
               </Button>
             </CardFooter>
           </div>
