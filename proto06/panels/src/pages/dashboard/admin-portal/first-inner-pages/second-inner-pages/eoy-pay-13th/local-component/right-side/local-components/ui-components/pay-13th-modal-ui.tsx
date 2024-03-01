@@ -8,13 +8,18 @@ import dayjs from 'dayjs';
 interface PAY13THModalUIInterface {
     singlePAY13THDetailsData: PAY13THViewInterface;
     multiplePayslipMode?: boolean;
+    setSinglePAY13THOpenModal: Dispatch<SetStateAction<boolean>>;
     setSinglePAY13THDetailsData: Dispatch<SetStateAction<PAY13THViewInterface>>;
 }
 
 function PAY13THModalUI(props: PAY13THModalUIInterface) {
     const [ resetPasswordPAY13THOpenModal, setResetPasswordPAY13THOpenModal ] = useState(false);
     const [ editPAY13THOpenModal, setEditPAY13THOpenModal ] = useState(false);
-    const { setSinglePAY13THDetailsData, singlePAY13THDetailsData } = props;
+    const { 
+        setSinglePAY13THDetailsData, 
+        singlePAY13THDetailsData, 
+        setSinglePAY13THOpenModal
+    } = props;
     const ThisProps = props.singlePAY13THDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
     const onClickModal = (mode: number) => {

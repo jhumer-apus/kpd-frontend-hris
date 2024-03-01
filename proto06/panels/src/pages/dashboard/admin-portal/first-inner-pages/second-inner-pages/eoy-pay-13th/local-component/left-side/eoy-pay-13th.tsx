@@ -53,14 +53,23 @@ function EOYPAY13THCreate(props: CreatePAY13THModalInterface) {
 
     useEffect(()=>{
         if(PAY13THCreatestate.status === 'succeeded'){
-            window.alert('Request Successful');
-            window.location.reload();
+            if(!Array.isArray(PAY13THCreatestate.data)){
+                window.alert(`${PAY13THCreatestate.data['Success Message']}`);
+            }else{
+                window.alert(`${PAY13THCreatestate.status}`)
+            }
+            // window.location.reload();
+            dispatch(PAY13THViewAction());
+            setTimeout(()=> {
+                dispatch(PAY13THCreateActionFailureCleanup());
+            }, 800)
         }else if(PAY13THCreatestate.status === 'failed'){
             window.alert(`Request Failed, ${PAY13THCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(PAY13THCreateActionFailureCleanup());
-            }, 1000)
+            }, 200)
         }
+        console.log(PAY13THCreatestate, "123123")
     }, [PAY13THCreatestate.status])
 
     const handleSelection = (newSelection: GridRowSelectionModel, details: GridCallbackDetails) => {
