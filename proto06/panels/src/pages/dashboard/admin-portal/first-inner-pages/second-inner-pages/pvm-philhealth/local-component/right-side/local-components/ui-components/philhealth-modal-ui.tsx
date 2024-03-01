@@ -9,13 +9,18 @@ import { RootState } from '@/store/configureStore';
 interface PHILHEALTHModalUIInterface {
     singlePHILHEALTHDetailsData: PHILHEALTHViewInterface;
     multiplePayslipMode?: boolean;
+    setSinglePHILHEALTHOpenModal: Dispatch<SetStateAction<boolean>>;
     setSinglePHILHEALTHDetailsData: Dispatch<SetStateAction<PHILHEALTHViewInterface>>;
 }
 
 function PHILHEALTHModalUI(props: PHILHEALTHModalUIInterface) {
     const [ resetPasswordPHILHEALTHOpenModal, setResetPasswordPHILHEALTHOpenModal ] = useState(false);
     const [ editPHILHEALTHOpenModal, setEditPHILHEALTHOpenModal ] = useState(false);
-    const { setSinglePHILHEALTHDetailsData, singlePHILHEALTHDetailsData } = props;
+    const { 
+        setSinglePHILHEALTHDetailsData, 
+        singlePHILHEALTHDetailsData,
+        setSinglePHILHEALTHOpenModal
+    } = props;
     const ThisProps = props.singlePHILHEALTHDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
     const onClickModal = (mode: number) => {
@@ -30,7 +35,13 @@ function PHILHEALTHModalUI(props: PHILHEALTHModalUIInterface) {
 
     return (
         <Fragment>
-            <EditPHILHEALTHModal singlePHILHEALTHDetailsData={singlePHILHEALTHDetailsData} setSinglePHILHEALTHDetailsData={setSinglePHILHEALTHDetailsData} editPHILHEALTHOpenModal={editPHILHEALTHOpenModal} setEditPHILHEALTHOpenModal={setEditPHILHEALTHOpenModal}/>
+            <EditPHILHEALTHModal 
+                singlePHILHEALTHDetailsData={singlePHILHEALTHDetailsData} 
+                setSinglePHILHEALTHDetailsData={setSinglePHILHEALTHDetailsData} 
+                editPHILHEALTHOpenModal={editPHILHEALTHOpenModal} 
+                setEditPHILHEALTHOpenModal={setEditPHILHEALTHOpenModal}
+                setSinglePHILHEALTHOpenModal={setSinglePHILHEALTHOpenModal}
+            />
             <div className='flex overflow-auto justify-around gap-4 relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Primary Key (ID):' value={ThisProps.id ? ThisProps.id : '-'} InputProps={{readOnly: true,}} variant='filled'/>

@@ -77,7 +77,7 @@ export interface SSSEditInterface extends SSSGenericInterface{}
 // ======================================
 
 export interface PHILHEALTHGenericInterface {
-    ph_no: number | string, // to check
+    ph_no: string, // to check
     ph_contribution_month: number,
     ph_category: string | null,
     emp_no: number,

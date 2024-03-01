@@ -14,7 +14,7 @@ export default function PVMPHILHEALTHPageHistory() {
   const [singlePHILHEALTHOpenModal, setSinglePHILHEALTHOpenModal] = useState<boolean>(false);
   const [singlePHILHEALTHDetailsData, setSinglePHILHEALTHDetailsData] = useState<PHILHEALTHViewInterface>({
     id: NaN,
-    ph_no: NaN,
+    ph_no: '',
     ph_contribution_month: NaN,
     ph_category: '',
     emp_no: NaN,

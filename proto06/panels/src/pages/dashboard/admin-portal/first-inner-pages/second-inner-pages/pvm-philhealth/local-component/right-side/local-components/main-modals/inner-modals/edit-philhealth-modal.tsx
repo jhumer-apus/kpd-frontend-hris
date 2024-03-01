@@ -6,11 +6,12 @@ import { PHILHEALTHViewInterface } from '@/types/types-payroll-variables';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
-import { PHILHEALTHEditAction } from '@/store/actions/payroll-variables';
+import { PHILHEALTHEditAction, PHILHEALTHEditActionFailureCleanup, PHILHEALTHViewAction } from '@/store/actions/payroll-variables';
 
 interface EditPHILHEALTHModalInterface {
     singlePHILHEALTHDetailsData: PHILHEALTHViewInterface;
-    editPHILHEALTHOpenModal: boolean; 
+    editPHILHEALTHOpenModal: boolean;
+    setSinglePHILHEALTHOpenModal: Dispatch<SetStateAction<boolean>>;
     setEditPHILHEALTHOpenModal: Dispatch<SetStateAction<boolean>>;
     setSinglePHILHEALTHDetailsData: Dispatch<SetStateAction<PHILHEALTHViewInterface>>;
 }
@@ -19,7 +20,13 @@ export default function EditPHILHEALTHModal(props: EditPHILHEALTHModalInterface)
   const dispatch = useDispatch();
   const PHILHEALTHEditState = useSelector((state: RootState)=> state.payrollVariables.PHILHEALTHEdit)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
-  const {editPHILHEALTHOpenModal, setEditPHILHEALTHOpenModal, singlePHILHEALTHDetailsData, setSinglePHILHEALTHDetailsData} = props;
+  const {
+    editPHILHEALTHOpenModal, 
+    setEditPHILHEALTHOpenModal, 
+    singlePHILHEALTHDetailsData, 
+    setSinglePHILHEALTHDetailsData,
+    setSinglePHILHEALTHOpenModal
+  } = props;
 
 
   const editPHILHEALTH = () => { 
@@ -33,11 +40,18 @@ export default function EditPHILHEALTHModal(props: EditPHILHEALTHModalInterface)
     if(PHILHEALTHEditState.status){      
       if(PHILHEALTHEditState.status === 'succeeded'){
         window.alert(`${PHILHEALTHEditState.status.charAt(0).toUpperCase()}${PHILHEALTHEditState.status.slice(1)}`)
+        // window.location.reload();
+        setEditPHILHEALTHOpenModal(false);
+        setSinglePHILHEALTHOpenModal(false);
+        dispatch(PHILHEALTHViewAction());
         setTimeout(()=>{
-          window.location.reload();
-        }, 800)
+          dispatch(PHILHEALTHEditActionFailureCleanup())
+        }, 200)
       }else if(PHILHEALTHEditState.status === 'failed'){
         window.alert(`${PHILHEALTHEditState.error}`)
+        setTimeout(()=>{
+          dispatch(PHILHEALTHEditActionFailureCleanup())
+        }, 200)
       }
     }
   }, [PHILHEALTHEditState.status])
@@ -96,10 +110,10 @@ export default function EditPHILHEALTHModal(props: EditPHILHEALTHModalInterface)
                             label='Phil-Health Number'
                             aria-required  
                             variant='outlined' 
-                            type="number"
+                            type="text"
                             value={singlePHILHEALTHDetailsData?.ph_no}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = parseInt(event.target.value)
+                                const value = event.target.value;
                                 setSinglePHILHEALTHDetailsData((prevState)=> {
                                     return (
                                         {
