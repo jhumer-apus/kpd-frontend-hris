@@ -51,7 +51,7 @@ export interface PAGIBIGEditInterface extends PAGIBIGGenericInterface{}
 // ======================================
 
 export interface SSSGenericInterface {
-    sss_no: number | string, // to check
+    sss_no: string, // to check
     sss_contribution_month: number,
     sss_with_cashloan_amount: number | null,
     sss_rem_cashloan_amount: number | null,

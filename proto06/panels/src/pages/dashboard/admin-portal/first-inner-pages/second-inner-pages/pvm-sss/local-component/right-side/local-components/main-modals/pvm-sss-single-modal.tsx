@@ -56,7 +56,11 @@ export default function ViewSSSSingleModal(props: SingleSSSInterface) {
                 overflow: 'auto',
             }}
         >
-          <SSSModalComponent setSingleSSSDetailsData={setSingleSSSDetailsData} singleSSSDetailsData={singleSSSDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <SSSModalComponent 
+            setSingleSSSDetailsData={setSingleSSSDetailsData} 
+            singleSSSDetailsData={singleSSSDetailsData} 
+            setSingleSSSOpenModal={setSingleSSSOpenModal}
+          />
         </ModalDialog>
       </Modal>
         )}

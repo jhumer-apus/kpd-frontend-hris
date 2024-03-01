@@ -14,7 +14,7 @@ export default function PVMSSSPageHistory() {
   const [singleSSSOpenModal, setSingleSSSOpenModal] = useState<boolean>(false);
   const [singleSSSDetailsData, setSingleSSSDetailsData] = useState<SSSViewInterface>({
     id: NaN,
-    sss_no: NaN,
+    sss_no: '',
     sss_contribution_month: NaN,
     sss_with_cashloan_amount: null,
     sss_rem_cashloan_amount: null,

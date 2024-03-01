@@ -6,7 +6,7 @@ import { RootState } from '@/store/configureStore';
 import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
 import { Typography } from '@mui/joy';
 import { SSSCreateInterface } from '@/types/types-payroll-variables';
-import { SSSCreateAction, SSSCreateActionFailureCleanup } from '@/store/actions/payroll-variables';
+import { SSSCreateAction, SSSCreateActionFailureCleanup, SSSViewAction } from '@/store/actions/payroll-variables';
 import DeductionsSSSCreateModal from './local-components/main-modals/pvm-sss-create-modal-left';
 
 
@@ -21,7 +21,7 @@ function PVMSSSCreate(props: CreateSSSModalInterface) {
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail?.emp_no);
     const SSSCreatestate = useSelector((state: RootState)=> state.payrollVariables.SSSCreate);
     const [createSSS, setCreateSSS] = useState<SSSCreateInterface>({
-        sss_no: NaN,
+        sss_no: '',
         sss_contribution_month: NaN,
         sss_with_cashloan_amount: null,
         sss_rem_cashloan_amount: null,
@@ -50,12 +50,16 @@ function PVMSSSCreate(props: CreateSSSModalInterface) {
     useEffect(()=>{
         if(SSSCreatestate.status === 'succeeded'){
             window.alert('Request Successful');
-            window.location.reload();
+            // window.location.reload();
+            dispatch(SSSViewAction());
+            setTimeout(()=>{
+                dispatch(SSSCreateActionFailureCleanup());
+            }, 200)
         }else if(SSSCreatestate.status === 'failed'){
             window.alert(`Request Failed, ${SSSCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(SSSCreateActionFailureCleanup());
-            }, 1000)
+            }, 200)
         }
     }, [SSSCreatestate.status])
 
@@ -74,7 +78,7 @@ function PVMSSSCreate(props: CreateSSSModalInterface) {
                             placeholder='Input 10 digit number'
                             aria-required  
                             variant='outlined' 
-                            type="number"
+                            type="text"
                             value={createSSS?.sss_no}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value = String(event.target.value)
