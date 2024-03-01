@@ -54,6 +54,7 @@ function EOYPAY13THCreate(props: CreatePAY13THModalInterface) {
     useEffect(()=>{
         if(PAY13THCreatestate.status === 'succeeded'){
             if(!Array.isArray(PAY13THCreatestate.data)){
+                // IGNORE THE TYPESCRIPT ERROR
                 window.alert(`${PAY13THCreatestate.data['Success Message']}`);
             }else{
                 window.alert(`${PAY13THCreatestate.status}`)

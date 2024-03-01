@@ -15,7 +15,7 @@ export default function PVMALLOWANCETYPEPageHistory() {
   const [singleALLOWANCETYPEDetailsData, setSingleALLOWANCETYPEDetailsData] = useState<ALLOWANCETYPEViewInterface>({
     id: NaN,
     allowance_name: '',
-    taxable: false,
+    is_taxable: false,
     date_added: '',
     date_deleted: '',
   });
