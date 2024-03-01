@@ -918,6 +918,7 @@ export const SpecificEmployee = (props: initialState) => {
                                             <Option value="Compressed">Compressed</Option>
                                             <Option value="Normal">Normal</Option>
                                             <Option value="Field">Field</Option>
+                                            <Option value="Field-Auto">Field-Auto</Option>
                                         </Select>
                                         {dropDownData.employmentStatuses.length > 0 && 
                                             <Select

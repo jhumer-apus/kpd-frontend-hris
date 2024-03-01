@@ -38,7 +38,7 @@ import { beautifyJSON } from '@/helpers/utils';
 // }
 
 export function ChangePassword() {
-// const dispatch = useDispatch();
+const dispatch = useDispatch();
 const USERResetPasswordState = useSelector((state: RootState)=> state.users.USERResetPassword.status)
 const curr_user = useSelector((state: RootState) => state.auth.employee_detail);
 const [singleUSERDetailsData, setSingleUSERDetailsData] = useState<Omit<USERResetPasswordInterface, "id" | "added_by">>({
@@ -46,10 +46,6 @@ const [singleUSERDetailsData, setSingleUSERDetailsData] = useState<Omit<USERRese
   repeat_new_password: '',
   is_temp: false
 })
-
-const resetPasswordApi = async () => {
-  await axios.post(`${APILink}reset-password/`, singleUSERDetailsData).then(res => handleLogout())
-}
 
 const resetPasswordUSERSubmit = async () => { 
 
@@ -67,11 +63,6 @@ const resetPasswordUSERSubmit = async () => {
         .then(res => window.alert("success"))
         .then(res => handleLogout())
         .catch(err => window.alert(beautifyJSON(err.response.data)))
-      // dispatch(USERResetPasswordAction({
-      //   ...singleUSERDetailsData,
-      //   id: curr_user.user?.id as number,
-      //   added_by: curr_user.emp_no || NaN
-      // }))
 
     } else {
 
@@ -122,9 +113,6 @@ return (
     <Card 
         className="w-fit border m-auto border-slate-500 mt-6 md:p-12 p-4"
       >
-        {/* <CardHeader className="p-4">
-          <Typography variant='h6' className='border-b-2 border-orange-700 text-center'>Change Your Password</Typography>
-        </CardHeader> */}
         <Typography variant='h6' className='border-b-2 border-orange-700 text-center'>Change Password</Typography>
         <div className='flex flex-col items-center justify-around h-full'>
           <div className='flex flex-col w-full gap-10'>
@@ -164,8 +152,6 @@ return (
                   })
                 }}
               />
-              {/* <EmployeeAutoCompleteRight createUSER={singleUSERDetailsData} setCreateUSER={setSingleUSERDetailsData}/> */}
-              {/* <BranchAutoCompleteRight createUSER={singleUSERDetailsData} setCreateUSER={setSingleUSERDetailsData}/> */}
             </CardBody>
             <CardFooter className='flex flex-col md:flex-row gap-4 m-auto justify-around'>
               <Button 
@@ -181,7 +167,6 @@ return (
                 className="w-40"
                 onClick={()=>{
                   clearFields(setSingleUSERDetailsData, ['new_password', 'repeat_new_password'], ['', ''])
-                  setResetPasswordUSEROpenModal(false)
                 }}
               >
               Clear

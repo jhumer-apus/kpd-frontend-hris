@@ -722,7 +722,7 @@ export const UserProfile = () => {
                 >
                   <Option value="Compressed">Compressed</Option>
                   <Option value="Normal">Normal</Option>
-                  <Option value="Field">Field-Auto</Option>
+                  <Option value="Field-Auto">Field-Auto</Option>
                   <Option value="Field">Field</Option>
               </Select>
               {/* <Input
