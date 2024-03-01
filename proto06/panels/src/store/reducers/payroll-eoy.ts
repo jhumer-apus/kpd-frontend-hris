@@ -450,19 +450,27 @@ const payrollEOYSlice = createSlice({
       .addCase(_Actions.TAXCOLLECTEDViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "TAXCOLLECTEDView"))
       .addCase(_Actions.TAXCOLLECTEDViewActionProgress, (state, action) => setProgressState(state, action.payload, "TAXCOLLECTEDView"))
       .addCase(_Actions.TAXCOLLECTEDViewActionFailure, (state, action) => setFailureState(state, action.payload, "TAXCOLLECTEDView"))
+      .addCase(_Actions.TAXCOLLECTEDViewActionFailureCleanup, setRefreshedState("TAXCOLLECTEDView"))
+
       .addCase(_Actions.TAXCOLLECTEDViewSpecificEmployeeAction, setLoadingState("TAXCOLLECTEDViewSpecificEmployee"))
       .addCase(_Actions.TAXCOLLECTEDViewSpecificEmployeeActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "TAXCOLLECTEDViewSpecificEmployee"))
       .addCase(_Actions.TAXCOLLECTEDViewSpecificEmployeeActionProgress, (state, action) => setProgressState(state, action.payload, "TAXCOLLECTEDViewSpecificEmployee"))
       .addCase(_Actions.TAXCOLLECTEDViewSpecificEmployeeActionFailure, (state, action) => setFailureState(state, action.payload, "TAXCOLLECTEDViewSpecificEmployee"))
+      .addCase(_Actions.TAXCOLLECTEDViewSpecificEmployeeActionFailureCleanup, setRefreshedState("TAXCOLLECTEDViewSpecificEmployee"))
+
       //PAY13TH SECTION
       .addCase(_Actions.PAY13THViewAction, setLoadingState("PAY13THView"))
       .addCase(_Actions.PAY13THViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "PAY13THView"))
       .addCase(_Actions.PAY13THViewActionProgress, (state, action) => setProgressState(state, action.payload, "PAY13THView"))
       .addCase(_Actions.PAY13THViewActionFailure, (state, action) => setFailureState(state, action.payload, "PAY13THView"))
+      .addCase(_Actions.PAY13THViewActionFailureCleanup, setRefreshedState("PAY13THView"))
+
       .addCase(_Actions.PAY13THViewSpecificAction, setLoadingState("PAY13THViewSpecific"))
       .addCase(_Actions.PAY13THViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "PAY13THViewSpecific"))
       .addCase(_Actions.PAY13THViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "PAY13THViewSpecific"))
       .addCase(_Actions.PAY13THViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "PAY13THViewSpecific"))
+      .addCase(_Actions.PAY13THViewSpecificActionFailureCleanup, setRefreshedState("PAY13THViewSpecific"))
+
       .addCase(_Actions.PAY13THCreateAction, setLoadingState("PAY13THCreate"))
       .addCase(_Actions.PAY13THCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "PAY13THCreate"))
       .addCase(_Actions.PAY13THCreateActionProgress, (state, action) => setProgressState(state, action.payload, "PAY13THCreate"))
@@ -473,10 +481,14 @@ const payrollEOYSlice = createSlice({
       .addCase(_Actions.BONUSLISTViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "BONUSLISTView"))
       .addCase(_Actions.BONUSLISTViewActionProgress, (state, action) => setProgressState(state, action.payload, "BONUSLISTView"))
       .addCase(_Actions.BONUSLISTViewActionFailure, (state, action) => setFailureState(state, action.payload, "BONUSLISTView"))
+      .addCase(_Actions.BONUSLISTViewActionFailureCleanup, setRefreshedState("BONUSLISTView"))
+
       .addCase(_Actions.BONUSLISTViewSpecificAction, setLoadingState("BONUSLISTViewSpecific"))
       .addCase(_Actions.BONUSLISTViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "BONUSLISTViewSpecific"))
       .addCase(_Actions.BONUSLISTViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "BONUSLISTViewSpecific"))
       .addCase(_Actions.BONUSLISTViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "BONUSLISTViewSpecific"))
+      .addCase(_Actions.BONUSLISTViewSpecificActionFailureCleanup, setRefreshedState("BONUSLISTViewSpecific"))
+
       .addCase(_Actions.BONUSLISTCreateAction, setLoadingState("BONUSLISTCreate"))
       .addCase(_Actions.BONUSLISTCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "BONUSLISTCreate"))
       .addCase(_Actions.BONUSLISTCreateActionProgress, (state, action) => setProgressState(state, action.payload, "BONUSLISTCreate"))
@@ -486,19 +498,27 @@ const payrollEOYSlice = createSlice({
       .addCase(_Actions.BONUSLISTEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "BONUSLISTEdit"))
       .addCase(_Actions.BONUSLISTEditActionProgress, (state, action) => setProgressState(state, action.payload, "BONUSLISTEdit"))
       .addCase(_Actions.BONUSLISTEditActionFailure, (state, action) => setFailureState(state, action.payload, "BONUSLISTEdit"))
+      .addCase(_Actions.BONUSLISTEditActionFailureCleanup, setRefreshedState("BONUSLISTEdit"))
+ 
       //BONUSENTRY SECTION
       .addCase(_Actions.BONUSENTRYViewAction, setLoadingState("BONUSENTRYView"))
       .addCase(_Actions.BONUSENTRYViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "BONUSENTRYView"))
       .addCase(_Actions.BONUSENTRYViewActionProgress, (state, action) => setProgressState(state, action.payload, "BONUSENTRYView"))
       .addCase(_Actions.BONUSENTRYViewActionFailure, (state, action) => setFailureState(state, action.payload, "BONUSENTRYView"))
+      .addCase(_Actions.BONUSENTRYViewActionFailureCleanup, setRefreshedState("BONUSENTRYView"))
+
       .addCase(_Actions.BONUSENTRYViewSpecificEmployeeAction, setLoadingState("BONUSENTRYViewSpecificEmployee"))
       .addCase(_Actions.BONUSENTRYViewSpecificEmployeeActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "BONUSENTRYViewSpecificEmployee"))
       .addCase(_Actions.BONUSENTRYViewSpecificEmployeeActionProgress, (state, action) => setProgressState(state, action.payload, "BONUSENTRYViewSpecificEmployee"))
       .addCase(_Actions.BONUSENTRYViewSpecificEmployeeActionFailure, (state, action) => setFailureState(state, action.payload, "BONUSENTRYViewSpecificEmployee"))
+      .addCase(_Actions.BONUSENTRYViewSpecificEmployeeActionFailureCleanup, setRefreshedState("BONUSENTRYViewSpecificEmployee"))
+
       .addCase(_Actions.BONUSENTRYViewSpecificAction, setLoadingState("BONUSENTRYViewSpecific"))
       .addCase(_Actions.BONUSENTRYViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "BONUSENTRYViewSpecific"))
       .addCase(_Actions.BONUSENTRYViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "BONUSENTRYViewSpecific"))
       .addCase(_Actions.BONUSENTRYViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "BONUSENTRYViewSpecific"))
+      .addCase(_Actions.BONUSENTRYViewSpecificActionFailureCleanup, setRefreshedState("BONUSENTRYViewSpecific"))
+
       .addCase(_Actions.BONUSENTRYCreateAction, setLoadingState("BONUSENTRYCreate"))
       .addCase(_Actions.BONUSENTRYCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "BONUSENTRYCreate"))
       .addCase(_Actions.BONUSENTRYCreateActionProgress, (state, action) => setProgressState(state, action.payload, "BONUSENTRYCreate"))
@@ -508,15 +528,21 @@ const payrollEOYSlice = createSlice({
       .addCase(_Actions.BONUSENTRYEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "BONUSENTRYEdit"))
       .addCase(_Actions.BONUSENTRYEditActionProgress, (state, action) => setProgressState(state, action.payload, "BONUSENTRYEdit"))
       .addCase(_Actions.BONUSENTRYEditActionFailure, (state, action) => setFailureState(state, action.payload, "BONUSENTRYEdit"))
+      .addCase(_Actions.BONUSENTRYEditActionFailureCleanup, setRefreshedState("BONUSENTRYEdit"))
+
       //ANNOUNCEMENT SECTION
       .addCase(_Actions.ANNOUNCEMENTViewAction, setLoadingState("ANNOUNCEMENTView"))
       .addCase(_Actions.ANNOUNCEMENTViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ANNOUNCEMENTView"))
       .addCase(_Actions.ANNOUNCEMENTViewActionProgress, (state, action) => setProgressState(state, action.payload, "ANNOUNCEMENTView"))
       .addCase(_Actions.ANNOUNCEMENTViewActionFailure, (state, action) => setFailureState(state, action.payload, "ANNOUNCEMENTView"))
+      .addCase(_Actions.ANNOUNCEMENTViewActionFailureCleanup, setRefreshedState("ANNOUNCEMENTView"))
+
       .addCase(_Actions.ANNOUNCEMENTViewSpecificAction, setLoadingState("ANNOUNCEMENTViewSpecific"))
       .addCase(_Actions.ANNOUNCEMENTViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ANNOUNCEMENTViewSpecific"))
       .addCase(_Actions.ANNOUNCEMENTViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "ANNOUNCEMENTViewSpecific"))
       .addCase(_Actions.ANNOUNCEMENTViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "ANNOUNCEMENTViewSpecific"))
+      .addCase(_Actions.ANNOUNCEMENTViewSpecificActionFailureCleanup, setRefreshedState("ANNOUNCEMENTViewSpecific"))
+
       .addCase(_Actions.ANNOUNCEMENTCreateAction, setLoadingState("ANNOUNCEMENTCreate"))
       .addCase(_Actions.ANNOUNCEMENTCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ANNOUNCEMENTCreate"))
       .addCase(_Actions.ANNOUNCEMENTCreateActionProgress, (state, action) => setProgressState(state, action.payload, "ANNOUNCEMENTCreate"))
@@ -526,20 +552,28 @@ const payrollEOYSlice = createSlice({
       .addCase(_Actions.ANNOUNCEMENTEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ANNOUNCEMENTEdit"))
       .addCase(_Actions.ANNOUNCEMENTEditActionProgress, (state, action) => setProgressState(state, action.payload, "ANNOUNCEMENTEdit"))
       .addCase(_Actions.ANNOUNCEMENTEditActionFailure, (state, action) => setFailureState(state, action.payload, "ANNOUNCEMENTEdit"))
+      .addCase(_Actions.ANNOUNCEMENTEditActionFailureCleanup, setRefreshedState("ANNOUNCEMENTEdit"))
+
       //ACTIVEANNOUNCEMENT SECTION
       .addCase(_Actions.ACTIVEANNOUNCEMENTViewAction, setLoadingState("ACTIVEANNOUNCEMENTView"))
       .addCase(_Actions.ACTIVEANNOUNCEMENTViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ACTIVEANNOUNCEMENTView"))
       .addCase(_Actions.ACTIVEANNOUNCEMENTViewActionProgress, (state, action) => setProgressState(state, action.payload, "ACTIVEANNOUNCEMENTView"))
       .addCase(_Actions.ACTIVEANNOUNCEMENTViewActionFailure, (state, action) => setFailureState(state, action.payload, "ACTIVEANNOUNCEMENTView"))
+      .addCase(_Actions.ACTIVEANNOUNCEMENTViewActionFailureCleanup, setRefreshedState("ACTIVEANNOUNCEMENTView"))
+
       //ASSETLIST SECTION
       .addCase(_Actions.ASSETLISTViewAction, setLoadingState("ASSETLISTView"))
       .addCase(_Actions.ASSETLISTViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ASSETLISTView"))
       .addCase(_Actions.ASSETLISTViewActionProgress, (state, action) => setProgressState(state, action.payload, "ASSETLISTView"))
       .addCase(_Actions.ASSETLISTViewActionFailure, (state, action) => setFailureState(state, action.payload, "ASSETLISTView"))
+      .addCase(_Actions.ASSETLISTViewActionFailureCleanup, setRefreshedState("ASSETLISTView"))
+
       .addCase(_Actions.ASSETLISTViewSpecificAction, setLoadingState("ASSETLISTViewSpecific"))
       .addCase(_Actions.ASSETLISTViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ASSETLISTViewSpecific"))
       .addCase(_Actions.ASSETLISTViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "ASSETLISTViewSpecific"))
       .addCase(_Actions.ASSETLISTViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "ASSETLISTViewSpecific"))
+      .addCase(_Actions.ASSETLISTViewSpecificActionFailureCleanup, setRefreshedState("ASSETLISTViewSpecific"))
+
       .addCase(_Actions.ASSETLISTCreateAction, setLoadingState("ASSETLISTCreate"))
       .addCase(_Actions.ASSETLISTCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ASSETLISTCreate"))
       .addCase(_Actions.ASSETLISTCreateActionProgress, (state, action) => setProgressState(state, action.payload, "ASSETLISTCreate"))
@@ -549,15 +583,21 @@ const payrollEOYSlice = createSlice({
       .addCase(_Actions.ASSETLISTEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ASSETLISTEdit"))
       .addCase(_Actions.ASSETLISTEditActionProgress, (state, action) => setProgressState(state, action.payload, "ASSETLISTEdit"))
       .addCase(_Actions.ASSETLISTEditActionFailure, (state, action) => setFailureState(state, action.payload, "ASSETLISTEdit"))
+      .addCase(_Actions.ASSETLISTEditActionFailureCleanup, setRefreshedState("ASSETLISTEdit"))
+
       //ASSETACCOUNT SECTION
       .addCase(_Actions.ASSETACCOUNTViewAction, setLoadingState("ASSETACCOUNTView"))
       .addCase(_Actions.ASSETACCOUNTViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ASSETACCOUNTView"))
       .addCase(_Actions.ASSETACCOUNTViewActionProgress, (state, action) => setProgressState(state, action.payload, "ASSETACCOUNTView"))
       .addCase(_Actions.ASSETACCOUNTViewActionFailure, (state, action) => setFailureState(state, action.payload, "ASSETACCOUNTView"))
+      .addCase(_Actions.ASSETACCOUNTViewActionFailureCleanup, setRefreshedState("ASSETACCOUNTView"))
+
       .addCase(_Actions.ASSETACCOUNTViewSpecificAction, setLoadingState("ASSETACCOUNTViewSpecific"))
       .addCase(_Actions.ASSETACCOUNTViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ASSETACCOUNTViewSpecific"))
       .addCase(_Actions.ASSETACCOUNTViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "ASSETACCOUNTViewSpecific"))
       .addCase(_Actions.ASSETACCOUNTViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "ASSETACCOUNTViewSpecific"))
+      .addCase(_Actions.ASSETACCOUNTViewSpecificActionFailureCleanup, setRefreshedState("ASSETACCOUNTViewSpecific"))
+
       .addCase(_Actions.ASSETACCOUNTCreateAction, setLoadingState("ASSETACCOUNTCreate"))
       .addCase(_Actions.ASSETACCOUNTCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ASSETACCOUNTCreate"))
       .addCase(_Actions.ASSETACCOUNTCreateActionProgress, (state, action) => setProgressState(state, action.payload, "ASSETACCOUNTCreate"))
@@ -567,7 +607,8 @@ const payrollEOYSlice = createSlice({
       .addCase(_Actions.ASSETACCOUNTEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ASSETACCOUNTEdit"))
       .addCase(_Actions.ASSETACCOUNTEditActionProgress, (state, action) => setProgressState(state, action.payload, "ASSETACCOUNTEdit"))
       .addCase(_Actions.ASSETACCOUNTEditActionFailure, (state, action) => setFailureState(state, action.payload, "ASSETACCOUNTEdit"))
-      
+      .addCase(_Actions.ASSETACCOUNTEditActionFailureCleanup, setRefreshedState("ASSETACCOUNTEdit"))
+
   },
 });
 
