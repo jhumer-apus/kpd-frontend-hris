@@ -35,15 +35,23 @@ import { IMPERFECTATTENDANCEViewSpecificAction } from "@/store/actions/employee-
 import AttendanceTable from  "./home-components/perfect-attendance-table"
 import { useDispatch, useSelector } from "react-redux";
 import { Perfect_Attendace_Filter_Interface } from "@/types/types-employee-and-applicants";
-import { RootState } from "@/store/configureStore";
 import ExportToCsv from "@/public-components/ExportToCSVButton";
 import YearlyReminder from "./YearlyReminder";
+import { APILink, RootState } from "@/store/configureStore";
+
+//LIBARIES
+import axios from 'axios'
+
+//COMPONENTS
+import Notification from "@/public-components/home/Notification";
 
 
 export function ChooseDashboard() {
+
+  //STATES
   const EmployeeState = useSelector((state: RootState) => state.employeeAndApplicants);
   const currUser = useSelector((state: RootState) => state.auth.employee_detail);
-  console.log(currUser.user.role);
+
   const [currentAttendanceTab, setCurrentAttendanceTab] = useState<string>("perfect_attendance");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -53,6 +61,7 @@ export function ChooseDashboard() {
   });
   const [ forCSVExtract, setForCSVExtract ] = useState<unknown>([]);
 
+  //USE EFFECTS
   useEffect(()=>{
     if(filterState.month && filterState.year){
       dispatch(PERFECTATTENDANCEViewSpecificAction(filterState))
@@ -96,9 +105,9 @@ export function ChooseDashboard() {
         setForCSVExtract(data) 
       }
     }
-    console.log(EmployeeState.IMPERFECTATTENDANCEViewSpecific.data.length)
   }, [EmployeeState.PERFECTATTENDANCEViewSpecific.data.length, EmployeeState.IMPERFECTATTENDANCEViewSpecific.data.length])
 
+  // STATIC DATA
   const tabsAttendance = [
     {
       id: "perfect_attendance",
@@ -113,6 +122,7 @@ export function ChooseDashboard() {
 
   return (
     <div className="mt-12">
+      <Notification />
       <div className={`${styles.homeWrap} bg-red-10`}>
         <YearlyReminder /> {/* Add this line to include the YearlyReminder component */}
         <Card className={styles.greetingsBar}>
@@ -153,7 +163,7 @@ export function ChooseDashboard() {
           <PerfectAttendanceTable state={forCSVExtract instanceof Array ? forCSVExtract : []} status={EmployeeState.PERFECTATTENDANCEViewSpecific.status} />
         </Card> */}
 
-        {currUser.user.role >= 3 &&
+        {currUser?.user?.role >= 3 &&
           <Card className={`${styles.requestsBar} mt-4 overflow-auto h-[500px]`}>
             <CardBody>
 
@@ -212,10 +222,78 @@ export function ChooseDashboard() {
             </CardBody>
           </Card>
         }
-        
-        
+        {/* <div className={styles.announcementBar}>
+          <Card>
+            <CardHeader
+              floated={false}
+              shadow={false}
+              color="transparent"
+              className="m-0 p-6"
+            >
+              New month has arrived pls Click
+            </CardHeader>
+          </Card>
+          <Card>
+            <CardHeader
+              floated={false}
+              shadow={false}
+              color="transparent"
+              className="m-0 p-6"
+            >
+              <Typography variant="h6" color="blue-gray" className="mb-2">
+                EASY ACCESS PANEL
+              </Typography>
+              <Typography
+                variant="subtitle2"
+                className="flex items-center gap-1 font-normal text-blue-gray-600"
+              >
+                <ArrowUpIcon
+                  strokeWidth={3}
+                  className="h-3.5 w-3.5 text-green-500"
+                />
+                For your easy access <strong>convenience</strong>
+              </Typography>
+            </CardHeader>
+            <CardBody className="pt-0 flex flex-wrap justify-around gap-1" >
+              {employeeEasyAccessData.map(
+                ({ icon, color, title, description, link }, key) => (
+                  <div key={title} className="relative flex items-start gap-4 py-3">
 
+                    <div style={{position: "relative"}} >
+                      <Button variant={"text"} color="indigo" style={{height: "76px", width: "120px", padding: "unset", display: "flex", flexDirection: "column", justifyContent: "space-around", alignItems: "center", background:"rgba(235, 237, 247)" }}>
+                      {
+                      link === 'development' 
+                      ? 
+                      <UnderDevelopmentMsg fontSize={8} borderRadius={10}/> 
+                      :
+                      <div className="absolute w-full h-full" onClick={()=> { navigate(`${link}`) }}></div>
+                      }
+                      <span style={{background: "transparent"}}>
+                          {React.createElement(icon, {
+                          className: `!w-5 !h-5 ${color}`,
+                          })}
+                        </span>
+                        <Tooltip key={title} content={description}>
+                        <div>
+                          <Typography
+                            variant="subtitle1"
+                            color="gray"
+                            className="block font-medium text-start"
+                          >
+                            {title}
+                          </Typography>
+                        </div>
 
+                        </Tooltip>
+
+                      </Button>
+                    </div>
+                  </div>
+                )
+              )}
+            </CardBody>
+          </Card>
+        </div> */}
         <Card className={styles.announcementBar}>
           <CardHeader
             floated={false}
