@@ -11,13 +11,18 @@ import { RootState } from '@/store/configureStore';
 interface USERModalUIInterface {
     singleUSERDetailsData: USERViewInterface;
     multiplePayslipMode?: boolean;
+    setSingleUSEROpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleUSERDetailsData: Dispatch<SetStateAction<USERViewInterface>>;
 }
 
 function USERModalUI(props: USERModalUIInterface) {
     const [ resetPasswordUSEROpenModal, setResetPasswordUSEROpenModal ] = useState(false);
     const [ editUSEROpenModal, setEditUSEROpenModal ] = useState(false);
-    const { setSingleUSERDetailsData, singleUSERDetailsData } = props;
+    const { 
+        setSingleUSERDetailsData, 
+        singleUSERDetailsData,
+        setSingleUSEROpenModal
+    } = props;
     const ThisProps = props.singleUSERDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
     const onClickModal = (mode: number) => {
@@ -32,8 +37,19 @@ function USERModalUI(props: USERModalUIInterface) {
 
     return (
         <Fragment>
-            <EditUSERModal singleUSERDetailsData={singleUSERDetailsData} setSingleUSERDetailsData={setSingleUSERDetailsData} editUSEROpenModal={editUSEROpenModal} setEditUSEROpenModal={setEditUSEROpenModal}/>
-            <ResetPasswordUSERModal primaryKey={ThisProps.id} resetPasswordUSEROpenModal={resetPasswordUSEROpenModal} setResetPasswordUSEROpenModal={setResetPasswordUSEROpenModal}/>
+            <EditUSERModal 
+                singleUSERDetailsData={singleUSERDetailsData} 
+                setSingleUSERDetailsData={setSingleUSERDetailsData} 
+                editUSEROpenModal={editUSEROpenModal} 
+                setEditUSEROpenModal={setEditUSEROpenModal}
+                setSingleUSEROpenModal={setSingleUSEROpenModal}
+            />
+            <ResetPasswordUSERModal 
+                primaryKey={ThisProps.id} 
+                resetPasswordUSEROpenModal={resetPasswordUSEROpenModal} 
+                setResetPasswordUSEROpenModal={setResetPasswordUSEROpenModal}
+                setSingleUSEROpenModal={setSingleUSEROpenModal}
+            />
             <div className='flex overflow-auto justify-around gap-4 relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Primary Key (ID):' value={ThisProps.id ? ThisProps.id : '-'} InputProps={{readOnly: true,}} variant='filled'/>

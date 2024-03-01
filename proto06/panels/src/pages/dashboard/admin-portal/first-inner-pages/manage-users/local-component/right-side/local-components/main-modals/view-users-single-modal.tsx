@@ -56,7 +56,11 @@ export default function ViewUSERSingleModal(props: SingleUSERInterface) {
                 overflow: 'auto',
             }}
         >
-          <USERModalComponent setSingleUSERDetailsData={setSingleUSERDetailsData} singleUSERDetailsData={singleUSERDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <USERModalComponent 
+            setSingleUSERDetailsData={setSingleUSERDetailsData} 
+            singleUSERDetailsData={singleUSERDetailsData} 
+            setSingleUSEROpenModal={setSingleUSEROpenModal}
+            />
         </ModalDialog>
       </Modal>
         )}

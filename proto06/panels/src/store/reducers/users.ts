@@ -158,23 +158,32 @@ const usersSlice = createSlice({
       .addCase(USERViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "USERView"))
       .addCase(USERViewActionProgress, (state, action) => setProgressState(state, action.payload, "USERView"))
       .addCase(USERViewActionFailure, (state, action) => setFailureState(state, action.payload, "USERView"))
+      .addCase(USERViewActionFailureCleanup, setRefreshedState("USERView"))
+
       .addCase(USERViewSpecificAction, setLoadingState("USERViewSpecific"))
       .addCase(USERViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "USERViewSpecific"))
       .addCase(USERViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "USERViewSpecific"))
       .addCase(USERViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "USERViewSpecific"))
+      .addCase(USERViewSpecificActionFailureCleanup, setRefreshedState("USERViewSpecific"))
+
       .addCase(USERCreateAction, setLoadingState("USERCreate"))
       .addCase(USERCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "USERCreate"))
       .addCase(USERCreateActionProgress, (state, action) => setProgressState(state, action.payload, "USERCreate"))
       .addCase(USERCreateActionFailure, (state, action) => setFailureState(state, action.payload, "USERCreate"))
       .addCase(USERCreateActionFailureCleanup, setRefreshedState("USERCreate"))
+
       .addCase(USEREditAction, setLoadingState("USEREdit"))
       .addCase(USEREditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "USEREdit"))
       .addCase(USEREditActionProgress, (state, action) => setProgressState(state, action.payload, "USEREdit"))
       .addCase(USEREditActionFailure, (state, action) => setFailureState(state, action.payload, "USEREdit"))
+      .addCase(USEREditActionFailureCleanup, setRefreshedState("USEREdit"))
+
       .addCase(USERResetPasswordAction, setLoadingState("USERResetPassword"))
       .addCase(USERResetPasswordActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "USERResetPassword"))
       .addCase(USERResetPasswordActionProgress, (state, action) => setProgressState(state, action.payload, "USERResetPassword"))
       .addCase(USERResetPasswordActionFailure, (state, action) => setFailureState(state, action.payload, "USERResetPassword"))
+      .addCase(USERResetPasswordActionFailureCleanup, setRefreshedState("USERResetPassword"))
+
     },
 });
 

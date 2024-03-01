@@ -56,7 +56,11 @@ export default function ViewPOSITIONSingleModal(props: SinglePOSITIONInterface) 
                 overflow: 'auto',
             }}
         >
-          <POSITIONModalComponent setSinglePOSITIONDetailsData={setSinglePOSITIONDetailsData} singlePOSITIONDetailsData={singlePOSITIONDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <POSITIONModalComponent 
+            setSinglePOSITIONDetailsData={setSinglePOSITIONDetailsData} 
+            singlePOSITIONDetailsData={singlePOSITIONDetailsData} 
+            setSinglePOSITIONOpenModal={setSinglePOSITIONOpenModal}
+          />
         </ModalDialog>
       </Modal>
         )}

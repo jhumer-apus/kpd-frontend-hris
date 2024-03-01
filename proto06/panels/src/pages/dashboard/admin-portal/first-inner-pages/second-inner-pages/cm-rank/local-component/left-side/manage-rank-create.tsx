@@ -2,10 +2,10 @@ import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { Button } from '@mui/material';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
 import { Typography } from '@mui/joy';
 import { RANKCreateInterface } from '@/types/types-pages';
-import { RANKCreateAction, RANKCreateActionFailureCleanup } from '@/store/actions/categories';
+import { RANKCreateAction, RANKCreateActionFailureCleanup, RANKViewAction } from '@/store/actions/categories';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -48,14 +48,18 @@ function ManageRANKCreate(props: CreateRANKModalInterface) {
     }, [curr_user]) 
 
     useEffect(()=>{
-        if(RANKCreatestate.status === 'succeeded'){
+        if(RANKCreatestate.status === `${globalReducerSuccess}`){
             window.alert('Request Successful');
-            window.location.reload();
-        }else if(RANKCreatestate.status === 'failed'){
+            // window.location.reload();
+            dispatch(RANKViewAction());
+            setTimeout(()=> {
+                dispatch(RANKCreateActionFailureCleanup());
+            }, 200)
+        }else if(RANKCreatestate.status === `${globalReducerFailed}`){
             window.alert(`Request Failed, ${RANKCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(RANKCreateActionFailureCleanup());
-            }, 1000)
+            }, 200)
         }
     }, [RANKCreatestate.status])
 

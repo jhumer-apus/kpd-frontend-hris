@@ -11,13 +11,18 @@ import { RootState } from '@/store/configureStore';
 interface PAYROLLGROUPModalUIInterface {
     singlePAYROLLGROUPDetailsData: PAYROLLGROUPViewInterface;
     multiplePayslipMode?: boolean;
+    setSinglePAYROLLGROUPOpenModal: Dispatch<SetStateAction<boolean>>;
     setSinglePAYROLLGROUPDetailsData: Dispatch<SetStateAction<PAYROLLGROUPViewInterface>>;
 }
 
 function PAYROLLGROUPModalUI(props: PAYROLLGROUPModalUIInterface) {
     const [ approvePAYROLLGROUPOpenModal, setApprovePAYROLLGROUPOpenModal ] = useState(false);
     const [ allowedDaysPAYROLLGROUPOpenModal, setAllowedDaysPAYROLLGROUPOpenModal ] = useState(false);
-    const { setSinglePAYROLLGROUPDetailsData, singlePAYROLLGROUPDetailsData } = props;
+    const { 
+        setSinglePAYROLLGROUPDetailsData, 
+        singlePAYROLLGROUPDetailsData,
+        setSinglePAYROLLGROUPOpenModal
+    } = props;
     const ThisProps = props.singlePAYROLLGROUPDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
     const onClickModal = (mode: number) => {
@@ -32,7 +37,13 @@ function PAYROLLGROUPModalUI(props: PAYROLLGROUPModalUIInterface) {
 
     return (
         <Fragment>
-            <AllowedDaysPAYROLLGROUPModal singlePAYROLLGROUPDetailsData={singlePAYROLLGROUPDetailsData} setSinglePAYROLLGROUPDetailsData={setSinglePAYROLLGROUPDetailsData} allowedDaysPAYROLLGROUPOpenModal={allowedDaysPAYROLLGROUPOpenModal} setAllowedDaysPAYROLLGROUPOpenModal={setAllowedDaysPAYROLLGROUPOpenModal}/>
+            <AllowedDaysPAYROLLGROUPModal 
+                singlePAYROLLGROUPDetailsData={singlePAYROLLGROUPDetailsData} 
+                setSinglePAYROLLGROUPDetailsData={setSinglePAYROLLGROUPDetailsData} 
+                allowedDaysPAYROLLGROUPOpenModal={allowedDaysPAYROLLGROUPOpenModal} 
+                setAllowedDaysPAYROLLGROUPOpenModal={setAllowedDaysPAYROLLGROUPOpenModal}
+                setSinglePAYROLLGROUPOpenModal={setSinglePAYROLLGROUPOpenModal}
+            />
             <div className='flex overflow-auto justify-around gap-4 relative'>
                 <div className='flex gap-3 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Payroll Group ID:' value={ThisProps.id ? ThisProps.id : '-'} InputProps={{readOnly: true,}} variant='filled'/>

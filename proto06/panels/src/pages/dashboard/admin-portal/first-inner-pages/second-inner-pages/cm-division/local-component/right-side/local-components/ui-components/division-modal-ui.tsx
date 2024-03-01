@@ -11,13 +11,18 @@ import { RootState } from '@/store/configureStore';
 interface DIVISIONModalUIInterface {
     singleDIVISIONDetailsData: DIVISIONViewInterface;
     multiplePayslipMode?: boolean;
+    setSingleDIVISIONOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleDIVISIONDetailsData: Dispatch<SetStateAction<DIVISIONViewInterface>>;
 }
 
 function DIVISIONModalUI(props: DIVISIONModalUIInterface) {
     const [ approveDIVISIONOpenModal, setApproveDIVISIONOpenModal ] = useState(false);
     const [ allowedDaysDIVISIONOpenModal, setAllowedDaysDIVISIONOpenModal ] = useState(false);
-    const { setSingleDIVISIONDetailsData, singleDIVISIONDetailsData } = props;
+    const { 
+        setSingleDIVISIONDetailsData, 
+        singleDIVISIONDetailsData,
+        setSingleDIVISIONOpenModal 
+    } = props;
     const ThisProps = props.singleDIVISIONDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
     const onClickModal = (mode: number) => {
@@ -32,7 +37,13 @@ function DIVISIONModalUI(props: DIVISIONModalUIInterface) {
 
     return (
         <Fragment>
-            <AllowedDaysDIVISIONModal singleDIVISIONDetailsData={singleDIVISIONDetailsData} setSingleDIVISIONDetailsData={setSingleDIVISIONDetailsData} allowedDaysDIVISIONOpenModal={allowedDaysDIVISIONOpenModal} setAllowedDaysDIVISIONOpenModal={setAllowedDaysDIVISIONOpenModal}/>
+            <AllowedDaysDIVISIONModal 
+                singleDIVISIONDetailsData={singleDIVISIONDetailsData}
+                setSingleDIVISIONDetailsData={setSingleDIVISIONDetailsData} 
+                allowedDaysDIVISIONOpenModal={allowedDaysDIVISIONOpenModal} 
+                setAllowedDaysDIVISIONOpenModal={setAllowedDaysDIVISIONOpenModal}
+                setSingleDIVISIONOpenModal={setSingleDIVISIONOpenModal}
+            />
             <div className='flex overflow-auto justify-around gap-4 relative'>
                 <div className='flex gap-3 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Division ID:' value={ThisProps.id ? ThisProps.id : '-'} InputProps={{readOnly: true,}} variant='filled'/>

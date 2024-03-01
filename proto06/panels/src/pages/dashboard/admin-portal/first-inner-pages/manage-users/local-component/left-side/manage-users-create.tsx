@@ -6,7 +6,7 @@ import { RootState } from '@/store/configureStore';
 import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
 import { Typography } from '@mui/joy';
 import { USERCreateInterface } from '@/types/types-pages';
-import { USERCreateAction, USERCreateActionFailureCleanup } from '@/store/actions/users';
+import { USERCreateAction, USERCreateActionFailureCleanup, USERViewAction } from '@/store/actions/users';
 import RoleAutoComplete from './inner-ui-components/role-autocomplete';
 
 // COMPONENTS
@@ -50,12 +50,16 @@ function ManageUSERCreate(props: CreateUSERModalInterface) {
     useEffect(()=>{
         if(USERCreatestate.status === 'succeeded'){
             window.alert('Request Successful');
-            window.location.reload();
+            // window.location.reload();
+            dispatch(USERViewAction());
+            setTimeout(()=> {
+                dispatch(USERCreateActionFailureCleanup());
+            }, 200)
         }else if(USERCreatestate.status === 'failed'){
             window.alert(`Request Failed, ${USERCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(USERCreateActionFailureCleanup());
-            }, 1000)
+            }, 200)
         }
     }, [USERCreatestate.status])
 

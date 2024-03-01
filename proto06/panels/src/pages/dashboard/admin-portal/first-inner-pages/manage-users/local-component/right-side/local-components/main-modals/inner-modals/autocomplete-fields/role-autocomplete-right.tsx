@@ -106,6 +106,7 @@ export default function RoleAutoCompleteRight(props: RoleAutoCompleteInterface) 
         {defaultOption &&
             <Autocomplete
             // disableCloseOnSelect
+            disableClearable
             noOptionsText={'Loading... Please Wait.'}
             defaultValue={defaultOption}
             options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}

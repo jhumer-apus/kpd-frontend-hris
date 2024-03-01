@@ -5,9 +5,9 @@ import { Transition } from 'react-transition-group';
 import { PAYROLLGROUPViewInterface } from '@/types/types-pages';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
 import dayjs from 'dayjs';
-import { PAYROLLGROUPEditAction } from '@/store/actions/categories';
+import { PAYROLLGROUPEditAction, PAYROLLGROUPEditActionFailureCleanup, PAYROLLGROUPViewAction } from '@/store/actions/categories';
 import EmployeeAutoCompleteRight from './autocomplete-fields/employee-autocomplete-right';
 import BranchAutoCompleteRight from './autocomplete-fields/branch-autocomplete-right';
 import { clearFields } from '@/helpers/utils';
@@ -17,15 +17,22 @@ import { clearFields } from '@/helpers/utils';
 interface AllowedDaysPAYROLLGROUPModalInterface {
     singlePAYROLLGROUPDetailsData: PAYROLLGROUPViewInterface;
     allowedDaysPAYROLLGROUPOpenModal: boolean; 
+    setSinglePAYROLLGROUPOpenModal: Dispatch<SetStateAction<boolean>>;
     setAllowedDaysPAYROLLGROUPOpenModal: Dispatch<SetStateAction<boolean>>;
     setSinglePAYROLLGROUPDetailsData: Dispatch<SetStateAction<PAYROLLGROUPViewInterface>>;
 }
 
 export default function AllowedDaysPAYROLLGROUPModal(props: AllowedDaysPAYROLLGROUPModalInterface) {
   const dispatch = useDispatch();
-  const PAYROLLGROUPAllowedDaysState = useSelector((state: RootState)=> state.categories.PAYROLLGROUPEdit.status)
+  const PAYROLLGROUPState = useSelector((state: RootState)=> state.categories.PAYROLLGROUPEdit)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
-  const {allowedDaysPAYROLLGROUPOpenModal, setAllowedDaysPAYROLLGROUPOpenModal, singlePAYROLLGROUPDetailsData, setSinglePAYROLLGROUPDetailsData} = props;
+  const {
+    allowedDaysPAYROLLGROUPOpenModal, 
+    setAllowedDaysPAYROLLGROUPOpenModal, 
+    singlePAYROLLGROUPDetailsData, 
+    setSinglePAYROLLGROUPDetailsData,
+    setSinglePAYROLLGROUPOpenModal
+  } = props;
 
 
   const allowedDaysPAYROLLGROUP = () => { 
@@ -36,15 +43,22 @@ export default function AllowedDaysPAYROLLGROUPModal(props: AllowedDaysPAYROLLGR
   }
 
   useEffect(()=>{
-    if(PAYROLLGROUPAllowedDaysState){      
-      if(PAYROLLGROUPAllowedDaysState === 'succeeded'){
-        window.alert(`${PAYROLLGROUPAllowedDaysState.charAt(0).toUpperCase()}${PAYROLLGROUPAllowedDaysState.slice(1)}`)
-        setTimeout(()=>{
-          window.location.reload();
-        }, 800)
-      }
+    if(PAYROLLGROUPState.status === `${globalReducerSuccess}`){
+      window.alert(`${PAYROLLGROUPState.status.charAt(0).toUpperCase()}${PAYROLLGROUPState.status.slice(1)}`)
+      // window.location.reload();
+      setAllowedDaysPAYROLLGROUPOpenModal(false);
+      setSinglePAYROLLGROUPOpenModal(false);
+      dispatch(PAYROLLGROUPViewAction());
+      setTimeout(()=>{
+        dispatch(PAYROLLGROUPEditActionFailureCleanup());
+      }, 200)
+    } else if (PAYROLLGROUPState.status === `${globalReducerFailed}`){
+      window.alert(`${PAYROLLGROUPState.error}`)
+      setTimeout(()=>{
+        dispatch(PAYROLLGROUPEditActionFailureCleanup());
+      }, 200)
     }
-  }, [PAYROLLGROUPAllowedDaysState])
+  }, [PAYROLLGROUPState.status])
   return (
     <Fragment>
       <Transition in={allowedDaysPAYROLLGROUPOpenModal} timeout={400}>

@@ -5,8 +5,8 @@ import { Transition } from 'react-transition-group';
 import { USERResetPasswordInterface } from '@/types/types-pages';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
-import { USERResetPasswordAction } from '@/store/actions/users';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
+import { USERResetPasswordAction, USERResetPasswordActionFailureCleanup, USERViewAction } from '@/store/actions/users';
 import { clearFields } from '@/helpers/utils';
 
 
@@ -14,6 +14,7 @@ import { clearFields } from '@/helpers/utils';
 interface ResetPasswordUSERModalInterface {
     primaryKey: number,
     resetPasswordUSEROpenModal: boolean; 
+    setSingleUSEROpenModal: Dispatch<SetStateAction<boolean>>;
     setResetPasswordUSEROpenModal: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -21,7 +22,12 @@ export default function ResetPasswordUSERModal(props: ResetPasswordUSERModalInte
   const dispatch = useDispatch();
   const USERResetPasswordState = useSelector((state: RootState)=> state.users.USERResetPassword.status)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
-  const {resetPasswordUSEROpenModal, setResetPasswordUSEROpenModal, primaryKey} = props;
+  const {
+    resetPasswordUSEROpenModal, 
+    setResetPasswordUSEROpenModal, 
+    primaryKey,
+    setSingleUSEROpenModal
+  } = props;
   const [singleUSERDetailsData, setSingleUSERDetailsData] = useState<Omit<USERResetPasswordInterface, "id" | "added_by">>({
     new_password: '',
     repeat_new_password: '',
@@ -41,15 +47,21 @@ export default function ResetPasswordUSERModal(props: ResetPasswordUSERModalInte
 
   }
 
-  useEffect(()=>{
-    if(USERResetPasswordState){      
-      if(USERResetPasswordState === 'succeeded'){
+  useEffect(()=>{ 
+      if(USERResetPasswordState === `${globalReducerSuccess}`){
         window.alert(`${USERResetPasswordState.charAt(0).toUpperCase()}${USERResetPasswordState.slice(1)}`)
+        // window.location.reload();
+        setResetPasswordUSEROpenModal(false);
+        setSingleUSEROpenModal(false);
+        dispatch(USERViewAction());
         setTimeout(()=>{
-          window.location.reload();
-        }, 800)
+          dispatch(USERResetPasswordActionFailureCleanup())
+        }, 200)
+      }else if( USERResetPasswordState === `${globalReducerFailed}`){
+        setTimeout(()=>{
+          dispatch(USERResetPasswordActionFailureCleanup())
+        }, 200)
       }
-    }
   }, [USERResetPasswordState])
   return (
     <Fragment>
