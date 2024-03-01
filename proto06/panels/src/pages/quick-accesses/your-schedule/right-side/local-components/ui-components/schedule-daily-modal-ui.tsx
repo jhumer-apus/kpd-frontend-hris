@@ -12,8 +12,8 @@ function SCHEDULEDAILYModalUI(props: SCHEDULEDAILYModalUIInterface) {
     const ThisProps = props.singleSCHEDULEDAILYDetailsData;
 
     return (
-        <Fragment>
-            <div className='flex gap-10 overflow-auto relative'>
+        <Fragment >
+            <div className='flex gap-10 overflow-auto relative ml-auto mr-auto' >
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Business Date:' value={ThisProps.business_date ? dayjs(ThisProps.business_date).format('MM-DD-YYYY') : '-'} InputProps={{readOnly: false,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Employee Number:' value={(ThisProps?.emp_no || 0)} InputProps={{readOnly: true,}} variant='standard'/>

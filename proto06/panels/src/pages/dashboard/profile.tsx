@@ -620,6 +620,7 @@
 
             <TextField  disabled id="TIN" label="TIN" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.tax_code} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
+            <TextField  disabled id="Approver Number" label="Approver" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.approver1 }  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
           </div>
           <div>
 
@@ -695,7 +696,7 @@
 
             <TextField  disabled id="Philhealth" label="Philhealth" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.philhealth_code} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
-            <TextField  disabled id="Approver Number" label="Approver" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.approver1 }  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+           
 
             
           </div>

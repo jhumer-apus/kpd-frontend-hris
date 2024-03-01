@@ -82,7 +82,7 @@ export default function EditPHILHEALTHModal(props: EditPHILHEALTHModalInterface)
             }}
             size='sm'
         > 
-          <Typography variant='h6' className='border-b-2 border-blue-700'>Editing PHILHEALTH Details</Typography>
+          <Typography variant='h6' className='border-b-2 border-blue-700'>Editing PHIL-HEALTH Details</Typography>
           <div className='flex flex-col items-center justify-around h-full'>
             <div className='flex flex-col w-full gap-10'>
               <div className='flex justify-center item-center'>
@@ -93,7 +93,7 @@ export default function EditPHILHEALTHModal(props: EditPHILHEALTHModalInterface)
                         <TextField
                             required 
                             sx={{width: '100%'}} 
-                            label='Pagibig Number'
+                            label='Phil-Health Number'
                             aria-required  
                             variant='outlined' 
                             type="number"
@@ -131,7 +131,6 @@ export default function EditPHILHEALTHModal(props: EditPHILHEALTHModalInterface)
                             }}
                         />
                         <TextField
-                            required 
                             sx={{width: '100%'}} 
                             label='PHILHEALTH Category:'
                             aria-required  

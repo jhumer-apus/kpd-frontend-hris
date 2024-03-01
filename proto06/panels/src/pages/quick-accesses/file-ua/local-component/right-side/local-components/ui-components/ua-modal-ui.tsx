@@ -67,7 +67,7 @@ function UAModalUI(props: UAModalUIInterface) {
                 
             </div>
             { !userIsApprover &&
-                <i className='w-6/12 text-center mt-4' style={{color: 'gray'}}>You are not listed as one of the approvers</i>
+                <i className='w-6/12 text-center mt-4 ' style={{color: 'gray', marginBottom: '-200px'}}>You are not listed as one of the approverss</i>
             }
             </div>
             }

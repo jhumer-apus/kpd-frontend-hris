@@ -223,18 +223,18 @@ export function ChooseDashboard() {
             color="transparent"
             className="m-0 p-6"
           >
-            <Typography variant="h6" color="blue-gray" className="mb-2">
+            {/* <Typography variant="h6" color="blue-gray" className="mb-2">
               EASY ACCESS PANEL
-            </Typography>
+            </Typography> */}
             <Typography
               variant="subtitle2"
               className="flex items-center gap-1 font-normal text-blue-gray-600"
             >
-              <ArrowUpIcon
+              {/* <ArrowUpIcon
                 strokeWidth={3}
                 className="h-3.5 w-3.5 text-green-500"
-              />
-              For your easy access <strong>convenience</strong>
+              /> */}
+              {/* For your easy access <strong>convenience</strong> */}
             </Typography>
           </CardHeader>
           <CardBody className="pt-0 flex flex-wrap justify-around gap-1" >

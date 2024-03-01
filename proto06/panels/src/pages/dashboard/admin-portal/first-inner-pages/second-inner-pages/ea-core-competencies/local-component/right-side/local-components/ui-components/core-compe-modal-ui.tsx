@@ -41,7 +41,7 @@ function CORECOMPEModalUI(props: CORECOMPEModalUIInterface) {
                 setSingleCORECOMPEDetailsData={setSingleCORECOMPEDetailsData} 
                 setSingleCORECOMPEOpenModal={setSingleCORECOMPEOpenModal}
             />
-            <div className='flex overflow-auto gap-4 relative'>
+            <div className='flex overflow-auto gap-4 relative' style={{marginBottom:'30px'}}>
                 <div className='flex gap-6 flex-col'>
                     <TextField 
                         sx={{width: '100%', minWidth: '230px'}} 
