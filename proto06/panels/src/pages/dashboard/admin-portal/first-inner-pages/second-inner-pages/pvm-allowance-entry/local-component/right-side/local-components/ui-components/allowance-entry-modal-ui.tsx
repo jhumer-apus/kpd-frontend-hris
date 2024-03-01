@@ -10,13 +10,18 @@ import dayjs from 'dayjs';
 interface ALLOWANCEENTRYModalUIInterface {
     singleALLOWANCEENTRYDetailsData: ALLOWANCEENTRYViewInterface;
     multiplePayslipMode?: boolean;
+    setSingleALLOWANCEENTRYOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleALLOWANCEENTRYDetailsData: Dispatch<SetStateAction<ALLOWANCEENTRYViewInterface>>;
 }
 
 function ALLOWANCEENTRYModalUI(props: ALLOWANCEENTRYModalUIInterface) {
     const [ resetPasswordALLOWANCEENTRYOpenModal, setResetPasswordALLOWANCEENTRYOpenModal ] = useState(false);
     const [ editALLOWANCEENTRYOpenModal, setEditALLOWANCEENTRYOpenModal ] = useState(false);
-    const { setSingleALLOWANCEENTRYDetailsData, singleALLOWANCEENTRYDetailsData } = props;
+    const { 
+        setSingleALLOWANCEENTRYDetailsData, 
+        singleALLOWANCEENTRYDetailsData,
+        setSingleALLOWANCEENTRYOpenModal
+    } = props;
     const ThisProps = props.singleALLOWANCEENTRYDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
     const onClickModal = (mode: number) => {
@@ -31,7 +36,13 @@ function ALLOWANCEENTRYModalUI(props: ALLOWANCEENTRYModalUIInterface) {
 
     return (
         <Fragment>
-            <EditALLOWANCEENTRYModal singleALLOWANCEENTRYDetailsData={singleALLOWANCEENTRYDetailsData} setSingleALLOWANCEENTRYDetailsData={setSingleALLOWANCEENTRYDetailsData} editALLOWANCEENTRYOpenModal={editALLOWANCEENTRYOpenModal} setEditALLOWANCEENTRYOpenModal={setEditALLOWANCEENTRYOpenModal}/>
+            <EditALLOWANCEENTRYModal 
+                singleALLOWANCEENTRYDetailsData={singleALLOWANCEENTRYDetailsData} 
+                setSingleALLOWANCEENTRYDetailsData={setSingleALLOWANCEENTRYDetailsData} 
+                editALLOWANCEENTRYOpenModal={editALLOWANCEENTRYOpenModal} 
+                setEditALLOWANCEENTRYOpenModal={setEditALLOWANCEENTRYOpenModal}
+                setSingleALLOWANCEENTRYOpenModal={setSingleALLOWANCEENTRYOpenModal}
+            />
             <div className='flex overflow-auto justify-around gap-4 relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Allowance Amount:' value={ThisProps.amount ? ThisProps.amount : '-'} InputProps={{readOnly: true,}} variant='filled'/>

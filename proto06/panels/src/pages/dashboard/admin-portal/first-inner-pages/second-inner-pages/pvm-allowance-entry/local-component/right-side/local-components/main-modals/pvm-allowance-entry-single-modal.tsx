@@ -56,7 +56,11 @@ export default function ViewALLOWANCEENTRYSingleModal(props: SingleALLOWANCEENTR
                 overflow: 'auto',
             }}
         >
-          <ALLOWANCEENTRYModalComponent setSingleALLOWANCEENTRYDetailsData={setSingleALLOWANCEENTRYDetailsData} singleALLOWANCEENTRYDetailsData={singleALLOWANCEENTRYDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <ALLOWANCEENTRYModalComponent 
+            setSingleALLOWANCEENTRYDetailsData={setSingleALLOWANCEENTRYDetailsData} 
+            singleALLOWANCEENTRYDetailsData={singleALLOWANCEENTRYDetailsData} 
+            setSingleALLOWANCEENTRYOpenModal={setSingleALLOWANCEENTRYOpenModal}
+          />
         </ModalDialog>
       </Modal>
         )}
