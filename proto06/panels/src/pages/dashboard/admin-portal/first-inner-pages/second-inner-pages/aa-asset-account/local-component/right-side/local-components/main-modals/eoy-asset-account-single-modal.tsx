@@ -56,7 +56,11 @@ export default function ViewASSETACCOUNTSingleModal(props: SingleASSETACCOUNTInt
                 overflow: 'auto',
             }}
         >
-          <ASSETACCOUNTModalComponent setSingleASSETACCOUNTDetailsData={setSingleASSETACCOUNTDetailsData} singleASSETACCOUNTDetailsData={singleASSETACCOUNTDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <ASSETACCOUNTModalComponent 
+            setSingleASSETACCOUNTDetailsData={setSingleASSETACCOUNTDetailsData} 
+            singleASSETACCOUNTDetailsData={singleASSETACCOUNTDetailsData} 
+            setSingleASSETACCOUNTOpenModal={setSingleASSETACCOUNTOpenModal}
+          />
         </ModalDialog>
       </Modal>
         )}

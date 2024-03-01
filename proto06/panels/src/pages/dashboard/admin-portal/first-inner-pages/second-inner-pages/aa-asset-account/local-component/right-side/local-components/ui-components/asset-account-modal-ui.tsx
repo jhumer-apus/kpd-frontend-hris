@@ -16,7 +16,11 @@ interface ASSETACCOUNTModalUIInterface {
 function ASSETACCOUNTModalUI(props: ASSETACCOUNTModalUIInterface) {
     const [ resetPasswordASSETACCOUNTOpenModal, setResetPasswordASSETACCOUNTOpenModal ] = useState(false);
     const [ editASSETACCOUNTOpenModal, setEditASSETACCOUNTOpenModal ] = useState(false);
-    const { setSingleASSETACCOUNTDetailsData, singleASSETACCOUNTDetailsData } = props;
+    const { 
+        setSingleASSETACCOUNTDetailsData, 
+        singleASSETACCOUNTDetailsData, 
+        setSingleASSETACCOUNTOpenModal
+    } = props;
     const ThisProps = props.singleASSETACCOUNTDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
     const onClickModal = (mode: number) => {
@@ -31,7 +35,13 @@ function ASSETACCOUNTModalUI(props: ASSETACCOUNTModalUIInterface) {
 
     return (
         <Fragment>
-            <EditASSETACCOUNTModal singleASSETACCOUNTDetailsData={singleASSETACCOUNTDetailsData} setSingleASSETACCOUNTDetailsData={setSingleASSETACCOUNTDetailsData} editASSETACCOUNTOpenModal={editASSETACCOUNTOpenModal} setEditASSETACCOUNTOpenModal={setEditASSETACCOUNTOpenModal}/>
+            <EditASSETACCOUNTModal 
+                singleASSETACCOUNTDetailsData={singleASSETACCOUNTDetailsData} 
+                setSingleASSETACCOUNTDetailsData={setSingleASSETACCOUNTDetailsData} 
+                editASSETACCOUNTOpenModal={editASSETACCOUNTOpenModal} 
+                setEditASSETACCOUNTOpenModal={setEditASSETACCOUNTOpenModal}
+                setSingleASSETACCOUNTOpenModal={setSingleASSETACCOUNTOpenModal}
+            />
             <div className='flex overflow-auto justify-around gap-4 relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Account ID:' value={ThisProps.id ? ThisProps.id : '-'} InputProps={{readOnly: true,}} variant='filled'/>

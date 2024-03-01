@@ -7,13 +7,16 @@ import { ASSETACCOUNTViewInterface } from '@/types/types-payroll-eoy';
 
 interface ASSETACCOUNTModalComponentInterface {
     singleASSETACCOUNTDetailsData: ASSETACCOUNTViewInterface,
-    scroll: boolean,
-    setScroll: Dispatch<SetStateAction<boolean>>,
+    setSingleASSETACCOUNTOpenModal: Dispatch<SetStateAction<boolean>>, 
     setSingleASSETACCOUNTDetailsData: React.Dispatch<React.SetStateAction<ASSETACCOUNTViewInterface>>;
 };
 
 const ASSETACCOUNTModalComponent = ((props:ASSETACCOUNTModalComponentInterface) => {
-    const { singleASSETACCOUNTDetailsData, setSingleASSETACCOUNTDetailsData } = props;
+    const { 
+        singleASSETACCOUNTDetailsData, 
+        setSingleASSETACCOUNTDetailsData, 
+        setSingleASSETACCOUNTOpenModal
+    } = props;
     const componentRef = useRef<HTMLDivElement | null>(null);
 
     return (
@@ -21,7 +24,11 @@ const ASSETACCOUNTModalComponent = ((props:ASSETACCOUNTModalComponentInterface) 
             <Typography variant='soft'>Asset Account Data</Typography>
             {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
-                <ASSETACCOUNTModalUI setSingleASSETACCOUNTDetailsData={setSingleASSETACCOUNTDetailsData} singleASSETACCOUNTDetailsData={singleASSETACCOUNTDetailsData}/>
+                <ASSETACCOUNTModalUI 
+                    setSingleASSETACCOUNTDetailsData={setSingleASSETACCOUNTDetailsData}
+                    singleASSETACCOUNTDetailsData={singleASSETACCOUNTDetailsData}
+                    setSingleASSETACCOUNTOpenModal={setSingleASSETACCOUNTOpenModal}
+                />
             </div>
         </Fragment>
     );
