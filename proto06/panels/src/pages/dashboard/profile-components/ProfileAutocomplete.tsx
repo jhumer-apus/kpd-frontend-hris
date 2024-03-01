@@ -29,9 +29,8 @@ export default function ProfileAutocomplete(props: Props) {
 
         }))
     }
-    const selectedOption = value ? React.useMemo(() => options.find(option => option.id === value), options): null
-    // const selectedOption = defaultValue ? options.find(option => option.id === defaultValue) : null;
-    console.log(selectedOption)
+    // const selectedOption = value ? React.useMemo(() => options.find(option => option.id === value), options): null
+    const selectedOption = value ? options.find(option => option.id == value) : null;
 
     return (
       <Autocomplete

@@ -221,7 +221,7 @@ export const USERResetPasswordEpic: Epic = (action$, state$) =>
           if (error.response && error.response.data && error.response.data['Error Message']) {
             return of(USERResetPasswordActionFailure(error.response.data['Error Message'])); // Extract error message from the response
           } else {
-            return of(USERResetPasswordActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+            return of(USERResetPasswordActionFailure(beautifyJSON(error.response?.data))); // If there is no custom error message, use the default one
           }
         })
       )
