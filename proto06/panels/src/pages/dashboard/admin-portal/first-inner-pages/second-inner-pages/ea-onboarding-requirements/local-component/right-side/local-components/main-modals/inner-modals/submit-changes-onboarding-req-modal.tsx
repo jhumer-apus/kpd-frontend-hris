@@ -5,8 +5,8 @@ import { Transition } from 'react-transition-group';
 import { ONBOARDINGREQUIREMENTSEditInterface, ONBOARDINGREQUIREMENTSViewInterface } from '@/types/types-employee-and-applicants';
 import { Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
-import { ONBOARDINGREQUIREMENTSEditAction, ONBOARDINGREQUIREMENTSEditActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
+import { ONBOARDINGREQUIREMENTSEditAction, ONBOARDINGREQUIREMENTSEditActionFailureCleanup, ONBOARDINGREQUIREMENTSViewAction } from '@/store/actions/employee-and-applicants';
 
 
 
@@ -14,6 +14,7 @@ interface EditONBOARDINGREQUIREMENTSModalInterface {
     initialState: ONBOARDINGREQUIREMENTSViewInterface;
     setInitialState: Dispatch<SetStateAction<ONBOARDINGREQUIREMENTSViewInterface>>;
     openModal: boolean; 
+    setSingleONBOARDINGREQUIREMENTSOpenModal: Dispatch<SetStateAction<boolean>>; 
     setOpenModal: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -21,7 +22,13 @@ export default function EditSubmitONBOARDINGREQUIREMENTSModal(props: EditONBOARD
   const dispatch = useDispatch();
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
   const ONBOARDINGREQUIREMENTSEditState = useSelector((state: RootState)=> state.employeeAndApplicants.ONBOARDINGREQUIREMENTSEdit)
-  const {openModal, setOpenModal, initialState, setInitialState} = props;
+  const {
+    openModal, 
+    setOpenModal, 
+    initialState, 
+    setInitialState,
+    setSingleONBOARDINGREQUIREMENTSOpenModal
+  } = props;
 
   const [editObject, setEditObject] = useState<ONBOARDINGREQUIREMENTSEditInterface>({
     onboarding_title: '',
@@ -38,14 +45,20 @@ export default function EditSubmitONBOARDINGREQUIREMENTSModal(props: EditONBOARD
   }
 
   useEffect(()=>{
-    if(ONBOARDINGREQUIREMENTSEditState.status === 'succeeded'){
+    if(ONBOARDINGREQUIREMENTSEditState.status === `${globalReducerSuccess}`){
       window.alert(`Success: ${ONBOARDINGREQUIREMENTSEditState.status?.charAt(0).toUpperCase()}${ONBOARDINGREQUIREMENTSEditState.status.slice(1)}`)
+      // window.location.reload(); 
+      setOpenModal(false);
+      setSingleONBOARDINGREQUIREMENTSOpenModal(false);
+      dispatch(ONBOARDINGREQUIREMENTSViewAction());
       setTimeout(()=>{
-        window.location.reload();
-      }, 800)
-    } else if(ONBOARDINGREQUIREMENTSEditState.status === 'failed') {
+        dispatch(ONBOARDINGREQUIREMENTSEditActionFailureCleanup());  
+      }, 200)
+    } else if(ONBOARDINGREQUIREMENTSEditState.status === `${globalReducerFailed}`) {
       window.alert(`Error: ${ONBOARDINGREQUIREMENTSEditState.error}`)
-      dispatch(ONBOARDINGREQUIREMENTSEditActionFailureCleanup());
+      setTimeout(()=>{
+        dispatch(ONBOARDINGREQUIREMENTSEditActionFailureCleanup());  
+      }, 200)
     }
   }, [ONBOARDINGREQUIREMENTSEditState])
 
