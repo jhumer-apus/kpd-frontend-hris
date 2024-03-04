@@ -22,7 +22,7 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
     const [selectedEmployeeId, setSelectedEmployeeId] = useState<number | null>(null);
     const [ controlledValue, setControlledValue ] = useState(
         {
-        firstLetter: curr_emp && `${curr_emp?.last_name.charAt(0)}` || '', 
+        firstLetter: curr_emp && `${curr_emp?.last_name?.charAt(0)}` || '', 
         employee: curr_emp && `${curr_emp?.last_name} ${curr_emp?.first_name} - ${curr_emp?.emp_no}` || '', 
         emp_no: curr_emp && curr_emp?.emp_no || NaN
         }
