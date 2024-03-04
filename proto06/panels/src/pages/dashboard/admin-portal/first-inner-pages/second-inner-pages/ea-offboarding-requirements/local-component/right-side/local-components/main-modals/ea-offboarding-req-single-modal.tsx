@@ -57,7 +57,11 @@ export default function ViewOFFBOARDINGREQUIREMENTSSingleModal(props: SingleOFFB
                 overflow: 'auto',
             }}
         >
-          <OFFBOARDINGREQUIREMENTSModalComponent setSingleOFFBOARDINGREQUIREMENTSDetailsData={setSingleOFFBOARDINGREQUIREMENTSDetailsData} singleOFFBOARDINGREQUIREMENTSDetailsData={singleOFFBOARDINGREQUIREMENTSDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <OFFBOARDINGREQUIREMENTSModalComponent 
+            setSingleOFFBOARDINGREQUIREMENTSDetailsData={setSingleOFFBOARDINGREQUIREMENTSDetailsData} 
+            singleOFFBOARDINGREQUIREMENTSDetailsData={singleOFFBOARDINGREQUIREMENTSDetailsData} 
+            setSingleOFFBOARDINGREQUIREMENTSOpenModal={setSingleOFFBOARDINGREQUIREMENTSOpenModal}
+          />
         </ModalDialog>
       </Modal>
         )}

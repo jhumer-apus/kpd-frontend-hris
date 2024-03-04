@@ -5,8 +5,8 @@ import { Transition } from 'react-transition-group';
 import { OFFBOARDINGREQUIREMENTSEditInterface, OFFBOARDINGREQUIREMENTSViewInterface } from '@/types/types-employee-and-applicants';
 import { Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
-import { OFFBOARDINGREQUIREMENTSEditAction, OFFBOARDINGREQUIREMENTSEditActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
+import { OFFBOARDINGREQUIREMENTSEditAction, OFFBOARDINGREQUIREMENTSEditActionFailureCleanup, OFFBOARDINGREQUIREMENTSViewAction } from '@/store/actions/employee-and-applicants';
 
 
 
@@ -14,6 +14,7 @@ interface EditOFFBOARDINGREQUIREMENTSModalInterface {
     initialState: OFFBOARDINGREQUIREMENTSViewInterface;
     setInitialState: Dispatch<SetStateAction<OFFBOARDINGREQUIREMENTSViewInterface>>;
     openModal: boolean; 
+    setSingleOFFBOARDINGREQUIREMENTSOpenModal: Dispatch<SetStateAction<boolean>>;
     setOpenModal: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -21,13 +22,28 @@ export default function EditSubmitOFFBOARDINGREQUIREMENTSModal(props: EditOFFBOA
   const dispatch = useDispatch();
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
   const OFFBOARDINGREQUIREMENTSEditState = useSelector((state: RootState)=> state.employeeAndApplicants.OFFBOARDINGREQUIREMENTSEdit)
-  const { openModal, setOpenModal, initialState } = props;
+  const { 
+    openModal, 
+    setOpenModal, 
+    initialState,
+    setSingleOFFBOARDINGREQUIREMENTSOpenModal
+  } = props;
 
   const [editObject, setEditObject] = useState<OFFBOARDINGREQUIREMENTSEditInterface>({
     offboarding_title: '',
     facilitator: NaN,
     id: NaN,
+
   })
+
+  useEffect(()=>{
+    setEditObject((prevState)=>{
+      return({
+        ...prevState,
+        added_by: state?.emp_no
+      })
+    })
+  }, [state]);
 
   const EditOFFBOARDINGREQUIREMENTS = () => {
     if(initialState.id){
@@ -38,14 +54,20 @@ export default function EditSubmitOFFBOARDINGREQUIREMENTSModal(props: EditOFFBOA
   }
 
   useEffect(()=>{
-    if(OFFBOARDINGREQUIREMENTSEditState.status === 'succeeded'){
+    if(OFFBOARDINGREQUIREMENTSEditState.status === `${globalReducerSuccess}`){
       window.alert(`Success: ${OFFBOARDINGREQUIREMENTSEditState.status?.charAt(0).toUpperCase()}${OFFBOARDINGREQUIREMENTSEditState.status.slice(1)}`)
+      // window.location.reload();
+      setOpenModal(false);
+      setSingleOFFBOARDINGREQUIREMENTSOpenModal(false);
+      dispatch(OFFBOARDINGREQUIREMENTSViewAction());
       setTimeout(()=>{
-        window.location.reload();
-      }, 800)
-    } else if(OFFBOARDINGREQUIREMENTSEditState.status === 'failed') {
+        dispatch(OFFBOARDINGREQUIREMENTSEditActionFailureCleanup());
+      }, 200)
+    } else if(OFFBOARDINGREQUIREMENTSEditState.status === `${globalReducerFailed}`) {
       window.alert(`Error: ${OFFBOARDINGREQUIREMENTSEditState.error}`)
-      dispatch(OFFBOARDINGREQUIREMENTSEditActionFailureCleanup());
+      setTimeout(()=>{
+        dispatch(OFFBOARDINGREQUIREMENTSEditActionFailureCleanup());
+      }, 200)
     }
   }, [OFFBOARDINGREQUIREMENTSEditState])
 

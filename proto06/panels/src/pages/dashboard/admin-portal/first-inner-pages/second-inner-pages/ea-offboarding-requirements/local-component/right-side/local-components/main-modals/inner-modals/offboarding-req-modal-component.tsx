@@ -7,13 +7,16 @@ import { OFFBOARDINGREQUIREMENTSViewInterface } from '@/types/types-employee-and
 
 interface OFFBOARDINGREQUIREMENTSModalComponentInterface {
     singleOFFBOARDINGREQUIREMENTSDetailsData: OFFBOARDINGREQUIREMENTSViewInterface,
-    scroll: boolean,
-    setScroll: Dispatch<SetStateAction<boolean>>,
+    setSingleOFFBOARDINGREQUIREMENTSOpenModal: Dispatch<SetStateAction<boolean>>,
     setSingleOFFBOARDINGREQUIREMENTSDetailsData: React.Dispatch<React.SetStateAction<OFFBOARDINGREQUIREMENTSViewInterface>>;
 };
 
 const OFFBOARDINGREQUIREMENTSModalComponent = ((props:OFFBOARDINGREQUIREMENTSModalComponentInterface) => {
-    const { singleOFFBOARDINGREQUIREMENTSDetailsData, setSingleOFFBOARDINGREQUIREMENTSDetailsData } = props;
+    const { 
+        singleOFFBOARDINGREQUIREMENTSDetailsData, 
+        setSingleOFFBOARDINGREQUIREMENTSDetailsData,
+        setSingleOFFBOARDINGREQUIREMENTSOpenModal 
+    } = props;
     const componentRef = useRef<HTMLDivElement | null>(null);
 
     return (
@@ -21,7 +24,11 @@ const OFFBOARDINGREQUIREMENTSModalComponent = ((props:OFFBOARDINGREQUIREMENTSMod
             <Typography variant='soft'>Offboarding Requirements Data</Typography>
             {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
-                <OFFBOARDINGREQUIREMENTSModalUI setSingleOFFBOARDINGREQUIREMENTSDetailsData={setSingleOFFBOARDINGREQUIREMENTSDetailsData} singleOFFBOARDINGREQUIREMENTSDetailsData={singleOFFBOARDINGREQUIREMENTSDetailsData}/>
+                <OFFBOARDINGREQUIREMENTSModalUI 
+                    setSingleOFFBOARDINGREQUIREMENTSDetailsData={setSingleOFFBOARDINGREQUIREMENTSDetailsData} 
+                    singleOFFBOARDINGREQUIREMENTSDetailsData={singleOFFBOARDINGREQUIREMENTSDetailsData}
+                    setSingleOFFBOARDINGREQUIREMENTSOpenModal={setSingleOFFBOARDINGREQUIREMENTSOpenModal}
+                />
             </div>
         </Fragment>
     );
