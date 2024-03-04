@@ -56,7 +56,11 @@ export default function ViewJOBPOSTINGSSingleModal(props: SingleJOBPOSTINGSInter
                 overflow: 'auto',
             }}
         >
-          <JOBPOSTINGSModalComponent setSingleJOBPOSTINGSDetailsData={setSingleJOBPOSTINGSDetailsData} singleJOBPOSTINGSDetailsData={singleJOBPOSTINGSDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <JOBPOSTINGSModalComponent 
+            setSingleJOBPOSTINGSDetailsData={setSingleJOBPOSTINGSDetailsData} 
+            singleJOBPOSTINGSDetailsData={singleJOBPOSTINGSDetailsData} 
+            setSingleJOBPOSTINGSOpenModal={setSingleJOBPOSTINGSOpenModal}
+          />
         </ModalDialog>
       </Modal>
         )}

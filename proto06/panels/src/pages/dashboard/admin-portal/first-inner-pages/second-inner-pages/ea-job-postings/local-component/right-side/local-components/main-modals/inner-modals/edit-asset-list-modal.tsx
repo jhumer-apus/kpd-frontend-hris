@@ -6,7 +6,7 @@ import { ASSETLISTViewInterface } from '@/types/types-payroll-eoy';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
-import { ASSETLISTEditAction } from '@/store/actions/payroll-eoy';
+import { ASSETLISTCreateActionFailureCleanup, ASSETLISTEditAction, ASSETLISTEditActionFailureCleanup } from '@/store/actions/payroll-eoy';
 
 interface EditASSETLISTModalInterface {
     singleASSETLISTDetailsData: ASSETLISTViewInterface;
@@ -33,11 +33,15 @@ export default function EditASSETLISTModal(props: EditASSETLISTModalInterface) {
     if(ASSETLISTEditState.status){      
       if(ASSETLISTEditState.status === 'succeeded'){
         window.alert(`${ASSETLISTEditState.status.charAt(0).toUpperCase()}${ASSETLISTEditState.status.slice(1)}`)
+        // window.location.reload();
         setTimeout(()=>{
-          window.location.reload();
-        }, 800)
+          dispatch(ASSETLISTEditActionFailureCleanup());
+        }, 200)
       }else if(ASSETLISTEditState.status === 'failed'){
         window.alert(`${ASSETLISTEditState.error}`)
+        setTimeout(()=>{
+          dispatch(ASSETLISTEditActionFailureCleanup());
+        }, 200)
       }
     }
   }, [ASSETLISTEditState.status])

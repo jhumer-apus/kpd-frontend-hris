@@ -4,20 +4,25 @@ import { Button } from '@mui/material';
 import {TextField} from '@mui/material';
 import EditJOBPOSTINGSModal from '../main-modals/inner-modals/edit-asset-list-modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
 import dayjs from 'dayjs';
-import { JOBPOSTINGSEditAction } from '@/store/actions/employee-and-applicants';
+import { JOBPOSTINGSEditAction, JOBPOSTINGSEditActionFailureCleanup, JOBPOSTINGSViewAction } from '@/store/actions/employee-and-applicants';
 import DeleteJOBPOSTINGSModal from './delete-modal';
 
 interface JOBPOSTINGSModalUIInterface {
     singleJOBPOSTINGSDetailsData: JOBPOSTINGSViewInterface;
     multiplePayslipMode?: boolean;
+    setSingleJOBPOSTINGSOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleJOBPOSTINGSDetailsData: Dispatch<SetStateAction<JOBPOSTINGSViewInterface>>;
 }
 
 function JOBPOSTINGSModalUI(props: JOBPOSTINGSModalUIInterface) {
     const [ deleteJOBPOSTINGSOpenModal, setDeleteJOBPOSTINGSOpenModal ] = useState(false);
-    const { setSingleJOBPOSTINGSDetailsData, singleJOBPOSTINGSDetailsData } = props;
+    const { 
+        setSingleJOBPOSTINGSDetailsData, 
+        singleJOBPOSTINGSDetailsData,
+        setSingleJOBPOSTINGSOpenModal
+    } = props;
     const ThisProps = props.singleJOBPOSTINGSDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
 
@@ -34,13 +39,19 @@ function JOBPOSTINGSModalUI(props: JOBPOSTINGSModalUIInterface) {
   
     useEffect(()=>{
       if(JOBPOSTINGSEditState.status){      
-        if(JOBPOSTINGSEditState.status === 'succeeded'){
+        if(JOBPOSTINGSEditState.status === `${globalReducerSuccess}`){
           window.alert(`${JOBPOSTINGSEditState.status.charAt(0).toUpperCase()}${JOBPOSTINGSEditState.status.slice(1)}`)
+        //   window.location.reload();
+          setSingleJOBPOSTINGSOpenModal(false);
+          dispatch(JOBPOSTINGSViewAction());
           setTimeout(()=>{
-            window.location.reload();
-          }, 800)
-        }else if(JOBPOSTINGSEditState.status === 'failed'){
+            dispatch(JOBPOSTINGSEditActionFailureCleanup());
+          }, 200)
+        }else if(JOBPOSTINGSEditState.status === `${globalReducerFailed}`){
           window.alert(`${JOBPOSTINGSEditState.error}`)
+          setTimeout(()=>{
+            dispatch(JOBPOSTINGSEditActionFailureCleanup());
+          }, 200)
         }
       }
     }, [JOBPOSTINGSEditState.status])
