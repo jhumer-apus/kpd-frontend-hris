@@ -100,7 +100,7 @@ export default function EditALLOWANCETYPEModal(props: EditALLOWANCETYPEModalInte
             }}
             size='sm'
         > 
-          <Typography variant='h6' className='border-b-2 border-blue-700'>Editing ALLOWANCETYPE Details</Typography>
+          <Typography variant='h6' className='border-b-2 border-blue-700'>Editing ALLOWANCE TYPE Details</Typography>
           <div className='flex flex-col items-center justify-around h-full'>
             <div className='flex flex-col w-full gap-10'>
               <div className='flex justify-center item-center'>
