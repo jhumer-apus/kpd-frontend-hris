@@ -47,7 +47,7 @@ export default function PVMALLOWANCEENTRYPageHistory() {
         </Typography>
         </div>
       </div>
-      <div style={{ height: '600px', width: '100%' }}>
+      <div style={{ height: '90%', width: '100%' }}>
         <DataGrid
           rows={ALLOWANCEENTRYViewData? ALLOWANCEENTRYViewData as ALLOWANCEENTRYViewInterface[]:[]}
           columns={PVMALLOWANCEENTRYPageColumns}

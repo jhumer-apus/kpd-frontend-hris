@@ -47,7 +47,7 @@ export default function PVMSSSPageHistory() {
         </Typography>
         </div>
       </div>
-      <div style={{ height: '600px', width: '100%' }}>
+      <div style={{ height: '90%', width: '100%' }}>
         <DataGrid
           rows={SSSViewData? SSSViewData as SSSViewInterface[]:[]}
           columns={PVMSSSPageColumns}
