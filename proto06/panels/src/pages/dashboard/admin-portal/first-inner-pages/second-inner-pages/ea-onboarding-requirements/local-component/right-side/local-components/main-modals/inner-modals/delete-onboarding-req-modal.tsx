@@ -5,8 +5,8 @@ import { Transition } from 'react-transition-group';
 import { ONBOARDINGREQUIREMENTSViewInterface } from '@/types/types-employee-and-applicants';
 import { Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
-import { ONBOARDINGREQUIREMENTSDeleteAction, ONBOARDINGREQUIREMENTSDeleteActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
+import { ONBOARDINGREQUIREMENTSDeleteAction, ONBOARDINGREQUIREMENTSDeleteActionFailureCleanup, ONBOARDINGREQUIREMENTSViewAction } from '@/store/actions/employee-and-applicants';
 
 
 
@@ -14,6 +14,7 @@ interface DeactivateONBOARDINGREQUIREMENTSModalInterface {
     initialState: ONBOARDINGREQUIREMENTSViewInterface;
     openModal: boolean; 
     setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+    setSingleONBOARDINGREQUIREMENTSOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
     setInitialState: React.Dispatch<React.SetStateAction<ONBOARDINGREQUIREMENTSViewInterface>>;
 }
 
@@ -21,7 +22,13 @@ export default function DeactivateONBOARDINGREQUIREMENTSModal(props: DeactivateO
   const dispatch = useDispatch();
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
   const ONBOARDINGREQUIREMENTSDeactivateState = useSelector((state: RootState)=> state.employeeAndApplicants.ONBOARDINGREQUIREMENTSDelete)
-  const {openModal, setOpenModal, initialState, setInitialState} = props;
+  const {
+    openModal, 
+    setOpenModal, 
+    initialState, 
+    setInitialState,
+    setSingleONBOARDINGREQUIREMENTSOpenModal
+  } = props;
 
   const DeactivateONBOARDINGREQUIREMENTS = () => {
     if(initialState.id){
@@ -32,14 +39,20 @@ export default function DeactivateONBOARDINGREQUIREMENTSModal(props: DeactivateO
   }
 
   React.useEffect(()=>{
-    if(ONBOARDINGREQUIREMENTSDeactivateState.status === 'succeeded' && openModal){
+    if(ONBOARDINGREQUIREMENTSDeactivateState.status === `${globalReducerSuccess}` && openModal){
       window.alert(`Success: ${ONBOARDINGREQUIREMENTSDeactivateState.status?.charAt(0).toUpperCase()}${ONBOARDINGREQUIREMENTSDeactivateState.status.slice(1)}`)
+      // window.location.reload();
+      setOpenModal(false);
+      setSingleONBOARDINGREQUIREMENTSOpenModal(false);
+      dispatch(ONBOARDINGREQUIREMENTSViewAction());
       setTimeout(()=>{
-        window.location.reload();
-      }, 800)
-    } else if(ONBOARDINGREQUIREMENTSDeactivateState.status === 'failed' && openModal) {
+        dispatch(ONBOARDINGREQUIREMENTSDeleteActionFailureCleanup());
+      }, 200)
+    } else if(ONBOARDINGREQUIREMENTSDeactivateState.status === `${globalReducerFailed}` && openModal) {
       window.alert(`Error: ${ONBOARDINGREQUIREMENTSDeactivateState.error}`)
-      dispatch(ONBOARDINGREQUIREMENTSDeleteActionFailureCleanup());
+      setTimeout(()=>{
+        dispatch(ONBOARDINGREQUIREMENTSDeleteActionFailureCleanup());
+      }, 200)
     }
   }, [ONBOARDINGREQUIREMENTSDeactivateState])
 

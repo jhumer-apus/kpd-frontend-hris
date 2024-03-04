@@ -56,7 +56,11 @@ export default function ViewONBOARDINGREQUIREMENTSSingleModal(props: SingleONBOA
                 overflow: 'auto',
             }}
         >
-          <ONBOARDINGREQUIREMENTSModalComponent setSingleONBOARDINGREQUIREMENTSDetailsData={setSingleONBOARDINGREQUIREMENTSDetailsData} singleONBOARDINGREQUIREMENTSDetailsData={singleONBOARDINGREQUIREMENTSDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <ONBOARDINGREQUIREMENTSModalComponent 
+            setSingleONBOARDINGREQUIREMENTSDetailsData={setSingleONBOARDINGREQUIREMENTSDetailsData} 
+            singleONBOARDINGREQUIREMENTSDetailsData={singleONBOARDINGREQUIREMENTSDetailsData} 
+            setSingleONBOARDINGREQUIREMENTSOpenModal={setSingleONBOARDINGREQUIREMENTSOpenModal}
+            />
         </ModalDialog>
       </Modal>
         )}

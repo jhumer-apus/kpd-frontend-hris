@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { Typography } from '@mui/joy';
 import { ONBOARDINGREQUIREMENTSCreateInterface } from '@/types/types-employee-and-applicants';
-import { ONBOARDINGREQUIREMENTSCreateAction, ONBOARDINGREQUIREMENTSCreateActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import { ONBOARDINGREQUIREMENTSCreateAction, ONBOARDINGREQUIREMENTSCreateActionFailureCleanup, ONBOARDINGREQUIREMENTSViewAction } from '@/store/actions/employee-and-applicants';
 import EmployeeAutoComplete from './autocomplete-fields/employee-autocomplete';
 
 
@@ -41,7 +41,10 @@ function EAONBOARDINGREQUIREMENTSCreate(props: CreateONBOARDINGREQUIREMENTSModal
     useEffect(()=>{
         if(ONBOARDINGREQUIREMENTSCreatestate.status === 'succeeded'){
             window.alert('Request Successful');
-            window.location.reload();
+            // window.location.reload();
+            setTimeout(()=> {
+                dispatch(ONBOARDINGREQUIREMENTSViewAction());
+            }, 200)
         }else if(ONBOARDINGREQUIREMENTSCreatestate.status === 'failed'){
             window.alert(`Request Failed, ${ONBOARDINGREQUIREMENTSCreatestate.error}`)
             setTimeout(()=> {
