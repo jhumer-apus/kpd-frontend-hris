@@ -20,7 +20,7 @@ import PrintTableButton from './local-components/print-table-button';
 import ExportToCsvButton from './local-components/export-to-csv-button';
 
 //LIBRARIES 
-import { Select, Option } from "@material-tailwind/react";
+import { Select, Option, Input } from "@material-tailwind/react";
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -173,8 +173,8 @@ export default function ViewDtrReports() {
         </Typography>
         </div>
         <div className='flex justify-between gap-6'>
-        <ExportToCsvButton data={dtrData} />
-        <PrintTableButton printing={printing} setIsPrinting={setIsPrinting}/>
+          <ExportToCsvButton data={dtrData} />
+          <PrintTableButton printing={printing} setIsPrinting={setIsPrinting}/>
         </div>
       </div>
       <div className='flex w-fit'>
@@ -193,6 +193,7 @@ export default function ViewDtrReports() {
                   <Option key={i} value={option.value}>{option.name}</Option>
               ))}
           </Select>
+          <Input type="number" min="0" label="Year" />
         </div>
       <div style={{ height: `${printing? `${printableArea()}px` : '660px'}`, width: '100%' }} id="printable-area">
         <DataGrid
