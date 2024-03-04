@@ -51,7 +51,12 @@ export const dynamicDTRColumns: Array<GridColDef[]> =
     },
     { field: 'bio_id', headerName: 'Biometrics ID', width: 140 },
     { field: 'branch_code', headerName: 'Branch Code', width: 120 },
-    { field: 'is_processed', headerName: 'Processed', width: 140 },
+    { field: 'is_processed', headerName: 'Process Satus', width: 140,
+      valueGetter: (params: GridValueGetterParams) => {
+        const processStatus = params.row.is_processed? "Completed": "In Progress"
+        return processStatus;
+      },
+    },
   ],
   [
     { field: 'id', headerName: 'Entry ID', width: 120 },

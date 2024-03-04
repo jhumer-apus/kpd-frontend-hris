@@ -3,6 +3,9 @@ import {
   viewAllDtrLogs,
   viewAllDtrLogsSuccess,
   viewAllDtrLogsFailure,
+  viewFilterDtrLogs,
+  viewFilterDtrLogsSuccess,
+  viewFilterDtrLogsFailure,
   viewMergedDtrLogs,
   viewMergedDtrLogsSuccess,
   viewMergedDtrLogsFailure,
@@ -245,6 +248,9 @@ const dtrSlice = createSlice({
       .addCase(viewAllDtrLogs, setLoadingState)
       .addCase(viewAllDtrLogsSuccess, (state, action) => setSuccessState(state, action.payload.allDtrLogs))
       .addCase(viewAllDtrLogsFailure, (state, action) => setFailureState(state, action.payload))
+      .addCase(viewFilterDtrLogs, setLoadingState)
+      .addCase(viewFilterDtrLogsSuccess, (state, action) => setSuccessState(state, action.payload.filterDtrLogs))
+      .addCase(viewFilterDtrLogsFailure, (state, action) => setFailureState(state, action.payload))
       .addCase(viewMergedDtrLogs, setLoadingState)
       .addCase(viewMergedDtrLogsSuccess, (state, action) => setSuccessState(state, action.payload.allMergedDtr))
       .addCase(viewMergedDtrLogsFailure, (state, action) => setFailureState(state, action.payload))

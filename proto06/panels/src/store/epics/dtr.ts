@@ -8,6 +8,9 @@ import {
   viewAllDtrLogs, 
   viewAllDtrLogsSuccess, 
   viewAllDtrLogsFailure,
+  viewFilterDtrLogs, 
+  viewFilterDtrLogsSuccess, 
+  viewFilterDtrLogsFailure,
   viewMergedDtrLogs,
   viewMergedDtrLogsSuccess,
   viewMergedDtrLogsFailure,
@@ -37,6 +40,16 @@ import { beautifyJSON } from '@/helpers/utils';
 const viewAllDtrLogsApiCall = async () => {
     const response = await axios.get(`${APILink}dtr/`);
     return response.data;
+};
+
+const viewFilterDtrLogsApiCall = async (payload:any) => {
+  const response = await axios.get(`${APILink}dtr/`, {
+    params: {
+      month: payload.month,
+      year: payload.year
+    }
+  });
+  return response.data;
 };
 
 const viewMergedDtrLogsApiCall = async () => {
@@ -125,6 +138,27 @@ export const viewAllDtrLogsEpic: Epic = (action$, state$) =>
             return of(viewAllDtrLogsFailure(error.response.data.error)); // Extract error message from the response
           } else {
             return of(viewAllDtrLogsFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+export const viewFilterDtrLogsEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(viewFilterDtrLogs.type),
+    switchMap((action) =>
+      from(
+        viewFilterDtrLogsApiCall(action.payload)
+      ).pipe(
+        map((data) => {
+          return viewFilterDtrLogsSuccess(data);
+        }),
+        catchError((error) => {
+          if (error.response && error.response.data && error.response.data.error) {
+            return of(viewFilterDtrLogsFailure(error.response.data.error)); // Extract error message from the response
+          } else {
+            return of(viewFilterDtrLogsFailure(error.message)); // If there is no custom error message, use the default one
           }
         })
       )

@@ -15,9 +15,12 @@ import SplitButton from '@/widgets/split-button/split-button';
 import { viewDTROptions, viewDTRDescriptions } from '@/data/pages-data/dtr-data/view-dtr-reports';
 import useDtrState from '@/custom-hooks/use-dtr-state';
 import { dynamicDTRColumns } from '@/data/pages-data/dtr-data/view-dtr-reports';
-import { viewAllDtrLogs, viewCutoffDtrSummary, viewMergedDtrLogs } from '@/store/actions/dtr';
+import { viewAllDtrLogs, viewFilterDtrLogs, viewCutoffDtrSummary, viewMergedDtrLogs } from '@/store/actions/dtr';
 import PrintTableButton from './local-components/print-table-button';
 import ExportToCsvButton from './local-components/export-to-csv-button';
+
+//LIBRARIES 
+import { Select, Option } from "@material-tailwind/react";
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -58,12 +61,14 @@ export default function ViewDtrReports() {
 
 
   useEffect(() => {
+    // dispatch(viewFilterDtrLogs({month:1,year:2024}))
     if(spButtonIndex !== null && spButtonIndex === 1 ){
       dispatch(viewMergedDtrLogs());
     } else if (spButtonIndex !== null && spButtonIndex === 2 ){
       dispatch(viewCutoffDtrSummary());
     } else {
-      dispatch(viewAllDtrLogs());
+      dispatch(viewFilterDtrLogs({month:1,year:2024}))
+      // dispatch(viewAllDtrLogs());
     }
   }, [spButtonIndex]);
   function dispatchSpecificEmployeeInfo(employee_number: number){
@@ -100,6 +105,57 @@ export default function ViewDtrReports() {
     }
   };
 
+  const options= [
+      {
+          name: "January",
+          value: "1"
+      },
+      {
+          name: "February",
+          value: "2"
+      },
+      {
+          name: "March",
+          value: "3"
+      },
+      {
+          name: "April",
+          value: "4"
+      },
+      {
+          name: "May",
+          value: "5"
+      },
+      {
+          name: "June",
+          value: "6"
+      },
+      {
+          name: "July",
+          value: "7"
+      },
+      {
+          name: "August",
+          value: "8"
+      },
+      {
+          name: "September",
+          value: "9"
+      },
+      {
+          name: "October",
+          value: "10"
+      },
+      {
+          name: "November",
+          value: "11"
+      },
+      {
+          name: "December",
+          value: "12"
+      }
+  ]
+
   const gridRowClick = (e: GridRowParams) => {
     handleOpen()
     setModalEntranceDelay(true)
@@ -121,6 +177,23 @@ export default function ViewDtrReports() {
         <PrintTableButton printing={printing} setIsPrinting={setIsPrinting}/>
         </div>
       </div>
+      <div className='flex w-fit'>
+          <Select 
+              // value={currValue}
+              variant='outlined'
+              label='Month'
+              placeholder='Choose a month'
+              onChange={(val:any) => setState? setState(val):null}
+              // disabled={isDisable}
+              // name={name}
+              // require={isRequired}
+              // ref={register}
+          >
+              {options.map((option: OptionInterface, i: number) => (
+                  <Option key={i} value={option.value}>{option.name}</Option>
+              ))}
+          </Select>
+        </div>
       <div style={{ height: `${printing? `${printableArea()}px` : '660px'}`, width: '100%' }} id="printable-area">
         <DataGrid
           rows={dtrData ?? []}

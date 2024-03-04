@@ -32,8 +32,10 @@ export default function CreateSummaryPage() {
     emp_no: [],
     cutoff_code: NaN
   });
-  const {status: cutOffStatus, employees, error} = useSelector((state: RootState) => state.dtr.getCutoffListEmployees);
 
+  const {status: cutOffStatus, employees, error} = useSelector((state: RootState) => state.dtr.getCutoffListEmployees);
+  console.log(employees);
+  
   useEffect(()=> {
       dispatch(getCutoffListEmployee({cutoff_period:selectedRows?.cutoff_code}));
   }, [selectedRows?.cutoff_code])
