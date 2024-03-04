@@ -28,11 +28,12 @@ import employeeEasyAccessData from "@/data/employee-easy-access-data";
 import { UnderDevelopmentMsg } from "./hris-portal/local-components/projects-card";
 import { useNavigate } from "react-router-dom";
 import PerfectAttendanceTable from "./home-components/perfect-attendance-table";
+import ImperfectAttendanceTable from "./home-components/imperfect-attendance-table";
 import MonthYearDropdown from "./home-components/month-year-dropdown";
 import dayjs from "dayjs";
 import { PERFECTATTENDANCEViewSpecificAction } from "@/store/actions/employee-and-applicants";
 import { IMPERFECTATTENDANCEViewSpecificAction } from "@/store/actions/employee-and-applicants";
-import AttendanceTable from  "./home-components/perfect-attendance-table"
+import AttendanceTable from  "./home-components/AttendanceTable"
 import { useDispatch, useSelector } from "react-redux";
 import { Perfect_Attendace_Filter_Interface } from "@/types/types-employee-and-applicants";
 import ExportToCsv from "@/public-components/ExportToCSVButton";
@@ -94,12 +95,15 @@ export function ChooseDashboard() {
       if(Array.isArray(EmployeeState?.IMPERFECTATTENDANCEViewSpecific?.data)){
         const data = EmployeeState?.IMPERFECTATTENDANCEViewSpecific?.data?.map((data)=> {
           return ({
-            id: data.id,
-            Employee_Name: `${data.last_name}, ${data.first_name} ${data.middle_name !== null ? data.middle_name : ''} ${data.suffix !== null? data.suffix : ''}`,
-            Department_ID: `${data.department_code !== null ? data.department_code : ''}`, 
-            Division_ID: `${data.division_code !== null ? data.division_code : ''}`,
-            Position_ID: `${data.position_code !== null ? data.position_code : ''}`,
-            Payroll_Group: `${data.payroll_group_code !== null ? data.payroll_group_code : ''}`,
+            id: data.employee.id,
+            Employee_Name: `${data.employee.last_name}, ${data.employee.first_name} ${data.employee.middle_name !== null ? data.employee.middle_name : ''} ${data.employee.suffix !== null? data.employee.suffix : ''}`,
+            Department_ID: `${data.employee.department_code !== null ? data.employee.department_code : ''}`, 
+            Division_ID: `${data.employee.division_code !== null ? data.employee.division_code : ''}`,
+            Position_ID: `${data.employee.position_code !== null ? data.employee.position_code : ''}`,
+            Payroll_Group: `${data.employee.payroll_group_code !== null ? data.employee.payroll_group_code : ''}`,
+            Lates: `${data.lates !== null ? data.lates : ''}`,
+            Undertime: `${data.undertime !== null ? data.undertime : ''}`,
+            Total_Tardiness: `${data.counter !== null ? data.counter : ''}`,
           })
         });
         setForCSVExtract(data) 
@@ -213,7 +217,17 @@ export function ChooseDashboard() {
                           </Menu>
                         </div>
                         <MonthYearDropdown filter={filterState} setFilter={setFilterState}/>
-                        <AttendanceTable state={forCSVExtract instanceof Array ? forCSVExtract : []} status={currentAttendanceTab == "perfect_attendance"? EmployeeState.PERFECTATTENDANCEViewSpecific.status: EmployeeState.IMPERFECTATTENDANCEViewSpecific.status}/>
+                          {currentAttendanceTab == "perfect_attendance"? 
+                            <PerfectAttendanceTable 
+                              state={forCSVExtract instanceof Array ? forCSVExtract : []} 
+                              status={EmployeeState.PERFECTATTENDANCEViewSpecific.status} 
+                            />:
+                            <ImperfectAttendanceTable 
+                              state={forCSVExtract instanceof Array ? forCSVExtract : []}
+                              status={EmployeeState.IMPERFECTATTENDANCEViewSpecific.status}
+                            /> 
+                          }
+                        {/* <AttendanceTable state={forCSVExtract instanceof Array ? forCSVExtract : []} status={currentAttendanceTab == "perfect_attendance"? EmployeeState.PERFECTATTENDANCEViewSpecific.status: EmployeeState.IMPERFECTATTENDANCEViewSpecific.status}/> */}
                         {/* <PerfectAttendanceTable state={forCSVExtract instanceof Array ? forCSVExtract : []} status={EmployeeState.PERFECTATTENDANCEViewSpecific.status} /> */}
                       </TabPanel>
                     ))}
