@@ -1,6 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 import { 
     ViewAllDtrLogsType,
+    ViewFilterDtrLogsType,
     ViewMergedDtrLogsType,
     ViewCutoffDtrSummaryType,
  } from '@/types/types-store';
@@ -12,6 +13,12 @@ export const viewAllDtrLogs = createAction("VIEW_ALL_DTR_LOGS");
 export const viewAllDtrLogsSuccess = createAction("VIEW_ALL_DTR_LOGS_SUCCESS", (allDtrLogs: Array<ViewAllDtrLogsType>) => { 
     return({ payload: {allDtrLogs} })});
 export const viewAllDtrLogsFailure = createAction<string>("VIEW_ALL_DTR_LOGS_FAILURE");
+
+
+export const viewFilterDtrLogs = createAction<{month: number, year: number}>("VIEW_FILTER_DTR_LOGS");
+export const viewFilterDtrLogsSuccess = createAction("VIEW_FILTER_DTR_LOGS_SUCCESS", (filterDtrLogs: Array<ViewFilterDtrLogsType>) => { 
+    return({ payload: {filterDtrLogs} })});
+export const viewFilterDtrLogsFailure = createAction<string>("VIEW_FILTER_DTR_LOGS_FAILURE");
 
 
 export const viewMergedDtrLogs = createAction("VIEW_MERGED_DTR_LOGS");

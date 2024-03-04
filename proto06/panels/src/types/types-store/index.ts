@@ -109,6 +109,8 @@ export interface ViewAllDtrLogsType {
     schedule_daily_code: number,
 }
 
+export interface ViewFilterDtrLogsType extends ViewAllDtrLogsType {}
+
 export interface ViewMergedDtrLogsType {
     [key: string]: number | string | Date | boolean | null | undefined,
     readonly id?: number,

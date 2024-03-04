@@ -77,7 +77,7 @@ export default function IncrementSLVL () {
                 (
                     <Card className="p-2 mb-4 border border-2 border-green-500">
                         <CardHeader className="p-2 w-fit">
-                            <Typography variant="p" className="text-slate-500">
+                            <Typography variant="paragraph" className="text-slate-500">
                                 Notification Expires At: {getSeventhDateOfCurrentDate().format('MMM DD, YYYY')}
                             </Typography>
                         </CardHeader>

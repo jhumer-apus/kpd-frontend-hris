@@ -11,12 +11,12 @@ import { PERFECTATTENDANCEViewInterface } from '@/types/types-employee-and-appli
 import { globalServerErrorMsg } from '@/store/configureStore';
 
 
-interface Perfect_Attendance_Table_Props<T, Status>{
+interface Imperfect_Attendance_Table_Props<T, Status>{
   state: T[]
   status: Status
 }
 
-export default function PerfectAttendanceTable<T, Status>(props: Perfect_Attendance_Table_Props<T, Status>) {
+export default function ImperfectAttendanceTable<T, Status>(props: Imperfect_Attendance_Table_Props<T, Status>) {
   const { state, status } = props;
   const [singleOBTOpenModal, setSingleOBTOpenModal] = useState<boolean>(false);
   const [singleOBTDetailsData, setSingleOBTDetailsData] = useState<OBTViewInterface>(OBTViewFilterEmployeeInitialState);
@@ -55,6 +55,9 @@ export default function PerfectAttendanceTable<T, Status>(props: Perfect_Attenda
     // },
     { field: 'Position_ID', headerName: 'Position ID', width: 120 },
     { field: 'Employee_Name', headerName: 'Employee Full Name:', width: 300 },
+    { field: 'Lates', headerName: 'Lates:', width: 100 },
+    { field: 'Undertime', headerName: 'Undertime:', width: 100 },
+    { field: 'Total_Tardiness', headerName: 'Total Tardiness:', width: 100 },
   ];
 
   return (
