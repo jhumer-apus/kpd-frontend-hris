@@ -39,8 +39,8 @@ export const authEpic: Epic = (action$, state$) =>
         map((data) => {
           // Save the token in a secure cookie with an expiration time of 1 hour
           Cookies.set('token', data.jwt, { expires: 6 / 24, secure: false});
+          Cookies.set('emp_deetz', JSON.stringify(data.employee_detail), { expires: 6 / 24, secure: false })
           Cookies.set('user', JSON.stringify(data.user), { expires: 6 / 24, secure: false });
-          Cookies.set('employee_detail', JSON.stringify(data.employee_detail), { expires: 6 / 24, secure: false });
           return userLoginActionSuccess(data.jwt, data.user, data.employee_detail);
         }),
         catchError((error) => {
@@ -71,7 +71,7 @@ export const fetchUserDataEpic: Epic = (action$, state$) =>
     switchMap((action: ReturnType<typeof fetchUserData>) =>
       from(fetchUserDataApiCall(action.payload.emp_no)).pipe(
         map((data) => {
-          Cookies.set('employee_detail', JSON.stringify(data), { expires: 6 / 24, secure: true });
+          Cookies.set('emp_', JSON.stringify(data), { expires: 6 / 24, secure: true });
           return fetchUserDataSuccess(data);
         }),
         catchError((error) => {
