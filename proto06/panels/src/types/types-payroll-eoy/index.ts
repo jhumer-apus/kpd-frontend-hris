@@ -141,7 +141,7 @@ export interface ASSETACCOUNTGenericInterface {
     serial_no_internal: string,
     remarks: string,
     asset_list_code: number,
-    assigned_by?: number, //added_by
+    added_by?: number, //added_by
     assigned_to: number,
     date_assigned: string | null,
 }

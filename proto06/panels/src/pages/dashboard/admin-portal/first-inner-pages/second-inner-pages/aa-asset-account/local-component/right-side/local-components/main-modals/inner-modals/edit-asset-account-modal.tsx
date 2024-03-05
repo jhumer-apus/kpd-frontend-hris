@@ -34,7 +34,7 @@ export default function EditASSETACCOUNTModal(props: EditASSETACCOUNTModalInterf
   const editASSETACCOUNT = () => { 
     dispatch(ASSETACCOUNTEditAction({
       ...singleASSETACCOUNTDetailsData,
-      assigned_by: curr_user || NaN
+      added_by: curr_user || NaN
     }))
   }
 
