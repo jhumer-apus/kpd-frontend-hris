@@ -187,7 +187,7 @@ export default function EditASSETACCOUNTModal(props: EditASSETACCOUNTModalInterf
 
 // Styles
 const editASSETACCOUNTArea = {
-  height: '145.5mm',
+  height: '200mm',
   width: '180mm',
   margin: '0 auto',
   background: 'white',
