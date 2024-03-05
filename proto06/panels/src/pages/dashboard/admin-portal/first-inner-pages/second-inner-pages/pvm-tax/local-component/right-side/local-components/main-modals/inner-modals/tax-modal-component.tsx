@@ -7,13 +7,16 @@ import { TAXViewInterface } from '@/types/types-payroll-variables';
 
 interface TAXModalComponentInterface {
     singleTAXDetailsData: TAXViewInterface,
-    scroll: boolean,
-    setScroll: Dispatch<SetStateAction<boolean>>,
+    setSingleTAXOpenModal: Dispatch<SetStateAction<boolean>>,
     setSingleTAXDetailsData: React.Dispatch<React.SetStateAction<TAXViewInterface>>;
 };
 
 const TAXModalComponent = ((props:TAXModalComponentInterface) => {
-    const { singleTAXDetailsData, setSingleTAXDetailsData } = props;
+    const { 
+        singleTAXDetailsData, 
+        setSingleTAXDetailsData, 
+        setSingleTAXOpenModal
+    } = props;
     const componentRef = useRef<HTMLDivElement | null>(null);
 
     return (
@@ -21,7 +24,11 @@ const TAXModalComponent = ((props:TAXModalComponentInterface) => {
             <Typography variant='soft'>'Tax/TIN' Data</Typography>
             {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
-                <TAXModalUI setSingleTAXDetailsData={setSingleTAXDetailsData} singleTAXDetailsData={singleTAXDetailsData}/>
+                <TAXModalUI 
+                    setSingleTAXDetailsData={setSingleTAXDetailsData} 
+                    singleTAXDetailsData={singleTAXDetailsData}
+                    setSingleTAXOpenModal={setSingleTAXOpenModal}
+                />
             </div>
         </Fragment>
     );

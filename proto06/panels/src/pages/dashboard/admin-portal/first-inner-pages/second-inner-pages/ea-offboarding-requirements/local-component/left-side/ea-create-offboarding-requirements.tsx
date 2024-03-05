@@ -2,10 +2,10 @@ import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { Button } from '@mui/material';
 import { TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalReducerSuccess } from '@/store/configureStore';
 import { Typography } from '@mui/joy';
 import { OFFBOARDINGREQUIREMENTSCreateInterface } from '@/types/types-employee-and-applicants';
-import { OFFBOARDINGREQUIREMENTSCreateAction, OFFBOARDINGREQUIREMENTSCreateActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import { OFFBOARDINGREQUIREMENTSCreateAction, OFFBOARDINGREQUIREMENTSCreateActionFailureCleanup, OFFBOARDINGSTATUSViewAction } from '@/store/actions/employee-and-applicants';
 import EmployeeAutoComplete from './autocomplete-fields/employee-autocomplete';
 
 
@@ -15,6 +15,7 @@ interface CreateOFFBOARDINGREQUIREMENTSModalInterface {
 
 function EAOFFBOARDINGREQUIREMENTSCreate(props: CreateOFFBOARDINGREQUIREMENTSModalInterface) {
     const dispatch = useDispatch();
+    const state = useSelector((state)=> state);
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail?.emp_no);
     const OFFBOARDINGREQUIREMENTSCreatestate = useSelector((state: RootState)=> state.employeeAndApplicants.OFFBOARDINGREQUIREMENTSCreate);
     const [createOFFBOARDINGREQUIREMENTS, setCreateOFFBOARDINGREQUIREMENTS] = useState<OFFBOARDINGREQUIREMENTSCreateInterface>({
@@ -24,7 +25,7 @@ function EAOFFBOARDINGREQUIREMENTSCreate(props: CreateOFFBOARDINGREQUIREMENTSMod
     const onClickSubmit = () => {
         dispatch(OFFBOARDINGREQUIREMENTSCreateAction(createOFFBOARDINGREQUIREMENTS))
     };
-
+    console.log(state, "asdasd11??",curr_user)
     useEffect(()=> {
         if(curr_user){
             setCreateOFFBOARDINGREQUIREMENTS((prevState) => {
@@ -39,14 +40,18 @@ function EAOFFBOARDINGREQUIREMENTSCreate(props: CreateOFFBOARDINGREQUIREMENTSMod
     }, [curr_user]) 
 
     useEffect(()=>{
-        if(OFFBOARDINGREQUIREMENTSCreatestate.status === 'succeeded'){
+        if(OFFBOARDINGREQUIREMENTSCreatestate.status === `${globalReducerSuccess}`){
             window.alert('Request Successful');
-            window.location.reload();
+            // window.location.reload();
+            dispatch(OFFBOARDINGSTATUSViewAction());
+            setTimeout(()=> {
+                dispatch(OFFBOARDINGREQUIREMENTSCreateActionFailureCleanup());
+            }, 200);
         }else if(OFFBOARDINGREQUIREMENTSCreatestate.status === 'failed'){
             window.alert(`Request Failed, ${OFFBOARDINGREQUIREMENTSCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(OFFBOARDINGREQUIREMENTSCreateActionFailureCleanup());
-            }, 1000)
+            }, 200);
         }
     }, [OFFBOARDINGREQUIREMENTSCreatestate.status])
 

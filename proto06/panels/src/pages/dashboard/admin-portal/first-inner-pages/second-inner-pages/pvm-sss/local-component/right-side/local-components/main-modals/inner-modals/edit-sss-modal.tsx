@@ -5,12 +5,13 @@ import { Transition } from 'react-transition-group';
 import { SSSViewInterface } from '@/types/types-payroll-variables';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
-import { SSSEditAction } from '@/store/actions/payroll-variables';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
+import { SSSEditAction, SSSEditActionFailureCleanup, SSSViewAction } from '@/store/actions/payroll-variables';
 
 interface EditSSSModalInterface {
     singleSSSDetailsData: SSSViewInterface;
     editSSSOpenModal: boolean; 
+    setSingleSSSOpenModal: Dispatch<SetStateAction<boolean>>; 
     setEditSSSOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleSSSDetailsData: Dispatch<SetStateAction<SSSViewInterface>>;
 }
@@ -19,7 +20,13 @@ export default function EditSSSModal(props: EditSSSModalInterface) {
   const dispatch = useDispatch();
   const SSSEditState = useSelector((state: RootState)=> state.payrollVariables.SSSEdit)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
-  const {editSSSOpenModal, setEditSSSOpenModal, singleSSSDetailsData, setSingleSSSDetailsData} = props;
+  const {
+    editSSSOpenModal, 
+    setEditSSSOpenModal, 
+    singleSSSDetailsData, 
+    setSingleSSSDetailsData,
+    setSingleSSSOpenModal
+  } = props;
 
 
   const editSSS = () => { 
@@ -29,16 +36,21 @@ export default function EditSSSModal(props: EditSSSModalInterface) {
     }))
   }
 
-  useEffect(()=>{
-    if(SSSEditState.status){      
-      if(SSSEditState.status === 'succeeded'){
+  useEffect(()=>{ 
+      if(SSSEditState.status === `${globalReducerSuccess}`){
         window.alert(`${SSSEditState.status.charAt(0).toUpperCase()}${SSSEditState.status.slice(1)}`)
+        setEditSSSOpenModal(false);
+        setSingleSSSOpenModal(false);
+        // window.location.reload();
+        dispatch(SSSViewAction());
         setTimeout(()=>{
-          window.location.reload();
-        }, 800)
-      }else if(SSSEditState.status === 'failed'){
+          dispatch(SSSEditActionFailureCleanup());
+        }, 200)
+      }else if(SSSEditState.status === `${globalReducerFailed}`){
         window.alert(`${SSSEditState.error}`)
-      }
+        setTimeout(()=>{
+          dispatch(SSSEditActionFailureCleanup());
+        }, 200)
     }
   }, [SSSEditState.status])
   return (
@@ -79,13 +91,16 @@ export default function EditSSSModal(props: EditSSSModalInterface) {
                   entered: { opacity: 1 },
                 }[state],
                 overflow: 'auto',
+                maxHeight: '90vh', // Set a maximum height
+                height: 'auto', // Allow height to adjust based on content
+                marginBottom: '5vh', // Add margin at the bottom for spacing
             }}
             size='sm'
         > 
-          <Typography variant='h6' className='border-b-2 border-blue-700'>Editing Pagibig Details</Typography>
+          <Typography variant='h6' className='border-b-2 border-blue-700'>Editing SSS Details</Typography>
           <div className='flex flex-col items-center justify-around h-full'>
             <div className='flex flex-col w-full gap-10'>
-              <div className='flex justify-center item-center'>
+              <div className='flex justify-center item-center mt-5'>
                 <Typography>Please Enter New Details</Typography>
               </div>
               <div className='flex flex-col gap-5'>
@@ -93,13 +108,13 @@ export default function EditSSSModal(props: EditSSSModalInterface) {
                         <TextField
                             required 
                             sx={{width: '100%'}} 
-                            label='Pagibig Number'
+                            label='SSS Number'
                             aria-required  
                             variant='outlined' 
-                            type="number"
+                            type="text"
                             value={singleSSSDetailsData?.sss_no}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = parseInt(event.target.value)
+                                const value = event.target.value;
                                 setSingleSSSDetailsData((prevState)=> {
                                     return (
                                         {

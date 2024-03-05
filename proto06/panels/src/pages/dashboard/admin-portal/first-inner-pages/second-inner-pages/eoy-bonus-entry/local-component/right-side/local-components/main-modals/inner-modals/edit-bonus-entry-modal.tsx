@@ -5,9 +5,8 @@ import { Transition } from 'react-transition-group';
 import { BONUSENTRYViewInterface } from '@/types/types-payroll-eoy';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
-import { BONUSENTRYEditAction } from '@/store/actions/payroll-eoy';
-import PaymentFrequencyAutoCompleteRight from './autocomplete-fields/payment-frequency-autocomplete-right';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
+import { BONUSENTRYEditAction, BONUSENTRYEditActionFailureCleanup, BONUSENTRYViewAction } from '@/store/actions/payroll-eoy';
 import EmployeeAutoCompleteRight from './autocomplete-fields/employee-autocomplete-right';
 import CutoffAutoCompleteRight from './autocomplete-fields/cutoff-code-autocomplete-right';
 import BonusListAutoCompleteRight from './autocomplete-fields/bonus-type-autocomplete-right';
@@ -15,7 +14,8 @@ import BonusListAutoCompleteRight from './autocomplete-fields/bonus-type-autocom
 
 interface EditBONUSENTRYModalInterface {
     singleBONUSENTRYDetailsData: BONUSENTRYViewInterface;
-    editBONUSENTRYOpenModal: boolean; 
+    editBONUSENTRYOpenModal: boolean;
+    setSingleBONUSENTRYOpenModal: Dispatch<SetStateAction<boolean>>;
     setEditBONUSENTRYOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleBONUSENTRYDetailsData: Dispatch<SetStateAction<BONUSENTRYViewInterface>>;
 }
@@ -24,7 +24,13 @@ export default function EditBONUSENTRYModal(props: EditBONUSENTRYModalInterface)
   const dispatch = useDispatch();
   const BONUSENTRYEditState = useSelector((state: RootState)=> state.payrollEOY.BONUSENTRYEdit)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
-  const {editBONUSENTRYOpenModal, setEditBONUSENTRYOpenModal, singleBONUSENTRYDetailsData, setSingleBONUSENTRYDetailsData} = props;
+  const {
+    editBONUSENTRYOpenModal, 
+    setEditBONUSENTRYOpenModal, 
+    singleBONUSENTRYDetailsData, 
+    setSingleBONUSENTRYDetailsData,
+    setSingleBONUSENTRYOpenModal
+  } = props;
 
 
   const editBONUSENTRY = () => { 
@@ -34,17 +40,22 @@ export default function EditBONUSENTRYModal(props: EditBONUSENTRYModalInterface)
     }))
   }
 
-  useEffect(()=>{
-    if(BONUSENTRYEditState.status){      
-      if(BONUSENTRYEditState.status === 'succeeded'){
+  useEffect(()=>{ 
+      if(BONUSENTRYEditState.status === `${globalReducerSuccess}`){
         window.alert(`${BONUSENTRYEditState.status.charAt(0).toUpperCase()}${BONUSENTRYEditState.status.slice(1)}`)
+        // window.location.reload();
+        setEditBONUSENTRYOpenModal(false);
+        setSingleBONUSENTRYOpenModal(false);
+        dispatch(BONUSENTRYViewAction());
         setTimeout(()=>{
-          window.location.reload();
-        }, 800)
-      }else if(BONUSENTRYEditState.status === 'failed'){
+          dispatch(BONUSENTRYEditActionFailureCleanup());
+        }, 200)
+      }else if(BONUSENTRYEditState.status === `${globalReducerFailed}`){
         window.alert(`${BONUSENTRYEditState.error}`)
+        setTimeout(()=>{
+          dispatch(BONUSENTRYEditActionFailureCleanup());
+        }, 200)
       }
-    }
   }, [BONUSENTRYEditState.status])
   return (
     <Fragment>

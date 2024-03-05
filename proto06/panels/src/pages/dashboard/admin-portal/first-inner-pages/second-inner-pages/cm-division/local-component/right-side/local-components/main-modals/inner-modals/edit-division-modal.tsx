@@ -5,8 +5,8 @@ import { Transition } from 'react-transition-group';
 import { DIVISIONViewInterface } from '@/types/types-pages';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
-import { DIVISIONEditAction } from '@/store/actions/categories';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
+import { DIVISIONEditAction, DIVISIONEditActionFailureCleanup, DIVISIONViewAction } from '@/store/actions/categories';
 import EmployeeAutoCompleteRight from './autocomplete-fields/employee-autocomplete-right';
 import BranchAutoCompleteRight from './autocomplete-fields/branch-autocomplete-right';
 import { clearFields } from '@/helpers/utils';
@@ -16,15 +16,22 @@ import { clearFields } from '@/helpers/utils';
 interface AllowedDaysDIVISIONModalInterface {
     singleDIVISIONDetailsData: DIVISIONViewInterface;
     allowedDaysDIVISIONOpenModal: boolean; 
+    setSingleDIVISIONOpenModal: Dispatch<SetStateAction<boolean>>;
     setAllowedDaysDIVISIONOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleDIVISIONDetailsData: Dispatch<SetStateAction<DIVISIONViewInterface>>;
 }
 
 export default function AllowedDaysDIVISIONModal(props: AllowedDaysDIVISIONModalInterface) {
   const dispatch = useDispatch();
-  const DIVISIONAllowedDaysState = useSelector((state: RootState)=> state.categories.DIVISIONEdit.status)
+  const DIVISIONState = useSelector((state: RootState)=> state.categories.DIVISIONEdit)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
-  const {allowedDaysDIVISIONOpenModal, setAllowedDaysDIVISIONOpenModal, singleDIVISIONDetailsData, setSingleDIVISIONDetailsData} = props;
+  const {
+    allowedDaysDIVISIONOpenModal, 
+    setAllowedDaysDIVISIONOpenModal, 
+    singleDIVISIONDetailsData, 
+    setSingleDIVISIONDetailsData,
+    setSingleDIVISIONOpenModal
+  } = props;
 
 
   const allowedDaysDIVISION = () => { 
@@ -35,15 +42,24 @@ export default function AllowedDaysDIVISIONModal(props: AllowedDaysDIVISIONModal
   }
 
   useEffect(()=>{
-    if(DIVISIONAllowedDaysState){      
-      if(DIVISIONAllowedDaysState === 'succeeded'){
-        window.alert(`${DIVISIONAllowedDaysState.charAt(0).toUpperCase()}${DIVISIONAllowedDaysState.slice(1)}`)
+    if(DIVISIONState.status){      
+      if(DIVISIONState.status === `${globalReducerSuccess}`){
+        window.alert(`${DIVISIONState.status.charAt(0).toUpperCase()}${DIVISIONState.status.slice(1)}`)
+        // window.location.reload();
+        setAllowedDaysDIVISIONOpenModal(false);
+        setSingleDIVISIONOpenModal(false);
+        dispatch(DIVISIONViewAction());
         setTimeout(()=>{
-          window.location.reload();
-        }, 800)
+          dispatch(DIVISIONEditActionFailureCleanup());
+        }, 200)
+      } else if(DIVISIONState.status === 'failed'){
+        window.alert(`Request Failed, ${DIVISIONState.error}`)
+        setTimeout(()=> {
+            dispatch(DIVISIONEditActionFailureCleanup());
+        }, 200)
       }
     }
-  }, [DIVISIONAllowedDaysState])
+  }, [DIVISIONState.status])
   return (
     <Fragment>
       <Transition in={allowedDaysDIVISIONOpenModal} timeout={400}>
@@ -116,7 +132,8 @@ export default function AllowedDaysDIVISIONModal(props: AllowedDaysDIVISIONModal
                 <Button 
                   variant={'outlined'} 
                   onClick={()=>{
-                    clearFields(setSingleDIVISIONDetailsData, ['div_name'], [''])
+                    // Edit Fields Are Should Not Have ClearFields // 
+                    // clearFields(setSingleDIVISIONDetailsData, ['div_name'], [''])
                     setAllowedDaysDIVISIONOpenModal(false)
                   }}
                 >

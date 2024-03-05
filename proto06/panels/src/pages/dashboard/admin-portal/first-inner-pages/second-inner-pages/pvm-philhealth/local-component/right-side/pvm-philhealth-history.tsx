@@ -14,7 +14,7 @@ export default function PVMPHILHEALTHPageHistory() {
   const [singlePHILHEALTHOpenModal, setSinglePHILHEALTHOpenModal] = useState<boolean>(false);
   const [singlePHILHEALTHDetailsData, setSinglePHILHEALTHDetailsData] = useState<PHILHEALTHViewInterface>({
     id: NaN,
-    ph_no: NaN,
+    ph_no: '',
     ph_contribution_month: NaN,
     ph_category: '',
     emp_no: NaN,
@@ -44,7 +44,7 @@ export default function PVMPHILHEALTHPageHistory() {
         </Typography>
         </div>
       </div>
-      <div style={{ height: '600px', width: '100%' }}>
+      <div style={{ height: '90%', width: '100%' }}>
         <DataGrid
           rows={PHILHEALTHViewData? PHILHEALTHViewData as PHILHEALTHViewInterface[]:[]}
           columns={PVMPHILHEALTHPageColumns}

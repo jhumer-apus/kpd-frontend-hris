@@ -7,13 +7,16 @@ import { USERViewInterface } from '@/types/types-pages';
 
 interface USERModalComponentInterface {
     singleUSERDetailsData: USERViewInterface,
-    scroll: boolean,
-    setScroll: Dispatch<SetStateAction<boolean>>,
+    setSingleUSEROpenModal:  Dispatch<SetStateAction<boolean>>,
     setSingleUSERDetailsData: React.Dispatch<React.SetStateAction<USERViewInterface>>;
 };
 
 const USERModalComponent = ((props:USERModalComponentInterface) => {
-    const { singleUSERDetailsData, setSingleUSERDetailsData } = props;
+    const { 
+        singleUSERDetailsData, 
+        setSingleUSERDetailsData, 
+        setSingleUSEROpenModal
+    } = props;
     const componentRef = useRef<HTMLDivElement | null>(null);
 
     return (
@@ -21,7 +24,11 @@ const USERModalComponent = ((props:USERModalComponentInterface) => {
             <Typography variant='soft'>HRIS User Data</Typography>
             {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
-                <USERModalUI setSingleUSERDetailsData={setSingleUSERDetailsData} singleUSERDetailsData={singleUSERDetailsData}/>
+                <USERModalUI 
+                    setSingleUSERDetailsData={setSingleUSERDetailsData} 
+                    singleUSERDetailsData={singleUSERDetailsData}
+                    setSingleUSEROpenModal={setSingleUSEROpenModal}
+                />
             </div>
         </Fragment>
     );

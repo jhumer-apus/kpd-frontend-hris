@@ -7,13 +7,16 @@ import { SSSViewInterface } from '@/types/types-payroll-variables';
 
 interface SSSModalComponentInterface {
     singleSSSDetailsData: SSSViewInterface,
-    scroll: boolean,
-    setScroll: Dispatch<SetStateAction<boolean>>,
+    setSingleSSSOpenModal: Dispatch<SetStateAction<boolean>>,
     setSingleSSSDetailsData: React.Dispatch<React.SetStateAction<SSSViewInterface>>;
 };
 
 const SSSModalComponent = ((props:SSSModalComponentInterface) => {
-    const { singleSSSDetailsData, setSingleSSSDetailsData } = props;
+    const { 
+        singleSSSDetailsData, 
+        setSingleSSSDetailsData,
+        setSingleSSSOpenModal
+    } = props;
     const componentRef = useRef<HTMLDivElement | null>(null);
 
     return (
@@ -21,7 +24,11 @@ const SSSModalComponent = ((props:SSSModalComponentInterface) => {
             <Typography variant='soft'>'SSS' Data</Typography>
             {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
-                <SSSModalUI setSingleSSSDetailsData={setSingleSSSDetailsData} singleSSSDetailsData={singleSSSDetailsData}/>
+                <SSSModalUI 
+                    setSingleSSSDetailsData={setSingleSSSDetailsData} 
+                    singleSSSDetailsData={singleSSSDetailsData}
+                    setSingleSSSOpenModal={setSingleSSSOpenModal}
+                />
             </div>
         </Fragment>
     );

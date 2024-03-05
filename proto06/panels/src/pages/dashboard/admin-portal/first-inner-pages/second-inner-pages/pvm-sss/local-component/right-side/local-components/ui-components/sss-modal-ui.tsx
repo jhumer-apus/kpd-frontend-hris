@@ -9,13 +9,18 @@ import { RootState } from '@/store/configureStore';
 interface SSSModalUIInterface {
     singleSSSDetailsData: SSSViewInterface;
     multiplePayslipMode?: boolean;
+    setSingleSSSOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleSSSDetailsData: Dispatch<SetStateAction<SSSViewInterface>>;
 }
 
 function SSSModalUI(props: SSSModalUIInterface) {
     const [ resetPasswordSSSOpenModal, setResetPasswordSSSOpenModal ] = useState(false);
     const [ editSSSOpenModal, setEditSSSOpenModal ] = useState(false);
-    const { setSingleSSSDetailsData, singleSSSDetailsData } = props;
+    const { 
+        setSingleSSSDetailsData, 
+        singleSSSDetailsData,
+        setSingleSSSOpenModal
+    } = props;
     const ThisProps = props.singleSSSDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
     const onClickModal = (mode: number) => {
@@ -30,7 +35,13 @@ function SSSModalUI(props: SSSModalUIInterface) {
 
     return (
         <Fragment>
-            <EditSSSModal singleSSSDetailsData={singleSSSDetailsData} setSingleSSSDetailsData={setSingleSSSDetailsData} editSSSOpenModal={editSSSOpenModal} setEditSSSOpenModal={setEditSSSOpenModal}/>
+            <EditSSSModal 
+                singleSSSDetailsData={singleSSSDetailsData} 
+                setSingleSSSDetailsData={setSingleSSSDetailsData} 
+                editSSSOpenModal={editSSSOpenModal} 
+                setEditSSSOpenModal={setEditSSSOpenModal}
+                setSingleSSSOpenModal={setSingleSSSOpenModal}
+            />
             <div className='flex overflow-auto justify-around gap-4 relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Primary Key (ID):' value={ThisProps.id ? ThisProps.id : '-'} InputProps={{readOnly: true,}} variant='filled'/>

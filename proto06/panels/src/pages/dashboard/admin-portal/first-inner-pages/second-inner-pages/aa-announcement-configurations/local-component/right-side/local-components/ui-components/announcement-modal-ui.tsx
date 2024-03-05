@@ -17,7 +17,11 @@ interface ANNOUNCEMENTModalUIInterface {
 function ANNOUNCEMENTModalUI(props: ANNOUNCEMENTModalUIInterface) {
     const [ resetPasswordANNOUNCEMENTOpenModal, setResetPasswordANNOUNCEMENTOpenModal ] = useState(false);
     const [ editANNOUNCEMENTOpenModal, setEditANNOUNCEMENTOpenModal ] = useState(false);
-    const { setSingleANNOUNCEMENTDetailsData, singleANNOUNCEMENTDetailsData } = props;
+    const { 
+        setSingleANNOUNCEMENTDetailsData, 
+        singleANNOUNCEMENTDetailsData,
+        setSingleANNOUNCEMENTOpenModal
+    } = props;
     const ThisProps = props.singleANNOUNCEMENTDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
     const onClickModal = (mode: number) => {
@@ -32,7 +36,13 @@ function ANNOUNCEMENTModalUI(props: ANNOUNCEMENTModalUIInterface) {
 
     return (
         <Fragment>
-            <EditANNOUNCEMENTModal singleANNOUNCEMENTDetailsData={singleANNOUNCEMENTDetailsData} setSingleANNOUNCEMENTDetailsData={setSingleANNOUNCEMENTDetailsData} editANNOUNCEMENTOpenModal={editANNOUNCEMENTOpenModal} setEditANNOUNCEMENTOpenModal={setEditANNOUNCEMENTOpenModal}/>
+            <EditANNOUNCEMENTModal 
+                singleANNOUNCEMENTDetailsData={singleANNOUNCEMENTDetailsData} 
+                setSingleANNOUNCEMENTDetailsData={setSingleANNOUNCEMENTDetailsData} 
+                editANNOUNCEMENTOpenModal={editANNOUNCEMENTOpenModal} 
+                setEditANNOUNCEMENTOpenModal={setEditANNOUNCEMENTOpenModal}
+                setSingleANNOUNCEMENTOpenModal={setSingleANNOUNCEMENTOpenModal}    
+            />
             <div className='flex overflow-auto justify-around gap-4 relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Announcement ID:' value={ThisProps.id ? ThisProps.id : '-'} InputProps={{readOnly: true,}} variant='filled'/>

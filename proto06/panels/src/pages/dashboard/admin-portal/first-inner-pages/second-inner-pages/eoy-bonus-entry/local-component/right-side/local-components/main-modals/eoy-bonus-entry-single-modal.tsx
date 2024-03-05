@@ -56,7 +56,11 @@ export default function ViewBONUSENTRYSingleModal(props: SingleBONUSENTRYInterfa
                 overflow: 'auto',
             }}
         >
-          <BONUSENTRYModalComponent setSingleBONUSENTRYDetailsData={setSingleBONUSENTRYDetailsData} singleBONUSENTRYDetailsData={singleBONUSENTRYDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <BONUSENTRYModalComponent 
+            setSingleBONUSENTRYDetailsData={setSingleBONUSENTRYDetailsData} 
+            singleBONUSENTRYDetailsData={singleBONUSENTRYDetailsData} 
+            setSingleBONUSENTRYOpenModal={setSingleBONUSENTRYOpenModal}
+          />
         </ModalDialog>
       </Modal>
         )}

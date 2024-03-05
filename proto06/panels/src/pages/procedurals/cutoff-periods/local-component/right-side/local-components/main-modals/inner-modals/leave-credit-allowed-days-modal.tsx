@@ -90,6 +90,9 @@ export default function AllowedDaysCUTOFFPERIODModal(props: AllowedDaysCUTOFFPER
                   entered: { opacity: 1 },
                 }[state],
                 overflow: 'auto',
+                maxHeight: '90vh', // Set a maximum height
+                height: 'auto', // Allow height to adjust based on content
+                marginBottom: '5vh', // Add margin at the bottom for spacing
             }}
             size='sm'
         > 

@@ -7,13 +7,16 @@ import { PHILHEALTHViewInterface } from '@/types/types-payroll-variables';
 
 interface PHILHEALTHModalComponentInterface {
     singlePHILHEALTHDetailsData: PHILHEALTHViewInterface,
-    scroll: boolean,
-    setScroll: Dispatch<SetStateAction<boolean>>,
+    setSinglePHILHEALTHOpenModal: Dispatch<SetStateAction<boolean>>,
     setSinglePHILHEALTHDetailsData: React.Dispatch<React.SetStateAction<PHILHEALTHViewInterface>>;
 };
 
 const PHILHEALTHModalComponent = ((props:PHILHEALTHModalComponentInterface) => {
-    const { singlePHILHEALTHDetailsData, setSinglePHILHEALTHDetailsData } = props;
+    const { 
+        singlePHILHEALTHDetailsData, 
+        setSinglePHILHEALTHDetailsData,
+        setSinglePHILHEALTHOpenModal 
+    } = props;
     const componentRef = useRef<HTMLDivElement | null>(null);
 
     return (
@@ -21,7 +24,11 @@ const PHILHEALTHModalComponent = ((props:PHILHEALTHModalComponentInterface) => {
             <Typography variant='soft'>'Philhealth' Data</Typography>
             {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
-                <PHILHEALTHModalUI setSinglePHILHEALTHDetailsData={setSinglePHILHEALTHDetailsData} singlePHILHEALTHDetailsData={singlePHILHEALTHDetailsData}/>
+                <PHILHEALTHModalUI 
+                    setSinglePHILHEALTHDetailsData={setSinglePHILHEALTHDetailsData} 
+                    singlePHILHEALTHDetailsData={singlePHILHEALTHDetailsData}
+                    setSinglePHILHEALTHOpenModal={setSinglePHILHEALTHOpenModal}
+                />
             </div>
         </Fragment>
     );

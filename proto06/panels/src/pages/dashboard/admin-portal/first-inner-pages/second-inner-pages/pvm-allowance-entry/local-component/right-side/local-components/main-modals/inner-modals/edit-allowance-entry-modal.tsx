@@ -5,14 +5,15 @@ import { Transition } from 'react-transition-group';
 import { ALLOWANCEENTRYViewInterface } from '@/types/types-payroll-variables';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
-import { ALLOWANCEENTRYEditAction } from '@/store/actions/payroll-variables';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
+import { ALLOWANCEENTRYEditAction, ALLOWANCEENTRYEditActionFailure, ALLOWANCEENTRYEditActionFailureCleanup, ALLOWANCEENTRYViewAction } from '@/store/actions/payroll-variables';
 import EmployeeAutoCompleteRight from '../auto-complete-fields/employee-autocomplete-right';
 import AllowanceAutoCompleteRight from '../auto-complete-fields/allowance-type-autocomplete-right';
 
 interface EditALLOWANCEENTRYModalInterface {
     singleALLOWANCEENTRYDetailsData: ALLOWANCEENTRYViewInterface;
-    editALLOWANCEENTRYOpenModal: boolean; 
+    editALLOWANCEENTRYOpenModal: boolean;
+    setSingleALLOWANCEENTRYOpenModal: Dispatch<SetStateAction<boolean>>;
     setEditALLOWANCEENTRYOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleALLOWANCEENTRYDetailsData: Dispatch<SetStateAction<ALLOWANCEENTRYViewInterface>>;
 }
@@ -21,7 +22,13 @@ export default function EditALLOWANCEENTRYModal(props: EditALLOWANCEENTRYModalIn
   const dispatch = useDispatch();
   const ALLOWANCEENTRYEditState = useSelector((state: RootState)=> state.payrollVariables.ALLOWANCEENTRYEdit)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
-  const {editALLOWANCEENTRYOpenModal, setEditALLOWANCEENTRYOpenModal, singleALLOWANCEENTRYDetailsData, setSingleALLOWANCEENTRYDetailsData} = props;
+  const {
+    editALLOWANCEENTRYOpenModal, 
+    setEditALLOWANCEENTRYOpenModal, 
+    singleALLOWANCEENTRYDetailsData, 
+    setSingleALLOWANCEENTRYDetailsData,
+    setSingleALLOWANCEENTRYOpenModal
+  } = props;
 
 
   const editALLOWANCEENTRY = () => { 
@@ -31,17 +38,22 @@ export default function EditALLOWANCEENTRYModal(props: EditALLOWANCEENTRYModalIn
     }))
   }
 
-  useEffect(()=>{
-    if(ALLOWANCEENTRYEditState.status){      
-      if(ALLOWANCEENTRYEditState.status === 'succeeded'){
+  useEffect(()=>{   
+      if(ALLOWANCEENTRYEditState.status === `${globalReducerSuccess}`){
         window.alert(`${ALLOWANCEENTRYEditState.status.charAt(0).toUpperCase()}${ALLOWANCEENTRYEditState.status.slice(1)}`)
+        // window.location.reload();
+        setEditALLOWANCEENTRYOpenModal(false);
+        setSingleALLOWANCEENTRYOpenModal(false);
+        dispatch(ALLOWANCEENTRYViewAction());
         setTimeout(()=>{
-          window.location.reload();
-        }, 800)
-      }else if(ALLOWANCEENTRYEditState.status === 'failed'){
+          dispatch(ALLOWANCEENTRYEditActionFailureCleanup());
+        }, 200)
+      }else if(ALLOWANCEENTRYEditState.status === `${globalReducerFailed}`){
         window.alert(`${ALLOWANCEENTRYEditState.error}`)
+        setTimeout(()=>{
+          dispatch(ALLOWANCEENTRYEditActionFailureCleanup());
+        }, 200)
       }
-    }
   }, [ALLOWANCEENTRYEditState.status])
   return (
     <Fragment>

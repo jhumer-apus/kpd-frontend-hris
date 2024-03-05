@@ -9,13 +9,18 @@ import DeactivateOFFBOARDINGREQUIREMENTSModal from '../main-modals/inner-modals/
 interface OFFBOARDINGREQUIREMENTSModalUIInterface {
     singleOFFBOARDINGREQUIREMENTSDetailsData: OFFBOARDINGREQUIREMENTSViewInterface;
     multiplePayslipMode?: boolean;
+    setSingleOFFBOARDINGREQUIREMENTSOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleOFFBOARDINGREQUIREMENTSDetailsData: Dispatch<SetStateAction<OFFBOARDINGREQUIREMENTSViewInterface>>;
 }
 
 function OFFBOARDINGREQUIREMENTSModalUI(props: OFFBOARDINGREQUIREMENTSModalUIInterface) {
 
 
-    const { setSingleOFFBOARDINGREQUIREMENTSDetailsData, singleOFFBOARDINGREQUIREMENTSDetailsData } = props;
+    const { 
+        setSingleOFFBOARDINGREQUIREMENTSDetailsData, 
+        singleOFFBOARDINGREQUIREMENTSDetailsData,
+        setSingleOFFBOARDINGREQUIREMENTSOpenModal
+    } = props;
     const ThisProps = props.singleOFFBOARDINGREQUIREMENTSDetailsData;
 
     const [ submitModalOpen, setSubmitModalOpen ] = useState(false);
@@ -31,12 +36,14 @@ function OFFBOARDINGREQUIREMENTSModalUI(props: OFFBOARDINGREQUIREMENTSModalUIInt
                         setInitialState={setSingleOFFBOARDINGREQUIREMENTSDetailsData}
                         openModal={submitModalOpen}
                         setOpenModal={setSubmitModalOpen}
+                        setSingleOFFBOARDINGREQUIREMENTSOpenModal={setSingleOFFBOARDINGREQUIREMENTSOpenModal}
                     />
                     <DeactivateOFFBOARDINGREQUIREMENTSModal
                         initialState={singleOFFBOARDINGREQUIREMENTSDetailsData} 
                         setInitialState={setSingleOFFBOARDINGREQUIREMENTSDetailsData}
                         openModal={deleteModalOpen}
                         setOpenModal={setDeleteModalOpen}
+                        setSingleOFFBOARDINGREQUIREMENTSOpenModal={setSingleOFFBOARDINGREQUIREMENTSOpenModal}
                     />
                     <TextField 
                         sx={{width: '100%', minWidth: '160px'}} 

@@ -15,7 +15,7 @@ export default function PVMALLOWANCETYPEPageHistory() {
   const [singleALLOWANCETYPEDetailsData, setSingleALLOWANCETYPEDetailsData] = useState<ALLOWANCETYPEViewInterface>({
     id: NaN,
     allowance_name: '',
-    taxable: false,
+    is_taxable: false,
     date_added: '',
     date_deleted: '',
   });
@@ -44,7 +44,7 @@ export default function PVMALLOWANCETYPEPageHistory() {
         </Typography>
         </div>
       </div>
-      <div style={{ height: '600px', width: '100%' }}>
+      <div style={{ height: '90%', width: '100%' }}>
         <DataGrid
           rows={ALLOWANCETYPEViewData? ALLOWANCETYPEViewData as ALLOWANCETYPEViewInterface[]:[]}
           columns={PVMALLOWANCETYPEPageColumns}

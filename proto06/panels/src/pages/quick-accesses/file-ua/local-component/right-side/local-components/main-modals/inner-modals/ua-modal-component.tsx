@@ -20,7 +20,7 @@ const UAModalComponent = ((props:UAModalComponentInterface) => {
         <Fragment>
             <Typography variant='soft'>Unaccounted Attendance Data</Typography>
             {/* <ModalClose sx={{marginTop: '4px'}}/> */}
-            <div ref={componentRef} id="printable-area" className='mt-4'>
+            <div ref={componentRef} id="printable-area" className='mt-5 ml-5' >
                 <UAModalUI setSingleUADetailsData={setSingleUADetailsData} singleUADetailsData={singleUADetailsData}/>
             </div>
         </Fragment>

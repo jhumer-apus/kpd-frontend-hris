@@ -56,7 +56,11 @@ export default function ViewALLOWANCETYPESingleModal(props: SingleALLOWANCETYPEI
                 overflow: 'auto',
             }}
         >
-          <ALLOWANCETYPEModalComponent setSingleALLOWANCETYPEDetailsData={setSingleALLOWANCETYPEDetailsData} singleALLOWANCETYPEDetailsData={singleALLOWANCETYPEDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <ALLOWANCETYPEModalComponent 
+            setSingleALLOWANCETYPEDetailsData={setSingleALLOWANCETYPEDetailsData} 
+            singleALLOWANCETYPEDetailsData={singleALLOWANCETYPEDetailsData} 
+            setSingleALLOWANCETYPEOpenModal={setSingleALLOWANCETYPEOpenModal}
+          />
         </ModalDialog>
       </Modal>
         )}

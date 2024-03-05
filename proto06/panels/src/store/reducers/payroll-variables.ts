@@ -420,132 +420,182 @@ const payrollVariablesSlice = createSlice({
       .addCase(_Actions.TAXViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "TAXView"))
       .addCase(_Actions.TAXViewActionProgress, (state, action) => setProgressState(state, action.payload, "TAXView"))
       .addCase(_Actions.TAXViewActionFailure, (state, action) => setFailureState(state, action.payload, "TAXView"))
+      .addCase(_Actions.TAXViewActionFailureCleanup, setRefreshedState("TAXView"))
+
       .addCase(_Actions.TAXViewSpecificAction, setLoadingState("TAXViewSpecific"))
       .addCase(_Actions.TAXViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "TAXViewSpecific"))
       .addCase(_Actions.TAXViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "TAXViewSpecific"))
       .addCase(_Actions.TAXViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "TAXViewSpecific"))
+      .addCase(_Actions.TAXViewSpecificActionFailureCleanup, setRefreshedState("TAXViewSpecific"))
+      
       .addCase(_Actions.TAXCreateAction, setLoadingState("TAXCreate"))
       .addCase(_Actions.TAXCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "TAXCreate"))
       .addCase(_Actions.TAXCreateActionProgress, (state, action) => setProgressState(state, action.payload, "TAXCreate"))
       .addCase(_Actions.TAXCreateActionFailure, (state, action) => setFailureState(state, action.payload, "TAXCreate"))
       .addCase(_Actions.TAXCreateActionFailureCleanup, setRefreshedState("TAXCreate"))
+      
       .addCase(_Actions.TAXEditAction, setLoadingState("TAXEdit"))
       .addCase(_Actions.TAXEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "TAXEdit"))
       .addCase(_Actions.TAXEditActionProgress, (state, action) => setProgressState(state, action.payload, "TAXEdit"))
       .addCase(_Actions.TAXEditActionFailure, (state, action) => setFailureState(state, action.payload, "TAXEdit"))
+      .addCase(_Actions.TAXEditActionFailureCleanup, setRefreshedState("TAXEdit"))
+      
       //PAGIBIG SECTION
       .addCase(_Actions.PAGIBIGViewAction, setLoadingState("PAGIBIGView"))
       .addCase(_Actions.PAGIBIGViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "PAGIBIGView"))
       .addCase(_Actions.PAGIBIGViewActionProgress, (state, action) => setProgressState(state, action.payload, "PAGIBIGView"))
       .addCase(_Actions.PAGIBIGViewActionFailure, (state, action) => setFailureState(state, action.payload, "PAGIBIGView"))
+      .addCase(_Actions.PAGIBIGViewActionFailureCleanup, setRefreshedState("PAGIBIGView"))
+      
       .addCase(_Actions.PAGIBIGViewSpecificAction, setLoadingState("PAGIBIGViewSpecific"))
       .addCase(_Actions.PAGIBIGViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "PAGIBIGViewSpecific"))
       .addCase(_Actions.PAGIBIGViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "PAGIBIGViewSpecific"))
       .addCase(_Actions.PAGIBIGViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "PAGIBIGViewSpecific"))
+      .addCase(_Actions.PAGIBIGViewSpecificActionFailureCleanup, setRefreshedState("PAGIBIGViewSpecific"))
+      
       .addCase(_Actions.PAGIBIGCreateAction, setLoadingState("PAGIBIGCreate"))
       .addCase(_Actions.PAGIBIGCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "PAGIBIGCreate"))
       .addCase(_Actions.PAGIBIGCreateActionProgress, (state, action) => setProgressState(state, action.payload, "PAGIBIGCreate"))
       .addCase(_Actions.PAGIBIGCreateActionFailure, (state, action) => setFailureState(state, action.payload, "PAGIBIGCreate"))
       .addCase(_Actions.PAGIBIGCreateActionFailureCleanup, setRefreshedState("PAGIBIGCreate"))
+      
       .addCase(_Actions.PAGIBIGEditAction, setLoadingState("PAGIBIGEdit"))
       .addCase(_Actions.PAGIBIGEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "PAGIBIGEdit"))
       .addCase(_Actions.PAGIBIGEditActionProgress, (state, action) => setProgressState(state, action.payload, "PAGIBIGEdit"))
       .addCase(_Actions.PAGIBIGEditActionFailure, (state, action) => setFailureState(state, action.payload, "PAGIBIGEdit"))
+      .addCase(_Actions.PAGIBIGEditActionFailureCleanup, setRefreshedState("PAGIBIGEdit"))
+      
       //SSS SECTION
       .addCase(_Actions.SSSViewAction, setLoadingState("SSSView"))
       .addCase(_Actions.SSSViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "SSSView"))
       .addCase(_Actions.SSSViewActionProgress, (state, action) => setProgressState(state, action.payload, "SSSView"))
       .addCase(_Actions.SSSViewActionFailure, (state, action) => setFailureState(state, action.payload, "SSSView"))
+      .addCase(_Actions.SSSViewActionFailureCleanup, setRefreshedState("SSSView"))
+      
       .addCase(_Actions.SSSViewSpecificAction, setLoadingState("SSSViewSpecific"))
       .addCase(_Actions.SSSViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "SSSViewSpecific"))
       .addCase(_Actions.SSSViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "SSSViewSpecific"))
       .addCase(_Actions.SSSViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "SSSViewSpecific"))
+      .addCase(_Actions.SSSViewSpecificActionFailureCleanup, setRefreshedState("SSSViewSpecific"))
+      
       .addCase(_Actions.SSSCreateAction, setLoadingState("SSSCreate"))
       .addCase(_Actions.SSSCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "SSSCreate"))
       .addCase(_Actions.SSSCreateActionProgress, (state, action) => setProgressState(state, action.payload, "SSSCreate"))
       .addCase(_Actions.SSSCreateActionFailure, (state, action) => setFailureState(state, action.payload, "SSSCreate"))
       .addCase(_Actions.SSSCreateActionFailureCleanup, setRefreshedState("SSSCreate"))
+      
       .addCase(_Actions.SSSEditAction, setLoadingState("SSSEdit"))
       .addCase(_Actions.SSSEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "SSSEdit"))
       .addCase(_Actions.SSSEditActionProgress, (state, action) => setProgressState(state, action.payload, "SSSEdit"))
       .addCase(_Actions.SSSEditActionFailure, (state, action) => setFailureState(state, action.payload, "SSSEdit"))
+      .addCase(_Actions.SSSEditActionFailureCleanup, setRefreshedState("SSSEdit"))
+      
       //PHILHEALTH SECTION
       .addCase(_Actions.PHILHEALTHViewAction, setLoadingState("PHILHEALTHView"))
       .addCase(_Actions.PHILHEALTHViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "PHILHEALTHView"))
       .addCase(_Actions.PHILHEALTHViewActionProgress, (state, action) => setProgressState(state, action.payload, "PHILHEALTHView"))
       .addCase(_Actions.PHILHEALTHViewActionFailure, (state, action) => setFailureState(state, action.payload, "PHILHEALTHView"))
+      .addCase(_Actions.PHILHEALTHViewActionFailureCleanup, setRefreshedState("PHILHEALTHView"))
+      
       .addCase(_Actions.PHILHEALTHViewSpecificAction, setLoadingState("PHILHEALTHViewSpecific"))
       .addCase(_Actions.PHILHEALTHViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "PHILHEALTHViewSpecific"))
       .addCase(_Actions.PHILHEALTHViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "PHILHEALTHViewSpecific"))
       .addCase(_Actions.PHILHEALTHViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "PHILHEALTHViewSpecific"))
+      .addCase(_Actions.PHILHEALTHViewSpecificActionFailureCleanup, setRefreshedState("PHILHEALTHViewSpecific"))
+      
       .addCase(_Actions.PHILHEALTHCreateAction, setLoadingState("PHILHEALTHCreate"))
       .addCase(_Actions.PHILHEALTHCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "PHILHEALTHCreate"))
       .addCase(_Actions.PHILHEALTHCreateActionProgress, (state, action) => setProgressState(state, action.payload, "PHILHEALTHCreate"))
       .addCase(_Actions.PHILHEALTHCreateActionFailure, (state, action) => setFailureState(state, action.payload, "PHILHEALTHCreate"))
       .addCase(_Actions.PHILHEALTHCreateActionFailureCleanup, setRefreshedState("PHILHEALTHCreate"))
+      
       .addCase(_Actions.PHILHEALTHEditAction, setLoadingState("PHILHEALTHEdit"))
       .addCase(_Actions.PHILHEALTHEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "PHILHEALTHEdit"))
       .addCase(_Actions.PHILHEALTHEditActionProgress, (state, action) => setProgressState(state, action.payload, "PHILHEALTHEdit"))
       .addCase(_Actions.PHILHEALTHEditActionFailure, (state, action) => setFailureState(state, action.payload, "PHILHEALTHEdit"))
+      .addCase(_Actions.PHILHEALTHEditActionFailureCleanup, setRefreshedState("PHILHEALTHEdit"))
+      
       //CASHADVANCE SECTION
       .addCase(_Actions.CASHADVANCEViewAction, setLoadingState("CASHADVANCEView"))
       .addCase(_Actions.CASHADVANCEViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "CASHADVANCEView"))
       .addCase(_Actions.CASHADVANCEViewActionProgress, (state, action) => setProgressState(state, action.payload, "CASHADVANCEView"))
       .addCase(_Actions.CASHADVANCEViewActionFailure, (state, action) => setFailureState(state, action.payload, "CASHADVANCEView"))
+      .addCase(_Actions.CASHADVANCEViewActionFailureCleanup, setRefreshedState("CASHADVANCEView"))
+      
       .addCase(_Actions.CASHADVANCEViewSpecificEmployeeAction, setLoadingState("CASHADVANCEViewSpecificEmployee"))
       .addCase(_Actions.CASHADVANCEViewSpecificEmployeeActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "CASHADVANCEViewSpecificEmployee"))
       .addCase(_Actions.CASHADVANCEViewSpecificEmployeeActionProgress, (state, action) => setProgressState(state, action.payload, "CASHADVANCEViewSpecificEmployee"))
       .addCase(_Actions.CASHADVANCEViewSpecificEmployeeActionFailure, (state, action) => setFailureState(state, action.payload, "CASHADVANCEViewSpecificEmployee"))
+      .addCase(_Actions.CASHADVANCEViewSpecificEmployeeActionFailureCleanup, setRefreshedState("CASHADVANCEViewSpecificEmployee"))
+      
       .addCase(_Actions.CASHADVANCEViewSpecificAction, setLoadingState("CASHADVANCEViewSpecific"))
       .addCase(_Actions.CASHADVANCEViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "CASHADVANCEViewSpecific"))
       .addCase(_Actions.CASHADVANCEViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "CASHADVANCEViewSpecific"))
       .addCase(_Actions.CASHADVANCEViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "CASHADVANCEViewSpecific"))
+      .addCase(_Actions.CASHADVANCEViewSpecificActionFailureCleanup, setRefreshedState("CASHADVANCEViewSpecific"))
+      
       .addCase(_Actions.CASHADVANCECreateAction, setLoadingState("CASHADVANCECreate"))
       .addCase(_Actions.CASHADVANCECreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "CASHADVANCECreate"))
       .addCase(_Actions.CASHADVANCECreateActionProgress, (state, action) => setProgressState(state, action.payload, "CASHADVANCECreate"))
       .addCase(_Actions.CASHADVANCECreateActionFailure, (state, action) => setFailureState(state, action.payload, "CASHADVANCECreate"))
       .addCase(_Actions.CASHADVANCECreateActionFailureCleanup, setRefreshedState("CASHADVANCECreate"))
+      
       .addCase(_Actions.CASHADVANCEEditAction, setLoadingState("CASHADVANCEEdit"))
       .addCase(_Actions.CASHADVANCEEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "CASHADVANCEEdit"))
       .addCase(_Actions.CASHADVANCEEditActionProgress, (state, action) => setProgressState(state, action.payload, "CASHADVANCEEdit"))
       .addCase(_Actions.CASHADVANCEEditActionFailure, (state, action) => setFailureState(state, action.payload, "CASHADVANCEEdit"))
+      .addCase(_Actions.CASHADVANCEEditActionFailureCleanup, setRefreshedState("CASHADVANCEEdit"))
+      
       //ALLOWANCETYPE SECTION
       .addCase(_Actions.ALLOWANCETYPEViewAction, setLoadingState("ALLOWANCETYPEView"))
       .addCase(_Actions.ALLOWANCETYPEViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ALLOWANCETYPEView"))
       .addCase(_Actions.ALLOWANCETYPEViewActionProgress, (state, action) => setProgressState(state, action.payload, "ALLOWANCETYPEView"))
       .addCase(_Actions.ALLOWANCETYPEViewActionFailure, (state, action) => setFailureState(state, action.payload, "ALLOWANCETYPEView"))
+      .addCase(_Actions.ALLOWANCETYPEViewActionFailureCleanup, setRefreshedState("ALLOWANCETYPEView"))
+      
       .addCase(_Actions.ALLOWANCETYPEViewSpecificAction, setLoadingState("ALLOWANCETYPEViewSpecific"))
       .addCase(_Actions.ALLOWANCETYPEViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ALLOWANCETYPEViewSpecific"))
       .addCase(_Actions.ALLOWANCETYPEViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "ALLOWANCETYPEViewSpecific"))
       .addCase(_Actions.ALLOWANCETYPEViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "ALLOWANCETYPEViewSpecific"))
+      .addCase(_Actions.ALLOWANCETYPEViewSpecificActionFailureCleanup, setRefreshedState("ALLOWANCETYPEViewSpecific"))
+      
       .addCase(_Actions.ALLOWANCETYPECreateAction, setLoadingState("ALLOWANCETYPECreate"))
       .addCase(_Actions.ALLOWANCETYPECreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ALLOWANCETYPECreate"))
       .addCase(_Actions.ALLOWANCETYPECreateActionProgress, (state, action) => setProgressState(state, action.payload, "ALLOWANCETYPECreate"))
       .addCase(_Actions.ALLOWANCETYPECreateActionFailure, (state, action) => setFailureState(state, action.payload, "ALLOWANCETYPECreate"))
       .addCase(_Actions.ALLOWANCETYPECreateActionFailureCleanup, setRefreshedState("ALLOWANCETYPECreate"))
+      
       .addCase(_Actions.ALLOWANCETYPEEditAction, setLoadingState("ALLOWANCETYPEEdit"))
       .addCase(_Actions.ALLOWANCETYPEEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ALLOWANCETYPEEdit"))
       .addCase(_Actions.ALLOWANCETYPEEditActionProgress, (state, action) => setProgressState(state, action.payload, "ALLOWANCETYPEEdit"))
       .addCase(_Actions.ALLOWANCETYPEEditActionFailure, (state, action) => setFailureState(state, action.payload, "ALLOWANCETYPEEdit"))
+      .addCase(_Actions.ALLOWANCETYPEEditActionFailureCleanup, setRefreshedState("ALLOWANCETYPEEdit"))
+      
       //ALLOWANCEENTRY SECTION
       .addCase(_Actions.ALLOWANCEENTRYViewAction, setLoadingState("ALLOWANCEENTRYView"))
       .addCase(_Actions.ALLOWANCEENTRYViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ALLOWANCEENTRYView"))
       .addCase(_Actions.ALLOWANCEENTRYViewActionProgress, (state, action) => setProgressState(state, action.payload, "ALLOWANCEENTRYView"))
       .addCase(_Actions.ALLOWANCEENTRYViewActionFailure, (state, action) => setFailureState(state, action.payload, "ALLOWANCEENTRYView"))
+      .addCase(_Actions.ALLOWANCEENTRYViewActionFailureCleanup, setRefreshedState("ALLOWANCEENTRYView"))
+      
       .addCase(_Actions.ALLOWANCEENTRYViewSpecificAction, setLoadingState("ALLOWANCEENTRYViewSpecific"))
       .addCase(_Actions.ALLOWANCEENTRYViewSpecificActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ALLOWANCEENTRYViewSpecific"))
       .addCase(_Actions.ALLOWANCEENTRYViewSpecificActionProgress, (state, action) => setProgressState(state, action.payload, "ALLOWANCEENTRYViewSpecific"))
       .addCase(_Actions.ALLOWANCEENTRYViewSpecificActionFailure, (state, action) => setFailureState(state, action.payload, "ALLOWANCEENTRYViewSpecific"))
+      .addCase(_Actions.ALLOWANCEENTRYViewSpecificActionFailureCleanup, setRefreshedState("ALLOWANCEENTRYViewSpecific"))
+      
       .addCase(_Actions.ALLOWANCEENTRYCreateAction, setLoadingState("ALLOWANCEENTRYCreate"))
       .addCase(_Actions.ALLOWANCEENTRYCreateActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ALLOWANCEENTRYCreate"))
       .addCase(_Actions.ALLOWANCEENTRYCreateActionProgress, (state, action) => setProgressState(state, action.payload, "ALLOWANCEENTRYCreate"))
       .addCase(_Actions.ALLOWANCEENTRYCreateActionFailure, (state, action) => setFailureState(state, action.payload, "ALLOWANCEENTRYCreate"))
       .addCase(_Actions.ALLOWANCEENTRYCreateActionFailureCleanup, setRefreshedState("ALLOWANCEENTRYCreate"))
+      
       .addCase(_Actions.ALLOWANCEENTRYEditAction, setLoadingState("ALLOWANCEENTRYEdit"))
       .addCase(_Actions.ALLOWANCEENTRYEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "ALLOWANCEENTRYEdit"))
       .addCase(_Actions.ALLOWANCEENTRYEditActionProgress, (state, action) => setProgressState(state, action.payload, "ALLOWANCEENTRYEdit"))
       .addCase(_Actions.ALLOWANCEENTRYEditActionFailure, (state, action) => setFailureState(state, action.payload, "ALLOWANCEENTRYEdit"))
-      
+      .addCase(_Actions.ALLOWANCEENTRYEditActionFailureCleanup, setRefreshedState("ALLOWANCEENTRYEdit"))
+
   },
 });
 

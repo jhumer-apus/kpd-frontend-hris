@@ -12,7 +12,7 @@ export function useAuth() {
   useEffect(() => {
     const token = Cookies.get('token');
     const userCookie = JSON.parse(Cookies.get('user') || '{}');
-    const employeeCookie = JSON.parse(Cookies.get('employee_detail') || '{}');
+    const employeeCookie = JSON.parse(Cookies.get('emp_deetz') || '{}');
     if (token) {
       dispatch(userLoginActionSuccess(token, userCookie, employeeCookie));
     } else {
@@ -26,7 +26,7 @@ export function useAuth() {
 
   }, [dispatch]);
 
-  return { isAuthenticated, loading, user };
+  return { isAuthenticated, loading };
 }
 
 

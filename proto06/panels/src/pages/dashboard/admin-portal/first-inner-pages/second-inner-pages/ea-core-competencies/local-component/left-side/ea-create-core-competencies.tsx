@@ -3,9 +3,9 @@ import { Button } from '@mui/material';
 import { TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
-import { Typography } from '@mui/joy';
+import { Typography } from '@mui/material';
 import { CORECOMPECreateInterface } from '@/types/types-employee-and-applicants';
-import { CORECOMPECreateAction, CORECOMPECreateActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import { CORECOMPECreateAction, CORECOMPECreateActionFailureCleanup, CORECOMPEViewAction } from '@/store/actions/employee-and-applicants';
 
 
 interface CreateCORECOMPEModalInterface {
@@ -40,7 +40,11 @@ function EACORECOMPECreate(props: CreateCORECOMPEModalInterface) {
     useEffect(()=>{
         if(CORECOMPECreatestate.status === 'succeeded'){
             window.alert('Request Successful');
-            window.location.reload();
+            // window.location.reload();
+            dispatch(CORECOMPEViewAction());
+            setTimeout(()=> {
+                dispatch(CORECOMPECreateActionFailureCleanup());
+            }, 200)
         }else if(CORECOMPECreatestate.status === 'failed'){
             window.alert(`Request Failed, ${CORECOMPECreatestate.error}`)
             setTimeout(()=> {
@@ -51,9 +55,15 @@ function EACORECOMPECreate(props: CreateCORECOMPEModalInterface) {
 
     return (
         <React.Fragment>
-            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain' level="h6">Create and add a "Core Competency" checklist</Typography>
-            <Typography className="italic p-8 flex justify-center text-center items-center" >Newly added competencies will reflect to the current "pending" and future KPI Evaluations only</Typography>
-            
+            <Typography 
+                style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} 
+                variant='subtitle1' 
+            >Create and add a "Core Competency" checklist
+            </Typography>
+            <Typography 
+                className="italic p-8 flex justify-center text-center items-center" 
+            >Newly added competencies will reflect to the current "pending" and future KPI Evaluations only
+            </Typography>
             <div className='flex flex-col gap-6 overflow-auto w-3/4'>
                     <div className='flex flex-col gap-6 pt-4'>              
                         <TextField

@@ -5,8 +5,8 @@ import { Transition } from 'react-transition-group';
 import { OFFBOARDINGREQUIREMENTSViewInterface } from '@/types/types-employee-and-applicants';
 import { Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
-import { OFFBOARDINGREQUIREMENTSDeleteAction, OFFBOARDINGREQUIREMENTSDeleteActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
+import { OFFBOARDINGREQUIREMENTSDeleteAction, OFFBOARDINGREQUIREMENTSDeleteActionFailureCleanup, OFFBOARDINGREQUIREMENTSViewAction } from '@/store/actions/employee-and-applicants';
 
 
 
@@ -14,6 +14,7 @@ interface DeactivateOFFBOARDINGREQUIREMENTSModalInterface {
     initialState: OFFBOARDINGREQUIREMENTSViewInterface;
     openModal: boolean; 
     setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+    setSingleOFFBOARDINGREQUIREMENTSOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
     setInitialState: React.Dispatch<React.SetStateAction<OFFBOARDINGREQUIREMENTSViewInterface>>;
 }
 
@@ -21,7 +22,13 @@ export default function DeactivateOFFBOARDINGREQUIREMENTSModal(props: Deactivate
   const dispatch = useDispatch();
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
   const OFFBOARDINGREQUIREMENTSDeactivateState = useSelector((state: RootState)=> state.employeeAndApplicants.OFFBOARDINGREQUIREMENTSDelete)
-  const {openModal, setOpenModal, initialState, setInitialState} = props;
+  const {
+    openModal, 
+    setOpenModal, 
+    initialState, 
+    setInitialState,
+    setSingleOFFBOARDINGREQUIREMENTSOpenModal
+  } = props;
 
   const DeactivateOFFBOARDINGREQUIREMENTS = () => {
     if(initialState.id){
@@ -32,14 +39,20 @@ export default function DeactivateOFFBOARDINGREQUIREMENTSModal(props: Deactivate
   }
 
   React.useEffect(()=>{
-    if(OFFBOARDINGREQUIREMENTSDeactivateState.status === 'succeeded' && openModal){
+    if(OFFBOARDINGREQUIREMENTSDeactivateState.status === `${globalReducerSuccess}` && openModal){
       window.alert(`Success: ${OFFBOARDINGREQUIREMENTSDeactivateState.status?.charAt(0).toUpperCase()}${OFFBOARDINGREQUIREMENTSDeactivateState.status.slice(1)}`)
+      // window.location.reload();
+      setOpenModal(false)
+      setSingleOFFBOARDINGREQUIREMENTSOpenModal(false);
+      dispatch(OFFBOARDINGREQUIREMENTSViewAction());
       setTimeout(()=>{
-        window.location.reload();
-      }, 800)
-    } else if(OFFBOARDINGREQUIREMENTSDeactivateState.status === 'failed' && openModal) {
-      window.alert(`Error: ${OFFBOARDINGREQUIREMENTSDeactivateState.error}`)
-      dispatch(OFFBOARDINGREQUIREMENTSDeleteActionFailureCleanup());
+        dispatch(OFFBOARDINGREQUIREMENTSDeleteActionFailureCleanup());
+      }, 200)
+    } else if(OFFBOARDINGREQUIREMENTSDeactivateState.status === `${globalReducerFailed}` && openModal) {
+      window.alert(`Error: ${OFFBOARDINGREQUIREMENTSDeactivateState.error}`);
+      setTimeout(()=>{
+        dispatch(OFFBOARDINGREQUIREMENTSDeleteActionFailureCleanup());
+      }, 200)
     }
   }, [OFFBOARDINGREQUIREMENTSDeactivateState])
 

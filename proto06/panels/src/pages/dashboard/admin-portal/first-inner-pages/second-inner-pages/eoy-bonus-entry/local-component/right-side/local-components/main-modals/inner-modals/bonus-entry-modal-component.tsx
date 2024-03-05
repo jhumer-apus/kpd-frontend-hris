@@ -7,13 +7,16 @@ import { BONUSENTRYViewInterface } from '@/types/types-payroll-eoy';
 
 interface BONUSENTRYModalComponentInterface {
     singleBONUSENTRYDetailsData: BONUSENTRYViewInterface,
-    scroll: boolean,
-    setScroll: Dispatch<SetStateAction<boolean>>,
+    setSingleBONUSENTRYOpenModal: Dispatch<SetStateAction<boolean>>,
     setSingleBONUSENTRYDetailsData: React.Dispatch<React.SetStateAction<BONUSENTRYViewInterface>>;
 };
 
 const BONUSENTRYModalComponent = ((props:BONUSENTRYModalComponentInterface) => {
-    const { singleBONUSENTRYDetailsData, setSingleBONUSENTRYDetailsData } = props;
+    const { 
+        singleBONUSENTRYDetailsData, 
+        setSingleBONUSENTRYDetailsData,
+        setSingleBONUSENTRYOpenModal
+    } = props;
     const componentRef = useRef<HTMLDivElement | null>(null);
 
     return (
@@ -21,7 +24,11 @@ const BONUSENTRYModalComponent = ((props:BONUSENTRYModalComponentInterface) => {
             <Typography variant='soft'>Bonus Entry Data</Typography>
             {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
-                <BONUSENTRYModalUI setSingleBONUSENTRYDetailsData={setSingleBONUSENTRYDetailsData} singleBONUSENTRYDetailsData={singleBONUSENTRYDetailsData}/>
+                <BONUSENTRYModalUI 
+                    setSingleBONUSENTRYDetailsData={setSingleBONUSENTRYDetailsData} 
+                    singleBONUSENTRYDetailsData={singleBONUSENTRYDetailsData}
+                    setSingleBONUSENTRYOpenModal={setSingleBONUSENTRYOpenModal}
+                />
             </div>
         </Fragment>
     );

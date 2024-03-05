@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { Typography } from '@mui/joy';
 import { JOBPOSTINGSCreateInterface } from '@/types/types-employee-and-applicants';
-import { JOBPOSTINGSCreateAction, JOBPOSTINGSCreateActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import { JOBPOSTINGSCreateAction, JOBPOSTINGSCreateActionFailureCleanup, JOBPOSTINGSViewAction } from '@/store/actions/employee-and-applicants';
 import EmployeeAutoComplete from './autocomplete-fields/position-autocomplete';
 
 interface CreateJOBPOSTINGSModalInterface {
@@ -44,12 +44,16 @@ function EAJOBPOSTINGSCreate(props: CreateJOBPOSTINGSModalInterface) {
     useEffect(()=>{
         if(JOBPOSTINGSCreatestate.status === 'succeeded'){
             window.alert('Request Successful');
-            window.location.reload();
+            // window.location.reload();
+            dispatch(JOBPOSTINGSViewAction());
+            setTimeout(()=> {
+                dispatch(JOBPOSTINGSCreateActionFailureCleanup());
+            }, 200)
         }else if(JOBPOSTINGSCreatestate.status === 'failed'){
             window.alert(`Request Failed, ${JOBPOSTINGSCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(JOBPOSTINGSCreateActionFailureCleanup());
-            }, 1000)
+            }, 200)
         }
     }, [JOBPOSTINGSCreatestate.status])
 

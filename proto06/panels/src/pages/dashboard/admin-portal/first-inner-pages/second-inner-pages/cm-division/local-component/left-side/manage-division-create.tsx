@@ -2,11 +2,11 @@ import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { Button } from '@mui/material';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalReducerSuccess } from '@/store/configureStore';
 import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
 import { Typography } from '@mui/joy';
 import { DIVISIONCreateInterface } from '@/types/types-pages';
-import { DIVISIONCreateAction, DIVISIONCreateActionFailureCleanup } from '@/store/actions/categories';
+import { DIVISIONCreateAction, DIVISIONCreateActionFailureCleanup, DIVISIONViewAction } from '@/store/actions/categories';
 import BranchAutoComplete from './inner-ui-components/branch-autocomplete';
 
 interface CreateDIVISIONModalInterface {
@@ -42,14 +42,18 @@ function ManageDIVISIONCreate(props: CreateDIVISIONModalInterface) {
     }, [curr_user]) 
 
     useEffect(()=>{
-        if(DIVISIONCreatestate.status === 'succeeded'){
+        if(DIVISIONCreatestate.status === `${globalReducerSuccess}`){
             window.alert('Request Successful');
-            window.location.reload();
+            // window.location.reload();
+            dispatch(DIVISIONViewAction());
+            setTimeout(()=>{
+                dispatch(DIVISIONCreateActionFailureCleanup());
+            }, 200)
         }else if(DIVISIONCreatestate.status === 'failed'){
             window.alert(`Request Failed, ${DIVISIONCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(DIVISIONCreateActionFailureCleanup());
-            }, 1000)
+            }, 200)
         }
     }, [DIVISIONCreatestate.status])
 

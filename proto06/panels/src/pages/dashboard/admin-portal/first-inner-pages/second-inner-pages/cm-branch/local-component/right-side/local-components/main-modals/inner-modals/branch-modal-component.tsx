@@ -7,13 +7,12 @@ import { BRANCHViewInterface } from '@/types/types-pages';
 
 interface BRANCHModalComponentInterface {
     singleBRANCHDetailsData: BRANCHViewInterface,
-    scroll: boolean,
-    setScroll: Dispatch<SetStateAction<boolean>>,
+    setSingleBRANCHOpenModal: React.Dispatch<React.SetStateAction<boolean>>,
     setSingleBRANCHDetailsData: React.Dispatch<React.SetStateAction<BRANCHViewInterface>>;
 };
 
 const BRANCHModalComponent = ((props:BRANCHModalComponentInterface) => {
-    const { singleBRANCHDetailsData, setSingleBRANCHDetailsData } = props;
+    const { singleBRANCHDetailsData, setSingleBRANCHDetailsData, setSingleBRANCHOpenModal } = props;
     const componentRef = useRef<HTMLDivElement | null>(null);
 
     return (
@@ -21,7 +20,11 @@ const BRANCHModalComponent = ((props:BRANCHModalComponentInterface) => {
             <Typography variant='soft'>Branch Data</Typography>
             {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
-                <BRANCHModalUI setSingleBRANCHDetailsData={setSingleBRANCHDetailsData} singleBRANCHDetailsData={singleBRANCHDetailsData}/>
+                <BRANCHModalUI 
+                    setSingleBRANCHDetailsData={setSingleBRANCHDetailsData} 
+                    singleBRANCHDetailsData={singleBRANCHDetailsData}
+                    setSingleBRANCHOpenModal={setSingleBRANCHOpenModal}
+                />
             </div>
         </Fragment>
     );

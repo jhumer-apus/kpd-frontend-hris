@@ -2,11 +2,11 @@ import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { Button } from '@mui/material';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
 import { Typography } from '@mui/joy';
 import { PAYROLLGROUPCreateInterface } from '@/types/types-pages';
-import { PAYROLLGROUPCreateAction, PAYROLLGROUPCreateActionFailureCleanup } from '@/store/actions/categories';
-
+import { PAYROLLGROUPCreateAction, PAYROLLGROUPCreateActionFailureCleanup, PAYROLLGROUPViewAction } from '@/store/actions/categories';
+import { Select, MenuItem } from '@mui/material';
 interface CreatePAYROLLGROUPModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
 }
@@ -41,14 +41,18 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
     }, [curr_user]) 
 
     useEffect(()=>{
-        if(PAYROLLGROUPCreatestate.status === 'succeeded'){
+        if(PAYROLLGROUPCreatestate.status === `${globalReducerSuccess}`){
             window.alert('Request Successful');
-            window.location.reload();
-        }else if(PAYROLLGROUPCreatestate.status === 'failed'){
+            // window.location.reload();
+            dispatch(PAYROLLGROUPViewAction());
+            setTimeout(()=>{
+                dispatch(PAYROLLGROUPCreateActionFailureCleanup());
+            }, 200)
+        }else if(PAYROLLGROUPCreatestate.status === `${globalReducerFailed}`){
             window.alert(`Request Failed, ${PAYROLLGROUPCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(PAYROLLGROUPCreateActionFailureCleanup());
-            }, 1000)
+            }, 200)
         }
     }, [PAYROLLGROUPCreatestate.status])
 
@@ -99,27 +103,30 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
                     }}
                     
                 />
-                <TextField
-                    required 
-                    sx={{width: '100%'}} 
-                    label='Pay Frequency (Per Month)'
-                    aria-required  
-                    placeholder='1 - Monthly | 2 - Bi-Monthly | 3 - Daily'
-                    variant='outlined' 
-                    type="number"
-                    value={createPAYROLLGROUP?.payroll_freq}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                        const value = parseInt(event.target.value)
-                        setCreatePAYROLLGROUP((prevState)=> {
-                            return (
-                                {
-                                    ...prevState,
-                                    payroll_freq: value
-                                }
-                            )
-                        })
-                    }}
-                />
+                        
+              <TextField
+                required 
+                sx={{width: '100%'}} 
+                label="Pay Frequency (Per Month)"
+                aria-required  
+                placeholder='1 - Monthly | 2 - Bi-Monthly | 3 - Daily'
+                variant='outlined' 
+                type="number"
+                value={createPAYROLLGROUP?.payroll_freq}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    const value = parseInt(event.target.value)
+                    setCreatePAYROLLGROUP((prevState)=> ({
+                        ...prevState,
+                        payroll_freq: value
+                    }));
+                }}
+                select
+            >
+                <MenuItem value={1}>1 - Monthly</MenuItem>
+                <MenuItem value={2}>2 - Bi-Monthly</MenuItem>
+                <MenuItem value={3}>3 - Daily</MenuItem>
+            </TextField>    
+
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
                         <Button variant='contained' onClick={onClickSubmit}>Create PAYROLLGROUP</Button>

@@ -10,13 +10,18 @@ import dayjs from 'dayjs';
 interface ALLOWANCETYPEModalUIInterface {
     singleALLOWANCETYPEDetailsData: ALLOWANCETYPEViewInterface;
     multiplePayslipMode?: boolean;
+    setSingleALLOWANCETYPEOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleALLOWANCETYPEDetailsData: Dispatch<SetStateAction<ALLOWANCETYPEViewInterface>>;
 }
 
 function ALLOWANCETYPEModalUI(props: ALLOWANCETYPEModalUIInterface) {
     const [ resetPasswordALLOWANCETYPEOpenModal, setResetPasswordALLOWANCETYPEOpenModal ] = useState(false);
     const [ editALLOWANCETYPEOpenModal, setEditALLOWANCETYPEOpenModal ] = useState(false);
-    const { setSingleALLOWANCETYPEDetailsData, singleALLOWANCETYPEDetailsData } = props;
+    const { 
+        setSingleALLOWANCETYPEDetailsData, 
+        singleALLOWANCETYPEDetailsData,
+        setSingleALLOWANCETYPEOpenModal 
+    } = props;
     const ThisProps = props.singleALLOWANCETYPEDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
     const onClickModal = (mode: number) => {
@@ -31,7 +36,13 @@ function ALLOWANCETYPEModalUI(props: ALLOWANCETYPEModalUIInterface) {
 
     return (
         <Fragment>
-            <EditALLOWANCETYPEModal singleALLOWANCETYPEDetailsData={singleALLOWANCETYPEDetailsData} setSingleALLOWANCETYPEDetailsData={setSingleALLOWANCETYPEDetailsData} editALLOWANCETYPEOpenModal={editALLOWANCETYPEOpenModal} setEditALLOWANCETYPEOpenModal={setEditALLOWANCETYPEOpenModal}/>
+            <EditALLOWANCETYPEModal 
+                singleALLOWANCETYPEDetailsData={singleALLOWANCETYPEDetailsData} 
+                setSingleALLOWANCETYPEDetailsData={setSingleALLOWANCETYPEDetailsData} 
+                editALLOWANCETYPEOpenModal={editALLOWANCETYPEOpenModal} 
+                setEditALLOWANCETYPEOpenModal={setEditALLOWANCETYPEOpenModal}
+                setSingleALLOWANCETYPEOpenModal={setSingleALLOWANCETYPEOpenModal}
+            />
             <div className='flex overflow-auto justify-around gap-4 relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Allowance Type ID:' value={ThisProps.id || '-'} InputProps={{readOnly: true,}} variant='filled'/>
@@ -41,7 +52,7 @@ function ALLOWANCETYPEModalUI(props: ALLOWANCETYPEModalUIInterface) {
                     <TextField sx={{width: '100%', minWidth: '160px', color: 'green'}} label='Allowance Name' value={ThisProps.allowance_name || '-'} InputProps={{readOnly: true,}} variant='filled' focused/>
                 </div>
                 <div className='flex gap-6 flex-col'>
-                <TextField sx={{width: '100%'}} label='Is Taxable' value={ThisProps.taxable?  'Yes' : 'No'} InputProps={{readOnly: true,}} variant='standard'/>
+                <TextField sx={{width: '100%'}} label='Is Taxable' value={ThisProps.is_taxable?  'Yes' : 'No'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Date Deactivated:' value={ThisProps.date_deleted? dayjs(ThisProps.date_deleted).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
 
                 </div>

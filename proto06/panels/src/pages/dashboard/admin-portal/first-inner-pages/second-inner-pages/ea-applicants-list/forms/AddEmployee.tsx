@@ -6,8 +6,11 @@ import { useForm } from 'react-hook-form';
 import { EMPLOYEESViewInterface } from '@/types/types-store';
 import { APILink } from '@/store/configureStore';
 import { beautifyJSON } from '@/helpers/utils';
+import { getEmployeesList, getEmployeesListFailureCleanup } from '@/store/actions/employees';
+import { useDispatch } from 'react-redux';
 
 export const UserProfile = () => {
+    const dispatch = useDispatch();
     const { register, handleSubmit, formState: { errors } } = useForm<EMPLOYEESViewInterface>();
     const [editMode, setEditMode] = useState(true);
 
@@ -28,9 +31,11 @@ export const UserProfile = () => {
           }
         );
         window.alert(`${response.status >= 200 && response.status < 300 && 'Request Successful'}`)
+        dispatch(getEmployeesList());
         setTimeout(()=>{
-            location.reload();
-        }, 800)
+            // location.reload();
+            dispatch(getEmployeesListFailureCleanup());
+        }, 200)
       } catch (err: any) {
         console.error(err);
         window.alert(`${beautifyJSON(err.response?.data)}`)

@@ -6,7 +6,7 @@ import { RootState } from '@/store/configureStore';
 import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
 import { Typography } from '@mui/joy';
 import { BRANCHCreateInterface } from '@/types/types-pages';
-import { BRANCHCreateAction, BRANCHCreateActionFailureCleanup } from '@/store/actions/categories';
+import { BRANCHCreateAction, BRANCHCreateActionFailureCleanup, BRANCHViewAction } from '@/store/actions/categories';
 
 interface CreateBRANCHModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -45,12 +45,17 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
     useEffect(()=>{
         if(BRANCHCreatestate.status === 'succeeded'){
             window.alert('Request Successful');
-            window.location.reload();
+            dispatch(BRANCHViewAction())
+            setTimeout(()=>{
+                dispatch(BRANCHCreateActionFailureCleanup());
+                
+            }, 200)
+            // window.location.reload();
         }else if(BRANCHCreatestate.status === 'failed'){
             window.alert(`Request Failed, ${BRANCHCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(BRANCHCreateActionFailureCleanup());
-            }, 1000)
+            }, 200)
         }
     }, [BRANCHCreatestate.status])
 
@@ -87,7 +92,6 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                             
                         />
                         <TextField
-                            required 
                             aria-required
                             sx={{width: '100%'}} 
                             label='Branch Address'  
@@ -108,7 +112,6 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                             
                         />
                         <TextField
-                            required 
                             aria-required
                             sx={{width: '100%'}} 
                             label='Branch Email'  
@@ -129,7 +132,6 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                             }}
                         />
                         <TextField
-                            required 
                             aria-required
                             sx={{width: '100%'}} 
                             label='Branch Contact Number'  

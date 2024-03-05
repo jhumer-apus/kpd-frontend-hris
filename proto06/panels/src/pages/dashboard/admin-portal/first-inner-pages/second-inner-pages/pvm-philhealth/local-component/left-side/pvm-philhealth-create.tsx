@@ -2,11 +2,11 @@ import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { Button } from '@mui/material';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
 import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
 import { Typography } from '@mui/joy';
 import { PHILHEALTHCreateInterface } from '@/types/types-payroll-variables';
-import { PHILHEALTHCreateAction, PHILHEALTHCreateActionFailureCleanup } from '@/store/actions/payroll-variables';
+import { PHILHEALTHCreateAction, PHILHEALTHCreateActionFailureCleanup, PHILHEALTHViewAction } from '@/store/actions/payroll-variables';
 
 
 interface CreatePHILHEALTHModalInterface {
@@ -18,7 +18,7 @@ function PVMPHILHEALTHCreate(props: CreatePHILHEALTHModalInterface) {
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail?.emp_no);
     const PHILHEALTHCreatestate = useSelector((state: RootState)=> state.payrollVariables.PHILHEALTHCreate);
     const [createPHILHEALTH, setCreatePHILHEALTH] = useState<PHILHEALTHCreateInterface>({
-        ph_no: NaN,
+        ph_no: '',
         ph_contribution_month: NaN,
         ph_category: '',
         emp_no: NaN,
@@ -40,16 +40,20 @@ function PVMPHILHEALTHCreate(props: CreatePHILHEALTHModalInterface) {
             })
         }
     }, [curr_user]) 
-
+    
     useEffect(()=>{
-        if(PHILHEALTHCreatestate.status === 'succeeded'){
+        if(PHILHEALTHCreatestate.status === `${globalReducerSuccess}`){
             window.alert('Request Successful');
-            window.location.reload();
-        }else if(PHILHEALTHCreatestate.status === 'failed'){
+            // window.location.reload();
+            dispatch(PHILHEALTHViewAction());
+            setTimeout(()=>{
+                dispatch(PHILHEALTHCreateActionFailureCleanup());                
+            }, 200)
+        }else if(PHILHEALTHCreatestate.status === `${globalReducerFailed}`){
             window.alert(`Request Failed, ${PHILHEALTHCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(PHILHEALTHCreateActionFailureCleanup());
-            }, 1000)
+            }, 200)
         }
     }, [PHILHEALTHCreatestate.status])
 
@@ -68,7 +72,7 @@ function PVMPHILHEALTHCreate(props: CreatePHILHEALTHModalInterface) {
                             placeholder='Input 12 digit number'
                             aria-required  
                             variant='outlined' 
-                            type="number"
+                            type="text"
                             value={createPHILHEALTH?.ph_no}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value = String(event.target.value)
@@ -103,7 +107,6 @@ function PVMPHILHEALTHCreate(props: CreatePHILHEALTHModalInterface) {
                             }}
                         />
                         <TextField
-                            required 
                             sx={{width: '100%'}} 
                             label='Philhealth Category'
                             aria-required  

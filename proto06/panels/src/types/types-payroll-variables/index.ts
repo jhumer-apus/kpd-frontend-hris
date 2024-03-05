@@ -24,7 +24,7 @@ export interface TAXEditInterface extends TAXGenericInterface{}
 // ======================================
 
 export interface PAGIBIGGenericInterface {
-    pagibig_no: number | string, //to check
+    pagibig_no: string, //to check
     pagibig_contribution_month: number,
     pagibig_mp2_deduction_amount: number,
     pagibig_with_cloan_amount: number | null,
@@ -51,7 +51,7 @@ export interface PAGIBIGEditInterface extends PAGIBIGGenericInterface{}
 // ======================================
 
 export interface SSSGenericInterface {
-    sss_no: number | string, // to check
+    sss_no: string, // to check
     sss_contribution_month: number,
     sss_with_cashloan_amount: number | null,
     sss_rem_cashloan_amount: number | null,
@@ -77,7 +77,7 @@ export interface SSSEditInterface extends SSSGenericInterface{}
 // ======================================
 
 export interface PHILHEALTHGenericInterface {
-    ph_no: number | string, // to check
+    ph_no: string, // to check
     ph_contribution_month: number,
     ph_category: string | null,
     emp_no: number,
@@ -126,7 +126,7 @@ export interface CASHADVANCEEditInterface extends Pick<CASHADVANCEGenericInterfa
 export interface ALLOWANCETYPEGenericInterface {
     readonly id: number,
     allowance_name: string,
-    taxable: boolean,
+    is_taxable: boolean,
     added_by?: number,
 }
 

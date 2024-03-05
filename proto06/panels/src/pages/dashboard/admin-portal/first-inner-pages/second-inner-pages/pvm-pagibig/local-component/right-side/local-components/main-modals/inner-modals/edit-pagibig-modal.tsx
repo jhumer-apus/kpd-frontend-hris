@@ -5,12 +5,13 @@ import { Transition } from 'react-transition-group';
 import { PAGIBIGViewInterface } from '@/types/types-payroll-variables';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
-import { PAGIBIGEditAction } from '@/store/actions/payroll-variables';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
+import { PAGIBIGEditAction, PAGIBIGEditActionFailureCleanup, PAGIBIGViewAction } from '@/store/actions/payroll-variables';
 
 interface EditPAGIBIGModalInterface {
     singlePAGIBIGDetailsData: PAGIBIGViewInterface;
     editPAGIBIGOpenModal: boolean; 
+    setSinglePAGIBIGOpenModal: Dispatch<SetStateAction<boolean>>; 
     setEditPAGIBIGOpenModal: Dispatch<SetStateAction<boolean>>;
     setSinglePAGIBIGDetailsData: Dispatch<SetStateAction<PAGIBIGViewInterface>>;
 }
@@ -19,7 +20,13 @@ export default function EditPAGIBIGModal(props: EditPAGIBIGModalInterface) {
   const dispatch = useDispatch();
   const PAGIBIGEditState = useSelector((state: RootState)=> state.payrollVariables.PAGIBIGEdit)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
-  const {editPAGIBIGOpenModal, setEditPAGIBIGOpenModal, singlePAGIBIGDetailsData, setSinglePAGIBIGDetailsData} = props;
+  const {
+    editPAGIBIGOpenModal, 
+    setEditPAGIBIGOpenModal, 
+    singlePAGIBIGDetailsData, 
+    setSinglePAGIBIGDetailsData,
+    setSinglePAGIBIGOpenModal
+  } = props;
 
 
   const editPAGIBIG = () => { 
@@ -29,16 +36,21 @@ export default function EditPAGIBIGModal(props: EditPAGIBIGModalInterface) {
     }))
   }
 
-  useEffect(()=>{
-    if(PAGIBIGEditState.status){      
-      if(PAGIBIGEditState.status === 'succeeded'){
-        window.alert(`${PAGIBIGEditState.status.charAt(0).toUpperCase()}${PAGIBIGEditState.status.slice(1)}`)
-        setTimeout(()=>{
-          window.location.reload();
-        }, 800)
-      }else if(PAGIBIGEditState.status === 'failed'){
-        window.alert(`${PAGIBIGEditState.error}`)
-      }
+  useEffect(()=>{      
+    if(PAGIBIGEditState.status === `${globalReducerSuccess}`){
+      window.alert(`${PAGIBIGEditState.status.charAt(0).toUpperCase()}${PAGIBIGEditState.status.slice(1)}`)
+      // window.location.reload();
+      setEditPAGIBIGOpenModal(false);
+      setSinglePAGIBIGOpenModal(false);
+      dispatch(PAGIBIGViewAction());
+      setTimeout(()=>{
+        dispatch(PAGIBIGEditActionFailureCleanup());
+      }, 200)
+    }else if(PAGIBIGEditState.status === `${globalReducerFailed}`){
+      window.alert(`${PAGIBIGEditState.error}`)
+      setTimeout(()=>{
+        dispatch(PAGIBIGEditActionFailureCleanup());
+      }, 200)
     }
   }, [PAGIBIGEditState.status])
   return (
@@ -99,7 +111,7 @@ export default function EditPAGIBIGModal(props: EditPAGIBIGModalInterface) {
                             type="number"
                             value={singlePAGIBIGDetailsData?.pagibig_no}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = parseInt(event.target.value)
+                                const value = (event.target.value)
                                 setSinglePAGIBIGDetailsData((prevState)=> {
                                     return (
                                         {

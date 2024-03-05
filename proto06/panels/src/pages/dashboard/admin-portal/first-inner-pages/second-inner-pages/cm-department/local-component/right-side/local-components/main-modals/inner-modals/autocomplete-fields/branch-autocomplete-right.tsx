@@ -50,7 +50,7 @@ export default function BranchAutoCompleteRight(props: BranchAutoCompleteInterfa
                     };
                 }) || [];
                 setBranchList(updatedBranchList);
-            }, 1000);
+            }, 500);
         }
     }, [state.data]);
 

@@ -56,7 +56,11 @@ export default function ViewPHILHEALTHSingleModal(props: SinglePHILHEALTHInterfa
                 overflow: 'auto',
             }}
         >
-          <PHILHEALTHModalComponent setSinglePHILHEALTHDetailsData={setSinglePHILHEALTHDetailsData} singlePHILHEALTHDetailsData={singlePHILHEALTHDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <PHILHEALTHModalComponent 
+            setSinglePHILHEALTHDetailsData={setSinglePHILHEALTHDetailsData} 
+            singlePHILHEALTHDetailsData={singlePHILHEALTHDetailsData} 
+            setSinglePHILHEALTHOpenModal={setSinglePHILHEALTHOpenModal}
+          />
         </ModalDialog>
       </Modal>
         )}

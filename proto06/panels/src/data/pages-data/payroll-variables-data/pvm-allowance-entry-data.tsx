@@ -14,11 +14,11 @@ export const PVMALLOWANCEENTRYPageColumns: GridColDef[] =
     headerName: 'ID',
     width: 100,
   },
-  { field: 'taxable', 
+  { field: 'is_taxable', 
     headerName: 'Taxable', 
     width: 150,
     valueGetter: (params: GridValueGetterParams) => {
-      const convertBool = params.row.taxable ? 'Yes' : 'No';
+      const convertBool = params.row.is_taxable ? 'Yes' : 'No';
       return convertBool;
     } 
   },

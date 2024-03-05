@@ -2,11 +2,11 @@ import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { Button } from '@mui/material';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
 import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
 import { Typography } from '@mui/joy';
 import { TAXCreateInterface } from '@/types/types-payroll-variables';
-import { TAXCreateAction, TAXCreateActionFailureCleanup } from '@/store/actions/payroll-variables';
+import { TAXCreateAction, TAXCreateActionFailureCleanup, TAXViewAction } from '@/store/actions/payroll-variables';
 import PaymentFrequencyAutoComplete from './inner-ui-components/payment-frequency-autocomplete';
 
 interface CreateTAXModalInterface {
@@ -45,14 +45,18 @@ function PVMTAXCreate(props: CreateTAXModalInterface) {
     }, [curr_user]) 
 
     useEffect(()=>{
-        if(TAXCreatestate.status === 'succeeded'){
+        if(TAXCreatestate.status === `${globalReducerSuccess}`){
             window.alert('Request Successful');
-            window.location.reload();
-        }else if(TAXCreatestate.status === 'failed'){
+            // window.location.reload();
+            dispatch(TAXViewAction());
+            setTimeout(()=> {
+                dispatch(TAXCreateActionFailureCleanup());
+            }, 200)
+        }else if(TAXCreatestate.status === `${globalReducerFailed}`){
             window.alert(`Request Failed, ${TAXCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(TAXCreateActionFailureCleanup());
-            }, 1000)
+            }, 200)
         }
     }, [TAXCreatestate.status])
 

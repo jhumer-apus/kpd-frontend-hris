@@ -8,7 +8,7 @@ import { EAONBOARDINGSTATUSPageDescriptions, EAONBOARDINGSTATUSPageColumns } fro
 import ViewONBOARDINGSTATUSSingleModal from './local-components/main-modals/ea-initialize-onboarding-single-modal';
 import { ONBOARDINGSTATUSViewInterface } from '@/types/types-employee-and-applicants';
 import { ONBOARDINGSTATUSViewAction } from '@/store/actions/employee-and-applicants';
-
+import { globalServerErrorMsg } from '@/store/configureStore';
 
 export default function EAONBOARDINGSTATUSPageHistory() {
   const [singleONBOARDINGSTATUSOpenModal, setSingleONBOARDINGSTATUSOpenModal] = useState<boolean>(false);
@@ -75,7 +75,7 @@ export default function EAONBOARDINGSTATUSPageHistory() {
             setSingleONBOARDINGSTATUSOpenModal(true);
           }}
           disableRowSelectionOnClick
-          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No 13th Month Pay found. Contact your administrator/support.' : (status === null || status === undefined) ? 'The caller for 13th Month Pay Epic hasn\'t been set up, please contact your frontend developer': 'There is no 13th Month Pay to generate.'}` }}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
         />
       </div>
     </Fragment>

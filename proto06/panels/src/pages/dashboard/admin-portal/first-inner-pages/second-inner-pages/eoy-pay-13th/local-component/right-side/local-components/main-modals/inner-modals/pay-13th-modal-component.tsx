@@ -7,13 +7,16 @@ import { PAY13THViewInterface } from '@/types/types-payroll-eoy';
 
 interface PAY13THModalComponentInterface {
     singlePAY13THDetailsData: PAY13THViewInterface,
-    scroll: boolean,
-    setScroll: Dispatch<SetStateAction<boolean>>,
+    setSinglePAY13THOpenModal: Dispatch<SetStateAction<boolean>>,
     setSinglePAY13THDetailsData: React.Dispatch<React.SetStateAction<PAY13THViewInterface>>;
 };
 
 const PAY13THModalComponent = ((props:PAY13THModalComponentInterface) => {
-    const { singlePAY13THDetailsData, setSinglePAY13THDetailsData } = props;
+    const { 
+        singlePAY13THDetailsData, 
+        setSinglePAY13THDetailsData, 
+        setSinglePAY13THOpenModal
+    } = props;
     const componentRef = useRef<HTMLDivElement | null>(null);
 
     return (
@@ -21,7 +24,11 @@ const PAY13THModalComponent = ((props:PAY13THModalComponentInterface) => {
             <Typography variant='soft'>13th Month Pay Data</Typography>
             {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
-                <PAY13THModalUI setSinglePAY13THDetailsData={setSinglePAY13THDetailsData} singlePAY13THDetailsData={singlePAY13THDetailsData}/>
+                <PAY13THModalUI 
+                    setSinglePAY13THDetailsData={setSinglePAY13THDetailsData} 
+                    singlePAY13THDetailsData={singlePAY13THDetailsData}
+                    setSinglePAY13THOpenModal={setSinglePAY13THOpenModal}
+                />
             </div>
         </Fragment>
     );

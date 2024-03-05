@@ -10,13 +10,18 @@ import dayjs from 'dayjs';
 interface CASHADVANCEModalUIInterface {
     singleCASHADVANCEDetailsData: CASHADVANCEViewInterface;
     multiplePayslipMode?: boolean;
+    setSingleCASHADVANCEOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleCASHADVANCEDetailsData: Dispatch<SetStateAction<CASHADVANCEViewInterface>>;
 }
 
 function CASHADVANCEModalUI(props: CASHADVANCEModalUIInterface) {
     const [ resetPasswordCASHADVANCEOpenModal, setResetPasswordCASHADVANCEOpenModal ] = useState(false);
     const [ editCASHADVANCEOpenModal, setEditCASHADVANCEOpenModal ] = useState(false);
-    const { setSingleCASHADVANCEDetailsData, singleCASHADVANCEDetailsData } = props;
+    const { 
+        setSingleCASHADVANCEDetailsData, 
+        singleCASHADVANCEDetailsData, 
+        setSingleCASHADVANCEOpenModal
+    } = props;
     const ThisProps = props.singleCASHADVANCEDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
     const onClickModal = (mode: number) => {
@@ -31,7 +36,13 @@ function CASHADVANCEModalUI(props: CASHADVANCEModalUIInterface) {
 
     return (
         <Fragment>
-            <EditCASHADVANCEModal singleCASHADVANCEDetailsData={singleCASHADVANCEDetailsData} setSingleCASHADVANCEDetailsData={setSingleCASHADVANCEDetailsData} editCASHADVANCEOpenModal={editCASHADVANCEOpenModal} setEditCASHADVANCEOpenModal={setEditCASHADVANCEOpenModal}/>
+            <EditCASHADVANCEModal 
+                singleCASHADVANCEDetailsData={singleCASHADVANCEDetailsData} 
+                setSingleCASHADVANCEDetailsData={setSingleCASHADVANCEDetailsData} 
+                editCASHADVANCEOpenModal={editCASHADVANCEOpenModal} 
+                setEditCASHADVANCEOpenModal={setEditCASHADVANCEOpenModal}
+                setSingleCASHADVANCEOpenModal={setSingleCASHADVANCEOpenModal}
+            />
             <div className='flex overflow-auto justify-around gap-4 relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Total CA:' value={ThisProps.cash_advance_total ? ThisProps.cash_advance_total : '-'} InputProps={{readOnly: true,}} variant='filled'/>

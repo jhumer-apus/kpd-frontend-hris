@@ -2,10 +2,10 @@ import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { Button } from '@mui/material';
 import { TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalReducerSuccess } from '@/store/configureStore';
 import { Typography } from '@mui/joy';
 import { ASSETLISTCreateInterface } from '@/types/types-payroll-eoy';
-import { ASSETLISTCreateAction, ASSETLISTCreateActionFailureCleanup } from '@/store/actions/payroll-eoy';
+import { ASSETLISTCreateAction, ASSETLISTCreateActionFailureCleanup, ASSETLISTViewAction } from '@/store/actions/payroll-eoy';
 
 
 interface CreateASSETLISTModalInterface {
@@ -43,14 +43,18 @@ function AAASSETLISTCreate(props: CreateASSETLISTModalInterface) {
     }, [curr_user]) 
 
     useEffect(()=>{
-        if(ASSETLISTCreatestate.status === 'succeeded'){
+        if(ASSETLISTCreatestate.status === `${globalReducerSuccess}`){
             window.alert('Request Successful');
-            window.location.reload();
+            // window.location.reload();
+            dispatch(ASSETLISTViewAction());
+            setTimeout(()=> {
+                dispatch(ASSETLISTCreateActionFailureCleanup());
+            }, 200)
         }else if(ASSETLISTCreatestate.status === 'failed'){
             window.alert(`Request Failed, ${ASSETLISTCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(ASSETLISTCreateActionFailureCleanup());
-            }, 1000)
+            }, 200)
         }
     }, [ASSETLISTCreatestate.status])
 

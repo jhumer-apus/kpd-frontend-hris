@@ -5,12 +5,13 @@ import { Transition } from 'react-transition-group';
 import { CASHADVANCEViewInterface } from '@/types/types-payroll-variables';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
-import { CASHADVANCEEditAction } from '@/store/actions/payroll-variables';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
+import { CASHADVANCEEditAction, CASHADVANCEEditActionFailureCleanup, CASHADVANCEViewAction } from '@/store/actions/payroll-variables';
 
 interface EditCASHADVANCEModalInterface {
     singleCASHADVANCEDetailsData: CASHADVANCEViewInterface;
-    editCASHADVANCEOpenModal: boolean; 
+    editCASHADVANCEOpenModal: boolean;
+    setSingleCASHADVANCEOpenModal: Dispatch<SetStateAction<boolean>>;
     setEditCASHADVANCEOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleCASHADVANCEDetailsData: Dispatch<SetStateAction<CASHADVANCEViewInterface>>;
 }
@@ -19,7 +20,13 @@ export default function EditCASHADVANCEModal(props: EditCASHADVANCEModalInterfac
   const dispatch = useDispatch();
   const CASHADVANCEEditState = useSelector((state: RootState)=> state.payrollVariables.CASHADVANCEEdit)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
-  const {editCASHADVANCEOpenModal, setEditCASHADVANCEOpenModal, singleCASHADVANCEDetailsData, setSingleCASHADVANCEDetailsData} = props;
+  const {
+    editCASHADVANCEOpenModal, 
+    setEditCASHADVANCEOpenModal, 
+    singleCASHADVANCEDetailsData, 
+    setSingleCASHADVANCEDetailsData,
+    setSingleCASHADVANCEOpenModal
+  } = props;
 
 
   const editCASHADVANCE = () => { 
@@ -29,17 +36,22 @@ export default function EditCASHADVANCEModal(props: EditCASHADVANCEModalInterfac
     }))
   }
 
-  useEffect(()=>{
-    if(CASHADVANCEEditState.status){      
-      if(CASHADVANCEEditState.status === 'succeeded'){
+  useEffect(()=>{     
+      if(CASHADVANCEEditState.status === `${globalReducerSuccess}`){
         window.alert(`${CASHADVANCEEditState.status.charAt(0).toUpperCase()}${CASHADVANCEEditState.status.slice(1)}`)
+        // window.location.reload();
+        setEditCASHADVANCEOpenModal(false)
+        setSingleCASHADVANCEOpenModal(false)
+        dispatch(CASHADVANCEViewAction());
         setTimeout(()=>{
-          window.location.reload();
-        }, 800)
-      }else if(CASHADVANCEEditState.status === 'failed'){
+          dispatch(CASHADVANCEEditActionFailureCleanup());
+        }, 200)
+      }else if(CASHADVANCEEditState.status === `${globalReducerFailed}`){
         window.alert(`${CASHADVANCEEditState.error}`)
+        setTimeout(()=>{
+          dispatch(CASHADVANCEEditActionFailureCleanup());
+        }, 200)
       }
-    }
   }, [CASHADVANCEEditState.status])
   return (
     <Fragment>

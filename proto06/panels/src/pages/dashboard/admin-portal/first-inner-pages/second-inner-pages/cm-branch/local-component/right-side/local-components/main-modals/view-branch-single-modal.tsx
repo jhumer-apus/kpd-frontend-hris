@@ -56,7 +56,11 @@ export default function ViewBRANCHSingleModal(props: SingleBRANCHInterface) {
                 overflow: 'auto',
             }}
         >
-          <BRANCHModalComponent setSingleBRANCHDetailsData={setSingleBRANCHDetailsData} singleBRANCHDetailsData={singleBRANCHDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <BRANCHModalComponent 
+            setSingleBRANCHDetailsData={setSingleBRANCHDetailsData} 
+            singleBRANCHDetailsData={singleBRANCHDetailsData}
+            setSingleBRANCHOpenModal={setSingleBRANCHOpenModal} 
+          />
         </ModalDialog>
       </Modal>
         )}

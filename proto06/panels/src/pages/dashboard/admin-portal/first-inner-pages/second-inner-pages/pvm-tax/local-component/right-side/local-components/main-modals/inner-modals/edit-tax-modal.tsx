@@ -5,14 +5,15 @@ import { Transition } from 'react-transition-group';
 import { TAXViewInterface } from '@/types/types-payroll-variables';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
-import { TAXEditAction } from '@/store/actions/payroll-variables';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
+import { TAXEditAction, TAXEditActionFailureCleanup, TAXViewAction } from '@/store/actions/payroll-variables';
 import PaymentFrequencyAutoCompleteRight from './autocomplete-fields/payment-frequency-autocomplete-right';
 
 
 interface EditTAXModalInterface {
     singleTAXDetailsData: TAXViewInterface;
-    editTAXOpenModal: boolean; 
+    editTAXOpenModal: boolean;
+    setSingleTAXOpenModal: Dispatch<SetStateAction<boolean>>;
     setEditTAXOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleTAXDetailsData: Dispatch<SetStateAction<TAXViewInterface>>;
 }
@@ -21,7 +22,13 @@ export default function EditTAXModal(props: EditTAXModalInterface) {
   const dispatch = useDispatch();
   const TAXEditState = useSelector((state: RootState)=> state.payrollVariables.TAXEdit)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
-  const {editTAXOpenModal, setEditTAXOpenModal, singleTAXDetailsData, setSingleTAXDetailsData} = props;
+  const {
+    editTAXOpenModal, 
+    setEditTAXOpenModal, 
+    singleTAXDetailsData, 
+    setSingleTAXDetailsData,
+    setSingleTAXOpenModal
+  } = props;
 
 
   const editTAX = () => { 
@@ -30,18 +37,23 @@ export default function EditTAXModal(props: EditTAXModalInterface) {
       added_by: curr_user || NaN
     }))
   }
-
-  useEffect(()=>{
-    if(TAXEditState.status){      
-      if(TAXEditState.status === 'succeeded'){
+  // console.log(TAXEditState, "asds")
+  useEffect(()=>{ 
+      if(TAXEditState.status === `${globalReducerSuccess}`){
         window.alert(`${TAXEditState.status.charAt(0).toUpperCase()}${TAXEditState.status.slice(1)}`)
+        // window.location.reload();
+        setEditTAXOpenModal(false);
+        setSingleTAXOpenModal(false);
+        dispatch(TAXViewAction());
         setTimeout(()=>{
-          window.location.reload();
-        }, 800)
-      }else if(TAXEditState.status === 'failed'){
+          dispatch(TAXEditActionFailureCleanup());
+        }, 200)
+      }else if(TAXEditState.status === `${globalReducerFailed}`){
         window.alert(`${TAXEditState.error}`)
+        setTimeout(()=>{
+          dispatch(TAXEditActionFailureCleanup());
+        }, 200)
       }
-    }
   }, [TAXEditState.status])
   return (
     <Fragment>

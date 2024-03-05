@@ -5,23 +5,30 @@ import { Transition } from 'react-transition-group';
 import { POSITIONViewInterface } from '@/types/types-pages';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
-import { POSITIONEditAction } from '@/store/actions/categories';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
+import { POSITIONEditAction, POSITIONEditActionFailureCleanup, POSITIONViewAction } from '@/store/actions/categories';
 
 
 
 interface AllowedDaysPOSITIONModalInterface {
     singlePOSITIONDetailsData: POSITIONViewInterface;
-    allowedDaysPOSITIONOpenModal: boolean; 
+    allowedDaysPOSITIONOpenModal: boolean;
+    setSinglePOSITIONOpenModal: Dispatch<SetStateAction<boolean>>;
     setAllowedDaysPOSITIONOpenModal: Dispatch<SetStateAction<boolean>>;
     setSinglePOSITIONDetailsData: Dispatch<SetStateAction<POSITIONViewInterface>>;
 }
 
 export default function AllowedDaysPOSITIONModal(props: AllowedDaysPOSITIONModalInterface) {
   const dispatch = useDispatch();
-  const POSITIONAllowedDaysState = useSelector((state: RootState)=> state.categories.POSITIONEdit.status)
+  const POSITIONState = useSelector((state: RootState)=> state.categories.POSITIONEdit)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
-  const {allowedDaysPOSITIONOpenModal, setAllowedDaysPOSITIONOpenModal, singlePOSITIONDetailsData, setSinglePOSITIONDetailsData} = props;
+  const {
+    allowedDaysPOSITIONOpenModal, 
+    setAllowedDaysPOSITIONOpenModal, 
+    singlePOSITIONDetailsData, 
+    setSinglePOSITIONDetailsData,
+    setSinglePOSITIONOpenModal
+  } = props;
 
   const allowedDaysPOSITION = () => { 
     dispatch(POSITIONEditAction({
@@ -30,16 +37,23 @@ export default function AllowedDaysPOSITIONModal(props: AllowedDaysPOSITIONModal
     }))
   }
 
-  useEffect(()=>{
-    if(POSITIONAllowedDaysState){      
-      if(POSITIONAllowedDaysState === 'succeeded'){
-        window.alert(`${POSITIONAllowedDaysState.charAt(0).toUpperCase()}${POSITIONAllowedDaysState.slice(1)}`)
+  useEffect(()=>{   
+      if(POSITIONState.status === `${globalReducerSuccess}`){
+        window.alert(`${POSITIONState.status.charAt(0).toUpperCase()}${POSITIONState.status.slice(1)}`)
+        // window.location.reload();
+        setAllowedDaysPOSITIONOpenModal(false);
+        setSinglePOSITIONOpenModal(false);
+        dispatch(POSITIONViewAction());
         setTimeout(()=>{
-          window.location.reload();
-        }, 800)
+          dispatch(POSITIONEditActionFailureCleanup());
+        }, 200)
+      } else if (POSITIONState.status === `${globalReducerFailed}`){
+        window.alert(`Failed: ${POSITIONState.error}`)
+        setTimeout(()=>{
+          dispatch(POSITIONEditActionFailureCleanup());
+        }, 200)
       }
-    }
-  }, [POSITIONAllowedDaysState])
+  }, [POSITIONState.status])
   return (
     <Fragment>
       <Transition in={allowedDaysPOSITIONOpenModal} timeout={400}>
@@ -89,9 +103,10 @@ export default function AllowedDaysPOSITIONModal(props: AllowedDaysPOSITIONModal
               </div>
               <div className='flex flex-col justify-center items-center gap-5'>
                 <TextField
-                  key={`${singlePOSITIONDetailsData.pos_name}1`}
+                  // Causes Bug on 
+                  // key={`${singlePOSITIONDetailsData.pos_name}1`}
                   sx={{width: '90%'}}
-                  label='Branch Name'
+                  label='Position Name'
                   type='text'
                   required
                   value={singlePOSITIONDetailsData.pos_name}

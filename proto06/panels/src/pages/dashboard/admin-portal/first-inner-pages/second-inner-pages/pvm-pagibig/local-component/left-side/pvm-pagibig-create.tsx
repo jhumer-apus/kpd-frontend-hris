@@ -2,11 +2,11 @@ import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { Button } from '@mui/material';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
 import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
 import { Typography } from '@mui/joy';
 import { PAGIBIGCreateInterface } from '@/types/types-payroll-variables';
-import { PAGIBIGCreateAction, PAGIBIGCreateActionFailureCleanup } from '@/store/actions/payroll-variables';
+import { PAGIBIGCreateAction, PAGIBIGCreateActionFailureCleanup, PAGIBIGViewAction } from '@/store/actions/payroll-variables';
 import DeductionsPAGIBIGCreateModal from './local-components/main-modals/pvm-pagibig-create-modal-left';
 
 
@@ -21,7 +21,7 @@ function PVMPAGIBIGCreate(props: CreatePAGIBIGModalInterface) {
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail?.emp_no);
     const PAGIBIGCreatestate = useSelector((state: RootState)=> state.payrollVariables.PAGIBIGCreate);
     const [createPAGIBIG, setCreatePAGIBIG] = useState<PAGIBIGCreateInterface>({
-        pagibig_no: NaN,
+        pagibig_no: '',
         pagibig_mp2_deduction_amount: 0,
         pagibig_contribution_month: NaN,
         pagibig_with_cloan_amount: null,
@@ -51,10 +51,13 @@ function PVMPAGIBIGCreate(props: CreatePAGIBIGModalInterface) {
     }, [curr_user]) 
 
     useEffect(()=>{
-        if(PAGIBIGCreatestate.status === 'succeeded'){
+        if(PAGIBIGCreatestate.status === `${globalReducerSuccess}`){
             window.alert('Request Successful');
-            window.location.reload();
-        }else if(PAGIBIGCreatestate.status === 'failed'){
+            // window.location.reload();
+            setTimeout(()=>{
+                dispatch(PAGIBIGViewAction())
+            }, 200)
+        }else if(PAGIBIGCreatestate.status === `${globalReducerFailed}`){
             window.alert(`Request Failed, ${PAGIBIGCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(PAGIBIGCreateActionFailureCleanup());
@@ -77,7 +80,7 @@ function PVMPAGIBIGCreate(props: CreatePAGIBIGModalInterface) {
                             placeholder='Input 12 digit number'
                             aria-required  
                             variant='outlined' 
-                            type="number"
+                            type="text"
                             value={createPAGIBIG?.pagibig_no}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value = String(event.target.value)

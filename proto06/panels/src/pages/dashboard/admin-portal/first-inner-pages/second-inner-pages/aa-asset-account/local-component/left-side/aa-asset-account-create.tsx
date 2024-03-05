@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { Typography } from '@mui/joy';
 import { ASSETACCOUNTCreateInterface } from '@/types/types-payroll-eoy';
-import { ASSETACCOUNTCreateAction, ASSETACCOUNTCreateActionFailureCleanup } from '@/store/actions/payroll-eoy';
+import { ASSETACCOUNTCreateAction, ASSETACCOUNTCreateActionFailureCleanup, ASSETACCOUNTViewAction } from '@/store/actions/payroll-eoy';
 import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
 import AssetListAutoComplete from './inner-ui-components/asset-list-autocomplete';
 import DateAssignedASSETACCOUNTCreate from './inner-ui-components/date-assigned';
@@ -47,12 +47,16 @@ function AAASSETACCOUNTCreate(props: CreateASSETACCOUNTModalInterface) {
     useEffect(()=>{
         if(ASSETACCOUNTCreatestate.status === 'succeeded'){
             window.alert('Request Successful');
-            window.location.reload();
+            // window.location.reload();
+            dispatch(ASSETACCOUNTViewAction());
+            setTimeout(()=> {
+                dispatch(ASSETACCOUNTCreateActionFailureCleanup());
+            }, 200)
         }else if(ASSETACCOUNTCreatestate.status === 'failed'){
             window.alert(`Request Failed, ${ASSETACCOUNTCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(ASSETACCOUNTCreateActionFailureCleanup());
-            }, 1000)
+            }, 200)
         }
     }, [ASSETACCOUNTCreatestate.status])
 

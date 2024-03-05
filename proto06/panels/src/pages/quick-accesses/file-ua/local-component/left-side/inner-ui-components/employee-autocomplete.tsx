@@ -39,7 +39,7 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
         value={`${curr_emp} - ${curr_user?.last_name} ${curr_user?.first_name}`}
         // getOptionLabel={(option) => option.employee}
         // onInputChange={handleInputChange}
-        sx={{ width: '100%' }}
+        sx={{ width: '67%' }}
         renderInput={(params) => 
             {   
                 return(

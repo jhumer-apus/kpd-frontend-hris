@@ -5,8 +5,8 @@ import { Transition } from 'react-transition-group';
 import { USERViewInterface } from '@/types/types-pages';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
-import { USEREditAction } from '@/store/actions/users';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
+import { USEREditAction, USEREditActionFailureCleanup, USERViewAction } from '@/store/actions/users';
 import EmployeeAutoCompleteRight from './autocomplete-fields/employee-autocomplete-right';
 import RoleAutoCompleteRight from './autocomplete-fields/role-autocomplete-right';
 
@@ -20,15 +20,22 @@ import FormLabel from '@mui/material/FormLabel';
 interface EditUSERModalInterface {
     singleUSERDetailsData: USERViewInterface;
     editUSEROpenModal: boolean; 
+    setSingleUSEROpenModal: Dispatch<SetStateAction<boolean>>; 
     setEditUSEROpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleUSERDetailsData: Dispatch<SetStateAction<USERViewInterface>>;
 }
 
 export default function EditUSERModal(props: EditUSERModalInterface) {
   const dispatch = useDispatch();
-  const USEREditState = useSelector((state: RootState)=> state.users.USEREdit.status)
+  const USEREditState = useSelector((state: RootState)=> state.users.USEREdit);
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
-  const {editUSEROpenModal, setEditUSEROpenModal, singleUSERDetailsData, setSingleUSERDetailsData} = props;
+  const {
+    editUSEROpenModal, 
+    setEditUSEROpenModal, 
+    singleUSERDetailsData, 
+    setSingleUSERDetailsData,
+    setSingleUSEROpenModal
+  } = props;
 
 
   const editUSER = () => { 
@@ -38,16 +45,23 @@ export default function EditUSERModal(props: EditUSERModalInterface) {
     }))
   }
 
-  useEffect(()=>{
-    if(USEREditState){      
-      if(USEREditState === 'succeeded'){
-        window.alert(`${USEREditState.charAt(0).toUpperCase()}${USEREditState.slice(1)}`)
+  useEffect(()=>{   
+      if(USEREditState.status === `${globalReducerSuccess}`){
+        window.alert(`${USEREditState.status.charAt(0).toUpperCase()}${USEREditState.status.slice(1)}`)
+        // window.location.reload();
+        setEditUSEROpenModal(false);
+        setSingleUSEROpenModal(false)
+        dispatch(USERViewAction());
         setTimeout(()=>{
-          window.location.reload();
-        }, 800)
+          dispatch(USEREditActionFailureCleanup());
+        }, 200)
+      } else if (USEREditState.status === `${globalReducerFailed}`){
+        window.alert(`${USEREditState.error}`)
+        setTimeout(()=>{
+          dispatch(USEREditActionFailureCleanup());
+        }, 200)
       }
-    }
-  }, [USEREditState])
+  }, [USEREditState.status])
   return (
     <Fragment>
       <Transition in={editUSEROpenModal} timeout={400}>

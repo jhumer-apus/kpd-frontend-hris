@@ -56,7 +56,11 @@ export default function ViewPAY13THSingleModal(props: SinglePAY13THInterface) {
                 overflow: 'auto',
             }}
         >
-          <PAY13THModalComponent setSinglePAY13THDetailsData={setSinglePAY13THDetailsData} singlePAY13THDetailsData={singlePAY13THDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <PAY13THModalComponent 
+            setSinglePAY13THDetailsData={setSinglePAY13THDetailsData} 
+            singlePAY13THDetailsData={singlePAY13THDetailsData} 
+            setSinglePAY13THOpenModal={setSinglePAY13THOpenModal}
+          />
         </ModalDialog>
       </Modal>
         )}

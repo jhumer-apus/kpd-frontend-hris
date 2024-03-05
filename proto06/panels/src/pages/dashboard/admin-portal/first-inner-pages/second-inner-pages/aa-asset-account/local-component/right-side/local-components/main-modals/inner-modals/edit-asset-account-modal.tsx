@@ -5,14 +5,15 @@ import { Transition } from 'react-transition-group';
 import { ASSETACCOUNTViewInterface } from '@/types/types-payroll-eoy';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
-import { ASSETACCOUNTEditAction } from '@/store/actions/payroll-eoy';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
+import { ASSETACCOUNTEditAction, ASSETACCOUNTEditActionFailureCleanup, ASSETACCOUNTViewAction } from '@/store/actions/payroll-eoy';
 import AssetListAutoCompleteRight from './fields/asset-list-autocomplete-right';
 import EmployeeAutoCompleteRight from './fields/employee-autocomplete';
 
 interface EditASSETACCOUNTModalInterface {
     singleASSETACCOUNTDetailsData: ASSETACCOUNTViewInterface;
-    editASSETACCOUNTOpenModal: boolean; 
+    editASSETACCOUNTOpenModal: boolean;
+    setSingleASSETACCOUNTOpenModal: Dispatch<SetStateAction<boolean>>;
     setEditASSETACCOUNTOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleASSETACCOUNTDetailsData: Dispatch<SetStateAction<ASSETACCOUNTViewInterface>>;
 }
@@ -21,7 +22,13 @@ export default function EditASSETACCOUNTModal(props: EditASSETACCOUNTModalInterf
   const dispatch = useDispatch();
   const ASSETACCOUNTEditState = useSelector((state: RootState)=> state.payrollEOY.ASSETACCOUNTEdit)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
-  const {editASSETACCOUNTOpenModal, setEditASSETACCOUNTOpenModal, singleASSETACCOUNTDetailsData, setSingleASSETACCOUNTDetailsData} = props;
+  const {
+    editASSETACCOUNTOpenModal, 
+    setEditASSETACCOUNTOpenModal, 
+    singleASSETACCOUNTDetailsData, 
+    setSingleASSETACCOUNTDetailsData,
+    setSingleASSETACCOUNTOpenModal
+  } = props;
 
 
   const editASSETACCOUNT = () => { 
@@ -31,17 +38,22 @@ export default function EditASSETACCOUNTModal(props: EditASSETACCOUNTModalInterf
     }))
   }
 
-  useEffect(()=>{
-    if(ASSETACCOUNTEditState.status){      
-      if(ASSETACCOUNTEditState.status === 'succeeded'){
+  useEffect(()=>{  
+      if(ASSETACCOUNTEditState.status === `${globalReducerSuccess}`){
         window.alert(`${ASSETACCOUNTEditState.status.charAt(0).toUpperCase()}${ASSETACCOUNTEditState.status.slice(1)}`)
+        // window.location.reload()
+        setEditASSETACCOUNTOpenModal(false);
+        setSingleASSETACCOUNTOpenModal(false);
+        dispatch(ASSETACCOUNTViewAction());
         setTimeout(()=>{
-          window.location.reload();
-        }, 800)
-      }else if(ASSETACCOUNTEditState.status === 'failed'){
+          dispatch(ASSETACCOUNTEditActionFailureCleanup());
+        }, 200)
+      }else if(ASSETACCOUNTEditState.status === `${globalReducerFailed}`){
         window.alert(`${ASSETACCOUNTEditState.error}`)
+        setTimeout(()=>{
+          dispatch(ASSETACCOUNTEditActionFailureCleanup());
+        }, 200)
       }
-    }
   }, [ASSETACCOUNTEditState.status])
   return (
     <Fragment>
@@ -97,18 +109,18 @@ export default function EditASSETACCOUNTModal(props: EditASSETACCOUNTModalInterf
                         <TextField
                             required 
                             sx={{width: '100%'}} 
-                            label='Bonus Type Name'
+                            label='Assigned Serial #'
                             aria-required  
                             variant='outlined' 
                             type="text"
-                            value={singleASSETACCOUNTDetailsData?.name}
+                            value={singleASSETACCOUNTDetailsData?.serial_no_internal}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value = event.target.value;
                                 setSingleASSETACCOUNTDetailsData((prevState)=> {
                                     return (
                                         {
                                             ...prevState,
-                                            name: value
+                                            serial_no_internal: value
                                         }
                                     )
                                 })
@@ -117,18 +129,18 @@ export default function EditASSETACCOUNTModal(props: EditASSETACCOUNTModalInterf
                         <TextField
                             required 
                             sx={{width: '100%'}} 
-                            label='Bonus Type Amount (in PH Peso):'
+                            label='Manufacturer Serial'
                             aria-required  
                             variant='outlined' 
-                            type="number"
-                            value={singleASSETACCOUNTDetailsData?.amount}
+                            type="text"
+                            value={singleASSETACCOUNTDetailsData?.serial_no_manufacturer}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = parseInt(event.target.value)
+                                const value = event.target.value;
                                 setSingleASSETACCOUNTDetailsData((prevState)=> {
                                     return (
                                         {
                                             ...prevState,
-                                            amount: value
+                                            serial_no_manufacturer: value
                                         }
                                     )
                                 })
@@ -137,20 +149,20 @@ export default function EditASSETACCOUNTModal(props: EditASSETACCOUNTModalInterf
                         <TextField
                             required 
                             sx={{width: '100%'}} 
-                            label='Bonus Type Description:'
+                            label='Remarks:'
                             aria-required  
                             variant='outlined' 
                             multiline
                             rows={4}
                             type="text"
-                            value={singleASSETACCOUNTDetailsData?.description}
+                            value={singleASSETACCOUNTDetailsData?.remarks}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value = event.target.value;
                                 setSingleASSETACCOUNTDetailsData((prevState)=> {
                                     return (
                                         {
                                             ...prevState,
-                                            description: value
+                                            remarks: value
                                         }
                                     )
                                 })

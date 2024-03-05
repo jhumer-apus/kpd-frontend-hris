@@ -7,8 +7,7 @@ import { ANNOUNCEMENTViewInterface } from '@/types/types-payroll-eoy';
 
 interface ANNOUNCEMENTModalComponentInterface {
     singleANNOUNCEMENTDetailsData: ANNOUNCEMENTViewInterface,
-    scroll: boolean,
-    setScroll: Dispatch<SetStateAction<boolean>>,
+    setSingleANNOUNCEMENTOpenModal: Dispatch<SetStateAction<boolean>>,
     setSingleANNOUNCEMENTDetailsData: React.Dispatch<React.SetStateAction<ANNOUNCEMENTViewInterface>>;
 };
 
@@ -21,7 +20,11 @@ const ANNOUNCEMENTModalComponent = ((props:ANNOUNCEMENTModalComponentInterface) 
             <Typography variant='soft'>Announcement Data</Typography>
             {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
-                <ANNOUNCEMENTModalUI setSingleANNOUNCEMENTDetailsData={setSingleANNOUNCEMENTDetailsData} singleANNOUNCEMENTDetailsData={singleANNOUNCEMENTDetailsData}/>
+                <ANNOUNCEMENTModalUI 
+                    setSingleANNOUNCEMENTDetailsData={setSingleANNOUNCEMENTDetailsData} 
+                    singleANNOUNCEMENTDetailsData={singleANNOUNCEMENTDetailsData}
+                    setSingleANNOUNCEMENTOpenModal={setSingleANNOUNCEMENTOpenModal}
+                />
             </div>
         </Fragment>
     );

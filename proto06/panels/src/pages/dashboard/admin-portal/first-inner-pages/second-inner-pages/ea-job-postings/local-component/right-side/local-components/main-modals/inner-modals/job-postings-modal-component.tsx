@@ -7,13 +7,16 @@ import { JOBPOSTINGSViewInterface } from '@/types/types-employee-and-applicants'
 
 interface JOBPOSTINGSModalComponentInterface {
     singleJOBPOSTINGSDetailsData: JOBPOSTINGSViewInterface,
-    scroll: boolean,
-    setScroll: Dispatch<SetStateAction<boolean>>,
+    setSingleJOBPOSTINGSOpenModal: Dispatch<SetStateAction<boolean>>,
     setSingleJOBPOSTINGSDetailsData: React.Dispatch<React.SetStateAction<JOBPOSTINGSViewInterface>>;
 };
 
 const JOBPOSTINGSModalComponent = ((props:JOBPOSTINGSModalComponentInterface) => {
-    const { singleJOBPOSTINGSDetailsData, setSingleJOBPOSTINGSDetailsData } = props;
+    const { 
+        singleJOBPOSTINGSDetailsData, 
+        setSingleJOBPOSTINGSDetailsData,
+        setSingleJOBPOSTINGSOpenModal 
+    } = props;
     const componentRef = useRef<HTMLDivElement | null>(null);
 
     return (
@@ -21,7 +24,11 @@ const JOBPOSTINGSModalComponent = ((props:JOBPOSTINGSModalComponentInterface) =>
             <Typography variant='soft'>Job Posting Data</Typography>
             {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
-                <JOBPOSTINGSModalUI setSingleJOBPOSTINGSDetailsData={setSingleJOBPOSTINGSDetailsData} singleJOBPOSTINGSDetailsData={singleJOBPOSTINGSDetailsData}/>
+                <JOBPOSTINGSModalUI 
+                    setSingleJOBPOSTINGSDetailsData={setSingleJOBPOSTINGSDetailsData} 
+                    singleJOBPOSTINGSDetailsData={singleJOBPOSTINGSDetailsData}
+                    setSingleJOBPOSTINGSOpenModal={setSingleJOBPOSTINGSOpenModal}
+                />
             </div>
         </Fragment>
     );

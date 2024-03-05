@@ -7,13 +7,16 @@ import { PAGIBIGViewInterface } from '@/types/types-payroll-variables';
 
 interface PAGIBIGModalComponentInterface {
     singlePAGIBIGDetailsData: PAGIBIGViewInterface,
-    scroll: boolean,
-    setScroll: Dispatch<SetStateAction<boolean>>,
+    setSinglePAGIBIGOpenModal: Dispatch<SetStateAction<boolean>>,
     setSinglePAGIBIGDetailsData: React.Dispatch<React.SetStateAction<PAGIBIGViewInterface>>;
 };
 
 const PAGIBIGModalComponent = ((props:PAGIBIGModalComponentInterface) => {
-    const { singlePAGIBIGDetailsData, setSinglePAGIBIGDetailsData } = props;
+    const { 
+        singlePAGIBIGDetailsData, 
+        setSinglePAGIBIGDetailsData,
+        setSinglePAGIBIGOpenModal
+    } = props;
     const componentRef = useRef<HTMLDivElement | null>(null);
 
     return (
@@ -21,7 +24,11 @@ const PAGIBIGModalComponent = ((props:PAGIBIGModalComponentInterface) => {
             <Typography variant='soft'>'Pagibig' Data</Typography>
             {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
-                <PAGIBIGModalUI setSinglePAGIBIGDetailsData={setSinglePAGIBIGDetailsData} singlePAGIBIGDetailsData={singlePAGIBIGDetailsData}/>
+                <PAGIBIGModalUI 
+                    setSinglePAGIBIGDetailsData={setSinglePAGIBIGDetailsData} 
+                    singlePAGIBIGDetailsData={singlePAGIBIGDetailsData}
+                    setSinglePAGIBIGOpenModal={setSinglePAGIBIGOpenModal}
+                />
             </div>
         </Fragment>
     );

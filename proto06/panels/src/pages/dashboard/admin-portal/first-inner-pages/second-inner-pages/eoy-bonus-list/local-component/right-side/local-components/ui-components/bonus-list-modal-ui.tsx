@@ -10,13 +10,18 @@ import dayjs from 'dayjs';
 interface BONUSLISTModalUIInterface {
     singleBONUSLISTDetailsData: BONUSLISTViewInterface;
     multiplePayslipMode?: boolean;
+    setSingleBONUSLISTOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleBONUSLISTDetailsData: Dispatch<SetStateAction<BONUSLISTViewInterface>>;
 }
 
 function BONUSLISTModalUI(props: BONUSLISTModalUIInterface) {
     const [ resetPasswordBONUSLISTOpenModal, setResetPasswordBONUSLISTOpenModal ] = useState(false);
     const [ editBONUSLISTOpenModal, setEditBONUSLISTOpenModal ] = useState(false);
-    const { setSingleBONUSLISTDetailsData, singleBONUSLISTDetailsData } = props;
+    const { 
+        setSingleBONUSLISTDetailsData, 
+        singleBONUSLISTDetailsData, 
+        setSingleBONUSLISTOpenModal
+    } = props;
     const ThisProps = props.singleBONUSLISTDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
     const onClickModal = (mode: number) => {
@@ -31,7 +36,13 @@ function BONUSLISTModalUI(props: BONUSLISTModalUIInterface) {
 
     return (
         <Fragment>
-            <EditBONUSLISTModal singleBONUSLISTDetailsData={singleBONUSLISTDetailsData} setSingleBONUSLISTDetailsData={setSingleBONUSLISTDetailsData} editBONUSLISTOpenModal={editBONUSLISTOpenModal} setEditBONUSLISTOpenModal={setEditBONUSLISTOpenModal}/>
+            <EditBONUSLISTModal 
+                singleBONUSLISTDetailsData={singleBONUSLISTDetailsData} 
+                setSingleBONUSLISTDetailsData={setSingleBONUSLISTDetailsData} 
+                editBONUSLISTOpenModal={editBONUSLISTOpenModal} 
+                setEditBONUSLISTOpenModal={setEditBONUSLISTOpenModal}
+                setSingleBONUSLISTOpenModal={setSingleBONUSLISTOpenModal}
+            />
             <div className='flex overflow-auto justify-around gap-4 relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Type ID:' value={ThisProps.id ? ThisProps.id : '-'} InputProps={{readOnly: true,}} variant='filled'/>

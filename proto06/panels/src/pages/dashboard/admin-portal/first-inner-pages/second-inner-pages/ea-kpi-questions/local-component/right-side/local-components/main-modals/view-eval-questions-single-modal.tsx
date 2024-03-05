@@ -56,7 +56,11 @@ export default function ViewEVALQUESTIONSSingleModal(props: SingleEVALQUESTIONSI
                 overflow: 'auto',
             }}
         >
-          <EVALQUESTIONSModalComponent setSingleEVALQUESTIONSDetailsData={setSingleEVALQUESTIONSDetailsData} singleEVALQUESTIONSDetailsData={singleEVALQUESTIONSDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <EVALQUESTIONSModalComponent 
+            setSingleEVALQUESTIONSDetailsData={setSingleEVALQUESTIONSDetailsData} 
+            singleEVALQUESTIONSDetailsData={singleEVALQUESTIONSDetailsData} 
+            setSingleEVALQUESTIONSOpenModal={setSingleEVALQUESTIONSOpenModal}
+          />
         </ModalDialog>
       </Modal>
         )}

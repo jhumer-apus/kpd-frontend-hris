@@ -5,12 +5,13 @@ import { Transition } from 'react-transition-group';
 import { ASSETLISTViewInterface } from '@/types/types-payroll-eoy';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
-import { ASSETLISTEditAction } from '@/store/actions/payroll-eoy';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
+import { ASSETLISTEditAction, ASSETLISTEditActionFailureCleanup, ASSETLISTViewAction } from '@/store/actions/payroll-eoy';
 
 interface EditASSETLISTModalInterface {
     singleASSETLISTDetailsData: ASSETLISTViewInterface;
-    editASSETLISTOpenModal: boolean; 
+    editASSETLISTOpenModal: boolean;
+    setSingleASSETLISTOpenModal: Dispatch<SetStateAction<boolean>>;
     setEditASSETLISTOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleASSETLISTDetailsData: Dispatch<SetStateAction<ASSETLISTViewInterface>>;
 }
@@ -19,7 +20,13 @@ export default function EditASSETLISTModal(props: EditASSETLISTModalInterface) {
   const dispatch = useDispatch();
   const ASSETLISTEditState = useSelector((state: RootState)=> state.payrollEOY.ASSETLISTEdit)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
-  const {editASSETLISTOpenModal, setEditASSETLISTOpenModal, singleASSETLISTDetailsData, setSingleASSETLISTDetailsData} = props;
+  const {
+    editASSETLISTOpenModal, 
+    setEditASSETLISTOpenModal, 
+    singleASSETLISTDetailsData, 
+    setSingleASSETLISTDetailsData,
+    setSingleASSETLISTOpenModal
+  } = props;
 
 
   const editASSETLIST = () => { 
@@ -30,16 +37,21 @@ export default function EditASSETLISTModal(props: EditASSETLISTModalInterface) {
   }
 
   useEffect(()=>{
-    if(ASSETLISTEditState.status){      
-      if(ASSETLISTEditState.status === 'succeeded'){
+      if(ASSETLISTEditState.status === `${globalReducerSuccess}`){
         window.alert(`${ASSETLISTEditState.status.charAt(0).toUpperCase()}${ASSETLISTEditState.status.slice(1)}`)
+        // window.location.reload();
+        setEditASSETLISTOpenModal(false);
+        setSingleASSETLISTOpenModal(false);
+        dispatch(ASSETLISTViewAction());
         setTimeout(()=>{
-          window.location.reload();
-        }, 800)
-      }else if(ASSETLISTEditState.status === 'failed'){
+          dispatch(ASSETLISTEditActionFailureCleanup());
+        }, 200)
+      }else if(ASSETLISTEditState.status === `${globalReducerFailed}`){
         window.alert(`${ASSETLISTEditState.error}`)
+        setTimeout(()=>{
+          dispatch(ASSETLISTEditActionFailureCleanup());
+        }, 200)
       }
-    }
   }, [ASSETLISTEditState.status])
   return (
     <Fragment>
@@ -248,7 +260,6 @@ export default function EditASSETLISTModal(props: EditASSETLISTModalInterface) {
 
 // Styles
 const editASSETLISTArea = {
-  height: '245.5mm',
   width: '180mm',
   margin: '0 auto',
   background: 'white',

@@ -10,13 +10,18 @@ import dayjs from 'dayjs';
 interface ASSETLISTModalUIInterface {
     singleASSETLISTDetailsData: ASSETLISTViewInterface;
     multiplePayslipMode?: boolean;
+    setSingleASSETLISTOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleASSETLISTDetailsData: Dispatch<SetStateAction<ASSETLISTViewInterface>>;
 }
 
 function ASSETLISTModalUI(props: ASSETLISTModalUIInterface) {
     const [ resetPasswordASSETLISTOpenModal, setResetPasswordASSETLISTOpenModal ] = useState(false);
     const [ editASSETLISTOpenModal, setEditASSETLISTOpenModal ] = useState(false);
-    const { setSingleASSETLISTDetailsData, singleASSETLISTDetailsData } = props;
+    const { 
+        setSingleASSETLISTDetailsData, 
+        singleASSETLISTDetailsData, 
+        setSingleASSETLISTOpenModal
+    } = props;
     const ThisProps = props.singleASSETLISTDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
     const onClickModal = (mode: number) => {
@@ -31,7 +36,13 @@ function ASSETLISTModalUI(props: ASSETLISTModalUIInterface) {
 
     return (
         <Fragment>
-            <EditASSETLISTModal singleASSETLISTDetailsData={singleASSETLISTDetailsData} setSingleASSETLISTDetailsData={setSingleASSETLISTDetailsData} editASSETLISTOpenModal={editASSETLISTOpenModal} setEditASSETLISTOpenModal={setEditASSETLISTOpenModal}/>
+            <EditASSETLISTModal 
+                singleASSETLISTDetailsData={singleASSETLISTDetailsData} 
+                setSingleASSETLISTDetailsData={setSingleASSETLISTDetailsData} 
+                editASSETLISTOpenModal={editASSETLISTOpenModal} 
+                setEditASSETLISTOpenModal={setEditASSETLISTOpenModal}
+                setSingleASSETLISTOpenModal={setSingleASSETLISTOpenModal}
+            />
             <div className='flex overflow-auto justify-around gap-4 relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Asset ID:' value={ThisProps.id ? ThisProps.id : '-'} InputProps={{readOnly: true,}} variant='filled'/>

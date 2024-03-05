@@ -9,12 +9,17 @@ import EditSubmitCORECOMPEModal from '../main-modals/inner-modals/submit-changes
 interface CORECOMPEModalUIInterface {
     singleCORECOMPEDetailsData: CORECOMPEViewInterface;
     multiplePayslipMode?: boolean;
+    setSingleCORECOMPEOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleCORECOMPEDetailsData: Dispatch<SetStateAction<CORECOMPEViewInterface>>;
 }
 
 function CORECOMPEModalUI(props: CORECOMPEModalUIInterface) {
     const [ editCORECOMPEOpenModal, setEditCORECOMPEOpenModal ] = useState(true);
-    const { setSingleCORECOMPEDetailsData, singleCORECOMPEDetailsData } = props;
+    const { 
+        setSingleCORECOMPEDetailsData, 
+        singleCORECOMPEDetailsData,
+        setSingleCORECOMPEOpenModal
+    } = props;
     const ThisProps = props.singleCORECOMPEDetailsData;
 
     const [DeactivateCORECOMPEOpenModal, setDeactivateCORECOMPEOpenModal] = useState(false);
@@ -22,9 +27,21 @@ function CORECOMPEModalUI(props: CORECOMPEModalUIInterface) {
 
     return (
         <Fragment>
-            <EditSubmitCORECOMPEModal EditSubmitCORECOMPEOpenModal={EditSubmitCORECOMPEOpenModal} setEditSubmitCORECOMPEOpenModal={setEditSubmitCORECOMPEOpenModal} singleCORECOMPEDetailsData={singleCORECOMPEDetailsData} setSingleCORECOMPEDetailsData={setSingleCORECOMPEDetailsData} />
-            <DeactivateCORECOMPEModal DeactivateCORECOMPEOpenModal={DeactivateCORECOMPEOpenModal} setDeactivateCORECOMPEOpenModal={setDeactivateCORECOMPEOpenModal} singleCORECOMPEDetailsData={singleCORECOMPEDetailsData} setSingleCORECOMPEDetailsData={setSingleCORECOMPEDetailsData} />
-            <div className='flex overflow-auto gap-4 relative'>
+            <EditSubmitCORECOMPEModal 
+                EditSubmitCORECOMPEOpenModal={EditSubmitCORECOMPEOpenModal} 
+                setEditSubmitCORECOMPEOpenModal={setEditSubmitCORECOMPEOpenModal} 
+                singleCORECOMPEDetailsData={singleCORECOMPEDetailsData} 
+                setSingleCORECOMPEDetailsData={setSingleCORECOMPEDetailsData}
+                setSingleCORECOMPEOpenModal={setSingleCORECOMPEOpenModal} 
+            />
+            <DeactivateCORECOMPEModal 
+                DeactivateCORECOMPEOpenModal={DeactivateCORECOMPEOpenModal} 
+                setDeactivateCORECOMPEOpenModal={setDeactivateCORECOMPEOpenModal} 
+                singleCORECOMPEDetailsData={singleCORECOMPEDetailsData} 
+                setSingleCORECOMPEDetailsData={setSingleCORECOMPEDetailsData} 
+                setSingleCORECOMPEOpenModal={setSingleCORECOMPEOpenModal}
+            />
+            <div className='flex overflow-auto gap-4 relative' style={{marginBottom:'30px'}}>
                 <div className='flex gap-6 flex-col'>
                     <TextField 
                         sx={{width: '100%', minWidth: '230px'}} 
