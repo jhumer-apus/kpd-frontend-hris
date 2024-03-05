@@ -68,7 +68,7 @@ export default function ViewLEAVESingleModal(props: SingleLEAVEInterface) {
 
 // Styles
 const LEAVEModalArea = {
-  height: '208.5mm',
+  height: '160mm',
   width: '210mm',
   margin: '0 auto',
   background: 'white',

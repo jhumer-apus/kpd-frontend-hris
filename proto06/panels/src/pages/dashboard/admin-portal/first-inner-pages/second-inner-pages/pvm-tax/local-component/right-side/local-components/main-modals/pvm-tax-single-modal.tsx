@@ -72,7 +72,7 @@ export default function ViewTAXSingleModal(props: SingleTAXInterface) {
 
 // Styles
 const TAXModalArea = {
-  height: '118.5mm',
+  height: '110mm',
   width: '210mm',
   margin: '0 auto',
   background: 'white',

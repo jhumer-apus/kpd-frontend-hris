@@ -68,7 +68,7 @@ export default function ViewUASingleModal(props: SingleUAInterface) {
 
 // Styles
 const UAModalArea = {
-  height: '208.5mm',
+  height: '160mm',
   width: '210mm',
   margin: '0 auto',
   background: 'white',

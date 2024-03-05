@@ -171,7 +171,7 @@ export default function EditUSERModal(props: EditUSERModalInterface) {
 
 // Styles
 const editUSERArea = {
-  height: '164.5mm',
+  height: '150mm',
   width: '180mm',
   margin: '0 auto',
   background: 'white',

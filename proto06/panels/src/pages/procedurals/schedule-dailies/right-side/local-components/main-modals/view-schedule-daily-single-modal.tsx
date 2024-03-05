@@ -68,7 +68,7 @@ export default function ViewSCHEDULEDAILYSingleModal(props: SingleSCHEDULEDAILYI
 
 // Styles
 const SCHEDULEDAILYModalArea = {
-  height: '128.5mm',
+  height: '110mm',
   width: '210mm',
   margin: '0 auto',
   background: 'white',
