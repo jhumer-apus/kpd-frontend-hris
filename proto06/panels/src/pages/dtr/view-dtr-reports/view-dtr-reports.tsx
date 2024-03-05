@@ -21,6 +21,7 @@ import ExportToCsvButton from './local-components/export-to-csv-button';
 
 //LIBRARIES 
 import { Select, Option, Input } from "@material-tailwind/react";
+import dayjs from 'dayjs';
 
 //COMPONENTS
 import FilterDTR from './local-components/FilterDTR';
@@ -53,6 +54,15 @@ export default function ViewDtrReports() {
   const [open, setOpen] = useState(false);
   const [modalEntranceDelay, setModalEntranceDelay] = useState(false);
   const [secondOptionModalEntranceDelay, setSecondOptionModalEntranceDelay] = useState(false);
+
+  //STATES
+  const [filter, setFilter] = useState({
+      year: parseInt(dayjs().format("YYYY")),
+      month: parseInt(dayjs().format("MM")),
+      cutoff_id: null
+  })
+  const [viewType, setViewType] = useState<"logs" | "merged" | "cutoff">('logs')
+
   function handleOpen(){
     setOpen(true);
   };
@@ -65,12 +75,25 @@ export default function ViewDtrReports() {
 
   useEffect(() => {
     // dispatch(viewFilterDtrLogs({month:1,year:2024}))
-    if(spButtonIndex !== null && spButtonIndex === 1 ){
+    if(spButtonIndex !== null && spButtonIndex === 1 ) {
+
       dispatch(viewMergedDtrLogs());
-    } else if (spButtonIndex !== null && spButtonIndex === 2 ){
+      setViewType('merged')
+
+    } else if (spButtonIndex !== null && spButtonIndex === 2 ) {
+
       dispatch(viewCutoffDtrSummary());
+      setViewType('cutoff')
+
     } else {
-      dispatch(viewFilterDtrLogs({month:1,year:2024}))
+
+      dispatch(viewFilterDtrLogs(
+        {
+          month:filter.month,
+          year:filter.year
+        }
+      ))
+      setViewType('logs')
       // dispatch(viewAllDtrLogs());
     }
   }, [spButtonIndex]);
@@ -129,7 +152,11 @@ export default function ViewDtrReports() {
           <PrintTableButton printing={printing} setIsPrinting={setIsPrinting}/>
         </div>
       </div>
-      <FilterDTR viewType="logs"/>
+      <FilterDTR 
+        viewType={viewType}
+        filter={filter}
+        setFilter={setFilter}
+      />
 
       <div style={{ height: `${printing? `${printableArea()}px` : '660px'}`, width: '100%' }} id="printable-area">
         <DataGrid

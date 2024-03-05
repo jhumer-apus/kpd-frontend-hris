@@ -12,6 +12,7 @@ interface ANNOUNCEMENTModalUIInterface {
     singleANNOUNCEMENTDetailsData: ANNOUNCEMENTViewInterface;
     multiplePayslipMode?: boolean;
     setSingleANNOUNCEMENTDetailsData: Dispatch<SetStateAction<ANNOUNCEMENTViewInterface>>;
+    setSingleANNOUNCEMENTOpenModal: Dispatch<SetStateAction<boolean>>,
 }
 
 function ANNOUNCEMENTModalUI(props: ANNOUNCEMENTModalUIInterface) {

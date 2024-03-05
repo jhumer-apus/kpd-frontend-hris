@@ -6,7 +6,17 @@ import { employeesReducer } from './reducers/employees';
 import { authEpic, fetchUserDataEpic } from './epics/auth';
 import { employeesListEpic, employeesSpecificEpic } from './epics/employees';
 import { dtrReducer } from './reducers/dtr';
-import { viewAllDtrLogsEpic, viewFilterDtrLogsEpic, viewMergedDtrLogsEpic, viewCutoffDtrSummaryEpic, getCutoffDTRListEpic, getCutoffDTRListEmployeeEpic, mergeCutoffListAndEmployeeEpic, summarizeCutoffListAndEmployeeEpic } from './epics/dtr';
+import { 
+  viewAllDtrLogsEpic, 
+  viewFilterDtrLogsEpic, 
+  viewMergedDtrLogsEpic, 
+  viewFilterMergedDtrLogsEpic, 
+  viewCutoffDtrSummaryEpic, 
+  getCutoffDTRListEpic, 
+  getCutoffDTRListEmployeeEpic, 
+  mergeCutoffListAndEmployeeEpic, 
+  summarizeCutoffListAndEmployeeEpic 
+} from './epics/dtr';
 import { payrollReducer } from './reducers/payroll';
 import { processPayrollEpic, viewPayrollListEpic, viewSpecificPayrollListEpic } from './epics/payroll';
 import { 
@@ -135,6 +145,7 @@ epicMiddleware.run(combineEpics(
   viewAllDtrLogsEpic, 
   viewFilterDtrLogsEpic,
   viewMergedDtrLogsEpic, 
+  viewFilterMergedDtrLogsEpic,
   viewCutoffDtrSummaryEpic,
   getCutoffDTRListEpic,
   getCutoffDTRListEmployeeEpic,

@@ -14,6 +14,9 @@ import {
   viewMergedDtrLogs,
   viewMergedDtrLogsSuccess,
   viewMergedDtrLogsFailure,
+  viewFilterMergedDtrLogs,
+  viewFilterMergedDtrLogsSuccess,
+  viewFilterMergedDtrLogsFailure,
   viewCutoffDtrSummary,
   viewCutoffDtrSummarySuccess,
   viewCutoffDtrSummaryFailure,
@@ -46,15 +49,25 @@ const viewFilterDtrLogsApiCall = async (payload:any) => {
   const response = await axios.get(`${APILink}dtr/`, {
     params: {
       month: payload.month,
-      year: payload.year
+      year: payload.year,
     }
   });
   return response.data;
 };
 
 const viewMergedDtrLogsApiCall = async () => {
-    const response = await axios.get(`${APILink}dtr_summary/`);
-    return response.data;
+  const response = await axios.get(`${APILink}dtr_summary/`);
+  return response.data;
+};
+
+const viewFilterMergedDtrLogsApiCall = async (payload:any) => {
+  const response = await axios.get(`${APILink}dtr_summary/`, {
+    params: {
+      cutoff: payload.cutoff_id,
+      emp_no: payload.emp_no
+    }
+  });
+  return response.data;
 };
 
 const viewCutoffDtrSummaryApiCall = async () => {
@@ -159,6 +172,28 @@ export const viewFilterDtrLogsEpic: Epic = (action$, state$) =>
             return of(viewFilterDtrLogsFailure(error.response.data.error)); // Extract error message from the response
           } else {
             return of(viewFilterDtrLogsFailure(error.message)); // If there is no custom error message, use the default one
+          }
+        })
+      )
+    )
+);
+
+export const viewFilterMergedDtrLogsEpic: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(viewFilterMergedDtrLogs.type),
+    switchMap((action) =>
+      from(
+        viewFilterMergedDtrLogsApiCall(action.payload)
+      ).pipe(
+        map((data) => {
+          return viewFilterMergedDtrLogsSuccess(data);
+        }),
+        catchError((error) => {
+
+          if (error.response && error.response.data && error.response.data.error) {
+            return of(viewFilterMergedDtrLogsFailure(error.response.data.error)); // Extract error message from the response
+          } else {
+            return of(viewFilterMergedDtrLogsFailure(error.message)); // If there is no custom error message, use the default one
           }
         })
       )

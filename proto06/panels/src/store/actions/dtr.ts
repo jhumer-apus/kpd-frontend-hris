@@ -3,6 +3,7 @@ import {
     ViewAllDtrLogsType,
     ViewFilterDtrLogsType,
     ViewMergedDtrLogsType,
+    ViewMergedFilterDtrLogsType,
     ViewCutoffDtrSummaryType,
  } from '@/types/types-store';
 
@@ -26,6 +27,10 @@ export const viewMergedDtrLogsSuccess = createAction("VIEW_MERGED_DTR_LOGS_SUCCE
     return({ payload: {allMergedDtr} })});
 export const viewMergedDtrLogsFailure = createAction<string>("VIEW_MERGED_DTR_LOGS_FAILURE");
 
+export const viewFilterMergedDtrLogs = createAction<{cutoff_id: number | null, emp_no: number| null}>("VIEW_FILTER_MERGED_DTR_LOGS");
+export const viewFilterMergedDtrLogsSuccess = createAction("VIEW_FILTER_MERGED_DTR_LOGS_SUCCESS", (allFilterMergedDtr: Array<ViewMergedFilterDtrLogsType>) => {  
+    return({ payload: {allFilterMergedDtr} })});
+export const viewFilterMergedDtrLogsFailure = createAction<string>("VIEW_FILTER_MERGED_DTR_LOGS_FAILURE");
 
 export const viewCutoffDtrSummary = createAction("VIEW_CUTOFF_DTR_SUMMARY");
 export const viewCutoffDtrSummarySuccess = createAction("VIEW_CUTOFF_DTR_SUMMARY_SUCCESS", (allCutoffDtrSummary: Array<ViewCutoffDtrSummaryType>) => { 

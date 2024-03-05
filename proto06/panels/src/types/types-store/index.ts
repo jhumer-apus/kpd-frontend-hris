@@ -143,6 +143,8 @@ export interface ViewMergedDtrLogsType {
     cutoff_code: number,
 }
 
+export interface ViewMergedFilterDtrLogsType extends ViewMergedDtrLogsType{}
+
 export interface ViewCutoffDtrSummaryType {
     [key: string]: number | Date | string | null | boolean | undefined,
     readonly id?: number,

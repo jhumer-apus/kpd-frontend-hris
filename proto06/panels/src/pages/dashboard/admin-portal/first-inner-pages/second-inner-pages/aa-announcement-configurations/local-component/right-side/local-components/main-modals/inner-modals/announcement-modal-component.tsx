@@ -12,7 +12,7 @@ interface ANNOUNCEMENTModalComponentInterface {
 };
 
 const ANNOUNCEMENTModalComponent = ((props:ANNOUNCEMENTModalComponentInterface) => {
-    const { singleANNOUNCEMENTDetailsData, setSingleANNOUNCEMENTDetailsData } = props;
+    const { singleANNOUNCEMENTDetailsData, setSingleANNOUNCEMENTDetailsData, setSingleANNOUNCEMENTOpenModal } = props;
     const componentRef = useRef<HTMLDivElement | null>(null);
 
     return (

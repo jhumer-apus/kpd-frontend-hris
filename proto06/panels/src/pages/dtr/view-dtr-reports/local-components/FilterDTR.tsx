@@ -8,31 +8,46 @@ import dayjs from 'dayjs';
 import { render } from 'react-dom';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '@/store/configureStore';
+
+//STORES
+import { 
+    viewAllDtrLogs, 
+    viewFilterDtrLogs, 
+    viewCutoffDtrSummary, 
+    viewMergedDtrLogs,
+    viewFilterMergedDtrLogs
+} from '@/store/actions/dtr';
+
 
 //HELPERS
 import { fetchCutOffPeriods } from '@/helpers/ApiCalls'
 
 interface Props { 
     viewType: "logs" | "merged" | "cutoff"
+    filter: any
+    setFilter: React.Dispatch<React.SetStateAction<any>>
 }
 
 interface OptionInterface {
     name: string,
-    value: string
+    value: string |number
 }
 
 export default function FilterDTR(props: Props) {
+
+    //PROPS
+    const { viewType, filter, setFilter } = props
+
+    //REDUX
+    const dispatch = useDispatch();
+    const currUser = useSelector((state: RootState) => state.auth.employee_detail)
+    // const isLoading = useSelector((state: RootState) => state.dtr?.viewDtrReports.currentView.dtrStatus)
     
     //STATES
-    const [filter, setFilter] = useState({
-        year: dayjs().format("YYYY"),
-        month: dayjs().format("MM")
-    })
-
     const [cutoffPeriods, setCutOffPeriods] = useState<any[]>([]);
     const [isCutOffPeriodLoading, setIsCutOffPeriodLoading] = useState<boolean>(false);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const { viewType } = props
 
     //USE EFFECTS
     useEffect(() => {
@@ -90,6 +105,8 @@ export default function FilterDTR(props: Props) {
             value: "12"
         }
     ]
+
+    //FUNCTIONS 
     const readableFormatDate = (date:string) => {
         const parsedDate = dayjs(date);
         return parsedDate.format('MMM DD, YYYY');
@@ -114,63 +131,135 @@ export default function FilterDTR(props: Props) {
         });
     }, 1500);
 
-    const currentMonth = monthOptions.find(month => month.value == dayjs().format("MM"));
-    console.log(dayjs().format("MM"))
+    const handleChangeMonth = (e: any, val:any) => {
+
+        setFilter((curr:any) => ({
+            ...curr,
+            month: val.value
+
+        }))
+    }
+
+    const handleChangeCutoffId = (e: any, val:any) => {
+
+        setFilter((curr:any) => ({
+            ...curr,
+            cutoff_id: val.id
+        }))
+    }
+
+    const handleViewDTR = () => {
+
+        switch(viewType) {
+
+            case 'logs':
+                dispatch(viewFilterDtrLogs(
+                    {
+                        month:filter.month,
+                        year:filter.year
+                    }
+                ))
+                break;
+
+            case 'merged':  
+                const role = currUser?.user?.role;
+                const emp_no = currUser?.emp_no?? null
+                const isBasicEmployee = role && role < 3
+
+                dispatch(viewFilterMergedDtrLogs(
+                    {
+                        cutoff_id: parseInt(filter.cutoff_id),
+                        emp_no: isBasicEmployee? emp_no: null
+                    }
+                ))
+                break;
+
+            case 'cutoff':
+                dispatch(viewCutoffDtrSummary())
+                break;
+
+            default: 
+                dispatch(viewFilterDtrLogs(
+                    {
+                    month:filter.month,
+                    year:filter.year
+                    }
+                ))
+                break;
+        }
+    }
+
+    
+
+    const currentMonth = monthOptions.find(month => parseInt(month.value) == filter.month);
+
+    const textFieldYear: JSX.Element = 
+    (
+            <TextField
+                type="number"
+                defaultValue={filter.year}
+                label="Year"
+                variant="outlined"
+                placeholder="Enter A Year"
+                onChange={(e) => 
+                        {
+                            setFilter((curr:any) => (
+                                {
+                                    ...curr,
+                                    year: parseInt(e.target.value)
+                                }
+                            ))
+                        }
+                    }
+                // disabled={isLoading}
+            />
+    )
+
     let renderElement: JSX.Element | null;
 
     switch(viewType) {
+
         case 'logs':
+
             renderElement = (
                 <div className='flex space-x-4 w-fit my-2'>
-                    <TextField
-                        defaultValue={dayjs().format("YYYY")}
-                        label="Year"
-                        variant="outlined"
-                        placeholder="Enter A Year"
-                        onChange={(e) => 
-                                {
-                                    setFilter( curr => (
-                                        {
-                                            ...curr,
-                                            year: e.target.value
-                                        }
-                                    ))
-                                }
-                            }
-                        disabled={isLoading}
-                    />
+                    {textFieldYear}
                     <Autocomplete
                         disablePortal
                         id="months"
                         options={monthOptions}
                         defaultValue={currentMonth}
                         getOptionLabel={(option:any) => `${option.name}`}
-                        // onChange={handleChangeFilter}
+                        onChange={handleChangeMonth}
                         className='md:w-80'
-                        // disabled={isLoading || isCutOffPeriodLoading}
+                        disabled={isCutOffPeriodLoading}
                         renderInput={(params) => <TextField {...params} label="Month" />}
                     />
+                    <Button className='w-20 h-fit py-4' onClick={handleViewDTR}>View</Button>
                 </div>
             )
             break;
+
         case 'merged':
+
             renderElement = (
-                <div>
-                    <Input label="Year"/>
+                <div className='flex space-x-4 w-fit my-2'>
+                    {textFieldYear}
                     <Autocomplete
                         disablePortal
                         id="cutoff"
                         options={cutoffPeriods}
-                        getOptionLabel={(option:any) => `${option.cleanDateFrom} - ${option.cleanDateTo}` }
-                        onChange={handleChangeFilter}
+                        getOptionLabel={(option:any) => option? `${option.cleanDateFrom} - ${option.cleanDateTo}`: "" }
+                        onChange={handleChangeCutoffId}
                         className='md:w-80'
-                        disabled={isLoading || isCutOffPeriodLoading}
+                        disabled={isCutOffPeriodLoading}
                         renderInput={(params) => <TextField {...params} label="Cutoff Periods" />}
                     />
-
+                    <Button className='w-20 h-fit py-4' onClick={handleViewDTR}>View</Button>
                 </div>
             )
             break
+
         default:
             renderElement = null
             break
@@ -180,9 +269,8 @@ export default function FilterDTR(props: Props) {
 
 
     return (
-        <div className='flex gap-4 items-center'>
+        <div className='flex gap-4 items-center my-2'>
             {renderElement}
-            <Button className='w-20 h-fit py-4'>View</Button>
         </div>
     )
 }

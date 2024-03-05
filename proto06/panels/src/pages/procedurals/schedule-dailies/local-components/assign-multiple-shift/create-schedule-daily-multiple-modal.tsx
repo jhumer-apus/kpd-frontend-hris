@@ -55,6 +55,7 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
 
     const dispatch = useDispatch();
     const {open2, handleClose2} = props;
+    const currUser = useSelector((state: RootState)=> state.auth.employee_detail)
     const createSCHEDULEDAILY = useSelector((state: RootState)=> state.procedurals.SCHEDULEDAILYCreate);
     const [createSCHEDULEDAILYForm, setCreateSCHEDULEDAILYForm] = useState<SCHEDULEDAILYCreateInterface>({
         schedule_shift_code: NaN,
@@ -63,7 +64,8 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
         emp_no: [],
         is_restday: false,
         sched_default: false,
-        exclude_days: []
+        exclude_days: [],
+        added_by: currUser?.emp_no
     })
     const submitNewSCHEDULEDAILY = () => {
         console.log(createSCHEDULEDAILYForm)

@@ -9,6 +9,9 @@ import {
   viewMergedDtrLogs,
   viewMergedDtrLogsSuccess,
   viewMergedDtrLogsFailure,
+  viewFilterMergedDtrLogs,
+  viewFilterMergedDtrLogsSuccess,
+  viewFilterMergedDtrLogsFailure,
   viewCutoffDtrSummary,
   viewCutoffDtrSummarySuccess,
   viewCutoffDtrSummaryFailure,
@@ -254,6 +257,9 @@ const dtrSlice = createSlice({
       .addCase(viewMergedDtrLogs, setLoadingState)
       .addCase(viewMergedDtrLogsSuccess, (state, action) => setSuccessState(state, action.payload.allMergedDtr))
       .addCase(viewMergedDtrLogsFailure, (state, action) => setFailureState(state, action.payload))
+      .addCase(viewFilterMergedDtrLogs, setLoadingState)
+      .addCase(viewFilterMergedDtrLogsSuccess, (state, action) => setSuccessState(state, action.payload.allFilterMergedDtr))
+      .addCase(viewFilterMergedDtrLogsFailure, (state, action) => setFailureState(state, action.payload))
       .addCase(viewCutoffDtrSummary, setLoadingState)
       .addCase(viewCutoffDtrSummarySuccess, (state, action) => setSuccessState(state, action.payload.allCutoffDtrSummary))
       .addCase(viewCutoffDtrSummaryFailure, (state, action) => setFailureState(state, action.payload))
