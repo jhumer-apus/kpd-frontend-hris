@@ -56,7 +56,11 @@ export default function ViewOFFBOARDINGSTATUSSingleModal(props: SingleOFFBOARDIN
                 overflow: 'auto',
             }}
         >
-          <OFFBOARDINGSTATUSModalComponent setSingleOFFBOARDINGSTATUSDetailsData={setSingleOFFBOARDINGSTATUSDetailsData} singleOFFBOARDINGSTATUSDetailsData={singleOFFBOARDINGSTATUSDetailsData} scroll={scroll} setScroll={setScroll}/>
+          <OFFBOARDINGSTATUSModalComponent 
+            setSingleOFFBOARDINGSTATUSDetailsData={setSingleOFFBOARDINGSTATUSDetailsData} 
+            singleOFFBOARDINGSTATUSDetailsData={singleOFFBOARDINGSTATUSDetailsData} 
+            setSingleOFFBOARDINGSTATUSOpenModal={setSingleOFFBOARDINGSTATUSOpenModal}
+          />
         </ModalDialog>
       </Modal>
         )}

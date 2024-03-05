@@ -7,13 +7,16 @@ import { OFFBOARDINGSTATUSViewInterface } from '@/types/types-employee-and-appli
 
 interface OFFBOARDINGSTATUSModalComponentInterface {
     singleOFFBOARDINGSTATUSDetailsData: OFFBOARDINGSTATUSViewInterface,
-    scroll: boolean,
-    setScroll: Dispatch<SetStateAction<boolean>>,
+    setSingleOFFBOARDINGSTATUSOpenModal: Dispatch<SetStateAction<boolean>>,
     setSingleOFFBOARDINGSTATUSDetailsData: React.Dispatch<React.SetStateAction<OFFBOARDINGSTATUSViewInterface>>;
 };
 
 const OFFBOARDINGSTATUSModalComponent = ((props:OFFBOARDINGSTATUSModalComponentInterface) => {
-    const { singleOFFBOARDINGSTATUSDetailsData, setSingleOFFBOARDINGSTATUSDetailsData } = props;
+    const { 
+        singleOFFBOARDINGSTATUSDetailsData, 
+        setSingleOFFBOARDINGSTATUSDetailsData, 
+        setSingleOFFBOARDINGSTATUSOpenModal
+    } = props;
     const componentRef = useRef<HTMLDivElement | null>(null);
 
     return (
@@ -21,7 +24,11 @@ const OFFBOARDINGSTATUSModalComponent = ((props:OFFBOARDINGSTATUSModalComponentI
             <Typography variant='soft'>Offboarding Status Data</Typography>
             {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
-                <OFFBOARDINGSTATUSModalUI setSingleOFFBOARDINGSTATUSDetailsData={setSingleOFFBOARDINGSTATUSDetailsData} singleOFFBOARDINGSTATUSDetailsData={singleOFFBOARDINGSTATUSDetailsData}/>
+                <OFFBOARDINGSTATUSModalUI 
+                    setSingleOFFBOARDINGSTATUSDetailsData={setSingleOFFBOARDINGSTATUSDetailsData} 
+                    singleOFFBOARDINGSTATUSDetailsData={singleOFFBOARDINGSTATUSDetailsData}
+                    setSingleOFFBOARDINGSTATUSOpenModal={setSingleOFFBOARDINGSTATUSOpenModal}
+                />
             </div>
         </Fragment>
     );

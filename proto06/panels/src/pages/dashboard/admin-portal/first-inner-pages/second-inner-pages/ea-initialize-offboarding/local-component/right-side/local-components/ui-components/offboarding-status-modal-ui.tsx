@@ -17,18 +17,20 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, globalAPIDate } from '@/store/configureStore';
-import { OFFBOARDINGSTATUSEditAction, OFFBOARDINGSTATUSEditActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import { RootState, globalAPIDate, globalReducerSuccess } from '@/store/configureStore';
+import { OFFBOARDINGSTATUSEditAction, OFFBOARDINGSTATUSEditActionFailureCleanup, OFFBOARDINGSTATUSViewAction } from '@/store/actions/employee-and-applicants';
 
 
 interface OFFBOARDINGSTATUSModalUIInterface {
     singleOFFBOARDINGSTATUSDetailsData: OFFBOARDINGSTATUSViewInterface;
     multiplePayslipMode?: boolean;
+    setSingleOFFBOARDINGSTATUSOpenModal: Dispatch<SetStateAction<boolean>>;
     setSingleOFFBOARDINGSTATUSDetailsData: Dispatch<SetStateAction<OFFBOARDINGSTATUSViewInterface>>;
 }
 
 function OFFBOARDINGSTATUSModalUI(props: OFFBOARDINGSTATUSModalUIInterface) {
     const dispatch = useDispatch();
+    const { setSingleOFFBOARDINGSTATUSOpenModal, } = props;
     const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
     const editState = useSelector((state: RootState) => state.employeeAndApplicants.OFFBOARDINGSTATUSEdit)
     const [ editMode, setEditMode ] = useState(false);
@@ -59,14 +61,19 @@ function OFFBOARDINGSTATUSModalUI(props: OFFBOARDINGSTATUSModalUIInterface) {
 
     
     useEffect(()=>{
-        if(editState.status === 'succeeded'){
+        if(editState.status === `${globalReducerSuccess}`){
             window.alert('Request Successful');
-            window.location.reload();
-        }else if(editState.status === 'failed'){
+            // window.location.reload();
+            setSingleOFFBOARDINGSTATUSOpenModal(false);
+            dispatch(OFFBOARDINGSTATUSViewAction());
+            setTimeout(()=> {
+                dispatch(OFFBOARDINGSTATUSEditActionFailureCleanup());
+            }, 200)
+        }else if(editState.status === `${globalReducerFailed}`){
             window.alert(`Request Failed, ${editState.error}`)
             setTimeout(()=> {
                 dispatch(OFFBOARDINGSTATUSEditActionFailureCleanup());
-            }, 500)
+            }, 200)
         }
     }, [editState.status])
 
