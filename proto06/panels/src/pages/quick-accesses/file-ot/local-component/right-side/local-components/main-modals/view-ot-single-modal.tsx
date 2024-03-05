@@ -68,7 +68,7 @@ export default function ViewOVERTIMESingleModal(props: SingleOVERTIMEInterface) 
 
 // Styles
 const OVERTIMEModalArea = {
-  height: '208.5mm',
+  height: '170mm',
   width: '210mm',
   margin: '0 auto',
   background: 'white',

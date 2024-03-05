@@ -129,7 +129,7 @@ export default function EditBONUSENTRYModal(props: EditBONUSENTRYModalInterface)
 
 // Styles
 const editBONUSENTRYArea = {
-  height: '204.5mm',
+  height: '150mm',
   width: '180mm',
   margin: '0 auto',
   background: 'white',

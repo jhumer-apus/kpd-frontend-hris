@@ -72,7 +72,7 @@ export default function ViewPAGIBIGSingleModal(props: SinglePAGIBIGInterface) {
 
 // Styles
 const PAGIBIGModalArea = {
-  height: '118.5mm',
+  height: '120mm',
   width: '210mm',
   margin: '0 auto',
   background: 'white',

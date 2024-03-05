@@ -75,7 +75,7 @@ export default function ViewEMPSEMINARSSingleModal(props: SingleEMPSEMINARSInter
 
 // Styles
 const EMPSEMINARSModalArea = {
-  height: '128.5mm',
+  height: '150mm',
   width: '210mm',
   margin: '0 auto',
   background: 'white',

@@ -141,7 +141,7 @@ export default function EditCASHADVANCEModal(props: EditCASHADVANCEModalInterfac
 
 // Styles
 const editCASHADVANCEArea = {
-  height: '135.5mm',
+  height: '110mm',
   width: '180mm',
   margin: '0 auto',
   background: 'white',

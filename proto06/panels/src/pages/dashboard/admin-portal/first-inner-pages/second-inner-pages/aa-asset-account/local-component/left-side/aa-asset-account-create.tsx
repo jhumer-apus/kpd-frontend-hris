@@ -37,7 +37,7 @@ function AAASSETACCOUNTCreate(props: CreateASSETACCOUNTModalInterface) {
                 return (
                     {
                         ...prevState,
-                        assigned_by: curr_user
+                        added_by: curr_user
                     }
                 )
             })

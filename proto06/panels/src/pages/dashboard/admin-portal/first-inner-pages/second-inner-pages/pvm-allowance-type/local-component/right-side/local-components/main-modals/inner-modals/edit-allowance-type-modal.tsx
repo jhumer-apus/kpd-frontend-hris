@@ -171,7 +171,7 @@ export default function EditALLOWANCETYPEModal(props: EditALLOWANCETYPEModalInte
 
 // Styles
 const editALLOWANCETYPEArea = {
-  height: '135.5mm',
+  height: '120mm',
   width: '180mm',
   margin: '0 auto',
   background: 'white',

@@ -204,7 +204,7 @@ export default function EditTAXModal(props: EditTAXModalInterface) {
 
 // Styles
 const editTAXArea = {
-  height: '204.5mm',
+  height: '150mm',
   width: '180mm',
   margin: '0 auto',
   background: 'white',

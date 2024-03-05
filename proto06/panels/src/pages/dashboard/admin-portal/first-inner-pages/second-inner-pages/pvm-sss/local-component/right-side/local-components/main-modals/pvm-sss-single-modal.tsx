@@ -72,7 +72,7 @@ export default function ViewSSSSingleModal(props: SingleSSSInterface) {
 
 // Styles
 const SSSModalArea = {
-  height: '118.5mm',
+  height: '110mm',
   width: '210mm',
   margin: '0 auto',
   background: 'white',
