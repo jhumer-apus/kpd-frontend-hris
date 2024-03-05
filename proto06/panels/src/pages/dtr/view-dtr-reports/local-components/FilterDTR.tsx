@@ -2,11 +2,12 @@
 import { Fragment, useEffect, useState } from 'react';
 
 //LIBRARIES 
-import { Select, Option, Input } from "@material-tailwind/react";
+import { Select, Option, Input, Button } from "@material-tailwind/react";
 import debounce from 'lodash/debounce';
 import dayjs from 'dayjs';
 import { render } from 'react-dom';
 import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
 
 //HELPERS
 import { fetchCutOffPeriods } from '@/helpers/ApiCalls'
@@ -23,7 +24,7 @@ interface OptionInterface {
 export default function FilterDTR(props: Props) {
     
     //STATES
-    const filter = useState({
+    const [filter, setFilter] = useState({
         year: dayjs().format("YYYY"),
         month: dayjs().format("MM")
     })
@@ -113,27 +114,42 @@ export default function FilterDTR(props: Props) {
         });
     }, 1500);
 
+    const currentMonth = monthOptions.find(month => month.value == dayjs().format("MM"));
+    console.log(dayjs().format("MM"))
     let renderElement: JSX.Element | null;
 
     switch(viewType) {
         case 'logs':
             renderElement = (
                 <div className='flex space-x-4 w-fit my-2'>
-                    <Input label="Year"/>
-                    <Select 
-                        // value={currValue}
+                    <TextField
+                        defaultValue={dayjs().format("YYYY")}
+                        label="Year"
                         variant="outlined"
-                        label="Months" 
-                        placeholder="Select a month"
-                        // onChange={(val:any) => setState? setState(val):null}
-                        // disabled={isDisable}
-                        // name={name}
-                        // require={isRequired}
-                    >
-                        {monthOptions.map((option: OptionInterface, i: number) => (
-                            <Option key={i} value={option.value}>{option.name}</Option>
-                        ))}
-                    </Select>
+                        placeholder="Enter A Year"
+                        onChange={(e) => 
+                                {
+                                    setFilter( curr => (
+                                        {
+                                            ...curr,
+                                            year: e.target.value
+                                        }
+                                    ))
+                                }
+                            }
+                        disabled={isLoading}
+                    />
+                    <Autocomplete
+                        disablePortal
+                        id="months"
+                        options={monthOptions}
+                        defaultValue={currentMonth}
+                        getOptionLabel={(option:any) => `${option.name}`}
+                        // onChange={handleChangeFilter}
+                        className='md:w-80'
+                        // disabled={isLoading || isCutOffPeriodLoading}
+                        renderInput={(params) => <TextField {...params} label="Month" />}
+                    />
                 </div>
             )
             break;
@@ -161,9 +177,12 @@ export default function FilterDTR(props: Props) {
 
     }
 
+
+
     return (
-        <div>
+        <div className='flex gap-4 items-center'>
             {renderElement}
+            <Button className='w-20 h-fit py-4'>View</Button>
         </div>
     )
 }
