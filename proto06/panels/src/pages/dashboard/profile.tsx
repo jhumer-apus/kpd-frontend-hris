@@ -62,9 +62,12 @@
     const [activeTab, setActiveTab] = useState('personal');
     const [isEdit, setIsEdit] =useState<boolean>(false)
     const curr_user = useSelector((state: RootState) => state.auth.employee_detail);
+
     // const [file, setFile] = useState<File | null>(null);
     const [profileImage, setProfileImage] = useState<any>(null);
     const [isSubmittingRequest, setIsSubmittingRequest] = useState<boolean>(false)
+
+    const [codeName, setCodeName] = useState();
 
     // const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     //       const selectedFile = event.target.files ? event.target.files[0] : null;
@@ -108,14 +111,14 @@
     }, [])
 
     useEffect(() => {
-      // Fetch user data when the component mounts
-      setUserData((curr:any) => (
-        {
-          ...curr_user,
-          added_by: curr_user?.emp_no
-        }
-      ))
-      console.log('natrigger')
+      fetchUserData()
+      // setUserData((curr:any) => (
+      //   {
+      //     ...curr_user,
+      //     added_by: curr_user?.emp_no
+      //   }
+      // ))
+      // console.log('natrigger')
     }, [curr_user]);
 
     useEffect(() => {
@@ -126,6 +129,7 @@
 
       } else {
 
+        fetchUserData()
         setUserData((curr:any) => (
           {
             ...curr_user,
@@ -139,11 +143,17 @@
 
     const rollBackData = () => {
 
-      setUserData((curr:any) => null)
+      fetchUserData()
       setProfileImage(null);
     }
 
     // FETCH SELECT DATA
+    const  fetchUserData = () => {
+      axios.get(`${APILink}employees/${curr_user?.emp_no}`).then(res => {
+        setUserData((curr:any) => res.data)
+      })
+    }
+
     const fetchPayrollGroups = () => {
       axios.get(`${APILink}payrollgroup`).then((response:any) => {
           const responsePayrollGroups = response.data.map((payroll:any) => {
@@ -206,6 +216,10 @@
           setDropDownData((curr:any) => ({...curr, positions: responsePositions}));
       })
     }
+
+    // const fetchApprovers = () => {
+    //   axios.get()
+    // }
     
     const getImageSrc = () => {
 
@@ -566,7 +580,7 @@
 
                   <TextField  disabled id="Employee Number" label="Employee Number" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={curr_user?.emp_no || '-' } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
-               
+                  <TextField  disabled id="Bio ID" label="Bio ID" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={curr_user?.bio_id || '-' } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
                   <TextField  disabled id="Account Lock Status" label="Account Lock Status" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={ curr_user?.user?.is_locked   } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
@@ -620,7 +634,14 @@
 
             <TextField  disabled id="TIN" label="TIN" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.tax_code} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
-            <TextField  disabled id="Approver Number" label="Approver" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.approver1 }  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <TextField  disabled id="Approver Number 1" label="Approver #1" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.approver1 }  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            
+            <TextField  disabled id="Approver Number 2" label="Approver #2" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.approver2 }  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+
+            <TextField  disabled id="Ecola" label="Ecola" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.ecola}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+
+            <TextField  disabled id="Other Duty Responsibilities" label="Other Duty Responsibilities" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.other_duties_responsibilities }  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+
           </div>
           <div>
 
@@ -655,10 +676,15 @@
 
             <TextField  disabled id="Rank" label="Rank" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.rank_code} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
-            <TextField  disabled id="Basic Salary Amount" label="Basic Salary Amount" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.emp_salary_basic} InputLabelProps={{ style: { fontWeight: 'bold' }}}/>
+            <TextField  disabled id="Employee Type" label="Employee Type" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.employee_type} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
+            <TextField  disabled id="Basic Salary Amount" label="Basic Salary Amount" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.employee} InputLabelProps={{ style: { fontWeight: 'bold' }}}/>
 
-            <TextField  disabled id="Pagibig" label="Pagibig" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.pagibig_code} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <TextField  disabled id="Pagibig" label="Pagibig" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.pagibig_data.pagibig_no} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+
+            <TextField  disabled id="hmo" label="HMO" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.hmo} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+
+            <TextField  disabled id="Insurance Life" label="Insurance Life" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.insurance_life}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
           </div>
           <div>
@@ -691,10 +717,17 @@
                 />
               }
 
-            <TextField  disabled id="SSS" label="SSS" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.sssid_code} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            
+            <TextField  disabled id="Payroll No" label="Payroll No" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.payroll_no} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+
+            <TextField  disabled id="Employment Status" label="Employment Status" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.employment_status} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+
+            <TextField  disabled id="SSS" label="SSS" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.sss_data.sss_no} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
 
-            <TextField  disabled id="Philhealth" label="Philhealth" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.philhealth_code} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <TextField  disabled id="Philhealth" label="Philhealth" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.philhealth_data.ph_no} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+
+            <TextField  disabled id="Other Deductible" label="Other Deductible" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.other_deductible}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
            
 

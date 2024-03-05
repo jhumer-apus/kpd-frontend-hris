@@ -15,7 +15,7 @@ import SplitButton from '@/widgets/split-button/split-button';
 import { viewDTROptions, viewDTRDescriptions } from '@/data/pages-data/dtr-data/view-dtr-reports';
 import useDtrState from '@/custom-hooks/use-dtr-state';
 import { dynamicDTRColumns } from '@/data/pages-data/dtr-data/view-dtr-reports';
-import { viewAllDtrLogs, viewFilterDtrLogs, viewCutoffDtrSummary, viewMergedDtrLogs } from '@/store/actions/dtr';
+import { viewAllDtrLogs, viewFilterDtrLogs, viewCutoffDtrSummary, viewMergedDtrLogs, viewFilterMergedDtrLogs } from '@/store/actions/dtr';
 import PrintTableButton from './local-components/print-table-button';
 import ExportToCsvButton from './local-components/export-to-csv-button';
 
@@ -45,6 +45,7 @@ export default function ViewDtrReports() {
   const [printing, setIsPrinting] = useState(false);
   const dispatch = useDispatch();
   const { specific_employee_info } = useSelector((state: RootState) => state.employees);
+  const currUser = useSelector((state: RootState) => state.auth.employee_detail)
   const { spButtonIndex, spButtonStr, spButtonError, dtrStatus, dtrError, dtrData } = useDtrState();
   const [type, setType] = useState("staticInfo");
 
@@ -59,8 +60,16 @@ export default function ViewDtrReports() {
   const [filter, setFilter] = useState({
       year: parseInt(dayjs().format("YYYY")),
       month: parseInt(dayjs().format("MM")),
+      emp_no: currUser?.user?.role? (currUser?.user?.role < 3? currUser?.emp_no: null): null,
       cutoff_id: null
   })
+
+  const isBasicEmployee = () => {
+    const role = currUser?.user?.role;
+    const emp_no = currUser?.emp_no?? null
+    return role && role < 3
+  }
+  
   const [viewType, setViewType] = useState<"logs" | "merged" | "cutoff">('logs')
 
   function handleOpen(){
@@ -77,12 +86,23 @@ export default function ViewDtrReports() {
     // dispatch(viewFilterDtrLogs({month:1,year:2024}))
     if(spButtonIndex !== null && spButtonIndex === 1 ) {
 
-      dispatch(viewMergedDtrLogs());
+      // dispatch(viewMergedDtrLogs());
+      dispatch(viewFilterMergedDtrLogs(
+        {
+            cutoff_id: null,
+            emp_no: filter.emp_no
+        }
+    ))
       setViewType('merged')
 
     } else if (spButtonIndex !== null && spButtonIndex === 2 ) {
 
-      dispatch(viewCutoffDtrSummary());
+      dispatch(viewCutoffDtrSummary(
+        {
+          emp_no: filter.emp_no
+        }
+      ));
+      
       setViewType('cutoff')
 
     } else {
@@ -90,7 +110,8 @@ export default function ViewDtrReports() {
       dispatch(viewFilterDtrLogs(
         {
           month:filter.month,
-          year:filter.year
+          year:filter.year,
+          emp_no:filter.emp_no
         }
       ))
       setViewType('logs')

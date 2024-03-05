@@ -16,7 +16,7 @@ export const viewAllDtrLogsSuccess = createAction("VIEW_ALL_DTR_LOGS_SUCCESS", (
 export const viewAllDtrLogsFailure = createAction<string>("VIEW_ALL_DTR_LOGS_FAILURE");
 
 
-export const viewFilterDtrLogs = createAction<{month: number, year: number}>("VIEW_FILTER_DTR_LOGS");
+export const viewFilterDtrLogs = createAction<{month: number, year: number, emp_no: number| null}>("VIEW_FILTER_DTR_LOGS");
 export const viewFilterDtrLogsSuccess = createAction("VIEW_FILTER_DTR_LOGS_SUCCESS", (filterDtrLogs: Array<ViewFilterDtrLogsType>) => { 
     return({ payload: {filterDtrLogs} })});
 export const viewFilterDtrLogsFailure = createAction<string>("VIEW_FILTER_DTR_LOGS_FAILURE");
@@ -32,7 +32,7 @@ export const viewFilterMergedDtrLogsSuccess = createAction("VIEW_FILTER_MERGED_D
     return({ payload: {allFilterMergedDtr} })});
 export const viewFilterMergedDtrLogsFailure = createAction<string>("VIEW_FILTER_MERGED_DTR_LOGS_FAILURE");
 
-export const viewCutoffDtrSummary = createAction("VIEW_CUTOFF_DTR_SUMMARY");
+export const viewCutoffDtrSummary = createAction<{emp_no: number| null}>("VIEW_CUTOFF_DTR_SUMMARY");
 export const viewCutoffDtrSummarySuccess = createAction("VIEW_CUTOFF_DTR_SUMMARY_SUCCESS", (allCutoffDtrSummary: Array<ViewCutoffDtrSummaryType>) => { 
     return({ payload: {allCutoffDtrSummary} })});
 export const viewCutoffDtrSummaryFailure = createAction<string>("VIEW_CUTOFF_DTR_SUMMARY_FAILURE");

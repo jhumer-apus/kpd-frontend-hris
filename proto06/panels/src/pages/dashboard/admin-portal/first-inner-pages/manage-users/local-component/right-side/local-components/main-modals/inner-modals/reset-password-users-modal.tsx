@@ -20,7 +20,7 @@ interface ResetPasswordUSERModalInterface {
 
 export default function ResetPasswordUSERModal(props: ResetPasswordUSERModalInterface) {
   const dispatch = useDispatch();
-  const USERResetPasswordState = useSelector((state: RootState)=> state.users.USERResetPassword.status)
+  const USERResetPasswordState = useSelector((state: RootState)=> state.users.USERResetPassword)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
   const {
     resetPasswordUSEROpenModal, 
@@ -48,8 +48,8 @@ export default function ResetPasswordUSERModal(props: ResetPasswordUSERModalInte
   }
 
   useEffect(()=>{ 
-      if(USERResetPasswordState === `${globalReducerSuccess}`){
-        window.alert(`${USERResetPasswordState.charAt(0).toUpperCase()}${USERResetPasswordState.slice(1)}`)
+      if(USERResetPasswordState.status === `${globalReducerSuccess}`){
+        window.alert(`${USERResetPasswordState.status.charAt(0).toUpperCase()}${USERResetPasswordState.status.slice(1)}`)
         // window.location.reload();
         setResetPasswordUSEROpenModal(false);
         setSingleUSEROpenModal(false);
@@ -57,7 +57,8 @@ export default function ResetPasswordUSERModal(props: ResetPasswordUSERModalInte
         setTimeout(()=>{
           dispatch(USERResetPasswordActionFailureCleanup())
         }, 200)
-      }else if( USERResetPasswordState === `${globalReducerFailed}`){
+      }else if( USERResetPasswordState.status === `${globalReducerFailed}`){
+        window.alert(USERResetPasswordState.error)
         setTimeout(()=>{
           dispatch(USERResetPasswordActionFailureCleanup())
         }, 200)

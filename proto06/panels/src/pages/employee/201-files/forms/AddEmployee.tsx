@@ -30,7 +30,8 @@ interface DropDownData {
   departments: any[],
   payrollGroups: any[],
   employmentStatuses: any[],
-  positions: any[]
+  positions: any[],
+  approvers: any[]
 }
 
 export const UserProfile = () => {
@@ -41,6 +42,8 @@ export const UserProfile = () => {
       gender: null,
       branch_code: null,
       department_code: null,
+      approver1:null,
+      approver2:null
     })
     const [profileImage, setProfileImage] = useState<any>(null);
 
@@ -49,7 +52,8 @@ export const UserProfile = () => {
       departments:[],
       payrollGroups:[],
       employmentStatuses:[],
-      positions:[]
+      positions:[],
+      approvers:[]
     })
 
 
@@ -130,6 +134,25 @@ export const UserProfile = () => {
         })
 
         setDropDownData((curr:any) => ({...curr, positions: responsePositions}));
+      })
+    }
+
+    const fetchApprovers = (department: number) => {
+      axios.get(`${APILink}approvers/`, {
+        params: {
+          department: department
+        }
+      }).then((response:any) => {
+
+        const responsePositions = response.data.map((position:any) => {
+          return {
+            id: position.id,
+            name: position.pos_name
+          }
+        })
+
+        setDropDownData((curr:any) => ({...curr, positions: responsePositions}));
+
       })
     }
 
@@ -659,10 +682,18 @@ export const UserProfile = () => {
             </div>
             <div style={{position: 'relative', width: '100%'}}>
                 <Select
-                  onChange={(val:any) => setFormSelectData(curr => ({
-                    ...curr,
-                    department_code: val
-                  }))}
+                  onChange={(val:any) => 
+                    {
+                      fetchApprovers(val)
+                      setFormSelectData(curr => 
+                      (
+                        {
+                          ...curr,
+                          department_code: val
+                        }
+                      )
+                    )}
+                  }
                   placeholder="Select Department"
                   name="department_code"
                   variant="outlined"
@@ -794,16 +825,50 @@ export const UserProfile = () => {
         </Typography>
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
             <div style={{position: 'relative', width: '100%'}}>
-                <Input
+                <Select
+                  onChange={(val:any) => setFormSelectData(curr => ({
+                    ...curr,
+                    approver1: val
+                  }))}
+                  placeholder="Select Approver 1"
+                  name="approver1"
+                  variant="outlined"
+                  label="Approver #1 (optional, emp_no)"
+                >
+                  {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> (
+                    ![formSelectData.approver1, formSelectData.approver2].includes(approver.emp_no) && <Option value={approver.emp_no}>{approver.full_name}</Option>
+                  )): (
+                    <Option disabled>No Approvers available on the selected department</Option>
+                  )}
+                </Select>
+                {/* <Input
                   crossOrigin={undefined} {...register('approver1', { required: false })}
                   label="Approver #1: (optional, emp_no)"
-                  disabled={!editMode}                />
+                  disabled={!editMode}                /> */}
             </div>
             <div style={{position: 'relative', width: '100%'}}>
-                <Input
+                <Select
+                  onChange={(val:any) => setFormSelectData(curr => ({
+                    ...curr,
+                    approver2: val
+                  }))}
+                  placeholder="Select Approver 2"
+                  name="approver2"
+                  variant="outlined"
+                  label="Approver #2 (optional, emp_no)"
+                >
+                  {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> 
+                    (
+                      ![formSelectData.approver1, formSelectData.approver2].includes(approver.emp_no) && <Option value={approver.emp_no}>{approver.full_name}</Option>
+                    )): (
+                    <Option disabled>No Approvers available on the selected department</Option>
+                    )
+                  }
+                </Select>
+                {/* <Input
                   crossOrigin={undefined} {...register('approver2', { required: false })}
                   label="Approver #2: (optional, emp_no)"
-                  disabled={!editMode}                />
+                  disabled={!editMode}                /> */}
             </div>
         </div> 
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">

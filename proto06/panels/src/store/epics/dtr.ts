@@ -50,6 +50,7 @@ const viewFilterDtrLogsApiCall = async (payload:any) => {
     params: {
       month: payload.month,
       year: payload.year,
+      emp_no: payload.emp_no
     }
   });
   return response.data;
@@ -70,9 +71,22 @@ const viewFilterMergedDtrLogsApiCall = async (payload:any) => {
   return response.data;
 };
 
-const viewCutoffDtrSummaryApiCall = async () => {
-    const response = await axios.get(`${APILink}dtr_cutoff_summary/`);
-    return response.data;
+const viewCutoffDtrSummaryApiCall = async (payload:any) => {
+
+    const emp_no = payload.emp_no
+
+    if(emp_no){
+
+      const response = await axios.get(`${APILink}dtr_cutoff_summary/${emp_no}`);
+      return response.data;
+
+    } else{
+
+      const response = await axios.get(`${APILink}dtr_cutoff_summary`);
+      return response.data;
+
+    }
+
 };
 
 const getCutoffDTRListApiCall = async () => {
@@ -226,9 +240,9 @@ export const viewMergedDtrLogsEpic: Epic = (action$, state$) =>
 export const viewCutoffDtrSummaryEpic: Epic = (action$, state$) =>
   action$.pipe(
     ofType(viewCutoffDtrSummary.type),
-    switchMap(() =>
+    switchMap((action) =>
       from(
-        viewCutoffDtrSummaryApiCall()
+        viewCutoffDtrSummaryApiCall(action.payload)
       ).pipe(
         map((data) => {
           return viewCutoffDtrSummarySuccess(data);

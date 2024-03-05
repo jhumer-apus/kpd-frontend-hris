@@ -46,7 +46,8 @@ interface DropDownData {
     departments: any[],
     payrollGroups: any[],
     employmentStatuses: any[],
-    positions: any[]
+    positions: any[],
+    approvers: any[]
 }
 
 type initialState = {
@@ -62,6 +63,8 @@ export const SpecificEmployee = (props: initialState) => {
         gender: null,
         branch_code: null,
         department_code: null,
+        approver1: null,
+        approver2: null
     })
     
     const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,7 +95,8 @@ export const SpecificEmployee = (props: initialState) => {
         departments:[],
         payrollGroups:[],
         employmentStatuses:[],
-        positions:[]
+        positions:[],
+        approvers:[]
       })
 
 
@@ -185,17 +189,36 @@ export const SpecificEmployee = (props: initialState) => {
     }
 
     const fetchPositions = () => {
-    axios.get(`${APILink}position/`).then((response:any) => {
-        const responsePositions = response.data.map((position:any) => {
-        return {
-            id: position.id.toString(),
-            name: position.pos_name
-        }
-        })
+        axios.get(`${APILink}position/`).then((response:any) => {
+            const responsePositions = response.data.map((position:any) => {
+            return {
+                id: position.id.toString(),
+                name: position.pos_name
+            }
+            })
 
-        setDropDownData((curr:any) => ({...curr, positions: responsePositions}));
-    })
+            setDropDownData((curr:any) => ({...curr, positions: responsePositions}));
+        })
     }
+
+    const fetchApprovers = (department: number) => {
+        axios.get(`${APILink}approvers/`, {
+          params: {
+            department: department
+          }
+        }).then((response:any) => {
+  
+          const responsePositions = response.data.map((position:any) => {
+            return {
+              id: position.id,
+              name: position.pos_name
+            }
+          })
+  
+          setDropDownData((curr:any) => ({...curr, positions: responsePositions}));
+  
+        })
+      }
 
     const fetchData = async function (formData: FormData) {
         try {
@@ -622,42 +645,84 @@ export const SpecificEmployee = (props: initialState) => {
                                                 icon={<FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     </div>
                                     <div className="my-4 md:flex md:items-center gap-4">
-                                    <Input
+                                    {/* <Input
                                                 crossOrigin={undefined} {...register('mobile_phone')}
                                                 type="tel"
                                                 containerProps={{ className: "min-w-[72px] mb-2 focused" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Mobile Phone:"
                                                 disabled={!editMode2}
-                                                icon={<DevicePhoneMobileIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
-                                    <Input
-                                                crossOrigin={undefined} {...register('approver1')}
-                                                type="number"
-                                                containerProps={{ className: "min-w-[72px] mb-2 focused" }}
-                                                labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                label="Approver #1 (Employee #):"
-                                                disabled={!editMode2}
-                                                value={userData?.approver1 as number}
-                                                icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
+                                                icon={<DevicePhoneMobileIcon className="h-5 w-5 text-blue-gray-300" />}                                    /> */}
+                                        <Select
+                                            onChange={(val:any) => setFormSelectData(curr => ({
+                                                ...curr,
+                                                approver1: val
+                                            }))}
+                                            value={userData?.approver1?.toString()}
+                                            placeholder="Select Approver 1"
+                                            name="approver1"
+                                            variant="outlined"
+                                            label="Approver #1 (Employee #):"
+                                            disabled={!editMode2}
+                                        >
+                                            {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> 
+                                                (
+                                                ![formSelectData.approver1, formSelectData.approver2].includes(approver.emp_no) && <Option value={approver.emp_no}>{approver.full_name}</Option>
+                                                )): (
+                                                <Option disabled>No Approvers available on the selected department</Option>
+                                                )
+                                            }
+                                        </Select>
+                                    {/* <Input
+                                        crossOrigin={undefined} {...register('approver1')}
+                                        type="number"
+                                        containerProps={{ className: "min-w-[72px] mb-2 focused" }}
+                                        labelProps={{ style: { color: true ? "unset" : '' } }}
+                                        label="Approver #1 (Employee #):"
+                                        disabled={!editMode2}
+                                        value={userData?.approver1 as number}
+                                        icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    
+                                    /> */}
                                     </div>
                                     <div className="my-4 md:flex md:items-center gap-4">
-                                    <Input
+                                    {/* <Input
                                                 crossOrigin={undefined} {...register('telephone')}
                                                 type="text"
                                                 containerProps={{ className: "min-w-[72px] mb-2 focused" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Telephone:"
                                                 disabled={!editMode2}
-                                                icon={<PhoneIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
-                                    <Input
-                                                crossOrigin={undefined} {...register('approver2')}
-                                                type="number"
-                                                containerProps={{ className: "min-w-[72px] mb-2 focused" }}
-                                                labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                label="Approver #2 (Employee #):"
-                                                disabled={!editMode2}
-                                                value={userData?.approver2 as number}
-                                                icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
+                                                icon={<PhoneIcon className="h-5 w-5 text-blue-gray-300" />}                                    /> */}
+                                        <Select
+                                            onChange={(val:any) => setFormSelectData(curr => ({
+                                                ...curr,
+                                                approver2: val
+                                            }))}
+                                            value={userData?.approver2?.toString()}
+                                            placeholder="Select Approver 2"
+                                            name="approver1"
+                                            variant="outlined"
+                                            label="Approver #2 (Employee #):"
+                                            disabled={!editMode2}
+                                        >
+                                            {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> 
+                                                (
+                                                ![formSelectData.approver1, formSelectData.approver2].includes(approver.emp_no) && <Option value={approver.emp_no}>{approver.full_name}</Option>
+                                                )): (
+                                                <Option disabled>No Approvers available on the selected department</Option>
+                                                )
+                                            }
+                                        </Select>
+                                        {/* <Input
+                                            crossOrigin={undefined} {...register('approver2')}
+                                            type="number"
+                                            containerProps={{ className: "min-w-[72px] mb-2 focused" }}
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            label="Approver #2 (Employee #):"
+                                            disabled={!editMode2}
+                                            value={userData?.approver2 as number}
+                                            icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    
+                                        /> */}
                                     </div>
 
                                     <div className="my-4 md:flex md:items-center gap-4">
@@ -1026,22 +1091,30 @@ export const SpecificEmployee = (props: initialState) => {
                                             }
                                         </Select> */}
                                         {dropDownData.departments.length > 0 &&
-                                        <Select
-                                            onChange={(val:any) => setFormSelectData(curr => ({...curr, department_code: val}))}
-                                            placeholder="Select Departments"
-                                            name="department_code"
-                                            variant="outlined"
-                                            label="Department"
-                                            disabled={!editMode3} 
-                                            value={userData?.department_code?.toString()}
-                                        >
-                                            {
-                                            dropDownData.departments.length > 0 ? dropDownData.departments.map((department:any) => (
-                                                <Option key={department.id} value={department.id}>{department.name}</Option>
-                                            ))
-                                            : <Option disabled>No departments available</Option>
-                                            }
-                                        </Select>
+                                            <Select
+                                                onChange={(val:any) => {
+                                                    fetchApprovers(val)
+                                                    setFormSelectData(curr => (
+                                                        {
+                                                            ...curr, 
+                                                            department_code: val
+                                                        }
+                                                    ))
+                                                }}
+                                                placeholder="Select Departments"
+                                                name="department_code"
+                                                variant="outlined"
+                                                label="Department"
+                                                disabled={!editMode3} 
+                                                value={userData?.department_code?.toString()}
+                                            >
+                                                {
+                                                dropDownData.departments.length > 0 ? dropDownData.departments.map((department:any) => (
+                                                    <Option key={department.id} value={department.id}>{department.name}</Option>
+                                                ))
+                                                : <Option disabled>No departments available</Option>
+                                                }
+                                            </Select>
                                         }
                                         {/* <Select
                                             onChange={(val:any) => setFormSelectData(curr => ({...curr, department_code: val}))}
