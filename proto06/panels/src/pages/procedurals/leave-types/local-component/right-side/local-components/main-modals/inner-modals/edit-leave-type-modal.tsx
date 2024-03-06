@@ -165,7 +165,7 @@ export default function EditLEAVETYPEModal(props: EditLEAVETYPEModalInterface) {
 
 // Styles
 const allowedDaysLEAVETYPEArea = {
-  height: '124.5mm',
+  height: '100mm',
   width: '140mm',
   margin: '0 auto',
   background: 'white',

@@ -72,7 +72,7 @@ export default function ViewANNOUNCEMENTSingleModal(props: SingleANNOUNCEMENTInt
 
 // Styles
 const ANNOUNCEMENTModalArea = {
-  height: '120.5mm',
+  height: '110mm',
   width: '210mm',
   margin: '0 auto',
   background: 'white',

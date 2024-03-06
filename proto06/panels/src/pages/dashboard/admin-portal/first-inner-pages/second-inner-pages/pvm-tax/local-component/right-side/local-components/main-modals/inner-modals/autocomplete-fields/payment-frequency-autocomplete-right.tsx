@@ -125,6 +125,7 @@ export default function PaymentFrequencyAutoCompleteRight(props: PaymentFrequenc
                 }
     
             }
+            
             />
         }
         {!defaultOption &&
