@@ -30,7 +30,8 @@ interface DropDownData {
   departments: any[],
   payrollGroups: any[],
   employmentStatuses: any[],
-  positions: any[]
+  positions: any[],
+  approvers: any[]
 }
 
 export const UserProfile = () => {
@@ -41,6 +42,8 @@ export const UserProfile = () => {
       gender: null,
       branch_code: null,
       department_code: null,
+      approver1: null,
+      approver2: null
     })
     const [profileImage, setProfileImage] = useState<any>(null);
 
@@ -49,7 +52,8 @@ export const UserProfile = () => {
       departments:[],
       payrollGroups:[],
       employmentStatuses:[],
-      positions:[]
+      positions:[],
+      approvers:[],
     })
 
 
@@ -59,13 +63,15 @@ export const UserProfile = () => {
       fetchPayrollGroups()
       fetchEmploymentStatus()
       fetchPositions()
+      fetchDepartments()
     }, [])
 
-    useEffect(() => {
-      if(formSelectData?.branch_code) {
-        fetchDepartments(formSelectData.branch_code)
-      }
-    },[formSelectData]);
+    // useEffect(() =>  {
+    //   console.log(formSelectData.department_code)
+    //   if(formSelectData.department_code) {
+    //     fetchApprovers(formSelectData.department_code)
+    //   }
+    // },[formSelectData.department_code])
 
     // Fetch selects information
     const fetchPayrollGroups = () => {
@@ -92,13 +98,11 @@ export const UserProfile = () => {
       })
     }
 
-    const fetchDepartments = (id:number) => {
+    const fetchDepartments = () => {
 
       axios.get(`${APILink}department/`).then((response:any) => {
         
-        const responseDepartments = response.data
-        .filter((department:any) => department.dept_branch_code == id)
-        .map((department:any) => {
+        const responseDepartments = response.data.map((department:any) => {
           return {
             id: department.id,
             name: department.dept_name
@@ -107,6 +111,22 @@ export const UserProfile = () => {
         setDropDownData((curr:any) => ({...curr, departments: responseDepartments}));
       })
     }
+
+    // const fetchDepartments = (id:number) => {
+
+    //   axios.get(`${APILink}department/`).then((response:any) => {
+        
+    //     const responseDepartments = response.data
+    //     .filter((department:any) => department.dept_branch_code == id)
+    //     .map((department:any) => {
+    //       return {
+    //         id: department.id,
+    //         name: department.dept_name
+    //       }
+    //     })
+    //     setDropDownData((curr:any) => ({...curr, departments: responseDepartments}));
+    //   })
+    // }
 
     const fetchEmploymentStatus = () => {
       axios.get(`${APILink}emp_status_type/`).then((response:any) => {
@@ -130,6 +150,25 @@ export const UserProfile = () => {
         })
 
         setDropDownData((curr:any) => ({...curr, positions: responsePositions}));
+      })
+    }
+
+    const fetchApprovers = (department: number) => {
+      axios.get(`${APILink}approvers/`,{
+        params:{
+          department: department
+        }
+      }).then((response:any) => {
+
+        const responseApprovers = response.data.map((approver:any) => {
+          return {
+            emp_no: approver.emp_no,
+            full_name: approver.full_name
+          }
+        })
+
+        setDropDownData((curr:any) => ({...curr, approvers: responseApprovers}));
+
       })
     }
 
@@ -172,6 +211,7 @@ export const UserProfile = () => {
     }
 
   const onSubmit = async (data: EMPLOYEESViewInterface) => {
+    console.log(data)
     const formData = new FormData();
     data = {
       ...data,
@@ -659,10 +699,18 @@ export const UserProfile = () => {
             </div>
             <div style={{position: 'relative', width: '100%'}}>
                 <Select
-                  onChange={(val:any) => setFormSelectData(curr => ({
-                    ...curr,
-                    department_code: val
-                  }))}
+                  onChange={(val:any) => 
+                    {
+                      fetchApprovers(val)
+                      setFormSelectData(curr => 
+                      (
+                        {
+                          ...curr,
+                          department_code: val
+                        }
+                      )
+                    )}
+                  }
                   placeholder="Select Department"
                   name="department_code"
                   variant="outlined"
@@ -722,7 +770,7 @@ export const UserProfile = () => {
                 >
                   <Option value="Compressed">Compressed</Option>
                   <Option value="Normal">Normal</Option>
-                  <Option value="Field-Auto">Field-Auto</Option>
+                  {/* <Option value="Field-Auto">Field-Auto</Option> */}
                   <Option value="Field">Field</Option>
               </Select>
               {/* <Input
@@ -790,20 +838,57 @@ export const UserProfile = () => {
             color="gray"
             className="mb-4 font-medium italic"
         >
-            Optional Information
+
         </Typography>
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
             <div style={{position: 'relative', width: '100%'}}>
-                <Input
-                  crossOrigin={undefined} {...register('approver1', { required: false })}
-                  label="Approver #1: (optional, emp_no)"
-                  disabled={!editMode}                />
+                <Select
+                  onChange={(val:any) => setFormSelectData(curr => ({
+                    ...curr,
+                    approver1: val
+                  }))}
+                  placeholder="Select Approver 1"
+                  name="approver1"
+                  variant="outlined"
+                  label="Approver #1 (optional, emp_no)"
+                >
+                  {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> (
+                    // ![formSelectData.approver1, formSelectData.approver2].includes(approver.emp_no) && <Option value={approver.emp_no}>{approver.full_name}</Option>
+                    <Option value={approver.emp_no}>{approver.full_name}</Option>
+                    )): (
+                    <Option disabled>No Approvers available on the selected department</Option>
+                  )}
+                </Select>
+                {/* <Input
+                  crossOrigin={undefined} {...register('approver1', { required: true })}
+                  label="Approver #1: (emp_no)"
+                  disabled={!editMode}                
+                /> */}
             </div>
             <div style={{position: 'relative', width: '100%'}}>
-                <Input
-                  crossOrigin={undefined} {...register('approver2', { required: false })}
-                  label="Approver #2: (optional, emp_no)"
-                  disabled={!editMode}                />
+                <Select
+                  onChange={(val:any) => setFormSelectData(curr => ({
+                    ...curr,
+                    approver2: val
+                  }))}
+                  placeholder="Select Approver 2"
+                  name="approver2"
+                  variant="outlined"
+                  label="Approver #2 (optional, emp_no)"
+                >
+                  {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> 
+                    (
+                      // ![formSelectData.approver1, formSelectData.approver2].includes(approver.emp_no) && <Option value={approver.emp_no}>{approver.full_name}</Option>
+                      <Option value={approver.emp_no}>{approver.full_name}</Option>
+                    )): (
+                    <Option disabled>No Approvers available on the selected department</Option>
+                    )
+                  }
+                </Select>
+                {/* <Input
+                  crossOrigin={undefined} {...register('approver2', { required: true })}
+                  label="Approver #2: (emp_no)"
+                  disabled={!editMode}                /> */}
             </div>
         </div> 
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">

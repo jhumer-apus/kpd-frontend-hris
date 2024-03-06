@@ -51,8 +51,10 @@ export default function FilterDTR(props: Props) {
 
     //USE EFFECTS
     useEffect(() => {
-        debounceFetchCutOffPeriods()
-    },[])
+
+        viewType=="merged" && debounceFetchCutOffPeriods()
+
+    },[filter.year, viewType])
 
     // STATIC DATA
     const monthOptions= [
@@ -132,19 +134,19 @@ export default function FilterDTR(props: Props) {
     }, 1500);
 
     const handleChangeMonth = (e: any, val:any) => {
-
         setFilter((curr:any) => ({
             ...curr,
-            month: val.value
+            month: val?.value
 
         }))
+
     }
 
     const handleChangeCutoffId = (e: any, val:any) => {
 
         setFilter((curr:any) => ({
             ...curr,
-            cutoff_id: val.id
+            cutoff_id: val?.id
         }))
     }
 
@@ -156,33 +158,37 @@ export default function FilterDTR(props: Props) {
                 dispatch(viewFilterDtrLogs(
                     {
                         month:filter.month,
-                        year:filter.year
+                        year:filter.year,
+                        emp_no: filter.emp_no
                     }
                 ))
                 break;
 
             case 'merged':  
-                const role = currUser?.user?.role;
-                const emp_no = currUser?.emp_no?? null
-                const isBasicEmployee = role && role < 3
 
                 dispatch(viewFilterMergedDtrLogs(
                     {
                         cutoff_id: parseInt(filter.cutoff_id),
-                        emp_no: isBasicEmployee? emp_no: null
+                        emp_no: filter.emp_no
                     }
                 ))
                 break;
 
             case 'cutoff':
-                dispatch(viewCutoffDtrSummary())
+
+                dispatch(viewCutoffDtrSummary(
+                    {
+                      emp_no: filter.emp_no
+                    }
+                  ));
                 break;
 
             default: 
                 dispatch(viewFilterDtrLogs(
                     {
-                    month:filter.month,
-                    year:filter.year
+                        month:filter.month,
+                        year:filter.year,
+                        emp_no: filter.emp_no
                     }
                 ))
                 break;

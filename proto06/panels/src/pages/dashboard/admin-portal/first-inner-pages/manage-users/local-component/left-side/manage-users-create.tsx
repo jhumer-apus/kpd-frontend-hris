@@ -95,10 +95,10 @@ function ManageUSERCreate(props: CreateUSERModalInterface) {
                                 })
                             }}
                         />
-                        {isOpenPasswordGenerator && <PasswordGenerator />}
+                        {/* {isOpenPasswordGenerator && <PasswordGenerator />}
                         <Button onClick={() => setIsOpenPasswordGenerator(!isOpenPasswordGenerator)}>
                             {isOpenPasswordGenerator? 'Close Password Generator': 'Open Password Generator'}
-                        </Button>
+                        </Button> */}
                         <TextField
                             required 
                             sx={{width: '100%'}} 

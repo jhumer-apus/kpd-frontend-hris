@@ -28,3 +28,7 @@ Priority Level: 01-10 (10 With Highest Impact)
 - 02 Code optimization of reducer/dtr.ts 
 - 02 Code optimziation of tree file dependency for reducer/auth.ts
 - 01 Remove all dead codes or commented codes and unused components to all tree files
+
+
+
+- Bye Guys ~!!! 03.05.24 (signing off~)

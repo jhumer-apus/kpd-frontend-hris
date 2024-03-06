@@ -1,11 +1,11 @@
 import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
 // import { Typography } from '@mui/joy';
 
 import { OFFBOARDINGSTATUSCreateInterface } from '@/types/types-employee-and-applicants';
-import { OFFBOARDINGREQUIREMENTSViewAction, OFFBOARDINGSTATUSCreateAction, OFFBOARDINGSTATUSCreateActionFailureCleanup } from '@/store/actions/employee-and-applicants';
+import { OFFBOARDINGREQUIREMENTSViewAction, OFFBOARDINGSTATUSCreateAction, OFFBOARDINGSTATUSCreateActionFailureCleanup, OFFBOARDINGSTATUSViewAction } from '@/store/actions/employee-and-applicants';
 
 
 import { DataGrid, GridCallbackDetails, GridRowSelectionModel } from '@mui/x-data-grid';
@@ -44,14 +44,18 @@ function EAOFFBOARDINGSTATUSCreate(props: CreateOFFBOARDINGSTATUSModalInterface)
 
 
     useEffect(()=>{
-        if(status === 'succeeded'){
+        if(status === `${globalReducerSuccess}`){
             window.alert('Request Successful');
-            window.location.reload();
-        }else if(status === 'failed'){
+            // window.location.reload();
+            dispatch(OFFBOARDINGSTATUSViewAction());
+            setTimeout(()=> {
+                dispatch(OFFBOARDINGSTATUSCreateActionFailureCleanup());
+            }, 200)
+        }else if(status === `${globalReducerFailed}`){
             window.alert(`Request Failed, ${error}`)
             setTimeout(()=> {
                 dispatch(OFFBOARDINGSTATUSCreateActionFailureCleanup());
-            }, 500)
+            }, 200)
         }
     }, [status])
 

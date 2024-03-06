@@ -94,9 +94,7 @@ function OVERTIMEModalUI(props: OVERTIMEModalUIInterface) {
                     )
                 })
             }
-        }
-
-        if(!UserApprover1 && !UserApprover1) {
+        } else if (!UserApprover1 && !UserApprover1) {
             setApprovalState((prevState: ApprovalStateInterface) => {
                 return (
                     {
