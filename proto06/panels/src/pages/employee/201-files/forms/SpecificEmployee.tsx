@@ -63,8 +63,6 @@ export const SpecificEmployee = (props: initialState) => {
         gender: null,
         branch_code: null,
         department_code: null,
-        approver1: null,
-        approver2: null
     })
     
     const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -166,7 +164,7 @@ export const SpecificEmployee = (props: initialState) => {
 
     axios.get(`${APILink}department/`).then((response:any) => {
         
-        const responseDepartments = response.data.filter((obj:any) => obj.dept_branch_code == userData?.branch_code).map((department:any) => {
+        const responseDepartments = response.data.map((department:any) => {
             return {
                 id: department.id.toString(),
                 name: department.dept_name
@@ -250,6 +248,8 @@ export const SpecificEmployee = (props: initialState) => {
             ...formSelectData
 
         }
+
+        console.log(data)
         const formData = new FormData();
         const keyChecker = (key: string) => {
             const keyProcessed: { [key: string]: () => void } = {
@@ -653,7 +653,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                 label="Mobile Phone:"
                                                 disabled={!editMode2}
                                                 icon={<DevicePhoneMobileIcon className="h-5 w-5 text-blue-gray-300" />}                                    /> */}
-                                        <Select
+                                        {/* <Select
                                             onChange={(val:any) => setFormSelectData(curr => ({
                                                 ...curr,
                                                 approver1: val
@@ -672,8 +672,8 @@ export const SpecificEmployee = (props: initialState) => {
                                                 <Option disabled>No Approvers available on the selected department</Option>
                                                 )
                                             }
-                                        </Select>
-                                    {/* <Input
+                                        </Select> */}
+                                    <Input
                                         crossOrigin={undefined} {...register('approver1')}
                                         type="number"
                                         containerProps={{ className: "min-w-[72px] mb-2 focused" }}
@@ -682,7 +682,7 @@ export const SpecificEmployee = (props: initialState) => {
                                         disabled={!editMode2}
                                         value={userData?.approver1 as number}
                                         icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    
-                                    /> */}
+                                    />
                                     </div>
                                     <div className="my-4 md:flex md:items-center gap-4">
                                     {/* <Input
@@ -693,7 +693,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                 label="Telephone:"
                                                 disabled={!editMode2}
                                                 icon={<PhoneIcon className="h-5 w-5 text-blue-gray-300" />}                                    /> */}
-                                        <Select
+                                        {/* <Select
                                             onChange={(val:any) => setFormSelectData(curr => ({
                                                 ...curr,
                                                 approver2: val
@@ -712,8 +712,8 @@ export const SpecificEmployee = (props: initialState) => {
                                                 <Option disabled>No Approvers available on the selected department</Option>
                                                 )
                                             }
-                                        </Select>
-                                        {/* <Input
+                                        </Select> */}
+                                        <Input
                                             crossOrigin={undefined} {...register('approver2')}
                                             type="number"
                                             containerProps={{ className: "min-w-[72px] mb-2 focused" }}
@@ -722,7 +722,7 @@ export const SpecificEmployee = (props: initialState) => {
                                             disabled={!editMode2}
                                             value={userData?.approver2 as number}
                                             icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    
-                                        /> */}
+                                        />
                                     </div>
 
                                     <div className="my-4 md:flex md:items-center gap-4">

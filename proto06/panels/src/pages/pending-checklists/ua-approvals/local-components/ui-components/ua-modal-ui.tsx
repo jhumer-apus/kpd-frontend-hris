@@ -95,7 +95,7 @@ function UAModalUI(props: UAModalUIInterface) {
                 })
             }
         }
-        if(!UserApprover1 && !UserApprover2) {
+        else if(!UserApprover1 && !UserApprover2) {
             setApprovalState((prevState: ApprovalStateInterface) => {
                 return (
                     {
