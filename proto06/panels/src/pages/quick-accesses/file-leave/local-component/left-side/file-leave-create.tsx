@@ -10,6 +10,8 @@ import DateFromToLEAVECreate from './inner-ui-components/date-from-to-field';
 import { Typography } from '@mui/joy';
 import { LEAVECreateInterface } from '@/types/types-pages';
 import { LEAVECreateAction, LEAVECreateActionFailureCleanup } from '@/store/actions/procedurals';
+import { APILink } from '@/store/configureStore';
+import axios from 'axios';
 
 interface CreateLEAVEModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -30,8 +32,14 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         added_by: userData?.emp_no,
         uploaded_file: null,
     });
+    const [remainingLeaveCredits, setRemainingLeaveCredits] = useState(
+        {
+            vacationLeave: 0,
+            sickLeave: 0,
+            emergencyLeave: 0
+        }
+    )
 
-    console.log(userData);
     const onClickSubmit = () => {
 
         setIsSubmittingRequest(true)
@@ -72,6 +80,10 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         }
     }, [LEAVECreatestate.status])
 
+    useEffect(() => {
+        getRemeainingLeaveCredits()
+    },[])
+
     const handleChangeImage = (e:React.ChangeEvent<HTMLInputElement>) => {
 
         const selectedFile: File | null = e.target.files && e.target.files[0];
@@ -93,9 +105,63 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         }
     }
 
+    const getRemeainingLeaveCredits = async () => {
+        axios.get(`${APILink}leave_credit/${userData?.emp_no}`).then(res => {
+
+            if(res && res.data && res.data.length > 0) {
+
+                let vacationLeave = remainingLeaveCredits.vacationLeave
+                let sickLeave = remainingLeaveCredits.sickLeave
+                let emergencyLeave = remainingLeaveCredits.emergencyLeave
+
+                res.data.forEach((leave:any) => {
+
+                    switch(leave.leave_name) {
+
+                        case "Vacation Leave":
+                            vacationLeave = leave.credit_remaining
+                            break;
+                        
+                        case "Sick Leave":
+                            sickLeave = leave.credit_remaining
+                            break;
+                        
+                        case "Emergency Leave":
+                            emergencyLeave = leave.credit_remaining
+                            break;
+                        
+                    }
+                    setRemainingLeaveCredits((curr:any) => ({
+                        vacationLeave: vacationLeave,
+                        sickLeave: sickLeave,
+                        emergencyLeave: emergencyLeave
+                    }))
+                })
+            }
+        })
+    }
+
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '2px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a Leave Data</Typography>
+
+
+            <div className='my-4'>
+                <Typography fontSize="xl" fontWeight="lg">
+                    Remaining Leave Credits
+                </Typography>
+                <div className='flex flex-col md:flex-row md:space-x-4'>
+                    <Typography fontWeight="lg">
+                        Vacation Leave: {remainingLeaveCredits.vacationLeave}
+                    </Typography>
+                    <Typography fontWeight="lg">
+                        Sick Leave: {remainingLeaveCredits.sickLeave}
+                    </Typography>
+                    <Typography fontWeight="lg">
+                        Emergency Leave: {remainingLeaveCredits.emergencyLeave}
+                    </Typography>
+                </div>
+            </div>
             <div className='flex flex-col gap-6 overflow-auto relative'>
                 <div className='flex flex-wrap gap-3 pt-4'>
                     <div className='flex flex-col gap-3' style={{width:'100%'}}>
