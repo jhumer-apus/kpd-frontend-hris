@@ -393,27 +393,35 @@
           <CardBody className="p-4">
           <div className="mb-10 flex items-center justify-between gap-6 flex-col md:flex-row md:items-center md:justify-between md:gap-6">
                 <div className="flex items-center gap-6">
-                  <div className="h-fit">
-                    <img
-                      src={profileImage?? getImageSrc()}
-                      alt=" "
-                      className="border rounded p-2 w-48 my-4"
-                    />
-                    {isEdit && 
-                      <div>
-                        <label htmlFor="uploadImage" className={`w-full block text-center text-white p-2 rounded-md ${isEdit && !isSubmittingRequest? 'bg-blue-600 cursor-pointer': 'bg-gray-500'}`}>Edit Photo</label>
-                      <input 
-                          id="uploadImage"
-                          type="file"
-                          className="hidden"
-                          onChange={handleProfilePic}
-                          accept="image/*"
-                          disabled={!isEdit || isSubmittingRequest}
-                        />
-                      </div>
-                    }
+                <div className="h-fit relative">
+                      <img
+                        src={profileImage ?? getImageSrc()}
+                        alt=" "
+                        className="border rounded p-2 w-48 my-4"
+                      />
+                      {isEdit && (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <label
+                            htmlFor="uploadImage"
+                            className={`block text-center text-white p-2 rounded-md ${
+                              !isSubmittingRequest ? 'bg-blue-600 cursor-pointer' : 'bg-gray-500'
+                            }`}
+                            style={{ zIndex: 1 ,opacity:0 }} // Ensure the label is on top of the image
+                          >
+                            Edit Photo
+                          </label>
+                          <input
+                            id="uploadImage"
+                            type="file"
+                            className="hidden"
+                            onChange={handleProfilePic}
+                            accept="image/*"
+                            disabled={!isEdit || isSubmittingRequest}
+                          />
+                        </div>
+                      )}
+                    </div>
 
-                  </div>
                 <div>
                   <Typography variant="h5" color="blue-gray" className="mb-1" style={{ whiteSpace: 'nowrap' }}>
                     {`${curr_user?.first_name }`} {`${curr_user?.last_name }`}

@@ -173,7 +173,7 @@ export default function ResetPasswordUSERModal(props: ResetPasswordUSERModalInte
 
 // Styles
 const resetPasswordUSERArea = {
-  height: '164.5mm',
+  height: '110mm',
   width: '180mm',
   margin: '0 auto',
   background: 'white',
