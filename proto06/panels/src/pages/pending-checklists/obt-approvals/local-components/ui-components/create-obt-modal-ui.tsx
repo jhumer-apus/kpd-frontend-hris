@@ -49,7 +49,7 @@ function CreateOBTModal(props: CreateOBTModalInterface) {
 
     return (
         <React.Fragment>
-            <Typography variant='soft'>Create Official Business Time/Trip Data</Typography>
+            <Typography variant='soft'>Create Official Business Time/Trip Datass</Typography>
             {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div className='flex flex-col gap-10 overflow-auto relative pt-10'>
                 <div className='flex flex-wrap gap-6'>

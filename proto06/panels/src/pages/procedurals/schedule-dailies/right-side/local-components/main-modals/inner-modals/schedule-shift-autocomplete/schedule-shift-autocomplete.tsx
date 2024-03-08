@@ -103,6 +103,7 @@ export default function SCHEDULESHIFTFetchAutoCompleteOnSCHEDULEDAILYEditPage(pr
                     }
         
                 }
+                clearIcon={null}
                 />
             }
             {!defaultOption &&

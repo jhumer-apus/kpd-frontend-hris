@@ -12,6 +12,8 @@ import BranchAutoCompleteRight from './autocomplete-fields/branch-autocomplete-r
 
 
 
+
+
 interface EditDEPARTMENTModalInterface {
     singleDEPARTMENTDetailsData: DEPARTMENTViewInterface;
     editDEPARTMENTOpenModal: boolean; 
@@ -119,6 +121,8 @@ export default function EditDEPARTMENTModal(props: EditDEPARTMENTModalInterface)
                       })
                     })
                   }}
+
+                 
                 />
                 <EmployeeAutoCompleteRight createDEPARTMENT={singleDEPARTMENTDetailsData} setCreateDEPARTMENT={setSingleDEPARTMENTDetailsData}/>
                 <BranchAutoCompleteRight createDEPARTMENT={singleDEPARTMENTDetailsData} setCreateDEPARTMENT={setSingleDEPARTMENTDetailsData}/>

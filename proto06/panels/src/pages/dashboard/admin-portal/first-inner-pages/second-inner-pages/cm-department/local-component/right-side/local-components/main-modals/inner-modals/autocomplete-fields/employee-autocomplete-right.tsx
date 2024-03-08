@@ -96,6 +96,7 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
             }
 
         }
+        clearIcon={null}
         />
         }
         {!defaultOption &&

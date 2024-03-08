@@ -262,7 +262,7 @@ export default function EditEMPHISTORYModal(props: EditEMPHISTORYModalInterface)
 
 // Styles
 const EditEMPHISTORYArea = {
-  height: '128.5mm',
+  height: '110mm',
   width: '120mm',
   margin: '0 auto',
   background: 'white',

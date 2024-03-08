@@ -13,7 +13,7 @@ import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
 import { USERResetPasswordInterface } from '@/types/types-pages';
-import { Button, TextField, Typography } from '@mui/material';
+import { Button, TextField, Typography, hexToRgb } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { APILink, RootState } from '@/store/configureStore';
 import { USERResetPasswordAction } from '@/store/actions/users';
@@ -103,10 +103,10 @@ useEffect(()=>{
 return (
   <Fragment
   >
-    <div className="w-full h-screen bg-indigo-400">
+    <div className="w-full h-screen bg-white-400" style={{width:"100%" ,height: "100%" , backdropFilter: "blur(100px)" , backgroundColor: "rgba(255, 255, 255, 0.5)"}}>
       <div className="flex justify-end md:p-8 p-2">
         <Button onClick={handleLogout}>
-          <Typography variant='h6' className='border-b-2 border-orange-700 text-white hover:text-blue-300 text-center'>Logout</Typography>
+          <Typography variant='h6' className='border-b-2 border-orange-700 text-black hover:text-blue-300 text-center'>Logout</Typography>
           {/* <PowerIcon className="h-10 w-10 text-white hover:text-blue-500" /> */}
         </Button>
       </div>

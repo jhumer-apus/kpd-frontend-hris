@@ -69,7 +69,7 @@ export default function ViewOBTSingleModal(props: SinglePayslipInterface) {
 
 // Styles
 const paySlipArea = {
-  height: '208.5mm',
+  height: '190mm',
   width: '210mm',
   margin: '0 auto',
   background: 'white',

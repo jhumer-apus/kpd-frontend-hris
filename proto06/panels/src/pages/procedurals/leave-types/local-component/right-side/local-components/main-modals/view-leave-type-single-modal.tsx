@@ -68,7 +68,7 @@ export default function ViewLEAVETYPESingleModal(props: SingleLEAVETYPEInterface
 
 // Styles
 const LEAVETYPEModalArea = {
-  height: '98.5mm',
+  height: '90mm',
   width: '210mm',
   margin: '0 auto',
   background: 'white',
