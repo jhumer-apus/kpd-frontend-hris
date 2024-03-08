@@ -242,16 +242,8 @@ export const UserProfile = () => {
       }
   };
 
-  const headers = [
-    {
-      label: "Personal Information",
-      value: 'personal_information'
-    },
-    {
-      label: "Employee Information",
-      value: 'pemployee_information'
-    }
-  ]
+  //STATIC
+  const appStatus = import.meta.env.VITE_APP_STATUS?? "production"
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -332,6 +324,7 @@ export const UserProfile = () => {
               name="gender"
               variant="outlined"
               label="Sex"
+              aria-required
             >
               <Option value="M">Male</Option>
               <Option value="F">Female</Option>
@@ -407,7 +400,7 @@ export const UserProfile = () => {
                 crossOrigin={undefined} {...register('emergency_contact_number', { required: true })}
                 label="Emergency Contact # (required):"
                 pattern='^[0-9]+$'
-                type='text'
+                type='tel'
                 disabled={!editMode}                />
               {errors.emergency_contact_number && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Emergency contact number should be required</sub>}
           </div>
@@ -420,12 +413,12 @@ export const UserProfile = () => {
                     name="civil_status"
                     variant="outlined"
                     label="Civil Status"
+                    aria-required
                   >
                     <Option value="S">Single</Option>
                     <Option value="M">Married</Option>
-                    <Option value="A">Anull</Option>
+                    <Option value="A">Anulled</Option>
                     <Option value="W">Widowed</Option>
-                    <Option value="D">Divorced</Option>
                 </Select>
                 {/* <Input
                   crossOrigin={undefined} {...register('civil_status', { required: true })}
@@ -578,14 +571,34 @@ export const UserProfile = () => {
                 {errors.bio_id && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Bio ID is required.</sub>}
             </div>
             <div style={{position: 'relative', width: '100%'}}>
-                <Input
+                <Select
+                    onChange={(val:any) => setFormSelectData(curr => ({
+                      ...curr,
+                      rank_code: val
+                    }))}
+                    placeholder="Rank"
+                    name="rank_code"
+                    variant="outlined"
+                    label="Rank"
+                    aria-required
+                >
+                    <Option value="1">Announcer</Option>
+                    <Option value="2">Employee</Option>
+                    <Option value="3">Manager/Director</Option>
+                    <Option value="4">HR Staff</Option>
+                    <Option value="5">HR Manager/Director</Option>
+                    <Option value="6">HR Super Admin</Option>
+                    {appStatus == "development" && <Option value="7">Development</Option>}
+                </Select>
+
+                {/* <Input
                   crossOrigin={undefined} {...register('rank_code', { required: true })}
                   type='number'
                   maxLength={1}
                   max={5}
                   label="Rank Code: (required, 1-lowest & 5-highest)"
                   disabled={!editMode}                />
-                {errors.approver && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Approver # is required.</sub>}
+                {errors.approver && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Approver # is required.</sub>} */}
             </div>
         </div>    
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
@@ -850,7 +863,8 @@ export const UserProfile = () => {
                   placeholder="Select Approver 1"
                   name="approver1"
                   variant="outlined"
-                  label="Approver #1 (optional, emp_no)"
+                  label="Approver #1 (required, employee number)"
+                  aria-required
                 >
                   {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> (
                     // ![formSelectData.approver1, formSelectData.approver2].includes(approver.emp_no) && <Option value={approver.emp_no}>{approver.full_name}</Option>
@@ -874,7 +888,8 @@ export const UserProfile = () => {
                   placeholder="Select Approver 2"
                   name="approver2"
                   variant="outlined"
-                  label="Approver #2 (optional, emp_no)"
+                  label="Approver #2 (required, employee number)"
+                  aria-required
                 >
                   {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> 
                     (
