@@ -363,13 +363,8 @@ epicMiddleware.run(combineEpics(
 ));
 export type RootState = ReturnType<typeof rootReducer>;
 
-<<<<<<< HEAD
 // export const APILink = 'https://adequately-bold-longhorn.ngrok-free.app/api/v1/'
 export const APILink = import.meta.env.VITE_APILINK
-=======
-export const APILink = 'https://raven-choice-marten.ngrok-free.app/api/v1/'
-// export const APILink = import.meta.env.VITE_APILINK
->>>>>>> 37f866965cf9962fa5b68d711d979b96d7450629
 // export const APILink = 'https://bitversecorporation.pythonanywhere.com/api/v1/';
 // export const APILink = 'http://18.141.159.149:8000/api/v1/';
 // export const APILink = 'https://mercovsk1.pythonanywhere.com/api/v1/';
