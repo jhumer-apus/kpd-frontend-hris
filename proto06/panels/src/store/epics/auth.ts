@@ -37,13 +37,10 @@ export const authEpic: Epic = (action$, state$) =>
         loginApiCall(action.payload.username, action.payload.password, action.payload.twoFactorToken)
       ).pipe(
         map((data) => {
-          // Save the token in a secure cookie with an expiration time of 1 hour
-          console.log(data)
-          console.log(data.jwt)
-          console.log(data.employee_detail)
-          Cookies.set('token', data.jwt, { expires: 6 / 24, secure: false});
-          Cookies.set('emp_deetz', JSON.stringify(data.employee_detail), { expires: 6 / 24, secure: false })
+          // Save the token in a secure cookie with an expiration time of 6 hour
           Cookies.set('user', JSON.stringify(data.user), { expires: 6 / 24, secure: false });
+          Cookies.set('token', data.jwt, JSON.stringify(data.user), { expires: 6 / 24, secure: false });
+          // Cookies.set('emp_deez', employeeDetailJson, { expires: 6 / 24, secure: false });
           return userLoginActionSuccess(data.jwt, data.user, data.employee_detail);
         }),
         catchError((error) => {
@@ -74,10 +71,9 @@ export const fetchUserDataEpic: Epic = (action$, state$) =>
     switchMap((action: ReturnType<typeof fetchUserData>) =>
       from(fetchUserDataApiCall(action.payload.emp_no)).pipe(
         map((data) => {
-          console.log(data)
           Cookies.set('emp_', JSON.stringify(data), { expires: 6 / 24, secure: true });
-          Cookies.set('token', data.jwt, { expires: 6 / 24, secure: false});
-          Cookies.set('emp_deetz', JSON.stringify(data.employee_detail), { expires: 6 / 24, secure: false })
+          // Cookies.set('token', data.jwt, { expires: 6 / 24, secure: false});
+          // Cookies.set('emp_deetz', JSON.stringify(data.employee_detail), { expires: 6 / 24, secure: false })
           Cookies.set('user', JSON.stringify(data.user), { expires: 6 / 24, secure: false });
           return fetchUserDataSuccess(data);
         }),

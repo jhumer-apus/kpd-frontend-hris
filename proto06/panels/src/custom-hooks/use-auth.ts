@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Cookies from 'js-cookie';
-import { RootState } from '@/store/configureStore';
+import { APILink, RootState } from '@/store/configureStore';
 import { userLoginActionSuccess, userLogout } from '@/store/actions/auth';
+import axios from 'axios'
 
 export function useAuth() {
   const dispatch = useDispatch();
-  const { isAuthenticated, user, employee_detail }= useSelector((state:RootState) => state.auth);
+  const { isAuthenticated, user, employee_detail, status }= useSelector((state:RootState) => state.auth);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -14,7 +15,8 @@ export function useAuth() {
     const userCookie = JSON.parse(Cookies.get('user') || '{}');
     const employeeCookie = JSON.parse(Cookies.get('emp_deetz') || '{}');
     if (token) {
-      dispatch(userLoginActionSuccess(token, userCookie, employeeCookie));
+      fetchEmployeeDetails(token, userCookie)
+      // dispatch(userLoginActionSuccess(token, userCookie, employeeCookie));
     } else {
       dispatch(userLogout());
     }
@@ -25,6 +27,20 @@ export function useAuth() {
     
 
   }, [dispatch]);
+
+  // useEffect(() => {
+  //   if(["logged_in", "logged_out"].includes(status)) {
+  //     setLoading(false)
+  //   }
+  // }, [status])
+
+  const fetchEmployeeDetails = async(token:string, user:any)  => {
+    setLoading(true)
+    axios.get(`${APILink}employees/${user.emp_no}`).then(res => {
+      const employeeDetail = res.data
+      dispatch(userLoginActionSuccess(token, user, employeeDetail));
+    })
+  }
 
   return { isAuthenticated, loading, user };
 }
