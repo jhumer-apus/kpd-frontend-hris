@@ -73,7 +73,7 @@ export const UserProfile = () => {
     //   }
     // },[formSelectData.department_code])
 
-    // Fetch selects information
+    // FETCH SELECTS INFORMATION
     const fetchPayrollGroups = () => {
       axios.get(`${APILink}payrollgroup`).then((response:any) => {
         const responsePayrollGroups = response.data.map((payroll:any) => {
@@ -198,15 +198,41 @@ export const UserProfile = () => {
     //   })
     // }
 
+    // const handleProfilePic = (e:any) => {
+    //   const file = e.target.files[0];
+    //   setFormSelectData((curr:any) => ({...curr, employee_image:file}))
+    //   if (file) {
+    //     const reader = new FileReader();
+    //     reader.onload = () => {
+    //       setProfileImage(reader.result);
+    //     };
+    //     reader.readAsDataURL(file);
+    //   }
+    // }
+
     const handleProfilePic = (e:any) => {
+
       const file = e.target.files[0];
-      setFormSelectData((curr:any) => ({...curr, employee_image:file}))
+      const MAX_FILE_SIZE_MB = 5;
+  
       if (file) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          setProfileImage(reader.result);
-        };
-        reader.readAsDataURL(file);
+  
+        if (file.size <= MAX_FILE_SIZE_MB * 1024 * 1024) {
+  
+            setFormSelectData((curr:any) => ({...curr, employee_image:file}))
+  
+            const reader = new FileReader();
+            reader.onload = () => {
+              setProfileImage(reader.result);
+            };
+      
+            reader.readAsDataURL(file);
+  
+        } else {
+  
+          window.alert('Image should be not more than 5MB');
+  
+        }
       }
     }
 
@@ -217,7 +243,7 @@ export const UserProfile = () => {
       ...data,
       ...formSelectData
     }
-    console.log(data);
+
     for (const key in data) {
         formData.append(key, data[key as keyof EMPLOYEESViewInterface]);
     }

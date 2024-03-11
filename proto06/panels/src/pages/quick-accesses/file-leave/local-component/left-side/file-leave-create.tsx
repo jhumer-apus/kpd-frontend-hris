@@ -12,9 +12,15 @@ import { LEAVECreateInterface } from '@/types/types-pages';
 import { LEAVECreateAction, LEAVECreateActionFailureCleanup } from '@/store/actions/procedurals';
 import { APILink } from '@/store/configureStore';
 import axios from 'axios';
+import Autocomplete from '@mui/material/Autocomplete';
 
 interface CreateLEAVEModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
+}
+
+interface EmergencyReasons {
+    id:number,
+    name:string
 }
 
 function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
@@ -31,6 +37,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         leave_date_to: null,
         added_by: userData?.emp_no,
         uploaded_file: null,
+        emergency_reasons: null
     });
     const [remainingLeaveCredits, setRemainingLeaveCredits] = useState(
         {
@@ -141,11 +148,45 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         })
     }
 
+    const emergencyReasons: EmergencyReasons[] = [
+        {
+            id:1,
+            name:"Natural Calamity"
+        },
+        {
+            id:2,
+            name:"Sickness of Immediate Family(Parents, children, spouse, siblings)"
+        },
+        {
+            id:3,
+            name:"Government-declared non-working day due to calamity"
+        },
+        {
+            id:4,
+            name:"Man-made calamity"
+        },
+        {
+            id:5,
+            name:"Burial of Immediate Family"
+        },
+    ]
+
+    const handleChangeEmergencyReasons = (e:any, value:EmergencyReasons | null) => {
+        if(value) {
+            setCreateLEAVE(curr => (
+                {
+                    ...curr,
+                    emergency_reasons: value?.name
+                }
+            ))
+        }
+    }
+
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '2px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a Leave Data</Typography>
 
-
+            
             <div className='my-4'>
                 <Typography fontSize="xl" fontWeight="lg">
                     Remaining Leave Credits
@@ -166,6 +207,15 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                 <div className='flex flex-wrap gap-3 pt-4'>
                     <div className='flex flex-col gap-3' style={{width:'100%'}}>
                         <EmployeeAutoComplete createLEAVE={createLEAVE} setCreateLEAVE={setCreateLEAVE}/>
+                        {/* {createLEAVE.leave_type} */}
+                        <Autocomplete
+                            onChange={handleChangeEmergencyReasons}
+                            disablePortal
+                            id="emergency_reasons"
+                            options={emergencyReasons}
+                            getOptionLabel={(option:EmergencyReasons) => option.name}
+                            renderInput={(params:any) => <TextField {...params} label="Emergency Reasons" />}
+                        />
                         <LEAVETypeAutoComplete createLEAVE={createLEAVE} setCreateLEAVE={setCreateLEAVE}/>
                         <TextField
                             required 
@@ -191,12 +241,14 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                         <DateFromToLEAVECreate createLEAVE={createLEAVE} setCreateLEAVE={setCreateLEAVE}/>
                     </div>
                 </div>
-                <Input 
-                    type="file"
-                    accept="image/*"
-                    label=" Supporting Documents(Image)"
-                    onChange={handleChangeImage}
-                />
+                {createLEAVE.leave_type == 2 &&    
+                    <Input 
+                        type="file"
+                        accept="image/*"
+                        label=" Supporting Documents(Image)"
+                        onChange={handleChangeImage}
+                    />
+                }
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
                         <Button variant='contained' onClick={onClickSubmit}>Create LEAVE</Button>

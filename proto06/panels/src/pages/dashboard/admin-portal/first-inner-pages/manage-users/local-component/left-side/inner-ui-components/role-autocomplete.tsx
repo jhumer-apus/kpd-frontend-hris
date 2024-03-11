@@ -108,23 +108,23 @@ export default function RoleAutoComplete(props: RoleAutoCompleteInterface) {
     
     return (
         <Autocomplete
-        // disableCloseOnSelect
-        noOptionsText={'Loading... Please Wait.'}
-        options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
-        groupBy={(option) => option.firstLetter}
-        getOptionLabel={(option) => option.role_name}
-        onInputChange={handleInputChange}
-        sx={{ width: '100%' }}
-        isOptionEqualToValue={isOptionEqualToValue}
-        renderInput={(params) => 
-            {   
-                return(
-                    <TextField {...params} label="Access Role" />
-                )
+            // disableCloseOnSelect
+            noOptionsText={'Loading... Please Wait.'}
+            options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
+            groupBy={(option) => option.firstLetter}
+            getOptionLabel={(option) => option.role_name}
+            onInputChange={handleInputChange}
+            sx={{ width: '100%' }}
+            isOptionEqualToValue={isOptionEqualToValue}
+            renderInput={(params) => 
+                {   
+                    return(
+                        <TextField {...params} label="Access Role" />
+                    )
+
+                }
 
             }
-
-        }
         />
     );
 }

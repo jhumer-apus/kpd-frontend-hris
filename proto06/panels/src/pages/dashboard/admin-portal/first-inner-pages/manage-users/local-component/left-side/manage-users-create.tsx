@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
+import React, { useEffect, useState, Dispatch, SetStateAction, FormEvent } from 'react';
 import { Button } from '@mui/material';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,8 +9,11 @@ import { USERCreateInterface } from '@/types/types-pages';
 import { USERCreateAction, USERCreateActionFailureCleanup, USERViewAction } from '@/store/actions/users';
 import RoleAutoComplete from './inner-ui-components/role-autocomplete';
 
+import { beautifyJSON } from '@/helpers/utils';
+
 // COMPONENTS
 import PasswordGenerator from '@/public-components/PasswordGenerator';
+import { create } from 'lodash';
 
 interface CreateUSERModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -25,13 +28,29 @@ function ManageUSERCreate(props: CreateUSERModalInterface) {
     const [createUSER, setCreateUSER] = useState<USERCreateInterface>({
         username: "",
         password: "",
-        role: 1,
+        role: null,
         emp_no: NaN,
-        added_by: NaN,
+        added_by: curr_user,
         is_temp: true
     });
-    const onClickSubmit = () => {
-        dispatch(USERCreateAction(createUSER))
+
+    const onClickSubmit = (e: any) => {
+        e.preventDefault();
+        if(createUSER.username && createUSER.password && createUSER.role && createUSER.emp_no) {
+
+            dispatch(USERCreateAction(createUSER))
+
+        } else {
+
+            const error:any = {}
+
+            !createUSER.emp_no && (error["Employee Number"] = "Username is required!")
+            !createUSER.username && (error.Username = "Username is required!")
+            !createUSER.password && (error.Password = "Username is required!")
+            !createUSER.role && (error.Role = "Username is required!")
+
+            window.alert(beautifyJSON(error))
+        }
     };
 
     useEffect(()=> {
@@ -66,7 +85,7 @@ function ManageUSERCreate(props: CreateUSERModalInterface) {
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create an HRIS User Data</Typography>
-            <div 
+            <form
                 // className='flex flex-col gap-3 relative p-4'
                 className='flex flex-col gap-3 md:w-[500px]'
             >
@@ -123,10 +142,10 @@ function ManageUSERCreate(props: CreateUSERModalInterface) {
                     </div>
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
-                        <Button variant='contained' onClick={onClickSubmit}>Create USER</Button>
+                        <Button type="submit" variant='contained' onClick={onClickSubmit}>Create USER</Button>
                     </div>
                 </div>
-            </div>
+            </form>
         </React.Fragment>
     );
 }

@@ -10,6 +10,13 @@ import { useSelector } from 'react-redux';
 import { RootState, globalDateTime } from '@/store/configureStore';
 import { ApprovalStateInterface } from '@/types/index';
 
+//LIBARIES
+import { Typography } from "@material-tailwind/react";
+import axios from 'axios'
+
+//REDUX
+import { APILink } from '@/store/configureStore';
+
 interface OBTModalUIInterface {
     singleOBTDetailsData: OBTViewInterface;
     multiplePayslipMode?: boolean;
@@ -26,6 +33,11 @@ function OBTModalUI(props: OBTModalUIInterface) {
     const { setSingleOBTDetailsData, singleOBTDetailsData } = props;
     const ThisProps = props.singleOBTDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
+    const [data, setData] = useState(
+        {
+            cuttOffPeriod: null
+        }
+    )
 
     const updateRemarksWithEmpNo = () => {
         setSingleOBTDetailsData((curr:any) => ({
@@ -48,6 +60,20 @@ function OBTModalUI(props: OBTModalUIInterface) {
         }   
         
     };
+    useEffect(() => {
+
+        fetchCutOffPeriod()
+
+    },[])
+
+    const fetchCutOffPeriod = async () => {
+        await axios.get(`${APILink}cutoff_period/${ThisProps.cutoff_code}`).then(res => {
+            setData(curr => ({
+                ...curr,
+                cuttOffPeriod: res.data.co_name
+            }))
+        })
+    }
 
     const UserApprover1 = curr_user?.emp_no === ThisProps.obt_approver1_empno
     const UserApprover2 = curr_user?.emp_no === ThisProps.obt_approver2_empno
@@ -118,7 +144,8 @@ function OBTModalUI(props: OBTModalUIInterface) {
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Date & Time Filed:' value={ThisProps.obt_date_filed ? dayjs(ThisProps.obt_date_filed).format(`${globalDateTime}`) : '-'} InputProps={{readOnly: false,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Total hrs:' value={(ThisProps.obt_total_hours / 60).toFixed(2) || '-'} InputProps={{readOnly: true,}} variant='standard'/>
-                    <TextField sx={{width: '100%'}} label='Cutoff Code:' value={ThisProps.cutoff_code || '-'} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%'}} label='Cutoff Period:' value={data.cuttOffPeriod || '-'} InputProps={{readOnly: true,}} variant='standard'/>
+                    {/* <TextField sx={{width: '100%'}} label='Cutoff Code:' value={ThisProps.cutoff_code || '-'} InputProps={{readOnly: true,}} variant='standard'/> */}
                     <TextField sx={{width: '100%'}} label='Approver1:' value={ThisProps.obt_approver1_empno || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Approver2:' value={ThisProps.obt_approver2_empno || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='OBT Description:' value={ThisProps.obt_remarks || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
@@ -132,7 +159,8 @@ function OBTModalUI(props: OBTModalUIInterface) {
                     <TextField sx={{width: '100%'}} label='Location:' value={ThisProps.obt_location || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={2}/>
                 </div>
                 <div className='flex gap-6 flex-col'>
-                    <TextField sx={{width: '100%', minWidth: '160px'}} label='Employee #:' value={ThisProps.emp_no || '-'} InputProps={{readOnly: true,}} variant='filled'/>
+                    <TextField sx={{width: '100%', minWidth: '160px'}} label='Employee Name:' value={ThisProps.emp_name || '-'} InputProps={{readOnly: true,}} variant='filled'/>
+                    {/* <TextField sx={{width: '100%', minWidth: '160px'}} label='Employee #:' value={ThisProps.emp_no || '-'} InputProps={{readOnly: true,}} variant='filled'/> */}
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='OBT Type:' value={ThisProps.obt_type || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%', minWidth: '160px'}} focused={!!ThisProps.obt_reason_disapproval} color={'error'} label='Reason for Disapproval:' value={ThisProps.obt_reason_disapproval || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
                     {ThisProps.obt_approval_status === 'APD' && <img src={ '/img/stampApproved2.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}

@@ -305,6 +305,7 @@ export interface OVERTIMEViewInterface extends OVERTIMECreateInterface {
     applicant_rank: number;
     ot_approval_status: string;
     ot_total_hours: number;
+    emp_name: string
 }
 
 export interface OVERTIMEEditInterface extends OVERTIMEViewInterface {}
@@ -312,12 +313,14 @@ export interface OVERTIMEEditInterface extends OVERTIMEViewInterface {}
 
 export interface LEAVECreateInterface {
     leave_type: number | null;
+    leave_type_name?: string
     leave_remarks: string | null;
     leave_date_from: string | null;
     leave_date_to: string | null;
     emp_no: number | null;
     uploaded_file?: File | null;
     added_by?: string | number | null;
+    emergency_reasons?: string | null
 }
 
 export interface LEAVEViewInterface extends LEAVECreateInterface { 
@@ -333,6 +336,7 @@ export interface LEAVEViewInterface extends LEAVECreateInterface {
     leave_number_days: number;
     cutoff_code: number;
     applicant_rank: number;
+    emp_name:string
 }
 
 export interface LEAVEEditInterface extends LEAVEViewInterface {}
@@ -360,6 +364,8 @@ export interface UAViewInterface extends UACreateInterface {
     ua_date_approved2: string | null;
     cutoff_code: number;
     applicant_rank: number;
+    emp_name: string
+    ua_type: string
 }
 
 export interface UAEditInterface extends UAViewInterface {}

@@ -348,10 +348,6 @@
         id: "A",
         name: "Anull"
       },
-      {
-        id: "D",
-        name: "Divorced"
-      }
     ]
 
     const sexOptions = [
@@ -514,7 +510,7 @@
                       <TextField onChange={handleInputChange} type="email" disabled={!isEdit} id="Email Address" name="email_address" label="Email Address" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} defaultValue={userData.email_address}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
                     </div>
-
+                    {userData.present_address}
                     <div className="md:flex md:space-x-4">
                       <TextField onChange={handleInputChange} disabled={!isEdit} id="Present Address" name="present_address" label="Present Address" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} defaultValue={userData.present_address} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 

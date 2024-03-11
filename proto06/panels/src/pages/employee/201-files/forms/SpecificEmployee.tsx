@@ -63,22 +63,53 @@ export const SpecificEmployee = (props: initialState) => {
         gender: null,
         branch_code: null,
         department_code: null,
+        approver1: null,
+        approver2: null
     })
+
+    const handleProfilePic = (e:any) => {
+
+        const file = e.target.files[0];
+        const MAX_FILE_SIZE_MB = 5;
     
-    const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const selectedFile = event.target.files ? event.target.files[0] : null;
-        setFile(selectedFile);
+        if (file) {
     
-        if (selectedFile) {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            setPreviewUrl(reader.result as string);
-          };
-          reader.readAsDataURL(selectedFile);
-        } else {
-          setPreviewUrl(null);
+          if (file.size <= MAX_FILE_SIZE_MB * 1024 * 1024) {
+    
+            //   setFormSelectData((curr:any) => ({...curr, employee_image:file}))
+
+              setFile(file);
+    
+              const reader = new FileReader();
+              reader.onload = () => {
+                setPreviewUrl(reader.result as string);
+              };
+        
+              reader.readAsDataURL(file);
+    
+          } else {
+            
+            setPreviewUrl(null);
+            window.alert('Image should be not more than 5MB');
+    
+          }
         }
-    };
+      }
+    
+    // const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     const selectedFile = event.target.files ? event.target.files[0] : null;
+    //     setFile(selectedFile);
+    
+    //     if (selectedFile) {
+    //       const reader = new FileReader();
+    //       reader.onloadend = () => {
+    //         setPreviewUrl(reader.result as string);
+    //       };
+    //       reader.readAsDataURL(selectedFile);
+    //     } else {
+    //       setPreviewUrl(null);
+    //     }
+    // };
     const {modalEntranceDelay, secondOptionModalEntranceDelay, loadingEffect} = props;
     const { register, handleSubmit, setValue, formState: { errors } } = useForm<EMPLOYEESViewInterface>();
     const userData = useSelector((state: RootState) => state.employees.specific_employee_info);
@@ -104,6 +135,12 @@ export const SpecificEmployee = (props: initialState) => {
         fetchPayrollGroups()
         fetchEmploymentStatus()
         fetchPositions()
+
+        console.log(userData?.approver1)
+        console.log(userData?.approver2)
+        if(userData?.department_code) {
+            fetchApprovers(parseInt(userData?.department_code))
+        }
     }, []);
 
     // useEffect(() => {
@@ -175,15 +212,15 @@ export const SpecificEmployee = (props: initialState) => {
     }
 
     const fetchEmploymentStatus = () => {
-    axios.get(`${APILink}emp_status_type/`).then((response:any) => {
-        const responseEmploymentStatuses = response.data.map((employmentStatus:any) => {
-        return {
-            id: employmentStatus.id.toString(),
-            name: employmentStatus.name
-        }
+        axios.get(`${APILink}emp_status_type/`).then((response:any) => {
+            const responseEmploymentStatuses = response.data.map((employmentStatus:any) => {
+            return {
+                id: employmentStatus.id.toString(),
+                name: employmentStatus.name
+            }
+            })
+            setDropDownData((curr:any) => ({...curr, employmentStatuses: responseEmploymentStatuses}));
         })
-        setDropDownData((curr:any) => ({...curr, employmentStatuses: responseEmploymentStatuses}));
-    })
     }
 
     const fetchPositions = () => {
@@ -239,8 +276,6 @@ export const SpecificEmployee = (props: initialState) => {
           }
     };
 
-
-
     const onSubmit = async (data: EMPLOYEESViewInterface, type: string) => {
 
         data = {
@@ -282,6 +317,9 @@ export const SpecificEmployee = (props: initialState) => {
         await fetchData(formData);
         console.log(formData, typeof formData, "jhaha")
     };
+
+    //STATIC
+    const appStatus = import.meta.env.VITE_APP_STATUS?? "production"
 
     return (
         <Fragment>
@@ -365,11 +403,11 @@ export const SpecificEmployee = (props: initialState) => {
                                     <Input 
                                                 crossOrigin={undefined} {...register('bio_id')}
                                                 type="number"
-                                                max={99999}
-                                                maxLength={5}
+                                                max={9999999}
+                                                maxLength={7}
                                                 containerProps={{ className: "min-w-[72px]  mb-2 focused" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                label="Biometric ID: (max 5 dig)"
+                                                label="Biometric ID: (max 7 dig)"
                                                 disabled={!editMode}
                                                 icon={<FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     </div>
@@ -500,7 +538,7 @@ export const SpecificEmployee = (props: initialState) => {
                                 </div>
                             </div>
                             <div className="my-4 md:flex md:items-center gap-4">
-                                <Button2 
+                                {/* <Button2 
                                     disabled={editMode}
                                     color={editMode? "gray" :"teal"} 
                                     variant={'outlined'} 
@@ -509,7 +547,30 @@ export const SpecificEmployee = (props: initialState) => {
                                     onClick={()=> setEditMode(true)}
                                 >
                                     Edit
-                                </Button2>
+                                </Button2> */}
+
+                                {editMode ? 
+                                    <Button2 
+                                        disabled={!editMode}
+                                        color={"teal"} 
+                                        size="lg" 
+                                        className="w-full"
+                                        onClick={()=> setEditMode(false)}
+                                    >
+                                        CANCEL
+                                    </Button2>:
+                                    <Button2 
+                                        disabled={editMode}
+                                        color={editMode? "gray" :"teal"} 
+                                        variant={'outlined'} 
+                                        size="lg" 
+                                        className="w-full"
+                                        onClick={()=> setEditMode(true)}
+                                    >
+                                        Edit
+                                    </Button2>
+                                }
+
                                 {editMode && <Button2 
                                     type="submit"
                                     color={"teal"} 
@@ -553,55 +614,52 @@ export const SpecificEmployee = (props: initialState) => {
                                         {...register('employee_image')}
                                         disabled={!editMode2} 
                                         type="file" 
-                                        accept=".png"  
+                                        accept="image/*"
                                         className="mb-3"
-                                        onChange={e => {
-                                            if (e.target.files && e.target.files.length > 0) {
-                                                const file = e.target.files[0];
-                                                if (file && file.size < 100000 && (file.type).includes('png')) { // size in bytes
-                                                    onFileChange(e);
-                                                } else {
-                                                    alert('File should be .png and less than 5MB');
-                                                    e.target.value = ''; // clear the selected file
-                                                } 
-                                            }
-                                        }} 
+                                        onChange={handleProfilePic} 
                                     />
                                     <div className="my-4 md:flex md:items-center gap-4">
-                                    <Input
-                                                crossOrigin={undefined} {...register('first_name')}
-                                                type="text"
-                                                containerProps={{ className: "min-w-[72px] mb-2" }}
-                                                labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                label="First Name:"
-                                                disabled={!editMode2}
-                                                icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
-                                    <Input 
-                                                crossOrigin={undefined} {...register('middle_name')}
-                                                type="text"
-                                                containerProps={{ className: "min-w-[72px] mb-2 focused" }}
-                                                labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                label="Middle Name:"
-                                                disabled={!editMode2}
-                                                icon={<FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
+                                        <Input
+                                            crossOrigin={undefined} {...register('first_name')}
+                                            type="text"
+                                            containerProps={{ className: "min-w-[72px] mb-2" }}
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            label="First Name:"
+                                            disabled={!editMode2}
+                                            icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}    
+                                            required                                
+                                        />
+                                        <Input 
+                                            crossOrigin={undefined} {...register('middle_name')}
+                                            type="text"
+                                            containerProps={{ className: "min-w-[72px] mb-2 focused" }}
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            label="Middle Name:"
+                                            disabled={!editMode2}
+                                            icon={<FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />}                
+                                            required                    
+                                        />
                                     </div>
                                     <div className="my-4 md:flex md:items-center gap-4">
                                     <Input
-                                                crossOrigin={undefined} {...register('last_name')}
-                                                type="text"
-                                                containerProps={{ className: "min-w-[72px] mb-2 focused" }}
-                                                labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                label="Last Name:"
-                                                disabled={!editMode2}
-                                                icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
+                                        crossOrigin={undefined} {...register('last_name')}
+                                        type="text"
+                                        containerProps={{ className: "min-w-[72px] mb-2 focused" }}
+                                        labelProps={{ style: { color: true ? "unset" : '' } }}
+                                        label="Last Name:"
+                                        disabled={!editMode2}
+                                        icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}                   
+                                        required                 
+                                    />
                                     <Input
-                                                crossOrigin={undefined} {...register('suffix')}
-                                                type="text"
-                                                containerProps={{ className: "min-w-[72px] focused" }}
-                                                labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                label="Suffix:"
-                                                disabled={!editMode2}
-                                                icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
+                                        crossOrigin={undefined} {...register('suffix')}
+                                        type="text"
+                                        containerProps={{ className: "min-w-[72px] focused" }}
+                                        labelProps={{ style: { color: true ? "unset" : '' } }}
+                                        label="Suffix:"
+                                        disabled={!editMode2}
+                                        icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    
+                                    />
                                     </div>
                                     <div className="my-4 md:flex md:items-center gap-4">
                                         <Input
@@ -611,7 +669,8 @@ export const SpecificEmployee = (props: initialState) => {
                                             labelProps={{ style: { color: true ? "unset" : '' } }}
                                             label="School Graduated:"
                                             disabled={!editMode2}
-                                            icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
+                                            icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -632,14 +691,13 @@ export const SpecificEmployee = (props: initialState) => {
                                             variant="outlined"
                                             label="Civil Status"
                                             disabled={!editMode2}
-                                            value={userData?.civil_status}
+                                            value={userData?.civil_status?? ""}
                                             className='w-full'
                                         >
                                             <Option value="S">Single</Option>
                                             <Option value="M">Married</Option>
                                             <Option value="A">Anulled</Option>
                                             <Option value="W">Widowed</Option>
-                                            <Option value="D">Divorced</Option>
                                         </Select>
                             
                                         <Select
@@ -660,24 +718,25 @@ export const SpecificEmployee = (props: initialState) => {
                                         </Select>
                                     </div>
                                     <div className="my-4 md:flex md:items-center gap-4">
-                                    <Input
-                                                crossOrigin={undefined} {...register('birthday')}
-                                                type="date"
-                                                containerProps={{ className: "min-w-[72px] mb-2" }}
-                                                labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                label="Birthday: YYYY-MM-DD"
-                                                value={userData?.birthday?.split("T")[0]}
-                                                disabled={!editMode2}
-                                                // icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                    
+                                        <Input
+                                            crossOrigin={undefined} {...register('birthday')}
+                                            type="date"
+                                            containerProps={{ className: "min-w-[72px] mb-2" }}
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            label="Birthday: YYYY-MM-DD"
+                                            value={userData?.birthday?.split("T")[0]}
+                                            disabled={!editMode2}
+                                            // icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                    
                                         />
-                                    <Input 
-                                                crossOrigin={undefined} {...register('birth_place')}
-                                                type="text"
-                                                containerProps={{ className: "min-w-[72px] mb-2 focused" }}
-                                                labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                label="Birthplace:"
-                                                disabled={!editMode2}
-                                                icon={<FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
+                                        <Input 
+                                            crossOrigin={undefined} {...register('birth_place')}
+                                            type="text"
+                                            containerProps={{ className: "min-w-[72px] mb-2 focused" }}
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            label="Birthplace:"
+                                            disabled={!editMode2}
+                                            icon={<FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />}                                    
+                                        />
                                     </div>
 
                                     <div className="my-4 md:flex md:items-center gap-4">
@@ -745,13 +804,15 @@ export const SpecificEmployee = (props: initialState) => {
                                     </div>
                                     <div className="my-4 md:flex md:items-center gap-4">
                                         <Input
-                                                crossOrigin={undefined} {...register('profession')}
-                                                type="text"
-                                                className=""
-                                                label="Profession:"
-                                                containerProps={{ className: "mb-2 md:mb-0" }}
-                                                labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                disabled={!editMode2}                                    />
+                                            crossOrigin={undefined} {...register('profession')}
+                                            type="text"
+                                            className=""
+                                            label="Profession:"
+                                            containerProps={{ className: "mb-2 md:mb-0" }}
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            disabled={!editMode2}    
+                                            required                                
+                                        />
                                         <Input
                                             crossOrigin={undefined} {...register('license_no')}
                                             label="License No:"
@@ -776,7 +837,29 @@ export const SpecificEmployee = (props: initialState) => {
 
                             
                             <div className="my-4 flex items-center gap-4">
-                                <Button2 
+
+                                {editMode2 ? 
+                                    <Button2 
+                                        disabled={!editMode2}
+                                        color={"teal"} 
+                                        size="lg" 
+                                        className="w-full"
+                                        onClick={()=> setEditMode2(false)}
+                                    >
+                                        CANCEL
+                                    </Button2>:
+                                    <Button2 
+                                        disabled={editMode2}
+                                        color={editMode2? "gray" :"teal"} 
+                                        variant={'outlined'} 
+                                        size="lg" 
+                                        className="w-full"
+                                        onClick={()=> setEditMode2(true)}
+                                    >
+                                        Edit
+                                    </Button2>
+                                }
+                                {/* <Button2 
                                     disabled={editMode2}
                                     color={editMode2? "gray" :"teal"} 
                                     variant={'outlined'} 
@@ -785,7 +868,7 @@ export const SpecificEmployee = (props: initialState) => {
                                     onClick={()=> setEditMode2(true)}
                                 >
                                     Edit
-                                </Button2>
+                                </Button2> */}
                                 {editMode2 && <Button2 
                                     type="submit"
                                     color={"teal"} 
@@ -836,25 +919,6 @@ export const SpecificEmployee = (props: initialState) => {
                                                     label="Date Resigned:"
                                                     disabled={!editMode3}
                                                     icon={<FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
-                                        </div>
-                                        <div className="my-4 md:flex md:items-center gap-4">
-                                            <Input
-                                                    crossOrigin={undefined} {...register('division_code')}
-                                                    type="text"
-                                                    containerProps={{ className: "min-w-[72px] mb-2 md:mb-0 focused" }}
-                                                    labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                    label="Division Code:"
-                                                    disabled={!editMode3}
-                                                    icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
-                                            <Input
-                                                    crossOrigin={undefined} {...register('position_code')}
-                                                    type="text"
-                                                    containerProps={{ className: "min-w-[72px] focused" }}
-                                                    labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                    label="Position Code:"
-                                                    disabled={!editMode3}
-                                                    icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
-                                            
                                         </div>
                                         <div className="my-4 md:flex md:items-center gap-4">
                                             <Input
@@ -920,7 +984,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                     variant="outlined"
                                                     label="Position"
                                                     disabled={!editMode3}
-                                                    value={userData?.position_code?.toString()}
+                                                    value={userData?.position_code?.toString()?? ""}
                                                 >
                                                     {
                                                     dropDownData.positions.length > 0 ? dropDownData.positions.map((pos:any) => (
@@ -942,7 +1006,27 @@ export const SpecificEmployee = (props: initialState) => {
                                             />    
                                         </div>
                                         <div className="my-4 flex flex-col md:flex-row md:items-center gap-4">
-                                            <Input
+                                            <Select
+                                                onChange={(val:any) => setFormSelectData(curr => ({
+                                                    ...curr,
+                                                    approver1: val
+                                                }))}
+                                                placeholder="Select Approver 1"
+                                                name="approver1"
+                                                variant="outlined"
+                                                label="Approver #1 (required, employee number)"
+                                                value={userData?.approver1?.toString()}
+                                                disabled={!editMode3}
+                                                aria-required
+                                                >
+                                                {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> (
+                                                    // ![formSelectData.approver1, formSelectData.approver2].includes(approver.emp_no) && <Option value={approver.emp_no}>{approver.full_name}</Option>
+                                                    <Option value={approver.emp_no}>{approver.full_name}</Option>
+                                                    )): (
+                                                    <Option disabled>No Approvers available on the selected department</Option>
+                                                )}
+                                            </Select>
+                                            {/* <Input
                                                 crossOrigin={undefined} {...register('approver1')}
                                                 type="number"
                                                 containerProps={{ className: "min-w-[72px] mb-2 focused" }}
@@ -951,8 +1035,28 @@ export const SpecificEmployee = (props: initialState) => {
                                                 disabled={!editMode3}
                                                 value={userData?.approver1 as number}
                                                 icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    
-                                            />
-                                            <Input
+                                            /> */}
+                                            <Select
+                                                onChange={(val:any) => setFormSelectData(curr => ({
+                                                    ...curr,
+                                                    approver2: val
+                                                }))}
+                                                placeholder="Select Approver 2"
+                                                name="approver2"
+                                                variant="outlined"
+                                                label="Approver #2 (required, employee number)"
+                                                value={userData?.approver2?.toString()}
+                                                disabled={!editMode3}
+                                                aria-required
+                                                >
+                                                {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> (
+                                                    // ![formSelectData.approver1, formSelectData.approver2].includes(approver.emp_no) && <Option value={approver.emp_no}>{approver.full_name}</Option>
+                                                    <Option value={approver.emp_no}>{approver.full_name}</Option>
+                                                    )): (
+                                                    <Option disabled>No Approvers available on the selected department</Option>
+                                                )}
+                                            </Select>
+                                            {/* <Input
                                                 crossOrigin={undefined} {...register('approver2')}
                                                 type="number"
                                                 containerProps={{ className: "min-w-[72px] mb-2 focused" }}
@@ -961,7 +1065,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                 disabled={!editMode3}
                                                 value={userData?.approver2 as number}
                                                 icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    
-                                            />
+                                            /> */}
                                         </div>
 
                                     </div>
@@ -1078,14 +1182,35 @@ export const SpecificEmployee = (props: initialState) => {
                                                     icon={<UserGroupIcon className="h-5 w-5 text-blue-gray-300" />}                                        /> */}
                                         </div>
                                         <div className="my-0 flex flex-col md:flex-row md:items-center gap-4">
-                                            <Input
+                                            <Select
+                                                onChange={(val:any) => setFormSelectData(curr => ({
+                                                ...curr,
+                                                rank_code: val
+                                                }))}
+                                                placeholder="Rank"
+                                                name="rank_code"
+                                                variant="outlined"
+                                                label="Rank"
+                                                disabled={!editMode3}
+                                                value={userData?.rank_code?.toString()}
+                                                aria-required
+                                            >
+                                                <Option value="1">Announcer</Option>
+                                                <Option value="2">Employee</Option>
+                                                <Option value="3">Manager/Director</Option>
+                                                <Option value="4">HR Staff</Option>
+                                                <Option value="5">HR Manager/Director</Option>
+                                                <Option value="6">HR Super Admin</Option>
+                                                {appStatus == "development" && <Option value="7">Development</Option>}
+                                            </Select>
+                                            {/* <Input
                                                     crossOrigin={undefined} {...register('rank_code')}
                                                     type="text"
                                                     containerProps={{ className: "min-w-[72px]" }}
                                                     label="Rank Code:"
                                                     labelProps={{ style: { color: true ? "unset" : '' } }}
                                                     disabled={!editMode3}                                        
-                                            />
+                                            /> */}
                                             {dropDownData.payrollGroups.length > 0 && 
                                                 <Select
                                                     onChange={(val:any) => setFormSelectData(curr => ({...curr, payroll_group_code: val}))}
@@ -1161,6 +1286,15 @@ export const SpecificEmployee = (props: initialState) => {
                                                 disabled={!editMode3}
                                                 icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                        
                                             />
+                                            <Input
+                                                crossOrigin={undefined} {...register('division_code')}
+                                                type="text"
+                                                containerProps={{ className: "min-w-[72px] mb-2 md:mb-0 focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Division Code:"
+                                                disabled={!editMode3}
+                                                icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}       
+                                            />
                                         </div>
                                         <div className="my-4 flex flex-col md:flex-row md:items-center gap-4">
                                             <Input
@@ -1232,6 +1366,19 @@ export const SpecificEmployee = (props: initialState) => {
                                 </div>
                                 </div>
                                 <div className="my-4 flex items-center gap-4">
+                                
+                                {/* {
+                                    <Button2 
+                                        disabled={editMode3}
+                                        color={editMode3? "gray" :"teal"} 
+                                        variant={'outlined'} 
+                                        size="lg" 
+                                        className="w-full"
+                                        onClick={()=> setEditMode3(true)}
+                                    >
+                                        Edit
+                                    </Button2>
+                                }
                                 <Button2 
                                     disabled={editMode3}
                                     color={editMode3? "gray" :"teal"} 
@@ -1241,7 +1388,30 @@ export const SpecificEmployee = (props: initialState) => {
                                     onClick={()=> setEditMode3(true)}
                                 >
                                     Edit
-                                </Button2>
+                                </Button2> */}
+
+                                {editMode3 ? 
+                                    <Button2 
+                                        disabled={!editMode3}
+                                        color={"teal"} 
+                                        size="lg" 
+                                        className="w-full"
+                                        onClick={()=> setEditMode3(false)}
+                                    >
+                                        CANCEL
+                                    </Button2>:
+                                    <Button2 
+                                        disabled={editMode3}
+                                        color={editMode3? "gray" :"teal"} 
+                                        variant={'outlined'} 
+                                        size="lg" 
+                                        className="w-full"
+                                        onClick={()=> setEditMode3(true)}
+                                    >
+                                        Edit
+                                    </Button2>
+                                }
+                                
                                 {editMode3 && <Button2 
                                     type="submit"
                                     color={"teal"} 

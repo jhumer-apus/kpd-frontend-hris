@@ -11,6 +11,11 @@ import { ApprovalStateInterface } from '@/types/index';
 
 //LIBARIES
 import { Typography } from "@material-tailwind/react";
+import axios from 'axios'
+
+
+//REDUX
+import { APILink } from '@/store/configureStore';
 
 //ICONS
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
@@ -30,6 +35,11 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
     const { setSingleLEAVEDetailsData, singleLEAVEDetailsData } = props;
     const ThisProps = props.singleLEAVEDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
+    const [data, setData] = useState(
+        {
+            cuttOffPeriod: null
+        }
+    )
 
     const updateRemarksWithEmpNo = () => {
         setSingleLEAVEDetailsData(curr => ({
@@ -116,6 +126,19 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
         }
 
     }, [approvalState])
+
+    useEffect(() => {
+        fetchCutOffPeriod()
+    },[])
+
+    const fetchCutOffPeriod = async () => {
+        await axios.get(`${APILink}cutoff_period/${ThisProps.cutoff_code}`).then(res => {
+            setData(curr => ({
+                ...curr,
+                cuttOffPeriod: res.data.co_name
+            }))
+        })
+    }
     
     return (
         <React.Fragment>
@@ -125,7 +148,7 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Date & Time Filed:' value={ThisProps.leave_date_filed ? dayjs(ThisProps.leave_date_filed).format(`${globalDateTime}`) : '-'} InputProps={{readOnly: false,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Total hrs:' value={(ThisProps.leave_total_hours / 60).toFixed(2) || '-'} InputProps={{readOnly: true,}} variant='standard'/>
-                    <TextField sx={{width: '100%'}} label='Cutoff Code:' value={ThisProps.cutoff_code || '-'} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%'}} label='Cutoff Period:' value={data.cuttOffPeriod || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Approver1:' value={ThisProps.leave_approver1_empno || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Approver2:' value={ThisProps.leave_approver2_empno || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='LEAVE Description:' value={ThisProps.leave_type == 2? cleanRemarks(ThisProps.leave_remarks): ThisProps.leave_remarks || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
@@ -147,8 +170,8 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
                     )}
                 </div>
                 <div className='flex gap-6 flex-col'>
-                    <TextField sx={{width: '100%', minWidth: '160px'}} label='Employee #:' value={ThisProps.emp_no || '-'} InputProps={{readOnly: true,}} variant='filled'/>
-                    <TextField sx={{width: '100%', minWidth: '160px'}} label='LEAVE Type:' value={ThisProps.leave_type || '-'} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%', minWidth: '160px'}} label='Employee Name:' value={ThisProps.emp_name || '-'} InputProps={{readOnly: true,}} variant='filled'/>
+                    <TextField sx={{width: '100%', minWidth: '160px'}} label='LEAVE Type:' value={ThisProps.leave_type_name || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%', minWidth: '160px'}} focused={!!ThisProps.leave_reason_disapproval} color={'error'} label='Reason for Disapproval:' value={ThisProps.leave_reason_disapproval || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
                 </div>
                 {ThisProps.leave_approval_status === 'APD' && <img src={ '/img/stampApproved2.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}

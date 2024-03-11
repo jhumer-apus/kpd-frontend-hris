@@ -21,6 +21,7 @@ export const dynamicDTRColumns: Array<GridColDef[]> =
   [
     { field: 'id', headerName: 'Entry ID', width: 120 },
     { field: 'emp_no', headerName: 'Employee #', width: 120 },
+    { field: 'emp_name', headerName: 'Name', width: 120 },
     { field: 'flag1_in_out', headerName: 'Entry Type', width: 120, 
       valueGetter: (params: GridValueGetterParams) => {
         const entryType = params.row.flag1_in_out? "Duty Out": "Duty In";
@@ -61,6 +62,7 @@ export const dynamicDTRColumns: Array<GridColDef[]> =
   [
     { field: 'id', headerName: 'Entry ID', width: 120 },
     { field: 'emp_no', headerName: 'Employee #', width: 120 },
+    { field: 'emp_name', headerName: 'Name', width: 120 },
     { field: 'business_date', headerName: 'Business Date', width: 120 },
     {
       field: 'duty_in',
@@ -111,6 +113,7 @@ export const dynamicDTRColumns: Array<GridColDef[]> =
   [
     { field: 'id', headerName: 'Data ID', width: 100 },
     { field: 'emp_no', headerName: 'Emp. #', width: 100 },
+    { field: 'emp_name', headerName: 'Name', width: 120 },
     { field: 'business_date_from', headerName: 'Cutoff From', width: 120 },
     { field: 'business_date_to', headerName: 'Cutoff To', width: 120 },
     { 

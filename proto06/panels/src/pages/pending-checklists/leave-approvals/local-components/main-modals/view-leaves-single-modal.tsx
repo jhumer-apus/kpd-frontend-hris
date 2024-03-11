@@ -53,7 +53,7 @@ export default function ViewLEAVESingleModal(props: ViewLEAVESingleModalInterfac
                   entering: { opacity: 1 },
                   entered: { opacity: 1 },
                 }[state],
-                overflow: 'auto',
+                // overflow: 'auto',
             }}
         >
           <LEAVEModalComponent setSingleLEAVEDetailsData={setSingleLEAVEDetailsData} singleLEAVEDetailsData={singleLEAVEDetailsData} scroll={scroll} setScroll={setScroll}/>
@@ -68,7 +68,7 @@ export default function ViewLEAVESingleModal(props: ViewLEAVESingleModalInterfac
 
 // Styles
 const leavesModalArea = {
-  height: '195.5mm',
+  // height: '195.5mm',
   width: '210mm',
   margin: '0 auto',
   background: 'white',
