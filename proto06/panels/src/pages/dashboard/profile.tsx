@@ -411,7 +411,7 @@
                             type="file"
                             className="hidden"
                             onChange={handleProfilePic}
-                            accept="image/*"
+                            accept="image/jpeg, image/jpg, image/png, image/webp"
                             disabled={!isEdit || isSubmittingRequest}
                           />
                         </div>

@@ -614,7 +614,7 @@ export const SpecificEmployee = (props: initialState) => {
                                         {...register('employee_image')}
                                         disabled={!editMode2} 
                                         type="file" 
-                                        accept="image/*"
+                                        accept="image/jpeg, image/jpg, image/png, image/webp"
                                         className="mb-3"
                                         onChange={handleProfilePic} 
                                     />

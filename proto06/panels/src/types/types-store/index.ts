@@ -80,6 +80,7 @@ export interface EMPLOYEESViewInterface {
     ecola: number | string | null
     approver1: number
     approver2: number | null 
+    province_code: string | number,
     city_code: string | null 
     branch_code: number |null
     department_code: string | null
