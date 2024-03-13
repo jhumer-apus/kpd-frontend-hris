@@ -64,7 +64,7 @@ export default function Province(props: Props) {
             disablePortal
             id="province"
             options={provinces}
-            sx={{ minWidth: 500 }}
+            className='w-full'
             getOptionLabel={(province: ProvinceInterface) => province.name}
             onChange={handleChange}
             renderInput={(params) => <TextField {...params} label="Province" />}

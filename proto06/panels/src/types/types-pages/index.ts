@@ -318,8 +318,8 @@ export interface LEAVECreateInterface {
     leave_date_from: string | null;
     leave_date_to: string | null;
     emp_no: number | null;
-    uploaded_file?: File | null;
-    added_by?: string | number | null;
+    uploaded_file: File | null;
+    added_by: string | number | null;
     emergency_reasons?: string | null
 }
 
@@ -460,6 +460,7 @@ export interface LEAVETYPECreateInterface {
     is_sl: boolean | null
     is_vl: boolean | null
     is_el: boolean | null
+    added_by: number | string
 }
 
 export interface LEAVETYPEViewInterface extends LEAVETYPECreateInterface { 

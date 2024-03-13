@@ -8,6 +8,7 @@ import { APILink } from '@/store/configureStore';
 import { beautifyJSON } from '@/helpers/utils';
 import InputLabel from '@mui/material/InputLabel';
 
+//LIBRARIES
 import Autocomplete from '@mui/material/Autocomplete';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import FormControl, { useFormControl } from '@mui/material/FormControl';
@@ -37,21 +38,25 @@ interface DropDownData {
   payrollGroups: any[],
   employmentStatuses: any[],
   positions: any[],
-  approvers: any[]
+  approvers: any[],
+  divisions: any[]
 }
 
 export const UserProfile = () => {
 
     // const { register, handleSubmit, formState: { errors } } = useForm<EMPLOYEESViewInterface>();
     const [editMode, setEditMode] = useState(true);
-    const [employeeData, setEmployeeData] = useState({
+    const [keyMonthlySalary, setKeyMonthlySalary] = useState<number>(0)
+    const [employeeData, setEmployeeData] = useState<any>({
       civil_status: null,
-      division_code:null,
+      // division_code:null,
       gender: null,
       payroll_group_code:null,
       employee_image: null,
       branch_code: null,
       position_code: null,
+      daily_salary: null,
+      monthly_salary: null,
       department_code: null,
       rank_code: null,
       approver1: null,
@@ -76,6 +81,7 @@ export const UserProfile = () => {
       employmentStatuses:[],
       positions:[],
       approvers:[],
+      divisions:[]
     })
 
 
@@ -86,7 +92,12 @@ export const UserProfile = () => {
       fetchEmploymentStatus()
       fetchPositions()
       fetchDepartments()
+      fetchDivisions()
     }, [])
+
+    useEffect(() => {
+      setKeyMonthlySalary(curr => curr + 1)
+    },[employeeData.daily_salary])
 
     // useEffect(() =>  {
     //   console.log(employeeData.department_code)
@@ -175,6 +186,19 @@ export const UserProfile = () => {
       })
     }
 
+    const fetchDivisions = () => {
+      axios.get(`${APILink}division/`).then((response:any) => {
+        const responseDivisions = response.data.map((division:any) => {
+          return {
+            id: division.id,
+            name: division. div_name
+          }
+        })
+        setDropDownData((curr:any) => ({...curr, divisions: responseDivisions}));
+
+      })
+    }
+
     const fetchApprovers = (department: number) => {
       axios.get(`${APILink}approvers/`,{
         params:{
@@ -199,19 +223,6 @@ export const UserProfile = () => {
     //     const responsePositions = response.data.map((position:any) => {
     //       return {
     //         id: position.id,
-    //         name: position.pos_name
-    //       }
-    //     })
-
-    //     setPositions(curr => responsePositions);
-    //   })
-    // }
-
-    // const fetchDivisions = () => {
-    //   axios.get(`${APILink}division/`).then((response:any) => {
-    //     const responseDivisions = response.data.map((div:any) => {
-    //       return {
-    //         id: div.id,
     //         name: position.pos_name
     //       }
     //     })
@@ -259,7 +270,7 @@ export const UserProfile = () => {
     }
 
   const handleChangeUserData = (e:any) => {
-    setEmployeeData(curr => (
+    setEmployeeData((curr:any) => (
       {
         ...curr,
         [e.target.name]: e.target.value
@@ -267,15 +278,47 @@ export const UserProfile = () => {
     ))
   }
 
+  const validateImage = (file:any) => {
+
+      if (file instanceof File) {
+          // Check the MIME type of the file
+          return file.type.startsWith('image/');
+      }
+
+      // Check if the file is a string representing a data URL
+      if (typeof file === 'string' && file.startsWith('data:image/')) {
+        return true;
+      }
+      
+      // Check if the file is a blob object
+      if (file instanceof Blob) {
+          return file.type.startsWith('image/');
+      }
+      
+      // If none of the above conditions are met, it's not an image
+      return false;
+
+  }
+
   const handleSubmit = async (e:any) => {
     e.preventDefault()
 
-    console.log(employeeData)
+    // Validate image if its file
+    const isFile = validateImage(employeeData.employee_image)
+
+    if(employeeData.employee_image == (null || undefined)) {
+
+      window.alert("Profile Picture is required")
+
+    }else if(!isFile) {
+
+      window.alert("Profile Picture should be image")
+      return
+    }
 
     const formData = new FormData();
 
     const finalData: EMPLOYEESViewInterface = {
-
       // user: USERViewInterface | null
       employee_image: employeeData.employee_image,
       age: employeeData.age,
@@ -287,7 +330,7 @@ export const UserProfile = () => {
       first_name: employeeData.first_name,
       middle_name: employeeData.middle_name,
       last_name: employeeData.last_name,
-      suffix: employeeData.suffix,
+      suffix: employeeData.suffix?? null,
       birthday: employeeData.birthday,
       birth_place: employeeData.birth_place,
       civil_status: employeeData.civil_status,
@@ -311,9 +354,9 @@ export const UserProfile = () => {
       accnt_no: employeeData.accnt_no,
       emp_salary_basic: employeeData.emp_salary_basic,
       emp_salary_type: employeeData.emp_salary_type,
-      insurance_life: employeeData.insurance_life,
-      other_deductible: employeeData.other_deductible,
-      ecola: employeeData.ecola,
+      insurance_life: employeeData.insurance_life ?? 0,
+      other_deductible: employeeData.other_deductible?? 0,
+      ecola: employeeData.ecola ?? 0,
       approver1: employeeData.approver1,
       approver2: employeeData.approver2,
       province_code: employeeData.province.id,
@@ -325,12 +368,19 @@ export const UserProfile = () => {
       rank_code: employeeData.rank_code,
       payroll_group_code: employeeData.payroll_group_code,
       employment_status: employeeData.employment_status,
-      division_code: 1
-      // tax_code: string | null
-      // pagibig_code: string | null
-      // sssid_code: string
-      // philhealth_code: string | null
-      // rank_data: RankDataInterface //deprecated
+      // rank_hierarchy: 0,
+      // user: null,
+      // tax_data: null,
+      // pagibig_data: null,
+      // sss_data: null,
+      // philhealth_data: null,
+      // provincial_address: null,
+      // date_resigned: null,
+      // date_added: '',
+      // tax_code: null,
+      // pagibig_code: null,
+      // sssid_code: '',
+      // philhealth_code: null
     }
     // data = {
     //   ...data,
@@ -400,6 +450,7 @@ export const UserProfile = () => {
               className="hidden"
               onChange={handleProfilePic}
               accept="image/jpeg, image/jpg, image/png, image/webp"
+              name="employee_image"
             />
             <Typography
               variant="h6"
@@ -413,40 +464,43 @@ export const UserProfile = () => {
 
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
           <FormControl className='w-full'>
-            <InputLabel htmlFor="firstname">First Name</InputLabel>
+            <InputLabel htmlFor="firstname">First Name:</InputLabel>
             <OutlinedInput
               id="firstname"
-              label="First Name"
+              label="First Name:"
               onChange={handleChangeUserData}
               name="first_name"
               // inputProps={{
               //   step:"0.01",
               //   min:"0",
               // }}
+              required
               disabled={!editMode}            
             />
           </FormControl>
           <FormControl className='w-full'>
-            <InputLabel htmlFor="middlename">Middle Name</InputLabel>
+            <InputLabel htmlFor="middlename">Middle Name:</InputLabel>
             <OutlinedInput
               id="middlename"
               onChange={handleChangeUserData}
               name="middle_name"
-              label="Middle Name"
-              disabled={!editMode}            
+              label="Middle Name:"
+              disabled={!editMode}
+              required            
             />
           </FormControl>
 
           <FormControl className='w-full'>
 
-            <InputLabel htmlFor="lastname">Last Name</InputLabel>
+            <InputLabel htmlFor="lastname">Last Name:</InputLabel>
             <OutlinedInput
               id="lastname"
               className='w-full'
               onChange={handleChangeUserData}
               name="last_name"
-              label="Last Name"
+              label="Last Name:"
               disabled={!editMode}            
+              required
             />
           </FormControl>
 
@@ -458,12 +512,12 @@ export const UserProfile = () => {
               onChange={handleChangeUserData}
               name="suffix"
               label="Suffix: (optional)"
-              disabled={!editMode}            
+              disabled={!editMode}       
             />
           </FormControl>
 
           <FormControl className='w-full'>
-            <InputLabel htmlFor="sex">Sex</InputLabel>
+            <InputLabel htmlFor="sex">Sex:</InputLabel>
             <Select
               onChange={(e:any) => setEmployeeData(curr => ({
                 ...curr,
@@ -472,8 +526,9 @@ export const UserProfile = () => {
               placeholder="Select Sex"
               name="gender"
               variant="outlined"
-              label="Sex"
+              label="Sex:"
               aria-required
+              required
             >
               <MenuItem value="M">Male</MenuItem>
               <MenuItem value="F">Female</MenuItem>
@@ -491,19 +546,20 @@ export const UserProfile = () => {
           />
 
           <FormControl className='w-full'>
-              <InputLabel htmlFor="address">Street Address</InputLabel>
+              <InputLabel htmlFor="address">Street Address: (required)</InputLabel>
               <OutlinedInput
                 id="address"
                 className='w-full'
                 onChange={handleChangeUserData}
                 name="address"
                 label="Street Address: (required)"
-                disabled={!editMode}                
+                disabled={!editMode}    
+                required            
               />
           </FormControl>
 
           <FormControl className='w-full'>
-              <InputLabel htmlFor="email_address">Email Address</InputLabel>
+              <InputLabel htmlFor="email_address">Email Address: *</InputLabel>
               <OutlinedInput
                 id="email_address"
                 onChange={handleChangeUserData}
@@ -513,18 +569,19 @@ export const UserProfile = () => {
                 }}
                 name="email_address"
                 label="Email Address: *"
-                disabled={!editMode}                
+                disabled={!editMode}        
+                required        
               />
           </FormControl>
           <FormControl className='w-full'>
-              <InputLabel htmlFor="url_google_map">URL Google Map</InputLabel>
+              <InputLabel htmlFor="url_google_map">URL Google Map:</InputLabel>
               <OutlinedInput
                 id="url_google_map"
                 className='w-full'
                 onChange={handleChangeUserData}
                 name="url_google_map"
                 label="URL Google Map:"
-                disabled={!editMode}                
+                disabled={!editMode}             
               />
 
           </FormControl>
@@ -532,74 +589,78 @@ export const UserProfile = () => {
 
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
           <FormControl className='w-full'>
-              <InputLabel htmlFor="mobile_phone">Mobile Phone #*: (091234567890)</InputLabel>
+              <InputLabel htmlFor="mobile_phone">Mobile Phone #:* (091234567890)</InputLabel>
               <OutlinedInput
                 id="mobile_phone"
                 className='w-full'
                 onChange={handleChangeUserData}
                 name="mobile_phone"
-                label="Mobile Phone #: (091234567890)"
+                label="Mobile Phone #:* (091234567890)"
                 disabled={!editMode}     
                 inputProps={{
                   maxLength:11
                 }}        
+                required
               />
           </FormControl>
           <FormControl className='w-full'>
-              <InputLabel htmlFor="telephone">Telephone</InputLabel>
+              <InputLabel htmlFor="telephone">Telephone #: (optional)</InputLabel>
               <OutlinedInput
                 id="telephone"
                 className='w-full'
                 onChange={handleChangeUserData}
                 name="telephone"
-                label="Telephone # (optional):"
+                label="Telephone #: (optional)"
                 inputProps={{
                   maxLength:15,
                   pattern: '^[0-9]+$'
                 }}
                 type='text'
-                disabled={!editMode}                
+                disabled={!editMode}        
+   
               />
           </FormControl>
           <FormControl className='w-full'>
-            <InputLabel htmlFor="emergency_contact_person">Emergency Contact Person</InputLabel>
+            <InputLabel htmlFor="emergency_contact_person">Emergency Contact Person: (required)</InputLabel>
             <OutlinedInput
               id="emergency_contact_person"
               className='w-full'
               onChange={handleChangeUserData}
               name="emergency_contact_person"
-              label="Emergency Contact Person (required):"
+              label="Emergency Contact Person: (required)"
               type='text'
-              disabled={!editMode}                
+              disabled={!editMode}   
+              required             
             />
           </FormControl>
           <FormControl className='w-full'>
-              <InputLabel htmlFor="emergency_contact_number">Emergency Contact Number</InputLabel>
+              <InputLabel htmlFor="emergency_contact_number">Emergency Contact #: (required)</InputLabel>
               <OutlinedInput
                 id="emergency_contact_number"
                 className='w-full'
                 onChange={handleChangeUserData}
                 name="emergency_contact_number"
-                label="Emergency Contact # (required):"
+                label="Emergency Contact #: (required)"
                 inputProps={{
                   maxLength:15,
                   pattern: '^[0-9]+$'
                 }}
                 type='tel'
-                disabled={!editMode}                
+                disabled={!editMode}  
+                required              
               />
           </FormControl>
         </div>
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
           <FormControl className='w-full'>
-              <InputLabel htmlFor="civil_status">Civil Status</InputLabel>
+              <InputLabel htmlFor="civil_status">Civil Status:</InputLabel>
               <Select
                   onChange={(e:any) => setEmployeeData(curr => ({...curr, civil_status: e.target.value}))}
                   placeholder="Select Civil Status"
                   name="civil_status"
                   variant="outlined"
-                  label="Civil Status"
-                  aria-required
+                  label="Civil Status:"
+                  required
                 >
                   <MenuItem value="S">Single</MenuItem>
                   <MenuItem value="M">Married</MenuItem>
@@ -608,15 +669,15 @@ export const UserProfile = () => {
               </Select>
           </FormControl>
           <FormControl className='w-full'>
-            <InputLabel htmlFor="blood_type">Blood Type</InputLabel>
+            <InputLabel htmlFor="blood_type">Blood Type: (optional)</InputLabel>
             <OutlinedInput
               id="blood_type"
               className='w-full'
               onChange={handleChangeUserData}
               name="blood_type"
-              label="Blood Type (optional):"
+              label="Blood Type: (optional)"
               type='string'
-              disabled={!editMode}                
+              disabled={!editMode}         
             />
           </FormControl>
         </div>
@@ -625,66 +686,68 @@ export const UserProfile = () => {
             {/* <DatePicker 
               setState={setEmployeeData}
             /> */}
-            <InputLabel htmlFor="birthday">Birthday</InputLabel>
+            <InputLabel htmlFor="birthday">Birthday: (required)</InputLabel>
             <OutlinedInput 
               id="birthday"
               className='w-full'
               onChange={handleChangeUserData}
               name="birthday"
-              label="Birthday: YYYY-MM-DD (required)"
+              label="Birthday: (required)"
               type='date'
-              required
-              disabled={!editMode}                
+              disabled={!editMode}    
+              required          
             />
           </FormControl>
           <FormControl className='w-full'>
-            <InputLabel htmlFor="birth_place">Birth Place</InputLabel>
+            <InputLabel htmlFor="birth_place">Birth Place: (required)</InputLabel>
             <OutlinedInput
               id="birth_place"
               className='w-full'
               onChange={handleChangeUserData}
               name="birth_place"
-              label="Birth Place (required)"
+              label="Birth Place: (required)"
               type='text'
-              disabled={!editMode}                
+              disabled={!editMode}             
+              required   
           />
           </FormControl>
         </div>
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
           <FormControl className='w-full'>
-            <InputLabel htmlFor="graduated_school">School Graduated</InputLabel>
+            <InputLabel htmlFor="graduated_school">School Graduated:</InputLabel>
             <OutlinedInput
               id="graduated_school"
               className='w-full'
               onChange={handleChangeUserData}
               name="graduated_school"
-              label="School Graduated (required)"
+              label="School Graduated:"
               type='text'
-              disabled={!editMode}                
+              disabled={!editMode}          
             />
           </FormControl>
           <FormControl className='w-full'>
-            <InputLabel htmlFor="profession">Profession</InputLabel>
+            <InputLabel htmlFor="profession">Profession:</InputLabel>
             <OutlinedInput
               id="profession"
               className='w-full'
               onChange={handleChangeUserData}
               name="profession"
-              label="Profession"
+              label="Profession:"
               type='text'
-              disabled={!editMode}                
+              disabled={!editMode}   
+              required             
             />
           </FormControl>
           <FormControl className='w-full'>
-            <InputLabel htmlFor="license_no">License #</InputLabel>
+            <InputLabel htmlFor="license_no">License #: (optional)</InputLabel>
             <OutlinedInput
               id="license_no"
               className='w-full'
               onChange={handleChangeUserData}
               name="license_no"
-              label="License # (optional)"
+              label="License #: (optional)"
               type='text'
-              disabled={!editMode}                
+              disabled={!editMode}          
             />
           </FormControl>
         </div>
@@ -742,7 +805,7 @@ export const UserProfile = () => {
 
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
             <FormControl className='w-full'>
-              <InputLabel htmlFor="date_hired">Date Hired</InputLabel>
+              <InputLabel htmlFor="date_hired">Date Hired:*</InputLabel>
               <OutlinedInput
                 id="date_hired"
                 className='w-full'
@@ -751,9 +814,9 @@ export const UserProfile = () => {
                   type:"date"
                 }}
                 name="date_hired"
-                label="Date Hired: YYYY-MM-DD*"
+                label="Date Hired:*"
                 disabled={!editMode}
-                // pattern='[0-9]{4}-[0-9]{2}-[0-9]{2}'                
+                required             
               />
             </FormControl>
         </div>
@@ -770,6 +833,7 @@ export const UserProfile = () => {
                 inputProps={{
                   maxLength: 7
                 }}      
+                required
               />
             </FormControl>
             <FormControl className='w-full'>
@@ -780,7 +844,8 @@ export const UserProfile = () => {
                 onChange={handleChangeUserData}
                 name="bio_id"
                 label="Biometrics ID:* (can be same as emp_no)"
-                disabled={!editMode}                
+                disabled={!editMode}     
+                required           
               />
             </FormControl>
             <FormControl className='w-full'>
@@ -815,11 +880,12 @@ export const UserProfile = () => {
                 onChange={handleChangeUserData}
                 name="accnt_no"
                 label="Account number: (Bank acct / Gcash acct)"
-                disabled={!editMode}                
+                disabled={!editMode}           
+                required     
               />
             </FormControl>
-            <FormControl className='w-full'>
-              <InputLabel htmlFor="emp_salary_basic">Basic Salary Amount: </InputLabel>
+            {/* <FormControl className='w-full'>
+              <InputLabel htmlFor="emp_salary_basic">Basic Salary Amount:</InputLabel>
               <OutlinedInput
                 id="emp_salary_basic"
                 className='w-full'
@@ -830,11 +896,46 @@ export const UserProfile = () => {
                   min:0,
                   type:"number"
                 }}
-                disabled={!editMode}                
+                disabled={!editMode}     
+                required           
+              />
+            </FormControl> */}
+            <FormControl className='w-full'>
+              <InputLabel htmlFor="daily_salary">Daily Salary</InputLabel>
+              <OutlinedInput
+                id="daily_salary"
+                className='w-full'
+                onChange={handleChangeUserData}
+                name="daily_salary"
+                label="Daily Salary:"
+                inputProps={{
+                  min:0,
+                  type:"number"
+                }}
+                disabled={!editMode}     
+                required           
               />
             </FormControl>
             <FormControl className='w-full'>
-              <InputLabel htmlFor="salary_type">Salary Type</InputLabel>
+              <InputLabel htmlFor="monthly_salary">Monthly Salary: (Can be automatically based on the daily salary)</InputLabel>
+              <OutlinedInput
+                key={keyMonthlySalary}
+                id="monthly_salary"
+                className='w-full'
+                onChange={handleChangeUserData}
+                name="monthly_salary"
+                label="Monthly Salary: (Can be automatically based on the daily salary)"
+                inputProps={{
+                  min:0,
+                  type:"number"
+                }}
+                disabled={!editMode} 
+                defaultValue={employeeData.daily_salary * 22}    
+                required           
+              />
+            </FormControl>
+            {/* <FormControl className='w-full'>
+              <InputLabel htmlFor="salary_type">Salary Type:</InputLabel>
               <Select
                   onChange={(e:any) => setEmployeeData(curr => ({
                     ...curr,
@@ -843,24 +944,24 @@ export const UserProfile = () => {
                   placeholder="Select Salary Type"
                   name="emp_salary_type"
                   variant="outlined"
-                  label="Salary Type"
+                  label="Salary Type:"
               >
                   <MenuItem value="1">Monthly</MenuItem>
                   <MenuItem value="2">Semi-Monthly</MenuItem>
                   <MenuItem value="3">Project-Based</MenuItem>
                   <MenuItem value="4">Weekly</MenuItem>
               </Select>
-            </FormControl>
+            </FormControl> */}
         </div>
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
             <FormControl className='w-full'>
-              <InputLabel htmlFor="payroll_group">Payroll Group</InputLabel>
+              <InputLabel htmlFor="payroll_group">Payroll Group;</InputLabel>
               <Select
                   onChange={(e:any) => setEmployeeData(curr => ({...curr, payroll_group_code: e.target.value}))}
                   placeholder="Select Payroll Group"
                   name="payroll_group_code"
                   variant="outlined"
-                  label="Payroll Group"
+                  label="Payroll Group:"
                 >
                   {
                     dropDownData.payrollGroups.length > 0 ? dropDownData.payrollGroups.map((payroll:any) => (
@@ -893,7 +994,7 @@ export const UserProfile = () => {
 
               }
             /> */}
-                <InputLabel htmlFor="branch">Branch</InputLabel>
+                <InputLabel htmlFor="branch">Branch:</InputLabel>
                 <Select
                   onChange={(e:any) => setEmployeeData(curr => ({
                     ...curr,
@@ -902,7 +1003,7 @@ export const UserProfile = () => {
                   placeholder="Select Branch"
                   name="branch_code"
                   variant="outlined"
-                  label="Branch"
+                  label="Branch:"
                 >
                   {dropDownData.branches.length > 0 ? dropDownData.branches.map((branch:any)=> (
                     <MenuItem value={branch.id}>{branch.name}</MenuItem>
@@ -912,7 +1013,7 @@ export const UserProfile = () => {
                 </Select>
             </FormControl>
             <FormControl className='w-full'>
-              <InputLabel htmlFor="department">Department</InputLabel>
+              <InputLabel htmlFor="department">Department:</InputLabel>
               <Select
                 onChange={(e:any) => 
                   {
@@ -930,12 +1031,40 @@ export const UserProfile = () => {
                 placeholder="Select Department"
                 name="department_code"
                 variant="outlined"
-                label="Department"
+                label="Department:"
               >
                 {dropDownData.departments.length > 0 ? dropDownData.departments.map((department:any)=> (
                   <MenuItem value={department.id}>{department.name}</MenuItem>
                 )): (
                   <MenuItem disabled>No department available</MenuItem>
+                )}
+              </Select>
+            </FormControl>
+            <FormControl className='w-full'>
+              <InputLabel htmlFor="division">Division:</InputLabel>
+              <Select
+                onChange={(e:any) => 
+                  {
+                    
+                    fetchApprovers(e.target.value)
+                    setEmployeeData(curr => 
+                    (
+                      {
+                        ...curr,
+                        division_code: e.target.value
+                      }
+                    )
+                  )}
+                }
+                placeholder="Select Division"
+                name="division_code"
+                variant="outlined"
+                label="Division:"
+              >
+                {dropDownData.divisions.length > 0 ? dropDownData.divisions.map((division:any)=> (
+                  <MenuItem value={division.id}>{division.name}</MenuItem>
+                )): (
+                  <MenuItem disabled>No division available</MenuItem>
                 )}
               </Select>
             </FormControl>
@@ -951,7 +1080,7 @@ export const UserProfile = () => {
               name="hmo"
               label="HMO Account #:"
               disabled={!editMode}
-              type='text'                
+              type='text'           
             />
           </FormControl>
           <FormControl className='w-full'>
@@ -963,11 +1092,12 @@ export const UserProfile = () => {
               name="payroll_no"
               label="Payroll #:"
               disabled={!editMode}
-              type='text'                
+              type='text'         
+              required       
             />
           </FormControl>
           <FormControl className='w-full'>
-            <InputLabel htmlFor="employee_type">Employee Type</InputLabel>
+            <InputLabel htmlFor="employee_type">Employee Type:</InputLabel>
             <Select
                 onChange={(e:any) => setEmployeeData(curr => ({...curr, employee_type: e.target.value}))}
                 placeholder="Select Employee Type"
@@ -1006,12 +1136,13 @@ export const UserProfile = () => {
               name="other_duties_responsibilities"
               label="Other Duty Responsibilities:"
               disabled={!editMode}
-              type='text'                />
+              type='text'              
+            />
             {/* {errors.other_duties_responsibilities && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Other Duty Responsibilities is required.</sub>} */}
           </FormControl>
 
           <FormControl className='w-full'>
-              <InputLabel htmlFor="od">Other Deductible:</InputLabel>
+              <InputLabel htmlFor="od">Other Deductible (optional):</InputLabel>
               <OutlinedInput
                 id="od"
                 className='w-full'
@@ -1035,7 +1166,7 @@ export const UserProfile = () => {
         </Typography>
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
             <FormControl className='w-full'>
-              <InputLabel htmlFor="approver1">Approver #1: (required)</InputLabel>
+              <InputLabel htmlFor="approver1">Approver #1 (required, employee number)</InputLabel>
               <Select
                 onChange={(e:any) => setEmployeeData(curr => ({
                   ...curr,
@@ -1045,7 +1176,7 @@ export const UserProfile = () => {
                 name="approver1"
                 variant="outlined"
                 label="Approver #1 (required, employee number)"
-                aria-required
+                required
               >
                 {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> (
                   // ![employeeData.approver1, employeeData.approver2].includes(approver.emp_no) && <MenuItem value={approver.emp_no}>{approver.full_name}</MenuItem>
@@ -1056,7 +1187,7 @@ export const UserProfile = () => {
               </Select>
             </FormControl>
             <FormControl className='w-full'>
-              <InputLabel htmlFor="approver2">Approver #2: (required)</InputLabel>
+              <InputLabel htmlFor="approver2">Approver #2 (required, employee number)"</InputLabel>
               <Select
                 onChange={(e:any) => setEmployeeData(curr => ({
                   ...curr,
@@ -1066,7 +1197,7 @@ export const UserProfile = () => {
                 name="approver2"
                 variant="outlined"
                 label="Approver #2 (required, employee number)"
-                aria-required
+                required
               >
                 {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> 
                   (
@@ -1091,6 +1222,7 @@ export const UserProfile = () => {
                 name="position_code"
                 variant="outlined"
                 label="Position: (required)"
+                required
               >
                 {dropDownData.positions.length > 0 ? dropDownData.positions.map((pos:any)=> (
                   <MenuItem value={pos.id}>{pos.name}</MenuItem>
@@ -1112,13 +1244,13 @@ export const UserProfile = () => {
               }}
               label="Insurance Life: (optional)"
               type="number"
-              disabled={!editMode}                
+              disabled={!editMode}             
             />
           </FormControl>
         </div>
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
           <FormControl className='w-full'>
-              <InputLabel htmlFor="ecola">Ecola:</InputLabel>
+              <InputLabel htmlFor="ecola">Ecola: (optional)</InputLabel>
               <OutlinedInput
                 id="ecola"
                 className='w-full'
@@ -1130,7 +1262,7 @@ export const UserProfile = () => {
                   step:"0.01",
                   min:"0"
                 }}
-                disabled={!editMode}                
+                disabled={!editMode}              
               />
           </FormControl>
         </div> 

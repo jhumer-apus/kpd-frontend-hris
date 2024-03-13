@@ -13,6 +13,7 @@ import { LEAVECreateAction, LEAVECreateActionFailureCleanup } from '@/store/acti
 import { APILink } from '@/store/configureStore';
 import axios from 'axios';
 import Autocomplete from '@mui/material/Autocomplete';
+import { create } from 'lodash';
 
 interface CreateLEAVEModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -23,12 +24,27 @@ interface EmergencyReasons {
     name:string
 }
 
+interface LeaveType {
+    name: string | null,
+    is_vl: boolean | null,
+    is_sl: boolean | null,
+    is_el: boolean | null
+}
+
 function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
 
     const dispatch = useDispatch();
     const userData = useSelector((state: RootState) => state.auth.employee_detail);
+
+    //STATES
     const [isSubmittingRequest, setIsSubmittingRequest] = useState<boolean>(false);
     const LEAVECreatestate = useSelector((state: RootState)=> state.procedurals.LEAVECreate);
+    const [leaveType, setLeaveType] = useState<LeaveType>({
+        name: null,
+        is_vl: null,
+        is_sl: null,
+        is_el: null
+    }) 
     const [createLEAVE, setCreateLEAVE] = useState<LEAVECreateInterface>({
         emp_no: NaN,
         leave_type: null,
@@ -36,7 +52,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         leave_date_from: null,
         leave_date_to: null,
         added_by: userData?.emp_no,
-        uploaded_file: null,
+        uploaded_file: "",
         emergency_reasons: null
     });
     const [remainingLeaveCredits, setRemainingLeaveCredits] = useState(
@@ -66,6 +82,8 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         
         dispatch(LEAVECreateAction(formData))
     };
+
+    //USE EFFECTS
     useEffect(()=>{
 
         if(LEAVECreatestate.status === 'succeeded'){
@@ -90,6 +108,12 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
     useEffect(() => {
         getRemeainingLeaveCredits()
     },[])
+
+    useEffect(() => {
+        if(createLEAVE.leave_type) {
+            fetchSpecificLeave(createLEAVE.leave_type)
+        }
+    },[createLEAVE.leave_type])
 
     const handleChangeImage = (e:React.ChangeEvent<HTMLInputElement>) => {
 
@@ -181,7 +205,16 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
             ))
         }
     }
-
+    const fetchSpecificLeave = async (leave_id: number) => {
+        await axios.get(`${APILink}leave_type/${leave_id}/`).then(res => {
+            setLeaveType(curr => ({
+                name: res.data.name,
+                is_vl: res.data.is_vl,
+                is_sl: res.data.is_sl,
+                is_el: res.data.is_el
+            }))
+        })
+    }
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '2px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a Leave Data</Typography>
@@ -208,15 +241,17 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                     <div className='flex flex-col gap-3' style={{width:'100%'}}>
                         <EmployeeAutoComplete createLEAVE={createLEAVE} setCreateLEAVE={setCreateLEAVE}/>
                         {/* {createLEAVE.leave_type} */}
-                        <Autocomplete
-                            onChange={handleChangeEmergencyReasons}
-                            disablePortal
-                            id="emergency_reasons"
-                            options={emergencyReasons}
-                            getOptionLabel={(option:EmergencyReasons) => option.name}
-                            renderInput={(params:any) => <TextField {...params} label="Emergency Reasons" />}
-                        />
                         <LEAVETypeAutoComplete createLEAVE={createLEAVE} setCreateLEAVE={setCreateLEAVE}/>
+                        {((leaveType.is_el && !leaveType.is_vl && !leaveType.is_sl) || leaveType.name=="Emergency Leave") && 
+                            <Autocomplete
+                                onChange={handleChangeEmergencyReasons}
+                                disablePortal
+                                id="emergency_reasons"
+                                options={emergencyReasons}
+                                getOptionLabel={(option:EmergencyReasons) => option.name}
+                                renderInput={(params:any) => <TextField {...params} label="Emergency Reasons" />}
+                            />
+                        }
                         <TextField
                             required 
                             sx={{width: '100%'}} 
@@ -241,7 +276,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                         <DateFromToLEAVECreate createLEAVE={createLEAVE} setCreateLEAVE={setCreateLEAVE}/>
                     </div>
                 </div>
-                {createLEAVE.leave_type == 2 &&    
+                {((leaveType.is_sl && !leaveType.is_vl && !leaveType.is_el) || leaveType.name=="Sick Leave") &&    
                     <Input 
                         type="file"
                         accept="image/*"

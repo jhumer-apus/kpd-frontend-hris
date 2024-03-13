@@ -38,7 +38,7 @@ export interface EMPLOYEESViewInterface {
     readonly id?: number
     rank_hierarchy: number
     user: USERViewInterface | null
-    employee_image: string
+    employee_image: string | null
     age: number | null //new 
     tax_data: TAXViewInterface | null | string  //new 
     pagibig_data: PAGIBIGViewInterface | null | string //new 

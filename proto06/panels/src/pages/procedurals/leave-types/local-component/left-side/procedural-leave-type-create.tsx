@@ -21,11 +21,13 @@ function ProceduralLEAVETYPECreate(props: CreateLEAVETYPEModalInterface) {
 
     const dispatch = useDispatch();
     const LEAVETYPECreatestate = useSelector((state: RootState)=> state.procedurals.LEAVETYPECreate);
+    const currUser = useSelector((state: RootState)=> state.auth.employee_detail);
     const [createLEAVETYPE, setCreateLEAVETYPE] = useState<LEAVETYPECreateInterface>({
         name: null,
         is_paid: false,
         is_sl: false,
         is_vl: false,
+        added_by: currUser?.emp_no
     });
     const onClickSubmit = () => {
         dispatch(LEAVETYPECreateAction(createLEAVETYPE))
@@ -96,7 +98,7 @@ function ProceduralLEAVETYPECreate(props: CreateLEAVETYPEModalInterface) {
 
     return (
         <React.Fragment>
-            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant="subtitle1">Create a s</Typography>
+            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant="subtitle1">Create a Leave Type</Typography>
             <div className='flex flex-col gap-6 overflow-auto relative'>
                 <div className='flex flex-wrap gap-6 pt-4'>
                     <div className='flex flex-col gap-6'>

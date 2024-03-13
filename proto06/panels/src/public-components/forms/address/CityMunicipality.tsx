@@ -79,7 +79,7 @@ export default function CityMunicipality(props:Props) {
             disablePortal
             id="city"
             options={cities}
-            sx={{ minWidth: 500 }}
+            className='w-full'
             getOptionLabel={(city: CityMunicipalityInterface) => city.name}
             onChange={handleChange}
             renderInput={(params) => <TextField {...params} label="City (Select a province first)" />}

@@ -29,6 +29,13 @@ interface LEAVEModalUIInterface {
     setSingleLEAVEDetailsData: React.Dispatch<React.SetStateAction<LEAVEViewInterface>>;
 }
 
+interface LeaveType {
+    name: string | null
+    is_vl: boolean | null,
+    is_sl: boolean | null,
+    is_el: boolean | null
+}
+
 function LEAVEModalUI(props: LEAVEModalUIInterface) {
     const [ approveLEAVEOpenModal, setApproveLEAVEOpenModal ] = useState(false);
     const [ denyLEAVEOpenModal, setDenyLEAVEOpenModal ] = useState(false);
@@ -40,6 +47,12 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
             cuttOffPeriod: null
         }
     )
+    const [leaveType, setLeaveType] = useState<LeaveType>({
+        name: null,
+        is_vl: null,
+        is_sl: null,
+        is_el: null
+    }) 
 
     const updateRemarksWithEmpNo = () => {
         setSingleLEAVEDetailsData(curr => ({
@@ -128,7 +141,10 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
     }, [approvalState])
 
     useEffect(() => {
+
         fetchCutOffPeriod()
+        fetchSpecificLeave(ThisProps.leave_type as number)
+
     },[])
 
     const fetchCutOffPeriod = async () => {
@@ -136,6 +152,21 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
             setData(curr => ({
                 ...curr,
                 cuttOffPeriod: res.data.co_name
+            }))
+        })
+    }
+
+    const viewImages = () => {
+        //View images logic
+    }
+
+    const fetchSpecificLeave = async (leave_id: number) => {
+        await axios.get(`${APILink}leave_type/${leave_id}/`).then(res => {
+            setLeaveType(curr => ({
+                name: res.data.name,
+                is_vl: res.data.is_vl,
+                is_sl: res.data.is_sl,
+                is_el: res.data.is_el
             }))
         })
     }
@@ -173,6 +204,9 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Employee Name:' value={ThisProps.emp_name || '-'} InputProps={{readOnly: true,}} variant='filled'/>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='LEAVE Type:' value={ThisProps.leave_type_name || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%', minWidth: '160px'}} focused={!!ThisProps.leave_reason_disapproval} color={'error'} label='Reason for Disapproval:' value={ThisProps.leave_reason_disapproval || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
+                    {((leaveType.is_sl  && !leaveType.is_vl && !leaveType.is_el) || leaveType.name=="Sick Leave") && 
+                        <Button onClick={viewImages}>View Supporting Images</Button>
+                    }
                 </div>
                 {ThisProps.leave_approval_status === 'APD' && <img src={ '/img/stampApproved2.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
                 {ThisProps.leave_approval_status === 'DIS' && <img src={ '/img/stampRejected.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
