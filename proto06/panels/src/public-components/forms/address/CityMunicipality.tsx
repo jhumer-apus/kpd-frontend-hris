@@ -83,7 +83,7 @@ export default function CityMunicipality(props:Props) {
             getOptionLabel={(city: CityMunicipalityInterface) => city.name}
             onChange={handleChange}
             renderInput={(params) => <TextField {...params} label="City (Select a province first)" />}
-            disabled={state.province.code? false: true}
+            disabled={!state.province.code}
         />
     )
 

@@ -16,6 +16,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
@@ -353,7 +354,7 @@ export const UserProfile = () => {
       // date_resigned: employeeData.date_resigned,
       accnt_no: employeeData.accnt_no,
       emp_salary_basic: employeeData.emp_salary_basic,
-      emp_salary_type: employeeData.emp_salary_type,
+      emp_salary_type: "5",
       insurance_life: employeeData.insurance_life ?? 0,
       other_deductible: employeeData.other_deductible?? 0,
       ecola: employeeData.ecola ?? 0,
@@ -475,7 +476,7 @@ export const UserProfile = () => {
               //   min:"0",
               // }}
               required
-              disabled={!editMode}            
+                          
             />
           </FormControl>
           <FormControl className='w-full'>
@@ -485,7 +486,7 @@ export const UserProfile = () => {
               onChange={handleChangeUserData}
               name="middle_name"
               label="Middle Name:"
-              disabled={!editMode}
+              
               required            
             />
           </FormControl>
@@ -499,7 +500,7 @@ export const UserProfile = () => {
               onChange={handleChangeUserData}
               name="last_name"
               label="Last Name:"
-              disabled={!editMode}            
+                          
               required
             />
           </FormControl>
@@ -512,7 +513,7 @@ export const UserProfile = () => {
               onChange={handleChangeUserData}
               name="suffix"
               label="Suffix: (optional)"
-              disabled={!editMode}       
+                     
             />
           </FormControl>
 
@@ -553,7 +554,7 @@ export const UserProfile = () => {
                 onChange={handleChangeUserData}
                 name="address"
                 label="Street Address: (required)"
-                disabled={!editMode}    
+                    
                 required            
               />
           </FormControl>
@@ -569,7 +570,7 @@ export const UserProfile = () => {
                 }}
                 name="email_address"
                 label="Email Address: *"
-                disabled={!editMode}        
+                        
                 required        
               />
           </FormControl>
@@ -581,7 +582,7 @@ export const UserProfile = () => {
                 onChange={handleChangeUserData}
                 name="url_google_map"
                 label="URL Google Map:"
-                disabled={!editMode}             
+                             
               />
 
           </FormControl>
@@ -596,7 +597,7 @@ export const UserProfile = () => {
                 onChange={handleChangeUserData}
                 name="mobile_phone"
                 label="Mobile Phone #:* (091234567890)"
-                disabled={!editMode}     
+                     
                 inputProps={{
                   maxLength:11
                 }}        
@@ -616,7 +617,7 @@ export const UserProfile = () => {
                   pattern: '^[0-9]+$'
                 }}
                 type='text'
-                disabled={!editMode}        
+                        
    
               />
           </FormControl>
@@ -629,7 +630,7 @@ export const UserProfile = () => {
               name="emergency_contact_person"
               label="Emergency Contact Person: (required)"
               type='text'
-              disabled={!editMode}   
+                 
               required             
             />
           </FormControl>
@@ -646,7 +647,7 @@ export const UserProfile = () => {
                   pattern: '^[0-9]+$'
                 }}
                 type='tel'
-                disabled={!editMode}  
+                  
                 required              
               />
           </FormControl>
@@ -700,7 +701,7 @@ export const UserProfile = () => {
               name="blood_type"
               label="Blood Type: (optional)"
               type='string'
-              disabled={!editMode}         
+                       
             />
           </FormControl> */}
         </div>
@@ -712,7 +713,7 @@ export const UserProfile = () => {
                 name="birthday"
                 onChange={(newValue) => setEmployeeData((curr:any) => ({
                   ...curr,
-                  birthday: newValue
+                  birthday: dayjs(newValue).format('YYYY-MM-DD')
                 }))}
               />
             </LocalizationProvider>
@@ -723,7 +724,7 @@ export const UserProfile = () => {
               name="birthday"
               label="Birthday: (required)"
               type='date'
-              disabled={!editMode}    
+                  
               required          
             /> */}
           </FormControl>
@@ -736,7 +737,7 @@ export const UserProfile = () => {
               name="birth_place"
               label="Birth Place: (required)"
               type='text'
-              disabled={!editMode}             
+                           
               required   
           />
           </FormControl>
@@ -751,7 +752,7 @@ export const UserProfile = () => {
               name="graduated_school"
               label="School Graduated:"
               type='text'
-              disabled={!editMode}          
+                        
             />
           </FormControl>
           <FormControl className='w-full'>
@@ -763,7 +764,7 @@ export const UserProfile = () => {
               name="profession"
               label="Profession:"
               type='text'
-              disabled={!editMode}   
+                 
               required             
             />
           </FormControl>
@@ -776,7 +777,7 @@ export const UserProfile = () => {
               name="license_no"
               label="License #: (optional)"
               type='text'
-              disabled={!editMode}          
+                        
             />
           </FormControl>
         </div>
@@ -787,28 +788,28 @@ export const UserProfile = () => {
             <OutlinedInput
               label="Tax #:"
               type='text'
-              disabled={!editMode}                />
+                              />
             {errors.tax_code && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Tax # is required.</sub>}
           </div>
           <div style={{position: 'relative', width: '100%'}}>
             <OutlinedInput
               label="Pagibig ID:"
               type='text'
-              disabled={!editMode}                />
+                              />
             {errors.pagibig_code && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Pagibig ID is required.</sub>}
           </div>
           <div style={{position: 'relative', width: '100%'}}>
             <OutlinedInput
               label="SSS ID:"
               type='text'
-              disabled={!editMode}                />
+                              />
             {errors.sssid_code && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>SSS ID is required.</sub>}
           </div>
           <div style={{position: 'relative', width: '100%'}}>
             <OutlinedInput
               label="Philhealth ID:"
               type='text'
-              disabled={!editMode}                />
+                              />
             {errors.philhealth_code && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Philhealth ID is required.</sub>}
           </div> */}
         </div>
@@ -840,8 +841,9 @@ export const UserProfile = () => {
                   name="date_hired"
                   onChange={(newValue) => setEmployeeData((curr:any) => ({
                     ...curr,
-                    date_hired: newValue
+                    date_hired: dayjs(newValue).format('YYYY-MM-DD')
                   }))}
+                  required
                 />
               </LocalizationProvider>
             </FormControl>
@@ -855,7 +857,7 @@ export const UserProfile = () => {
                 onChange={handleChangeUserData}
                 name="emp_no"
                 label="Assigned Employee No:* (max 7 digits)"
-                disabled={!editMode}
+                
                 inputProps={{
                   maxLength: 7
                 }}      
@@ -870,7 +872,7 @@ export const UserProfile = () => {
                 onChange={handleChangeUserData}
                 name="bio_id"
                 label="Biometrics ID:* (can be same as emp_no)"
-                disabled={!editMode}     
+                     
                 required           
               />
             </FormControl>
@@ -906,7 +908,7 @@ export const UserProfile = () => {
                 onChange={handleChangeUserData}
                 name="accnt_no"
                 label="Account number: (Bank acct / Gcash acct)"
-                disabled={!editMode}           
+                           
                 required     
               />
             </FormControl>
@@ -922,41 +924,40 @@ export const UserProfile = () => {
                   min:0,
                   type:"number"
                 }}
-                disabled={!editMode}     
+                     
                 required           
               />
             </FormControl> */}
             <FormControl className='w-full'>
-              <InputLabel htmlFor="daily_salary">Daily Salary</InputLabel>
+              <InputLabel htmlFor="daily_salary">Daily Salary:</InputLabel>
               <OutlinedInput
                 id="daily_salary"
                 className='w-full'
                 onChange={handleChangeUserData}
-                name="daily_salary"
+                name="emp_salary_basic"
                 label="Daily Salary:"
                 inputProps={{
                   min:0,
                   type:"number"
                 }}
-                disabled={!editMode}     
+                     
                 required           
               />
             </FormControl>
             <FormControl className='w-full'>
-              <InputLabel htmlFor="monthly_salary">Monthly Salary: (Can be automatically based on the daily salary)</InputLabel>
+              <InputLabel htmlFor="monthly_salary">Monthly Salary: (For Viewing Only)</InputLabel>
               <OutlinedInput
-                key={keyMonthlySalary}
+                // key={keyMonthlySalary}
                 id="monthly_salary"
                 className='w-full'
                 onChange={handleChangeUserData}
                 name="monthly_salary"
-                label="Monthly Salary: (Can be automatically based on the daily salary)"
+                label="Monthly Salary: (For Viewing Only)"
                 inputProps={{
                   min:0,
                   type:"number"
                 }}
-                disabled={!editMode} 
-                defaultValue={employeeData.daily_salary * 22}    
+                value={employeeData.emp_salary_basic * 22}    
                 required           
               />
             </FormControl>
@@ -1105,7 +1106,6 @@ export const UserProfile = () => {
               onChange={handleChangeUserData}
               name="hmo"
               label="HMO Account #:"
-              disabled={!editMode}
               type='text'           
             />
           </FormControl>
@@ -1117,7 +1117,7 @@ export const UserProfile = () => {
               onChange={handleChangeUserData}
               name="payroll_no"
               label="Payroll #:"
-              disabled={!editMode}
+              
               type='text'         
               required       
             />
@@ -1161,7 +1161,7 @@ export const UserProfile = () => {
               onChange={handleChangeUserData}
               name="other_duties_responsibilities"
               label="Other Duty Responsibilities:"
-              disabled={!editMode}
+              
               type='text'              
             />
             {/* {errors.other_duties_responsibilities && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Other Duty Responsibilities is required.</sub>} */}
@@ -1175,7 +1175,7 @@ export const UserProfile = () => {
                 onChange={handleChangeUserData}
                 name="other_deductible"
                 label="Other Deductible (optional):"
-                disabled={!editMode}
+                
                 inputProps={{
                   min:"0",
                   step:"0.01" ,
@@ -1270,7 +1270,7 @@ export const UserProfile = () => {
               }}
               label="Insurance Life: (optional)"
               type="number"
-              disabled={!editMode}             
+                           
             />
           </FormControl>
         </div>
@@ -1288,7 +1288,7 @@ export const UserProfile = () => {
                   step:"0.01",
                   min:"0"
                 }}
-                disabled={!editMode}              
+                              
               />
           </FormControl>
         </div> 
