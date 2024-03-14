@@ -14,6 +14,10 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import FormControl, { useFormControl } from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 // Icons
 import {
@@ -24,14 +28,9 @@ import {
 import Province from '@/public-components/forms/address/Province'
 import CityMunicipality from '@/public-components/forms/address/CityMunicipality'
 // import SelectForm from '@/public-components/forms/SelectForm'
-import DatePicker from '@/public-components/forms/DatePickerForm'
 
-//Interface
-// interface FormSelectData {
-//   branch_code?: string;
-//   // Add other properties as needed
-// }
 
+//INTERFACE
 interface DropDownData {
   branches: any[],
   departments: any[],
@@ -303,6 +302,7 @@ export const UserProfile = () => {
   const handleSubmit = async (e:any) => {
     e.preventDefault()
 
+    console.log(employeeData)
     // Validate image if its file
     const isFile = validateImage(employeeData.employee_image)
 
@@ -670,6 +670,29 @@ export const UserProfile = () => {
           </FormControl>
           <FormControl className='w-full'>
             <InputLabel htmlFor="blood_type">Blood Type: (optional)</InputLabel>
+            <Select
+              onChange={(e:any) => setEmployeeData((curr:any) => ({
+                ...curr,
+                blood_type: e.target.value
+              }))}
+              placeholder="Select Blood Type"
+              name="blood_type"
+              variant="outlined"
+              label="Blood Type: (optional)"
+              required
+            >
+              <MenuItem value="A+">A+</MenuItem>
+              <MenuItem value="A-">A-</MenuItem>
+              <MenuItem value="B+">B+</MenuItem>
+              <MenuItem value="B-">B-</MenuItem>
+              <MenuItem value="AB+">AB+</MenuItem>
+              <MenuItem value="AB-">AB-</MenuItem>
+              <MenuItem value="O+">O+</MenuItem>
+              <MenuItem value="O-">O-</MenuItem>
+            </Select>
+          </FormControl>
+          {/* <FormControl className='w-full'>
+            <InputLabel htmlFor="blood_type">Blood Type: (optional)</InputLabel>
             <OutlinedInput
               id="blood_type"
               className='w-full'
@@ -679,15 +702,21 @@ export const UserProfile = () => {
               type='string'
               disabled={!editMode}         
             />
-          </FormControl>
+          </FormControl> */}
         </div>
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
           <FormControl className='w-full'>
-            {/* <DatePicker 
-              setState={setEmployeeData}
-            /> */}
-            <InputLabel htmlFor="birthday">Birthday: (required)</InputLabel>
-            <OutlinedInput 
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="Birthday: (required)"
+                name="birthday"
+                onChange={(newValue) => setEmployeeData((curr:any) => ({
+                  ...curr,
+                  birthday: newValue
+                }))}
+              />
+            </LocalizationProvider>
+            {/* <OutlinedInput 
               id="birthday"
               className='w-full'
               onChange={handleChangeUserData}
@@ -696,7 +725,7 @@ export const UserProfile = () => {
               type='date'
               disabled={!editMode}    
               required          
-            />
+            /> */}
           </FormControl>
           <FormControl className='w-full'>
             <InputLabel htmlFor="birth_place">Birth Place: (required)</InputLabel>
@@ -805,19 +834,16 @@ export const UserProfile = () => {
 
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
             <FormControl className='w-full'>
-              <InputLabel htmlFor="date_hired">Date Hired:*</InputLabel>
-              <OutlinedInput
-                id="date_hired"
-                className='w-full'
-                onChange={handleChangeUserData}
-                inputProps={{
-                  type:"date"
-                }}
-                name="date_hired"
-                label="Date Hired:*"
-                disabled={!editMode}
-                required             
-              />
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label="Date Hired:"
+                  name="date_hired"
+                  onChange={(newValue) => setEmployeeData((curr:any) => ({
+                    ...curr,
+                    date_hired: newValue
+                  }))}
+                />
+              </LocalizationProvider>
             </FormControl>
         </div>
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
