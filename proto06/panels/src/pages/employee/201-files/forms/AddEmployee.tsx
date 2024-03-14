@@ -299,6 +299,9 @@ export const UserProfile = () => {
       return false;
 
   }
+  const monthlySalaryComputation = (value: number) => {
+    return Math.round(((value?? 0)*313)/12)
+}
 
   const handleSubmit = async (e:any) => {
     e.preventDefault()
@@ -716,7 +719,6 @@ export const UserProfile = () => {
                   ...curr,
                   birthday: dayjs(newValue).format('YYYY-MM-DD')
                 }))}
-                required
               />
             </LocalizationProvider>
             {/* <OutlinedInput 
@@ -845,7 +847,6 @@ export const UserProfile = () => {
                     ...curr,
                     date_hired: dayjs(newValue).format('YYYY-MM-DD')
                   }))}
-                  required
                 />
               </LocalizationProvider>
             </FormControl>
@@ -959,7 +960,7 @@ export const UserProfile = () => {
                   min:0,
                   type:"number"
                 }}
-                value={employeeData.emp_salary_basic * 22}    
+                value={monthlySalaryComputation(employeeData.emp_salary_basic ?? 0)}  
                 required           
               />
             </FormControl>
@@ -1074,8 +1075,6 @@ export const UserProfile = () => {
               <Select
                 onChange={(e:any) => 
                   {
-                    
-                    fetchApprovers(e.target.value)
                     setEmployeeData(curr => 
                     (
                       {

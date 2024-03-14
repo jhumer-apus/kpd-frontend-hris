@@ -41,13 +41,21 @@ import FormData from 'form-data';
 import { beautifyJSON } from '@/helpers/utils';
 import { drop } from 'lodash';
 
+// COMPONENTS
+import Province from '@/public-components/forms/address/Province'
+import CityMunicipality from '@/public-components/forms/address/CityMunicipality'
+import dayjs from 'dayjs'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 interface DropDownData {
     branches: any[],
     departments: any[],
     payrollGroups: any[],
     employmentStatuses: any[],
     positions: any[],
-    approvers: any[]
+    approvers: any[],
+    divisions: any[]
 }
 
 type initialState = {
@@ -59,57 +67,6 @@ type initialState = {
 export const SpecificEmployee = (props: initialState) => {
     const [file, setFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-    const [formSelectData, setFormSelectData] = useState({
-        gender: null,
-        branch_code: null,
-        department_code: null,
-        approver1: null,
-        approver2: null
-    })
-
-    const handleProfilePic = (e:any) => {
-
-        const file = e.target.files[0];
-        const MAX_FILE_SIZE_MB = 5;
-    
-        if (file) {
-    
-          if (file.size <= MAX_FILE_SIZE_MB * 1024 * 1024) {
-    
-            //   setFormSelectData((curr:any) => ({...curr, employee_image:file}))
-
-              setFile(file);
-    
-              const reader = new FileReader();
-              reader.onload = () => {
-                setPreviewUrl(reader.result as string);
-              };
-        
-              reader.readAsDataURL(file);
-    
-          } else {
-            
-            setPreviewUrl(null);
-            window.alert('Image should be not more than 5MB');
-    
-          }
-        }
-      }
-    
-    // const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     const selectedFile = event.target.files ? event.target.files[0] : null;
-    //     setFile(selectedFile);
-    
-    //     if (selectedFile) {
-    //       const reader = new FileReader();
-    //       reader.onloadend = () => {
-    //         setPreviewUrl(reader.result as string);
-    //       };
-    //       reader.readAsDataURL(selectedFile);
-    //     } else {
-    //       setPreviewUrl(null);
-    //     }
-    // };
     const {modalEntranceDelay, secondOptionModalEntranceDelay, loadingEffect} = props;
     const { register, handleSubmit, setValue, formState: { errors } } = useForm<EMPLOYEESViewInterface>();
     const userData = useSelector((state: RootState) => state.employees.specific_employee_info);
@@ -117,6 +74,21 @@ export const SpecificEmployee = (props: initialState) => {
     const [editMode2, setEditMode2] = useState(false);
     const [editMode3, setEditMode3] = useState(false);
     const [type, setType] = useState("staticInfo");
+
+    const [formSelectData, setFormSelectData] = useState({
+        gender: null,
+        branch_code: null,
+        department_code: null,
+        approver1: null,
+        approver2: null,
+        emp_salary_basic: userData?.emp_salary_basic
+    })
+
+    // const [monthlySalary, setMonthlySalary] = useState<number>(0)
+
+    // const [employeeData, setEmployeeData] = useState({
+    //     emp_salary_basic: userData?.emp_salary_basic
+    // })
     
 
     const [dropDownData, setDropDownData] = useState<DropDownData>({
@@ -125,7 +97,8 @@ export const SpecificEmployee = (props: initialState) => {
         payrollGroups:[],
         employmentStatuses:[],
         positions:[],
-        approvers:[]
+        approvers:[],
+        divisions:[]
       })
 
 
@@ -134,13 +107,16 @@ export const SpecificEmployee = (props: initialState) => {
         fetchBranches()
         fetchPayrollGroups()
         fetchEmploymentStatus()
+        fetchDepartments()
         fetchPositions()
+        fetchDivisions()
 
         console.log(userData?.approver1)
         console.log(userData?.approver2)
         if(userData?.department_code) {
             fetchApprovers(parseInt(userData?.department_code))
         }
+        // setMonthlySalary(curr => monthlySalaryComputation(userData?.emp_salary_basic?? 0))
     }, []);
 
     // useEffect(() => {
@@ -171,7 +147,56 @@ export const SpecificEmployee = (props: initialState) => {
                 setValue(key, userData[key]);
             }
         }
+
+        if(userData?.department_code) {
+            fetchApprovers(parseInt(userData?.department_code))
+        }
     }, [userData, setValue]);
+
+
+    // const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     const selectedFile = event.target.files ? event.target.files[0] : null;
+    //     setFile(selectedFile);
+    
+    //     if (selectedFile) {
+    //       const reader = new FileReader();
+    //       reader.onloadend = () => {
+    //         setPreviewUrl(reader.result as string);
+    //       };
+    //       reader.readAsDataURL(selectedFile);
+    //     } else {
+    //       setPreviewUrl(null);
+    //     }
+    // };
+
+    const handleProfilePic = (e:any) => {
+
+        const file = e.target.files[0];
+        const MAX_FILE_SIZE_MB = 5;
+    
+        if (file) {
+    
+          if (file.size <= MAX_FILE_SIZE_MB * 1024 * 1024) {
+    
+            //   setFormSelectData((curr:any) => ({...curr, employee_image:file}))
+
+              setFile(file);
+    
+              const reader = new FileReader();
+              reader.onload = () => {
+                setPreviewUrl(reader.result as string);
+              };
+        
+              reader.readAsDataURL(file);
+    
+          } else {
+            
+            setPreviewUrl(null);
+            window.alert('Image should be not more than 5MB');
+    
+          }
+        }
+      }
   
     const fetchPayrollGroups = () => {
         axios.get(`${APILink}payrollgroup`).then((response:any) => {
@@ -235,22 +260,36 @@ export const SpecificEmployee = (props: initialState) => {
             setDropDownData((curr:any) => ({...curr, positions: responsePositions}));
         })
     }
-
     const fetchApprovers = (department: number) => {
-        axios.get(`${APILink}approvers/`, {
-          params: {
+        axios.get(`${APILink}approvers/`,{
+          params:{
             department: department
           }
         }).then((response:any) => {
+
+            console.log(response.data)
   
-          const responsePositions = response.data.map((position:any) => {
+            const responseApprovers = response.data.map((approver:any) => {
+                return {
+                emp_no: approver.emp_no,
+                full_name: approver.full_name
+                }
+            })
+  
+            setDropDownData((curr:any) => ({...curr, approvers: responseApprovers}));
+  
+        })
+      }
+
+      const fetchDivisions = () => {
+        axios.get(`${APILink}division/`).then((response:any) => {
+          const responseDivisions = response.data.map((division:any) => {
             return {
-              id: position.id,
-              name: position.pos_name
+              id: division.id,
+              name: division. div_name
             }
           })
-  
-          setDropDownData((curr:any) => ({...curr, positions: responsePositions}));
+          setDropDownData((curr:any) => ({...curr, divisions: responseDivisions}));
   
         })
       }
@@ -275,6 +314,16 @@ export const SpecificEmployee = (props: initialState) => {
             window.alert(`Error: ${beautifyJSON(err?.response?.data)}`)
           }
     };
+
+    const handleDailySalary = (e:any) => {
+
+        setFormSelectData(curr => ({...curr, emp_salary_basic: e.target.value}))
+        // setMonthlySalary(monthlySalaryComputation(e.target.val))
+    }
+
+    const monthlySalaryComputation = (value: number) => {
+        return Math.round(((value?? 0)*313)/12)
+    }
 
     const onSubmit = async (data: EMPLOYEESViewInterface, type: string) => {
 
@@ -996,7 +1045,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                 </Select>
                                             }
                                             <Input
-                                                crossOrigin={undefined} {...register('other_duties_responsibilities')}
+                                                crossOrigin={null} {...register('other_duties_responsibilities')}
                                                 type="text"
                                                 containerProps={{ className: "min-w-[72px] focused" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
@@ -1006,26 +1055,29 @@ export const SpecificEmployee = (props: initialState) => {
                                             />    
                                         </div>
                                         <div className="my-4 flex flex-col md:flex-row md:items-center gap-4">
-                                            <Select
-                                                onChange={(val:any) => setFormSelectData(curr => ({
-                                                    ...curr,
-                                                    approver1: val
-                                                }))}
-                                                placeholder="Select Approver 1"
-                                                name="approver1"
-                                                variant="outlined"
-                                                label="Approver #1 (required, employee number)"
-                                                value={userData?.approver1?.toString()}
-                                                disabled={!editMode3}
-                                                aria-required
-                                                >
-                                                {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> (
-                                                    // ![formSelectData.approver1, formSelectData.approver2].includes(approver.emp_no) && <Option value={approver.emp_no}>{approver.full_name}</Option>
-                                                    <Option value={approver.emp_no}>{approver.full_name}</Option>
-                                                    )): (
-                                                    <Option disabled>No Approvers available on the selected department</Option>
-                                                )}
-                                            </Select>
+                                            {dropDownData.approvers.length > 0 &&
+                                                <Select
+                                                    onChange={(val:any) => setFormSelectData(curr => ({
+                                                        ...curr,
+                                                        approver1: val
+                                                    }))}
+                                                    placeholder="Select Approver 1"
+                                                    name="approver1"
+                                                    variant="outlined"
+                                                    label="Approver #1 (required, employee number)"
+                                                    value={userData?.approver1}
+                                                    disabled={!editMode3}
+                                                    aria-required
+                                                    >
+                                                    {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> (
+                                                        // ![formSelectData.approver1, formSelectData.approver2].includes(approver.emp_no) && <Option value={approver.emp_no}>{approver.full_name}</Option>
+                                                        <Option value={approver.emp_no}>{approver.full_name}</Option>
+                                                        )): (
+                                                        <Option disabled>No Approvers available on the selected department</Option>
+                                                    )}
+                                                </Select>
+                                            }
+                                           
                                             {/* <Input
                                                 crossOrigin={undefined} {...register('approver1')}
                                                 type="number"
@@ -1036,26 +1088,29 @@ export const SpecificEmployee = (props: initialState) => {
                                                 value={userData?.approver1 as number}
                                                 icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    
                                             /> */}
-                                            <Select
-                                                onChange={(val:any) => setFormSelectData(curr => ({
-                                                    ...curr,
-                                                    approver2: val
-                                                }))}
-                                                placeholder="Select Approver 2"
-                                                name="approver2"
-                                                variant="outlined"
-                                                label="Approver #2 (required, employee number)"
-                                                value={userData?.approver2?.toString()}
-                                                disabled={!editMode3}
-                                                aria-required
-                                                >
-                                                {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> (
-                                                    // ![formSelectData.approver1, formSelectData.approver2].includes(approver.emp_no) && <Option value={approver.emp_no}>{approver.full_name}</Option>
-                                                    <Option value={approver.emp_no}>{approver.full_name}</Option>
-                                                    )): (
-                                                    <Option disabled>No Approvers available on the selected department</Option>
-                                                )}
-                                            </Select>
+                                            {dropDownData.approvers.length > 0 && 
+                                                <Select
+                                                    onChange={(val:any) => setFormSelectData(curr => ({
+                                                        ...curr,
+                                                        approver2: val
+                                                    }))}
+                                                    placeholder="Select Approver 2"
+                                                    name="approver2"
+                                                    variant="outlined"
+                                                    label="Approver #2 (required, employee number)"
+                                                    value={userData?.approver2}
+                                                    disabled={!editMode3}
+                                                    aria-required
+                                                    >
+                                                    {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> (
+                                                        // ![formSelectData.approver1, formSelectData.approver2].includes(approver.emp_no) && <Option value={approver.emp_no}>{approver.full_name}</Option>
+                                                        <Option value={approver.emp_no}>{approver.full_name}</Option>
+                                                        )): (
+                                                        <Option disabled>No Approvers available on the selected department</Option>
+                                                    )}
+                                                </Select>
+                                            }
+                                            
                                             {/* <Input
                                                 crossOrigin={undefined} {...register('approver2')}
                                                 type="number"
@@ -1241,15 +1296,26 @@ export const SpecificEmployee = (props: initialState) => {
                                         </div>
                                         <div className="mt-4 flex flex-col md:flex-row md:items-center gap-4">
                                             <Input
-                                                    crossOrigin={undefined} {...register('emp_salary_basic')}
-                                                    type="text"
-                                                    containerProps={{ className: "min-w-[72px] focused" }}
-                                                    labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                    label="Basic Salary Amount:"
-                                                    disabled={!editMode3}
-                                                    icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}       
+                                                onChange={handleDailySalary}
+                                                // crossOrigin={undefined} {...register('emp_salary_basic')}
+                                                defaultValue={userData?.emp_salary_basic}
+                                                type="number"
+                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Daily Salary:"
+                                                disabled={!editMode3}
+                                                icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}       
                                             />
-                                            <Select
+                                            <Input
+                                                type="number"
+                                                containerProps={{ className: "min-w-[72px] focused" }}
+                                                labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                label="Monthly Salary: (For Viewing Only)"
+                                                value={monthlySalaryComputation(formSelectData.emp_salary_basic?? userData?.emp_salary_basic?? 0 )}
+                                                disabled={!editMode3}
+                                                icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}       
+                                            />
+                                            {/* <Select
                                                 onChange={(val:any) => setFormSelectData(curr => ({
                                                 ...curr,
                                                 emp_salary_type: val
@@ -1265,7 +1331,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                 <Option value="2">Semi-Monthly</Option>
                                                 <Option value="3">Project-Based</Option>
                                                 <Option value="4">Weekly</Option>
-                                            </Select>
+                                            </Select> */}
                                             {/* <Input
                                                     crossOrigin={undefined} {...register('emp_salary_type')}
                                                     type="text"
@@ -1286,7 +1352,26 @@ export const SpecificEmployee = (props: initialState) => {
                                                 disabled={!editMode3}
                                                 icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                        
                                             />
-                                            <Input
+                                            {dropDownData.divisions.length > 0 && 
+                                                <Select
+                                                onChange={(val:any) => setFormSelectData(curr => ({...curr, division_code: val}))}
+                                                placeholder="Select Division"
+                                                name="division_code"
+                                                variant="outlined"
+                                                label="Division"
+                                                disabled={!editMode3}
+                                                value={userData?.division_code as string}
+                                            >
+                                                {
+                                                dropDownData.divisions.length > 0 ? dropDownData.divisions.map((division:any) => (
+                                                    <Option key={division.id} value={division.id}>{division.name}</Option>
+
+                                                ))
+                                                : <Option disabled>No Division available</Option>
+                                                }
+                                            </Select>
+                                            }
+                                            {/* <Input
                                                 crossOrigin={undefined} {...register('division_code')}
                                                 type="text"
                                                 containerProps={{ className: "min-w-[72px] mb-2 md:mb-0 focused" }}
@@ -1294,7 +1379,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                 label="Division Code:"
                                                 disabled={!editMode3}
                                                 icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}       
-                                            />
+                                            /> */}
                                         </div>
                                         <div className="my-4 flex flex-col md:flex-row md:items-center gap-4">
                                             <Input
