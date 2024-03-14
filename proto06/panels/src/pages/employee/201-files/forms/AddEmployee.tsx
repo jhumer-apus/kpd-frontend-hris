@@ -310,6 +310,7 @@ export const UserProfile = () => {
     if(employeeData.employee_image == (null || undefined)) {
 
       window.alert("Profile Picture is required")
+      return
 
     }else if(!isFile) {
 
@@ -715,6 +716,7 @@ export const UserProfile = () => {
                   ...curr,
                   birthday: dayjs(newValue).format('YYYY-MM-DD')
                 }))}
+                required
               />
             </LocalizationProvider>
             {/* <OutlinedInput 
