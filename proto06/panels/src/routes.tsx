@@ -132,10 +132,12 @@ import ViewEmployeeLeaves from "./pages/reports/view-employee-leaves/leaves-by-c
 import ViewEmployeeOvertime from "./pages/reports/view-employee-overtime/ot-by-cutoff";
 // import ViewEmployeeObt from "./pages/reports/view-employee-obt";
 import ViewEmployeeObt from "./pages/reports/view-employee-obt/obt-by-cutoff";
+import ViewPerfectAttendance from "./pages/reports/view-attendance/perfect-attendance";
 
 import EMPSEMINARSPageV2 from "./pages/employee/emp-training-seminars-v2/emp-training-seminars";
 import EmploymentHistoryPageEmpView from "./pages/employee/employment-history-emp-view/employment-history-emp-view";
 import EMPSEMINARSPageV2EmpView from "./pages/employee/emp-training-seminars-v2-emp-view/emp-training-seminars-emp-view";
+import ViewImperfectAttendance from "./pages/reports/view-attendance/imperfect-attendance";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -1020,6 +1022,22 @@ const JSXRouteWrapper = () => {
                     name: "Employee OBT",
                     path: "/report/employee-obt",
                     element: <ViewEmployeeObt/>,
+                    hasSubItems: false,
+                  },
+                  {
+                    id: 19200,
+                    icon: <DocumentIcon {...icon} />,
+                    name: "Perfect Attendance",
+                    path: "/report/view-attendance/perfect-attendance",
+                    element: <ViewPerfectAttendance/>,
+                    hasSubItems: false,
+                  },
+                  {
+                    id: 19200,
+                    icon: <DocumentIcon {...icon} />,
+                    name: "Imperfect Attendance",
+                    path: "/report/view-attendance/imperfect-attendance",
+                    element: <ViewImperfectAttendance/>,
                     hasSubItems: false,
                   }
               ]

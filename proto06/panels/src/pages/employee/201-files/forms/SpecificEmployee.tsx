@@ -48,6 +48,11 @@ import dayjs from 'dayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
+//HELPERS
+import { validateImage } from '@/helpers/validator/employee_information';
+import SelectProvince from '@/public-components/forms/address/SelectProvince';
+import SelectCityMunicipality from '@/public-components/forms/address/SelectCityMunicipality';
+
 interface DropDownData {
     branches: any[],
     departments: any[],
@@ -76,12 +81,24 @@ export const SpecificEmployee = (props: initialState) => {
     const [type, setType] = useState("staticInfo");
 
     const [formSelectData, setFormSelectData] = useState({
+        employee_image: null,
+        // employee_image: userData?.employee_image,
         gender: null,
         branch_code: null,
         department_code: null,
         approver1: null,
         approver2: null,
-        emp_salary_basic: userData?.emp_salary_basic
+        emp_salary_basic: userData?.emp_salary_basic,
+        province: {
+            id: null,
+            name: null,
+            code: null
+          },
+          city: {
+            id: null,
+            name: null,
+            code: null
+        }
     })
 
     // const [monthlySalary, setMonthlySalary] = useState<number>(0)
@@ -178,7 +195,7 @@ export const SpecificEmployee = (props: initialState) => {
     
           if (file.size <= MAX_FILE_SIZE_MB * 1024 * 1024) {
     
-            //   setFormSelectData((curr:any) => ({...curr, employee_image:file}))
+              setFormSelectData((curr:any) => ({...curr, employee_image:file}))
 
               setFile(file);
     
@@ -330,7 +347,20 @@ export const SpecificEmployee = (props: initialState) => {
         data = {
             ...data,
             ...formSelectData
+        }
 
+        // Validate image if its file
+        const isFile = validateImage(formSelectData.employee_image)
+    
+        if(formSelectData.employee_image == (null || undefined) || !userData?.employee_image) {
+    
+          window.alert("Profile Picture is required")
+          return
+    
+        }else if(!isFile) {
+    
+          window.alert("Profile Picture should be image")
+          return
         }
 
         console.log(data)
@@ -351,8 +381,73 @@ export const SpecificEmployee = (props: initialState) => {
         
         keyChecker(type)
 
-        for (const key in data) {
-            const value = data[key];
+        const finalData: EMPLOYEESViewInterface = {
+            // user: USERViewInterface | null
+            employee_image: data.employee_image,
+            age: data.age,
+            // tax_data:
+            // pagibig_data:
+            // sss_data:
+            // philhealth_data:
+            emp_no: data.emp_no,
+            first_name: data.first_name,
+            middle_name: data.middle_name,
+            last_name: data.last_name,
+            suffix: data.suffix?? null,
+            birthday: data.birthday,
+            birth_place: data.birth_place,
+            civil_status: data.civil_status,
+            gender: data.gender,
+            address: data.address,
+            mobile_phone: data.mobile_phone,
+            email_address: data.email_address,
+            bio_id: data.bio_id,
+            telephone: data.telephone,
+            blood_type: data.blood_type,
+            graduated_school: data.graduated_school,
+            profession: data.profession,
+            license_no: data.license_no,
+            emergency_contact_person: data.emergency_contact_person,
+            emergency_contact_number: data.emergency_contact_number,
+            hmo: data.hmo,
+            other_duties_responsibilities: data.other_duties_responsibilities,
+            payroll_no: data.payroll_no,
+            date_hired: data.date_hired,
+            // date_resigned: data.date_resigned,
+            accnt_no: data.accnt_no,
+            emp_salary_basic: data.emp_salary_basic,
+            emp_salary_type: "5",
+            insurance_life: data.insurance_life ?? 0,
+            other_deductible: data.other_deductible?? 0,
+            ecola: data.ecola ?? 0,
+            approver1: data.approver1,
+            approver2: data.approver2,
+            province_code: data.province.id,
+            city_code: data.city.id,
+            branch_code: data.branch_code,
+            department_code: data.department_code,
+            division_code: data.division_code,
+            position_code: data.position_code,
+            rank_code: data.rank_code,
+            payroll_group_code: data.payroll_group_code,
+            employment_status: data.employment_status,
+            // rank_hierarchy: 0,
+            // user: null,
+            // tax_data: null,
+            // pagibig_data: null,
+            // sss_data: null,
+            // philhealth_data: null,
+            // provincial_address: null,
+            // date_resigned: null,
+            // date_added: '',
+            // tax_code: null,
+            // pagibig_code: null,
+            // sssid_code: '',
+            // philhealth_code: null
+          }
+
+        for (const key in finalData) {
+            const value = finalData[key];
             if (value !== null && value !== undefined && value !== "") {
                 if(key === "employee_image" && file){
                     formData.append(key, file);
@@ -660,7 +755,7 @@ export const SpecificEmployee = (props: initialState) => {
                                     Profile Picture *accepts PNG file only, max 100kb size
                                     </Typography>
                                     <input 
-                                        {...register('employee_image')}
+                                        // {...register('employee_image')}
                                         disabled={!editMode2} 
                                         type="file" 
                                         accept="image/jpeg, image/jpg, image/png, image/webp"
@@ -837,19 +932,37 @@ export const SpecificEmployee = (props: initialState) => {
                                     </div>
 
                                     <div className="my-4 md:flex md:items-center gap-4">
+                                        {/* <Province 
+                                            setState={setFormSelectData}
+                                        />
+                                        <CityMunicipality
+                                            state={formSelectData}
+                                            setState={setFormSelectData}
+                                        /> */}
+                                        
+                                        <SelectProvince 
+                                            setState={setFormSelectData}
+                                            province_code={userData?.province_code}
+                                        />
+                                        <SelectCityMunicipality 
+                                            state={formSelectData}
+                                            setState={setFormSelectData}
+                                        />
                                         <Input
-                                                crossOrigin={undefined} {...register('address')}
-                                                type="text"
-                                                containerProps={{ className: "mb-2 md:mb-0" }}
-                                                label="Present Address:"
-                                                labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                disabled={!editMode2}                                    />
-                                        <Input
+                                            crossOrigin={undefined} {...register('address')}
+                                            type="text"
+                                            containerProps={{ className: "mb-2 md:mb-0" }}
+                                            label="Street Address:"
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            disabled={!editMode2}                                    
+                                        />
+                                        {/* <Input
                                             crossOrigin={undefined} {...register('provincial_address')}
                                             label="Provincial Address:"
                                             labelProps={{ style: { color: true ? "unset" : '' } }}
                                             disabled={!editMode2}
-                                            icon={<LockClosedOutline className="h-5 w-5 text-blue-gray-300" />}                                />
+                                            icon={<LockClosedOutline className="h-5 w-5 text-blue-gray-300" />}    
+                                        /> */}
                                     </div>
                                     <div className="my-4 md:flex md:items-center gap-4">
                                         <Input
@@ -1133,14 +1246,14 @@ export const SpecificEmployee = (props: initialState) => {
                                         Payroll Code
                                         </Typography>
                                         <div className="my-4 flex flex-col md:flex-row md:items-center gap-4">
-                                            <Input
+                                            {/* <Input
                                                 crossOrigin={undefined} {...register('city_code')}
                                                 type="text"
                                                 containerProps={{ className: "min-w-[72px]" }}
                                                 label="City Code:"
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 disabled={!editMode3}             
-                                            />
+                                            /> */}
                                             {dropDownData.branches.length > 0 && 
                                                 <Select
                                                 onChange={(val:any) => setFormSelectData(curr => ({...curr, branch_code: val}))}

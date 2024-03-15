@@ -75,8 +75,8 @@ export interface EMPLOYEESViewInterface {
     accnt_no: string
     emp_salary_basic: number
     emp_salary_type: string
-    insurance_life: string | null
-    other_deductible: string | null
+    insurance_life: string | number | null
+    other_deductible: string | number | null
     ecola: number | string | null
     approver1: number
     approver2: number | null 
