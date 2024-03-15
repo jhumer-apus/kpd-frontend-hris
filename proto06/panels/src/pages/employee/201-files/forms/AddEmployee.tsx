@@ -489,9 +489,7 @@ export const UserProfile = () => {
               id="middlename"
               onChange={handleChangeUserData}
               name="middle_name"
-              label="Middle Name:"
-              
-              required            
+              label="Middle Name:"      
             />
           </FormControl>
 
