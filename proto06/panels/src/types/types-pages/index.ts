@@ -549,7 +549,11 @@ export interface BRANCHGenericInterface {
     branch_address: string,
     branch_email: string,
     branch_contact_number: string,
+    branch_city: number | null,
+    branch_province: number | null,
     branch_oic: number,
+    branch_province: number | null,
+    branch_city: number | null
 }
 
 export interface BRANCHViewInterface extends BRANCHGenericInterface{

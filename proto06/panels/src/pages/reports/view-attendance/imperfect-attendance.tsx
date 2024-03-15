@@ -60,6 +60,10 @@ export default function ViewImperfectAttendance() {
                     department_name: emp.employee.department_data?.dept_name?? "Unknown",
                     division_name: emp.employee.division_data?.div_name?? "Unknown",
                     position_name: emp.employee.position_data?.pos_name?? "Unknown",
+                    late: emp.lates?? "",
+                    undertime: emp.undertime?? "",
+                    absent: emp.absent??  "",
+                    counter: emp.counter?? ""
                 }
             }): []
 
@@ -95,7 +99,11 @@ export default function ViewImperfectAttendance() {
         { field: 'emp_name', headerName: 'Employee Name:', width: 200},
         { field: 'department_name', headerName: 'Department', width: 120},
         { field: 'division_name', headerName: 'Division', width: 120},
-        { field: 'position_name', headerName: 'Position', width: 120}
+        { field: 'position_name', headerName: 'Position', width: 120},
+        { field: 'late', headerName: 'Lates', width: 120},
+        { field: 'undertime', headerName: 'Undertime', width: 120},
+        { field: 'absent', headerName: 'Absents', width: 120},
+        { field: 'counter', headerName: 'Total of Tardiness', width: 200},
         // {
         //   field: 'datetime_bio_time',
         //   headerName: 'Time',
@@ -163,7 +171,11 @@ export default function ViewImperfectAttendance() {
             "Employee No": obj.emp_no,
             "Department": obj.department_name,
             "Division": obj.division_name,
-            "Position": obj.position_name
+            "Position": obj.position_name,
+            "Lates": obj.late,
+            "Undertime": obj.undertime,
+            "Absents": obj.absent,
+            "Total of Tardiness": obj.counter
         }
     }): []
 

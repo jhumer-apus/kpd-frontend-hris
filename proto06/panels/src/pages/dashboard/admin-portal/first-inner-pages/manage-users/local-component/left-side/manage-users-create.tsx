@@ -36,6 +36,7 @@ function ManageUSERCreate(props: CreateUSERModalInterface) {
 
     const onClickSubmit = (e: any) => {
         e.preventDefault();
+        console.log(createUSER.role )
         if(createUSER.username && createUSER.password && createUSER.role && createUSER.emp_no) {
 
             dispatch(USERCreateAction(createUSER))
@@ -44,10 +45,10 @@ function ManageUSERCreate(props: CreateUSERModalInterface) {
 
             const error:any = {}
 
-            !createUSER.emp_no && (error["Employee Number"] = "Username is required!")
+            !createUSER.emp_no && (error["Employee Number"] = "Employee Number is required!")
             !createUSER.username && (error.Username = "Username is required!")
-            !createUSER.password && (error.Password = "Username is required!")
-            !createUSER.role && (error.Role = "Username is required!")
+            !createUSER.password && (error.Password = "Password is required!")
+            !createUSER.role && (error.Role = "Role is required!")
 
             window.alert(beautifyJSON(error))
         }

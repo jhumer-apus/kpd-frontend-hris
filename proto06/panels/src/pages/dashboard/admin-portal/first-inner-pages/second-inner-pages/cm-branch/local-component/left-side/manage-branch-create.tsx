@@ -8,6 +8,13 @@ import { Typography } from '@mui/joy';
 import { BRANCHCreateInterface } from '@/types/types-pages';
 import { BRANCHCreateAction, BRANCHCreateActionFailureCleanup, BRANCHViewAction } from '@/store/actions/categories';
 
+//COMPONENTS
+import Province from '@/public-components/forms/address/Province';
+import CityMunicipality from '@/public-components/forms/address/CityMunicipality';
+
+//HELPERS
+import { beautifyJSON } from '@/helpers/utils';
+
 interface CreateBRANCHModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
 }
@@ -17,16 +24,63 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
     const dispatch = useDispatch();
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail?.emp_no);
     const BRANCHCreatestate = useSelector((state: RootState)=> state.categories.BRANCHCreate);
-    const [createBRANCH, setCreateBRANCH] = useState<BRANCHCreateInterface>({
+    const [createBRANCH, setCreateBRANCH] = useState<any>({
         branch_name: "",
         branch_address: "",
         branch_email: "",
         branch_contact_number: "",
         branch_oic: NaN,
-        added_by: NaN,
+        province: {
+            id: null,
+            name: null,
+            code: null
+        },
+        city: {
+            id: null,
+            name: null,
+            code: null
+        },
+        added_by: curr_user,
     });
-    const onClickSubmit = () => {
-        dispatch(BRANCHCreateAction(createBRANCH))
+
+    const validateBranch = (data:any) => {
+
+        const error:any = {}
+
+        !data.branch_address && (error["Branch Address"] = "Branch Address is required!")
+        !data.branch_email && (error["Branch Email"] = "Branch Email is required!")
+        !data.branch_contact_number && (error["Branch Contact Number"] = "Branch Contact Number is required!")
+        !data.branch_oic && (error["Branch OIC"] = "Branch OIC is required!")
+        !data.branch_name && (error["Branch Name"] = "Branch Name is required!")
+        !data.branch_province && (error["Branch Province"] = "Branch Province is required!")
+        !data.branch_city && (error["Branch City"]= "Branch City is required!")
+
+        if (Object.keys(error).length > 0) {
+            window.alert(beautifyJSON(error))
+            return true
+        } 
+
+        return false
+    }
+    const onClickSubmit = (e:any) => {
+        e.preventDefault()
+
+        const branchData: BRANCHCreateInterface  = {
+            branch_name: createBRANCH.branch_name,
+            branch_address: createBRANCH.branch_address,
+            branch_email: createBRANCH.branch_email,
+            branch_contact_number: createBRANCH.branch_contact_number,
+            branch_oic: createBRANCH.branch_oic,
+            branch_province: createBRANCH.province?.id,
+            branch_city: createBRANCH.city?.id,
+            added_by: curr_user,
+        }
+
+        if(validateBranch(branchData)) { //If has errors
+            return
+        }
+
+        dispatch(BRANCHCreateAction(branchData))
     };
 
     useEffect(()=> {
@@ -62,7 +116,7 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a Branch Data</Typography>
-            <div className='flex flex-col gap-3 overflow-auto relative'>
+            <form onSubmit={onClickSubmit} className='flex flex-col gap-3 overflow-auto relative'>
                 {/* <div className='flex gap-3 pt-4'> */}
                     <div className='flex flex-col gap-3 pt-4'>
                         <EmployeeAutoComplete createBRANCH={createBRANCH} setCreateBRANCH={setCreateBRANCH}/>
@@ -91,10 +145,17 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                             }}
                             
                         />
+                        <Province 
+                            setState={setCreateBRANCH}
+                        />
+                        <CityMunicipality 
+                            setState={setCreateBRANCH}
+                            state={createBRANCH}
+                        />
                         <TextField
-                            aria-required
+                            required
                             sx={{width: '100%'}} 
-                            label='Branch Address'  
+                            label='Branch Street Address'  
                             variant='outlined' 
                             type="text"
                             value={createBRANCH?.branch_address}
@@ -109,10 +170,9 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                                     )
                                 })
                             }}
-                            
                         />
                         <TextField
-                            aria-required
+                            required
                             sx={{width: '100%'}} 
                             label='Branch Email'  
                             placeholder='abc@gmail.com'
@@ -132,7 +192,7 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                             }}
                         />
                         <TextField
-                            aria-required
+                            required
                             sx={{width: '100%'}} 
                             label='Branch Contact Number'  
                             placeholder='091234567890 or +639876543210'
@@ -155,10 +215,10 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                 {/* </div> */}
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
-                        <Button variant='contained' onClick={onClickSubmit}>Create BRANCH</Button>
+                        <Button variant='contained' type="submit">Create BRANCH</Button>
                     </div>
                 </div>
-            </div>
+            </form>
         </React.Fragment>
     );
 }

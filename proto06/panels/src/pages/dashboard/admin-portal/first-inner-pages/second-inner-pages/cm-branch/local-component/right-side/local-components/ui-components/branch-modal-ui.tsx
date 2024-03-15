@@ -31,6 +31,8 @@ function BRANCHModalUI(props: BRANCHModalUIInterface) {
         
     };
 
+    const branchAddress = `${ThisProps.province_name}, ${ThisProps.city_name}, ${ThisProps.branch_address}`
+
     return (
         <Fragment>
             <AllowedDaysBRANCHModal 
@@ -53,7 +55,7 @@ function BRANCHModalUI(props: BRANCHModalUIInterface) {
                 </div>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Branch OIC' value={ThisProps.branch_oic || '-'} InputProps={{readOnly: true,}} variant='filled'/>
-                    <TextField sx={{width: '100%', minWidth: '160px'}} multiline rows={3} label='Branch Address' value={ThisProps.branch_address || '-'} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%', minWidth: '160px'}} multiline rows={3} label='Branch Address' value={branchAddress || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                 </div>
             </div>
             <div className='flex flex-col justify-center items-center'>

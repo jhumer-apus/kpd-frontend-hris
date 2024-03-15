@@ -93,6 +93,7 @@ export function ChooseDashboard() {
       }
     } else {
       if(Array.isArray(EmployeeState?.IMPERFECTATTENDANCEViewSpecific?.data)){
+        console.log(EmployeeState?.IMPERFECTATTENDANCEViewSpecific?.data)
         const data = EmployeeState?.IMPERFECTATTENDANCEViewSpecific?.data?.map((data)=> {
           return ({
             id: data.employee.id,
@@ -103,6 +104,7 @@ export function ChooseDashboard() {
             Payroll_Group: `${data.employee.payroll_group_code !== null ? data.employee.payroll_group_code : ''}`,
             Lates: `${data.lates !== null ? data.lates : ''}`,
             Undertime: `${data.undertime !== null ? data.undertime : ''}`,
+            Absents: `${data.absent !== null ? data.absent : ''}`,
             Total_Tardiness: `${data.counter !== null ? data.counter : ''}`,
           })
         });
