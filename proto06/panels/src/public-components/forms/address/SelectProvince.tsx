@@ -19,11 +19,12 @@ interface ProvinceInterface {
 interface Props {
     province_code?: any,
     setState: any
+    isDisable: boolean
 }
 export default function SelectProvince(props: Props) {
 
     //PROPS
-    const { setState, province_code } = props
+    const { setState, province_code, isDisable } = props
 
     //STATES
     const [provinces, setProvinces] = useState<ProvinceInterface[]>([])
@@ -66,13 +67,13 @@ export default function SelectProvince(props: Props) {
 
     return (
         <div>
-            {province_code}
             {provinces.length>0 &&
                 <Select
                     label="Province:"
                     placeholder="Select Province"
                     onChange={handleChange}
-                    value={findProvince(province_code)}
+                    value={province_code}
+                    disabled={isDisable}
                 >
                     {provinces.length > 0 ? provinces.map((province: ProvinceInterface) => (
                         <Option value={province.id}>{province.name}</Option>

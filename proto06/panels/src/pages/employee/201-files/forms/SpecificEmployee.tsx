@@ -351,13 +351,12 @@ export const SpecificEmployee = (props: initialState) => {
 
         // Validate image if its file
         const isFile = validateImage(formSelectData.employee_image)
-    
-        if(formSelectData.employee_image == (null || undefined) || !userData?.employee_image) {
+        if(formSelectData.employee_image == (null || undefined) && !userData?.employee_image) {
     
           window.alert("Profile Picture is required")
           return
     
-        }else if(!isFile) {
+        }else if(!isFile && !userData?.employee_image) {
     
           window.alert("Profile Picture should be image")
           return
@@ -942,11 +941,14 @@ export const SpecificEmployee = (props: initialState) => {
                                         
                                         <SelectProvince 
                                             setState={setFormSelectData}
+                                            isDisable={!editMode2}
                                             province_code={userData?.province_code}
                                         />
                                         <SelectCityMunicipality 
                                             state={formSelectData}
                                             setState={setFormSelectData}
+                                            isDisable={!editMode2}
+                                            city_code={userData?.city_code}
                                         />
                                         <Input
                                             crossOrigin={undefined} {...register('address')}

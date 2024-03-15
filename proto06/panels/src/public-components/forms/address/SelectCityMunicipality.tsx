@@ -19,12 +19,14 @@ interface CityMunicipalityInterface {
 interface Props {
     state:any
     setState: any;
+    isDisable: boolean
+    city_code?: any
 }
 
 export default function CityMunicipality(props:Props) {
     
     //PROPS
-    const { setState, state } = props
+    const { setState, state, isDisable, city_code } = props
 
     
     //STATES
@@ -65,31 +67,41 @@ export default function CityMunicipality(props:Props) {
 
     }
 
+    const findCity = (val:any) => {
+        return cities.find(city => city.id == val)
+    }
+
     const handleChange = (newValue:any) => {
 
-        console.log(newvalue)
+        console.log(newValue)
         if(newValue) {
             setState((curr:any) => ({
                 ...curr,
-                city: newValue
+                city: findCity(newValue)
             }))
         }
     }
 
     return (
-        <Select
-            key={resetKey}
-            label="City: (Select a province first)"
-            placeholder="Select City"
-            onChange={handleChange}
-        >
-            {cities.length>0 ? cities.map((city: CityMunicipalityInterface) => (
-                <Option value={city}>{city.name}</Option>
-            )):
-                <Option disabled>No cities available on the selected province</Option>
+        <div>
+            {cities.length > 0 &&
+                <Select
+                    key={resetKey}
+                    label="City: (Select a province first)"
+                    placeholder="Select City"
+                    onChange={handleChange}
+                    disabled={isDisable}
+                    value={city_code}
+                >
+                    {cities.length > 0 ? cities.map((city: CityMunicipalityInterface) => (
+                        <Option value={city.id}>{city.name}</Option>
+                    )):
+                        <Option disabled>No cities available on the selected province</Option>
+                    }
+        
+                </Select>
             }
-
-        </Select>
+        </div>
     
     )
 
