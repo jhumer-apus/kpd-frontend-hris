@@ -157,7 +157,12 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
     }
 
     const viewImages = () => {
-        //View images logic
+
+        const imageUrl = `${APILink.replace('/api/v1/','')}${ThisProps.leave_file_path}`;
+        // Open a new tab/window with the images
+        if(imageUrl) {
+            window.open(imageUrl, '_blank');
+        }
     }
 
     const fetchSpecificLeave = async (leave_id: number) => {

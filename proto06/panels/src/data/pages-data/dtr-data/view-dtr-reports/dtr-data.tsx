@@ -5,7 +5,6 @@ import dayjs from "dayjs";
 
 import { useSelector } from 'react-redux';
 
-// const currUser = useSelector((state: RootState) => state.auth.employee_detail);
 
 export const viewDTROptions = [
   "View All DTR Logs/Entries",
@@ -23,8 +22,10 @@ export const viewDTRDescriptions = [
 
 
 
-export const dynamicDTRColumns: Array<GridColDef[]> = 
-[
+export const dynamicDTRColumns= ():Array<GridColDef[]> => {
+
+const currUser = useSelector((state: RootState) => state.auth.employee_detail);
+return [
   [
     { field: 'id', headerName: 'Entry ID', width: 120 },
     { field: 'emp_no', headerName: 'Employee #', width: 120 },
@@ -204,6 +205,7 @@ export const dynamicDTRColumns: Array<GridColDef[]> =
     { field: 'nd_total_hours', headerName: 'Night Differential', width: 150 },
   ],
 ];
+}
   
 export default {
   viewDTROptions,

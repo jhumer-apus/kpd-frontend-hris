@@ -48,6 +48,7 @@ export default function ViewDtrReports() {
   const currUser = useSelector((state: RootState) => state.auth.employee_detail)
   const { spButtonIndex, spButtonStr, spButtonError, dtrStatus, dtrError, dtrData } = useDtrState();
   const [type, setType] = useState("staticInfo");
+  const [exportDtrData, setExportDtrData] = useState<any>([])
 
 
   // Specific Employee Modal Form 
@@ -118,6 +119,36 @@ export default function ViewDtrReports() {
       // dispatch(viewAllDtrLogs());
     }
   }, [spButtonIndex]);
+
+  useEffect(()=> {
+
+
+    console.log(dtrData)
+    const exportDtrData = Array.isArray(dtrData)? dtrData.map(dtr => {
+
+      //Filter columns for basic employee only using destructuring
+      if((currUser?.rank_code??0) <= 3) {
+
+        return {
+          id: dtr.id,
+          emp_no: dtr.emp_no,
+          flag1_in_out: dtr.flag1_in_out,
+          datetime_bio_date: dtr.datetime_bio_date,
+          datetime_bio_time: dtr.datetime_bio_time,
+          business_date: dtr.business_date,
+          duty_in: dtr.duty_in,
+          duty_out: dtr.duty_out,
+          is_processed: dtr.is_processed
+        }
+
+      } 
+      return dtr
+    }) : []
+    console.log(exportDtrData)
+    setExportDtrData((curr:any) => exportDtrData)
+
+  },[dtrData])
+
   function dispatchSpecificEmployeeInfo(employee_number: number){
     return dispatch(getSpecificEmployeeInfo({employee_id: employee_number}));   
   }
@@ -169,8 +200,11 @@ export default function ViewDtrReports() {
         </Typography>
         </div>
         <div className='flex justify-between gap-6'>
-          <ExportToCsvButton data={dtrData} />
-          <PrintTableButton printing={printing} setIsPrinting={setIsPrinting}/>
+          {/* <ExportToCsvButton data={exportDtrData} /> */}
+          <ExportToCsvButton data={exportDtrData} />
+          {(currUser?.rank_code??0) > 3 && 
+            <PrintTableButton printing={printing} setIsPrinting={setIsPrinting}/>
+          }
         </div>
       </div>
       <FilterDTR 
@@ -182,7 +216,7 @@ export default function ViewDtrReports() {
       <div style={{ height: `${printing? `${printableArea()}px` : '660px'}`, width: '100%' }} id="printable-area">
         <DataGrid
           rows={dtrData ?? []}
-          columns={dynamicDTRColumns[spButtonIndex === null ? 0 : spButtonIndex]}
+          columns={dynamicDTRColumns()[spButtonIndex === null ? 0 : spButtonIndex]}
           initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 100 },

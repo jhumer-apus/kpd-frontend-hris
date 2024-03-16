@@ -336,7 +336,8 @@ export interface LEAVEViewInterface extends LEAVECreateInterface {
     leave_number_days: number;
     cutoff_code: number;
     applicant_rank: number;
-    emp_name:string
+    emp_name:string,
+    leave_file_path:string|null;
 }
 
 export interface LEAVEEditInterface extends LEAVEViewInterface {}

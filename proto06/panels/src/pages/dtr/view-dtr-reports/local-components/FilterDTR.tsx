@@ -222,13 +222,13 @@ export default function FilterDTR(props: Props) {
     )
 
     let renderElement: JSX.Element | null;
-
+    
     switch(viewType) {
 
         case 'logs':
 
             renderElement = (
-                <div className='flex space-x-4 w-fit my-2'>
+                <div className='flex flex-col md:flex-row gap-4 w-fit my-2 md:items-center'>
                     {textFieldYear}
                     <Autocomplete
                         disablePortal
@@ -247,23 +247,41 @@ export default function FilterDTR(props: Props) {
             break;
 
         case 'merged':
-
-            renderElement = (
-                <div className='flex space-x-4 w-fit my-2'>
-                    {textFieldYear}
-                    <Autocomplete
-                        disablePortal
-                        id="cutoff"
-                        options={cutoffPeriods}
-                        getOptionLabel={(option:any) => option? `${option.cleanDateFrom} - ${option.cleanDateTo}`: "" }
-                        onChange={handleChangeCutoffId}
-                        className='md:w-80'
-                        disabled={isCutOffPeriodLoading}
-                        renderInput={(params) => <TextField {...params} label="Cutoff Periods" />}
-                    />
-                    <Button className='w-20 h-fit py-4' onClick={handleViewDTR}>View</Button>
-                </div>
-            )
+            
+            if(cutoffPeriods.length> 0) {
+                renderElement = (
+                    <div className='flex flex-col md:flex-row gap-4 w-fit my-2 md:items-center'>
+                        {textFieldYear}
+                        <Autocomplete
+                            disablePortal
+                            id="cutoff"
+                            options={cutoffPeriods}
+                            getOptionLabel={(option:any) => option? `${option.cleanDateFrom} - ${option.cleanDateTo}`: 'No option'}
+                            onChange={handleChangeCutoffId}
+                            className='md:w-80'
+                            disabled={isCutOffPeriodLoading}
+                            renderInput={(params) => <TextField {...params} label="Cutoff Periods" />}
+                        />
+                        <Button className='w-20 h-fit py-4' onClick={handleViewDTR}>View</Button>
+                    </div>
+                )
+            } 
+            else{
+                renderElement = (
+                    <div className='flex space-x-4 w-fit my-2'>
+                        {textFieldYear}
+                        <TextField
+                            className='md:w-80'
+                            type="text"
+                            label="Cutoff Periods"
+                            variant="outlined"
+                            placeholder="No cut off available on a selected year"
+                            disabled
+                        />
+                        <Button className='w-20 h-fit py-4' disabled onClick={handleViewDTR}>View</Button>
+                    </div>
+                )
+            }
             break
 
         default:
