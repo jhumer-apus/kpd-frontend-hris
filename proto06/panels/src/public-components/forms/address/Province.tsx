@@ -16,22 +16,32 @@ interface ProvinceInterface {
 }
 
 interface Props {
+    state?:any;
     setState: any;
+    province_id? : number | null;
+    city_id? : number | null;
 }
 export default function Province(props: Props) {
 
     //PROPS
-    const { setState } = props
+    const { state, setState, province_id, city_id } = props
+    console.log(state)
 
     //STATES
     const [provinces, setProvinces] = useState<ProvinceInterface[]>([])
+    // const [defaultProvince , setDefaultProvince] = useState<ProvinceInterface | null>(null)
 
     //USE EFFECTS
     useEffect(() => {
-
         fetchProvinces()
 
     }, [])
+
+    useEffect(() => {
+        if(provinces.length>0) {
+            findProvince(province_id)
+        }
+    },[provinces.length])
 
     //FUNCTIONS
     const fetchProvinces = async() => {
@@ -49,6 +59,20 @@ export default function Province(props: Props) {
 
     }
 
+    const findProvince = (val:any) => {
+        const selectedProvince = provinces.find(prov => prov.id == val)
+        console.log(val)
+        if(selectedProvince) {
+            console.log(selectedProvince)
+            // setDefaultProvince((curr:any) => selectedProvince)
+            setState((curr:any) => ({
+                ...curr,
+                province: selectedProvince
+            }))
+            return selectedProvince
+        }
+    }
+
     const handleChange = (e: any, newValue: ProvinceInterface | null) => {
         if(newValue) {
             setState((curr:any) => ({
@@ -59,16 +83,22 @@ export default function Province(props: Props) {
     }
 
     return (
-
-        <Autocomplete
-            disablePortal
-            id="province"
-            options={provinces}
-            className='w-full'
-            getOptionLabel={(province: ProvinceInterface) => province.name}
-            onChange={handleChange}
-            renderInput={(params) => <TextField {...params} label="Province" />}
-        />
+        <div className='w-full'>
+            {provinces.length > 0 &&
+                (
+                    <Autocomplete
+                        disablePortal
+                        id="province"
+                        options={provinces}
+                        className='w-full'
+                        value={state?.province}
+                        getOptionLabel={(province: ProvinceInterface) => province.name}
+                        onChange={handleChange}
+                        renderInput={(params) => <TextField {...params} label="Province" />}
+                    />
+                )
+            }
+        </div>
 
 
     )

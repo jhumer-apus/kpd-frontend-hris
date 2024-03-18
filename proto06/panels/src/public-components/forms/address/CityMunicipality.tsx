@@ -18,14 +18,15 @@ interface CityMunicipalityInterface {
 interface Props {
     state:any
     setState: any;
+    city_id?: any
 }
 
 export default function CityMunicipality(props:Props) {
     
     //PROPS
-    const { setState, state } = props
+    const { setState, state, city_id } = props
 
-    
+    console.log(state)
     //STATES
     const [cities, setCities] = useState<CityMunicipalityInterface[]>([])
     const [resetKey, setResetKey] = useState<number>(0);
@@ -41,6 +42,14 @@ export default function CityMunicipality(props:Props) {
         fetchCities()
         
     }, [state.province])
+
+    useEffect(() => {
+        console.log(state)
+        if(cities.length > 0) {
+            findCity(city_id)
+        }
+
+    },[cities.length])
 
     //FUNCTIONS
     const fetchCities = async() => {
@@ -73,18 +82,34 @@ export default function CityMunicipality(props:Props) {
         }
     }
 
+    const findCity = (val:any) => {
+        console.log(val)
+        const selectedCity = cities.find(city => city.id == val)
+        if(selectedCity) {
+            setState((curr:any) => ({
+                ...curr,
+                city: selectedCity
+            }))
+            return selectedCity
+        }
+    }
     return (
-        <Autocomplete
-            key={resetKey}
-            disablePortal
-            id="city"
-            options={cities}
-            className='w-full'
-            getOptionLabel={(city: CityMunicipalityInterface) => city.name}
-            onChange={handleChange}
-            renderInput={(params) => <TextField {...params} label="City (Select a province first)" />}
-            disabled={!state.province.code}
-        />
+        <div className='w-full'>
+            {cities.length > 0 &&
+                <Autocomplete
+                    key={resetKey}
+                    value={state?.city}
+                    disablePortal
+                    id="city"
+                    options={cities}
+                    className='w-full'
+                    getOptionLabel={(city: CityMunicipalityInterface) => city.name}
+                    onChange={handleChange}
+                    renderInput={(params) => <TextField {...params} label="City (Select a province first)" />}
+                    disabled={!state.province?.code}
+                />
+            }
+        </div>
     )
 
 

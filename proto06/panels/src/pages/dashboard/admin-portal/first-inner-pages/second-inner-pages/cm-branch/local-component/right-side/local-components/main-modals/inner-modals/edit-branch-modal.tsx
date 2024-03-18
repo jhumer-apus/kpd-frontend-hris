@@ -1,4 +1,4 @@
-import {useEffect, Dispatch, SetStateAction, ChangeEvent, Fragment}from 'react';
+import {useEffect, useState, Dispatch, SetStateAction, ChangeEvent, Fragment}from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
@@ -9,6 +9,8 @@ import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/co
 import dayjs from 'dayjs';
 import { BRANCHEditAction, BRANCHEditActionFailureCleanup, BRANCHViewAction } from '@/store/actions/categories';
 import { clearFields } from '@/helpers/utils';
+import Province from '@/public-components/forms/address/Province';
+import CityMunicipality from '@/public-components/forms/address/CityMunicipality';
 
 
 
@@ -24,6 +26,19 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
   const dispatch = useDispatch();
   const BRANCHEditState = useSelector((state: RootState)=> state.categories.BRANCHEdit)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
+  const [address, setAddress] = useState({
+    province: {
+      id: null,
+      name: null,
+      code: null
+    },
+    city: {
+      id: null,
+      name: null,
+      code: null
+    }
+  })
+
   const {
     allowedDaysBRANCHOpenModal, 
     setSingleBRANCHOpenModal, 
@@ -31,7 +46,6 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
     singleBRANCHDetailsData, 
     setSingleBRANCHDetailsData 
   } = props;
-
 
   const allowedDaysBRANCH = () => { 
     // setSingleBRANCHDetailsData((prevState)=> {
@@ -47,6 +61,8 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
     // })
     dispatch(BRANCHEditAction({
       ...singleBRANCHDetailsData,
+      branch_province:  address.province.id,
+      branch_city:  address.city.id,
       added_by: curr_user || NaN
     }))
   }
@@ -110,15 +126,16 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
             }}
             size='sm'
         > 
+
           <Typography variant='h6' className='border-b-2 border-blue-700'>Editing Branch Details</Typography>
           <div className='flex flex-col items-center justify-around h-full'>
             <div className='flex flex-col w-full gap-10'>
-              <div className='flex justify-center item-center'>
+              <div className='flex mt-20 justify-center item-center'>
                 <Typography>Please Enter New Details</Typography>
               </div>
               <div className='flex flex-col justify-center items-center gap-5'>
                 <TextField
-                sx={{width: '90%'}}
+                  className='w-full'
                   label='Branch Name'
                   type='text'
                   required
@@ -135,7 +152,7 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
                   }}
                 />
                 <TextField
-                sx={{width: '90%'}}
+                  className='w-full'
                   label='Branch OIC'
                   type='number'
                   required
@@ -152,7 +169,7 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
                   }}
                 />
                 <TextField
-                sx={{width: '90%'}}
+                  className='w-full'
                   label='Branch Contact #'
                   type='text'
                   required
@@ -169,7 +186,7 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
                   }}
                 />
                 <TextField
-                sx={{width: '90%'}}
+                  className='w-full'
                   label='Branch Email'
                   type='text'
                   required
@@ -185,9 +202,19 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
                     })
                   }}
                 />
+                <Province
+                  state={address}
+                  setState={setAddress}
+                  province_id={singleBRANCHDetailsData.branch_province}
+                />
+                <CityMunicipality 
+                  state={address}
+                  city_id={singleBRANCHDetailsData.branch_city}
+                  setState={setAddress}
+                />
                 <TextField
-                sx={{width: '90%'}}
-                  label='Branch Address'
+                  className='w-full'
+                  label='Street Address'
                   type='text'
                   required
                   focused

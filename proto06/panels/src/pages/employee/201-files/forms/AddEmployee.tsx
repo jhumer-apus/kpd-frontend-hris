@@ -300,8 +300,8 @@ export const UserProfile = () => {
 
   }
   const monthlySalaryComputation = (value: number) => {
-    return Math.round(((value?? 0)*313)/12)
-}
+    return ((value?? 0)*313) / 12
+  }
 
   const handleSubmit = async (e:any) => {
     e.preventDefault()
@@ -939,7 +939,8 @@ export const UserProfile = () => {
                 label="Daily Salary:"
                 inputProps={{
                   min:0,
-                  type:"number"
+                  type:"number",
+                  steps:"0.01"
                 }}
                      
                 required           
@@ -956,7 +957,8 @@ export const UserProfile = () => {
                 label="Monthly Salary: (For Viewing Only)"
                 inputProps={{
                   min:0,
-                  type:"number"
+                  type:"number",
+                  steps:"0.01"
                 }}
                 value={monthlySalaryComputation(employeeData.emp_salary_basic ?? 0)}  
                 required           

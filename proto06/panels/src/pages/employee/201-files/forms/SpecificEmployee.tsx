@@ -339,7 +339,7 @@ export const SpecificEmployee = (props: initialState) => {
     }
 
     const monthlySalaryComputation = (value: number) => {
-        return Math.round(((value?? 0)*313)/12)
+        return ((value?? 0)*313)/12
     }
 
     const onSubmit = async (data: EMPLOYEESViewInterface, type: string) => {
