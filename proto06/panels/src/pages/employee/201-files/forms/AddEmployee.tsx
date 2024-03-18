@@ -958,7 +958,6 @@ export const UserProfile = () => {
                 inputProps={{
                   min:0,
                   type:"number",
-                  steps:"0.01"
                 }}
                 value={monthlySalaryComputation(employeeData.emp_salary_basic ?? 0)}  
                 required           

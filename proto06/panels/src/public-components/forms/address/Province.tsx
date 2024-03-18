@@ -30,6 +30,7 @@ export default function Province(props: Props) {
     //STATES
     const [provinces, setProvinces] = useState<ProvinceInterface[]>([])
     // const [defaultProvince , setDefaultProvince] = useState<ProvinceInterface | null>(null)
+    
 
     //USE EFFECTS
     useEffect(() => {
@@ -84,20 +85,18 @@ export default function Province(props: Props) {
 
     return (
         <div className='w-full'>
-            {provinces.length > 0 &&
-                (
-                    <Autocomplete
-                        disablePortal
-                        id="province"
-                        options={provinces}
-                        className='w-full'
-                        value={state?.province}
-                        getOptionLabel={(province: ProvinceInterface) => province.name}
-                        onChange={handleChange}
-                        renderInput={(params) => <TextField {...params} label="Province" />}
-                    />
-                )
-            }
+
+            <Autocomplete
+                disablePortal
+                id="province"
+                options={provinces}
+                className='w-full'
+                value={state?.province}
+                getOptionLabel={(province: ProvinceInterface) => province.name}
+                onChange={handleChange}
+                renderInput={(params) => <TextField {...params} label="Province" />}
+            />
+
         </div>
 
 

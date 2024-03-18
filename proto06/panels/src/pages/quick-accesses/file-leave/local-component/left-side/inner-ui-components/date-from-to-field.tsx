@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from 'react';
 import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LEAVECreateInterface } from '@/types/types-pages';
 
 interface DateFromToLEAVECreateInterface{
@@ -17,11 +17,11 @@ export default function DateFromToLEAVECreate(props: DateFromToLEAVECreateInterf
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <div title="Make sure this field is logical. (i.e, `Date From` should come first and not the `Date To`)">
-            <DateTimePicker
+            <DatePicker
             label="Date & Time Froms"
             value={createLEAVE?.leave_date_from}
             onChange={(newValue) => {
-                const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
+                const formattedDate = dayjs(newValue).format('YYYY-MM-DD');
                 return (
                     setCreateLEAVE((prevState)=>{
                         return(
@@ -37,11 +37,11 @@ export default function DateFromToLEAVECreate(props: DateFromToLEAVECreateInterf
             />
             </div>
             <div title="Make sure this field is logical. (i.e, `Date From` should come first and not the `Date To`)">
-            <DateTimePicker
+            <DatePicker
             label="Date & Time To"
             value={createLEAVE?.leave_date_to}
             onChange={(newValue) => {
-                const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
+                const formattedDate = dayjs(newValue).format('YYYY-MM-DD');
                 return(
                     setCreateLEAVE((prevState)=>{
                         return(

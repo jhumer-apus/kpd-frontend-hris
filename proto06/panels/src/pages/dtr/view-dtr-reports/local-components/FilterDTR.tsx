@@ -168,7 +168,7 @@ export default function FilterDTR(props: Props) {
 
                 dispatch(viewFilterMergedDtrLogs(
                     {
-                        cutoff_id: parseInt(filter.cutoff_id),
+                        cutoff_id: filter.cutoff_id? parseInt(filter.cutoff_id): null,
                         emp_no: filter.emp_no
                     }
                 ))

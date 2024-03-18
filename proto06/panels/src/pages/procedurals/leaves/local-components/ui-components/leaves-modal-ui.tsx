@@ -92,10 +92,14 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
 
     const viewImages = () => {
 
-        const imageUrl = `${APILink.replace('/api/v1/','')}${ThisProps.leave_file_path}`;
-        // Open a new tab/window with the images
-        console.log("hey")
-        window.open(imageUrl, '_blank');
+        if(ThisProps.leave_file_path) {
+            const imageUrl = `${APILink.replace('/api/v1/','/media/')}${ThisProps.leave_file_path}`;
+            // Open a new tab/window with the images
+    
+            window.open(imageUrl, '_blank');
+        } else{
+            window.alert("This employee does not file supporting image")
+        }
     }
 
     const fetchSpecificLeave = async (leave_id: number) => {
@@ -149,7 +153,7 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
                     {/* <TextField sx={{width: '100%', minWidth: '160px'}} label='LEAVE Type:' value={ThisProps.leave_type || '-'} InputProps={{readOnly: true,}} variant='standard'/> */}
                     <TextField sx={{width: '100%', minWidth: '160px'}} focused={!!ThisProps.leave_reason_disapproval} color={'error'} label='Reason for Disapproval:' value={ThisProps.leave_reason_disapproval || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
                     {((leaveType.is_sl  && !leaveType.is_vl && !leaveType.is_el) || leaveType.name=="Sick Leave") && 
-                        <Button onClick={viewImages}>View Supporting Images</Button>
+                        <Button onClick={viewImages}>View Supporting Image</Button>
                     }
 
                 </div>

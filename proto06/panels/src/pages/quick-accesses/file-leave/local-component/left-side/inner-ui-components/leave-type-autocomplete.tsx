@@ -33,7 +33,7 @@ export default function LEAVETYPEFetchAutoComplete(props: LEAVETYPEFetchAutoComp
                 return(
                     {
                         ...prevState,
-                        leave_type: selectedLEAVETYPEId
+                        leave_credit: selectedLEAVETYPEId
                     }
                 )
             })

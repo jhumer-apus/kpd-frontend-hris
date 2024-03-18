@@ -95,7 +95,7 @@ export default function CityMunicipality(props:Props) {
     }
     return (
         <div className='w-full'>
-            {cities.length > 0 &&
+            {cities.length > 0 ?
                 <Autocomplete
                     key={resetKey}
                     value={state?.city}
@@ -107,6 +107,18 @@ export default function CityMunicipality(props:Props) {
                     onChange={handleChange}
                     renderInput={(params) => <TextField {...params} label="City (Select a province first)" />}
                     disabled={!state.province?.code}
+                />:
+                <Autocomplete
+                    key={resetKey}
+                    value={state?.city}
+                    disablePortal
+                    id="city"
+                    options={cities}
+                    className='w-full'
+                    getOptionLabel={(city: CityMunicipalityInterface) => city.name}
+                    onChange={handleChange}
+                    renderInput={(params) => <TextField {...params} label="City (Select a province first)" />}
+                    disabled
                 />
             }
         </div>

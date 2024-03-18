@@ -233,6 +233,8 @@ export type HolidayGetType = {
     holiday_description: string | null,
     holiday_type: string,
     holiday_location: HolidayLocationType,
+    province_ref: number | null,
+    city_ref: number | null
 };
 
 
@@ -320,7 +322,8 @@ export interface LEAVECreateInterface {
     emp_no: number | null;
     uploaded_file: File | null;
     added_by: string | number | null;
-    emergency_reasons?: string | null
+    emergency_reasons?: string | null;
+    leave_credit: any
 }
 
 export interface LEAVEViewInterface extends LEAVECreateInterface { 

@@ -1418,6 +1418,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                 containerProps={{ className: "min-w-[72px] focused" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Daily Salary:"
+                                                step="0.01"
                                                 disabled={!editMode3}
                                                 icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}       
                                             />

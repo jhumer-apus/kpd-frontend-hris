@@ -15,6 +15,18 @@ import { RootState, globalAPIDate } from '@/store/configureStore';
 import dayjs from 'dayjs';
 import { HolidayCreate } from '@/store/actions/procedurals';
 
+//LIBRARIES
+import FormControl, { useFormControl } from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+
+//COMPONENTS
+import Province from '@/public-components/forms/address/Province';
+import AllCityMunicipality from '@/public-components/forms/address/AllCityMunicipality';
+
+//HELPERS
+import { beautifyJSON } from '@/helpers/utils';
 
 
 const style = {
@@ -45,16 +57,80 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
     const dispatch = useDispatch();
     const {open, handleClose} = props;
     const createHoliday = useSelector((state: RootState)=> state.procedurals?.HolidayCreate);
-    const [createHolidayForm, setCreateHolidayForm] = useState<HolidayGetType>({
+    const [createHolidayForm, setCreateHolidayForm] = useState<any>({
         holiday_date: null,
         holiday_description: '',
         holiday_type: '',
-        holiday_location: ''
+        holiday_location: '',
+        province_ref: null,
+        city_ref: null,
+        province: {
+            id: null,
+            name: null,
+            code: null
+        },
+        city: {
+            id: null,
+            name: null,
+            code: null
+        },
+
     })
     const [value, setValue] = React.useState<string | null>(holiday_location[0]);
     const [inputValue, setInputValue] = React.useState('');
+
+    const validateHoliday = (data:HolidayGetType) => {
+
+        let errors:any = {}
+
+        !data.holiday_date && (errors["Holiday Date"] = "Holiday Date should be required")
+        !data.holiday_description && (errors["Holiday Description"] = "Holiday Description should be required")
+        !data.holiday_type && (errors["Holiday Type"] = "Holiday Type should be required")
+        !data.holiday_location && (errors["Holiday Location"] = "Holiday Location should be required")
+
+        switch (data.holiday_location) {
+
+            case "Province":
+                if(!data.province_ref) {
+                    errors["Province"] = "Province should be required if the selected location is Province"
+                }
+                break
+
+            case "City":
+                if(!data.city_ref) {
+                    errors["City"] = "City should be required if the selected location is City"
+                }
+                break
+        }
+
+        if(Object.keys(errors).length > 0) {
+            window.alert(beautifyJSON(errors))
+            return true
+        }
+        return false
+        
+
+        
+
+    }
     const submitNewHoliday = () => {
-        dispatch(HolidayCreate(createHolidayForm));
+
+        const holidayData: HolidayGetType = {
+            holiday_date: createHolidayForm.holiday_date,
+            holiday_description: createHolidayForm.holiday_description,
+            holiday_type: createHolidayForm.holiday_type,
+            holiday_location: createHolidayForm.holiday_location,
+            province_ref: createHolidayForm.province.id,
+            city_ref: createHolidayForm.city.id
+        }
+
+        const isError = validateHoliday(holidayData);
+
+        if(isError) {
+            return
+        }
+
+        dispatch(HolidayCreate(holidayData));
 
     };
     useEffect(()=>{
@@ -84,7 +160,23 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                     Make sure to double check all the fields and entry.
                 </Typography>
-                <Autocomplete
+                <FormControl className='w-full'>
+                    <InputLabel htmlFor="holiday_type">Holiday Type:*</InputLabel>
+                    <Select
+                        onChange={(e:any) => setCreateHolidayForm((curr:any) => ({
+                        ...curr,
+                        holiday_type: e.target.value
+                        }))}
+                        placeholder="Holiday Type*"
+                        name="holiday_type"
+                        variant="outlined"
+                        label="Holiday Type*"
+                    >
+                        <MenuItem value="SH">Special Non-working Holiday</MenuItem>
+                        <MenuItem value="LH">Legal Holiday</MenuItem>
+                    </Select>
+                </FormControl>
+                {/* <Autocomplete
                     noOptionsText={'Loading... Please Wait.'}
                     inputValue={createHolidayForm['holiday_type']}
                     onInputChange={(event, newInputValue) => {
@@ -98,12 +190,12 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
                     options={['SH', 'LH']}
                     sx={{ width: "100%" }}
                     renderInput={(params) => <TextField {...params} required label="Holiday Type" />}
-                />
+                /> */}
                 <Autocomplete
                     noOptionsText={'Loading... Please Wait.'}
                     inputValue={createHolidayForm['holiday_location']}
                     onInputChange={(event, newInputValue) => {
-                            setCreateHolidayForm((prevState)=> ({
+                            setCreateHolidayForm((prevState:any)=> ({
                             ...prevState,
                             holiday_location: newInputValue
                         }))
@@ -114,11 +206,24 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
                     sx={{ width: "100%" }}
                     renderInput={(params) => <TextField {...params} required label="Holiday Location" />}
                 />
+
+                {createHolidayForm.holiday_location == "Province" && 
+                    <Province 
+                        state={createHolidayForm}
+                        setState={setCreateHolidayForm}
+                    />
+                }
+                {createHolidayForm.holiday_location == "City" && 
+                    <AllCityMunicipality
+                        state={createHolidayForm}
+                        setState={setCreateHolidayForm}
+                    />
+                }
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                         value={createHolidayForm['holiday_date']}
                         onChange={(newValue) => {
-                            setCreateHolidayForm((prevState)=> ({
+                            setCreateHolidayForm((prevState:any)=> ({
                                 ...prevState,
                                 holiday_date: dayjs(newValue).format(`${globalAPIDate}`)
                             }))
@@ -135,7 +240,7 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
                     value={createHolidayForm['holiday_description']}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         // To do: Debounce this Input
-                        setCreateHolidayForm((prevState)=> ({
+                        setCreateHolidayForm((prevState:any)=> ({
                             ...prevState,
                             holiday_description: event.target.value
                         }))
