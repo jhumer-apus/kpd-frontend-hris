@@ -957,8 +957,9 @@ export const UserProfile = () => {
                 label="Monthly Salary: (For Viewing Only)"
                 inputProps={{
                   min:0,
-                  type:"number",
+                  type:"number"
                 }}
+                disabled
                 value={monthlySalaryComputation(employeeData.emp_salary_basic ?? 0)}  
                 required           
               />
@@ -1125,7 +1126,7 @@ export const UserProfile = () => {
           <FormControl className='w-full'>
             <InputLabel htmlFor="employee_type">Employee Type:</InputLabel>
             <Select
-                onChange={(e:any) => setEmployeeData(curr => ({...curr, employee_type: e.target.value}))}
+                onChange={(e:any) => setEmployeeData((curr:any) => ({...curr, employee_type: e.target.value}))}
                 placeholder="Select Employee Type"
                 name="employee_type"
                 variant="outlined"
@@ -1161,7 +1162,6 @@ export const UserProfile = () => {
               onChange={handleChangeUserData}
               name="other_duties_responsibilities"
               label="Other Duty Responsibilities:"
-              
               type='text'              
             />
             {/* {errors.other_duties_responsibilities && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Other Duty Responsibilities is required.</sub>} */}
