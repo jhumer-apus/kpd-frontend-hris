@@ -93,8 +93,8 @@ export default function CityMunicipality(props:Props) {
                     disabled={isDisable}
                     value={city_code}
                 >
-                    {cities.length > 0 ? cities.map((city: CityMunicipalityInterface) => (
-                        <Option value={city.id}>{city.name}</Option>
+                    {cities.length > 0 ? cities.map((city: CityMunicipalityInterface, index:number) => (
+                        <Option key={index} value={city.id}>{city.name}</Option>
                     )):
                         <Option disabled>No cities available on the selected province</Option>
                     }

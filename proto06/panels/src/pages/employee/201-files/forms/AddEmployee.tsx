@@ -60,7 +60,6 @@ export const UserProfile = () => {
       department_code: null,
       rank_code: null,
       approver1: null,
-      approver2: null,
       province: {
         id: null,
         name: null,
@@ -303,6 +302,55 @@ export const UserProfile = () => {
     return ((value?? 0)*313) / 12
   }
 
+  const validateEmployeeInformation = (data:EMPLOYEESViewInterface): boolean => {
+
+    console.log(typeof(data.approver2))
+    let errors:any = {}
+
+    !data.employee_image && (errors["Employee Image"] = "Profile picture is required")
+    !data.emp_no && (errors["Employee Number"] = "Employee Number is required")
+    // tax_data:
+    // pagibig_data:
+    // sss_data:
+    // philhealth_data:
+
+    !data.first_name && (errors["First Name"] = "First Name is required")
+    !data.middle_name && (errors["Middle Name"] = "Middle Name is required")
+    !data.last_name && (errors["Last Name"] = "Last Name is required")
+    !data.birthday && (errors["Birthday"] = "Birthday is required")
+    !data.civil_status && (errors["Civil Status"] = "Civil Status is required")
+    !data.gender && (errors["Gender"] = "Gender is required")
+    !data.address && (errors["Street Address"] = "Street Address is required")
+    !data.mobile_phone && (errors["Mobile Phone"] = "Mobile Phone is required")
+    !data.email_address && (errors["Email Address"] = "Email Addressis required")
+    !data.bio_id && (errors["Bio ID"] = "Bio ID is required")
+    !data.emergency_contact_person && (errors["Emergency Conact Person"] = "Emergency Conact Personis required")
+    !data.emergency_contact_number && (errors["Emergency Contact Number"] = "Emergency Contact Number is required")
+    // !data.hmo && (errors["HMO"] = "Employee Number is required")
+    !data.payroll_no && (errors["Payroll Number"] = "Payroll Number is required")
+    !data.date_hired && (errors["Date Hired"] = "Date Hired is required")
+    // !data.accnt_no && (errors["Account Number"] = "Account Number is required")
+    !data.emp_salary_basic && (errors["Daily Salary"] = "Daily Salary is required")
+    // !data.emp_salary_type && (errors["Daily Salary"] = "Employee Number is required")
+    !data.approver1 && (errors["Approver 1"] = "Approver 1 is required")
+    !data.province_code && (errors["Province"] = "Province is required")
+    !data.city_code && (errors["City"] = "City is required")
+    !data.branch_code && (errors["Branch"] = "Branch is required")
+    !data.department_code && (errors["Department"] = "Department is required")
+    !data.division_code && (errors["Division"] = "Division is required")
+    !data.position_code && (errors["Position"] = "Position is required")
+    !data.rank_code && (errors["Rank"] = "Rank is required")
+    !data.payroll_group_code && (errors["Payroll Group"] = "Payroll Group is required")
+    !data.employment_status && (errors["Employment Status"] = "Employment Status is required")
+    !data.employee_type && (errors["Employee Type"] = "Employee Type is required")
+
+    if(Object.keys(errors).length > 0) {
+      window.alert(beautifyJSON(errors))
+      return true
+    }
+    return false
+  }
+
   const handleSubmit = async (e:any) => {
     e.preventDefault()
 
@@ -322,6 +370,7 @@ export const UserProfile = () => {
     }
 
     const formData = new FormData();
+
 
     const finalData: EMPLOYEESViewInterface = {
       // user: USERViewInterface | null
@@ -363,7 +412,7 @@ export const UserProfile = () => {
       other_deductible: employeeData.other_deductible?? 0,
       ecola: employeeData.ecola ?? 0,
       approver1: employeeData.approver1,
-      approver2: employeeData.approver2,
+      approver2: employeeData.approver2?? null,
       province_code: employeeData.province.id,
       city_code: employeeData.city.id,
       branch_code: employeeData.branch_code,
@@ -373,6 +422,7 @@ export const UserProfile = () => {
       rank_code: employeeData.rank_code,
       payroll_group_code: employeeData.payroll_group_code,
       employment_status: employeeData.employment_status,
+      employee_type: employeeData.employee_type
       // rank_hierarchy: 0,
       // user: null,
       // tax_data: null,
@@ -391,8 +441,11 @@ export const UserProfile = () => {
     //   ...data,
     //   ...employeeData
     // }
-    console.log(employeeData)
-    console.log(finalData)
+
+    if(validateEmployeeInformation(finalData)) { //Validate requirements
+      return
+    }
+
     for (const key in finalData) {
         
         formData.append(key, finalData[key as keyof EMPLOYEESViewInterface]);
@@ -475,10 +528,6 @@ export const UserProfile = () => {
               label="First Name:"
               onChange={handleChangeUserData}
               name="first_name"
-              // inputProps={{
-              //   step:"0.01",
-              //   min:"0",
-              // }}
               required
                           
             />
@@ -501,8 +550,7 @@ export const UserProfile = () => {
               className='w-full'
               onChange={handleChangeUserData}
               name="last_name"
-              label="Last Name:"
-                          
+              label="Last Name:"               
               required
             />
           </FormControl>
@@ -601,7 +649,8 @@ export const UserProfile = () => {
                 label="Mobile Phone #:* (091234567890)"
                      
                 inputProps={{
-                  maxLength:11
+                  maxLength:11,
+                  minLength:11
                 }}        
                 required
               />
@@ -616,6 +665,7 @@ export const UserProfile = () => {
                 label="Telephone #: (optional)"
                 inputProps={{
                   maxLength:15,
+                  minLength:11,
                   pattern: '^[0-9]+$'
                 }}
                 type='text'
@@ -632,7 +682,6 @@ export const UserProfile = () => {
               name="emergency_contact_person"
               label="Emergency Contact Person: (required)"
               type='text'
-                 
               required             
             />
           </FormControl>
@@ -645,11 +694,11 @@ export const UserProfile = () => {
                 name="emergency_contact_number"
                 label="Emergency Contact #: (required)"
                 inputProps={{
-                  maxLength:15,
+                  maxLength:11,
+                  minLength:11,
                   pattern: '^[0-9]+$'
                 }}
-                type='tel'
-                  
+                type='tel'                  
                 required              
               />
           </FormControl>
@@ -667,7 +716,7 @@ export const UserProfile = () => {
                 >
                   <MenuItem value="S">Single</MenuItem>
                   <MenuItem value="M">Married</MenuItem>
-                  <MenuItem value="A">Anulled</MenuItem>
+                  <MenuItem value="A">Annulled</MenuItem>
                   <MenuItem value="W">Widowed</MenuItem>
               </Select>
           </FormControl>
@@ -682,7 +731,6 @@ export const UserProfile = () => {
               name="blood_type"
               variant="outlined"
               label="Blood Type: (optional)"
-              required
             >
               <MenuItem value="A+">A+</MenuItem>
               <MenuItem value="A-">A-</MenuItem>
@@ -692,6 +740,7 @@ export const UserProfile = () => {
               <MenuItem value="AB-">AB-</MenuItem>
               <MenuItem value="O+">O+</MenuItem>
               <MenuItem value="O-">O-</MenuItem>
+              <MenuItem value="">None</MenuItem>
             </Select>
           </FormControl>
           {/* <FormControl className='w-full'>
@@ -731,16 +780,14 @@ export const UserProfile = () => {
             /> */}
           </FormControl>
           <FormControl className='w-full'>
-            <InputLabel htmlFor="birth_place">Birth Place: (required)</InputLabel>
+            <InputLabel htmlFor="birth_place">Birth Place: (optional)</InputLabel>
             <OutlinedInput
               id="birth_place"
               className='w-full'
               onChange={handleChangeUserData}
               name="birth_place"
-              label="Birth Place: (required)"
+              label="Birth Place: (optional)"
               type='text'
-                           
-              required   
           />
           </FormControl>
         </div>
@@ -765,9 +812,7 @@ export const UserProfile = () => {
               onChange={handleChangeUserData}
               name="profession"
               label="Profession:"
-              type='text'
-                 
-              required             
+              type='text'           
             />
           </FormControl>
           <FormControl className='w-full'>
@@ -840,6 +885,7 @@ export const UserProfile = () => {
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label="Date Hired:"
+                  className='md:w-56'
                   name="date_hired"
                   onChange={(newValue) => setEmployeeData((curr:any) => ({
                     ...curr,
@@ -872,8 +918,10 @@ export const UserProfile = () => {
                 className='w-full'
                 onChange={handleChangeUserData}
                 name="bio_id"
-                label="Biometrics ID:* (can be same as emp_no)"
-                     
+                label="Biometrics ID:* (can be same as emp_no)"  
+                inputProps={{
+                  maxLength: 7
+                }}            
                 required           
               />
             </FormControl>
@@ -908,9 +956,7 @@ export const UserProfile = () => {
                 className='w-full'
                 onChange={handleChangeUserData}
                 name="accnt_no"
-                label="Account number: (Bank acct / Gcash acct)"
-                           
-                required     
+                label="Account number: (Bank acct / Gcash acct)"   
               />
             </FormControl>
             {/* <FormControl className='w-full'>
@@ -957,11 +1003,11 @@ export const UserProfile = () => {
                 label="Monthly Salary: (For Viewing Only)"
                 inputProps={{
                   min:0,
-                  type:"number"
+                  type:"number",
+                  readOnly: true,
+                  // step:"0.01"
                 }}
-                disabled
-                value={monthlySalaryComputation(employeeData.emp_salary_basic ?? 0)}  
-                required           
+                value={monthlySalaryComputation(employeeData.emp_salary_basic ?? 0)}          
               />
             </FormControl>
             {/* <FormControl className='w-full'>
@@ -1134,7 +1180,7 @@ export const UserProfile = () => {
               >
                 <MenuItem value="Compressed">Compressed</MenuItem>
                 <MenuItem value="Normal">Normal</MenuItem>
-                {/* <MenuItem value="Field-Auto">Field-Auto</MenuItem> */}
+                <MenuItem value="Field-Auto">Field-Auto</MenuItem>
                 <MenuItem value="Field">Field</MenuItem>
             </Select>
           </FormControl>
@@ -1223,7 +1269,6 @@ export const UserProfile = () => {
                 name="approver2"
                 variant="outlined"
                 label="Approver #2 (required, employee number)"
-                required
               >
                 {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> 
                   (
