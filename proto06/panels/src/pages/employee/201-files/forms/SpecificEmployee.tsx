@@ -81,14 +81,11 @@ export const SpecificEmployee = (props: initialState) => {
     const [type, setType] = useState("staticInfo");
 
     const [formSelectData, setFormSelectData] = useState({
-        employee_image: null,
         // employee_image: userData?.employee_image,
-        gender: null,
         branch_code: null,
         department_code: null,
         approver1: null,
         approver2: null,
-        emp_salary_basic: userData?.emp_salary_basic,
         province: {
             id: null,
             name: null,
@@ -363,7 +360,7 @@ export const SpecificEmployee = (props: initialState) => {
           return
         }
 
-        console.log(data)
+        console.log(formSelectData)
         const formData = new FormData();
         const keyChecker = (key: string) => {
             const keyProcessed: { [key: string]: () => void } = {
@@ -419,7 +416,8 @@ export const SpecificEmployee = (props: initialState) => {
         //     case "type3":
         //         break;
         // }
-        console.log("hEEEEEy")
+
+        console.log(data)
         const finalData: EMPLOYEESViewInterface = {
             // user: USERViewInterface | null
             employee_image: data.employee_image,
@@ -454,15 +452,15 @@ export const SpecificEmployee = (props: initialState) => {
             date_hired: data.date_hired,
             // date_resigned: data.date_resigned,
             accnt_no: data.accnt_no,
-            emp_salary_basic: data.emp_salary_basic,
+            emp_salary_basic: parseFloat(data.emp_salary_basic.toString()),
             emp_salary_type: "5",
             insurance_life: data.insurance_life ?? 0,
             other_deductible: data.other_deductible?? 0,
             ecola: data.ecola ?? 0,
             approver1: data.approver1,
             approver2: data.approver2,
-            province_code: data.province?.id?? null,
-            city_code: data.city?.id?? null,
+            province_code: data.province?.id?? userData?.province_code,
+            city_code: data.city?.id?? userData?.city_code,
             branch_code: data.branch_code,
             department_code: data.department_code,
             division_code: data.division_code,
@@ -470,6 +468,10 @@ export const SpecificEmployee = (props: initialState) => {
             rank_code: data.rank_code,
             payroll_group_code: data.payroll_group_code,
             employment_status: data.employment_status,
+            url_google_map: data.url_google_map,
+            provincial_address: data.provincial_address,
+            employee_type: data.employee_type,
+            added_by: userData?.emp_no
             // rank_hierarchy: 0,
             // user: null,
             // tax_data: null,
@@ -485,17 +487,30 @@ export const SpecificEmployee = (props: initialState) => {
             // philhealth_code: null
           }
 
+        // for (const key in finalData) {
+        //     const value = finalData[key];
+        //     if (value !== null && value !== undefined && value !== "") {
+        //         if(key === "employee_image" && file){
+        //             formData.append(key, file);
+        //         }else if(key === "employee_image" && value.includes('image')){
+        //             formData.append("", "");
+        //         }else {
+        //             formData.append(key, value);
+        //         }
+        //     }
+        // }
+
         for (const key in finalData) {
             const value = finalData[key];
-            if (value !== null && value !== undefined && value !== "") {
+
                 if(key === "employee_image" && file){
                     formData.append(key, file);
-                }else if(key === "employee_image" && value.includes('image')){
+                }else if(key === "employee_image" && (value !== null && value !== undefined && value !== "") && value.includes('image')){
                     formData.append("", "");
                 }else {
                     formData.append(key, value);
                 }
-            }
+            
         }
         await fetchData(formData);
         console.log(formData, typeof formData, "jhaha")
@@ -923,23 +938,37 @@ export const SpecificEmployee = (props: initialState) => {
                                     </div>
 
                                     <div className="my-4 md:flex md:items-center gap-4">
-                                    <Input
-                                                crossOrigin={undefined} {...register('emergency_contact_person')}
-                                                type="text"
-                                                containerProps={{ className: "min-w-[72px] mb-2 focused" }}
-                                                labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                label="Emergency Contact Person:"
-                                                disabled={!editMode2}
-                                                icon={<PhoneIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
-                                    <Input
-                                                crossOrigin={undefined} {...register('emergency_contact_number')}
-                                                type="number"
-                                                containerProps={{ className: "min-w-[72px] mb-2 focused" }}
-                                                labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                label="Emergency Contact No:"
-                                                disabled={!editMode2}
-                                                defaultValue={userData?.emergency_contact_number?? ""}
-                                                icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
+
+                                        <Input
+                                            crossOrigin={undefined} {...register('mobile_phone')}
+                                            type="number"
+                                            containerProps={{ className: "min-w-[72px] mb-2 focused" }}
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            label="Mobile Phone:"
+                                            disabled={!editMode2}
+                                            defaultValue={userData?.mobile_phone?? ""}
+                                            icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}         
+                                        />
+                                        
+                                        <Input
+                                            crossOrigin={undefined} {...register('emergency_contact_person')}
+                                            type="text"
+                                            containerProps={{ className: "min-w-[72px] mb-2 focused" }}
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            label="Emergency Contact Person:"
+                                            disabled={!editMode2}
+                                            icon={<PhoneIcon className="h-5 w-5 text-blue-gray-300" />} 
+                                        />
+                                        <Input
+                                            crossOrigin={undefined} {...register('emergency_contact_number')}
+                                            type="number"
+                                            containerProps={{ className: "min-w-[72px] mb-2 focused" }}
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            label="Emergency Contact No:"
+                                            disabled={!editMode2}
+                                            defaultValue={userData?.emergency_contact_number?? ""}
+                                            icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}         
+                                        />
                                     </div>
                                 </div>
                                 <div style={{width: "100%"}}>
@@ -952,13 +981,28 @@ export const SpecificEmployee = (props: initialState) => {
                                     </Typography>
                                 
                                     <div className="my-4 md:flex md:items-center gap-4">
-                                    <Input
-                                                crossOrigin={undefined} {...register('blood_type')}
-                                                type="text"
-                                                containerProps={{ className: "min-w-[72px] mb-2 md:mb-0" }}
-                                                label="Blood Type:"
-                                                labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                disabled={!editMode2}                                    />
+                                    <Select
+                                        onChange={(val:any) => setFormSelectData(curr => ({...curr, blood_type: val}))}
+                                        placeholder="Select Blood type"
+                                        name="blood_type"
+                                        variant="outlined"
+                                        label="Blood Type:"
+                                        disabled={!editMode2}
+                                        value={userData?.blood_type?? ""}
+                                        className='w-full'
+                                    >
+                                        <Option value="A+">A+</Option>
+                                        <Option value="A-">A-</Option>
+                                        <Option value="B+">B+</Option>
+                                        <Option value="B-">B-</Option>
+                                        <Option value="AB+">AB+</Option>
+                                        <Option value="AB-">AB-</Option>
+                                        <Option value="O+">O+</Option>
+                                        <Option value="O-">O-</Option>
+                                        <Option value="">
+                                            <em>None</em>
+                                        </Option >
+                                    </Select>
                                     <Input
                                             crossOrigin={undefined} {...register('url_google_map')}
                                             type="text"

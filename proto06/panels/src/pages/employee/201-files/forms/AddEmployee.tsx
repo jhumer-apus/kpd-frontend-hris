@@ -436,7 +436,8 @@ export const UserProfile = () => {
       rank_code: employeeData.rank_code,
       payroll_group_code: employeeData.payroll_group_code,
       employment_status: employeeData.employment_status,
-      employee_type: employeeData.employee_type
+      employee_type: employeeData.employee_type,
+      url_google_map: employeeData.url_google_map
       // rank_hierarchy: 0,
       // user: null,
       // tax_data: null,
