@@ -2,7 +2,7 @@ import React, { useEffect, useState, Dispatch, SetStateAction, FormEvent } from 
 import { Button } from '@mui/material';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { RootState, APILink } from '@/store/configureStore';
 import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
 import { Typography } from '@mui/joy';
 import { USERCreateInterface } from '@/types/types-pages';
@@ -14,6 +14,9 @@ import { beautifyJSON } from '@/helpers/utils';
 // COMPONENTS
 import PasswordGenerator from '@/public-components/PasswordGenerator';
 import { create } from 'lodash';
+
+//LIBRARIES
+import axios, {AxiosResponse, AxiosError} from 'axios'
 
 interface CreateUSERModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -75,6 +78,7 @@ function ManageUSERCreate(props: CreateUSERModalInterface) {
             setTimeout(()=> {
                 dispatch(USERCreateActionFailureCleanup());
             }, 200)
+            sendEmail() //Send user an email with temporary password
         }else if(USERCreatestate.status === 'failed'){
             window.alert(`Request Failed, ${USERCreatestate.error}`)
             setTimeout(()=> {
@@ -82,6 +86,28 @@ function ManageUSERCreate(props: CreateUSERModalInterface) {
             }, 200)
         }
     }, [USERCreatestate.status])
+
+    const sendEmail = async () => {
+
+        const body = {
+          emp_no: createUSER.emp_no,
+          email_type: "reset",
+          new_password: createUSER.password,
+          application_type: null,
+          application_pk: null
+        }
+    
+        await axios.post(`${APILink}reset_password_email/`, body).then((res:AxiosResponse) => {
+    
+          window.alert(`New password has been sent to Employee Number: ${body.emp_no}`)
+    
+        }).catch((err:AxiosError) => {
+    
+          console.log(err)
+          window.alert("Fail to email the user the new password")
+    
+        })
+      }
 
     return (
         <React.Fragment>

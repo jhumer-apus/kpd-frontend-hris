@@ -46,6 +46,7 @@ function USERModalUI(props: USERModalUIInterface) {
             />
             <ResetPasswordUSERModal 
                 primaryKey={ThisProps.id} 
+                emp_no={ThisProps.emp_no}
                 resetPasswordUSEROpenModal={resetPasswordUSEROpenModal} 
                 setResetPasswordUSEROpenModal={setResetPasswordUSEROpenModal}
                 setSingleUSEROpenModal={setSingleUSEROpenModal}

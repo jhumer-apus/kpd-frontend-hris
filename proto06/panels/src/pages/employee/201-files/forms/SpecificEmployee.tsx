@@ -452,7 +452,7 @@ export const SpecificEmployee = (props: initialState) => {
             date_hired: data.date_hired,
             // date_resigned: data.date_resigned,
             accnt_no: data.accnt_no,
-            emp_salary_basic: parseFloat(data.emp_salary_basic.toString()),
+            emp_salary_basic: data.emp_salary_basic,
             emp_salary_type: "5",
             insurance_life: data.insurance_life ?? 0,
             other_deductible: data.other_deductible?? 0,

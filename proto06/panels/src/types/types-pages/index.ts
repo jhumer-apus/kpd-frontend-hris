@@ -527,7 +527,7 @@ export interface SCHEDULEDAILYCreateInterface extends SCHEDULEDAILYGeneric{
     business_date_to: string | null;  
     emp_no: number[] | [];
     schedule_shift_code: number;
-    exclude_days?: string[];
+    day_off: string[];
     added_by?:number | string | null
 
 }

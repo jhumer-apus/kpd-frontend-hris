@@ -5,14 +5,18 @@ import { Transition } from 'react-transition-group';
 import { USERResetPasswordInterface } from '@/types/types-pages';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
+import { APILink, RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
 import { USERResetPasswordAction, USERResetPasswordActionFailureCleanup, USERViewAction } from '@/store/actions/users';
 import { clearFields } from '@/helpers/utils';
+
+//LIBRARIES
+import axios from 'axios'
 
 
 
 interface ResetPasswordUSERModalInterface {
     primaryKey: number,
+    emp_no: number | string,
     resetPasswordUSEROpenModal: boolean; 
     setSingleUSEROpenModal: Dispatch<SetStateAction<boolean>>;
     setResetPasswordUSEROpenModal: Dispatch<SetStateAction<boolean>>;
@@ -26,7 +30,8 @@ export default function ResetPasswordUSERModal(props: ResetPasswordUSERModalInte
     resetPasswordUSEROpenModal, 
     setResetPasswordUSEROpenModal, 
     primaryKey,
-    setSingleUSEROpenModal
+    setSingleUSEROpenModal,
+    emp_no
   } = props;
   const [singleUSERDetailsData, setSingleUSERDetailsData] = useState<Omit<USERResetPasswordInterface, "id" | "added_by">>({
     new_password: '',
@@ -47,6 +52,28 @@ export default function ResetPasswordUSERModal(props: ResetPasswordUSERModalInte
 
   }
 
+  const sendEmail = async () => {
+
+    const body = {
+      emp_no: emp_no,
+      email_type: "reset",
+      new_password: singleUSERDetailsData.new_password,
+      application_type: null,
+      application_pk: null
+    }
+
+    await axios.post(`${APILink}reset_password_email/`, body).then(res => {
+
+      window.alert(`New password has been sent to Employee Number: ${emp_no}`)
+
+    }).catch(err => {
+
+      console.log(err)
+      window.alert("Fail to email the user the new password")
+
+    })
+  }
+
   useEffect(()=>{ 
       if(USERResetPasswordState.status === `${globalReducerSuccess}`){
         window.alert(`${USERResetPasswordState.status.charAt(0).toUpperCase()}${USERResetPasswordState.status.slice(1)}`)
@@ -57,6 +84,7 @@ export default function ResetPasswordUSERModal(props: ResetPasswordUSERModalInte
         setTimeout(()=>{
           dispatch(USERResetPasswordActionFailureCleanup())
         }, 200)
+        sendEmail() // Send new password through email
       }else if( USERResetPasswordState.status === `${globalReducerFailed}`){
         window.alert(USERResetPasswordState.error)
         setTimeout(()=>{

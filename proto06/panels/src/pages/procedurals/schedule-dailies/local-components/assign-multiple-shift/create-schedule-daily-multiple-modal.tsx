@@ -64,7 +64,7 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
         emp_no: [],
         is_restday: false,
         sched_default: false,
-        exclude_days: [],
+        day_off: [],
         added_by: currUser?.emp_no
     })
     const submitNewSCHEDULEDAILY = () => {
@@ -97,14 +97,14 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
 
             setCreateSCHEDULEDAILYForm((curr:any) => ({
                 ...curr,
-                exclude_days: [...curr.exclude_days, value]
+                day_off: [...curr.day_off, value]
             }))
 
         } else {
 
             setCreateSCHEDULEDAILYForm((curr:any) => ({
                 ...curr,
-                exclude_days: curr.exclude_days.filter((item:string) => item !== value)
+                day_off: curr.day_off.filter((item:string) => item !== value)
             }))
 
         }
@@ -161,7 +161,7 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
                 {/* <EmployeeAutoCompleteLeft createSCHEDULEDAILY={createSCHEDULEDAILYForm} setCreateSCHEDULEDAILY={setCreateSCHEDULEDAILYForm}/> */}
                 <MultiEmployeeAutoCompleteLeft createSCHEDULEDAILY={createSCHEDULEDAILYForm} setCreateSCHEDULEDAILY={setCreateSCHEDULEDAILYForm}/>
                 
-                <FormControl>
+                {/* <FormControl>
                     <FormLabel id="demo-controlled-radio-buttons-group">Is Restday</FormLabel>
                     <RadioGroup
                         row
@@ -183,10 +183,10 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
                         <FormControlLabel value="true" control={<Radio />} label="Yes" />
                         <FormControlLabel value="false" control={<Radio />} label="No" />
                     </RadioGroup>
-                </FormControl>
+                </FormControl> */}
                 <div className="flex flex-col">
                     <Typography sx={{ mt: 1 }}>
-                        Rest Days:
+                        Day Off:
                     </Typography>
                     <Checkbox onChange={handleChangeExcludeDays} label="Sunday" value="sunday"/>
                     <Checkbox onChange={handleChangeExcludeDays} label="Monday" value="monday"/>
