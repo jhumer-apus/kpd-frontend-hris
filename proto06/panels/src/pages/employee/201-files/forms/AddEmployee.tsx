@@ -330,17 +330,17 @@ export const UserProfile = () => {
     // philhealth_data:
 
     !data.first_name && (errors["First Name"] = "First Name is required")
-    !data.middle_name && (errors["Middle Name"] = "Middle Name is required")
+    // !data.middle_name && (errors["Middle Name"] = "Middle Name is required")
     !data.last_name && (errors["Last Name"] = "Last Name is required")
     !data.birthday && (errors["Birthday"] = "Birthday is required")
     !data.civil_status && (errors["Civil Status"] = "Civil Status is required")
     !data.gender && (errors["Gender"] = "Gender is required")
     !data.address && (errors["Street Address"] = "Street Address is required")
     // !data.mobile_phone && (errors["Mobile Phone"] = "Mobile Phone is required")
-    !data.email_address && (errors["Email Address"] = "Email Addressis required")
+    // !data.email_address && (errors["Email Address"] = "Email Addressis required")
     !data.bio_id && (errors["Bio ID"] = "Bio ID is required")
-    !data.emergency_contact_person && (errors["Emergency Conact Person"] = "Emergency Conact Personis required")
-    !data.emergency_contact_number && (errors["Emergency Contact Number"] = "Emergency Contact Number is required")
+    // !data.emergency_contact_person && (errors["Emergency Conact Person"] = "Emergency Contact Person is required")
+    // !data.emergency_contact_number && (errors["Emergency Contact Number"] = "Emergency Contact Number is required")
     // !data.hmo && (errors["HMO"] = "Employee Number is required")
     !data.payroll_no && (errors["Payroll Number"] = "Payroll Number is required")
     !data.date_hired && (errors["Date Hired"] = "Date Hired is required")
@@ -352,7 +352,7 @@ export const UserProfile = () => {
     !data.city_code && (errors["City"] = "City is required")
     !data.branch_code && (errors["Branch"] = "Branch is required")
     !data.department_code && (errors["Department"] = "Department is required")
-    !data.division_code && (errors["Division"] = "Division is required")
+    // !data.division_code && (errors["Division"] = "Division is required")
     !data.position_code && (errors["Position"] = "Position is required")
     !data.rank_code && (errors["Rank"] = "Rank is required")
     !data.payroll_group_code && (errors["Payroll Group"] = "Payroll Group is required")
@@ -630,9 +630,7 @@ export const UserProfile = () => {
 
                 }}
                 name="email_address"
-                label="Email Address: *"
-                        
-                required        
+                label="Email Address: *"     
               />
           </FormControl>
           <FormControl className='w-full'>
@@ -691,8 +689,7 @@ export const UserProfile = () => {
               onChange={handleChangeUserData}
               name="emergency_contact_person"
               label="Emergency Contact Person: (required)"
-              type='text'
-              required             
+              type='text'         
             />
           </FormControl>
           <FormControl className='w-full'>
@@ -708,8 +705,7 @@ export const UserProfile = () => {
                   minLength:11,
                   pattern: '^[0-9]+$'
                 }}
-                type='tel'                  
-                required              
+                type='tel'                               
               />
           </FormControl>
         </div>
