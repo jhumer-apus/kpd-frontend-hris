@@ -517,7 +517,7 @@
                       variant="h5"
                       className="font-normal text-blue-gray-600"
                     >
-                      {!isEdit? 'Form is currently in view status (Click "Edit" button to edit information)': 'Form is currently in edit status (Click "Cancel" button to switch to view only)'}
+                      {!isEdit? 'View Mode': 'Edit Mode'}
                     </Typography>
                   </div>
                   <div className="md:flex md:space-x-4 mb-2">
