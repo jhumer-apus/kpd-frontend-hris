@@ -138,8 +138,8 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
             fetchLeaveCredits(userData?.emp_no)
             window.alert("Request Successful")
             setIsSubmittingRequest(false)
-
-            // sendEmail(createLEAVE.emp_no, res.data.id)
+            
+            sendEmail(createLEAVE.emp_no, res.data.id)
 
         }).catch((err:AxiosError) => {
             fetchLeaveCredits(userData?.emp_no)
@@ -309,15 +309,15 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
     
         await axios.post(`${APILink}reset_password_email/`, body).then(res => {
     
-          window.alert(`New password has been sent to Employee Number: ${emp_no}`)
+          window.alert(`Application has been sent to the approver through email`)
     
         }).catch(err => {
     
           console.log(err)
-          window.alert("Fail to email the user the new password")
+          window.alert("Failed to email the approver")
     
         })
-      }
+    }
 
     return (
         <React.Fragment>

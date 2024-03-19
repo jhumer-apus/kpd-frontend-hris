@@ -1140,7 +1140,7 @@
               label="Division" 
               variant="outlined" 
               style={{ width: '100%', marginBottom: '20px' }} 
-              value={userData.division_data.div_name} 
+              value={userData.division_data?.div_name??""} 
               InputLabelProps={{ style: { fontWeight: 'bold' }}}  
             />
 
