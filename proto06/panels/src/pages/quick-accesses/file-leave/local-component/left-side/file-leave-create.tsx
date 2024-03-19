@@ -48,7 +48,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
     //STATES
     const [isSubmittingRequest, setIsSubmittingRequest] = useState<boolean>(false);
     const LEAVECreatestate = useSelector((state: RootState)=> state.procedurals.LEAVECreate);
-    const [leaveCredits, setLeaveCredits] = useState([])
+    const [leaveCredits, setLeaveCredits] = useState<any>([])
     const [leaveType, setLeaveType] = useState<LeaveType>({
         name: null,
         is_vl: null,
@@ -80,12 +80,31 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
     //     }
     // )
 
+    const validateLeaveCredit = () => {
+
+        let errors:any = {}
+        !createLEAVE.emp_no && (errors["Employee Number"] = "Employee Number is Required")
+        !createLEAVE.leave_credit?.id && (createLEAVE.leave_credit?.id == undefined) && (errors["Leave Type"] = "Leave Type is Required")
+        !createLEAVE.leave_remarks && (errors["Leave Description"] = "Leave Description is Required")
+        !createLEAVE.leave_date_from && (errors["Date Time From"] = "Leave Date Start is Required")
+        !createLEAVE.emergency_reasons && ((leaveType.is_el && !leaveType.is_vl && !leaveType.is_sl) || leaveType.name=="Emergency Leave") && (errors["Emergency Reasons"] = "Emergency Reason is Required")
+        !createLEAVE.option && (errors["Leave Option"] = "Leave Option is Required")
+
+        if(Object.keys(errors).length > 0) {
+            window.alert(beautifyJSON(errors))
+            return true
+        }
+        return false
+    }
     const onClickSubmit = () => {
 
         const formData = new FormData();
+        if(validateLeaveCredit()) {
+            return
+        }
 
         formData.append('emp_no', createLEAVE.emp_no);
-        formData.append('leave_credit', createLEAVE.leave_credit.id);
+        formData.append('leave_credit', createLEAVE.leave_credit?.id);
         formData.append('leave_remarks', createLEAVE.leave_remarks);
         formData.append('leave_date_from', createLEAVE.leave_date_from);
         formData.append('leave_date_to', createLEAVE.leave_date_to);
@@ -262,11 +281,12 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
     }
 
     const fetchLeaveCredits = async (emp_no:number | string) => {
-
         if(emp_no) {
+
             await axios.get(`${APILink}leave_credit/${emp_no}`).then((res:AxiosResponse) => {
 
-                setLeaveCredits(curr => res.data)
+                const leaveCredits =  Array.isArray(res.data)? res.data: []
+                setLeaveCredits((curr:any) => leaveCredits)
     
             }).catch((err:AxiosError) => {
                 console.log(err)
@@ -302,9 +322,9 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                         {/* {createLEAVE.leave_type} */}
                         <Autocomplete
                             // disableCloseOnSelect
-                            noOptionsText={'Loading... Please Wait.'}
+                            noOptionsText={'No Leave Credits'}
                             options={leaveCredits}
-                            getOptionLabel={(option:any) => `${option.leave_name} (Remaining - ${option.credit_used})`}
+                            getOptionLabel={(option:any) => `${option.leave_name} (Remaining - ${option.credit_remaining})`}
                             onChange={((e:any, newValue:any) => {
                                 setCreateLEAVE(curr => ({
                                     ...curr,

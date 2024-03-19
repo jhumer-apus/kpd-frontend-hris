@@ -323,7 +323,8 @@ export interface LEAVECreateInterface {
     uploaded_file: File | null;
     added_by: string | number | null;
     emergency_reasons?: string | null;
-    leave_credit: any
+    leave_credit: any,
+    option: string
 }
 
 export interface LEAVEViewInterface extends LEAVECreateInterface { 
