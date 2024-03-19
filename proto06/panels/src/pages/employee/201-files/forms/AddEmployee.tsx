@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios, {AxiosResponse, AxiosError} from 'axios';
 import { Button } from '@mui/material';
 import { Typography } from '@material-tailwind/react';
 import { useForm } from 'react-hook-form';
@@ -49,7 +49,7 @@ export const UserProfile = () => {
     const [keyMonthlySalary, setKeyMonthlySalary] = useState<number>(0)
     const [employeeData, setEmployeeData] = useState<any>({
       civil_status: null,
-      // division_code:null,
+      division_code:null,
       gender: null,
       payroll_group_code:null,
       employee_image: null,
@@ -92,6 +92,7 @@ export const UserProfile = () => {
       fetchPositions()
       fetchDepartments()
       fetchDivisions()
+      fetchUniqueEmployeeNumber()
     }, [])
 
     useEffect(() => {
@@ -217,6 +218,20 @@ export const UserProfile = () => {
       })
     }
 
+    const fetchUniqueEmployeeNumber = async() => {
+      await axios.get(`${APILink}new_emp_no`).then((res:AxiosResponse) => {
+              setEmployeeData((curr:any) => ({
+                  ...curr,
+                  emp_no: res.data.new_emp_no,
+                  bio_id: res.data.new_emp_no
+              }))
+          }
+      ).catch((err:AxiosError) => {
+          console.log(err)
+          window.alert(beautifyJSON(err))
+      })
+  }
+
     // const fetchApprovers = () => {
     //   axios.get(`${APILink}position/`).then((response:any) => {
     //     const responsePositions = response.data.map((position:any) => {
@@ -321,7 +336,7 @@ export const UserProfile = () => {
     !data.civil_status && (errors["Civil Status"] = "Civil Status is required")
     !data.gender && (errors["Gender"] = "Gender is required")
     !data.address && (errors["Street Address"] = "Street Address is required")
-    !data.mobile_phone && (errors["Mobile Phone"] = "Mobile Phone is required")
+    // !data.mobile_phone && (errors["Mobile Phone"] = "Mobile Phone is required")
     !data.email_address && (errors["Email Address"] = "Email Addressis required")
     !data.bio_id && (errors["Bio ID"] = "Bio ID is required")
     !data.emergency_contact_person && (errors["Emergency Conact Person"] = "Emergency Conact Personis required")
@@ -371,7 +386,6 @@ export const UserProfile = () => {
 
     const formData = new FormData();
 
-
     const finalData: EMPLOYEESViewInterface = {
       // user: USERViewInterface | null
       employee_image: employeeData.employee_image,
@@ -417,7 +431,7 @@ export const UserProfile = () => {
       city_code: employeeData.city.id,
       branch_code: employeeData.branch_code,
       department_code: employeeData.department_code,
-      division_code: employeeData.division_code,
+      division_code: employeeData.division_code ?? null,
       position_code: employeeData.position_code,
       rank_code: employeeData.rank_code,
       payroll_group_code: employeeData.payroll_group_code,
@@ -454,11 +468,7 @@ export const UserProfile = () => {
         const response = await axios.post(
           `${APILink}employees/`,
           formData,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          }
+
         );
         window.alert(`${response.status >= 200 && response.status < 300 && 'Request Successful'}`)
         setTimeout(()=>{
@@ -581,6 +591,9 @@ export const UserProfile = () => {
               aria-required
               required
             >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
               <MenuItem value="M">Male</MenuItem>
               <MenuItem value="F">Female</MenuItem>
             </Select>
@@ -640,19 +653,18 @@ export const UserProfile = () => {
 
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
           <FormControl className='w-full'>
-              <InputLabel htmlFor="mobile_phone">Mobile Phone #:* (091234567890)</InputLabel>
+              <InputLabel htmlFor="mobile_phone">Mobile Phone #:* (09123456789)</InputLabel>
               <OutlinedInput
                 id="mobile_phone"
                 className='w-full'
                 onChange={handleChangeUserData}
                 name="mobile_phone"
-                label="Mobile Phone #:* (091234567890)"
+                label="Mobile Phone #:* (09123456789)"
                      
                 inputProps={{
                   maxLength:11,
                   minLength:11
                 }}        
-                required
               />
           </FormControl>
           <FormControl className='w-full'>
@@ -714,6 +726,9 @@ export const UserProfile = () => {
                   label="Civil Status:"
                   required
                 >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
                   <MenuItem value="S">Single</MenuItem>
                   <MenuItem value="M">Married</MenuItem>
                   <MenuItem value="A">Annulled</MenuItem>
@@ -740,7 +755,9 @@ export const UserProfile = () => {
               <MenuItem value="AB-">AB-</MenuItem>
               <MenuItem value="O+">O+</MenuItem>
               <MenuItem value="O-">O-</MenuItem>
-              <MenuItem value="">None</MenuItem>
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
             </Select>
           </FormControl>
           {/* <FormControl className='w-full'>
@@ -896,36 +913,74 @@ export const UserProfile = () => {
             </FormControl>
         </div>
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
-            <FormControl className='w-full'>
-              <InputLabel htmlFor="emp_no">Assigned employee No:* (max 7 digits)</InputLabel>
-              <OutlinedInput
-                id="emp_no"
-                className='w-full'
-                onChange={handleChangeUserData}
-                name="emp_no"
-                label="Assigned Employee No:* (max 7 digits)"
-                
-                inputProps={{
-                  maxLength: 7
-                }}      
-                required
-              />
-            </FormControl>
-            <FormControl className='w-full'>
-              <InputLabel htmlFor="bio_id">Biometrics ID:* (can be same as emp_no)</InputLabel>
-              <OutlinedInput
-                id="bio_id"
-                className='w-full'
-                onChange={handleChangeUserData}
-                name="bio_id"
-                label="Biometrics ID:* (can be same as emp_no)"  
-                inputProps={{
-                  maxLength: 7
-                }}            
-                required           
-              />
-            </FormControl>
-            <FormControl className='w-full'>
+            {/* {employeeData.emp_no && (
+              <div className='w-full flex md:flex-row flex-col gap-4'>
+                <FormControl className='w-full'>
+                  <InputLabel htmlFor="emp_no">Assigned employee No:* (max 7 digits)</InputLabel>
+                  <OutlinedInput
+                    id="emp_no"
+                    className='w-full'
+                    onChange={handleChangeUserData}
+                    name="emp_no"
+                    label="Assigned Employee No:* (max 7 digits)"
+                    value={employeeData.emp_no}
+                    // defaultValue={employeeData.emp_no}
+                    inputProps={{
+                      maxLength: 7
+                    }}      
+                    required
+                  />
+                </FormControl>
+                <FormControl className='w-full'>
+                  <InputLabel htmlFor="bio_id">Biometrics ID:* (can be same as emp_no)</InputLabel>
+                  <OutlinedInput
+                    id="bio_id"
+                    className='w-full'
+                    defaultValue={employeeData.emp_no}
+                    onChange={handleChangeUserData}
+                    name="bio_id"
+                    label="Biometrics ID:* (can be same as emp_no)"  
+                    inputProps={{
+                      maxLength: 7
+                    }}            
+                    required           
+                  />
+                </FormControl>
+              </div> 
+            )} */}
+              <FormControl className='w-full'>
+                <InputLabel htmlFor="emp_no">Assigned employee No:* (max 7 digits)</InputLabel>
+                <OutlinedInput
+                  id="emp_no"
+                  className='w-full'
+                  onChange={handleChangeUserData}
+                  name="emp_no"
+                  label="Assigned Employee No:* (max 7 digits)"
+                  value={employeeData.emp_no?? ""}
+                  // defaultValue={employeeData.emp_no}
+                  inputProps={{
+                    maxLength: 7
+                  }}      
+                  required
+                />
+              </FormControl>
+              <FormControl className='w-full'>
+                  <InputLabel htmlFor="bio_id">Biometrics ID:* (can be same as emp_no)</InputLabel>
+                  <OutlinedInput
+                    id="bio_id"
+                    className='w-full'
+                    value={employeeData.bio_id?? ""}
+                    // defaultValue={employeeData.emp_no}
+                    onChange={handleChangeUserData}
+                    name="bio_id"
+                    label="Biometrics ID:* (can be same as emp_no)"  
+                    inputProps={{
+                      maxLength: 7
+                    }}            
+                    required           
+                  />
+                </FormControl>
+              <FormControl className='w-full'>
               <InputLabel htmlFor="rank">Rank</InputLabel>
               <Select
                 onChange={(e:any) => setEmployeeData(curr => ({
@@ -937,7 +992,10 @@ export const UserProfile = () => {
                 variant="outlined"
                 label="Rank"
                 aria-required
-            >
+            >   
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
                 <MenuItem value="1">Announcer</MenuItem>
                 <MenuItem value="2">Employee</MenuItem>
                 <MenuItem value="3">Manager/Director</MenuItem>
@@ -1038,7 +1096,11 @@ export const UserProfile = () => {
                   name="payroll_group_code"
                   variant="outlined"
                   label="Payroll Group:"
+                  required
                 >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
                   {
                     dropDownData.payrollGroups.length > 0 ? dropDownData.payrollGroups.map((payroll:any) => (
                       <MenuItem value={payroll.id}>{payroll.name}</MenuItem>
@@ -1081,6 +1143,9 @@ export const UserProfile = () => {
                   variant="outlined"
                   label="Branch:"
                 >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
                   {dropDownData.branches.length > 0 ? dropDownData.branches.map((branch:any)=> (
                     <MenuItem value={branch.id}>{branch.name}</MenuItem>
                   )): (
@@ -1108,7 +1173,11 @@ export const UserProfile = () => {
                 name="department_code"
                 variant="outlined"
                 label="Department:"
+                required
               >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
                 {dropDownData.departments.length > 0 ? dropDownData.departments.map((department:any)=> (
                   <MenuItem value={department.id}>{department.name}</MenuItem>
                 )): (
@@ -1135,6 +1204,9 @@ export const UserProfile = () => {
                 variant="outlined"
                 label="Division:"
               >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
                 {dropDownData.divisions.length > 0 ? dropDownData.divisions.map((division:any)=> (
                   <MenuItem value={division.id}>{division.name}</MenuItem>
                 )): (
@@ -1178,6 +1250,9 @@ export const UserProfile = () => {
                 variant="outlined"
                 label="Employee Type:"
               >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
                 <MenuItem value="Compressed">Compressed</MenuItem>
                 <MenuItem value="Normal">Normal</MenuItem>
                 <MenuItem value="Field-Auto">Field-Auto</MenuItem>
@@ -1193,6 +1268,9 @@ export const UserProfile = () => {
                 variant="outlined"
                 label="Employment status"
               >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
                 {dropDownData.employmentStatuses.map((employmentStatus:any) => (
                   <MenuItem value={employmentStatus.id}>{employmentStatus.name}</MenuItem>
                 ))}
@@ -1250,6 +1328,9 @@ export const UserProfile = () => {
                 label="Approver #1 (required, employee number)"
                 required
               >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
                 {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> (
                   // ![employeeData.approver1, employeeData.approver2].includes(approver.emp_no) && <MenuItem value={approver.emp_no}>{approver.full_name}</MenuItem>
                   <MenuItem value={approver.emp_no}>{approver.full_name}</MenuItem>
@@ -1270,6 +1351,9 @@ export const UserProfile = () => {
                 variant="outlined"
                 label="Approver #2 (required, employee number)"
               >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
                 {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> 
                   (
                     // ![employeeData.approver1, employeeData.approver2].includes(approver.emp_no) && <MenuItem value={approver.emp_no}>{approver.full_name}</MenuItem>
@@ -1295,6 +1379,9 @@ export const UserProfile = () => {
                 label="Position: (required)"
                 required
               >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
                 {dropDownData.positions.length > 0 ? dropDownData.positions.map((pos:any)=> (
                   <MenuItem value={pos.id}>{pos.name}</MenuItem>
                 )): (

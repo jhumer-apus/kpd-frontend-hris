@@ -1,5 +1,5 @@
 import { Box, CircularProgress, Avatar } from '@mui/material';
-import axios from 'axios';
+import axios, {AxiosResponse, AxiosError} from 'axios';
 import {
   Card,
   CardHeader,
@@ -214,7 +214,8 @@ export const SpecificEmployee = (props: initialState) => {
           }
         }
       }
-  
+      
+
     const fetchPayrollGroups = () => {
         axios.get(`${APILink}payrollgroup`).then((response:any) => {
             const responsePayrollGroups = response.data.map((payroll:any) => {
