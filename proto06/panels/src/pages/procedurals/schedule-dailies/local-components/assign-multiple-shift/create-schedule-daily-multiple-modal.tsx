@@ -161,9 +161,32 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
                 {/* <EmployeeAutoCompleteLeft createSCHEDULEDAILY={createSCHEDULEDAILYForm} setCreateSCHEDULEDAILY={setCreateSCHEDULEDAILYForm}/> */}
                 <MultiEmployeeAutoCompleteLeft createSCHEDULEDAILY={createSCHEDULEDAILYForm} setCreateSCHEDULEDAILY={setCreateSCHEDULEDAILYForm}/>
                 
+                <FormControl>
+                    <FormLabel id="demo-controlled-radio-buttons-group">Is Restday</FormLabel>
+                    <RadioGroup
+                        row
+                        aria-labelledby="demo-controlled-radio-buttons-group"
+                        name="controlled-radio-buttons-group"
+                        value={`${!!createSCHEDULEDAILYForm.is_restday}`}
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                            const value = (event.target.value=== 'true' ? true : false);
+                            setCreateSCHEDULEDAILYForm((prevState)=> {
+                                return (
+                                    {
+                                        ...prevState,
+                                        is_restday: value
+                                    }
+                                )
+                            })
+                        }}
+                    >
+                        <FormControlLabel value="true" control={<Radio />} label="Yes" />
+                        <FormControlLabel value="false" control={<Radio />} label="No" />
+                    </RadioGroup>
+                </FormControl>
                 <div className="flex flex-col">
-                    <Typography sx={{ mt: 2 }}>
-                        Exclude Days:
+                    <Typography sx={{ mt: 1 }}>
+                        Rest Days:
                     </Typography>
                     <Checkbox onChange={handleChangeExcludeDays} label="Sunday" value="sunday"/>
                     <Checkbox onChange={handleChangeExcludeDays} label="Monday" value="monday"/>
@@ -193,29 +216,6 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
                         <FormControlLabel value="default" control={<Radio />} label="Default"/>
                     </RadioGroup>
                 </FormControl> */}
-                <FormControl>
-                    <FormLabel id="demo-controlled-radio-buttons-group">Is Restday</FormLabel>
-                    <RadioGroup
-                        row
-                        aria-labelledby="demo-controlled-radio-buttons-group"
-                        name="controlled-radio-buttons-group"
-                        value={`${!!createSCHEDULEDAILYForm.is_restday}`}
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                            const value = (event.target.value=== 'true' ? true : false);
-                            setCreateSCHEDULEDAILYForm((prevState)=> {
-                                return (
-                                    {
-                                        ...prevState,
-                                        is_restday: value
-                                    }
-                                )
-                            })
-                        }}
-                    >
-                        <FormControlLabel value="true" control={<Radio />} label="Yes" />
-                        <FormControlLabel value="false" control={<Radio />} label="No" />
-                    </RadioGroup>
-                </FormControl>
                 <div className='flex justify-end'>
                 <Button variant="contained" onClick={submitNewSCHEDULEDAILY}> Submit SCHEDULEDAILY </Button>
                 </div>

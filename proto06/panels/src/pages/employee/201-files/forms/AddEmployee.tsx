@@ -682,24 +682,24 @@ export const UserProfile = () => {
               />
           </FormControl>
           <FormControl className='w-full'>
-            <InputLabel htmlFor="emergency_contact_person">Emergency Contact Person: (required)</InputLabel>
+            <InputLabel htmlFor="emergency_contact_person">Emergency Contact Person:</InputLabel>
             <OutlinedInput
               id="emergency_contact_person"
               className='w-full'
               onChange={handleChangeUserData}
               name="emergency_contact_person"
-              label="Emergency Contact Person: (required)"
+              label="Emergency Contact Person:"
               type='text'         
             />
           </FormControl>
           <FormControl className='w-full'>
-              <InputLabel htmlFor="emergency_contact_number">Emergency Contact #: (required)</InputLabel>
+              <InputLabel htmlFor="emergency_contact_number">Emergency Contact #:</InputLabel>
               <OutlinedInput
                 id="emergency_contact_number"
                 className='w-full'
                 onChange={handleChangeUserData}
                 name="emergency_contact_number"
-                label="Emergency Contact #: (required)"
+                label="Emergency Contact #:"
                 inputProps={{
                   maxLength:11,
                   minLength:11,
