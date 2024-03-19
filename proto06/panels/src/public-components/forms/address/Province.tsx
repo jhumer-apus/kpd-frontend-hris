@@ -20,12 +20,12 @@ interface Props {
     setState: any;
     province_id? : number | null;
     city_id? : number | null;
+    isReadOnly?: boolean
 }
 export default function Province(props: Props) {
 
     //PROPS
-    const { state, setState, province_id, city_id } = props
-    console.log(state)
+    const { state, setState, province_id, city_id, isReadOnly } = props
 
     //STATES
     const [provinces, setProvinces] = useState<ProvinceInterface[]>([])
@@ -39,10 +39,15 @@ export default function Province(props: Props) {
     }, [])
 
     useEffect(() => {
+        console.log(province_id)
         if(provinces.length>0) {
             findProvince(province_id)
         }
     },[provinces.length])
+
+    // useEffect(() => {
+    //     console.log("sdasdas" + province_id)
+    // }, [province_id])
 
     //FUNCTIONS
     const fetchProvinces = async() => {
@@ -62,7 +67,6 @@ export default function Province(props: Props) {
 
     const findProvince = (val:any) => {
         const selectedProvince = provinces.find(prov => prov.id == val)
-        console.log(val)
         if(selectedProvince) {
             console.log(selectedProvince)
             // setDefaultProvince((curr:any) => selectedProvince)
@@ -95,6 +99,7 @@ export default function Province(props: Props) {
                 getOptionLabel={(province: ProvinceInterface) => province.name}
                 onChange={handleChange}
                 renderInput={(params) => <TextField {...params} label="Province" />}
+                readOnly={isReadOnly}
             />
 
         </div>

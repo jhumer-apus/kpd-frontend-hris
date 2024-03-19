@@ -19,12 +19,13 @@ interface Props {
     state:any
     setState: any;
     city_id?: any
+    isReadOnly?: boolean
 }
 
 export default function CityMunicipality(props:Props) {
     
     //PROPS
-    const { setState, state, city_id } = props
+    const { setState, state, city_id, isReadOnly } = props
 
     console.log(state)
     //STATES
@@ -107,6 +108,7 @@ export default function CityMunicipality(props:Props) {
                     onChange={handleChange}
                     renderInput={(params) => <TextField {...params} label="City (Select a province first)" />}
                     disabled={!state.province?.code}
+                    readOnly={isReadOnly}
                 />:
                 <Autocomplete
                     key={resetKey}
@@ -119,6 +121,7 @@ export default function CityMunicipality(props:Props) {
                     onChange={handleChange}
                     renderInput={(params) => <TextField {...params} label="City (Select a province first)" />}
                     disabled
+                    readOnly={isReadOnly}
                 />
             }
         </div>

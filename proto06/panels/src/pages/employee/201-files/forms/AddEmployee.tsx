@@ -591,9 +591,6 @@ export const UserProfile = () => {
               aria-required
               required
             >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
               <MenuItem value="M">Male</MenuItem>
               <MenuItem value="F">Female</MenuItem>
             </Select>
@@ -726,9 +723,6 @@ export const UserProfile = () => {
                   label="Civil Status:"
                   required
                 >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
                   <MenuItem value="S">Single</MenuItem>
                   <MenuItem value="M">Married</MenuItem>
                   <MenuItem value="A">Annulled</MenuItem>
@@ -993,9 +987,6 @@ export const UserProfile = () => {
                 label="Rank"
                 aria-required
             >   
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
                 <MenuItem value="1">Announcer</MenuItem>
                 <MenuItem value="2">Employee</MenuItem>
                 <MenuItem value="3">Manager/Director</MenuItem>
@@ -1098,9 +1089,6 @@ export const UserProfile = () => {
                   label="Payroll Group:"
                   required
                 >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
                   {
                     dropDownData.payrollGroups.length > 0 ? dropDownData.payrollGroups.map((payroll:any) => (
                       <MenuItem value={payroll.id}>{payroll.name}</MenuItem>
@@ -1175,9 +1163,6 @@ export const UserProfile = () => {
                 label="Department:"
                 required
               >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
                 {dropDownData.departments.length > 0 ? dropDownData.departments.map((department:any)=> (
                   <MenuItem value={department.id}>{department.name}</MenuItem>
                 )): (
@@ -1204,9 +1189,6 @@ export const UserProfile = () => {
                 variant="outlined"
                 label="Division:"
               >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
                 {dropDownData.divisions.length > 0 ? dropDownData.divisions.map((division:any)=> (
                   <MenuItem value={division.id}>{division.name}</MenuItem>
                 )): (
@@ -1250,9 +1232,6 @@ export const UserProfile = () => {
                 variant="outlined"
                 label="Employee Type:"
               >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
                 <MenuItem value="Compressed">Compressed</MenuItem>
                 <MenuItem value="Normal">Normal</MenuItem>
                 <MenuItem value="Field-Auto">Field-Auto</MenuItem>
@@ -1268,9 +1247,6 @@ export const UserProfile = () => {
                 variant="outlined"
                 label="Employment status"
               >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
                 {dropDownData.employmentStatuses.map((employmentStatus:any) => (
                   <MenuItem value={employmentStatus.id}>{employmentStatus.name}</MenuItem>
                 ))}
@@ -1328,9 +1304,6 @@ export const UserProfile = () => {
                 label="Approver #1 (required, employee number)"
                 required
               >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
                 {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> (
                   // ![employeeData.approver1, employeeData.approver2].includes(approver.emp_no) && <MenuItem value={approver.emp_no}>{approver.full_name}</MenuItem>
                   <MenuItem value={approver.emp_no}>{approver.full_name}</MenuItem>
@@ -1379,9 +1352,6 @@ export const UserProfile = () => {
                 label="Position: (required)"
                 required
               >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
                 {dropDownData.positions.length > 0 ? dropDownData.positions.map((pos:any)=> (
                   <MenuItem value={pos.id}>{pos.name}</MenuItem>
                 )): (

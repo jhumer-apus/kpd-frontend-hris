@@ -381,6 +381,45 @@ export const SpecificEmployee = (props: initialState) => {
         
         keyChecker(type)
 
+        // let finalData = null
+
+        // switch (type) {
+
+        //     case "type1":
+
+        //         finalData = {
+        //             bio_id: data.bio_id,
+        //             email_address: data.email_address
+        //         }
+        //         break;
+
+        //     case "type2":
+        //         finalData = {
+        //             employee_image: data.employee_image,
+        //             email_address: data.email_address,
+        //             first_name: data.first_name,
+        //             middle_name: data.middle_name,
+        //             last_name: data.last_name,
+        //             suffix: data.suffix,
+        //             graduated_school: data.graduated_school,
+        //             civil_status: data.civil_status,
+        //             sex: data.sex,
+        //             birthday: data.birthday,
+        //             birth_place: data.birth_place,
+        //             emergency_contact_number: data.emergency_contact_number,
+        //             blood_type: data.blood_type,
+        //             province_code: data.province_code,
+        //             city_code: data.city_code,
+        //             address: data.address,
+        //             profession: data.profession,
+        //             license_no: data.license_no
+        //         }
+        //         break;
+
+        //     case "type3":
+        //         break;
+        // }
+        console.log("hEEEEEy")
         const finalData: EMPLOYEESViewInterface = {
             // user: USERViewInterface | null
             employee_image: data.employee_image,
@@ -422,8 +461,8 @@ export const SpecificEmployee = (props: initialState) => {
             ecola: data.ecola ?? 0,
             approver1: data.approver1,
             approver2: data.approver2,
-            province_code: data.province.id,
-            city_code: data.city.id,
+            province_code: data.province?.id?? null,
+            city_code: data.city?.id?? null,
             branch_code: data.branch_code,
             department_code: data.department_code,
             division_code: data.division_code,

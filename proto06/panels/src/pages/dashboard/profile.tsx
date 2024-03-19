@@ -32,11 +32,19 @@
   import { APILink, RootState } from "@/store/configureStore";
   import styled from "@emotion/styled/types/base";
 
-  import {Select, Option } from "@material-tailwind/react";
+  // import {Select, Option } from "@material-tailwind/react";
 
   // COMPONENTS
   import ProfileAutocomplete from "./profile-components/ProfileAutocomplete";
   import DatePickerForm from "@/public-components/forms/DatePickerForm";
+  import Province from "@/public-components/forms/address/Province";
+  import CityMunicipality from "@/public-components/forms/address/CityMunicipality";
+
+  //LIBRARIES
+  import FormControl, { useFormControl } from '@mui/material/FormControl';
+  import Select, { SelectChangeEvent } from '@mui/material/Select';
+  import MenuItem from '@mui/material/MenuItem';
+  import InputLabel from '@mui/material/InputLabel';
 
   const apiUrl = 'https://bitversecorporation.pythonanywhere.com/api/v1/'; // Replace with your actual API endpoint
 
@@ -50,6 +58,8 @@
   //     throw error;
   //   }
   // }
+
+
   interface DropDownData {
     branches: any[],
     departments: any[],
@@ -66,6 +76,18 @@
     // const [file, setFile] = useState<File | null>(null);
     const [profileImage, setProfileImage] = useState<any>(null);
     const [isSubmittingRequest, setIsSubmittingRequest] = useState<boolean>(false)
+    const [address, setAddress] = useState({
+      province:{
+        id:null,
+        name:null,
+        code:null
+      },
+      city:{
+        id:null,
+        name:null,
+        code:null
+      }
+    })
 
     // const [codeName, setCodeName] = useState();
 
@@ -96,6 +118,7 @@
     })
 
 
+
     const handleTabClick = (tab:any) => {
       setIsEdit(false)
       setActiveTab(tab);
@@ -109,6 +132,17 @@
       fetchEmploymentStatus()
       fetchPositions()
     }, [])
+
+    useEffect(() => {
+      if(address.city?.id && address.province?.id) {
+        setUserData((curr:any) => ({
+          ...curr,
+          province_code: address.province?.id,
+          city_code: address.city?.id
+        }))
+      }
+    },[address])
+
 
     useEffect(() => {
       // fetchUserData()
@@ -144,8 +178,22 @@
     const rollBackData = () => {
 
       setUserData((curr:any) => ({
-        ...curr_user
+        ...curr_user,
+        added_by: curr_user?.emp_no
       }))
+
+      // setAddress(curr => ({
+      //   province:{
+      //     id: null,
+      //     name:null,
+      //     code:null
+      //   },
+      //   city:{
+      //     id:null,
+      //     name:null,
+      //     code:null
+      //   }
+      // }))
       // fetchUserData()
       setProfileImage(null);
     }
@@ -162,6 +210,10 @@
     //   })
     // }
 
+    const findEmpStatus = () => {
+      const foundEmpStatus = dropDownData.employmentStatuses.find((status:any) => status.id == userData.employment_status)
+      return foundEmpStatus.name
+    }
     const fetchPayrollGroups = () => {
       axios.get(`${APILink}payrollgroup`).then((response:any) => {
           const responsePayrollGroups = response.data.map((payroll:any) => {
@@ -256,6 +308,7 @@
       updatePersonalInfo()
     };
 
+
   const handleProfilePic = (e:any) => {
 
     const file = e.target.files[0];
@@ -284,9 +337,13 @@
 
     const updatePersonalInfo = async () => {
 
+      console.log(userData)
       setIsSubmittingRequest(true)
       // console.log(userData.middle_name)
       const formData = new FormData ();
+
+      formData.append('province_code', address?.province.id)
+      formData.append('city_code', address?.city.id)
       
       for(const key in userData) {
 
@@ -315,6 +372,8 @@
         }
 
       }
+
+      formData.append('added_by', curr_user?.emp_no)
       await axios.put(`${APILink}update_personal_profile/${userData.emp_no}/`, formData).then(res => {
 
         setIsSubmittingRequest(false)
@@ -453,20 +512,96 @@
             {activeTab === 'personal' && userData && (
               <form onSubmit={handleSubmitPersonal}>
                 <div className="" style={{ marginTop: '-10px', marginBottom: '20px', position: 'relative' }}>
-                  <div className="md:flex md:space-x-4 mb-2">
-                    <TextField onChange={handleInputChange} disabled={!isEdit} id="Firstname" name="first_name" label="Firstname" variant="outlined" style={{marginBottom:"20px"}} 
-                    className="w-full" defaultValue={userData.first_name  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
-
-
-                    <TextField onChange={handleInputChange} disabled={!isEdit} id="Middlename" name="middle_name" label="Middlename" variant="outlined" style={{marginBottom:"20px"}}className="w-full" defaultValue={userData.middle_name }  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
-
-
-                    <TextField onChange={handleInputChange} disabled={!isEdit} id="Lastname" name="last_name" label="Lastname" variant="outlined" style={{marginBottom:"20px"}} className="w-full" defaultValue={userData.last_name}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
-
-                    <TextField onChange={handleInputChange} disabled={!isEdit} id="Suffix" name="suffix" label="Suffix" variant="outlined" style={{marginBottom:"20px"}} className="w-full" defaultValue={userData.suffix  }  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                  <div className="mb-10">
+                    <Typography
+                      variant="h5"
+                      className="font-normal text-blue-gray-600"
+                    >
+                      {!isEdit? 'Form is currently in view status (Click "Edit" button to edit information)': 'Form is currently in edit status (Click "Cancel" button to switch to view only)'}
+                    </Typography>
                   </div>
                   <div className="md:flex md:space-x-4 mb-2">
-                    <ProfileAutocomplete
+                    <TextField 
+                      onChange={handleInputChange} 
+                      InputProps={{
+                        readOnly: !isEdit || isSubmittingRequest,
+                      }}
+                      id="Firstname" 
+                      name="first_name" 
+                      label="Firstname" 
+                      variant="outlined" 
+                      style={{marginBottom:"20px"}} 
+                      className="w-full" 
+                      value={userData.first_name} 
+                      InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+                    />
+
+
+                    <TextField 
+                      onChange={handleInputChange} 
+                      InputProps={{
+                        readOnly: !isEdit || isSubmittingRequest,
+                      }}
+                      id="Middlename" 
+                      name="middle_name" 
+                      label="Middlename" 
+                      variant="outlined" 
+                      style={{marginBottom:"20px"}}
+                      className="w-full" 
+                      value={userData.middle_name }  
+                      InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+                    />
+
+
+                    <TextField 
+                      onChange={handleInputChange} 
+                      InputProps={{
+                        readOnly: !isEdit || isSubmittingRequest,
+                      }}
+                      id="Lastname" 
+                      name="last_name" 
+                      label="Lastname" 
+                      variant="outlined" 
+                      style={{marginBottom:"20px"}} 
+                      className="w-full" 
+                      value={userData.last_name}  
+                      InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+                    />
+
+                    <TextField 
+                      onChange={handleInputChange} 
+                      InputProps={{
+                        readOnly: !isEdit || isSubmittingRequest,
+                      }}
+                      id="Suffix" 
+                      name="suffix" 
+                      label="Suffix" 
+                      variant="outlined" 
+                      style={{marginBottom:"20px"}}
+                      className="w-full" 
+                      value={userData.suffix}  
+                      InputLabelProps={{ style: { fontWeight: 'bold' }}}
+                    />
+                  </div>
+                  <div className="flex flex-col md:flex-row gap-4 mb-6">
+                    <FormControl className='w-full'>
+                      <InputLabel htmlFor="civil_status">Civil Status:</InputLabel>
+                      <Select
+                        onChange={handleInputChange}
+                        value={userData?.civil_status}
+                        placeholder="Select Civil Status"
+                        name="civil_status"
+                        variant="outlined"
+                        label="Civil Status:"
+                        inputProps={{ readOnly: !isEdit }}
+                      >
+                        <MenuItem value="S">Single</MenuItem>
+                        <MenuItem value="M">Married</MenuItem>
+                        <MenuItem value="W">Widowed</MenuItem>
+                        <MenuItem value="A">Annulled</MenuItem>
+                      </Select>
+                    </FormControl>
+                    {/* <ProfileAutocomplete
                         id='civil_status'
                         options={civilStatusOptions}
                         label="Civil Status:"
@@ -474,10 +609,50 @@
                         value={userData?.civil_status}
                         customKey="civil_status"
                         disabled={!isEdit}
-                    />
-                    <TextField onChange={handleInputChange} disabled={!isEdit} id="blood_type" name="blood_type" label="Blood Type" variant="outlined" style={{marginBottom:"20px"}} className="w-full" defaultValue={userData.blood_type}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  
-                    />
-                    <ProfileAutocomplete
+                    /> */}
+                    <FormControl className='w-full'>
+                      <InputLabel htmlFor="blood_type">Blood Type: (optional)</InputLabel>
+                      <Select
+                        onChange={handleInputChange}
+                        value={userData?.blood_type}
+                        placeholder="Select Blood Type"
+                        name="blood_type"
+                        variant="outlined"
+                        label="Blood Type: (optional)"
+                        inputProps={{ readOnly: !isEdit }}
+                      >
+                        <MenuItem value="A+">A+</MenuItem>
+                        <MenuItem value="A-">A-</MenuItem>
+                        <MenuItem value="B+">B+</MenuItem>
+                        <MenuItem value="B-">B-</MenuItem>
+                        <MenuItem value="AB+">AB+</MenuItem>
+                        <MenuItem value="AB-">AB-</MenuItem>
+                        <MenuItem value="O+">O+</MenuItem>
+                        <MenuItem value="O-">O-</MenuItem>
+                        <MenuItem value="">
+                          <em>None</em>
+                        </MenuItem>
+                      </Select>
+                    </FormControl>
+                    {/* <TextField onChange={handleInputChange} disabled={!isEdit} id="blood_type" name="blood_type" label="Blood Type" variant="outlined" style={{marginBottom:"20px"}} className="w-full" value={userData.blood_type}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+                    /> */}
+                    <FormControl className='w-full'>
+                      <InputLabel htmlFor="sex">Sex:</InputLabel>
+                      <Select
+                        onChange={handleInputChange}
+                        placeholder="Select Sex"
+                        name="gender"
+                        variant="outlined"
+                        label="Sex:"
+                        value={userData?.gender}
+                        inputProps={{ readOnly: !isEdit }}
+                        required
+                      >
+                        <MenuItem value="M">Male</MenuItem>
+                        <MenuItem value="F">Female</MenuItem>
+                      </Select>
+                    </FormControl>
+                    {/* <ProfileAutocomplete
                         id='gender'
                         options={sexOptions}
                         label="Sex:"
@@ -485,7 +660,7 @@
                         value={userData?.gender}
                         customKey="gender"
                         disabled={!isEdit}
-                      />
+                      /> */}
                   </div>
                     <div className="md:flex md:space-x-4 mb-2">
                         <DatePickerForm 
@@ -493,46 +668,181 @@
                           defaultValue={userData?.birthday}
                           setState={setUserData}
                           customKey="birthday"
-                          disabled={!isEdit}
+                          isReadOnly={!isEdit}
                         />
 
-                      <TextField onChange={handleInputChange} disabled={!isEdit} id="Birthplace" name="birth_place" label="Birthplace" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} defaultValue={userData?.birth_place} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                      <TextField 
+                        onChange={handleInputChange} 
+                        InputProps={{
+                          readOnly: !isEdit,
+                        }}
+                        id="Birthplace" 
+                        name="birth_place" 
+                        label="Birthplace" 
+                        variant="outlined" 
+                        style={{ width: '100%', marginBottom:"20px" }} 
+                        value={userData?.birth_place} 
+                        InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+                      />
 
-                      <TextField onChange={handleInputChange} disabled={!isEdit} id="graduated_school" name="graduated_school" label="School Graduated" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} defaultValue={userData?.graduated_school} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                      <TextField 
+                        onChange={handleInputChange} 
+                        InputProps={{
+                          readOnly: !isEdit,
+                        }}
+                        id="graduated_school" 
+                        name="graduated_school" 
+                        label="School Graduated" 
+                        variant="outlined" 
+                        style={{ width: '100%', marginBottom:"20px" }} 
+                        value={userData?.graduated_school} 
+                        InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+                      />
 
                     </div>
                     <div className="md:flex md:space-x-4">
 
-                      <TextField onChange={handleInputChange} type="tel" disabled={!isEdit}  id="mobile_phone" name="mobile_phone" label="Mobile Phone" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} defaultValue={userData.mobile_phone} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                      <TextField 
+                        onChange={handleInputChange} 
+                        type="tel" 
+                        InputProps={{
+                          readOnly: !isEdit,
+                        }}  
+                        id="mobile_phone" 
+                        name="mobile_phone" 
+                        label="Mobile Phone" 
+                        variant="outlined" 
+                        style={{ width: '100%', marginBottom:"20px" }} 
+                        value={userData.mobile_phone} 
+                        InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+                      />
 
-                      <TextField onChange={handleInputChange} type="tel" disabled={!isEdit}  id="telephone" name="telephone" label="Telephone" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} defaultValue={userData.telephone} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                      <TextField 
+                        onChange={handleInputChange} 
+                        type="tel" 
+                        InputProps={{
+                          readOnly: !isEdit,
+                        }}
+                        id="telephone" 
+                        name="telephone" 
+                        label="Telephone" 
+                        variant="outlined" 
+                        style={{ width: '100%', marginBottom:"20px" }} 
+                        value={userData.telephone} 
+                        InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+                      />
 
-                      <TextField onChange={handleInputChange} type="email" disabled={!isEdit} id="Email Address" name="email_address" label="Email Address" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} defaultValue={userData.email_address}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                      <TextField 
+                        onChange={handleInputChange} 
+                        type="email" 
+                        InputProps={{
+                          readOnly: !isEdit,
+                        }}
+                        id="Email Address" 
+                        name="email_address" 
+                        label="Email Address" 
+                        variant="outlined" 
+                        style={{ width: '100%', marginBottom:"20px" }} 
+                        value={userData.email_address}  
+                        InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+                      />
 
                     </div>
-                    {userData.present_address}
                     <div className="md:flex md:space-x-4">
-                      <TextField onChange={handleInputChange} disabled={!isEdit} id="Present Address" name="present_address" label="Present Address" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} defaultValue={userData.present_address} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                      {/* <TextField onChange={handleInputChange} disabled={!isEdit} id="Present Address" name="present_address" label="Present Address" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} value={userData.present_address} InputLabelProps={{ style: { fontWeight: 'bold' }}}  /> */}
 
-                      <TextField onChange={handleInputChange} disabled={!isEdit} id="Provincial Address" name="provincial_address" label="Provincial Address" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} defaultValue={userData.provincial_address}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                      {/* <TextField onChange={handleInputChange} disabled={!isEdit} id="Provincial Address" name="provincial_address" label="Provincial Address" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} value={userData.provincial_address}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  /> */}
+                      <Province 
+                        setState={setAddress}
+                        state={address}
+                        province_id={userData.province_code}
+                        isReadOnly={!isEdit}
+                      />
+                      <CityMunicipality 
+                        setState={setAddress}
+                        state={address}
+                        city_id={userData.city_code}
+                        isReadOnly={!isEdit}
+                      />
 
-                      <TextField onChange={handleInputChange} disabled={!isEdit} id="url_google_map" name="url_google_map" label="URL Google Map" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} defaultValue={userData.url_google_map}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                      <TextField 
+                        type="url" 
+                        onChange={handleInputChange} 
+                        InputProps={{
+                          readOnly: !isEdit,
+                        }}
+                        id="url_google_map" 
+                        name="url_google_map" 
+                        label="URL Google Map" 
+                        variant="outlined" 
+                        style={{ width: '100%', marginBottom:"20px" }} value={userData.url_google_map}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+                      />
+                    </div>
+
+                    <div className="md:flex md:space-x-4">
+
+                      <TextField 
+                        onChange={handleInputChange} 
+                        type="text" 
+                        InputProps={{
+                          readOnly: !isEdit,
+                        }}
+                        id="profession" 
+                        name="profession" 
+                        label="Profession" 
+                        variant="outlined" 
+                        style={{ width: '100%', marginBottom:"20px" }} 
+                        value={userData.profession} 
+                        InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+                      />
+
+                      <TextField 
+                        onChange={handleInputChange} 
+                        type="text" 
+                        InputProps={{
+                          readOnly: !isEdit,
+                        }} 
+                        id="license_no" name="license_no" 
+                        label="License No" 
+                        variant="outlined" 
+                        style={{ width: '100%', marginBottom:"20px" }} 
+                        value={userData.license_no} 
+                        InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+                      />
 
                     </div>
 
                     <div className="md:flex md:space-x-4">
 
-                      <TextField onChange={handleInputChange} type="text" disabled={!isEdit}  id="profession" name="profession" label="Profession" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} defaultValue={userData.profession} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                      <TextField 
+                        onChange={handleInputChange} 
+                        type="text" 
+                        InputProps={{
+                          readOnly: !isEdit,
+                        }} 
+                        name="emergency_contact_person" 
+                        id="emergency_contact_person" 
+                        label="Emergency Contact Person" 
+                        variant="outlined" 
+                        style={{ width: '100%', marginBottom:"20px" }}
+                        value={userData.emergency_contact_person} 
+                        InputLabelProps={{ style: { fontWeight: 'bold' }}} 
+                      />
 
-                      <TextField onChange={handleInputChange} type="text" disabled={!isEdit}  id="license_no" name="license_no" label="License No" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} defaultValue={userData.license_no} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
-
-                    </div>
-
-                    <div className="md:flex md:space-x-4">
-
-                      <TextField onChange={handleInputChange} type="text" disabled={!isEdit}  name="emergency_contact_person" id="emergency_contact_person" label="Emergency Contact Person" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} defaultValue={userData.emergency_contact_person} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
-
-                      <TextField onChange={handleInputChange} type="tel" disabled={!isEdit}  id="emergency_contact_number" name="emergency_contact_number" label="Emergency Contact Number" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} defaultValue={userData.emergency_contact_number} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                      <TextField 
+                        onChange={handleInputChange} 
+                        type="tel" 
+                        InputProps={{
+                          readOnly: !isEdit,
+                        }}
+                        id="emergency_contact_number" 
+                        name="emergency_contact_number" 
+                        label="Emergency Contact Number" 
+                        variant="outlined" 
+                        style={{ width: '100%', marginBottom:"20px" }} 
+                        value={userData.emergency_contact_number} 
+                        InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+                      />
 
                     </div>
                     <div>
@@ -569,45 +879,83 @@
             <div className="grid-cols-1 mb-12 grid gap-12 px-4 lg:grid-cols-2 xl:grid-cols-3" style={{ marginTop: '-10px', marginBottom: '20px', position: 'relative' }}>
               <div>
                 <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
-                  <TextField  disabled id="Username" label="Username" variant="outlined" style={{ width: '100%' }} value={curr_user?.user?.username || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                  <TextField            InputProps={{
+            readOnly: true,
+          }} id="Username" label="Username" variant="outlined" style={{ width: '100%' }} value={curr_user?.user?.username || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
                 </Typography>
                 <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}> 
-                  <TextField  disabled id="Account Active" label="Account Active" variant="outlined" style={{ width: '100%' }} value={ curr_user?.user?.is_active   } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                  <TextField            InputProps={{
+            readOnly: true,
+          }} id="Account Active" label="Account Active" variant="outlined" style={{ width: '100%' }} value={ curr_user?.user?.is_active   } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
                 </Typography>
                 <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
-                  <TextField  disabled id="Last Login" label="Last Login" variant="outlined" style={{ width: '100%' }} value={curr_user?.user?.last_login ? new Date (curr_user.user?.last_login).toLocaleDateString() : '-' } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                  <TextField            InputProps={{
+            readOnly: true,
+          }} id="Last Login" label="Last Login" variant="outlined" style={{ width: '100%' }} value={curr_user?.user?.last_login ? new Date (curr_user.user?.last_login).toLocaleDateString() : '-' } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
                 </Typography>
                 <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
-                  <TextField  disabled id="Date Deactivated" label="Date Deactivated" variant="outlined" style={{ width: '100%' }} value={ curr_user?.user?.date_deleted || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                  <TextField            InputProps={{
+            readOnly: true,
+          }} id="Date Deactivated" label="Date Deactivated" variant="outlined" style={{ width: '100%' }} value={ curr_user?.user?.date_deleted || '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
                 </Typography>
                 
               </div>     
               <div>
 
-                  <TextField  disabled id="bio-id" label="Biometric ID" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={curr_user?.bio_id || '-' } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                  <TextField            InputProps={{
+            readOnly: true,
+          }} id="bio-id" label="Biometric ID" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={curr_user?.bio_id || '-' } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
 
-                  <TextField  disabled id="Role Number" label="Role Number" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={curr_user?.rank_code || '-' } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                  <TextField            
+                    InputProps={{
+                      readOnly: true,
+                    }} 
+                    id="Role Number" 
+                    label="Role Number" 
+                    variant="outlined" style={
+                      { width: '100%', marginBottom: '20px' }} 
+                      value={curr_user?.rank_code || '-' } 
+                      InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+                  />
  
 
-                  <TextField  disabled id="Email Address" label="Email Address" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={curr_user?.email_address || '-' } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                  <TextField            InputProps={{
+            readOnly: true,
+          }} id="Email Address" label="Email Address" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={curr_user?.email_address || '-' } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
  
 
-                  <TextField  disabled id="Date Password Changed" label="Date Password Changed" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={ curr_user?.user?.date_password_changed ? new Date (curr_user?.user?.date_password_changed).toLocaleDateString() : '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                  <TextField            InputProps={{
+            readOnly: true,
+          }} id="Date Password Changed" label="Date Password Changed" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={ curr_user?.user?.date_password_changed ? new Date (curr_user?.user?.date_password_changed).toLocaleDateString() : '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
               </div>  
               <div>
 
-                  <TextField  disabled id="Employee Number" label="Employee Number" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={curr_user?.emp_no || '-' } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                  <TextField            InputProps={{
+            readOnly: true,
+          }} id="Employee Number" label="Employee Number" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={curr_user?.emp_no || '-' } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
-                  <TextField  disabled id="Bio ID" label="Bio ID" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={curr_user?.bio_id || '-' } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                  <TextField            InputProps={{
+            readOnly: true,
+          }} id="Bio ID" label="Bio ID" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={curr_user?.bio_id || '-' } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
-                  <TextField  disabled id="Account Lock Status" label="Account Lock Status" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={ curr_user?.user?.is_locked   } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+                  <TextField            InputProps={{
+            readOnly: true,
+          }} id="Account Lock Status" label="Account Lock Status" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={ curr_user?.user?.is_locked   } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
 
-                  <TextField  disabled id="Date Added" label="Date Added" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={ curr_user?.date_added ? new Date (curr_user?.date_added).toLocaleDateString() : '-'  } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
-
-                
+                  <TextField            
+                    InputProps={{
+                      readOnly: true,
+                    }} 
+                    id="Date Added" 
+                    label="Date Added" 
+                    variant="outlined" 
+                    style={{ width: '100%', marginBottom: '20px' }} 
+                    value={ curr_user?.date_added ? new Date (curr_user?.date_added).toLocaleDateString() : '-'  } 
+                    InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+                  />          
               </div>  
             </div>
           )}
@@ -622,9 +970,20 @@
               defaultValue={userData?.date_hired}
               setState={setUserData}
               customKey="date_hired"
-              disabled={true}
+              isReadOnly={true}
             />
-            {dropDownData.branches.length > 0 && 
+            <TextField            
+              InputProps={{
+                readOnly: true,
+              }} 
+              id="branch_code" 
+              label="Branch" 
+              variant="outlined" 
+              style={{ width: '100%', marginBottom: '20px' }} 
+              value={ curr_user?.branch_data?.branch_name?? "" } 
+              InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+            />   
+            {/* {dropDownData.branches.length > 0 && 
               <ProfileAutocomplete
                 id='branch_code'
                 options={dropDownData.branches}
@@ -634,10 +993,20 @@
                 customKey="branch_code"
                 disabled={true}
               />
-            }
+            } */}
 
-
-            {dropDownData.positions.length > 0 && 
+            <TextField            
+              InputProps={{
+                readOnly: true,
+              }} 
+              id="position_code" 
+              label="Position" 
+              variant="outlined" 
+              style={{ width: '100%', marginBottom: '20px' }} 
+              value={ curr_user?.position_data?.pos_name?? "" } 
+              InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+            />
+            {/* {dropDownData.positions.length > 0 && 
               <ProfileAutocomplete
                 id='position_code'
                 options={dropDownData.positions}
@@ -647,20 +1016,36 @@
                 customKey="position_code"
                 disabled={true}
               />
-            }
+            } */}
 
 
-            <TextField  disabled id="Account Number" label="Account Number" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.accnt_no} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+          <TextField            
+            InputProps={{
+            readOnly: true,
+          }} 
+          id="Account Number" label="Account Number" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={userData.accnt_no} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
-            <TextField  disabled id="TIN" label="TIN" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.tax_code} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+          <TextField            
+            InputProps={{
+            readOnly: true,
+          }} id="TIN" label="TIN" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={userData.tax_code} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
-            <TextField  disabled id="Approver Number 1" label="Approver #1" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.approver1 }  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+          <TextField            
+            InputProps={{
+            readOnly: true,
+          }} id="Approver Number 1" label="Approver #1" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={userData.approver1 }  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
             
-            <TextField  disabled id="Approver Number 2" label="Approver #2" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.approver2 }  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <TextField            InputProps={{
+            readOnly: true,
+          }} id="Approver Number 2" label="Approver #2" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={userData.approver2 }  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
-            <TextField  disabled id="Ecola" label="Ecola" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.ecola}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <TextField            InputProps={{
+            readOnly: true,
+          }} id="Ecola" label="Ecola" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={userData.ecola}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
-            <TextField  disabled id="Other Duty Responsibilities" label="Other Duty Responsibilities" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.other_duties_responsibilities }  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <TextField            InputProps={{
+            readOnly: true,
+          }} id="Other Duty Responsibilities" label="Other Duty Responsibilities" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={userData.other_duties_responsibilities }  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
           </div>
           <div>
@@ -670,10 +1055,20 @@
               defaultValue={userData?.date_resigned}
               setState={setUserData}
               customKey="date_resigned"
-              disabled={true}
+              isReadOnly={true}
             />
-
-            {dropDownData.departments.length > 0 ? 
+            <TextField            
+              InputProps={{
+                readOnly: true,
+              }} 
+              id="department_code" 
+              label="Department" 
+              variant="outlined" 
+              style={{ width: '100%', marginBottom: '20px' }} 
+              value={ curr_user?.department_data?.dept_name?? "" } 
+              InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+            />
+            {/* {dropDownData.departments.length > 0 ? 
               <ProfileAutocomplete
                 id='department_code'
                 options={dropDownData.departments}
@@ -692,28 +1087,76 @@
                 customKey="department_code"
                 disabled={true}
               />
-            }
+            } */}
 
-            <TextField  disabled id="Rank" label="Rank" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.rank_code} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <TextField           
+              InputProps={{
+                readOnly: true,
+              }} 
+              id="Rank" 
+              label="Rank" 
+              variant="outlined" 
+              style={{ width: '100%', marginBottom: '20px' }} 
+              value={userData.rank_data.rank_name} 
+              InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+            />
 
-            <TextField  disabled id="Employee Type" label="Employee Type" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.employee_type} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <TextField           InputProps={{
+            readOnly: true,
+          }} id="Employee Type" label="Employee Type" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={userData.employee_type} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
-            <TextField  disabled id="Basic Salary Amount" label="Basic Salary Amount" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.employee} InputLabelProps={{ style: { fontWeight: 'bold' }}}/>
+            <TextField           
+              InputProps={{
+                readOnly: true,
+              }} 
+              id="daily_salary" 
+              label="Daily Salary" 
+              variant="outlined" 
+              style={{ width: '100%', marginBottom: '20px' }} 
+              value={userData?.emp_salary_basic??""} 
+              InputLabelProps={{ style: { fontWeight: 'bold' }}}
+            />
 
-            <TextField  disabled id="Pagibig" label="Pagibig" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.pagibig_data?.pagibig_no?? "-"} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <TextField           InputProps={{
+            readOnly: true,
+          }} id="Pagibig" label="Pagibig" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={userData.pagibig_data?.pagibig_no?? "-"} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
-            <TextField  disabled id="hmo" label="HMO" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.hmo?? "-"} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <TextField           InputProps={{
+            readOnly: true,
+          }} id="hmo" label="HMO" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={userData.hmo?? "-"} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
-            <TextField  disabled id="Insurance Life" label="Insurance Life" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.insurance_life}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <TextField           InputProps={{
+            readOnly: true,
+          }} id="Insurance Life" label="Insurance Life" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={userData.insurance_life}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
           </div>
           <div>
             
-            <TextField  disabled id="Division" label="Division" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.division_code} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <TextField           
+              InputProps={{
+                readOnly: true,
+              }} 
+              id="Division" 
+              label="Division" 
+              variant="outlined" 
+              style={{ width: '100%', marginBottom: '20px' }} 
+              value={userData.division_data.div_name} 
+              InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+            />
 
 
-            
-            {dropDownData.payrollGroups.length > 0 && 
+            <TextField           
+              InputProps={{
+                readOnly: true,
+              }} 
+              id="payroll_group_code" 
+              label="Payroll Group" 
+              variant="outlined" 
+              style={{ width: '100%', marginBottom: '20px' }} 
+              value={userData.payroll_group_data.name} 
+              InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+            />
+            {/* {dropDownData.payrollGroups.length > 0 && 
               <ProfileAutocomplete
                 id='payroll_group_code'
                 options={dropDownData.payrollGroups}
@@ -723,9 +1166,9 @@
                 customKey="payroll_group_code"
                 disabled={true}
               />
-            }
+            } */}
 
-            {dropDownData.payrollGroups.length > 0 && 
+            {/* {dropDownData.payrollGroups.length > 0 && 
                 <ProfileAutocomplete
                   id='emp_salary_type'
                   options={salaryTypes}
@@ -735,19 +1178,38 @@
                   customKey="emp_salary_type"
                   disabled={true}
                 />
-              }
+              } */}
 
             
-            <TextField  disabled id="Payroll No" label="Payroll No" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.payroll_no} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <TextField           InputProps={{
+            readOnly: true,
+          }} id="Payroll No" label="Payroll No" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={userData.payroll_no} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
-            <TextField  disabled id="Employment Status" label="Employment Status" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.employment_status} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <TextField           
+              InputProps={{
+                readOnly: true,
+              }}
+              id="Employment Status" 
+              label="Employment Status" 
+              value={findEmpStatus()}
+              variant="outlined" 
+              style={{ width: '100%', marginBottom: '20px' }} 
+              value={userData.employment_status} 
+              InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+            />
 
-            <TextField  disabled id="SSS" label="SSS" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.sss_data?.sss_no?? "-"} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <TextField           InputProps={{
+            readOnly: true,
+          }} id="SSS" label="SSS" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={userData.sss_data?.sss_no?? "-"} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
 
-            <TextField  disabled id="Philhealth" label="Philhealth" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.philhealth_data?.ph_no?? "-"} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <TextField           InputProps={{
+            readOnly: true,
+          }} id="Philhealth" label="Philhealth" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={userData.philhealth_data?.ph_no?? "-"} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
-            <TextField  disabled id="Other Deductible" label="Other Deductible" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} defaultValue={userData.other_deductible}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+            <TextField           InputProps={{
+            readOnly: true,
+          }} id="Other Deductible" label="Other Deductible" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={userData.other_deductible}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
            
 

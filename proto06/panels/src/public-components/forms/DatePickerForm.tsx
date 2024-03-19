@@ -11,11 +11,12 @@ interface Props {
   setState: any
   customKey: string
   disabled?: boolean
+  isReadOnly? : boolean
 }
 
 export default function DatePickerForm(props: Props) {
 
-  const {setState, label, defaultValue, customKey, disabled} = props
+  const {setState, label, defaultValue, customKey, disabled, isReadOnly} = props
 
   const formatDate = (date: Dayjs | null) => {
     return date ? date.format('YYYY-MM-DD') : null;
@@ -38,6 +39,7 @@ export default function DatePickerForm(props: Props) {
             label={label} 
             defaultValue={dayjs(defaultValue)}
             onChange={handleChange}
+            readOnly={isReadOnly}
             disabled={disabled}
           />
         </DemoContainer>
