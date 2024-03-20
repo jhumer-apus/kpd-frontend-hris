@@ -512,7 +512,7 @@ export const SpecificEmployee = (props: initialState) => {
                     
                     formData.append("employee_image", "");
 
-                }else if(value == null || value == undefined || value.trim() == "") {
+                }else if(value == null || value == undefined || (typeof value == 'string' && value.trim() == "")) {
 
                     formData.append(key, "");
                     
