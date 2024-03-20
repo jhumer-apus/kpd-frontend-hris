@@ -43,7 +43,7 @@ function ManageUSERCreate(props: CreateUSERModalInterface) {
         if(createUSER.username && createUSER.password && createUSER.role && createUSER.emp_no) {
 
             console.log(createUSER)
-            // dispatch(USERCreateAction(createUSER))
+            dispatch(USERCreateAction(createUSER))
 
         } else {
 
@@ -105,7 +105,7 @@ function ManageUSERCreate(props: CreateUSERModalInterface) {
         }).catch((err:AxiosError) => {
     
           console.log(err)
-          window.alert("Fail to email the user the new password")
+          window.alert("Fail to email the user with new password")
     
         })
       }
