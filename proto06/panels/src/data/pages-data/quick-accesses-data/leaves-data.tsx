@@ -26,7 +26,7 @@ export const QuickAccessLEAVEPageColumns: GridColDef[] =
       let cellColor = '';
       if (status === 'P1' || status === 'P2') {
         cellColor = '#ff9100'; // Orange
-      } else if ( status==='DIS' ){
+      } else if ( ['DIS','CX'].includes(status)){
         cellColor = '#aa2e25'; // Red
       } else if ( status==='APD' ){
         cellColor = '#008000'; // Green

@@ -37,6 +37,7 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
                 </div>
                 {ThisProps.leave_approval_status === 'APD' && <img src={ '/img/stampApproved2.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
                 {ThisProps.leave_approval_status === 'DIS' && <img src={ '/img/stampRejected.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
+                {ThisProps.leave_approval_status === 'CX' && <img src={ '/img/stampCancel.png' } style={{height: '100px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
             </div>
         </Fragment>
     );

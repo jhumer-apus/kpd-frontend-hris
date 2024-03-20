@@ -437,18 +437,15 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                     <FormControl fullWidth>
                         <InputLabel htmlFor="options">Leave Option</InputLabel>
                         <Select
-                            // labelId="options"
-                            // id="options"
+                            labelId="options"
+                            id="options"
+                            label="Leave Option"
                             value={createLEAVE.option}
-                            // label="Leave Option"
                             onChange={(e) => setCreateLEAVE(curr => ({
                                 ...curr,
                                 option: e.target.value
                             }))}
-                            inputProps={{
-                                id:'options'
-                            }}
-                            // disabled={disableOption}
+                            disabled={disableOption}
                         >
                             <MenuItem value="early">Early Half Day</MenuItem>
                             <MenuItem value="late">Late Half Day</MenuItem>
@@ -456,6 +453,28 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                         </Select>
                         {disableOption && <FormHelperText>Multiple Days will be automatically set to Whole Day</FormHelperText>}
                     </FormControl>
+                    {/* <FormControl fullWidth>
+                        <InputLabel htmlFor="options" shrink={Boolean(createLEAVE.option)}>Leave Option</InputLabel>
+                        <Select
+                            labelId="options"
+                            id="options"
+                            value={createLEAVE.option}
+                            // label="Leave Option"
+                            onChange={(e) => setCreateLEAVE(curr => ({
+                                ...curr,
+                                option: e.target.value
+                            }))}
+                            // inputProps={{
+                            //     id:'options'
+                            // }}
+                            disabled={disableOption}
+                        >
+                            <MenuItem value="early">Early Half Day</MenuItem>
+                            <MenuItem value="late">Late Half Day</MenuItem>
+                            <MenuItem value="whole">Whole Day</MenuItem>
+                        </Select>
+                        {disableOption && <FormHelperText>Multiple Days will be automatically set to Whole Day</FormHelperText>}
+                    </FormControl> */}
                 </div>
                 {/* <Input 
                     type="file"
