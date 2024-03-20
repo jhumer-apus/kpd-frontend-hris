@@ -446,35 +446,35 @@
         </div>
         <Card className="mx-3 -mt-16 mb-6 lg:mx-4">
           <CardBody className="p-4">
-          <div className="mb-10 flex items-center justify-between gap-6 flex-col md:flex-row md:items-center md:justify-between md:gap-6">
+            <div className="mb-10 flex items-center justify-between gap-6 flex-col md:flex-row md:items-center md:justify-between md:gap-6">
                 <div className="flex items-center gap-6">
-                <div className="h-fit relative">
-                      <img
-                        src={profileImage ?? getImageSrc()}
-                        alt=" "
-                        className="border rounded p-2 w-48 my-4"
-                      />
-                      {isEdit && (
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <label
-                            htmlFor="uploadImage"
-                            className={`block text-center text-white p-2 rounded-md ${
-                              !isSubmittingRequest ? 'bg-blue-600 cursor-pointer' : 'bg-gray-500'
-                            }`}
-                            style={{ zIndex: 1 ,opacity:0 }} // Ensure the label is on top of the image
-                          >
-                            Edit Photo
-                          </label>
-                          <input
-                            id="uploadImage"
-                            type="file"
-                            className="hidden"
-                            onChange={handleProfilePic}
-                            accept="image/jpeg, image/jpg, image/png, image/webp"
-                            disabled={!isEdit || isSubmittingRequest}
-                          />
-                        </div>
-                      )}
+                  <div className="h-fit relative w-28">
+                        <img
+                          src={profileImage ?? getImageSrc()}
+                          alt="Profile Picture"
+                          className="border rounded p-2 w-48 my-4"
+                        />
+                        {isEdit && (
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <label
+                              htmlFor="uploadImage"
+                              className={`block text-center text-white p-2 rounded-md ${
+                                !isSubmittingRequest ? 'bg-blue-600 cursor-pointer' : 'bg-gray-500'
+                              }`}
+                              style={{ zIndex: 1 ,opacity:0 }} // Ensure the label is on top of the image
+                            >
+                              Edit Photo
+                            </label>
+                            <input
+                              id="uploadImage"
+                              type="file"
+                              className="hidden"
+                              onChange={handleProfilePic}
+                              accept="image/jpeg, image/jpg, image/png, image/webp"
+                              disabled={!isEdit || isSubmittingRequest}
+                            />
+                          </div>
+                        )}
                     </div>
 
                 <div>
