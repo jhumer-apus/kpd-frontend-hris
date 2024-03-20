@@ -501,13 +501,23 @@ export const SpecificEmployee = (props: initialState) => {
         // }
 
         for (const key in finalData) {
+            
             const value = finalData[key];
 
-                if(key === "employee_image" && file){
+                if(key === "employee_image" && file) {
+
                     formData.append(key, file);
-                }else if(key === "employee_image" && (value !== null && value !== undefined && value !== "") && value.includes('image')){
+
+                }else if(key === "employee_image" && (value !== null && value !== undefined && value !== "") && value.includes('image')) {
+                    
                     formData.append("employee_image", "");
-                }else {
+
+                }else if(value == null || value == undefined || value.trim() == "") {
+
+                    formData.append(key, "");
+                    
+                } else {
+
                     formData.append(key, value);
                 }
             
