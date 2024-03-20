@@ -37,7 +37,7 @@ export default function DatePickerForm(props: Props) {
           <DatePicker 
             className='w-full'
             label={label} 
-            defaultValue={dayjs(defaultValue)}
+            defaultValue={defaultValue? dayjs(defaultValue): null}
             onChange={handleChange}
             readOnly={isReadOnly}
             disabled={disabled}
