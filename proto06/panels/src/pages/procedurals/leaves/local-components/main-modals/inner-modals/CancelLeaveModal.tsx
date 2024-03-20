@@ -65,12 +65,12 @@ export default function CancelLeaveModal(props: Props) {
         }
         await axios.put(`${APILink}cancel_leave/${data.emp_no}/${data.id}/`, body).then((res:AxiosResponse) => {
 
-            setIsCancelModalOpen((curr:any) => true)
+            setIsCancelModalOpen((curr:any) => false)
             window.alert("Cancel approved leave successfully")
 
         }).catch((err:AxiosError) => {
 
-            setIsCancelModalOpen((curr:any) => true)
+            setIsCancelModalOpen((curr:any) => false)
             window.alert(beautifyJSON(err.response?.data))
 
         })
