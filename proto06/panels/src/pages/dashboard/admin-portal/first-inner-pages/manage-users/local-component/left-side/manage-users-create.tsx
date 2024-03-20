@@ -39,10 +39,11 @@ function ManageUSERCreate(props: CreateUSERModalInterface) {
 
     const onClickSubmit = (e: any) => {
         e.preventDefault();
-        console.log(createUSER.role )
+        
         if(createUSER.username && createUSER.password && createUSER.role && createUSER.emp_no) {
 
-            dispatch(USERCreateAction(createUSER))
+            console.log(createUSER)
+            // dispatch(USERCreateAction(createUSER))
 
         } else {
 

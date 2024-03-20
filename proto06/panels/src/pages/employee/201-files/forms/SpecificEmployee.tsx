@@ -501,7 +501,7 @@ export const SpecificEmployee = (props: initialState) => {
         // }
 
         for (const key in finalData) {
-            
+
             const value = finalData[key];
 
                 if(key === "employee_image" && file) {
@@ -844,8 +844,7 @@ export const SpecificEmployee = (props: initialState) => {
                                             labelProps={{ style: { color: true ? "unset" : '' } }}
                                             label="Middle Name:"
                                             disabled={!editMode2}
-                                            icon={<FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />}                
-                                            required                    
+                                            icon={<FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />}                                
                                         />
                                     </div>
                                     <div className="my-4 md:flex md:items-center gap-4">
@@ -1068,8 +1067,7 @@ export const SpecificEmployee = (props: initialState) => {
                                             label="Profession:"
                                             containerProps={{ className: "mb-2 md:mb-0" }}
                                             labelProps={{ style: { color: true ? "unset" : '' } }}
-                                            disabled={!editMode2}    
-                                            required                                
+                                            disabled={!editMode2}                              
                                         />
                                         <Input
                                             crossOrigin={undefined} {...register('license_no')}

@@ -90,7 +90,7 @@ export default function RoleAutoComplete(props: RoleAutoCompleteInterface) {
         };
     });
     
-    const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string, reason: AutocompleteInputChangeReason) => {
+    const handleChange = (event: any, newInputValue: string, reason: AutocompleteInputChangeReason) => {
         const matchingRole = roleList.find(
         (roleItems) => roleItems.role_name.toLowerCase().includes(newInputValue.toLowerCase())
         );
@@ -113,7 +113,7 @@ export default function RoleAutoComplete(props: RoleAutoCompleteInterface) {
             options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
             groupBy={(option) => option.firstLetter}
             getOptionLabel={(option) => option.role_name}
-            onInputChange={handleInputChange}
+            onChange={handleChange}
             sx={{ width: '100%' }}
             isOptionEqualToValue={isOptionEqualToValue}
             renderInput={(params) => 
