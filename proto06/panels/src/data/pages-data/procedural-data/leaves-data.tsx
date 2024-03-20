@@ -77,7 +77,7 @@ export const ProceduralLEAVEPageColumns: GridColDef[] =
         }
       }
   
-    } else if ( status === 'DIS' ) { //Disapprove
+    } else if ( ['DIS','CX'].includes(status) ) { //Disapprove
 
       cellColor = '#aa2e25'; // Red
   
