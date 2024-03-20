@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
-import { Button } from '@mui/material';
+import { Button, FormHelperText } from '@mui/material';
 import {TextField} from '@mui/material';
 import { Input } from "@material-tailwind/react";
 import { useDispatch, useSelector } from 'react-redux';
@@ -46,6 +46,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
     const userData = useSelector((state: RootState) => state.auth.employee_detail);
 
     //STATES
+    const [disableOption, setDisableOption] = useState<boolean>(false)
     const [isSubmittingRequest, setIsSubmittingRequest] = useState<boolean>(false);
     const LEAVECreatestate = useSelector((state: RootState)=> state.procedurals.LEAVECreate);
     const [leaveCredits, setLeaveCredits] = useState<any>([])
@@ -70,6 +71,22 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
     useEffect(() => {
         console.log(leaveCredits)
     }, [leaveCredits])
+
+    useEffect(() => {
+
+        const dateDifference = getDateDifference(createLEAVE.leave_date_from, createLEAVE.leave_date_to)
+
+        if(dateDifference > 0) {
+            setCreateLEAVE(curr => ({
+                ...curr,
+                option:'whole'
+            }))
+            setDisableOption(curr => true)
+        }else{
+            setDisableOption(curr => false)
+        }
+
+    },[createLEAVE.leave_date_from, createLEAVE.leave_date_to])
 
 
     // const [remainingLeaveCredits, setRemainingLeaveCredits] = useState(
@@ -323,6 +340,16 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         
     }
 
+    const getDateDifference = (dateFrom: string | Date | null, dateTo: string | Date | null) => {
+
+        if(dateFrom && dateTo) {
+            const start = dayjs(createLEAVE.leave_date_from)
+            const end = dayjs(createLEAVE.leave_date_to)
+            return end.diff(start, 'day')
+        }
+        return 0;
+    }
+
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '2px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a Leave Data</Typography>
@@ -408,21 +435,26 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                         <DateFromToLEAVECreate createLEAVE={createLEAVE} setCreateLEAVE={setCreateLEAVE}/>
                     </div>
                     <FormControl fullWidth>
-                        <InputLabel id="options">Leave Option</InputLabel>
+                        <InputLabel htmlFor="options">Leave Option</InputLabel>
                         <Select
-                            labelId="options"
-                            id="options"
-                            // value={}
-                            label="Day Options"
+                            // labelId="options"
+                            // id="options"
+                            value={createLEAVE.option}
+                            // label="Leave Option"
                             onChange={(e) => setCreateLEAVE(curr => ({
                                 ...curr,
                                 option: e.target.value
                             }))}
+                            inputProps={{
+                                id:'options'
+                            }}
+                            // disabled={disableOption}
                         >
                             <MenuItem value="early">Early Half Day</MenuItem>
                             <MenuItem value="late">Late Half Day</MenuItem>
                             <MenuItem value="whole">Whole Day</MenuItem>
                         </Select>
+                        {disableOption && <FormHelperText>Multiple Days will be automatically set to Whole Day</FormHelperText>}
                     </FormControl>
                 </div>
                 {/* <Input 

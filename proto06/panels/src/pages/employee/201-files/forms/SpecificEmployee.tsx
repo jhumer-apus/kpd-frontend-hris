@@ -82,10 +82,6 @@ export const SpecificEmployee = (props: initialState) => {
 
     const [formSelectData, setFormSelectData] = useState({
         // employee_image: userData?.employee_image,
-        branch_code: null,
-        department_code: null,
-        approver1: null,
-        approver2: null,
         province: {
             id: null,
             name: null,
@@ -340,10 +336,10 @@ export const SpecificEmployee = (props: initialState) => {
         return ((value?? 0)*313)/12
     }
 
-    const onSubmit = async (data: EMPLOYEESViewInterface, type: string) => {
+    const onSubmit = async (inputData: EMPLOYEESViewInterface, type: string) => {
 
-        data = {
-            ...data,
+        const data = {
+            ...inputData,
             ...formSelectData
         }
 
@@ -416,7 +412,6 @@ export const SpecificEmployee = (props: initialState) => {
         //     case "type3":
         //         break;
         // }
-
         console.log(data)
         const finalData: EMPLOYEESViewInterface = {
             // user: USERViewInterface | null
