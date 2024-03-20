@@ -139,7 +139,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
             window.alert("Request Successful")
             setIsSubmittingRequest(false)
             
-            sendEmail(createLEAVE.emp_no, res.data.id)
+            sendEmail(createLEAVE.emp_no, res.data.leave_ids)
 
         }).catch((err:AxiosError) => {
             fetchLeaveCredits(userData?.emp_no)
@@ -297,26 +297,30 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         }
     }
 
-    const sendEmail = async (emp_no:string | number, app_pk: number) => {
+    const sendEmail = (emp_no:string | number, app_pk: number[]) => {
 
-        const body = {
-          emp_no: emp_no,
-          email_type: "application",
-          new_password: null,
-          application_type: 'leave',
-          application_pk: app_pk
+        try {
+            app_pk.forEach(leave_id => {
+
+                const body = {
+                    emp_no: emp_no,
+                    email_type: "application",
+                    new_password: null,
+                    application_type: 'leave',
+                    application_pk: leave_id
+                  }
+                  
+                  axios.post(`${APILink}reset_password_email/`, body)
+            })
+
+            console.log(`Application has been sent to the approver through email`)
+
+        } catch(err) {
+
+            window.alert("Failed to email the approver")
+
         }
-    
-        await axios.post(`${APILink}reset_password_email/`, body).then(res => {
-    
-          window.alert(`Application has been sent to the approver through email`)
-    
-        }).catch(err => {
-    
-          console.log(err)
-          window.alert("Failed to email the approver")
-    
-        })
+        
     }
 
     return (

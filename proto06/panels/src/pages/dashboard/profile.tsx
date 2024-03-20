@@ -1194,7 +1194,7 @@
               value={findEmpStatus()}
               variant="outlined" 
               style={{ width: '100%', marginBottom: '20px' }} 
-              value={userData.employment_status} 
+              // value={userData.employment_status} 
               InputLabelProps={{ style: { fontWeight: 'bold' }}}  
             />
 

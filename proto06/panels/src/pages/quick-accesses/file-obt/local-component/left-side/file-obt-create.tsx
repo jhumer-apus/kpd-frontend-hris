@@ -10,6 +10,13 @@ import { Typography } from '@mui/joy';
 import { OBTCreateInterface } from '@/types/types-pages';
 import { OBTCreateAction, OBTCreateActionFailureCleanup } from '@/store/actions/procedurals';
 
+//STORE
+import { APILink } from '@/store/configureStore';
+
+//LIBRARIES
+import axios, {AxiosResponse, AxiosError} from 'axios'
+import { beautifyJSON } from '@/helpers/utils';
+
 interface CreateOBTModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
 }
@@ -32,8 +39,31 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
     const onClickSubmit = () => {
         console.log(createOBT)
         setIsSubmittingRequest(true)
-        dispatch(OBTCreateAction(createOBT))
+        // dispatch(OBTCreateAction(createOBT))
+        fileOBTPost()
     };
+
+    const sendEmail = async (emp_no:string | number, app_pk: number) => {
+
+        const body = {
+          emp_no: emp_no,
+          email_type: "application",
+          new_password: null,
+          application_type: 'obt',
+          application_pk: app_pk
+        }
+    
+        await axios.post(`${APILink}reset_password_email/`, body).then(res => {
+    
+          window.alert(`Application has been sent to the approver through email`)
+    
+        }).catch(err => {
+    
+          console.log(err)
+          window.alert("Failed to email the approver")
+    
+        })
+    }
     useEffect(()=>{
         if(OBTCreatestate.status === 'succeeded'){
             setIsSubmittingRequest(false)
@@ -47,6 +77,29 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
             }, 1000)
         }
     }, [OBTCreatestate.status])
+
+    const fileOBTPost = async() => {
+
+        const payload = {
+            emp_no: createOBT.emp_no,
+            obt_type: createOBT.obt_type,
+            obt_location: createOBT.obt_location,
+            obt_remarks: createOBT.obt_remarks,
+            obt_date_from: createOBT.obt_date_from,
+            obt_date_to: createOBT.obt_date_to,
+            added_by: userData?.emp_no,
+        }
+        await axios.post(`${APILink}obt/`, payload).then((res:AxiosResponse) => {
+            setIsSubmittingRequest(false)
+            window.alert("Request Successful")
+            sendEmail(createOBT.emp_no, res.data.id)
+
+        }).catch((err:AxiosError) => {
+            setIsSubmittingRequest(false)
+            console.log(err)
+            window.alert(beautifyJSON(err.response?.data))
+        })
+    }
     
     console.log(OBTCreatestate.status, "124124create_obt")
     return (

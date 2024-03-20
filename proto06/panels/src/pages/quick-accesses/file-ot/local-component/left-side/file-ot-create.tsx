@@ -10,6 +10,13 @@ import { Typography } from '@mui/joy';
 import { OVERTIMECreateInterface } from '@/types/types-pages';
 import { OVERTIMECreateAction, OVERTIMECreateActionFailureCleanup } from '@/store/actions/procedurals';
 
+//LIBRARIES
+import axios, {AxiosResponse, AxiosError} from 'axios'
+
+//STORE
+import { APILink } from '@/store/configureStore';
+import { beautifyJSON } from '@/helpers/utils';
+
 interface CreateOVERTIMEModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
 }
@@ -18,6 +25,7 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
 
     const dispatch = useDispatch();
     const OVERTIMECreatestate = useSelector((state: RootState)=> state.procedurals.OVERTIMECreate);
+    const [isSubmittingRequest, setIsSubmittingRequest] = useState<boolean>(false);
     const userData = useSelector((state: RootState) => state.auth.employee_detail);
     const [createOVERTIME, setCreateOVERTIME] = useState<OVERTIMECreateInterface>({
         emp_no: NaN,
@@ -28,7 +36,8 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
         added_by: userData?.emp_no,
     });
     const onClickSubmit = () => {
-        dispatch(OVERTIMECreateAction(createOVERTIME))
+        // dispatch(OVERTIMECreateAction(createOVERTIME))
+        fileOTPost()
     };
     useEffect(()=>{
         if(OVERTIMECreatestate.status === 'succeeded'){
@@ -41,6 +50,50 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
             }, 1000)
         }
     }, [OVERTIMECreatestate.status])
+
+    const sendEmail = async (emp_no:string | number, app_pk: number) => {
+
+        const body = {
+          emp_no: emp_no,
+          email_type: "application",
+          new_password: null,
+          application_type: 'ot',
+          application_pk: app_pk
+        }
+    
+        await axios.post(`${APILink}reset_password_email/`, body).then(res => {
+    
+          window.alert(`Application has been sent to the approver through email`)
+    
+        }).catch(err => {
+    
+          console.log(err)
+          window.alert("Failed to email the approver")
+    
+        })
+    }
+
+    const fileOTPost = async() => {
+
+        const payload = {
+            emp_no: createOVERTIME.emp_no,
+            ot_type: createOVERTIME.ot_type,
+            ot_remarks: createOVERTIME.ot_remarks,
+            ot_date_from: createOVERTIME.ot_date_from,
+            ot_date_to: createOVERTIME.ot_date_to,
+            added_by: userData?.emp_no,
+        }
+        await axios.post(`${APILink}ot/`, payload).then((res:AxiosResponse) => {
+            setIsSubmittingRequest(false)
+            window.alert("Request Successful")
+            sendEmail(createOVERTIME.emp_no, res.data.id)
+
+        }).catch((err:AxiosError) => {
+            setIsSubmittingRequest(false)
+            console.log(err)
+            window.alert(beautifyJSON(err.response?.data))
+        })
+    }
 
     return (
         <React.Fragment>

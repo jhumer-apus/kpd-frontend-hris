@@ -2,7 +2,7 @@ import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { Button } from '@mui/material';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { APILink, RootState } from '@/store/configureStore';
 import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
 import DateFromToUACreate from './inner-ui-components/date-from-to-field';
 import { Typography } from '@mui/joy';
@@ -11,6 +11,8 @@ import { UACreateAction, UACreateActionFailureCleanup } from '@/store/actions/pr
 
 // Components
 import UAReasons from '../forms/UAReasons';
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import { beautifyJSON } from '@/helpers/utils';
 
 interface CreateUAModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -31,7 +33,8 @@ function QuickAccessUACreate(props: CreateUAModalInterface) {
     });
     const onClickSubmit = () => {
         setIsSubmittingRequest(true)
-        dispatch(UACreateAction(createUA))
+        fileUAPost()
+        // dispatch(UACreateAction(createUA))
     };
     useEffect(()=>{
         if(UACreatestate.status === 'succeeded'){
@@ -46,6 +49,50 @@ function QuickAccessUACreate(props: CreateUAModalInterface) {
             }, 1000)
         }
     }, [UACreatestate.status])
+
+    const fileUAPost = async() => {
+
+        const payload = {
+
+            emp_no: createUA.emp_no,
+            ua_description: createUA.ua_description,
+            ua_date_from: createUA.ua_date_from,
+            ua_date_to: createUA.ua_date_to,
+            added_by: userData?.emp_no,
+        }
+        await axios.post(`${APILink}ua/`, payload).then((res:AxiosResponse) => {
+            setIsSubmittingRequest(false)
+            window.alert("Request Successful")
+            sendEmail(createUA.emp_no, res.data.id)
+
+        }).catch((err:AxiosError) => {
+            setIsSubmittingRequest(false)
+            console.log(err)
+            window.alert(beautifyJSON(err.response?.data))
+        })
+    }
+
+    const sendEmail = async (emp_no:string | number, app_pk: number) => {
+
+        const body = {
+          emp_no: emp_no,
+          email_type: "application",
+          new_password: null,
+          application_type: 'ua',
+          application_pk: app_pk
+        }
+    
+        await axios.post(`${APILink}reset_password_email/`, body).then(res => {
+    
+          window.alert(`Application has been sent to the approver through email`)
+    
+        }).catch(err => {
+    
+          console.log(err)
+          window.alert("Failed to email the approver")
+    
+        })
+    }
 
     return (
         <React.Fragment>
