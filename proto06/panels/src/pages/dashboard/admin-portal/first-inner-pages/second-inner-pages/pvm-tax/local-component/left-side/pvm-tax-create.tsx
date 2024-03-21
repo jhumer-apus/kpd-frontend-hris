@@ -70,12 +70,13 @@ function PVMTAXCreate(props: CreateTAXModalInterface) {
                     <div className='flex flex-col gap-6'>
                         <TextField
                             required 
+                            defaultValue="0"
                             sx={{width: '100%'}} 
                             label='TIN Number'
                             placeholder='Input 12 Digit number'
                             aria-required  
                             variant='outlined' 
-                            type="text"
+                            type="number"
                             value={createTAX?.tin_no}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value = parseInt(event.target.value)
