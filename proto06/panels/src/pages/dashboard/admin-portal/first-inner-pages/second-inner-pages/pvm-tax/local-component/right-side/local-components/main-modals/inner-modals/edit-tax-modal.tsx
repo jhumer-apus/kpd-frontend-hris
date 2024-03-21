@@ -110,7 +110,7 @@ export default function EditTAXModal(props: EditTAXModalInterface) {
                             label='TIN Number'
                             aria-required  
                             variant='outlined' 
-                            type="text"
+                            type="number"
                             value={singleTAXDetailsData?.tin_no}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value = parseInt(event.target.value)
