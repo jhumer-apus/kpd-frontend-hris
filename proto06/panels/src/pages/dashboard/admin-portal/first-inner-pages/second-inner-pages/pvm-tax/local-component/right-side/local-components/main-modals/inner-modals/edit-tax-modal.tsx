@@ -3,7 +3,7 @@ import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
 import { TAXViewInterface } from '@/types/types-payroll-variables';
-import { Button, TextField, Typography } from '@mui/material';
+import { Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
 import { TAXEditAction, TAXEditActionFailureCleanup, TAXViewAction } from '@/store/actions/payroll-variables';
@@ -29,8 +29,7 @@ export default function EditTAXModal(props: EditTAXModalInterface) {
     setSingleTAXDetailsData,
     setSingleTAXOpenModal
   } = props;
-
-
+  
   const editTAX = () => { 
     dispatch(TAXEditAction({
       ...singleTAXDetailsData,
@@ -55,6 +54,7 @@ export default function EditTAXModal(props: EditTAXModalInterface) {
         }, 200)
       }
   }, [TAXEditState.status])
+
   return (
     <Fragment>
       <Transition in={editTAXOpenModal} timeout={400}>
@@ -184,7 +184,28 @@ export default function EditTAXModal(props: EditTAXModalInterface) {
                                 })
                             }}
                         />
-                        <PaymentFrequencyAutoCompleteRight createTAX={singleTAXDetailsData} setCreateTAX={setSingleTAXDetailsData}/>
+                        <FormControl className='w-full'>
+                          <InputLabel htmlFor="payment_frequency">Payment Frequency:</InputLabel>
+                          <Select
+                            id="payment_frequency"
+                            onChange={(e:any) => setSingleTAXDetailsData(curr => ({
+                              ...curr,
+                              payment_frequency: e.target.value
+                            }))}
+                            placeholder="Payment Frequency"
+                            name="payment_frequency"
+                            variant="outlined"
+                            label="Payment Frequency:"
+                            defaultValue={singleTAXDetailsData.payment_frequency}
+                            required
+                          >
+                            <MenuItem value={1}>Monthly</MenuItem>
+                            <MenuItem value={2}>Semi-Monthly</MenuItem>
+                            <MenuItem value={3}>Project-Based</MenuItem>
+                            <MenuItem value={4}>Weekly</MenuItem>
+                          </Select>
+                        </FormControl>
+                        {/* <PaymentFrequencyAutoCompleteRight createTAX={singleTAXDetailsData} setCreateTAX={setSingleTAXDetailsData}/> */}
                       </div>
               </div>
               <div className='flex justify-around'>

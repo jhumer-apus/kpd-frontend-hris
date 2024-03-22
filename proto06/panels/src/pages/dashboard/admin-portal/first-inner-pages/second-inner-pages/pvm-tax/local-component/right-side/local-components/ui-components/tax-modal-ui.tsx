@@ -13,6 +13,25 @@ interface TAXModalUIInterface {
     setSingleTAXDetailsData: Dispatch<SetStateAction<TAXViewInterface>>;
 }
 
+const paymentFrequency = [
+    {
+      id:1,
+      name:"Monthly"
+    },
+    {
+      id:2,
+      name:"Semi-Monthly"
+    },
+    {
+      id:3,
+      name:"Project-Based"
+    },
+    {
+      id:4,
+      name:"Weekly"
+    }
+]
+
 function TAXModalUI(props: TAXModalUIInterface) {
     const [ resetPasswordTAXOpenModal, setResetPasswordTAXOpenModal ] = useState(false);
     const [ editTAXOpenModal, setEditTAXOpenModal ] = useState(false);
@@ -33,6 +52,27 @@ function TAXModalUI(props: TAXModalUIInterface) {
         
     };
 
+    const paymentFrequency = [
+        {
+          id:1,
+          name:"Monthly"
+        },
+        {
+          id:2,
+          name:"Semi-Monthly"
+        },
+        {
+          id:3,
+          name:"Project-Based"
+        },
+        {
+          id:4,
+          name:"Weekly"
+        }
+    ]
+
+    const paymentFrequencyName = paymentFrequency.find(obj => obj.id == ThisProps.payment_frequency)
+
     return (
         <Fragment>
             <EditTAXModal 
@@ -47,7 +87,7 @@ function TAXModalUI(props: TAXModalUIInterface) {
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Primary Key (ID):' value={ThisProps.id ? ThisProps.id : '-'} InputProps={{readOnly: true,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Tax Percentage:' value={(ThisProps?.tax_percentage ? `${ThisProps?.tax_percentage}%` : '')} InputProps={{readOnly: true,}} variant='standard'/>
-                    <TextField sx={{width: '100%'}} label='Payment Frequency:' value={(ThisProps?.payment_frequency || '-')} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%'}} label='Payment Frequency:' value={(paymentFrequencyName?.name || '-')} InputProps={{readOnly: true,}} variant='standard'/>
                 </div>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px', color: 'green'}} label='TIN #' value={ThisProps.tin_no || '-'} InputProps={{readOnly: true,}} variant='filled' focused/>

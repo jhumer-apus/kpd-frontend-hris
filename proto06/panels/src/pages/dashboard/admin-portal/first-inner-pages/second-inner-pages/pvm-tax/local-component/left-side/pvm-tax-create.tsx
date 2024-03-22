@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
-import { Button } from '@mui/material';
+import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
@@ -150,7 +150,29 @@ function PVMTAXCreate(props: CreateTAXModalInterface) {
                                 })
                             }}
                         />
-                        <PaymentFrequencyAutoComplete createTAX={createTAX} setCreateTAX={setCreateTAX}/>
+                        <FormControl className='w-full'>
+                          <InputLabel id="payment_frequency_label">Payment Frequency:</InputLabel>
+                          <Select
+                            labelId="payment_frequency_label"
+                            id="payment_frequency"
+                            onChange={(e:any) => setCreateTAX(curr => ({
+                              ...curr,
+                              payment_frequency: e.target.value
+                            }))}
+                            label="Payment Frequency:"
+                            placeholder="Payment Frequency"
+                            name="payment_frequency"
+                            variant="outlined"
+                            value={createTAX.payment_frequency}
+                            required
+                          >
+                            <MenuItem value={1}>Monthly</MenuItem>
+                            <MenuItem value={2}>Semi-Monthly</MenuItem>
+                            <MenuItem value={3}>Project-Based</MenuItem>
+                            <MenuItem value={4}>Weekly</MenuItem>
+                          </Select>
+                        </FormControl>
+                        {/* <PaymentFrequencyAutoComplete createTAX={createTAX} setCreateTAX={setCreateTAX}/> */}
                     </div>
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
