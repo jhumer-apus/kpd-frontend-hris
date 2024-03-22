@@ -114,14 +114,37 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
 
     }
     const submitNewHoliday = () => {
-
+        
         const holidayData: HolidayGetType = {
             holiday_date: createHolidayForm.holiday_date,
             holiday_description: createHolidayForm.holiday_description,
             holiday_type: createHolidayForm.holiday_type,
             holiday_location: createHolidayForm.holiday_location,
-            province_ref: createHolidayForm.province.id,
-            city_ref: createHolidayForm.city.id
+            // province_ref: (createHolidayForm.holiday_location=="Province" && createHolidayForm.province.id) ||
+            //             (createHolidayForm.holiday_location=="City" && createHolidayForm.city.id) ||
+            //             (createHolidayForm.holiday_location=="" && createHolidayForm.province.id),
+            // city_ref: createHolidayForm.city.id
+        }
+
+        switch(createHolidayForm.holiday_location) {
+
+            case "Province":
+                holidayData.province_ref = createHolidayForm.province.id
+                break
+
+            case "City":
+                holidayData.city_ref = createHolidayForm.city.id
+                break
+
+            case "National":
+                holidayData.province_ref = null
+                holidayData.city_ref = null
+                break
+
+            default:
+                holidayData.province_ref = null
+                holidayData.city_ref = null
+                break
         }
 
         const isError = validateHoliday(holidayData);

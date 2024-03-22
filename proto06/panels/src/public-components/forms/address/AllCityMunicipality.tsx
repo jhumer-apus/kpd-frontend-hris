@@ -34,6 +34,15 @@ export default function AllCityMunicipality(props:Props) {
         fetchAllCities()
     },[])
 
+    useEffect(() => {
+
+        if(cities.length > 0) {
+            findCity(city_id)
+        }
+
+    },[cities.length])
+
+
     const fetchAllCities = async () => {
 
         await axios.get(`${APILink}city_municipality/`).then((res:AxiosResponse) => {
@@ -53,10 +62,21 @@ export default function AllCityMunicipality(props:Props) {
             }))
         }
     }
-
+    const findCity = (val:any) => {
+        const selectedCity = cities.find(city => city.id == val)
+        if(selectedCity) {
+            setState((curr:any) => ({
+                ...curr,
+                city: selectedCity
+            }))
+            return selectedCity
+        }
+    }
+    
     return (
         <div className='w-full'>
             <Autocomplete
+                value={state?.city}
                 disablePortal
                 id="city"
                 options={cities}
