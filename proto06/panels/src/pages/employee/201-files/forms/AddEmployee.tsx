@@ -658,7 +658,7 @@ export const UserProfile = () => {
                 className='w-full'
                 onChange={handleChangeUserData}
                 name="mobile_phone"
-                label="Mobile Phone #:* (09123456789)"
+                label="Mobile Phone #:* (required, 09123456789)"
                      
                 inputProps={{
                   maxLength:11,
@@ -984,8 +984,8 @@ export const UserProfile = () => {
                 placeholder="Rank: (required)"
                 name="rank_code"
                 variant="outlined"
-                label="Rank"
-                aria-required
+                label="Rank: (required)"
+                required
             >   
                 <MenuItem value="1">Announcer</MenuItem>
                 <MenuItem value="2">Employee</MenuItem>
@@ -1031,7 +1031,7 @@ export const UserProfile = () => {
                 className='w-full'
                 onChange={handleChangeUserData}
                 name="emp_salary_basic"
-                label="Daily Salary:"
+                label="Daily Salary: (required)"
                 inputProps={{
                   min:0,
                   type:"number",
@@ -1314,7 +1314,7 @@ export const UserProfile = () => {
               </Select>
             </FormControl>
             <FormControl className='w-full'>
-              <InputLabel htmlFor="approver2">Approver #2 (optional, employee number)"</InputLabel>
+              <InputLabel htmlFor="approver2">Approver #2 (optional, employee number)</InputLabel>
               <Select
                 onChange={(e:any) => setEmployeeData(curr => ({
                   ...curr,

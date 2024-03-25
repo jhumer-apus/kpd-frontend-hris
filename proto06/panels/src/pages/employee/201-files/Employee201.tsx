@@ -171,15 +171,15 @@ export default function DataTable() {
             </Box>
         </Modal>
         <EmployeeExportToCsvButton data={employees_list} />
-        <Button 
+        {/* <Button 
           className='mb-4 flex gap-2'
           variant='outlined'
           color='indigo'
           // icon={<ArrowUpTrayIcon/>}
           onClick={()=>{handleOpen3()}}
         >
-        <ArrowDownTrayIcon style={{height: '15px'}}/> Import / Bulk Entry Employee CSV 
-        </Button>
+          <ArrowDownTrayIcon style={{height: '15px'}}/> Import / Bulk Entry Employee CSV 
+        </Button> */}
         <Modal
             open={open3}
             onClose={

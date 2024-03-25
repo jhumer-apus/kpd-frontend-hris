@@ -28,12 +28,17 @@ interface EditLEAVETYPEModalInterface {
 export default function EditLEAVETYPEModal(props: EditLEAVETYPEModalInterface) {
   const dispatch = useDispatch();
   const LEAVETYPEEditState = useSelector((state: RootState)=> state.procedurals.LEAVETYPEEdit)
+  const currUser = useSelector((state:RootState) => state.auth.employee_detail)
   const {allowedDaysLEAVETYPEOpenModal, setEditLEAVETYPEOpenModal, singleLEAVETYPEDetailsData, setSingleLEAVETYPEDetailsData} = props;
 
   const allowedDaysLEAVETYPE = () => { 
     if(singleLEAVETYPEDetailsData.name && !!(`${singleLEAVETYPEDetailsData.is_paid}`)){
         return(
-            dispatch(LEAVETYPEEditAction(singleLEAVETYPEDetailsData))  
+            // dispatch(LEAVETYPEEditAction(singleLEAVETYPEDetailsData))  
+            dispatch(LEAVETYPEEditAction({
+              ...singleLEAVETYPEDetailsData,
+              added_by: currUser?.emp_no
+            }))  
         )
       } else {
         window.alert('No value on Leave Name and Paid field is not allowed.');

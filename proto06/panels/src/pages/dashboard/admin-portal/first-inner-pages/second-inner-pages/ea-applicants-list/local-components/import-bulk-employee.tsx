@@ -16,7 +16,7 @@ function ImportBulkEmployeeComponent() {
 
     return (
         <Fragment>
-        <Button 
+        {/* <Button 
           className='mb-4 flex gap-2'
           variant='outlined'
           color='primary'
@@ -24,7 +24,7 @@ function ImportBulkEmployeeComponent() {
           onClick={()=>{handleOpen3()}}
         >
           <ArrowDownTrayIcon style={{height: '15px'}}/> Import / Bulk Entry Employee CSV 
-        </Button>
+        </Button> */}
         <Modal
             open={open3}
             onClose={

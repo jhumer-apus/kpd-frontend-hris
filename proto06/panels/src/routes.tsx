@@ -662,7 +662,7 @@ const JSXRouteWrapper = () => {
             },
           ]
         },
-        ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee && state?.user?.role !== INTERNAL_USER_ROLE.Manager ) ? [
+        ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee) ? [
           {
             id: 14000,
             icon: null,
@@ -735,7 +735,9 @@ const JSXRouteWrapper = () => {
                 hasSubItems: false,
               },
             ]
-          },
+          }
+        ] : [],
+        ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee && state?.user?.role !== INTERNAL_USER_ROLE.Manager ) ? [
           {
             id: 15000,
             icon: null,
