@@ -1298,7 +1298,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                     placeholder="Select Approver 2"
                                                     name="approver2"
                                                     variant="outlined"
-                                                    label="Approver #2 (required, employee number)"
+                                                    label="Approver #2 (optional, employee number)"
                                                     value={userData?.approver2}
                                                     disabled={!editMode3}
                                                     aria-required
@@ -1632,7 +1632,7 @@ export const SpecificEmployee = (props: initialState) => {
                                             disabled={!editMode3}
                                             icon={<LockClosedOutline className="h-5 w-5 text-blue-gray-300" />}                                    />
                                     <Input
-                                            crossOrigin={undefined} {...register('pagibig_code')}
+                                            crossOrigin={undefined} {...register('pagibig_data.pagibig_no')}
                                             label="HDMF Pagibig:"
                                             labelProps={{ style: { color: true ? "unset" : '' } }}
                                             disabled={!editMode3}

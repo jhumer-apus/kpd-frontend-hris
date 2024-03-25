@@ -95,7 +95,7 @@ export default function Province(props: Props) {
                 id="province"
                 options={provinces}
                 className='w-full'
-                value={state?.province?? ""}
+                value={state?.province}
                 getOptionLabel={(province: ProvinceInterface) => province.name}
                 onChange={handleChange}
                 renderInput={(params) => <TextField {...params} label="Province" />}

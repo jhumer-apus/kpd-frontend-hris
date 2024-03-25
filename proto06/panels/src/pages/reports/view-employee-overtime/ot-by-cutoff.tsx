@@ -129,7 +129,7 @@ export default function ViewEmployeeLeaves() {
             "Date Start": obj.ot_date_from,
             "Date End": obj.ot_date_to,
             "OT Type": obj.ot_type,
-            "OT Hours": obj.ot_total_hours,
+            "OT Hours": obj.overtime_equivalent,
         }
 
     }):[]
@@ -176,7 +176,7 @@ export default function ViewEmployeeLeaves() {
             width: 150,
         },
         {
-            field: 'ot_total_hours', 
+            field: 'overtime_equivalent', 
             headerName: 'OT Hours', 
             width: 150,
         },

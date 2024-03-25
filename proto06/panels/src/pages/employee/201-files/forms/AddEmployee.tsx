@@ -529,17 +529,17 @@ export const UserProfile = () => {
               color="blue-gray"
               className="mb-4 font-medium"
             >
-            Upload Profile Picture
+            Upload Profile Picture (required)
         </Typography>  
           </div>
         </div>
 
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
           <FormControl className='w-full'>
-            <InputLabel htmlFor="firstname">First Name:</InputLabel>
+            <InputLabel htmlFor="firstname">First Name: (required)</InputLabel>
             <OutlinedInput
               id="firstname"
-              label="First Name:"
+              label="First Name: (required)"
               onChange={handleChangeUserData}
               name="first_name"
               required
@@ -547,24 +547,24 @@ export const UserProfile = () => {
             />
           </FormControl>
           <FormControl className='w-full'>
-            <InputLabel htmlFor="middlename">Middle Name:</InputLabel>
+            <InputLabel htmlFor="middlename">Middle Name: (optional)</InputLabel>
             <OutlinedInput
               id="middlename"
               onChange={handleChangeUserData}
               name="middle_name"
-              label="Middle Name:"      
+              label="Middle Name: (optional)"      
             />
           </FormControl>
 
           <FormControl className='w-full'>
 
-            <InputLabel htmlFor="lastname">Last Name:</InputLabel>
+            <InputLabel htmlFor="lastname">Last Name: (required)</InputLabel>
             <OutlinedInput
               id="lastname"
               className='w-full'
               onChange={handleChangeUserData}
               name="last_name"
-              label="Last Name:"               
+              label="Last Name: (required)"               
               required
             />
           </FormControl>
@@ -582,7 +582,7 @@ export const UserProfile = () => {
           </FormControl>
 
           <FormControl className='w-full'>
-            <InputLabel htmlFor="sex">Sex:</InputLabel>
+            <InputLabel htmlFor="sex">Sex: (required)</InputLabel>
             <Select
               onChange={(e:any) => setEmployeeData(curr => ({
                 ...curr,
@@ -591,7 +591,7 @@ export const UserProfile = () => {
               placeholder="Select Sex"
               name="gender"
               variant="outlined"
-              label="Sex:"
+              label="Sex: (required)"
               aria-required
               required
             >
@@ -624,7 +624,7 @@ export const UserProfile = () => {
           </FormControl>
 
           <FormControl className='w-full'>
-              <InputLabel htmlFor="email_address">Email Address: *</InputLabel>
+              <InputLabel htmlFor="email_address">Email Address: (optional)</InputLabel>
               <OutlinedInput
                 id="email_address"
                 onChange={handleChangeUserData}
@@ -633,17 +633,17 @@ export const UserProfile = () => {
 
                 }}
                 name="email_address"
-                label="Email Address: *"     
+                label="Email Address: (optional)"     
               />
           </FormControl>
           <FormControl className='w-full'>
-              <InputLabel htmlFor="url_google_map">URL Google Map:</InputLabel>
+              <InputLabel htmlFor="url_google_map">URL Google Map: (optional)</InputLabel>
               <OutlinedInput
                 id="url_google_map"
                 className='w-full'
                 onChange={handleChangeUserData}
                 name="url_google_map"
-                label="URL Google Map:"
+                label="URL Google Map: (optional)"
                              
               />
 
@@ -652,7 +652,7 @@ export const UserProfile = () => {
 
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
           <FormControl className='w-full'>
-              <InputLabel htmlFor="mobile_phone">Mobile Phone #:* (09123456789)</InputLabel>
+              <InputLabel htmlFor="mobile_phone">Mobile Phone #:* (required, 09123456789)</InputLabel>
               <OutlinedInput
                 id="mobile_phone"
                 className='w-full'
@@ -685,24 +685,24 @@ export const UserProfile = () => {
               />
           </FormControl>
           <FormControl className='w-full'>
-            <InputLabel htmlFor="emergency_contact_person">Emergency Contact Person:</InputLabel>
+            <InputLabel htmlFor="emergency_contact_person">Emergency Contact Person: (optional)</InputLabel>
             <OutlinedInput
               id="emergency_contact_person"
               className='w-full'
               onChange={handleChangeUserData}
               name="emergency_contact_person"
-              label="Emergency Contact Person:"
+              label="Emergency Contact Person: (optional)"
               type='text'         
             />
           </FormControl>
           <FormControl className='w-full'>
-              <InputLabel htmlFor="emergency_contact_number">Emergency Contact #:</InputLabel>
+              <InputLabel htmlFor="emergency_contact_number">Emergency Contact #: (optional)</InputLabel>
               <OutlinedInput
                 id="emergency_contact_number"
                 className='w-full'
                 onChange={handleChangeUserData}
                 name="emergency_contact_number"
-                label="Emergency Contact #:"
+                label="Emergency Contact #: (optional)"
                 inputProps={{
                   maxLength:11,
                   minLength:11,
@@ -714,13 +714,13 @@ export const UserProfile = () => {
         </div>
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
           <FormControl className='w-full'>
-              <InputLabel htmlFor="civil_status">Civil Status:</InputLabel>
+              <InputLabel htmlFor="civil_status">Civil Status: (required)</InputLabel>
               <Select
                   onChange={(e:any) => setEmployeeData(curr => ({...curr, civil_status: e.target.value}))}
                   placeholder="Select Civil Status"
                   name="civil_status"
                   variant="outlined"
-                  label="Civil Status:"
+                  label="Civil Status: (required)"
                   required
                 >
                   <MenuItem value="S">Single</MenuItem>
@@ -804,25 +804,25 @@ export const UserProfile = () => {
         </div>
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
           <FormControl className='w-full'>
-            <InputLabel htmlFor="graduated_school">School Graduated:</InputLabel>
+            <InputLabel htmlFor="graduated_school">School Graduated: (optional)</InputLabel>
             <OutlinedInput
               id="graduated_school"
               className='w-full'
               onChange={handleChangeUserData}
               name="graduated_school"
-              label="School Graduated:"
+              label="School Graduated: (optional)"
               type='text'
                         
             />
           </FormControl>
           <FormControl className='w-full'>
-            <InputLabel htmlFor="profession">Profession:</InputLabel>
+            <InputLabel htmlFor="profession">Profession: (optional)</InputLabel>
             <OutlinedInput
               id="profession"
               className='w-full'
               onChange={handleChangeUserData}
               name="profession"
-              label="Profession:"
+              label="Profession: (optional)"
               type='text'           
             />
           </FormControl>
@@ -895,7 +895,7 @@ export const UserProfile = () => {
             <FormControl className='w-full'>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
-                  label="Date Hired:"
+                  label="Date Hired: (required)"
                   className='md:w-56'
                   name="date_hired"
                   onChange={(newValue) => setEmployeeData((curr:any) => ({
@@ -975,13 +975,13 @@ export const UserProfile = () => {
                   />
                 </FormControl>
               <FormControl className='w-full'>
-              <InputLabel htmlFor="rank">Rank</InputLabel>
+              <InputLabel htmlFor="rank">Rank: (required)</InputLabel>
               <Select
                 onChange={(e:any) => setEmployeeData(curr => ({
                   ...curr,
                   rank_code: e.target.value
                 }))}
-                placeholder="Rank"
+                placeholder="Rank: (required)"
                 name="rank_code"
                 variant="outlined"
                 label="Rank"
@@ -993,19 +993,19 @@ export const UserProfile = () => {
                 <MenuItem value="4">HR Staff</MenuItem>
                 <MenuItem value="5">HR Manager/Director</MenuItem>
                 <MenuItem value="6">HR Super Admin</MenuItem>
-                {appStatus == "development" && <MenuItem value="7">Development</MenuItem>}
+                {/* {appStatus == "development" && <MenuItem value="7">Development</MenuItem>} */}
               </Select>
             </FormControl>
         </div>    
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
             <FormControl className='w-full'>
-              <InputLabel htmlFor="accnt_no">Account number: (Bank acct / Gcash acct)</InputLabel>
+              <InputLabel htmlFor="accnt_no">Account number: (optional, Bank acct / Gcash acct)</InputLabel>
               <OutlinedInput
                 id="accnt_no"
                 className='w-full'
                 onChange={handleChangeUserData}
                 name="accnt_no"
-                label="Account number: (Bank acct / Gcash acct)"   
+                label="Account number: (optional, Bank acct / Gcash acct)"   
               />
             </FormControl>
             {/* <FormControl className='w-full'>
@@ -1025,7 +1025,7 @@ export const UserProfile = () => {
               />
             </FormControl> */}
             <FormControl className='w-full'>
-              <InputLabel htmlFor="daily_salary">Daily Salary:</InputLabel>
+              <InputLabel htmlFor="daily_salary">Daily Salary: (required)</InputLabel>
               <OutlinedInput
                 id="daily_salary"
                 className='w-full'
@@ -1080,13 +1080,13 @@ export const UserProfile = () => {
         </div>
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
             <FormControl className='w-full'>
-              <InputLabel htmlFor="payroll_group">Payroll Group;</InputLabel>
+              <InputLabel htmlFor="payroll_group">Payroll Group: (required)</InputLabel>
               <Select
                   onChange={(e:any) => setEmployeeData(curr => ({...curr, payroll_group_code: e.target.value}))}
                   placeholder="Select Payroll Group"
                   name="payroll_group_code"
                   variant="outlined"
-                  label="Payroll Group:"
+                  label="Payroll Group: (required)"
                   required
                 >
                   {
@@ -1120,7 +1120,7 @@ export const UserProfile = () => {
 
               }
             /> */}
-                <InputLabel htmlFor="branch">Branch:</InputLabel>
+                <InputLabel htmlFor="branch">Branch: (required)</InputLabel>
                 <Select
                   onChange={(e:any) => setEmployeeData(curr => ({
                     ...curr,
@@ -1129,7 +1129,7 @@ export const UserProfile = () => {
                   placeholder="Select Branch"
                   name="branch_code"
                   variant="outlined"
-                  label="Branch:"
+                  label="Branch: (required)"
                 >
                   <MenuItem value="">
                     <em>None</em>
@@ -1142,7 +1142,7 @@ export const UserProfile = () => {
                 </Select>
             </FormControl>
             <FormControl className='w-full'>
-              <InputLabel htmlFor="department">Department:</InputLabel>
+              <InputLabel htmlFor="department">Department: (required)</InputLabel>
               <Select
                 onChange={(e:any) => 
                   {
@@ -1160,7 +1160,7 @@ export const UserProfile = () => {
                 placeholder="Select Department"
                 name="department_code"
                 variant="outlined"
-                label="Department:"
+                label="Department: (required)"
                 required
               >
                 {dropDownData.departments.length > 0 ? dropDownData.departments.map((department:any)=> (
@@ -1170,7 +1170,7 @@ export const UserProfile = () => {
                 )}
               </Select>
             </FormControl>
-            <FormControl className='w-full'>
+            {/* <FormControl className='w-full'>
               <InputLabel htmlFor="division">Division:</InputLabel>
               <Select
                 onChange={(e:any) => 
@@ -1195,42 +1195,43 @@ export const UserProfile = () => {
                   <MenuItem disabled>No division available</MenuItem>
                 )}
               </Select>
-            </FormControl>
+            </FormControl> */}
         </div>
 
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
           <FormControl className='w-full'>
-            <InputLabel htmlFor="hmo">HMO Account #:</InputLabel>
+            <InputLabel htmlFor="hmo">HMO Account #: (optional)</InputLabel>
             <OutlinedInput
               id="hmo"
               className='w-full'
               onChange={handleChangeUserData}
               name="hmo"
-              label="HMO Account #:"
+              label="HMO Account #: (optional)"
               type='text'           
             />
           </FormControl>
           <FormControl className='w-full'>
-            <InputLabel htmlFor="payroll_no">Payroll #:</InputLabel>
+            <InputLabel htmlFor="payroll_no">Payroll #: (required)</InputLabel>
             <OutlinedInput
               id="payroll_no"
               className='w-full'
               onChange={handleChangeUserData}
               name="payroll_no"
-              label="Payroll #:"
+              label="Payroll #: (required)"
               
               type='text'         
               required       
             />
           </FormControl>
           <FormControl className='w-full'>
-            <InputLabel htmlFor="employee_type">Employee Type:</InputLabel>
+            <InputLabel htmlFor="employee_type">Employee Type: (required)</InputLabel>
             <Select
                 onChange={(e:any) => setEmployeeData((curr:any) => ({...curr, employee_type: e.target.value}))}
                 placeholder="Select Employee Type"
                 name="employee_type"
                 variant="outlined"
-                label="Employee Type:"
+                label="Employee Type: (required)"
+                required
               >
                 <MenuItem value="Compressed">Compressed</MenuItem>
                 <MenuItem value="Normal">Normal</MenuItem>
@@ -1239,13 +1240,14 @@ export const UserProfile = () => {
             </Select>
           </FormControl>
           <FormControl className='w-full'>
-            <InputLabel htmlFor="employment_status">Employment Status</InputLabel>
+            <InputLabel htmlFor="employment_status">Employment Status: (required)</InputLabel>
             <Select
                 onChange={(e:any) => setEmployeeData(curr => ({...curr, employment_status: e.target.value}))}
                 placeholder="Select Employment Status"
                 name="employment_status"
                 variant="outlined"
-                label="Employment status"
+                label="Employment status: (required)"
+                required
               >
                 {dropDownData.employmentStatuses.map((employmentStatus:any) => (
                   <MenuItem value={employmentStatus.id}>{employmentStatus.name}</MenuItem>
@@ -1255,13 +1257,13 @@ export const UserProfile = () => {
         </div>
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
           <FormControl className='w-full'>
-            <InputLabel htmlFor="odr">Other Duty Responsibilities:</InputLabel>
+            <InputLabel htmlFor="odr">Other Duty Responsibilities: (optional)</InputLabel>
             <OutlinedInput
               id="odr"
               className='w-full'
               onChange={handleChangeUserData}
               name="other_duties_responsibilities"
-              label="Other Duty Responsibilities:"
+              label="Other Duty Responsibilities: (optional)"
               type='text'              
             />
             {/* {errors.other_duties_responsibilities && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Other Duty Responsibilities is required.</sub>} */}
@@ -1305,7 +1307,6 @@ export const UserProfile = () => {
                 required
               >
                 {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> (
-                  // ![employeeData.approver1, employeeData.approver2].includes(approver.emp_no) && <MenuItem value={approver.emp_no}>{approver.full_name}</MenuItem>
                   <MenuItem value={approver.emp_no}>{approver.full_name}</MenuItem>
                   )): (
                   <MenuItem disabled>No Approvers available on the selected department</MenuItem>
@@ -1313,7 +1314,7 @@ export const UserProfile = () => {
               </Select>
             </FormControl>
             <FormControl className='w-full'>
-              <InputLabel htmlFor="approver2">Approver #2 (required, employee number)"</InputLabel>
+              <InputLabel htmlFor="approver2">Approver #2 (optional, employee number)"</InputLabel>
               <Select
                 onChange={(e:any) => setEmployeeData(curr => ({
                   ...curr,
@@ -1322,7 +1323,7 @@ export const UserProfile = () => {
                 placeholder="Select Approver 2"
                 name="approver2"
                 variant="outlined"
-                label="Approver #2 (required, employee number)"
+                label="Approver #2 (optional, employee number)"
               >
                 <MenuItem value="">
                   <em>None</em>

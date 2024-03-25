@@ -27,7 +27,7 @@ function ProceduralSCHEDULESHIFTCreate(props: CreateSCHEDULESHIFTModalInterface)
         name: null,
         time_in: null,
         time_out: null,
-        grace_period: null,
+        grace_period: 0,
         with_overtime: false, 
     });
     const onClickSubmit = () => {
