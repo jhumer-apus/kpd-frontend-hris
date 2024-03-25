@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 import { Typography } from '@material-tailwind/react';
 import { useForm } from 'react-hook-form';
 import { EMPLOYEESViewInterface } from '@/types/types-store';
-import { APILink } from '@/store/configureStore';
+import { APILink, RootState, app_status } from '@/store/configureStore';
 import { beautifyJSON } from '@/helpers/utils';
 import InputLabel from '@mui/material/InputLabel';
 
@@ -28,6 +28,7 @@ import {
 // COMPONENTS
 import Province from '@/public-components/forms/address/Province'
 import CityMunicipality from '@/public-components/forms/address/CityMunicipality'
+import { useSelector } from 'react-redux';
 // import SelectForm from '@/public-components/forms/SelectForm'
 
 
@@ -45,6 +46,7 @@ interface DropDownData {
 export const UserProfile = () => {
 
     // const { register, handleSubmit, formState: { errors } } = useForm<EMPLOYEESViewInterface>();
+    const currUser = useSelector((state:RootState) => state.auth.employee_detail)
     const [editMode, setEditMode] = useState(true);
     const [keyMonthlySalary, setKeyMonthlySalary] = useState<number>(0)
     const [employeeData, setEmployeeData] = useState<any>({
@@ -437,7 +439,8 @@ export const UserProfile = () => {
       payroll_group_code: employeeData.payroll_group_code ?? "",
       employment_status: employeeData.employment_status ?? "",
       employee_type: employeeData.employee_type ?? "",
-      url_google_map: employeeData.url_google_map ?? ""
+      url_google_map: employeeData.url_google_map ?? "",
+      added_by: currUser?.emp_no
       // rank_hierarchy: 0,
       // user: null,
       // tax_data: null,
@@ -483,7 +486,7 @@ export const UserProfile = () => {
   };
 
   //STATIC
-  const appStatus = import.meta.env.VITE_APP_STATUS?? "production"
+  const appStatus = app_status?? "production"
 
   return (
     <form onSubmit={handleSubmit}>

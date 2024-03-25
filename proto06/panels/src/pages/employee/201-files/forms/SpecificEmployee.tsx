@@ -35,7 +35,7 @@ import { Fragment, useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Input, Typography } from '@material-tailwind/react';
 import { useForm } from 'react-hook-form';
-import { APILink, RootState } from '@/store/configureStore';
+import { APILink, app_status, RootState } from '@/store/configureStore';
 import { EMPLOYEESViewInterface } from '@/types/types-store';
 import FormData from 'form-data';
 import { beautifyJSON } from '@/helpers/utils';
@@ -344,8 +344,8 @@ export const SpecificEmployee = (props: initialState) => {
         }
 
         // Validate image if its file
-        const isFile = validateImage(formSelectData.employee_image)
-        if(formSelectData.employee_image == (null || undefined) && !userData?.employee_image) {
+        const isFile = validateImage(formSelectData?.employee_image)
+        if(formSelectData?.employee_image == (null || undefined) && !userData?.employee_image) {
     
           window.alert("Profile Picture is required")
           return
@@ -522,7 +522,7 @@ export const SpecificEmployee = (props: initialState) => {
     };
 
     //STATIC
-    const appStatus = import.meta.env.VITE_APP_STATUS?? "production"
+    const appStatus = app_status?? "production"
 
     return (
         <Fragment>
@@ -553,7 +553,7 @@ export const SpecificEmployee = (props: initialState) => {
                         <Typography variant="h4" color="white">
                         Full Name: {userData?.first_name} {userData?.middle_name} {userData?.last_name}
                         </Typography>
-                        <Typography variant="p" color="white">
+                        <Typography variant="paragraph" color="white">
                         Registered Employee #: {userData?.emp_no}
                         </Typography>
                         <TabsHeader className="relative z-0 w-full">
@@ -898,7 +898,7 @@ export const SpecificEmployee = (props: initialState) => {
                                         >
                                             <Option value="S">Single</Option>
                                             <Option value="M">Married</Option>
-                                            <Option value="A">Anulled</Option>
+                                            <Option value="A">Annulled</Option>
                                             <Option value="W">Widowed</Option>
                                         </Select>
                             
@@ -1269,7 +1269,6 @@ export const SpecificEmployee = (props: initialState) => {
                                                     label="Approver #1 (required, employee number)"
                                                     value={userData?.approver1}
                                                     disabled={!editMode3}
-                                                    aria-required
                                                     >
                                                     {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> (
                                                         // ![formSelectData.approver1, formSelectData.approver2].includes(approver.emp_no) && <Option value={approver.emp_no}>{approver.full_name}</Option>
@@ -1458,7 +1457,6 @@ export const SpecificEmployee = (props: initialState) => {
                                                 <Option value="4">HR Staff</Option>
                                                 <Option value="5">HR Manager/Director</Option>
                                                 <Option value="6">HR Super Admin</Option>
-                                                {appStatus == "development" && <Option value="7">Development</Option>}
                                             </Select>
                                             {/* <Input
                                                     crossOrigin={undefined} {...register('rank_code')}
@@ -1514,7 +1512,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                 containerProps={{ className: "min-w-[72px] focused" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
                                                 label="Monthly Salary: (For Viewing Only)"
-                                                value={monthlySalaryComputation(formSelectData.emp_salary_basic?? userData?.emp_salary_basic?? 0 )}
+                                                value={monthlySalaryComputation(formSelectData?.emp_salary_basic?? userData?.emp_salary_basic?? 0 )}
                                                 disabled={!editMode3}
                                                 icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}       
                                             />

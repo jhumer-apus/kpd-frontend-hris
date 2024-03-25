@@ -18,7 +18,7 @@ export default function DateFromToLEAVECreate(props: DateFromToLEAVECreateInterf
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <div title="Make sure this field is logical. (i.e, `Date From` should come first and not the `Date To`)">
             <DatePicker
-            label="Date & Time Froms"
+            label="Date Start"
             value={createLEAVE?.leave_date_from}
             onChange={(newValue) => {
                 const formattedDate = dayjs(newValue).format('YYYY-MM-DD');
@@ -38,7 +38,7 @@ export default function DateFromToLEAVECreate(props: DateFromToLEAVECreateInterf
             </div>
             <div title="Make sure this field is logical. (i.e, `Date From` should come first and not the `Date To`)">
             <DatePicker
-            label="Date & Time To"
+            label="Date End"
             value={createLEAVE?.leave_date_to}
             onChange={(newValue) => {
                 const formattedDate = dayjs(newValue).format('YYYY-MM-DD');

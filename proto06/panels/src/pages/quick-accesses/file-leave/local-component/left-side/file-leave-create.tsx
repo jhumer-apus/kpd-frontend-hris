@@ -434,25 +434,36 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                     <div className='flex flex-col gap-6' style={{width:'100%'}}>
                         <DateFromToLEAVECreate createLEAVE={createLEAVE} setCreateLEAVE={setCreateLEAVE}/>
                     </div>
-                    <FormControl fullWidth>
-                        <InputLabel htmlFor="options">Leave Option</InputLabel>
-                        <Select
-                            labelId="options"
-                            id="options"
+                    {disableOption? 
+                        <TextField 
+                            value={createLEAVE.option} 
                             label="Leave Option"
-                            value={createLEAVE.option}
-                            onChange={(e) => setCreateLEAVE(curr => ({
-                                ...curr,
-                                option: e.target.value
-                            }))}
-                            disabled={disableOption}
-                        >
-                            <MenuItem value="early">Early Half Day</MenuItem>
-                            <MenuItem value="late">Late Half Day</MenuItem>
-                            <MenuItem value="whole">Whole Day</MenuItem>
-                        </Select>
-                        {disableOption && <FormHelperText>Multiple Days will be automatically set to Whole Day</FormHelperText>}
-                    </FormControl>
+                            className='w-full'
+                            InputProps={{
+                                readOnly: true,
+                            }}
+                        />: 
+                        <FormControl fullWidth>
+                            <InputLabel htmlFor="options">Leave Option</InputLabel>
+                            <Select
+                                labelId="options"
+                                id="options"
+                                label="Leave Option"
+                                value={createLEAVE.option}
+                                onChange={(e) => setCreateLEAVE(curr => ({
+                                    ...curr,
+                                    option: e.target.value
+                                }))}
+                                disabled={disableOption}
+                            >
+                                <MenuItem value="early">Early Half Day</MenuItem>
+                                <MenuItem value="late">Late Half Day</MenuItem>
+                                <MenuItem value="whole">Whole Day</MenuItem>
+                            </Select>
+                            {disableOption && <FormHelperText>Multiple Days will be automatically set to Whole Day</FormHelperText>}
+                        </FormControl>
+                    }
+                    
                     {/* <FormControl fullWidth>
                         <InputLabel htmlFor="options" shrink={Boolean(createLEAVE.option)}>Leave Option</InputLabel>
                         <Select

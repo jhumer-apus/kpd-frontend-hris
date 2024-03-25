@@ -915,7 +915,7 @@
                     label="Role Number" 
                     variant="outlined" style={
                       { width: '100%', marginBottom: '20px' }} 
-                      value={curr_user?.rank_code || '-' } 
+                      value={curr_user?.user?.role || '-' } 
                       InputLabelProps={{ style: { fontWeight: 'bold' }}}  
                   />
  
