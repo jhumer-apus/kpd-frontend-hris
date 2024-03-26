@@ -25,6 +25,7 @@ export const viewDTRDescriptions = [
 export const dynamicDTRColumns= ():Array<GridColDef[]> => {
 
 const currUser = useSelector((state: RootState) => state.auth.employee_detail);
+
 return [
   [
     { field: 'id', headerName: 'Entry ID', width: 120 },
@@ -201,8 +202,18 @@ return [
       sortable: true,
       width: 110 
     },
-    { field: 'is_processed', headerName: 'Processed', width: 110 },
-    { field: 'nd_total_hours', headerName: 'Night Differential', width: 150 },
+    { 
+      field: 'is_processed', 
+      headerName: 'Processed', 
+      width: 110 
+    },
+    ...(!["Field", "Field-Auto"].includes(currUser?.employee_type) && [2,3].includes(currUser?.rank_code)) ? [
+      { 
+        field: 'nd_total_hours', 
+        headerName: 'Night Differential', 
+        width: 150 
+      },
+    ] : [],
   ],
 ];
 }

@@ -65,14 +65,14 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
         province_ref: null,
         city_ref: null,
         province: {
-            id: null,
-            name: null,
-            code: null
+            id: '',
+            name: '',
+            code: ''
         },
         city: {
-            id: null,
-            name: null,
-            code: null
+            id: '',
+            name: '',
+            code: ''
         },
 
     })

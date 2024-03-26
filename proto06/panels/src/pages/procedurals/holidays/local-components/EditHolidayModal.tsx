@@ -29,14 +29,14 @@ export default function EditHolidayModal(props:Props) {
     const [holidayDetails, setHolidayDetails ] = useState<any>(null)
     const [address, setAddress] = useState<any>({
         province:{
-            id:null,
-            name:null,
-            code:null,
+            id:'',
+            name:'',
+            code:'',
         },
         city:{
-            id:null,
-            name:null,
-            code:null
+            id:'',
+            name:'',
+            code:''
         }
     })
     
@@ -108,6 +108,10 @@ export default function EditHolidayModal(props:Props) {
     const handleSubmit = (e:any) => {
         e.preventDefault()
 
+        switch(holidayDetails.location) {
+            case 'National':
+
+        }
         const payload = {
             holiday_date: holidayDetails.holiday_date,
             holiday_description: holidayDetails.holiday_description,
@@ -118,6 +122,18 @@ export default function EditHolidayModal(props:Props) {
             added_by: currUser?.emp_no
         }
 
+        switch(payload.holiday_location) {
+
+            case 'National':
+                payload.province_ref = null
+                payload.city_ref = null
+                break
+
+            default:
+                break 
+        }
+
+        console.log(payload)
         if(validateHoliday(payload)){
             return
         }

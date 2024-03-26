@@ -5,10 +5,11 @@ import { Transition } from 'react-transition-group';
 import { LEAVECREDITViewInterface } from '@/types/types-pages';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { APILink, RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
-import { LEAVECREDITEditAction } from '@/store/actions/procedurals';
-import { clearFields } from '@/helpers/utils';
+import { LEAVECREDITEditAction, LEAVECREDITViewAction } from '@/store/actions/procedurals';
+import { beautifyJSON, clearFields } from '@/helpers/utils';
+import axios from 'axios';
 
 
 
@@ -21,10 +22,11 @@ interface AllowedDaysLEAVECREDITModalInterface {
 
 export default function AllowedDaysLEAVECREDITModal(props: AllowedDaysLEAVECREDITModalInterface) {
   const dispatch = useDispatch();
-  const LEAVECREDITAllowedDaysState = useSelector((state: RootState)=> state.procedurals.LEAVECREDITEdit.status)
+  const LEAVECREDITAllowedDaysState = useSelector((state: RootState)=> state.procedurals.LEAVECREDITEdit)
   const {allowedDaysLEAVECREDITOpenModal, setAllowedDaysLEAVECREDITOpenModal, singleLEAVECREDITDetailsData, setSingleLEAVECREDITDetailsData} = props;
 
   const allowedDaysLEAVECREDIT = () => { 
+    // updateLeaveCredits()
     if(singleLEAVECREDITDetailsData.allowed_days){
         return(
           setSingleLEAVECREDITDetailsData((prevState)=> {
@@ -42,18 +44,44 @@ export default function AllowedDaysLEAVECREDITModal(props: AllowedDaysLEAVECREDI
       } else {
         window.alert('Please insert allowed days');
       }
-    }
+  }
 
   useEffect(()=>{
-    if(LEAVECREDITAllowedDaysState){      
-      if(LEAVECREDITAllowedDaysState === 'succeeded'){
-        window.alert(`${LEAVECREDITAllowedDaysState.charAt(0).toUpperCase()}${LEAVECREDITAllowedDaysState.slice(1)}`)
-        setTimeout(()=>{
-          window.location.reload();
-        }, 800)
+    if(LEAVECREDITAllowedDaysState.status) {      
+
+      if(LEAVECREDITAllowedDaysState.status == 'succeeded') {
+
+        window.alert(`${LEAVECREDITAllowedDaysState.status.charAt(0).toUpperCase()}${LEAVECREDITAllowedDaysState.status.slice(1)}`)
+        dispatch(LEAVECREDITViewAction())
+        setAllowedDaysLEAVECREDITOpenModal(false)
+        // setTimeout(()=>{
+        //   window.location.reload();
+        // }, 800)
+
+      }  else if (LEAVECREDITAllowedDaysState.status == 'failed') {
+
+
+        window.alert(LEAVECREDITAllowedDaysState?.error)
+        setAllowedDaysLEAVECREDITOpenModal(false)
       }
     }
   }, [LEAVECREDITAllowedDaysState])
+
+  // const updateLeaveCredits = async  () => {
+  //   const payload = {
+  //     ...singleLEAVECREDITDetailsData
+  //   }
+  //   console.log(payload)
+  //   await axios.put(`${APILink}leave_credit/${singleLEAVECREDITDetailsData.emp_no}/${singleLEAVECREDITDetailsData.id}/`, payload).then(res => {
+      
+  //     window.alert("Request Succesful")
+  //     window.location.reload()
+
+  //   }).catch((err:any) => {
+
+  //     window.alert(beautifyJSON(err.response.data))
+  //   })
+  // }
   return (
     <Fragment>
       <Transition in={allowedDaysLEAVECREDITOpenModal} timeout={400}>
