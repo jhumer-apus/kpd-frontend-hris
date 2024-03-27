@@ -60,7 +60,7 @@ export default function CancelLeaveModal(props: Props) {
 
         const body = {
             ...data,
-            leave_reason_cancelled: cancelReason,
+            leave_reason_cancelled: `${cancelReason} (${currUser?.emp_no})`,
             added_by: currUser?.emp_no
         }
         await axios.put(`${APILink}cancel_leave/${data.emp_no}/${data.id}/`, body).then((res:AxiosResponse) => {
@@ -96,6 +96,7 @@ export default function CancelLeaveModal(props: Props) {
                 <TextField 
                     className="w-full" 
                     onChange={(e) => setCancelReason(curr => e.target.value)} 
+                    multiline rows={4}
                     label="Cancel Reasons"
                 />
             </div>
