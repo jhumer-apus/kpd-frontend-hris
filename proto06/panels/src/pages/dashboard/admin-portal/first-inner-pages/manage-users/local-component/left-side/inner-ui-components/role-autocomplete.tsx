@@ -37,7 +37,7 @@ export default function RoleAutoComplete(props: RoleAutoCompleteInterface) {
         },
         {
             id: INTERNAL_USER_ROLE.Manager,
-            role_name: "Manager"
+            role_name: "Department Manager / Director"
         },
         {
             id: INTERNAL_USER_ROLE.Employee,
@@ -65,7 +65,7 @@ export default function RoleAutoComplete(props: RoleAutoCompleteInterface) {
             },
             {
                 id: INTERNAL_USER_ROLE.Manager,
-                role_name: "Manager"
+                role_name: "Department Manager / Director"
             },
             {
                 id: INTERNAL_USER_ROLE.Employee,
