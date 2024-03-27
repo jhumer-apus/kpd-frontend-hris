@@ -330,6 +330,7 @@ export interface LEAVECreateInterface {
 export interface LEAVEViewInterface extends LEAVECreateInterface { 
     id: number;
     leave_reason_disapproval: string | null;
+    leave_reason_cancelled: string | null;
     leave_date_approved1: string | null;
     leave_date_approved2: string | null;
     leave_date_filed: string;
