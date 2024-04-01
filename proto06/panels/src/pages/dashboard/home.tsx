@@ -45,6 +45,7 @@ import axios from 'axios'
 
 //COMPONENTS
 import Notification from "@/public-components/home/Notification";
+import BirthdayAnniversary from "@/public-components/home/BirthdayAnniversary";
 
 
 export function ChooseDashboard() {
@@ -310,27 +311,29 @@ export function ChooseDashboard() {
             </CardBody>
           </Card>
         </div> */}
-        <Card className={styles.announcementBar}>
+
+        <BirthdayAnniversary />
+        {/* <Card className={styles.announcementBar}>
           <CardHeader
             floated={false}
             shadow={false}
             color="transparent"
             className="m-0 p-6"
-          >
+          > */}
             {/* <Typography variant="h6" color="blue-gray" className="mb-2">
               EASY ACCESS PANEL
             </Typography> */}
-            <Typography
+            {/* <Typography
               variant="subtitle2"
               className="flex items-center gap-1 font-normal text-blue-gray-600"
-            >
+            > */}
               {/* <ArrowUpIcon
                 strokeWidth={3}
                 className="h-3.5 w-3.5 text-green-500"
               /> */}
               {/* For your easy access <strong>convenience</strong> */}
-            </Typography>
-          </CardHeader>
+            {/* </Typography> */}
+          {/* </CardHeader>
           <CardBody className="pt-0 flex flex-wrap justify-around gap-1" >
             {employeeEasyAccessData.map(
               ({ icon, color, title, description, link }, key) => (
@@ -369,7 +372,7 @@ export function ChooseDashboard() {
               )
             )}
           </CardBody>
-        </Card>
+        </Card> */}
       </div>
     </div>
   );

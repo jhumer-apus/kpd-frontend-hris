@@ -339,7 +339,7 @@ export const UserProfile = () => {
     !data.gender && (errors["Gender"] = "Gender is required")
     !data.address && (errors["Street Address"] = "Street Address is required")
     // !data.mobile_phone && (errors["Mobile Phone"] = "Mobile Phone is required")
-    // !data.email_address && (errors["Email Address"] = "Email Addressis required")
+    !data.email_address && (errors["Email Address"] = "Email Address is required")
     !data.bio_id && (errors["Bio ID"] = "Bio ID is required")
     // !data.emergency_contact_person && (errors["Emergency Conact Person"] = "Emergency Contact Person is required")
     // !data.emergency_contact_number && (errors["Emergency Contact Number"] = "Emergency Contact Number is required")
@@ -624,16 +624,17 @@ export const UserProfile = () => {
           </FormControl>
 
           <FormControl className='w-full'>
-              <InputLabel htmlFor="email_address">Email Address: (optional)</InputLabel>
+              <InputLabel htmlFor="email_address">Email Address: (required)</InputLabel>
               <OutlinedInput
                 id="email_address"
                 onChange={handleChangeUserData}
                 className='w-full'
                 inputProps={{
-
+                
                 }}
                 name="email_address"
-                label="Email Address: (optional)"     
+                label="Email Address: (required"
+                required     
               />
           </FormControl>
           <FormControl className='w-full'>

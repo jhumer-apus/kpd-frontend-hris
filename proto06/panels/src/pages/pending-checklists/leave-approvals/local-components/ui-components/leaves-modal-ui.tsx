@@ -57,7 +57,8 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
     const updateRemarksWithEmpNo = () => {
         setSingleLEAVEDetailsData(curr => ({
             ...curr,
-            leave_remarks: singleLEAVEDetailsData.leave_remarks + ` (${curr_user?.emp_no})`
+            leave_remarks: singleLEAVEDetailsData.leave_remarks + ` (${curr_user?.emp_no})`,
+            added_by: curr_user?.emp_no
         }))
     }
 
@@ -200,7 +201,7 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
                     <TextField sx={{width: '100%'}} label='Date Approved: #1' value={ThisProps.leave_date_approved1? dayjs(ThisProps.leave_date_approved1).format('MM-DD-YYYY LT') : '-'} focused={!!ThisProps.leave_date_approved1} color={ThisProps.leave_date_approved1 ? 'success' : 'warning'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Date Approved: #2' value={ThisProps.leave_date_approved2? dayjs(ThisProps.leave_date_approved2).format('MM-DD-YYYY LT') : '-'} focused={!!ThisProps.leave_date_approved2} color={ThisProps.leave_date_approved2 ? 'success' : 'warning'} InputProps={{readOnly: true,}} variant='standard'/>
                     {((leaveType.is_sl  && !leaveType.is_vl && !leaveType.is_el) || leaveType.name=="Sick Leave") && 
-                        <Button onClick={viewImages}>View Supporting </Button>
+                        <Button onClick={viewImages}>View Supporting Image</Button>
                     }
                     {ThisProps.leave_type == 2 && getNumberOfSickLeaves(ThisProps.leave_remarks) >= 3 && (
                         <div className='flex items-center space-x-4'>

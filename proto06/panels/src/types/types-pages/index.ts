@@ -343,6 +343,7 @@ export interface LEAVEViewInterface extends LEAVECreateInterface {
     applicant_rank: number;
     emp_name:string,
     leave_file_path:string|null;
+    added_by: string | number | null | undefined;
 }
 
 export interface LEAVEEditInterface extends LEAVEViewInterface {}

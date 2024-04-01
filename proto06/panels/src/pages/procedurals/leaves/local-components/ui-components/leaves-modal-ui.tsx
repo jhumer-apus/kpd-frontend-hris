@@ -57,11 +57,11 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
         is_sl: null,
         is_el: null
     }) 
-
     const updateRemarksWithEmpNo = () => {
         setSingleLEAVEDetailsData((curr:any) => ({
             ...curr,
-            leave_remarks: singleLEAVEDetailsData.leave_remarks + ` (${curr_user?.emp_no})`
+            leave_remarks: singleLEAVEDetailsData.leave_remarks + ` (${curr_user?.emp_no})`,
+            added_by: curr_user?.emp_no
         }))
     }
 
@@ -118,7 +118,7 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
     }
 
     // const userIsApprover = (curr_user?.emp_no === ThisProps.leave_approver1_empno || curr_user?.emp_no === ThisProps.leave_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleLEAVEDetailsData?.applicant_rank));
-    const userIsApprover = ((curr_user?.emp_no == ThisProps.leave_approver1_empno || curr_user?.emp_no == ThisProps.leave_approver2_empno || ((curr_user?.rank_hierarchy as number) == 6)) && ![ThisProps.leave_approver1_empno, ThisProps.leave_approver2_empno].includes(ThisProps.emp_no));
+    const userIsApprover = ((curr_user?.emp_no == ThisProps.leave_approver1_empno || curr_user?.emp_no == ThisProps.leave_approver2_empno || ((curr_user?.rank_hierarchy as number) == 6)) && ![ThisProps.leave_approver1_empno, ThisProps.leave_approver2_empno].includes(ThisProps.emp_no) && curr_user?.emp_no != ThisProps.emp_no);
     return (
         <React.Fragment>
             <ApproveLEAVEModal singleLEAVEDetailsData={singleLEAVEDetailsData} setSingleLEAVEDetailsData={setSingleLEAVEDetailsData} approveLEAVEOpenModal={approveLEAVEOpenModal} setApproveLEAVEOpenModal={setApproveLEAVEOpenModal}/>
@@ -187,17 +187,17 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
                 </div>
             }
             {(ThisProps.leave_approval_status.includes('1') || ThisProps.leave_approval_status.includes('2')) && 
-            <div className='flex flex-col justify-center items-center'>
-                <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
-                    <div className='flex justify-between' style={{width:'400px'}} container-name='leave_buttons'>
-                        <Button disabled={!userIsApprover} variant='contained' onClick={()=> onClickModal(0)}>Approve LEAVE</Button>
-                        <Button disabled={!userIsApprover} variant='outlined' onClick={()=> onClickModal(1)}>Deny LEAVE</Button>
-                    </div> 
+                <div className='flex flex-col justify-center items-center'>
+                    <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
+                        <div className='flex justify-between' style={{width:'400px'}} container-name='leave_buttons'>
+                            <Button disabled={!userIsApprover} variant='contained' onClick={()=> onClickModal(0)}>Approve LEAVE</Button>
+                            <Button disabled={!userIsApprover} variant='outlined' onClick={()=> onClickModal(1)}>Deny LEAVE</Button>
+                        </div> 
+                    </div>
+                { !userIsApprover &&
+                    <i className='w-6/12 text-center mt-4' style={{color: 'gray'}}>You are not listed as one of the approvers</i>
+                }
                 </div>
-            { !userIsApprover &&
-                <i className='w-6/12 text-center mt-4' style={{color: 'gray'}}>You are not listed as one of the approvers</i>
-            }
-            </div>
             }
 
 
