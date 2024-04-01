@@ -145,7 +145,7 @@ export default function BirthdayAnniversary(props: Props) {
                 {data.map(({ value, listOfEmployees }:any) => (
                     <TabPanel key={value} value={value}>
                         {listOfEmployees.length > 0? 
-                            <ul className='overflow-auto h-full'>
+                            <ul className='overflow-auto h-[800px]'>
                                 {listOfEmployees.map((emp:any) => (
                                     <li className='border-b border-black p-2'>{emp.full_name}</li>
                                 ))}
