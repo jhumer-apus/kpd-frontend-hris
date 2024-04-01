@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { APILink } from '@/store/configureStore';
 import axios from 'axios';
 import { getDefaultLibFileName } from 'typescript';
+import styles from '@/pages/dashboard/custom-styles/home.module.scss';
 
 interface Props {
 
@@ -121,7 +122,7 @@ export default function BirthdayAnniversary(props: Props) {
     // ]
 
     return (
-        <Tabs value={activeTab}>
+        <Tabs className={styles.announcementBar} value={activeTab}>
             <TabsHeader
                 className="rounded-none border-b border-blue-gray-50 bg-transparent p-0"
                 indicatorProps={{
@@ -144,7 +145,7 @@ export default function BirthdayAnniversary(props: Props) {
                 {data.map(({ value, listOfEmployees }:any) => (
                     <TabPanel key={value} value={value}>
                         {listOfEmployees.length > 0? 
-                            <ul className='overflow-auto h-[1000px]'>
+                            <ul className='overflow-auto h-full'>
                                 {listOfEmployees.map((emp:any) => (
                                     <li className='border-b border-black p-2'>{emp.full_name}</li>
                                 ))}
