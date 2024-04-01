@@ -13,6 +13,10 @@ import axios from 'axios';
 import { getDefaultLibFileName } from 'typescript';
 import styles from '@/pages/dashboard/custom-styles/home.module.scss';
 
+//LIBRARIES
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import dayjs from 'dayjs';
+
 interface Props {
 
 }
@@ -20,6 +24,18 @@ export default function BirthdayAnniversary(props: Props) {
 
     const [activeTab, setActiveTab] = useState<string>('birthday');
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [columns, setColumns] = useState<GridColDef[]>([
+        {
+            field: 'emp_no',
+            headerName: 'Employee No.',
+            flex: 1
+        },
+        {
+            field: 'full_name',
+            headerName: 'Employee Name',
+            flex: 1
+        },
+    ])
     const [data, setData] = useState<any>([
         {
             label: "Birthday",
@@ -34,14 +50,27 @@ export default function BirthdayAnniversary(props: Props) {
     ])
 
     useEffect(() => {
-
+        let newColumns = [...columns]
         switch(activeTab) {
-
             case 'birthday':
+                newColumns[2] = {
+                    field: 'birthday',
+                    headerName: 'Birth Date',
+                    valueGetter: (params) => dayjs(params.row.birthday).format('MMMM DD, YYYY'),
+                    flex: 1
+                }
+                setColumns((curr:any) => newColumns);
                 fetchEmployeeBirthday()
                 break;
 
             case 'anniversary':
+                newColumns[2] = {
+                    field: 'date_hired',
+                    headerName: 'Date Hired',
+                    valueGetter: (params) => dayjs(params.row.date_hired).format('MMMM DD, YYYY'),
+                    flex: 1
+                }
+                setColumns((curr:any) => newColumns);
                 fetchEmployeeAnniversary()
                 break;
 
@@ -56,10 +85,16 @@ export default function BirthdayAnniversary(props: Props) {
         setIsLoading(true)
 
         await axios.get(`${APILink}birthdays`).then(res => {
+
             const resData = Array.isArray(res.data)? res.data: []
 
-            const newData = [...data]
-            newData[0].listOfEmployees = [...resData]
+            let newData = [...data]
+            newData[0].listOfEmployees = resData.map((emp,index) => {
+                return {
+                    id:index,
+                    ...emp
+                }
+            })
 
             setData((curr:any) => newData)
             setIsLoading(false)
@@ -78,8 +113,13 @@ export default function BirthdayAnniversary(props: Props) {
 
             const resData = Array.isArray(res.data)? res.data: []
 
-            const newData = [...data]
-            newData[1].listOfEmployees = [...resData]
+            let newData = [...data]
+            newData[1].listOfEmployees = resData.map((emp,index) => {
+                return {
+                    id:index,
+                    ...emp
+                }
+            })
 
             setData((curr:any) => newData)
             setIsLoading(false)
@@ -121,6 +161,7 @@ export default function BirthdayAnniversary(props: Props) {
     //     }
     // ]
 
+
     return (
         <Tabs className={styles.announcementBar} value={activeTab}>
             <TabsHeader
@@ -144,14 +185,29 @@ export default function BirthdayAnniversary(props: Props) {
             <TabsBody>
                 {data.map(({ value, listOfEmployees }:any) => (
                     <TabPanel key={value} value={value}>
-                        {listOfEmployees.length > 0? 
+                        <div className='overflow-auto h-[800px]'>
+                            <DataGrid
+                                rows={listOfEmployees}
+                                columns={columns}
+                                initialState={{
+                                    pagination: {
+                                        paginationModel: {
+                                        pageSize: 25,
+                                        },
+                                    },
+                                }}
+                                pageSizeOptions={[5,10,25]}
+                            />
+                        </div>
+                        
+                        {/* {listOfEmployees.length > 0? 
                             <ul className='overflow-auto h-[800px]'>
                                 {listOfEmployees.map((emp:any) => (
                                     <li className='border-b border-black p-2'>{emp.full_name}</li>
                                 ))}
                             </ul>:
                             <p>{isLoading?'Loading Data...': 'No Employees'}</p>
-                        }
+                        } */}
                     </TabPanel>
                 ))}
             </TabsBody>
