@@ -921,12 +921,16 @@ export const SpecificEmployee = (props: initialState) => {
                                     </div>
                                     <div className="my-4 md:flex md:items-center gap-4">
                                         <Input
-                                            crossOrigin={undefined} {...register('birthday')}
+                                            // crossOrigin={undefined} {...register('birthday')}
+                                            onChange={(e)=> setFormSelectData((curr:any) => ({
+                                                ...curr,
+                                                birthday:e.target.value
+                                            }))}
                                             type="date"
                                             containerProps={{ className: "min-w-[72px] mb-2" }}
                                             labelProps={{ style: { color: true ? "unset" : '' } }}
                                             label="Birthday: YYYY-MM-DD"
-                                            value={userData?.birthday?.split("T")[0]}
+                                            value={formSelectData?.birthday || userData?.birthday?.split("T")[0]}
                                             disabled={!editMode2}
                                             // icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                    
                                         />
