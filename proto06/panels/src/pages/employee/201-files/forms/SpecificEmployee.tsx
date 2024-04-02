@@ -1453,7 +1453,7 @@ export const SpecificEmployee = (props: initialState) => {
                                             >
                                                 <Option value="1">Announcer</Option>
                                                 <Option value="2">Employee</Option>
-                                                <Option value="3">Manager/Director</Option>
+                                                <Option value="3">Department Manager/Director</Option>
                                                 <Option value="4">HR Staff</Option>
                                                 <Option value="5">HR Manager/Director</Option>
                                                 <Option value="6">HR Super Admin</Option>

@@ -990,7 +990,7 @@ export const UserProfile = () => {
             >   
                 <MenuItem value="1">Announcer</MenuItem>
                 <MenuItem value="2">Employee</MenuItem>
-                <MenuItem value="3">Manager/Director</MenuItem>
+                <MenuItem value="3">Department Manager/Director</MenuItem>
                 <MenuItem value="4">HR Staff</MenuItem>
                 <MenuItem value="5">HR Manager/Director</MenuItem>
                 <MenuItem value="6">HR Super Admin</MenuItem>
