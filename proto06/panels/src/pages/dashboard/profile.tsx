@@ -79,15 +79,15 @@
     const [profileImage, setProfileImage] = useState<any>(null);
     const [isSubmittingRequest, setIsSubmittingRequest] = useState<boolean>(false)
     const [address, setAddress] = useState({
-      province:{
-        id:null,
-        name:null,
-        code:null
+      province: {
+        id: '',
+        name: '',
+        code: ''
       },
-      city:{
-        id:null,
-        name:null,
-        code:null
+      city: {
+        id: '',
+        name: '',
+        code: ''
       }
     })
 
@@ -373,8 +373,8 @@
       // console.log(userData.middle_name)
       const formData = new FormData ();
 
-      formData.append('province_code', address?.province.id)
-      formData.append('city_code', address?.city.id)
+      formData.append('province_code', address?.province?.id)
+      formData.append('city_code', address?.city?.id)
       
       for(const key in userData) {
 
