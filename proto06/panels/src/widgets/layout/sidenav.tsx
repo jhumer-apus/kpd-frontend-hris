@@ -76,16 +76,13 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
       [key: string]: number;
     }
     const keyProcessor: objectChecker = {
-      ...(currUserState?.user?.role !== INTERNAL_USER_ROLE.Manager) ? {
-        'KPI Confirmations': PendingKPICore.length,
-        'Onboarding CF': PendingOnboarding.length,
-        'Offboarding CF': PendingOffboarding.length
-      } : {
-        'OBT Approvals': (OBTViewFilterApprover?.data as OBTViewInterface[])?.length,
-        'OT Approvals': (OVERTIMEViewFilterApprover?.data as OVERTIMEViewInterface[])?.length,
-        'LEAVE Approvals': (LEAVEViewFilterApprover?.data as LEAVEViewInterface[])?.length,
-        'UA Approvals': (UAViewFilterApprover?.data as UAViewInterface[])?.length,
-      },
+      // 'KPI Confirmations': PendingKPICore.length,
+      // 'Onboarding CF': PendingOnboarding.length,
+      // 'Offboarding CF': PendingOffboarding.length,
+      'OBT Approvals': (OBTViewFilterApprover?.data as OBTViewInterface[])?.length,
+      'OT Approvals': (OVERTIMEViewFilterApprover?.data as OVERTIMEViewInterface[])?.length,
+      'LEAVE Approvals': (LEAVEViewFilterApprover?.data as LEAVEViewInterface[])?.length,
+      'UA Approvals': (UAViewFilterApprover?.data as UAViewInterface[])?.length,
       'Pending Checklists': (OBTViewFilterApprover?.data as OBTViewInterface[])?.length 
         + (OVERTIMEViewFilterApprover?.data as OVERTIMEViewInterface[])?.length 
         + (LEAVEViewFilterApprover?.data as LEAVEViewInterface[])?.length 

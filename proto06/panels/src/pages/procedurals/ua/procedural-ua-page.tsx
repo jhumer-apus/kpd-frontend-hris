@@ -45,7 +45,7 @@ export default function ProceduralUAPage() {
   const dispatch = useDispatch();
   const { UAView } = useSelector((state: RootState) => state.procedurals);
   const currUser = useSelector((state: RootState) => state.auth.employee_detail);
-  const { data, status, error } = currUser?.user?.role == 2? useFetchFileApplicationByApprover(`${APILink}ot`): UAView;
+  const { data, status, error } = currUser?.user?.role == 2? useFetchFileApplicationByApprover(`${APILink}ua`): UAView;
   // const { data, status, error } = UAView;
   const UAViewData = data as UAViewInterface[];
 
