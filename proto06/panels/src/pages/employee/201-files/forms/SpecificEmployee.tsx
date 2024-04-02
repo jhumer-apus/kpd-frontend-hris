@@ -810,9 +810,6 @@ export const SpecificEmployee = (props: initialState) => {
                                     >
                                     Profile Details
                                     </Typography>
-                                    <Typography variant="small" className="mb-1">
-                                    Profile Picture *accepts PNG file only, max 100kb size
-                                    </Typography>
                                     <input 
                                         // {...register('employee_image')}
                                         disabled={!editMode2} 
@@ -924,13 +921,13 @@ export const SpecificEmployee = (props: initialState) => {
                                             // crossOrigin={undefined} {...register('birthday')}
                                             onChange={(e)=> setFormSelectData((curr:any) => ({
                                                 ...curr,
-                                                birthday:e.target.value
+                                                birthday: e.target.value + 'T00:00:00'
                                             }))}
                                             type="date"
                                             containerProps={{ className: "min-w-[72px] mb-2" }}
                                             labelProps={{ style: { color: true ? "unset" : '' } }}
                                             label="Birthday: YYYY-MM-DD"
-                                            value={formSelectData?.birthday || userData?.birthday?.split("T")[0]}
+                                            value={formSelectData?.birthday? dayjs(formSelectData?.birthday).format('YYYY-MM-DD'): userData?.birthday?.split("T")[0]}
                                             disabled={!editMode2}
                                             // icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                    
                                         />
@@ -1158,12 +1155,17 @@ export const SpecificEmployee = (props: initialState) => {
                                         </Typography>
                                         <div className="my-4 md:flex md:items-center gap-4">
                                             <Input
-                                                    crossOrigin={undefined} {...register('date_hired')}
-                                                    type="text"
+                                                    // crossOrigin={undefined} {...register('date_hired')}
+                                                    onChange={(e)=> setFormSelectData((curr:any) => ({
+                                                        ...curr,
+                                                        date_hired: e.target.value + 'T00:00:00'
+                                                    }))}
+                                                    type="date"
                                                     containerProps={{ className: "min-w-[72px] mb-2 md:mb-0" }}
                                                     labelProps={{ style: { color: true ? "unset" : '' } }}
                                                     label="Date Hired:"
                                                     disabled={!editMode3}
+                                                    value={formSelectData?.date_hired? dayjs(formSelectData?.date_hired).format('YYYY-MM-DD'): userData?.date_hired?.split("T")[0]}
                                                     // value={`${userData?.date_hired ? userData?.date_hired : ''}`}
                                                     icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
                                             <Input
