@@ -1,13 +1,14 @@
 import { Fragment, useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { APILink, RootState } from '@/store/configureStore';
 import { Typography } from "@material-tailwind/react";
 import { ProceduralOBTPageDescriptions, ProceduralOBTPageColumns } from '@/data/pages-data/procedural-data/obt-data';
 import ViewOBTSingleModal from './local-components/main-modals/view-obt-single-modal';
 import { OBTViewFilterEmployeeInitialState, OBTViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
 import { OBTViewAction } from '@/store/actions/procedurals';
 import { globalServerErrorMsg } from '@/store/configureStore';
+import useFetchFileApplicationByApprover from '@/custom-hooks/use-fetch-file-application-by-approver';
 
 
 export default function ProceduralOBTPage() {
@@ -16,7 +17,9 @@ export default function ProceduralOBTPage() {
   const [singleOBTDetailsData, setSingleOBTDetailsData] = useState<OBTViewInterface>(OBTViewFilterEmployeeInitialState);
   const dispatch = useDispatch();
   const { OBTView } = useSelector((state: RootState) => state.procedurals);
-  const { data, status, error } = OBTView;
+  const currUser = useSelector((state: RootState) => state.auth.employee_detail);
+  const { data, status, error } = currUser?.user?.role == 2? useFetchFileApplicationByApprover(`${APILink}obt`): OBTView;
+  // const { data, status, error } = OBTView;
   const OBTViewData = data as OBTViewInterface[];
 
   useEffect(()=> {

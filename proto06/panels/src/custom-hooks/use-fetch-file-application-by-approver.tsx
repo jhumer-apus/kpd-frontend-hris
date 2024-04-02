@@ -3,19 +3,19 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-export default function useFetchLeavesByApprover() {
+export default function useFetchFileApplicationByApprover(url: string) {
     const currUser = useSelector((state: RootState) => state.auth.employee_detail);
     const [data, setData] = useState([])
     const [status, setStatus] = useState<string>('')
     const [error, setError] = useState<string>('')
 
     useEffect(() => {
-        fetchLeavesByApprover()
+        fetchFileApplicationByApprover()
     },[])
 
-    const fetchLeavesByApprover = async() => {
+    const fetchFileApplicationByApprover = async() => {
         
-        await axios.get(`${APILink}leave`,{
+        await axios.get(url,{
 
             params:{
                 approver: currUser?.user?.emp_no

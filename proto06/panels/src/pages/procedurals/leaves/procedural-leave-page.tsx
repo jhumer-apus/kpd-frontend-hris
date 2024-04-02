@@ -1,14 +1,14 @@
 import { Fragment, useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { APILink, RootState } from '@/store/configureStore';
 import { Typography } from "@material-tailwind/react";
 import { ProceduralLEAVEPageDescriptions, ProceduralLEAVEPageColumns } from '@/data/pages-data/procedural-data/leaves-data';
 import ViewLEAVESingleModal from './local-components/main-modals/view-leaves-single-modal';
 import { LEAVEViewInterface } from '@/types/types-pages';
 import { LEAVEViewAction } from '@/store/actions/procedurals';
 import { globalServerErrorMsg } from '@/store/configureStore';
-import useFetchLeavesByApprover from '@/custom-hooks/use-fetch-leaves-by-approver';
+import useFetchFileApplicationByApprover from '@/custom-hooks/use-fetch-file-application-by-approver';
 
 export default function ProceduralLEAVEPage() {
   const currUser = useSelector((state: RootState) => state.auth.employee_detail);
@@ -35,7 +35,7 @@ export default function ProceduralLEAVEPage() {
   });
   const dispatch = useDispatch();
   const { LEAVEView, LEAVEViewFilterApprover } = useSelector((state: RootState) => state.procedurals);
-  const { data, status, error } = currUser?.user?.role == 2? useFetchLeavesByApprover(): LEAVEView;
+  const { data, status, error } = currUser?.user?.role == 2? useFetchFileApplicationByApprover(`${APILink}leave`): LEAVEView;
   const LEAVEViewData = data as LEAVEViewInterface[];
 
   useEffect(()=> {

@@ -1,13 +1,14 @@
 import { Fragment, useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { APILink, RootState } from '@/store/configureStore';
 import { Typography } from "@material-tailwind/react";
 import { ProceduralOVERTIMEPageDescriptions, ProceduralOVERTIMEPageColumns } from '@/data/pages-data/procedural-data/overtime-data';
 import ViewOVERTIMESingleModal from './local-components/main-modals/view-overtime-single-modal';
 import { OVERTIMEViewInterface } from '@/types/types-pages';
 import { OVERTIMEViewAction } from '@/store/actions/procedurals';
 import { globalServerErrorMsg } from '@/store/configureStore';
+import useFetchFileApplicationByApprover from '@/custom-hooks/use-fetch-file-application-by-approver';
 
 
 export default function ProceduralOvertimePage() {
@@ -32,7 +33,9 @@ export default function ProceduralOvertimePage() {
   });
   const dispatch = useDispatch();
   const { OVERTIMEView } = useSelector((state: RootState) => state.procedurals);
-  const { data, status, error } = OVERTIMEView;
+  const currUser = useSelector((state: RootState) => state.auth.employee_detail);
+  const { data, status, error } = currUser?.user?.role == 2? useFetchFileApplicationByApprover(`${APILink}ot`): OVERTIMEView;
+  // const { data, status, error } = OVERTIMEView;
   const OVERTIMEViewData = data as OVERTIMEViewInterface[];
 
   useEffect(()=> {

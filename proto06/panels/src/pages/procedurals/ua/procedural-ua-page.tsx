@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { APILink, RootState } from '@/store/configureStore';
 import { Typography } from "@material-tailwind/react";
 import useDtrState from '@/custom-hooks/use-dtr-state';
 import PrintTableButton from './local-components/additional-features/print-table-button';
@@ -18,6 +18,7 @@ import { UAViewAction } from '@/store/actions/procedurals';
 import { GridColDef, GridValueGetterParams, GridCellParams, GridValueFormatterParams } from "@mui/x-data-grid";
 import GeneratePDFButton from './local-components/additional-features/generate-pdf-button';
 import { globalServerErrorMsg } from '@/store/configureStore';
+import useFetchFileApplicationByApprover from '@/custom-hooks/use-fetch-file-application-by-approver';
 
 
 
@@ -43,7 +44,9 @@ export default function ProceduralUAPage() {
   });
   const dispatch = useDispatch();
   const { UAView } = useSelector((state: RootState) => state.procedurals);
-  const { data, status, error } = UAView;
+  const currUser = useSelector((state: RootState) => state.auth.employee_detail);
+  const { data, status, error } = currUser?.user?.role == 2? useFetchFileApplicationByApprover(`${APILink}ot`): UAView;
+  // const { data, status, error } = UAView;
   const UAViewData = data as UAViewInterface[];
 
   useEffect(()=> {
