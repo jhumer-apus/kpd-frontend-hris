@@ -8,8 +8,10 @@ import ViewLEAVESingleModal from './local-components/main-modals/view-leaves-sin
 import { LEAVEViewInterface } from '@/types/types-pages';
 import { LEAVEViewAction } from '@/store/actions/procedurals';
 import { globalServerErrorMsg } from '@/store/configureStore';
+import useFetchLeavesByApprover from '@/custom-hooks/use-fetch-leaves-by-approver';
 
 export default function ProceduralLEAVEPage() {
+  const currUser = useSelector((state: RootState) => state.auth.employee_detail);
   const [printing, setIsPrinting] = useState(false);
   const [singleLEAVEOpenModal, setSingleLEAVEOpenModal] = useState<boolean>(false);
   const [singleLEAVEDetailsData, setSingleLEAVEDetailsData] = useState<LEAVEViewInterface>({
@@ -32,13 +34,15 @@ export default function ProceduralLEAVEPage() {
       applicant_rank: NaN,
   });
   const dispatch = useDispatch();
-  const { LEAVEView } = useSelector((state: RootState) => state.procedurals);
-  const { data, status, error } = LEAVEView;
+  const { LEAVEView, LEAVEViewFilterApprover } = useSelector((state: RootState) => state.procedurals);
+  const { data, status, error } = currUser?.user?.role == 2? useFetchLeavesByApprover(): LEAVEView;
   const LEAVEViewData = data as LEAVEViewInterface[];
 
   useEffect(()=> {
     dispatch(LEAVEViewAction())
   }, []);
+
+
 
   // const getEndDayOfTheWeekDays = (dateString: Date | string) => {
 

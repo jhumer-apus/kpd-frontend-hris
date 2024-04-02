@@ -190,6 +190,13 @@ export const LEAVEViewFilterApproverActionProgress = createAction<number>("LEAVE
 export const LEAVEViewFilterApproverActionFailure = createAction<string>("LEAVE_VIEW_FILTER_APPROVER_ACTION_FAILURE");
 export const LEAVEViewFilterApproverActionFailureCleanup = createAction("LEAVE_VIEW_FILTER_APPROVER_ACTION_FAILURE_CLEANUP");
 
+// export const LEAVEViewFilterApproverAllStatusAction = createAction<{emp_no: number}>("LEAVE_VIEW_FILTER_APPROVER_ALL_STATUS_ACTION");
+// export const LEAVEViewFilterApproverAllStatusActionSuccess = createAction("LEAVE_VIEW_FILTER_APPROVER_ACTION_ALL_STATUS_SUCCESS", (SuccessMessage: LEAVEViewInterface[]) => { 
+//     return({ payload: {SuccessMessage} })});
+// export const LEAVEViewFilterApproverAllStatusActionProgress = createAction<number>("LEAVE_VIEW_FILTER_APPROVER_ALL_STATUS_ACTION_PROGRESS");
+// export const LEAVEViewFilterApproverAllStatusActionFailure = createAction<string>("LEAVE_VIEW_FILTER_APPROVER_ALL_STATUS_ACTION_FAILURE");
+// export const LEAVEViewFilterApproverAllStatusActionFailureCleanup = createAction("LEAVE_VIEW_FILTER_APPROVER_ALL_STATUS_ACTION_FAILURE_CLEANUP");
+
 
 export const LEAVECreateAction = createAction<LEAVECreateInterface>("LEAVE_CREATE_ACTION");
 export const LEAVECreateActionSuccess = createAction("LEAVE_CREATE_ACTION_SUCCESS", (SuccessMessage: LEAVECreateInterface) => { 

@@ -76,14 +76,26 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
       [key: string]: number;
     }
     const keyProcessor: objectChecker = {
-      'OBT Approvals': (OBTViewFilterApprover?.data as OBTViewInterface[])?.length,
-      'OT Approvals': (OVERTIMEViewFilterApprover?.data as OVERTIMEViewInterface[])?.length,
-      'LEAVE Approvals': (LEAVEViewFilterApprover?.data as LEAVEViewInterface[])?.length,
-      'UA Approvals': (UAViewFilterApprover?.data as UAViewInterface[])?.length,
-      'KPI Confirmations': PendingKPICore.length,
-      'Onboarding CF': PendingOnboarding.length,
-      'Offboarding CF': PendingOffboarding.length,
-      'Pending Checklists': ((OBTViewFilterApprover?.data as OBTViewInterface[])?.length + (OVERTIMEViewFilterApprover?.data as OVERTIMEViewInterface[])?.length + (LEAVEViewFilterApprover?.data as LEAVEViewInterface[])?.length + (UAViewFilterApprover?.data as UAViewInterface[])?.length + PendingKPICore.length + PendingOnboarding.length + PendingOffboarding.length),
+      ...(currUserState?.user?.role !== INTERNAL_USER_ROLE.Manager) ? {
+        'OBT Approvals': (OBTViewFilterApprover?.data as OBTViewInterface[])?.length,
+        'OT Approvals': (OVERTIMEViewFilterApprover?.data as OVERTIMEViewInterface[])?.length,
+        'LEAVE Approvals': (LEAVEViewFilterApprover?.data as LEAVEViewInterface[])?.length,
+        'UA Approvals': (UAViewFilterApprover?.data as UAViewInterface[])?.length,
+        'KPI Confirmations': PendingKPICore.length,
+        'Onboarding CF': PendingOnboarding.length,
+        'Offboarding CF': PendingOffboarding.length
+      } : {
+        'LEAVE Approvals': (LEAVEViewFilterApprover?.data as LEAVEViewInterface[])?.length,
+      },
+      'Pending Checklists': (currUserState?.user?.role !== INTERNAL_USER_ROLE.Manager? 
+        (OBTViewFilterApprover?.data as OBTViewInterface[])?.length 
+        + (OVERTIMEViewFilterApprover?.data as OVERTIMEViewInterface[])?.length 
+        + (LEAVEViewFilterApprover?.data as LEAVEViewInterface[])?.length 
+        + (UAViewFilterApprover?.data as UAViewInterface[])?.length 
+        // + PendingKPICore.length 
+        // + PendingOnboarding.length 
+        // + PendingOffboarding.length
+        : (LEAVEViewFilterApprover?.data as LEAVEViewInterface[])?.length) ,
       'default': 0
     };
     return keyProcessor[key] || keyProcessor['default']

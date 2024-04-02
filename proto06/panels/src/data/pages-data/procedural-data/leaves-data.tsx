@@ -83,8 +83,6 @@ export const ProceduralLEAVEPageColumns: GridColDef[] =
   
     } else if ( status === 'APD' ) { //Approve
 
-      console.log(params.row)
-
       cellColor = '#008000'; // Green
 
     } 
