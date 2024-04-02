@@ -196,6 +196,8 @@ export default function BirthdayAnniversary(props: Props) {
                                         },
                                     },
                                 }}
+                                loading={isLoading}
+                                localeText={{ noRowsLabel: `No employees celebrated today` }}
                                 pageSizeOptions={[5,10,25]}
                             />
                         </div>
