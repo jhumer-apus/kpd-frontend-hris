@@ -45,6 +45,7 @@
   import Select, { SelectChangeEvent } from '@mui/material/Select';
   import MenuItem from '@mui/material/MenuItem';
   import InputLabel from '@mui/material/InputLabel';
+  import { INTERNAL_USER_ROLE } from "@/types/types-store";
 
   const apiUrl = 'https://bitversecorporation.pythonanywhere.com/api/v1/'; // Replace with your actual API endpoint
 
@@ -72,6 +73,7 @@
     const [activeTab, setActiveTab] = useState('personal');
     const [isEdit, setIsEdit] =useState<boolean>(false)
     const curr_user = useSelector((state: RootState) => state.auth.employee_detail);
+    console.log(curr_user)
 
     // const [file, setFile] = useState<File | null>(null);
     const [profileImage, setProfileImage] = useState<any>(null);
@@ -117,6 +119,33 @@
       positions:[]
     })
 
+    const [roles, setRoles] = useState([
+        {
+            id: INTERNAL_USER_ROLE.Developer,
+            role_name: "Developer"
+        },
+        {
+            id: INTERNAL_USER_ROLE.HR_Super_Admin,
+            role_name: "HR Super Admin"
+        },
+        {
+            id: INTERNAL_USER_ROLE.HR_Director_Manager,
+            role_name: "HR Director / Manager"
+        },
+        {
+            id: INTERNAL_USER_ROLE.HR_Staff,
+            role_name: "HR Staff"
+        },
+        {
+            id: INTERNAL_USER_ROLE.Manager,
+            role_name: "Department Manager / Director"
+        },
+        {
+            id: INTERNAL_USER_ROLE.Employee,
+            role_name: "Employee"
+        },
+      ]
+    )
 
 
     const handleTabClick = (tab:any) => {
@@ -288,6 +317,8 @@
     // const fetchApprovers = () => {
     //   axios.get()
     // }
+
+    const findRole = roles.find(role => role.id == curr_user?.user?.role)
     
     const getImageSrc = () => {
 
@@ -911,11 +942,11 @@
                     InputProps={{
                       readOnly: true,
                     }} 
-                    id="Role Number" 
-                    label="Role Number" 
+                    id="Role" 
+                    label="Role" 
                     variant="outlined" style={
                       { width: '100%', marginBottom: '20px' }} 
-                      value={curr_user?.user?.role || '-' } 
+                      value={curr_user?.user?.role? findRole?.role_name: '-' } 
                       InputLabelProps={{ style: { fontWeight: 'bold' }}}  
                   />
  
