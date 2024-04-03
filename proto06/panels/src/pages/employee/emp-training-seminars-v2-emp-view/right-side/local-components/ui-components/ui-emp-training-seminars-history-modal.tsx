@@ -4,8 +4,9 @@ import { Button } from '@mui/material';
 import dayjs from 'dayjs';
 import {TextField} from '@mui/material';
 import EditEMPSEMINARSModal from '../main-modals/inner-modals/edit-emp-training-seminars-modal';
-import { globalDate } from '@/store/configureStore';
+import { RootState, globalDate } from '@/store/configureStore';
 import DeactivateEMPSEMINARSModal from '../main-modals/inner-modals/delete-emp-training-seminars-modal';
+import { useSelector } from 'react-redux';
 
 interface EMPSEMINARSModalUIInterface {
     singleEMPSEMINARSDetailsData: EMPSEMINARSViewInterface;
@@ -15,6 +16,7 @@ interface EMPSEMINARSModalUIInterface {
 }
 
 function EMPSEMINARSModalUI(props: EMPSEMINARSModalUIInterface) {
+    const currUser = useSelector((state:RootState) => state.auth.employee_detail)
     const [ DeactivateEMPSEMINARSOpenModal, setDeactivateEMPSEMINARSOpenModal ] = useState(false);
     const [ EditEMPSEMINARSOpenModal, setEditEMPSEMINARSOpenModal ] = useState(false);
     const { setSingleEMPSEMINARSDetailsData, singleEMPSEMINARSDetailsData, setSingleEMPSEMINARSOpenModal } = props;
@@ -64,10 +66,12 @@ function EMPSEMINARSModalUI(props: EMPSEMINARSModalUIInterface) {
             </div>
             <div className='flex flex-col justify-center items-center'>
             <div className='flex justify-center mt-12' container-name='leave_buttons_container'>
-                <div className='flex justify-between' style={{width:'300px', marginTop: '20px'}} container-name='leave_buttons'>
-                    <Button variant='contained' onClick={()=> onClickModal(1)}>Edit Details</Button>
-                    <Button variant='outlined' color={"error"} onClick={() => onClickModal(0)}>Delete</Button>
-                </div>
+                {![2,3].includes(currUser?.rank_code) &&
+                    <div className='flex justify-between' style={{width:'300px', marginTop: '20px'}} container-name='leave_buttons'>
+                        <Button variant='contained' onClick={()=> onClickModal(1)}>Edit Details</Button>
+                        <Button variant='outlined' color={"error"} onClick={() => onClickModal(0)}>Delete</Button>
+                    </div>
+                }
             </div>
             </div>
         </Fragment>

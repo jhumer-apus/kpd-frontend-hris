@@ -919,33 +919,34 @@ const JSXRouteWrapper = () => {
               // },
             ]
           },
-          // ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee && state?.user?.role !== INTERNAL_USER_ROLE.Manager ) ? [],
-          {
-            id: 18000,
-            icon: null,
-            name: "Forms",
-            path: "/forms",
-            element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">FORMS PRINTING PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
-            hasSubItems: true,
-            subItems: [
-              {
-                id: 181000,
-                icon: <TableCellsIcon {...icon} />,
-                name: "B1 Forms",
-                path: "/forms/B1-Forms",
-                element: <B1Forms/>,
-                hasSubItems: false,
-              },
-              {
-                id: 182000,
-                icon: <TableCellsIcon {...icon} />,
-                name: "B2 Forms",
-                path: "/forms/B2-Forms",
-                element: <B2Forms/>,
-                hasSubItems: false,
-              },
-            ]
-          },
+          ...(state?.user?.role !== INTERNAL_USER_ROLE.Manager ) ? [
+            {
+              id: 18000,
+              icon: null,
+              name: "Forms",
+              path: "/forms",
+              element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">FORMS PRINTING PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
+              hasSubItems: true,
+              subItems: [
+                {
+                  id: 181000,
+                  icon: <TableCellsIcon {...icon} />,
+                  name: "B1 Forms",
+                  path: "/forms/B1-Forms",
+                  element: <B1Forms/>,
+                  hasSubItems: false,
+                },
+                {
+                  id: 182000,
+                  icon: <TableCellsIcon {...icon} />,
+                  name: "B2 Forms",
+                  path: "/forms/B2-Forms",
+                  element: <B2Forms/>,
+                  hasSubItems: false,
+                },
+              ]
+            },
+          ]: [],
         ]:[],
         {
           id: 16000,
