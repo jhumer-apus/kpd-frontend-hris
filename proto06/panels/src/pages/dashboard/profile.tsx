@@ -46,6 +46,7 @@
   import MenuItem from '@mui/material/MenuItem';
   import InputLabel from '@mui/material/InputLabel';
   import { INTERNAL_USER_ROLE } from "@/types/types-store";
+import dayjs from "dayjs";
 
   const apiUrl = 'https://bitversecorporation.pythonanywhere.com/api/v1/'; // Replace with your actual API endpoint
 
@@ -922,7 +923,7 @@
                 <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
                   <TextField            InputProps={{
             readOnly: true,
-          }} id="Last Login" label="Last Login" variant="outlined" style={{ width: '100%' }} value={curr_user?.user?.last_login ? new Date (curr_user.user?.last_login).toLocaleDateString() : '-' } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+          }} id="Last Login" label="Last Login" variant="outlined" style={{ width: '100%' }} value={curr_user?.user?.last_login ? dayjs(curr_user.user?.last_login).format('MMMM DD, YYYY HH:MM:SS') : '-' } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
                 </Typography>
                 <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
                   <TextField            InputProps={{
@@ -1059,7 +1060,7 @@
           <TextField            
             InputProps={{
             readOnly: true,
-          }} id="TIN" label="TIN" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={userData.tax_code} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+          }} id="TIN" label="TIN" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={userData.tax_data?.tin_no || ''} InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
           <TextField            
             InputProps={{

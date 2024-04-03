@@ -174,7 +174,7 @@ export default function ViewEmployeeObt() {
         },
         {
             field: 'obt_type', 
-            headerName: 'Over Type', 
+            headerName: 'OBT Type', 
             width: 150,
         },
         {

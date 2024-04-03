@@ -172,7 +172,7 @@ export default function ViewEmployeeLeaves() {
         },
         {
             field: 'ot_type', 
-            headerName: 'Over Type', 
+            headerName: 'Overtime Type', 
             width: 150,
         },
         {
