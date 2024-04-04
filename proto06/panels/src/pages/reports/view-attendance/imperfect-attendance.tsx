@@ -102,8 +102,8 @@ export default function ViewImperfectAttendance() {
         { field: 'position_name', headerName: 'Position', width: 120},
         { field: 'late', headerName: 'Lates', width: 120},
         { field: 'undertime', headerName: 'Undertime', width: 120},
-        { field: 'absent', headerName: 'Absents', width: 120},
         { field: 'counter', headerName: 'Total of Tardiness', width: 200},
+        { field: 'absent', headerName: 'Absences', width: 120},
         // {
         //   field: 'datetime_bio_time',
         //   headerName: 'Time',
@@ -174,8 +174,8 @@ export default function ViewImperfectAttendance() {
             "Position": obj.position_name,
             "Lates": obj.late,
             "Undertime": obj.undertime,
-            "Absents": obj.absent,
-            "Total of Tardiness": obj.counter
+            "Total of Tardiness": obj.counter,
+            "Absences": obj.absent,
         }
     }): []
 

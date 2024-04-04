@@ -344,7 +344,7 @@ import dayjs from "dayjs";
   const handleProfilePic = (e:any) => {
 
     const file = e.target.files[0];
-    const MAX_FILE_SIZE_MB = 5;
+    const MAX_FILE_SIZE_MB = 3;
 
     if (file) {
 
@@ -361,7 +361,7 @@ import dayjs from "dayjs";
 
       } else {
 
-        window.alert('Image should be not more than 5MB');
+        window.alert('Image should be not more than 3MB');
 
       }
     }
@@ -739,6 +739,11 @@ import dayjs from "dayjs";
                         type="tel" 
                         InputProps={{
                           readOnly: !isEdit,
+                          inputProps:{
+                            maxLength:11,
+                            minLength:11,
+                            pattern: '^[0-9]+$'
+                          }  
                         }}  
                         id="mobile_phone" 
                         name="mobile_phone" 
@@ -754,6 +759,11 @@ import dayjs from "dayjs";
                         type="tel" 
                         InputProps={{
                           readOnly: !isEdit,
+                          inputProps:{
+                            maxLength:15,
+                            minLength:11,
+                            pattern: '^[0-9]+$'
+                          } 
                         }}
                         id="telephone" 
                         name="telephone" 
@@ -923,7 +933,7 @@ import dayjs from "dayjs";
                 <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
                   <TextField            InputProps={{
             readOnly: true,
-          }} id="Last Login" label="Last Login" variant="outlined" style={{ width: '100%' }} value={curr_user?.user?.last_login ? dayjs(curr_user.user?.last_login).format('MMMM DD, YYYY HH:MM:SS') : '-' } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+          }} id="Last Login" label="Last Login" variant="outlined" style={{ width: '100%' }} value={curr_user?.user?.last_login ? dayjs(curr_user.user?.last_login).format('MMMM DD, YYYY hh:mm a') : '-' } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
                 </Typography>
                 <Typography variant="h6" color="blue-gray" className="mb-3" style={{ marginBottom: '20px' }}>
                   <TextField            InputProps={{

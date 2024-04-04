@@ -18,8 +18,8 @@ export default function DatePickerForm(props: Props) {
 
   const {setState, label, defaultValue, customKey, disabled, isReadOnly} = props
 
-  const formatDate = (date: Dayjs | null) => {
-    return date ? date.format('YYYY-MM-DD') : null;
+  const formatDate = (date: Date | string | null) => {
+    return date ? dayjs(date).format('YYYY-MM-DDThh:mm:ss') : null;
   };
   const handleChange = (newValue:any) => {
     const formattedDate = formatDate(newValue);

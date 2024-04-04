@@ -64,12 +64,6 @@ export default function ViewDtrReports() {
       emp_no: currUser?.user?.role? (currUser?.user?.role < 3? currUser?.emp_no: null): null,
       cutoff_id: null
   })
-
-  const isBasicEmployee = () => {
-    const role = currUser?.user?.role;
-    const emp_no = currUser?.emp_no?? null
-    return role && role < 3
-  }
   
   const [viewType, setViewType] = useState<"logs" | "merged" | "cutoff">('logs')
 
@@ -122,8 +116,6 @@ export default function ViewDtrReports() {
 
   useEffect(()=> {
 
-
-    console.log(dtrData)
     const exportDtrData = Array.isArray(dtrData)? dtrData.map(dtr => {
 
       //Filter columns for basic employee only using destructuring
@@ -190,6 +182,18 @@ export default function ViewDtrReports() {
     dispatchSpecificEmployeeInfo(e.row?.emp_no)
   };
 
+
+
+    const role = currUser?.user?.role;
+
+
+    const isBasicEmployee = role && role == 1
+    const isDepartmentManager = role && role == 2
+
+  
+
+  console.log(isBasicEmployee)
+  console.log(isDepartmentManager)
   return (
     <Fragment>
       <div className="my-10 flex flex-wrap justify-between items-start gap-6">
@@ -199,13 +203,16 @@ export default function ViewDtrReports() {
           <i>{viewDTRDescriptions[spButtonIndex === null ? 0 : spButtonIndex]}</i>
         </Typography>
         </div>
-        <div className='flex justify-between gap-6'>
-          {/* <ExportToCsvButton data={exportDtrData} /> */}
-          <ExportToCsvButton data={exportDtrData} />
-          {(currUser?.rank_code??0) > 3 && 
-            <PrintTableButton printing={printing} setIsPrinting={setIsPrinting}/>
-          }
-        </div>
+        {isBasicEmployee}
+        {(!isBasicEmployee && !isDepartmentManager) &&
+          <div className='flex justify-between gap-6'>
+            {/* <ExportToCsvButton data={exportDtrData} /> */}
+            <ExportToCsvButton data={exportDtrData} />
+            {(currUser?.rank_code??0) > 3 && 
+              <PrintTableButton printing={printing} setIsPrinting={setIsPrinting}/>
+            }
+          </div>
+        }
       </div>
       <FilterDTR 
         viewType={viewType}

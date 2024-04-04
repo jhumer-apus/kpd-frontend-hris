@@ -136,7 +136,14 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
                         <TextField 
                             required
                             sx={{width: '100%'}} 
-                            label='Location:'  
+                            label='Location/Details/Purpose:'
+                            placeholder='Location/Details/Purpose'
+                            inputProps = {
+                                {
+                                    maxLength:300
+                                }
+                            }
+                            helperText={`${createOBT?.obt_location?.length?? 0}/300`}
                             variant='outlined' 
                             multiline rows={2}
                             value={createOBT?.obt_location}

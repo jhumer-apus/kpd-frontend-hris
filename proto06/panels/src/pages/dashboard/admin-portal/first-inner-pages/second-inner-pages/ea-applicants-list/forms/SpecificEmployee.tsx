@@ -36,6 +36,7 @@ import { APILink, RootState } from '@/store/configureStore';
 import { EMPLOYEESViewInterface } from '@/types/types-store';
 import FormData from 'form-data';
 import { beautifyJSON } from '@/helpers/utils';
+import dayjs from 'dayjs';
 
 
 type initialState = {
@@ -403,7 +404,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                 if (file && file.size < 100000 && (file.type).includes('png')) { // size in bytes
                                                     onFileChange(e);
                                                 } else {
-                                                    alert('File should be .png and less than 5MB');
+                                                    alert('File should be .png and less than 3MB');
                                                     e.target.value = ''; // clear the selected file
                                                 } 
                                             }

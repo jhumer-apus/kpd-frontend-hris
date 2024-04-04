@@ -262,7 +262,7 @@ export const UserProfile = () => {
     const handleProfilePic = (e:any) => {
 
       const file = e.target.files[0];
-      const MAX_FILE_SIZE_MB = 5;
+      const MAX_FILE_SIZE_MB = 3;
   
       if (file) {
   
@@ -279,7 +279,7 @@ export const UserProfile = () => {
   
         } else {
   
-          window.alert('Image should be not more than 5MB');
+          window.alert('Image should be not more than 3MB');
   
         }
       }

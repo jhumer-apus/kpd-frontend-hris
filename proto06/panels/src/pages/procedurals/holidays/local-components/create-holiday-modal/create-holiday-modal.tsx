@@ -196,7 +196,7 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
                         label="Holiday Type*"
                     >
                         <MenuItem value="SH">Special Non-working Holiday</MenuItem>
-                        <MenuItem value="LH">Legal Holiday</MenuItem>
+                        <MenuItem value="LH">Regular Holiday</MenuItem>
                     </Select>
                 </FormControl>
                 {/* <Autocomplete

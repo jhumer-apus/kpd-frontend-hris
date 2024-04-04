@@ -113,7 +113,9 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         }
         return false
     }
-    const onClickSubmit = () => {
+    const onClickSubmit = (e:any) => {
+
+        e.preventDefault()
 
         const formData = new FormData();
         if(validateLeaveCredit()) {
@@ -202,7 +204,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
     const handleChangeImage = (e:React.ChangeEvent<HTMLInputElement>) => {
 
         const selectedFile: File | null = e.target.files && e.target.files[0];
-        const MAX_FILE_SIZE_MB = 5;
+        const MAX_FILE_SIZE_MB = 3;
 
         if (selectedFile) {
 
@@ -214,7 +216,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                 }))
 
             } else {
-                window.alert('Image should be not more than 5MB');
+                window.alert('Image should be not more than 3MB');
             }
 
         }
@@ -371,7 +373,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                     </Typography>
                 </div>
             </div> */}
-            <div className='flex flex-col gap-6 overflow-auto relative'>
+            <form onSubmit={onClickSubmit} className='flex flex-col gap-6 overflow-auto relative'>
                 <div className='flex flex-wrap gap-3 pt-4'>
                     <div className='flex flex-col gap-3' style={{width:'100%'}}>
                         <EmployeeAutoComplete createLEAVE={createLEAVE} setCreateLEAVE={setCreateLEAVE}/>
@@ -499,14 +501,15 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                         accept="image/*"
                         label=" Supporting Documents(Image)"
                         onChange={handleChangeImage}
+                        required
                     />
                 }
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
-                        <Button variant='contained' onClick={onClickSubmit}>Create LEAVE</Button>
+                        <Button variant='contained' type='submit'>Create LEAVE</Button>
                     </div>
                 </div>
-            </div>
+            </form>
         </React.Fragment>
     );
 }

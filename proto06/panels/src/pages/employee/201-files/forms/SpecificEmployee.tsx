@@ -70,11 +70,17 @@ type initialState = {
 }
 
 export const SpecificEmployee = (props: initialState) => {
+
+    //STORE
+    const currUser = useSelector((state: RootState) => state.auth.employee_detail)
+    const userData = useSelector((state: RootState) => state.employees.specific_employee_info);
+    console.log(userData)
+
+    //STATE
     const [file, setFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const {modalEntranceDelay, secondOptionModalEntranceDelay, loadingEffect} = props;
     const { register, handleSubmit, setValue, formState: { errors } } = useForm<EMPLOYEESViewInterface>();
-    const userData = useSelector((state: RootState) => state.employees.specific_employee_info);
     const [editMode, setEditMode] = useState(false);
     const [editMode2, setEditMode2] = useState(false);
     const [editMode3, setEditMode3] = useState(false);
@@ -182,7 +188,7 @@ export const SpecificEmployee = (props: initialState) => {
     const handleProfilePic = (e:any) => {
 
         const file = e.target.files[0];
-        const MAX_FILE_SIZE_MB = 5;
+        const MAX_FILE_SIZE_MB = 3;
     
         if (file) {
     
@@ -202,7 +208,7 @@ export const SpecificEmployee = (props: initialState) => {
           } else {
             
             setPreviewUrl(null);
-            window.alert('Image should be not more than 5MB');
+            window.alert('Image should be not more than 3MB');
     
           }
         }
@@ -523,6 +529,54 @@ export const SpecificEmployee = (props: initialState) => {
 
     //STATIC
     const appStatus = app_status?? "production"
+    const isCurrUserHrStaff = currUser?.rank_code == 4
+    const isBasicEmployee = userData?.rank_code == 2
+
+
+    //RENDER ELEMENT
+    const salaryElement: JSX.Element = (
+
+        <div className="mt-4 flex flex-col md:flex-row md:items-center gap-4">
+            <Input
+                onChange={handleDailySalary}
+                // crossOrigin={undefined} {...register('emp_salary_basic')}
+                defaultValue={userData?.emp_salary_basic}
+                type="number"
+                containerProps={{ className: "min-w-[72px] focused" }}
+                labelProps={{ style: { color: true ? "unset" : '' } }}
+                label="Daily Salary:"
+                step="0.01"
+                disabled={!editMode3}
+                icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}       
+            />
+            <Input
+                type="number"
+                containerProps={{ className: "min-w-[72px] focused" }}
+                labelProps={{ style: { color: true ? "unset" : '' } }}
+                label="Monthly Salary: (For Viewing Only)"
+                value={monthlySalaryComputation(formSelectData?.emp_salary_basic?? userData?.emp_salary_basic?? 0 )}
+                disabled={!editMode3}
+                icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}       
+            />
+        </div>
+    )
+    const showSalary = ():JSX.Element => {
+
+        //HR Staff can on ly view salary of rank and files
+        if(isCurrUserHrStaff) {
+
+            if(isBasicEmployee) {
+
+                return salaryElement
+            }
+
+            return (<></>)
+
+        } else {
+
+            return salaryElement
+        }
+    }
 
     return (
         <Fragment>
@@ -693,7 +747,8 @@ export const SpecificEmployee = (props: initialState) => {
                                             disabled={true}
                                             icon={<LockClosedOutline className="h-5 w-5 text-blue-gray-300" />}                                />
                                 <Input
-                                            crossOrigin={undefined} {...register('user.last_login')}
+                                            // crossOrigin={undefined} {...register('user.last_login')}
+                                            value={userData?.user?.last_login? dayjs(userData?.user?.last_login).format('MMMM DD, YYYY hh:mm a'):'-'}
                                             label="Last Login:"
                                             labelProps={{ style: { color: true ? "unset" : '' } }}
                                             containerProps={{ className: "mb-2" }}
@@ -1500,55 +1555,8 @@ export const SpecificEmployee = (props: initialState) => {
                                                     disabled={!editMode3}
                                                     icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                        /> */}
                                         </div>
-                                        <div className="mt-4 flex flex-col md:flex-row md:items-center gap-4">
-                                            <Input
-                                                onChange={handleDailySalary}
-                                                // crossOrigin={undefined} {...register('emp_salary_basic')}
-                                                defaultValue={userData?.emp_salary_basic}
-                                                type="number"
-                                                containerProps={{ className: "min-w-[72px] focused" }}
-                                                labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                label="Daily Salary:"
-                                                step="0.01"
-                                                disabled={!editMode3}
-                                                icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}       
-                                            />
-                                            <Input
-                                                type="number"
-                                                containerProps={{ className: "min-w-[72px] focused" }}
-                                                labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                label="Monthly Salary: (For Viewing Only)"
-                                                value={monthlySalaryComputation(formSelectData?.emp_salary_basic?? userData?.emp_salary_basic?? 0 )}
-                                                disabled={!editMode3}
-                                                icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}       
-                                            />
-                                            {/* <Select
-                                                onChange={(val:any) => setFormSelectData(curr => ({
-                                                ...curr,
-                                                emp_salary_type: val
-                                                }))}
-                                                placeholder="Select Salary Type"
-                                                name="emp_salary_type"
-                                                variant="outlined"
-                                                label="Salary Type"
-                                                disabled={!editMode3}
-                                                value={userData?.emp_salary_type}
-                                            >
-                                                <Option value="1">Monthly</Option>
-                                                <Option value="2">Semi-Monthly</Option>
-                                                <Option value="3">Project-Based</Option>
-                                                <Option value="4">Weekly</Option>
-                                            </Select> */}
-                                            {/* <Input
-                                                    crossOrigin={undefined} {...register('emp_salary_type')}
-                                                    type="text"
-                                                    containerProps={{ className: "min-w-[72px] focused" }}
-                                                    labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                    label="Salary Type:"
-                                                    disabled={!editMode3}
-                                                    icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}         
-                                            /> */}
-                                        </div>
+                                        {showSalary()}
+                                        
                                         <div className="my-4 md:flex md:items-center gap-4">
                                             <Input
                                                 crossOrigin={undefined} {...register('payroll_no')}

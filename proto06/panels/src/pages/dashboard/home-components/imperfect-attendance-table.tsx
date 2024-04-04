@@ -57,8 +57,8 @@ export default function ImperfectAttendanceTable<T, Status>(props: Imperfect_Att
     { field: 'Employee_Name', headerName: 'Employee Full Name:', width: 300 },
     { field: 'Lates', headerName: 'Lates:', width: 100 },
     { field: 'Undertime', headerName: 'Undertime:', width: 100 },
-    { field: 'Absents', headerName: 'Absents:', width: 100 },
-    { field: 'Total_Tardiness', headerName: 'Total Tardiness:', width: 100 },
+    { field: 'Total_Tardiness', headerName: 'Total of Tardiness:', width: 100 },
+    { field: 'Absences', headerName: 'Absences:', width: 100 },
   ];
 
   return (

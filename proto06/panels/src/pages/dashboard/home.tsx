@@ -105,7 +105,7 @@ export function ChooseDashboard() {
             Payroll_Group: `${data.employee.payroll_group_code !== null ? data.employee.payroll_group_code : ''}`,
             Lates: `${data.lates !== null ? data.lates : ''}`,
             Undertime: `${data.undertime !== null ? data.undertime : ''}`,
-            Absents: `${data.absent !== null ? data.absent : ''}`,
+            Absences: `${data.absent !== null ? data.absent : ''}`,
             Total_Tardiness: `${data.counter !== null ? data.counter : ''}`,
           })
         });

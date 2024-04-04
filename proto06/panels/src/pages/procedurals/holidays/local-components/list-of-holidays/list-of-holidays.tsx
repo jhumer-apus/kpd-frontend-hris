@@ -72,10 +72,10 @@ function ListOfHolidaysComponent(props: HighlightedCalendarInterface) {
                     </CardHeader>
                     <CardBody className="p-4 text-right">
                         <Typography variant="body2" className="font-normal text-blue-gray-600">
-                        {holiday_description ? holiday_description + ' - ' : ''}{holiday_type === 'SH' ? 'Special Holiday': 'Legal Holiday'}
+                        {holiday_description ? holiday_description + ' - ' : ''}{holiday_type === 'SH' ? 'Special Non-Working Holiday': 'Regular Holiday'}
                         </Typography>
                         <Typography variant="h4" color="blue-gray">
-                        {holiday_type}
+                        {holiday_type == 'LH'? 'RH': 'SH'}
                         </Typography>
                     </CardBody>
                     <CardFooter className="border-t flex justify-between border-blue-gray-50 p-4">

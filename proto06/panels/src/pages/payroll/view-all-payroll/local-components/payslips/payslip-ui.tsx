@@ -44,7 +44,7 @@ function PayslipUI(props: PaySlipUI) {
                                 <p className='pl-1'>Allowance Pay:</p>
                                 <p className='pl-1'>Overtime Pay:</p>
                                 <p className='pl-1'>Night Diff. Pay:</p>
-                                <p className='pl-1'>LEGAL HOLIDAY PREMIUM:</p>
+                                <p className='pl-1'>REGULAR HOLIDAY PREMIUM:</p>
                                 <p className='pl-1'>Absences/Undertime:</p>
                                 <p className='pl-1'>SL/VL Encashment:</p>
                                 <p className='pl-1'>Adjustment:</p>

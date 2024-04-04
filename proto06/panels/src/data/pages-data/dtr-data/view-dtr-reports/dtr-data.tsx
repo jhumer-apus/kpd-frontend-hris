@@ -169,22 +169,24 @@ return [
       }, 
       width: 120 
     },
-    { 
-      field: 'lates_total', 
-      headerName: 'Lates', 
-      valueGetter: (params: GridValueGetterParams) => {
-        return `${params.row.lates_total} min(s)`;
-      }, 
-      width: 110 
-    },
-    { 
-      field: 'undertime_total', 
-      headerName: 'Undertime', 
-      valueGetter: (params: GridValueGetterParams) => {
-        return `${params.row.undertime_total} min(s)`;
-      }, 
-      width: 110 
-    },
+    ...(!["Field", "Field-Auto"].includes(currUser?.employee_type) && [2,3].includes(currUser?.rank_code)) ? [
+      { 
+        field: 'lates_total', 
+        headerName: 'Lates', 
+        valueGetter: (params: GridValueGetterParams) => {
+          return `${params.row.lates_total} min(s)`;
+        }, 
+        width: 110 
+      },
+      { 
+        field: 'undertime_total', 
+        headerName: 'Undertime', 
+        valueGetter: (params: GridValueGetterParams) => {
+          return `${params.row.undertime_total} min(s)`;
+        }, 
+        width: 110 
+      }
+    ]: [],
     { 
       field: 'absent_total', 
       headerName: 'Absences', 

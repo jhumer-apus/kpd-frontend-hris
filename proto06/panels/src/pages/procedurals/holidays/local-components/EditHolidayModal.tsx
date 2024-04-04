@@ -220,7 +220,7 @@ export default function EditHolidayModal(props:Props) {
                             required
                         >
                             <MenuItem value="SH">Special Non-working Holiday</MenuItem>
-                            <MenuItem value="LH">Legal Holiday</MenuItem>
+                            <MenuItem value="LH">Regular Holiday</MenuItem>
                         </Select>
                     </FormControl>
                     
