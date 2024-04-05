@@ -146,6 +146,13 @@ const icon = {
 const JSXRouteWrapper = () => {
   const state = useSelector((state: RootState) => state.auth.employee_detail)
   const isAdmin = state?.user?.role !== INTERNAL_USER_ROLE.Employee && state?.user?.role !== INTERNAL_USER_ROLE.Manager
+
+  const isBasicEmployee = state?.user?.role !== INTERNAL_USER_ROLE.Employee
+  const isDepartmentManager = state?.user?.role !== INTERNAL_USER_ROLE.Manager
+  const isHrStaff = state?.user?.role !== INTERNAL_USER_ROLE.HR_Staff
+  const isHrDirectorManager = state?.user?.role !== INTERNAL_USER_ROLE.HR_Director_Manager
+  const isHrSuperAdmin = state?.user?.role !== INTERNAL_USER_ROLE.HR_Super_Admin
+
   const routes: Array<IRoute> = [
     {
       id: 10000,
@@ -636,14 +643,16 @@ const JSXRouteWrapper = () => {
               element: <FileLEAVEPage/>, 
               hasSubItems: false,
             },
-            {
-              id: 13400,
-              icon: <CloudSyncSharpIcon {...icon} />,
-              name: "File UA",
-              path: "/quick-accesses/file-UA",
-              element: <FileUAPage/>, 
-              hasSubItems: false,
-            },
+            ...(!isBasicEmployee && !isDepartmentManager) ? [
+              {
+                id: 13400,
+                icon: <CloudSyncSharpIcon {...icon} />,
+                name: "File UA",
+                path: "/quick-accesses/file-UA",
+                element: <FileUAPage/>, 
+                hasSubItems: false,
+              },
+            ] : [],
             {
               id: 13500,
               icon: <HistoryToggleOffOutlinedIcon {...icon} />,
