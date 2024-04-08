@@ -16,38 +16,41 @@ interface CityMunicipalityInterface {
 }
 
 interface Props {
-    state:any
-    setState: any;
-    city_id?: any
-    isReadOnly?: boolean
+    updateAddress: (name: string, newValue: any) => void;
+    defaultCityId? : number | null;
+    currentProvinceCode: number | string
+    isReadOnly?: boolean;
+    name: string;
 }
 
 export default function CityMunicipality(props:Props) {
     
     //PROPS
-    const { setState, state, city_id, isReadOnly } = props
+    const { name, defaultCityId, isReadOnly, currentProvinceCode, updateAddress } = props
 
-    console.log(state)
     //STATES
     const [cities, setCities] = useState<CityMunicipalityInterface[]>([])
+    const [currentCity, setCurrentCity] = useState<CityMunicipalityInterface | null>(null)
     const [resetKey, setResetKey] = useState<number>(0);
 
     //USE EFFECTS
     useEffect(() => {
 
         setResetKey(curr => curr + 1)
-        setState((curr:any) => ({
-            ...curr,
-            city: null
-        }))
-        fetchCities()
         
-    }, [state.province])
+        setCurrentCity(null)
+        updateAddress(name, null)
+
+        fetchCities()
+        console.log(currentProvinceCode)
+    }, [currentProvinceCode])
 
     useEffect(() => {
-        console.log(state)
+
         if(cities.length > 0) {
-            findCity(city_id)
+
+            findCity(defaultCityId)
+
         }
 
     },[cities.length])
@@ -55,43 +58,50 @@ export default function CityMunicipality(props:Props) {
     //FUNCTIONS
     const fetchCities = async() => {
 
-        await axios.get(`${APILink}city_municipality/`,{
+        console.log(currentProvinceCode)
+        if(currentProvinceCode) {
+            await axios.get(`${APILink}city_municipality/`,{
 
-            params: {
-                code: state.province.code
-            }
-
-        }).then((res:AxiosResponse) => {
-
-            const sortedCities = res.data.sort((a:any, b:any) => a.name.localeCompare(b.name));
-            setCities(curr => sortedCities)
-
-        }).catch((err:AxiosError) => {
-
-            console.log(err)
-
-        })
+                params: {
+                    code: currentProvinceCode
+                }
+    
+            }).then((res:AxiosResponse) => {
+    
+                const sortedCities = res.data.sort((a:any, b:any) => a.name.localeCompare(b.name));
+                setCities(curr => sortedCities)
+    
+            }).catch((err:AxiosError) => {
+    
+                console.log(err)
+    
+            })
+        }    
 
     }
 
     const handleChange = (e: any, newValue: CityMunicipalityInterface | null) => {
-        if(newValue) {
-            setState((curr:any) => ({
-                ...curr,
-                city: newValue
-            }))
+
+        if(newValue) {  
+
+            setCurrentCity(curr => newValue)
+            updateAddress(name, newValue)
+
         }
     }
 
     const findCity = (val:any) => {
-        console.log(val)
-        const selectedCity = cities.find(city => city.id == val)
-        if(selectedCity) {
-            setState((curr:any) => ({
-                ...curr,
-                city: selectedCity
-            }))
-            return selectedCity
+
+        if(val) {
+
+            const selectedCity = cities.find(city => city.id == val)
+
+            if(selectedCity) {
+
+                setCurrentCity(curr => selectedCity)
+                updateAddress(name, selectedCity)
+
+            }
         }
     }
     return (
@@ -99,25 +109,25 @@ export default function CityMunicipality(props:Props) {
             {cities.length > 0 ?
                 <Autocomplete
                     key={resetKey}
-                    value={state?.city}
+                    value={currentCity}
                     disablePortal
                     id="city"
                     options={cities}
                     className='w-full'
-                    getOptionLabel={(city: CityMunicipalityInterface) => city.name}
+                    getOptionLabel={(city: CityMunicipalityInterface) =>  city?.name?? ''}
                     onChange={handleChange}
                     renderInput={(params) => <TextField {...params} label="City (Select a province first)" />}
-                    disabled={!state.province?.code}
+                    disabled={cities.length == 0}
                     readOnly={isReadOnly}
                 />:
                 <Autocomplete
                     key={resetKey}
-                    value={state?.city}
+                    value={currentCity}
                     disablePortal
                     id="city"
                     options={cities}
                     className='w-full'
-                    getOptionLabel={(city: CityMunicipalityInterface) => city.name}
+                    getOptionLabel={(city: CityMunicipalityInterface) => city?.name?? ''}
                     onChange={handleChange}
                     renderInput={(params) => <TextField {...params} label="City (Select a province first)" />}
                     disabled

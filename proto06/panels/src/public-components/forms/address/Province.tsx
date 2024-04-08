@@ -16,20 +16,19 @@ interface ProvinceInterface {
 }
 
 interface Props {
-    state?:any;
-    setState: any;
-    province_id? : number | null;
-    city_id? : number | null;
-    isReadOnly?: boolean
+    updateAddress: (name: string, newValue: any) => void;
+    defaultProvinceId? : number | null;
+    isReadOnly?: boolean;
+    name: string;
 }
 export default function Province(props: Props) {
 
     //PROPS
-    const { state, setState, province_id, city_id, isReadOnly } = props
+    const { name, defaultProvinceId, isReadOnly, updateAddress } = props
 
     //STATES
     const [provinces, setProvinces] = useState<ProvinceInterface[]>([])
-    // const [defaultProvince , setDefaultProvince] = useState<ProvinceInterface | null>(null)
+    const [currentProvince, setCurrentProvince] = useState<ProvinceInterface | null>(null)
     
 
     //USE EFFECTS
@@ -39,15 +38,13 @@ export default function Province(props: Props) {
     }, [])
 
     useEffect(() => {
-        console.log(province_id)
-        if(provinces.length>0) {
-            findProvince(province_id)
-        }
-    },[provinces.length])
 
-    // useEffect(() => {
-    //     console.log("sdasdas" + province_id)
-    // }, [province_id])
+        if(provinces.length > 0) {
+
+            findProvince(defaultProvinceId)
+        }
+
+    },[provinces.length])
 
     //FUNCTIONS
     const fetchProvinces = async() => {
@@ -66,24 +63,25 @@ export default function Province(props: Props) {
     }
 
     const findProvince = (val:any) => {
-        const selectedProvince = provinces.find(prov => prov.id == val)
-        if(selectedProvince) {
-            console.log(selectedProvince)
-            // setDefaultProvince((curr:any) => selectedProvince)
-            setState((curr:any) => ({
-                ...curr,
-                province: selectedProvince
-            }))
-            return selectedProvince
+        
+        if(val) {
+            
+            const selectedProvince = provinces.find(prov => prov.id == val)
+
+            if(selectedProvince) {
+                
+                setCurrentProvince(curr => selectedProvince)
+                updateAddress(name, selectedProvince)
+            }
         }
     }
 
     const handleChange = (e: any, newValue: ProvinceInterface | null) => {
+
         if(newValue) {
-            setState((curr:any) => ({
-                ...curr,
-                province: newValue
-            }))
+
+            setCurrentProvince(curr => newValue)
+            updateAddress(name, newValue)
         }
     }
 
@@ -95,8 +93,8 @@ export default function Province(props: Props) {
                 id="province"
                 options={provinces}
                 className='w-full'
-                value={state?.province}
-                getOptionLabel={(province: ProvinceInterface) => province.name}
+                value={currentProvince}
+                getOptionLabel={(province: ProvinceInterface) => province?.name?? ''}
                 onChange={handleChange}
                 renderInput={(params) => <TextField {...params} label="Province" />}
                 readOnly={isReadOnly}

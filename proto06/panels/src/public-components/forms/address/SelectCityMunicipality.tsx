@@ -21,12 +21,14 @@ interface Props {
     setState: any;
     isDisable: boolean
     city_code?: any
+    province_code: number | string
+    customKey: number | string | null | undefined
 }
 
 export default function CityMunicipality(props:Props) {
     
     //PROPS
-    const { setState, state, isDisable, city_code } = props
+    const { setState, state, isDisable, city_code, province_code, customKey } = props
 
     
     //STATES
@@ -43,28 +45,30 @@ export default function CityMunicipality(props:Props) {
         }))
         fetchCities()
         
-    }, [state.province])
+    }, [province_code])
 
     //FUNCTIONS
     const fetchCities = async() => {
 
-        await axios.get(`${APILink}city_municipality/`,{
+        if(province_code) {
 
-            params: {
-                code: state.province.code
-            }
+            await axios.get(`${APILink}city_municipality/`,{
 
-        }).then((res:AxiosResponse) => {
-
-            const sortedCities = res.data.sort((a:any, b:any) => a.name.localeCompare(b.name));
-            setCities(curr => sortedCities)
-
-        }).catch((err:AxiosError) => {
-
-            console.log(err)
-
-        })
-
+                params: {
+                    code: state.province.code
+                }
+    
+            }).then((res:AxiosResponse) => {
+    
+                const sortedCities = res.data.sort((a:any, b:any) => a.name.localeCompare(b.name));
+                setCities(curr => sortedCities)
+    
+            }).catch((err:AxiosError) => {
+    
+                console.log(err)
+    
+            })
+        }
     }
 
     const findCity = (val:any) => {
@@ -73,17 +77,27 @@ export default function CityMunicipality(props:Props) {
 
     const handleChange = (newValue:any) => {
 
-        console.log(newValue)
         if(newValue) {
-            setState((curr:any) => ({
-                ...curr,
-                city: findCity(newValue)
-            }))
+
+            if(customKey) {
+
+                setState((curr:any) => ({
+                    ...curr,
+                    [customKey]: findCity(newValue)
+                }))
+                
+            } else {
+
+                setState((curr:any) => ({
+                    ...curr,
+                    city: findCity(newValue)
+                }))
+            }
         }
     }
 
     return (
-        <div>
+        <div className='w-full'>
             {cities.length > 0 &&
                 <Select
                     key={resetKey}

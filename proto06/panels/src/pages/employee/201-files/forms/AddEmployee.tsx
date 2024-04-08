@@ -29,6 +29,7 @@ import {
 import Province from '@/public-components/forms/address/Province'
 import CityMunicipality from '@/public-components/forms/address/CityMunicipality'
 import { useSelector } from 'react-redux';
+import { update } from 'lodash';
 // import SelectForm from '@/public-components/forms/SelectForm'
 
 
@@ -62,12 +63,22 @@ export const UserProfile = () => {
       department_code: null,
       rank_code: null,
       approver1: null,
-      province: {
+      permanent_province: {
         id: null,
         name: null,
         code: null
       },
-      city: {
+      permanent_city: {
+        id: null,
+        name: null,
+        code: null
+      },
+      current_province: {
+        id: null,
+        name: null,
+        code: null
+      },
+      current_city: {
         id: null,
         name: null,
         code: null
@@ -294,6 +305,16 @@ export const UserProfile = () => {
     ))
   }
 
+
+  const updateAddress = (name:string, newValue:any) => {
+
+      setEmployeeData((curr:any) => ({
+          ...curr,
+          [name]: newValue
+      }))
+    
+  }
+
   const validateImage = (file:any) => {
 
       if (file instanceof File) {
@@ -350,8 +371,10 @@ export const UserProfile = () => {
     !data.emp_salary_basic && (errors["Daily Salary"] = "Daily Salary is required")
     // !data.emp_salary_type && (errors["Daily Salary"] = "Employee Number is required")
     !data.approver1 && (errors["Approver 1"] = "Approver 1 is required")
-    !data.province_code && (errors["Province"] = "Province is required")
-    !data.city_code && (errors["City"] = "City is required")
+    !data.province_code && (errors["Current Province"] = "Current Province is required")
+    !data.city_code && (errors["Current City"] = "Current City is required")
+    !data.permanent_province_code && (errors["Permanent Province"] = "Permanent Province is required")
+    !data.permanent_city_code && (errors["Permanent City"] = "Permanent City is required")
     !data.branch_code && (errors["Branch"] = "Branch is required")
     !data.department_code && (errors["Department"] = "Department is required")
     // !data.division_code && (errors["Division"] = "Division is required")
@@ -371,7 +394,6 @@ export const UserProfile = () => {
   const handleSubmit = async (e:any) => {
     e.preventDefault()
 
-    console.log(employeeData)
     // Validate image if its file
     const isFile = validateImage(employeeData.employee_image)
 
@@ -429,8 +451,10 @@ export const UserProfile = () => {
       ecola: employeeData.ecola ?? 0,
       approver1: employeeData.approver1,
       approver2: employeeData.approver2?? null,
-      province_code: employeeData.province?.id,
+      province_code: employeeData.province?.id?? "",
       city_code: employeeData.city?.id ?? "",
+      permanent_province_code: employeeData.permanent_province?.id?? "",
+      permanent_city_code: employeeData.permanent_city?.id ?? "",
       branch_code: employeeData.branch_code ?? "",
       department_code: employeeData.department_code ?? "",
       division_code: employeeData.division_code ?? "",
@@ -440,14 +464,14 @@ export const UserProfile = () => {
       employment_status: employeeData.employment_status ?? "",
       employee_type: employeeData.employee_type ?? "",
       url_google_map: employeeData.url_google_map ?? "",
-      added_by: currUser?.emp_no
+      added_by: currUser?.emp_no,
       // rank_hierarchy: 0,
       // user: null,
       // tax_data: null,
       // pagibig_data: null,
       // sss_data: null,
       // philhealth_data: null,
-      // provincial_address: null,
+      provincial_address: employeeData.provincial_address,
       // date_resigned: null,
       // date_added: '',
       // tax_code: null,
@@ -460,9 +484,12 @@ export const UserProfile = () => {
     //   ...employeeData
     // }
 
+
     if(validateEmployeeInformation(finalData)) { //Validate requirements
       return
     }
+
+    console.log(finalData)
 
     for (const key in finalData) {
         
@@ -584,7 +611,7 @@ export const UserProfile = () => {
           <FormControl className='w-full'>
             <InputLabel htmlFor="sex">Sex: (required)</InputLabel>
             <Select
-              onChange={(e:any) => setEmployeeData(curr => ({
+              onChange={(e:any) => setEmployeeData((curr:any) => ({
                 ...curr,
                 gender: e.target.value
               }))}
@@ -600,17 +627,76 @@ export const UserProfile = () => {
             </Select>
           </FormControl>
         </div>
-
+        <hr className='h-8'></hr>
+        <div>
+          <Typography variant="p" color="gray" className="font-bold text-base">
+            Permanent Address:
+          </Typography>
+          <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
+            <Province 
+              updateAddress={updateAddress}
+              name='permanent_province'
+            />
+            <CityMunicipality
+              updateAddress={updateAddress}
+              currentProvinceCode={employeeData.permanent_province.code}
+              name='permanent_city'
+            />
+            <FormControl className='w-full'>
+              <InputLabel htmlFor="permanent_address">Permanent Street Address: (required)</InputLabel>
+              <OutlinedInput
+                id="permanent_address"
+                className='w-full'
+                onChange={handleChangeUserData}
+                name="permanent_address"
+                label="Permanent Street Address: (required)"
+                    
+                required            
+              />
+            </FormControl>
+          </div>
+        </div>
+        <div>
+          <div>
+            <Typography variant="p" color="gray" className="font-bold text-base">
+              Current Address:
+            </Typography>
+          </div>
+          <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
+            <Province 
+              updateAddress={updateAddress}
+              name='current_province'
+            />
+            <CityMunicipality
+              updateAddress={updateAddress}
+              currentProvinceCode={employeeData.current_province.code}
+              name='current_city'
+            />
+            <FormControl className='w-full'>
+              <InputLabel htmlFor="current_address">Current Street Address: (required)</InputLabel>
+              <OutlinedInput
+                id="current_address"
+                className='w-full'
+                onChange={handleChangeUserData}
+                name="current_address"
+                label="Current Street Address: (required)"
+                    
+                required            
+              />
+            </FormControl>
+          </div>
+        </div>
+        <hr className='h-8'></hr>
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
-          <Province 
+          {/* <Province 
             setState={setEmployeeData}
           />
           <CityMunicipality
             state={employeeData}
             setState={setEmployeeData}
-          />
+          /> */}
 
-          <FormControl className='w-full'>
+          {/* <FormControl className='w-full'>
               <InputLabel htmlFor="address">Street Address: (required)</InputLabel>
               <OutlinedInput
                 id="address"
@@ -621,7 +707,7 @@ export const UserProfile = () => {
                     
                 required            
               />
-          </FormControl>
+          </FormControl> */}
 
           <FormControl className='w-full'>
               <InputLabel htmlFor="email_address">Email Address: (required)</InputLabel>

@@ -88,12 +88,22 @@ export const SpecificEmployee = (props: initialState) => {
 
     const [formSelectData, setFormSelectData] = useState({
         // employee_image: userData?.employee_image,
-        province: {
+        permanent_province: {
             id: null,
             name: null,
             code: null
-          },
-          city: {
+        },
+        permanent_city: {
+            id: null,
+            name: null,
+            code: null
+        },
+        current_province: {
+            id: null,
+            name: null,
+            code: null
+        },
+        current_city: {
             id: null,
             name: null,
             code: null
@@ -1130,6 +1140,51 @@ export const SpecificEmployee = (props: initialState) => {
                                     
                                 </div>
                             </div>
+                            <div style={{width: "100%"}}>
+                                    <Typography
+                                    variant="small"
+                                    color="blue-gray"
+                                    className="mb-4 font-medium"
+                                    >
+                                    Permanent Address
+                                    </Typography>
+                                
+
+                                    <div className="my-4 md:flex md:items-center gap-4">
+                                        
+                                        <SelectProvince 
+                                            setState={setFormSelectData}
+                                            isDisable={!editMode2}
+                                            province_code={userData?.permanent_province_code}
+                                            customKey="permanent_province"
+                                        />
+                                        <SelectCityMunicipality 
+                                            customKey="permanent_city"
+                                            province_code={formSelectData.permanent_province?.code?? userData?.permanent_province_code}
+                                            state={formSelectData}
+                                            setState={setFormSelectData}
+                                            isDisable={!editMode2}
+                                            city_code={userData?.city_code}
+                                        />
+                                        <Input
+                                            crossOrigin={undefined} {...register('address')}
+                                            type="text"
+                                            containerProps={{ className: "mb-2 md:mb-0" }}
+                                            label="Street Address:"
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            disabled={!editMode2}                                    
+                                        />
+                                        {/* <Input
+                                            crossOrigin={undefined} {...register('provincial_address')}
+                                            label="Provincial Address:"
+                                            labelProps={{ style: { color: true ? "unset" : '' } }}
+                                            disabled={!editMode2}
+                                            icon={<LockClosedOutline className="h-5 w-5 text-blue-gray-300" />}    
+                                        /> */}
+                                    </div>                             
+                                </div>
+
+                            
                             {/* <div className="my-0">
                                 <div className="my-0 flex flex-wrap xl:flex-nowrap items-center gap-4">
                                 <Input

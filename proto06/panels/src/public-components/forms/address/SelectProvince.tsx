@@ -20,11 +20,12 @@ interface Props {
     province_code?: any,
     setState: any
     isDisable: boolean
+    customKey: string | null | undefined
 }
 export default function SelectProvince(props: Props) {
 
     //PROPS
-    const { setState, province_code, isDisable } = props
+    const { setState, province_code, isDisable, customKey } = props
 
     //STATES
     const [provinces, setProvinces] = useState<ProvinceInterface[]>([])
@@ -56,18 +57,30 @@ export default function SelectProvince(props: Props) {
     }
 
     const handleChange = (newValue: string | number) => {
-        console.log(findProvince(newValue))
+
         if(newValue) {
-            setState((curr:any) => ({
-                ...curr,
-                province: findProvince(newValue)
-            }))
+
+            if(customKey) {
+
+                setState((curr:any) => ({
+                    ...curr,
+                   [customKey]: findProvince(newValue)
+                }))
+
+            } else {
+
+                setState((curr:any) => ({
+                    ...curr,
+                    province: findProvince(newValue)
+                }))
+
+            }
         }
     }
 
     return (
-        <div>
-            {provinces.length>0 &&
+        <div className='w-full'>
+            {provinces.length > 0 &&
                 <Select
                     label="Province:"
                     placeholder="Select Province"
