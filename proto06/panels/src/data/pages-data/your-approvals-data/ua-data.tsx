@@ -29,6 +29,11 @@ export const ApprovalUAPageColumns: GridColDef[] =
     }
   },
   { field: 'emp_no', headerName: 'Filed By:', width: 120 },
+  { 
+    field: 'emp_name', 
+    headerName: 'Employee Name', 
+    width: 250,
+  },
   { field: 'ua_approval_status', headerName: 'Status', width: 100,
     renderCell: (params: GridCellParams) => {
       const status = params.row?.ua_approval_status as string;

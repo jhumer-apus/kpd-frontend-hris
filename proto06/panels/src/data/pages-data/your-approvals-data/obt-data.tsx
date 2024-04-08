@@ -44,6 +44,11 @@ export const ApprovalOBTPageColumns: GridColDef[] =
     }  
   },
   { 
+    field: 'emp_name', 
+    headerName: 'Employee Name', 
+    width: 250,
+  },
+  { 
     field: 'obt_approver1_empno', 
     headerName: 'Approver #1', 
     width: 120,

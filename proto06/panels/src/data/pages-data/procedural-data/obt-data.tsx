@@ -24,6 +24,11 @@ export const ProceduralOBTPageColumns: GridColDef[] =
     }
   },
   { field: 'emp_no', headerName: 'Filed By:', width: 120 },
+  { 
+    field: 'emp_name', 
+    headerName: 'Employee Name', 
+    width: 250,
+  },
   { field: 'obt_approval_status', headerName: 'Status', width: 100,
     renderCell: (params: GridCellParams) => {
       const status = params.row?.obt_approval_status as string;
