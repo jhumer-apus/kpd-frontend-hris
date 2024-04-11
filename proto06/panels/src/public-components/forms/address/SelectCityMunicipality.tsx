@@ -9,6 +9,7 @@ import { Select, Option } from "@material-tailwind/react";
 
 //REDUX
 import { APILink, RootState } from '@/store/configureStore';
+import useGetSpecificProvince from '@/custom-hooks/use-fetch-specific-province';
 
 interface CityMunicipalityInterface {
     id: number,
@@ -17,49 +18,74 @@ interface CityMunicipalityInterface {
 }
 
 interface Props {
-    state:any
-    setState: any;
-    isDisable: boolean
-    city_code?: any
-    province_code: number | string
-    customKey: number | string | null | undefined
+
+    updateAddress: (name: string, newValue: any) => void;
+    defaultCityId? : number | null;
+    currentProvinceCode: number | string
+    isReadOnly?: boolean;
+    name: string;
+    isDisable?: boolean
 }
 
 export default function CityMunicipality(props:Props) {
     
     //PROPS
-    const { setState, state, isDisable, city_code, province_code, customKey } = props
+    const { isReadOnly, isDisable, defaultCityId, currentProvinceCode, name, updateAddress } = props
 
-    
     //STATES
     const [cities, setCities] = useState<CityMunicipalityInterface[]>([])
     const [resetKey, setResetKey] = useState<number>(0);
 
+    const [currentCity, setCurrentCity] = useState<number| null| undefined>(null)
+
+    //HOOKS
+    const {province, status, error} = useGetSpecificProvince(currentProvinceCode)
+
     //USE EFFECTS
     useEffect(() => {
 
-        setResetKey(curr => curr + 1)
-        setState((curr:any) => ({
-            ...curr,
-            city: null
-        }))
-        fetchCities()
+        // setResetKey(curr => curr + 1)
+        if(province) {
+            fetchCities()
+        }
         
-    }, [province_code])
+    }, [province])
+
+    // useEffect(() => {
+    //     setCurrentCity(curr => null)
+
+        
+    // }, [resetKey])
+
+    useEffect(() => {
+        
+        updateAddress(name, null)
+
+    },[currentProvinceCode])
+
+    useEffect(() => {
+        updateAddress(name, currentCity);
+    }, [currentCity]);
+
+    // useEffect(() => {
+        
+    //     setCurrentCity(curr => defaultCityId)
+
+    // },[defaultCityId])
 
     //FUNCTIONS
     const fetchCities = async() => {
 
-        if(province_code) {
+        if(province) {
 
             await axios.get(`${APILink}city_municipality/`,{
 
                 params: {
-                    code: state.province.code
+                    code: province?.code
                 }
     
             }).then((res:AxiosResponse) => {
-    
+                
                 const sortedCities = res.data.sort((a:any, b:any) => a.name.localeCompare(b.name));
                 setCities(curr => sortedCities)
     
@@ -71,28 +97,15 @@ export default function CityMunicipality(props:Props) {
         }
     }
 
-    const findCity = (val:any) => {
-        return cities.find(city => city.id == val)
-    }
+    // const findCity = (val:any) => {
+    //     return cities.find(city => city.id == val)
+    // }
 
     const handleChange = (newValue:any) => {
 
         if(newValue) {
-
-            if(customKey) {
-
-                setState((curr:any) => ({
-                    ...curr,
-                    [customKey]: findCity(newValue)
-                }))
-                
-            } else {
-
-                setState((curr:any) => ({
-                    ...curr,
-                    city: findCity(newValue)
-                }))
-            }
+            setCurrentCity(curr => newValue)
+            // updateAddress(name, newValue)
         }
     }
 
@@ -105,7 +118,7 @@ export default function CityMunicipality(props:Props) {
                     placeholder="Select City"
                     onChange={handleChange}
                     disabled={isDisable}
-                    value={city_code}
+                    value={defaultCityId}
                 >
                     {cities.length > 0 ? cities.map((city: CityMunicipalityInterface, index:number) => (
                         <Option key={index} value={city.id}>{city.name}</Option>
@@ -115,6 +128,23 @@ export default function CityMunicipality(props:Props) {
         
                 </Select>
             }
+            {/* {cities.length < 1 &&
+                <Select
+                    key={resetKey}
+                    label="City: (Select a province first)"
+                    placeholder="Select City"
+                    onChange={handleChange}
+                    disabled={isDisable}
+                    value={defaultCityId}
+                >
+                    {cities.length > 0 ? cities.map((city: CityMunicipalityInterface, index:number) => (
+                        <Option key={index} value={city.id}>{city.name}</Option>
+                    )):
+                        <Option disabled>No cities available on the selected province</Option>
+                    }
+        
+                </Select>
+            } */}
         </div>
     
     )

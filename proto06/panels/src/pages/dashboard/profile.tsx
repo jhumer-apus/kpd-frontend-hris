@@ -46,7 +46,8 @@
   import MenuItem from '@mui/material/MenuItem';
   import InputLabel from '@mui/material/InputLabel';
   import { INTERNAL_USER_ROLE } from "@/types/types-store";
-import dayjs from "dayjs";
+  import dayjs from "dayjs";
+  import useGetSpecificProvince from "@/custom-hooks/use-fetch-specific-province";
 
   const apiUrl = 'https://bitversecorporation.pythonanywhere.com/api/v1/'; // Replace with your actual API endpoint
 
@@ -80,12 +81,22 @@ import dayjs from "dayjs";
     const [profileImage, setProfileImage] = useState<any>(null);
     const [isSubmittingRequest, setIsSubmittingRequest] = useState<boolean>(false)
     const [address, setAddress] = useState({
-      province: {
+      permanent_province: {
         id: '',
         name: '',
         code: ''
       },
-      city: {
+      permanent_city: {
+        id: '',
+        name: '',
+        code: ''
+      },
+      current_province: {
+        id: '',
+        name: '',
+        code: ''
+      },
+      current_city: {
         id: '',
         name: '',
         code: ''
@@ -148,6 +159,20 @@ import dayjs from "dayjs";
       ]
     )
 
+    //HOOKS
+    // const {province, status, error} = useGetSpecificProvince(userData?.permanent_province_code)
+    const permanentProvince = useGetSpecificProvince(userData?.permanent_province_code)
+    const currentProvince = useGetSpecificProvince(userData?.current_province_code)
+
+    useEffect(() => {
+
+      setAddress(curr => ({
+        ...curr,
+        permanent_province: permanentProvince.province,
+        current_province: currentProvince.province
+      }))
+    },[])
+
 
     const handleTabClick = (tab:any) => {
       setIsEdit(false)
@@ -161,6 +186,7 @@ import dayjs from "dayjs";
       fetchPayrollGroups()
       fetchEmploymentStatus()
       fetchPositions()
+
     }, [])
 
     useEffect(() => {
@@ -340,6 +366,15 @@ import dayjs from "dayjs";
       updatePersonalInfo()
     };
 
+    const updateAddress = (name:string, newValue:any) => {
+
+      setUserData((curr:any) => ({
+          ...curr,
+          [name]: newValue?.id
+      }))
+    
+    }
+
 
   const handleProfilePic = (e:any) => {
 
@@ -374,8 +409,8 @@ import dayjs from "dayjs";
       // console.log(userData.middle_name)
       const formData = new FormData ();
 
-      formData.append('province_code', address?.province?.id)
-      formData.append('city_code', address?.city?.id)
+      // formData.append('province_code', address?.province?.id)
+      // formData.append('city_code', address?.city?.id)
       
       for(const key in userData) {
 
@@ -790,23 +825,88 @@ import dayjs from "dayjs";
                       />
 
                     </div>
-                    <div className="md:flex md:space-x-4">
-                      {/* <TextField onChange={handleInputChange} disabled={!isEdit} id="Present Address" name="present_address" label="Present Address" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} value={userData.present_address} InputLabelProps={{ style: { fontWeight: 'bold' }}}  /> */}
 
-                      {/* <TextField onChange={handleInputChange} disabled={!isEdit} id="Provincial Address" name="provincial_address" label="Provincial Address" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} value={userData.provincial_address}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  /> */}
-                      <Province 
-                        setState={setAddress}
-                        state={address}
-                        province_id={userData.province_code}
-                        isReadOnly={!isEdit}
-                      />
-                      <CityMunicipality 
-                        setState={setAddress}
-                        state={address}
-                        city_id={userData.city_code}
-                        isReadOnly={!isEdit}
-                      />
+                    <div className="mb-4">
+                      <div className="mb-2">
+                        <Typography variant="h6" color="gray" className="font-bold text-base">
+                          Permanent Address:
+                        </Typography>
+                      </div>
+                      <div className="md:flex md:space-x-4">
+                        {/* <TextField onChange={handleInputChange} disabled={!isEdit} id="Present Address" name="present_address" label="Present Address" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} value={userData.present_address} InputLabelProps={{ style: { fontWeight: 'bold' }}}  /> */}
 
+                        {/* <TextField onChange={handleInputChange} disabled={!isEdit} id="Provincial Address" name="provincial_address" label="Provincial Address" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} value={userData.provincial_address}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  /> */}
+                        <Province 
+                          updateAddress={updateAddress}
+                          defaultProvinceId={userData.permanent_province_code}
+                          name="permanent_province_code"
+                          isReadOnly={!isEdit}
+                        />
+                        {address?.permanent_province?.code}
+                        <CityMunicipality 
+                          currentProvinceCode={address?.permanent_province?.code}
+                          updateAddress={updateAddress}
+                          defaultCityId={userData.permanent_city_code}
+                          name="permanent_city_code"
+                          isReadOnly={!isEdit}
+                        />
+
+                        <TextField 
+                          type="text" 
+                          onChange={handleInputChange} 
+                          InputProps={{
+                            readOnly: !isEdit,
+                          }}
+                          id="permanent_address" 
+                          name="permanent_address" 
+                          label="Permanent Street Address" 
+                          variant="outlined" 
+                          style={{ width: '100%'}} value={userData.current_address}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+                        />
+                      </div>
+                    </div>
+
+                    <div className="mb-4">
+                      <div className="mb-2">
+                        <Typography variant="h6" color="gray" className="font-bold text-base">
+                          Current Address:
+                        </Typography>
+                      </div>
+                      <div className="md:flex md:space-x-4">
+                        {/* <TextField onChange={handleInputChange} disabled={!isEdit} id="Present Address" name="present_address" label="Present Address" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} value={userData.present_address} InputLabelProps={{ style: { fontWeight: 'bold' }}}  /> */}
+
+                        {/* <TextField onChange={handleInputChange} disabled={!isEdit} id="Provincial Address" name="provincial_address" label="Provincial Address" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} value={userData.provincial_address}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  /> */}
+                        <Province 
+                          updateAddress={updateAddress}
+                          defaultProvinceId={userData.current_province_code}
+                          name="current_province_code"
+                          isReadOnly={!isEdit}
+                        />
+                        <CityMunicipality 
+                          currentProvinceCode={userData.permanent_province_code}
+                          updateAddress={updateAddress}
+                          defaultCityId={userData.permanent_city_code}
+                          name="current_city_code"
+                          isReadOnly={!isEdit}
+                        />
+
+                        <TextField 
+                          type="text" 
+                          onChange={handleInputChange} 
+                          InputProps={{
+                            readOnly: !isEdit,
+                          }}
+                          id="current_address" 
+                          name="current_address" 
+                          label="Current Street Address" 
+                          variant="outlined" 
+                          style={{ width: '100%'}} value={userData.current_address}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+                        />
+                      </div>
+                    </div>
+                    
+
+                    <div className="md:flex md:space-x-4 mb-4">
                       <TextField 
                         type="url" 
                         onChange={handleInputChange} 
@@ -817,7 +917,7 @@ import dayjs from "dayjs";
                         name="url_google_map" 
                         label="URL Google Map" 
                         variant="outlined" 
-                        style={{ width: '100%', marginBottom:"20px" }} value={userData.url_google_map}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+                        style={{ width: '100%'}} value={userData.url_google_map}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  
                       />
                     </div>
 

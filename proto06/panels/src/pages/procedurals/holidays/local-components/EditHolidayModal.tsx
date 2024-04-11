@@ -117,8 +117,8 @@ export default function EditHolidayModal(props:Props) {
             holiday_description: holidayDetails.holiday_description,
             holiday_type: holidayDetails.holiday_type,
             holiday_location: holidayDetails.holiday_location,
-            city_ref: address.city.id?? holidayDetails.city_ref,
-            province_ref: address.province.id?? holidayDetails.province_ref,
+            city_ref: address.city?.id?? holidayDetails.city_ref,
+            province_ref: holidayDetails.province_ref?.id,
             added_by: currUser?.emp_no
         }
 
@@ -127,6 +127,14 @@ export default function EditHolidayModal(props:Props) {
             case 'National':
                 payload.province_ref = null
                 payload.city_ref = null
+                break
+
+            case 'Province':
+                payload.city_ref = null
+                break
+
+            case 'City':
+                payload.province_ref = null
                 break
 
             default:
@@ -155,8 +163,18 @@ export default function EditHolidayModal(props:Props) {
         })
     }
 
+    const updateAddress = (name:string, newValue:any) => {
+
+        setHolidayDetails((curr:any) => ({
+            ...curr,
+            [name]: newValue
+        }))
+      
+    }
+
     const validateHoliday = (data:any) => {
 
+        console.log(data)
         let errors:any = {}
 
         !data.holiday_date && (errors["Holiday Date"] = "Holiday Date should be required")
@@ -184,9 +202,7 @@ export default function EditHolidayModal(props:Props) {
             return true
         }
         return false
-        
-
-        
+             
 
     }
 
@@ -287,9 +303,9 @@ export default function EditHolidayModal(props:Props) {
 
                     {holidayDetails?.holiday_location == "Province" && 
                         <Province 
-                            province_id={holidayDetails?.province_ref}
-                            setState={setAddress} 
-                            state={address}
+                            updateAddress={updateAddress}
+                            name="province_ref"
+                            defaultProvinceId={holidayDetails.province_ref}
                         />
                     }
 

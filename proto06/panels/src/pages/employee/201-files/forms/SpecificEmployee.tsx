@@ -39,7 +39,7 @@ import { APILink, app_status, RootState } from '@/store/configureStore';
 import { EMPLOYEESViewInterface } from '@/types/types-store';
 import FormData from 'form-data';
 import { beautifyJSON } from '@/helpers/utils';
-import { drop } from 'lodash';
+import { drop, update } from 'lodash';
 
 // COMPONENTS
 import Province from '@/public-components/forms/address/Province'
@@ -74,7 +74,6 @@ export const SpecificEmployee = (props: initialState) => {
     //STORE
     const currUser = useSelector((state: RootState) => state.auth.employee_detail)
     const userData = useSelector((state: RootState) => state.employees.specific_employee_info);
-    console.log(userData)
 
     //STATE
     const [file, setFile] = useState<File | null>(null);
@@ -87,27 +86,10 @@ export const SpecificEmployee = (props: initialState) => {
     const [type, setType] = useState("staticInfo");
 
     const [formSelectData, setFormSelectData] = useState({
-        // employee_image: userData?.employee_image,
-        permanent_province: {
-            id: null,
-            name: null,
-            code: null
-        },
-        permanent_city: {
-            id: null,
-            name: null,
-            code: null
-        },
-        current_province: {
-            id: null,
-            name: null,
-            code: null
-        },
-        current_city: {
-            id: null,
-            name: null,
-            code: null
-        }
+        permanent_province_code:null,
+        permanent_city_code:null,
+        current_province_code:null,
+        current_city_code:null
     })
 
     // const [monthlySalary, setMonthlySalary] = useState<number>(0)
@@ -167,6 +149,7 @@ export const SpecificEmployee = (props: initialState) => {
     // }, [dropDownData, userDataStore]);
 
     useEffect(() => {
+
         if (userData) {
             userData.branch_code && fetchDepartments()
             for (const key in userData) {
@@ -178,6 +161,14 @@ export const SpecificEmployee = (props: initialState) => {
             fetchApprovers(parseInt(userData?.department_code))
         }
     }, [userData, setValue]);
+
+    useEffect(() => {
+
+        setFormSelectData(curr => ({
+            ...userData
+        }))
+
+    }, [userData]);
 
 
     // const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -194,6 +185,15 @@ export const SpecificEmployee = (props: initialState) => {
     //       setPreviewUrl(null);
     //     }
     // };
+
+    const updateAddress = (name:string, newValue:any) => {
+
+        setFormSelectData((curr:any) => ({
+            ...curr,
+            [name]: newValue
+        }))
+      
+    }
 
     const handleProfilePic = (e:any) => {
 
@@ -293,8 +293,6 @@ export const SpecificEmployee = (props: initialState) => {
             department: department
           }
         }).then((response:any) => {
-
-            console.log(response.data)
   
             const responseApprovers = response.data.map((approver:any) => {
                 return {
@@ -470,8 +468,14 @@ export const SpecificEmployee = (props: initialState) => {
             ecola: data.ecola ?? 0,
             approver1: data.approver1,
             approver2: data.approver2,
-            province_code: data.province?.id?? userData?.province_code,
-            city_code: data.city?.id?? userData?.city_code,
+            permanent_province_code: data.permanent_province_code?? userData?.permanent_province_code,
+            permanent_city_code: data.permanent_city_code?? userData?.permanent_city_code,
+            permanent_address: data.permanent_address,
+            current_province_code: data.current_province_code?? userData?.current_province_code,
+            current_city_code: data.current_city_code?? userData?.current_city_code,
+            current_address: data.current_address,
+            // province_code: data.permanent_province_code?? userData?.permanent_province_code,
+            // city_code: data.permanent_city_code?? userData?.permanent_city_code,
             branch_code: data.branch_code,
             department_code: data.department_code,
             division_code: data.division_code,
@@ -480,7 +484,6 @@ export const SpecificEmployee = (props: initialState) => {
             payroll_group_code: data.payroll_group_code,
             employment_status: data.employment_status,
             url_google_map: data.url_google_map,
-            provincial_address: data.provincial_address,
             employee_type: data.employee_type,
             added_by: userData?.emp_no
             // rank_hierarchy: 0,
@@ -1083,43 +1086,8 @@ export const SpecificEmployee = (props: initialState) => {
                                             icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}    
                                         />
                                     </div>
-
-                                    <div className="my-4 md:flex md:items-center gap-4">
-                                        {/* <Province 
-                                            setState={setFormSelectData}
-                                        />
-                                        <CityMunicipality
-                                            state={formSelectData}
-                                            setState={setFormSelectData}
-                                        /> */}
-                                        
-                                        <SelectProvince 
-                                            setState={setFormSelectData}
-                                            isDisable={!editMode2}
-                                            province_code={userData?.province_code}
-                                        />
-                                        <SelectCityMunicipality 
-                                            state={formSelectData}
-                                            setState={setFormSelectData}
-                                            isDisable={!editMode2}
-                                            city_code={userData?.city_code}
-                                        />
-                                        <Input
-                                            crossOrigin={undefined} {...register('address')}
-                                            type="text"
-                                            containerProps={{ className: "mb-2 md:mb-0" }}
-                                            label="Street Address:"
-                                            labelProps={{ style: { color: true ? "unset" : '' } }}
-                                            disabled={!editMode2}                                    
-                                        />
-                                        {/* <Input
-                                            crossOrigin={undefined} {...register('provincial_address')}
-                                            label="Provincial Address:"
-                                            labelProps={{ style: { color: true ? "unset" : '' } }}
-                                            disabled={!editMode2}
-                                            icon={<LockClosedOutline className="h-5 w-5 text-blue-gray-300" />}    
-                                        /> */}
-                                    </div>
+                                    
+                                    
                                     <div className="my-4 md:flex md:items-center gap-4">
                                         <Input
                                             crossOrigin={undefined} {...register('profession')}
@@ -1140,50 +1108,75 @@ export const SpecificEmployee = (props: initialState) => {
                                     
                                 </div>
                             </div>
-                            <div style={{width: "100%"}}>
+                            <div>
+                                <div>
                                     <Typography
-                                    variant="small"
-                                    color="blue-gray"
-                                    className="mb-4 font-medium"
-                                    >
-                                    Permanent Address
+                                        variant="small"
+                                        color="blue-gray"
+                                        className="mb-4 font-medium"
+                                        >
+                                        Permanent Address
                                     </Typography>
-                                
-
-                                    <div className="my-4 md:flex md:items-center gap-4">
-                                        
-                                        <SelectProvince 
-                                            setState={setFormSelectData}
-                                            isDisable={!editMode2}
-                                            province_code={userData?.permanent_province_code}
-                                            customKey="permanent_province"
-                                        />
-                                        <SelectCityMunicipality 
-                                            customKey="permanent_city"
-                                            province_code={formSelectData.permanent_province?.code?? userData?.permanent_province_code}
-                                            state={formSelectData}
-                                            setState={setFormSelectData}
-                                            isDisable={!editMode2}
-                                            city_code={userData?.city_code}
-                                        />
-                                        <Input
-                                            crossOrigin={undefined} {...register('address')}
-                                            type="text"
-                                            containerProps={{ className: "mb-2 md:mb-0" }}
-                                            label="Street Address:"
-                                            labelProps={{ style: { color: true ? "unset" : '' } }}
-                                            disabled={!editMode2}                                    
-                                        />
-                                        {/* <Input
-                                            crossOrigin={undefined} {...register('provincial_address')}
-                                            label="Provincial Address:"
-                                            labelProps={{ style: { color: true ? "unset" : '' } }}
-                                            disabled={!editMode2}
-                                            icon={<LockClosedOutline className="h-5 w-5 text-blue-gray-300" />}    
-                                        /> */}
-                                    </div>                             
                                 </div>
+                                <div className="my-4 md:flex md:items-center gap-4">
+                                    <SelectProvince 
+                                        defaultProvinceId={userData?.permanent_province_code}
+                                        updateAddress={updateAddress}
+                                        isDisable={!editMode2}
+                                        name="permanent_province_code"
+                                    />
+                                    <SelectCityMunicipality 
+                                        updateAddress={updateAddress}
+                                        name="permanent_city_code"
+                                        defaultCityId={formSelectData?.permanent_city_code}
+                                        currentProvinceCode={formSelectData.permanent_province_code?? userData?.permanent_province_code}
+                                        isDisable={!editMode2}
+                                    />
+                                    <Input
+                                        crossOrigin={undefined} {...register('permanent_address')}
+                                        type="text"
+                                        containerProps={{ className: "mb-2 md:mb-0" }}
+                                        label="Permanent Street Address:"
+                                        labelProps={{ style: { color: true ? "unset" : '' } }}
+                                        disabled={!editMode2}                                    
+                                    />
+                                </div>
+                            </div>
 
+                            <div>
+                                <div>
+                                    <Typography
+                                        variant="small"
+                                        color="blue-gray"
+                                        className="mb-4 font-medium"
+                                        >
+                                        Current Address
+                                    </Typography>
+                                </div>
+                                <div className="my-4 md:flex md:items-center gap-4">
+                                    <SelectProvince 
+                                        defaultProvinceId={userData?.current_province_code}
+                                        updateAddress={updateAddress}
+                                        isDisable={!editMode2}
+                                        name="current_province_code"
+                                    />
+                                    <SelectCityMunicipality 
+                                        updateAddress={updateAddress}
+                                        name="current_city_code"
+                                        defaultCityId={formSelectData?.current_city_code}
+                                        currentProvinceCode={formSelectData.current_province_code?? userData?.current_province_code}
+                                        isDisable={!editMode2}
+                                    />
+                                    <Input
+                                        crossOrigin={undefined} {...register('current_address')}
+                                        type="text"
+                                        containerProps={{ className: "mb-2 md:mb-0" }}
+                                        label="Current Street Address:"
+                                        labelProps={{ style: { color: true ? "unset" : '' } }}
+                                        disabled={!editMode2}                                    
+                                    />
+                                </div>
+                            </div>
                             
                             {/* <div className="my-0">
                                 <div className="my-0 flex flex-wrap xl:flex-nowrap items-center gap-4">

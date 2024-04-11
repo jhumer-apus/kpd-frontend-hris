@@ -358,7 +358,8 @@ export const UserProfile = () => {
     !data.birthday && (errors["Birthday"] = "Birthday is required")
     !data.civil_status && (errors["Civil Status"] = "Civil Status is required")
     !data.gender && (errors["Gender"] = "Gender is required")
-    !data.address && (errors["Street Address"] = "Street Address is required")
+    !data.current_address && (errors["Current Street Address"] = "Current Street Address is required")
+    !data.permanent_address && (errors["Permanent Street Address"] = "Permanent Street Address is required")
     // !data.mobile_phone && (errors["Mobile Phone"] = "Mobile Phone is required")
     !data.email_address && (errors["Email Address"] = "Email Address is required")
     !data.bio_id && (errors["Bio ID"] = "Bio ID is required")
@@ -371,8 +372,8 @@ export const UserProfile = () => {
     !data.emp_salary_basic && (errors["Daily Salary"] = "Daily Salary is required")
     // !data.emp_salary_type && (errors["Daily Salary"] = "Employee Number is required")
     !data.approver1 && (errors["Approver 1"] = "Approver 1 is required")
-    !data.province_code && (errors["Current Province"] = "Current Province is required")
-    !data.city_code && (errors["Current City"] = "Current City is required")
+    !data.current_province_code && (errors["Current Province"] = "Current Province is required")
+    !data.current_city_code && (errors["Current City"] = "Current City is required")
     !data.permanent_province_code && (errors["Permanent Province"] = "Permanent Province is required")
     !data.permanent_city_code && (errors["Permanent City"] = "Permanent City is required")
     !data.branch_code && (errors["Branch"] = "Branch is required")
@@ -451,8 +452,8 @@ export const UserProfile = () => {
       ecola: employeeData.ecola ?? 0,
       approver1: employeeData.approver1,
       approver2: employeeData.approver2?? null,
-      province_code: employeeData.province?.id?? "",
-      city_code: employeeData.city?.id ?? "",
+      current_province_code: employeeData.current_province?.id?? "",
+      current_city_code: employeeData.current_city?.id ?? "",
       permanent_province_code: employeeData.permanent_province?.id?? "",
       permanent_city_code: employeeData.permanent_city?.id ?? "",
       branch_code: employeeData.branch_code ?? "",
@@ -471,7 +472,8 @@ export const UserProfile = () => {
       // pagibig_data: null,
       // sss_data: null,
       // philhealth_data: null,
-      provincial_address: employeeData.provincial_address,
+      permanent_address: employeeData.permanent_address,
+      current_address: employeeData.current_address,
       // date_resigned: null,
       // date_added: '',
       // tax_code: null,
@@ -495,21 +497,24 @@ export const UserProfile = () => {
         
         formData.append(key, finalData[key as keyof EMPLOYEESViewInterface]);
     }
-    try {
-        const response = await axios.post(
-          `${APILink}employees/`,
-          formData,
+      const response = await axios.post(
+        `${APILink}employees/`,
+        formData,
 
-        );
+      ).then(response => {
+
         window.alert(`${response.status >= 200 && response.status < 300 && 'Request Successful'}`)
         setTimeout(()=>{
             location.reload();
         }, 800)
-      } catch (err: any) {
+
+      }).catch(err => {
+
         console.error(err);
         window.alert(`${beautifyJSON(err.response?.data)}`)
         setEditMode(true);
-      }
+
+      });
   };
 
   //STATIC

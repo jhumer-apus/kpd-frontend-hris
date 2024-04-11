@@ -79,6 +79,15 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
     const [value, setValue] = React.useState<string | null>(holiday_location[0]);
     const [inputValue, setInputValue] = React.useState('');
 
+    const updateAddress = (name:string, newValue:any) => {
+
+        setCreateHolidayForm((curr:any) => ({
+            ...curr,
+            [name]: newValue
+        }))
+      
+    }
+
     const validateHoliday = (data:HolidayGetType) => {
 
         let errors:any = {}
@@ -108,10 +117,6 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
             return true
         }
         return false
-        
-
-        
-
     }
     const submitNewHoliday = () => {
         
@@ -232,8 +237,8 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
 
                 {createHolidayForm.holiday_location == "Province" && 
                     <Province 
-                        state={createHolidayForm}
-                        setState={setCreateHolidayForm}
+                        updateAddress={updateAddress}
+                        name="province"
                     />
                 }
                 {createHolidayForm.holiday_location == "City" && 

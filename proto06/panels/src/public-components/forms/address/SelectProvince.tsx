@@ -9,6 +9,7 @@ import { Select, Option } from "@material-tailwind/react";
 
 //REDUX
 import { APILink, RootState } from '@/store/configureStore';
+import { update } from 'lodash';
 
 interface ProvinceInterface {
     id: number,
@@ -17,18 +18,20 @@ interface ProvinceInterface {
 }
 
 interface Props {
-    province_code?: any,
-    setState: any
-    isDisable: boolean
-    customKey: string | null | undefined
+    updateAddress: (name: string, newValue: any) => void;
+    defaultProvinceId? : number | null;
+    isReadOnly?: boolean;
+    name: string;
+    isDisable?: boolean
 }
 export default function SelectProvince(props: Props) {
 
     //PROPS
-    const { setState, province_code, isDisable, customKey } = props
+    const { updateAddress, defaultProvinceId, isDisable, isReadOnly, name } = props
 
     //STATES
     const [provinces, setProvinces] = useState<ProvinceInterface[]>([])
+    const [currentProvince, setCurrentProvince] = useState<number | null |undefined>(defaultProvinceId)
 
     //USE EFFECTS
     useEffect(() => {
@@ -52,29 +55,16 @@ export default function SelectProvince(props: Props) {
         })
 
     }
-    const findProvince = (val:any) => {
-        return provinces.find(prov => prov.id == val)
-    }
+    // const findProvince = (val:any) => {
+    //     return provinces.find(prov => prov.id == val)
+    // }
 
     const handleChange = (newValue: string | number) => {
 
         if(newValue) {
 
-            if(customKey) {
 
-                setState((curr:any) => ({
-                    ...curr,
-                   [customKey]: findProvince(newValue)
-                }))
-
-            } else {
-
-                setState((curr:any) => ({
-                    ...curr,
-                    province: findProvince(newValue)
-                }))
-
-            }
+            updateAddress(name, newValue)
         }
     }
 
@@ -85,7 +75,7 @@ export default function SelectProvince(props: Props) {
                     label="Province:"
                     placeholder="Select Province"
                     onChange={handleChange}
-                    value={province_code}
+                    value={defaultProvinceId}
                     disabled={isDisable}
                 >
                     {provinces.length > 0 ? provinces.map((province: ProvinceInterface) => (
