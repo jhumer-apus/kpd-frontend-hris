@@ -161,17 +161,17 @@
 
     //HOOKS
     // const {province, status, error} = useGetSpecificProvince(userData?.permanent_province_code)
-    const permanentProvince = useGetSpecificProvince(userData?.permanent_province_code)
-    const currentProvince = useGetSpecificProvince(userData?.current_province_code)
+    // const permanentProvince = useGetSpecificProvince(userData?.permanent_province_code)
+    // const currentProvince = useGetSpecificProvince(userData?.current_province_code)
 
-    useEffect(() => {
+    // useEffect(() => {
 
-      setAddress(curr => ({
-        ...curr,
-        permanent_province: permanentProvince.province,
-        current_province: currentProvince.province
-      }))
-    },[])
+    //   setAddress(curr => ({
+    //     ...curr,
+    //     permanent_province: permanentProvince.province,
+    //     current_province: currentProvince.province
+    //   }))
+    // },[])
 
 
     const handleTabClick = (tab:any) => {
@@ -368,9 +368,9 @@
 
     const updateAddress = (name:string, newValue:any) => {
 
-      setUserData((curr:any) => ({
+      setAddress((curr:any) => ({
           ...curr,
-          [name]: newValue?.id
+          [name]: newValue
       }))
     
     }
@@ -404,13 +404,15 @@
 
     const updatePersonalInfo = async () => {
 
-      console.log(userData)
+
       setIsSubmittingRequest(true)
       // console.log(userData.middle_name)
       const formData = new FormData ();
 
-      // formData.append('province_code', address?.province?.id)
-      // formData.append('city_code', address?.city?.id)
+      formData.append('permanent_province_code', address?.permanent_province?.id)
+      formData.append('permanent_city_code', address?.permanent_city?.id)
+      formData.append('current_province_code', address?.current_province?.id)
+      formData.append('current_city_code', address?.current_city?.id)
       
       for(const key in userData) {
 
@@ -441,6 +443,7 @@
       }
 
       formData.append('added_by', curr_user?.emp_no)
+
       await axios.put(`${APILink}update_personal_profile/${userData.emp_no}/`, formData).then(res => {
 
         setIsSubmittingRequest(false)
@@ -839,15 +842,14 @@
                         <Province 
                           updateAddress={updateAddress}
                           defaultProvinceId={userData.permanent_province_code}
-                          name="permanent_province_code"
+                          name="permanent_province"
                           isReadOnly={!isEdit}
                         />
-                        {address?.permanent_province?.code}
                         <CityMunicipality 
                           currentProvinceCode={address?.permanent_province?.code}
                           updateAddress={updateAddress}
                           defaultCityId={userData.permanent_city_code}
-                          name="permanent_city_code"
+                          name="permanent_city"
                           isReadOnly={!isEdit}
                         />
 
@@ -861,7 +863,7 @@
                           name="permanent_address" 
                           label="Permanent Street Address" 
                           variant="outlined" 
-                          style={{ width: '100%'}} value={userData.current_address}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+                          style={{ width: '100%'}} value={userData.permanent_address}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  
                         />
                       </div>
                     </div>
@@ -879,14 +881,14 @@
                         <Province 
                           updateAddress={updateAddress}
                           defaultProvinceId={userData.current_province_code}
-                          name="current_province_code"
+                          name="current_province"
                           isReadOnly={!isEdit}
                         />
                         <CityMunicipality 
-                          currentProvinceCode={userData.permanent_province_code}
+                          currentProvinceCode={address?.current_province?.code}
                           updateAddress={updateAddress}
-                          defaultCityId={userData.permanent_city_code}
-                          name="current_city_code"
+                          defaultCityId={userData.current_city_code}
+                          name="current_city"
                           isReadOnly={!isEdit}
                         />
 

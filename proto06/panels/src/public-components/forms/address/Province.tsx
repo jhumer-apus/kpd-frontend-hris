@@ -68,6 +68,8 @@ export default function Province(props: Props) {
             
             const selectedProvince = provinces.find(prov => prov.id == val)
 
+            console.log(selectedProvince)
+
             if(selectedProvince) {
                 
                 setCurrentProvince(curr => selectedProvince)
