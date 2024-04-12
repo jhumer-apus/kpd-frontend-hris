@@ -64,6 +64,13 @@ function OVERTIMEModalUI(props: OVERTIMEModalUIInterface) {
     const fileApprover1Approved = ThisProps.ot_date_approved1
     const fileApprover2Approved = ThisProps.ot_date_approved2
     const userIsHigherRank =  ((curr_user?.rank_data?.hierarchy as number) > singleOVERTIMEDetailsData?.applicant_rank)
+
+    useEffect(() => {
+        setSingleOVERTIMEDetailsData(curr => ({
+            ...curr,
+            added_by: curr_user?.emp_no
+        }))
+    },[])
     
     useEffect(()=> {
         if(fileHasTwoApprovers){

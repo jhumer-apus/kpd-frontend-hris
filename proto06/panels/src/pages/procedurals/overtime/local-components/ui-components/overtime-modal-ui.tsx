@@ -56,6 +56,10 @@ function OVERTIMEModalUI(props: OVERTIMEModalUIInterface) {
 
     
     useEffect(() => {
+        setSingleOVERTIMEDetailsData(curr => ({
+            ...curr,
+            added_by: curr_user?.emp_no
+        }))
         fetchCutOffPeriod()
     },[])
 

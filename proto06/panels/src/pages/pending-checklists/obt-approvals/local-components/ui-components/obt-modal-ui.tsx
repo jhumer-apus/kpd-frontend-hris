@@ -61,7 +61,10 @@ function OBTModalUI(props: OBTModalUIInterface) {
         
     };
     useEffect(() => {
-
+        setSingleOBTDetailsData((curr:any) => ({
+            ...curr,
+            added_by: curr_user?.emp_no
+        }))
         fetchCutOffPeriod()
 
     },[])

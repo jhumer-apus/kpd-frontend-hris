@@ -56,7 +56,7 @@ function CreateUAModal(props: createUAModalInterface) {
 
     return (
         <React.Fragment>
-            <Typography variant='soft'>Create an Unaccounted Attendance Datas</Typography>
+            <Typography variant='soft'>Create an Unaccounted Attendance Data</Typography>
             <ModalClose sx={{marginTop: '4px'}}/>
             <div className='flex flex-col gap-10 overflow-auto relative pt-10'>
                 <div className='flex flex-wrap gap-6'>

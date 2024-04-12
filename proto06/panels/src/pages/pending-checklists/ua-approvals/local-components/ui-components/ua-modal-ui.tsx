@@ -55,6 +55,10 @@ function UAModalUI(props: UAModalUIInterface) {
     };
 
     useEffect(() => {
+        setSingleUADetailsData(curr => ({
+            ...curr,
+            added_by: curr_user?.emp_no
+        }))
         fetchCutOffPeriod()
     },[])
 

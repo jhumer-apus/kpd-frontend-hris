@@ -58,6 +58,10 @@ function UAModalUI(props: UAModalUIInterface) {
     const userIsApprover = curr_user?.emp_no === ThisProps.ua_approver1_empno || curr_user?.emp_no === ThisProps.ua_approver2_empno || ((curr_user?.rank_hierarchy as number) == 6);
     
     useEffect(() => {
+        setSingleUADetailsData(curr => ({
+            ...curr,
+            added_by: curr_user?.emp_no
+        }))
         fetchCutOffPeriod()
     },[])
 

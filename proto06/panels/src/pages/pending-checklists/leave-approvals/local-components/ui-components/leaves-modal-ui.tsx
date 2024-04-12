@@ -87,6 +87,13 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
     const fileApprover2Approved = ThisProps.leave_date_approved2
     const userIsHigherRank =  ((curr_user?.rank_data?.hierarchy as number) > singleLEAVEDetailsData?.applicant_rank)
     const isSuperAdmin = curr_user?.rank_hierarchy == 6;
+
+    useEffect(() => {
+        setSingleLEAVEDetailsData(curr => ({
+            ...curr,
+            added_by: curr_user?.emp_no
+        }))
+    }, [])
     
     useEffect(()=> {
         if(fileHasTwoApprovers){

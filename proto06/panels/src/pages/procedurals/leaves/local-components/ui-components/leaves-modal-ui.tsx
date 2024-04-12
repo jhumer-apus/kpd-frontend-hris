@@ -81,6 +81,10 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
 
     
     useEffect(() => {
+        setSingleLEAVEDetailsData((curr:any) => ({
+            ...curr,
+            added_by: curr_user?.emp_no
+        }))
         fetchCutOffPeriod()
         fetchSpecificLeave(ThisProps.leave_type as number)
     },[])

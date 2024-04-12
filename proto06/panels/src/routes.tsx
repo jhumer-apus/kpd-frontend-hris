@@ -147,8 +147,8 @@ const JSXRouteWrapper = () => {
   const state = useSelector((state: RootState) => state.auth.employee_detail)
   const isAdmin = state?.user?.role !== INTERNAL_USER_ROLE.Employee && state?.user?.role !== INTERNAL_USER_ROLE.Manager
 
-  const isBasicEmployee = state?.user?.role !== INTERNAL_USER_ROLE.Employee
-  const isDepartmentManager = state?.user?.role !== INTERNAL_USER_ROLE.Manager
+  const isBasicEmployee = state?.user?.role == INTERNAL_USER_ROLE.Employee
+  const isDepartmentManager = state?.user?.role == INTERNAL_USER_ROLE.Manager
   const isHrStaff = state?.user?.role !== INTERNAL_USER_ROLE.HR_Staff
   const isHrDirectorManager = state?.user?.role !== INTERNAL_USER_ROLE.HR_Director_Manager
   const isHrSuperAdmin = state?.user?.role !== INTERNAL_USER_ROLE.HR_Super_Admin

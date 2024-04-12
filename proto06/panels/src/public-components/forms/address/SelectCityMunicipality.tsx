@@ -64,7 +64,7 @@ export default function SelectCityMunicipality(props:Props) {
     const fetchCities = async() => {
 
         if(currentProvinceCode) {
-            console.log("hehe")
+
             await axios.get(`${APILink}city_municipality/`,{
 
                 params: {
