@@ -40,6 +40,13 @@ export default function SelectProvince(props: Props) {
 
     }, [])
 
+    useEffect(() => {
+        if(defaultProvinceId) {
+            const provinceFound = findProvince(defaultProvinceId)
+            updateAddress(name, provinceFound)
+        }
+    },[provinces.length])
+
     //FUNCTIONS
     const fetchProvinces = async() => {
 
@@ -55,16 +62,16 @@ export default function SelectProvince(props: Props) {
         })
 
     }
-    // const findProvince = (val:any) => {
-    //     return provinces.find(prov => prov.id == val)
-    // }
+    const findProvince = (val:any) => {
+        return provinces.find(prov => prov.id == val)
+    }
 
     const handleChange = (newValue: string | number) => {
 
         if(newValue) {
 
-
-            updateAddress(name, newValue)
+            const provinceFound = findProvince(newValue)
+            updateAddress(name, provinceFound)
         }
     }
 

@@ -21,13 +21,13 @@ interface Props {
 
     updateAddress: (name: string, newValue: any) => void;
     defaultCityId? : number | null;
-    currentProvinceCode: number | string
+    currentProvinceCode: number | string | null
     isReadOnly?: boolean;
     name: string;
     isDisable?: boolean
 }
 
-export default function CityMunicipality(props:Props) {
+export default function SelectCityMunicipality(props:Props) {
     
     //PROPS
     const { isReadOnly, isDisable, defaultCityId, currentProvinceCode, name, updateAddress } = props
@@ -36,52 +36,39 @@ export default function CityMunicipality(props:Props) {
     const [cities, setCities] = useState<CityMunicipalityInterface[]>([])
     const [resetKey, setResetKey] = useState<number>(0);
 
-    const [currentCity, setCurrentCity] = useState<number| null| undefined>(null)
-
-    //HOOKS
-    const {province, status, error} = useGetSpecificProvince(currentProvinceCode)
+    const [currentCity, setCurrentCity] = useState<string | number| null| undefined>(null)
 
     //USE EFFECTS
     useEffect(() => {
 
-        // setResetKey(curr => curr + 1)
-        if(province) {
-            fetchCities()
-        }
-        
-    }, [province])
-
-    // useEffect(() => {
-    //     setCurrentCity(curr => null)
-
-        
-    // }, [resetKey])
-
-    useEffect(() => {
-        
+        setResetKey(curr => curr + 1)
+        setCurrentCity(curr => null)
         updateAddress(name, null)
-
-    },[currentProvinceCode])
+        fetchCities()
+        
+    }, [currentProvinceCode])
 
     useEffect(() => {
-        updateAddress(name, currentCity);
-    }, [currentCity]);
 
-    // useEffect(() => {
-        
-    //     setCurrentCity(curr => defaultCityId)
+        if(cities.length > 0) {
+            const foundCity = findCity(defaultCityId)
+            setCurrentCity(curr => defaultCityId)
+            updateAddress(name, foundCity)
 
-    // },[defaultCityId])
+        }
+
+    },[cities.length])
+
 
     //FUNCTIONS
     const fetchCities = async() => {
 
-        if(province) {
-
+        if(currentProvinceCode) {
+            console.log("hehe")
             await axios.get(`${APILink}city_municipality/`,{
 
                 params: {
-                    code: province?.code
+                    code: currentProvinceCode
                 }
     
             }).then((res:AxiosResponse) => {
@@ -97,17 +84,23 @@ export default function CityMunicipality(props:Props) {
         }
     }
 
-    // const findCity = (val:any) => {
-    //     return cities.find(city => city.id == val)
-    // }
+    const findCity = (val:any) => {
+        return cities.find(city => city.id == val)
+    }
 
     const handleChange = (newValue:any) => {
 
         if(newValue) {
-            setCurrentCity(curr => newValue)
-            // updateAddress(name, newValue)
+            console.log(newValue)
+            const cityFound = findCity(newValue)
+            // setCurrentCity(curr => newValue)
+            updateAddress(name, cityFound)
         }
     }
+
+    // useEffect(() => {
+    //     console.log(currentCity)
+    // },[currentCity])
 
     return (
         <div className='w-full'>
@@ -118,10 +111,10 @@ export default function CityMunicipality(props:Props) {
                     placeholder="Select City"
                     onChange={handleChange}
                     disabled={isDisable}
-                    value={defaultCityId}
+                    value={currentCity?.toString()}
                 >
                     {cities.length > 0 ? cities.map((city: CityMunicipalityInterface, index:number) => (
-                        <Option key={index} value={city.id}>{city.name}</Option>
+                        <Option key={index} value={city.id.toString()}>{city.name}</Option>
                     )):
                         <Option disabled>No cities available on the selected province</Option>
                     }

@@ -83,9 +83,18 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
         dispatch(BRANCHCreateAction(branchData))
     };
 
+    const updateAddress = (name:string, newValue:any) => {
+
+        setCreateBRANCH((curr:any) => ({
+            ...curr,
+            [name]: newValue
+        }))
+      
+    }
+
     useEffect(()=> {
         if(curr_user){
-            setCreateBRANCH((prevState) => {
+            setCreateBRANCH((prevState:any) => {
                 return (
                     {
                         ...prevState,
@@ -134,7 +143,7 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                             value={createBRANCH?.branch_name}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value = event.target.value
-                                setCreateBRANCH((prevState)=> {
+                                setCreateBRANCH((prevState:any)=> {
                                     return (
                                         {
                                             ...prevState,
@@ -146,11 +155,14 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                             
                         />
                         <Province 
-                            setState={setCreateBRANCH}
+                            updateAddress={updateAddress}
+                            defaultProvinceId={createBRANCH.branch_province}
+                            name="province"
                         />
                         <CityMunicipality 
-                            setState={setCreateBRANCH}
-                            state={createBRANCH}
+                            currentProvinceCode={createBRANCH?.province?.code}
+                            updateAddress={updateAddress}
+                            name="city"
                         />
                         <TextField
                             required

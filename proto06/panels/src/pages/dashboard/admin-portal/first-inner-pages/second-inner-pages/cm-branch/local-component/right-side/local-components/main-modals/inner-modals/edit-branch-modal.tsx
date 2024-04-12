@@ -67,6 +67,15 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
     }))
   }
 
+  const updateAddress = (name:string, newValue:any) => {
+
+      setAddress((curr:any) => ({
+          ...curr,
+          [name]: newValue
+      }))
+    
+  }
+
   useEffect(()=>{
  
       if(BRANCHEditState.status === `${globalReducerSuccess}`){
@@ -202,15 +211,16 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
                     })
                   }}
                 />
-                <Province
-                  state={address}
-                  setState={setAddress}
-                  province_id={singleBRANCHDetailsData.branch_province}
+                <Province 
+                  updateAddress={updateAddress}
+                  defaultProvinceId={singleBRANCHDetailsData.branch_province}
+                  name="province"
                 />
                 <CityMunicipality 
-                  state={address}
-                  city_id={singleBRANCHDetailsData.branch_city}
-                  setState={setAddress}
+                  currentProvinceCode={address?.province?.code}
+                  updateAddress={updateAddress}
+                  defaultCityId={singleBRANCHDetailsData.branch_city}
+                  name="city"
                 />
                 <TextField
                   className='w-full'

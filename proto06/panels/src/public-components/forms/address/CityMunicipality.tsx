@@ -44,7 +44,6 @@ export default function CityMunicipality(props:Props) {
         updateAddress(name, null)
 
         fetchCities()
-        console.log(currentProvinceCode)
     }, [currentProvinceCode])
 
     useEffect(() => {
@@ -60,7 +59,6 @@ export default function CityMunicipality(props:Props) {
     //FUNCTIONS
     const fetchCities = async() => {
 
-        console.log(currentProvinceCode)
         if(currentProvinceCode) {
             await axios.get(`${APILink}city_municipality/`,{
 

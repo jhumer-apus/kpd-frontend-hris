@@ -86,10 +86,26 @@ export const SpecificEmployee = (props: initialState) => {
     const [type, setType] = useState("staticInfo");
 
     const [formSelectData, setFormSelectData] = useState({
-        permanent_province_code:null,
-        permanent_city_code:null,
-        current_province_code:null,
-        current_city_code:null
+        permanent_province:{
+            id:null,
+            name:null,
+            code:null
+        },
+        permanent_city:{
+            id:null,
+            name:null,
+            code:null
+        },
+        current_province:{
+            id:null,
+            name:null,
+            code:null
+        },
+        current_city:{
+            id:null,
+            name:null,
+            code:null
+        },
     })
 
     // const [monthlySalary, setMonthlySalary] = useState<number>(0)
@@ -119,8 +135,6 @@ export const SpecificEmployee = (props: initialState) => {
         fetchPositions()
         fetchDivisions()
 
-        console.log(userData?.approver1)
-        console.log(userData?.approver2)
         if(userData?.department_code) {
             fetchApprovers(parseInt(userData?.department_code))
         }
@@ -468,12 +482,12 @@ export const SpecificEmployee = (props: initialState) => {
             ecola: data.ecola ?? 0,
             approver1: data.approver1,
             approver2: data.approver2,
-            permanent_province_code: data.permanent_province_code?? userData?.permanent_province_code,
-            permanent_city_code: data.permanent_city_code?? userData?.permanent_city_code,
-            permanent_address: data.permanent_address,
-            current_province_code: data.current_province_code?? userData?.current_province_code,
-            current_city_code: data.current_city_code?? userData?.current_city_code,
-            current_address: data.current_address,
+            permanent_province_code: data.permanent_province?.id?? userData?.permanent_province_code,
+            permanent_city_code: data.permanent_city?.id?? userData?.permanent_city_code,
+            permanent_address: data?.permanent_address,
+            current_province_code: data.current_province?.id?? userData?.current_province_code,
+            current_city_code: data.current_city?.id?? userData?.current_city_code,
+            current_address: data?.current_address,
             // province_code: data.permanent_province_code?? userData?.permanent_province_code,
             // city_code: data.permanent_city_code?? userData?.permanent_city_code,
             branch_code: data.branch_code,
@@ -1123,13 +1137,13 @@ export const SpecificEmployee = (props: initialState) => {
                                         defaultProvinceId={userData?.permanent_province_code}
                                         updateAddress={updateAddress}
                                         isDisable={!editMode2}
-                                        name="permanent_province_code"
+                                        name="permanent_province"
                                     />
                                     <SelectCityMunicipality 
                                         updateAddress={updateAddress}
-                                        name="permanent_city_code"
-                                        defaultCityId={formSelectData?.permanent_city_code}
-                                        currentProvinceCode={formSelectData.permanent_province_code?? userData?.permanent_province_code}
+                                        name="permanent_city"
+                                        defaultCityId={userData?.permanent_city_code}
+                                        currentProvinceCode={formSelectData.permanent_province?.code}
                                         isDisable={!editMode2}
                                     />
                                     <Input
@@ -1158,13 +1172,13 @@ export const SpecificEmployee = (props: initialState) => {
                                         defaultProvinceId={userData?.current_province_code}
                                         updateAddress={updateAddress}
                                         isDisable={!editMode2}
-                                        name="current_province_code"
+                                        name="current_province"
                                     />
                                     <SelectCityMunicipality 
                                         updateAddress={updateAddress}
-                                        name="current_city_code"
+                                        name="current_city"
                                         defaultCityId={formSelectData?.current_city_code}
-                                        currentProvinceCode={formSelectData.current_province_code?? userData?.current_province_code}
+                                        currentProvinceCode={formSelectData.current_province?.code}
                                         isDisable={!editMode2}
                                     />
                                     <Input
