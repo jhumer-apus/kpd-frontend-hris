@@ -135,6 +135,15 @@ function OBTModalUI(props: OBTModalUIInterface) {
                     )
                 })
             }
+        }else if (UserApprover1 || UserApprover2) {
+            setApprovalState((prevState: ApprovalStateInterface) => {
+                return (
+                    {
+                        buttonDisabled: false,
+                        message1Show: false,
+                    }
+                )
+            })
         }else if(!UserApprover1 && !UserApprover2 && isHrSuperAdmin) {
             setApprovalState((prevState: ApprovalStateInterface) => {
                 return (
