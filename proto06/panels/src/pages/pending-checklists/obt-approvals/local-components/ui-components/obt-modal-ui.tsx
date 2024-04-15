@@ -84,6 +84,7 @@ function OBTModalUI(props: OBTModalUIInterface) {
     const fileApprover1Approved = ThisProps.obt_date_approved1
     const fileApprover2Approved = ThisProps.obt_date_approved2
     const userIsHigherRank =  ((curr_user?.rank_data?.hierarchy as number) > singleOBTDetailsData?.applicant_rank)
+    const isHrSuperAdmin = curr_user?.rank_hierarchy == 5 || curr_user?.rank_code == 6;
     
     useEffect(()=> {
         if(fileHasTwoApprovers){
@@ -115,6 +116,15 @@ function OBTModalUI(props: OBTModalUIInterface) {
                         }
                     )
                 })
+            }else if(isHrSuperAdmin) {
+                setApprovalState((prevState: ApprovalStateInterface) => {
+                    return (
+                        {
+                            buttonDisabled: false,
+                            message1Show: false,
+                        }
+                    )
+                })
             }else {
                 setApprovalState((prevState: ApprovalStateInterface) => {
                     return (
@@ -125,8 +135,16 @@ function OBTModalUI(props: OBTModalUIInterface) {
                     )
                 })
             }
-        }
-        if(!UserApprover1 && !UserApprover2) {
+        }else if(!UserApprover1 && !UserApprover2 && isHrSuperAdmin) {
+            setApprovalState((prevState: ApprovalStateInterface) => {
+                return (
+                    {
+                        buttonDisabled: false,
+                        message1Show: false,
+                    }
+                )
+            })
+        } else {
             setApprovalState((prevState: ApprovalStateInterface) => {
                 return (
                     {
@@ -137,7 +155,7 @@ function OBTModalUI(props: OBTModalUIInterface) {
             })
         }
 
-    }, [approvalState])
+    }, [])
 
     return (
         <React.Fragment>

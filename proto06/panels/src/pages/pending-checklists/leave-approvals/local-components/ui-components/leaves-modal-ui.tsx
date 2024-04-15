@@ -86,7 +86,7 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
     const fileApprover1Approved = ThisProps.leave_date_approved1
     const fileApprover2Approved = ThisProps.leave_date_approved2
     const userIsHigherRank =  ((curr_user?.rank_data?.hierarchy as number) > singleLEAVEDetailsData?.applicant_rank)
-    const isSuperAdmin = curr_user?.rank_hierarchy == 6;
+    const isHrSuperAdmin = curr_user?.rank_hierarchy == 5 || curr_user?.rank_code == 6;
 
     useEffect(() => {
         setSingleLEAVEDetailsData(curr => ({
@@ -125,7 +125,16 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
                         }
                     )
                 })
-            }else {
+            }else if (isHrSuperAdmin) {
+                setApprovalState((prevState: ApprovalStateInterface) => {
+                    return (
+                        {
+                            buttonDisabled: false,
+                            message1Show: false,
+                        }
+                    )
+                })
+            } else {
                 setApprovalState((prevState: ApprovalStateInterface) => {
                     return (
                         {
@@ -135,7 +144,16 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
                     )
                 })
             }
-        }else if(!UserApprover1 && !UserApprover2) {
+        }else if (!UserApprover1 && !UserApprover2 && isHrSuperAdmin) {
+            setApprovalState((prevState: ApprovalStateInterface) => {
+                return (
+                    {
+                        buttonDisabled: false,
+                        message1Show: false,
+                    }
+                )
+            })
+        }else {
             setApprovalState((prevState: ApprovalStateInterface) => {
                 return (
                     {
@@ -145,8 +163,7 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
                 )
             })
         }
-
-    }, [approvalState])
+    }, [])
 
     useEffect(() => {
 

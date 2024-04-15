@@ -64,6 +64,7 @@ function OVERTIMEModalUI(props: OVERTIMEModalUIInterface) {
     const fileApprover1Approved = ThisProps.ot_date_approved1
     const fileApprover2Approved = ThisProps.ot_date_approved2
     const userIsHigherRank =  ((curr_user?.rank_data?.hierarchy as number) > singleOVERTIMEDetailsData?.applicant_rank)
+    const isHrSuperAdmin = curr_user?.rank_hierarchy == 5 || curr_user?.rank_code == 6;
 
     useEffect(() => {
         setSingleOVERTIMEDetailsData(curr => ({
@@ -102,6 +103,15 @@ function OVERTIMEModalUI(props: OVERTIMEModalUIInterface) {
                         }
                     )
                 })
+            }else if (isHrSuperAdmin) {
+                setApprovalState((prevState: ApprovalStateInterface) => {
+                    return (
+                        {
+                            buttonDisabled: false,
+                            message1Show: false,
+                        }
+                    )
+                })
             }else {
                 setApprovalState((prevState: ApprovalStateInterface) => {
                     return (
@@ -112,7 +122,16 @@ function OVERTIMEModalUI(props: OVERTIMEModalUIInterface) {
                     )
                 })
             }
-        } else if (!UserApprover1 && !UserApprover1) {
+        } else if (!UserApprover1 && !UserApprover1 && isHrSuperAdmin) {
+            setApprovalState((prevState: ApprovalStateInterface) => {
+                return (
+                    {
+                        buttonDisabled: false,
+                        message1Show: false,
+                    }
+                )
+            })
+        } else {
             setApprovalState((prevState: ApprovalStateInterface) => {
                 return (
                     {
@@ -123,7 +142,7 @@ function OVERTIMEModalUI(props: OVERTIMEModalUIInterface) {
             })
         }
 
-    }, [approvalState])
+    }, [])
 
     useEffect(() => {
         fetchCutOffPeriod()

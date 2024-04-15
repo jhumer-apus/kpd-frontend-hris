@@ -81,6 +81,7 @@ function UAModalUI(props: UAModalUIInterface) {
     const fileApprover1Approved = ThisProps.ua_date_approved1
     const fileApprover2Approved = ThisProps.ua_date_approved2
     const userIsHigherRank =  ((curr_user?.rank_data?.hierarchy as number) > singleUADetailsData?.applicant_rank)
+    const isHrSuperAdmin = curr_user?.rank_hierarchy == 5 || curr_user?.rank_code == 6;
     
     useEffect(()=> {
         if(fileHasTwoApprovers){
@@ -112,6 +113,15 @@ function UAModalUI(props: UAModalUIInterface) {
                         }
                     )
                 })
+            }else if(isHrSuperAdmin) {
+                setApprovalState((prevState: ApprovalStateInterface) => {
+                    return (
+                        {
+                            buttonDisabled: false,
+                            message1Show: false,
+                        }
+                    )
+                })
             }else {
                 setApprovalState((prevState: ApprovalStateInterface) => {
                     return (
@@ -122,8 +132,16 @@ function UAModalUI(props: UAModalUIInterface) {
                     )
                 })
             }
-        }
-        else if(!UserApprover1 && !UserApprover2) {
+        }else if(!UserApprover1 && !UserApprover2 && isHrSuperAdmin) {
+            setApprovalState((prevState: ApprovalStateInterface) => {
+                return (
+                    {
+                        buttonDisabled: false,
+                        message1Show: false,
+                    }
+                )
+            })
+        }else {
             setApprovalState((prevState: ApprovalStateInterface) => {
                 return (
                     {

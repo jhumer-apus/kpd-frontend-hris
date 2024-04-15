@@ -55,7 +55,8 @@ function UAModalUI(props: UAModalUIInterface) {
         
     };
     // const userIsApprover = curr_user?.emp_no === ThisProps.ua_approver1_empno || curr_user?.emp_no === ThisProps.ua_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleUADetailsData?.applicant_rank);
-    const userIsApprover = curr_user?.emp_no === ThisProps.ua_approver1_empno || curr_user?.emp_no === ThisProps.ua_approver2_empno || ((curr_user?.rank_hierarchy as number) == 6);
+    const isHrSuperAdmin = ((curr_user?.rank_hierarchy as number) == 5) || ((curr_user?.rank_code as number) == 6)
+    const userIsApprover = curr_user?.emp_no === ThisProps.ua_approver1_empno || curr_user?.emp_no === ThisProps.ua_approver2_empno || isHrSuperAdmin;
     
     useEffect(() => {
         setSingleUADetailsData(curr => ({

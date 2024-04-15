@@ -122,7 +122,8 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
     }
 
     // const userIsApprover = (curr_user?.emp_no === ThisProps.leave_approver1_empno || curr_user?.emp_no === ThisProps.leave_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleLEAVEDetailsData?.applicant_rank));
-    const userIsApprover = ((curr_user?.emp_no == ThisProps.leave_approver1_empno || curr_user?.emp_no == ThisProps.leave_approver2_empno || ((curr_user?.rank_hierarchy as number) == 6)) && ![ThisProps.leave_approver1_empno, ThisProps.leave_approver2_empno].includes(ThisProps.emp_no) && curr_user?.emp_no != ThisProps.emp_no);
+    const isHrSuperAdmin = ((curr_user?.rank_hierarchy as number) == 5) || ((curr_user?.rank_code as number) == 6)
+    const userIsApprover = ((curr_user?.emp_no == ThisProps.leave_approver1_empno || curr_user?.emp_no == ThisProps.leave_approver2_empno || isHrSuperAdmin) && ![ThisProps.leave_approver1_empno, ThisProps.leave_approver2_empno].includes(ThisProps.emp_no) && curr_user?.emp_no != ThisProps.emp_no);
     return (
         <React.Fragment>
             <ApproveLEAVEModal singleLEAVEDetailsData={singleLEAVEDetailsData} setSingleLEAVEDetailsData={setSingleLEAVEDetailsData} approveLEAVEOpenModal={approveLEAVEOpenModal} setApproveLEAVEOpenModal={setApproveLEAVEOpenModal}/>
