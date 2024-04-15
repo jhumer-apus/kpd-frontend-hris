@@ -55,6 +55,7 @@ export default function LEAVETYPEFetchAutoCompleteOnLEAVECREDITPage(props: LEAVE
         }
     }, [dataArray]);
 
+    console.log(LEAVETYPEList)
     const options = LEAVETYPEList?.map((option) => {
         const firstLetter = option.LEAVETYPE[0].toUpperCase();
         return {
@@ -64,6 +65,7 @@ export default function LEAVETYPEFetchAutoCompleteOnLEAVECREDITPage(props: LEAVE
     });
     
     const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string, reason: AutocompleteInputChangeReason) => {
+        console.log(newInputValue)
         const matchingLEAVETYPE = LEAVETYPEList.find(
         //   (employeeItems) => employeeItems.employee === newInputValue
         (LEAVETYPEItems) => LEAVETYPEItems.LEAVETYPE.toLowerCase().includes(newInputValue.toLowerCase())

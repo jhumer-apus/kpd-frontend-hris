@@ -19,6 +19,7 @@ function LEAVECREDITModalUI(props: LEAVECREDITModalUIInterface) {
     const [ allowedDaysLEAVECREDITOpenModal, setAllowedDaysLEAVECREDITOpenModal ] = useState(false);
     const { setSingleLEAVECREDITDetailsData, singleLEAVECREDITDetailsData } = props;
     const ThisProps = props.singleLEAVECREDITDetailsData;
+    console.log(ThisProps)
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
     const onClickModal = (mode: number) => {
         switch(mode){
@@ -44,7 +45,7 @@ function LEAVECREDITModalUI(props: LEAVECREDITModalUIInterface) {
                     <TextField sx={{width: '100%', minWidth: '160px', color: 'green'}} label='Leave Name' value={ThisProps.leave_name || 'No Leave Name'} InputProps={{readOnly: true,}} variant='filled' focused/>
                     <TextField sx={{width: '100%'}} label='Date Added:' value={ThisProps.date_added? dayjs(ThisProps.date_added).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Date Deactivated:' value={ThisProps.date_deleted? dayjs(ThisProps.date_deleted).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
-                    <TextField sx={{width: '100%'}} label='Allowed Days' value={(ThisProps.allowed_days || 0).toFixed(2)} focused={!!ThisProps.allowed_days} color={(ThisProps.allowed_days || 0) > 1? 'success' : 'warning'} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%'}} label='Max Credit' value={(ThisProps.credit_max || 0).toFixed(2)} focused={!!ThisProps.allowed_days} color={(ThisProps.allowed_days || 0) > 1? 'success' : 'warning'} InputProps={{readOnly: true,}} variant='standard'/>
                 </div>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Employee #:' value={ThisProps.emp_no || '-'} InputProps={{readOnly: true,}} variant='filled'/>
@@ -54,7 +55,7 @@ function LEAVECREDITModalUI(props: LEAVECREDITModalUIInterface) {
             <div className='flex flex-col justify-center items-center'>
             <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
                 <div className='flex justify-between' style={{width:'200px', marginTop: '20px'}} container-name='leave_buttons'>
-                    <Button variant='contained' onClick={()=> onClickModal(1)}>Apply Allowed Days</Button>
+                    <Button variant='contained' onClick={()=> onClickModal(1)}>Edit Leave Credits</Button>
                 </div>
                 
             </div>

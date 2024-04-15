@@ -19,6 +19,7 @@ export default function ExpiryDateLEAVECREDITCreate(props: DateFromToLEAVECREDIT
             <DateTimePicker
             label="Expiry Date"
             value={createLEAVECREDIT?.expiry}
+            minDate={dayjs()}
             onChange={(newValue) => {
                 const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
                 return (

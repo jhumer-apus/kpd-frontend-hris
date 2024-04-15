@@ -413,18 +413,26 @@
       formData.append('permanent_city_code', address?.permanent_city?.id)
       formData.append('current_province_code', address?.current_province?.id)
       formData.append('current_city_code', address?.current_city?.id)
+
+      const finalUserData = {
+        ...userData,
+        permanent_province_code: address?.permanent_province?.id,
+        permanent_city_code: address?.permanent_city?.id,
+        current_province_code: address?.current_province?.id,
+        current_city_code: address?.current_city?.id
+      }
       
-      for(const key in userData) {
+      for(const key in finalUserData) {
 
         switch(key) {
 
           case "employee_image":
 
-            const isFile = userData.employee_image instanceof File
+            const isFile = finalUserData.employee_image instanceof File
 
             if(isFile) {
 
-              formData.append('employee_image', userData.employee_image)
+              formData.append('employee_image', finalUserData.employee_image)
 
             } else {
 
@@ -435,7 +443,7 @@
 
           default:
 
-            formData.append(key, userData[key])
+            formData.append(key, finalUserData[key])
 
             break;
         }
@@ -444,7 +452,7 @@
 
       formData.append('added_by', curr_user?.emp_no)
 
-      await axios.put(`${APILink}update_personal_profile/${userData.emp_no}/`, formData).then(res => {
+      await axios.put(`${APILink}update_personal_profile/${finalUserData.emp_no}/`, formData).then(res => {
 
         setIsSubmittingRequest(false)
         setIsEdit(false)
@@ -835,7 +843,7 @@
                           Permanent Address:
                         </Typography>
                       </div>
-                      <div className="md:flex md:space-x-4">
+                      <div className="flex flex-col md:flex-row gap-4">
                         {/* <TextField onChange={handleInputChange} disabled={!isEdit} id="Present Address" name="present_address" label="Present Address" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} value={userData.present_address} InputLabelProps={{ style: { fontWeight: 'bold' }}}  /> */}
 
                         {/* <TextField onChange={handleInputChange} disabled={!isEdit} id="Provincial Address" name="provincial_address" label="Provincial Address" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} value={userData.provincial_address}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  /> */}
@@ -874,7 +882,7 @@
                           Current Address:
                         </Typography>
                       </div>
-                      <div className="md:flex md:space-x-4">
+                      <div className="flex flex-col md:flex-row gap-4">
                         {/* <TextField onChange={handleInputChange} disabled={!isEdit} id="Present Address" name="present_address" label="Present Address" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} value={userData.present_address} InputLabelProps={{ style: { fontWeight: 'bold' }}}  /> */}
 
                         {/* <TextField onChange={handleInputChange} disabled={!isEdit} id="Provincial Address" name="provincial_address" label="Provincial Address" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} value={userData.provincial_address}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  /> */}
