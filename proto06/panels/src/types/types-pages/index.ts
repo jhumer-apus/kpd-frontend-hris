@@ -455,7 +455,8 @@ export interface LEAVECREDITViewInterface extends LEAVECREDITCreateInterface {
     credit_remaining: number | null,
     is_converted: boolean | null,
     date_added: string | null,
-    credit_max: number
+    credit_max: number,
+    added_by: string | number | null
 }
 
 export interface LEAVECREDITEditInterface extends LEAVECREDITViewInterface {}

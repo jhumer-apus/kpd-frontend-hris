@@ -17,14 +17,13 @@ interface CreateLEAVECREDITModalInterface {
 
 function ProceduralLEAVECREDITCreate(props: CreateLEAVECREDITModalInterface) {
 
-    const {data, status, error} = useFetchLeaveTypes();
+    const {data:leaveTypesData, status, error} = useFetchLeaveTypes();
     const currUser = useSelector((state:RootState) => state.auth.employee_detail)
-    const leaveTypesData = data
 
     const dispatch = useDispatch();
     const LEAVECREDITCreatestate = useSelector((state: RootState)=> state.procedurals.LEAVECREDITCreate);
 
-    const [leaveDetails, setLeaveDetails] = useState(null)
+    const [selectedLeaveDetails, setSelectedLeaveDetails] = useState<any>(null)
     const [maxInitialCredit, setMaxInitialCredit] = useState<number| null>(null)
     const [leaveCompensationType, setLeaveCompensationType] = useState<boolean>(true)
 
@@ -58,10 +57,13 @@ function ProceduralLEAVECREDITCreate(props: CreateLEAVECREDITModalInterface) {
     const handleChange = (event: any, newValue: any) => {
         if(newValue) {
             
-            setLeaveDetails(curr => newValue)
+            setSelectedLeaveDetails(curr => newValue)
             setCreateLEAVECREDIT((curr:any) => ({
                 ...curr,
-                leave_type_code: newValue.id
+                leave_type_code: newValue.id,
+                credit_remaining: newValue.is_paid? null: 0,
+                credit_max: newValue.is_paid? null: 0
+
             }))
 
             if((newValue.is_vl || newValue.is_sl) && newValue.is_paid){
@@ -112,9 +114,10 @@ function ProceduralLEAVECREDITCreate(props: CreateLEAVECREDITModalInterface) {
                     <div className='flex flex-col gap-6'>
                         <ExpiryDateLEAVECREDITCreate createLEAVECREDIT={createLEAVECREDIT} setCreateLEAVECREDIT={setCreateLEAVECREDIT}/>
                         <TextField
-                            required 
+                            required={selectedLeaveDetails?.is_paid} 
+                            disabled={!selectedLeaveDetails?.is_paid}
                             sx={{width: '100%'}} 
-                            label='Total Credit:'  
+                            label='Max Credit:'  
                             variant='outlined' 
                             InputProps={{
                                 inputProps:{
@@ -141,7 +144,9 @@ function ProceduralLEAVECREDITCreate(props: CreateLEAVECREDITModalInterface) {
                     </div>
                 </div>
                 <div className='flex flex-col gap-6'>
-                        <TextField 
+                        <TextField
+                            required={selectedLeaveDetails?.is_paid} 
+                            disabled={!selectedLeaveDetails?.is_paid}
                             label='Inital Credit:'
                             InputProps={{
                                 inputProps:{
@@ -151,22 +156,16 @@ function ProceduralLEAVECREDITCreate(props: CreateLEAVECREDITModalInterface) {
                                 }
                                 
                             }}
-                            // inputProps={{
-                            //     max: 5,
-                            //     type: "number"
-                            // }}
-    
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 setCreateLEAVECREDIT((prevState)=> {
                                     return (
                                         {
                                             ...prevState,
-                                            credit_remaining: event.target.value
+                                            credit_remaining: parseInt(event.target.value)
                                         }
                                     )
                                 })
                             }}
-                            required 
                         />
                     </div>
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>

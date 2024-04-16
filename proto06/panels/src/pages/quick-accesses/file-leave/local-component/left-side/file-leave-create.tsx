@@ -152,7 +152,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
     const submitNewFileLeave = async (formData:FormData) => {
 
         setIsSubmittingRequest(true)
-        await axios.post(`${APILink}new_leave/`, formData).then((res:AxiosResponse) => {
+        await axios.post(`${APILink}leave/`, formData).then((res:AxiosResponse) => {
 
             fetchLeaveCredits(userData?.emp_no)
             window.alert("Request Successful")

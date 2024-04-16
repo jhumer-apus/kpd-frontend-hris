@@ -19,7 +19,7 @@ function LEAVECREDITModalUI(props: LEAVECREDITModalUIInterface) {
     const [ allowedDaysLEAVECREDITOpenModal, setAllowedDaysLEAVECREDITOpenModal ] = useState(false);
     const { setSingleLEAVECREDITDetailsData, singleLEAVECREDITDetailsData } = props;
     const ThisProps = props.singleLEAVECREDITDetailsData;
-    console.log(ThisProps)
+
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
     const onClickModal = (mode: number) => {
         switch(mode){

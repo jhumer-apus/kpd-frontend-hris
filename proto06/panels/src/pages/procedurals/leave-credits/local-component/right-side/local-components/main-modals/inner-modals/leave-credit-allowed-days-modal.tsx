@@ -1,4 +1,4 @@
-import {useEffect, Dispatch, SetStateAction, ChangeEvent, Fragment}from 'react';
+import {useEffect, Dispatch, SetStateAction, ChangeEvent, Fragment, useState}from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
@@ -10,6 +10,10 @@ import dayjs from 'dayjs';
 import { LEAVECREDITEditAction, LEAVECREDITViewAction } from '@/store/actions/procedurals';
 import { beautifyJSON, clearFields } from '@/helpers/utils';
 import axios from 'axios';
+import useFetchQuery from '@/custom-hooks/use-fetch-query';
+import AddSubstractNumber from '@/public-components/AddSubstractNumber';
+import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 
 
@@ -21,28 +25,56 @@ interface AllowedDaysLEAVECREDITModalInterface {
 }
 
 export default function AllowedDaysLEAVECREDITModal(props: AllowedDaysLEAVECREDITModalInterface) {
+
+  const currUser = useSelector((state:RootState) => state.auth.employee_detail)
   const dispatch = useDispatch();
   const LEAVECREDITAllowedDaysState = useSelector((state: RootState)=> state.procedurals.LEAVECREDITEdit)
   const {allowedDaysLEAVECREDITOpenModal, setAllowedDaysLEAVECREDITOpenModal, singleLEAVECREDITDetailsData, setSingleLEAVECREDITDetailsData} = props;
+  const {data:leaveTypeData, error: leaveTypeError, status: leaveTypeStatus} = useFetchQuery(`${APILink}leave_type/${singleLEAVECREDITDetailsData.leave_type_code}`, null)
+  
+  //Leave Type Max Credit;
+  let leaveTypeMaxCredit = null
+
+  if((leaveTypeData?.is_sl || leaveTypeData?.is_vl)) {
+
+    leaveTypeMaxCredit = 30
+
+  } else if (leaveTypeData?.is_el) {
+
+    leaveTypeMaxCredit = 5
+
+  }
+
+  const onUpdate = (newValue:number, name:string) => {
+
+    setSingleLEAVECREDITDetailsData((curr:any) => ({
+      ...curr,
+      [name]: newValue
+    }))
+
+  }
 
   const allowedDaysLEAVECREDIT = () => { 
     // updateLeaveCredits()
-    if(singleLEAVECREDITDetailsData.allowed_days){
+    console.log(singleLEAVECREDITDetailsData.credit_max)
+    if(singleLEAVECREDITDetailsData.credit_max){
         return(
           setSingleLEAVECREDITDetailsData((prevState)=> {
-            const value = prevState.allowed_days as number;
+            const value = prevState.credit_max as number;
             dispatch(LEAVECREDITEditAction({
               ...prevState,
-              allowed_days: value
+              credit_max: value,
+              added_by: currUser?.emp_no
             }))  
             return({
               ...prevState,
-              allowed_days: value
+              credit_max: value,
+              added_by: currUser?.emp_no
             })
           })
         )
       } else {
-        window.alert('Please insert allowed days');
+        window.alert('Please insert max credits');
       }
   }
 
@@ -82,6 +114,7 @@ export default function AllowedDaysLEAVECREDITModal(props: AllowedDaysLEAVECREDI
   //     window.alert(beautifyJSON(err.response.data))
   //   })
   // }
+
   return (
     <Fragment>
       <Transition in={allowedDaysLEAVECREDITOpenModal} timeout={400}>
@@ -123,15 +156,121 @@ export default function AllowedDaysLEAVECREDITModal(props: AllowedDaysLEAVECREDI
             }}
             size='sm'
         > 
-          <Typography variant='h6' className='border-b-2 border-blue-700'>Allowing Leave Usage</Typography>
+          <Typography variant='h6' className='border-b-2 border-blue-700'>Edit Leave Credits</Typography>
           <div className='flex justify-center flex-col item-center h-full'>
-            <div className='flex flex-col justify-around w-full h-2/4 gap-14'>
+            <div className='flex flex-col justify-around w-full p-4 gap-14'>
               <div className='flex justify-center item-center'>
-                <Typography>Please Insert Number of Allowed Usage</Typography>
+                <Typography variant='h6'>Leave Name: {singleLEAVECREDITDetailsData.leave_name}</Typography>
               </div>
-              <div className='flex justify-center item-center'>
-                <TextField
-                sx={{width: '90%'}}
+              <div className='flex flex-wrap gap-4  justify-center item-center'>
+                
+              {leaveTypeData?.is_paid && 
+                <>
+                  <TextField
+                      sx={{width: '100%'}} 
+                      label='Credit Remaining:'  
+                      variant='outlined' 
+                      InputProps={{
+                          inputProps:{
+                              min:0,
+                              max:singleLEAVECREDITDetailsData.credit_max,
+                              type:"number"
+                          }
+                          
+                      }}
+                      value={singleLEAVECREDITDetailsData?.credit_remaining}
+                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                          setSingleLEAVECREDITDetailsData((prevState)=> {
+                              return (
+                                  {
+                                      ...prevState,
+                                      credit_remaining: parseFloat(event.target.value)
+                                  }
+                              )
+                          })
+                      }}
+                      
+                  />
+                  <TextField
+                      sx={{width: '100%'}} 
+                      label='Max Credit:'
+                      InputProps={{
+                          inputProps:{
+                              min:0,
+                              max:leaveTypeMaxCredit,
+                              type:"number"
+                          }
+                          
+                      }}
+                      value={singleLEAVECREDITDetailsData?.credit_max}
+                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                          setSingleLEAVECREDITDetailsData((prevState)=> {
+                              return (
+                                  {
+                                      ...prevState,
+                                      credit_max: parseFloat(event.target.value)
+                                  }
+                              )
+                          })
+                      }}
+                  />
+                  {/* <AddSubstractNumber 
+                    min={0}
+                    max={singleLEAVECREDITDetailsData.credit_max}
+                    currentValue={singleLEAVECREDITDetailsData.credit_remaining}
+                    onUpdate={onUpdate}
+                    name='credit_remaining'
+                    label='Remaining Credits:'
+                  />
+                  <AddSubstractNumber 
+                    min={0}
+                    max={leaveTypeMaxCredit}
+                    currentValue={singleLEAVECREDITDetailsData.credit_max}
+                    onUpdate={onUpdate}
+                    name='credit_max'
+                    label='Max Credit:'
+                  /> */}
+                </>
+              }
+              
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DateTimePicker
+                    sx={{width: '100%'}} 
+                    label="Expiry Date"
+                    value={singleLEAVECREDITDetailsData?.expiry && dayjs(singleLEAVECREDITDetailsData?.expiry)}
+                    minDate={dayjs()}
+                    onChange={(newValue) => {
+                        const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
+                        return (
+                            setSingleLEAVECREDITDetailsData((prevState)=>{
+                                return(
+                                    {
+                                        ...prevState,
+                                        expiry: formattedDate
+                                    }
+                                )
+                            })
+                        )
+                    }}
+                  />
+                </LocalizationProvider>
+                {/* <TextField
+                  label='New Max Credits'
+                  type='number'
+                  required
+                  focused
+                  value={singleLEAVECREDITDetailsData.allowed_days}
+                  onChange={(event: ChangeEvent<HTMLInputElement>)=> {
+                    setSingleLEAVECREDITDetailsData((prevState)=> {
+                      const value = parseInt(event.target.value);
+                      return({
+                        ...prevState,
+                        allowed_days: value,
+                      })
+                    })
+                  }}
+                /> */}
+                {/* <TextField
                   label='New Total Allowed Days'
                   type='number'
                   required
@@ -146,7 +285,7 @@ export default function AllowedDaysLEAVECREDITModal(props: AllowedDaysLEAVECREDI
                       })
                     })
                   }}
-                />
+                /> */}
               </div>
               <div className='flex justify-around'>
                 <Button variant={'contained'} onClick={allowedDaysLEAVECREDIT}>Submit</Button>
