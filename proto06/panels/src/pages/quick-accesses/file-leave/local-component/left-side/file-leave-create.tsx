@@ -37,7 +37,8 @@ interface LeaveType {
     name: string | null,
     is_vl: boolean | null,
     is_sl: boolean | null,
-    is_el: boolean | null
+    is_el: boolean | null,
+    is_paid: boolean | null
 }
 
 function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
@@ -54,7 +55,8 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         name: null,
         is_vl: null,
         is_sl: null,
-        is_el: null
+        is_el: null,
+        is_paid: null
     }) 
     const [createLEAVE, setCreateLEAVE] = useState<LEAVECreateInterface>({
         emp_no: NaN,
@@ -69,8 +71,8 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
     });
     
     useEffect(() => {
-        console.log(leaveCredits)
-    }, [leaveCredits])
+        console.log(leaveType)
+    }, [leaveType])
 
     useEffect(() => {
 
@@ -297,7 +299,8 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                 name: res.data.name,
                 is_vl: res.data.is_vl,
                 is_sl: res.data.is_sl,
-                is_el: res.data.is_el
+                is_el: res.data.is_el,
+                is_paid: res.data.is_paid
             }))
         })
     }
@@ -382,7 +385,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                             // disableCloseOnSelect
                             noOptionsText={'No Leave Credits'}
                             options={leaveCredits}
-                            getOptionLabel={(option:any) => `${option.leave_name} (Remaining - ${option.credit_remaining})`}
+                            getOptionLabel={(option:any) => `${option.leave_type_data.name} ${option.leave_type_data.is_paid?`(Remaining - ${option.credit_remaining})` : `(Unpaid)`}`}
                             onChange={((e:any, newValue:any) => {
                                 setCreateLEAVE(curr => ({
                                     ...curr,
@@ -438,7 +441,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                     </div>
                     {disableOption? 
                         <TextField 
-                            value={createLEAVE.option} 
+                            value='Whole Day'
                             label="Leave Option"
                             className='w-full'
                             InputProps={{

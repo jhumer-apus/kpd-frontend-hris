@@ -151,7 +151,7 @@ function ProceduralLEAVECREDITCreate(props: CreateLEAVECREDITModalInterface) {
                             InputProps={{
                                 inputProps:{
                                     min:0,
-                                    max:maxInitialCredit,
+                                    max:createLEAVECREDIT?.credit_max,
                                     type:"number"
                                 }
                                 

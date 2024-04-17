@@ -32,6 +32,15 @@ export default function AllowedDaysLEAVECREDITModal(props: AllowedDaysLEAVECREDI
   const {allowedDaysLEAVECREDITOpenModal, setAllowedDaysLEAVECREDITOpenModal, singleLEAVECREDITDetailsData, setSingleLEAVECREDITDetailsData} = props;
   const {data:leaveTypeData, error: leaveTypeError, status: leaveTypeStatus} = useFetchQuery(`${APILink}leave_type/${singleLEAVECREDITDetailsData.leave_type_code}`, null)
   
+  const [previousState, setPreviousState] = useState<any>(null)
+  //for rollback
+  useEffect(() => {
+    setPreviousState((curr:LEAVECREDITViewInterface) => ({
+      ...singleLEAVECREDITDetailsData
+    }))
+    console.log(previousState)
+  },[])
+
   //Leave Type Max Credit;
   let leaveTypeMaxCredit = null
 
@@ -54,28 +63,61 @@ export default function AllowedDaysLEAVECREDITModal(props: AllowedDaysLEAVECREDI
 
   }
 
-  const allowedDaysLEAVECREDIT = () => { 
-    // updateLeaveCredits()
-    console.log(singleLEAVECREDITDetailsData.credit_max)
-    if(singleLEAVECREDITDetailsData.credit_max){
-        return(
-          setSingleLEAVECREDITDetailsData((prevState)=> {
-            const value = prevState.credit_max as number;
-            dispatch(LEAVECREDITEditAction({
-              ...prevState,
-              credit_max: value,
-              added_by: currUser?.emp_no
-            }))  
-            return({
-              ...prevState,
-              credit_max: value,
-              added_by: currUser?.emp_no
-            })
-          })
-        )
+  const validateCredit = (data:any) => {
+    const errors:any = {
+
+    }
+    if(leaveTypeData.is_paid) {
+
+      if(singleLEAVECREDITDetailsData.credit_max) {
+
+       (singleLEAVECREDITDetailsData.credit_max < (singleLEAVECREDITDetailsData.credit_remaining??0)) && (errors['Max Credit'] = 'Remaining Credits should be lesser than Max Credits')
+
       } else {
-        window.alert('Please insert max credits');
+
+        errors['Max Credit'] = 'Max Credit is required'
+
       }
+
+    }
+
+    if(Object.keys(errors).length > 0) {
+      window.alert(beautifyJSON(errors))
+      return true
+    }
+    return false
+  }
+
+  const allowedDaysLEAVECREDIT = (e:any) => { 
+    e.preventDefault()
+
+    if(validateCredit(singleLEAVECREDITDetailsData)) return
+    // updateLeaveCredits()
+
+    const payload:any = {
+      ...singleLEAVECREDITDetailsData,
+      added_by: currUser?.emp_no
+    }
+    dispatch(LEAVECREDITEditAction(payload)) 
+    // if(singleLEAVECREDITDetailsData.credit_max){
+    //     return(
+    //       setSingleLEAVECREDITDetailsData((prevState)=> {
+    //         const value = prevState.credit_max as number;
+    //         dispatch(LEAVECREDITEditAction({
+    //           ...prevState,
+    //           credit_max: value,
+    //           added_by: currUser?.emp_no
+    //         }))  
+    //         return({
+    //           ...prevState,
+    //           credit_max: value,
+    //           added_by: currUser?.emp_no
+    //         })
+    //       })
+    //     )
+    //   } else {
+    //     window.alert('Please insert max credits');
+    //   }
   }
 
   useEffect(()=>{
@@ -86,9 +128,9 @@ export default function AllowedDaysLEAVECREDITModal(props: AllowedDaysLEAVECREDI
         window.alert(`${LEAVECREDITAllowedDaysState.status.charAt(0).toUpperCase()}${LEAVECREDITAllowedDaysState.status.slice(1)}`)
         dispatch(LEAVECREDITViewAction())
         setAllowedDaysLEAVECREDITOpenModal(false)
-        // setTimeout(()=>{
-        //   window.location.reload();
-        // }, 800)
+        setTimeout(()=>{
+          window.location.reload();
+        }, 800)
 
       }  else if (LEAVECREDITAllowedDaysState.status == 'failed') {
 
@@ -158,7 +200,7 @@ export default function AllowedDaysLEAVECREDITModal(props: AllowedDaysLEAVECREDI
         > 
           <Typography variant='h6' className='border-b-2 border-blue-700'>Edit Leave Credits</Typography>
           <div className='flex justify-center flex-col item-center h-full'>
-            <div className='flex flex-col justify-around w-full p-4 gap-14'>
+            <form onSubmit={allowedDaysLEAVECREDIT} className='flex flex-col justify-around w-full p-4 gap-14'>
               <div className='flex justify-center item-center'>
                 <Typography variant='h6'>Leave Name: {singleLEAVECREDITDetailsData.leave_name}</Typography>
               </div>
@@ -288,16 +330,19 @@ export default function AllowedDaysLEAVECREDITModal(props: AllowedDaysLEAVECREDI
                 /> */}
               </div>
               <div className='flex justify-around'>
-                <Button variant={'contained'} onClick={allowedDaysLEAVECREDIT}>Submit</Button>
+                <Button variant={'contained'} type="submit">Submit</Button>
                 <Button variant={'outlined'} onClick={()=>{
-                  clearFields(setSingleLEAVECREDITDetailsData, ['allowed_days'], [null])
+                  // clearFields(setSingleLEAVECREDITDetailsData, ['credit_max'], [null])
+                  setSingleLEAVECREDITDetailsData((curr:any) => ({
+                    ...previousState
+                  }))
                   setAllowedDaysLEAVECREDITOpenModal(false)
                 }}
                 >
                   Cancel
                 </Button>
               </div>
-            </div>
+            </form>
           </div>
         </ModalDialog>
       </Modal>
