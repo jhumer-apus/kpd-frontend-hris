@@ -836,14 +836,15 @@
                       />
 
                     </div>
-
-                    <div className="mb-4">
+                    
+                    <hr></hr>
+                    <div className="mb-6">
                       <div className="mb-2">
-                        <Typography variant="h6" color="gray" className="font-bold text-base">
+                        <Typography variant="subtitle1" color="gray" className="font-bold text-base">
                           Permanent Address:
                         </Typography>
                       </div>
-                      <div className="flex flex-col md:flex-row gap-4">
+                      <div className="flex flex-col md:flex-row gap-4 mt-4">
                         {/* <TextField onChange={handleInputChange} disabled={!isEdit} id="Present Address" name="present_address" label="Present Address" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} value={userData.present_address} InputLabelProps={{ style: { fontWeight: 'bold' }}}  /> */}
 
                         {/* <TextField onChange={handleInputChange} disabled={!isEdit} id="Provincial Address" name="provincial_address" label="Provincial Address" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} value={userData.provincial_address}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  /> */}
@@ -876,13 +877,13 @@
                       </div>
                     </div>
 
-                    <div className="mb-4">
+                    <div className="mb-6">
                       <div className="mb-2">
-                        <Typography variant="h6" color="gray" className="font-bold text-base">
+                        <Typography variant="subtitle1" color="gray" className="font-bold text-base">
                           Current Address:
                         </Typography>
                       </div>
-                      <div className="flex flex-col md:flex-row gap-4">
+                      <div className="flex flex-col md:flex-row gap-4 mt-4">
                         {/* <TextField onChange={handleInputChange} disabled={!isEdit} id="Present Address" name="present_address" label="Present Address" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} value={userData.present_address} InputLabelProps={{ style: { fontWeight: 'bold' }}}  /> */}
 
                         {/* <TextField onChange={handleInputChange} disabled={!isEdit} id="Provincial Address" name="provincial_address" label="Provincial Address" variant="outlined" style={{ width: '100%', marginBottom:"20px" }} value={userData.provincial_address}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  /> */}
@@ -914,9 +915,9 @@
                         />
                       </div>
                     </div>
-                    
+                    <hr></hr>
 
-                    <div className="md:flex md:space-x-4 mb-4">
+                    <div className="md:flex md:space-x-4 my-4">
                       <TextField 
                         type="url" 
                         onChange={handleInputChange} 
