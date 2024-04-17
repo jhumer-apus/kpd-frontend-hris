@@ -68,7 +68,10 @@ const CarouselUI = ({ items }: any) => {
     <React.Fragment>
         <div className={styles.exampleWrap}>
         <div className={styles.wholeCarouselWrap}>
-            <div className={styles.leftSide}>
+            <div 
+                // className={styles.leftSide}
+                className="w-full"
+            >
                 <div className={styles.greetingsBar}>{greetings}, {employee_detail?.gender?.includes("F")? 'Ms.': 'Mr.'} {employee_detail?.last_name}!</div>
                 <div className={styles.newsWrap}> 
                     {/* <span className="italic">Announcements</span> */}
@@ -80,7 +83,9 @@ const CarouselUI = ({ items }: any) => {
                                 <div className={styles.date}>
                                     {item.date}
                                 </div>
-                                <div className={styles.caption}>
+                                <div 
+                                    className={`${styles.caption}`}
+                                >
                                     {item?.message}
                                 </div>
                                 <div className={styles.personInfo}>
@@ -95,7 +100,9 @@ const CarouselUI = ({ items }: any) => {
                                 <div className={styles.date}>
                                     {item.date}
                                 </div>
-                                <div className={styles.caption}>
+                                <div 
+                                    className={styles.caption}
+                                >
                                     {item?.message}
                                 </div>
                                 <div className={styles.personInfo}>
@@ -108,7 +115,7 @@ const CarouselUI = ({ items }: any) => {
                     </Carousel>
                 </div>
             </div>
-            <div className={styles.rightSide}>
+            {/* <div className={styles.rightSide}>
                 <iframe src={"/img/astronaut.svg"}/>
                 <svg className={styles.planet} viewBox="0 0 160 160" width="160" height="160">
                     <circle cx="80" cy="80" r="50" fill="#757575" fill-opacity={"0.9"}/>
@@ -119,7 +126,7 @@ const CarouselUI = ({ items }: any) => {
                     </g>
                     <path d="M 50,0 A 50,50 0 0,0 -50,0Z" transform="matrix(0.866, -0.5, 0.5, 0.866, 80, 80)" fill="#757575" />
                 </svg>
-            </div>
+            </div> */}
         </div>
         </div>
     </React.Fragment>
