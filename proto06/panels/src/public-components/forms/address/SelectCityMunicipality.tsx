@@ -51,10 +51,11 @@ export default function SelectCityMunicipality(props:Props) {
     useEffect(() => {
 
         if(cities.length > 0) {
-            const foundCity = findCity(defaultCityId)
-            setCurrentCity(curr => defaultCityId)
-            updateAddress(name, foundCity)
-
+            const selectedCity = findCity(defaultCityId)
+            if(selectedCity) {
+                setCurrentCity((curr:any) => selectedCity.id)
+                updateAddress(name, selectedCity)
+            }
         }
 
     },[cities.length])
@@ -91,16 +92,15 @@ export default function SelectCityMunicipality(props:Props) {
     const handleChange = (newValue:any) => {
 
         if(newValue) {
-            console.log(newValue)
+            // setCurrentCity(curr => null)
             const cityFound = findCity(newValue)
-            // setCurrentCity(curr => newValue)
             updateAddress(name, cityFound)
         }
     }
 
-    // useEffect(() => {
-    //     console.log(currentCity)
-    // },[currentCity])
+    useEffect(() => {
+        console.log(currentCity)
+    },[currentCity])
 
     return (
         <div className='w-full'>

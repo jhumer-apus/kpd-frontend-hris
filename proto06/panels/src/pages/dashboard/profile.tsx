@@ -189,15 +189,15 @@
 
     }, [])
 
-    useEffect(() => {
-      if(address.city?.id && address.province?.id) {
-        setUserData((curr:any) => ({
-          ...curr,
-          province_code: address.province?.id,
-          city_code: address.city?.id
-        }))
-      }
-    },[address])
+    // useEffect(() => {
+    //   if(address.city?.id && address.province?.id) {
+    //     setUserData((curr:any) => ({
+    //       ...curr,
+    //       province_code: address.province?.id,
+    //       city_code: address.city?.id
+    //     }))
+    //   }
+    // },[address])
 
 
     useEffect(() => {
