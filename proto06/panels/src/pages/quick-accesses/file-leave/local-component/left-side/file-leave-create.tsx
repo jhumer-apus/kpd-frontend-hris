@@ -440,7 +440,8 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                         <DateFromToLEAVECreate createLEAVE={createLEAVE} setCreateLEAVE={setCreateLEAVE}/>
                     </div>
                     {disableOption? 
-                        <TextField 
+                        <TextField
+                            required
                             value='Whole Day'
                             label="Leave Option"
                             className='w-full'
@@ -460,6 +461,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                                     option: e.target.value
                                 }))}
                                 disabled={disableOption}
+                                required
                             >
                                 <MenuItem value="early">Early Half Day</MenuItem>
                                 <MenuItem value="late">Late Half Day</MenuItem>
