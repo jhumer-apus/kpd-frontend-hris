@@ -40,23 +40,39 @@ export default function BirthdayAnniversary(props: Props) {
         {
             label: "Birthday",
             value: "birthday",
-            listOfEmployees: []
+            data: []
         },
         {
             label: "Anniversary",
             value: "anniversary",
-            listOfEmployees: []
+            data: []
+        },
+        {
+            label: "Announcements",
+            value: "announcements",
+            data: []
         }
     ])
 
     useEffect(() => {
-        let newColumns = [...columns]
+        let newColumns = [        
+            {
+                field: 'emp_no',
+                headerName: 'Employee No.',
+                flex: 1
+            },
+            {
+                field: 'full_name',
+                headerName: 'Employee Name',
+                flex: 1
+            }
+        ]
         switch(activeTab) {
             case 'birthday':
                 newColumns[2] = {
                     field: 'birthday',
                     headerName: 'Birth Date',
-                    valueGetter: (params) => dayjs(params.row.birthday).format('MMMM DD, YYYY'),
+                    valueGetter: (params:any) => dayjs(params.row.birthday).format('MMMM DD, YYYY'),
                     flex: 1
                 }
                 setColumns((curr:any) => newColumns);
@@ -67,13 +83,33 @@ export default function BirthdayAnniversary(props: Props) {
                 newColumns[2] = {
                     field: 'date_hired',
                     headerName: 'Date Hired',
-                    valueGetter: (params) => dayjs(params.row.date_hired).format('MMMM DD, YYYY'),
+                    valueGetter: (params:any) => dayjs(params.row.date_hired).format('MMMM DD, YYYY'),
                     flex: 1
                 }
                 setColumns((curr:any) => newColumns);
                 fetchEmployeeAnniversary()
                 break;
 
+            case 'announcements':
+                newColumns = [
+                    {
+                        field: 'message',
+                        headerName: 'Announcements:',
+                        flex: 1
+                    },
+                    // {
+                    //     field: 'posted_by',
+                    //     headerName: 'Posted By:',
+                    //     flex: 1
+                    // },
+                    // {
+                    //     field: 'date',
+                    //     headerName: 'Date Posted:',
+                    //     flex: 1
+                    // },
+                ]
+                setColumns((curr:any) => newColumns);
+                fetchAnnouncements()
             default:
                 break;
         }
@@ -89,7 +125,7 @@ export default function BirthdayAnniversary(props: Props) {
             const resData = Array.isArray(res.data)? res.data: []
 
             let newData = [...data]
-            newData[0].listOfEmployees = resData.map((emp,index) => {
+            newData[0].data = resData.map((emp,index) => {
                 return {
                     id:index,
                     ...emp
@@ -114,7 +150,7 @@ export default function BirthdayAnniversary(props: Props) {
             const resData = Array.isArray(res.data)? res.data: []
 
             let newData = [...data]
-            newData[1].listOfEmployees = resData.map((emp,index) => {
+            newData[1].data = resData.map((emp,index) => {
                 return {
                     id:index,
                     ...emp
@@ -130,6 +166,33 @@ export default function BirthdayAnniversary(props: Props) {
         })
     }
 
+    const fetchAnnouncements = async () => {
+        await axios.get(`${APILink}act_announcement/`, {
+            params: {
+                pin: true,
+                department:1,
+                rank:1
+            }
+        }).then(res => {
+
+            console.log(res.data)
+            let newData = [...data]
+            newData[2].data = Array.isArray(res.data) ? res?.data?.map((item, index)=> {
+                return {
+                    id: index,
+                    imageUrl: item.emp_image,
+                    date: dayjs(item.date_posted).format("MMM DD, YYYY"),
+                    altText: `profile-image${index}`,
+                    message: item.message,
+                    posted_by: item.emp_name
+                        
+                }
+            }) : [];
+
+            setData((curr:any) => newData)
+        })
+    }
+
     // const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     //     setActiveTab(newValue);
     // };
@@ -138,7 +201,7 @@ export default function BirthdayAnniversary(props: Props) {
     //     {
     //         label: "Birthday",
     //         value: "birthday",
-    //         listOfEmployees: [
+    //         data: [
     //             {
     //                 name: "Juan"
     //             },
@@ -150,7 +213,7 @@ export default function BirthdayAnniversary(props: Props) {
     //     {
     //         label: "Anniversary",
     //         value: "anniversary",
-    //         listOfEmployees: [
+    //         data: [
     //             {
     //                 name: "Rolok"
     //             },
@@ -171,7 +234,7 @@ export default function BirthdayAnniversary(props: Props) {
                     "bg-transparent border-b-2 border-gray-900 shadow-none rounded-none",
                 }}
             >
-                {data.map(({ label, value}) => (
+                {data.map(({ label, value}:{label:any, value:any}) => (
                     <Tab
                         key={value}
                         value={value}
@@ -183,11 +246,11 @@ export default function BirthdayAnniversary(props: Props) {
                 ))}
             </TabsHeader>
             <TabsBody>
-                {data.map(({ value, listOfEmployees }:any) => (
+                {data.map(({ value, data }:any) => (
                     <TabPanel key={value} value={value}>
                         <div className='overflow-auto h-[800px]'>
                             <DataGrid
-                                rows={listOfEmployees}
+                                rows={data}
                                 columns={columns}
                                 initialState={{
                                     pagination: {
@@ -196,15 +259,16 @@ export default function BirthdayAnniversary(props: Props) {
                                         },
                                     },
                                 }}
+                                getRowHeight={(params) => 50}
                                 loading={isLoading}
                                 localeText={{ noRowsLabel: `No employees celebrated today` }}
                                 pageSizeOptions={[5,10,25]}
                             />
                         </div>
                         
-                        {/* {listOfEmployees.length > 0? 
+                        {/* {data.length > 0? 
                             <ul className='overflow-auto h-[800px]'>
-                                {listOfEmployees.map((emp:any) => (
+                                {data.map((emp:any) => (
                                     <li className='border-b border-black p-2'>{emp.full_name}</li>
                                 ))}
                             </ul>:

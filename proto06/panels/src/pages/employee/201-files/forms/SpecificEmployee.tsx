@@ -176,13 +176,13 @@ export const SpecificEmployee = (props: initialState) => {
         }
     }, [userData, setValue]);
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        setFormSelectData(curr => ({
-            ...userData
-        }))
+    //     setFormSelectData(curr => ({
+    //         ...userData
+    //     }))
 
-    }, [userData]);
+    // }, [userData]);
 
 
     // const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -370,7 +370,8 @@ export const SpecificEmployee = (props: initialState) => {
             ...inputData,
             ...formSelectData
         }
-
+        console.log(data)
+        console.log(formSelectData)
         // Validate image if its file
         const isFile = validateImage(formSelectData?.employee_image)
         if(formSelectData?.employee_image == (null || undefined) && !userData?.employee_image) {
@@ -1009,7 +1010,7 @@ export const SpecificEmployee = (props: initialState) => {
                                             containerProps={{ className: "min-w-[72px] mb-2" }}
                                             labelProps={{ style: { color: true ? "unset" : '' } }}
                                             label="Birthday: YYYY-MM-DD"
-                                            value={formSelectData?.birthday? dayjs(formSelectData?.birthday).format('YYYY-MM-DD'): userData?.birthday?.split("T")[0]}
+                                            value={formSelectData?.birthday? dayjs(userData?.birthday).format('YYYY-MM-DD'): userData?.birthday?.split("T")[0]}
                                             disabled={!editMode2}
                                             // icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                    
                                         />
@@ -1177,7 +1178,7 @@ export const SpecificEmployee = (props: initialState) => {
                                     <SelectCityMunicipality 
                                         updateAddress={updateAddress}
                                         name="current_city"
-                                        defaultCityId={formSelectData?.current_city_code}
+                                        defaultCityId={userData?.current_city_code}
                                         currentProvinceCode={formSelectData.current_province?.code}
                                         isDisable={!editMode2}
                                     />
@@ -1282,7 +1283,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                     labelProps={{ style: { color: true ? "unset" : '' } }}
                                                     label="Date Hired:"
                                                     disabled={!editMode3}
-                                                    value={formSelectData?.date_hired? dayjs(formSelectData?.date_hired).format('YYYY-MM-DD'): userData?.date_hired?.split("T")[0]}
+                                                    value={userData?.date_hired? dayjs(userData?.date_hired).format('YYYY-MM-DD'): userData?.date_hired?.split("T")[0]}
                                                     // value={`${userData?.date_hired ? userData?.date_hired : ''}`}
                                                     icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
                                             <Input
