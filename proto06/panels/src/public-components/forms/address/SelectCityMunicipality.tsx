@@ -121,23 +121,23 @@ export default function SelectCityMunicipality(props:Props) {
         
                 </Select>
             }
-            {/* {cities.length < 1 &&
+            {cities.length < 1 &&
                 <Select
-                    key={resetKey}
+                    key={0}
                     label="City: (Select a province first)"
                     placeholder="Select City"
                     onChange={handleChange}
                     disabled={isDisable}
-                    value={defaultCityId}
+                    value={currentCity?.toString()}
                 >
                     {cities.length > 0 ? cities.map((city: CityMunicipalityInterface, index:number) => (
-                        <Option key={index} value={city.id}>{city.name}</Option>
+                        <Option key={index} value={city.id.toString()}>{city.name}</Option>
                     )):
                         <Option disabled>No cities available on the selected province</Option>
                     }
         
                 </Select>
-            } */}
+            }
         </div>
     
     )
