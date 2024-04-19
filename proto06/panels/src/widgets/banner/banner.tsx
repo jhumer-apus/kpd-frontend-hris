@@ -67,7 +67,7 @@ const CarouselUI = ({ items }: any) => {
   return (
     <React.Fragment>
         <div className={styles.exampleWrap}>
-        <div className={styles.wholeCarouselWrap}>
+        <div className={`${styles.wholeCarouselWrap} shadow-xl`}>
             <div 
                 // className={styles.leftSide}
                 className="w-full"
@@ -84,7 +84,7 @@ const CarouselUI = ({ items }: any) => {
                                     {item.date}
                                 </div>
                                 <div 
-                                    className={`${styles.caption}`}
+                                    className={`${styles.caption} shadow-2xl`}
                                 >
                                     {item?.message}
                                 </div>
@@ -101,7 +101,7 @@ const CarouselUI = ({ items }: any) => {
                                     {item.date}
                                 </div>
                                 <div 
-                                    className={styles.caption}
+                                    className={`${styles.caption} shadow-2xl`}
                                 >
                                     {item?.message}
                                 </div>
