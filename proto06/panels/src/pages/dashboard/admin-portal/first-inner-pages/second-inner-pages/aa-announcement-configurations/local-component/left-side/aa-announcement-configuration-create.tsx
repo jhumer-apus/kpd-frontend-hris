@@ -36,7 +36,8 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
     });
     const [radioState, setRadioState] = useState<boolean | null>(null)
 
-    const onClickSubmit = () => {
+    const onClickSubmit = (e:any) => {
+        e.preventDefault()
         dispatch(ANNOUNCEMENTCreateAction(createANNOUNCEMENT))
     };
 
@@ -72,7 +73,7 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain' level="h6">Create an Announcement Data</Typography>
-            <div className='flex flex-col gap-6 overflow-auto w-3/4'>
+            <form onSubmit={onClickSubmit} className='flex flex-col gap-6 overflow-auto w-3/4'>
                     <div className='flex flex-col gap-6 pt-4'>
                         <DateAssignedANNOUNCEMENTCreate createANNOUNCEMENT={createANNOUNCEMENT} setCreateANNOUNCEMENT={setCreateANNOUNCEMENT}/>
                     </div>
@@ -86,6 +87,12 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
                             multiline
                             rows={4}
                             type="text"
+                            helperText={`${createANNOUNCEMENT?.message.length}/1000`}
+                            inputProps = {
+                                {
+                                    maxLength:1000
+                                }
+                            }
                             value={createANNOUNCEMENT?.message}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value = event.target.value;
@@ -150,10 +157,10 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
                     
                     <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
                         <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
-                            <Button variant='contained' onClick={onClickSubmit}>Create ANNOUNCEMENT</Button>
+                            <Button variant='contained' type="submit">Create ANNOUNCEMENT</Button>
                         </div>
                     </div>
-            </div>
+            </form>
         </React.Fragment>
     );
 }

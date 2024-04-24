@@ -14,7 +14,7 @@ interface SingleUSERInterface {
 }
 
 export default function ViewUSERSingleModal(props: SingleUSERInterface) {
-    const {singleUSEROpenModal, setSingleUSEROpenModal, setSingleUSERDetailsData, singleUSERDetailsData} = props;
+  const {singleUSEROpenModal, setSingleUSEROpenModal, setSingleUSERDetailsData, singleUSERDetailsData} = props;
   const [scroll, setScroll] = useState<boolean>(true);
   return (
     <Fragment>

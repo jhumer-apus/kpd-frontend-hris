@@ -92,6 +92,22 @@ export default function SelectProvince(props: Props) {
                     }
                 </Select>
             }
+            {provinces.length < 1 &&
+                <Select
+                    key={0}
+                    label="Province:"
+                    placeholder="Select Province"
+                    onChange={handleChange}
+                    value={defaultProvinceId}
+                    disabled={isDisable}
+                >
+                    {provinces.length > 0 ? provinces.map((province: ProvinceInterface) => (
+                        <Option value={province.id}>{province.name}</Option>
+                    )):
+                        <Option disabled>No province available on the selected province</Option>
+                    }
+                </Select>
+            }
         </div>
         
         // <Autocomplete

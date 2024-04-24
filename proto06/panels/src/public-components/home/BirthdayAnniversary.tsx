@@ -14,14 +14,22 @@ import { getDefaultLibFileName } from 'typescript';
 import styles from '@/pages/dashboard/custom-styles/home.module.scss';
 
 //LIBRARIES
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { DataGrid, GridCellParams, GridColDef } from '@mui/x-data-grid';
 import dayjs from 'dayjs';
+import ShowAnnouncementModal from '../announcement-tabs/ShowAnnouncementModal';
+import { MegaphoneIcon } from '@heroicons/react/24/outline';
 
 interface Props {
 
 }
 export default function BirthdayAnniversary(props: Props) {
 
+    //ANNOUNCMENT STATES
+    const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
+    const [showCurrentAnnouncementDetails, setShowCurrentAnnouncementDetails] = useState<any>(null)
+    
+
+    //TAB STATES
     const [activeTab, setActiveTab] = useState<string>('birthday');
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [columns, setColumns] = useState<GridColDef[]>([
@@ -55,7 +63,7 @@ export default function BirthdayAnniversary(props: Props) {
     ])
 
     useEffect(() => {
-        let newColumns = [        
+        let newColumns: GridColDef[]= [        
             {
                 field: 'emp_no',
                 headerName: 'Employee No.',
@@ -95,7 +103,15 @@ export default function BirthdayAnniversary(props: Props) {
                     {
                         field: 'message',
                         headerName: 'Announcements:',
-                        flex: 1
+                        flex: 1,
+                        renderCell: (params:GridCellParams) => {
+                            return (
+                                <div className='flex items-center gap-4'>
+                                    <MegaphoneIcon className='h-6 w-6'/>
+                                    <p>{params.row.message}</p>
+                                </div>
+                            )
+                        }
                     },
                     // {
                     //     field: 'posted_by',
@@ -249,6 +265,11 @@ export default function BirthdayAnniversary(props: Props) {
                 {data.map(({ value, data }:any) => (
                     <TabPanel key={value} value={value}>
                         <div className='overflow-auto h-[800px]'>
+                            <ShowAnnouncementModal 
+                                isOpenModal={isOpenModal}
+                                setIsOpenModal={setIsOpenModal}
+                                details={showCurrentAnnouncementDetails}
+                            />
                             <DataGrid
                                 rows={data}
                                 columns={columns}
@@ -261,8 +282,14 @@ export default function BirthdayAnniversary(props: Props) {
                                 }}
                                 getRowHeight={(params) => 50}
                                 loading={isLoading}
-                                localeText={{ noRowsLabel: `No employees celebrated today` }}
+                                localeText={{ noRowsLabel: activeTab=='announcements'? `No Announcements For Today`: `No employees celebrated today` }}
                                 pageSizeOptions={[5,10,25]}
+                                onRowClick={(e) => {
+                                    if(activeTab == 'announcements') {
+                                        setIsOpenModal(true);
+                                        setShowCurrentAnnouncementDetails(e.row)
+                                    }
+                                }}
                             />
                         </div>
                         

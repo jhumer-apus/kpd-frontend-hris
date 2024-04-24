@@ -1222,6 +1222,7 @@ export const UserProfile = () => {
                   name="branch_code"
                   variant="outlined"
                   label="Branch: (required)"
+                  required
                 >
                   <MenuItem value="">
                     <em>None</em>
