@@ -27,7 +27,7 @@ export default function ShowAnnouncementModal(props: Props) {
                     <Typography variant="h6" className=''>Announcement</Typography>
                 </div>
                 <div className='p-12 overflow-auto'>
-                    <Typography variant="h3" className=''>{details?.message}</Typography>
+                    <Typography variant="h5" className=''>{details?.message}</Typography>
                     <div className='flex items-center gap-4 mt-8'>
                         <img className='rounded-full w-12 h-12' src={`${APILink.replace('/api/v1/', '')}${details?.imageUrl}`} alt={details?.altText} />
                         <Typography variant="h6">{`${details?.posted_by}`}</Typography>
