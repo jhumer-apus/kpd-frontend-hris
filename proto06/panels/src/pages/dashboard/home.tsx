@@ -133,7 +133,7 @@ export function ChooseDashboard() {
       <div className={`${styles.homeWrap} bg-red-10`}>
         <YearlyReminder /> {/* Add this line to include the YearlyReminder component */}
         <Card className={styles.greetingsBar}>
-          <CarouselUI className={styles.greetingsBar}/>
+          <CarouselUI/>
         </Card>
         {/* <UnderDevelopmentMsg/> */}
         {/* <Card className={styles.requestsBar} style={{marginTop: '24px', height: '480px', overflow: 'auto'}}>
@@ -171,7 +171,7 @@ export function ChooseDashboard() {
         </Card> */}
 
         {currUser?.user?.role >= 3 &&
-          <Card className={`${styles.requestsBar} mt-4 overflow-auto h-[500px]`}>
+          <Card className={`${styles.requestsBar} mt-4 overflow-auto`}>
             <CardBody>
 
               <Tabs value={currentAttendanceTab}>

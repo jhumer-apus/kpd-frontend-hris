@@ -1,7 +1,7 @@
 .homeWrap{
     display: grid;
     grid-template-columns: 40% 10% 10% 30% 5%;
-    grid-template-rows: 40% 10% 10% 30% 5%;
+    // grid-template-rows: 40% 10% 10% 30% 5%;
     gap: 20px;
     .greetingsBar{
         grid-column: 1 / 4;
