@@ -225,6 +225,7 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
        
       })
       .catch((error) => {
+        setIsLoading(false);
         if (axios.isCancel(error)) {
           // Ignore the error if it was caused by request cancellation
           return;
@@ -252,28 +253,32 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <div style={{maxWidth: '520px'}}>
+        <div>
             {/* <p className='absolute'>This Month's ScheduleDaily</p> */}
             <StaticDatePicker
-            defaultValue={initialValue}
-            value={value}
-            loading={isLoading}
-            onMonthChange={handleMonthChange}
-            orientation={'portrait'}
-            renderLoading={() => <DayCalendarSkeleton />}
-            slots={{
-            day: ServerDay,
-            }}
-            slotProps={{
-            day: {
-                highlightedDays,
-                scheduleDaily,
-            } as any,
-            // shortcuts: {
-            //     items: shortcutsItems,
-            // },
-            }}
-            className="custom-static-datepicker"
+              defaultValue={initialValue}
+              value={value}
+              loading={isLoading}
+              onMonthChange={handleMonthChange}
+              orientation={'portrait'}
+              renderLoading={() => <DayCalendarSkeleton />}
+              slots={
+                {
+                  day: ServerDay,
+                }
+              }
+              slotProps={
+                {
+                  day: {
+                      highlightedDays,
+                      scheduleDaily,
+                  } as any,
+                // shortcuts: {
+                //     items: shortcutsItems,
+                // },
+                }
+              }
+              className="custom-static-datepicker"
             />
         </div>
     </LocalizationProvider>

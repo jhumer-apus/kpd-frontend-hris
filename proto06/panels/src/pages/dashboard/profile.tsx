@@ -524,8 +524,8 @@
         </div>
         <Card className="mx-3 -mt-16 mb-6 lg:mx-4">
           <CardBody className="p-4">
-            <div className="mb-10 flex items-center justify-between gap-6 flex-col md:flex-row md:items-center md:justify-between md:gap-6">
-                <div className="flex items-center gap-6">
+            <div className="mb-10 flex items-center justify-between gap-6 flex-wrap md:items-center md:justify-between md:gap-6">
+                <div className="flex md:flex-row flex-col items-center gap-6">
                   <div className="h-fit relative w-28">
                         <img
                           src={profileImage ?? getImageSrc()}
@@ -533,7 +533,7 @@
                           className="border rounded p-2 w-48 my-4"
                         />
                         {isEdit && (
-                          <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="absolute inset-0 flex flex-wrap items-center justify-center">
                             <label
                               htmlFor="uploadImage"
                               className={`block text-center text-white p-2 rounded-md ${
@@ -556,8 +556,8 @@
                     </div>
 
                 <div>
-                  <Typography variant="h5" color="blue-gray" className="mb-1" style={{ whiteSpace: 'nowrap' }}>
-                    {`${curr_user?.first_name }`} {`${curr_user?.last_name }`}
+                  <Typography variant="h5" color="blue-gray" className="mb-1 md:whitespace-nowrap">
+                    {`${curr_user?.first_name }`} {`${curr_user?.middle_name }`} {`${curr_user?.last_name }`} {`${curr_user?.suffix}`}
                   </Typography>
                   <Typography
                     variant="small"
@@ -568,18 +568,24 @@
               <div className="w-full flex justify-end">
                 <div className="w-full" style={{ maxWidth: '500px', width: '100%' }}>
                   <Tabs value={activeTab}>
-                    <TabsHeader>
+                    <TabsHeader className='flex md:flex-row flex-col'>
                       <Tab value="personal" onClick={() => handleTabClick('personal')} className="flex items-center">
-                        <HomeIcon className="-mt-1 mr-2 inline-block h-5 w-5" />
-                        Personal
+                        <div className="w-full flex items-center">
+                          <HomeIcon className="-mt-1 mr-2 inline-block h-5 w-5" />
+                          <span>Personal</span>
+                        </div>
                       </Tab>
                       <Tab value="static_info" onClick={() => handleTabClick('static_info')} className="flex items-center">
-                        <ChatBubbleLeftEllipsisIcon className="-mt-0.5 mr-2 inline-block h-5 w-5" />
-                        Account
+                        <div className="w-full flex items-center">
+                          <ChatBubbleLeftEllipsisIcon className="-mt-0.5 mr-2 inline-block h-5 w-5" />
+                          <span>Account</span>
+                        </div>
                       </Tab>
                       <Tab value="employment" onClick={() => handleTabClick('employment')} className="flex items-center">
-                        <Cog6ToothIcon className="-mt-1 mr-2 inline-block h-5 w-5" />
-                        Employment
+                        <div className="w-full flex items-center">
+                          <Cog6ToothIcon className="-mt-1 mr-2 inline-block h-5 w-5" />
+                          <span>Employment</span>
+                        </div>
                       </Tab>  
                     </TabsHeader>
                   </Tabs>

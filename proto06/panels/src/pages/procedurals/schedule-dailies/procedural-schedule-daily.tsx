@@ -18,7 +18,7 @@ import { ALLSCHEDULEViewSpecificAction } from '@/store/actions/employee-and-appl
 
 const PaperStyle: CSSProperties = {
   padding: "20px",
-  height: "800px",
+  // height: "800px",
   // overflowY: 'auto'
 }
 

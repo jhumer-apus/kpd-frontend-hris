@@ -60,6 +60,9 @@ export default function ProceduralSCHEDULEDAILYPageHistory(props: ProceduralSCHE
       </div>
       <div style={{ height: '85%', width: '100%' }}>
         <DataGrid
+          autoHeight
+          loading={status === 'loading'}
+          sx={{ '--DataGrid-overlayHeight': '465px' }}
           rows={SCHEDULEDAILYViewData? SCHEDULEDAILYViewData as SCHEDULEDAILYViewInterface[]:[]}
           columns={ProceduralSCHEDULEDAILYPageColumns}
           initialState={{

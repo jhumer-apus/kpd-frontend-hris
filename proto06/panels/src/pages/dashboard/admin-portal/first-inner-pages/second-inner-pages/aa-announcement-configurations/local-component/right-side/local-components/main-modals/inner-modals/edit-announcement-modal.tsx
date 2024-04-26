@@ -30,7 +30,8 @@ export default function EditANNOUNCEMENTModal(props: EditANNOUNCEMENTModalInterf
   } = props;
 
 
-  const editANNOUNCEMENT = () => { 
+  const editANNOUNCEMENT = (e:any) => { 
+    e.preventDefault()
     dispatch(ANNOUNCEMENTEditAction({
       ...singleANNOUNCEMENTDetailsData,
       emp_no: curr_user || NaN
@@ -99,7 +100,7 @@ export default function EditANNOUNCEMENTModal(props: EditANNOUNCEMENTModalInterf
         > 
           <Typography variant='h6' className='border-b-2 border-blue-700'>Editing ANNOUNCEMENT Details</Typography>
           <div className='flex flex-col items-center justify-around h-full'>
-            <div className='flex flex-col w-full gap-10'>
+            <form onSubmit={editANNOUNCEMENT} className='flex flex-col w-full gap-10'>
               <div className='flex justify-center item-center'>
                 <Typography>Please Enter New Details</Typography>
               </div>
@@ -135,6 +136,12 @@ export default function EditANNOUNCEMENTModal(props: EditANNOUNCEMENTModalInterf
                             multiline
                             rows={4}
                             type="text"
+                            helperText={`${singleANNOUNCEMENTDetailsData?.message.length}/1000`}
+                            inputProps = {
+                              {
+                                  maxLength:1000
+                              }
+                          }
                             value={singleANNOUNCEMENTDetailsData?.message}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value = event.target.value;
@@ -151,10 +158,10 @@ export default function EditANNOUNCEMENTModal(props: EditANNOUNCEMENTModalInterf
                       </div>
               </div>
               <div className='flex justify-around'>
-                <Button variant={'contained'} onClick={editANNOUNCEMENT}>Submit</Button>
+                <Button variant={'contained'} type="submit">Submit</Button>
                 <Button variant={'outlined'} onClick={()=>{setEditANNOUNCEMENTOpenModal(false)}}>Cancel</Button>
               </div>
-            </div>
+            </form>
           </div>
         </ModalDialog>
       </Modal>
