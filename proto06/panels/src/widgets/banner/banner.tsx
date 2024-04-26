@@ -86,7 +86,7 @@ const CarouselUI = ({ items }: any) => {
                                 <div 
                                     className={`${styles.caption} shadow-2xl`}
                                 >
-                                    {item?.message}
+                                    {item?.message} 
                                 </div>
                                 <div className={styles.personInfo}>
                                     <img className={styles.personPic} src={`${APILink.replace('/api/v1/', '')}${item.imageUrl}`} alt={item.altText} />
