@@ -123,7 +123,7 @@ function QuickAccessUACreate(props: CreateUAModalInterface) {
                             
                         /> */}
                     </div>
-                    <div className='flex flex-col gap-6'>
+                    <div className='flex flex-col gap-6 w-full'>
                         <DateFromToUACreate createUA={createUA} setCreateUA={setCreateUA}/>
                     </div>
                 </div>
