@@ -3,7 +3,8 @@ import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Typography } from '@mui/material';
 import { useState } from 'react';
-import { MegaphoneIcon } from "@heroicons/react/24/outline";
+import { MegaphoneIcon, XCircleIcon } from "@heroicons/react/24/outline";
+
 
 interface Props {
     details: any;
@@ -22,9 +23,12 @@ export default function ShowAnnouncementModal(props: Props) {
             onClose={() => setIsOpenModal(false)}
         >
             <ModalDialog>
-                <div className='flex items-center gap-4'>
-                    <MegaphoneIcon className='h-6 w-6'/>
-                    <Typography variant="h6" className=''>Announcement</Typography>
+                <div className='flex justify-between'>
+                    <div className='flex items-center gap-4'>
+                        <MegaphoneIcon className='h-6 w-6'/>
+                        <Typography variant="h6" className=''>Announcement</Typography>
+                    </div>
+                    <XCircleIcon className="h-10 w-10 text-gray-500 cursor-pointer hover:text-black" onClick={() => setIsOpenModal(false)}/>
                 </div>
                 <div className='p-12 overflow-auto'>
                     <Typography variant="h5" className=''>{details?.message}</Typography>
