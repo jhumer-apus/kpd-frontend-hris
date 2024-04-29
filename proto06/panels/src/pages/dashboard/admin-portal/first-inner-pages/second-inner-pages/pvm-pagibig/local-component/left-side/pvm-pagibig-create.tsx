@@ -117,7 +117,7 @@ function PVMPAGIBIGCreate(props: CreatePAGIBIGModalInterface) {
                         <DeductionsPAGIBIGCreateModal setCreatePAGIBIGDetailsData={setCreatePAGIBIG} createPAGIBIGDetailsData={createPAGIBIG} createPAGIBIGOpenModal={createPAGIBIGOpenModal} setCreatePAGIBIGOpenModal={setCreatePAGIBIGOpenModal}/>
                     </div>
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
-                    <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
+                    <div className='flex flex-wrap justify-between gap-4'  container-name='leave_buttons'>
                         <Button variant='contained' onClick={onClickSubmit}>Create PAGIBIG</Button>
                         <Button variant='outlined' color='warning' onClick={()=> setCreatePAGIBIGOpenModal(true)}>Apply Monthly Loan Deduction</Button>
                     </div>

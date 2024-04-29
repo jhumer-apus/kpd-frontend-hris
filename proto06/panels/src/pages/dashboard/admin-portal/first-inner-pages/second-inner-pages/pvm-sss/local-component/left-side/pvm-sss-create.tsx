@@ -115,7 +115,7 @@ function PVMSSSCreate(props: CreateSSSModalInterface) {
                         <DeductionsSSSCreateModal setCreateSSSDetailsData={setCreateSSS} createSSSDetailsData={createSSS} createSSSOpenModal={createSSSOpenModal} setCreateSSSOpenModal={setCreateSSSOpenModal}/>
                     </div>
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
-                    <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
+                    <div className='flex flex-wrap gap-4 justify-between' style={{width:'100%'}} container-name='leave_buttons'>
                         <Button variant='contained' onClick={onClickSubmit}>Create SSS</Button>
                         <Button variant='outlined' color='warning' onClick={()=> setCreateSSSOpenModal(true)}>Apply Monthly Loan Deduction</Button>
                     </div>
