@@ -557,7 +557,7 @@
 
                 <div>
                   <Typography variant="h5" color="blue-gray" className="mb-1 md:whitespace-nowrap">
-                    {`${curr_user?.first_name }`} {`${curr_user?.middle_name }`} {`${curr_user?.last_name }`} {`${curr_user?.suffix}`}
+                    {`${curr_user?.first_name?? '' }`} {`${curr_user?.middle_name?? '' }`} {`${curr_user?.last_name?? '' }`} {`${curr_user?.suffix?? '' }`}
                   </Typography>
                   <Typography
                     variant="small"
