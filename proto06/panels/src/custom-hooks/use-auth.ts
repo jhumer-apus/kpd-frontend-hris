@@ -8,7 +8,7 @@ import axios from 'axios'
 export function useAuth() {
   const dispatch = useDispatch();
   const { isAuthenticated, user, employee_detail, status }= useSelector((state:RootState) => state.auth);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const token = Cookies.get('token');
