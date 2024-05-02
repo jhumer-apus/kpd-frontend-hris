@@ -21,9 +21,9 @@ export function useAuth() {
       dispatch(userLogout());
     }
 
-    setTimeout(() => {
-        setLoading(false);
-    }, 200);
+    // setTimeout(() => {
+    //     setLoading(false);
+    // }, 200);
     
 
   }, [dispatch]);
@@ -39,6 +39,7 @@ export function useAuth() {
     axios.get(`${APILink}employees/${user.emp_no}`).then(res => {
       const employeeDetail = res.data
       dispatch(userLoginActionSuccess(token, user, employeeDetail));
+      setLoading(false);
     })
   }
 
