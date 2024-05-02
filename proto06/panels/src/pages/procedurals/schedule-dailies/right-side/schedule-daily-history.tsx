@@ -58,7 +58,10 @@ export default function ProceduralSCHEDULEDAILYPageHistory(props: ProceduralSCHE
         </Typography>
         </div>
       </div>
-      <div style={{ height: '85%', width: '100%' }}>
+      <div 
+        // style={{ width: '100%' }} 
+        className="w-full"
+      >
         <DataGrid
           autoHeight
           loading={status === 'loading'}
