@@ -122,15 +122,17 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
           sidenavType === "dark" ? "border-white/20" : "border-blue-gray-50"
         }`}
       >
-        <Link to="/" className="flex items-center gap-4 py-6 px-8">
-          <Avatar src={brandImg} size="sm" />
-          <Typography
-            variant="h6"
-            color={sidenavType === "dark" ? "white" : "blue-gray"}
-          >
-            {brandName}
-          </Typography>
-        </Link>
+        <div className="py-6 px-4">
+          <Link to="/" className="flex w-fit items-center gap-4">
+            <Avatar src={brandImg} size="sm" />
+            <Typography
+              variant="h6"
+              color={sidenavType === "dark" ? "white" : "blue-gray"}
+            >
+              {brandName}
+            </Typography>
+          </Link>
+        </div>
         <IconButton
           variant="text"
           color="white"
