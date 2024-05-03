@@ -302,6 +302,9 @@ export const SpecificEmployee = (props: initialState) => {
         })
     }
     const fetchApprovers = (department: number) => {
+
+        setDropDownData((curr:any) => ({...curr, approvers: []}));
+
         axios.get(`${APILink}approvers/`,{
           params:{
             department: department
@@ -1381,8 +1384,9 @@ export const SpecificEmployee = (props: initialState) => {
                                             />    
                                         </div>
                                         <div className="my-4 flex flex-col md:flex-row md:items-center gap-4">
-                                            {dropDownData.approvers.length > 0 &&
+                                            {
                                                 <Select
+                                                    key={dropDownData.approvers.length > 0? 1: 0}
                                                     onChange={(val:any) => setFormSelectData(curr => ({
                                                         ...curr,
                                                         approver1: val
@@ -1413,8 +1417,9 @@ export const SpecificEmployee = (props: initialState) => {
                                                 value={userData?.approver1 as number}
                                                 icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    
                                             /> */}
-                                            {dropDownData.approvers.length > 0 && 
+                                            {
                                                 <Select
+                                                    key={dropDownData.approvers.length > 0? 3: 2}
                                                     onChange={(val:any) => setFormSelectData(curr => ({
                                                         ...curr,
                                                         approver2: val
