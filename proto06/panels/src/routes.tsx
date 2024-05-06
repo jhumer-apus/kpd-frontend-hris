@@ -630,8 +630,8 @@ const JSXRouteWrapper = () => {
             {
               id: 13200,
               icon: <DifferenceOutlinedIcon {...icon} />,
-              name: "File OT",
-              path: "/quick-accesses/file-OT",
+              name: isDepartmentManager? "File Allowance Time": "File OT",
+              path: `/quick-accesses/${isDepartmentManager? "file-allowance-time": "file-ot"}`,
               element: <FileOVERTIMEPage/>, 
               hasSubItems: false,
             },

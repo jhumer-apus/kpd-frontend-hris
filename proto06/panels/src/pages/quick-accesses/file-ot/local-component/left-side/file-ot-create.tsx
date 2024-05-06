@@ -35,6 +35,11 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
         ot_date_to: null,
         added_by: userData?.emp_no,
     });
+
+    const isDepartmentManager = userData?.user?.role == 2
+
+    console.log(userData?.user?.role)
+
     const onClickSubmit = () => {
         // dispatch(OVERTIMECreateAction(createOVERTIME))
         fileOTPost()
@@ -97,7 +102,7 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
 
     return (
         <React.Fragment>
-            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '2px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create an Overtime Data</Typography>
+            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '2px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>{isDepartmentManager ? "Create an Allowance time" : "Create an Overtime Data"}</Typography>
             <div className='flex flex-col gap-3 overflow-auto relative'>
                 <div className='flex flex-wrap gap-3 pt-4'>
                     <div className='flex flex-col gap-3' style={{width : '100%'}}>
@@ -106,7 +111,7 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
                         <TextField
                             required 
                             sx={{width: '100%'}} 
-                            label='OVERTIME Type:'  
+                            label={isDepartmentManager ? 'ALLOWANCE TIME Type': 'OVERTIME Type'}
                             variant='outlined' 
                             multiline rows={1}
                             value={"After Duty"}
@@ -117,7 +122,7 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
                         <TextField
                             required 
                             sx={{width: '100%'}} 
-                            label='OVERTIME Description:'  
+                            label={isDepartmentManager ? 'ALLOWANCE TIME Description': 'OVERTIME Description'} 
                             variant='outlined' 
                             multiline rows={2}
                             value={createOVERTIME?.ot_remarks}
