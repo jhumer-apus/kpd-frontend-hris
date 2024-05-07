@@ -565,23 +565,23 @@
                   ></Typography>
                 </div>
               </div>
-              <div className="w-full flex justify-end">
+              <div className="w-fit flex items-center md:justify-end">
                 <div className="w-full" style={{ maxWidth: '500px', width: '100%' }}>
                   <Tabs value={activeTab}>
                     <TabsHeader className='flex md:flex-row flex-col'>
-                      <Tab value="personal" onClick={() => handleTabClick('personal')} className="flex items-center">
+                      <Tab value="personal" onClick={() => handleTabClick('personal')} className="flex w-full sm:w-96 items-center">
                         <div className="w-full flex items-center">
                           <HomeIcon className="-mt-1 mr-2 inline-block h-5 w-5" />
                           <span>Personal</span>
                         </div>
                       </Tab>
-                      <Tab value="static_info" onClick={() => handleTabClick('static_info')} className="flex items-center">
+                      <Tab value="static_info" onClick={() => handleTabClick('static_info')} className="flex w-full sm:w-96 items-center">
                         <div className="w-full flex items-center">
                           <ChatBubbleLeftEllipsisIcon className="-mt-0.5 mr-2 inline-block h-5 w-5" />
                           <span>Account</span>
                         </div>
                       </Tab>
-                      <Tab value="employment" onClick={() => handleTabClick('employment')} className="flex items-center">
+                      <Tab value="employment" onClick={() => handleTabClick('employment')} className="flex w-full sm:w-96 items-center">
                         <div className="w-full flex items-center">
                           <Cog6ToothIcon className="-mt-1 mr-2 inline-block h-5 w-5" />
                           <span>Employment</span>

@@ -213,6 +213,8 @@ export const UserProfile = () => {
     }
 
     const fetchApprovers = (department: number) => {
+      setDropDownData((curr:any) => ({...curr, approvers: []}));
+
       axios.get(`${APILink}approvers/`,{
         params:{
           department: department
