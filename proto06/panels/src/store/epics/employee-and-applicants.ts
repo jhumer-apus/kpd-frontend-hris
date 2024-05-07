@@ -1816,7 +1816,7 @@ export const ALLSCHEDULEViewSpecificEpic: Epic = (action$, state$) =>
             if (error.response && error.response.data && error.response.data['Error Message']) {
                 return of(_Action.ALLSCHEDULEViewSpecificActionFailure(error.response.data['Error Message'])); // Extract error message from the response
             } else {
-                return of(_Action.ALLSCHEDULEViewSpecificActionFailure(beautifyJSON(error.response.data))); // If there is no custom error message, use the default one
+                return of(_Action.ALLSCHEDULEViewSpecificActionFailure(beautifyJSON(error.response?.data))); // If there is no custom error message, use the default one
             }
             })
         )

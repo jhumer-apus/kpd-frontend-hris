@@ -67,6 +67,7 @@ export default function EmploymentHistoryTable(props: EmploymentHistoryTableInte
             setSingleEMPHISTORYOpenModal(true);
           }}
           disableRowSelectionOnClick 
+          loading={status == 'loading'}
           localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
           />
       </div>

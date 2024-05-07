@@ -268,7 +268,7 @@
 
     const findEmpStatus = () => {
       const foundEmpStatus = dropDownData.employmentStatuses.find((status:any) => status.id == userData.employment_status)
-      return foundEmpStatus.name
+      return foundEmpStatus?.name
     }
     const fetchPayrollGroups = () => {
       axios.get(`${APILink}payrollgroup`).then((response:any) => {
