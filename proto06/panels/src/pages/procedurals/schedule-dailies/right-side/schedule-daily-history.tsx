@@ -64,16 +64,17 @@ export default function ProceduralSCHEDULEDAILYPageHistory(props: ProceduralSCHE
       >
         <DataGrid
           autoHeight
+          // autoPageSize
           loading={status === 'loading'}
           sx={{ '--DataGrid-overlayHeight': '465px' }}
           rows={SCHEDULEDAILYViewData? SCHEDULEDAILYViewData as SCHEDULEDAILYViewInterface[]:[]}
           columns={ProceduralSCHEDULEDAILYPageColumns}
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 100 },
+              paginationModel: { page: 0, pageSize: 10 },
             },
           }}
-          pageSizeOptions={[25, 50, 75, 100]}
+          pageSizeOptions={[10, 50, 75, 100]}
           onRowClick={(e) => {
             setSingleSCHEDULEDAILYDetailsData(e.row);
             setSingleSCHEDULEDAILYOpenModal(true);
