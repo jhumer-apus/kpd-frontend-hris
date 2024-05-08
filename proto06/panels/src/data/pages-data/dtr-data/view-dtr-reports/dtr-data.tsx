@@ -26,11 +26,19 @@ export const dynamicDTRColumns= ():Array<GridColDef[]> => {
 
 const currUser = useSelector((state: RootState) => state.auth.employee_detail);
 
+const convertHoursToMins = (mins:number): { hours: number, remainingMins: number } => {
+
+  let hours = Math.floor(mins / 60); // Get the whole number of hours
+  let remainingMins = mins % 60; // Get the remaining minutes
+
+  return { hours, remainingMins };
+};
+
 return [
   [
     { field: 'id', headerName: 'Entry ID', width: 120 },
     { field: 'emp_no', headerName: 'Employee #', width: 120 },
-    { field: 'emp_name', headerName: 'Name', width: 120 },
+    { field: 'emp_name', headerName: 'Name', width: 200 },
     { field: 'flag1_in_out', headerName: 'Entry Type', width: 120, 
       valueGetter: (params: GridValueGetterParams) => {
         const entryType = params.row.flag1_in_out? "Duty Out": "Duty In";
@@ -76,7 +84,7 @@ return [
   [
     { field: 'id', headerName: 'Entry ID', width: 120 },
     { field: 'emp_no', headerName: 'Employee #', width: 120 },
-    { field: 'emp_name', headerName: 'Name', width: 120 },
+    { field: 'emp_name', headerName: 'Name', width: 200 },
     { field: 'business_date', headerName: 'Business Date', width: 120 },
     {
       field: 'duty_in',
@@ -129,7 +137,7 @@ return [
   [
     { field: 'id', headerName: 'Data ID', width: 100 },
     { field: 'emp_no', headerName: 'Emp. #', width: 100 },
-    { field: 'emp_name', headerName: 'Name', width: 120 },
+    { field: 'emp_name', headerName: 'Name', width: 200 },
     { field: 'business_date_from', headerName: 'Cutoff From', width: 120 },
     { field: 'business_date_to', headerName: 'Cutoff To', width: 120 },
     { 
@@ -143,13 +151,16 @@ return [
       width: 110 
     },
     { 
-      field: 'reg_ot_total', 
+      field: 'reg_ot_total_hours', 
       headerName: 'Reg. OT',
       description: 'This column has a value getter and sorting may sometimes not accurately filter. Use Filter instead, by clicking on the three dots beside this header.',
       sortable: true, // Can turn to 'false' if there is bug in sorting.
       valueGetter: (params: GridValueGetterParams) => {
+        // const regOtHours = params.row.reg_ot_total_hours;
+        // const { hours, mins } = convertHoursToMins(regOtHours);
         // const convertedMinsToHours = parseFloat((params.row.reg_ot_total / 60).toFixed(2));
-        return `${params.row.reg_ot_total} min(s)`;
+        // return `${hours} hour(s) and ${mins} min(s)`;
+        return `${params.row.reg_ot_total_hours} min(s)`;
       }, 
       width: 120 
     },
@@ -199,10 +210,13 @@ return [
       field: 'total_hours', 
       headerName: 'Total Hrs', 
       valueGetter: (params: GridValueGetterParams) => {
-        return `${params.row.total_hours} min(s)`;
+        const totalHours = params.row.total_hours;
+        const { hours, remainingMins } = convertHoursToMins(totalHours);
+        return `${hours} hour(s) and ${remainingMins} min(s)`;
+        // return `${params.row.total_hours} min(s)`;
       }, 
       sortable: true,
-      width: 110 
+      width: 200
     },
     { 
       field: 'is_processed', 

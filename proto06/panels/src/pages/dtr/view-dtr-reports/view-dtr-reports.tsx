@@ -220,7 +220,7 @@ export default function ViewDtrReports() {
         setFilter={setFilter}
       />
 
-      <div style={{ height: `${printing? `${printableArea()}px` : '660px'}`, width: '100%' }} id="printable-area">
+      <div style={{ height: `${printing? `${printableArea()}px` : '660px'}`}} id="printable-area">
         <DataGrid
           rows={dtrData ?? []}
           columns={dynamicDTRColumns()[spButtonIndex === null ? 0 : spButtonIndex]}
@@ -230,12 +230,12 @@ export default function ViewDtrReports() {
             },
           }}
           pageSizeOptions={[25, 50, 75, 100]}
-          onRowClick={(e) => {
-            spButtonIndex === 2 ? gridRowClick(e) : null
-          }}
+          // onRowClick={(e) => {
+          //   spButtonIndex === 2 ? gridRowClick(e) : null
+          // }}
           style={{ cursor: spButtonIndex === 2 ? 'pointer': 'default'}}
           localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  `${dtrError}` : 'Data Loaded - Showing 0 Results'}` }}
-          />
+        />
         <Modal
           open={open}
           onClose={
