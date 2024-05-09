@@ -190,10 +190,6 @@ export default function ViewDtrReports() {
     const isBasicEmployee = role && role == 1
     const isDepartmentManager = role && role == 2
 
-  
-
-  console.log(isBasicEmployee)
-  console.log(isDepartmentManager)
   return (
     <Fragment>
       <div className="my-10 flex flex-wrap justify-between items-start gap-6">

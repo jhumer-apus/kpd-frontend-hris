@@ -26,6 +26,10 @@ export const dynamicDTRColumns= ():Array<GridColDef[]> => {
 
 const currUser = useSelector((state: RootState) => state.auth.employee_detail);
 
+const isDepartmentManager = currUser?.user?.role == 2;
+
+console.log("department manager? " + isDepartmentManager)
+
 const convertHoursToMins = (mins:number): { hours: number, remainingMins: number } => {
 
   let hours = Math.floor(mins / 60); // Get the whole number of hours
@@ -150,20 +154,29 @@ return [
       },  
       width: 110 
     },
-    { 
-      field: 'reg_ot_total_hours', 
-      headerName: 'Reg. OT',
-      description: 'This column has a value getter and sorting may sometimes not accurately filter. Use Filter instead, by clicking on the three dots beside this header.',
-      sortable: true, // Can turn to 'false' if there is bug in sorting.
-      valueGetter: (params: GridValueGetterParams) => {
-        // const regOtHours = params.row.reg_ot_total_hours;
-        // const { hours, mins } = convertHoursToMins(regOtHours);
-        // const convertedMinsToHours = parseFloat((params.row.reg_ot_total / 60).toFixed(2));
-        // return `${hours} hour(s) and ${mins} min(s)`;
-        return `${params.row.reg_ot_total_hours} min(s)`;
-      }, 
-      width: 120 
-    },
+    ...(isDepartmentManager? [
+      { 
+        field: 'allowance_time_total_hours', 
+        headerName: 'Allowance Time Total Hours',
+        description: 'This column has a value getter and sorting may sometimes not accurately filter. Use Filter instead, by clicking on the three dots beside this header.',
+        sortable: true, // Can turn to 'false' if there is bug in sorting.
+        valueGetter: (params: GridValueGetterParams) => {
+          return `${(params.row.reg_ot_total_hours??0) + (params.row.nd_ot_total_hours??0)} min(s)`;
+        }, 
+        width: 120 
+      },
+    ]: [
+      { 
+        field: 'reg_ot_total_hours', 
+        headerName: 'Reg. OT',
+        description: 'This column has a value getter and sorting may sometimes not accurately filter. Use Filter instead, by clicking on the three dots beside this header.',
+        sortable: true, // Can turn to 'false' if there is bug in sorting.
+        valueGetter: (params: GridValueGetterParams) => {
+          return `${params.row.reg_ot_total_hours} min(s)`;
+        }, 
+        width: 120 
+      }
+    ]),
     { 
       field: 'sp_holiday_total', 
       headerName: 'SP. Holidays', 
@@ -212,7 +225,7 @@ return [
       valueGetter: (params: GridValueGetterParams) => {
         const totalHours = params.row.total_hours;
         const { hours, remainingMins } = convertHoursToMins(totalHours);
-        return `${hours} hour(s) and ${remainingMins} min(s)`;
+        return `${hours} hr(s) ${remainingMins} min(s)`;
         // return `${params.row.total_hours} min(s)`;
       }, 
       sortable: true,

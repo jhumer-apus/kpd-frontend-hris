@@ -52,6 +52,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { validateImage } from '@/helpers/validator/employee_information';
 import SelectProvince from '@/public-components/forms/address/SelectProvince';
 import SelectCityMunicipality from '@/public-components/forms/address/SelectCityMunicipality';
+import useFetchQuery from '@/custom-hooks/use-fetch-query';
 
 interface DropDownData {
     branches: any[],
@@ -238,7 +239,8 @@ export const SpecificEmployee = (props: initialState) => {
         }
       }
       
-
+    const {data: ranks, status, error} = useFetchQuery(`${APILink}/rank/`, null)
+    
     const fetchPayrollGroups = () => {
         axios.get(`${APILink}payrollgroup`).then((response:any) => {
             const responsePayrollGroups = response.data.map((payroll:any) => {
@@ -1483,7 +1485,7 @@ export const SpecificEmployee = (props: initialState) => {
                                             >
                                                 {
                                                 dropDownData.branches.length > 0 ? dropDownData.branches.map((branch:any) => (
-                                                    <Option key={branch.id} value={branch.id}>{branch.name}</Option>
+                                                    <Option key={branch.id} value={branch.id.toString()}>{branch.name}</Option>
 
                                                 ))
                                                 : <Option disabled>No branches available</Option>
@@ -1509,6 +1511,7 @@ export const SpecificEmployee = (props: initialState) => {
                                             </Select> */}
                                             {dropDownData.departments.length > 0 &&
                                                 <Select
+                                                    key={dropDownData.departments.length > 0? "departments":"noDepartments"}
                                                     onChange={(val:any) => {
                                                         fetchApprovers(val)
                                                         setFormSelectData(curr => (
@@ -1527,7 +1530,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                 >
                                                     {
                                                     dropDownData.departments.length > 0 ? dropDownData.departments.map((department:any) => (
-                                                        <Option key={department.id} value={department.id}>{department.name}</Option>
+                                                        <Option key={department.id} value={department.id.toString()}>{department.name}</Option>
                                                     ))
                                                     : <Option disabled>No departments available</Option>
                                                     }
@@ -1567,26 +1570,28 @@ export const SpecificEmployee = (props: initialState) => {
                                                     icon={<UserGroupIcon className="h-5 w-5 text-blue-gray-300" />}                                        /> */}
                                         </div>
                                         <div className="my-0 flex flex-col md:flex-row md:items-center gap-4">
-                                            <Select
-                                                onChange={(val:any) => setFormSelectData(curr => ({
-                                                ...curr,
-                                                rank_code: val
-                                                }))}
-                                                placeholder="Rank"
-                                                name="rank_code"
-                                                variant="outlined"
-                                                label="Rank"
-                                                disabled={!editMode3}
-                                                value={userData?.rank_code?.toString()}
-                                                aria-required
-                                            >
-                                                <Option value="1">Announcer</Option>
-                                                <Option value="2">Employee</Option>
-                                                <Option value="3">Department Manager/Director</Option>
-                                                <Option value="4">HR Staff</Option>
-                                                <Option value="5">HR Manager/Director</Option>
-                                                <Option value="6">HR Super Admin</Option>
-                                            </Select>
+                                            
+                                                <Select
+                                                    key={ranks && ranks.length > 0? "ranks" : "noRanks"}
+                                                    onChange={(val:any) => setFormSelectData(curr => ({
+                                                    ...curr,
+                                                    rank_code: val
+                                                    }))}
+                                                    placeholder="Rank"
+                                                    name="rank_code"
+                                                    variant="outlined"
+                                                    label="Rank"
+                                                    disabled={!editMode3}
+                                                    value={userData?.rank_code?.toString()}
+                                                >
+                                                {ranks && ranks.length>0? ranks.map((rank: any) => (
+                                                        <Option key={rank.id.toString()} value={rank.id.toString()}>{rank.rank_name}</Option>
+                                                    )):
+                                                        <Option disabled>No payrolls available</Option>
+                                                }
+                                                
+                                                </Select>
+                                            
                                             {/* <Input
                                                     crossOrigin={undefined} {...register('rank_code')}
                                                     type="text"

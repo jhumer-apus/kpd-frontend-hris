@@ -30,6 +30,7 @@ import Province from '@/public-components/forms/address/Province'
 import CityMunicipality from '@/public-components/forms/address/CityMunicipality'
 import { useSelector } from 'react-redux';
 import { update } from 'lodash';
+import useFetchQuery from '@/custom-hooks/use-fetch-query';
 // import SelectForm from '@/public-components/forms/SelectForm'
 
 
@@ -41,7 +42,8 @@ interface DropDownData {
   employmentStatuses: any[],
   positions: any[],
   approvers: any[],
-  divisions: any[]
+  divisions: any[],
+  ranks: any[]
 }
 
 export const UserProfile = () => {
@@ -93,7 +95,8 @@ export const UserProfile = () => {
       employmentStatuses:[],
       positions:[],
       approvers:[],
-      divisions:[]
+      divisions:[],
+      ranks:[]
     })
 
 
@@ -120,6 +123,8 @@ export const UserProfile = () => {
     // },[employeeData.department_code])
 
     // FETCH SELECTS INFORMATION
+    const {data: ranks, status, error} = useFetchQuery(`${APILink}/rank/`, null)
+    
     const fetchPayrollGroups = () => {
       axios.get(`${APILink}payrollgroup`).then((response:any) => {
         const responsePayrollGroups = response.data.map((payroll:any) => {
@@ -1071,6 +1076,7 @@ export const UserProfile = () => {
               <FormControl className='w-full'>
               <InputLabel htmlFor="rank">Rank: (required)</InputLabel>
               <Select
+                key={ranks && ranks.length> 0? "ranks": "noRanks"}
                 onChange={(e:any) => setEmployeeData(curr => ({
                   ...curr,
                   rank_code: e.target.value
@@ -1081,12 +1087,10 @@ export const UserProfile = () => {
                 label="Rank: (required)"
                 required
             >   
-                <MenuItem value="1">Announcer</MenuItem>
-                <MenuItem value="2">Employee</MenuItem>
-                <MenuItem value="3">Department Manager/Director</MenuItem>
-                <MenuItem value="4">HR Staff</MenuItem>
-                <MenuItem value="5">HR Manager/Director</MenuItem>
-                <MenuItem value="6">HR Super Admin</MenuItem>
+              {ranks && ranks.map((rank:any) => (
+                <MenuItem value={rank.id}>{rank.rank_name}</MenuItem>
+              ))}
+                {/* <MenuItem value="1">Announcer</MenuItem> */}
                 {/* {appStatus == "development" && <MenuItem value="7">Development</MenuItem>} */}
               </Select>
             </FormControl>
