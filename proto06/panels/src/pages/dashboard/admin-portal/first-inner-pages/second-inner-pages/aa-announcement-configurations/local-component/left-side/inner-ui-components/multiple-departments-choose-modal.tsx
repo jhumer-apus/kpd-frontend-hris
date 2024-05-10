@@ -2,7 +2,7 @@ import { Dispatch, MutableRefObject, SetStateAction, useEffect, useState } from 
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { APILink, RootState } from '@/store/configureStore';
 import { AutocompleteChangeReason } from '@mui/material/Autocomplete';
 import { ANNOUNCEMENTCreateInterface } from '@/types/types-payroll-eoy';
 
@@ -10,6 +10,7 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import Checkbox from '@mui/material/Checkbox';
 import { DEPARTMENTViewAction } from '@/store/actions/categories';
+import useFetchQuery from '@/custom-hooks/use-fetch-query';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -31,38 +32,41 @@ export default function MultiDepartmentAutoCompleteLeft(props: DepartmentAutoCom
     const {setCreateANNOUNCEMENT, createANNOUNCEMENT} = props;
     const dispatch = useDispatch();
     const state = useSelector((state:RootState)=> state.categories.DEPARTMENTView);
-    const [departmentsList, setDepartmentsList] = useState<optionsInterface[]>([])
-    const [chosenDepartments, setChosenDepartments] = useState<optionsInterface[]>([]);
+    const [departmentsList, setDepartmentsList] = useState<any[]>([])
+    const [chosenDepartments, setChosenDepartments] = useState<any[]>([]);
     const [selectedDepartmentId, setSelectedDepartmentId] = useState<number[]>([]);
-    useEffect(()=> {
-        dispatch(DEPARTMENTViewAction());
-    }, []);
+    // useEffect(()=> {
+    //     dispatch(DEPARTMENTViewAction());
+    // }, []);
 
-    useEffect(()=> {
-        if(selectedDepartmentId){
-            setCreateANNOUNCEMENT((prevState)=> {
-                return(
-                    {
-                        ...prevState,
-                        for_departments_code: selectedDepartmentId
-                    }
-                )
-            })
-        }
-    }, [selectedDepartmentId])
+    const {data:departments, status, error} = useFetchQuery(`${APILink}ann_department/`, null)
+
+    // useEffect(()=> {
+    //     if(selectedDepartmentId){
+    //         setCreateANNOUNCEMENT((prevState)=> {
+    //             return(
+    //                 {
+    //                     ...prevState,
+    //                     for_departments_code: selectedDepartmentId
+    //                 }
+    //             )
+    //         })
+    //     }
+    // }, [selectedDepartmentId])
     useEffect(() => {
-        if (state.data) {
+        if (departments) {
             const updatedDepartmentsList = 
-            state.data?.map(({ id, dept_name, dept_branch_code }) => {
+            departments?.map(({ id, dept_name, dept_branch_code }:any) => {
                 return {
-                    department: `${dept_name}, ${dept_branch_code} - #${id}`,
+                    // department: `${dept_name}, ${dept_branch_code} - #${id}`,
+                    department: `${dept_name}`,
                     department_id: id,
                     firstLetter: /[0-9]/.test(dept_name[0].toUpperCase()) ? '0-9' : dept_name[0].toUpperCase() 
                 };
             }) || [];
             setDepartmentsList(updatedDepartmentsList);
         }
-    }, [state.data]);
+    }, [departments]);
 
     useEffect(() => {
         // if(createANNOUNCEMENT.for_departments_code.length > 0){
@@ -71,17 +75,37 @@ export default function MultiDepartmentAutoCompleteLeft(props: DepartmentAutoCom
         // }
     }, [])
 
-    const handleChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: optionsInterface[], reason: AutocompleteChangeReason) => {
-        // if (Array.isArray(newInputValue) && newInputValue.length > 0) {
-            const matchingDepartments = departmentsList.filter((departmentItem) =>
-                newInputValue.some((selectedItem) => selectedItem.department === departmentItem.department)
-            );
-            const matchingDepartmentIds = matchingDepartments.map((department) => department.department_id);
-            setSelectedDepartmentId(matchingDepartmentIds)
-            setChosenDepartments(matchingDepartments)
-        // } else { 
-            // setSelectedDepartmentId([]);
-        // }
+    const handleChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: any[], reason: AutocompleteChangeReason) => {
+        if (Array.isArray(newInputValue) && newInputValue.length > 0) {
+        // const matchingDepartments = departmentsList.filter((departmentItem) =>
+        //     newInputValue.some((selectedItem) => selectedItem.department === departmentItem.department)
+        // );
+        // const matchingDepartmentIds = matchingDepartments.map((department) => department.department_id);
+
+        
+            const departmentIds = newInputValue.map(dep => dep.department_id)
+
+            setCreateANNOUNCEMENT((prevState)=> {
+                return(
+                    {
+                        ...prevState,
+                        for_departments_code: departmentIds
+                    }
+                )
+            })
+            setSelectedDepartmentId(departmentIds)
+            setChosenDepartments(newInputValue)
+        } else { 
+            setCreateANNOUNCEMENT((prevState)=> {
+                return(
+                    {
+                        ...prevState,
+                        for_departments_code: []
+                    }
+                )
+            })
+            setSelectedDepartmentId([]);
+        }
     };
 
  
@@ -95,13 +119,13 @@ export default function MultiDepartmentAutoCompleteLeft(props: DepartmentAutoCom
         multiple
         limitTags={2}
         noOptionsText={'Loading... Please Wait.'}
-        options={departmentsList?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
+        options={departmentsList?.sort((a:any, b:any) => -b.firstLetter.localeCompare(a.firstLetter))}
         groupBy={(departmentsList) => departmentsList.firstLetter}
         getOptionLabel={(departmentsList) => departmentsList.department}
         // onInputChange={()=> console.log("asd11")}
-        value={chosenDepartments}
-        onChange={handleChange}
         disableCloseOnSelect
+        // value={chosenDepartments}
+        onChange={handleChange}
         renderOption={(props, option, { selected }) => (
             <li {...props}>
               <Checkbox
