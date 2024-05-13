@@ -17,6 +17,7 @@
     ChatBubbleLeftEllipsisIcon,
     Cog6ToothIcon,
     PencilIcon,
+    PencilSquareIcon
   } from "@heroicons/react/24/solid";
 
   import { Link } from "react-router-dom";
@@ -48,6 +49,7 @@
   import { INTERNAL_USER_ROLE } from "@/types/types-store";
   import dayjs from "dayjs";
   import useGetSpecificProvince from "@/custom-hooks/use-fetch-specific-province";
+import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
   const apiUrl = 'https://bitversecorporation.pythonanywhere.com/api/v1/'; // Replace with your actual API endpoint
 
@@ -69,7 +71,7 @@
     payrollGroups: any[],
     employmentStatuses: any[],
     positions: any[]
-}
+  }
 
   export function Profile() {
     const [activeTab, setActiveTab] = useState('personal');
@@ -586,7 +588,7 @@
                           <Cog6ToothIcon className="-mt-1 mr-2 inline-block h-5 w-5" />
                           <span>Employment</span>
                         </div>
-                      </Tab>  
+                      </Tab> 
                     </TabsHeader>
                   </Tabs>
                 </div>
@@ -596,13 +598,71 @@
             {activeTab === 'personal' && userData && (
               <form onSubmit={handleSubmitPersonal}>
                 <div className="" style={{ marginTop: '-10px', marginBottom: '20px', position: 'relative' }}>
-                  <div className="mb-10">
+                  <div className="mb-10 flex flex-wrap gap-4 items-center justify-between">
                     <Typography
                       variant="h5"
                       className="font-normal text-blue-gray-600"
                     >
                       {!isEdit? 'View Mode': 'Edit Mode'}
                     </Typography>
+                    <div>
+                      {isEdit?
+                        (
+                          <div className="flex flex-wrap gap-2">
+                            <Button className="flex items-center gap-2 py-2 px-4" onClick={()=> {
+                              setIsEdit(false)
+                              rollBackData()
+                            }}
+                            disabled={isSubmittingRequest}
+                            >
+                              <Typography
+                                variant="subtitle2"
+                                sx={{ fontSize: 12, fontWeight: 'medium' }}
+                              >
+                                Cancel
+                              </Typography>
+                              <XMarkIcon className="h-6 w-6"/>
+                            </Button>
+
+{/* 
+                            <Button className="flex items-center gap-2 py-2 px-4" onClick={()=> {
+                              setIsEdit(false)
+                              rollBackData()
+                            }}
+                            disabled={isSubmittingRequest}
+                            >
+                              Cancel
+                            </Button> */}
+                            <Button 
+                              className="flex items-center gap-2 py-2 px-4" 
+                              type="submit" 
+                              disabled={isSubmittingRequest}
+                            >
+                              <Typography
+                                variant="subtitle2"
+                                sx={{ fontSize: 12, fontWeight: 'medium' }}
+                              >
+                                Save
+                              </Typography>
+                              <CheckIcon className="h-6 w-6"/>
+                            </Button>
+                          </div>
+                        ):
+                        (
+                          <Button className="flex items-center gap-2 py-2 px-4" onClick={()=>setIsEdit(true)}>
+                            <Typography
+                              variant="subtitle2"
+                              sx={{ fontSize: 12, fontWeight: 'medium' }}
+                            >
+                              Edit
+                            </Typography>
+                            <PencilSquareIcon className="h-6 w-6"/>
+
+                          </Button>
+                        )
+
+                      }
+                    </div>
                   </div>
                   <div className="md:flex md:space-x-4 mb-2">
                     <TextField 
@@ -1004,32 +1064,6 @@
                       />
 
                     </div>
-                    <div>
-
-                      {isEdit?
-                        (
-                          <div className="md:flex md:space-x-2">
-                            <Button className="w-24" onClick={()=> {
-                              setIsEdit(false)
-                              rollBackData()
-                            }}
-                            disabled={isSubmittingRequest}
-                            >
-                              Cancel
-                            </Button>
-                            <Button className="w-24" type="submit" disabled={isSubmittingRequest}>
-                              Save
-                            </Button>
-                          </div>
-                        ):
-                        (
-                          <Button className="w-24"  onClick={()=>setIsEdit(true)}>
-                          Edit
-                          </Button>
-                        )
-
-                      }
-                  </div>
                 </div>
               </form>
               
