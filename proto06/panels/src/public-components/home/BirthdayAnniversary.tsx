@@ -8,7 +8,7 @@ import {
   TabPanel,
 } from "@material-tailwind/react";
 import { useEffect, useState } from 'react';
-import { APILink } from '@/store/configureStore';
+import { APILink, RootState } from '@/store/configureStore';
 import axios from 'axios';
 import { getDefaultLibFileName } from 'typescript';
 import styles from '@/pages/dashboard/custom-styles/home.module.scss';
@@ -18,11 +18,15 @@ import { DataGrid, GridCellParams, GridColDef } from '@mui/x-data-grid';
 import dayjs from 'dayjs';
 import ShowAnnouncementModal from '../announcement-tabs/ShowAnnouncementModal';
 import { MegaphoneIcon } from '@heroicons/react/24/outline';
+import { useSelector } from 'react-redux';
 
 interface Props {
 
 }
 export default function BirthdayAnniversary(props: Props) {
+
+    //REDUX
+    const user = useSelector((state:RootState) => state.auth.employee_detail)
 
     //ANNOUNCMENT STATES
     const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
@@ -183,11 +187,13 @@ export default function BirthdayAnniversary(props: Props) {
     }
 
     const fetchAnnouncements = async () => {
+
+        console.log(user?.department_code)
         await axios.get(`${APILink}act_announcement/`, {
             params: {
-                pin: true,
-                department:1,
-                rank:1
+                pin: false,
+                department: user?.department_code ?? 1,
+                rank: user?.rank_code ?? 1
             }
         }).then(res => {
 

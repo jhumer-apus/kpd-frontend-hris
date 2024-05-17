@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
-import { Button } from '@mui/material';
+import { Button, InputLabel, MenuItem, Select } from '@mui/material';
 import { TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
@@ -106,7 +106,31 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
                                 })
                             }}
                         />
-                        <TextField 
+                        <FormControl fullWidth>
+                            <InputLabel id="prority-level-label">Priority Level</InputLabel>
+                            <Select
+                                labelId="prority-level-label"
+                                id="prority-level"
+                                label="Priority Level"
+                                required
+                                onChange={(event: any) => {
+                                    const value = +(event.target.value);
+                                    setCreateANNOUNCEMENT((prevState)=> {
+                                        return (
+                                            {
+                                                ...prevState,
+                                                order_by_no: value
+                                            }
+                                        )
+                                    })
+                                }}
+                            >
+                                <MenuItem value={1}>1 - Most Priority</MenuItem>
+                                <MenuItem value={2}>2 - Middle Priority</MenuItem>
+                                <MenuItem value={3}>3 - Least Priority</MenuItem>
+                            </Select>
+                        </FormControl>
+                        {/* <TextField 
                             sx={{width: '100%'}} 
                             label='Display Priority (1, 2, or 3):'
                             variant='outlined' 
@@ -123,7 +147,7 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
                                     )
                                 })
                             }}
-                        />
+                        /> */}
                     </div>
                     <FormControl className='w-full justify-center items-center'>
                         <FormLabel id="target-audience-create">Target Audience</FormLabel>

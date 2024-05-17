@@ -25,7 +25,13 @@ const CarouselUI = ({ items }: any) => {
         } else  {
             setGreeting("Good Evening")
         }
-        dispatch(ACTIVEANNOUNCEMENTViewAction({rank: 1, dept: 1, pin: true}))
+
+        dispatch(ACTIVEANNOUNCEMENTViewAction(
+            {
+                rank: employee_detail?.rank_code?? 1, 
+                dept: employee_detail?.department_code?? 1, 
+                pin: true
+            }))
     }, [])
 
     const noAnnouncementsFound = [
