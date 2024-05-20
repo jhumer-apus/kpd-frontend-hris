@@ -138,6 +138,7 @@ import EMPSEMINARSPageV2 from "./pages/employee/emp-training-seminars-v2/emp-tra
 import EmploymentHistoryPageEmpView from "./pages/employee/employment-history-emp-view/employment-history-emp-view";
 import EMPSEMINARSPageV2EmpView from "./pages/employee/emp-training-seminars-v2-emp-view/emp-training-seminars-emp-view";
 import ViewImperfectAttendance from "./pages/reports/view-attendance/imperfect-attendance";
+import FamilyBackground from "./pages/personal-history/family-bg";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -1159,7 +1160,7 @@ const JSXRouteWrapper = () => {
                     hasSubItems: false,
                   },
                   {
-                    id: 19200,
+                    id: 19300,
                     icon: <DocumentIcon {...icon} />,
                     name: "Employee Overtime",
                     path: "/report/employee-overtime",
@@ -1167,7 +1168,7 @@ const JSXRouteWrapper = () => {
                     hasSubItems: false,
                   },
                   {
-                    id: 19200,
+                    id: 19400,
                     icon: <DocumentIcon {...icon} />,
                     name: "Employee OBT",
                     path: "/report/employee-obt",
@@ -1175,7 +1176,7 @@ const JSXRouteWrapper = () => {
                     hasSubItems: false,
                   },
                   {
-                    id: 19200,
+                    id: 19500,
                     icon: <DocumentIcon {...icon} />,
                     name: "Perfect Attendance",
                     path: "/report/view-attendance/perfect-attendance",
@@ -1183,7 +1184,7 @@ const JSXRouteWrapper = () => {
                     hasSubItems: false,
                   },
                   {
-                    id: 19200,
+                    id: 19600,
                     icon: <DocumentIcon {...icon} />,
                     name: "Imperfect Attendance",
                     path: "/report/view-attendance/imperfect-attendance",
@@ -1193,31 +1194,24 @@ const JSXRouteWrapper = () => {
               ]
             }
         ]: [],
-        
-        
-      ],
-    },
-    {
-      // title: "auth pages",
-      id: 9000,
-      layout: "auth",
-      pages: [
         {
-          id: 9100,
-          icon: <ArrowRightOnRectangleIcon {...icon} />,
-          name: "sign in",
-          path: "/sign-in",
-          element: <SignIn />,
-          hasSubItems: false,
-        },
-        {
-          id: 9200,
-          icon: <UserPlusIcon {...icon} />,
-          name: "sign up",
-          path: "/sign-up",
-          element: <SignUp />,
-          hasSubItems: false,
-        },
+          id: 20000,
+          icon: null,
+          name: "Personal History",
+          path: "/personal-history",
+          element: null,
+          hasSubItems: true,
+          subItems: [
+              {
+                id: 20100,
+                icon: <DocumentIcon {...icon} />,
+                name: "Family Background",
+                path: "/personal-history/family-background",
+                element: <FamilyBackground />,
+                hasSubItems: false,
+              },
+          ]
+        }
       ],
     },
   ];

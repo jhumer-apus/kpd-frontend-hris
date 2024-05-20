@@ -116,6 +116,7 @@ import { payrollEOYReducer } from './reducers/payroll-eoy';
 import { ACTIVEANNOUNCEMENTViewEpic, ANNDEPARTMENTViewEpic, ANNOUNCEMENTCreateEpic, ANNOUNCEMENTEditEpic, ANNOUNCEMENTViewEpic, ANNOUNCEMENTViewSpecificEpic, ANNRANKViewEpic, ASSETACCOUNTCreateEpic, ASSETACCOUNTEditEpic, ASSETACCOUNTViewEpic, ASSETACCOUNTViewSpecificEmployeeEpic, ASSETACCOUNTViewSpecificEpic, ASSETLISTCreateEpic, ASSETLISTEditEpic, ASSETLISTViewEpic, ASSETLISTViewSpecificEpic, BONUSENTRYCreateEpic, BONUSENTRYEditEpic, BONUSENTRYViewEpic, BONUSENTRYViewSpecificEmployeeEpic, BONUSENTRYViewSpecificEpic, BONUSLISTCreateEpic, BONUSLISTEditEpic, BONUSLISTViewEpic, BONUSLISTViewSpecificEpic, PAY13THCreateEpic, PAY13THViewEpic, PAY13THViewSpecificEpic, TAXCOLLECTEDViewEpic, TAXCOLLECTEDViewSpecificEmployeeEpic } from './epics/payroll-eoy';
 import { ALLSCHEDULEViewSpecificEpic, APPLICANTSCreateEpic, APPLICANTSEditEpic, APPLICANTSViewEpic, APPLICANTSViewSpecificEpic, CORECOMPECreateEpic, CORECOMPEDeleteEpic, CORECOMPEEditEpic, CORECOMPEViewEpic, CORECOMPEViewSpecificEpic, EMPHISTORYCreateEpic, EMPHISTORYDeleteEpic, EMPHISTORYEditEpic, EMPHISTORYViewEpic, EMPHISTORYViewSpecificEpic, EMPSEMINARSCreateEpic, EMPSEMINARSDeleteEpic, EMPSEMINARSEditEpic, EMPSEMINARSViewEpic, EMPSEMINARSViewSpecificEpic, EVALQUESTIONSCreateEpic, EVALQUESTIONSDeleteEpic, EVALQUESTIONSEditEpic, EVALQUESTIONSViewEpic, EVALQUESTIONSViewSpecificEpic, JOBPOSTINGSCreateEpic, JOBPOSTINGSDeleteEpic, JOBPOSTINGSEditEpic, JOBPOSTINGSViewEpic, JOBPOSTINGSViewSpecificEpic, KPICORECreateEpic, KPICOREEditEpic, KPICOREUpdateSelfEpic, KPICOREUpdateSupervisorEpic, KPICOREViewEpic, KPICOREViewSpecificEmployeeEpic, KPICOREViewSpecificEpic, OFFBOARDINGREQUIREMENTSCreateEpic, OFFBOARDINGREQUIREMENTSDeleteEpic, OFFBOARDINGREQUIREMENTSEditEpic, OFFBOARDINGREQUIREMENTSViewEpic, OFFBOARDINGREQUIREMENTSViewSpecificEpic, OFFBOARDINGSTATUSCreateEpic, OFFBOARDINGSTATUSEditEpic, OFFBOARDINGSTATUSUpdateEpic, OFFBOARDINGSTATUSViewEpic, OFFBOARDINGSTATUSViewSpecificEpic, ONBOARDINGREQUIREMENTSCreateEpic, ONBOARDINGREQUIREMENTSDeleteEpic, ONBOARDINGREQUIREMENTSEditEpic, ONBOARDINGREQUIREMENTSViewEpic, ONBOARDINGREQUIREMENTSViewSpecificEpic, ONBOARDINGSTATUSCreateEpic, ONBOARDINGSTATUSEditEpic, ONBOARDINGSTATUSUpdateEpic, ONBOARDINGSTATUSViewEpic, ONBOARDINGSTATUSViewSpecificEpic, PERFECTATTENDANCEViewSpecificEpic,   IMPERFECTATTENDANCEViewSpecificEpic, } from './epics/employee-and-applicants';
 import { employeeAndApplicantsReducer } from './reducers/employee-and-applicants';
+import personalHistoryReducer from './reducers/personal-history';
 
 const epicMiddleware = createEpicMiddleware();
 
@@ -130,6 +131,7 @@ const rootReducer = combineReducers({
   payrollVariables: payrollVariablesReducer,
   payrollEOY: payrollEOYReducer,
   employeeAndApplicants: employeeAndApplicantsReducer,
+  personalHistory: personalHistoryReducer
 });
 
 const store = configureStore({
