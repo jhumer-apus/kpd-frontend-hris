@@ -12,8 +12,11 @@ export default function useFetchQuery (url:string, payload: object | null | unde
 
     const fetchQuery = async () => {
 
-        await axios.get(url, payload).then(res => {
+        setStatus((curr:string | null) => 'loading')
 
+        await axios.get(url, payload).then(res => {
+            
+            setStatus((curr:string | null) => 'success')
             setData((curr:any) => res.data)
 
         }).catch(err => {
