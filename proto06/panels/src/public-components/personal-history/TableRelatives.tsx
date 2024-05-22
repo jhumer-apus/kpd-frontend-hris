@@ -97,7 +97,8 @@ export default function TableRelatives(props: Props) {
                     </Button>
                 </div>
                 <br></br>
-                <DataGrid 
+                <DataGrid
+                    sx={{height: 500}}
                     columns={columns} 
                     rows={Array.isArray(relativesState)? relativesState: []}       
                     localeText={{ noRowsLabel: 'No Relatives' }}
