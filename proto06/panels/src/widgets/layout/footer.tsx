@@ -20,8 +20,11 @@ export function Footer({ brandName, brandLink, routes }) {
           >
             {brandName}.
           </a>{" "}
-          {/* for a better web. */} All Rights Reserved.
+          {/* for a better web. */} All Rights Reserved
         </Typography>
+        {import.meta.env.VITE_APP_STATUS == "development" && 
+          <Typography>DEVELOPMENT MODE</Typography>
+        }
         <ul className="flex items-center gap-4">
           {JSXRouteWrapper().routes.map(({ id, path }) => (
             <li key={`${id}_li_footer`}>
