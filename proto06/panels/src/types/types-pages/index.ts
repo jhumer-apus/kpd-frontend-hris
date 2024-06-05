@@ -234,7 +234,8 @@ export type HolidayGetType = {
     holiday_type: string,
     holiday_location: HolidayLocationType,
     province_ref: number | null,
-    city_ref: number | null
+    city_ref: number | null,
+    added_by: number
 };
 
 
