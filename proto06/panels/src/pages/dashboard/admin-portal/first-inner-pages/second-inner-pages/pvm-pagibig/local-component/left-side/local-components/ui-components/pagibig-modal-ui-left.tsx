@@ -9,6 +9,10 @@ interface PAGIBIGModalUIInterface {
 
 function PAGIBIGModalUI(props: PAGIBIGModalUIInterface) {
     const { setCreatePAGIBIGDetailsData, createPAGIBIGDetailsData } = props;
+    
+    const cleanValueNumber = (val:string) => {
+        return val.replace(/\D/g, '')
+    }
 
     return (
         <Fragment>
@@ -18,7 +22,7 @@ function PAGIBIGModalUI(props: PAGIBIGModalUIInterface) {
                     label='Deduction of Pagibig MP2 (Total Per Month):'
                     variant='outlined' 
                     type="number"
-                    value={createPAGIBIGDetailsData?.pagibig_with_cloan_amount}
+                    value={createPAGIBIGDetailsData?.pagibig_mp2_deduction_amount}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         const value = parseInt(event.target.value)
                         setCreatePAGIBIGDetailsData((prevState)=> {
