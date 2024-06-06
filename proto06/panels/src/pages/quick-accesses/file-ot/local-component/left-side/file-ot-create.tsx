@@ -38,8 +38,6 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
 
     const isDepartmentManager = userData?.user?.role == 2
 
-    console.log(userData?.user?.role)
-
     const onClickSubmit = () => {
         // dispatch(OVERTIMECreateAction(createOVERTIME))
         fileOTPost()
@@ -80,6 +78,8 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
 
     const fileOTPost = async() => {
 
+        setIsSubmittingRequest(true)
+
         const payload = {
             emp_no: createOVERTIME.emp_no,
             ot_type: createOVERTIME.ot_type,
@@ -88,16 +88,18 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
             ot_date_to: createOVERTIME.ot_date_to,
             added_by: userData?.emp_no,
         }
-        await axios.post(`${APILink}ot/`, payload).then((res:AxiosResponse) => {
-            setIsSubmittingRequest(false)
-            window.alert("Request Successful")
-            sendEmail(createOVERTIME.emp_no, res.data.id)
+        await axios.post(`${APILink}ot/`, payload)
+            .then((res:AxiosResponse) => {
+                setIsSubmittingRequest(false)
+                window.alert("Request Successful")
+                sendEmail(createOVERTIME.emp_no, res.data.id)
 
-        }).catch((err:AxiosError) => {
-            setIsSubmittingRequest(false)
-            console.log(err)
-            window.alert(beautifyJSON(err.response?.data))
-        })
+            })
+            .catch((err:AxiosError) => {
+                setIsSubmittingRequest(false)
+                console.error(err)
+                window.alert(beautifyJSON(err.response?.data))
+            })
     }
 
     return (
@@ -146,7 +148,7 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
                 </div>
                 <div className='flex justify-center mt-6' container-name='ot_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='ot_buttons'>
-                        <Button variant='contained' onClick={onClickSubmit}>Create OVERTIME</Button>
+                        <Button variant='contained' onClick={onClickSubmit} disabled={isSubmittingRequest}>Create OVERTIME</Button>
                     </div>
                 </div>
             </div>
