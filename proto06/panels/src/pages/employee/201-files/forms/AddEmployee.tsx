@@ -123,7 +123,7 @@ export const UserProfile = () => {
     // },[employeeData.department_code])
 
     // FETCH SELECTS INFORMATION
-    const {data: ranks, status, error} = useFetchQuery(`${APILink}/rank/`, null)
+    const {data: ranks, status, error} = useFetchQuery(`${APILink}rank/`, null)
     
     const fetchPayrollGroups = () => {
       axios.get(`${APILink}payrollgroup`).then((response:any) => {
