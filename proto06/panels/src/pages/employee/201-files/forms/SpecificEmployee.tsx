@@ -239,7 +239,7 @@ export const SpecificEmployee = (props: initialState) => {
         }
       }
       
-    const {data: ranks, status, error} = useFetchQuery(`${APILink}/rank/`, null)
+    const {data: ranks, status, error} = useFetchQuery(`${APILink}rank/`, null)
     
     const fetchPayrollGroups = () => {
         axios.get(`${APILink}payrollgroup`).then((response:any) => {
