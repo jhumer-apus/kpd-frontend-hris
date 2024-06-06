@@ -11,7 +11,21 @@ function PAGIBIGModalUI(props: PAGIBIGModalUIInterface) {
     const { setCreatePAGIBIGDetailsData, createPAGIBIGDetailsData } = props;
     
     const cleanValueNumber = (val:string) => {
-        return val.replace(/\D/g, '')
+        return Number(val.replace(/\D/g, ''))
+    }
+
+    const handlePagibigDetails = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        const value = cleanValueNumber(e.target.value)
+        
+        setCreatePAGIBIGDetailsData((prevState)=> {
+            return (
+                {
+                    ...prevState,
+                    [e.target.name]: value
+                }
+            )
+        })
     }
 
     return (
@@ -20,128 +34,86 @@ function PAGIBIGModalUI(props: PAGIBIGModalUIInterface) {
                 <TextField 
                     sx={{width: '90%'}} 
                     label='Deduction of Pagibig MP2 (Total Per Month):'
-                    variant='outlined' 
-                    type="number"
-                    value={createPAGIBIGDetailsData?.pagibig_mp2_deduction_amount}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                        const value = parseInt(event.target.value)
-                        setCreatePAGIBIGDetailsData((prevState)=> {
-                            return (
-                                {
-                                    ...prevState,
-                                    pagibig_mp2_deduction_amount: value
-                                }
-                            )
-                        })
+                    variant='outlined'
+                    name="pagibig_mp2_deduction_amount"
+                    inputProps={{
+                        type:"text",
+                        pattern: "\\d*"
                     }}
+                    value={createPAGIBIGDetailsData?.pagibig_mp2_deduction_amount}
+                    onChange={handlePagibigDetails}
                 />
                 <TextField 
                     sx={{width: '90%'}} 
                     label='Deduction of Pagibig Cash Loan (Total Per Month):'
-                    variant='outlined' 
-                    type="number"
-                    value={createPAGIBIGDetailsData?.pagibig_with_cloan_amount}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                        const value = parseInt(event.target.value)
-                        setCreatePAGIBIGDetailsData((prevState)=> {
-                            return (
-                                {
-                                    ...prevState,
-                                    pagibig_with_cloan_amount: value
-                                }
-                            )
-                        })
+                    variant='outlined'
+                    name="pagibig_with_cloan_amount"
+                    inputProps={{
+                        type:"text",
+                        pattern: "\\d*"
                     }}
+                    value={createPAGIBIGDetailsData?.pagibig_with_cloan_amount}
+                    onChange={handlePagibigDetails}
                 />
                 <TextField 
                     sx={{width: '90%'}} 
                     label='Total Remaining Pagibig Cash Loan (If Any):'
-                    variant='outlined' 
-                    type="number"
-                    value={createPAGIBIGDetailsData?.pagibig_rem_cloan_amount}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                        const value = parseInt(event.target.value)
-                        setCreatePAGIBIGDetailsData((prevState)=> {
-                            return (
-                                {
-                                    ...prevState,
-                                    pagibig_rem_cloan_amount: value
-                                }
-                            )
-                        })
+                    variant='outlined'
+                    name="pagibig_rem_cloan_amount"
+                    inputProps={{
+                        type:"text",
+                        pattern: "\\d*"
                     }}
+                    value={createPAGIBIGDetailsData?.pagibig_rem_cloan_amount}
+                    onChange={handlePagibigDetails}
                 />
                 <TextField 
                     sx={{width: '90%'}} 
                     label='Deduction of Pagibig Housing Loan (Total Per Month):'
-                    variant='outlined' 
-                    type="number"
-                    value={createPAGIBIGDetailsData?.pagibig_with_hloan_amount}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                        const value = parseInt(event.target.value)
-                        setCreatePAGIBIGDetailsData((prevState)=> {
-                            return (
-                                {
-                                    ...prevState,
-                                    pagibig_with_hloan_amount: value
-                                }
-                            )
-                        })
+                    variant='outlined'
+                    name="pagibig_with_hloan_amount"
+                    inputProps={{
+                        type:"text",
+                        pattern: "\\d*"
                     }}
+                    value={createPAGIBIGDetailsData?.pagibig_with_hloan_amount}
+                    onChange={handlePagibigDetails}
                 />
                 <TextField 
                     sx={{width: '90%'}} 
                     label='Total Remaining Pagibig Housing Loan (If Any):'
                     variant='outlined' 
-                    type="number"
-                    value={createPAGIBIGDetailsData?.pagibig_rem_hloan_amount}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                        const value = parseInt(event.target.value)
-                        setCreatePAGIBIGDetailsData((prevState)=> {
-                            return (
-                                {
-                                    ...prevState,
-                                    pagibig_rem_hloan_amount: value
-                                }
-                            )
-                        })
+                    name="pagibig_rem_hloan_amount"
+                    inputProps={{
+                        type:"text",
+                        pattern: "\\d*"
                     }}
+                    value={createPAGIBIGDetailsData?.pagibig_rem_hloan_amount}
+                    onChange={handlePagibigDetails}
                 />
                 <TextField 
                     sx={{width: '90%'}} 
                     label='Deduction of Pagibig Calamity Loan (Total Per Month):'
                     variant='outlined' 
-                    type="number"
-                    value={createPAGIBIGDetailsData?.pagibig_with_calloan_amount}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                        const value = parseInt(event.target.value)
-                        setCreatePAGIBIGDetailsData((prevState)=> {
-                            return (
-                                {
-                                    ...prevState,
-                                    pagibig_with_calloan_amount: value
-                                }
-                            )
-                        })
+                    name="pagibig_with_calloan_amount"
+                    inputProps={{
+                        type:"text",
+                        pattern: "\\d*"
                     }}
+                    value={createPAGIBIGDetailsData?.pagibig_with_calloan_amount}
+                    onChange={handlePagibigDetails}
                 />
                 <TextField 
                     sx={{width: '90%'}} 
                     label='Total Remaining Pagibig Calamity Loan (If Any):'
-                    variant='outlined' 
-                    type="number"
-                    value={createPAGIBIGDetailsData?.pagibig_rem_calloan_amount}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                        const value = parseInt(event.target.value)
-                        setCreatePAGIBIGDetailsData((prevState)=> {
-                            return (
-                                {
-                                    ...prevState,
-                                    pagibig_rem_calloan_amount: value
-                                }
-                            )
-                        })
+                    variant='outlined'
+                    name="pagibig_rem_calloan_amount"
+                    inputProps={{
+                        type:"text",
+                        pattern: "\\d*"
                     }}
+                    value={createPAGIBIGDetailsData?.pagibig_rem_calloan_amount}
+                    onChange={handlePagibigDetails}
                 />
             </div>
           
