@@ -353,7 +353,7 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
       if (curr_user?.employee_image) {
 
-        return `${APILink.replace('/api/v1', '')}${curr_user.employee_image}`;
+        return `${APILink.replace('/api/v1/', '')}${curr_user.employee_image}`;
 
       } else {
 
@@ -532,7 +532,7 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
                         <img
                           src={profileImage ?? getImageSrc()}
                           alt="Profile Picture"
-                          className="border rounded p-2 w-48 my-4"
+                          className="border rounded p-2 w-28 h-28 my-4"
                         />
                         {isEdit && (
                           <div className="absolute inset-0 flex flex-wrap items-center justify-center">
