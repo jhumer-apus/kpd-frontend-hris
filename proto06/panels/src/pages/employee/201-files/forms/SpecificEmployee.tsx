@@ -633,7 +633,7 @@ export const SpecificEmployee = (props: initialState) => {
                             previewUrl ? 
                             <Avatar sx={{ width: 100, height: 100, objectFit: 'contain' }} src={`${previewUrl}`} alt="Preview"/>
                             :
-                            <Avatar sx={{ width: 100, height: 100, objectFit: 'contain' }} src={`${APILink.replace('/api/v1', '')}${userData?.employee_image}`} alt="Avatar"/>
+                            <Avatar sx={{ width: 100, height: 100, objectFit: 'contain' }} src={`${APILink.replace('/api/v1/', '')}${userData?.employee_image}`} alt="Avatar"/>
                             }
                             </div>
                         </div>
