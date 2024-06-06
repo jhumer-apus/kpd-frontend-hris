@@ -80,10 +80,19 @@ function PVMPAGIBIGCreate(props: CreatePAGIBIGModalInterface) {
                             placeholder='Input 12 digit number'
                             aria-required  
                             variant='outlined' 
-                            type="text"
+                            inputProps={{
+                                maxLength:"12",
+                                type:"text",
+                                pattern: "\\d*"
+                            }}
                             value={createPAGIBIG?.pagibig_no}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = String(event.target.value)
+
+                                let value = event.target.value;
+
+                                // Filter out non-numeric characters and enforce maximum length
+                                value = value.replace(/\D/g, '')
+
                                 setCreatePAGIBIG((prevState)=> {
                                     return (
                                         {
