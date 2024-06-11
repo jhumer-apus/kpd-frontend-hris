@@ -223,7 +223,7 @@ export default function DataTable() {
           aria-describedby="parent-modal-description"
           className='overflow-auto'
         >
-          <SpecificEmployee modalEntranceDelay={modalEntranceDelay} secondOptionModalEntranceDelay={secondOptionModalEntranceDelay} loadingEffect={handleModalEntranceDelay}/>
+          <SpecificEmployee handleClose={handleClose} modalEntranceDelay={modalEntranceDelay} secondOptionModalEntranceDelay={secondOptionModalEntranceDelay} loadingEffect={handleModalEntranceDelay}/>
         </Modal>
       </div>
     </Fragment>
