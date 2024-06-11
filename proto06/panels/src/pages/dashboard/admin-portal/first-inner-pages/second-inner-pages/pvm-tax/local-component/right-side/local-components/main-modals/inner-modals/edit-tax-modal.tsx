@@ -174,15 +174,14 @@ export default function EditTAXModal(props: EditTAXModalInterface) {
                             label='Tax Percentage (number only, no sign %)'
                             aria-required  
                             variant='outlined' 
-                            type="number"
                             value={singleTAXDetailsData?.tax_percentage}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value = parseFloat(event.target.value)
-                                setSingleTAXDetailsData((prevState)=> {
+                                setSingleTAXDetailsData((prevState:any)=> {
                                     return (
                                         {
                                             ...prevState,
-                                            tax_percentage: value
+                                            tax_percentage: value || null
                                         }
                                     )
                                 })

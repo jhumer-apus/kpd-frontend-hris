@@ -23,7 +23,7 @@ function PVMTAXCreate(props: CreateTAXModalInterface) {
         tin_no: '',
         tax_form: '',
         tax_description: '',
-        tax_percentage: NaN,
+        tax_percentage: null,
         payment_frequency: NaN,
         emp_no: NaN,
         added_by: NaN,
@@ -139,15 +139,14 @@ function PVMTAXCreate(props: CreateTAXModalInterface) {
                             label='Tax Percentage (number only, no sign %)'
                             aria-required  
                             variant='outlined' 
-                            type="number"
-                            value={createTAX?.tax_percentage}
+                            value={createTAX?.tax_percentage ?? ''}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = parseFloat(event.target.value)
-                                setCreateTAX((prevState)=> {
+                                const value = parseFloat(cleanTextNumber(event.target.value))
+                                setCreateTAX((prevState:any)=> {
                                     return (
                                         {
                                             ...prevState,
-                                            tax_percentage: value
+                                            tax_percentage: value || null
                                         }
                                     )
                                 })
