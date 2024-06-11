@@ -8,6 +8,7 @@ import { Typography } from '@mui/joy';
 import { PAGIBIGCreateInterface } from '@/types/types-payroll-variables';
 import { PAGIBIGCreateAction, PAGIBIGCreateActionFailureCleanup, PAGIBIGViewAction } from '@/store/actions/payroll-variables';
 import DeductionsPAGIBIGCreateModal from './local-components/main-modals/pvm-pagibig-create-modal-left';
+import { cleanTextNumber } from '@/helpers/utils';
 
 
 
@@ -88,16 +89,16 @@ function PVMPAGIBIGCreate(props: CreatePAGIBIGModalInterface) {
                             value={createPAGIBIG?.pagibig_no}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
 
-                                let value = event.target.value;
+                                let value:string | number = event.target.value;
 
                                 // Filter out non-numeric characters and enforce maximum length
-                                value = value.replace(/\D/g, '')
+                                value = cleanTextNumber(value)
 
-                                setCreatePAGIBIG((prevState)=> {
+                                setCreatePAGIBIG((prevState:any)=> {
                                     return (
                                         {
                                             ...prevState,
-                                            pagibig_no: value
+                                            pagibig_no: String(value)
                                         }
                                     )
                                 })

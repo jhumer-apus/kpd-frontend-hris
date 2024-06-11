@@ -1,6 +1,7 @@
 import { useState, Fragment, Dispatch, SetStateAction } from 'react';
 import { PAGIBIGCreateInterface } from '@/types/types-payroll-variables';
 import {TextField} from '@mui/material';
+import { cleanTextNumber } from '@/helpers/utils';
 
 interface PAGIBIGModalUIInterface {
     createPAGIBIGDetailsData: PAGIBIGCreateInterface;
@@ -9,20 +10,16 @@ interface PAGIBIGModalUIInterface {
 
 function PAGIBIGModalUI(props: PAGIBIGModalUIInterface) {
     const { setCreatePAGIBIGDetailsData, createPAGIBIGDetailsData } = props;
-    
-    const cleanValueNumber = (val:string) => {
-        return Number(val.replace(/\D/g, ''))
-    }
 
     const handlePagibigDetails = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-        const value = cleanValueNumber(e.target.value)
+        const value = cleanTextNumber(e.target.value)
         
         setCreatePAGIBIGDetailsData((prevState)=> {
             return (
                 {
                     ...prevState,
-                    [e.target.name]: value
+                    [e.target.name]: Number(value)
                 }
             )
         })

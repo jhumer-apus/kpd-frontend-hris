@@ -7,6 +7,7 @@ import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
 import { PAGIBIGEditAction, PAGIBIGEditActionFailureCleanup, PAGIBIGViewAction } from '@/store/actions/payroll-variables';
+import { cleanTextNumber } from '@/helpers/utils';
 
 interface EditPAGIBIGModalInterface {
     singlePAGIBIGDetailsData: PAGIBIGViewInterface;
@@ -34,6 +35,19 @@ export default function EditPAGIBIGModal(props: EditPAGIBIGModalInterface) {
       ...singlePAGIBIGDetailsData,
       added_by: curr_user || NaN
     }))
+  }
+
+  const handlePagibigDetails = (e:any) => {
+
+    let value = cleanTextNumber(e.target.value)
+    const key = e.target.name
+
+    setSinglePAGIBIGDetailsData((curr:any) => (
+      {
+        ...curr,
+        [key]: key == 'pagibig_no'? String(value): Number(value)
+      }
+    ))
   }
 
   useEffect(()=>{      
@@ -108,19 +122,9 @@ export default function EditPAGIBIGModal(props: EditPAGIBIGModalInterface) {
                             label='Pagibig Number'
                             aria-required  
                             variant='outlined' 
-                            type="number"
+                            name="pagibig_no"
                             value={singlePAGIBIGDetailsData?.pagibig_no}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = (event.target.value)
-                                setSinglePAGIBIGDetailsData((prevState)=> {
-                                    return (
-                                        {
-                                            ...prevState,
-                                            pagibig_no: value
-                                        }
-                                    )
-                                })
-                            }}
+                            onChange={handlePagibigDetails}
                         />
                         <TextField
                             required 
@@ -128,19 +132,9 @@ export default function EditPAGIBIGModal(props: EditPAGIBIGModalInterface) {
                             label='Monthly Contribution'
                             aria-required  
                             variant='outlined' 
-                            type="number"
+                            name="pagibig_contribution_month"
                             value={singlePAGIBIGDetailsData?.pagibig_contribution_month}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = parseInt(event.target.value)
-                                setSinglePAGIBIGDetailsData((prevState)=> {
-                                    return (
-                                        {
-                                            ...prevState,
-                                            pagibig_contribution_month: value
-                                        }
-                                    )
-                                })
-                            }}
+                            onChange={handlePagibigDetails}
                         />
                         <TextField
                             required 
@@ -148,19 +142,9 @@ export default function EditPAGIBIGModal(props: EditPAGIBIGModalInterface) {
                             label='Cash Loan Deduction/Month'
                             aria-required  
                             variant='outlined' 
-                            type="number"
+                            name="pagibig_with_cloan_amount"
                             value={singlePAGIBIGDetailsData?.pagibig_with_cloan_amount}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = parseInt(event.target.value)
-                                setSinglePAGIBIGDetailsData((prevState)=> {
-                                    return (
-                                        {
-                                            ...prevState,
-                                            pagibig_with_cloan_amount: value
-                                        }
-                                    )
-                                })
-                            }}
+                            onChange={handlePagibigDetails}
                         />
                         <TextField
                             required 
@@ -168,19 +152,9 @@ export default function EditPAGIBIGModal(props: EditPAGIBIGModalInterface) {
                             label='Cash Loan Balance'
                             aria-required  
                             variant='outlined' 
-                            type="number"
+                            name="pagibig_rem_cloan_amount"
                             value={singlePAGIBIGDetailsData?.pagibig_rem_cloan_amount}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = parseInt(event.target.value)
-                                setSinglePAGIBIGDetailsData((prevState)=> {
-                                    return (
-                                        {
-                                            ...prevState,
-                                            pagibig_rem_cloan_amount: value
-                                        }
-                                    )
-                                })
-                            }}
+                            onChange={handlePagibigDetails}
                         />
                         <TextField
                             required 
@@ -188,19 +162,9 @@ export default function EditPAGIBIGModal(props: EditPAGIBIGModalInterface) {
                             label='Housing Loan Deduction/Month'
                             aria-required  
                             variant='outlined' 
-                            type="number"
+                            name="pagibig_with_hloan_amount"
                             value={singlePAGIBIGDetailsData?.pagibig_with_hloan_amount}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = parseInt(event.target.value)
-                                setSinglePAGIBIGDetailsData((prevState)=> {
-                                    return (
-                                        {
-                                            ...prevState,
-                                            pagibig_with_hloan_amount: value
-                                        }
-                                    )
-                                })
-                            }}
+                            onChange={handlePagibigDetails}
                         />
                         <TextField
                             required 
@@ -208,19 +172,9 @@ export default function EditPAGIBIGModal(props: EditPAGIBIGModalInterface) {
                             label='Housing Loan Balance'
                             aria-required  
                             variant='outlined' 
-                            type="number"
+                            name="pagibig_rem_hloan_amount"
                             value={singlePAGIBIGDetailsData?.pagibig_rem_hloan_amount}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = parseInt(event.target.value)
-                                setSinglePAGIBIGDetailsData((prevState)=> {
-                                    return (
-                                        {
-                                            ...prevState,
-                                            pagibig_rem_hloan_amount: value
-                                        }
-                                    )
-                                })
-                            }}
+                            onChange={handlePagibigDetails}
                         />
                         <TextField
                             required 
@@ -228,19 +182,9 @@ export default function EditPAGIBIGModal(props: EditPAGIBIGModalInterface) {
                             label='Calamity Loan Deduction/Month'
                             aria-required  
                             variant='outlined' 
-                            type="number"
+                            name="pagibig_with_calloan_amount"
                             value={singlePAGIBIGDetailsData?.pagibig_with_calloan_amount}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = parseInt(event.target.value)
-                                setSinglePAGIBIGDetailsData((prevState)=> {
-                                    return (
-                                        {
-                                            ...prevState,
-                                            pagibig_with_calloan_amount: value
-                                        }
-                                    )
-                                })
-                            }}
+                            onChange={handlePagibigDetails}
                         />
                         <TextField
                             required 
@@ -248,19 +192,9 @@ export default function EditPAGIBIGModal(props: EditPAGIBIGModalInterface) {
                             label='Calamity Loan Balance'
                             aria-required  
                             variant='outlined' 
-                            type="number"
+                            name="pagibig_rem_calloan_amount"
                             value={singlePAGIBIGDetailsData?.pagibig_rem_calloan_amount}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = parseInt(event.target.value)
-                                setSinglePAGIBIGDetailsData((prevState)=> {
-                                    return (
-                                        {
-                                            ...prevState,
-                                            pagibig_rem_calloan_amount: value
-                                        }
-                                    )
-                                })
-                            }}
+                            onChange={handlePagibigDetails}
                         />
                       </div>
               </div>

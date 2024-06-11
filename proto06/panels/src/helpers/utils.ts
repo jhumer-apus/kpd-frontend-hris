@@ -166,3 +166,7 @@ export const clearFields = <T>(setState: SetState<T>, fields: (keyof T)[], value
     return newState;
   });
 };
+
+export const cleanTextNumber = (val:string) => {
+  return val.replace(/\D/g, '')
+}
