@@ -8,6 +8,7 @@ import { Typography } from '@mui/joy';
 import { TAXCreateInterface } from '@/types/types-payroll-variables';
 import { TAXCreateAction, TAXCreateActionFailureCleanup, TAXViewAction } from '@/store/actions/payroll-variables';
 import PaymentFrequencyAutoComplete from './inner-ui-components/payment-frequency-autocomplete';
+import { cleanTextNumber } from '@/helpers/utils';
 
 interface CreateTAXModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -70,16 +71,18 @@ function PVMTAXCreate(props: CreateTAXModalInterface) {
                     <div className='flex flex-col gap-6'>
                         <TextField
                             required 
-                            defaultValue="0"
                             sx={{width: '100%'}} 
                             label='TIN Number'
                             placeholder='Input 12 Digit number'
                             aria-required  
                             variant='outlined' 
-                            type="number"
                             value={createTAX?.tin_no}
+                            inputProps={{
+                                maxLength:12,
+                                minLength:9
+                            }}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = parseInt(event.target.value)
+                                const value = cleanTextNumber(event.target.value)
                                 setCreateTAX((prevState)=> {
                                     return (
                                         {

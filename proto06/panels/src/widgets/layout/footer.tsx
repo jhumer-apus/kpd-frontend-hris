@@ -46,12 +46,12 @@ export function Footer({ brandName, brandLink, routes }) {
 }
 
 Footer.defaultProps = {
-  brandName: "Bitverse UI",
-  brandLink: "https://site.bitverseph.com",
+  brandName: "Bitverse Team",
+  brandLink: "https://bitverseph.com",
   routes: [
     { name: "Developer", path: "https://mattttyyyy.github.io/webportfolio" },
-    { name: "Contact Us", path: "https://site.bitverseph.com/contact-us" },
-    { name: "Blog", path: "https://site.bitverseph.com" },
+    { name: "Contact Us", path: "https://bitverseph.com/contact-us" },
+    { name: "Blog", path: "https://bitverseph.com" },
     // { name: "License", path: "https://www.creative-tim.com/license" },
   ],
 };

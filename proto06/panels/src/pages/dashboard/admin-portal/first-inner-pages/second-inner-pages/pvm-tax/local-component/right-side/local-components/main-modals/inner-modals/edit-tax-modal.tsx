@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
 import { TAXEditAction, TAXEditActionFailureCleanup, TAXViewAction } from '@/store/actions/payroll-variables';
 import PaymentFrequencyAutoCompleteRight from './autocomplete-fields/payment-frequency-autocomplete-right';
+import { cleanTextNumber } from '@/helpers/utils';
 
 
 interface EditTAXModalInterface {
@@ -96,7 +97,7 @@ export default function EditTAXModal(props: EditTAXModalInterface) {
             }}
             size='sm'
         > 
-          <Typography variant='h6' className='border-b-2 border-blue-700'>Editing User Details</Typography>
+          <Typography variant='h6' className='border-b-2 border-blue-700'>Editing Tax Details</Typography>
           <div className='flex flex-col items-center justify-around h-full'>
             <div className='flex flex-col w-full gap-10'>
               <div className='flex justify-center item-center'>
@@ -109,11 +110,14 @@ export default function EditTAXModal(props: EditTAXModalInterface) {
                             sx={{width: '100%'}} 
                             label='TIN Number'
                             aria-required  
-                            variant='outlined' 
-                            type="number"
+                            variant='outlined'
+                            inputProps={{
+                              maxLength:12,
+                              minLength:9
+                            }}
                             value={singleTAXDetailsData?.tin_no}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = parseInt(event.target.value)
+                                const value = cleanTextNumber(event.target.value)
                                 setSingleTAXDetailsData((prevState)=> {
                                     return (
                                         {
