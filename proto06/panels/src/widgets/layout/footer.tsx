@@ -16,7 +16,7 @@ export function Footer({ brandName, brandLink, routes }) {
           <a
             href={brandLink}
             target="_blank"
-            className="transition-colors hover:text-blue-500"
+            className="transition-colors text-blue-500 hover:text-blue-100"
           >
             {brandName}.
           </a>{" "}

@@ -95,7 +95,7 @@ export function SignIn() {
                   color="blue"
                   className="ml-1 font-bold"
                 >
-                  <a href="https://site.bitverseph.com/contact-us" target="_blank">Contact Us</a>
+                  <a href="https://bitverseph.com/#/contact-us" target="_blank">Contact Us</a>
                 </Typography>
               {/* </Link> */}
             </Typography>
