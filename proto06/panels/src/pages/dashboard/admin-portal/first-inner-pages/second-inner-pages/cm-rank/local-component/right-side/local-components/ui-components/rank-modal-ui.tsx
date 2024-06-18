@@ -60,9 +60,9 @@ function RANKModalUI(props: RANKModalUIInterface) {
             </div>
             <div className='flex flex-col justify-center items-center'>
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
-                    <div className='flex justify-between' style={{width:'200px', marginTop: '20px'}} container-name='leave_buttons'>
+                    {/* <div className='flex justify-between' style={{width:'200px', marginTop: '20px'}} container-name='leave_buttons'>
                         <Button variant='contained' onClick={()=> onClickModal(1)}>Edit Details</Button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </Fragment>

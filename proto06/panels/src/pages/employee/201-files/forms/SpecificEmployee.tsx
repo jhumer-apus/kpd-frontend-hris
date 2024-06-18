@@ -1714,41 +1714,45 @@ export const SpecificEmployee = (props: initialState) => {
                                         </div>
                                     </div>
                                     <div className="my-6">
-                                    <Typography
-                                        variant="small"
-                                        color="blue-gray"
-                                        className="mb-4 font-medium"
-                                    >
-                                    Static Info Details
-                                    </Typography>
-                                    <div className="my-4 flex flex-wrap xl:flex-nowrap items-center gap-4">
-                                        <Input
-                                                crossOrigin={undefined} {...register('tax_data.tin_no')}
-                                                label="Tax Identification #:"
-                                                labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                disabled={!editMode3}
-                                                icon={<LockClosedOutline className="h-5 w-5 text-blue-gray-300" />}                                    />
-                                        <Input
-                                                crossOrigin={undefined} {...register('pagibig_data.pagibig_no')}
-                                                label="HDMF Pagibig:"
-                                                labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                disabled={!editMode3}
-                                                icon={<CheckCircleIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
-                                        <Input
-                                                crossOrigin={undefined} {...register('sss_data.sss_no')}
-                                                // value={userData?.sss_data?.sss_no || ""}
-                                                label="SSS ID:"
-                                                labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                disabled={!editMode3}
-                                                icon={<LockOpenIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
-                                        <Input
-                                                crossOrigin={undefined} {...register('philhealth_data.ph_no')}
-                                                // value={userData?.philhealth_data?.ph_no || ""}
-                                                label="Philhealth #:"
-                                                labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                disabled={!editMode3}
-                                                icon={<UserPlusIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
-                                    </div>
+                                        <Typography
+                                            variant="small"
+                                            color="blue-gray"
+                                            className="mb-4 font-medium"
+                                        >
+                                        Static Info Details
+                                        </Typography>
+                                        <div className="my-4 flex flex-wrap xl:flex-nowrap items-center gap-4">
+                                            <Input
+                                                    crossOrigin={undefined} {...register('tax_data.tin_no')}
+                                                    label="Tax Identification #:"
+                                                    labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                    disabled
+                                                    // disabled={!editMode3}
+                                                    icon={<LockClosedOutline className="h-5 w-5 text-blue-gray-300" />}                                    />
+                                            <Input
+                                                    crossOrigin={undefined} {...register('pagibig_data.pagibig_no')}
+                                                    label="HDMF Pagibig:"
+                                                    labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                    disabled
+                                                    // disabled={!editMode3}
+                                                    icon={<CheckCircleIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
+                                            <Input
+                                                    crossOrigin={undefined} {...register('sss_data.sss_no')}
+                                                    // value={userData?.sss_data?.sss_no || ""}
+                                                    label="SSS ID:"
+                                                    labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                    disabled
+                                                    // disabled={!editMode3}
+                                                    icon={<LockOpenIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
+                                            <Input
+                                                    crossOrigin={undefined} {...register('philhealth_data.ph_no')}
+                                                    // value={userData?.philhealth_data?.ph_no || ""}
+                                                    label="Philhealth #:"
+                                                    labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                    disabled
+                                                    // disabled={!editMode3}
+                                                    icon={<UserPlusIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
+                                        </div>
                                     </div>
                                     <div className="my-4 flex items-center gap-4">
                                     
