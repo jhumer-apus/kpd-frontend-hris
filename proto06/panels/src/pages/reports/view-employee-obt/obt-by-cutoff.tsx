@@ -121,6 +121,10 @@ export default function ViewEmployeeObt() {
         setSelectedCutOff((curr:any) => val)
     }
 
+    const convertMinuteToHours = (value:number) => {
+        return value/60
+    }
+
 
 
     const exportCsvData = dataRows? dataRows.map((obj:any) => {
@@ -131,7 +135,7 @@ export default function ViewEmployeeObt() {
             "Date End": obj.obt_date_to,
             "OBT Type": obj.obt_type,
             "OBT Location": obj.obt_location,
-            "OBT Hours": obj.obt_total_hours,
+            "OBT Hours": convertMinuteToHours(obj.obt_total_hours),
         }
 
     }): [];
@@ -181,6 +185,9 @@ export default function ViewEmployeeObt() {
             field: 'obt_total_hours', 
             headerName: 'OBT Hours', 
             width: 150,
+            valueGetter: (params: GridValueGetterParams) => {
+                return convertMinuteToHours(params.row.obt_total_hours)
+            },
         },
 
     ];

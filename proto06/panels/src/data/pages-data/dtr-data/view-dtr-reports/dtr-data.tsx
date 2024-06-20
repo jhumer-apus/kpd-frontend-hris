@@ -26,7 +26,7 @@ export const dynamicDTRColumns= ():Array<GridColDef[]> => {
 
 const currUser = useSelector((state: RootState) => state.auth.employee_detail);
 
-const isDepartmentManager = currUser?.user?.role == 2;
+const isDepartmentManager = currUser?.rank_code == 3;
 
 console.log("department manager? " + isDepartmentManager)
 

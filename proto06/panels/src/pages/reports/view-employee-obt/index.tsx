@@ -71,6 +71,10 @@ export default function ViewEmployeeObt() {
 
     }
 
+    const convertMinuteToHours = (value:number) => {
+        return value/60
+    }
+
     const exportCsvData = dataRows? dataRows.map((obj:any) => {
         return {
             "Employee No.": obj.emp_no,
@@ -79,7 +83,7 @@ export default function ViewEmployeeObt() {
             "Date End": obj.obt_date_to,
             "OBT Type": obj.obt_type,
             "OBT Location": obj.obt_location,
-            "OBT Hours": obj.obt_total_hours,
+            "OBT Hours": convertMinuteToHours(obj.obt_total_hours),
         }
 
     }): [];

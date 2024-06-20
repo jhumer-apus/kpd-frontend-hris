@@ -134,6 +134,15 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
                         }
                     )
                 })
+            } else if((UserApprover1 && !fileApprover1Approved) || (UserApprover2 && !fileApprover2Approved)) {
+                setApprovalState((prevState: ApprovalStateInterface) => {
+                    return (
+                        {
+                            buttonDisabled: false,
+                            message1Show: true,
+                        }
+                    )
+                })
             } else {
                 setApprovalState((prevState: ApprovalStateInterface) => {
                     return (
