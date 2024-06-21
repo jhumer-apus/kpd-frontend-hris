@@ -26,9 +26,9 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[],
   let badgeContent: React.ReactNode = null;
   if (isSelected) {
     if (holidayType === 'LH') {
-      badgeContent = <div style={{width: "10px", height: "10px", borderRadius: "20px", background: HolidayColor._legal}}/>;
+      badgeContent = <div style={{width: "10px", height: "10px", borderRadius: "20px", background: HolidayColor._legal_hex}}/>;
     } else if (holidayType === 'SH') {
-      badgeContent = <div style={{width: "10px", height: "10px", borderRadius: "20px", background: HolidayColor._special}}/>; // Moon symbol for SH
+      badgeContent = <div style={{width: "10px", height: "10px", borderRadius: "20px", background: HolidayColor._special_hex}}/>; // Moon symbol for SH
     }
   }
   return (

@@ -21,10 +21,14 @@ import EditHolidayModal from '../EditHolidayModal';
 
 
 export const enum HolidayColor {
-    _legal = 'linear-gradient(0deg, rgba(34,195,193,1) 0%, rgba(38,199,133,1) 50%)',
-    _special = 'linear-gradient(0deg, rgba(195,147,34,1) 0%, rgba(253,187,45,1) 100%)',
-    _legal_hex = '#26C785',
-    _special_hex = '#FDBB2D'
+    // _legal = 'linear-gradient(0deg, rgba(34,195,193,1) 0%, rgba(38,199,133,1) 50%)',
+    // _special = 'linear-gradient(0deg, rgba(195,147,34,1) 0%, rgba(253,187,45,1) 100%)',
+    // _legal = 'red',
+    // _special = 'yellow',
+    // _legal_hex = '#26C785',
+    // _special_hex = '#FDBB2D',
+    _legal_hex = '#880808',
+    _special_hex = '#ce7e00'
 }
 
 function ListOfHolidaysComponent(props: HighlightedCalendarInterface) {
@@ -65,7 +69,7 @@ function ListOfHolidaysComponent(props: HighlightedCalendarInterface) {
                         variant="gradient"
                         // color={b}
                         className="absolute mt-4 grid h-16 w-16 place-items-center"
-                        style={{background: holiday_type === 'SH'? HolidayColor._special : HolidayColor._legal}}
+                        style={{background: holiday_type === 'SH'? HolidayColor._special_hex : HolidayColor._legal_hex}}
                         data-name={'iconwrap'}
                     >
                         <span>{React.createElement( holiday_type === 'SH'? AvTimerOutlinedIcon : AccountBalanceOutlinedIcon , {className: 'w-6 h-6 text-white'})}</span>

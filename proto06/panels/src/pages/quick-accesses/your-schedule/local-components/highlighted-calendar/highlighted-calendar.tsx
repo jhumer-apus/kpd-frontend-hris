@@ -15,6 +15,9 @@ import { ScheduleDailyColor } from '@/types/index';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 
+import { createTheme } from '@mui/material/styles';
+import { HolidayColor } from '@/pages/procedurals/holidays/local-components/list-of-holidays/list-of-holidays';
+
 export interface HighlightedCalendarInterface {
   value: dayjs.Dayjs | null,
   setValue: Dispatch<SetStateAction<dayjs.Dayjs | null>>,
@@ -38,29 +41,37 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[],
   };
   const open = Boolean(anchorEl);
 
+  const restDayStyle = {
+    background: ScheduleDailyColor._restday,
+    // opacity: '0.2', 
+    height: '46px', 
+    width: '46px', 
+    borderRadius: '30px', 
+    marginTop: '32px',
+    marginRight: '37px', 
+    padding: '5px', 
+    display: 'flex', 
+    zoom: '0.8'
+  }
 
+  const workDayStyle = {
+      background: ScheduleDailyColor._workday,
+      // opacity: '0.2', 
+      height: '46px', 
+      width: '46px', 
+      borderRadius: '30px', 
+      marginTop: '32px',
+      marginRight: '37px', 
+      padding: '5px', 
+      display: 'flex', 
+      zoom: '0.8'
+  } 
 
 
   if (isSelected) {
     if (scheduleDailyIsRestday?.is_restday) {
       badgeContent = 
-      <div onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose} 
-      style=
-        {
-          {
-            background: ScheduleDailyColor._restday,
-            opacity: '0.2', 
-            height: '46px', 
-            width: '46px', 
-            borderRadius: '30px', 
-            marginTop: '32px',
-            marginRight: '37px', 
-            padding: '5px', 
-            display: 'flex', 
-            zoom: '0.8'
-          }
-        }
-      >
+      <div onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose} style={restDayStyle}>
         <p style={{zoom: '0.9', margin: 'auto'}}>{}</p>
         <Typography
           aria-owns={open ? 'mouse-over-popover' : undefined}
@@ -90,27 +101,16 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[],
              </Typography>
          </Popover>
         </Typography>
+        <Badge 
+          overlap="circular"
+          badgeContent={<div className='rounded-full w-2 h-2' style={{background: HolidayColor._legal_hex}}></div>}
+        >
+        </Badge>
       </div>
       ; 
     } else if (!scheduleDailyIsRestday.is_restday) {
       badgeContent =
-      <div onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose} 
-      style=
-        {
-          {
-            background: ScheduleDailyColor._workday,
-            opacity: '0.2', 
-            height: '46px', 
-            width: '46px', 
-            borderRadius: '30px', 
-            marginTop: '32px',
-            marginRight: '37px', 
-            padding: '5px', 
-            display: 'flex', 
-            zoom: '0.8'
-          }
-        }
-      >
+      <div onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose} style={workDayStyle}>
         <p style={{zoom: '0.9', margin: 'auto'}}>{}</p>
         <Typography
           aria-owns={open ? 'mouse-over-popover' : undefined}
@@ -140,6 +140,11 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[],
              </Typography>
          </Popover>
         </Typography>
+        <Badge 
+          overlap="circular"
+          badgeContent={<div className='rounded-full w-2 h-2' style={{background: HolidayColor._legal_hex}}></div>}
+        >
+        </Badge>
       </div>
       ; 
     }
@@ -242,25 +247,25 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
         <div style={{maxWidth: '520px'}}>
             {/* <p className='absolute'>This Month's ScheduleDaily</p> */}
             <StaticDatePicker
-            defaultValue={initialValue}
-            value={value}
-            loading={isLoading}
-            onMonthChange={handleMonthChange}
-            orientation={'portrait'}
-            renderLoading={() => <DayCalendarSkeleton />}
-            slots={{
-            day: ServerDay,
-            }}
-            slotProps={{
-            day: {
-                highlightedDays,
-                scheduleDaily,
-            } as any,
-            // shortcuts: {
-            //     items: shortcutsItems,
-            // },
-            }}
-            className="custom-static-datepicker"
+              defaultValue={initialValue}
+              value={value}
+              loading={isLoading}
+              onMonthChange={handleMonthChange}
+              orientation={'portrait'}
+              renderLoading={() => <DayCalendarSkeleton />}
+              slots={{
+                day: ServerDay,
+              }}
+              slotProps={{
+              day: {
+                  highlightedDays,
+                  scheduleDaily,
+              } as any,
+              // shortcuts: {
+              //     items: shortcutsItems,
+              // },
+              }}
+              className="custom-static-datepicker"
             />
         </div>
     </LocalizationProvider>
