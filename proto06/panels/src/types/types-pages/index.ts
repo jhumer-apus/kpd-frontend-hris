@@ -543,7 +543,8 @@ export interface SCHEDULEDAILYViewInterface extends SCHEDULEDAILYGeneric {
     schedule_shift_code: SCHEDULESHIFTViewInterface
     business_date: string
     is_processed: boolean | null
-    emp_no: number
+    emp_no: number,
+    holiday_type: "LH" | "SH" | null
 }
 
 export interface SCHEDULEDAILYEditInterface extends SCHEDULEDAILYGeneric {

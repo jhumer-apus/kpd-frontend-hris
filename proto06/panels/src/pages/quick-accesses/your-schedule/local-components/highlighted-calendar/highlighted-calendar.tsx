@@ -67,6 +67,33 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[],
       zoom: '0.8'
   } 
 
+  const holidayIndicator = (holidayType: "SH" | "LH" | null) => {
+
+    switch(holidayType) {
+
+      case "SH": 
+        return (
+          <Badge 
+            overlap="circular"
+            badgeContent={<div className='rounded-full w-2 h-2' style={{background: HolidayColor._special_hex}}></div>}
+          >
+          </Badge>
+        )
+      
+      case "LH": 
+        return (
+          <Badge 
+            overlap="circular"
+            badgeContent={<div className='rounded-full w-2 h-2' style={{background: HolidayColor._legal_hex}}></div>}
+          >
+          </Badge>
+        )
+      
+      default:
+        return
+    }
+  }
+
 
   if (isSelected) {
     if (scheduleDailyIsRestday?.is_restday) {
@@ -101,11 +128,7 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[],
              </Typography>
          </Popover>
         </Typography>
-        <Badge 
-          overlap="circular"
-          badgeContent={<div className='rounded-full w-2 h-2' style={{background: HolidayColor._legal_hex}}></div>}
-        >
-        </Badge>
+        {holidayIndicator(scheduleDailyIsRestday.holiday_type)}
       </div>
       ; 
     } else if (!scheduleDailyIsRestday.is_restday) {
@@ -140,11 +163,7 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[],
              </Typography>
          </Popover>
         </Typography>
-        <Badge 
-          overlap="circular"
-          badgeContent={<div className='rounded-full w-2 h-2' style={{background: HolidayColor._legal_hex}}></div>}
-        >
-        </Badge>
+        {holidayIndicator(scheduleDailyIsRestday.holiday_type)}
       </div>
       ; 
     }
@@ -177,7 +196,7 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
     axios.get(`${APILink}schedule_daily/${currEmployee}/`, {
       cancelToken: requestAbortController.current.token,
     })
-      .then((response) => {
+      .then((response:any) => {
         const filteredData: SCHEDULEDAILYViewInterface[] = response.data.filter((scheduleDaily: SCHEDULEDAILYViewInterface) => {
             const scheduleDailyDate = dayjs(scheduleDaily.business_date);
             return (
@@ -188,7 +207,7 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
 
       
         const scheduleDaily = filteredData.reduce((is_restday: Record<string, Record<string, string | number | boolean | SCHEDULESHIFTViewInterface >>, scheduleDaily: SCHEDULEDAILYViewInterface) => {
-            const scheduleDailyDate = dayjs(scheduleDaily.business_date).format('YYYY-MM-DD');
+          const scheduleDailyDate = dayjs(scheduleDaily.business_date).format('YYYY-MM-DD');
             const sched_id_check1 = (key: SCHEDULESHIFTViewInterface) => {
               if(key){
                 if ('id' in key){
@@ -203,7 +222,8 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
             }; 
             is_restday[scheduleDailyDate] = {
               is_restday: scheduleDaily.is_restday, 
-              sched_details: sched_id_check1(scheduleDaily?.schedule_shift_code as SCHEDULESHIFTViewInterface)
+              sched_details: sched_id_check1(scheduleDaily?.schedule_shift_code as SCHEDULESHIFTViewInterface),
+              holiday_type: scheduleDaily.holiday_type
             };
             return is_restday;
         }, {});

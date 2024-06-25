@@ -14,6 +14,7 @@ import CreateSCHEDULEDAILYMultipleModal from './local-components/assign-multiple
 import { All_Schedule_Filter_Interface } from '@/types/types-employee-and-applicants';
 import ExportToCsv from '@/public-components/ExportToCSVButton';
 import { ALLSCHEDULEViewSpecificAction } from '@/store/actions/employee-and-applicants';
+import { HolidayColor } from '../holidays/local-components/list-of-holidays/list-of-holidays';
 
 
 const PaperStyle: CSSProperties = {
@@ -91,8 +92,10 @@ export default function ProceduralSCHEDULEDAILYpage() {
                 </Typography>
               </div>
               <div>
-                <Typography className='flex my-2'><p style={{background: ScheduleDailyColor._restday, borderRadius: '100px', width: '25px', opacity: '0.4'}}></p>&nbsp;&nbsp;Restday</Typography>
-                <Typography className='flex mb-2'><p style={{background: ScheduleDailyColor._workday, borderRadius: '100px', width: '25px', opacity: '0.4'}}></p>&nbsp;&nbsp;Workday</Typography>  
+                <Typography className='flex my-2'><p style={{background: ScheduleDailyColor._restday, borderRadius: '100px', width: '25px'}}></p>&nbsp;&nbsp;Restday</Typography>
+                <Typography className='flex mb-2'><p style={{background: ScheduleDailyColor._workday, borderRadius: '100px', width: '25px'}}></p>&nbsp;&nbsp;Workday</Typography>  
+                <Typography className='flex mb-2'><p style={{background: HolidayColor._special_hex, borderRadius: '100px', width: '25px'}}></p>&nbsp;&nbsp;Special Non-working Holiday</Typography>
+                <Typography className='flex mb-2'><p style={{background: HolidayColor._legal_hex, borderRadius: '100px', width: '25px'}}></p>&nbsp;&nbsp;Regular Holiday</Typography>  
               </div>
             </div>
             <div className='flex justify-center align-center'>
