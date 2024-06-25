@@ -41,7 +41,7 @@ export default function YourSCHEDULEDAILYpage() {
         <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
             <Grid item xs={6}>
                 <Paper elevation={3} style={PaperStyle}>
-                    <div className='flex justify-between'>
+                    <div className='flex flex-wrap justify-between'>
                         <div className='flex flex-col'>
                           <Typography variant={'h6'}>
                             Daily Schedule of an Employee
