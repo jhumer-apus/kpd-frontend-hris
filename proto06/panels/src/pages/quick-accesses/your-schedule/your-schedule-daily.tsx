@@ -40,7 +40,11 @@ export default function YourSCHEDULEDAILYpage() {
         <Fragment>
         <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
             <Grid item xs={6}>
-                <Paper elevation={3} style={PaperStyle}>
+                <Paper 
+                  elevation={3} 
+                  // style={PaperStyle}
+                  className='h-fit p-4'
+                >
                     <div className='flex flex-wrap justify-between'>
                         <div className='flex flex-col'>
                           <Typography variant={'h6'}>
