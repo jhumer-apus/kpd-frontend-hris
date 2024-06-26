@@ -57,7 +57,7 @@ export default function ProceduralSCHEDULEDAILYPageHistory(props: ProceduralSCHE
         </Typography>
         </div>
       </div>
-      <div style={{ height: '90%', width: '100%' }}>
+      <div className='h-[650px]'>
         <DataGrid
           rows={SCHEDULEDAILYViewData? SCHEDULEDAILYViewData as SCHEDULEDAILYViewInterface[]:[]}
           columns={ProceduralSCHEDULEDAILYPageColumns}
