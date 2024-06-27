@@ -18,6 +18,7 @@ import { LEAVEViewAction } from '@/store/actions/procedurals';
 import { GridColDef, GridValueGetterParams, GridCellParams, GridValueFormatterParams } from "@mui/x-data-grid";
 import GeneratePDFButton from './local-components/additional-features/generate-pdf-button';
 import { globalServerErrorMsg } from '@/store/configureStore';
+import { HandleModalAction } from '@/store/actions/components';
 
 export default function ApprovalLEAVEPage() {
   const [printing, setIsPrinting] = useState(false);
@@ -85,7 +86,10 @@ export default function ApprovalLEAVEPage() {
           pageSizeOptions={[25, 50, 75, 100]}
           onRowClick={(e) => {
             setSingleLEAVEDetailsData(e.row);
-            setSingleLEAVEOpenModal(true);
+            dispatch(HandleModalAction({
+              name: "viewLeaveModal",
+              value: true
+            }))
           }}
           disableRowSelectionOnClick 
           localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}

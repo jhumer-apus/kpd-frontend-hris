@@ -294,6 +294,8 @@ import {
   SCHEDULEDAILYViewInterface, 
 } from '@/types/types-pages';
 import { globalReducerFailed, globalReducerLoading, globalReducerRefreshed, globalReducerSuccess } from '../configureStore';
+import { AlertType } from '@/types/index';
+import { HandleModal } from '../actions/components';
 
 type ProceduralsPayloads = 
 string |
@@ -908,7 +910,6 @@ const setRefreshedState = (path: string) => (state: OverallProceduralState) => {
   state[path].data = [];
   state[path].error = null;
 };
-
 
 const proceduralsSlice = createSlice({
   name: 'procedurals',

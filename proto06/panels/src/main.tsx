@@ -8,6 +8,7 @@ import { MaterialTailwindControllerProvider } from "@/context";
 import "../public/css/tailwind.css";
 import { Provider } from "react-redux";
 import store from "@/store/configureStore";
+import AlertMessage from "./public-components/AlertMessage";
 
 
 

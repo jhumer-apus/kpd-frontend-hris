@@ -6,9 +6,12 @@ import { OBTViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages
 import SinglePayslip from './obt-modal-component';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { APILink, RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
-import { OBTEditAction } from '@/store/actions/procedurals';
+import { OBTEditAction, OBTViewAction, OBTViewFilterApproverAction } from '@/store/actions/procedurals';
+import axios from 'axios';
+import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
+import { beautifyJSON } from '@/helpers/utils';
 
 
 
@@ -27,35 +30,83 @@ export default function DenyOBTModal(props: DenyOBTModalInterface) {
   const DateNow = new Date();
   const denyDate = dayjs(DateNow).format('MMM-DD-YY LT');
 
+
+  const apiDenyOBT = async (payload:any) => {
+
+    await axios.put(`${APILink}obt_new/${singleOBTDetailsData.id}/`, payload)
+
+      .then(res => {
+
+        dispatch(OBTViewFilterApproverAction({emp_no: state?.emp_no}))
+
+        dispatch(HandleAlertAction({
+          open:true,
+          status:"success",
+          message:"Deny OBT Successfully"
+        }))
+
+        dispatch(HandleModalAction({
+          name: "viewObtModal",
+          value: false
+        }))
+
+      })
+      .catch(err => {
+
+        dispatch(OBTViewFilterApproverAction({emp_no: state?.emp_no}))
+
+        dispatch(HandleAlertAction({
+          open:true,
+          status:"error",
+          message:beautifyJSON(err.response.data)
+        }))
+
+        dispatch(HandleModalAction({
+          name: "viewObtModal",
+          value: false
+        }))
+
+      })
+  }
+
   const denyOBT = () => { 
+
+    const payload = {
+      ...singleOBTDetailsData,
+      approver_emp_no: state?.emp_no,
+      status: "disapprove",
+      obt_reason_disapproval: singleOBTDetailsData.obt_reason_disapproval,
+      added_by: state?.emp_no
+    }
+    
     if(singleOBTDetailsData.obt_reason_disapproval){
-        return(
-          setSingleOBTDetailsData((prevState)=> {
-            dispatch(OBTEditAction({
-              ...prevState,
-              obt_reason_disapproval: `${prevState.obt_reason_disapproval}  <Updated: ${denyDate}>`
-            }))  
-            return({
-              ...prevState,
-              obt_reason_disapproval: `${prevState.obt_reason_disapproval} <Updated: ${denyDate}>`
-            })
-          })
-        )
+
+        setSingleOBTDetailsData((curr) => ({
+          ...payload
+        }))
+        
+        apiDenyOBT(payload)
+        
       } else {
-        window.alert('Please insert reason');
+
+        dispatch(HandleAlertAction({
+          open:true,
+          status:"error",
+          message:"Please insert reason"
+        }))
       }
     }
-    console.log(denyOBTOpenModal, "124124")
-    React.useEffect(()=>{
-      if(OBTDenyData.status === 'succeeded' && denyOBTOpenModal){
-        window.alert(`${OBTDenyData.status.charAt(0).toUpperCase()}${OBTDenyData.status.slice(1)}`)
-        setTimeout(()=>{
-          window.location.reload();
-        }, 800)
-      } else if(OBTDenyData.status === 'failed' && denyOBTOpenModal){
-        window.alert(OBTDenyData.error)
-      }
-    }, [OBTDenyData.status])
+
+    // React.useEffect(()=>{
+    //   if(OBTDenyData.status === 'succeeded' && denyOBTOpenModal){
+    //     window.alert(`${OBTDenyData.status.charAt(0).toUpperCase()}${OBTDenyData.status.slice(1)}`)
+    //     setTimeout(()=>{
+    //       window.location.reload();
+    //     }, 800)
+    //   } else if(OBTDenyData.status === 'failed' && denyOBTOpenModal){
+    //     window.alert(OBTDenyData.error)
+    //   }
+    // }, [OBTDenyData.status])
   return (
     <React.Fragment>
       <Transition in={denyOBTOpenModal} timeout={400}>

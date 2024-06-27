@@ -10,10 +10,11 @@ interface OBTModalComponentInterface {
     scroll: boolean,
     setScroll: Dispatch<SetStateAction<boolean>>,
     setSingleOBTDetailsData: React.Dispatch<React.SetStateAction<OBTViewInterface>>;
+    setSingleOBTOpenModal:any
 };
 
 const OBTModalComponent = ((props:OBTModalComponentInterface) => {
-    const { singleOBTDetailsData, setSingleOBTDetailsData } = props;
+    const { singleOBTDetailsData, setSingleOBTDetailsData, setSingleOBTOpenModal } = props;
     const componentRef = useRef<HTMLDivElement | null>(null);
 
     return (
@@ -21,7 +22,7 @@ const OBTModalComponent = ((props:OBTModalComponentInterface) => {
             <Typography variant='soft'>Official Business Time/Trip Data</Typography>
             {/* <ModalClose sx={{marginTop: '4px'}}/> */}
             <div ref={componentRef} id="printable-area" className='mt-4'>
-                <OBTModalUI setSingleOBTDetailsData={setSingleOBTDetailsData} singleOBTDetailsData={singleOBTDetailsData}/>
+                <OBTModalUI setSingleOBTOpenModal={setSingleOBTOpenModal} setSingleOBTDetailsData={setSingleOBTDetailsData} singleOBTDetailsData={singleOBTDetailsData}/>
             </div>
         </Fragment>
     );

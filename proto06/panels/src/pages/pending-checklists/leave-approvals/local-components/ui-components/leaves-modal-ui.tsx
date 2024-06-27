@@ -223,6 +223,9 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
         })
     }
     
+    const apiApproveLeave = async () => {
+        //
+    }
     return (
         <React.Fragment>
             <ApproveLEAVEModal singleLEAVEDetailsData={singleLEAVEDetailsData} setSingleLEAVEDetailsData={setSingleLEAVEDetailsData} approveLEAVEOpenModal={approveLEAVEOpenModal} setApproveLEAVEOpenModal={setApproveLEAVEOpenModal}/>
