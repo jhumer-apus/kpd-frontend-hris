@@ -138,10 +138,10 @@ export const SpecificEmployee = (props: initialState) => {
         fetchDepartments()
         fetchPositions()
         fetchDivisions()
-
-        if(userData?.department_code) {
-            fetchApprovers(parseInt(userData?.department_code))
-        }
+        fetchApprovers()
+        // if(userData?.department_code) {
+        //     fetchApprovers(parseInt(userData?.department_code))
+        // }
         // setMonthlySalary(curr => monthlySalaryComputation(userData?.emp_salary_basic?? 0))
     }, []);
 
@@ -174,10 +174,10 @@ export const SpecificEmployee = (props: initialState) => {
                 setValue(key, userData[key]);
             }
         }
-
-        if(userData?.department_code) {
-            fetchApprovers(parseInt(userData?.department_code))
-        }
+        fetchApprovers()
+        // if(userData?.department_code) {
+        //     fetchApprovers(parseInt(userData?.department_code))
+        // }
     }, [userData, setValue]);
 
     // useEffect(() => {
@@ -306,15 +306,12 @@ export const SpecificEmployee = (props: initialState) => {
             setDropDownData((curr:any) => ({...curr, positions: responsePositions}));
         })
     }
-    const fetchApprovers = (department: number) => {
+
+    const fetchApprovers = () => {
 
         setDropDownData((curr:any) => ({...curr, approvers: []}));
 
-        axios.get(`${APILink}approvers/`,{
-          params:{
-            department: department
-          }
-        }).then((response:any) => {
+        axios.get(`${APILink}approvers/`).then((response:any) => {
   
             const responseApprovers = response.data.map((approver:any) => {
                 return {
@@ -327,6 +324,27 @@ export const SpecificEmployee = (props: initialState) => {
   
         })
       }
+    // const fetchApprovers = (department: number) => {
+
+    //     setDropDownData((curr:any) => ({...curr, approvers: []}));
+
+    //     axios.get(`${APILink}approvers/`,{
+    //       params:{
+    //         department: department
+    //       }
+    //     }).then((response:any) => {
+  
+    //         const responseApprovers = response.data.map((approver:any) => {
+    //             return {
+    //             emp_no: approver.emp_no,
+    //             full_name: approver.full_name
+    //             }
+    //         })
+  
+    //         setDropDownData((curr:any) => ({...curr, approvers: responseApprovers}));
+  
+    //     })
+    //   }
 
       const fetchDivisions = () => {
         axios.get(`${APILink}division/`).then((response:any) => {
@@ -1523,7 +1541,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                     <Select
                                                         key={dropDownData.departments.length > 0? "departments":"noDepartments"}
                                                         onChange={(val:any) => {
-                                                            fetchApprovers(val)
+                                                            // fetchApprovers(val)
                                                             setFormSelectData(curr => (
                                                                 {
                                                                     ...curr, 

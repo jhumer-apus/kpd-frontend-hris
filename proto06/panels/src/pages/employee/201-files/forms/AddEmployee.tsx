@@ -109,6 +109,7 @@ export const UserProfile = () => {
       fetchDepartments()
       fetchDivisions()
       fetchUniqueEmployeeNumber()
+      fetchApprovers()
     }, [])
 
     useEffect(() => {
@@ -217,14 +218,11 @@ export const UserProfile = () => {
       })
     }
 
-    const fetchApprovers = (department: number) => {
+    const fetchApprovers = () => {
+
       setDropDownData((curr:any) => ({...curr, approvers: []}));
 
-      axios.get(`${APILink}approvers/`,{
-        params:{
-          department: department
-        }
-      }).then((response:any) => {
+      axios.get(`${APILink}approvers/`).then((response:any) => {
 
         const responseApprovers = response.data.map((approver:any) => {
           return {
@@ -233,10 +231,33 @@ export const UserProfile = () => {
           }
         })
 
+        console.log(responseApprovers)
+
         setDropDownData((curr:any) => ({...curr, approvers: responseApprovers}));
 
       })
     }
+
+    // const fetchApprovers = (department: number) => {
+    //   setDropDownData((curr:any) => ({...curr, approvers: []}));
+
+    //   axios.get(`${APILink}approvers/`,{
+    //     params:{
+    //       department: department
+    //     }
+    //   }).then((response:any) => {
+
+    //     const responseApprovers = response.data.map((approver:any) => {
+    //       return {
+    //         emp_no: approver.emp_no,
+    //         full_name: approver.full_name
+    //       }
+    //     })
+
+    //     setDropDownData((curr:any) => ({...curr, approvers: responseApprovers}));
+
+    //   })
+    // }
 
     const fetchUniqueEmployeeNumber = async() => {
       await axios.get(`${APILink}new_emp_no`).then((res:AxiosResponse) => {
@@ -1246,7 +1267,7 @@ export const UserProfile = () => {
                 onChange={(e:any) => 
                   {
                     
-                    fetchApprovers(e.target.value)
+                    // fetchApprovers(e.target.value)
                     setEmployeeData(curr => 
                     (
                       {
