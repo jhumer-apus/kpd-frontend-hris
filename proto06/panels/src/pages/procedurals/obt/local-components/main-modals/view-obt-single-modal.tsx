@@ -4,6 +4,9 @@ import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
 import { OBTViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
 import OBTModalComponent from './inner-modals/obt-modal-component';
+import { RootState } from '@/store/configureStore';
+import { useDispatch, useSelector } from 'react-redux';
+import { HandleModalAction } from '@/store/actions/components';
 
 
 interface SinglePayslipInterface {
@@ -16,14 +19,20 @@ interface SinglePayslipInterface {
 export default function ViewOBTSingleModal(props: SinglePayslipInterface) {
   const {singleOBTOpenModal, setSingleOBTOpenModal, setSingleOBTDetailsData, singleOBTDetailsData} = props;
   const [scroll, setScroll] = React.useState<boolean>(true);
+  const viewObtModal = useSelector((state:RootState) => state.component.viewObtModal)
+  const dispatch = useDispatch();
   return (
     <React.Fragment>
-      <Transition in={singleOBTOpenModal} timeout={400}>
+      <Transition in={viewObtModal} timeout={400}>
       {(state: string) => (
       <Modal
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setSingleOBTOpenModal(false);
+          // setSingleOBTOpenModal(false);
+          dispatch(HandleModalAction({
+            name: "viewObtModal",
+            value: false
+          }))
         }}
         slotProps={{
             backdrop: {

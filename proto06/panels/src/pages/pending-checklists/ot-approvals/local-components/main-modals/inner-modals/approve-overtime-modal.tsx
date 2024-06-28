@@ -57,7 +57,6 @@ export default function ApproveOVERTIMEModal(props: ApproveOVERTIMEModalInterfac
         ...singleOVERTIMEDetailsData,
         ot_date_approved2: approvedDate
       }))
-
       apiApproveOT(payload)
 
     } else {

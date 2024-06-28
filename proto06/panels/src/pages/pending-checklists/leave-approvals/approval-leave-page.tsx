@@ -14,7 +14,7 @@ import jsPDF from 'jspdf';
 import dayjs from 'dayjs';
 
 // import GeneratePDFButton from './local-components/additional-features/generate-pdf-button';
-import { LEAVEViewAction } from '@/store/actions/procedurals';
+import { LEAVEViewAction, LEAVEViewFilterApproverAction } from '@/store/actions/procedurals';
 import { GridColDef, GridValueGetterParams, GridCellParams, GridValueFormatterParams } from "@mui/x-data-grid";
 import GeneratePDFButton from './local-components/additional-features/generate-pdf-button';
 import { globalServerErrorMsg } from '@/store/configureStore';
@@ -46,9 +46,10 @@ export default function ApprovalLEAVEPage() {
   const { LEAVEViewFilterApprover } = useSelector((state: RootState) => state.procedurals);
   const { data, status, error } = LEAVEViewFilterApprover;
   const LEAVEViewData = data as LEAVEViewInterface[];
+  const user = useSelector((state:RootState) => state.auth.employee_detail)
 
   useEffect(()=> {
-    dispatch(LEAVEViewAction())
+    dispatch(LEAVEViewFilterApproverAction({emp_no: user?.emp_no}))
   }, []);
 
 

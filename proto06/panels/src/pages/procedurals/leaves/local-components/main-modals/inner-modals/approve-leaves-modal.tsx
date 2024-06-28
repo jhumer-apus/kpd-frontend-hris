@@ -6,9 +6,12 @@ import { LEAVEViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pag
 import SinglePayslip from './leaves-modal-component';
 import { Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { APILink, RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
-import { LEAVEEditAction } from '@/store/actions/procedurals';
+import { LEAVEEditAction, LEAVEViewAction } from '@/store/actions/procedurals';
+import axios from 'axios';
+import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
+import { beautifyJSON } from '@/helpers/utils';
 
 
 
@@ -25,47 +28,96 @@ export default function ApproveLEAVEModal(props: ApproveLEAVEModalInterface) {
   const LEAVEApproveState = useSelector((state: RootState)=> state.procedurals.LEAVEEdit)
   const {approveLEAVEOpenModal, setApproveLEAVEOpenModal, singleLEAVEDetailsData, setSingleLEAVEDetailsData} = props;
 
+  const apiApproveLeave = async (payload:any) => {
+
+    await axios.put(`${APILink}leave_new/${singleLEAVEDetailsData.id}/`, payload)
+      .then(res => {
+
+        dispatch(LEAVEViewAction({
+          emp_no: state?.emp_no
+        }))
+        
+        dispatch(HandleAlertAction({
+          open:true,
+          status:"success",
+          message:"Approve Leave Successfully"
+        }))
+
+        dispatch(HandleModalAction({
+          name: "viewLeaveModal",
+          value: false
+        }))
+      })
+
+      .catch((err:any) => {
+
+        dispatch(LEAVEViewAction({
+          emp_no: state?.emp_no
+        }))
+
+        dispatch(HandleAlertAction({
+          open:true,
+          status:"error",
+          message: beautifyJSON(err.response.data)
+        }))
+
+        dispatch(HandleModalAction({
+          name: "viewLeaveModal",
+          value: false
+        }))
+      })
+  }
+
   const approveLEAVE = () => { 
     const DateNow = new Date();
     const approvedDate = dayjs(DateNow).format('YYYY-MM-DDTHH:mm:ss');
+    
+    const payload = {
+      ...singleLEAVEDetailsData,
+      approver_emp_no: state?.emp_no,
+      status: "approve",
+      leave_reason_disapproval: null,
+      added_by: state?.emp_no
+    }
+
+
     if(state?.emp_no === singleLEAVEDetailsData.leave_approver1_empno || state?.rank_code as number > singleLEAVEDetailsData?.applicant_rank || state?.rank_hierarchy == 6){
-      setSingleLEAVEDetailsData((prevState)=> {
-        dispatch(LEAVEEditAction({
-          ...prevState,
-          leave_date_approved1: approvedDate
-        }))
-        return({
-          ...prevState,
-          leave_date_approved1: approvedDate
-        })
-      })
+      
+      payload.leave_date_approved1 = approvedDate
+      apiApproveLeave(payload)
+      setSingleLEAVEDetailsData((curr:any) => ({
+        ...payload
+      }))
+      
     } else if((state?.emp_no === singleLEAVEDetailsData.leave_approver2_empno)){
-      setSingleLEAVEDetailsData((prevState)=> {
-        dispatch(LEAVEEditAction({
-          ...prevState,
-          leave_date_approved2: approvedDate
-        }))
-        return({
-          ...prevState,
-          leave_date_approved2: approvedDate
-        })
-      })
+      
+      payload.leave_date_approved2 = approvedDate
+      apiApproveLeave(payload)
+      setSingleLEAVEDetailsData((curr:any) => ({
+        ...payload
+      }))
+
     } else {
-      window.alert('You are not one of the approvers.')
+
+      dispatch(HandleAlertAction({
+        open: true,
+        status: "error",
+        message: "You are not one of the approvers"
+      }))
     }
 
   }
 
-  React.useEffect(()=>{
-    if(LEAVEApproveState.status === 'succeeded' && approveLEAVEOpenModal){
-      window.alert(`${LEAVEApproveState.status.charAt(0).toUpperCase()}${LEAVEApproveState.status.slice(1)}`)
-      setTimeout(()=>{
-        window.location.reload();
-      }, 800)
-    } else if(LEAVEApproveState.status === 'failed' && approveLEAVEOpenModal){
-      window.alert(`Error: ${LEAVEApproveState.error}`)
-    }
-  }, [LEAVEApproveState.status])
+  // React.useEffect(()=>{
+  //   if(LEAVEApproveState.status === 'succeeded' && approveLEAVEOpenModal){
+  //     window.alert(`${LEAVEApproveState.status.charAt(0).toUpperCase()}${LEAVEApproveState.status.slice(1)}`)
+  //     setTimeout(()=>{
+  //       window.location.reload();
+  //     }, 800)
+  //   } else if(LEAVEApproveState.status === 'failed' && approveLEAVEOpenModal){
+  //     window.alert(`Error: ${LEAVEApproveState.error}`)
+  //   }
+  // }, [LEAVEApproveState.status])
   return (
     <React.Fragment>
       <Transition in={approveLEAVEOpenModal} timeout={400}>

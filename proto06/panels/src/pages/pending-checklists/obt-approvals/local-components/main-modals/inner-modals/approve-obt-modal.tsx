@@ -37,7 +37,6 @@ export default function ApproveOBTModal(props: ApproveOBTModalInterface) {
   
   const apiApproveOBT = async (payload:any) => {
   
-
     await axios.put(`${APILink}obt_new/${singleOBTDetailsData.id}/`, payload)
       .then(res => {
 
@@ -54,7 +53,6 @@ export default function ApproveOBTModal(props: ApproveOBTModalInterface) {
             value: false
           }))
 
-          dispatch(OBTViewAction())
         } 
       )
       .catch(err => {

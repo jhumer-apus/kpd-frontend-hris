@@ -9,6 +9,7 @@ import { OBTViewFilterEmployeeInitialState, OBTViewInterface, ViewPayrollPayPerE
 import { OBTViewAction } from '@/store/actions/procedurals';
 import { globalServerErrorMsg } from '@/store/configureStore';
 import useFetchFileApplicationByApprover from '@/custom-hooks/use-fetch-file-application-by-approver';
+import { HandleModalAction } from '@/store/actions/components';
 
 
 export default function ProceduralOBTPage() {
@@ -60,7 +61,12 @@ export default function ProceduralOBTPage() {
           pageSizeOptions={[25, 50, 75, 100]}
           onRowClick={(e) => {
             setSingleOBTDetailsData(e.row);
-            setSingleOBTOpenModal(true);
+
+            dispatch(HandleModalAction({
+              name: "viewObtModal",
+              value: true
+            }))
+            // setSingleOBTOpenModal(true);
           }}
           disableRowSelectionOnClick 
           localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}

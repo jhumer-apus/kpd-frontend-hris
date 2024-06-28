@@ -19,6 +19,7 @@ import { GridColDef, GridValueGetterParams, GridCellParams, GridValueFormatterPa
 import GeneratePDFButton from './local-components/additional-features/generate-pdf-button';
 import { globalServerErrorMsg } from '@/store/configureStore';
 import useFetchFileApplicationByApprover from '@/custom-hooks/use-fetch-file-application-by-approver';
+import { HandleModalAction } from '@/store/actions/components';
 
 
 
@@ -87,7 +88,11 @@ export default function ProceduralUAPage() {
           pageSizeOptions={[25, 50, 75, 100]}
           onRowClick={(e) => {
             setSingleUADetailsData(e.row);
-            setSingleUAOpenModal(true);
+            // setSingleUAOpenModal(true);
+            dispatch(HandleModalAction({
+              name:"viewUaModal",
+              value:true
+            }))
           }}
           disableRowSelectionOnClick 
           localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}

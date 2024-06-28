@@ -17,7 +17,7 @@ interface ViewLEAVESingleModalInterface {
 }
 
 export default function ViewLEAVESingleModal(props: ViewLEAVESingleModalInterface) {
-    const {singleLEAVEOpenModal, setSingleLEAVEOpenModal, setSingleLEAVEDetailsData, singleLEAVEDetailsData} = props;
+  const {singleLEAVEOpenModal, setSingleLEAVEOpenModal, setSingleLEAVEDetailsData, singleLEAVEDetailsData} = props;
   const [scroll, setScroll] = React.useState<boolean>(true);
   const dispatch = useDispatch();
   const viewLeaveModal = useSelector((state:RootState) => state.component.viewLeaveModal)

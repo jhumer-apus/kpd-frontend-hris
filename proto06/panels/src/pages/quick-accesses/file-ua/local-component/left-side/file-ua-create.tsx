@@ -7,12 +7,13 @@ import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
 import DateFromToUACreate from './inner-ui-components/date-from-to-field';
 import { Typography } from '@mui/joy';
 import { UACreateInterface } from '@/types/types-pages';
-import { UACreateAction, UACreateActionFailureCleanup } from '@/store/actions/procedurals';
+import { UACreateAction, UACreateActionFailureCleanup, UAViewFilterEmployeeAction } from '@/store/actions/procedurals';
 
 // Components
 import UAReasons from '../forms/UAReasons';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { beautifyJSON } from '@/helpers/utils';
+import { HandleAlertAction } from '@/store/actions/components';
 
 interface CreateUAModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -36,19 +37,19 @@ function QuickAccessUACreate(props: CreateUAModalInterface) {
         fileUAPost()
         // dispatch(UACreateAction(createUA))
     };
-    useEffect(()=>{
-        if(UACreatestate.status === 'succeeded'){
-            setIsSubmittingRequest(false)
-            window.alert('Request Successful');
-            window.location.reload();
-        }else if(UACreatestate.status === 'failed'){
-            setIsSubmittingRequest(false)
-            window.alert(`Request Failed, ${UACreatestate.error}`)
-            setTimeout(()=> {
-                dispatch(UACreateActionFailureCleanup());
-            }, 1000)
-        }
-    }, [UACreatestate.status])
+    // useEffect(()=>{
+    //     if(UACreatestate.status === 'succeeded'){
+    //         setIsSubmittingRequest(false)
+    //         window.alert('Request Successful');
+    //         window.location.reload();
+    //     }else if(UACreatestate.status === 'failed'){
+    //         setIsSubmittingRequest(false)
+    //         window.alert(`Request Failed, ${UACreatestate.error}`)
+    //         setTimeout(()=> {
+    //             dispatch(UACreateActionFailureCleanup());
+    //         }, 1000)
+    //     }
+    // }, [UACreatestate.status])
 
     const fileUAPost = async() => {
 
@@ -61,14 +62,24 @@ function QuickAccessUACreate(props: CreateUAModalInterface) {
             added_by: userData?.emp_no,
         }
         await axios.post(`${APILink}ua/`, payload).then((res:AxiosResponse) => {
-            setIsSubmittingRequest(false)
-            window.alert("Request Successful")
-            sendEmail(createUA.emp_no, res.data.id)
 
-        }).catch((err:AxiosError) => {
             setIsSubmittingRequest(false)
-            console.log(err)
-            window.alert(beautifyJSON(err.response?.data))
+            sendEmail(createUA.emp_no, res.data.id)
+            dispatch(UAViewFilterEmployeeAction({emp_no: userData?.emp_no}))
+            dispatch(HandleAlertAction({
+                open:true,
+                status:"success",
+                message:"File UA Successfully"
+            }))
+
+        }).catch((err:any) => {
+
+            setIsSubmittingRequest(false)
+            dispatch(HandleAlertAction({
+                open:true,
+                status:"error",
+                message:beautifyJSON(err.response?.data)
+            }))
         })
     }
 
@@ -83,13 +94,21 @@ function QuickAccessUACreate(props: CreateUAModalInterface) {
         }
     
         await axios.post(`${APILink}reset_password_email/`, body).then(res => {
-    
-          window.alert(`Application has been sent to the approver through email`)
+        
+            dispatch(HandleAlertAction({
+                open:true,
+                status:"success",
+                message:"Application has been sent to the approver through email"
+            }))
     
         }).catch(err => {
     
-          console.log(err)
-          window.alert("Failed to email the approver")
+            console.log(err)
+            dispatch(HandleAlertAction({
+                open:true,
+                status:"error",
+                message:"Failed to email the approver"
+            }))
     
         })
     }

@@ -9,6 +9,7 @@ import { LEAVEViewInterface } from '@/types/types-pages';
 import { LEAVEViewAction } from '@/store/actions/procedurals';
 import { globalServerErrorMsg } from '@/store/configureStore';
 import useFetchFileApplicationByApprover from '@/custom-hooks/use-fetch-file-application-by-approver';
+import { HandleModalAction } from '@/store/actions/components';
 
 export default function ProceduralLEAVEPage() {
   const currUser = useSelector((state: RootState) => state.auth.employee_detail);
@@ -136,7 +137,10 @@ export default function ProceduralLEAVEPage() {
           pageSizeOptions={[25, 50, 75, 100]}
           onRowClick={(e) => {
             setSingleLEAVEDetailsData(e.row);
-            setSingleLEAVEOpenModal(true);
+            dispatch(HandleModalAction({
+              name: "viewLeaveModal",
+              value: true
+            }))
           }}
           disableRowSelectionOnClick 
           localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}

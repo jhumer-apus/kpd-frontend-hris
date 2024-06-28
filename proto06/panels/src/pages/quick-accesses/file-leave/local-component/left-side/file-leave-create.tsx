@@ -9,7 +9,7 @@ import LEAVETypeAutoComplete from './inner-ui-components/leave-type-autocomplete
 import DateFromToLEAVECreate from './inner-ui-components/date-from-to-field';
 import { Typography } from '@mui/joy';
 import { LEAVECreateInterface } from '@/types/types-pages';
-import { LEAVECreateAction, LEAVECreateActionFailureCleanup } from '@/store/actions/procedurals';
+import { LEAVECreateAction, LEAVECreateActionFailureCleanup, LEAVEViewFilterEmployeeAction } from '@/store/actions/procedurals';
 import { APILink } from '@/store/configureStore';
 import axios, {AxiosResponse, AxiosError} from 'axios';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -22,6 +22,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { beautifyJSON } from '@/helpers/utils';
 import dayjs from 'dayjs';
+import { HandleAlertAction } from '@/store/actions/components';
 
 
 interface CreateLEAVEModalInterface {
@@ -156,17 +157,26 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         setIsSubmittingRequest(true)
         await axios.post(`${APILink}leave/`, formData).then((res:AxiosResponse) => {
 
-            fetchLeaveCredits(userData?.emp_no)
-            window.alert("Request Successful")
             setIsSubmittingRequest(false)
+            fetchLeaveCredits(userData?.emp_no)
+            dispatch(LEAVEViewFilterEmployeeAction({emp_no: userData?.emp_no}))
+            dispatch(HandleAlertAction({
+                open:true,
+                status:"success",
+                message:"File Leave Successfully"
+            }))
             
             sendEmail(createLEAVE.emp_no, res.data.leave_ids)
 
-        }).catch((err:AxiosError) => {
-            fetchLeaveCredits(userData?.emp_no)
-            console.log(err)
-            window.alert(beautifyJSON(err.response?.data))
+        }).catch((err:any) => {
+
             setIsSubmittingRequest(false)
+            fetchLeaveCredits(userData?.emp_no)
+            dispatch(HandleAlertAction({
+                open:true,
+                status:"error",
+                message:beautifyJSON(err.response?.data)
+            }))
         })
     }
 
@@ -335,11 +345,19 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                   axios.post(`${APILink}reset_password_email/`, body)
             })
 
-            console.log(`Application has been sent to the approver through email`)
+            dispatch(HandleAlertAction({
+                open:true,
+                status:"success",
+                message:"Application has been sent to the approver through email"
+            }))
 
         } catch(err) {
 
-            window.alert("Failed to email the approver")
+            dispatch(HandleAlertAction({
+                open:true,
+                status:"error",
+                message:"Failed to email the approver"
+            }))
 
         }
         
