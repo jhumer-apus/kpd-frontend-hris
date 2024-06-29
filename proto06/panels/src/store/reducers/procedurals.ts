@@ -94,6 +94,7 @@ import {
     LEAVEViewActionFailureCleanup,
     LEAVEViewActionProgress,
     LEAVEViewActionSuccess,
+    LEAVEViewAllFilterApproverAction,
     LEAVEViewFilterApproverAction,
     LEAVEViewFilterApproverActionFailure,
     LEAVEViewFilterApproverActionFailureCleanup,
@@ -681,6 +682,12 @@ const initialState: OverallProceduralState = {
     data: null,
     error: '',
   },
+  LEAVEViewAllFilterApprover: {
+    status: '',
+    progress: 0,
+    data: null,
+    error: '',
+  },
   LEAVEViewFilterApprover: {
     status: '',
     progress: 0,
@@ -995,6 +1002,9 @@ const proceduralsSlice = createSlice({
       .addCase(LEAVEViewFilterEmployeeAndLEAVEActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "LEAVEViewFilterEmployeeAndLEAVE"))
       .addCase(LEAVEViewFilterEmployeeAndLEAVEActionProgress, (state, action) => setProgressState(state, action.payload, "LEAVEViewFilterEmployeeAndLEAVE"))
       .addCase(LEAVEViewFilterEmployeeAndLEAVEActionFailure, (state, action) => setFailureState(state, action.payload, "LEAVEViewFilterEmployeeAndLEAVE"))
+      
+
+      .addCase(LEAVEViewAllFilterApproverAction, (state, action) => setSuccessState(state, action.payload.data, "LEAVEViewAllFilterApprover"))
       .addCase(LEAVEViewFilterApproverAction, setLoadingState("LEAVEViewFilterApprover"))
       .addCase(LEAVEViewFilterApproverActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "LEAVEViewFilterApprover"))
       .addCase(LEAVEViewFilterApproverActionProgress, (state, action) => setProgressState(state, action.payload, "LEAVEViewFilterApprover"))

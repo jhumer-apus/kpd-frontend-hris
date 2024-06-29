@@ -6,10 +6,11 @@ import { Typography } from "@material-tailwind/react";
 import { ProceduralLEAVEPageDescriptions, ProceduralLEAVEPageColumns } from '@/data/pages-data/procedural-data/leaves-data';
 import ViewLEAVESingleModal from './local-components/main-modals/view-leaves-single-modal';
 import { LEAVEViewInterface } from '@/types/types-pages';
-import { LEAVEViewAction } from '@/store/actions/procedurals';
+import { LEAVEViewAction, LEAVEViewAllFilterApproverAction, LEAVEViewFilterApproverAction } from '@/store/actions/procedurals';
 import { globalServerErrorMsg } from '@/store/configureStore';
 import useFetchFileApplicationByApprover from '@/custom-hooks/use-fetch-file-application-by-approver';
 import { HandleModalAction } from '@/store/actions/components';
+import axios from 'axios';
 
 export default function ProceduralLEAVEPage() {
   const currUser = useSelector((state: RootState) => state.auth.employee_detail);
@@ -34,15 +35,29 @@ export default function ProceduralLEAVEPage() {
       cutoff_code: NaN,
       applicant_rank: NaN,
   });
+
   const dispatch = useDispatch();
-  const { LEAVEView, LEAVEViewFilterApprover } = useSelector((state: RootState) => state.procedurals);
-  const { data, status, error } = currUser?.user?.role == 2? useFetchFileApplicationByApprover(`${APILink}leave`): LEAVEView;
+  const isDepartmentManager = currUser?.rank_hierarchy == 2
+  const { LEAVEView, LEAVEViewAllFilterApprover } = useSelector((state: RootState) => state.procedurals);
+  const { data, status, error } = isDepartmentManager? LEAVEViewAllFilterApprover: LEAVEView;
   const LEAVEViewData = data as LEAVEViewInterface[];
 
-  useEffect(()=> {
-    dispatch(LEAVEViewAction())
-  }, []);
+  const fetchLeavesByApprover = async() => {
+    await axios.get(`${APILink}leave/`,{
+      params:{
+        approver: currUser?.emp_no
+      }
+    }).then(res => {
+      dispatch(LEAVEViewAllFilterApproverAction({data: res.data}))
+    })
+  }
 
+
+  useEffect(()=> {
+    isDepartmentManager
+      ? fetchLeavesByApprover()
+      : dispatch(LEAVEViewAction())
+  }, []);
 
 
   // const getEndDayOfTheWeekDays = (dateString: Date | string) => {

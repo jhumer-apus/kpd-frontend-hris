@@ -8,7 +8,7 @@ import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { APILink, RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
-import { LEAVEEditAction, LEAVEViewAction } from '@/store/actions/procedurals';
+import { LEAVEEditAction, LEAVEViewAction, LEAVEViewAllFilterApproverAction } from '@/store/actions/procedurals';
 import { beautifyJSON, clearFields } from '@/helpers/utils';
 import axios from 'axios';
 import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
@@ -29,15 +29,24 @@ export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
   const {denyLEAVEOpenModal, setDenyLEAVEOpenModal, singleLEAVEDetailsData, setSingleLEAVEDetailsData} = props;
   const DateNow = new Date();
   const denyDate = dayjs(DateNow).format('MMM-DD-YY LT');
+  const isDepartmentManager = state?.rank_hierarchy == 2
+
+  const fetchLeavesByApprover = async() => {
+    await axios.get(`${APILink}leave/`,{
+      params:{
+        approver: state?.emp_no
+      }
+    }).then(res => {
+      dispatch(LEAVEViewAllFilterApproverAction({data: res.data}))
+    })
+  }
 
   const apiDenyLeave = async (payload:any) => {
 
     await axios.put(`${APILink}leave_new/${singleLEAVEDetailsData.id}/`,payload)
       .then(res => {
 
-        dispatch(LEAVEViewAction({
-          emp_no: state?.emp_no
-        }))
+        isDepartmentManager? fetchLeavesByApprover(): dispatch(LEAVEViewAction())
         
         dispatch(HandleAlertAction({
           open:true,
@@ -53,9 +62,7 @@ export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
 
       .catch((err:any) => {
 
-        dispatch(LEAVEViewAction({
-          emp_no: state?.emp_no
-        }))
+        isDepartmentManager? fetchLeavesByApprover(): dispatch(LEAVEViewAction())
 
         dispatch(HandleAlertAction({
           open:true,
