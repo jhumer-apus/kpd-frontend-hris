@@ -4,9 +4,7 @@ import { Internal_User_Role } from "../types-store";
 export type previewDtrCsvItem = {
     bio_id: string;
     date_time: string;
-    time_in: string;
-    time_out: string;
-    branch: string;
+    work_status: string;
 };
 
 
