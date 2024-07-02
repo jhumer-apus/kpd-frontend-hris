@@ -118,7 +118,7 @@ function QuickAccessUACreate(props: CreateUAModalInterface) {
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '2px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create an Unaccounted Attendance Data</Typography>
             <div className='flex flex-col gap-3 overflow-auto relative'>
                 <div className='flex flex-wrap gap-3 pt-4'>
-                    <div className='flex flex-col gap-3' style={{width:'100%'}}>
+                    <div className='flex flex-col gap-3 w-full'>
                         <EmployeeAutoComplete createUA={createUA} setCreateUA={setCreateUA}/>
                         <UAReasons setState={setCreateUA}/>
                         {/* <TextField
