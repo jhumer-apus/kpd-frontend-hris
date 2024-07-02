@@ -164,7 +164,7 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
                   className='w-full'
                   label='Branch OIC'
                   type='number'
-                  required
+                  // required
                   focused
                   value={singleBRANCHDetailsData.branch_oic}
                   onChange={(event: ChangeEvent<HTMLInputElement>)=> {
@@ -215,12 +215,14 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
                   updateAddress={updateAddress}
                   defaultProvinceId={singleBRANCHDetailsData.branch_province}
                   name="province"
+                  label="Province *"
                 />
                 <CityMunicipality 
                   currentProvinceCode={address?.province?.code}
                   updateAddress={updateAddress}
                   defaultCityId={singleBRANCHDetailsData.branch_city}
                   name="city"
+                  label="City (Select a province first) *"
                 />
                 <TextField
                   className='w-full'

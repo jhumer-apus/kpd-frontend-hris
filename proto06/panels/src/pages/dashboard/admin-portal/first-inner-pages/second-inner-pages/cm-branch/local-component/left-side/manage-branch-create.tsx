@@ -50,7 +50,7 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
         !data.branch_address && (error["Branch Address"] = "Branch Address is required!")
         !data.branch_email && (error["Branch Email"] = "Branch Email is required!")
         !data.branch_contact_number && (error["Branch Contact Number"] = "Branch Contact Number is required!")
-        !data.branch_oic && (error["Branch OIC"] = "Branch OIC is required!")
+        // !data.branch_oic && (error["Branch OIC"] = "Branch OIC is required!")
         !data.branch_name && (error["Branch Name"] = "Branch Name is required!")
         !data.branch_province && (error["Branch Province"] = "Branch Province is required!")
         !data.branch_city && (error["Branch City"]= "Branch City is required!")
@@ -158,11 +158,13 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                             updateAddress={updateAddress}
                             defaultProvinceId={createBRANCH.branch_province}
                             name="province"
+                            label="Province *"
                         />
                         <CityMunicipality 
                             currentProvinceCode={createBRANCH?.province?.code}
                             updateAddress={updateAddress}
                             name="city"
+                            label="City(Select a province first) *"
                         />
                         <TextField
                             required

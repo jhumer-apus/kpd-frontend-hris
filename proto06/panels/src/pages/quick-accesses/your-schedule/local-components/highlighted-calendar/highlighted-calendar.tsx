@@ -124,7 +124,9 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[],
              disableRestoreFocus
          >
              <Typography variant={"overline"} sx={{ p: 1 }}>
-             {scheduleDailyIsRestday.sched_details?.name ? scheduleDailyIsRestday.sched_details?.name : 'No Schedule'} <b>{scheduleDailyIsRestday.sched_details?.time_in && dayjs(scheduleDailyIsRestday.sched_details?.time_in, "HH:mm:ss").format('hh:mm a')} {scheduleDailyIsRestday.sched_details?.time_out && '-'} {scheduleDailyIsRestday.sched_details?.time_out && dayjs(scheduleDailyIsRestday.sched_details?.time_out, "HH:mm:ss").format('hh:mm a')}</b>
+             {scheduleDailyIsRestday.sched_details?.name 
+             ? <b>{scheduleDailyIsRestday.sched_details?.time_in && dayjs(scheduleDailyIsRestday.sched_details?.time_in, "HH:mm:ss").format('hh:mm a')} {scheduleDailyIsRestday.sched_details?.time_out && '-'} {scheduleDailyIsRestday.sched_details?.time_out && dayjs(scheduleDailyIsRestday.sched_details?.time_out, "HH:mm:ss").format('hh:mm a')}</b> 
+             : 'No Schedule'}
              </Typography>
          </Popover>
         </Typography>
@@ -159,7 +161,9 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[],
              disableRestoreFocus
          >
              <Typography variant={"overline"} sx={{ p: 1 }}>
-             {scheduleDailyIsRestday.sched_details?.name ? scheduleDailyIsRestday.sched_details?.name : 'No Schedule'} <b>{dayjs(scheduleDailyIsRestday.sched_details?.time_in, "HH:mm:ss").format('hh:mm a')} - {dayjs(scheduleDailyIsRestday.sched_details?.time_out, "HH:mm:ss").format('hh:mm a')}</b>
+             {scheduleDailyIsRestday.sched_details?.name 
+             ? <b>{dayjs(scheduleDailyIsRestday.sched_details?.time_in, "HH:mm:ss").format('hh:mm a')} - {dayjs(scheduleDailyIsRestday.sched_details?.time_out, "HH:mm:ss").format('hh:mm a')}</b>
+             : 'No Schedule'}
              </Typography>
          </Popover>
         </Typography>
