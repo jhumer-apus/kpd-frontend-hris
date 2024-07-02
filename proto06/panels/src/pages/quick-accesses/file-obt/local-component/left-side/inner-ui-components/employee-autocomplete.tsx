@@ -35,24 +35,30 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
     }, [curr_emp])
 
     return (
-        <Autocomplete
-        // disableCloseOnSelect
-        noOptionsText={'Loading... Please Wait.'}
-        options={[`${curr_emp}`]}
-        // groupBy={(option) => option.firstLetter}
-        value={`${curr_emp} - ${curr_user?.last_name} ${curr_user?.first_name}`}
-        // getOptionLabel={(option) => option.employee}
-        // onInputChange={handleInputChange}
-        sx={{ width: '100%' }}
-        renderInput={(params) => 
-            {   
-                return(
-                    <TextField {...params} label="Your Employee #" />
-                )
-
-            }
-
-        }
+        <TextField 
+            value={`${curr_emp} - ${curr_user?.last_name} ${curr_user?.first_name}`}
+            InputProps={{
+                readOnly: true,
+            }}
         />
+        // <Autocomplete
+        // // disableCloseOnSelect
+        // noOptionsText={'Loading... Please Wait.'}
+        // options={[`${curr_emp}`]}
+        // // groupBy={(option) => option.firstLetter}
+        // value={`${curr_emp} - ${curr_user?.last_name} ${curr_user?.first_name}`}
+        // // getOptionLabel={(option) => option.employee}
+        // // onInputChange={handleInputChange}
+        // sx={{ width: '100%' }}
+        // renderInput={(params) => 
+        //     {   
+        //         return(
+        //             <TextField {...params} label="Your Employee #" />
+        //         )
+
+        //     }
+
+        // }
+        // />
     );
 }

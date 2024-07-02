@@ -197,13 +197,15 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
       cancelToken: requestAbortController.current.token,
     })
       .then((response:any) => {
-        const filteredData: SCHEDULEDAILYViewInterface[] = response.data.filter((scheduleDaily: SCHEDULEDAILYViewInterface) => {
+
+        const data = response.data
+        const filteredData: SCHEDULEDAILYViewInterface[] = Array.isArray(data) ? response.data.filter((scheduleDaily: SCHEDULEDAILYViewInterface) => {
             const scheduleDailyDate = dayjs(scheduleDaily.business_date);
             return (
               scheduleDailyDate.format('YYYY-MM') === formattedDate &&
               scheduleDailyDate.isSame(date, 'month')
             );
-        });
+        }): [];
 
       
         const scheduleDaily = filteredData.reduce((is_restday: Record<string, Record<string, string | number | boolean | SCHEDULESHIFTViewInterface >>, scheduleDaily: SCHEDULEDAILYViewInterface) => {
