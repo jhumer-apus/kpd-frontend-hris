@@ -519,7 +519,7 @@ export const SpecificEmployee = (props: initialState) => {
             // city_code: data.permanent_city_code?? userData?.permanent_city_code,
             branch_code: data.branch_code,
             department_code: data.department_code,
-            division_code: data.division_code,
+            // division_code: data.division_code,
             position_code: data.position_code,
             rank_code: data.rank_code,
             payroll_group_code: data.payroll_group_code,
@@ -1658,7 +1658,7 @@ export const SpecificEmployee = (props: initialState) => {
                                             </div>
                                             {showSalary()}
                                             
-                                            <div className="my-4 md:flex md:items-center gap-4">
+                                            {/* <div className="my-4 md:flex md:items-center gap-4">
                                                 <Input
                                                     crossOrigin={undefined} {...register('payroll_no')}
                                                     type="text"
@@ -1687,16 +1687,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                     }
                                                 </Select>
                                                 }
-                                                {/* <Input
-                                                    crossOrigin={undefined} {...register('division_code')}
-                                                    type="text"
-                                                    containerProps={{ className: "min-w-[72px] mb-2 md:mb-0 focused" }}
-                                                    labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                    label="Division Code:"
-                                                    disabled={!editMode3}
-                                                    icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}       
-                                                /> */}
-                                            </div>
+                                            </div> */}
                                             <div className="my-4 flex flex-col md:flex-row md:items-center gap-4">
                                                 <Input
                                                     crossOrigin={undefined} {...register('insurance_life')}

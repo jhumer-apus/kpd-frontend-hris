@@ -30,7 +30,7 @@ export enum ScheduleDailyColor {
 
 export interface AlertType {
     open: boolean,
-    status: "success" | "error" | "warning" | "info" | null,
+    status: "success" | "error" | "warning" | "info" | "" | null ,
     message: string | null
 }
 

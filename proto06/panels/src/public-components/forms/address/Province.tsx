@@ -1,4 +1,4 @@
-import {useState, useEffect, Dispatch, SetStateAction } from 'react'
+import {useState, useEffect, Dispatch, SetStateAction, useRef } from 'react'
 
 //LIBARIES
 import TextField from '@mui/material/TextField';
@@ -40,12 +40,13 @@ export default function Province(props: Props) {
 
     useEffect(() => {
 
+        console.log(currentProvince)
         if(provinces.length > 0) {
 
             findProvince(defaultProvinceId)
         }
 
-    },[provinces.length])
+    },[provinces.length, defaultProvinceId])
 
     //FUNCTIONS
     const fetchProvinces = async() => {
@@ -68,8 +69,6 @@ export default function Province(props: Props) {
         if(val) {
             
             const selectedProvince = provinces.find(prov => prov.id == val)
-
-            console.log(selectedProvince)
 
             if(selectedProvince) {
                 

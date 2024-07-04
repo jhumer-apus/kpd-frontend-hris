@@ -8,6 +8,8 @@ import { Typography } from '@mui/joy';
 import { DEPARTMENTCreateInterface } from '@/types/types-pages';
 import { DEPARTMENTCreateAction, DEPARTMENTCreateActionFailureCleanup, DEPARTMENTViewAction } from '@/store/actions/categories';
 import BranchAutoComplete from './inner-ui-components/branch-autocomplete';
+import { HandleAlertAction } from '@/store/actions/components';
+import { beautifyJSON } from '@/helpers/utils';
 
 interface CreateDEPARTMENTModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -26,14 +28,20 @@ function ManageDEPARTMENTCreate(props: CreateDEPARTMENTModalInterface) {
     });
     const onClickSubmit = (e:any) => {
         e.preventDefault()
+
+        if(validateCreateDepartment(createDEPARTMENT)) return
+
         dispatch(DEPARTMENTCreateAction(createDEPARTMENT))
-        setCreateDEPARTMENT((prevState)=> ({
-            dept_name: "",
-            dept_lead: NaN,
-            dept_branch_code: NaN,
-            added_by: NaN,
-        }))
     };
+
+    const resetForm = () => {
+        setCreateDEPARTMENT((curr:any) => ({
+            dept_name: "",
+            dept_lead: null,
+            dept_branch_code: null,
+            added_by: curr_user,
+        }))
+    }
 
     useEffect(()=> {
         if(curr_user){
@@ -48,16 +56,46 @@ function ManageDEPARTMENTCreate(props: CreateDEPARTMENTModalInterface) {
         }
     }, [curr_user]) 
 
+    const validateCreateDepartment = (payload:any) => {
+        const errors:any = {}
+
+        // if(!payload.dept_lead) errors["Department Lead"] = "Department Lead is Required,"
+        if(!payload.dept_name) errors["Department Name"] = "Department Name is Required,"
+        if(!payload.dept_branch_code) errors["Branch"] = "Branch is Required,"
+
+        if(Object.keys(errors).length > 0) {
+            dispatch(HandleAlertAction({
+                open: true,
+                status: "error",
+                message: beautifyJSON(errors)
+            }))
+            return true
+        }
+        return false
+
+    }
+
     useEffect(()=>{
         if(DEPARTMENTCreatestate.status === 'succeeded'){
-            window.alert('Request Successful');
+            resetForm()
+            dispatch(HandleAlertAction({
+                open:true,
+                status:"success",
+                message:"Create Department Successful"
+            }))
             dispatch(DEPARTMENTViewAction());
             setTimeout(()=>{
                 dispatch(DEPARTMENTCreateActionFailureCleanup())
             }, 200)
             // window.location.reload();
         }else if(DEPARTMENTCreatestate.status === 'failed'){
-            window.alert(`Request Failed, ${DEPARTMENTCreatestate.error}`)
+
+            dispatch(HandleAlertAction({
+                open:true,
+                status:"error",
+                message:DEPARTMENTCreatestate.error
+            }))
+            // window.alert(`Request Failed, ${DEPARTMENTCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(DEPARTMENTCreateActionFailureCleanup());
             }, 200)

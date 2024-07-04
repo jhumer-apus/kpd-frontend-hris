@@ -35,6 +35,8 @@ function ANNOUNCEMENTModalUI(props: ANNOUNCEMENTModalUIInterface) {
         
     };
 
+    console.table(singleANNOUNCEMENTDetailsData)
+
     return (
         <Fragment>
             <EditANNOUNCEMENTModal 
@@ -50,9 +52,9 @@ function ANNOUNCEMENTModalUI(props: ANNOUNCEMENTModalUIInterface) {
                     <TextField sx={{width: '100%'}} label='Message:' multiline rows={5} value={(ThisProps?.message ? `${ThisProps?.message}` : '-')} InputProps={{readOnly: true,}} variant='outlined'/>
                 </div>
                 <div className='flex gap-6 flex-col'>
-                    <TextField sx={{width: '100%', minWidth: '160px', color: 'green'}} label='Order By Number:' value={ThisProps.order_by_no || '-'} InputProps={{readOnly: true,}} variant='filled' focused/>
+                    <TextField sx={{width: '100%', minWidth: '160px', color: 'green'}} label='Is Pinned?' value={ThisProps?.is_pinned? "Yes": "No"} InputProps={{readOnly: true,}} variant='filled' focused/>
                     <TextField sx={{width: '100%'}} label='Date Added:' value={ThisProps.date_added? dayjs(ThisProps.date_added).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
-                    <TextField sx={{width: '100%'}} label='Is Posted:' value={ThisProps.is_posted? 'Yes' : 'No'} InputProps={{readOnly: true,}} variant='standard'/>
+                    {/* <TextField sx={{width: '100%'}} label='Is Posted:' value={ThisProps.is_posted? 'Yes' : 'No'} InputProps={{readOnly: true,}} variant='standard'/> */}
                 </div>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Created By Emp #:' value={ThisProps.emp_no || '-'} InputProps={{readOnly: true,}} variant='filled'/>

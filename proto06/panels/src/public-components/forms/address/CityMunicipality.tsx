@@ -77,7 +77,10 @@ export default function CityMunicipality(props:Props) {
                 console.log(err)
     
             })
-        }    
+        } else {
+            
+            setCities(curr => [])
+        }
 
     }
 

@@ -63,6 +63,29 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
 
         return false
     }
+
+    const resetForm = () => {
+        setCreateBRANCH({
+            branch_name: "",
+            branch_address: "",
+            branch_email: "",
+            branch_contact_number: "",
+            branch_oic: NaN,
+            province: {
+                id: null,
+                name: null,
+                code: null
+            },
+            city: {
+                id: null,
+                name: null,
+                code: null
+            },
+            added_by: curr_user,
+        });
+        setFormKey(prevKey => prevKey + 1); // To force re-render of dependent components
+    }
+
     const onClickSubmit = (e:any) => {
         e.preventDefault()
 
@@ -82,26 +105,6 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
         }
 
         dispatch(BRANCHCreateAction(branchData))
-        
-        setCreateBRANCH((curr:any) => ({
-            branch_name: "",
-            branch_address: "",
-            branch_email: "",
-            branch_contact_number: "",
-            branch_oic: NaN,
-            province: {
-                id: null,
-                name: null,
-                code: null
-            },
-            city: {
-                id: null,
-                name: null,
-                code: null
-            },
-            added_by: curr_user,
-        }))
-        setFormKey(curr => curr++)
     };
 
     const updateAddress = (name:string, newValue:any) => {
@@ -130,6 +133,7 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
         if(BRANCHCreatestate.status === 'succeeded'){
             window.alert('Request Successful');
             dispatch(BRANCHViewAction())
+            resetForm()
             setTimeout(()=>{
                 dispatch(BRANCHCreateActionFailureCleanup());
                 
@@ -146,7 +150,7 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a Branch Data</Typography>
-            <form key={formKey} onSubmit={onClickSubmit} className='flex flex-col gap-3 overflow-auto relative'>
+            <form onSubmit={onClickSubmit} className='flex flex-col gap-3 overflow-auto relative'>
                 {/* <div className='flex gap-3 pt-4'> */}
                     <div className='flex flex-col gap-3 pt-4'>
                         <EmployeeAutoComplete createBRANCH={createBRANCH} setCreateBRANCH={setCreateBRANCH}/>
@@ -175,7 +179,8 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                             }}
                             
                         />
-                        <Province 
+                        <Province
+                            key={formKey}
                             updateAddress={updateAddress}
                             defaultProvinceId={createBRANCH.branch_province}
                             name="province"
