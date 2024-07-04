@@ -99,7 +99,7 @@ function ProceduralSCHEDULESHIFTCreate(props: CreateSCHEDULESHIFTModalInterface)
                                 }
                             }}
                         />
-                        <FormControl>
+                        {/* <FormControl>
                             <FormLabel id="demo-controlled-radio-buttons-group">Overtime</FormLabel>
                             <RadioGroup
                                 row
@@ -121,7 +121,7 @@ function ProceduralSCHEDULESHIFTCreate(props: CreateSCHEDULESHIFTModalInterface)
                                 <FormControlLabel value="true" control={<Radio />} label="With OT" />
                                 <FormControlLabel value="false" control={<Radio />} label="No OT" />
                             </RadioGroup>
-                        </FormControl>
+                        </FormControl> */}
                     </div>
                     <div className='flex flex-col gap-6' style={{width: '100%'}}>
                         <SCHEDULESHIFTTimeCreate createSCHEDULESHIFT={createSCHEDULESHIFT} setCreateSCHEDULESHIFT={setCreateSCHEDULESHIFT}/>
