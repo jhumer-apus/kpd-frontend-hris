@@ -236,7 +236,7 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
             is_restday[scheduleDailyDate] = {
               is_restday: scheduleDaily.is_restday, 
               sched_details: sched_id_check1(scheduleDaily?.schedule_shift_code as SCHEDULESHIFTViewInterface),
-              holiday_type: scheduleDaily.holiday_type
+              holiday_type: scheduleDaily?.holiday?.holiday_type
             };
             return is_restday;
         }, {});

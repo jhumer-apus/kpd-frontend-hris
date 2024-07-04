@@ -543,6 +543,7 @@ export interface SCHEDULEDAILYViewInterface extends SCHEDULEDAILYGeneric {
     is_processed: boolean | null
     emp_no: number,
     holiday_type: "LH" | "SH" | null
+    holiday:any
 }
 
 export interface SCHEDULEDAILYEditInterface extends SCHEDULEDAILYGeneric {

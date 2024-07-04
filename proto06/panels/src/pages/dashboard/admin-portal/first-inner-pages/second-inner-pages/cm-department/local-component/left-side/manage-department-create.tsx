@@ -24,8 +24,15 @@ function ManageDEPARTMENTCreate(props: CreateDEPARTMENTModalInterface) {
         dept_branch_code: NaN,
         added_by: NaN,
     });
-    const onClickSubmit = () => {
+    const onClickSubmit = (e:any) => {
+        e.preventDefault()
         dispatch(DEPARTMENTCreateAction(createDEPARTMENT))
+        setCreateDEPARTMENT((prevState)=> ({
+            dept_name: "",
+            dept_lead: NaN,
+            dept_branch_code: NaN,
+            added_by: NaN,
+        }))
     };
 
     useEffect(()=> {
@@ -60,7 +67,7 @@ function ManageDEPARTMENTCreate(props: CreateDEPARTMENTModalInterface) {
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a Department Data</Typography>
-            <div className='flex flex-col gap-3 overflow-auto relative'>
+            <form onSubmit={onClickSubmit} className='flex flex-col gap-3 overflow-auto relative'>
                     <div className='flex flex-col gap-3 pt-4'>
                         <EmployeeAutoComplete createDEPARTMENT={createDEPARTMENT} setCreateDEPARTMENT={setCreateDEPARTMENT}/>
                     </div>
@@ -90,10 +97,10 @@ function ManageDEPARTMENTCreate(props: CreateDEPARTMENTModalInterface) {
                     </div>
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
-                        <Button variant='contained' onClick={onClickSubmit}>Create DEPARTMENT</Button>
+                        <Button variant='contained' type="submit">Create DEPARTMENT</Button>
                     </div>
                 </div>
-            </div>
+            </form>
         </React.Fragment>
     );
 }

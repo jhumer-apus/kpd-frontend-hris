@@ -24,6 +24,7 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
     const dispatch = useDispatch();
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail?.emp_no);
     const BRANCHCreatestate = useSelector((state: RootState)=> state.categories.BRANCHCreate);
+    const [formKey, setFormKey] = useState<number>(1)
     const [createBRANCH, setCreateBRANCH] = useState<any>({
         branch_name: "",
         branch_address: "",
@@ -81,6 +82,26 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
         }
 
         dispatch(BRANCHCreateAction(branchData))
+        
+        setCreateBRANCH((curr:any) => ({
+            branch_name: "",
+            branch_address: "",
+            branch_email: "",
+            branch_contact_number: "",
+            branch_oic: NaN,
+            province: {
+                id: null,
+                name: null,
+                code: null
+            },
+            city: {
+                id: null,
+                name: null,
+                code: null
+            },
+            added_by: curr_user,
+        }))
+        setFormKey(curr => curr++)
     };
 
     const updateAddress = (name:string, newValue:any) => {
@@ -125,7 +146,7 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a Branch Data</Typography>
-            <form onSubmit={onClickSubmit} className='flex flex-col gap-3 overflow-auto relative'>
+            <form key={formKey} onSubmit={onClickSubmit} className='flex flex-col gap-3 overflow-auto relative'>
                 {/* <div className='flex gap-3 pt-4'> */}
                     <div className='flex flex-col gap-3 pt-4'>
                         <EmployeeAutoComplete createBRANCH={createBRANCH} setCreateBRANCH={setCreateBRANCH}/>
