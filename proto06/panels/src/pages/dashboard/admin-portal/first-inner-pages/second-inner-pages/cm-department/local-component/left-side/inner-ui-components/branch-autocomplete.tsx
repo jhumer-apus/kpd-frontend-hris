@@ -11,33 +11,34 @@ import { BRANCHViewAction } from '@/store/actions/categories';
 interface BranchAutoCompleteInterface{
     createDEPARTMENT: DEPARTMENTCreateInterface;
     setCreateDEPARTMENT: Dispatch<SetStateAction<DEPARTMENTCreateInterface>>;
+    currentId: number | null
 }
 
 
 export default function BranchAutoComplete(props: BranchAutoCompleteInterface) {
-    const {setCreateDEPARTMENT, createDEPARTMENT} = props;
+    const {setCreateDEPARTMENT, createDEPARTMENT, currentId} = props;
     const dispatch = useDispatch();
     const state = useSelector((state:RootState)=> state.categories.BRANCHView);
     const [branchList, setBranchList] = useState<{branch_name: string, branch_id: number}[]>([])
-    const [selectedBranchID, setSelectedBranchID] = useState<number | null>(null);
+    // const [selectedBranchID, setSelectedBranchID] = useState<number | null>(currentId);
     useEffect(()=> {
         if(Array.isArray(state.data) && state.data.length === 0){
             dispatch(BRANCHViewAction());
         }
     }, []);
 
-    useEffect(()=> {
-        if(selectedBranchID){
-            setCreateDEPARTMENT((prevState)=> {
-                return(
-                    {
-                        ...prevState,
-                        dept_branch_code: selectedBranchID
-                    }
-                )
-            })
-        }
-    }, [selectedBranchID])
+    // useEffect(()=> {
+    //     if(selectedBranchID){
+    //         setCreateDEPARTMENT((prevState)=> {
+    //             return(
+    //                 {
+    //                     ...prevState,
+    //                     dept_branch_code: selectedBranchID
+    //                 }
+    //             )
+    //         })
+    //     }
+    // }, [selectedBranchID])
 
     useEffect(() => {
         if (state.data.length > 0) {
@@ -54,49 +55,73 @@ export default function BranchAutoComplete(props: BranchAutoCompleteInterface) {
         }
     }, [state.data]);
 
+    const updateCreateDepartment = (id:number | null) => {
+
+        setCreateDEPARTMENT((prevState:any)=> {
+            return(
+                {
+                    ...prevState,
+                    dept_branch_code: id
+                }
+            )
+        })
+    }
+
     const options = branchList?.map((option) => {
         const firstLetter = option.branch_name[0].toUpperCase();
         return {
-        firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
-        ...option,
+            firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
+            ...option,
         };
     });
-    
-    const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string, reason: AutocompleteInputChangeReason) => {
-        const matchingBranch = branchList.find(
-        (branchItems) => branchItems.branch_name.toLowerCase().includes(newInputValue.toLowerCase())
-        );
-        if (matchingBranch) {
-            setSelectedBranchID(matchingBranch.branch_id);
-        } else {
-          setSelectedBranchID(null);
-        // window.alert('No Matched Branch in the list is found. Create an employee entry first')
-        }
+
+    const handleChange = (e:any, value:any) => {
+        console.log(value)
+        updateCreateDepartment(value.branch_id)
+
     };
+    
+    // const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string, reason: AutocompleteInputChangeReason) => {
+    //     console.log(newInputValue)
+    //     const matchingBranch = branchList.find(
+    //     (branchItems) => branchItems.branch_name.toLowerCase().includes(newInputValue.toLowerCase())
+    //     );
+    //     if (matchingBranch) {
+    //         updateBranchCode(matchingBranch.branch_id)
+    //         // setSelectedBranchID(matchingBranch.branch_id);
+    //     } else {
+    //         updateBranchCode(null)
+    //     //   setSelectedBranchID(null);
+    //     // window.alert('No Matched Branch in the list is found. Create an employee entry first')
+    //     }
+    // };
 
     const isOptionEqualToValue = (option: { branch_name: string; branch_id: number }, value: { branch_name: string; branch_id: number }) => {
         return option.branch_id === value.branch_id;
     };
+
+    const findValue = branchList.find(branch => currentId == branch.branch_id)?? null
     
     return (
         <Autocomplete
-        // disableCloseOnSelect
-        noOptionsText={'Loading... Please Wait.'}
-        options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
-        groupBy={(option) => option.firstLetter}
-        getOptionLabel={(option) => option.branch_name}
-        onInputChange={handleInputChange}
-        sx={{ width: 300 }}
-        isOptionEqualToValue={isOptionEqualToValue}
-        renderInput={(params) => 
-            {   
-                return(
-                    <TextField {...params} label="Branch Code" />
-                )
+            // disableCloseOnSelect
+            value={findValue}
+            noOptionsText={'Loading... Please Wait.'}
+            options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
+            groupBy={(option:any) => option.firstLetter}
+            getOptionLabel={(option) => option.branch_name}
+            onChange={handleChange}
+            sx={{ width: 300 }}
+            isOptionEqualToValue={isOptionEqualToValue}
+            renderInput={(params) => 
+                {   
+                    return(
+                        <TextField {...params} label="Branch Code" />
+                    )
+
+                }
 
             }
-
-        }
         />
     );
 }
