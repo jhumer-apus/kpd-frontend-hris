@@ -60,11 +60,8 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
 
         const errors:any = {}
 
-        if(!payload.name) 
-            errors['Payroll Name'] = "Payroll Name is Required"
-
-        if(!payload.payroll_description) 
-            errors['Description'] = "Description is Required"
+        // if(!payload.payroll_description) 
+        //     errors['Description'] = "Description is Required"
 
         if(!payload.name) 
             errors['Payroll Name'] = "Payroll Name is Required"
@@ -135,7 +132,6 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
                     }}
                 />
                 <TextField
-                    required 
                     sx={{width: '100%'}} 
                     label='Description'
                     aria-required  

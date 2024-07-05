@@ -61,7 +61,7 @@ function ManageDEPARTMENTCreate(props: CreateDEPARTMENTModalInterface) {
 
         // if(!payload.dept_lead) errors["Department Lead"] = "Department Lead is Required,"
         if(!payload.dept_name) errors["Department Name"] = "Department Name is Required,"
-        if(!payload.dept_branch_code) errors["Branch"] = "Branch is Required,"
+        // if(!payload.dept_branch_code) errors["Branch"] = "Branch is Required,"
 
         if(Object.keys(errors).length > 0) {
             dispatch(HandleAlertAction({

@@ -19,25 +19,25 @@ export default function BranchAutoCompleteRight(props: BranchAutoCompleteInterfa
     const dispatch = useDispatch();
     const state = useSelector((state:RootState)=> state.categories.BRANCHView);
     const [branchList, setBranchList] = useState<{branch_name: string, branch_id: number}[]>([])
-    const [selectedBranchID, setSelectedBranchID] = useState<number | null>(null);
+    // const [selectedBranchID, setSelectedBranchID] = useState<number | null>(null);
     useEffect(()=> {
         if(Array.isArray(state.data) && state.data.length === 0){
             dispatch(BRANCHViewAction());
         }
     }, []);
 
-    useEffect(()=> {
-        if(selectedBranchID){
-            setCreateDEPARTMENT((prevState)=> {
-                return(
-                    {
-                        ...prevState,
-                        dept_branch_code: selectedBranchID
-                    }
-                )
-            })
-        }
-    }, [selectedBranchID])
+    // useEffect(()=> {
+    //     if(selectedBranchID){
+    //         setCreateDEPARTMENT((prevState)=> {
+    //             return(
+    //                 {
+    //                     ...prevState,
+    //                     dept_branch_code: selectedBranchID
+    //                 }
+    //             )
+    //         })
+    //     }
+    // }, [selectedBranchID])
 
     useEffect(() => {
         if (state.data.length > 0) {
@@ -62,49 +62,70 @@ export default function BranchAutoCompleteRight(props: BranchAutoCompleteInterfa
         };
     });
     
-    const defaultOption = options?.find((option) => option.branch_id === createDEPARTMENT.dept_branch_code)
+    // const defaultOption = options?.find((option) => option.branch_id === createDEPARTMENT.dept_branch_code)
 
-    const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string, reason: AutocompleteInputChangeReason) => {
-        const matchingBranch = branchList.find(
-        (branchItems) => branchItems.branch_name.toLowerCase().includes(newInputValue.toLowerCase())
-        );
-        if (matchingBranch) {
-            setSelectedBranchID(matchingBranch.branch_id);
+    // const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string, reason: AutocompleteInputChangeReason) => {
+    //     const matchingBranch = branchList.find(
+    //     (branchItems) => branchItems.branch_name.toLowerCase().includes(newInputValue.toLowerCase())
+    //     );
+    //     if (matchingBranch) {
+    //         setSelectedBranchID(matchingBranch.branch_id);
+    //     } else {
+    //       setSelectedBranchID(null);
+    //     // window.alert('No Matched Branch in the list is found. Create an employee entry first')
+    //     }
+    // };
+
+    const handleChange = (e:any, value:any) => {
+        if(value) {
+            updateBranchCode(value?.branch_id)
         } else {
-          setSelectedBranchID(null);
-        // window.alert('No Matched Branch in the list is found. Create an employee entry first')
+            updateBranchCode(null)
         }
-    };
+    }
+    
+    const updateBranchCode = (id:number | null) => {
+        setCreateDEPARTMENT((prevState:any)=> {
+            return(
+                {
+                    ...prevState,
+                    dept_branch_code: id
+                }
+            )
+        })
+    }
 
     const isOptionEqualToValue = (option: { branch_name: string; branch_id: number }, value: { branch_name: string; branch_id: number }) => {
         return option.branch_id === value.branch_id;
     };
     
+    const findValue = branchList.find(branch => branch.branch_id == createDEPARTMENT.dept_branch_code) ?? null
+
     return (
         <>
-        {defaultOption && 
         <Autocomplete
         // disableCloseOnSelect
-        key={createDEPARTMENT.dept_branch_code}
-        noOptionsText={'Loading... Please Wait.'}
-        options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
-        defaultValue={defaultOption}
-        groupBy={(option) => option.firstLetter}
-        getOptionLabel={(option) => option.branch_name}
-        onInputChange={handleInputChange}
-        sx={{ width: "90%" }}
-        isOptionEqualToValue={isOptionEqualToValue}
-        renderInput={(params) => 
-            {   
-                return(
-                    <TextField {...params} label="Branch:" />
-                )
+            key={createDEPARTMENT.dept_branch_code}
+            noOptionsText={'Loading... Please Wait.'}
+            options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
+            value={findValue}
+            groupBy={(option:any) => option.firstLetter}
+            getOptionLabel={(option) => option.branch_name}
+            // onInputChange={handleInputChange}
+            onChange={handleChange}
+            sx={{ width: "90%" }}
+            isOptionEqualToValue={isOptionEqualToValue}
+            renderInput={(params) => 
+                {   
+                    return(
+                        <TextField {...params} label="Branch:" />
+                    )
+
+                }
 
             }
-
-        }
         />
-        }
+        
 
         </>
     );
