@@ -94,7 +94,7 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
             branch_address: createBRANCH.branch_address,
             branch_email: createBRANCH.branch_email,
             branch_contact_number: createBRANCH.branch_contact_number,
-            branch_oic: createBRANCH.branch_oic,
+            branch_oic: createBRANCH?.branch_oic,
             branch_province: createBRANCH.province?.id,
             branch_city: createBRANCH.city?.id,
             added_by: curr_user,
