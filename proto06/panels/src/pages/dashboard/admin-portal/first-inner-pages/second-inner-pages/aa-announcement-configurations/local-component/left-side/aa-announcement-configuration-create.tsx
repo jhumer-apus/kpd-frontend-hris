@@ -15,6 +15,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import MultiRankAutoCompleteLeft from './inner-ui-components/multiple-ranks-choose-modal';
 import MultiDepartmentAutoCompleteLeft from './inner-ui-components/multiple-departments-choose-modal';
+import { HandleAlertAction } from '@/store/actions/components';
 
 
 
@@ -58,14 +59,23 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
 
     useEffect(()=>{
         if(ANNOUNCEMENTCreatestate.status === `${globalReducerSuccess}`){
-            window.alert('Request Successful');
+            dispatch(HandleAlertAction({
+                open:true,
+                status:"success",
+                message: "Create Announcement successful"
+            }))
             // window.location.reload();
             dispatch(ANNOUNCEMENTViewAction());
             setTimeout(()=> {
                 dispatch(ANNOUNCEMENTCreateActionFailureCleanup());
             }, 200)
         }else if(ANNOUNCEMENTCreatestate.status === `${globalReducerFailed}`){
-            window.alert(`Request Failed, ${ANNOUNCEMENTCreatestate.error}`)
+
+            dispatch(HandleAlertAction({
+                open:true,
+                status:"error",
+                message: ANNOUNCEMENTCreatestate.error
+            }))
             setTimeout(()=> {
                 dispatch(ANNOUNCEMENTCreateActionFailureCleanup());
             }, 200)
