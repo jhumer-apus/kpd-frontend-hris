@@ -6,6 +6,7 @@ import LoadingComponent from "./widgets/layout/custom-effects/LoadingComponent/L
 import { Profile } from "./pages";
 import AlertMessage from "./public-components/AlertMessage";
 import { Fragment } from "react";
+import Test from "./pages/test";
 
 function App() {
   const { isAuthenticated, loading, user } = useAuth();
@@ -17,6 +18,7 @@ function App() {
       <AlertMessage />
       <Routes>
         {/* <Route path="/" element={ <ChangePassword/>} /> */}
+        <Route path="/test" element={<Test />}/>
         <Route path="/" element={ isAuthenticated ? <Navigate to="/home"/> : <Auth/>} />
         {/* <Route path="/home/*" element={ isAuthenticated ? (<Dashboard/>) : <Auth/>}/> */}
         <Route path="/home/*" element={ isAuthenticated ? (user?.is_temp? <ChangePassword/>: <Dashboard/>) : <Auth/>}/>

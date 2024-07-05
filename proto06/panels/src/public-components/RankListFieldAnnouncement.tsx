@@ -58,6 +58,7 @@ export default function RankListFieldAnnouncement(props: Props) {
     return (
         <Autocomplete
             multiple
+            disableCloseOnSelect
             defaultValue={selectedRanks ?? []}
             value={selectedRanks ?? []}
             groupBy={(option:any) => option.firstLetter}

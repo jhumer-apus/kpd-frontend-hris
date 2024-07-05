@@ -58,6 +58,7 @@ export default function DepartmentListFieldAnnouncement(props: Props) {
     return (
         <Autocomplete
             multiple
+            disableCloseOnSelect
             defaultValue={selectedDepartments ?? []}
             value={selectedDepartments ?? []}
             groupBy={(option:any) => option.firstLetter}
