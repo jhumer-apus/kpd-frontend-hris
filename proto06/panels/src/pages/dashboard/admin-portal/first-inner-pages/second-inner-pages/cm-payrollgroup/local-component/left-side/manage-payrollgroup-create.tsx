@@ -46,6 +46,16 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
         }
     }, [curr_user]) 
 
+    const resetForm = () => {
+        setCreatePAYROLLGROUP((curr:any) => ({
+            name: "",
+            payroll_description: "",
+            payroll_freq: null,
+            used_account: 0,
+            added_by: curr_user,
+        }))
+    }
+
     const validatePayroll = (payload:any) => {
 
         const errors:any = {}
@@ -75,6 +85,7 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
 
     useEffect(()=>{
         if(PAYROLLGROUPCreatestate.status === `${globalReducerSuccess}`){
+            resetForm()
             dispatch(HandleAlertAction({
                 open:true,
                 status:"success",

@@ -25,6 +25,14 @@ function ManagePOSITIONCreate(props: CreatePOSITIONModalInterface) {
         dispatch(POSITIONCreateAction(createPOSITION))
     };
 
+    const resetForm = () => {
+        setCreatePOSITION((curr:any) => ({
+            pos_name: "",
+            pos_description: "",
+            added_by: NaN,
+        }))
+    }
+
     useEffect(()=> {
         if(curr_user){
             setCreatePOSITION((prevState) => {
@@ -41,6 +49,7 @@ function ManagePOSITIONCreate(props: CreatePOSITIONModalInterface) {
     useEffect(()=>{
         if(POSITIONCreatestate.status === `${globalReducerSuccess}`){
             window.alert('Request Successful');
+            resetForm()
             // window.location.reload();
             dispatch(POSITIONViewAction());
             setTimeout(()=> {

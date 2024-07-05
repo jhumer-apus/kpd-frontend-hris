@@ -620,7 +620,7 @@ export interface DIVISIONEditInterface extends DIVISIONGenericInterface, DIVISIO
 export interface PAYROLLGROUPGenericInterface {
     name: string,
     payroll_description: string | null,
-    payroll_freq: number,
+    payroll_freq: number | null,
 }
 
 export interface PAYROLLGROUPViewInterface extends PAYROLLGROUPGenericInterface{

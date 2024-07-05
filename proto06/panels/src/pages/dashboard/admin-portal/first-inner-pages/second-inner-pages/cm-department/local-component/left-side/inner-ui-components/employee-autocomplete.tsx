@@ -19,7 +19,7 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
     const {setCreateDEPARTMENT, createDEPARTMENT, currentEmpNo} = props;
     const state = useSelector((state:RootState)=> state.employees);
     const [employeesList, setEmployeesList] = useState<{employee: string, emp_no: number}[]>([])
-    const [selectedEmployeeId, setSelectedEmployeeId] = useState<number | null>(currentEmpNo);
+    // const [selectedEmployeeId, setSelectedEmployeeId] = useState<number | null>(currentEmpNo);
 
     // useEffect(()=> {
     //     if(selectedEmployeeId){
@@ -70,9 +70,8 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
     });
     
     const handleChange = (e:any, value:any) => {
-        console.log(value)
 
-        updateCreateDepartment(value.emp_no)
+        updateCreateDepartment(value?.emp_no)
         // const matchingEmployee = employeesList.find(
         // //   (employeeItems) => employeeItems.employee === newInputValue
         // (employeeItems) => employeeItems.employee.toLowerCase().includes(newInputValue.toLowerCase())

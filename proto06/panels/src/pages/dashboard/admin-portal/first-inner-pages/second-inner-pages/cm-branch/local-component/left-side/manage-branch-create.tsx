@@ -153,7 +153,11 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
             <form onSubmit={onClickSubmit} className='flex flex-col gap-3 overflow-auto relative'>
                 {/* <div className='flex gap-3 pt-4'> */}
                     <div className='flex flex-col gap-3 pt-4'>
-                        <EmployeeAutoComplete createBRANCH={createBRANCH} setCreateBRANCH={setCreateBRANCH}/>
+                        <EmployeeAutoComplete 
+                            currentEmpNo={createBRANCH.branch_oic} 
+                            createBRANCH={createBRANCH} 
+                            setCreateBRANCH={setCreateBRANCH}
+                        />
                         {/* <LEAVETYPEFetchAutoCompleteOnBRANCHPage createBRANCH={createBRANCH} setCreateBRANCH={setCreateBRANCH}/> */}
                     </div>
                     <div className='flex flex-col gap-3'>
