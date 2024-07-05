@@ -30,7 +30,7 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
         emp_no: curr_user, // same as current_user. this field is the one who make the announcement
         date_posted: null,    
         date_expiry: null,
-        is_pinned: null,
+        is_pinned: false,
         message: null,
         for_departments_code: null,
         for_ranks_code: null
