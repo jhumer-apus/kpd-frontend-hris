@@ -28,20 +28,20 @@ const CarouselUI = ({ items }: any) => {
 
         dispatch(ACTIVEANNOUNCEMENTViewAction(
             {
-                rank: employee_detail?.rank_code?? 1, 
-                dept: employee_detail?.department_code?? 1, 
+                rank: Number(employee_detail?.rank_code) ?? 1, 
+                dept: Number(employee_detail?.department_code) ?? 1, 
                 pin: true
             }))
     }, [])
 
     const noAnnouncementsFound = [
-        {
-          imageUrl2: "/img/team-1.jpeg",
-          date: "",
-          altText: "Image 1",
-          message: "In accordance with the Black Nazarene. There will be a holiday for Manila Area on Jan. 09, 2024..",
-          posted_by: "Admin "
-        },
+        // {
+        //   imageUrl2: "/img/team-1.jpeg",
+        //   date: "",
+        //   altText: "Image 1",
+        //   message: "In accordance with the Black Nazarene. There will be a holiday for Manila Area on Jan. 09, 2024..",
+        //   posted_by: "Admin "
+        // },
         {
           imageUrl2: "/img/team-2.jpeg",
           date: "",
@@ -49,13 +49,13 @@ const CarouselUI = ({ items }: any) => {
           message: "There is no pinned announcement found. Check the announcement page/tab.",
           posted_by: "Admin "
         },
-        {
-          imageUrl2: "/img/team-3.jpeg",
-          date: "",
-          altText: "Image 3",
-          message: "There is no pinned announcement found. Check the announcement page/tab.",
-          posted_by: "Admin "
-        },
+        // {
+        //   imageUrl2: "/img/team-3.jpeg",
+        //   date: "",
+        //   altText: "Image 3",
+        //   message: "There is no pinned announcement found. Check the announcement page/tab.",
+        //   posted_by: "Admin "
+        // },
       ];
 
     const activeAnnouncement = Array.isArray(state.data) ? state?.data?.map((item, index)=> {

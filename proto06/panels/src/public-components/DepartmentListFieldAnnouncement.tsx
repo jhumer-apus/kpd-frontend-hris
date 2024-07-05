@@ -6,32 +6,32 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 interface Props {
-    currentDepartments: Departments []
+    currentDepartments: number[] | null
+    handleChange?: (e:any, value:any) => void
+    isReadonly?: boolean
 }
 
-interface Departments {
-    id: number,
-    name: string
-}
+export default function DepartmentListFieldAnnouncement(props: Props) {
 
-export default function DepartmentListField(props: Props) {
+    const { currentDepartments, handleChange, isReadonly} = props
 
-    const { currentDepartments } = props
+    // REDUX
     const dispatch = useDispatch()
-
+    
+    // STATES
     const [departments, setDepartments] = useState<any>([])
 
-    const handleChange = (e:any, value:any) => {
-        console.log(value)
-    }
-
+    // USEEFFECTS
     useEffect(() => {
         fetchDepartments()
     }, [])
 
+
+
+    // FUNCTIONS
     const fetchDepartments = async() => {
         await axios
-            .get(`${APILink}department`)
+            .get(`${APILink}ann_department`)
             .then(res => setDepartments((curr:any) => Array.isArray(res.data)? res.data: []))
             .catch(err => dispatch(HandleAlertAction({
                 open: true,
@@ -42,7 +42,7 @@ export default function DepartmentListField(props: Props) {
     }
 
     const equalityTest = (option: any, value: any) => {
-        return option.label == value.label
+        return option.id == value.id
     }
 
     const options = departments.map((option:any) => {
@@ -53,26 +53,21 @@ export default function DepartmentListField(props: Props) {
         };
     });
 
+    const selectedDepartments = departments.filter((dept:any) => currentDepartments?.includes(dept.id)) ?? [];
+
     return (
         <Autocomplete
             multiple
-            disablePortal
-            // value={[
-            //     { label: 'The Dark Knight', year: 2008 },
-            //     { label: 'The Godfather: Part II', year: 1974 },
-            // ]}
-            getOptionLabel={(option) => option?.dept_name}
+            defaultValue={selectedDepartments ?? []}
+            value={selectedDepartments ?? []}
+            groupBy={(option:any) => option.firstLetter}
+            getOptionLabel={(option:any) => option?.dept_name}
             onChange={handleChange}
             isOptionEqualToValue={equalityTest}
             options={options.sort((a:any, b:any) => -b.firstLetter.localeCompare(a.firstLetter))}
-            sx={{ width: 300 }}
             renderInput={(params) => <TextField {...params} label="Departments" />}
-            // renderOption={(params) => (
-            //     <li key={params.key}>
-            //       <div>{params.group}</div>
-            //       <ul>{params.option.dept_name}</ul>
-            //     </li>
-            // )}
+            className="w-full"
+            readOnly={isReadonly}
         />
     )
 } 

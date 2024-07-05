@@ -9,7 +9,8 @@ import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/co
 import { ANNOUNCEMENTEditAction, ANNOUNCEMENTEditActionFailureCleanup, ANNOUNCEMENTViewAction } from '@/store/actions/payroll-eoy';
 import DateAssignedANNOUNCEMENTEdit from './fields/date-fields-right';
 import MultiDepartmentAutoCompleteLeft from '../../../../left-side/inner-ui-components/multiple-departments-choose-modal';
-import DepartmentListField from '@/public-components/DepartmentListField';
+import DepartmentListFieldAnnouncement from '@/public-components/DepartmentListFieldAnnouncement';
+import RankListFieldAnnouncement from '@/public-components/RankListFieldAnnouncement';
 
 interface EditANNOUNCEMENTModalInterface {
     singleANNOUNCEMENTDetailsData: ANNOUNCEMENTViewInterface;
@@ -34,11 +35,48 @@ export default function EditANNOUNCEMENTModal(props: EditANNOUNCEMENTModalInterf
 
   const editANNOUNCEMENT = (e:any) => { 
     e.preventDefault()
+
     dispatch(ANNOUNCEMENTEditAction({
       ...singleANNOUNCEMENTDetailsData,
-      emp_no: curr_user || NaN
+      emp_no: curr_user || NaN,
+
     }))
   }
+
+  const handleChangeDepartments = (e:any, value:any) => {
+    setSingleANNOUNCEMENTDetailsData(curr => ({
+      ...singleANNOUNCEMENTDetailsData,
+      for_departments_code: value.map((val:any) => val.id)
+    }))
+  }
+
+  const handleChangeRanks = (e:any, value:any) => {
+    setSingleANNOUNCEMENTDetailsData(curr => ({
+      ...singleANNOUNCEMENTDetailsData,
+      for_ranks_code: value.map((val:any) => val.id)
+    }))
+  }
+
+  // const currentDepartments = 
+  //   Object
+  //     .keys(singleANNOUNCEMENTDetailsData?.departments)
+  //     .map((key:any) => (
+  //       {
+  //         id: Number(key),
+  //         dept_name: singleANNOUNCEMENTDetailsData?.departments[key]
+  //       }
+  //     ));
+  
+
+  //   const currentRanks = 
+  //     Object
+  //       .keys(singleANNOUNCEMENTDetailsData?.ranks)
+  //       .map((key:any) => (
+  //         {
+  //           id: Number(key),
+  //           rank_name: singleANNOUNCEMENTDetailsData?.ranks[key]
+  //         }
+  //       ))
 
   useEffect(()=>{
     if(ANNOUNCEMENTEditState.status){      
@@ -180,7 +218,14 @@ export default function EditANNOUNCEMENTModal(props: EditANNOUNCEMENTModalInterf
                                 })
                             }}
                         />
-                        <DepartmentListField />
+                        <DepartmentListFieldAnnouncement
+                          currentDepartments={singleANNOUNCEMENTDetailsData.for_departments_code}
+                          handleChange={handleChangeDepartments}
+                        />
+                        <RankListFieldAnnouncement
+                          currentRanks={singleANNOUNCEMENTDetailsData.for_ranks_code}
+                          handleChange={handleChangeRanks}
+                        />
                         {/* <MultiDepartmentAutoCompleteLeft createANNOUNCEMENT={singleANNOUNCEMENTDetailsData} setCreateANNOUNCEMENT={setSingleANNOUNCEMENTDetailsData}/> */}
                       </div>
               </div>
