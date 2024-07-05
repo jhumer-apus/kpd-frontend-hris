@@ -29,7 +29,7 @@ function ManagePOSITIONCreate(props: CreatePOSITIONModalInterface) {
         setCreatePOSITION((curr:any) => ({
             pos_name: "",
             pos_description: "",
-            added_by: NaN,
+            added_by: curr_user,
         }))
     }
 
