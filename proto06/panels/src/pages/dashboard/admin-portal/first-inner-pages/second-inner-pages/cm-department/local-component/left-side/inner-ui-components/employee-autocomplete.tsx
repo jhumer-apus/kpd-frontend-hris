@@ -35,7 +35,6 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
     // }, [selectedEmployeeId])
 
     const updateCreateDepartment = (empNo:number | null) => {
-        console.log(empNo)
         setCreateDEPARTMENT((prevState:any)=> {
             return(
                 {
@@ -71,7 +70,12 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
     
     const handleChange = (e:any, value:any) => {
 
-        updateCreateDepartment(value?.emp_no)
+        if(value) {
+            updateCreateDepartment(value?.emp_no)
+        } else {
+            updateCreateDepartment(null)
+        }
+
         // const matchingEmployee = employeesList.find(
         // //   (employeeItems) => employeeItems.employee === newInputValue
         // (employeeItems) => employeeItems.employee.toLowerCase().includes(newInputValue.toLowerCase())

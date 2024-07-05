@@ -76,8 +76,12 @@ export default function BranchAutoComplete(props: BranchAutoCompleteInterface) {
     });
 
     const handleChange = (e:any, value:any) => {
-        console.log(value)
-        updateCreateDepartment(value?.branch_id)
+        if(value) {
+            updateCreateDepartment(value?.branch_id)
+        } else {    
+            updateCreateDepartment(null)
+        }
+
 
     };
     

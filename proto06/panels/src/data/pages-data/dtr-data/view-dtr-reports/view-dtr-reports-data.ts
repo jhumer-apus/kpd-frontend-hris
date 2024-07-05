@@ -57,7 +57,7 @@ export const dynamicDTRColumns: Array<GridColDef[]> =
         return params.row.datetime_bio ? dayjs(shio).format(`${globalTime}`) : '-';
       },
     },
-    { field: 'is_processed', headerName: 'Process Satus', width: 140,
+    { field: 'is_processed', headerName: 'Process Status', width: 140,
       valueGetter: (params: GridValueGetterParams) => {
         const processStatus = params.row.is_processed? "Completed": "In Progress"
         return processStatus;

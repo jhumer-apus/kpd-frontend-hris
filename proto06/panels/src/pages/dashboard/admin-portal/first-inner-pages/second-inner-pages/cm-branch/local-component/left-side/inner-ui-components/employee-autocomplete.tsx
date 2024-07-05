@@ -58,7 +58,16 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
     });
     
     const handleChange = (e:any, value:any) => {
-        updateCreateBranch(value?.emp_no)
+
+        if(value) {
+
+            updateCreateBranch(value?.emp_no)
+
+        } else {
+
+            updateCreateBranch(null)
+            
+        }
     }
 
     const updateCreateBranch = (empNo: number | null) => {
