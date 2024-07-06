@@ -1,6 +1,7 @@
 import { APILink } from "@/store/configureStore";
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, CircularProgress, TextField } from "@mui/material";
 import axios from "axios";
+import { Fragment, useEffect } from "react";
 import { useQuery } from "react-query";
 
 interface Props {
@@ -12,7 +13,7 @@ export default function EmployeeListField(props:Props) {
 
     const { label, currentValue, handleChange } = props
 
-    const { data, isLoading, error } = useQuery('employees', async () => {
+    const { data, isLoading, error, status } = useQuery('employees', async () => {
         const res = await axios.get(`${APILink}employees/`)
         return res.data
     });
@@ -27,7 +28,7 @@ export default function EmployeeListField(props:Props) {
             firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
             ...option,
         };
-    });
+    }) ?? [];
 
     const filterValue = data?.find((employee:any) => employee.emp_no == currentValue) ?? null
     console.log(filterValue)
@@ -44,7 +45,23 @@ export default function EmployeeListField(props:Props) {
             getOptionLabel={option => `${option.emp_full_name} - ${option.emp_no}`}
             isOptionEqualToValue={equalityTest}
             sx={{ width: '100%' }}
-            renderInput={(params) => <TextField {...params} label={`${label ?? "Employees"}`} />}
+            renderInput={(params) => (
+                    <TextField 
+                        {...params} 
+                        label={`${label ?? "Employees"}`}
+                        InputProps={{
+                            ...params.InputProps,
+                            endAdornment: (
+                              <Fragment>
+                                {isLoading ? <CircularProgress color="inherit" size={20} /> : null}
+                                {params.InputProps.endAdornment}
+                              </Fragment>
+                            ),
+                          }}
+                    />
+                )
+            }
+            
         />
     )
 }
