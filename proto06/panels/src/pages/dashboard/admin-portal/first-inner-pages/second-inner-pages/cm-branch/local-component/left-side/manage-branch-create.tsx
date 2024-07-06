@@ -49,8 +49,8 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
         const error:any = {}
 
         !data.branch_address && (error["Branch Address"] = "Branch Address is required!")
-        !data.branch_email && (error["Branch Email"] = "Branch Email is required!")
-        !data.branch_contact_number && (error["Branch Contact Number"] = "Branch Contact Number is required!")
+        // !data.branch_email && (error["Branch Email"] = "Branch Email is required!")
+        // !data.branch_contact_number && (error["Branch Contact Number"] = "Branch Contact Number is required!")
         // !data.branch_oic && (error["Branch OIC"] = "Branch OIC is required!")
         !data.branch_name && (error["Branch Name"] = "Branch Name is required!")
         !data.branch_province && (error["Branch Province"] = "Branch Province is required!")
@@ -218,7 +218,6 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                             }}
                         />
                         <TextField
-                            required
                             sx={{width: '100%'}} 
                             label='Branch Email'  
                             placeholder='abc@gmail.com'
@@ -238,7 +237,6 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                             }}
                         />
                         <TextField
-                            required
                             sx={{width: '100%'}} 
                             label='Branch Contact Number'  
                             placeholder='091234567890 or +639876543210'

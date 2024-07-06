@@ -201,7 +201,6 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
                   className='w-full'
                   label='Branch Contact #'
                   type='text'
-                  required
                   focused
                   value={singleBRANCHDetailsData.branch_contact_number}
                   onChange={(event: ChangeEvent<HTMLInputElement>)=> {
@@ -218,7 +217,6 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
                   className='w-full'
                   label='Branch Email'
                   type='text'
-                  required
                   focused
                   value={singleBRANCHDetailsData.branch_email}
                   onChange={(event: ChangeEvent<HTMLInputElement>)=> {
