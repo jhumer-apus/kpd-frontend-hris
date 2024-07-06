@@ -40,7 +40,6 @@ export default function Province(props: Props) {
 
     useEffect(() => {
 
-        console.log(currentProvince)
         if(provinces.length > 0) {
 
             findProvince(defaultProvinceId)

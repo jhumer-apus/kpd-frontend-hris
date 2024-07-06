@@ -1,6 +1,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { QueryClient, QueryClientProvider } from 'react-query';
 import App from "./App";
 import { BrowserRouter, HashRouter } from "react-router-dom";
 import { ThemeProvider } from "@material-tailwind/react";
@@ -13,31 +14,21 @@ import AlertMessage from "./public-components/AlertMessage";
 
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
-
-// root.render(
-//   <React.StrictMode>
-//     <Provider store={store}>
-//       <BrowserRouter>
-//         <ThemeProvider>
-//           <MaterialTailwindControllerProvider>
-//             <App />
-//           </MaterialTailwindControllerProvider>
-//         </ThemeProvider>
-//       </BrowserRouter>
-//     </Provider>
-//   </React.StrictMode>
-// );
+const queryClient = new QueryClient();
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <HashRouter>
-        <ThemeProvider>
-          <MaterialTailwindControllerProvider>
-            <App />
-          </MaterialTailwindControllerProvider>
-        </ThemeProvider>
-      </HashRouter>
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <HashRouter>
+          <ThemeProvider>
+            <MaterialTailwindControllerProvider>
+              <App />
+            </MaterialTailwindControllerProvider>
+          </ThemeProvider>
+        </HashRouter>
+      </Provider>
+    </QueryClientProvider>
+    
   </React.StrictMode>
 );

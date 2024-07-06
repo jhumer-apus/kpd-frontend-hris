@@ -13,33 +13,7 @@ export default function Test() {
         e.preventDefault()
     }
     return (
-        <form onSubmit={submit}>
-            <FormControl required>
-                {/* <InputLabel htmlFor="my-input">Email address</InputLabel>
-                <Input id="my-input" aria-describedby="my-helper-text" /> */}
-
-                {/* <Autocomplete
-                    disablePortal
-                    id="combo-box-demo"
-                    options={top100Films}
-                    sx={{ width: 300 }}
-                    renderInput={(params) => <TextField {...params} label="Movie" />}
-                /> */}
-                <FormHelperText 
-                    required
-                    id="my-helper-text"
-                >
-                    <Autocomplete
-                        disablePortal
-                        id="combo-box-demo"
-                        options={top100Films}
-                        sx={{ width: 300 }}
-                        renderInput={(params) => <TextField {...params} label="Movie" />}
-                    />
-                </FormHelperText>
-                <Button type="submit">Submit</Button>
-        </FormControl>
-        </form>
+        <input type="date" id="myDate" name="myDate" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" min="1900-01-01" max="9999-12-31" required></input>
         
 
     )

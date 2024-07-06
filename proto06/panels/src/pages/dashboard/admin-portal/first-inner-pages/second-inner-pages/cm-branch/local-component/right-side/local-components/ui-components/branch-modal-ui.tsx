@@ -7,6 +7,7 @@ import {TextField} from '@mui/material';
 import AllowedDaysBRANCHModal from '../main-modals/inner-modals/edit-branch-modal';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
+import EmployeeListField from '@/public-components/EmployeeListField';
 
 interface BRANCHModalUIInterface {
     singleBRANCHDetailsData: BRANCHViewInterface;

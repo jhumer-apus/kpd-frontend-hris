@@ -11,6 +11,7 @@ import { BRANCHEditAction, BRANCHEditActionFailureCleanup, BRANCHViewAction } fr
 import { clearFields } from '@/helpers/utils';
 import Province from '@/public-components/forms/address/Province';
 import CityMunicipality from '@/public-components/forms/address/CityMunicipality';
+import EmployeeListField from '@/public-components/EmployeeListField';
 
 
 
@@ -94,6 +95,24 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
         }, 200)
       }
   }, [BRANCHEditState.status])
+
+  const updateBranch = (name:string, value:any) => {
+    setSingleBRANCHDetailsData((prevState)=> ({
+        ...prevState,
+        [name]: value,
+      })
+    )
+  }
+  const handleChangeBranchOIC = (e:any, value:any) => {
+
+    console.log(value)
+    if(value) {
+      updateBranch("branch_oic", value?.emp_no)
+    } else {
+      updateBranch("branch_oic", null)
+    }
+  }
+
   return (
     <Fragment>
       <Transition in={allowedDaysBRANCHOpenModal} timeout={400}>
@@ -160,7 +179,8 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
                     })
                   }}
                 />
-                <TextField
+                <EmployeeListField currentValue={singleBRANCHDetailsData.branch_oic} handleChange={handleChangeBranchOIC} label={'Branch OIC'} />
+                {/* <TextField
                   className='w-full'
                   label='Branch OIC'
                   type='number'
@@ -176,7 +196,7 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
                       })
                     })
                   }}
-                />
+                /> */}
                 <TextField
                   className='w-full'
                   label='Branch Contact #'
