@@ -1331,6 +1331,14 @@ export const SpecificEmployee = (props: initialState) => {
                                                     <Input
                                                         // crossOrigin={undefined} {...register('date_resigned')}
                                                         onChange={(e)=> setFormSelectData((curr:any) => {
+                                                            console.log(e.target.value)
+                                                            return ({
+                                                                ...curr,
+                                                                date_resigned: e.target.value
+                                                            })
+                                                        })}
+                                                        onBlur={(e)=> setFormSelectData((curr:any) => {
+                                                            console.log(e.target.value)
                                                             return ({
                                                                 ...curr,
                                                                 date_resigned: e.target.value
