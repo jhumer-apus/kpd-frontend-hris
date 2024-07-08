@@ -16,16 +16,19 @@ export const getNumberOfSickLeaves = (remarks: string | null):number => {
 }
 
 export const cleanRemarks = (remarks:string | null)  => {
+
     if(remarks) {
 
-        const index = remarks?.indexOf("SL");
+        return remarks.replace(/SL filed this week=\d+\./g, '');
+        // const index = remarks?.indexOf("SL");
 
-        if (index != -1) { // Check if the substring is found
+        // if (index != -1) { // Check if the substring is found
 
-            const cleanRemarks = remarks?.slice(0,index); 
-            return cleanRemarks
+        //     const cleanRemarks = remarks?.slice(0,index); 
+        //     return cleanRemarks
 
-        }
-        return "";
+        // }
+        // return "";
     }
+    return remarks
 }
