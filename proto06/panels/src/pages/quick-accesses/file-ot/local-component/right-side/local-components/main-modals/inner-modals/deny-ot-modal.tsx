@@ -32,11 +32,11 @@ export default function DenyOVERTIMEModal(props: DenyOVERTIMEModalInterface) {
           setSingleOVERTIMEDetailsData((prevState)=> {
             dispatch(OVERTIMEEditAction({
               ...prevState,
-              ot_reason_disapproval: `${prevState.ot_reason_disapproval}  <Updated: ${denyDate}>`
+              ot_reason_disapproval: `${prevState.ot_reason_disapproval}`
             }))  
             return({
               ...prevState,
-              ot_reason_disapproval: `${prevState.ot_reason_disapproval} <Updated: ${denyDate}>`
+              ot_reason_disapproval: `${prevState.ot_reason_disapproval}`
             })
           })
         )

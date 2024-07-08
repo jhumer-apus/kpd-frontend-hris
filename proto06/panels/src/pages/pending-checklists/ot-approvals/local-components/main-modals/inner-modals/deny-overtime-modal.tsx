@@ -36,7 +36,7 @@ export default function DenyOVERTIMEModal(props: DenyOVERTIMEModalInterface) {
       ...singleOVERTIMEDetailsData,
       approver_emp_no: state?.emp_no,
       status: "disapprove",
-      ot_reason_disapproval: `${singleOVERTIMEDetailsData.ot_reason_disapproval} <Updated: ${denyDate}>`,
+      ot_reason_disapproval: `${singleOVERTIMEDetailsData.ot_reason_disapproval}`,
       added_by: state?.emp_no
     }
 

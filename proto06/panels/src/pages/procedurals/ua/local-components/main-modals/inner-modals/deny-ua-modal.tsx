@@ -36,7 +36,7 @@ export default function DenyUAModal(props: DenyUAModalInterface) {
       ...singleUADetailsData,
       approver_emp_no: state?.emp_no,
       status: "disapprove",
-      ua_reason_disapproval: `${singleUADetailsData.ua_reason_disapproval}  <Updated: ${denyDate}>`,
+      ua_reason_disapproval: `${singleUADetailsData.ua_reason_disapproval}`,
       added_by: state?.emp_no
     }
 

@@ -84,7 +84,7 @@ export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
       ...singleLEAVEDetailsData,
       approver_emp_no: state?.emp_no,
       status: "disapprove",
-      leave_reason_disapproval: `${singleLEAVEDetailsData.leave_reason_disapproval} <Updated: ${denyDate}>`,
+      leave_reason_disapproval: `${singleLEAVEDetailsData.leave_reason_disapproval}`,
       added_by: state?.emp_no
     }
 
