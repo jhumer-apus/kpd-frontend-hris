@@ -235,7 +235,7 @@ export default function FilterDTR(props: Props) {
                         id="months"
                         options={monthOptions}
                         defaultValue={currentMonth}
-                        getOptionLabel={(option:any) => `${option.name}`}
+                        getOptionLabel={(option:any) => `${option.name?? ""}`}
                         onChange={handleChangeMonth}
                         className='md:w-80'
                         disabled={isCutOffPeriodLoading}
@@ -256,7 +256,7 @@ export default function FilterDTR(props: Props) {
                             disablePortal
                             id="cutoff"
                             options={cutoffPeriods}
-                            getOptionLabel={(option:any) => option? `${option.cleanDateFrom} - ${option.cleanDateTo}`: 'No option'}
+                            getOptionLabel={(option:any) => option?.cleanDateFrom? `${option.cleanDateFrom} - ${option.cleanDateTo}`: ''}
                             onChange={handleChangeCutoffId}
                             className='md:w-80'
                             disabled={isCutOffPeriodLoading}
