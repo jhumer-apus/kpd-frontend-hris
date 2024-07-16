@@ -548,7 +548,7 @@ export interface SCHEDULEDAILYViewInterface extends SCHEDULEDAILYGeneric {
 
 export interface SCHEDULEDAILYEditInterface extends SCHEDULEDAILYGeneric {
     id: number;
-    schedule_shift_code: number;
+    schedule_shift_code: number | null;
     business_date: string;
     emp_no: number;
 }

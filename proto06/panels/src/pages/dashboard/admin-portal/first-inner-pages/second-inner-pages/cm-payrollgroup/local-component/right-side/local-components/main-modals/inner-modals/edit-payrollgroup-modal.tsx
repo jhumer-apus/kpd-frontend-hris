@@ -109,7 +109,7 @@ export default function AllowedDaysPAYROLLGROUPModal(props: AllowedDaysPAYROLLGR
               <div className='flex flex-col justify-center items-center gap-5'>
                 <TextField
                 sx={{width: '90%'}}
-                  label='Branch Name'
+                  label='Payroll Name'
                   type='text'
                   required
                   value={singlePAYROLLGROUPDetailsData.name}

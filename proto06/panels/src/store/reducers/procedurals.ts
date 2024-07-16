@@ -1146,6 +1146,7 @@ const proceduralsSlice = createSlice({
       .addCase(SCHEDULEDAILYEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "SCHEDULEDAILYEdit"))
       .addCase(SCHEDULEDAILYEditActionProgress, (state, action) => setProgressState(state, action.payload, "SCHEDULEDAILYEdit"))
       .addCase(SCHEDULEDAILYEditActionFailure, (state, action) => setFailureState(state, action.payload, "SCHEDULEDAILYEdit"))
+      .addCase(SCHEDULESHIFTEditActionFailureCleanup, setRefreshedState("SCHEDULEDAILYEdit"))
   },
 });
 
