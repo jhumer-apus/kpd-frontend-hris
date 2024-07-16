@@ -12,6 +12,7 @@ import { OVERTIMEEditAction, OVERTIMEViewAction, OVERTIMEViewFilterApproverActio
 import axios from 'axios';
 import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
 import { beautifyJSON } from '@/helpers/utils';
+import { useState } from 'react';
 
 
 
@@ -26,6 +27,7 @@ export default function ApproveOVERTIMEModal(props: ApproveOVERTIMEModalInterfac
   const dispatch = useDispatch();
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
   const OVERTIMEApproveData = useSelector((state: RootState)=> state.procedurals.OVERTIMEEdit)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const {approveOVERTIMEOpenModal, setApproveOVERTIMEOpenModal, singleOVERTIMEDetailsData, setSingleOVERTIMEDetailsData} = props;
 
   const approveOVERTIME = () => { 
@@ -71,6 +73,8 @@ export default function ApproveOVERTIMEModal(props: ApproveOVERTIMEModalInterfac
 
   const apiApproveOT = async (payload:any) => {
 
+    setIsLoading(curr => true)
+
     await axios.put(`${APILink}ot_new/${singleOVERTIMEDetailsData.id}/`, payload)
 
       .then(res => {
@@ -85,7 +89,7 @@ export default function ApproveOVERTIMEModal(props: ApproveOVERTIMEModalInterfac
           name: "viewOtModal",
           value: false
         }))
-
+        setIsLoading(curr => false)
 
       })
       .catch(err => {
@@ -99,6 +103,7 @@ export default function ApproveOVERTIMEModal(props: ApproveOVERTIMEModalInterfac
           name: "viewOtModal",
           value: false
         }))
+        setIsLoading(curr => false)
       })
   }
 
@@ -160,8 +165,8 @@ export default function ApproveOVERTIMEModal(props: ApproveOVERTIMEModalInterfac
                 <Typography>Are you sure you want to approve this OVERTIME?</Typography>
               </div>
               <div className='flex justify-around'>
-                <Button variant={'contained'} onClick={approveOVERTIME}>Submit</Button>
-                <Button variant={'outlined'} onClick={()=>{setApproveOVERTIMEOpenModal(false)}}>Cancel</Button>
+                <Button disabled={isLoading} variant={'contained'} onClick={approveOVERTIME}>Submit</Button>
+                <Button disabled={isLoading} variant={'outlined'} onClick={()=>{setApproveOVERTIMEOpenModal(false)}}>Cancel</Button>
               </div>
             </div>
           </div>

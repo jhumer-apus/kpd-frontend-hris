@@ -13,6 +13,7 @@ import axios from 'axios';
 import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
 import { beautifyJSON } from '@/helpers/utils';
 import useFetchFileApplicationByApprover from '@/custom-hooks/use-fetch-file-application-by-approver';
+import { useState } from 'react';
 
 
 
@@ -29,6 +30,7 @@ export default function ApproveLEAVEModal(props: ApproveLEAVEModalInterface) {
   const LEAVEApproveState = useSelector((state: RootState)=> state.procedurals.LEAVEEdit)
   const {approveLEAVEOpenModal, setApproveLEAVEOpenModal, singleLEAVEDetailsData, setSingleLEAVEDetailsData} = props;
   const isDepartmentManager = state?.rank_hierarchy == 2
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const fetchLeavesByApprover = async() => {
     await axios.get(`${APILink}leave/`,{
@@ -41,6 +43,8 @@ export default function ApproveLEAVEModal(props: ApproveLEAVEModalInterface) {
   }
 
   const apiApproveLeave = async (payload:any) => {
+
+    setIsLoading(curr => true)
 
     await axios.put(`${APILink}leave_new/${singleLEAVEDetailsData.id}/`, payload)
       .then(res => {
@@ -57,6 +61,7 @@ export default function ApproveLEAVEModal(props: ApproveLEAVEModalInterface) {
           name: "viewLeaveModal",
           value: false
         }))
+        setIsLoading(curr => false)
       })
 
       .catch((err:any) => {
@@ -73,6 +78,7 @@ export default function ApproveLEAVEModal(props: ApproveLEAVEModalInterface) {
           name: "viewLeaveModal",
           value: false
         }))
+        setIsLoading(curr => false)
       })
   }
 
@@ -174,8 +180,8 @@ export default function ApproveLEAVEModal(props: ApproveLEAVEModalInterface) {
                 <Typography>Are you sure you want to approve this LEAVE?</Typography>
               </div>
               <div className='flex justify-around'>
-                <Button variant={'contained'} onClick={approveLEAVE}>Submit</Button>
-                <Button variant={'outlined'} onClick={()=>{setApproveLEAVEOpenModal(false)}}>Cancel</Button>
+                <Button disabled={isLoading} variant={'contained'} onClick={approveLEAVE}>Submit</Button>
+                <Button disabled={isLoading} variant={'outlined'} onClick={()=>{setApproveLEAVEOpenModal(false)}}>Cancel</Button>
               </div>
             </div>
           </div>

@@ -12,6 +12,7 @@ import { LEAVEEditAction, LEAVEViewFilterApproverAction } from '@/store/actions/
 import { beautifyJSON, clearFields } from '@/helpers/utils';
 import axios from 'axios';
 import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
+import { useState } from 'react';
 
 
 
@@ -29,8 +30,11 @@ export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
   const {denyLEAVEOpenModal, setDenyLEAVEOpenModal, singleLEAVEDetailsData, setSingleLEAVEDetailsData} = props;
   const DateNow = new Date();
   const denyDate = dayjs(DateNow).format('MMM-DD-YY LT');
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const apiDenyLeave = async (payload:any) => {
+
+    setIsLoading(curr => true)
 
     await axios.put(`${APILink}leave_new/${singleLEAVEDetailsData.id}/`,payload)
       .then(res => {
@@ -49,6 +53,8 @@ export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
           name: "viewLeaveModal",
           value: false
         }))
+
+        setIsLoading(curr => false)
       })
 
       .catch((err:any) => {
@@ -67,6 +73,8 @@ export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
           name: "viewLeaveModal",
           value: false
         }))
+
+        setIsLoading(curr => false)
       })
   }
 
@@ -174,8 +182,9 @@ export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
                 />
               </div>
               <div className='flex justify-around'>
-                <Button variant={'contained'} onClick={denyLEAVE}>Submit</Button>
+                <Button disabled={isLoading} variant={'contained'} onClick={denyLEAVE}>Submit</Button>
                 <Button 
+                  disabled={isLoading}
                   variant={'outlined'} 
                   onClick={()=>{
                   clearFields(setSingleLEAVEDetailsData, ['leave_reason_disapproval'], [null])

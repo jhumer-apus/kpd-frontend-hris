@@ -1,4 +1,4 @@
-import {useEffect, Dispatch, SetStateAction, ChangeEvent, Fragment}from 'react';
+import {useEffect, Dispatch, SetStateAction, ChangeEvent, Fragment, useState}from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
@@ -25,8 +25,10 @@ export default function DenyOVERTIMEModal(props: DenyOVERTIMEModalInterface) {
   const {denyOVERTIMEOpenModal, setDenyOVERTIMEOpenModal, singleOVERTIMEDetailsData, setSingleOVERTIMEDetailsData} = props;
   const DateNow = new Date();
   const denyDate = dayjs(DateNow).format('MMM-DD-YY LT');
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const denyOVERTIME = () => { 
+    setIsLoading(curr => true)
     if(singleOVERTIMEDetailsData.ot_reason_disapproval){
         return(
           setSingleOVERTIMEDetailsData((prevState)=> {
@@ -41,12 +43,14 @@ export default function DenyOVERTIMEModal(props: DenyOVERTIMEModalInterface) {
           })
         )
       } else {
+        setIsLoading(curr => false)
         window.alert('Please insert reason');
       }
     }
 
   useEffect(()=>{
-    if(OVERTIMEDenyState){      
+    if(OVERTIMEDenyState){   
+      setIsLoading(curr => false)   
       if(OVERTIMEDenyState === 'succeeded'){
         window.alert(`${OVERTIMEDenyState.charAt(0).toUpperCase()}${OVERTIMEDenyState.slice(1)}`)
         setTimeout(()=>{
@@ -122,8 +126,9 @@ export default function DenyOVERTIMEModal(props: DenyOVERTIMEModalInterface) {
                 />
               </div>
               <div className='flex justify-around'>
-                <Button variant={'contained'} onClick={denyOVERTIME}>Submit</Button>
+                <Button disabled={isLoading} variant={'contained'} onClick={denyOVERTIME}>Submit</Button>
                 <Button 
+                  disabled={isLoading}
                   variant={'outlined'} 
                   onClick={()=>{
                     clearFields(setSingleOVERTIMEDetailsData, ['ot_reason_disapproval'], [null])

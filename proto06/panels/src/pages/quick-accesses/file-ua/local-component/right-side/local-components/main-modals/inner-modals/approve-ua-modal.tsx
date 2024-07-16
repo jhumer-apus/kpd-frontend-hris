@@ -1,4 +1,4 @@
-import { useEffect, Fragment, Dispatch, SetStateAction } from 'react';
+import { useEffect, Fragment, Dispatch, SetStateAction, useState } from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
@@ -23,8 +23,12 @@ export default function ApproveUAModal(props: ApproveUAModalInterface) {
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
   const UAApproveState = useSelector((state: RootState)=> state.procedurals.UAEdit.status)
   const {approveUAOpenModal, setApproveUAOpenModal, singleUADetailsData, setSingleUADetailsData} = props;
-
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  
   const approveUA = () => { 
+
+    setIsLoading(curr => true)
+
     const DateNow = new Date();
     const approvedDate = dayjs(DateNow).format('YYYY-MM-DDTHH:mm:ss');
     if(state?.emp_no === singleUADetailsData.ua_approver1_empno  || ((state?.rank_code as number) > singleUADetailsData?.applicant_rank) || state?.rank_hierarchy == 6){
@@ -50,6 +54,7 @@ export default function ApproveUAModal(props: ApproveUAModalInterface) {
         })
       })
     } else {
+      setIsLoading(curr => false)
       window.alert('You are not one of the approvers.')
     }
 
@@ -57,6 +62,7 @@ export default function ApproveUAModal(props: ApproveUAModalInterface) {
 
   useEffect(()=>{
     if(UAApproveState){
+      setIsLoading(curr => false)
       window.alert(`${UAApproveState.charAt(0).toUpperCase()}${UAApproveState.slice(1)}`)
       if(UAApproveState !== 'failed'){
         setTimeout(()=>{
@@ -113,8 +119,8 @@ export default function ApproveUAModal(props: ApproveUAModalInterface) {
                 <Typography>Are you sure you want to approve this UA?</Typography>
               </div>
               <div className='flex justify-around'>
-                <Button variant={'contained'} onClick={approveUA}>Submit</Button>
-                <Button variant={'outlined'} onClick={()=>{setApproveUAOpenModal(false)}}>Cancel</Button>
+                <Button disabled={isLoading} variant={'contained'} onClick={approveUA}>Submit</Button>
+                <Button disabled={isLoading} variant={'outlined'} onClick={()=>{setApproveUAOpenModal(false)}}>Cancel</Button>
               </div>
             </div>
           </div>

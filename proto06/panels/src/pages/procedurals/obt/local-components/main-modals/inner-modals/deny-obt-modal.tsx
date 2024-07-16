@@ -12,6 +12,7 @@ import { OBTEditAction, OBTViewAction } from '@/store/actions/procedurals';
 import axios from 'axios';
 import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
 import { beautifyJSON } from '@/helpers/utils';
+import { useState } from 'react';
 
 
 
@@ -29,8 +30,11 @@ export default function DenyOBTModal(props: DenyOBTModalInterface) {
   const {denyOBTOpenModal, setDenyOBTOpenModal, singleOBTDetailsData, setSingleOBTDetailsData} = props;
   const DateNow = new Date();
   const denyDate = dayjs(DateNow).format('MMM-DD-YY LT');
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const apiDenyOBT = async (payload:any) => {
+
+    setIsLoading(curr => true)
 
     await axios.put(`${APILink}obt_new/${singleOBTDetailsData.id}/`, payload)
 
@@ -48,6 +52,7 @@ export default function DenyOBTModal(props: DenyOBTModalInterface) {
           name: "viewObtModal",
           value: false
         }))
+        setIsLoading(curr => false)
 
       })
       .catch(err => {
@@ -64,6 +69,7 @@ export default function DenyOBTModal(props: DenyOBTModalInterface) {
           name: "viewObtModal",
           value: false
         }))
+        setIsLoading(curr => false)
 
       })
   }
@@ -173,8 +179,8 @@ export default function DenyOBTModal(props: DenyOBTModalInterface) {
                 />
               </div>
               <div className='flex justify-around'>
-                <Button variant={'contained'} onClick={denyOBT}>Submit</Button>
-                <Button variant={'outlined'} onClick={()=>{setDenyOBTOpenModal(false)}}>Cancel</Button>
+                <Button disabled={isLoading} variant={'contained'} onClick={denyOBT}>Submit</Button>
+                <Button disabled={isLoading} variant={'outlined'} onClick={()=>{setDenyOBTOpenModal(false)}}>Cancel</Button>
               </div>
             </div>
           </div>
