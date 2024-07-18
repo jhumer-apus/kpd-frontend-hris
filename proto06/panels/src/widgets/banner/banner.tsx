@@ -81,7 +81,7 @@ const CarouselUI = ({ items }: any) => {
                 className="w-full"
             >
                 <div className="flex items-center">
-                    <Avatar src="/img/skyfreight_icon.png" size="sm" placeholder={undefined} />
+                    <Avatar src="/img/bitverse-icon-white-inner.png" size="sm" placeholder={undefined} />
                     <div className={styles.greetingsBar}>{greetings}, {employee_detail?.gender?.includes("F")? 'Ms.': 'Mr.'} {employee_detail?.last_name}!</div>
                 </div>
                 <div className={styles.newsWrap}> 
