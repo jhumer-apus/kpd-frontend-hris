@@ -12,8 +12,10 @@ import ContactMailOutlinedIcon from '@mui/icons-material/ContactMailOutlined';
 import ConnectWithoutContactOutlinedIcon from '@mui/icons-material/ConnectWithoutContactOutlined';
 import CollectionsBookmarkOutlinedIcon from '@mui/icons-material/CollectionsBookmarkOutlined';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
-
+import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
+import RvHookupOutlinedIcon from '@mui/icons-material/RvHookupOutlined';
 import EditLocationAltOutlinedIcon from '@mui/icons-material/EditLocationAltOutlined';
+import AirlineSeatFlatOutlinedIcon from '@mui/icons-material/AirlineSeatFlatOutlined';
 import DryCleaningOutlinedIcon from '@mui/icons-material/DryCleaningOutlined';
 import EventNoteOutlinedIcon from '@mui/icons-material/EventNoteOutlined';
 import { APILink, RootState } from '@/store/configureStore';
@@ -34,134 +36,44 @@ export function RecruitmentForms() {
   const [isVisible, setIsVisible] = useState<DivAnimate>({});
   const [pageLoaded, setPageLoaded] = useState(false);
 
-  const RecruitmentFormsData = [
+  const recruitmentFormsData = [
     {
       // color: "red",
       type: 2,
-      icon: AnimationIcon,
-      title: "Non Punching Form",
-      value: "NPF",
+      icon: AirlineSeatFlatOutlinedIcon,
+      title: "Personnel Action Memo",
+      value: "PAM",
       footer: {
       color: "text-green-500",
       value: "<",
-      label: "F-HRD-01.16/REV.04/EFF.DATE: 10-01-16",
+      label: "F-HRD-01.01/REV.08/EFF.DATE: 07-05-23",
       },
       custom: IconColor,
-      link: `${APILink.replace('/api/v1/', '')}/media/file/F-HRD-01.16_Non-Punching_Form_rev.04.pdf`,
+      link: `${APILink.replace('/api/v1/', '')}/media/file/F-HRD-01.01_Personnel_Action_Memo_rev.08.pdf`,
       fileDownload: true,
-      fileName: 'F-HRD-01.16_Non-Punching_Form_rev.04.pdf',
+      fileName: 'F-HRD-01.01_Personnel_Action_Memo_(rev.08)',
       customTop: 15,
       customLeft: 38,
     },
     {
       // color: "red",
       type: 2,
-      icon: AssistantIcon,
-      title: "Request Premium Pay Form (Trucking)",
-      value: "PPF",
+      icon: RvHookupOutlinedIcon,
+      title: "Road Test & Driving Examination Form",
+      value: "RTD",
       footer: {
       color: "text-green-500",
       value: "<",
-      label: "F-HRD-01.17B/REV.00/EFF.DATE: 04-01-17",
+      label: "F-HRD-01.10/REV.02/EFF.DATE: 08-15-11",
       },
       custom: IconColor,
-      link: `${APILink.replace('/api/v1/', '')}/media/file/F-HRD-01.17B_Request_for_Premium_Pay_Trucking_Service_rev.00.pdf`,
+      link: `${APILink.replace('/api/v1/', '')}/media/file/F-HRD-01.10_Road_Test__Driving_Examination_rev.02.pdf`,
       fileDownload: true,
-      fileName: 'F-HRD-01.17B_Request_for_Premium_Pay_Trucking_Service_rev.00.pdf',
-      customTop: 15,
-      customLeft: 38,
-    },
-    {
-      // color: "red",
-      type: 2,
-      icon: Brightness4OutlinedIcon,
-      title: "Request Overtime Form (HRD)",
-      value: "NPF",
-      footer: {
-      color: "text-green-500",
-      value: "<",
-      label: "F-HRD-01.17/REV.04/EFF.DATE: 09-05-22",
-      },
-      custom: IconColor,
-      link: `${APILink.replace('/api/v1/', '')}/media/file/F-HRD-01.17_Request_for_Overtime_rev.04.pdf`,
-      fileDownload: true,
-      fileName: 'F-HRD-01.17_Request_for_Overtime_rev.04.pdf',
-      customTop: 15,
-      customLeft: 38,
-    },
-    {
-      // color: "red",
-      type: 2,
-      icon: BedroomParentOutlinedIcon,
-      title: "Request Leave of Absence Form",
-      value: "LOA",
-      footer: {
-      color: "text-green-500",
-      value: "<",
-      label: "F-HRD-01.19/REV.04/EFF.DATE: 03-20-23",
-      },
-      custom: IconColor,
-      link: `${APILink.replace('/api/v1/', '')}/media/file/F-HRD-01.19_Application_for_Leave_of_Absence_rev.04.pdf`,
-      fileDownload: true,
-      fileName: 'F-HRD-01.19_Application_for_Leave_of_Absence_rev.04.pdf',
+      fileName: 'F-HRD-01.10_Road_Test_&_Driving_Examination_(rev.02)',
       customTop: 15,
       customLeft: 38,
     },
     ...(userState?.user?.role !== INTERNAL_USER_ROLE.Employee ) ? [
-      {
-        // color: "red",
-        type: 2,
-        icon: ContactMailOutlinedIcon,
-        title: "Personnel Requisition Form",
-        value: "PRF",
-        footer: {
-        color: "text-green-500",
-        value: "<",
-        label: "F-HRD-01.02/REV.08/EFF.DATE: 06-20-19",
-        },
-        custom: IconColor,
-        link: `${APILink.replace('/api/v1/', '')}/media/file/F-HRD-01.02_Personnel_Requisition_Form_rev.08.pdf`,
-        fileDownload: true,
-        fileName: 'F-HRD-01.02_Personnel_Requisition_Form_rev.08.pdf',
-        customTop: 15,
-        customLeft: 38,
-      },
-      {
-        // color: "red",
-        type: 2,
-        icon: ConnectWithoutContactOutlinedIcon,
-        title: "Employee Training Record Form",
-        value: "ETR",
-        footer: {
-        color: "text-green-500",
-        value: "<",
-        label: "F-HRD-03.02/REV.02/EFF.DATE: 08-15-11",
-        },
-        custom: IconColor,
-        link: `${APILink.replace('/api/v1/', '')}/media/file/F-HRD-03.02_Employees_Training_Record_rev.02.pdf`,
-        fileDownload: true,
-        fileName: 'F-HRD-03.02_Employees_Training_Record_rev.02.pdf',
-        customTop: 15,
-        customLeft: 38,
-      },
-      {
-        // color: "red",
-        type: 2,
-        icon: CollectionsBookmarkOutlinedIcon,
-        title: "Orientation Checklist Form",
-        value: "OCF",
-        footer: {
-        color: "text-green-500",
-        value: "<",
-        label: "F-HRD-01.13/REV.11/EFF.DATE: 10-07-21",
-        },
-        custom: IconColor,
-        link: `${APILink.replace('/api/v1/', '')}/media/file/F-HRD-01.13_ORIENTATION_CHECKLIST_rev.11.pdf`,
-        fileDownload: true,
-        fileName: 'F-HRD-01.13_ORIENTATION_CHECKLIST_rev.11.pdf',
-        customTop: 15,
-        customLeft: 38,
-      },
       {
         // color: "red",
         type: 2,
@@ -183,36 +95,18 @@ export function RecruitmentForms() {
       {
         // color: "red",
         type: 2,
-        icon: EditLocationAltOutlinedIcon,
-        title: "Performance Eval Form Rank & File",
-        value: "PEF - R&F",
+        icon: ContactMailOutlinedIcon,
+        title: "Personnel Requisition Form",
+        value: "PRF",
         footer: {
         color: "text-green-500",
         value: "<",
-        label: "F-HRD-02.01/REV.06/EFF.DATE: 02-21-20",
+        label: "F-HRD-01.02/REV.08/EFF.DATE: 06-20-19",
         },
         custom: IconColor,
-        link: `${APILink.replace('/api/v1/', '')}/media/file/F-HRD-02.01A_Performance_Evaluation_Form_Rank_and_File_rev.06.pdf`,
+        link: `${APILink.replace('/api/v1/', '')}/media/file/F-HRD-01.02_Personnel_Requisition_Form_rev.08.pdf`,
         fileDownload: true,
-        fileName: 'F-HRD-02.01A_Performance_Evaluation_Form_Rank_and_File_rev.06.pdf',
-        customTop: 15,
-        customLeft: 38,
-      },
-      {
-        // color: "red",
-        type: 2,
-        icon: EditLocationAltOutlinedIcon,
-        title: "Performance Eval Form - Confidential",
-        value: "PEF - CFD",
-        footer: {
-        color: "text-green-500",
-        value: "<",
-        label: "F-HRD-02.01/REV.08/EFF.DATE: 02-21-20",
-        },
-        custom: IconColor,
-        link: `${APILink.replace('/api/v1/', '')}/media/file/F-HRD-02.01_Performance_Evaluation_Form_Confidential_Payroll_rev.08.pdf`,
-        fileDownload: true,
-        fileName: 'F-HRD-02.01_Performance_Evaluation_Form_Confidential_Payroll_rev.08.pdf',
+        fileName: 'F-HRD-01.02_Personnel_Requisition_Form_rev.08.pdf',
         customTop: 15,
         customLeft: 38,
       },
@@ -237,24 +131,95 @@ export function RecruitmentForms() {
       {
         // color: "red",
         type: 2,
-        icon: EventNoteOutlinedIcon,
-        title: "Employee Requirement Slip",
-        value: "ERS",
+        icon: CollectionsBookmarkOutlinedIcon,
+        title: "Orientation Checklist Form",
+        value: "OCF",
         footer: {
         color: "text-green-500",
         value: "<",
-        label: "F-HRD-01.04/REV.05/EFF.DATE: 09-05-22",
+        label: "F-HRD-01.13/REV.11/EFF.DATE: 10-07-21",
         },
         custom: IconColor,
-        link: `${APILink.replace('/api/v1/', '')}/media/file/F-HRD-01.04_Employment_Requirement_Slip_rev.05.pdf`,
+        link: `${APILink.replace('/api/v1/', '')}/media/file/F-HRD-01.13_ORIENTATION_CHECKLIST_rev.11.pdf`,
         fileDownload: true,
-        fileName: 'F-HRD-01.04_Employment_Requirement_Slip_rev.05.pdf',
+        fileName: 'F-HRD-01.13_ORIENTATION_CHECKLIST_rev.11.pdf',
         customTop: 15,
         customLeft: 38,
       },
-    ]: [],
-
-  ];
+      {
+        // color: "red",
+        type: 2,
+        icon: DryCleaningOutlinedIcon,
+        title: "Employee Requisition Form",
+        value: "ERF",
+        footer: {
+        color: "text-green-500",
+        value: "<",
+        label: "F-HRD-01.02/REV.08/EFF.DATE: 06-20-19",
+        },
+        custom: IconColor,
+        link: `${APILink.replace('/api/v1/', '')}/media/file/F-HRD-01.02_Personnel_Requisition_Form_rev.08.pdf`,
+        fileDownload: true,
+        fileName: 'F-HRD-01.02_Personnel_Requisition_Form_rev.08.pdf',
+        customTop: 15,
+        customLeft: 38,
+      },
+      {
+        // color: "red",
+        type: 2,
+        icon: DryCleaningOutlinedIcon,
+        title: "Interviewer's Evaluation Sheet",
+        value: "IES",
+        footer: {
+        color: "text-green-500",
+        value: "<",
+        label: "F-HRD-01.11/REV.05/EFF.DATE: 08-15-11",
+        },
+        custom: IconColor,
+        link: `${APILink.replace('/api/v1/', '')}/media/file/F-HRD-01.11_Interviewers_Sheet_rev.05.pdf`,
+        fileDownload: true,
+        fileName: 'F-HRD-01.11_Interviewers_Sheet_rev.05.pdf',
+        customTop: 15,
+        customLeft: 38,
+      },
+      {
+        // color: "red",
+        type: 2,
+        icon: DryCleaningOutlinedIcon,
+        title: "Request for Registration of Non-Compete Agreement SFFI",
+        value: "RRNA-SFFI",
+        footer: {
+        color: "text-green-500",
+        value: "<",
+        label: "F-HRD-01.43/ REV.00/EFF.DATE:06-03-24",
+        },
+        custom: IconColor,
+        link: `${APILink.replace('/api/v1/', '')}/media/file/F-HRD-01.43_Non-compete_Agreement_SFFI.pdf`,
+        fileDownload: true,
+        fileName: 'F-HRD-01.43 Non-compete Agreement (SFFI)',
+        customTop: 15,
+        customLeft: 38,
+      },
+      {
+        // color: "red",
+        type: 2,
+        icon: DryCleaningOutlinedIcon,
+        title: "Request for Registration of Non-Compete Agreement SFBI",
+        value: "RRNA-SFBI",
+        footer: {
+        color: "text-green-500",
+        value: "<",
+        label: "F-HRD-01.43(a)/ REV.00/EFF.DATE:06-03-24",
+        },
+        custom: IconColor,
+        link: `${APILink.replace('/api/v1/', '')}/media/file/F-HRD-01.43a__Non-compete_Agreement_SFBI.pdf`,
+        fileDownload: true,
+        fileName: 'F-HRD-01.43(a) Non-compete Agreement (SFBI)',
+        customTop: 15,
+        customLeft: 38,
+      },
+    ] : []
+  ]
 
   const handleOnClick = (key: string) => {
     const thisKey = key;
@@ -275,7 +240,7 @@ export function RecruitmentForms() {
   return (
     <div className="mt-12" style={{height: '90vh'}}>
       <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-3">
-        {B1FormsData.map(({ icon, title, footer, value, ...rest }, index) => (
+        {recruitmentFormsData.map(({ icon, title, footer, value, ...rest }, index) => (
           <div style={{
             transition: 'transform 0.5s ease, opacity 0.5s ease',
             transform: !isVisible[`${value}${index}`] && pageLoaded ? 'translateY(0)' : 'translateY(-100%)',
