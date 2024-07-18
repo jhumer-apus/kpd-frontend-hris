@@ -11,27 +11,39 @@ import { DEPARTMENTCreateInterface } from '@/types/types-pages';
 interface EmployeeAutoCompleteInterface{
     createDEPARTMENT: DEPARTMENTCreateInterface;
     setCreateDEPARTMENT: Dispatch<SetStateAction<DEPARTMENTCreateInterface>>;
+    currentEmpNo: number|null
 }
 
 
 export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterface) {
-    const {setCreateDEPARTMENT, createDEPARTMENT} = props;
+    const {setCreateDEPARTMENT, createDEPARTMENT, currentEmpNo} = props;
     const state = useSelector((state:RootState)=> state.employees);
     const [employeesList, setEmployeesList] = useState<{employee: string, emp_no: number}[]>([])
-    const [selectedEmployeeId, setSelectedEmployeeId] = useState<number | null>(null);
+    // const [selectedEmployeeId, setSelectedEmployeeId] = useState<number | null>(currentEmpNo);
 
-    useEffect(()=> {
-        if(selectedEmployeeId){
-            setCreateDEPARTMENT((prevState)=> {
-                return(
-                    {
-                        ...prevState,
-                        dept_lead: selectedEmployeeId
-                    }
-                )
-            })
-        }
-    }, [selectedEmployeeId])
+    // useEffect(()=> {
+    //     if(selectedEmployeeId){
+    //         setCreateDEPARTMENT((prevState)=> {
+    //             return(
+    //                 {
+    //                     ...prevState,
+    //                     dept_lead: selectedEmployeeId
+    //                 }
+    //             )
+    //         })
+    //     }
+    // }, [selectedEmployeeId])
+
+    const updateCreateDepartment = (empNo:number | null) => {
+        setCreateDEPARTMENT((prevState:any)=> {
+            return(
+                {
+                    ...prevState,
+                    dept_lead: empNo
+                }
+            )
+        })
+    }
 
     useEffect(() => {
         if (state.employees_list) {
@@ -51,36 +63,48 @@ export default function EmployeeAutoComplete(props: EmployeeAutoCompleteInterfac
     const options = employeesList?.map((option) => {
         const firstLetter = option.employee[0].toUpperCase();
         return {
-        firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
-        ...option,
+            firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
+            ...option,
         };
     });
     
-    const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string, reason: AutocompleteInputChangeReason) => {
-        const matchingEmployee = employeesList.find(
-        //   (employeeItems) => employeeItems.employee === newInputValue
-        (employeeItems) => employeeItems.employee.toLowerCase().includes(newInputValue.toLowerCase())
-        );
-        if (matchingEmployee) {
-            setSelectedEmployeeId(matchingEmployee.emp_no);
+    const handleChange = (e:any, value:any) => {
+
+        if(value) {
+            updateCreateDepartment(value?.emp_no)
         } else {
-          setSelectedEmployeeId(null);
-        // window.alert('No Matched Employee in the list is found. Create an employee entry first')
+            updateCreateDepartment(null)
         }
+
+        // const matchingEmployee = employeesList.find(
+        // //   (employeeItems) => employeeItems.employee === newInputValue
+        // (employeeItems) => employeeItems.employee.toLowerCase().includes(newInputValue.toLowerCase())
+        // );
+        // if (matchingEmployee) {
+        //     updateCreateDepartment(matchingEmployee.emp_no)
+        //     // setSelectedEmployeeId(matchingEmployee.emp_no);
+        // } else {
+        //     updateCreateDepartment(null)
+        //   setSelectedEmployeeId(null);
+        // window.alert('No Matched Employee in the list is found. Create an employee entry first')
+        // }
     };
 
     const isOptionEqualToValue = (option: { employee: string; emp_no: number }, value: { employee: string; emp_no: number }) => {
         return option.emp_no === value.emp_no;
     };
+
+    const findValue = employeesList.find(emp => currentEmpNo == emp.emp_no) ?? null
     
     return (
         <Autocomplete
         // disableCloseOnSelect
+        value={findValue}
         noOptionsText={'Loading... Please Wait.'}
         options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
-        groupBy={(option) => option.firstLetter}
+        groupBy={(option:any) => option.firstLetter}
         getOptionLabel={(option) => option.employee}
-        onInputChange={handleInputChange}
+        onChange={handleChange}
         sx={{ width: 300 }}
         isOptionEqualToValue={isOptionEqualToValue}
         renderInput={(params) => 

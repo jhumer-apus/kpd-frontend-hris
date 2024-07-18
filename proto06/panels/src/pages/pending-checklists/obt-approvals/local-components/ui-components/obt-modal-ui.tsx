@@ -21,6 +21,7 @@ interface OBTModalUIInterface {
     singleOBTDetailsData: OBTViewInterface;
     multiplePayslipMode?: boolean;
     setSingleOBTDetailsData: React.Dispatch<React.SetStateAction<OBTViewInterface>>;
+    setSingleOBTOpenModal:any
 }
 
 function OBTModalUI(props: OBTModalUIInterface) {
@@ -30,7 +31,7 @@ function OBTModalUI(props: OBTModalUIInterface) {
         buttonDisabled: false,
         message1Show: true,
     })
-    const { setSingleOBTDetailsData, singleOBTDetailsData } = props;
+    const { setSingleOBTDetailsData, singleOBTDetailsData, setSingleOBTOpenModal } = props;
     const ThisProps = props.singleOBTDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
     const [data, setData] = useState(
@@ -179,7 +180,7 @@ function OBTModalUI(props: OBTModalUIInterface) {
 
     return (
         <React.Fragment>
-            <ApproveOBTModal singleOBTDetailsData={singleOBTDetailsData} setSingleOBTDetailsData={setSingleOBTDetailsData} approveOBTOpenModal={approveOBTOpenModal} setApproveOBTOpenModal={setApproveOBTOpenModal}/>
+            <ApproveOBTModal setSingleOBTOpenModal={setSingleOBTOpenModal} singleOBTDetailsData={singleOBTDetailsData} setSingleOBTDetailsData={setSingleOBTDetailsData} approveOBTOpenModal={approveOBTOpenModal} setApproveOBTOpenModal={setApproveOBTOpenModal}/>
             <DenyOBTModal singleOBTDetailsData={singleOBTDetailsData} setSingleOBTDetailsData={setSingleOBTDetailsData} denyOBTOpenModal={denyOBTOpenModal} setDenyOBTOpenModal={setDenyOBTOpenModal}/>
             <div className='flex gap-10 overflow-auto relative'>
                 <div className='flex gap-6 flex-col'>

@@ -1,4 +1,4 @@
-import {useState, useEffect, Dispatch, SetStateAction } from 'react'
+import {useState, useEffect, Dispatch, SetStateAction, useRef } from 'react'
 
 //LIBARIES
 import TextField from '@mui/material/TextField';
@@ -20,11 +20,12 @@ interface Props {
     defaultProvinceId? : number | null;
     isReadOnly?: boolean;
     name: string;
+    label? : string
 }
 export default function Province(props: Props) {
 
     //PROPS
-    const { name, defaultProvinceId, isReadOnly, updateAddress } = props
+    const { name, defaultProvinceId, isReadOnly, updateAddress, label } = props
 
     //STATES
     const [provinces, setProvinces] = useState<ProvinceInterface[]>([])
@@ -44,7 +45,7 @@ export default function Province(props: Props) {
             findProvince(defaultProvinceId)
         }
 
-    },[provinces.length])
+    },[provinces.length, defaultProvinceId])
 
     //FUNCTIONS
     const fetchProvinces = async() => {
@@ -67,8 +68,6 @@ export default function Province(props: Props) {
         if(val) {
             
             const selectedProvince = provinces.find(prov => prov.id == val)
-
-            console.log(selectedProvince)
 
             if(selectedProvince) {
                 
@@ -98,7 +97,7 @@ export default function Province(props: Props) {
                 value={currentProvince}
                 getOptionLabel={(province: ProvinceInterface) => province?.name?? ''}
                 onChange={handleChange}
-                renderInput={(params) => <TextField {...params} label="Province" />}
+                renderInput={(params) => <TextField {...params} label={label?? "Province"} />}
                 readOnly={isReadOnly}
             />
 

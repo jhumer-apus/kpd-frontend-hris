@@ -4,9 +4,7 @@ import { Internal_User_Role } from "../types-store";
 export type previewDtrCsvItem = {
     bio_id: string;
     date_time: string;
-    time_in: string;
-    time_out: string;
-    branch: string;
+    work_status: string;
 };
 
 
@@ -545,11 +543,12 @@ export interface SCHEDULEDAILYViewInterface extends SCHEDULEDAILYGeneric {
     is_processed: boolean | null
     emp_no: number,
     holiday_type: "LH" | "SH" | null
+    holiday:any
 }
 
 export interface SCHEDULEDAILYEditInterface extends SCHEDULEDAILYGeneric {
     id: number;
-    schedule_shift_code: number;
+    schedule_shift_code: number | null;
     business_date: string;
     emp_no: number;
 }
@@ -621,7 +620,7 @@ export interface DIVISIONEditInterface extends DIVISIONGenericInterface, DIVISIO
 export interface PAYROLLGROUPGenericInterface {
     name: string,
     payroll_description: string | null,
-    payroll_freq: number,
+    payroll_freq: number | null,
 }
 
 export interface PAYROLLGROUPViewInterface extends PAYROLLGROUPGenericInterface{

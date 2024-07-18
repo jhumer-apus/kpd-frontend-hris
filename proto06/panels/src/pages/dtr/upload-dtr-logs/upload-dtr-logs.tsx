@@ -14,6 +14,8 @@ import { previewDtrCsvItem } from '@/types/types-pages';
 import axios from 'axios';
 import { useNavigate }  from 'react-router-dom';
 import { APILink } from '@/store/configureStore';
+import { HandleAlertAction } from '@/store/actions/components';
+import { useDispatch } from 'react-redux';
 
 const PaperStyle = {
     padding: "20px",
@@ -50,6 +52,8 @@ export default function UploadDtrLogs() {
 
     const [activeStep, setActiveStep] = useState(0);
     const [skipped, setSkipped] = useState(new Set<number>());
+
+    const dispatch = useDispatch()
 
     const isStepOptional = (step: number) => {
         return step === -1;
@@ -131,6 +135,18 @@ export default function UploadDtrLogs() {
         return;
       }
       const file = e.target.files[0];
+      const extension = file.name.split(".").pop()
+
+      // Validate if file is not a TSV
+      if(extension != "tsv"){
+        dispatch(HandleAlertAction({
+            open:true,
+            status:"error",
+            message:"File should be in TSV"
+        }))
+        return
+      }
+
       const { name } = file;
       setFileName(name);
     
@@ -147,12 +163,10 @@ export default function UploadDtrLogs() {
       //   });
       const records = lines.map(line => {
           const values = line.split('\t');
-          const bio_id = values[0].trim();
-          const date_time = values[1].trim();
-          const time_in = values[2].trim();
-          const time_out = values[3].trim();
-          const branch = values[6].trim();
-          return { id: `${bio_id}${Math.random()}`, bio_id, date_time, time_in, time_out, branch};
+          const bio_id = values[0]?.trim();
+          const date_time = values[1]?.trim();
+          const work_status = values[2]?.trim();
+          return { id: `${bio_id}${Math.random()}`, bio_id, date_time, work_status};
       });
         setCsvData(records);
       };

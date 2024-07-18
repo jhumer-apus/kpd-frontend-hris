@@ -6,6 +6,7 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 // import { EMPSEMINARSCreateInterface } from '@/types/types-pages';
 import { globalAPIDate } from '@/store/configureStore';
 import { EMPSEMINARSCreateInterface } from '@/types/types-employee-and-applicants';
+import { DatePicker } from '@mui/x-date-pickers';
 
 
 interface DateFromToEMPSEMINARSCreateInterface{
@@ -20,11 +21,12 @@ export default function DateFromToEMPSEMINARSCreate(props: DateFromToEMPSEMINARS
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             {/* <div title="Make sure this field is logical. (i.e, `Date & Time From` should come first and not the `Date & Time To`)"> */}
-            <DateTimePicker
+            <DatePicker
             label="Date of Accomplishment"
             value={createEMPSEMINARS?.date_accomplished }
             onChange={(newValue) => {
-                const formattedDate = dayjs(newValue).format(`${globalAPIDate}`);
+                // const formattedDate = dayjs(newValue).format(`${globalAPIDate}`);
+                const formattedDate = dayjs(newValue).format(`YYYY-MM-DD`);
                 return (
                     setCreateEMPSEMINARS((prevState)=>{
                         return(

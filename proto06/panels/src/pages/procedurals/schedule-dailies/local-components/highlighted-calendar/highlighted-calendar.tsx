@@ -119,7 +119,10 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[],
              disableRestoreFocus
          >
              <Typography variant={"overline"} sx={{ p: 1 }}>
-             {scheduleDailyIsRestday.sched_details?.name ? scheduleDailyIsRestday.sched_details?.name : 'No Schedule'} <b>{scheduleDailyIsRestday.sched_details?.time_in && dayjs(scheduleDailyIsRestday.sched_details?.time_in, "HH:mm:ss").format('hh:mm a')} {scheduleDailyIsRestday.sched_details?.time_out && '-'} {scheduleDailyIsRestday.sched_details?.time_out && dayjs(scheduleDailyIsRestday.sched_details?.time_out, "HH:mm:ss").format('hh:mm a')}</b>
+              {scheduleDailyIsRestday.sched_details?.name 
+                ? <b>{scheduleDailyIsRestday.sched_details?.time_in && dayjs(scheduleDailyIsRestday.sched_details?.time_in, "HH:mm:ss").format('hh:mm a')} {scheduleDailyIsRestday.sched_details?.time_out && '-'} {scheduleDailyIsRestday.sched_details?.time_out && dayjs(scheduleDailyIsRestday.sched_details?.time_out, "HH:mm:ss").format('hh:mm a')}</b>
+                : 'No Schedule'
+              }
              </Typography>
          </Popover>
         </Typography>
@@ -154,14 +157,16 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[],
              disableRestoreFocus
          >
              <Typography variant={"overline"} sx={{ p: 1 }}>
-             {scheduleDailyIsRestday.sched_details?.name ? scheduleDailyIsRestday.sched_details?.name : 'No Schedule'} 
+              {scheduleDailyIsRestday.sched_details?.name 
+                ? <b>{dayjs(scheduleDailyIsRestday.sched_details?.time_in, "HH:mm:ss").format('hh:mm a')} - {dayjs(scheduleDailyIsRestday.sched_details?.time_out, "HH:mm:ss").format('hh:mm a')}</b> 
+                : 'No Schedule'
+              } 
              
-             {
+             {/* {
               scheduleDailyIsRestday.sched_details?.time_in && scheduleDailyIsRestday.sched_details?.time_out &&
-
               <b>{dayjs(scheduleDailyIsRestday.sched_details?.time_in, "HH:mm:ss").format('hh:mm a')} - {dayjs(scheduleDailyIsRestday.sched_details?.time_out, "HH:mm:ss").format('hh:mm a')}</b>
 
-             }
+             } */}
             
              </Typography>
          </Popover>
@@ -203,46 +208,47 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
     })
       .then((response) => {
 
-        if(response?.data) {
-          const filteredData: SCHEDULEDAILYViewInterface[] = response.data.filter((scheduleDaily: SCHEDULEDAILYViewInterface) => {
-              const scheduleDailyDate = dayjs(scheduleDaily.business_date);
-              return (
-                scheduleDailyDate.format('YYYY-MM') === formattedDate &&
-                scheduleDailyDate.isSame(date, 'month')
-              );
-          });
+        const data = response.data
 
-      
-          const scheduleDaily = filteredData.reduce((is_restday: Record<string, Record<string, string | number | boolean | SCHEDULESHIFTViewInterface >>, scheduleDaily: SCHEDULEDAILYViewInterface) => {
-              const scheduleDailyDate = dayjs(scheduleDaily.business_date).format('YYYY-MM-DD');
-              const sched_id_check1 = (key: SCHEDULESHIFTViewInterface) => {
-                if(key){
-                  if ('id' in key){
-                    return key
-                  } else {
-                    return 0
-                  }
+        const filteredData: SCHEDULEDAILYViewInterface[] = Array.isArray(data)? data.filter((scheduleDaily: SCHEDULEDAILYViewInterface) => {
+            const scheduleDailyDate = dayjs(scheduleDaily.business_date);
+            return (
+              scheduleDailyDate.format('YYYY-MM') === formattedDate &&
+              scheduleDailyDate.isSame(date, 'month')
+            );
+        }) : [];
+
+    
+        const scheduleDaily = filteredData.reduce((is_restday: Record<string, Record<string, string | number | boolean | SCHEDULESHIFTViewInterface >>, scheduleDaily: SCHEDULEDAILYViewInterface) => {
+            const scheduleDailyDate = dayjs(scheduleDaily.business_date).format('YYYY-MM-DD');
+            const sched_id_check1 = (key: SCHEDULESHIFTViewInterface) => {
+              if(key){
+                if ('id' in key){
+                  return key
                 } else {
                   return 0
                 }
+              } else {
+                return 0
+              }
 
-              }; 
-              is_restday[scheduleDailyDate] = {
-                is_restday: scheduleDaily.is_restday, 
-                sched_details: sched_id_check1(scheduleDaily?.schedule_shift_code as SCHEDULESHIFTViewInterface),
-                holiday_type: scheduleDaily.holiday_type
-              };
-              return is_restday;
-          }, {});
+            }; 
+            is_restday[scheduleDailyDate] = {
+              is_restday: scheduleDaily.is_restday, 
+              sched_details: sched_id_check1(scheduleDaily?.schedule_shift_code as SCHEDULESHIFTViewInterface),
+              holiday_type: scheduleDaily?.holiday?.holiday_type
+            };
+            return is_restday;
+        }, {});
 
-          const daysToHighlight = filteredData.map((scheduleDaily: any) =>
-            parseInt(scheduleDaily.business_date.split('-')[2])
-          );
-          setHighlightedDays(daysToHighlight);
-          setScheduleDaily(scheduleDaily); // Set the scheduleDaily state
-          setIsLoading(false);
-          // setShortcutsItems(createShortcutItems(filteredData)); // Update shortcutsItems
-        }
+        const daysToHighlight = filteredData.map((scheduleDaily: any) =>
+          parseInt(scheduleDaily.business_date.split('-')[2])
+        );
+        setHighlightedDays(daysToHighlight);
+        setScheduleDaily(scheduleDaily); // Set the scheduleDaily state
+        setIsLoading(false);
+        // setShortcutsItems(createShortcutItems(filteredData)); // Update shortcutsItems
+
        
       })
       .catch((error) => {

@@ -32,11 +32,11 @@ export default function DenyUAModal(props: DenyUAModalInterface) {
           setSingleUADetailsData((prevState)=> {
             dispatch(UAEditAction({
               ...prevState,
-              ua_reason_disapproval: `${prevState.ua_reason_disapproval}  <Updated: ${denyDate}>`
+              ua_reason_disapproval: `${prevState.ua_reason_disapproval}`
             }))  
             return({
               ...prevState,
-              ua_reason_disapproval: `${prevState.ua_reason_disapproval} <Updated: ${denyDate}>`
+              ua_reason_disapproval: `${prevState.ua_reason_disapproval}`
             })
           })
         )

@@ -833,6 +833,14 @@ const JSXRouteWrapper = () => {
                 element: <ProceduralLEAVEPage/>,
                 hasSubItems: false,
               },
+              {
+                id: 15800,
+                icon: <BadgeOutlinedIcon {...icon} />,
+                name: "Unaccounted Attendances",
+                path: "/procedurals/unaccounted-attendances",
+                element: <ProceduralUAPage/>,
+                hasSubItems: false,
+              },
               ...(state?.user?.role !== INTERNAL_USER_ROLE.Manager) ? [
                 {
                   id: 15500,
@@ -859,14 +867,6 @@ const JSXRouteWrapper = () => {
                   hasSubItems: false,
                 },
               ]: [],
-                {
-                  id: 15800,
-                  icon: <BadgeOutlinedIcon {...icon} />,
-                  name: "Unaccounted Attendances",
-                  path: "/procedurals/unaccounted-attendances",
-                  element: <ProceduralUAPage/>,
-                  hasSubItems: false,
-                },
                 ...(state?.user?.role !== INTERNAL_USER_ROLE.Manager)? [
                   {
                     id: 15900,

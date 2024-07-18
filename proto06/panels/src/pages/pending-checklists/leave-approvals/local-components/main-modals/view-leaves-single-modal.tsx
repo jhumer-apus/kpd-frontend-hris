@@ -4,6 +4,9 @@ import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
 import { LEAVEViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
 import LEAVEModalComponent from './inner-modals/leaves-modal-component';
+import { useDispatch, useSelector } from 'react-redux';
+import { HandleModalAction } from '@/store/actions/components';
+import { RootState } from '@/store/configureStore';
 
 
 interface ViewLEAVESingleModalInterface {
@@ -14,16 +17,21 @@ interface ViewLEAVESingleModalInterface {
 }
 
 export default function ViewLEAVESingleModal(props: ViewLEAVESingleModalInterface) {
-    const {singleLEAVEOpenModal, setSingleLEAVEOpenModal, setSingleLEAVEDetailsData, singleLEAVEDetailsData} = props;
+  const {singleLEAVEOpenModal, setSingleLEAVEOpenModal, setSingleLEAVEDetailsData, singleLEAVEDetailsData} = props;
   const [scroll, setScroll] = React.useState<boolean>(true);
+  const dispatch = useDispatch();
+  const viewLeaveModal = useSelector((state:RootState) => state.component.viewLeaveModal)
   return (
     <React.Fragment>
-      <Transition in={singleLEAVEOpenModal} timeout={400}>
+      <Transition in={viewLeaveModal} timeout={400}>
       {(state: string) => (
       <Modal
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setSingleLEAVEOpenModal(false);
+          dispatch(HandleModalAction({
+            name: "viewLeaveModal",
+            value: false
+          }))
         }}
         slotProps={{
             backdrop: {

@@ -100,6 +100,9 @@ export interface ANNOUNCEMENTViewInterface extends ANNOUNCEMENTGenericInterface{
     readonly id: number,
     readonly date_added: string,
     readonly is_posted: boolean,
+    readonly is_pinned: boolean,
+    readonly departments: any[],
+    readonly ranks: any[],
 }
 
 export interface ACTIVEANNOUNCEMENTViewInterface extends ANNOUNCEMENTViewInterface{}

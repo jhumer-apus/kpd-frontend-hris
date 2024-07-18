@@ -6,9 +6,12 @@ import { OVERTIMEViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-
 import SinglePayslip from './overtime-modal-component';
 import { Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { APILink, RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
-import { OVERTIMEEditAction } from '@/store/actions/procedurals';
+import { OVERTIMEEditAction, OVERTIMEViewAction, OVERTIMEViewFilterApproverAction } from '@/store/actions/procedurals';
+import axios from 'axios';
+import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
+import { beautifyJSON } from '@/helpers/utils';
 
 
 
@@ -28,44 +31,87 @@ export default function ApproveOVERTIMEModal(props: ApproveOVERTIMEModalInterfac
   const approveOVERTIME = () => { 
     const DateNow = new Date();
     const approvedDate = dayjs(DateNow).format('YYYY-MM-DDTHH:mm:ss');
+
+    const payload = {
+      ...singleOVERTIMEDetailsData,
+      approver_emp_no: state?.emp_no,
+      status: "approve",
+      added_by: state?.emp_no
+    }
+
     if(state?.emp_no === singleOVERTIMEDetailsData.ot_approver1_empno || ((state?.rank_code as number) > singleOVERTIMEDetailsData?.applicant_rank) || state?.rank_hierarchy == 6){
-      setSingleOVERTIMEDetailsData((prevState)=> {
-        dispatch(OVERTIMEEditAction({
-          ...prevState,
-          ot_date_approved1: approvedDate
-        }))
-        return({
-          ...prevState,
-          ot_date_approved1: approvedDate
-        })
-      })
+      
+      payload.ot_date_approved1 = approvedDate
+
+      setSingleOVERTIMEDetailsData((curr) => ({
+        ...singleOVERTIMEDetailsData,
+        ot_date_approved1: approvedDate
+      }))
+
+      apiApproveOT(payload)
+
     } else if(state?.emp_no === singleOVERTIMEDetailsData.ot_approver2_empno){
-      setSingleOVERTIMEDetailsData((prevState)=> {
-        dispatch(OVERTIMEEditAction({
-          ...prevState,
-          ot_date_approved2: approvedDate
-        }))
-        return({
-          ...prevState,
-          ot_date_approved2: approvedDate
-        })
-      })
+
+      payload.ot_date_approved2 = approvedDate
+      setSingleOVERTIMEDetailsData((curr) => ({
+        ...singleOVERTIMEDetailsData,
+        ot_date_approved2: approvedDate
+      }))
+      apiApproveOT(payload)
+
     } else {
-      window.alert('You are not one of the approvers.')
+      dispatch(HandleAlertAction({
+        open:true,
+        status:"error",
+        message:"You are not one of the approvers."
+      }))
     }
 
   }
 
-  React.useEffect(()=>{
-    if(OVERTIMEApproveData.status === 'succeeded' && approveOVERTIMEOpenModal){
-      window.alert(`${OVERTIMEApproveData.status.charAt(0).toUpperCase()}${OVERTIMEApproveData.status.slice(1)}`)
-      setTimeout(()=>{
-        window.location.reload();
-      }, 800)
-    } else if(OVERTIMEApproveData.status === 'failed' && approveOVERTIMEOpenModal){
-      window.alert(OVERTIMEApproveData.error)
-    }
-  }, [OVERTIMEApproveData.status])
+  const apiApproveOT = async (payload:any) => {
+
+    await axios.put(`${APILink}ot_new/${singleOVERTIMEDetailsData.id}/`, payload)
+
+      .then(res => {
+
+        dispatch(OVERTIMEViewFilterApproverAction({emp_no: state?.emp_no}))
+        dispatch(HandleAlertAction({
+          open: true,
+          status: "success",
+          message: "Approve Overtime Successfully"
+        }))
+        dispatch(HandleModalAction({
+          name: "viewOtModal",
+          value: false
+        }))
+
+
+      })
+      .catch(err => {
+        dispatch(OVERTIMEViewFilterApproverAction({emp_no: state?.emp_no}))
+        dispatch(HandleAlertAction({
+          open: true,
+          status: "error",
+          message: beautifyJSON(err.response.data)
+        }))
+        dispatch(HandleModalAction({
+          name: "viewOtModal",
+          value: false
+        }))
+      })
+  }
+
+  // React.useEffect(()=>{
+  //   if(OVERTIMEApproveData.status === 'succeeded' && approveOVERTIMEOpenModal){
+  //     window.alert(`${OVERTIMEApproveData.status.charAt(0).toUpperCase()}${OVERTIMEApproveData.status.slice(1)}`)
+  //     setTimeout(()=>{
+  //       window.location.reload();
+  //     }, 800)
+  //   } else if(OVERTIMEApproveData.status === 'failed' && approveOVERTIMEOpenModal){
+  //     window.alert(OVERTIMEApproveData.error)
+  //   }
+  // }, [OVERTIMEApproveData.status])
   return (
     <React.Fragment>
       <Transition in={approveOVERTIMEOpenModal} timeout={400}>

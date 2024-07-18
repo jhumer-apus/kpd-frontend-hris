@@ -6,10 +6,12 @@ import { OVERTIMEViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-
 import SinglePayslip from './overtime-modal-component';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { APILink, RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
-import { OVERTIMEEditAction } from '@/store/actions/procedurals';
-import { clearFields } from '@/helpers/utils';
+import { OVERTIMEEditAction, OVERTIMEViewAction } from '@/store/actions/procedurals';
+import { beautifyJSON, clearFields } from '@/helpers/utils';
+import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
+import axios from 'axios';
 
 
 
@@ -29,34 +31,78 @@ export default function DenyOVERTIMEModal(props: DenyOVERTIMEModalInterface) {
   const denyDate = dayjs(DateNow).format('MMM-DD-YY LT');
 
   const denyOVERTIME = () => { 
-    if(singleOVERTIMEDetailsData.ot_reason_disapproval){
-        return(
-          setSingleOVERTIMEDetailsData((prevState)=> {
-            dispatch(OVERTIMEEditAction({
-              ...prevState,
-              ot_reason_disapproval: `${prevState.ot_reason_disapproval}  <Updated: ${denyDate}>`
-            }))  
-            return({
-              ...prevState,
-              ot_reason_disapproval: `${prevState.ot_reason_disapproval} <Updated: ${denyDate}>`
-            })
-          })
-        )
-      } else {
-        window.alert('Please insert reason');
-      }
+
+    const payload = {
+      ...singleOVERTIMEDetailsData,
+      approver_emp_no: state?.emp_no,
+      status: "disapprove",
+      ot_reason_disapproval: `${singleOVERTIMEDetailsData.ot_reason_disapproval}`,
+      added_by: state?.emp_no
     }
 
-    React.useEffect(()=>{
-      if(OVERTIMEDenyState.status === 'succeeded' && denyOVERTIMEOpenModal){
-        window.alert(`${OVERTIMEDenyState.status.charAt(0).toUpperCase()}${OVERTIMEDenyState.status.slice(1)}`)
-        setTimeout(()=>{
-          window.location.reload();
-        }, 800)
-      } else if(OVERTIMEDenyState.status === 'failed' && denyOVERTIMEOpenModal){
-        window.alert(`Error: ${OVERTIMEDenyState.error}`)
-      }
-    }, [OVERTIMEDenyState.status])
+    if(singleOVERTIMEDetailsData.ot_reason_disapproval){
+        
+      apiDenyOT(payload)
+      setSingleOVERTIMEDetailsData((curr) => ({
+        ...payload
+      }))
+
+    } else {
+
+      dispatch(HandleAlertAction({
+        open:true,
+        status: "error",
+        message: "Please insert reason"
+      }))
+    }
+  }
+
+  const apiDenyOT = async (payload:any) => {
+
+    await axios.put(`${APILink}ot_new/${singleOVERTIMEDetailsData.id}/`, payload)
+
+      .then(res => {
+
+        dispatch(OVERTIMEViewAction({emp_no: state?.emp_no}))
+
+        dispatch(HandleAlertAction({
+          open: true,
+          status: "success",
+          message: "Deny Overtime Successfully"
+        }))
+
+        dispatch(HandleModalAction({
+          name: "viewOtModal",
+          value: false
+        }))
+
+      })
+      .catch(err => {
+
+        dispatch(OVERTIMEViewAction({emp_no: state?.emp_no}))
+        dispatch(HandleAlertAction({
+          open: true,
+          status: "error",
+          message: beautifyJSON(err.response.data)
+        }))
+
+        dispatch(HandleModalAction({
+          name: "viewOtModal",
+          value: false
+        }))
+      })
+  }
+
+    // React.useEffect(()=>{
+    //   if(OVERTIMEDenyState.status === 'succeeded' && denyOVERTIMEOpenModal){
+    //     window.alert(`${OVERTIMEDenyState.status.charAt(0).toUpperCase()}${OVERTIMEDenyState.status.slice(1)}`)
+    //     setTimeout(()=>{
+    //       window.location.reload();
+    //     }, 800)
+    //   } else if(OVERTIMEDenyState.status === 'failed' && denyOVERTIMEOpenModal){
+    //     window.alert(`Error: ${OVERTIMEDenyState.error}`)
+    //   }
+    // }, [OVERTIMEDenyState.status])
     
   return (
     <React.Fragment>

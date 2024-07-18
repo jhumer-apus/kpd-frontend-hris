@@ -23,7 +23,6 @@ export default function useFetchFileApplicationByApprover(url: string) {
 
         }).then((res:any) => {
             const resData = Array.isArray(res.data)? res.data: []
-            console.log(resData)
             setData(curr => resData)
             setStatus(curr => 'success')
 

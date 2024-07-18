@@ -90,6 +90,7 @@ export const SpecificEmployee = (props: initialState) => {
     const [type, setType] = useState("staticInfo");
 
     const [formSelectData, setFormSelectData] = useState({
+        // ...userData,
         permanent_province:{
             id:null,
             name:null,
@@ -111,6 +112,8 @@ export const SpecificEmployee = (props: initialState) => {
             code:null
         },
     })
+
+    // console.log(formSelectData)
 
     // const [monthlySalary, setMonthlySalary] = useState<number>(0)
 
@@ -138,10 +141,10 @@ export const SpecificEmployee = (props: initialState) => {
         fetchDepartments()
         fetchPositions()
         fetchDivisions()
-
-        if(userData?.department_code) {
-            fetchApprovers(parseInt(userData?.department_code))
-        }
+        fetchApprovers()
+        // if(userData?.department_code) {
+        //     fetchApprovers(parseInt(userData?.department_code))
+        // }
         // setMonthlySalary(curr => monthlySalaryComputation(userData?.emp_salary_basic?? 0))
     }, []);
 
@@ -174,10 +177,10 @@ export const SpecificEmployee = (props: initialState) => {
                 setValue(key, userData[key]);
             }
         }
-
-        if(userData?.department_code) {
-            fetchApprovers(parseInt(userData?.department_code))
-        }
+        fetchApprovers()
+        // if(userData?.department_code) {
+        //     fetchApprovers(parseInt(userData?.department_code))
+        // }
     }, [userData, setValue]);
 
     // useEffect(() => {
@@ -306,15 +309,12 @@ export const SpecificEmployee = (props: initialState) => {
             setDropDownData((curr:any) => ({...curr, positions: responsePositions}));
         })
     }
-    const fetchApprovers = (department: number) => {
+
+    const fetchApprovers = () => {
 
         setDropDownData((curr:any) => ({...curr, approvers: []}));
 
-        axios.get(`${APILink}approvers/`,{
-          params:{
-            department: department
-          }
-        }).then((response:any) => {
+        axios.get(`${APILink}approvers/`).then((response:any) => {
   
             const responseApprovers = response.data.map((approver:any) => {
                 return {
@@ -327,6 +327,27 @@ export const SpecificEmployee = (props: initialState) => {
   
         })
       }
+    // const fetchApprovers = (department: number) => {
+
+    //     setDropDownData((curr:any) => ({...curr, approvers: []}));
+
+    //     axios.get(`${APILink}approvers/`,{
+    //       params:{
+    //         department: department
+    //       }
+    //     }).then((response:any) => {
+  
+    //         const responseApprovers = response.data.map((approver:any) => {
+    //             return {
+    //             emp_no: approver.emp_no,
+    //             full_name: approver.full_name
+    //             }
+    //         })
+  
+    //         setDropDownData((curr:any) => ({...curr, approvers: responseApprovers}));
+  
+    //     })
+    //   }
 
       const fetchDivisions = () => {
         axios.get(`${APILink}division/`).then((response:any) => {
@@ -378,8 +399,7 @@ export const SpecificEmployee = (props: initialState) => {
             ...inputData,
             ...formSelectData
         }
-        console.log(data)
-        console.log(formSelectData)
+
         // Validate image if its file
         const isFile = validateImage(formSelectData?.employee_image)
         if(formSelectData?.employee_image == (null || undefined) && !userData?.employee_image) {
@@ -463,7 +483,7 @@ export const SpecificEmployee = (props: initialState) => {
             middle_name: data.middle_name,
             last_name: data.last_name,
             suffix: data.suffix?? null,
-            birthday: data.birthday,
+            birthday: data.birthday? dayjs(data.birthday).format('YYYY-MM-DDThh:mm:ss') : null,
             birth_place: data.birth_place,
             civil_status: data.civil_status,
             gender: data.gender,
@@ -481,8 +501,8 @@ export const SpecificEmployee = (props: initialState) => {
             hmo: data.hmo,
             other_duties_responsibilities: data.other_duties_responsibilities,
             payroll_no: data.payroll_no,
-            date_hired: data.date_hired,
-            // date_resigned: data.date_resigned,
+            date_hired: data.date_hired ? dayjs(data.date_hired).format('YYYY-MM-DDThh:mm:ss'): null,
+            date_resigned: data.date_resigned ? dayjs(data.date_resigned).format('YYYY-MM-DDThh:mm:ss'): null,
             accnt_no: data.accnt_no,
             emp_salary_basic: data.emp_salary_basic,
             emp_salary_type: "5",
@@ -501,7 +521,7 @@ export const SpecificEmployee = (props: initialState) => {
             // city_code: data.permanent_city_code?? userData?.permanent_city_code,
             branch_code: data.branch_code,
             department_code: data.department_code,
-            division_code: data.division_code,
+            // division_code: data.division_code,
             position_code: data.position_code,
             rank_code: data.rank_code,
             payroll_group_code: data.payroll_group_code,
@@ -1017,15 +1037,20 @@ export const SpecificEmployee = (props: initialState) => {
                                         <div className="my-4 md:flex md:items-center gap-4">
                                             <Input
                                                 // crossOrigin={undefined} {...register('birthday')}
-                                                onChange={(e)=> setFormSelectData((curr:any) => ({
-                                                    ...curr,
-                                                    birthday: e.target.value + 'T00:00:00'
-                                                }))}
+                                                onChange={(e)=> setFormSelectData((curr:any) => {
+                                                    console.log(e.target.value)
+                                                    return  ({
+                                                        ...curr,
+                                                        birthday: e.target.value
+                                                    })
+                                                    }
+                                                )}
+
                                                 type="date"
                                                 containerProps={{ className: "min-w-[72px] mb-2" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                label="Birthday: YYYY-MM-DD"
-                                                value={formSelectData?.birthday? dayjs(userData?.birthday).format('YYYY-MM-DD'): userData?.birthday?.split("T")[0]}
+                                                label="Birthday: YYYY-MM-dd"
+                                                defaultValue={userData?.birthday?.split("T")[0]}
                                                 disabled={!editMode2}
                                                 // icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                    
                                             />
@@ -1291,19 +1316,36 @@ export const SpecificEmployee = (props: initialState) => {
                                                         // crossOrigin={undefined} {...register('date_hired')}
                                                         onChange={(e)=> setFormSelectData((curr:any) => ({
                                                             ...curr,
-                                                            date_hired: e.target.value + 'T00:00:00'
+                                                            date_hired: e.target.value
                                                         }))}
                                                         type="date"
                                                         containerProps={{ className: "min-w-[72px] mb-2 md:mb-0" }}
                                                         labelProps={{ style: { color: true ? "unset" : '' } }}
                                                         label="Date Hired:"
                                                         disabled={!editMode3}
-                                                        value={userData?.date_hired? dayjs(userData?.date_hired).format('YYYY-MM-DD'): userData?.date_hired?.split("T")[0]}
+                                                        defaultValue={userData?.date_hired?.split("T")[0]}
                                                         // value={`${userData?.date_hired ? userData?.date_hired : ''}`}
-                                                        icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
-                                                <Input
-                                                        crossOrigin={undefined} {...register('date_resigned')}
-                                                        type="text"
+                                                        icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                        
+                                                />
+
+                                                    <Input
+                                                        // crossOrigin={undefined} {...register('date_resigned')}
+                                                        onChange={(e)=> setFormSelectData((curr:any) => {
+                                                            console.log(e.target.value)
+                                                            return ({
+                                                                ...curr,
+                                                                date_resigned: e.target.value
+                                                            })
+                                                        })}
+                                                        onBlur={(e)=> setFormSelectData((curr:any) => {
+                                                            console.log(e.target.value)
+                                                            return ({
+                                                                ...curr,
+                                                                date_resigned: e.target.value
+                                                            })
+                                                        })}
+                                                        defaultValue={userData?.date_resigned?.split("T")[0]}
+                                                        type="date"
                                                         containerProps={{ className: "min-w-[72px] mb-2 focused" }}
                                                         labelProps={{ style: { color: true ? "unset" : '' } }}
                                                         label="Date Resigned:"
@@ -1523,7 +1565,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                     <Select
                                                         key={dropDownData.departments.length > 0? "departments":"noDepartments"}
                                                         onChange={(val:any) => {
-                                                            fetchApprovers(val)
+                                                            // fetchApprovers(val)
                                                             setFormSelectData(curr => (
                                                                 {
                                                                     ...curr, 
@@ -1640,7 +1682,7 @@ export const SpecificEmployee = (props: initialState) => {
                                             </div>
                                             {showSalary()}
                                             
-                                            <div className="my-4 md:flex md:items-center gap-4">
+                                            {/* <div className="my-4 md:flex md:items-center gap-4">
                                                 <Input
                                                     crossOrigin={undefined} {...register('payroll_no')}
                                                     type="text"
@@ -1669,16 +1711,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                     }
                                                 </Select>
                                                 }
-                                                {/* <Input
-                                                    crossOrigin={undefined} {...register('division_code')}
-                                                    type="text"
-                                                    containerProps={{ className: "min-w-[72px] mb-2 md:mb-0 focused" }}
-                                                    labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                    label="Division Code:"
-                                                    disabled={!editMode3}
-                                                    icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}       
-                                                /> */}
-                                            </div>
+                                            </div> */}
                                             <div className="my-4 flex flex-col md:flex-row md:items-center gap-4">
                                                 <Input
                                                     crossOrigin={undefined} {...register('insurance_life')}

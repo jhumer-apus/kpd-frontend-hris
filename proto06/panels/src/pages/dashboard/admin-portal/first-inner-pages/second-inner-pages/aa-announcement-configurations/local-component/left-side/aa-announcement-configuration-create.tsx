@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
-import { Button, InputLabel, MenuItem, Select } from '@mui/material';
+import { Button, InputLabel, MenuItem, Select, Stack, Switch } from '@mui/material';
 import { TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
@@ -15,6 +15,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import MultiRankAutoCompleteLeft from './inner-ui-components/multiple-ranks-choose-modal';
 import MultiDepartmentAutoCompleteLeft from './inner-ui-components/multiple-departments-choose-modal';
+import { HandleAlertAction } from '@/store/actions/components';
 
 
 
@@ -26,18 +27,20 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
     const dispatch = useDispatch();
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail?.emp_no);
     const ANNOUNCEMENTCreatestate = useSelector((state: RootState)=> state.payrollEOY.ANNOUNCEMENTCreate);
-    const [createANNOUNCEMENT, setCreateANNOUNCEMENT] = useState<ANNOUNCEMENTCreateInterface>({
-        date_posted: null,
+    const [createANNOUNCEMENT, setCreateANNOUNCEMENT] = useState<any>({
+        emp_no: curr_user, // same as current_user. this field is the one who make the announcement
+        date_posted: null,    
         date_expiry: null,
-        order_by_no: null,
-        message: '',
-        for_departments_code: [],
-        for_ranks_code: []
+        is_pinned: false,
+        message: null,
+        for_departments_code: null,
+        for_ranks_code: null
     });
     const [radioState, setRadioState] = useState<boolean | null>(null)
 
     const onClickSubmit = (e:any) => {
         e.preventDefault()
+        console.log(createANNOUNCEMENT)
         dispatch(ANNOUNCEMENTCreateAction(createANNOUNCEMENT))
     };
 
@@ -56,14 +59,23 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
 
     useEffect(()=>{
         if(ANNOUNCEMENTCreatestate.status === `${globalReducerSuccess}`){
-            window.alert('Request Successful');
+            dispatch(HandleAlertAction({
+                open:true,
+                status:"success",
+                message: "Create Announcement successful"
+            }))
             // window.location.reload();
             dispatch(ANNOUNCEMENTViewAction());
             setTimeout(()=> {
                 dispatch(ANNOUNCEMENTCreateActionFailureCleanup());
             }, 200)
         }else if(ANNOUNCEMENTCreatestate.status === `${globalReducerFailed}`){
-            window.alert(`Request Failed, ${ANNOUNCEMENTCreatestate.error}`)
+
+            dispatch(HandleAlertAction({
+                open:true,
+                status:"error",
+                message: ANNOUNCEMENTCreatestate.error
+            }))
             setTimeout(()=> {
                 dispatch(ANNOUNCEMENTCreateActionFailureCleanup());
             }, 200)
@@ -87,7 +99,7 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
                             multiline
                             rows={4}
                             type="text"
-                            helperText={`${createANNOUNCEMENT?.message.length}/1000`}
+                            helperText={`${createANNOUNCEMENT?.message?.length ?? 0}/1000`}
                             inputProps = {
                                 {
                                     maxLength:1000
@@ -106,7 +118,28 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
                                 })
                             }}
                         />
-                        <FormControl fullWidth>
+                        <div>
+                            <Typography>Pin announcement?</Typography>
+                            <Stack direction="row" spacing={1} alignItems="center">
+                                <Typography>No</Typography>
+                                <Switch
+                                    onChange={(e:any) => {
+                                        const checkValue:boolean = e.target.checked
+                                        setCreateANNOUNCEMENT((prevState:any)=> {
+                                            return (
+                                                {
+                                                    ...prevState,
+                                                    is_pinned: checkValue
+                                                }
+                                            )
+                                        })
+                                    }}
+                                    inputProps={{ 'aria-label': 'controlled' }}
+                                />
+                                <Typography>Yes</Typography>
+                            </Stack>
+                        </div>
+                        {/* <FormControl fullWidth>
                             <InputLabel id="prority-level-label">Priority Level</InputLabel>
                             <Select
                                 labelId="prority-level-label"
@@ -129,7 +162,7 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
                                 <MenuItem value={2}>2 - Middle Priority</MenuItem>
                                 <MenuItem value={3}>3 - Least Priority</MenuItem>
                             </Select>
-                        </FormControl>
+                        </FormControl> */}
                         {/* <TextField 
                             sx={{width: '100%'}} 
                             label='Display Priority (1, 2, or 3):'

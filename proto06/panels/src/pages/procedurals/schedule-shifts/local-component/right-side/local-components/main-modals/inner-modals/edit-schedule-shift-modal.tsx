@@ -21,6 +21,8 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { HandleAlertAction } from '@/store/actions/components';
+import { beautifyJSON } from '@/helpers/utils';
 
 
 
@@ -41,11 +43,39 @@ export default function EditSCHEDULESHIFTModal(props: EditSCHEDULESHIFTModalInte
   );
   const editSCHEDULESHIFT = () => { 
     if(nullValues.length === 0){
+
+      if(validateShift(singleSCHEDULESHIFTDetailsData)) return
+
       dispatch(SCHEDULESHIFTEditAction(singleSCHEDULESHIFTDetailsData))
       } else {
       window.alert('A field has found to have no value, make sure to supplement it a value.');
     }
   }
+
+  const validateShift = (payload:any) => {
+    const errors:any = {}
+
+    const timeIn = dayjs(payload.time_in, 'HH:mm:ss')
+    const timeOut = dayjs(payload.time_out, 'HH:mm:ss')
+
+    const timeDiff = Math.abs(timeIn.diff(timeOut))
+    const limitHours = hoursToMilliseconds(4)
+
+    if(timeDiff < limitHours) 
+      errors['Schedule Shift'] = "Schedule shift must be greater than 4 hours"
+
+    if(Object.keys(errors).length > 0) {
+      dispatch(HandleAlertAction({
+        open: true,
+        status: "error",
+        message: beautifyJSON(errors)
+      }))
+      return true
+    }
+    return false
+  }
+
+  const hoursToMilliseconds = (hours:number) => hours * 60 * 60 * 1000;
 
   useEffect(()=>{
     if(SCHEDULESHIFTEditState.status){      
@@ -55,7 +85,13 @@ export default function EditSCHEDULESHIFTModal(props: EditSCHEDULESHIFTModalInte
           window.location.reload();
         }, 800)
       }else if (SCHEDULESHIFTEditState.status === 'failed'){
-        window.alert(`${SCHEDULESHIFTEditState.error}`)
+
+        dispatch(HandleAlertAction({
+          open: true,
+          status: "error",
+          message: SCHEDULESHIFTEditState?.error
+        }))
+        // window.alert(`${SCHEDULESHIFTEditState.error}`)
         dispatch(SCHEDULESHIFTCreateActionFailureCleanup());
       }
     }
@@ -105,7 +141,7 @@ export default function EditSCHEDULESHIFTModal(props: EditSCHEDULESHIFTModalInte
           <Typography variant='h6' className='border-b-2 border-green-700'>Editing Schedule Shift</Typography>
             <div className='flex gap-10 overflow-auto relative mt-4 p-4'>
                 <div className='flex gap-6 flex-col'>
-                    <FormControl>
+                    {/* <FormControl>
                         <FormLabel id="demo-controlled-radio-buttons-group">Overtime</FormLabel>
                         <RadioGroup
                             row
@@ -127,7 +163,7 @@ export default function EditSCHEDULESHIFTModal(props: EditSCHEDULESHIFTModalInte
                             <FormControlLabel value="true" control={<Radio />} label="With" />
                             <FormControlLabel value="false" control={<Radio />} label="Without" />
                         </RadioGroup>
-                    </FormControl>
+                    </FormControl> */}
                     <TextField 
                       // sx={{width: '100%', border: "1px solid red"}} 
                       label='Grace Period(mins):'
@@ -208,7 +244,7 @@ export default function EditSCHEDULESHIFTModal(props: EditSCHEDULESHIFTModalInte
                         )
                       }}
                     />
-                    <FormControl>
+                    {/* <FormControl>
                         <FormLabel id="demo-controlled-radio-buttons-group">Night Shift</FormLabel>
                         <RadioGroup
                             row
@@ -230,7 +266,7 @@ export default function EditSCHEDULESHIFTModal(props: EditSCHEDULESHIFTModalInte
                             <FormControlLabel value="true" control={<Radio />} label="Yes" />
                             <FormControlLabel value="false" control={<Radio />} label="No" />
                         </RadioGroup>
-                    </FormControl>
+                    </FormControl> */}
                 </div>
             </div>
             <div className='flex flex-col justify-center items-center'>

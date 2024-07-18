@@ -28,6 +28,11 @@ export enum ScheduleDailyColor {
 }
 
 
+export interface AlertType {
+    open: boolean,
+    status: "success" | "error" | "warning" | "info" | "" | null ,
+    message: string | null
+}
 
 export interface BeautifyObject extends JSON {
     [key: string]: any

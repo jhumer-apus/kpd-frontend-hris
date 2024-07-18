@@ -1,4 +1,4 @@
-import { useState, Fragment, Dispatch, SetStateAction } from 'react';
+import { useState, Fragment, Dispatch, SetStateAction, useEffect } from 'react';
 import { ANNOUNCEMENTViewInterface } from '@/types/types-payroll-eoy';
 import { Button } from '@mui/material';
 import {TextField} from '@mui/material';
@@ -7,6 +7,8 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
 import MultiDepartmentAutoCompleteRight from './autocomplete.tsx/multiple-departments-choose-modal';
+import DepartmentListFieldAnnouncement from '@/public-components/DepartmentListFieldAnnouncement';
+import RankListFieldAnnouncement from '@/public-components/RankListFieldAnnouncement';
 
 interface ANNOUNCEMENTModalUIInterface {
     singleANNOUNCEMENTDetailsData: ANNOUNCEMENTViewInterface;
@@ -35,6 +37,15 @@ function ANNOUNCEMENTModalUI(props: ANNOUNCEMENTModalUIInterface) {
         
     };
 
+    useEffect(() => {
+        setSingleANNOUNCEMENTDetailsData((curr) => ({
+          ...curr,
+          for_departments_code: Object.keys(singleANNOUNCEMENTDetailsData?.departments).map((key:any) => Number(key)),
+          for_ranks_code: Object.keys(singleANNOUNCEMENTDetailsData?.ranks).map((key:any) => Number(key))
+        }))
+    },[])
+
+
     return (
         <Fragment>
             <EditANNOUNCEMENTModal 
@@ -44,20 +55,31 @@ function ANNOUNCEMENTModalUI(props: ANNOUNCEMENTModalUIInterface) {
                 setEditANNOUNCEMENTOpenModal={setEditANNOUNCEMENTOpenModal}
                 setSingleANNOUNCEMENTOpenModal={setSingleANNOUNCEMENTOpenModal}    
             />
+            {/* <div className='flex justify-center my-8' container-name='leave_buttons'>
+                <Button variant='contained' onClick={()=> onClickModal(1)}>Edit Details</Button>
+            </div> */}
             <div className='flex overflow-auto justify-around gap-4 relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Announcement ID:' value={ThisProps.id ? ThisProps.id : '-'} InputProps={{readOnly: true,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Message:' multiline rows={5} value={(ThisProps?.message ? `${ThisProps?.message}` : '-')} InputProps={{readOnly: true,}} variant='outlined'/>
+                    <RankListFieldAnnouncement
+                        currentRanks={singleANNOUNCEMENTDetailsData?.for_ranks_code}
+                        isReadonly={true}
+                    />
                 </div>
                 <div className='flex gap-6 flex-col'>
-                    <TextField sx={{width: '100%', minWidth: '160px', color: 'green'}} label='Order By Number:' value={ThisProps.order_by_no || '-'} InputProps={{readOnly: true,}} variant='filled' focused/>
+                    <TextField sx={{width: '100%', minWidth: '160px', color: 'green'}} label='Is Pinned?' value={ThisProps?.is_pinned? "Yes": "No"} InputProps={{readOnly: true,}} variant='filled' focused/>
                     <TextField sx={{width: '100%'}} label='Date Added:' value={ThisProps.date_added? dayjs(ThisProps.date_added).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
-                    <TextField sx={{width: '100%'}} label='Is Posted:' value={ThisProps.is_posted? 'Yes' : 'No'} InputProps={{readOnly: true,}} variant='standard'/>
+                    <DepartmentListFieldAnnouncement
+                        currentDepartments={singleANNOUNCEMENTDetailsData?.for_departments_code}
+                        isReadonly={true}
+                    />
+                    {/* <TextField sx={{width: '100%'}} label='Is Posted:' value={ThisProps.is_posted? 'Yes' : 'No'} InputProps={{readOnly: true,}} variant='standard'/> */}
                 </div>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Created By Emp #:' value={ThisProps.emp_no || '-'} InputProps={{readOnly: true,}} variant='filled'/>
-                    <TextField sx={{width: '100%'}} label='Date Posted:' value={ThisProps.date_posted? dayjs(ThisProps.date_posted).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
-                    <TextField sx={{width: '100%'}} label='Expiry Date:' value={ThisProps.date_expiry? dayjs(ThisProps.date_expiry).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField className='w-48' label='Date Posted:' value={ThisProps.date_posted? dayjs(ThisProps.date_posted).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: 'w-48'}} label='Expiry Date:' value={ThisProps.date_expiry? dayjs(ThisProps.date_expiry).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     {/* <MultiDepartmentAutoCompleteRight viewANNOUNCEMENT={singleANNOUNCEMENTDetailsData} setViewANNOUNCEMENT={setSingleANNOUNCEMENTDetailsData}/> */}
                 </div>
             </div>

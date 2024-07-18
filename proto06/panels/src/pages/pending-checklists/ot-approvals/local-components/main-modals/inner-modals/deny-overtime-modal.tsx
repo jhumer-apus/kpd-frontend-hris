@@ -6,10 +6,12 @@ import { OVERTIMEViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-
 import SinglePayslip from './overtime-modal-component';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { APILink, RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
-import { OVERTIMEEditAction } from '@/store/actions/procedurals';
-import { clearFields } from '@/helpers/utils';
+import { OVERTIMEEditAction, OVERTIMEViewAction, OVERTIMEViewFilterApproverAction } from '@/store/actions/procedurals';
+import { beautifyJSON, clearFields } from '@/helpers/utils';
+import axios from 'axios';
+import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
 
 
 
@@ -28,35 +30,78 @@ export default function DenyOVERTIMEModal(props: DenyOVERTIMEModalInterface) {
   const DateNow = new Date();
   const denyDate = dayjs(DateNow).format('MMM-DD-YY LT');
 
-  const denyOVERTIME = () => { 
+  const denyOVERTIME = () => {
+
+    const payload = {
+      ...singleOVERTIMEDetailsData,
+      approver_emp_no: state?.emp_no,
+      status: "disapprove",
+      ot_reason_disapproval: `${singleOVERTIMEDetailsData.ot_reason_disapproval}`,
+      added_by: state?.emp_no
+    }
+
     if(singleOVERTIMEDetailsData.ot_reason_disapproval){
-        return(
-          setSingleOVERTIMEDetailsData((prevState)=> {
-            dispatch(OVERTIMEEditAction({
-              ...prevState,
-              ot_reason_disapproval: `${prevState.ot_reason_disapproval}  <Updated: ${denyDate}>`
-            }))  
-            return({
-              ...prevState,
-              ot_reason_disapproval: `${prevState.ot_reason_disapproval} <Updated: ${denyDate}>`
-            })
-          })
-        )
+
+        apiDenyOT(payload)
+        setSingleOVERTIMEDetailsData((curr) => ({
+          ...payload
+        }))
+        
       } else {
-        window.alert('Please insert reason');
+
+        dispatch(HandleAlertAction({
+          open:true,
+          status: "error",
+          message: "Please insert reason"
+        }))
       }
     }
 
-    React.useEffect(()=>{
-      if(OVERTIMEDenyData.status === 'succeeded' && denyOVERTIMEOpenModal){
-        window.alert(`${OVERTIMEDenyData.status.charAt(0).toUpperCase()}${OVERTIMEDenyData.status.slice(1)}`)
-        setTimeout(()=>{
-          window.location.reload();
-        }, 800)
-      } else if(OVERTIMEDenyData.status === 'failed' && denyOVERTIMEOpenModal){
-        window.alert(OVERTIMEDenyData.error)
-      }
-    }, [OVERTIMEDenyData.status])
+    const apiDenyOT = async (payload:any) => {
+
+      await axios.put(`${APILink}ot_new/${singleOVERTIMEDetailsData.id}/`, payload)
+  
+        .then(res => {
+
+          dispatch(OVERTIMEViewFilterApproverAction({emp_no: state?.emp_no}))
+
+          dispatch(HandleAlertAction({
+            open: true,
+            status: "success",
+            message: "Deny Overtime Successfully"
+          }))
+
+          dispatch(HandleModalAction({
+            name: "viewOtModal",
+            value: false
+          }))
+  
+        })
+        .catch(err => {
+
+          dispatch(OVERTIMEViewFilterApproverAction({emp_no: state?.emp_no}))
+          dispatch(HandleAlertAction({
+            open: true,
+            status: "error",
+            message: beautifyJSON(err.response.data)
+          }))
+
+          dispatch(HandleModalAction({
+            name: "viewOtModal",
+            value: false
+          }))
+        })
+    }
+    // React.useEffect(()=>{
+    //   if(OVERTIMEDenyData.status === 'succeeded' && denyOVERTIMEOpenModal){
+    //     window.alert(`${OVERTIMEDenyData.status.charAt(0).toUpperCase()}${OVERTIMEDenyData.status.slice(1)}`)
+    //     setTimeout(()=>{
+    //       window.location.reload();
+    //     }, 800)
+    //   } else if(OVERTIMEDenyData.status === 'failed' && denyOVERTIMEOpenModal){
+    //     window.alert(OVERTIMEDenyData.error)
+    //   }
+    // }, [OVERTIMEDenyData.status])
   return (
     <React.Fragment>
       <Transition in={denyOVERTIMEOpenModal} timeout={400}>

@@ -4,11 +4,18 @@ import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
 import { OBTViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
 import SinglePayslip from './obt-modal-component';
-import { Button, Typography } from '@mui/material';
+import { Alert, Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { APILink, RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
-import { OBTEditAction, OBTEditActionFailureCleanup } from '@/store/actions/procedurals';
+import { OBTEditAction, OBTEditActionFailureCleanup, OBTViewAction, OBTViewFilterApproverAction } from '@/store/actions/procedurals';
+import axios from 'axios';
+import { CheckIcon } from '@heroicons/react/24/solid';
+import { useEffect, useState } from 'react';
+import AlertMessage from '@/public-components/AlertMessage';
+import { AlertType } from '@/types/index';
+import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
+import { beautifyJSON } from '@/helpers/utils';
 
 
 
@@ -17,58 +24,111 @@ interface ApproveOBTModalInterface {
     approveOBTOpenModal: boolean; 
     setApproveOBTOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
     setSingleOBTDetailsData: React.Dispatch<React.SetStateAction<OBTViewInterface>>;
+    setSingleOBTOpenModal: any
 }
 
 export default function ApproveOBTModal(props: ApproveOBTModalInterface) {
   const dispatch = useDispatch();
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
   const OBTApproveData = useSelector((state: RootState)=> state.procedurals.OBTEdit)
-  const {approveOBTOpenModal, setApproveOBTOpenModal, singleOBTDetailsData, setSingleOBTDetailsData} = props;
+  const {approveOBTOpenModal, setApproveOBTOpenModal, singleOBTDetailsData, setSingleOBTDetailsData, setSingleOBTOpenModal} = props;
+
+
+  
+  const apiApproveOBT = async (payload:any) => {
+  
+    await axios.put(`${APILink}obt_new/${singleOBTDetailsData.id}/`, payload)
+      .then(res => {
+
+          dispatch(OBTViewFilterApproverAction({emp_no: state?.emp_no}))
+          
+          dispatch(HandleAlertAction({
+            open:true,
+            status:"success",
+            message:"Approve OBT Successfully"
+          }))
+
+          dispatch(HandleModalAction({
+            name: "viewObtModal",
+            value: false
+          }))
+
+        } 
+      )
+      .catch(err => {
+
+          dispatch(OBTViewFilterApproverAction({emp_no: state?.emp_no}))
+
+          dispatch(HandleAlertAction({
+            open:true,
+            status:"error",
+            message:beautifyJSON(err.response.data)
+          }))
+
+          dispatch(HandleModalAction({
+            name: "viewObtModal",
+            value: false
+          }))
+        }
+      )
+  }
 
   const approveOBT = () => { 
     const DateNow = new Date();
     const approvedDate = dayjs(DateNow).format('YYYY-MM-DDTHH:mm:ss');
+    
+    const payload = {
+      ...singleOBTDetailsData,
+      status: "approve",
+      approver_emp_no: state?.emp_no,
+    }
+
     if(state?.emp_no === singleOBTDetailsData.obt_approver1_empno  || ((state?.rank_code as number) > singleOBTDetailsData?.applicant_rank)){
-      setSingleOBTDetailsData((prevState)=> {
-        dispatch(OBTEditAction({
-          ...prevState,
-          obt_date_approved1: approvedDate
-        }))
-        return({
-          ...prevState,
-          obt_date_approved1: approvedDate
-        })
-      })
+
+      payload.obt_date_approved1 = approvedDate
+
+      setSingleOBTDetailsData((curr:any) => ({
+        ...payload
+      }))
+
+      apiApproveOBT(payload)
+
+
     } else if(state?.emp_no === singleOBTDetailsData.obt_approver2_empno){
-      setSingleOBTDetailsData((prevState)=> {
-        dispatch(OBTEditAction({
-          ...prevState,
-          obt_date_approved2: approvedDate
-        }))
-        return({
-          ...prevState,
-          obt_date_approved2: approvedDate
-        })
-      })
+
+      payload.obt_date_approved2 = approvedDate
+
+      setSingleOBTDetailsData((curr:any) => ({
+        ...payload
+      }))
+
+      apiApproveOBT(payload)
+
     } else {
-      window.alert('You are not one of the approvers.')
+
+      dispatch(HandleAlertAction({
+        open:true,
+        status:"error",
+        message:"You are not one of the approvers"
+      }))
+
     }
 
   }
 
-  React.useEffect(()=>{
-    if(OBTApproveData.status === 'succeeded' && approveOBTOpenModal){
-      window.alert(`${OBTApproveData.status.charAt(0).toUpperCase()}${OBTApproveData.status.slice(1)}`)
-      window.location.reload();
-      dispatch(OBTEditActionFailureCleanup())
-      // setTimeout(()=>{
+  // React.useEffect(()=>{
+  //   if(OBTApproveData.status === 'succeeded' && approveOBTOpenModal){
+  //     window.alert(`${OBTApproveData.status.charAt(0).toUpperCase()}${OBTApproveData.status.slice(1)}`)
+  //     window.location.reload();
+  //     dispatch(OBTEditActionFailureCleanup())
+  //     // setTimeout(()=>{
 
-      // }, 200)
-    } else if(OBTApproveData.status === 'failed' && approveOBTOpenModal){
-      window.alert(OBTApproveData.error)
-      dispatch(OBTEditActionFailureCleanup())
-    }
-  }, [OBTApproveData.status])
+  //     // }, 200)
+  //   } else if(OBTApproveData.status === 'failed' && approveOBTOpenModal){
+  //     window.alert(OBTApproveData.error)
+  //     dispatch(OBTEditActionFailureCleanup())
+  //   }
+  // }, [OBTApproveData.status])
   
   return (
     <React.Fragment>

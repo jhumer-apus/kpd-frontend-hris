@@ -3,11 +3,14 @@ import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
 import { ANNOUNCEMENTViewInterface } from '@/types/types-payroll-eoy';
-import { Button, TextField, Typography } from '@mui/material';
+import { Button, Stack, Switch, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
 import { ANNOUNCEMENTEditAction, ANNOUNCEMENTEditActionFailureCleanup, ANNOUNCEMENTViewAction } from '@/store/actions/payroll-eoy';
 import DateAssignedANNOUNCEMENTEdit from './fields/date-fields-right';
+import MultiDepartmentAutoCompleteLeft from '../../../../left-side/inner-ui-components/multiple-departments-choose-modal';
+import DepartmentListFieldAnnouncement from '@/public-components/DepartmentListFieldAnnouncement';
+import RankListFieldAnnouncement from '@/public-components/RankListFieldAnnouncement';
 
 interface EditANNOUNCEMENTModalInterface {
     singleANNOUNCEMENTDetailsData: ANNOUNCEMENTViewInterface;
@@ -32,11 +35,48 @@ export default function EditANNOUNCEMENTModal(props: EditANNOUNCEMENTModalInterf
 
   const editANNOUNCEMENT = (e:any) => { 
     e.preventDefault()
+
     dispatch(ANNOUNCEMENTEditAction({
       ...singleANNOUNCEMENTDetailsData,
-      emp_no: curr_user || NaN
+      emp_no: curr_user || NaN,
+
     }))
   }
+
+  const handleChangeDepartments = (e:any, value:any) => {
+    setSingleANNOUNCEMENTDetailsData(curr => ({
+      ...singleANNOUNCEMENTDetailsData,
+      for_departments_code: value.map((val:any) => val.id)
+    }))
+  }
+
+  const handleChangeRanks = (e:any, value:any) => {
+    setSingleANNOUNCEMENTDetailsData(curr => ({
+      ...singleANNOUNCEMENTDetailsData,
+      for_ranks_code: value.map((val:any) => val.id)
+    }))
+  }
+
+  // const currentDepartments = 
+  //   Object
+  //     .keys(singleANNOUNCEMENTDetailsData?.departments)
+  //     .map((key:any) => (
+  //       {
+  //         id: Number(key),
+  //         dept_name: singleANNOUNCEMENTDetailsData?.departments[key]
+  //       }
+  //     ));
+  
+
+  //   const currentRanks = 
+  //     Object
+  //       .keys(singleANNOUNCEMENTDetailsData?.ranks)
+  //       .map((key:any) => (
+  //         {
+  //           id: Number(key),
+  //           rank_name: singleANNOUNCEMENTDetailsData?.ranks[key]
+  //         }
+  //       ))
 
   useEffect(()=>{
     if(ANNOUNCEMENTEditState.status){      
@@ -107,7 +147,30 @@ export default function EditANNOUNCEMENTModal(props: EditANNOUNCEMENTModalInterf
               <div className='flex flex-col gap-5'>
                     <div className='flex flex-col gap-6'>
                       <DateAssignedANNOUNCEMENTEdit editANNOUNCEMENT={singleANNOUNCEMENTDetailsData} setEditANNOUNCEMENT={setSingleANNOUNCEMENTDetailsData}/>
-                        <TextField
+                      <div>
+                          <Typography>Pin announcement?</Typography>
+                          <Stack direction="row" spacing={1} alignItems="center">
+                              <Typography>No</Typography>
+                              <Switch
+                                checked={singleANNOUNCEMENTDetailsData.is_pinned}
+                                onChange={(e:any) => {
+                                    const checkValue:boolean = e.target.checked
+                                    setSingleANNOUNCEMENTDetailsData((prevState:any)=> {
+                                        return (
+                                            {
+                                                ...prevState,
+                                                is_pinned: checkValue
+                                            }
+                                        )
+                                    })
+                                }}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                              />
+                              <Typography>Yes</Typography>
+                            </Stack>
+                        </div>
+                        
+                        {/* <TextField
                             required 
                             sx={{width: '100%'}} 
                             label='Order By No.'
@@ -126,7 +189,7 @@ export default function EditANNOUNCEMENTModal(props: EditANNOUNCEMENTModalInterf
                                     )
                                 })
                             }}
-                        />
+                        /> */}
                         <TextField
                             required 
                             sx={{width: '100%'}} 
@@ -155,6 +218,15 @@ export default function EditANNOUNCEMENTModal(props: EditANNOUNCEMENTModalInterf
                                 })
                             }}
                         />
+                        <DepartmentListFieldAnnouncement
+                          currentDepartments={singleANNOUNCEMENTDetailsData.for_departments_code}
+                          handleChange={handleChangeDepartments}
+                        />
+                        <RankListFieldAnnouncement
+                          currentRanks={singleANNOUNCEMENTDetailsData.for_ranks_code}
+                          handleChange={handleChangeRanks}
+                        />
+                        {/* <MultiDepartmentAutoCompleteLeft createANNOUNCEMENT={singleANNOUNCEMENTDetailsData} setCreateANNOUNCEMENT={setSingleANNOUNCEMENTDetailsData}/> */}
                       </div>
               </div>
               <div className='flex justify-around'>

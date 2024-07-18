@@ -8,7 +8,7 @@ import OVERTIMETypeAutoComplete from './inner-ui-components/ot-type-autocomplete
 import DateFromToOVERTIMECreate from './inner-ui-components/date-from-to-field';
 import { Typography } from '@mui/joy';
 import { OVERTIMECreateInterface } from '@/types/types-pages';
-import { OVERTIMECreateAction, OVERTIMECreateActionFailureCleanup } from '@/store/actions/procedurals';
+import { OVERTIMECreateAction, OVERTIMECreateActionFailureCleanup, OVERTIMEViewFilterEmployeeAction } from '@/store/actions/procedurals';
 
 //LIBRARIES
 import axios, {AxiosResponse, AxiosError} from 'axios'
@@ -16,6 +16,7 @@ import axios, {AxiosResponse, AxiosError} from 'axios'
 //STORE
 import { APILink } from '@/store/configureStore';
 import { beautifyJSON } from '@/helpers/utils';
+import { HandleAlertAction } from '@/store/actions/components';
 
 interface CreateOVERTIMEModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -42,17 +43,17 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
         // dispatch(OVERTIMECreateAction(createOVERTIME))
         fileOTPost()
     };
-    useEffect(()=>{
-        if(OVERTIMECreatestate.status === 'succeeded'){
-            window.alert('Request Successful');
-            window.location.reload();
-        }else if(OVERTIMECreatestate.status === 'failed'){
-            window.alert(`Request Failed, ${OVERTIMECreatestate.error}`)
-            setTimeout(()=> {
-                dispatch(OVERTIMECreateActionFailureCleanup());
-            }, 1000)
-        }
-    }, [OVERTIMECreatestate.status])
+    // useEffect(()=>{
+    //     if(OVERTIMECreatestate.status === 'succeeded'){
+    //         window.alert('Request Successful');
+    //         window.location.reload();
+    //     }else if(OVERTIMECreatestate.status === 'failed'){
+    //         window.alert(`Request Failed, ${OVERTIMECreatestate.error}`)
+    //         setTimeout(()=> {
+    //             dispatch(OVERTIMECreateActionFailureCleanup());
+    //         }, 1000)
+    //     }
+    // }, [OVERTIMECreatestate.status])
 
     const sendEmail = async (emp_no:string | number, app_pk: number) => {
 
@@ -66,12 +67,20 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
     
         await axios.post(`${APILink}reset_password_email/`, body).then(res => {
     
-          window.alert(`Application has been sent to the approver through email`)
+            dispatch(HandleAlertAction({
+                open:true,
+                status:"success",
+                message:"Application has been sent to the approver through email"
+            }))
     
         }).catch(err => {
     
-          console.log(err)
-          window.alert("Failed to email the approver")
+            console.log(err)
+            dispatch(HandleAlertAction({
+                open:true,
+                status:"error",
+                message:"Failed to email the approver"
+            }))
     
         })
     }
@@ -89,16 +98,26 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
             added_by: userData?.emp_no,
         }
         await axios.post(`${APILink}ot/`, payload)
-            .then((res:AxiosResponse) => {
+            .then((res:any) => {
+
                 setIsSubmittingRequest(false)
-                window.alert("Request Successful")
+                dispatch(OVERTIMEViewFilterEmployeeAction({emp_no: userData?.emp_no}))
+                dispatch(HandleAlertAction({
+                    open: true,
+                    status: "success",
+                    message: `File ${userData?.rank_hierarchy == 2? 'Allowance Time': 'Overtime'} Successfully`
+                }))
                 sendEmail(createOVERTIME.emp_no, res.data.id)
 
             })
-            .catch((err:AxiosError) => {
+            .catch((err:any) => {
                 setIsSubmittingRequest(false)
-                console.error(err)
-                window.alert(beautifyJSON(err.response?.data))
+                dispatch(HandleAlertAction({
+                    open: true,
+                    status: "error",
+                    message: beautifyJSON(err.response?.data)
+                }))
+
             })
     }
 

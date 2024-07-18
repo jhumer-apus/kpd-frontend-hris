@@ -84,12 +84,15 @@ function ExportToCsvButton(props: ExportToCsvButtonInterface)  {
 
     const cleanValue = (value:string) => {
 
-      const valueString = value.toString();
+      if(value) {
+        const valueString = value?.toString();
 
-      if(valueString.includes(",")) {
-        return `"${value}"`;
+        if(valueString.includes(",")) {
+          return `"${value}"`;
+        }
       }
-      return valueString;
+
+      return value;
     }
 
     const getMonthName = (monthNumber:any) => {

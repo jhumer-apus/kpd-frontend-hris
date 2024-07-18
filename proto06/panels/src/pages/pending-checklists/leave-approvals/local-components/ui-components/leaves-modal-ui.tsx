@@ -223,6 +223,9 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
         })
     }
     
+    const apiApproveLeave = async () => {
+        //
+    }
     return (
         <React.Fragment>
             <ApproveLEAVEModal singleLEAVEDetailsData={singleLEAVEDetailsData} setSingleLEAVEDetailsData={setSingleLEAVEDetailsData} approveLEAVEOpenModal={approveLEAVEOpenModal} setApproveLEAVEOpenModal={setApproveLEAVEOpenModal}/>
@@ -234,7 +237,7 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
                     <TextField sx={{width: '100%'}} label='Cutoff Period:' value={data.cuttOffPeriod || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Approver1:' value={ThisProps.leave_approver1_empno || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Approver2:' value={ThisProps.leave_approver2_empno || '-'} InputProps={{readOnly: true,}} variant='standard'/>
-                    <TextField sx={{width: '100%'}} label='LEAVE Description:' value={ThisProps.leave_type == 2? cleanRemarks(ThisProps.leave_remarks): ThisProps.leave_remarks || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
+                    <TextField sx={{width: '100%'}} label='LEAVE Description:' value={leaveType.is_sl? cleanRemarks(ThisProps.leave_remarks): ThisProps.leave_remarks || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
                 </div>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px', color: 'green'}} label='Status:' value={ThisProps.leave_approval_status || '-'} InputProps={{readOnly: true,}} color={ThisProps.leave_approval_status === 'APD' ? 'success' : ThisProps.leave_approval_status === 'DIS' ? 'error' : 'warning'} variant='filled' focused/>
@@ -245,7 +248,7 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
                     {((leaveType.is_sl  && !leaveType.is_vl && !leaveType.is_el) || leaveType.name=="Sick Leave") && 
                         <Button onClick={viewImages}>View Supporting Image</Button>
                     }
-                    {ThisProps.leave_type == 2 && getNumberOfSickLeaves(ThisProps.leave_remarks) >= 3 && (
+                    {leaveType.is_sl && getNumberOfSickLeaves(ThisProps.leave_remarks) >= 3 && (
                         <div className='flex items-center space-x-4'>
                             <ExclamationCircleIcon className="h-16" color="red"/>
                             <Typography>

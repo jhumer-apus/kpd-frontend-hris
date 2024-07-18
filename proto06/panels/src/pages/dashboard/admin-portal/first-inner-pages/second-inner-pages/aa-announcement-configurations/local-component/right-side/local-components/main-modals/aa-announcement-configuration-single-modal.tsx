@@ -53,7 +53,8 @@ export default function ViewANNOUNCEMENTSingleModal(props: SingleANNOUNCEMENTInt
                   entering: { opacity: 1 },
                   entered: { opacity: 1 },
                 }[state],
-                overflow: 'auto',
+                overflowY: 'auto',
+                width: 'fit',
             }}
         >
           <ANNOUNCEMENTModalComponent 

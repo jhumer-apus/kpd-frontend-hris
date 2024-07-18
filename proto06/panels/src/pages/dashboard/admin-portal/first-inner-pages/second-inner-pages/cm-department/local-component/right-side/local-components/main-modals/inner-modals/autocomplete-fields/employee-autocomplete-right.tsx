@@ -18,20 +18,20 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
     const {setCreateDEPARTMENT, createDEPARTMENT} = props;
     const state = useSelector((state:RootState)=> state.employees);
     const [employeesList, setEmployeesList] = useState<{employee: string, emp_no: number}[]>([])
-    const [selectedEmployeeId, setSelectedEmployeeId] = useState<number | null>(null);
+    // const [selectedEmployeeId, setSelectedEmployeeId] = useState<number | null>(null);
 
-    useEffect(()=> {
-        if(selectedEmployeeId){
-            setCreateDEPARTMENT((prevState)=> {
-                return(
-                    {
-                        ...prevState,
-                        dept_lead: selectedEmployeeId
-                    }
-                )
-            })
-        }
-    }, [selectedEmployeeId])
+    // useEffect(()=> {
+    //     if(selectedEmployeeId){
+    //         setCreateDEPARTMENT((prevState)=> {
+    //             return(
+    //                 {
+    //                     ...prevState,
+    //                     dept_lead: selectedEmployeeId
+    //                 }
+    //             )
+    //         })
+    //     }
+    // }, [selectedEmployeeId])
 
     useEffect(() => {
         if (state.employees_list) {
@@ -55,19 +55,39 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
         ...option,
         };
     });
-    const defaultOption = options?.find((option) => option.emp_no === createDEPARTMENT.dept_lead)
+
+    const defaultOption = options?.find((option) => option.emp_no === createDEPARTMENT.dept_lead) ?? null
     
-    const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string, reason: AutocompleteInputChangeReason) => {
-        const matchingEmployee = employeesList.find(
-        (employeeItems) => employeeItems.employee.toLowerCase().includes(newInputValue.toLowerCase())
-        );
-        if (matchingEmployee) {
-            setSelectedEmployeeId(matchingEmployee.emp_no);
+    // const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string, reason: AutocompleteInputChangeReason) => {
+    //     const matchingEmployee = employeesList.find(
+    //     (employeeItems) => employeeItems.employee.toLowerCase().includes(newInputValue.toLowerCase())
+    //     );
+    //     if (matchingEmployee) {
+    //         setSelectedEmployeeId(matchingEmployee.emp_no);
+    //     } else {
+    //       setSelectedEmployeeId(null);
+    //     // window.alert('No Matched Employee in the list is found. Create an employee entry first')
+    //     }
+    // };
+    const handleChange = (e:any, value:any) => {
+        if(value) {
+            updateDeptLead(value?.emp_no)
         } else {
-          setSelectedEmployeeId(null);
-        // window.alert('No Matched Employee in the list is found. Create an employee entry first')
+            updateDeptLead(null)
         }
-    };
+    }
+
+    const updateDeptLead = (emp_no: number | null) => {
+        setCreateDEPARTMENT((prevState:any)=> {
+                return(
+                    {
+                        ...prevState,
+                        dept_lead: emp_no
+                    }
+                )
+            })
+    }
+    
 
     const isOptionEqualToValue = (option: { employee: string; emp_no: number }, value: { employee: string; emp_no: number }) => {
         return option.emp_no === value.emp_no;
@@ -75,50 +95,29 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
     
     return (
         <>
-        {defaultOption &&
-        <Autocomplete
-        // disableCloseOnSelect
-        // key={createDEPARTMENT.dept_lead}
-        noOptionsText={'Loading... Please Wait.'}
-        options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
-        groupBy={(option) => option.firstLetter}
-        getOptionLabel={(option) => option.employee}
-        defaultValue={defaultOption}
-        onInputChange={handleInputChange}
-        sx={{ width: "90%" }}
-        isOptionEqualToValue={isOptionEqualToValue}
-        renderInput={(params) => 
-            {   
-                return(
-                    <TextField {...params} label="Department Lead" />
-                )
+            <Autocomplete
+                // disableCloseOnSelect
+                // key={createDEPARTMENT.dept_lead}
+                noOptionsText={'Loading... Please Wait.'}
+                options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
+                groupBy={(option:any) => option.firstLetter}
+                getOptionLabel={(option) => option.employee}
+                value={defaultOption}
+                onChange={handleChange}
+                sx={{ width: "90%" }}
+                isOptionEqualToValue={isOptionEqualToValue}
+                renderInput={(params) => 
+                    {   
+                        return(
+                            <TextField {...params} label="Department Lead" />
+                        )
 
-            }
+                    }
 
-        }
-        clearIcon={null}
-        />
-        }
-        {!defaultOption &&
-        <Autocomplete
-        noOptionsText={'Loading... Please Wait.'}
-        options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
-        groupBy={(option) => option.firstLetter}
-        getOptionLabel={(option) => option.employee}
-        onInputChange={handleInputChange}
-        sx={{ width: '90%' }}
-        isOptionEqualToValue={isOptionEqualToValue}
-        renderInput={(params) => 
-            {   
-                return(
-                    <TextField {...params} label="Loading Values..." />
-                )
-
-            }
-
-        }
-        />
-        }
+                }
+                clearIcon={null}
+            />
+        
         </>
     );
 }

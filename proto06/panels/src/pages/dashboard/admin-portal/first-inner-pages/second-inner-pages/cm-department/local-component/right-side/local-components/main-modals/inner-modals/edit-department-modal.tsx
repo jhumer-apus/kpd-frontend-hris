@@ -9,6 +9,7 @@ import { RootState, globalReducerFailed } from '@/store/configureStore';
 import { DEPARTMENTEditAction, DEPARTMENTEditActionFailureCleanup, DEPARTMENTViewAction } from '@/store/actions/categories';
 import EmployeeAutoCompleteRight from './autocomplete-fields/employee-autocomplete-right';
 import BranchAutoCompleteRight from './autocomplete-fields/branch-autocomplete-right';
+import { HandleAlertAction } from '@/store/actions/components';
 
 
 
@@ -44,7 +45,13 @@ export default function EditDEPARTMENTModal(props: EditDEPARTMENTModalInterface)
 
   useEffect(()=>{  
     if(DEPARTMENTEditState.status === 'succeeded'){
-      window.alert(`${DEPARTMENTEditState.status.charAt(0).toUpperCase()}${DEPARTMENTEditState.status.slice(1)}`)
+      dispatch(HandleAlertAction({
+        open:true,
+        status:"success",
+        message:"Update Department Details Successful"
+      }))
+
+      // window.alert(`${DEPARTMENTEditState.status.charAt(0).toUpperCase()}${DEPARTMENTEditState.status.slice(1)}`)
       setEditDEPARTMENTOpenModal(false);
       setSingleDEPARTMENTOpenModal(false);
       dispatch(DEPARTMENTViewAction());
@@ -52,7 +59,13 @@ export default function EditDEPARTMENTModal(props: EditDEPARTMENTModalInterface)
         dispatch(DEPARTMENTEditActionFailureCleanup())
       }, 200)
     } else if (DEPARTMENTEditState.status === `${globalReducerFailed}`){
-      window.alert(`Request Failed, ${DEPARTMENTEditState.error}`)
+
+      dispatch(HandleAlertAction({
+        open:true,
+        status:"error",
+        message:DEPARTMENTEditState.error
+      }))
+      // window.alert(`Request Failed, ${DEPARTMENTEditState.error}`)
       setTimeout(()=> {
         dispatch(DEPARTMENTEditActionFailureCleanup())
       }, 200)
@@ -108,7 +121,7 @@ export default function EditDEPARTMENTModal(props: EditDEPARTMENTModalInterface)
               <div className='flex flex-col justify-center items-center gap-5'>
                 <TextField
                 sx={{width: '90%'}}
-                  label='Branch Name'
+                  label='Department Name'
                   type='text'
                   required
                   value={singleDEPARTMENTDetailsData.dept_name}

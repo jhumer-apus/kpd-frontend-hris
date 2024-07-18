@@ -6,10 +6,12 @@ import { UAViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages'
 import SinglePayslip from './ua-modal-component';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { APILink, RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
-import { UAEditAction } from '@/store/actions/procedurals';
-import { clearFields } from '@/helpers/utils';
+import { UAEditAction, UAViewAction, UAViewFilterApproverAction, UAViewFilterEmployeeAction } from '@/store/actions/procedurals';
+import { beautifyJSON, clearFields } from '@/helpers/utils';
+import axios from 'axios';
+import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
 
 
 
@@ -29,34 +31,78 @@ export default function DenyUAModal(props: DenyUAModalInterface) {
   const denyDate = dayjs(DateNow).format('MMM-DD-YY LT');
 
   const denyUA = () => { 
-    if(singleUADetailsData.ua_reason_disapproval){
-        return(
-          setSingleUADetailsData((prevState)=> {
-            dispatch(UAEditAction({
-              ...prevState,
-              ua_reason_disapproval: `${prevState.ua_reason_disapproval}  <Updated: ${denyDate}>`
-            }))  
-            return({
-              ...prevState,
-              ua_reason_disapproval: `${prevState.ua_reason_disapproval} <Updated: ${denyDate}>`
-            })
-          })
-        )
-      } else {
-        window.alert('Please insert reason');
-      }
+
+    const payload = {
+      ...singleUADetailsData,
+      approver_emp_no: state?.emp_no,
+      status: "disapprove",
+      ua_reason_disapproval: `${singleUADetailsData.ua_reason_disapproval}`,
+      added_by: state?.emp_no
     }
 
-    React.useEffect(()=>{
-      if(UADenyData.status === 'succeeded' && denyUAOpenModal){
-        window.alert(`${UADenyData.status.charAt(0).toUpperCase()}${UADenyData.status.slice(1)}`)
-        setTimeout(()=>{
-          window.location.reload();
-        }, 800)
-      } else if(UADenyData.status === 'failed' && denyUAOpenModal){
-        window.alert(UADenyData.error)
-      }
-    }, [UADenyData.status])
+
+    if(singleUADetailsData.ua_reason_disapproval){
+
+      apiADenyUa(payload)
+      setSingleUADetailsData((curr:any) => ({
+        ...payload
+      }))
+
+    } else {
+
+      dispatch(HandleAlertAction({
+        open:true,
+        status:"error",
+        message:"Please insert reason"
+      }))
+    }
+  }
+
+  const apiADenyUa = async (payload:any) => {
+
+      await axios.put(`${APILink}ua_new/${singleUADetailsData.id}/`, payload)
+          .then(res => {
+
+              dispatch(UAViewFilterApproverAction({emp_no: state?.emp_no}))
+
+              dispatch(HandleAlertAction({
+                  open:true,
+                  status:"success",
+                  message:"Deny Unaccounted Attendance Successfully"
+              }))
+  
+              dispatch(HandleModalAction({
+                name: "viewUaModal",
+                value: false
+              }))
+          })
+          .catch((err:any) => {
+            
+            dispatch(UAViewFilterApproverAction({emp_no: state?.emp_no}))
+
+            dispatch(HandleAlertAction({
+              open:true,
+              status:"error",
+              message: beautifyJSON(err.response.data)
+            }))
+  
+            dispatch(HandleModalAction({
+              name: "viewUaModal",
+              value: false
+            }))
+        })
+  }
+
+    // React.useEffect(()=>{
+    //   if(UADenyData.status === 'succeeded' && denyUAOpenModal){
+    //     window.alert(`${UADenyData.status.charAt(0).toUpperCase()}${UADenyData.status.slice(1)}`)
+    //     setTimeout(()=>{
+    //       window.location.reload();
+    //     }, 800)
+    //   } else if(UADenyData.status === 'failed' && denyUAOpenModal){
+    //     window.alert(UADenyData.error)
+    //   }
+    // }, [UADenyData.status])
   return (
     <React.Fragment>
       <Transition in={denyUAOpenModal} timeout={400}>

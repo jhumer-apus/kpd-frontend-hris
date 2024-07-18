@@ -7,8 +7,9 @@ import useDtrState from '@/custom-hooks/use-dtr-state';
 import { ApprovalOVERTIMEPageDescriptions, ApprovalOVERTIMEPageColumns } from '@/data/pages-data/your-approvals-data/overtime-data';
 import ViewOVERTIMESingleModal from './local-components/main-modals/view-overtime-single-modal';
 import { OVERTIMEViewInterface } from '@/types/types-pages';
-import { OVERTIMEViewAction } from '@/store/actions/procedurals';
+import { OVERTIMEViewAction, OVERTIMEViewFilterApproverAction } from '@/store/actions/procedurals';
 import { globalServerErrorMsg } from '@/store/configureStore';
+import { HandleModalAction } from '@/store/actions/components';
 
 export default function ApprovalOvertimePage() {
   const [singleOVERTIMEOpenModal, setSingleOVERTIMEOpenModal] = useState<boolean>(false);
@@ -32,11 +33,12 @@ export default function ApprovalOvertimePage() {
   });
   const dispatch = useDispatch();
   const { OVERTIMEViewFilterApprover } = useSelector((state: RootState) => state.procedurals);
+  const user = useSelector((state: RootState) => state.auth.employee_detail);
   const { data, status, error } = OVERTIMEViewFilterApprover;
   const OVERTIMEViewData = data as OVERTIMEViewInterface[];
 
   useEffect(()=> {
-    dispatch(OVERTIMEViewAction())
+    dispatch(OVERTIMEViewFilterApproverAction({emp_no: user?.emp_no}))
   }, []);
 
   return (
@@ -64,7 +66,11 @@ export default function ApprovalOvertimePage() {
           pageSizeOptions={[25, 50, 75, 100]}
           onRowClick={(e) => {
             setSingleOVERTIMEDetailsData(e.row);
-            setSingleOVERTIMEOpenModal(true);
+            dispatch(HandleModalAction({
+              name: "viewOtModal",
+              value:true
+            }))
+            // setSingleOVERTIMEOpenModal(true);
           }}
           disableRowSelectionOnClick 
           localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
