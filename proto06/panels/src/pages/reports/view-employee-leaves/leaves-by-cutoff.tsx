@@ -22,6 +22,9 @@ import InputForm from '../../../public-components/forms/InputForm';
 
 //HELPERS
 import { fetchCutOffPeriods } from '@/helpers/ApiCalls'
+import { useDispatch } from 'react-redux';
+import { HandleModalAction } from '@/store/actions/components';
+import ViewLeaveModal from '@/public-components/modals/ViewLeaveModal';
 
 
 
@@ -47,10 +50,10 @@ export default function ViewEmployeeLeaves() {
         setIsFetchReportError(false)
         setIsLoading(true);
 
-        await axios.get(`${APILink}leave`, {
+        await axios.get(`${APILink}leave_report`, {
             params: {
                 cutoff: selectedCutOff?.id,
-                status: "APD"
+                // status: "APD"
             }
         }).then(response => {
 
@@ -233,8 +236,15 @@ export default function ViewEmployeeLeaves() {
     // ]
 
     // const csvHeader = columns.map(column => column.headerName);
-
     
+    const [selectedRow, setSelectedRow] = useState<any>(null)
+    const dispatch = useDispatch()
+    const openViewModal = () => {
+        dispatch(HandleModalAction({
+            name: "viewLeaveModal",
+            value: true
+          }))
+    }
   
     return (
         <Fragment>
@@ -306,16 +316,17 @@ export default function ViewEmployeeLeaves() {
                         },
                     }}
                     pageSizeOptions={[25, 50, 75, 100]}
-                    // onRowClick={(e) => {
-                    //     setSingleUSERDetailsData(e.row);
-                    //     setSingleUSEROpenModal(true);
-                    // }}
+                    onRowClick={(e) => {
+                        openViewModal()
+                        setSelectedRow(curr => e.row)
+                    }}
                     // disableRowSelectionOnClick 
                     localeText={{ noRowsLabel: isFetchReportError? 'Something Went Wrong': isLoading? 'Loading Data...': 'No Data'}}
                     />
 
 
                 </div>
+                <ViewLeaveModal emp_no={selectedRow?.emp_no} leave_id={selectedRow?.id}/>
             </div>
         </Fragment>
     )

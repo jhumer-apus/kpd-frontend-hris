@@ -12,6 +12,7 @@ import { UAEditAction, UAViewAction, UAViewFilterApproverAction, UAViewFilterEmp
 import { beautifyJSON, clearFields } from '@/helpers/utils';
 import axios from 'axios';
 import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
+import { useState } from 'react';
 
 
 
@@ -29,6 +30,7 @@ export default function DenyUAModal(props: DenyUAModalInterface) {
   const {denyUAOpenModal, setDenyUAOpenModal, singleUADetailsData, setSingleUADetailsData} = props;
   const DateNow = new Date();
   const denyDate = dayjs(DateNow).format('MMM-DD-YY LT');
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const denyUA = () => { 
 
@@ -60,6 +62,8 @@ export default function DenyUAModal(props: DenyUAModalInterface) {
 
   const apiADenyUa = async (payload:any) => {
 
+      setIsLoading(curr => true)
+
       await axios.put(`${APILink}ua_new/${singleUADetailsData.id}/`, payload)
           .then(res => {
 
@@ -75,6 +79,8 @@ export default function DenyUAModal(props: DenyUAModalInterface) {
                 name: "viewUaModal",
                 value: false
               }))
+
+              setIsLoading(curr => false)
           })
           .catch((err:any) => {
             
@@ -90,6 +96,8 @@ export default function DenyUAModal(props: DenyUAModalInterface) {
               name: "viewUaModal",
               value: false
             }))
+
+            setIsLoading(curr => false)
         })
   }
 
@@ -170,8 +178,8 @@ export default function DenyUAModal(props: DenyUAModalInterface) {
                 />
               </div>
               <div className='flex justify-around'>
-                <Button variant={'contained'} onClick={denyUA}>Submit</Button>
-                <Button variant={'outlined'} onClick={()=>{
+                <Button disabled={isLoading} variant={'contained'} onClick={denyUA}>Submit</Button>
+                <Button disabled={isLoading} variant={'outlined'} onClick={()=>{
                   clearFields(setSingleUADetailsData, ['ua_reason_disapproval'], [null])
                   setDenyUAOpenModal(false)
                 }}

@@ -12,7 +12,7 @@ import { UAEditAction, UAViewAction, UAViewFilterApproverAction, UAViewFilterEmp
 import axios from 'axios';
 import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
 import { beautifyJSON } from '@/helpers/utils';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 
 
@@ -29,6 +29,7 @@ export default function ApproveUAModal(props: ApproveUAModalInterface) {
   const UAApproveData = useSelector((state: RootState)=> state.procedurals.UAEdit)
   const {approveUAOpenModal, setApproveUAOpenModal, singleUADetailsData, setSingleUADetailsData} = props;
   const UAViewFilterApprover = useSelector((state: RootState) => state.procedurals.UAViewFilterApprover);
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const approveUA = () => { 
     const DateNow = new Date();
@@ -72,6 +73,8 @@ export default function ApproveUAModal(props: ApproveUAModalInterface) {
 
   const apiApproveUa = async (payload:any) => {
 
+    setIsLoading(curr => true)
+
     await axios.put(`${APILink}ua_new/${singleUADetailsData.id}/`, payload)
         .then(res => {
             dispatch(UAViewFilterApproverAction({emp_no: state?.emp_no}))
@@ -85,6 +88,7 @@ export default function ApproveUAModal(props: ApproveUAModalInterface) {
               name: "viewUaModal",
               value: false
             }))
+            setIsLoading(curr => false)
         })
         .catch((err:any) => {
 
@@ -99,6 +103,7 @@ export default function ApproveUAModal(props: ApproveUAModalInterface) {
             name: "viewUaModal",
             value: false
           }))
+          setIsLoading(curr => false)
       })
 }
 
@@ -160,8 +165,8 @@ export default function ApproveUAModal(props: ApproveUAModalInterface) {
                 <Typography>Are you sure you want to approve this UA?</Typography>
               </div>
               <div className='flex justify-around'>
-                <Button variant={'contained'} onClick={approveUA}>Submit</Button>
-                <Button variant={'outlined'} onClick={()=>{setApproveUAOpenModal(false)}}>Cancel</Button>
+                <Button disabled={isLoading} variant={'contained'} onClick={approveUA}>Submit</Button>
+                <Button disabled={isLoading} variant={'outlined'} onClick={()=>{setApproveUAOpenModal(false)}}>Cancel</Button>
               </div>
             </div>
           </div>

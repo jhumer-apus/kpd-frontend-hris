@@ -12,6 +12,7 @@ import { OBTEditAction, OBTViewAction } from '@/store/actions/procedurals';
 import axios from 'axios';
 import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
 import { beautifyJSON } from '@/helpers/utils';
+import { useState } from 'react';
 
 
 
@@ -27,9 +28,12 @@ export default function ApproveOBTModal(props: ApproveOBTModalInterface) {
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
   const OBTApproveState = useSelector((state: RootState)=> state.procedurals.OBTEdit)
   const {approveOBTOpenModal, setApproveOBTOpenModal, singleOBTDetailsData, setSingleOBTDetailsData} = props;
-
-  const apiApproveOBT = async (payload:any) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   
+  const apiApproveOBT = async (payload:any) => {
+
+    setIsLoading(curr => true)
+
     await axios.put(`${APILink}obt_new/${singleOBTDetailsData.id}/`, payload)
       .then(res => {
 
@@ -45,7 +49,7 @@ export default function ApproveOBTModal(props: ApproveOBTModalInterface) {
             name: "viewObtModal",
             value: false
           }))
-
+          setIsLoading(curr => false)
         } 
       )
       .catch(err => {
@@ -62,6 +66,7 @@ export default function ApproveOBTModal(props: ApproveOBTModalInterface) {
             name: "viewObtModal",
             value: false
           }))
+          setIsLoading(curr => false)
         }
       )
   }
@@ -164,8 +169,8 @@ export default function ApproveOBTModal(props: ApproveOBTModalInterface) {
                 <Typography>Are you sure you want to approve this OBT?</Typography>
               </div>
               <div className='flex justify-around'>
-                <Button variant={'contained'} onClick={approveOBT}>Submit</Button>
-                <Button variant={'outlined'} onClick={()=>{setApproveOBTOpenModal(false)}}>Cancel</Button>
+                <Button disabled={isLoading} variant={'contained'} onClick={approveOBT}>Submit</Button>
+                <Button disabled={isLoading} variant={'outlined'} onClick={()=>{setApproveOBTOpenModal(false)}}>Cancel</Button>
               </div>
             </div>
           </div>

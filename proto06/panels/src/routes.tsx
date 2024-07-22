@@ -138,6 +138,12 @@ import EMPSEMINARSPageV2 from "./pages/employee/emp-training-seminars-v2/emp-tra
 import EmploymentHistoryPageEmpView from "./pages/employee/employment-history-emp-view/employment-history-emp-view";
 import EMPSEMINARSPageV2EmpView from "./pages/employee/emp-training-seminars-v2-emp-view/emp-training-seminars-emp-view";
 import ViewImperfectAttendance from "./pages/reports/view-attendance/imperfect-attendance";
+import RecruitmentForms from "./pages/forms/recruitment-forms/recruitment-forms";
+import PerformanceAppraisalForms from "./pages/forms/performance-forms/performance-appraisal-forms";
+import TrainingForms from "./pages/forms/training-forms/training-forms";
+import AttendanceForms from "./pages/forms/attendance-forms/attendance-forms";
+import OtherForms from "./pages/forms/other-forms/other-forms";
+import ExitForms from "./pages/forms/exit-forms/exit-forms";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -938,20 +944,68 @@ const JSXRouteWrapper = () => {
               element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">FORMS PRINTING PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
               hasSubItems: true,
               subItems: [
+                // {
+                //   id: 181000,
+                //   icon: <TableCellsIcon {...icon} />,
+                //   name: "B1 Forms",
+                //   path: "/forms/B1-Forms",
+                //   element: <B1Forms/>,
+                //   hasSubItems: false,
+                // },
+                // {
+                //   id: 182000,
+                //   icon: <TableCellsIcon {...icon} />,
+                //   name: "B2 Forms",
+                //   path: "/forms/B2-Forms",
+                //   element: <B2Forms/>,
+                //   hasSubItems: false,
+                // },
                 {
-                  id: 181000,
+                  id: 183000,
                   icon: <TableCellsIcon {...icon} />,
-                  name: "B1 Forms",
-                  path: "/forms/B1-Forms",
-                  element: <B1Forms/>,
+                  name: "Recruitment & Hiring",
+                  path: "/forms/recruitment-and-hiring",
+                  element: <RecruitmentForms />,
                   hasSubItems: false,
                 },
                 {
-                  id: 182000,
+                  id: 184000,
                   icon: <TableCellsIcon {...icon} />,
-                  name: "B2 Forms",
-                  path: "/forms/B2-Forms",
-                  element: <B2Forms/>,
+                  name: "Performance Appraisal",
+                  path: "/forms/performance-appraisal",
+                  element: <PerformanceAppraisalForms />,
+                  hasSubItems: false,
+                },
+                {
+                  id: 185000,
+                  icon: <TableCellsIcon {...icon} />,
+                  name: "Training",
+                  path: "/forms/training",
+                  element: <TrainingForms />,
+                  hasSubItems: false,
+                },
+                {
+                  id: 186000,
+                  icon: <TableCellsIcon {...icon} />,
+                  name: "Attendance",
+                  path: "/forms/attendance",
+                  element: <AttendanceForms />,
+                  hasSubItems: false,
+                },
+                {
+                  id: 187000,
+                  icon: <TableCellsIcon {...icon} />,
+                  name: "Other Form of Application",
+                  path: "/forms/others",
+                  element: <OtherForms />,
+                  hasSubItems: false,
+                },
+                {
+                  id: 188000,
+                  icon: <TableCellsIcon {...icon} />,
+                  name: "Exit Forms",
+                  path: "/forms/exit-forms",
+                  element: <ExitForms />,
                   hasSubItems: false,
                 },
               ]

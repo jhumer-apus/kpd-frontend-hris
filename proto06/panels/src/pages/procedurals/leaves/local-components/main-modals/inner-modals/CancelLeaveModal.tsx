@@ -43,6 +43,7 @@ export default function CancelLeaveModal(props: Props) {
     //STATE
     const [cancelReason, setCancelReason] = useState<string>("")
     const isDepartmentManager =  currUser?.rank_hierarchy == 2
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     //FUNCTIONS
     const validateCancel = () => {
@@ -74,7 +75,10 @@ export default function CancelLeaveModal(props: Props) {
     }
     const cancelApprovedLeave = async () => {
 
+        setIsLoading(curr => true)
+
         if(validateCancel()) {
+            setIsLoading(curr => false)
             return 
         }
 
@@ -88,7 +92,6 @@ export default function CancelLeaveModal(props: Props) {
         }
         await axios.put(`${APILink}leave_new/${data.id}/`, payload).then((res:AxiosResponse) => {
             
-
             isDepartmentManager? fetchLeavesByApprover(): dispatch(LEAVEViewAction())
 
             dispatch(HandleModalAction({
@@ -103,6 +106,7 @@ export default function CancelLeaveModal(props: Props) {
             }))
 
             setIsCancelModalOpen((curr:any) => false)
+            setIsLoading(curr => false)
 
         }).catch((err:any) => {
             
@@ -120,6 +124,7 @@ export default function CancelLeaveModal(props: Props) {
             }))
 
             setIsCancelModalOpen((curr:any) => false)
+            setIsLoading(curr => false)
         })
     }
 
@@ -152,8 +157,8 @@ export default function CancelLeaveModal(props: Props) {
                 />
             </div>
             <div className='m-auto'>
-                <Button className="" onClick={() => setIsCancelModalOpen(false)}>No</Button>
-                <Button className="" onClick={() => cancelApprovedLeave()}>Yes</Button>
+                <Button disabled={isLoading} className="" onClick={() => setIsCancelModalOpen(false)}>No</Button>
+                <Button disabled={isLoading} className="" onClick={() => cancelApprovedLeave()}>Yes</Button>
             </div>
         </Box>
       </Modal>

@@ -20,6 +20,9 @@ import InputForm from '../../../public-components/forms/InputForm';
 
 //HELPERS
 import { fetchCutOffPeriods } from '@/helpers/ApiCalls'
+import ViewOBTModal from '@/public-components/modals/ViewOBTModal';
+import { HandleModalAction } from '@/store/actions/components';
+import { useDispatch } from 'react-redux';
 
 export default function ViewEmployeeObt() {
 
@@ -34,6 +37,8 @@ export default function ViewEmployeeObt() {
     const [selectedCutOff, setSelectedCutOff] = useState<any>()
 
     const [isFetchReportError, setIsFetchReportError] = useState<Boolean>(false);
+
+    const [selectedRow, setSelectedRow] = useState<any>(null)
 
     //USE EFFECTS
     useEffect(() => {
@@ -55,10 +60,10 @@ export default function ViewEmployeeObt() {
         setIsFetchReportError(false)
         setIsLoading(true);
 
-        await axios.get(`${APILink}obt`, {
+        await axios.get(`${APILink}obt_report`, {
             params:{
                 cutoff: selectedCutOff?.id,
-                status: "APD"
+                // status: "APD"
             }
         }).then(response => {
 
@@ -246,8 +251,13 @@ export default function ViewEmployeeObt() {
 
     // const csvHeader = columns.map(column => column.headerName);
 
-    
-  
+    const dispatch = useDispatch()
+    const openViewModal = () => {
+        dispatch(HandleModalAction({
+            name: "viewOBTModal",
+            value: true
+          }))
+    }
     return (
         <Fragment>
             <div className="my-10">
@@ -304,7 +314,7 @@ export default function ViewEmployeeObt() {
                         View
                     </Button>
 
-
+                    <ViewOBTModal emp_no={selectedRow?.emp_no} obt_id={selectedRow?.id}/>
                 </div>
 
                 <div className="my-6 h-[500PX] w-full">
@@ -318,10 +328,10 @@ export default function ViewEmployeeObt() {
                         },
                     }}
                     pageSizeOptions={[25, 50, 75, 100]}
-                    // onRowClick={(e) => {
-                    //     setSingleUSERDetailsData(e.row);
-                    //     setSingleUSEROpenModal(true);
-                    // }}
+                    onRowClick={(e) => {
+                        openViewModal()
+                        setSelectedRow(curr => e.row)
+                    }}
                     // disableRowSelectionOnClick 
                     localeText={{ noRowsLabel: isFetchReportError? 'Something Went Wrong': isLoading? 'Loading Data...': 'No Data'}}
                     />

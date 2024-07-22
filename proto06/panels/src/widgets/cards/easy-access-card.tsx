@@ -60,9 +60,12 @@ export function EasyAccessCard({ color, icon, title, value, footer, custom, link
         <span className={styles.cardIcon} >{icon}</span>
       </CardHeader>
       <CardBody className="p-4 text-right">
-        <Typography variant="small" className="font-normal text-blue-gray-600">
-          {title}
-        </Typography>
+        <div className="w-full flex justify-end">
+          
+          <Typography variant="small" className="font-normal w-72 text-blue-gray-600">
+            {title}
+          </Typography>
+        </div>
         <Typography variant="h4" color="blue-gray">
           {value}
         </Typography>

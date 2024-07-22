@@ -12,6 +12,7 @@ import { OVERTIMEEditAction, OVERTIMEViewAction, OVERTIMEViewFilterApproverActio
 import { beautifyJSON, clearFields } from '@/helpers/utils';
 import axios from 'axios';
 import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
+import { useState } from 'react';
 
 
 
@@ -29,7 +30,8 @@ export default function DenyOVERTIMEModal(props: DenyOVERTIMEModalInterface) {
   const {denyOVERTIMEOpenModal, setDenyOVERTIMEOpenModal, singleOVERTIMEDetailsData, setSingleOVERTIMEDetailsData} = props;
   const DateNow = new Date();
   const denyDate = dayjs(DateNow).format('MMM-DD-YY LT');
-
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  
   const denyOVERTIME = () => {
 
     const payload = {
@@ -59,6 +61,8 @@ export default function DenyOVERTIMEModal(props: DenyOVERTIMEModalInterface) {
 
     const apiDenyOT = async (payload:any) => {
 
+      setIsLoading(curr => true)
+
       await axios.put(`${APILink}ot_new/${singleOVERTIMEDetailsData.id}/`, payload)
   
         .then(res => {
@@ -75,6 +79,7 @@ export default function DenyOVERTIMEModal(props: DenyOVERTIMEModalInterface) {
             name: "viewOtModal",
             value: false
           }))
+          setIsLoading(curr => false)
   
         })
         .catch(err => {
@@ -90,6 +95,7 @@ export default function DenyOVERTIMEModal(props: DenyOVERTIMEModalInterface) {
             name: "viewOtModal",
             value: false
           }))
+          setIsLoading(curr => false)
         })
     }
     // React.useEffect(()=>{
@@ -169,8 +175,9 @@ export default function DenyOVERTIMEModal(props: DenyOVERTIMEModalInterface) {
                 />
               </div>
               <div className='flex justify-around'>
-                <Button variant={'contained'} onClick={denyOVERTIME}>Submit</Button>
+                <Button disabled={isLoading} variant={'contained'} onClick={denyOVERTIME}>Submit</Button>
                 <Button 
+                  disabled={isLoading}
                   variant={'outlined'} 
                   onClick={()=>{
                     clearFields(setSingleOVERTIMEDetailsData, ['ot_reason_disapproval'], [null])

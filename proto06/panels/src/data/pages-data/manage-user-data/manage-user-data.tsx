@@ -24,7 +24,8 @@ export const ManageUSERPageColumns: GridColDef[] =
       return params.row.date_added ? dayjs(date).format(`${globalDate}`) : 'No Date';
     }
   },
-  { field: 'username', headerName: 'Username',  width: 200 },
+  { field: 'username', headerName: 'Username',  width: 100 },
+  { field: 'emp_name', headerName: 'Employee Name',  width: 200 },
 ];
   
 export default {

@@ -1,4 +1,4 @@
-import {useEffect, Dispatch, SetStateAction, ChangeEvent, Fragment}from 'react';
+import {useEffect, Dispatch, SetStateAction, ChangeEvent, Fragment, useState}from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
@@ -25,8 +25,12 @@ export default function DenyUAModal(props: DenyUAModalInterface) {
   const {denyUAOpenModal, setDenyUAOpenModal, singleUADetailsData, setSingleUADetailsData} = props;
   const DateNow = new Date();
   const denyDate = dayjs(DateNow).format('MMM-DD-YY LT');
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const denyUA = () => { 
+
+    setIsLoading(curr => true)
+
     if(singleUADetailsData.ua_reason_disapproval){
         return(
           setSingleUADetailsData((prevState)=> {
@@ -41,12 +45,14 @@ export default function DenyUAModal(props: DenyUAModalInterface) {
           })
         )
       } else {
+        setIsLoading(curr => false)
         window.alert('Please insert reason');
       }
     }
 
   useEffect(()=>{
     if(UADenyState){      
+      setIsLoading(curr => false)
       if(UADenyState === 'succeeded'){
         window.alert(`${UADenyState.charAt(0).toUpperCase()}${UADenyState.slice(1)}`)
         setTimeout(()=>{
@@ -122,8 +128,9 @@ export default function DenyUAModal(props: DenyUAModalInterface) {
                 />
               </div>
               <div className='flex justify-around'>
-                <Button variant={'contained'} onClick={denyUA}>Submit</Button>
+                <Button disabled={isLoading} variant={'contained'} onClick={denyUA}>Submit</Button>
                 <Button 
+                  disabled={isLoading}
                   variant={'outlined'} 
                   onClick={()=>{
                     clearFields(setSingleUADetailsData, ['ua_reason_disapproval'], [null])

@@ -12,6 +12,7 @@ import { LEAVEEditAction, LEAVEViewFilterApproverAction } from '@/store/actions/
 import axios from 'axios';
 import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
 import { beautifyJSON } from '@/helpers/utils';
+import { useState } from 'react';
 
 
 
@@ -26,13 +27,17 @@ export default function ApproveLEAVEModal(props: ApproveLEAVEModalInterface) {
   const dispatch = useDispatch();
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
   const LEAVEApproveData = useSelector((state: RootState)=> state.procedurals.LEAVEEdit)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const {approveLEAVEOpenModal, setApproveLEAVEOpenModal, singleLEAVEDetailsData, setSingleLEAVEDetailsData} = props;
 
   const apiApproveLeave = async (payload:any) => {
 
+    setIsLoading(curr => true)
+
     await axios.put(`${APILink}leave_new/${singleLEAVEDetailsData.id}/`, payload)
       .then(res => {
 
+        setIsLoading(curr => false)
         dispatch(LEAVEViewFilterApproverAction({
           emp_no: state?.emp_no
         }))
@@ -51,6 +56,7 @@ export default function ApproveLEAVEModal(props: ApproveLEAVEModalInterface) {
 
       .catch((err:any) => {
 
+        setIsLoading(curr => false)
         dispatch(LEAVEViewFilterApproverAction({
           emp_no: state?.emp_no
         }))
@@ -165,8 +171,8 @@ export default function ApproveLEAVEModal(props: ApproveLEAVEModalInterface) {
                 <Typography>Are you sure you want to approve this LEAVE?</Typography>
               </div>
               <div className='flex justify-around'>
-                <Button variant={'contained'} onClick={approveLEAVE}>Submit</Button>
-                <Button variant={'outlined'} onClick={()=>{setApproveLEAVEOpenModal(false)}}>Cancel</Button>
+                <Button disabled={isLoading} variant={'contained'} onClick={approveLEAVE}>Submit</Button>
+                <Button disabled={isLoading} variant={'outlined'} onClick={()=>{setApproveLEAVEOpenModal(false)}}>Cancel</Button>
               </div>
             </div>
           </div>
