@@ -2,7 +2,7 @@ import { fetchCutOffPeriods } from '@/helpers/ApiCalls';
 import { HandleModalAction } from '@/store/actions/components';
 import { APILink, RootState } from '@/store/configureStore';
 import { Textarea, Typography } from '@material-tailwind/react';
-import {Grid, Modal, TextField} from '@mui/material';
+import {Button, Grid, Modal, TextField} from '@mui/material';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { Fragment, useEffect, useState } from "react";
@@ -108,6 +108,18 @@ export default function ViewLeaveModal (props: Props) {
                         value={details.leave_reason_cancelled}
                     />
                 )
+        }
+    }
+
+    const viewImages = () => {
+
+        if(details.leave_file_path) {
+            const imageUrl = `${APILink.replace('/api/v1/','/media/')}${details.leave_file_path}`;
+            // Open a new tab/window with the images
+    
+            window.open(imageUrl, '_blank');
+        } else{
+            window.alert("This employee does not file supporting image")
         }
     }
 
@@ -290,7 +302,9 @@ export default function ViewLeaveModal (props: Props) {
                         </Grid>
                         
                     </Grid>
-
+                    {((details.is_sl  && !details.is_vl && !details.is_el) || details.leave_type_name=="Sick Leave") && 
+                        <Button onClick={viewImages}>View Supporting Image</Button>
+                    }
                 </div>
                 
                 
