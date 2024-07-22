@@ -55,7 +55,7 @@ export default function ViewEmployeeObt() {
         setIsFetchReportError(false)
         setIsLoading(true);
 
-        await axios.get(`${APILink}obt_report   `, {
+        await axios.get(`${APILink}obt_report`, {
             params:{
                 cutoff: selectedCutOff?.id,
                 // status: "APD"
