@@ -61,10 +61,10 @@ export default function ViewEmployeeLeaves() {
         setIsFetchReportError(false)
         setIsLoading(true);
 
-        await axios.get(`${APILink}ot`,{
+        await axios.get(`${APILink}overtime_report`,{
             params:{
                 cutoff: selectedCutOff?.id,
-                status: "APD"
+                // status: "APD"
             }
         }).then(response => {
 

@@ -47,10 +47,10 @@ export default function ViewEmployeeLeaves() {
         setIsFetchReportError(false)
         setIsLoading(true);
 
-        await axios.get(`${APILink}leave`, {
+        await axios.get(`${APILink}leave_report`, {
             params: {
                 cutoff: selectedCutOff?.id,
-                status: "APD"
+                // status: "APD"
             }
         }).then(response => {
 
