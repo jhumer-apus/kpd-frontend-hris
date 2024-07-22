@@ -1058,16 +1058,18 @@ const JSXRouteWrapper = () => {
           ]
         },
         
-        ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee && state?.user?.role !== INTERNAL_USER_ROLE.Manager ) ? [
-          {
-            id: 19000,
-            icon: null,
-            name: "Payroll",
-            path: "/payroll",
-            element: null,
-            hasSubItems: true,
-            subItems: [
+        {
+          id: 19000,
+          icon: null,
+          name: "Payroll",
+          path: "/payroll",
+          element: null,
+          hasSubItems: true,
+          subItems: [
+
+            ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee && state?.user?.role !== INTERNAL_USER_ROLE.Manager ) ? [
               {
+              
                 id: 19100,
                 icon: <DocumentIcon {...icon} />,
                 name: "View All Payroll",
@@ -1091,19 +1093,18 @@ const JSXRouteWrapper = () => {
                 element: <TestView/>,
                 hasSubItems: false,
               },
+            ]:[],
 
-              {
-                id: 19100,
-                icon: <DocumentIcon {...icon} />,
-                name: "View Specific Payroll",
-                path: "/payroll/view-specific-payroll",
-                element: <ViewSpecificPayroll/>,
-                hasSubItems: false,
-              },
-            ]
-          }
-          
-        ] : [],
+            {
+              id: 19100,
+              icon: <DocumentIcon {...icon} />,
+              name: "View Specific Payroll",
+              path: "/payroll/view-specific-payroll",
+              element: <ViewSpecificPayroll/>,
+              hasSubItems: false,
+            },
+          ]
+        },
 
         // {
         //   id: 19000,
