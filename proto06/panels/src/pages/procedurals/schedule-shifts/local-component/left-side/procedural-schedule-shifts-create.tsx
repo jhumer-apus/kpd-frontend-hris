@@ -193,8 +193,8 @@ function ProceduralSCHEDULESHIFTCreate(props: CreateSCHEDULESHIFTModalInterface)
                             <DesktopTimePicker 
                                 label="Time Start" 
                                 defaultValue={null} 
-                                minTime={createSCHEDULESHIFT.time_in ? dayjs(createSCHEDULESHIFT.time_in, 'HH:mm:ss'): null}
-                                maxTime={createSCHEDULESHIFT.time_out ? dayjs(createSCHEDULESHIFT.time_out, 'HH:mm:ss'): null}
+                                // minTime={createSCHEDULESHIFT.time_in ? dayjs(createSCHEDULESHIFT.time_in, 'HH:mm:ss'): null}
+                                // maxTime={createSCHEDULESHIFT.time_out ? dayjs(createSCHEDULESHIFT.time_out, 'HH:mm:ss'): null}
                                 onChange={(newValue) => handleChangeTime("lunch_break_start", dayjs(newValue).format("HH:mm:ss"))}
                                 
        
@@ -202,8 +202,8 @@ function ProceduralSCHEDULESHIFTCreate(props: CreateSCHEDULESHIFTModalInterface)
                             <DesktopTimePicker 
                                 label="Time End" 
                                 defaultValue={null}
-                                minTime={createSCHEDULESHIFT.lunch_break_start ? dayjs(createSCHEDULESHIFT.lunch_break_start): null}
-                                maxTime={createSCHEDULESHIFT.time_out ? dayjs(createSCHEDULESHIFT.time_out, "HH:mm:ss"): null}
+                                // minTime={createSCHEDULESHIFT.lunch_break_start ? dayjs(createSCHEDULESHIFT.lunch_break_start): null}
+                                // maxTime={createSCHEDULESHIFT.time_out ? dayjs(createSCHEDULESHIFT.time_out, "HH:mm:ss"): null}
                                 disabled={!createSCHEDULESHIFT.lunch_break_start}
                                 onChange={(newValue) => handleChangeTime("lunch_break_end", dayjs(newValue).format("HH:mm:ss"))}
                             />

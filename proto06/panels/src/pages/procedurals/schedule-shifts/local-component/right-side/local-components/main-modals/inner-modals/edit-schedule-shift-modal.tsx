@@ -270,15 +270,15 @@ export default function EditSCHEDULESHIFTModal(props: EditSCHEDULESHIFTModalInte
                               <DesktopTimePicker 
                                   label="Time Start" 
                                   defaultValue={dayjs(singleSCHEDULESHIFTDetailsData?.lunch_break_start, "HH:mm:ss")} 
-                                  minTime={singleSCHEDULESHIFTDetailsData?.time_in ? dayjs(singleSCHEDULESHIFTDetailsData.time_in, "HH:mm:ss"): null}
-                                  maxTime={singleSCHEDULESHIFTDetailsData?.time_out ? dayjs(singleSCHEDULESHIFTDetailsData.time_out, "HH:mm:ss"): null}
+                                  // minTime={singleSCHEDULESHIFTDetailsData?.time_in ? dayjs(singleSCHEDULESHIFTDetailsData.time_in, "HH:mm:ss"): null}
+                                  // maxTime={singleSCHEDULESHIFTDetailsData?.time_out ? dayjs(singleSCHEDULESHIFTDetailsData.time_out, "HH:mm:ss"): null}
                                   onChange={(newValue) => handleChangeTime("lunch_break_start", dayjs(newValue).format("HH:mm:ss"))}
                               />
                               <DesktopTimePicker 
                                   label="Time End" 
                                   defaultValue={dayjs(singleSCHEDULESHIFTDetailsData?.lunch_break_end, "HH:mm:ss")}
-                                  minTime={singleSCHEDULESHIFTDetailsData?.lunch_break_start ? dayjs(singleSCHEDULESHIFTDetailsData?.lunch_break_start, "HH:mm:ss"): null}
-                                  maxTime={singleSCHEDULESHIFTDetailsData?.time_out ? dayjs(singleSCHEDULESHIFTDetailsData.time_out, "HH:mm:ss"): null}
+                                  // minTime={singleSCHEDULESHIFTDetailsData?.lunch_break_start ? dayjs(singleSCHEDULESHIFTDetailsData?.lunch_break_start, "HH:mm:ss"): null}
+                                  // maxTime={singleSCHEDULESHIFTDetailsData?.time_out ? dayjs(singleSCHEDULESHIFTDetailsData.time_out, "HH:mm:ss"): null}
                                   disabled={!singleSCHEDULESHIFTDetailsData?.lunch_break_end}
                                   onChange={(newValue) => handleChangeTime("lunch_break_end", dayjs(newValue).format("HH:mm:ss"))}
                               />
