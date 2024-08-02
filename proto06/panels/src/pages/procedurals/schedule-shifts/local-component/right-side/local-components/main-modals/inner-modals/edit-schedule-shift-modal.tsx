@@ -7,7 +7,7 @@ import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
-import { SCHEDULESHIFTCreateActionFailureCleanup, SCHEDULESHIFTEditAction } from '@/store/actions/procedurals';
+import { SCHEDULESHIFTEditAction, SCHEDULESHIFTEditActionFailureCleanup } from '@/store/actions/procedurals';
 
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -114,14 +114,15 @@ export default function EditSCHEDULESHIFTModal(props: EditSCHEDULESHIFTModalInte
           window.location.reload();
         }, 800)
       }else if (SCHEDULESHIFTEditState.status === 'failed'){
-
+        console.log("asd")
+        dispatch(SCHEDULESHIFTEditActionFailureCleanup());
         dispatch(HandleAlertAction({
           open: true,
           status: "error",
           message: SCHEDULESHIFTEditState?.error
         }))
         // window.alert(`${SCHEDULESHIFTEditState.error}`)
-        dispatch(SCHEDULESHIFTCreateActionFailureCleanup());
+
       }
     }
   }, [SCHEDULESHIFTEditState.status])
@@ -336,7 +337,7 @@ export default function EditSCHEDULESHIFTModal(props: EditSCHEDULESHIFTModalInte
                     <div className='flex justify-between' style={{width:'200px', marginTop: '20px'}} container-name='leave_buttons'>
                         {/* <Button variant='contained' color={'success'} onClick={()=> onClickModal(1)}>Edit Cutoff Period</Button> */}
                         <Button variant={'contained'} onClick={editSCHEDULESHIFT}>Submit</Button>
-                        <Button variant={'outlined'}>Cancel</Button>
+                        <Button variant={'outlined'} onClick={() => setEditSCHEDULESHIFTOpenModal(curr => false)}>Cancel</Button>
                     </div>
                 </div>
               </div>
