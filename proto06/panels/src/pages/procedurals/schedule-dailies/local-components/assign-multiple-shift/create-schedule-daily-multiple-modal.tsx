@@ -27,22 +27,26 @@ import LimitTags from './inner-local-component/inner-schedule-daily-multiple-mod
 import MultiEmployeeAutoCompleteLeft from './inner-local-component/inner-schedule-daily-multiple-modal';
 
 
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  p: 4,
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 3,
-  width: 400,
-  overflow: 'auto',
-  height: 800
-//   height: '100%',
-};
+// const style = {
+//   position: 'absolute' as 'absolute',
+//   top: '50%',
+//   left: '50%',
+//   transform: 'translate(-50%, -50%)',
+//   bgcolor: 'background.paper',
+//   boxShadow: 24,
+//   p: 4,
+//   display: 'flex',
+//   flexDirection: 'column',
+//   gap: 3,
+//   width: 400,
+//   overflow: 'auto',
+// //   height: '100%',
+// };
+
+const modalStyle = {
+    // height: "400px",
+    overflowY:"auto"
+}
 
 interface CreateSCHEDULEDAILYMultipleModalInterface {
     open2?: boolean,
@@ -113,12 +117,13 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
     return (
         <div>
             <Modal
-            open={open2 ?? false}
-            onClose={handleClose2}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
+                open={open2 ?? false}
+                onClose={handleClose2}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+                className='overflow-y-auto'
             >
-            <Box sx={style}>
+            <Box className="bg-white flex flex-col gap-4 w-96 m-auto p-4  overflow-auto my-8">
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                     Assign Daily Schedule to Multiple Employees
                 </Typography>

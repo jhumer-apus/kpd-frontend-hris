@@ -1,9 +1,11 @@
 import { useState, Fragment, Dispatch, SetStateAction } from 'react';
 import { SCHEDULESHIFTViewInterface } from '@/types/types-pages';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import {TextField} from '@mui/material';
 import EditSCHEDULESHIFTModal from '../main-modals/inner-modals/edit-schedule-shift-modal';
+import { DesktopTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 interface SCHEDULESHIFTModalUIInterface {
     singleSCHEDULESHIFTDetailsData: SCHEDULESHIFTViewInterface;
@@ -34,7 +36,7 @@ function SCHEDULESHIFTModalUI(props: SCHEDULESHIFTModalUIInterface) {
                 editSCHEDULESHIFTOpenModal={editSCHEDULESHIFTOpenModal} 
                 setEditSCHEDULESHIFTOpenModal={setEditSCHEDULESHIFTOpenModal}
             />
-            <div className='flex gap-10 overflow-auto relative'>
+            <div className='flex flex-col gap-10 overflow-auto relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Overtime:' value={ThisProps.with_overtime ? 'With Overtime' : 'No Overtime'} InputProps={{readOnly: false,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Grace Period(mins):' value={(ThisProps?.grace_period || 0)} InputProps={{readOnly: true,}} variant='standard'/>
@@ -48,6 +50,26 @@ function SCHEDULESHIFTModalUI(props: SCHEDULESHIFTModalUIInterface) {
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Shift Name:' value={ThisProps.name || '-'} InputProps={{readOnly: true,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Date Deleted:' value={ThisProps.date_deleted? dayjs(ThisProps.date_deleted).format('MM:DD:YYYY - hh:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
+                </div>
+
+                <div>
+                    <Typography >Lunch Break Time:</Typography><br></br>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <div className='flex gap-4'>
+                        
+                        <DesktopTimePicker 
+                            label="Time Start" 
+                            defaultValue={dayjs(ThisProps.lunch_break_start, "HH:mm:ss")}
+                            disabled
+                        />
+                        <DesktopTimePicker 
+                            label="Time End" 
+                            defaultValue={dayjs(ThisProps.lunch_break_end, "HH:mm:ss")}
+                            disabled
+                        />
+                        
+                    </div>
+                    </LocalizationProvider>
                 </div>
             </div>
             <div className='flex flex-col justify-center items-center'>

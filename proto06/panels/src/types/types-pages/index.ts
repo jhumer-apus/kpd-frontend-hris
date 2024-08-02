@@ -507,6 +507,11 @@ export interface SCHEDULESHIFTCreateInterface {
     time_out: string | null;
     grace_period: number | null;
     with_overtime: boolean | null;
+    lunch_time_start: Date | string | null | Dayjs;
+    lunch_time_end: Date | string | null | Dayjs;
+    lunch_break_start: Date | string | null | Dayjs;
+    lunch_break_end: Date | string | null | Dayjs;
+    added_by: number | string
 }
 
 export interface SCHEDULESHIFTViewInterface extends SCHEDULESHIFTCreateInterface { 
@@ -544,6 +549,8 @@ export interface SCHEDULEDAILYViewInterface extends SCHEDULEDAILYGeneric {
     emp_no: number,
     holiday_type: "LH" | "SH" | null
     holiday:any
+    lunch_break_start: Date | string | Dayjs | null
+    lunch_break_end: Date | string | Dayjs | null
 }
 
 export interface SCHEDULEDAILYEditInterface extends SCHEDULEDAILYGeneric {
