@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from 'react';
 
 //LIBRARIES
-import { DataGrid, GridRowsProp, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { DataGrid, GridRowsProp, GridColDef, GridValueGetterParams, GridToolbar, GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid';
 import { Button } from "@material-tailwind/react";
 import axios from 'axios';
 import dayjs from 'dayjs';
@@ -23,6 +23,7 @@ import { fetchCutOffPeriods } from '@/helpers/ApiCalls'
 import { useDispatch } from 'react-redux';
 import { HandleModalAction } from '@/store/actions/components';
 import ViewOvertimeModal from '@/public-components/modals/ViewOvertimeModal';
+import { GridExportToolbar } from '@/public-components/GridExportToolbar';
 
 export default function ViewEmployeeLeaves() {
     
@@ -137,7 +138,7 @@ export default function ViewEmployeeLeaves() {
 
     }):[]
 
-  
+    
 
     
     const columns: GridColDef[] = [
@@ -250,15 +251,29 @@ export default function ViewEmployeeLeaves() {
           }))
     }
     
+    const csvFileName = `Employee Overtime ${(selectedCutOff?.cleanDateFrom && selectedCutOff?.cleanDateTo) ? selectedCutOff?.cleanDateFrom +" - "+ selectedCutOff?.cleanDateTo: "" } `
+
+    const CustomToolbar = ()  => {
+        return (
+          <GridToolbarContainer>
+            <GridToolbarExport 
+                printOptions={{ disableToolbarButton: true }}   
+                csvOptions={{
+                    fileName: csvFileName,
+                }}/>
+          </GridToolbarContainer>
+        );
+    }
+
     return (
         <Fragment>
             <div className="my-10">
 
-                <ExportToCsvButton
+                {/* <ExportToCsvButton
                     data={exportCsvData} 
                     isDisable={!dataRows || dataRows.length == 0}
                     defaultName={`Employee Overtime ${(selectedCutOff?.cleanDateFrom && selectedCutOff?.cleanDateTo) ? selectedCutOff?.cleanDateFrom +" - "+ selectedCutOff?.cleanDateTo: "" } `}
-                />
+                /> */}
 
                 <div className="md:flex md:space-x-4 md:items-center mt-8">
                     <TextField
@@ -312,20 +327,21 @@ export default function ViewEmployeeLeaves() {
                 <div className="my-6 h-[500PX] w-full">
                     {/* add a loading interface here to indicate that the report needed is loading */}
                     <DataGrid
-                    rows={dataRows}
-                    columns={columns}
-                    initialState={{
-                        pagination: {
-                        paginationModel: { page: 0, pageSize: 100 },
-                        },
-                    }}
-                    pageSizeOptions={[25, 50, 75, 100]}
-                    onRowClick={(e) => {
-                        openViewModal()
-                        setSelectedRow(curr => e.row)
-                    }}
-                    // disableRowSelectionOnClick 
-                    localeText={{ noRowsLabel: isFetchReportError? 'Something Went Wrong': isLoading? 'Loading Data...': 'No Data'}}
+                        rows={dataRows}
+                        columns={columns}
+                        initialState={{
+                            pagination: {
+                            paginationModel: { page: 0, pageSize: 100 },
+                            },
+                        }}
+                        pageSizeOptions={[25, 50, 75, 100]}
+                        onRowClick={(e) => {
+                            openViewModal()
+                            setSelectedRow(curr => e.row)
+                        }}
+                        // disableRowSelectionOnClick 
+                        localeText={{ noRowsLabel: isFetchReportError? 'Something Went Wrong': isLoading? 'Loading Data...': 'No Data'}}
+                        slots={{ toolbar: CustomToolbar }}
                     />
 
 

@@ -21,6 +21,11 @@ export const convertDaysToHHMM = (days: number): string => {
   return `${hoursString}:${minsString}`;
 }
 
+export const capitalize = (str:string) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+
+}
+
 // This function takes the minutes as input and performs the following steps:
 // Divides the total minutes by 60 to get the hours.
 // Calculates the remaining minutes by taking the modulus (remainder) of the total minutes divided by 60.
