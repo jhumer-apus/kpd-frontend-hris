@@ -1533,6 +1533,17 @@ export const SpecificEmployee = (props: initialState) => {
                                                     icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    
                                                 /> */}
                                             </div>
+                                            <div className="my-4 flex flex-col md:flex-row md:items-center gap-4">
+                                                <Input
+                                                    crossOrigin={null} {...register('employment_duration')}
+                                                    type="text"
+                                                    containerProps={{ className: "min-w-[72px] focused" }}
+                                                    labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                    label="Employment Duration:"
+                                                    // icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}       
+                                                    disabled
+                                                /> 
+                                            </div>
 
                                         </div>
                                         <div style={{width: "100%"}}>

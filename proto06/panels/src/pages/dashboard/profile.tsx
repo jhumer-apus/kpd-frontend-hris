@@ -1404,6 +1404,17 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
               InputProps={{
                 readOnly: true,
               }} 
+              id="Employment Duration" 
+              label="Employment Duration" 
+              variant="outlined" 
+              style={{ width: '100%', marginBottom: '20px' }} 
+              value={userData?.employment_duration }  
+              InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+            />
+            <TextField            
+              InputProps={{
+                readOnly: true,
+              }} 
               id="Other Duty Responsibilities" 
               label="Other Duty and Responsibilities" 
               variant="outlined" 
