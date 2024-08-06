@@ -1,11 +1,11 @@
-import {useEffect, Dispatch, SetStateAction, ChangeEvent, Fragment}from 'react';
+import {useEffect, Dispatch, SetStateAction, ChangeEvent, Fragment, useState}from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
 import { CUTOFFPERIODViewInterface } from '@/types/types-pages';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { APILink, RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
 import { CUTOFFPERIODCreateActionFailureCleanup, CUTOFFPERIODEditAction } from '@/store/actions/procedurals';
 
@@ -13,6 +13,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { CUTOFFPERIODCreateInterface } from '@/types/types-pages';
+import axios from 'axios';
+import AutoCompleteForm from '@/public-components/forms/AutoCompleteForm';
 
 
 
@@ -28,6 +30,11 @@ export default function AllowedDaysCUTOFFPERIODModal(props: AllowedDaysCUTOFFPER
   const CUTOFFPERIODAllowedDaysState = useSelector((state: RootState)=> state.procedurals.CUTOFFPERIODEdit)
   const {allowedDaysCUTOFFPERIODOpenModal, setAllowedDaysCUTOFFPERIODOpenModal, singleCUTOFFPERIODDetailsData, setSingleCUTOFFPERIODDetailsData} = props;
 
+  const [dropDownData, setDropDownData] = useState<any>({
+    payroll_groups: [],
+    divisions: []
+  })
+
   const nullValues = Object.values(singleCUTOFFPERIODDetailsData).filter(
     value => typeof value === null
   );
@@ -39,6 +46,9 @@ export default function AllowedDaysCUTOFFPERIODModal(props: AllowedDaysCUTOFFPER
     }
   }
 
+  useEffect(() => {
+    fetchDropDownData()
+  }, [])
   useEffect(()=>{
     if(CUTOFFPERIODAllowedDaysState.status){      
       if(CUTOFFPERIODAllowedDaysState.status === 'succeeded'){
@@ -52,6 +62,37 @@ export default function AllowedDaysCUTOFFPERIODModal(props: AllowedDaysCUTOFFPER
       }
     }
   }, [CUTOFFPERIODAllowedDaysState.status])
+
+
+  const fetchDropDownData = async () => {
+    await axios.get(`${APILink}payrollgroup/`).then(res => 
+      setDropDownData((curr:any) => ({
+        ...curr,
+        payroll_groups: Array.isArray(res.data) ? res.data : []
+      }))
+    )
+    await axios.get(`${APILink}division/`).then(res => 
+      setDropDownData((curr:any) => ({
+        ...curr,
+        divisions: Array.isArray(res.data) ? res.data : []
+      }))
+    )
+  }
+
+  const handleChangePayrollGroup = (e:any, newValue:any) => {
+    setSingleCUTOFFPERIODDetailsData(curr => ({
+      ...curr,
+      payroll_group_code: newValue?.id
+    }))
+  }
+
+  const handleChangeDivision = (e:any, newValue:any) => {
+    setSingleCUTOFFPERIODDetailsData(curr => ({
+      ...curr,
+      division_code: newValue?.id
+    }))
+  }
+
   return (
     <Fragment>
       <Transition in={allowedDaysCUTOFFPERIODOpenModal} timeout={400}>
@@ -117,7 +158,27 @@ export default function AllowedDaysCUTOFFPERIODModal(props: AllowedDaysCUTOFFPER
                           )
                       }}
                     />
-                    <TextField 
+                    <AutoCompleteForm 
+                      id="payroll_group"
+                      options={dropDownData.payroll_groups}
+                      label={"Payroll Group"}
+                      getOptionLabel={(option: any) => option?.name?? ""}
+                      handleChange={handleChangePayrollGroup}
+                      optionTitle='name' 
+                      defaultValueId={singleCUTOFFPERIODDetailsData?.payroll_group_code}                    
+                    />
+
+                    <AutoCompleteForm 
+                      id="divisions"
+                      options={dropDownData.divisions}
+                      label={"Division"}
+                      getOptionLabel={(option: any) => option?.div_name?? ""}
+                      handleChange={handleChangeDivision}
+                      optionTitle='div_name' 
+                      defaultValueId={singleCUTOFFPERIODDetailsData?.division_code}                    
+                    />
+
+                    {/* <TextField 
                       sx={{width: '100%'}} 
                       label='Payroll Group Code:'
                       type='number' 
@@ -136,8 +197,8 @@ export default function AllowedDaysCUTOFFPERIODModal(props: AllowedDaysCUTOFFPER
                         )
                       }}  
                       variant='standard'
-                    />
-                    <TextField 
+                    /> */}
+                    {/* <TextField 
                       sx={{width: '100%'}} 
                       label='Division Code:'
                       type='number'  
@@ -156,7 +217,7 @@ export default function AllowedDaysCUTOFFPERIODModal(props: AllowedDaysCUTOFFPER
                         )
                       }}
                       variant='standard'
-                    />
+                    /> */}
                 </div>
                 <div className='flex gap-5 flex-col'>
                     <DateTimePicker

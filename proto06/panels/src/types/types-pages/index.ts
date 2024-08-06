@@ -343,6 +343,9 @@ export interface LEAVEViewInterface extends LEAVECreateInterface {
     emp_name:string,
     leave_file_path:string|null;
     added_by: string | number | null | undefined;
+    is_sl: boolean,
+    is_vl: boolean,
+    is_el: boolean
 }
 
 export interface LEAVEEditInterface extends LEAVEViewInterface {}
@@ -496,6 +499,8 @@ export interface CUTOFFPERIODCreateInterface {
 export interface CUTOFFPERIODViewInterface extends CUTOFFPERIODCreateInterface { 
     id: number;
     co_is_processed: boolean;
+    payroll_group_name: string | null
+    division_name: string | null
 }
 
 export interface CUTOFFPERIODEditInterface extends CUTOFFPERIODViewInterface {}

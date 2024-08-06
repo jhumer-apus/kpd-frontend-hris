@@ -1,4 +1,4 @@
-import { useState, Fragment, Dispatch, SetStateAction } from 'react';
+import { useState, Fragment, Dispatch, SetStateAction, useEffect } from 'react';
 import { CUTOFFPERIODViewInterface } from '@/types/types-pages';
 import { Button } from '@mui/material';
 import dayjs from 'dayjs';
@@ -6,7 +6,8 @@ import {TextField} from '@mui/material';
 import ApproveCUTOFFPERIODModal from '../main-modals/inner-modals/leave-credit-allowed-days-modal';
 import AllowedDaysCUTOFFPERIODModal from '../main-modals/inner-modals/leave-credit-allowed-days-modal';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { APILink, RootState } from '@/store/configureStore';
+import axios from 'axios';
 
 interface CUTOFFPERIODModalUIInterface {
     singleCUTOFFPERIODDetailsData: CUTOFFPERIODViewInterface;
@@ -30,6 +31,33 @@ function CUTOFFPERIODModalUI(props: CUTOFFPERIODModalUIInterface) {
         
     };
 
+    useEffect(() => {
+        fetchPayrollGroup()
+        fetchDivision()
+    }, [])
+
+    const fetchPayrollGroup = async () => {
+        if(singleCUTOFFPERIODDetailsData?.payroll_group_code) {
+            await axios.get(`${APILink}payrollgroup/${singleCUTOFFPERIODDetailsData.payroll_group_code}/`).then(res => {
+                setSingleCUTOFFPERIODDetailsData(curr => ({
+                    ...curr,
+                    payroll_group_name: res?.data?.name
+                }))
+            })
+        }
+    }
+
+    const fetchDivision = async () => {
+        if(singleCUTOFFPERIODDetailsData?.division_code) {
+            await axios.get(`${APILink}division/${singleCUTOFFPERIODDetailsData?.division_code}/`).then(res => {
+                setSingleCUTOFFPERIODDetailsData(curr => ({
+                    ...curr,
+                    division_name: res?.data?.div_name
+                }))
+            })
+        }
+    }
+
     return (
         <Fragment>
             <AllowedDaysCUTOFFPERIODModal 
@@ -41,8 +69,8 @@ function CUTOFFPERIODModalUI(props: CUTOFFPERIODModalUIInterface) {
             <div className='flex gap-10 overflow-auto relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Credit (Pay) Date:' value={ThisProps.credit_date ? dayjs(ThisProps.credit_date).format('MM-DD-YYYY') : '-'} InputProps={{readOnly: false,}} variant='filled'/>
-                    <TextField sx={{width: '100%'}} label='Payroll Group Code:' value={(ThisProps?.payroll_group_code || 0)} InputProps={{readOnly: true,}} variant='standard'/>
-                    <TextField sx={{width: '100%'}} label='Division Code:' value={(ThisProps?.division_code || 0)} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%'}} label='Payroll Group:' value={(singleCUTOFFPERIODDetailsData?.payroll_group_name || "")} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%'}} label='Division:' value={(singleCUTOFFPERIODDetailsData?.division_name || "")} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Processed:' value={ThisProps.co_is_processed === true ? 'Yes' : 'No'} InputProps={{readOnly: true,}} variant='standard'/>
                 </div>
                 <div className='flex gap-6 flex-col'>
