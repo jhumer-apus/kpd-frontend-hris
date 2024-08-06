@@ -32,12 +32,12 @@ import {
   XMarkIcon,
   TagIcon
 } from "@heroicons/react/24/outline";
-import { Fragment, useCallback, useEffect, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Input, Typography } from '@material-tailwind/react';
 import { useForm } from 'react-hook-form';
 import { APILink, app_status, RootState } from '@/store/configureStore';
-import { EMPLOYEESViewInterface } from '@/types/types-store';
+import { EMPLOYEESViewInterface, INTERNAL_USER_ROLE } from '@/types/types-store';
 import FormData from 'form-data';
 import { beautifyJSON } from '@/helpers/utils';
 import { drop, update } from 'lodash';
@@ -392,6 +392,33 @@ export const SpecificEmployee = (props: initialState) => {
     const monthlySalaryComputation = (value: number) => {
         return ((value?? 0)*313)/12
     }
+
+    const roles = [
+        {
+            id: INTERNAL_USER_ROLE.HR_Super_Admin,
+            role_name: "HR Super Admin"
+        },
+        {
+            id: INTERNAL_USER_ROLE.HR_Director_Manager,
+            role_name: "HR Director / Manager"
+        },
+        {
+            id: INTERNAL_USER_ROLE.HR_Staff,
+            role_name: "HR Staff"
+        },
+        {
+            id: INTERNAL_USER_ROLE.Manager,
+            role_name: "Department Manager / Director"
+        },
+        {
+            id: INTERNAL_USER_ROLE.Employee,
+            role_name: "Employee"
+        },
+    ]
+
+    const userRole = useMemo(() => {
+        return roles.find(role => role.id == userData?.user?.role)
+    }, [userData?.user?.role])
 
     const onSubmit = async (inputData: EMPLOYEESViewInterface, type: string) => {
 
@@ -776,13 +803,13 @@ export const SpecificEmployee = (props: initialState) => {
                                                     disabled={true}
                                                     icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                         <Input
-                                                    crossOrigin={undefined} {...register('user.role')}
-                                                    type="number"
+                                                    // crossOrigin={undefined} {...register('user.role')}
                                                     containerProps={{ className: "min-w-[72px] mb-2" }}
-                                                    label="Role #:"
+                                                    label="Role:"
                                                     labelProps={{ style: { color: true ? "unset" : '' } }}
                                                     disabled={true}
-                                                    icon={<UserGroupIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
+                                                    value={userRole?.role_name?? ""}
+                                                    icon={<UserGroupIcon className="h-5 w-5 text-blue-gray-300" />}                                   />
                                         </div>
                                         <Input
                                                 crossOrigin={undefined} {...register('email_address')}
