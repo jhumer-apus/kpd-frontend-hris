@@ -1459,7 +1459,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                     type="text"
                                                     containerProps={{ className: "min-w-[72px] focused" }}
                                                     labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                    label="Other Duties Responsibilties:"
+                                                    label="Other Duty and Responsibilties:"
                                                     disabled={!editMode3}
                                                     icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}             
                                                 />    

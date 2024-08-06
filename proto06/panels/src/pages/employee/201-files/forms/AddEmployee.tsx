@@ -1377,16 +1377,16 @@ export const UserProfile = () => {
         </div>
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
           <FormControl className='w-full'>
-            <InputLabel htmlFor="odr">Other Duty Responsibilities: (optional)</InputLabel>
+            <InputLabel htmlFor="odr">Other Duty and Responsibilities: (optional)</InputLabel>
             <OutlinedInput
               id="odr"
               className='w-full'
               onChange={handleChangeUserData}
               name="other_duties_responsibilities"
-              label="Other Duty Responsibilities: (optional)"
+              label="Other Duty and Responsibilities: (optional)"
               type='text'              
             />
-            {/* {errors.other_duties_responsibilities && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Other Duty Responsibilities is required.</sub>} */}
+            {/* {errors.other_duties_responsibilities && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Other Duty and Responsibilities is required.</sub>} */}
           </FormControl>
 
           <FormControl className='w-full'>

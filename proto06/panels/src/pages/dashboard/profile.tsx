@@ -1236,10 +1236,6 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
             readOnly: true,
           }} id="Ecola" label="Ecola" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={userData.ecola}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
-            <TextField            InputProps={{
-            readOnly: true,
-          }} id="Other Duty Responsibilities" label="Other Duty Responsibilities" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={userData.other_duties_responsibilities }  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
-
           </div>
           <div>
 
@@ -1403,6 +1399,18 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
             <TextField           InputProps={{
             readOnly: true,
           }} id="Other Deductible" label="Other Deductible" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={userData.other_deductible}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+          
+            <TextField            
+              InputProps={{
+                readOnly: true,
+              }} 
+              id="Other Duty Responsibilities" 
+              label="Other Duty and Responsibilities" 
+              variant="outlined" 
+              style={{ width: '100%', marginBottom: '20px' }} 
+              value={userData.other_duties_responsibilities }  
+              InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+            />
 
            
 
