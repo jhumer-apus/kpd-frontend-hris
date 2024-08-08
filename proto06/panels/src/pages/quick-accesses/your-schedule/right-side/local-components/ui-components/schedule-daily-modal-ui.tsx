@@ -37,18 +37,18 @@ function SCHEDULEDAILYModalUI(props: SCHEDULEDAILYModalUIInterface) {
                         
                         <DesktopTimePicker 
                             label="Time Start" 
-                            defaultValue={dayjs(ThisProps.schedule_shift_code.lunch_break_start, "HH:mm:ss")} 
-                            minTime={ThisProps.schedule_shift_code.time_in ? dayjs(ThisProps.schedule_shift_code.time_in, 'HH:mm:ss'): null}
-                            maxTime={ThisProps.schedule_shift_code.time_out ? dayjs(ThisProps.schedule_shift_code.time_out, 'HH:mm:ss'): null}
+                            defaultValue={ThisProps.schedule_shift_code?.lunch_break_start? dayjs(ThisProps.schedule_shift_code.lunch_break_start, "HH:mm:ss"): ""} 
+                            minTime={ThisProps.schedule_shift_code?.time_in ? dayjs(ThisProps.schedule_shift_code.time_in, 'HH:mm:ss'): null}
+                            maxTime={ThisProps.schedule_shift_code?.time_out ? dayjs(ThisProps.schedule_shift_code.time_out, 'HH:mm:ss'): null}
                             // onChange={(newValue) => handleChangeTime("lunch_break_start", dayjs(newValue).format("HH:mm:ss"))}
                             disabled
     
                         />
                         <DesktopTimePicker 
                             label="Time End" 
-                            defaultValue={dayjs(ThisProps.schedule_shift_code.lunch_break_end, "HH:mm:ss")}
+                            defaultValue={ThisProps.schedule_shift_code?.lunch_break_end? dayjs(ThisProps.schedule_shift_code.lunch_break_end, "HH:mm:ss"): ""}
                             minTime={ThisProps.lunch_break_start ? dayjs(ThisProps.lunch_break_start): null}
-                            maxTime={ThisProps.schedule_shift_code.time_out ? dayjs(ThisProps.schedule_shift_code.time_out, "HH:mm:ss"): null}
+                            maxTime={ThisProps.schedule_shift_code?.time_out ? dayjs(ThisProps.schedule_shift_code.time_out, "HH:mm:ss"): null}
                             disabled
                             // onChange={(newValue) => handleChangeTime("lunch_break_end", dayjs(newValue).format("HH:mm:ss"))}
                         />

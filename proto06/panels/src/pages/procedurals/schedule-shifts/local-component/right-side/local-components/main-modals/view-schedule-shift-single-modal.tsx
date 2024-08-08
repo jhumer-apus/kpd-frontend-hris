@@ -68,7 +68,7 @@ export default function ViewSCHEDULESHIFTSingleModal(props: SingleSCHEDULESHIFTI
 
 // Styles
 const SCHEDULESHIFTModalArea = {
-  height: '110mm',
+  // height: '110mm',
   maxWidth: '700px',
   margin: '0 auto',
   background: 'white',

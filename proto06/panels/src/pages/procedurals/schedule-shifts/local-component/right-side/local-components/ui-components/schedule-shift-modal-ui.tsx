@@ -59,12 +59,12 @@ function SCHEDULESHIFTModalUI(props: SCHEDULESHIFTModalUIInterface) {
                         
                         <DesktopTimePicker 
                             label="Time Start" 
-                            defaultValue={dayjs(ThisProps.lunch_break_start, "HH:mm:ss")}
+                            defaultValue={ThisProps.lunch_break_start ? dayjs(ThisProps.lunch_break_start, "HH:mm:ss"): ""}
                             disabled
                         />
                         <DesktopTimePicker 
                             label="Time End" 
-                            defaultValue={dayjs(ThisProps.lunch_break_end, "HH:mm:ss")}
+                            defaultValue={ThisProps.lunch_break_end ? dayjs(ThisProps.lunch_break_end, "HH:mm:ss"): ""}
                             disabled
                         />
                         
