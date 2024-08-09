@@ -42,7 +42,7 @@ function LEAVECREDITModalUI(props: LEAVECREDITModalUIInterface) {
                     <TextField sx={{width: '100%'}} label='Converted To Cash:' value={ThisProps.is_converted === true ? 'Converted' : 'Not Converted Yet'} InputProps={{readOnly: true,}} variant='standard'/>
                 </div>
                 <div className='flex gap-6 flex-col'>
-                    <TextField sx={{width: '100%', minWidth: '160px', color: 'green'}} label='Leave Name' value={ThisProps.leave_name || 'No Leave Name'} InputProps={{readOnly: true,}} variant='filled' focused/>
+                    <TextField sx={{width: '100%', minWidth: '160px', color: 'green'}} label='Leave Name' value={ThisProps?.leave_type_data?.name|| 'No Leave Name'} InputProps={{readOnly: true,}} variant='filled' focused/>
                     <TextField sx={{width: '100%'}} label='Date Added:' value={ThisProps.date_added? dayjs(ThisProps.date_added).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Date Deactivated:' value={ThisProps.date_deleted? dayjs(ThisProps.date_deleted).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Max Credit' value={(ThisProps.credit_max || 0).toFixed(2)} focused={!!ThisProps.allowed_days} color={(ThisProps.allowed_days || 0) > 1? 'success' : 'warning'} InputProps={{readOnly: true,}} variant='standard'/>

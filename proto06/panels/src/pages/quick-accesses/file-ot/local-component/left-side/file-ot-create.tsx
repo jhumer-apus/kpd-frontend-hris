@@ -75,7 +75,7 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
     
         }).catch(err => {
     
-            console.log(err)
+            console.error(err)
             dispatch(HandleAlertAction({
                 open:true,
                 status:"error",
@@ -102,7 +102,7 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
             .then((res:any) => {
 
                 setIsSubmittingRequest(false)
-                dispatch(OVERTIMEViewFilterEmployeeAction({emp_no: userData?.emp_no}))
+                dispatch(OVERTIMEViewFilterEmployeeAction({emp_no: userData?.emp_no as number}))
                 dispatch(HandleAlertAction({
                     open: true,
                     status: "success",

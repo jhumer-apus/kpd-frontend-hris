@@ -460,6 +460,7 @@ export interface LEAVECREDITViewInterface extends LEAVECREDITCreateInterface {
     date_added: string | null,
     credit_max: number,
     added_by: string | number | null
+    leave_type_data: any
 }
 
 export interface LEAVECREDITEditInterface extends LEAVECREDITViewInterface {}

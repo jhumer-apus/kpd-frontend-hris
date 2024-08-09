@@ -18,7 +18,7 @@ export const ManageDEPARTMENTPageColumns: GridColDef[] =
   { field: 'dept_lead', headerName: 'Dept. Lead:', width: 120 },
   { field: 'id', headerName: 'Department ID', width: 140,
   },
-  { field: 'dept_branch_code', headerName: 'Branch ID',  width: 120 },
+  { field: 'departmentt_branch_name', headerName: 'Branch',  width: 120 },
 ];
   
 export default {
