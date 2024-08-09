@@ -529,7 +529,8 @@ export const SpecificEmployee = (props: initialState) => {
             other_duties_responsibilities: data.other_duties_responsibilities,
             payroll_no: data.payroll_no,
             date_hired: data.date_hired ? dayjs(data.date_hired).format('YYYY-MM-DDThh:mm:ss'): null,
-            date_resigned: data.date_resigned ? dayjs(data.date_resigned).format('YYYY-MM-DDThh:mm:ss'): null,
+            date_separation: data.date_separation ? dayjs(data.date_separation).format('YYYY-MM-DDThh:mm:ss'): null,
+            separation_type: data?.separation_type ?? "",
             accnt_no: data.accnt_no,
             emp_salary_basic: data.emp_salary_basic,
             emp_salary_type: "5",
@@ -563,7 +564,7 @@ export const SpecificEmployee = (props: initialState) => {
             // sss_data: null,
             // philhealth_data: null,
             // provincial_address: null,
-            // date_resigned: null,
+            // date_separation: null,
             // date_added: '',
             // tax_code: null,
             // pagibig_code: null,
@@ -1340,44 +1341,70 @@ export const SpecificEmployee = (props: initialState) => {
                                             </Typography>
                                             <div className="my-4 md:flex md:items-center gap-4">
                                                 <Input
-                                                        // crossOrigin={undefined} {...register('date_hired')}
-                                                        onChange={(e)=> setFormSelectData((curr:any) => ({
+                                                    // crossOrigin={undefined} {...register('date_hired')}
+                                                    onChange={(e)=> setFormSelectData((curr:any) => ({
+                                                        ...curr,
+                                                        date_hired: e.target.value
+                                                    }))}
+                                                    type="date"
+                                                    containerProps={{ className: "min-w-[72px] mb-2 md:mb-0" }}
+                                                    labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                    label="Date Hired:"
+                                                    disabled={!editMode3}
+                                                    defaultValue={userData?.date_hired?.split("T")[0]}
+                                                    // value={`${userData?.date_hired ? userData?.date_hired : ''}`}
+                                                    icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                        
+                                                />
+                                                <Input
+                                                    crossOrigin={null} {...register('employment_duration')}
+                                                    type="text"
+                                                    containerProps={{ className: "min-w-[72px] focused" }}
+                                                    labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                    label="Employment Duration:"
+                                                    // icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}       
+                                                    disabled
+                                                /> 
+                                            </div>
+                                            <div className="my-4 md:flex md:items-center gap-4">
+                                                <Input
+                                                    // crossOrigin={undefined} {...register('date_separation')}
+                                                    onChange={(e)=> setFormSelectData((curr:any) => {
+                                                        console.log(e.target.value)
+                                                        return ({
                                                             ...curr,
-                                                            date_hired: e.target.value
-                                                        }))}
-                                                        type="date"
-                                                        containerProps={{ className: "min-w-[72px] mb-2 md:mb-0" }}
-                                                        labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                        label="Date Hired:"
-                                                        disabled={!editMode3}
-                                                        defaultValue={userData?.date_hired?.split("T")[0]}
-                                                        // value={`${userData?.date_hired ? userData?.date_hired : ''}`}
-                                                        icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                        
+                                                            date_separation: e.target.value
+                                                        })
+                                                    })}
+                                                    onBlur={(e)=> setFormSelectData((curr:any) => {
+                                                        console.log(e.target.value)
+                                                        return ({
+                                                            ...curr,
+                                                            date_separation: e.target.value
+                                                        })
+                                                    })}
+                                                    defaultValue={userData?.date_separation?.split("T")[0]}
+                                                    type="date"
+                                                    containerProps={{ className: "min-w-[72px] mb-2 focused" }}
+                                                    labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                    label="Date Separation:"
+                                                    disabled={!editMode3}
+                                                    icon={<FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />}                                        
                                                 />
 
-                                                    <Input
-                                                        // crossOrigin={undefined} {...register('date_resigned')}
-                                                        onChange={(e)=> setFormSelectData((curr:any) => {
-                                                            console.log(e.target.value)
-                                                            return ({
-                                                                ...curr,
-                                                                date_resigned: e.target.value
-                                                            })
-                                                        })}
-                                                        onBlur={(e)=> setFormSelectData((curr:any) => {
-                                                            console.log(e.target.value)
-                                                            return ({
-                                                                ...curr,
-                                                                date_resigned: e.target.value
-                                                            })
-                                                        })}
-                                                        defaultValue={userData?.date_resigned?.split("T")[0]}
-                                                        type="date"
-                                                        containerProps={{ className: "min-w-[72px] mb-2 focused" }}
-                                                        labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                        label="Date Resigned:"
-                                                        disabled={!editMode3}
-                                                        icon={<FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
+                                                <Select
+                                                    onChange={(val:any) => setFormSelectData(curr => ({...curr, separation_type: val}))}
+                                                    placeholder="Select Separation Type"
+                                                    name="separation_type"
+                                                    variant="outlined"
+                                                    label="Separation Type:"
+                                                    value={userData?.separation_type}
+                                                    disabled={!editMode3}
+                                                >
+                                                    <Option value="">N/A</Option>
+                                                    <Option value="resigned">Resigned</Option>
+                                                    <Option value="retired">Retired</Option>
+                                                    <Option value="terminated">Terminated</Option>
+                                                </Select>
                                             </div>
                                             <div className="my-4 md:flex md:items-center gap-4">
                                                 <Input
@@ -1533,18 +1560,6 @@ export const SpecificEmployee = (props: initialState) => {
                                                     icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    
                                                 /> */}
                                             </div>
-                                            <div className="my-4 flex flex-col md:flex-row md:items-center gap-4">
-                                                <Input
-                                                    crossOrigin={null} {...register('employment_duration')}
-                                                    type="text"
-                                                    containerProps={{ className: "min-w-[72px] focused" }}
-                                                    labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                    label="Employment Duration:"
-                                                    // icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}       
-                                                    disabled
-                                                /> 
-                                            </div>
-
                                         </div>
                                         <div style={{width: "100%"}}>
                                             <Typography

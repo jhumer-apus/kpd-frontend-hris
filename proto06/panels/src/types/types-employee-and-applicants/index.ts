@@ -210,7 +210,7 @@ export interface OFFBOARDINGSTATUSCreateInterface extends Omit<OFFBOARDINGSTATUS
 }
 
 export interface OFFBOARDINGSTATUSEditInterface extends Omit<OFFBOARDINGSTATUSGenericInterface, "date_offboard">, Pick<OFFBOARDINGSTATUSViewInterface, "id">{
- date_resigned: string
+ date_separation: string
 }
 
 export interface OFFBOARDINGSTATUSUpdateInterface extends Pick <OFFBOARDINGSTATUSGenericInterface, "emp_no" | "added_by">{

@@ -77,7 +77,6 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
     const [activeTab, setActiveTab] = useState('personal');
     const [isEdit, setIsEdit] =useState<boolean>(false)
     const curr_user = useSelector((state: RootState) => state.auth.employee_detail);
-    console.log(curr_user)
 
     // const [file, setFile] = useState<File | null>(null);
     const [profileImage, setProfileImage] = useState<any>(null);
@@ -104,6 +103,25 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
         code: ''
       }
     })
+
+    const separationTypeName = () => {
+      let name = ""
+      switch (curr_user?.separation_type) {
+
+        case "resigned":
+          name = "Resigned"
+          break
+
+        case "retired":
+          name = "Retired"
+          break
+
+        case "terminated":
+          name = "Terminated"
+          break
+      }
+      return name
+    }
 
     // const [codeName, setCodeName] = useState();
 
@@ -1240,10 +1258,10 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
           <div>
 
             <DatePickerForm 
-              label="Date Resigned"
-              defaultValue={userData?.date_resigned}
+              label="Date Separated"
+              defaultValue={userData?.date_separation}
               setState={setUserData}
-              customKey="date_resigned"
+              customKey="date_separation"
               isReadOnly={true}
             />
             <TextField            
@@ -1333,6 +1351,18 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
               InputLabelProps={{ style: { fontWeight: 'bold' }}}  
             /> */}
 
+            
+            <TextField           
+              InputProps={{
+                readOnly: true,
+              }} 
+              id="separation_type_name" 
+              label="Separation Type" 
+              variant="outlined" 
+              style={{ width: '100%', marginBottom: '20px' }} 
+              value={separationTypeName()} 
+              InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+            />
 
             <TextField           
               InputProps={{

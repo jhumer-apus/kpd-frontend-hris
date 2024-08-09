@@ -62,7 +62,7 @@ export type DTRCutoffListEmployees = {
     email_address: string;
     bio_id: number | null;
     date_hired: string;
-    date_resigned: string | null;
+    date_separation: string | null;
     approver: number;
     date_added: string;
     date_deleted: string | null;
