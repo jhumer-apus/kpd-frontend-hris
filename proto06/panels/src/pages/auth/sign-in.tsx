@@ -13,6 +13,9 @@ import { CSSProperties, useEffect, useState, KeyboardEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userLoginAction } from "@/store/actions/auth";
 import { RootState } from "@/store/configureStore";
+import { useGeoLocation } from "@/custom-hooks/use-geolocation";
+import { HandleModalAction } from "@/store/actions/components";
+import EnableCurrentLocationNotif from "@/public-components/geolocation/TimeInLocation";
 
 export function SignIn() {
   const dispatch = useDispatch();
@@ -21,8 +24,9 @@ export function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
   const signState = useSelector((state: RootState) => state.auth);
 
-
+  
   function handleSignIn(passedEmail: string, passedPassword: string) {
+
     // Implement your login logic here
     dispatch(userLoginAction({username: passedEmail, password: passedPassword}));
   }

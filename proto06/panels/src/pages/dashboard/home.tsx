@@ -20,7 +20,8 @@ import { Typography } from "@mui/material";
 import {
   EllipsisVerticalIcon,
   ArrowUpIcon,
-  BriefcaseIcon
+  BriefcaseIcon,
+  ClockIcon
 } from "@heroicons/react/24/outline";
 import styles from './custom-styles/home.module.scss';
 import CarouselUI from "@/widgets/banner/banner";
@@ -40,13 +41,16 @@ import ExportToCsv from "@/public-components/ExportToCSVButton";
 import YearlyReminder from "./YearlyReminder";
 import { APILink, RootState } from "@/store/configureStore";
 
+
 //LIBARIES
 import axios from 'axios'
 
 //COMPONENTS
 import Notification from "@/public-components/home/Notification";
 import BirthdayAnniversary from "@/public-components/home/BirthdayAnniversary";
-
+import { HandleModalAction } from "@/store/actions/components";
+import { useGeoLocation } from "@/custom-hooks/use-geolocation";
+import TimeInLocation from "@/public-components/geolocation/TimeInLocation";
 
 export function ChooseDashboard() {
 
@@ -63,6 +67,8 @@ export function ChooseDashboard() {
   });
   const [ forCSVExtract, setForCSVExtract ] = useState<unknown>([]);
 
+  const {getCurrentLocation} = useGeoLocation();
+
   //USE EFFECTS
   useEffect(()=>{
     if(filterState.month && filterState.year){
@@ -75,6 +81,7 @@ export function ChooseDashboard() {
     dispatch(PERFECTATTENDANCEViewSpecificAction(filterState))
     dispatch(IMPERFECTATTENDANCEViewSpecificAction(filterState))
   }, [currentAttendanceTab])
+
 
   useEffect(()=> {
     
@@ -127,9 +134,20 @@ export function ChooseDashboard() {
     }
   ]
 
+  const timeIn = async () => {
+    dispatch(HandleModalAction({
+      name: "viewTimeInLocationModal",
+      value: true
+    }))
+  }
   return (
     <div className="mt-12">
       <Notification />
+      <TimeInLocation />
+        <Button onClick={() => timeIn()} className="my-4 text-md flex items-center gap-2">        
+          <p>Time In</p>
+          <ClockIcon className="h-6 w-6 text-white"/>
+        </Button>
       <div className={`${styles.homeWrap} bg-red-10`}>
         <YearlyReminder /> {/* Add this line to include the YearlyReminder component */}
         <Card className={styles.greetingsBar}>
