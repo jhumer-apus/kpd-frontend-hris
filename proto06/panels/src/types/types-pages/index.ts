@@ -291,6 +291,7 @@ export interface OVERTIMECreateInterface {
     ot_remarks: string | null;
     ot_date_from: string | null;
     ot_date_to: string | null;
+    ot_business_date: string | null;
     added_by?: string | number | null
 }
 

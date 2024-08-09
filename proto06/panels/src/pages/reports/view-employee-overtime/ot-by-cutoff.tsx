@@ -130,6 +130,7 @@ export default function ViewEmployeeLeaves() {
         return {
             "Employee No.": obj.emp_no,
             "Employee Name": obj.emp_name,
+            "OT Business Date": obj.ot_business_date,
             "Date Start": obj.ot_date_from,
             "Date End": obj.ot_date_to,
             "OT Type": obj.ot_type,
@@ -156,6 +157,14 @@ export default function ViewEmployeeLeaves() {
             width: 150,
             valueGetter: (params: GridValueGetterParams) => {
                 return params.row.emp_name as string;
+            },
+        },
+        {
+            field: 'ot_business_date', 
+            headerName: 'Business Date', 
+            width: 150,
+            valueGetter: (params: GridValueGetterParams) => {
+                return params.row.ot_business_date;
             },
         },
         {

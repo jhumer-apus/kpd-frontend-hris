@@ -35,6 +35,7 @@ export default function ViewOvertimeModal (props: Props) {
         ot_date_to: "2024-06-03T20:00:00",
         ot_approval_status: "DIS",
         ot_reason_disapproval: "deny hayts <Updated: Jul-01-24 10:49 AM>",
+        ot_business_date: null,
         ot_total_hours: 135,
         ot_date_approved1: "2024-07-01T10:48:44.254666",
         ot_date_approved2: null,
@@ -197,7 +198,12 @@ export default function ViewOvertimeModal (props: Props) {
                         </Grid>
 
                         <Grid item xs={6}>
-                            <br></br>
+                            <TextField 
+                                sx={{width: '100%'}} 
+                                label='Business Date:' 
+                                value={details?.ot_business_date? dayjs(details?.ot_business_date).format('MM-DD-YYYY') : ""} 
+                                InputProps={{readOnly: true,}} 
+                            />
                         </Grid>
 
                         <Grid item xs={6}>
