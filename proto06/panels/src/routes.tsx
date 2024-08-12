@@ -144,7 +144,7 @@ import TrainingForms from "./pages/forms/training-forms/training-forms";
 import AttendanceForms from "./pages/forms/attendance-forms/attendance-forms";
 import OtherForms from "./pages/forms/other-forms/other-forms";
 import ExitForms from "./pages/forms/exit-forms/exit-forms";
-import ManageEmploymentStatusTypes from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-employment-status-type/manage_emp_status_type";
+import ManageEmploymentStatusTypes from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-employment-status-type/manage-emp-status-type";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -249,14 +249,14 @@ const JSXRouteWrapper = () => {
                         element: <ManageRANK/>,
                         hasSubItems: false,
                       },
-                      // {
-                      //   id: 1120006,
-                      //   icon: null,
-                      //   name: "Employment Status Type",
-                      //   path: "/Dashboards/Admin-Portal/Categories/Employment-Status-Type",
-                      //   element: <ManageEmploymentStatusTypes />,
-                      //   hasSubItems: false,
-                      // },
+                      {
+                        id: 1120006,
+                        icon: null,
+                        name: "Employment Status Type",
+                        path: "/Dashboards/Admin-Portal/Categories/Employment-Status-Type",
+                        element: <ManageEmploymentStatusTypes />,
+                        hasSubItems: false,
+                      },
                     ]
                   },
                   {

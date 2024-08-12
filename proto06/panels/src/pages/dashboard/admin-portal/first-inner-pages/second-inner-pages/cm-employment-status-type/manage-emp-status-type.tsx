@@ -2,8 +2,8 @@ import { Fragment }from 'react';
 import { styled } from '@mui/material/styles';
 import MuiGrid from '@mui/material/Grid';
 import { Paper, Box, useTheme, useMediaQuery } from '@mui/material';
-// import ManageDIVISIONPageHistory from './local-component/right-side/manage-division-history';
-// import ManageDIVISIONCreate from './local-component/left-side/manage-division-create';
+import EmploymentStatusTypesTable from '@/public-components/categories/employment-status-types/EmploymentStatusTypesTable';
+import CreateEmploymentStatusType from '@/public-components/categories/employment-status-types/CreateEmploymentStatusType';
 
 
 const PaperStyle = {
@@ -31,13 +31,13 @@ export default function ManageEmploymentStatusTypes() {
             <Grid item xs>
                 <Paper elevation={3} style={PaperStyle}>
                     <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
-                        {/* <ManageDIVISIONCreate/> */}
+                        <CreateEmploymentStatusType/>
                     </Box>
                 </Paper>
             </Grid>
             <Grid item xs>
                 <Paper elevation={3} style={PaperStyle}>
-                    {/* <ManageDIVISIONPageHistory/> */}
+                    <EmploymentStatusTypesTable />
                 </Paper>
             </Grid>
         </Grid>

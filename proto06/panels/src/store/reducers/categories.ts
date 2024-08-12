@@ -120,6 +120,7 @@ import {
     RANKViewSpecificActionFailureCleanup,
     RANKViewSpecificActionProgress,
     RANKViewSpecificActionSuccess,
+    EMPLOYMENTSSTATUSViewAction
   } from '../actions/categories';
 import { 
     BRANCHCreateInterface,
@@ -315,6 +316,8 @@ interface OverallCategoriesState {
   RANKCreate: RANKCreateState,
   RANKEdit: RANKEditState,
   RANKDelete: RANKDeleteState,
+
+  EMPLOYMENTSTATUSView:any
 }
 
 const initialState: OverallCategoriesState = {
@@ -473,6 +476,12 @@ const initialState: OverallCategoriesState = {
     progress: 0,
     data: null,
     error: '',
+  },
+  EMPLOYMENTSTATUSView : {
+    status: '',
+    progress: 0,
+    data: [],
+    error: ''
   },
 };
 
@@ -662,6 +671,8 @@ const categoriesSlice = createSlice({
       .addCase(RANKEditActionProgress, (state, action) => setProgressState(state, action.payload, "RANKEdit"))
       .addCase(RANKEditActionFailure, (state, action) => setFailureState(state, action.payload, "RANKEdit"))
       .addCase(RANKEditActionFailureCleanup, setRefreshedState("RANKEdit"))
+
+      .addCase(EMPLOYMENTSSTATUSViewAction, (state, action) => setSuccessState(state, action.payload, "EMPLOYMENTSTATUSView"))
   },
 });
 
