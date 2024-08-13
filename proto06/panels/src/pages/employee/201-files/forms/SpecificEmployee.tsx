@@ -1540,6 +1540,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                         disabled={!editMode3}
                                                         aria-required
                                                         >
+                                                        <Option value="">N/A</Option>
                                                         {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> (
                                                             // ![formSelectData.approver1, formSelectData.approver2].includes(approver.emp_no) && <Option value={approver.emp_no}>{approver.full_name}</Option>
                                                             <Option value={approver.emp_no}>{approver.full_name}</Option>
