@@ -26,7 +26,7 @@ export default function ButtonElement(props:Props) {
                 <Button 
                     variant='contained' 
                     className="w-32"
-                    onClick={() => onSave && onSave()}
+                    // onClick={() => onSave && onSave()}
                     type="submit"
                 >
                     Save

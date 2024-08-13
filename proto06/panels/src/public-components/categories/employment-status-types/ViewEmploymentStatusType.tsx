@@ -22,6 +22,11 @@ export default function ViewEmploymentStatusType(props: Props) {
 
     const dispatch = useDispatch()
     const viewEmploymentStatusTypeModal = useSelector((state:RootState) => state.component.viewEmploymentStatusTypeModal)
+    const currUser = useSelector((state:RootState) => state.auth.employee_detail)
+
+    useEffect(() => {
+        setDetails((curr:any) => ({...selectedRow}))
+    },[selectedRow])
 
     const handleClose = () => {
         setIsEdit(curr => false)
@@ -31,18 +36,26 @@ export default function ViewEmploymentStatusType(props: Props) {
         }))
     }
 
-    console.log(details)
-    const onSave = async () => {
-        const payload = {
-            ...details
-        }
+    const onCancel = () => {
+        setIsEdit(curr => false)
+        setDetails((curr:any) => ({
+            ...selectedRow
+        }))
+    }
 
-        await axios.put(`${APILink}emp_status_type/${details.id}/`)
+    const onSave = async (e:any) => {
+        e.preventDefault()
+        const payload = {
+            ...details,
+            added_by: currUser?.emp_no
+        }
+        await axios.put(`${APILink}emp_status_type/${details.id}/`, payload)
             .then(res => {
                 fetchAllEmploymentStatus()
+                handleClose()
             })
-        
     }
+
     const fetchAllEmploymentStatus = async () => {
         await axios.get(`${APILink}emp_status_type/`).then(res => {
           const data = Array.isArray(res.data) ? res.data: []
@@ -93,7 +106,7 @@ export default function ViewEmploymentStatusType(props: Props) {
                     />
                     <ButtonElement 
                         onEdit={() => setIsEdit(curr => true)} 
-                        onCancel={() => setIsEdit(curr => false)} 
+                        onCancel={() => onCancel()} 
                         onSave={null} 
                         onDelete={null} 
                         isEdit={isEdit} />
