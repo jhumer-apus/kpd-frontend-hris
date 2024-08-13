@@ -34,8 +34,21 @@ export default function ButtonElement(props:Props) {
             </div>
             
             <div className={`flex gap-4 ${isEdit ? "hidden": "block"}`}>
-                <Button 
-                    className="w-32"
+                <div className={`${onDelete? "block": "hidden"}`}>
+                    <Button 
+                        className={`w-32 hidden`}
+                        variant="outlined"
+                        color="error" 
+                        onClick={() => onDelete && onDelete()}
+                        startIcon={
+                            <TrashIcon className="h-6 w-6 text-red-500" />
+                        }
+                    >
+                        Delete
+                    </Button>
+                </div>
+                {/* <Button 
+                    className={`w-32 hidden`}
                     variant="outlined"
                     color="error" 
                     onClick={() => onDelete && onDelete()}
@@ -44,7 +57,7 @@ export default function ButtonElement(props:Props) {
                     }
                 >
                     Delete
-                </Button>
+                </Button> */}
                 <Button 
                     variant='contained' 
                     className="w-32"
