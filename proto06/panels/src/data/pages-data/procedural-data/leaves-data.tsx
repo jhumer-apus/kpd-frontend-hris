@@ -102,6 +102,7 @@ export const ProceduralLEAVEPageColumns: GridColDef[] =
   },
   { field: 'leave_type_name', headerName: 'Leave Type', width: 120 },
   { field: 'leave_approver1_empno', headerName: 'Approver #1', width: 120 },
+  { field: 'leave_approver2_empno', headerName: 'Approver #2', width: 120 },
   {
     field: 'leave_date_approved1',
     headerName: 'Date Approved #1',
@@ -115,7 +116,6 @@ export const ProceduralLEAVEPageColumns: GridColDef[] =
       }
     }
   },
-  { field: 'leave_approver2_empno', headerName: 'Approver #2', width: 120 },
   {
     field: 'leave_date_approved2',
     headerName: 'Date Approved #2',

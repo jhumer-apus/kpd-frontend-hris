@@ -62,6 +62,7 @@ export const ProceduralOBTPageColumns: GridColDef[] =
       }
     } 
   },
+  { field: 'obt_approver2_empno', headerName: 'Approver #2', width: 120 },
   {
     field: 'obt_date_approved1',
     headerName: 'Date Approved #1',
@@ -75,7 +76,6 @@ export const ProceduralOBTPageColumns: GridColDef[] =
       }
     }
   },
-  { field: 'obt_approver2_empno', headerName: 'Approver #2', width: 120 },
   {
     field: 'obt_date_approved2',
     headerName: 'Date Approved #2',
