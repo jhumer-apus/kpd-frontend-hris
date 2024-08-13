@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 type CreateEmpStatusType = {
     name: string,
-    added_by: string | number | null
+    added_by: string | number | null | undefined
 }
 export default function CreateEmploymentStatusType() {
 
@@ -43,6 +43,12 @@ export default function CreateEmploymentStatusType() {
     const createEmpStatusType = async (payload:CreateEmpStatusType) => {
         await axios.post(`${APILink}emp_status_type/`, payload).then(res => {
             fetchAllEmploymentStatus()
+            setCreateType((curr:CreateEmpStatusType) => (
+                {
+                    name:"",
+                    added_by: curr_user?.emp_no,
+                }
+            ))
         })
     }
 
@@ -55,7 +61,7 @@ export default function CreateEmploymentStatusType() {
 
     return (
         <Fragment>
-            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a Division Data</Typography>
+            <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a Employment Status Data</Typography>
             <form onSubmit={onSubmit} className='flex flex-col gap-3 overflow-auto relative'>
                     {/* <div className='flex flex-col gap-3 pt-4'>
                         <EmployeeListField 
@@ -73,9 +79,7 @@ export default function CreateEmploymentStatusType() {
                             variant='standard' 
                             type="text"
                             onChange={handleChange}
-                            inputProps={{
-                                readOnly:true
-                            }}
+                            value={createType.name}
                         />
                     </div>
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
