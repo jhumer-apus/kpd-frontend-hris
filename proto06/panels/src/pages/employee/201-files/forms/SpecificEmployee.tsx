@@ -556,7 +556,7 @@ export const SpecificEmployee = (props: initialState) => {
             employment_status: data.employment_status,
             url_google_map: data.url_google_map,
             employee_type: data.employee_type,
-            added_by: userData?.emp_no
+            added_by: currUser?.emp_no
             // rank_hierarchy: 0,
             // user: null,
             // tax_data: null,
@@ -1539,17 +1539,15 @@ export const SpecificEmployee = (props: initialState) => {
                                                         value={userData?.approver2}
                                                         disabled={!editMode3}
                                                         aria-required
-                                                        >
-                                                        <Option value="">N/A</Option>
-                                                        {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> (
+                                                    >
+                                                        {dropDownData.approvers.length > 0 ? [{emp_no:"", full_name: "N/A"}, ...dropDownData.approvers].map((approver:any, index:number)=> (
                                                             // ![formSelectData.approver1, formSelectData.approver2].includes(approver.emp_no) && <Option value={approver.emp_no}>{approver.full_name}</Option>
-                                                            <Option value={approver.emp_no}>{approver.full_name}</Option>
+                                                            <Option key={index} value={approver.emp_no}>{approver.full_name}</Option>
                                                             )): (
                                                             <Option disabled>No Approvers available on the selected department</Option>
                                                         )}
                                                     </Select>
                                                 }
-                                                
                                                 {/* <Input
                                                     crossOrigin={undefined} {...register('approver2')}
                                                     type="number"
@@ -1717,10 +1715,10 @@ export const SpecificEmployee = (props: initialState) => {
                                                         value={userData?.payroll_group_code?.toString()}
                                                     >
                                                         {
-                                                        dropDownData.payrollGroups.length > 0 ? dropDownData.payrollGroups.map((payroll:any) => (
-                                                            <Option key={payroll.id} value={payroll.id}>{payroll.name}</Option>
-                                                        ))
-                                                        : <Option disabled>No payrolls available</Option>
+                                                            dropDownData.payrollGroups.length > 0 ? dropDownData.payrollGroups.map((payroll:any) => (
+                                                                <Option key={payroll.id} value={payroll.id}>{payroll.name}</Option>
+                                                            ))
+                                                            : <Option disabled>No payrolls available</Option>
                                                         }
                                                     </Select>
                                                 }
