@@ -2,12 +2,14 @@ import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { Button } from '@mui/material';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { APILink, RootState } from '@/store/configureStore';
 import CUTOFFPERIODDateCreate from './inner-ui-components/cutoff-period-date-field';
 import { Typography } from '@mui/joy';
 import { CUTOFFPERIODCreateInterface } from '@/types/types-pages';
 import { CUTOFFPERIODCreateAction, CUTOFFPERIODCreateActionFailureCleanup } from '@/store/actions/procedurals';
 import CUTOFFPERIODCreditDateCreate from './inner-ui-components/cutoff-period-credit-date-field';
+import AutoCompleteForm from '@/public-components/forms/AutoCompleteForm';
+import axios from 'axios';
 
 interface CreateCUTOFFPERIODModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -27,9 +29,20 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
         payroll_group_code: null,
         division_code: null, 
     });
+
+    const [dropDownData, setDropDownData] = useState<any>({
+        payroll_groups: [],
+        divisions: []
+      })
+
     const onClickSubmit = () => {
         dispatch(CUTOFFPERIODCreateAction(createCUTOFFPERIOD))
     };
+
+    useEffect(() => {
+        fetchDropDownData()
+    },[])
+
     useEffect(()=>{
         if(CUTOFFPERIODCreatestate.status === 'succeeded'){
             window.alert('Request Successful');
@@ -41,6 +54,35 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
             }, 1000)
         }
     }, [CUTOFFPERIODCreatestate.status])
+
+    const fetchDropDownData = async () => {
+        await axios.get(`${APILink}payrollgroup/`).then(res => 
+          setDropDownData((curr:any) => ({
+            ...curr,
+            payroll_groups: Array.isArray(res.data) ? res.data : []
+          }))
+        )
+        await axios.get(`${APILink}division/`).then(res => 
+          setDropDownData((curr:any) => ({
+            ...curr,
+            divisions: Array.isArray(res.data) ? res.data : []
+          }))
+        )
+    }
+
+    const handleChangePayrollGroup = (e:any, newValue:any) => {
+        setCreateCUTOFFPERIOD(curr => ({
+          ...curr,
+          payroll_group_code: newValue?.id
+        }))
+      }
+    
+      const handleChangeDivision = (e:any, newValue:any) => {
+        setCreateCUTOFFPERIOD(curr => ({
+          ...curr,
+          division_code: newValue?.id
+        }))
+      }
 
     return (
         <React.Fragment>
@@ -86,7 +128,7 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
                                 })
                             }}
                         />
-                        <TextField
+                        {/* <TextField
                             required 
                             sx={{width: '100%'}} 
                             label='Division Group Code:'  
@@ -104,6 +146,15 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
                                     )
                                 })
                             }}
+                        /> */}
+                        <AutoCompleteForm 
+                            id="divisions"
+                            options={dropDownData.divisions}
+                            label={"Division"}
+                            getOptionLabel={(option: any) => option?.div_name?? ""}
+                            handleChange={handleChangeDivision}
+                            optionTitle='div_name' 
+                            defaultValueId={setCreateCUTOFFPERIOD?.division_code}                    
                         />
                         <TextField
                             required 
@@ -127,7 +178,16 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
                     </div>
                     <div className='flex flex-col gap-6'>
                         <CUTOFFPERIODDateCreate createCUTOFFPERIOD={createCUTOFFPERIOD} setCreateCUTOFFPERIOD={setCreateCUTOFFPERIOD}/>
-                        <TextField
+                        <AutoCompleteForm 
+                            id="payroll_group"
+                            options={dropDownData.payroll_groups}
+                            label={"Payroll Group"}
+                            getOptionLabel={(option: any) => option?.name?? ""}
+                            handleChange={handleChangePayrollGroup}
+                            optionTitle='name' 
+                            defaultValueId={null}                    
+                        />
+                        {/* <TextField
                             required 
                             sx={{width: '100%'}} 
                             label='Payroll Group Code:'  
@@ -145,7 +205,7 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
                                     )
                                 })
                             }}
-                        />
+                        /> */}
                         <CUTOFFPERIODCreditDateCreate createCUTOFFPERIOD={createCUTOFFPERIOD} setCreateCUTOFFPERIOD={setCreateCUTOFFPERIOD}/>
                     </div>
                 </div>

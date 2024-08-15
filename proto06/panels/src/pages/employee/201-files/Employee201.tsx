@@ -55,7 +55,7 @@ const columns: GridColDef[] = [
       return params.row.date_hired ? dayjs(date).format(`${globalDate}`) : '-';
     }, 
   },
-  { field: 'branch_code', headerName: 'Branch Code', width: 150 },
+  { field: 'branch_code', headerName: 'Branch', width: 150, valueGetter: (params: GridValueGetterParams) => params.row.branch_data.branch_name },
   { field: 'mobile_phone', headerName: 'Mobile Number', width: 150 },
   { field: `user`, headerName: 'Has HRIS Access', width: 150, valueGetter: (params: GridValueGetterParams) => `${params.row.user?.is_active ? 'Active' : 'No Access'}` },
   { field: 'bio_id', headerName: 'Biometrics ID', width: 150 },
