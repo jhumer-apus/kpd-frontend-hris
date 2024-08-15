@@ -32,8 +32,13 @@ function ProceduralLEAVECREDITCreate(props: CreateLEAVECREDITModalInterface) {
         expiry: null,
         emp_no: null,
         leave_type_code: null,
+        credit_remaining: null,
         added_by: currUser?.emp_no
     });
+    useEffect(() => {
+        console.log(createLEAVECREDIT.credit_remaining)
+    },[createLEAVECREDIT])
+
     const onClickSubmit = (e:any) => {
         e.preventDefault()
         dispatch(LEAVECREDITCreateAction(createLEAVECREDIT))
@@ -57,7 +62,7 @@ function ProceduralLEAVECREDITCreate(props: CreateLEAVECREDITModalInterface) {
     const handleChange = (event: any, newValue: any) => {
         if(newValue) {
             
-            setSelectedLeaveDetails(curr => newValue)
+            setSelectedLeaveDetails((curr:any) => newValue)
             setCreateLEAVECREDIT((curr:any) => ({
                 ...curr,
                 leave_type_code: newValue.id,
@@ -147,21 +152,21 @@ function ProceduralLEAVECREDITCreate(props: CreateLEAVECREDITModalInterface) {
                         <TextField
                             required={selectedLeaveDetails?.is_paid} 
                             disabled={!selectedLeaveDetails?.is_paid}
-                            label='Inital Credit:'
+                            label='Initial Credit:'
                             InputProps={{
                                 inputProps:{
                                     min:0,
                                     max:createLEAVECREDIT?.credit_max,
-                                    type:"number"
+                                    type:"number",
+                                    step: 0.01
                                 }
-                                
                             }}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 setCreateLEAVECREDIT((prevState)=> {
                                     return (
                                         {
                                             ...prevState,
-                                            credit_remaining: parseInt(event.target.value)
+                                            credit_remaining: parseFloat(event.target.value)
                                         }
                                     )
                                 })

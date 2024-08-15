@@ -1062,6 +1062,7 @@ const proceduralsSlice = createSlice({
       .addCase(LEAVECREDITEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "LEAVECREDITEdit"))
       .addCase(LEAVECREDITEditActionProgress, (state, action) => setProgressState(state, action.payload, "LEAVECREDITEdit"))
       .addCase(LEAVECREDITEditActionFailure, (state, action) => setFailureState(state, action.payload, "LEAVECREDITEdit"))
+      .addCase(LEAVECREDITEditActionFailureCleanup, setRefreshedState("LEAVECREDITEdit"))
       //LEAVETYPE SECTION
       .addCase(LEAVETYPEViewAction, setLoadingState("LEAVETYPEView"))
       .addCase(LEAVETYPEViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "LEAVETYPEView"))

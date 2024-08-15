@@ -444,10 +444,13 @@ export interface UAEditInterface extends UAViewInterface {}
 
 
 export interface LEAVECREDITCreateInterface {
-    allowed_days: number | null,
+    // allowed_days: number | null,
     expiry: string | null,
     emp_no: number | null,
     leave_type_code: number | null,
+    credit_max: number | null,
+    added_by: number | string | null | undefined
+    credit_remaining: number | null
 }
 
 export interface LEAVECREDITViewInterface extends LEAVECREDITCreateInterface { 
@@ -458,7 +461,6 @@ export interface LEAVECREDITViewInterface extends LEAVECREDITCreateInterface {
     credit_remaining: number | null,
     is_converted: boolean | null,
     date_added: string | null,
-    credit_max: number,
     added_by: string | number | null
     leave_type_data: any
 }
