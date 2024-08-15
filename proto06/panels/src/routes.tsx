@@ -580,24 +580,24 @@ const JSXRouteWrapper = () => {
                 // ]
               },
             ] : [],
-              {
-                id: 12500,
-                icon: <Diversity3OutlinedIcon {...icon} />,
-                name: "Training & Seminars",
-                path: "/employees/Training-and-Seminars",
-                element:<EMPSEMINARSPageV2/>,
-                hasSubItems: false,
-                // subItems: [
-                //   {
-                //     id: 121000,
-                //     icon: <UserCircleIcon {...icon} />,
-                //     name: "201 Files",
-                //     path: "/employees/KPI-Appraisals/:emp_no",
-                //     element: <APPRAISALDETAILSPage/>, 
-                //     hasSubItems: false,
-                //   },
-                // ]
-              },
+              // {
+              //   id: 12500,
+              //   icon: <Diversity3OutlinedIcon {...icon} />,
+              //   name: "Training & Seminars",
+              //   path: "/employees/Training-and-Seminars",
+              //   element:<EMPSEMINARSPageV2/>,
+              //   hasSubItems: false,
+              //   // subItems: [
+              //   //   {
+              //   //     id: 121000,
+              //   //     icon: <UserCircleIcon {...icon} />,
+              //   //     name: "201 Files",
+              //   //     path: "/employees/KPI-Appraisals/:emp_no",
+              //   //     element: <APPRAISALDETAILSPage/>, 
+              //   //     hasSubItems: false,
+              //   //   },
+              //   // ]
+              // },
             // {
             //   id: 12300,
             //   icon: <PrivacyTipOutlinedIcon {...icon} />,
