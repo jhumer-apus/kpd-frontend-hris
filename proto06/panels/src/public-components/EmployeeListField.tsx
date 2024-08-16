@@ -14,7 +14,7 @@ export default function EmployeeListField(props:Props) {
     const { label, currentValue, handleChange } = props
 
     const { data, isLoading, error, status } = useQuery('employees', async () => {
-        const res = await axios.get(`${APILink}employees/`)
+        const res = await axios.get(`${APILink}active_emp/`)
         return res.data
     });
 
