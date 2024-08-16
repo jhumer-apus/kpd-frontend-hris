@@ -10,6 +10,7 @@ import { LEAVECREDITCreateInterface } from '@/types/types-pages';
 import { LEAVECREDITCreateAction, LEAVECREDITCreateActionFailureCleanup } from '@/store/actions/procedurals';
 import LEAVETYPEFetchAutoCompleteOnLEAVECREDITPage from './inner-ui-components/leave-type-autocomplete';
 import useFetchLeaveTypes from '@/custom-hooks/use-fetch-leave-types';
+import EmployeeListField from '@/public-components/EmployeeListField';
 
 interface CreateLEAVECREDITModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -88,6 +89,19 @@ function ProceduralLEAVECREDITCreate(props: CreateLEAVECREDITModalInterface) {
         
     };
 
+    const handleChangeEmpField = (e:any, newValue:any) => {
+        if(newValue) {
+            setCreateLEAVECREDIT((prevState:any)=> 
+                (
+                    {
+                        ...prevState,
+                        emp_no: newValue.emp_no
+                    }
+                )
+            )
+        }
+    }
+
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a Leave Credit Data</Typography>
@@ -95,7 +109,12 @@ function ProceduralLEAVECREDITCreate(props: CreateLEAVECREDITModalInterface) {
             <form onSubmit={onClickSubmit} className='flex flex-col gap-6 overflow-auto relative'>
                 <div className='flex gap-6 pt-4'>
                     <div className='flex flex-col gap-6'>
-                        <EmployeeAutoComplete createLEAVECREDIT={createLEAVECREDIT} setCreateLEAVECREDIT={setCreateLEAVECREDIT}/>
+                        {/* <EmployeeAutoComplete createLEAVECREDIT={createLEAVECREDIT} setCreateLEAVECREDIT={setCreateLEAVECREDIT}/> */}
+                        <EmployeeListField 
+                            label="For Employee No.:" 
+                            handleChange={handleChangeEmpField} 
+                            currentValue={createLEAVECREDIT.emp_no} 
+                        />
                         <Autocomplete
                             // disableCloseOnSelect
                             noOptionsText={'Loading... Please Wait.'}

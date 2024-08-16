@@ -25,6 +25,7 @@ import FormLabel from '@mui/material/FormLabel';
 import EmployeeAutoCompleteLeft from '../employee-autocomplete/employee-autocomplete-left';
 import LimitTags from './inner-local-component/inner-schedule-daily-multiple-modal';
 import MultiEmployeeAutoCompleteLeft from './inner-local-component/inner-schedule-daily-multiple-modal';
+import EmployeeListField from '@/public-components/EmployeeListField';
 
 
 // const style = {
@@ -114,6 +115,20 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
         }
     }
 
+    const handleChangeEmpField = (e:any, newValue:any) => {
+        if(newValue) {
+            console.log(newValue)
+            setCreateSCHEDULEDAILYForm((prevState:any)=> 
+                (
+                    {
+                        ...prevState,
+                        emp_no: newValue.map((emp:any) => emp.emp_no)
+                    }
+                )
+            )
+        }
+    }
+
     return (
         <div>
             <Modal
@@ -164,7 +179,13 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
                     />
                 </LocalizationProvider>
                 {/* <EmployeeAutoCompleteLeft createSCHEDULEDAILY={createSCHEDULEDAILYForm} setCreateSCHEDULEDAILY={setCreateSCHEDULEDAILYForm}/> */}
-                <MultiEmployeeAutoCompleteLeft createSCHEDULEDAILY={createSCHEDULEDAILYForm} setCreateSCHEDULEDAILY={setCreateSCHEDULEDAILYForm}/>
+                {/* <MultiEmployeeAutoCompleteLeft createSCHEDULEDAILY={createSCHEDULEDAILYForm} setCreateSCHEDULEDAILY={setCreateSCHEDULEDAILYForm}/> */}
+                <EmployeeListField 
+                    label="For Employee No.:" 
+                    handleChange={handleChangeEmpField} 
+                    currentValue={createSCHEDULEDAILYForm.emp_no}
+                    multiple={true}
+                />
                 
                 {/* <FormControl>
                     <FormLabel id="demo-controlled-radio-buttons-group">Is Restday</FormLabel>

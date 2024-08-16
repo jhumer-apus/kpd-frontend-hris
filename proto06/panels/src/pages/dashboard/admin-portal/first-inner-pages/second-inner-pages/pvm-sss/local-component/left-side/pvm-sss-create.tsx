@@ -8,6 +8,7 @@ import { Typography } from '@mui/joy';
 import { SSSCreateInterface } from '@/types/types-payroll-variables';
 import { SSSCreateAction, SSSCreateActionFailureCleanup, SSSViewAction } from '@/store/actions/payroll-variables';
 import DeductionsSSSCreateModal from './local-components/main-modals/pvm-sss-create-modal-left';
+import EmployeeListField from '@/public-components/EmployeeListField';
 
 
 
@@ -63,12 +64,30 @@ function PVMSSSCreate(props: CreateSSSModalInterface) {
         }
     }, [SSSCreatestate.status])
 
+    const handleChangeEmpField = (e:any, newValue:any) => {
+        if(newValue) {
+            setCreateSSS((prevState)=> 
+                (
+                    {
+                        ...prevState,
+                        emp_no: newValue.emp_no
+                    }
+                )
+            )
+        }
+    }
+
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain' level="h6">Create an 'SSS' Data</Typography>
             <div className='flex flex-col gap-6 overflow-auto w-3/4'>
                     <div className='flex flex-col gap-6 pt-4'>
-                        <EmployeeAutoComplete createSSS={createSSS} setCreateSSS={setCreateSSS}/>
+                        {/* <EmployeeAutoComplete createSSS={createSSS} setCreateSSS={setCreateSSS}/> */}
+                        <EmployeeListField 
+                            label="For Employee No.:" 
+                            handleChange={handleChangeEmpField} 
+                            currentValue={createSSS.emp_no} 
+                        />
                     </div>
                     <div className='flex flex-col gap-6'>
                         <TextField

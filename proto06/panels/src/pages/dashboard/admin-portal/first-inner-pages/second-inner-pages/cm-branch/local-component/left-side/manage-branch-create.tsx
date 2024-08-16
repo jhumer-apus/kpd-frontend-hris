@@ -14,6 +14,7 @@ import CityMunicipality from '@/public-components/forms/address/CityMunicipality
 
 //HELPERS
 import { beautifyJSON } from '@/helpers/utils';
+import EmployeeListField from '@/public-components/EmployeeListField';
 
 interface CreateBRANCHModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -149,17 +150,36 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
         }
     }, [BRANCHCreatestate.status])
 
+    const handleChangeEmpField = (e:any, newValue:any) => {
+        if(newValue) {
+            setCreateBRANCH((prevState:any)=> 
+                (
+                    {
+                        ...prevState,
+                        branch_oic: newValue.emp_no
+                    }
+                )
+            )
+        }
+    }
+
+
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a Branch Data</Typography>
-            <form onSubmit={onClickSubmit} className='flex flex-col gap-3 overflow-auto relative'>
+            <form onSubmit={onClickSubmit} className='flex flex-col gap-3 overflow-auto relative w-[400px]'>
                 {/* <div className='flex gap-3 pt-4'> */}
                     <div className='flex flex-col gap-3 pt-4'>
-                        <EmployeeAutoComplete 
+                        <EmployeeListField 
+                            label="For Employee No.:" 
+                            handleChange={handleChangeEmpField} 
+                            currentValue={createBRANCH.branch_oic} 
+                        />
+                        {/* <EmployeeAutoComplete 
                             currentEmpNo={createBRANCH.branch_oic} 
                             createBRANCH={createBRANCH} 
                             setCreateBRANCH={setCreateBRANCH}
-                        />
+                        /> */}
                         {/* <LEAVETYPEFetchAutoCompleteOnBRANCHPage createBRANCH={createBRANCH} setCreateBRANCH={setCreateBRANCH}/> */}
                     </div>
                     <div className='flex flex-col gap-3'>
