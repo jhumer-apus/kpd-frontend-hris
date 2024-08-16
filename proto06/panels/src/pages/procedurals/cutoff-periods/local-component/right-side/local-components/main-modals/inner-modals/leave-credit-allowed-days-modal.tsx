@@ -168,7 +168,7 @@ export default function AllowedDaysCUTOFFPERIODModal(props: AllowedDaysCUTOFFPER
                       defaultValueId={singleCUTOFFPERIODDetailsData?.payroll_group_code}                    
                     />
 
-                    <AutoCompleteForm 
+                    {/* <AutoCompleteForm 
                       id="divisions"
                       options={dropDownData.divisions}
                       label={"Division"}
@@ -176,7 +176,7 @@ export default function AllowedDaysCUTOFFPERIODModal(props: AllowedDaysCUTOFFPER
                       handleChange={handleChangeDivision}
                       optionTitle='div_name' 
                       defaultValueId={singleCUTOFFPERIODDetailsData?.division_code}                    
-                    />
+                    /> */}
 
                     {/* <TextField 
                       sx={{width: '100%'}} 

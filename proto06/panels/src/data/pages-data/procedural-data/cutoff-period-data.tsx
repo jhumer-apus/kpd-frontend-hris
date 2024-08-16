@@ -24,8 +24,8 @@ export const ProceduralCUTOFFPERIODPageColumns: GridColDef[] =
     headerName: 'Payroll Group:', 
     width: 140, 
   },
-  { field: 'division_code', headerName: 'Division:', width: 100,
-  },
+  // { field: 'division_code', headerName: 'Division:', width: 100,
+  // },
   { field: 'co_name', headerName: 'Cutoff Name',  width: 210 },
 ];
   

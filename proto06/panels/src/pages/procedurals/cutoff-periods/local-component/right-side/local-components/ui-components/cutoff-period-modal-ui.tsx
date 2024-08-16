@@ -70,7 +70,7 @@ function CUTOFFPERIODModalUI(props: CUTOFFPERIODModalUIInterface) {
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Credit (Pay) Date:' value={ThisProps.credit_date ? dayjs(ThisProps.credit_date).format('MM-DD-YYYY') : '-'} InputProps={{readOnly: false,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Payroll Group:' value={(singleCUTOFFPERIODDetailsData?.payroll_group_name || "")} InputProps={{readOnly: true,}} variant='standard'/>
-                    <TextField sx={{width: '100%'}} label='Division:' value={(singleCUTOFFPERIODDetailsData?.division_name || "")} InputProps={{readOnly: true,}} variant='standard'/>
+                    {/* <TextField sx={{width: '100%'}} label='Division:' value={(singleCUTOFFPERIODDetailsData?.division_name || "")} InputProps={{readOnly: true,}} variant='standard'/> */}
                     <TextField sx={{width: '100%'}} label='Processed:' value={ThisProps.co_is_processed === true ? 'Yes' : 'No'} InputProps={{readOnly: true,}} variant='standard'/>
                 </div>
                 <div className='flex gap-6 flex-col'>

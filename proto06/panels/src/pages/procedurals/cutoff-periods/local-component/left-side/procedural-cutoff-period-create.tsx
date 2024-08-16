@@ -147,15 +147,15 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
                                 })
                             }}
                         /> */}
-                        <AutoCompleteForm 
+                        {/* <AutoCompleteForm 
                             id="divisions"
                             options={dropDownData.divisions}
                             label={"Division"}
                             getOptionLabel={(option: any) => option?.div_name?? ""}
                             handleChange={handleChangeDivision}
                             optionTitle='div_name' 
-                            defaultValueId={setCreateCUTOFFPERIOD?.division_code}                    
-                        />
+                            defaultValueId={createCUTOFFPERIOD.division_code}                    
+                        /> */}
                         <TextField
                             required 
                             sx={{width: '100%'}} 
@@ -185,7 +185,7 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
                             getOptionLabel={(option: any) => option?.name?? ""}
                             handleChange={handleChangePayrollGroup}
                             optionTitle='name' 
-                            defaultValueId={null}                    
+                            defaultValueId={createCUTOFFPERIOD.payroll_group_code}                    
                         />
                         {/* <TextField
                             required 
