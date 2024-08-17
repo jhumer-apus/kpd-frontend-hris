@@ -72,24 +72,24 @@ export default function EmployeeAutoCompleteRight(props: EmployeeAutoCompleteInt
         <>
         {defaultOption && 
         <Autocomplete
-        // noOptionsText={<><p>Not found. <i style={{cursor: 'pointer', color: 'blue'}} onClick={()=> navigate('/home/employees/201-files')}>Add Employee?</i></p></>}
-        noOptionsText={'Loading... Please Wait.'}
-        defaultValue={defaultOption}
-        options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
-        groupBy={(option) => option.firstLetter}
-        getOptionLabel={(option) => option.employee}
-        onInputChange={handleInputChange}
-        sx={{ width: '300px' }}
-        isOptionEqualToValue={isOptionEqualToValue}
-        renderInput={(params) => 
-            {   
-                return(
-                    <TextField {...params} label="Employee #" />
-                )
+            // noOptionsText={<><p>Not found. <i style={{cursor: 'pointer', color: 'blue'}} onClick={()=> navigate('/home/employees/201-files')}>Add Employee?</i></p></>}
+            noOptionsText={'Loading... Please Wait.'}
+            defaultValue={defaultOption}
+            options={options?.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
+            groupBy={(option) => option.firstLetter}
+            getOptionLabel={(option) => option.employee}
+            onInputChange={handleInputChange}
+            sx={{ width: '300px' }}
+            isOptionEqualToValue={isOptionEqualToValue}
+            renderInput={(params) => 
+                {   
+                    return(
+                        <TextField {...params} label="Employee #" />
+                    )
+
+                }
 
             }
-
-        }
         />
         }
         </>

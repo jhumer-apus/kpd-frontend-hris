@@ -80,7 +80,7 @@ return [
 
     ...((currUser?.rank_code??0) > 3 ? [
         { field: 'bio_id', headerName: 'Biometrics ID', width: 140 },
-        { field: 'branch_code', headerName: 'Branch Code', width: 120 }
+        // { field: 'branch_code', headerName: 'Branch Code', width: 120 }
       ]: []
     )
   

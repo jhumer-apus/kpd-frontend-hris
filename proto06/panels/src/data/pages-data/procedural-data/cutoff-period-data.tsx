@@ -19,9 +19,13 @@ export const ProceduralCUTOFFPERIODPageColumns: GridColDef[] =
       return params.row.credit_date ? dayjs(date).format(`${globalDate}`) : "No Date";
     }
   },
-  { field: 'payroll_group_code', headerName: 'Payroll Group:', width: 140 },
-  { field: 'division_code', headerName: 'Division:', width: 100,
+  { 
+    field: 'payroll_group_name', 
+    headerName: 'Payroll Group:', 
+    width: 140, 
   },
+  // { field: 'division_code', headerName: 'Division:', width: 100,
+  // },
   { field: 'co_name', headerName: 'Cutoff Name',  width: 210 },
 ];
   

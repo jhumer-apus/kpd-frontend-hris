@@ -222,6 +222,21 @@ export const categoriesManagementData = [
     customTop: 15,
     customLeft: 38,
   },
+  {
+    icon: BusinessOutlinedIcon,
+    title: "Employment Status Type List",
+    value: "Employment Status Type",
+    footer: {
+      color: "text-green-500",
+      value: "<",
+      label: "View Employment Status Type, details etc.",
+    },
+    custom: "linear-gradient(235deg, rgba(132,25,142,1) 4%, rgba(52,9,121,0.8379726890756303) 23%, rgba(19,151,161,1) 55%)",
+    // link: 'development',
+    link: '/home/Dashboards/Admin-Portal/Categories/Employment-Status-Type',
+    customTop: 15,
+    customLeft: 38,
+  },
 ];
 
 

@@ -55,10 +55,12 @@ const columns: GridColDef[] = [
       return params.row.date_hired ? dayjs(date).format(`${globalDate}`) : '-';
     }, 
   },
-  { field: 'branch_code', headerName: 'Branch Code', width: 150 },
-  { field: 'mobile_phone', headerName: 'Mobile Number', width: 150 },
-  { field: `user`, headerName: 'Has HRIS Access', width: 150, valueGetter: (params: GridValueGetterParams) => `${params.row.user?.is_active ? 'Active' : 'No Access'}` },
+  { field: 'branch_code', headerName: 'Branch', width: 150, valueGetter: (params: GridValueGetterParams) => params.row.branch_data.branch_name },
+  // { field: 'mobile_phone', headerName: 'Mobile Number', width: 150 },
+  // { field: `user`, headerName: 'Has HRIS Access', width: 150, valueGetter: (params: GridValueGetterParams) => `${params.row.user?.is_active ? 'Active' : 'No Access'}` },
   { field: 'bio_id', headerName: 'Biometrics ID', width: 150 },
+  { field: 'approver1', headerName: 'Approver 1', width: 150 },
+  { field: 'approver2', headerName: 'Approver 2', width: 150 }
 ];
 
 const style = {

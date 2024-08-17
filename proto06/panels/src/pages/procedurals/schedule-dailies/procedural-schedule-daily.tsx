@@ -15,6 +15,7 @@ import { All_Schedule_Filter_Interface } from '@/types/types-employee-and-applic
 import ExportToCsv from '@/public-components/ExportToCSVButton';
 import { ALLSCHEDULEViewSpecificAction } from '@/store/actions/employee-and-applicants';
 import { HolidayColor } from '../holidays/local-components/list-of-holidays/list-of-holidays';
+import EmployeeListField from '@/public-components/EmployeeListField';
 
 
 const PaperStyle: CSSProperties = {
@@ -73,6 +74,12 @@ export default function ProceduralSCHEDULEDAILYpage() {
     // setForCSVExtract(data) 
   }, [])
 
+  const handleChangeEmpField = (e:any, newValue:any) => {
+      if(newValue) {
+          setCurrEmployee((prevState:any)=> newValue.emp_no)
+      }
+  }
+
   return (
     <Fragment>
       {/* <div style={{border: '1px solid red'}}><ExportToCsv/></div> */}
@@ -121,7 +128,14 @@ export default function ProceduralSCHEDULEDAILYpage() {
           <Paper elevation={3} style={PaperStyle}>
             <div className='flex justify-between'>
             <Typography variant={'h6'} style={{alignItems: 'center', display: 'flex'}}>Choose Employee to view Daily Schedule</Typography>
-            <EmployeeAutoCompleteRight currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/>
+            <div className='w-96'>
+              <EmployeeListField 
+                  label="Employee No.:" 
+                  handleChange={handleChangeEmpField} 
+                  currentValue={currEmployee}
+              />
+            </div>
+            {/* <EmployeeAutoCompleteRight currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/> */}
             </div>
             <ProceduralSCHEDULEDAILYPageHistory currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/>
           </Paper>

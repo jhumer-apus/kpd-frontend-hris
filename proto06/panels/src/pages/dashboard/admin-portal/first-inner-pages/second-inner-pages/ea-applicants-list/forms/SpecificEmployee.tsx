@@ -591,11 +591,11 @@ export const SpecificEmployee = (props: initialState) => {
                                                 // value={`${userData?.date_hired ? userData?.date_hired : ''}`}
                                                 icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
                                         <Input
-                                                crossOrigin={undefined} {...register('date_resigned')}
+                                                crossOrigin={undefined} {...register('date_separation')}
                                                 type="text"
                                                 containerProps={{ className: "min-w-[72px] focused" }}
                                                 labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                label="Date Resigned:"
+                                                label="Date Separated:"
                                                 disabled={!editMode3}
                                                 icon={<FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
                                     </div>

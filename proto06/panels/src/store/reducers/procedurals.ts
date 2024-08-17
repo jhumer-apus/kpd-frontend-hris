@@ -1062,6 +1062,7 @@ const proceduralsSlice = createSlice({
       .addCase(LEAVECREDITEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "LEAVECREDITEdit"))
       .addCase(LEAVECREDITEditActionProgress, (state, action) => setProgressState(state, action.payload, "LEAVECREDITEdit"))
       .addCase(LEAVECREDITEditActionFailure, (state, action) => setFailureState(state, action.payload, "LEAVECREDITEdit"))
+      .addCase(LEAVECREDITEditActionFailureCleanup, setRefreshedState("LEAVECREDITEdit"))
       //LEAVETYPE SECTION
       .addCase(LEAVETYPEViewAction, setLoadingState("LEAVETYPEView"))
       .addCase(LEAVETYPEViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "LEAVETYPEView"))
@@ -1120,6 +1121,7 @@ const proceduralsSlice = createSlice({
       .addCase(SCHEDULESHIFTEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "SCHEDULESHIFTEdit"))
       .addCase(SCHEDULESHIFTEditActionProgress, (state, action) => setProgressState(state, action.payload, "SCHEDULESHIFTEdit"))
       .addCase(SCHEDULESHIFTEditActionFailure, (state, action) => setFailureState(state, action.payload, "SCHEDULESHIFTEdit"))
+      .addCase(SCHEDULESHIFTEditActionFailureCleanup, setRefreshedState("SCHEDULESHIFTEdit"))
       .addCase(SCHEDULESHIFTDeleteAction, setLoadingState("SCHEDULESHIFTDelete"))
       .addCase(SCHEDULESHIFTDeleteActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "SCHEDULESHIFTDelete"))
       .addCase(SCHEDULESHIFTDeleteActionProgress, (state, action) => setProgressState(state, action.payload, "SCHEDULESHIFTDelete"))
@@ -1146,7 +1148,7 @@ const proceduralsSlice = createSlice({
       .addCase(SCHEDULEDAILYEditActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "SCHEDULEDAILYEdit"))
       .addCase(SCHEDULEDAILYEditActionProgress, (state, action) => setProgressState(state, action.payload, "SCHEDULEDAILYEdit"))
       .addCase(SCHEDULEDAILYEditActionFailure, (state, action) => setFailureState(state, action.payload, "SCHEDULEDAILYEdit"))
-      .addCase(SCHEDULESHIFTEditActionFailureCleanup, setRefreshedState("SCHEDULEDAILYEdit"))
+      .addCase(SCHEDULEDAILYEditActionFailureCleanup, setRefreshedState("SCHEDULEDAILYEdit"))
   },
 });
 

@@ -10,6 +10,7 @@ import { Typography } from '@mui/joy';
 import { EMPSEMINARSCreateInterface } from '@/types/types-employee-and-applicants';
 import { EMPSEMINARSCreateAction, EMPSEMINARSCreateActionFailureCleanup, EMPSEMINARSViewSpecificAction } from '@/store/actions/employee-and-applicants';
 import EmployeeAutoCompleteFull from './inner-ui-components/employee-autocomplete-full';
+import EmployeeListField from '@/public-components/EmployeeListField';
 
 interface CreateEMPSEMINARSModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -75,13 +76,32 @@ function EMPSEMINARSCreate(props: CreateEMPSEMINARSModalInterface) {
             label: 'Seminar'
         },
     ]
+
+    const handleChangeEmpField = (e:any, newValue:any) => {
+        if(newValue) {
+            setCreateEMPSEMINARS((prevState:any)=> 
+                (
+                    {
+                        ...prevState,
+                        emp_no: newValue.emp_no
+                    }
+                )
+            )
+        }
+    }
+
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '2px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a record of Training/Seminar for Data</Typography>
             <div className='flex flex-col gap-3 overflow-auto relative'>
                 <div className='flex flex-wrap gap-3 pt-4'>
                     <div className='flex flex-col gap-3' style={{ width: '100%' }}>
-                        <EmployeeAutoCompleteFull currEmployee={props.currEmployee} createEMPSEMINARS={createEMPSEMINARS} setCreateEMPSEMINARS={setCreateEMPSEMINARS}/>
+                        {/* <EmployeeAutoCompleteFull currEmployee={props.currEmployee} createEMPSEMINARS={createEMPSEMINARS} setCreateEMPSEMINARS={setCreateEMPSEMINARS}/> */}
+                        <EmployeeListField 
+                            label="For Employee No.:" 
+                            handleChange={handleChangeEmpField} 
+                            currentValue={createEMPSEMINARS.emp_no} 
+                        />
                         <TextField
                             required 
                             sx={{width: '100%'}} 

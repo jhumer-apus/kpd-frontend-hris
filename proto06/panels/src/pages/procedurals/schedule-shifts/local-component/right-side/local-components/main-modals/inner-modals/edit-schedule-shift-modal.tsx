@@ -7,7 +7,7 @@ import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
-import { SCHEDULESHIFTCreateActionFailureCleanup, SCHEDULESHIFTEditAction } from '@/store/actions/procedurals';
+import { SCHEDULESHIFTEditAction, SCHEDULESHIFTEditActionFailureCleanup } from '@/store/actions/procedurals';
 
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -23,6 +23,7 @@ import FormLabel from '@mui/material/FormLabel';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { HandleAlertAction } from '@/store/actions/components';
 import { beautifyJSON } from '@/helpers/utils';
+import { DesktopTimePicker } from '@mui/x-date-pickers';
 
 
 
@@ -35,22 +36,32 @@ interface EditSCHEDULESHIFTModalInterface {
 
 export default function EditSCHEDULESHIFTModal(props: EditSCHEDULESHIFTModalInterface) {
   const dispatch = useDispatch();
+  const user = useSelector((state:RootState) => state.auth.employee_detail)
   const SCHEDULESHIFTEditState = useSelector((state: RootState)=> state.procedurals.SCHEDULESHIFTEdit)
   const {editSCHEDULESHIFTOpenModal, setEditSCHEDULESHIFTOpenModal, singleSCHEDULESHIFTDetailsData, setSingleSCHEDULESHIFTDetailsData} = props;
 
   const nullValues = Object.values(singleSCHEDULESHIFTDetailsData).filter(
     value => typeof value === null
   );
-  const editSCHEDULESHIFT = () => { 
+
+  const editSCHEDULESHIFT = (e:any) => { 
+
+    e.preventDefault()
+    const payload:any = {
+      ...singleSCHEDULESHIFTDetailsData,
+      added_by: user?.emp_no,
+  }
     if(nullValues.length === 0){
 
-      if(validateShift(singleSCHEDULESHIFTDetailsData)) return
+      if(validateShift(payload)) return
 
-      dispatch(SCHEDULESHIFTEditAction(singleSCHEDULESHIFTDetailsData))
+      dispatch(SCHEDULESHIFTEditAction(payload))
       } else {
       window.alert('A field has found to have no value, make sure to supplement it a value.');
     }
   }
+
+  useEffect(() => {})
 
   const validateShift = (payload:any) => {
     const errors:any = {}
@@ -72,6 +83,24 @@ export default function EditSCHEDULESHIFTModal(props: EditSCHEDULESHIFTModalInte
       }))
       return true
     }
+
+    if(!payload.lunch_break_start) {
+      dispatch(HandleAlertAction({
+          open: true,
+          status: "error",
+          message: "Lunch break time start is required!"
+      }))
+      return true
+    }
+
+    if(!payload.lunch_break_end) {
+      dispatch(HandleAlertAction({
+          open: true,
+          status: "error",
+          message: "Lunch break time end is required!"
+      }))
+        return true
+    }
     return false
   }
 
@@ -85,17 +114,26 @@ export default function EditSCHEDULESHIFTModal(props: EditSCHEDULESHIFTModalInte
           window.location.reload();
         }, 800)
       }else if (SCHEDULESHIFTEditState.status === 'failed'){
-
+        console.log("asd")
+        dispatch(SCHEDULESHIFTEditActionFailureCleanup());
         dispatch(HandleAlertAction({
           open: true,
           status: "error",
           message: SCHEDULESHIFTEditState?.error
         }))
         // window.alert(`${SCHEDULESHIFTEditState.error}`)
-        dispatch(SCHEDULESHIFTCreateActionFailureCleanup());
+
       }
     }
   }, [SCHEDULESHIFTEditState.status])
+
+  const handleChangeTime = (name:string, value:any) => {
+    setSingleSCHEDULESHIFTDetailsData(curr => ({
+        ...curr,
+        [name]: value
+    }))
+  }
+
   return (
     <Fragment>
       <Transition in={editSCHEDULESHIFTOpenModal} timeout={400}>
@@ -137,148 +175,174 @@ export default function EditSCHEDULESHIFTModal(props: EditSCHEDULESHIFTModalInte
             }}
             size='sm'
         > 
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <Typography variant='h6' className='border-b-2 border-green-700'>Editing Schedule Shift</Typography>
-            <div className='flex gap-10 overflow-auto relative mt-4 p-4'>
-                <div className='flex gap-6 flex-col'>
-                    {/* <FormControl>
-                        <FormLabel id="demo-controlled-radio-buttons-group">Overtime</FormLabel>
-                        <RadioGroup
-                            row
-                            aria-labelledby="demo-controlled-radio-buttons-group"
-                            name="controlled-radio-buttons-group"
-                            value={`${!!singleSCHEDULESHIFTDetailsData.with_overtime}`}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = (event.target.value=== 'true' ? true : false);
-                                setSingleSCHEDULESHIFTDetailsData((prevState)=> {
-                                    return (
-                                        {
-                                            ...prevState,
-                                            with_overtime: value
-                                        }
-                                    )
-                                })
-                            }}
-                        >
-                            <FormControlLabel value="true" control={<Radio />} label="With" />
-                            <FormControlLabel value="false" control={<Radio />} label="Without" />
-                        </RadioGroup>
-                    </FormControl> */}
-                    <TextField 
-                      // sx={{width: '100%', border: "1px solid red"}} 
-                      label='Grace Period(mins):'
-                      type='number' 
-                      value={(singleSCHEDULESHIFTDetailsData?.grace_period)}
-                      onChange={(newValue)=> {
-                        return (
-                          setSingleSCHEDULESHIFTDetailsData((prevState) => {
-                            const value = parseInt(newValue.target.value);
-                            return (
-                              {
-                                ...prevState,
-                                grace_period: value
-                              }
-                            )
-                          })
-                        )
-                      }}  
-                      variant='standard'
-                    />
+        <form onSubmit={editSCHEDULESHIFT}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <Typography variant='h6' className='border-b-2 border-green-700'>Editing Schedule Shift</Typography>
+              <div className='flex  flex-col gap-10 relative mt-4 p-4'>
+                  <div className='flex gap-6 flex-col'>
+                      {/* <FormControl>
+                          <FormLabel id="demo-controlled-radio-buttons-group">Overtime</FormLabel>
+                          <RadioGroup
+                              row
+                              aria-labelledby="demo-controlled-radio-buttons-group"
+                              name="controlled-radio-buttons-group"
+                              value={`${!!singleSCHEDULESHIFTDetailsData.with_overtime}`}
+                              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                  const value = (event.target.value=== 'true' ? true : false);
+                                  setSingleSCHEDULESHIFTDetailsData((prevState)=> {
+                                      return (
+                                          {
+                                              ...prevState,
+                                              with_overtime: value
+                                          }
+                                      )
+                                  })
+                              }}
+                          >
+                              <FormControlLabel value="true" control={<Radio />} label="With" />
+                              <FormControlLabel value="false" control={<Radio />} label="Without" />
+                          </RadioGroup>
+                      </FormControl> */}
+                      <TextField 
+                        // sx={{width: '100%', border: "1px solid red"}} 
+                        label='Grace Period(mins):'
+                        type='number' 
+                        value={(singleSCHEDULESHIFTDetailsData?.grace_period)}
+                        onChange={(newValue)=> {
+                          return (
+                            setSingleSCHEDULESHIFTDetailsData((prevState:any) => {
+                              const value = parseInt(newValue.target.value);
+                              return (
+                                {
+                                  ...prevState,
+                                  grace_period: value
+                                }
+                              )
+                            })
+                          )
+                        }}  
+                        variant='standard'
+                      />
 
-                </div>
-                <div className='flex gap-5 flex-col'>
-                    <TimePicker
-                      label="Time In:"
-                      value={dayjs(singleSCHEDULESHIFTDetailsData.time_in, "HH:mm:ss")}
-                      // value={`${dayjs().format('YYYY-MM-DD')}T${(singleSCHEDULESHIFTDetailsData.time_in)}`}
-                      onChange={(newValue) => {
-                          const formattedDate = dayjs(newValue).format('HH:mm:ss');
-                          return (
-                            setSingleSCHEDULESHIFTDetailsData((prevState)=>{
-                                  return(
-                                      {
-                                          ...prevState,
-                                          time_in: formattedDate
-                                      }
-                                  )
-                              })
-                          )
-                      }}
-                    />
-                    <TimePicker
-                      label="Time Out:"
-                      value={dayjs(singleSCHEDULESHIFTDetailsData.time_out, "HH:mm:ss")}
-                      // value={`${dayjs().format('YYYY-MM-DD')}T${(singleSCHEDULESHIFTDetailsData.time_out)}`}
-                      onChange={(newValue) => {
-                          const formattedDate = dayjs(newValue).format('HH:mm:ss');
-                          return (
-                            setSingleSCHEDULESHIFTDetailsData((prevState)=>{
-                                  return(
-                                      {
-                                          ...prevState,
-                                          time_out: formattedDate
-                                      }
-                                  )
-                              })
-                          )
-                      }}
-                    />
-                </div>
-                <div className='flex gap-6 flex-col'>
-                    <TextField 
-                      sx={{width: '100%', minWidth: '160px'}} 
-                      label='Shift Name:' 
-                      value={singleSCHEDULESHIFTDetailsData?.name}  
-                      variant='outlined'
-                      onChange={(newValue)=> {
-                        return (
-                          setSingleSCHEDULESHIFTDetailsData((prevState) => {
-                            const value = newValue.target.value;
+                  </div>
+                  <div className='flex gap-5 flex-col'>
+                      <TimePicker
+                        label="Time In:"
+                        value={dayjs(singleSCHEDULESHIFTDetailsData.time_in, "HH:mm:ss")}
+                        // value={`${dayjs().format('YYYY-MM-DD')}T${(singleSCHEDULESHIFTDetailsData.time_in)}`}
+                        onChange={(newValue) => {
+                            const formattedDate = dayjs(newValue).format('HH:mm:ss');
                             return (
-                              {
-                                ...prevState,
-                                name: value
-                              }
-                            )
-                          })
-                        )
-                      }}
-                    />
-                    {/* <FormControl>
-                        <FormLabel id="demo-controlled-radio-buttons-group">Night Shift</FormLabel>
-                        <RadioGroup
-                            row
-                            aria-labelledby="demo-controlled-radio-buttons-group"
-                            name="controlled-radio-buttons-group"
-                            value={`${!!singleSCHEDULESHIFTDetailsData.is_night_shift}`}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = (event.target.value=== 'true' ? true : false);
-                                setSingleSCHEDULESHIFTDetailsData((prevState)=> {
-                                    return (
+                              setSingleSCHEDULESHIFTDetailsData((prevState:any)=>{
+                                    return(
                                         {
                                             ...prevState,
-                                            is_night_shift: value
+                                            time_in: formattedDate
                                         }
                                     )
                                 })
-                            }}
-                        >
-                            <FormControlLabel value="true" control={<Radio />} label="Yes" />
-                            <FormControlLabel value="false" control={<Radio />} label="No" />
-                        </RadioGroup>
-                    </FormControl> */}
+                            )
+                        }}
+                      />
+                      <TimePicker
+                        label="Time Out:"
+                        value={dayjs(singleSCHEDULESHIFTDetailsData.time_out, "HH:mm:ss")}
+                        // value={`${dayjs().format('YYYY-MM-DD')}T${(singleSCHEDULESHIFTDetailsData.time_out)}`}
+                        onChange={(newValue) => {
+                            const formattedDate = dayjs(newValue).format('HH:mm:ss');
+                            return (
+                              setSingleSCHEDULESHIFTDetailsData((prevState:any)=>{
+                                    return(
+                                        {
+                                            ...prevState,
+                                            time_out: formattedDate
+                                        }
+                                    )
+                                })
+                            )
+                        }}
+                      />
+                  </div>
+                  <div>
+                          <Typography >Lunch Break Time:</Typography><br></br>
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                          <div className='flex gap-4'>
+                              
+                              <DesktopTimePicker 
+                                  label="Time Start" 
+                                  defaultValue={dayjs(singleSCHEDULESHIFTDetailsData?.lunch_break_start, "HH:mm:ss")} 
+                                  // minTime={singleSCHEDULESHIFTDetailsData?.time_in ? dayjs(singleSCHEDULESHIFTDetailsData.time_in, "HH:mm:ss"): null}
+                                  // maxTime={singleSCHEDULESHIFTDetailsData?.time_out ? dayjs(singleSCHEDULESHIFTDetailsData.time_out, "HH:mm:ss"): null}
+                                  onChange={(newValue) => handleChangeTime("lunch_break_start", dayjs(newValue).format("HH:mm:ss"))}
+                              />
+                              <DesktopTimePicker 
+                                  label="Time End" 
+                                  defaultValue={dayjs(singleSCHEDULESHIFTDetailsData?.lunch_break_end, "HH:mm:ss")}
+                                  // minTime={singleSCHEDULESHIFTDetailsData?.lunch_break_start ? dayjs(singleSCHEDULESHIFTDetailsData?.lunch_break_start, "HH:mm:ss"): null}
+                                  // maxTime={singleSCHEDULESHIFTDetailsData?.time_out ? dayjs(singleSCHEDULESHIFTDetailsData.time_out, "HH:mm:ss"): null}
+                                  disabled={!singleSCHEDULESHIFTDetailsData?.lunch_break_end}
+                                  onChange={(newValue) => handleChangeTime("lunch_break_end", dayjs(newValue).format("HH:mm:ss"))}
+                              />
+                              
+                          </div>
+                          </LocalizationProvider>
+                    </div>
+                  <div className='flex gap-6 flex-col'>
+                      <TextField 
+                        sx={{width: '100%', minWidth: '160px'}} 
+                        label='Shift Name:' 
+                        value={singleSCHEDULESHIFTDetailsData?.name}  
+                        variant='outlined'
+                        onChange={(newValue)=> {
+                          return (
+                            setSingleSCHEDULESHIFTDetailsData((prevState) => {
+                              const value = newValue.target.value;
+                              return (
+                                {
+                                  ...prevState,
+                                  name: value
+                                }
+                              )
+                            })
+                          )
+                        }}
+                      />
+                      {/* <FormControl>
+                          <FormLabel id="demo-controlled-radio-buttons-group">Night Shift</FormLabel>
+                          <RadioGroup
+                              row
+                              aria-labelledby="demo-controlled-radio-buttons-group"
+                              name="controlled-radio-buttons-group"
+                              value={`${!!singleSCHEDULESHIFTDetailsData.is_night_shift}`}
+                              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                  const value = (event.target.value=== 'true' ? true : false);
+                                  setSingleSCHEDULESHIFTDetailsData((prevState)=> {
+                                      return (
+                                          {
+                                              ...prevState,
+                                              is_night_shift: value
+                                          }
+                                      )
+                                  })
+                              }}
+                          >
+                              <FormControlLabel value="true" control={<Radio />} label="Yes" />
+                              <FormControlLabel value="false" control={<Radio />} label="No" />
+                          </RadioGroup>
+                      </FormControl> */}
+                  </div>
+              </div>
+              <div className='flex flex-col justify-center items-center'>
+                <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
+                    <div className='flex justify-between' style={{width:'200px', marginTop: '20px'}} container-name='leave_buttons'>
+                        {/* <Button variant='contained' color={'success'} onClick={()=> onClickModal(1)}>Edit Cutoff Period</Button> */}
+                        <Button variant={'contained'} onClick={editSCHEDULESHIFT}>Submit</Button>
+                        <Button variant={'outlined'} onClick={() => setEditSCHEDULESHIFTOpenModal(curr => false)}>Cancel</Button>
+                    </div>
                 </div>
-            </div>
-            <div className='flex flex-col justify-center items-center'>
-            <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
-                <div className='flex justify-between' style={{width:'200px', marginTop: '20px'}} container-name='leave_buttons'>
-                    {/* <Button variant='contained' color={'success'} onClick={()=> onClickModal(1)}>Edit Cutoff Period</Button> */}
-                    <Button variant={'contained'} onClick={editSCHEDULESHIFT}>Submit</Button>
-                    <Button variant={'outlined'} onClick={()=>{setEditSCHEDULESHIFTOpenModal(false)}}>Cancel</Button>
-                </div>
-            </div>
-            </div>
-        </LocalizationProvider>
+              </div>
+            </LocalizationProvider>
+          </form>
         </ModalDialog>
       </Modal>
         )}
@@ -290,8 +354,8 @@ export default function EditSCHEDULESHIFTModal(props: EditSCHEDULESHIFTModalInte
 
 // Styles
 const editSCHEDULESHIFTArea = {
-  height: '98.5mm',
-  width: '210mm',
+  // height: '98.5mm',
+  maxWidth: '400px',
   margin: '0 auto',
   background: 'white',
   boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.1)',

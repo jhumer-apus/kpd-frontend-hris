@@ -62,7 +62,7 @@ export type DTRCutoffListEmployees = {
     email_address: string;
     bio_id: number | null;
     date_hired: string;
-    date_resigned: string | null;
+    date_separation: string | null;
     approver: number;
     date_added: string;
     date_deleted: string | null;
@@ -291,6 +291,7 @@ export interface OVERTIMECreateInterface {
     ot_remarks: string | null;
     ot_date_from: string | null;
     ot_date_to: string | null;
+    ot_business_date: string | null;
     added_by?: string | number | null
 }
 
@@ -343,6 +344,9 @@ export interface LEAVEViewInterface extends LEAVECreateInterface {
     emp_name:string,
     leave_file_path:string|null;
     added_by: string | number | null | undefined;
+    is_sl: boolean,
+    is_vl: boolean,
+    is_el: boolean
 }
 
 export interface LEAVEEditInterface extends LEAVEViewInterface {}
@@ -440,10 +444,13 @@ export interface UAEditInterface extends UAViewInterface {}
 
 
 export interface LEAVECREDITCreateInterface {
-    allowed_days: number | null,
+    // allowed_days: number | null,
     expiry: string | null,
     emp_no: number | null,
     leave_type_code: number | null,
+    credit_max: number | null,
+    added_by: number | string | null | undefined
+    credit_remaining: number | null
 }
 
 export interface LEAVECREDITViewInterface extends LEAVECREDITCreateInterface { 
@@ -454,8 +461,8 @@ export interface LEAVECREDITViewInterface extends LEAVECREDITCreateInterface {
     credit_remaining: number | null,
     is_converted: boolean | null,
     date_added: string | null,
-    credit_max: number,
     added_by: string | number | null
+    leave_type_data: any
 }
 
 export interface LEAVECREDITEditInterface extends LEAVECREDITViewInterface {}
@@ -496,6 +503,8 @@ export interface CUTOFFPERIODCreateInterface {
 export interface CUTOFFPERIODViewInterface extends CUTOFFPERIODCreateInterface { 
     id: number;
     co_is_processed: boolean;
+    payroll_group_name: string | null
+    division_name: string | null
 }
 
 export interface CUTOFFPERIODEditInterface extends CUTOFFPERIODViewInterface {}
@@ -507,6 +516,11 @@ export interface SCHEDULESHIFTCreateInterface {
     time_out: string | null;
     grace_period: number | null;
     with_overtime: boolean | null;
+    lunch_time_start: Date | string | null | Dayjs;
+    lunch_time_end: Date | string | null | Dayjs;
+    lunch_break_start: Date | string | null | Dayjs;
+    lunch_break_end: Date | string | null | Dayjs;
+    added_by: number | string
 }
 
 export interface SCHEDULESHIFTViewInterface extends SCHEDULESHIFTCreateInterface { 
@@ -544,6 +558,8 @@ export interface SCHEDULEDAILYViewInterface extends SCHEDULEDAILYGeneric {
     emp_no: number,
     holiday_type: "LH" | "SH" | null
     holiday:any
+    lunch_break_start: Date | string | Dayjs | null
+    lunch_break_end: Date | string | Dayjs | null
 }
 
 export interface SCHEDULEDAILYEditInterface extends SCHEDULEDAILYGeneric {

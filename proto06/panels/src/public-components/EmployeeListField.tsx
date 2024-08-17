@@ -7,14 +7,15 @@ import { useQuery } from "react-query";
 interface Props {
     label: string
     handleChange: (e:any, value:any) => void,
-    currentValue: number | null
+    currentValue: number | null | number[] | [],
+    multiple?: boolean
 }
 export default function EmployeeListField(props:Props) {
 
-    const { label, currentValue, handleChange } = props
+    const { label, currentValue, handleChange, multiple } = props
 
     const { data, isLoading, error, status } = useQuery('employees', async () => {
-        const res = await axios.get(`${APILink}employees/`)
+        const res = await axios.get(`${APILink}active_emp/`)
         return res.data
     });
 
@@ -30,11 +31,17 @@ export default function EmployeeListField(props:Props) {
         };
     }) ?? [];
 
-    const filterValue = data?.find((employee:any) => employee.emp_no == currentValue) ?? null
-    console.log(filterValue)
+    let filterValue = null
+    if(Array.isArray(currentValue)) {
+        filterValue = data?.filter((employee:any) => currentValue.includes(employee.emp_no)) ?? []
+    } else {
+        filterValue = data?.find((employee:any) => employee.emp_no == currentValue) ?? null
+    }
+    // console.log(filterValue)
 
     return (
         <Autocomplete
+            multiple={multiple}
             groupBy={(option) => option.firstLetter}
             onChange={handleChange}
             loading={isLoading}

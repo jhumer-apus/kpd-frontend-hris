@@ -144,6 +144,8 @@ import TrainingForms from "./pages/forms/training-forms/training-forms";
 import AttendanceForms from "./pages/forms/attendance-forms/attendance-forms";
 import OtherForms from "./pages/forms/other-forms/other-forms";
 import ExitForms from "./pages/forms/exit-forms/exit-forms";
+import ManageEmploymentStatusTypes from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-employment-status-type/manage-emp-status-type";
+import FamilyBackground from "./pages/employee/family-background";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -246,6 +248,14 @@ const JSXRouteWrapper = () => {
                         name: "Rank",
                         path: "/Dashboards/Admin-Portal/Categories/Rank",
                         element: <ManageRANK/>,
+                        hasSubItems: false,
+                      },
+                      {
+                        id: 1120006,
+                        icon: null,
+                        name: "Employment Status Type",
+                        path: "/Dashboards/Admin-Portal/Categories/Employment-Status-Type",
+                        element: <ManageEmploymentStatusTypes />,
                         hasSubItems: false,
                       },
                     ]
@@ -570,6 +580,24 @@ const JSXRouteWrapper = () => {
                 // ]
               },
             ] : [],
+              // {
+              //   id: 12500,
+              //   icon: <Diversity3OutlinedIcon {...icon} />,
+              //   name: "Training & Seminars",
+              //   path: "/employees/Training-and-Seminars",
+              //   element:<EMPSEMINARSPageV2/>,
+              //   hasSubItems: false,
+              //   // subItems: [
+              //   //   {
+              //   //     id: 121000,
+              //   //     icon: <UserCircleIcon {...icon} />,
+              //   //     name: "201 Files",
+              //   //     path: "/employees/KPI-Appraisals/:emp_no",
+              //   //     element: <APPRAISALDETAILSPage/>, 
+              //   //     hasSubItems: false,
+              //   //   },
+              //   // ]
+              // },
             // {
             //   id: 12300,
             //   icon: <PrivacyTipOutlinedIcon {...icon} />,
@@ -616,6 +644,24 @@ const JSXRouteWrapper = () => {
                 // ]
               },
             ] : [],
+            // {
+            //   id: 12600,
+            //   icon: <Diversity3OutlinedIcon {...icon} />,
+            //   name: "Family Background",
+            //   path: "/employees/family-background",
+            //   element:<FamilyBackground/>,
+            //   hasSubItems: false,
+            //   // subItems: [
+            //   //   {
+            //   //     id: 121000,
+            //   //     icon: <UserCircleIcon {...icon} />,
+            //   //     name: "201 Files",
+            //   //     path: "/employees/KPI-Appraisals/:emp_no",
+            //   //     element: <APPRAISALDETAILSPage/>, 
+            //   //     hasSubItems: false,
+            //   //   },
+            //   // ]
+            // },
           ]
         },
         {

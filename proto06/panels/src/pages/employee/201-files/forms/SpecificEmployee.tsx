@@ -32,12 +32,12 @@ import {
   XMarkIcon,
   TagIcon
 } from "@heroicons/react/24/outline";
-import { Fragment, useCallback, useEffect, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Input, Typography } from '@material-tailwind/react';
 import { useForm } from 'react-hook-form';
 import { APILink, app_status, RootState } from '@/store/configureStore';
-import { EMPLOYEESViewInterface } from '@/types/types-store';
+import { EMPLOYEESViewInterface, INTERNAL_USER_ROLE } from '@/types/types-store';
 import FormData from 'form-data';
 import { beautifyJSON } from '@/helpers/utils';
 import { drop, update } from 'lodash';
@@ -393,6 +393,33 @@ export const SpecificEmployee = (props: initialState) => {
         return ((value?? 0)*313)/12
     }
 
+    const roles = [
+        {
+            id: INTERNAL_USER_ROLE.HR_Super_Admin,
+            role_name: "HR Super Admin"
+        },
+        {
+            id: INTERNAL_USER_ROLE.HR_Director_Manager,
+            role_name: "HR Director / Manager"
+        },
+        {
+            id: INTERNAL_USER_ROLE.HR_Staff,
+            role_name: "HR Staff"
+        },
+        {
+            id: INTERNAL_USER_ROLE.Manager,
+            role_name: "Department Manager / Director"
+        },
+        {
+            id: INTERNAL_USER_ROLE.Employee,
+            role_name: "Employee"
+        },
+    ]
+
+    const userRole = useMemo(() => {
+        return roles.find(role => role.id == userData?.user?.role)
+    }, [userData?.user?.role])
+
     const onSubmit = async (inputData: EMPLOYEESViewInterface, type: string) => {
 
         const data = {
@@ -502,7 +529,8 @@ export const SpecificEmployee = (props: initialState) => {
             other_duties_responsibilities: data.other_duties_responsibilities,
             payroll_no: data.payroll_no,
             date_hired: data.date_hired ? dayjs(data.date_hired).format('YYYY-MM-DDThh:mm:ss'): null,
-            date_resigned: data.date_resigned ? dayjs(data.date_resigned).format('YYYY-MM-DDThh:mm:ss'): null,
+            date_separation: data.date_separation ? dayjs(data.date_separation).format('YYYY-MM-DDThh:mm:ss'): null,
+            separation_type: data?.separation_type ?? "",
             accnt_no: data.accnt_no,
             emp_salary_basic: data.emp_salary_basic,
             emp_salary_type: "5",
@@ -528,7 +556,7 @@ export const SpecificEmployee = (props: initialState) => {
             employment_status: data.employment_status,
             url_google_map: data.url_google_map,
             employee_type: data.employee_type,
-            added_by: userData?.emp_no
+            added_by: currUser?.emp_no
             // rank_hierarchy: 0,
             // user: null,
             // tax_data: null,
@@ -536,7 +564,7 @@ export const SpecificEmployee = (props: initialState) => {
             // sss_data: null,
             // philhealth_data: null,
             // provincial_address: null,
-            // date_resigned: null,
+            // date_separation: null,
             // date_added: '',
             // tax_code: null,
             // pagibig_code: null,
@@ -776,13 +804,13 @@ export const SpecificEmployee = (props: initialState) => {
                                                     disabled={true}
                                                     icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
                                         <Input
-                                                    crossOrigin={undefined} {...register('user.role')}
-                                                    type="number"
+                                                    // crossOrigin={undefined} {...register('user.role')}
                                                     containerProps={{ className: "min-w-[72px] mb-2" }}
-                                                    label="Role #:"
+                                                    label="Role:"
                                                     labelProps={{ style: { color: true ? "unset" : '' } }}
                                                     disabled={true}
-                                                    icon={<UserGroupIcon className="h-5 w-5 text-blue-gray-300" />}                                    />
+                                                    value={userRole?.role_name?? ""}
+                                                    icon={<UserGroupIcon className="h-5 w-5 text-blue-gray-300" />}                                   />
                                         </div>
                                         <Input
                                                 crossOrigin={undefined} {...register('email_address')}
@@ -1313,44 +1341,70 @@ export const SpecificEmployee = (props: initialState) => {
                                             </Typography>
                                             <div className="my-4 md:flex md:items-center gap-4">
                                                 <Input
-                                                        // crossOrigin={undefined} {...register('date_hired')}
-                                                        onChange={(e)=> setFormSelectData((curr:any) => ({
+                                                    // crossOrigin={undefined} {...register('date_hired')}
+                                                    onChange={(e)=> setFormSelectData((curr:any) => ({
+                                                        ...curr,
+                                                        date_hired: e.target.value
+                                                    }))}
+                                                    type="date"
+                                                    containerProps={{ className: "min-w-[72px] mb-2 md:mb-0" }}
+                                                    labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                    label="Date Hired:"
+                                                    disabled={!editMode3}
+                                                    defaultValue={userData?.date_hired?.split("T")[0]}
+                                                    // value={`${userData?.date_hired ? userData?.date_hired : ''}`}
+                                                    icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                        
+                                                />
+                                                <Input
+                                                    crossOrigin={null} {...register('employment_duration')}
+                                                    type="text"
+                                                    containerProps={{ className: "min-w-[72px] focused" }}
+                                                    labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                    label="Employment Duration:"
+                                                    // icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}       
+                                                    disabled
+                                                /> 
+                                            </div>
+                                            <div className="my-4 md:flex md:items-center gap-4">
+                                                <Input
+                                                    // crossOrigin={undefined} {...register('date_separation')}
+                                                    onChange={(e)=> setFormSelectData((curr:any) => {
+                                                        console.log(e.target.value)
+                                                        return ({
                                                             ...curr,
-                                                            date_hired: e.target.value
-                                                        }))}
-                                                        type="date"
-                                                        containerProps={{ className: "min-w-[72px] mb-2 md:mb-0" }}
-                                                        labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                        label="Date Hired:"
-                                                        disabled={!editMode3}
-                                                        defaultValue={userData?.date_hired?.split("T")[0]}
-                                                        // value={`${userData?.date_hired ? userData?.date_hired : ''}`}
-                                                        icon={<TagIcon className="h-5 w-5 text-blue-gray-300" />}                                        
+                                                            date_separation: e.target.value
+                                                        })
+                                                    })}
+                                                    onBlur={(e)=> setFormSelectData((curr:any) => {
+                                                        console.log(e.target.value)
+                                                        return ({
+                                                            ...curr,
+                                                            date_separation: e.target.value
+                                                        })
+                                                    })}
+                                                    defaultValue={userData?.date_separation?.split("T")[0]}
+                                                    type="date"
+                                                    containerProps={{ className: "min-w-[72px] mb-2 focused" }}
+                                                    labelProps={{ style: { color: true ? "unset" : '' } }}
+                                                    label="Date Separation:"
+                                                    disabled={!editMode3}
+                                                    icon={<FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />}                                        
                                                 />
 
-                                                    <Input
-                                                        // crossOrigin={undefined} {...register('date_resigned')}
-                                                        onChange={(e)=> setFormSelectData((curr:any) => {
-                                                            console.log(e.target.value)
-                                                            return ({
-                                                                ...curr,
-                                                                date_resigned: e.target.value
-                                                            })
-                                                        })}
-                                                        onBlur={(e)=> setFormSelectData((curr:any) => {
-                                                            console.log(e.target.value)
-                                                            return ({
-                                                                ...curr,
-                                                                date_resigned: e.target.value
-                                                            })
-                                                        })}
-                                                        defaultValue={userData?.date_resigned?.split("T")[0]}
-                                                        type="date"
-                                                        containerProps={{ className: "min-w-[72px] mb-2 focused" }}
-                                                        labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                        label="Date Resigned:"
-                                                        disabled={!editMode3}
-                                                        icon={<FingerPrintIcon className="h-5 w-5 text-blue-gray-300" />}                                        />
+                                                <Select
+                                                    onChange={(val:any) => setFormSelectData(curr => ({...curr, separation_type: val}))}
+                                                    placeholder="Select Separation Type"
+                                                    name="separation_type"
+                                                    variant="outlined"
+                                                    label="Separation Type:"
+                                                    value={userData?.separation_type}
+                                                    disabled={!editMode3}
+                                                >
+                                                    <Option value="">N/A</Option>
+                                                    <Option value="resigned">Resigned</Option>
+                                                    <Option value="retired">Retired</Option>
+                                                    <Option value="terminated">Terminated</Option>
+                                                </Select>
                                             </div>
                                             <div className="my-4 md:flex md:items-center gap-4">
                                                 <Input
@@ -1432,7 +1486,7 @@ export const SpecificEmployee = (props: initialState) => {
                                                     type="text"
                                                     containerProps={{ className: "min-w-[72px] focused" }}
                                                     labelProps={{ style: { color: true ? "unset" : '' } }}
-                                                    label="Other Duties Responsibilties:"
+                                                    label="Other Duty and Responsibilties:"
                                                     disabled={!editMode3}
                                                     icon={<AcademicCapIcon className="h-5 w-5 text-blue-gray-300" />}             
                                                 />    
@@ -1485,16 +1539,15 @@ export const SpecificEmployee = (props: initialState) => {
                                                         value={userData?.approver2}
                                                         disabled={!editMode3}
                                                         aria-required
-                                                        >
-                                                        {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> (
+                                                    >
+                                                        {dropDownData.approvers.length > 0 ? [{emp_no:"", full_name: "N/A"}, ...dropDownData.approvers].map((approver:any, index:number)=> (
                                                             // ![formSelectData.approver1, formSelectData.approver2].includes(approver.emp_no) && <Option value={approver.emp_no}>{approver.full_name}</Option>
-                                                            <Option value={approver.emp_no}>{approver.full_name}</Option>
+                                                            <Option key={index} value={approver.emp_no}>{approver.full_name}</Option>
                                                             )): (
                                                             <Option disabled>No Approvers available on the selected department</Option>
                                                         )}
                                                     </Select>
                                                 }
-                                                
                                                 {/* <Input
                                                     crossOrigin={undefined} {...register('approver2')}
                                                     type="number"
@@ -1506,7 +1559,6 @@ export const SpecificEmployee = (props: initialState) => {
                                                     icon={<WindowIcon className="h-5 w-5 text-blue-gray-300" />}                                    
                                                 /> */}
                                             </div>
-
                                         </div>
                                         <div style={{width: "100%"}}>
                                             <Typography
@@ -1663,10 +1715,10 @@ export const SpecificEmployee = (props: initialState) => {
                                                         value={userData?.payroll_group_code?.toString()}
                                                     >
                                                         {
-                                                        dropDownData.payrollGroups.length > 0 ? dropDownData.payrollGroups.map((payroll:any) => (
-                                                            <Option key={payroll.id} value={payroll.id}>{payroll.name}</Option>
-                                                        ))
-                                                        : <Option disabled>No payrolls available</Option>
+                                                            dropDownData.payrollGroups.length > 0 ? dropDownData.payrollGroups.map((payroll:any) => (
+                                                                <Option key={payroll.id} value={payroll.id}>{payroll.name}</Option>
+                                                            ))
+                                                            : <Option disabled>No payrolls available</Option>
                                                         }
                                                     </Select>
                                                 }

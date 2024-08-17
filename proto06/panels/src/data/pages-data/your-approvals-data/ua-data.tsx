@@ -68,6 +68,11 @@ export const ApprovalUAPageColumns: GridColDef[] =
       }
     }
   },
+  { 
+    field: 'ua_approver2_empno', 
+    headerName: 'Approver #2', 
+    width: 120,
+  },
   {
     field: 'ua_date_approved1',
     headerName: 'Date Approved #1',
@@ -80,11 +85,6 @@ export const ApprovalUAPageColumns: GridColDef[] =
         return '-'
       }
     }
-  },
-  { 
-    field: 'ua_approver2_empno', 
-    headerName: 'Approver #2', 
-    width: 120,
   },
   {
     field: 'ua_date_approved2',

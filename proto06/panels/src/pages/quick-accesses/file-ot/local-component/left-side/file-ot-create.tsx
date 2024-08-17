@@ -75,7 +75,7 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
     
         }).catch(err => {
     
-            console.log(err)
+            console.error(err)
             dispatch(HandleAlertAction({
                 open:true,
                 status:"error",
@@ -95,13 +95,14 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
             ot_remarks: createOVERTIME.ot_remarks,
             ot_date_from: createOVERTIME.ot_date_from,
             ot_date_to: createOVERTIME.ot_date_to,
+            ot_business_date: createOVERTIME.ot_business_date,
             added_by: userData?.emp_no,
         }
         await axios.post(`${APILink}ot/`, payload)
             .then((res:any) => {
 
                 setIsSubmittingRequest(false)
-                dispatch(OVERTIMEViewFilterEmployeeAction({emp_no: userData?.emp_no}))
+                dispatch(OVERTIMEViewFilterEmployeeAction({emp_no: userData?.emp_no as number}))
                 dispatch(HandleAlertAction({
                     open: true,
                     status: "success",

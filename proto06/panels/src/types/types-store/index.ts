@@ -69,7 +69,7 @@ export interface EMPLOYEESViewInterface {
     other_duties_responsibilities: string | null //new
     payroll_no: string | null //new
     date_hired: string
-    date_resigned: string | null
+    date_separation: string | null
     date_added: string
     date_deleted: string | null
     accnt_no: string
@@ -92,6 +92,7 @@ export interface EMPLOYEESViewInterface {
     pagibig_code: string | null
     sssid_code: string
     philhealth_code: string | null
+    separation_type: string | null
     // rank_data: RankDataInterface //deprecated
 }
 

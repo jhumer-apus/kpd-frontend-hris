@@ -12,6 +12,12 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
+import { DesktopDateTimePicker, DesktopTimePicker } from '@mui/x-date-pickers';
+import { HandleAlertAction } from '@/store/actions/components';
 
 
 
@@ -23,16 +29,62 @@ function ProceduralSCHEDULESHIFTCreate(props: CreateSCHEDULESHIFTModalInterface)
 
     const dispatch = useDispatch();
     const SCHEDULESHIFTCreatestate = useSelector((state: RootState)=> state.procedurals.SCHEDULESHIFTCreate);
+    const user = useSelector((state:RootState) => state.auth.employee_detail)
     const [createSCHEDULESHIFT, setCreateSCHEDULESHIFT] = useState<SCHEDULESHIFTCreateInterface>({
         name: null,
         time_in: null,
         time_out: null,
         grace_period: 0,
         with_overtime: false, 
+        lunch_break_start: null,
+        lunch_break_end: null,
+        added_by: user?.emp_no
     });
-    const onClickSubmit = () => {
-        dispatch(SCHEDULESHIFTCreateAction(createSCHEDULESHIFT))
+    const onClickSubmit = (e:any) => {
+        e.preventDefault()
+
+        const payload = {
+            ...createSCHEDULESHIFT,
+            added_by: user?.emp_no
+        }
+        if(validate(payload)) return
+        dispatch(SCHEDULESHIFTCreateAction(payload))
     };
+
+    const validate = (payload:any) => {
+
+        if(!payload.lunch_break_start) {
+            dispatch(HandleAlertAction({
+                open: true,
+                status: "error",
+                message: "Lunch break time start is required!"
+            }))
+            return true
+        }
+
+        if(!payload.lunch_break_end) {
+            dispatch(HandleAlertAction({
+                open: true,
+                status: "error",
+                message: "Lunch break time end is required!"
+            }))
+            return true
+        }
+
+        return false
+        
+    }
+
+    useEffect(() => {
+        if(createSCHEDULESHIFT.lunch_time_start) {
+            const date = dayjs(createSCHEDULESHIFT.lunch_time_start).format("hh:mm:ss")
+            const time = dayjs(date, "hh:mm:ss")
+            console.log(time)
+
+        }
+        dayjs(createSCHEDULESHIFT.time_in, 'HH:mm:ss')
+    },[createSCHEDULESHIFT])
+
     useEffect(()=>{
         if(SCHEDULESHIFTCreatestate.status === 'succeeded'){
             window.alert('Request Successful');
@@ -45,12 +97,18 @@ function ProceduralSCHEDULESHIFTCreate(props: CreateSCHEDULESHIFTModalInterface)
         }
     }, [SCHEDULESHIFTCreatestate.status])
 
+    const handleChangeTime = (name:string, value:any) => {
+        setCreateSCHEDULESHIFT(curr => ({
+            ...curr,
+            [name]: value
+        }))
+    }
+
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a Schedule Shift Data</Typography>
-            <div className='flex flex-col gap-6 overflow-auto relative'>
+            <form onSubmit={onClickSubmit} className='flex flex-col gap-6 overflow-auto relative'>
                 <div className='flex flex-wrap gap-6 pt-4'>
-                    <input></input>
                     <div className='flex flex-col gap-6' style={{width: '100%'}}>
                         <TextField
                             required 
@@ -126,13 +184,40 @@ function ProceduralSCHEDULESHIFTCreate(props: CreateSCHEDULESHIFTModalInterface)
                     <div className='flex flex-col gap-6' style={{width: '100%'}}>
                         <SCHEDULESHIFTTimeCreate createSCHEDULESHIFT={createSCHEDULESHIFT} setCreateSCHEDULESHIFT={setCreateSCHEDULESHIFT}/>
                     </div>
+
+                    <div>
+                        <Typography >Lunch Break Time:</Typography><br></br>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <div className='flex gap-4'>
+                            
+                            <DesktopTimePicker 
+                                label="Time Start" 
+                                defaultValue={null} 
+                                // minTime={createSCHEDULESHIFT.time_in ? dayjs(createSCHEDULESHIFT.time_in, 'HH:mm:ss'): null}
+                                // maxTime={createSCHEDULESHIFT.time_out ? dayjs(createSCHEDULESHIFT.time_out, 'HH:mm:ss'): null}
+                                onChange={(newValue) => handleChangeTime("lunch_break_start", dayjs(newValue).format("HH:mm:ss"))}
+                                
+       
+                            />
+                            <DesktopTimePicker 
+                                label="Time End" 
+                                defaultValue={null}
+                                // minTime={createSCHEDULESHIFT.lunch_break_start ? dayjs(createSCHEDULESHIFT.lunch_break_start): null}
+                                // maxTime={createSCHEDULESHIFT.time_out ? dayjs(createSCHEDULESHIFT.time_out, "HH:mm:ss"): null}
+                                disabled={!createSCHEDULESHIFT.lunch_break_start}
+                                onChange={(newValue) => handleChangeTime("lunch_break_end", dayjs(newValue).format("HH:mm:ss"))}
+                            />
+                            
+                        </div>
+                        </LocalizationProvider>
+                    </div>
                 </div>
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
-                        <Button variant='contained' onClick={onClickSubmit}>Create SCHEDULE SHIFT</Button>
+                        <Button variant='contained' type="submit">Create SCHEDULE SHIFT</Button>
                     </div>
                 </div>
-            </div>
+            </form>
         </React.Fragment>
     );
 }

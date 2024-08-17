@@ -36,6 +36,7 @@ function CreateOVERTIMEModal(props: createOVERTIMEModalInterface) {
         ot_remarks: null,
         ot_date_from: null,
         ot_date_to: null,
+        ot_business_date: null
     })
     const dispatch = useDispatch();
     const OVERTIMECreatestate = useSelector((state: RootState)=> state.procedurals.OVERTIMECreate);

@@ -55,6 +55,7 @@ export const ApprovalOVERTIMEPageColumns: GridColDef[] =
       }
     }
   },
+  { field: 'ot_approver2_empno', headerName: 'Approver #2', width: 120 },
   {
     field: 'ot_date_approved1',
     headerName: 'Date Approved #1',
@@ -68,7 +69,6 @@ export const ApprovalOVERTIMEPageColumns: GridColDef[] =
       }
     }
   },
-  { field: 'ot_approver2_empno', headerName: 'Approver #2', width: 120 },
   {
     field: 'ot_date_approved2',
     headerName: 'Date Approved #2',

@@ -10,6 +10,7 @@ import { LEAVECREDITCreateInterface } from '@/types/types-pages';
 import { LEAVECREDITCreateAction, LEAVECREDITCreateActionFailureCleanup } from '@/store/actions/procedurals';
 import LEAVETYPEFetchAutoCompleteOnLEAVECREDITPage from './inner-ui-components/leave-type-autocomplete';
 import useFetchLeaveTypes from '@/custom-hooks/use-fetch-leave-types';
+import EmployeeListField from '@/public-components/EmployeeListField';
 
 interface CreateLEAVECREDITModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -32,8 +33,13 @@ function ProceduralLEAVECREDITCreate(props: CreateLEAVECREDITModalInterface) {
         expiry: null,
         emp_no: null,
         leave_type_code: null,
+        credit_remaining: null,
         added_by: currUser?.emp_no
     });
+    useEffect(() => {
+        console.log(createLEAVECREDIT.credit_remaining)
+    },[createLEAVECREDIT])
+
     const onClickSubmit = (e:any) => {
         e.preventDefault()
         dispatch(LEAVECREDITCreateAction(createLEAVECREDIT))
@@ -57,7 +63,7 @@ function ProceduralLEAVECREDITCreate(props: CreateLEAVECREDITModalInterface) {
     const handleChange = (event: any, newValue: any) => {
         if(newValue) {
             
-            setSelectedLeaveDetails(curr => newValue)
+            setSelectedLeaveDetails((curr:any) => newValue)
             setCreateLEAVECREDIT((curr:any) => ({
                 ...curr,
                 leave_type_code: newValue.id,
@@ -83,6 +89,19 @@ function ProceduralLEAVECREDITCreate(props: CreateLEAVECREDITModalInterface) {
         
     };
 
+    const handleChangeEmpField = (e:any, newValue:any) => {
+        if(newValue) {
+            setCreateLEAVECREDIT((prevState:any)=> 
+                (
+                    {
+                        ...prevState,
+                        emp_no: newValue.emp_no
+                    }
+                )
+            )
+        }
+    }
+
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a Leave Credit Data</Typography>
@@ -90,7 +109,12 @@ function ProceduralLEAVECREDITCreate(props: CreateLEAVECREDITModalInterface) {
             <form onSubmit={onClickSubmit} className='flex flex-col gap-6 overflow-auto relative'>
                 <div className='flex gap-6 pt-4'>
                     <div className='flex flex-col gap-6'>
-                        <EmployeeAutoComplete createLEAVECREDIT={createLEAVECREDIT} setCreateLEAVECREDIT={setCreateLEAVECREDIT}/>
+                        {/* <EmployeeAutoComplete createLEAVECREDIT={createLEAVECREDIT} setCreateLEAVECREDIT={setCreateLEAVECREDIT}/> */}
+                        <EmployeeListField 
+                            label="For Employee No.:" 
+                            handleChange={handleChangeEmpField} 
+                            currentValue={createLEAVECREDIT.emp_no} 
+                        />
                         <Autocomplete
                             // disableCloseOnSelect
                             noOptionsText={'Loading... Please Wait.'}
@@ -147,21 +171,21 @@ function ProceduralLEAVECREDITCreate(props: CreateLEAVECREDITModalInterface) {
                         <TextField
                             required={selectedLeaveDetails?.is_paid} 
                             disabled={!selectedLeaveDetails?.is_paid}
-                            label='Inital Credit:'
+                            label='Initial Credit:'
                             InputProps={{
                                 inputProps:{
                                     min:0,
                                     max:createLEAVECREDIT?.credit_max,
-                                    type:"number"
+                                    type:"number",
+                                    step: 0.01
                                 }
-                                
                             }}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 setCreateLEAVECREDIT((prevState)=> {
                                     return (
                                         {
                                             ...prevState,
-                                            credit_remaining: parseInt(event.target.value)
+                                            credit_remaining: parseFloat(event.target.value)
                                         }
                                     )
                                 })
