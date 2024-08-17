@@ -42,7 +42,9 @@ export function EasyAccessCard({ color, icon, title, value, footer, custom, link
       <UnderDevelopmentMsg fontSize={12}/> 
       :
       fileDownload ? 
-      <a className="absolute w-full h-full" target={"_blank"} href={link} download={"asdasdasd"}>
+      <a className="absolute w-full h-full" target={"_blank"} href={link} 
+      // download={"asdasdasd"}
+      >
       </a>
       :
       <div className="absolute w-full h-full" onClick={()=> {
