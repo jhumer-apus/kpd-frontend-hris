@@ -143,11 +143,11 @@ export function ChooseDashboard() {
   return (
     <div className="mt-12">
       <Notification />
-      <TimeInLocation />
-        <Button onClick={() => timeIn()} className="my-4 text-md flex items-center gap-2">        
+      {/* <TimeInLocation /> */}
+        {/* <Button onClick={() => timeIn()} className="my-4 text-md flex items-center gap-2">        
           <p>Time In</p>
           <ClockIcon className="h-6 w-6 text-white"/>
-        </Button>
+        </Button> */}
       <div className={`${styles.homeWrap} bg-red-10`}>
         <YearlyReminder /> {/* Add this line to include the YearlyReminder component */}
         <Card className={styles.greetingsBar}>
