@@ -48,7 +48,7 @@ export function PerformanceAppraisalForms() {
       },
       custom: IconColor,
       link: ``,
-      fileDownload: true,
+      fileDownload: false,
       fileName: 'F-HRD-02.02_EMPLOYEE_PERFORMANCE_MONITORING_SHEET_(PROBATIONARY)',
       customTop: 15,
       customLeft: 38,
@@ -67,7 +67,7 @@ export function PerformanceAppraisalForms() {
             },
             custom: IconColor,
             link: ``,
-            fileDownload: true,
+            fileDownload: false,
             fileName: 'F-HRD-02.01A_Performance_Evaluation_Form_Rank_and_File_rev.06.pdf',
             customTop: 15,
             customLeft: 38,
@@ -85,7 +85,7 @@ export function PerformanceAppraisalForms() {
             },
             custom: IconColor,
             link: ``,
-            fileDownload: true,
+            fileDownload: false,
             fileName: 'F-HRD-02.01_Performance_Evaluation_Form_Confidential_Payroll_rev.08.pdf',
             customTop: 15,
             customLeft: 38,
@@ -103,7 +103,7 @@ export function PerformanceAppraisalForms() {
           },
           custom: IconColor,
           link: ``,
-          fileDownload: true,
+          fileDownload: false,
           fileName: 'F-HRD-03.06 Performance Appraisal Tally Sheet (rev.02)',
           customTop: 15,
           customLeft: 38,
@@ -137,7 +137,7 @@ export function PerformanceAppraisalForms() {
           }} data-type={index}>
             <EasyAccessCard
               value={value}
-              onClickHandler={handleOnClick}
+              // onClickHandler={handleOnClick}
               onClickDetails={`${value}${index}`}
               key={title}
               {...rest}

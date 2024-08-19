@@ -50,7 +50,7 @@ export function RecruitmentForms() {
       },
       custom: IconColor,
       link: ``,
-      fileDownload: true,
+      fileDownload: false,
       fileName: 'F-HRD-01.01_Personnel_Action_Memo_(rev.08)',
       customTop: 15,
       customLeft: 38,
@@ -68,7 +68,7 @@ export function RecruitmentForms() {
       },
       custom: IconColor,
       link: ``,
-      fileDownload: true,
+      fileDownload: false,
       fileName: 'F-HRD-01.10_Road_Test_&_Driving_Examination_(rev.02)',
       customTop: 15,
       customLeft: 38,
@@ -87,7 +87,7 @@ export function RecruitmentForms() {
         },
         custom: IconColor,
         link: ``,
-        fileDownload: true,
+        fileDownload: false,
         fileName: 'F-HRD-01.03_Application_Form_rev.04.pdf',
         customTop: 15,
         customLeft: 38,
@@ -105,7 +105,7 @@ export function RecruitmentForms() {
         },
         custom: IconColor,
         link: ``,
-        fileDownload: true,
+        fileDownload: false,
         fileName: 'F-HRD-01.04_Employment_Requirement_Slip_rev.05.pdf',
         customTop: 15,
         customLeft: 38,
@@ -123,7 +123,7 @@ export function RecruitmentForms() {
         },
         custom: IconColor,
         link: ``,
-        fileDownload: true,
+        fileDownload: false,
         fileName: 'F-HRD-07.15_EMPLOYEE_UNIFORM_RESPONSIBILITY_FORM.pdf',
         customTop: 15,
         customLeft: 38,
@@ -141,7 +141,7 @@ export function RecruitmentForms() {
         },
         custom: IconColor,
         link: ``,
-        fileDownload: true,
+        fileDownload: false,
         fileName: 'F-HRD-01.13_ORIENTATION_CHECKLIST_rev.11.pdf',
         customTop: 15,
         customLeft: 38,
@@ -159,7 +159,7 @@ export function RecruitmentForms() {
         },
         custom: IconColor,
         link: ``,
-        fileDownload: true,
+        fileDownload: false,
         fileName: 'F-HRD-01.02_Personnel_Requisition_Form_rev.08.pdf',
         customTop: 15,
         customLeft: 38,
@@ -177,7 +177,7 @@ export function RecruitmentForms() {
         },
         custom: IconColor,
         link: ``,
-        fileDownload: true,
+        fileDownload: false,
         fileName: 'F-HRD-01.11_Interviewers_Sheet_rev.05.pdf',
         customTop: 15,
         customLeft: 38,
@@ -195,7 +195,7 @@ export function RecruitmentForms() {
         },
         custom: IconColor,
         link: ``,
-        fileDownload: true,
+        fileDownload: false,
         fileName: 'F-HRD-01.43 Non-compete Agreement (SFFI)',
         customTop: 15,
         customLeft: 38,
@@ -213,7 +213,7 @@ export function RecruitmentForms() {
         },
         custom: IconColor,
         link: ``,
-        fileDownload: true,
+        fileDownload: false,
         fileName: 'F-HRD-01.43(a) Non-compete Agreement (SFBI)',
         customTop: 15,
         customLeft: 38,
@@ -248,7 +248,7 @@ export function RecruitmentForms() {
           }} data-type={index}>
             <EasyAccessCard
               value={value}
-              onClickHandler={handleOnClick}
+              // onClickHandler={handleOnClick}
               onClickDetails={`${value}${index}`}
               key={title}
               {...rest}

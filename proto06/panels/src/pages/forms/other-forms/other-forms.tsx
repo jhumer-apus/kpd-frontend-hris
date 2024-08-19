@@ -49,7 +49,7 @@ export function OtherForms() {
         },
         custom: IconColor,
         link: ``,
-        fileDownload: true,
+        fileDownload: false,
         fileName: 'F-HRD-01.17B_Request_for_Premium_Pay_Trucking_Service_rev.00.pdf',
         customTop: 15,
         customLeft: 38,
@@ -67,7 +67,7 @@ export function OtherForms() {
         },
         custom: IconColor,
         link: ``,
-        fileDownload: true,
+        fileDownload: false,
         fileName: 'F-HRD-01.17_Request_for_Overtime_rev.04.pdf',
         customTop: 15,
         customLeft: 38,
@@ -85,7 +85,7 @@ export function OtherForms() {
       },
       custom: IconColor,
       link: ``,
-      fileDownload: true,
+      fileDownload: false,
       fileName: 'F-HRD-03.11_AUTHORITY_TO_DEDUCT_-_HEALTH_INSURANCE_(rev.00)',
       customTop: 15,
       customLeft: 38,
@@ -122,7 +122,7 @@ export function OtherForms() {
           }} data-type={index}>
             <EasyAccessCard
               value={value}
-              onClickHandler={handleOnClick}
+              // onClickHandler={handleOnClick}
               onClickDetails={`${value}${index}`}
               key={title}
               {...rest}

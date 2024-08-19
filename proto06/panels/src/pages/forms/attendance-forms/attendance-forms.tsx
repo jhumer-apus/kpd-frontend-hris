@@ -48,7 +48,7 @@ export function AttendanceForms() {
         },
         custom: IconColor,
         link: ``,
-        fileDownload: true,
+        fileDownload: false,
         fileName: 'F-HRD-01.16_Non-Punching_Form_rev.04.pdf',
         customTop: 15,
         customLeft: 38,
@@ -66,7 +66,7 @@ export function AttendanceForms() {
         },
         custom: IconColor,
         link: ``,
-        fileDownload: true,
+        fileDownload: false,
         fileName: 'F-HRD-01.19_Application_for_Leave_of_Absence_rev.04.pdf',
         customTop: 15,
         customLeft: 38,
@@ -103,7 +103,7 @@ export function AttendanceForms() {
           }} data-type={index}>
             <EasyAccessCard
               value={value}
-              onClickHandler={handleOnClick}
+              // onClickHandler={handleOnClick}
               onClickDetails={`${value}${index}`}
               key={title}
               {...rest}

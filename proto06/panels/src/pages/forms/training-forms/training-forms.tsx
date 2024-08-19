@@ -51,7 +51,7 @@ export function TrainingForms() {
       },
       custom: IconColor,
       link: ``,
-      fileDownload: true,
+      fileDownload: false,
       fileName: 'F-HRD-03.08_Affidavit_of_Undertaking_(rev.03)',
       customTop: 15,
       customLeft: 38,
@@ -69,7 +69,7 @@ export function TrainingForms() {
       },
       custom: IconColor,
       link: ``,
-      fileDownload: true,
+      fileDownload: false,
       fileName: 'F-HRD-03.03_In-House_Seminar_Evaluation_(rev.03)',
       customTop: 15,
       customLeft: 38,
@@ -87,7 +87,7 @@ export function TrainingForms() {
       },
       custom: IconColor,
       link: ``,
-      fileDownload: true,
+      fileDownload: false,
       fileName: 'F-HRD-03.04_Public_Seminar_Evaluation_Form_(rev.03)',
       customTop: 15,
       customLeft: 38,
@@ -105,7 +105,7 @@ export function TrainingForms() {
     //   },
     //   custom: IconColor,
     //   link: ``,
-    //   fileDownload: true,
+    //   fileDownload: false,
     //   fileName: 'F-HRD-03.02_Employees_Training_Record_rev.02.pdf',
     //   customTop: 15,
     //   customLeft: 38,
@@ -124,7 +124,7 @@ export function TrainingForms() {
             },
             custom: IconColor,
             link: ``,
-            fileDownload: true,
+            fileDownload: false,
             fileName: 'F-HRD-03.02_Employees_Training_Record_rev.02.pdf',
             customTop: 15,
             customLeft: 38,
@@ -142,7 +142,7 @@ export function TrainingForms() {
           },
           custom: IconColor,
           link: ``,
-          fileDownload: true,
+          fileDownload: false,
           fileName: 'Training Attendance Record.pdf',
           customTop: 15,
           customLeft: 38,
@@ -160,7 +160,7 @@ export function TrainingForms() {
           },
           custom: IconColor,
           link: ``,
-          fileDownload: true,
+          fileDownload: false,
           fileName: 'F-HRD-03.10 Training Evaluation Form (rev.04)',
           customTop: 15,
           customLeft: 38,
@@ -195,7 +195,7 @@ export function TrainingForms() {
           }} data-type={index}>
             <EasyAccessCard
               value={value}
-              onClickHandler={handleOnClick}
+              // onClickHandler={handleOnClick}
               onClickDetails={`${value}${index}`}
               key={title}
               {...rest}

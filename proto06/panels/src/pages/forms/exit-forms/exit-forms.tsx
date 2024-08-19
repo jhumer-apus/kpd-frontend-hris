@@ -50,7 +50,7 @@ export function ExitForms() {
       },
       custom: IconColor,
       link: ``,
-      fileDownload: true,
+      fileDownload: false,
       fileName: 'F-HRD-01.20_Clearance_Certificate_(Rv.14-new)',
       customTop: 15,
       customLeft: 38,
@@ -68,7 +68,7 @@ export function ExitForms() {
       },
       custom: IconColor,
       link: ``,
-      fileDownload: true,
+      fileDownload: false,
       fileName: 'F-HRD-01.24_Employee_Exit_Survey_(rev.01)',
       customTop: 15,
       customLeft: 38,
@@ -105,7 +105,7 @@ export function ExitForms() {
           }} data-type={index}>
             <EasyAccessCard
               value={value}
-              onClickHandler={handleOnClick}
+              // onClickHandler={handleOnClick}
               onClickDetails={`${value}${index}`}
               key={title}
               {...rest}
