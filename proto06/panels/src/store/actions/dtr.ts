@@ -32,7 +32,7 @@ export const viewFilterMergedDtrLogsSuccess = createAction("VIEW_FILTER_MERGED_D
     return({ payload: {allFilterMergedDtr} })});
 export const viewFilterMergedDtrLogsFailure = createAction<string>("VIEW_FILTER_MERGED_DTR_LOGS_FAILURE");
 
-export const viewCutoffDtrSummary = createAction<{emp_no: number| null}>("VIEW_CUTOFF_DTR_SUMMARY");
+export const viewCutoffDtrSummary = createAction<{cutoff_id: number | null, emp_no: number| null}>("VIEW_CUTOFF_DTR_SUMMARY");
 export const viewCutoffDtrSummarySuccess = createAction("VIEW_CUTOFF_DTR_SUMMARY_SUCCESS", (allCutoffDtrSummary: Array<ViewCutoffDtrSummaryType>) => { 
     return({ payload: {allCutoffDtrSummary} })});
 export const viewCutoffDtrSummaryFailure = createAction<string>("VIEW_CUTOFF_DTR_SUMMARY_FAILURE");
