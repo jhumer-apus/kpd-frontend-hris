@@ -1,13 +1,15 @@
 import { Dispatch, Fragment, SetStateAction, useEffect, useState } from 'react';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridCallbackDetails, GridRowSelectionModel } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/configureStore';
-import { Typography } from "@material-tailwind/react";
+import { Button, Typography } from "@material-tailwind/react";
 import { ProceduralSCHEDULEDAILYPageDescriptions, ProceduralSCHEDULEDAILYPageColumns } from '@/data/pages-data/procedural-data/schedule-daily-data';
 import ViewSCHEDULEDAILYSingleModal from './local-components/main-modals/view-schedule-daily-single-modal';
 import { SCHEDULEDAILYViewInterface } from '@/types/types-pages';
 import { SCHEDULEDAILYViewFilterEmployeeAction } from '@/store/actions/procedurals';
 import { globalServerErrorMsg } from '@/store/configureStore';
+import { HandleModalAction } from '@/store/actions/components';
+import EditBulkEmployeeSched from '@/public-components/modals/EditBulkEmployeeSched';
 
 
 interface ProceduralSCHEDULEDAILYPageHistoryInterface {
@@ -18,6 +20,7 @@ interface ProceduralSCHEDULEDAILYPageHistoryInterface {
 export default function ProceduralSCHEDULEDAILYPageHistory(props: ProceduralSCHEDULEDAILYPageHistoryInterface) {
   const {currEmployee} = props;
   const [singleSCHEDULEDAILYOpenModal, setSingleSCHEDULEDAILYOpenModal] = useState<boolean>(false);
+  const [selectedRows, setSelectedRows] = useState<any[] | []>([])
   const [singleSCHEDULEDAILYDetailsData, setSingleSCHEDULEDAILYDetailsData] = useState<SCHEDULEDAILYViewInterface>({
     id: NaN,
     is_processed: null,
@@ -45,6 +48,20 @@ export default function ProceduralSCHEDULEDAILYPageHistory(props: ProceduralSCHE
       dispatch(SCHEDULEDAILYViewFilterEmployeeAction({emp_no: currEmployee}))
   }, [currEmployee]);
 
+  const filterSelectedRows = (arrayRowId: GridRowSelectionModel, details: GridCallbackDetails) => {
+    const filteredRows = SCHEDULEDAILYViewData.filter((data:any, index:number) => {
+      if(arrayRowId.includes(data.id)) return data
+    })
+    setSelectedRows(curr => filteredRows)
+  }
+
+  const editOpenModal = () => {
+      dispatch(HandleModalAction({
+        name: "editBulkEmployeeSchedModal",
+        value: true
+    }))
+  }
+
   return (
     <Fragment>
       <div className="my-2 flex flex-wrap justify-between items-start gap-6">
@@ -62,6 +79,7 @@ export default function ProceduralSCHEDULEDAILYPageHistory(props: ProceduralSCHE
         // style={{ width: '100%' }} 
         className="w-full"
       >
+        <Button className='mb-2 px-4 py-2' disabled={selectedRows.length == 0} onClick={() => editOpenModal()}>Edit</Button>
         <DataGrid
           autoHeight
           // autoPageSize
@@ -79,9 +97,12 @@ export default function ProceduralSCHEDULEDAILYPageHistory(props: ProceduralSCHE
             setSingleSCHEDULEDAILYDetailsData(e.row);
             setSingleSCHEDULEDAILYOpenModal(true);
           }}
-          disableRowSelectionOnClick 
+          disableRowSelectionOnClick
+          checkboxSelection
+          onRowSelectionModelChange={filterSelectedRows}
           localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
           />
+        <EditBulkEmployeeSched emp_nos={selectedRows} />
       </div>
     </Fragment>
   );
