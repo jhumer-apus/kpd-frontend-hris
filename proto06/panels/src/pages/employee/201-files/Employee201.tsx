@@ -15,6 +15,8 @@ import { SpecificEmployee } from './forms/SpecificEmployee';
 import { APILink } from '@/store/configureStore';
 import EmployeeExportToCsvButton from './local-components/export-to-csv-employee';
 import dayjs from 'dayjs';
+import ExportToCSVButton from '@/public-components/ExportToCSVButton';
+import axios from 'axios';
 
 const columns: GridColDef[] = [
   {
@@ -82,6 +84,7 @@ export default function DataTable() {
   const dispatch = useDispatch();
   const { register, handleSubmit, setValue, formState: { errors } } = useForm<EMPLOYEESViewInterface>();
   const { employees_list, specific_employee_info } = useSelector((state: RootState) => state.employees);
+  const [exportData, setExportData] = useState<any[]>([]);
   const [type, setType] = useState("staticInfo");
 
   // Specific Employee Modal Form 
@@ -148,6 +151,21 @@ export default function DataTable() {
         setSecondOptionModalEntranceDelay(false);
       }, 1200);
   }, [specific_employee_info])
+
+  useEffect(() => {
+    fetchExportData()
+  },[])
+
+  const fetchExportData = async () => {
+    await axios
+            .get(`${APILink}export_employees/`)
+            .then(res => 
+              {
+                const data = Array.isArray(res.data) ? res.data: []
+                setExportData(curr => data)
+              }
+            )
+  }
   
   return (
     <Fragment>
@@ -172,7 +190,14 @@ export default function DataTable() {
             <UserProfile/>
             </Box>
         </Modal>
-        <EmployeeExportToCsvButton data={employees_list} />
+
+        <div className='mb-4'>
+          <ExportToCSVButton
+            data={exportData}
+            isDisable={exportData.length == 0? true: false}
+          />
+        </div>
+        {/* <EmployeeExportToCsvButton data={employees_list} /> */}
         {/* <Button 
           className='mb-4 flex gap-2'
           variant='outlined'
