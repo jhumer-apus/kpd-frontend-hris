@@ -127,7 +127,7 @@ export default function EditBulkEmployeeSched() {
                 aria-describedby="modal-modal-description"
                 // className='overflow-auto'
             >
-                <form onSubmit={handleSubmit} className='modal-content flex flex-col gap-4 w-[300px]'>
+                <form onSubmit={handleSubmit} className='modal-content flex flex-col gap-4 w-[300px] h-full'>
                     <Typography variant="h5" className="bg-blue-50 p-2 mb-4">Bulk Update Employees Schedule</Typography>
 
                     <FormControl required error={error?.emp_no}>
