@@ -1,4 +1,4 @@
-import { useEffect, Fragment, Dispatch, SetStateAction } from 'react';
+import { useEffect, Fragment, Dispatch, SetStateAction, useState } from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
@@ -23,8 +23,12 @@ export default function ApproveOVERTIMEModal(props: ApproveOVERTIMEModalInterfac
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
   const OVERTIMEApproveState = useSelector((state: RootState)=> state.procedurals.OVERTIMEEdit.status)
   const {approveOVERTIMEOpenModal, setApproveOVERTIMEOpenModal, singleOVERTIMEDetailsData, setSingleOVERTIMEDetailsData} = props;
-
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  
   const approveOVERTIME = () => { 
+
+    setIsLoading(curr => true)
+
     const DateNow = new Date();
     const approvedDate = dayjs(DateNow).format('YYYY-MM-DDTHH:mm:ss');
     if(state?.emp_no === singleOVERTIMEDetailsData.ot_approver1_empno  || ((state?.rank_code as number) > singleOVERTIMEDetailsData?.applicant_rank) || state?.rank_hierarchy == 6){
@@ -50,6 +54,7 @@ export default function ApproveOVERTIMEModal(props: ApproveOVERTIMEModalInterfac
         })
       })
     } else {
+      setIsLoading(curr => false)
       window.alert('You are not one of the approvers.')
     }
 
@@ -57,6 +62,7 @@ export default function ApproveOVERTIMEModal(props: ApproveOVERTIMEModalInterfac
 
   useEffect(()=>{
     if(OVERTIMEApproveState){
+      setIsLoading(curr => false)
       window.alert(`${OVERTIMEApproveState.charAt(0).toUpperCase()}${OVERTIMEApproveState.slice(1)}`)
       if(OVERTIMEApproveState !== 'failed'){
         setTimeout(()=>{
@@ -113,8 +119,8 @@ export default function ApproveOVERTIMEModal(props: ApproveOVERTIMEModalInterfac
                 <Typography>Are you sure you want to approve this OVERTIME?</Typography>
               </div>
               <div className='flex justify-around'>
-                <Button variant={'contained'} onClick={approveOVERTIME}>Submit</Button>
-                <Button variant={'outlined'} onClick={()=>{setApproveOVERTIMEOpenModal(false)}}>Cancel</Button>
+                <Button disabled={isLoading} variant={'contained'} onClick={approveOVERTIME}>Submit</Button>
+                <Button disabled={isLoading} variant={'outlined'} onClick={()=>{setApproveOVERTIMEOpenModal(false)}}>Cancel</Button>
               </div>
             </div>
           </div>

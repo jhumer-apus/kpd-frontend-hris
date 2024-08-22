@@ -21,13 +21,18 @@ export interface IRoute {
 
 
 export enum ScheduleDailyColor {
-    _restday = 'linear-gradient(0deg, rgba(34,195,193,1) 0%, rgba(38,199,133,1) 50%)',
-    _workday = 'linear-gradient(0deg, rgba(195,147,34,1) 0%, rgba(253,187,45,1) 100%)',
+    _restday = 'linear-gradient(0deg, rgba(34,195,193,0.2) 0%, rgba(38,199,133,0.2) 50%)',
+    _workday = 'linear-gradient(0deg, rgba(195,147,34,0.2) 0%, rgba(253,187,45,0.2) 100%)',
     _restday_hex = '#26C785',
     _workday_hex = '#FDBB2D'
 }
 
 
+export interface AlertType {
+    open: boolean,
+    status: "success" | "error" | "warning" | "info" | "" | null ,
+    message: string | null
+}
 
 export interface BeautifyObject extends JSON {
     [key: string]: any

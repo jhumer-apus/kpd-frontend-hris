@@ -13,6 +13,7 @@ import { SCHEDULEDAILYViewInterface, SCHEDULESHIFTViewInterface } from '@/types/
 import { ScheduleDailyColor } from '@/types/index';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
+import { HolidayColor } from '@/pages/procedurals/holidays/local-components/list-of-holidays/list-of-holidays';
 
 export interface HighlightedCalendarInterface {
   value: dayjs.Dayjs | null,
@@ -38,28 +39,61 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[],
   const open = Boolean(anchorEl);
 
 
+  const restDayStyle = {
+    background: ScheduleDailyColor._restday,
+    // opacity: '0.2', 
+    height: '46px', 
+    width: '46px', 
+    borderRadius: '30px', 
+    marginTop: '32px',
+    marginRight: '37px', 
+    padding: '5px', 
+    display: 'flex', 
+    zoom: '0.8'
+  }
 
+  const workDayStyle = {
+      background: ScheduleDailyColor._workday,
+      // opacity: '0.2', 
+      height: '46px', 
+      width: '46px', 
+      borderRadius: '30px', 
+      marginTop: '32px',
+      marginRight: '37px', 
+      padding: '5px', 
+      display: 'flex', 
+      zoom: '0.8'
+  } 
+
+  const holidayIndicator = (holidayType: "SH" | "LH" | null) => {
+    switch(holidayType) {
+      case "SH": 
+        return (
+          <Badge 
+            overlap="circular"
+            badgeContent={<div className='rounded-full w-2 h-2' style={{background: HolidayColor._special_hex}}></div>}
+          >
+          </Badge>
+        )
+      
+      case "LH": 
+        return (
+          <Badge 
+            overlap="circular"
+            badgeContent={<div className='rounded-full w-2 h-2' style={{background: HolidayColor._legal_hex}}></div>}
+          >
+          </Badge>
+        )
+      
+      default:
+        return
+    }
+  }
 
   if (isSelected) {
     if (scheduleDailyIsRestday?.is_restday) {
       badgeContent = 
-      <div onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose} 
-      style=
-        {
-          {
-            background: ScheduleDailyColor._restday,
-            opacity: '0.2', 
-            height: '46px', 
-            width: '46px', 
-            borderRadius: '30px', 
-            marginTop: '32px',
-            marginRight: '37px', 
-            padding: '5px', 
-            display: 'flex', 
-            zoom: '0.8'
-          }
-        }
-      >
+      <div onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose} style={restDayStyle}>
         <p style={{zoom: '0.9', margin: 'auto'}}>{}</p>
         <Typography
           aria-owns={open ? 'mouse-over-popover' : undefined}
@@ -85,31 +119,19 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[],
              disableRestoreFocus
          >
              <Typography variant={"overline"} sx={{ p: 1 }}>
-             {scheduleDailyIsRestday.sched_details?.name ? scheduleDailyIsRestday.sched_details?.name : 'No Schedule'} <b>{scheduleDailyIsRestday.sched_details?.time_in && dayjs(scheduleDailyIsRestday.sched_details?.time_in, "HH:mm:ss").format('hh:mm a')} {scheduleDailyIsRestday.sched_details?.time_out && '-'} {scheduleDailyIsRestday.sched_details?.time_out && dayjs(scheduleDailyIsRestday.sched_details?.time_out, "HH:mm:ss").format('hh:mm a')}</b>
+              {scheduleDailyIsRestday.sched_details?.name 
+                ? <b>{scheduleDailyIsRestday.sched_details?.time_in && dayjs(scheduleDailyIsRestday.sched_details?.time_in, "HH:mm:ss").format('hh:mm a')} {scheduleDailyIsRestday.sched_details?.time_out && '-'} {scheduleDailyIsRestday.sched_details?.time_out && dayjs(scheduleDailyIsRestday.sched_details?.time_out, "HH:mm:ss").format('hh:mm a')}</b>
+                : 'No Schedule'
+              }
              </Typography>
          </Popover>
         </Typography>
+        {holidayIndicator(scheduleDailyIsRestday.holiday_type)}
       </div>
       ; 
     } else if (!scheduleDailyIsRestday.is_restday) {
       badgeContent =
-      <div onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose} 
-      style=
-        {
-          {
-            background: ScheduleDailyColor._workday,
-            opacity: '0.2', 
-            height: '46px', 
-            width: '46px', 
-            borderRadius: '30px', 
-            marginTop: '32px',
-            marginRight: '37px', 
-            padding: '5px', 
-            display: 'flex', 
-            zoom: '0.8'
-          }
-        }
-      >
+      <div onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose} style={workDayStyle}>
         <p style={{zoom: '0.9', margin: 'auto'}}>{}</p>
         <Typography
           aria-owns={open ? 'mouse-over-popover' : undefined}
@@ -135,18 +157,21 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[],
              disableRestoreFocus
          >
              <Typography variant={"overline"} sx={{ p: 1 }}>
-             {scheduleDailyIsRestday.sched_details?.name ? scheduleDailyIsRestday.sched_details?.name : 'No Schedule'} 
+              {scheduleDailyIsRestday.sched_details?.name 
+                ? <b>{dayjs(scheduleDailyIsRestday.sched_details?.time_in, "HH:mm:ss").format('hh:mm a')} - {dayjs(scheduleDailyIsRestday.sched_details?.time_out, "HH:mm:ss").format('hh:mm a')}</b> 
+                : 'No Schedule'
+              } 
              
-             {
+             {/* {
               scheduleDailyIsRestday.sched_details?.time_in && scheduleDailyIsRestday.sched_details?.time_out &&
-
               <b>{dayjs(scheduleDailyIsRestday.sched_details?.time_in, "HH:mm:ss").format('hh:mm a')} - {dayjs(scheduleDailyIsRestday.sched_details?.time_out, "HH:mm:ss").format('hh:mm a')}</b>
 
-             }
+             } */}
             
              </Typography>
          </Popover>
         </Typography>
+        {holidayIndicator(scheduleDailyIsRestday.holiday_type)}
       </div>
       ; 
     }
@@ -183,45 +208,47 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
     })
       .then((response) => {
 
-        if(response?.data) {
-          const filteredData: SCHEDULEDAILYViewInterface[] = response.data.filter((scheduleDaily: SCHEDULEDAILYViewInterface) => {
-              const scheduleDailyDate = dayjs(scheduleDaily.business_date);
-              return (
-                scheduleDailyDate.format('YYYY-MM') === formattedDate &&
-                scheduleDailyDate.isSame(date, 'month')
-              );
-          });
+        const data = response.data
 
-      
-          const scheduleDaily = filteredData.reduce((is_restday: Record<string, Record<string, string | number | boolean | SCHEDULESHIFTViewInterface >>, scheduleDaily: SCHEDULEDAILYViewInterface) => {
-              const scheduleDailyDate = dayjs(scheduleDaily.business_date).format('YYYY-MM-DD');
-              const sched_id_check1 = (key: SCHEDULESHIFTViewInterface) => {
-                if(key){
-                  if ('id' in key){
-                    return key
-                  } else {
-                    return 0
-                  }
+        const filteredData: SCHEDULEDAILYViewInterface[] = Array.isArray(data)? data.filter((scheduleDaily: SCHEDULEDAILYViewInterface) => {
+            const scheduleDailyDate = dayjs(scheduleDaily.business_date);
+            return (
+              scheduleDailyDate.format('YYYY-MM') === formattedDate &&
+              scheduleDailyDate.isSame(date, 'month')
+            );
+        }) : [];
+
+    
+        const scheduleDaily = filteredData.reduce((is_restday: Record<string, Record<string, string | number | boolean | SCHEDULESHIFTViewInterface >>, scheduleDaily: SCHEDULEDAILYViewInterface) => {
+            const scheduleDailyDate = dayjs(scheduleDaily.business_date).format('YYYY-MM-DD');
+            const sched_id_check1 = (key: SCHEDULESHIFTViewInterface) => {
+              if(key){
+                if ('id' in key){
+                  return key
                 } else {
                   return 0
                 }
+              } else {
+                return 0
+              }
 
-              }; 
-              is_restday[scheduleDailyDate] = {
-                is_restday: scheduleDaily.is_restday, 
-                sched_details: sched_id_check1(scheduleDaily?.schedule_shift_code as SCHEDULESHIFTViewInterface)
-              };
-              return is_restday;
-          }, {});
+            }; 
+            is_restday[scheduleDailyDate] = {
+              is_restday: scheduleDaily.is_restday, 
+              sched_details: sched_id_check1(scheduleDaily?.schedule_shift_code as SCHEDULESHIFTViewInterface),
+              holiday_type: scheduleDaily?.holiday?.holiday_type
+            };
+            return is_restday;
+        }, {});
 
-          const daysToHighlight = filteredData.map((scheduleDaily: any) =>
-            parseInt(scheduleDaily.business_date.split('-')[2])
-          );
-          setHighlightedDays(daysToHighlight);
-          setScheduleDaily(scheduleDaily); // Set the scheduleDaily state
-          setIsLoading(false);
-          // setShortcutsItems(createShortcutItems(filteredData)); // Update shortcutsItems
-        }
+        const daysToHighlight = filteredData.map((scheduleDaily: any) =>
+          parseInt(scheduleDaily.business_date.split('-')[2])
+        );
+        setHighlightedDays(daysToHighlight);
+        setScheduleDaily(scheduleDaily); // Set the scheduleDaily state
+        setIsLoading(false);
+        // setShortcutsItems(createShortcutItems(filteredData)); // Update shortcutsItems
+
        
       })
       .catch((error) => {

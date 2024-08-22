@@ -230,3 +230,8 @@ export const RANKEditActionSuccess = createAction("RANK_EDIT_ACTION_SUCCESS", (S
 export const RANKEditActionProgress = createAction<number>("RANK_EDIT_ACTION_PROGRESS");
 export const RANKEditActionFailure = createAction<string>("RANK_EDIT_ACTION_FAILURE");
 export const RANKEditActionFailureCleanup = createAction("RANK_EDIT_ACTION_FAILURE_CLEANUP");
+
+// EMPLOYMENT STATUS SECTION
+export const EMPLOYMENTSSTATUSViewAction = createAction("EMPLOYMENT_STATUS_VIEW_ACTION", (data: any[]) => ({
+    payload:data
+}))

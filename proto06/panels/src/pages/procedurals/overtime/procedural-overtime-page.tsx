@@ -9,6 +9,7 @@ import { OVERTIMEViewInterface } from '@/types/types-pages';
 import { OVERTIMEViewAction } from '@/store/actions/procedurals';
 import { globalServerErrorMsg } from '@/store/configureStore';
 import useFetchFileApplicationByApprover from '@/custom-hooks/use-fetch-file-application-by-approver';
+import { HandleModalAction } from '@/store/actions/components';
 
 
 export default function ProceduralOvertimePage() {
@@ -67,7 +68,12 @@ export default function ProceduralOvertimePage() {
           pageSizeOptions={[25, 50, 75, 100]}
           onRowClick={(e) => {
             setSingleOVERTIMEDetailsData(e.row);
-            setSingleOVERTIMEOpenModal(true);
+            // setSingleOVERTIMEOpenModal(true);
+            setSingleOVERTIMEDetailsData(e.row);
+            dispatch(HandleModalAction({
+              name: "viewOtModal",
+              value:true
+            }))
           }}
           disableRowSelectionOnClick 
           localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}

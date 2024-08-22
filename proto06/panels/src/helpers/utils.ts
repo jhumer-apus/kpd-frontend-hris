@@ -21,6 +21,11 @@ export const convertDaysToHHMM = (days: number): string => {
   return `${hoursString}:${minsString}`;
 }
 
+export const capitalize = (str:string) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+
+}
+
 // This function takes the minutes as input and performs the following steps:
 // Divides the total minutes by 60 to get the hours.
 // Calculates the remaining minutes by taking the modulus (remainder) of the total minutes divided by 60.
@@ -113,6 +118,8 @@ export const beautifyJSON = (jsonObj: BeautifyObject) => {
       beautifiedString += `${formattedKey} : ${value}\n`;
     }
   }
+
+  console.log(beautifiedString.trim())
   return beautifiedString.trim();
 }
 
@@ -166,3 +173,7 @@ export const clearFields = <T>(setState: SetState<T>, fields: (keyof T)[], value
     return newState;
   });
 };
+
+export const cleanTextNumber = (val:string) => {
+  return val.replace(/\D/g, '')
+}

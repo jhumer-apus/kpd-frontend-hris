@@ -14,6 +14,7 @@ import CityMunicipality from '@/public-components/forms/address/CityMunicipality
 
 //HELPERS
 import { beautifyJSON } from '@/helpers/utils';
+import EmployeeListField from '@/public-components/EmployeeListField';
 
 interface CreateBRANCHModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -24,6 +25,7 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
     const dispatch = useDispatch();
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail?.emp_no);
     const BRANCHCreatestate = useSelector((state: RootState)=> state.categories.BRANCHCreate);
+    const [formKey, setFormKey] = useState<number>(1)
     const [createBRANCH, setCreateBRANCH] = useState<any>({
         branch_name: "",
         branch_address: "",
@@ -48,9 +50,9 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
         const error:any = {}
 
         !data.branch_address && (error["Branch Address"] = "Branch Address is required!")
-        !data.branch_email && (error["Branch Email"] = "Branch Email is required!")
-        !data.branch_contact_number && (error["Branch Contact Number"] = "Branch Contact Number is required!")
-        !data.branch_oic && (error["Branch OIC"] = "Branch OIC is required!")
+        // !data.branch_email && (error["Branch Email"] = "Branch Email is required!")
+        // !data.branch_contact_number && (error["Branch Contact Number"] = "Branch Contact Number is required!")
+        // !data.branch_oic && (error["Branch OIC"] = "Branch OIC is required!")
         !data.branch_name && (error["Branch Name"] = "Branch Name is required!")
         !data.branch_province && (error["Branch Province"] = "Branch Province is required!")
         !data.branch_city && (error["Branch City"]= "Branch City is required!")
@@ -62,6 +64,29 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
 
         return false
     }
+
+    const resetForm = () => {
+        setCreateBRANCH({
+            branch_name: "",
+            branch_address: "",
+            branch_email: "",
+            branch_contact_number: "",
+            branch_oic: NaN,
+            province: {
+                id: null,
+                name: null,
+                code: null
+            },
+            city: {
+                id: null,
+                name: null,
+                code: null
+            },
+            added_by: curr_user,
+        });
+        setFormKey(prevKey => prevKey + 1); // To force re-render of dependent components
+    }
+
     const onClickSubmit = (e:any) => {
         e.preventDefault()
 
@@ -70,11 +95,13 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
             branch_address: createBRANCH.branch_address,
             branch_email: createBRANCH.branch_email,
             branch_contact_number: createBRANCH.branch_contact_number,
-            branch_oic: createBRANCH.branch_oic,
+            branch_oic: createBRANCH?.branch_oic,
             branch_province: createBRANCH.province?.id,
             branch_city: createBRANCH.city?.id,
             added_by: curr_user,
         }
+
+        console.log(branchData)
 
         if(validateBranch(branchData)) { //If has errors
             return
@@ -109,6 +136,7 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
         if(BRANCHCreatestate.status === 'succeeded'){
             window.alert('Request Successful');
             dispatch(BRANCHViewAction())
+            resetForm()
             setTimeout(()=>{
                 dispatch(BRANCHCreateActionFailureCleanup());
                 
@@ -122,13 +150,36 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
         }
     }, [BRANCHCreatestate.status])
 
+    const handleChangeEmpField = (e:any, newValue:any) => {
+        if(newValue) {
+            setCreateBRANCH((prevState:any)=> 
+                (
+                    {
+                        ...prevState,
+                        branch_oic: newValue.emp_no
+                    }
+                )
+            )
+        }
+    }
+
+
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a Branch Data</Typography>
-            <form onSubmit={onClickSubmit} className='flex flex-col gap-3 overflow-auto relative'>
+            <form onSubmit={onClickSubmit} className='flex flex-col gap-3 overflow-auto relative w-[400px]'>
                 {/* <div className='flex gap-3 pt-4'> */}
                     <div className='flex flex-col gap-3 pt-4'>
-                        <EmployeeAutoComplete createBRANCH={createBRANCH} setCreateBRANCH={setCreateBRANCH}/>
+                        <EmployeeListField 
+                            label="For Employee No.:" 
+                            handleChange={handleChangeEmpField} 
+                            currentValue={createBRANCH.branch_oic} 
+                        />
+                        {/* <EmployeeAutoComplete 
+                            currentEmpNo={createBRANCH.branch_oic} 
+                            createBRANCH={createBRANCH} 
+                            setCreateBRANCH={setCreateBRANCH}
+                        /> */}
                         {/* <LEAVETYPEFetchAutoCompleteOnBRANCHPage createBRANCH={createBRANCH} setCreateBRANCH={setCreateBRANCH}/> */}
                     </div>
                     <div className='flex flex-col gap-3'>
@@ -154,15 +205,18 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                             }}
                             
                         />
-                        <Province 
+                        <Province
+                            key={formKey}
                             updateAddress={updateAddress}
                             defaultProvinceId={createBRANCH.branch_province}
                             name="province"
+                            label="Province *"
                         />
                         <CityMunicipality 
                             currentProvinceCode={createBRANCH?.province?.code}
                             updateAddress={updateAddress}
                             name="city"
+                            label="City(Select a province first) *"
                         />
                         <TextField
                             required
@@ -184,7 +238,6 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                             }}
                         />
                         <TextField
-                            required
                             sx={{width: '100%'}} 
                             label='Branch Email'  
                             placeholder='abc@gmail.com'
@@ -204,7 +257,6 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                             }}
                         />
                         <TextField
-                            required
                             sx={{width: '100%'}} 
                             label='Branch Contact Number'  
                             placeholder='091234567890 or +639876543210'

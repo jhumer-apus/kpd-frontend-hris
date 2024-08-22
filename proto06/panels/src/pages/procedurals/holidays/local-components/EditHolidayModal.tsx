@@ -5,7 +5,7 @@ import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 
 //COMPONENTS
 import CityMunicipality from "@/public-components/forms/address/CityMunicipality";
@@ -69,6 +69,18 @@ export default function EditHolidayModal(props:Props) {
 
                 console.log(res.data)
                 setHolidayDetails((curr:any) => res.data)
+                setAddress((curr:any) => ({
+                    province:{
+                        id: res.data.province_ref,
+                        name:'',
+                        code:'',
+                    },
+                    city:{
+                        id: res.data.city_ref,
+                        name:'',
+                        code:''
+                    }
+                }))
     
             }).catch((err:AxiosError) => {
     
@@ -76,8 +88,6 @@ export default function EditHolidayModal(props:Props) {
                 window.alert(err.response.data)
             })
         }
-
-        const holiday_location = ['City', 'Province', 'National'];
     }
 
     // const fetchProvince = async() => {
@@ -117,8 +127,8 @@ export default function EditHolidayModal(props:Props) {
             holiday_description: holidayDetails.holiday_description,
             holiday_type: holidayDetails.holiday_type,
             holiday_location: holidayDetails.holiday_location,
-            city_ref: address.city?.id?? holidayDetails.city_ref,
-            province_ref: holidayDetails.province_ref?.id,
+            city_ref: address.city?.id,
+            province_ref: address.province?.id,
             added_by: currUser?.emp_no
         }
 
@@ -131,10 +141,6 @@ export default function EditHolidayModal(props:Props) {
 
             case 'Province':
                 payload.city_ref = null
-                break
-
-            case 'City':
-                payload.province_ref = null
                 break
 
             default:
@@ -165,7 +171,7 @@ export default function EditHolidayModal(props:Props) {
 
     const updateAddress = (name:string, newValue:any) => {
 
-        setHolidayDetails((curr:any) => ({
+        setAddress((curr:any) => ({
             ...curr,
             [name]: newValue
         }))
@@ -185,15 +191,12 @@ export default function EditHolidayModal(props:Props) {
         switch (data.holiday_location) {
 
             case "Province":
-                if(!data.province_ref) {
-                    errors["Province"] = "Province should be required if the selected location is Province"
-                }
+                !data.province_ref && (errors["Province"] = "Province should be required if the selected location is Province")
                 break
 
             case "City":
-                if(!data.city_ref) {
-                    errors["City"] = "City should be required if the selected location is City"
-                }
+                !data.province_ref && (errors["Province"] = "Province should be required if the selected location is City")
+                !data.city_ref && (errors["City"] = "City should be required if the selected location is City")    
                 break
         }
 
@@ -204,6 +207,39 @@ export default function EditHolidayModal(props:Props) {
         return false
              
 
+    }
+
+    const addressElement = (): ReactElement | null => {
+
+        
+        if (holidayDetails?.holiday_location == "Province") {
+
+            return (
+                <Province 
+                    updateAddress={updateAddress}
+                    defaultProvinceId={holidayDetails.province_ref}
+                    name="province"
+                />
+            )
+        } else if (holidayDetails?.holiday_location == "City") {
+
+            return (
+                <>
+                    <Province 
+                        updateAddress={updateAddress}
+                        defaultProvinceId={holidayDetails.province_ref}
+                        name="province"
+                    />
+                    <CityMunicipality
+                        updateAddress={updateAddress}
+                        currentProvinceCode={address.province.code}
+                        defaultCityId={holidayDetails.city_ref}
+                        name='city'
+                    />
+                </>
+            )
+        }
+        return null
     }
 
 
@@ -301,7 +337,8 @@ export default function EditHolidayModal(props:Props) {
                         </FormControl>
                     }
 
-                    {holidayDetails?.holiday_location == "Province" && 
+                    {addressElement()}
+                    {/* {holidayDetails?.holiday_location == "Province" && 
                         <Province 
                             updateAddress={updateAddress}
                             name="province_ref"
@@ -315,7 +352,7 @@ export default function EditHolidayModal(props:Props) {
                             setState={setAddress} 
                             city_id={holidayDetails?.city_ref}
                         />
-                    }
+                    } */}
 
                     <TextField
                         value={holidayDetails?.holiday_description?? ""}

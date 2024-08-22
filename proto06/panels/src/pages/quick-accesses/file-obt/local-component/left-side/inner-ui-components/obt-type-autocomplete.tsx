@@ -52,7 +52,7 @@ const OBTTypeOptions = [
     'BIR Transaction',
     'HDMF Transaction',
     'PhilHealth Transaction',
-    'Blank Transaction',
+    'Bank Transaction',
     'Process Legal Documents',
     'On-Site Project',
 ]

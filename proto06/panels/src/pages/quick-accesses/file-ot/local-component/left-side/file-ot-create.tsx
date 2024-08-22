@@ -8,7 +8,7 @@ import OVERTIMETypeAutoComplete from './inner-ui-components/ot-type-autocomplete
 import DateFromToOVERTIMECreate from './inner-ui-components/date-from-to-field';
 import { Typography } from '@mui/joy';
 import { OVERTIMECreateInterface } from '@/types/types-pages';
-import { OVERTIMECreateAction, OVERTIMECreateActionFailureCleanup } from '@/store/actions/procedurals';
+import { OVERTIMECreateAction, OVERTIMECreateActionFailureCleanup, OVERTIMEViewFilterEmployeeAction } from '@/store/actions/procedurals';
 
 //LIBRARIES
 import axios, {AxiosResponse, AxiosError} from 'axios'
@@ -16,6 +16,7 @@ import axios, {AxiosResponse, AxiosError} from 'axios'
 //STORE
 import { APILink } from '@/store/configureStore';
 import { beautifyJSON } from '@/helpers/utils';
+import { HandleAlertAction } from '@/store/actions/components';
 
 interface CreateOVERTIMEModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -38,23 +39,21 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
 
     const isDepartmentManager = userData?.user?.role == 2
 
-    console.log(userData?.user?.role)
-
     const onClickSubmit = () => {
         // dispatch(OVERTIMECreateAction(createOVERTIME))
         fileOTPost()
     };
-    useEffect(()=>{
-        if(OVERTIMECreatestate.status === 'succeeded'){
-            window.alert('Request Successful');
-            window.location.reload();
-        }else if(OVERTIMECreatestate.status === 'failed'){
-            window.alert(`Request Failed, ${OVERTIMECreatestate.error}`)
-            setTimeout(()=> {
-                dispatch(OVERTIMECreateActionFailureCleanup());
-            }, 1000)
-        }
-    }, [OVERTIMECreatestate.status])
+    // useEffect(()=>{
+    //     if(OVERTIMECreatestate.status === 'succeeded'){
+    //         window.alert('Request Successful');
+    //         window.location.reload();
+    //     }else if(OVERTIMECreatestate.status === 'failed'){
+    //         window.alert(`Request Failed, ${OVERTIMECreatestate.error}`)
+    //         setTimeout(()=> {
+    //             dispatch(OVERTIMECreateActionFailureCleanup());
+    //         }, 1000)
+    //     }
+    // }, [OVERTIMECreatestate.status])
 
     const sendEmail = async (emp_no:string | number, app_pk: number) => {
 
@@ -68,17 +67,27 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
     
         await axios.post(`${APILink}reset_password_email/`, body).then(res => {
     
-          window.alert(`Application has been sent to the approver through email`)
+            dispatch(HandleAlertAction({
+                open:true,
+                status:"success",
+                message:"Application has been sent to the approver through email"
+            }))
     
         }).catch(err => {
     
-          console.log(err)
-          window.alert("Failed to email the approver")
+            console.error(err)
+            dispatch(HandleAlertAction({
+                open:true,
+                status:"error",
+                message:"Failed to email the approver"
+            }))
     
         })
     }
 
     const fileOTPost = async() => {
+
+        setIsSubmittingRequest(true)
 
         const payload = {
             emp_no: createOVERTIME.emp_no,
@@ -86,18 +95,31 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
             ot_remarks: createOVERTIME.ot_remarks,
             ot_date_from: createOVERTIME.ot_date_from,
             ot_date_to: createOVERTIME.ot_date_to,
+            ot_business_date: createOVERTIME.ot_business_date,
             added_by: userData?.emp_no,
         }
-        await axios.post(`${APILink}ot/`, payload).then((res:AxiosResponse) => {
-            setIsSubmittingRequest(false)
-            window.alert("Request Successful")
-            sendEmail(createOVERTIME.emp_no, res.data.id)
+        await axios.post(`${APILink}ot/`, payload)
+            .then((res:any) => {
 
-        }).catch((err:AxiosError) => {
-            setIsSubmittingRequest(false)
-            console.log(err)
-            window.alert(beautifyJSON(err.response?.data))
-        })
+                setIsSubmittingRequest(false)
+                dispatch(OVERTIMEViewFilterEmployeeAction({emp_no: userData?.emp_no as number}))
+                dispatch(HandleAlertAction({
+                    open: true,
+                    status: "success",
+                    message: `File ${userData?.rank_hierarchy == 2? 'Allowance Time': 'Overtime'} Successfully`
+                }))
+                sendEmail(createOVERTIME.emp_no, res.data.id)
+
+            })
+            .catch((err:any) => {
+                setIsSubmittingRequest(false)
+                dispatch(HandleAlertAction({
+                    open: true,
+                    status: "error",
+                    message: beautifyJSON(err.response?.data)
+                }))
+
+            })
     }
 
     return (
@@ -146,7 +168,7 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
                 </div>
                 <div className='flex justify-center mt-6' container-name='ot_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='ot_buttons'>
-                        <Button variant='contained' onClick={onClickSubmit}>Create OVERTIME</Button>
+                        <Button variant='contained' onClick={onClickSubmit} disabled={isSubmittingRequest}>Create OVERTIME</Button>
                     </div>
                 </div>
             </div>

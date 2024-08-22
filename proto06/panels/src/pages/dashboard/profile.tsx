@@ -77,7 +77,6 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
     const [activeTab, setActiveTab] = useState('personal');
     const [isEdit, setIsEdit] =useState<boolean>(false)
     const curr_user = useSelector((state: RootState) => state.auth.employee_detail);
-    console.log(curr_user)
 
     // const [file, setFile] = useState<File | null>(null);
     const [profileImage, setProfileImage] = useState<any>(null);
@@ -104,6 +103,25 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
         code: ''
       }
     })
+
+    const separationTypeName = () => {
+      let name = ""
+      switch (curr_user?.separation_type) {
+
+        case "resigned":
+          name = "Resigned"
+          break
+
+        case "retired":
+          name = "Retired"
+          break
+
+        case "terminated":
+          name = "Terminated"
+          break
+      }
+      return name
+    }
 
     // const [codeName, setCodeName] = useState();
 
@@ -353,7 +371,7 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
       if (curr_user?.employee_image) {
 
-        return `${APILink.replace('/api/v1', '')}${curr_user.employee_image}`;
+        return `${APILink.replace('/api/v1/', '')}${curr_user.employee_image}`;
 
       } else {
 
@@ -532,7 +550,7 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
                         <img
                           src={profileImage ?? getImageSrc()}
                           alt="Profile Picture"
-                          className="border rounded p-2 w-48 my-4"
+                          className="border rounded p-2 w-28 h-28 my-4"
                         />
                         {isEdit && (
                           <div className="absolute inset-0 flex flex-wrap items-center justify-center">
@@ -1236,18 +1254,14 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
             readOnly: true,
           }} id="Ecola" label="Ecola" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={userData.ecola}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
-            <TextField            InputProps={{
-            readOnly: true,
-          }} id="Other Duty Responsibilities" label="Other Duty Responsibilities" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={userData.other_duties_responsibilities }  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
-
           </div>
           <div>
 
             <DatePickerForm 
-              label="Date Resigned"
-              defaultValue={userData?.date_resigned}
+              label="Date Separated"
+              defaultValue={userData?.date_separation}
               setState={setUserData}
-              customKey="date_resigned"
+              customKey="date_separation"
               isReadOnly={true}
             />
             <TextField            
@@ -1325,7 +1339,7 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
           </div>
           <div>
             
-            <TextField           
+            {/* <TextField           
               InputProps={{
                 readOnly: true,
               }} 
@@ -1335,8 +1349,20 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
               style={{ width: '100%', marginBottom: '20px' }} 
               value={userData.division_data?.div_name??""} 
               InputLabelProps={{ style: { fontWeight: 'bold' }}}  
-            />
+            /> */}
 
+            
+            <TextField           
+              InputProps={{
+                readOnly: true,
+              }} 
+              id="separation_type_name" 
+              label="Separation Type" 
+              variant="outlined" 
+              style={{ width: '100%', marginBottom: '20px' }} 
+              value={separationTypeName()} 
+              InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+            />
 
             <TextField           
               InputProps={{
@@ -1403,6 +1429,29 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
             <TextField           InputProps={{
             readOnly: true,
           }} id="Other Deductible" label="Other Deductible" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={userData.other_deductible}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+          
+            <TextField            
+              InputProps={{
+                readOnly: true,
+              }} 
+              id="Employment Duration" 
+              label="Employment Duration" 
+              variant="outlined" 
+              style={{ width: '100%', marginBottom: '20px' }} 
+              value={userData?.employment_duration }  
+              InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+            />
+            <TextField            
+              InputProps={{
+                readOnly: true,
+              }} 
+              id="Other Duty Responsibilities" 
+              label="Other Duty and Responsibilities" 
+              variant="outlined" 
+              style={{ width: '100%', marginBottom: '20px' }} 
+              value={userData.other_duties_responsibilities }  
+              InputLabelProps={{ style: { fontWeight: 'bold' }}}  
+            />
 
            
 

@@ -26,7 +26,7 @@ export const dynamicDTRColumns= ():Array<GridColDef[]> => {
 
 const currUser = useSelector((state: RootState) => state.auth.employee_detail);
 
-const isDepartmentManager = currUser?.user?.role == 2;
+const isDepartmentManager = currUser?.rank_code == 3;
 
 console.log("department manager? " + isDepartmentManager)
 
@@ -71,7 +71,7 @@ return [
         return params.row.datetime_bio ? dayjs(shio).format(`${globalTime}`) : '-';
       },
     },
-    { field: 'is_processed', headerName: 'Process Satus', width: 140,
+    { field: 'is_processed', headerName: 'Process Status', width: 140,
       valueGetter: (params: GridValueGetterParams) => {
         const processStatus = params.row.is_processed? "Completed": "In Progress"
         return processStatus;
@@ -80,7 +80,7 @@ return [
 
     ...((currUser?.rank_code??0) > 3 ? [
         { field: 'bio_id', headerName: 'Biometrics ID', width: 140 },
-        { field: 'branch_code', headerName: 'Branch Code', width: 120 }
+        // { field: 'branch_code', headerName: 'Branch Code', width: 120 }
       ]: []
     )
   

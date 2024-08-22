@@ -22,12 +22,13 @@ interface Props {
     currentProvinceCode: number | string
     isReadOnly?: boolean;
     name: string;
+    label: string;
 }
 
 export default function CityMunicipality(props:Props) {
     
     //PROPS
-    const { name, defaultCityId, isReadOnly, currentProvinceCode, updateAddress } = props
+    const { name, defaultCityId, isReadOnly, currentProvinceCode, updateAddress, label} = props
 
     //STATES
     const [cities, setCities] = useState<CityMunicipalityInterface[]>([])
@@ -76,7 +77,10 @@ export default function CityMunicipality(props:Props) {
                 console.log(err)
     
             })
-        }    
+        } else {
+            
+            setCities(curr => [])
+        }
 
     }
 
@@ -116,7 +120,7 @@ export default function CityMunicipality(props:Props) {
                     className='w-full'
                     getOptionLabel={(city: CityMunicipalityInterface) =>  city?.name?? ''}
                     onChange={handleChange}
-                    renderInput={(params) => <TextField {...params} label="City (Select a province first)" />}
+                    renderInput={(params) => <TextField {...params} label={label ?? "City (Select a province first)"} />}
                     disabled={cities.length == 0}
                     readOnly={isReadOnly}
                 />:
@@ -129,7 +133,7 @@ export default function CityMunicipality(props:Props) {
                     className='w-full'
                     getOptionLabel={(city: CityMunicipalityInterface) => city?.name?? ''}
                     onChange={handleChange}
-                    renderInput={(params) => <TextField {...params} label="City (Select a province first)" />}
+                    renderInput={(params) => <TextField {...params} label={label ?? "City (Select a province first)"} />}
                     disabled
                     readOnly={isReadOnly}
                 />

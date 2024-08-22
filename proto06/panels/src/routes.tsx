@@ -139,6 +139,13 @@ import EmploymentHistoryPageEmpView from "./pages/employee/employment-history-em
 import EMPSEMINARSPageV2EmpView from "./pages/employee/emp-training-seminars-v2-emp-view/emp-training-seminars-emp-view";
 import ViewImperfectAttendance from "./pages/reports/view-attendance/imperfect-attendance";
 import FamilyBackground from "./pages/personal-history/family-bg";
+import RecruitmentForms from "./pages/forms/recruitment-forms/recruitment-forms";
+import PerformanceAppraisalForms from "./pages/forms/performance-forms/performance-appraisal-forms";
+import TrainingForms from "./pages/forms/training-forms/training-forms";
+import AttendanceForms from "./pages/forms/attendance-forms/attendance-forms";
+import OtherForms from "./pages/forms/other-forms/other-forms";
+import ExitForms from "./pages/forms/exit-forms/exit-forms";
+import ManageEmploymentStatusTypes from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-employment-status-type/manage-emp-status-type";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -169,14 +176,15 @@ const JSXRouteWrapper = () => {
             element: <strong style={{height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px'}} className="text-red-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">YOU SHALL NOT PASS!!</strong>,
             hasSubItems: true,
             subItems: [
-              {
-                id: 11100,
-                icon: <HomeIcon {...icon} />,
-                name: "HRIS Dashboard",
-                path: "/Dashboards/HRIS-Dashboard",
-                element: <HRISDashboard />,
-                hasSubItems: false,
-              },
+              // HIDDEN BECAUSE OF REDUNDANCY
+              // {
+              //   id: 11100,
+              //   icon: <HomeIcon {...icon} />,
+              //   name: "HRIS Dashboard",
+              //   path: "/Dashboards/HRIS-Dashboard",
+              //   element: <HRISDashboard />,
+              //   hasSubItems: false,
+              // },
               {
                 id: 11200,
                 icon: <HomeIcon {...icon} />,
@@ -240,6 +248,14 @@ const JSXRouteWrapper = () => {
                         name: "Rank",
                         path: "/Dashboards/Admin-Portal/Categories/Rank",
                         element: <ManageRANK/>,
+                        hasSubItems: false,
+                      },
+                      {
+                        id: 1120006,
+                        icon: null,
+                        name: "Employment Status Type",
+                        path: "/Dashboards/Admin-Portal/Categories/Employment-Status-Type",
+                        element: <ManageEmploymentStatusTypes />,
                         hasSubItems: false,
                       },
                     ]
@@ -564,6 +580,24 @@ const JSXRouteWrapper = () => {
                 // ]
               },
             ] : [],
+              // {
+              //   id: 12500,
+              //   icon: <Diversity3OutlinedIcon {...icon} />,
+              //   name: "Training & Seminars",
+              //   path: "/employees/Training-and-Seminars",
+              //   element:<EMPSEMINARSPageV2/>,
+              //   hasSubItems: false,
+              //   // subItems: [
+              //   //   {
+              //   //     id: 121000,
+              //   //     icon: <UserCircleIcon {...icon} />,
+              //   //     name: "201 Files",
+              //   //     path: "/employees/KPI-Appraisals/:emp_no",
+              //   //     element: <APPRAISALDETAILSPage/>, 
+              //   //     hasSubItems: false,
+              //   //   },
+              //   // ]
+              // },
             // {
             //   id: 12300,
             //   icon: <PrivacyTipOutlinedIcon {...icon} />,
@@ -610,6 +644,24 @@ const JSXRouteWrapper = () => {
                 // ]
               },
             ] : [],
+            // {
+            //   id: 12600,
+            //   icon: <Diversity3OutlinedIcon {...icon} />,
+            //   name: "Family Background",
+            //   path: "/employees/family-background",
+            //   element:<FamilyBackground/>,
+            //   hasSubItems: false,
+            //   // subItems: [
+            //   //   {
+            //   //     id: 121000,
+            //   //     icon: <UserCircleIcon {...icon} />,
+            //   //     name: "201 Files",
+            //   //     path: "/employees/KPI-Appraisals/:emp_no",
+            //   //     element: <APPRAISALDETAILSPage/>, 
+            //   //     hasSubItems: false,
+            //   //   },
+            //   // ]
+            // },
           ]
         },
         {
@@ -833,6 +885,14 @@ const JSXRouteWrapper = () => {
                 element: <ProceduralLEAVEPage/>,
                 hasSubItems: false,
               },
+              {
+                id: 15800,
+                icon: <BadgeOutlinedIcon {...icon} />,
+                name: "Unaccounted Attendances",
+                path: "/procedurals/unaccounted-attendances",
+                element: <ProceduralUAPage/>,
+                hasSubItems: false,
+              },
               ...(state?.user?.role !== INTERNAL_USER_ROLE.Manager) ? [
                 {
                   id: 15500,
@@ -859,14 +919,6 @@ const JSXRouteWrapper = () => {
                   hasSubItems: false,
                 },
               ]: [],
-                {
-                  id: 15800,
-                  icon: <BadgeOutlinedIcon {...icon} />,
-                  name: "Unaccounted Attendances",
-                  path: "/procedurals/unaccounted-attendances",
-                  element: <ProceduralUAPage/>,
-                  hasSubItems: false,
-                },
                 ...(state?.user?.role !== INTERNAL_USER_ROLE.Manager)? [
                   {
                     id: 15900,
@@ -938,20 +990,68 @@ const JSXRouteWrapper = () => {
               element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-yellow-800 py-1 h-full px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">FORMS PRINTING PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
               hasSubItems: true,
               subItems: [
+                // {
+                //   id: 181000,
+                //   icon: <TableCellsIcon {...icon} />,
+                //   name: "B1 Forms",
+                //   path: "/forms/B1-Forms",
+                //   element: <B1Forms/>,
+                //   hasSubItems: false,
+                // },
+                // {
+                //   id: 182000,
+                //   icon: <TableCellsIcon {...icon} />,
+                //   name: "B2 Forms",
+                //   path: "/forms/B2-Forms",
+                //   element: <B2Forms/>,
+                //   hasSubItems: false,
+                // },
                 {
-                  id: 181000,
+                  id: 183000,
                   icon: <TableCellsIcon {...icon} />,
-                  name: "B1 Forms",
-                  path: "/forms/B1-Forms",
-                  element: <B1Forms/>,
+                  name: "Recruitment & Hiring",
+                  path: "/forms/recruitment-and-hiring",
+                  element: <RecruitmentForms />,
                   hasSubItems: false,
                 },
                 {
-                  id: 182000,
+                  id: 184000,
                   icon: <TableCellsIcon {...icon} />,
-                  name: "B2 Forms",
-                  path: "/forms/B2-Forms",
-                  element: <B2Forms/>,
+                  name: "Performance Appraisal",
+                  path: "/forms/performance-appraisal",
+                  element: <PerformanceAppraisalForms />,
+                  hasSubItems: false,
+                },
+                {
+                  id: 185000,
+                  icon: <TableCellsIcon {...icon} />,
+                  name: "Training",
+                  path: "/forms/training",
+                  element: <TrainingForms />,
+                  hasSubItems: false,
+                },
+                {
+                  id: 186000,
+                  icon: <TableCellsIcon {...icon} />,
+                  name: "Attendance",
+                  path: "/forms/attendance",
+                  element: <AttendanceForms />,
+                  hasSubItems: false,
+                },
+                {
+                  id: 187000,
+                  icon: <TableCellsIcon {...icon} />,
+                  name: "Other Form of Application",
+                  path: "/forms/others",
+                  element: <OtherForms />,
+                  hasSubItems: false,
+                },
+                {
+                  id: 188000,
+                  icon: <TableCellsIcon {...icon} />,
+                  name: "Exit Forms",
+                  path: "/forms/exit-forms",
+                  element: <ExitForms />,
                   hasSubItems: false,
                 },
               ]
@@ -1005,49 +1105,49 @@ const JSXRouteWrapper = () => {
         },
         
         ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee && state?.user?.role !== INTERNAL_USER_ROLE.Manager ) ? [
-          {
-            id: 19000,
-            icon: null,
-            name: "Payroll",
-            path: "/payroll",
-            element: null,
-            hasSubItems: true,
-            subItems: [
-              {
-                id: 19100,
-                icon: <DocumentIcon {...icon} />,
-                name: "View All Payroll",
-                path: "/payroll/view-all-payroll",
-                element: <ViewPayroll/>,
-                hasSubItems: false,
-              },
-              {
-                id: 19200,
-                icon: <DocumentIcon {...icon} />,
-                name: "Process Payroll",
-                path: "/payroll/process-payroll",
-                element: <ProcessPayrollPage/>,
-                hasSubItems: false,
-              },
-              {
-                id: 19300,
-                icon: <DocumentIcon {...icon} />,
-                name: "Payslip Sample",
-                path: "/payroll/payslip-sample",
-                element: <TestView/>,
-                hasSubItems: false,
-              },
+          // {
+          //   id: 19000,
+          //   icon: null,
+          //   name: "Payroll",
+          //   path: "/payroll",
+          //   element: null,
+          //   hasSubItems: true,
+          //   subItems: [
+          //     {
+          //       id: 19100,
+          //       icon: <DocumentIcon {...icon} />,
+          //       name: "View All Payroll",
+          //       path: "/payroll/view-all-payroll",
+          //       element: <ViewPayroll/>,
+          //       hasSubItems: false,
+          //     },
+          //     {
+          //       id: 19200,
+          //       icon: <DocumentIcon {...icon} />,
+          //       name: "Process Payroll",
+          //       path: "/payroll/process-payroll",
+          //       element: <ProcessPayrollPage/>,
+          //       hasSubItems: false,
+          //     },
+          //     {
+          //       id: 19300,
+          //       icon: <DocumentIcon {...icon} />,
+          //       name: "Payslip Sample",
+          //       path: "/payroll/payslip-sample",
+          //       element: <TestView/>,
+          //       hasSubItems: false,
+          //     },
 
-              {
-                id: 19100,
-                icon: <DocumentIcon {...icon} />,
-                name: "View Specific Payroll",
-                path: "/payroll/view-specific-payroll",
-                element: <ViewSpecificPayroll/>,
-                hasSubItems: false,
-              },
-            ]
-          }
+          //     {
+          //       id: 19100,
+          //       icon: <DocumentIcon {...icon} />,
+          //       name: "View Specific Payroll",
+          //       path: "/payroll/view-specific-payroll",
+          //       element: <ViewSpecificPayroll/>,
+          //       hasSubItems: false,
+          //     },
+          //   ]
+          // }
           
         ] : [],
 

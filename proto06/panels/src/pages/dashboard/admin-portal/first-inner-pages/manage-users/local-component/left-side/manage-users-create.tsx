@@ -17,6 +17,7 @@ import { create } from 'lodash';
 
 //LIBRARIES
 import axios, {AxiosResponse, AxiosError} from 'axios'
+import EmployeeListField from '@/public-components/EmployeeListField';
 
 interface CreateUSERModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -110,6 +111,18 @@ function ManageUSERCreate(props: CreateUSERModalInterface) {
         })
       }
 
+    const handleChangeEmpField = (e:any, newValue:any) => {
+        if(newValue) {
+            setCreateUSER((prevState)=> 
+                (
+                    {
+                        ...prevState,
+                        emp_no: newValue.emp_no
+                    }
+                )
+            )
+        }
+    }
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create an HRIS User Data</Typography>
@@ -118,7 +131,12 @@ function ManageUSERCreate(props: CreateUSERModalInterface) {
                 className='flex flex-col gap-3 md:w-[500px]'
             >
                     <div className='flex flex-col pt-4 w-full'>
-                        <EmployeeAutoComplete createUSER={createUSER} setCreateUSER={setCreateUSER}/>
+                        {/* <EmployeeAutoComplete createUSER={createUSER} setCreateUSER={setCreateUSER}/> */}
+                        <EmployeeListField 
+                            label='HRIS Access For:'
+                            handleChange={handleChangeEmpField} 
+                            currentValue={createUSER.emp_no} 
+                        />
                     </div>
                     <div className='flex flex-col gap-3'>
                         <TextField

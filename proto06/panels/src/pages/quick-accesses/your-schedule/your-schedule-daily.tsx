@@ -10,6 +10,7 @@ import { ScheduleDailyColor } from '@/types/index';
 import dayjs from 'dayjs';
 import ProceduralSCHEDULEDAILYPageHistory from './right-side/schedule-daily-history';
 import EmployeeAutoCompleteRight from './local-components/employee-autocomplete/employee-autocomplete-right';
+import { HolidayColor } from '@/pages/procedurals/holidays/local-components/list-of-holidays/list-of-holidays';
 
 const PaperStyle: CSSProperties = {
   padding: "20px",
@@ -35,14 +36,16 @@ export default function YourSCHEDULEDAILYpage() {
   const curr_emp_no = curr_emp.employee_detail?.emp_no;
   const [currEmployee, setCurrEmployee] = useState<number>((curr_emp_no) || 0);
 
-
-
     return (
         <Fragment>
         <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
             <Grid item xs={6}>
-                <Paper elevation={3} style={PaperStyle}>
-                    <div className='flex justify-between'>
+                <Paper 
+                  elevation={3} 
+                  // style={PaperStyle}
+                  className='h-fit p-4'
+                >
+                    <div className='flex flex-wrap justify-between'>
                         <div className='flex flex-col'>
                           <Typography variant={'h6'}>
                             Daily Schedule of an Employee
@@ -55,8 +58,10 @@ export default function YourSCHEDULEDAILYpage() {
                           </Typography>
                         </div>
                         <div>
-                          <Typography className='flex my-2'><p style={{background: ScheduleDailyColor._restday, borderRadius: '100px', width: '25px', opacity: '0.4'}}></p>&nbsp;&nbsp;Restday</Typography>
-                          <Typography className='flex mb-2'><p style={{background: ScheduleDailyColor._workday, borderRadius: '100px', width: '25px', opacity: '0.4'}}></p>&nbsp;&nbsp;Workday</Typography>  
+                          <Typography className='flex my-2'><p style={{background: ScheduleDailyColor._restday, borderRadius: '100px', width: '25px'}}></p>&nbsp;&nbsp;Restday</Typography>
+                          <Typography className='flex mb-2'><p style={{background: ScheduleDailyColor._workday, borderRadius: '100px', width: '25px'}}></p>&nbsp;&nbsp;Workday</Typography>  
+                          <Typography className='flex mb-2'><p style={{background: HolidayColor._special_hex, borderRadius: '100px', width: '25px'}}></p>&nbsp;&nbsp;Special Non-working Holiday</Typography>
+                          <Typography className='flex mb-2'><p style={{background: HolidayColor._legal_hex, borderRadius: '100px', width: '25px'}}></p>&nbsp;&nbsp;Regular Holiday</Typography>
                         </div>
                     </div>
                     <div className='flex justify-center align-center'>
@@ -65,7 +70,8 @@ export default function YourSCHEDULEDAILYpage() {
                 </Paper>
             </Grid>
             <Grid item xs={6}>
-                <Paper elevation={3} style={PaperStyle}>
+                {/* <Paper elevation={3} style={PaperStyle}> */}
+                  <Paper className='p-4 h-fit'>
                     <div className='flex justify-between'>
                     <Typography variant={'h6'} style={{alignItems: 'center', display: 'flex'}}>Daily Schedule Table History</Typography>
                     <EmployeeAutoCompleteRight currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/>

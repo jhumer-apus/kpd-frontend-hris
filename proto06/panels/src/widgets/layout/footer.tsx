@@ -16,12 +16,15 @@ export function Footer({ brandName, brandLink, routes }) {
           <a
             href={brandLink}
             target="_blank"
-            className="transition-colors hover:text-blue-500"
+            className="transition-colors text-blue-500 hover:text-blue-100"
           >
             {brandName}.
           </a>{" "}
-          {/* for a better web. */} All Rights Reserved.
+          {/* for a better web. */} All Rights Reserved
         </Typography>
+        {import.meta.env.VITE_APP_STATUS == "development" && 
+          <Typography>DEVELOPMENT MODE</Typography>
+        }
         <ul className="flex items-center gap-4">
           {JSXRouteWrapper().routes.map(({ id, path }) => (
             <li key={`${id}_li_footer`}>
@@ -43,12 +46,12 @@ export function Footer({ brandName, brandLink, routes }) {
 }
 
 Footer.defaultProps = {
-  brandName: "Bitverse UI",
-  brandLink: "https://site.bitverseph.com",
+  brandName: "Bitverse Team",
+  brandLink: "https://bitverseph.com",
   routes: [
     { name: "Developer", path: "https://mattttyyyy.github.io/webportfolio" },
-    { name: "Contact Us", path: "https://site.bitverseph.com/contact-us" },
-    { name: "Blog", path: "https://site.bitverseph.com" },
+    { name: "Contact Us", path: "https://bitverseph.com/contact-us" },
+    { name: "Blog", path: "https://bitverseph.com" },
     // { name: "License", path: "https://www.creative-tim.com/license" },
   ],
 };

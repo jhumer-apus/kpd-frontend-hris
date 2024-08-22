@@ -14,6 +14,8 @@ import CreateSCHEDULEDAILYMultipleModal from './local-components/assign-multiple
 import { All_Schedule_Filter_Interface } from '@/types/types-employee-and-applicants';
 import ExportToCsv from '@/public-components/ExportToCSVButton';
 import { ALLSCHEDULEViewSpecificAction } from '@/store/actions/employee-and-applicants';
+import { HolidayColor } from '../holidays/local-components/list-of-holidays/list-of-holidays';
+import EmployeeListField from '@/public-components/EmployeeListField';
 
 
 const PaperStyle: CSSProperties = {
@@ -72,13 +74,19 @@ export default function ProceduralSCHEDULEDAILYpage() {
     // setForCSVExtract(data) 
   }, [])
 
+  const handleChangeEmpField = (e:any, newValue:any) => {
+      if(newValue) {
+          setCurrEmployee((prevState:any)=> newValue.emp_no)
+      }
+  }
+
   return (
     <Fragment>
       {/* <div style={{border: '1px solid red'}}><ExportToCsv/></div> */}
       <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
         <Grid item xs={6}>
           <Paper elevation={3} style={PaperStyle}>
-            <div className='flex justify-between'>
+            <div className='flex flex-wrap justify-between'>
               <div className='flex flex-col'>
                 <Typography variant={'h6'}>
                   Daily Schedule of an Employee
@@ -91,8 +99,10 @@ export default function ProceduralSCHEDULEDAILYpage() {
                 </Typography>
               </div>
               <div>
-                <Typography className='flex my-2'><p style={{background: ScheduleDailyColor._restday, borderRadius: '100px', width: '25px', opacity: '0.4'}}></p>&nbsp;&nbsp;Restday</Typography>
-                <Typography className='flex mb-2'><p style={{background: ScheduleDailyColor._workday, borderRadius: '100px', width: '25px', opacity: '0.4'}}></p>&nbsp;&nbsp;Workday</Typography>  
+                <Typography className='flex my-2'><p style={{background: ScheduleDailyColor._restday, borderRadius: '100px', width: '25px'}}></p>&nbsp;&nbsp;Restday</Typography>
+                <Typography className='flex mb-2'><p style={{background: ScheduleDailyColor._workday, borderRadius: '100px', width: '25px'}}></p>&nbsp;&nbsp;Workday</Typography>  
+                <Typography className='flex mb-2'><p style={{background: HolidayColor._special_hex, borderRadius: '100px', width: '25px'}}></p>&nbsp;&nbsp;Special Non-working Holiday</Typography>
+                <Typography className='flex mb-2'><p style={{background: HolidayColor._legal_hex, borderRadius: '100px', width: '25px'}}></p>&nbsp;&nbsp;Regular Holiday</Typography>  
               </div>
             </div>
             <div className='flex justify-center align-center'>
@@ -118,7 +128,14 @@ export default function ProceduralSCHEDULEDAILYpage() {
           <Paper elevation={3} style={PaperStyle}>
             <div className='flex justify-between'>
             <Typography variant={'h6'} style={{alignItems: 'center', display: 'flex'}}>Choose Employee to view Daily Schedule</Typography>
-            <EmployeeAutoCompleteRight currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/>
+            <div className='w-96'>
+              <EmployeeListField 
+                  label="Employee No.:" 
+                  handleChange={handleChangeEmpField} 
+                  currentValue={currEmployee}
+              />
+            </div>
+            {/* <EmployeeAutoCompleteRight currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/> */}
             </div>
             <ProceduralSCHEDULEDAILYPageHistory currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/>
           </Paper>

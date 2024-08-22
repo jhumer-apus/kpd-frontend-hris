@@ -116,15 +116,15 @@ function OBTModalUI(props: OBTModalUIInterface) {
                 </div>
 
             </div>
-            {(ThisProps.obt_approval_status.includes('1') || ThisProps.obt_approval_status.includes('2')) && 
-            <div className='flex flex-col justify-center items-center'>
-            <div className='flex justify-center mt-6' container-name='obt_buttons_container'>
-                <div className='flex justify-between' style={{width:'300px'}} container-name='obt_buttons'>
-                    <Button disabled={!userIsApprover} variant='contained' onClick={()=> onClickModal(0)}>Approve OBT</Button>
-                    <Button disabled={!userIsApprover} variant='outlined' onClick={()=> onClickModal(1)}>Deny OBT</Button>
+            {(ThisProps.obt_approval_status?.includes('1') || ThisProps.obt_approval_status?.includes('2')) && 
+                <div className='flex flex-col justify-center items-center'>
+                <div className='flex justify-center mt-6' container-name='obt_buttons_container'>
+                    <div className='flex justify-between' style={{width:'300px'}} container-name='obt_buttons'>
+                        <Button disabled={!userIsApprover} variant='contained' onClick={()=> onClickModal(0)}>Approve OBT</Button>
+                        <Button disabled={!userIsApprover} variant='outlined' onClick={()=> onClickModal(1)}>Deny OBT</Button>
+                    </div>
+                    
                 </div>
-                
-            </div>
             { !userIsApprover &&
                 <i className='w-6/12 text-center mt-4' style={{color: 'gray'}}>You are not listed as one of the approvers</i>
             }

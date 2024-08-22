@@ -1,7 +1,7 @@
 import { Fragment, Dispatch, SetStateAction, useState, useEffect } from 'react';
 import { LEAVEViewInterface } from '@/types/types-pages';
 import dayjs from 'dayjs';
-import {TextField} from '@mui/material';
+import {Button, TextField} from '@mui/material';
 import { APILink, globalDateTime } from '@/store/configureStore';
 import axios from 'axios';
 
@@ -28,6 +28,21 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
             }))
         })
     }
+
+    const viewImages = () => {
+
+        if(ThisProps.leave_file_path) {
+            const imageUrl = `${APILink.replace('/api/v1/','/media/')}${ThisProps.leave_file_path}`;
+            // Open a new tab/window with the images
+            window.open(imageUrl, '_blank');
+
+        } else{
+
+            window.alert("This employee does not file supporting image")
+        }
+    }
+
+
     return (
         <Fragment>
             <div className='flex gap-10 overflow-auto relative'>
@@ -45,6 +60,9 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
                     <TextField sx={{width: '100%'}} label='Date Until:' value={ThisProps.leave_date_to? dayjs(ThisProps.leave_date_to).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Date Approved: #1' value={ThisProps.leave_date_approved1? dayjs(ThisProps.leave_date_approved1).format('MM-DD-YYYY LT') : '-'} focused={!!ThisProps.leave_date_approved1} color={ThisProps.leave_date_approved1 ? 'success' : 'warning'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Date Approved: #2' value={ThisProps.leave_date_approved2? dayjs(ThisProps.leave_date_approved2).format('MM-DD-YYYY LT') : '-'} focused={!!ThisProps.leave_date_approved2} color={ThisProps.leave_date_approved2 ? 'success' : 'warning'} InputProps={{readOnly: true,}} variant='standard'/>
+                    {((ThisProps.is_sl  && !ThisProps.is_vl && !ThisProps.is_el) || ThisProps.leave_type_name=="Sick Leave") && 
+                        <Button onClick={viewImages}>View Supporting Image</Button>
+                    }
                 </div>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Employee #:' value={ThisProps.emp_no || '-'} InputProps={{readOnly: true,}} variant='filled'/>

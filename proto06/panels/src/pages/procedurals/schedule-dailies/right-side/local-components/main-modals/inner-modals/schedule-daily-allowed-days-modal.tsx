@@ -7,7 +7,7 @@ import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
-import { SCHEDULEDAILYCreateActionFailureCleanup, SCHEDULEDAILYEditAction } from '@/store/actions/procedurals';
+import { SCHEDULEDAILYCreateActionFailureCleanup, SCHEDULEDAILYEditAction, SCHEDULESHIFTEditActionFailureCleanup } from '@/store/actions/procedurals';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers';
@@ -69,32 +69,36 @@ export default function AllowedDaysSCHEDULEDAILYModal(props: AllowedDaysSCHEDULE
     dispatch(SCHEDULEDAILYEditAction(initialEditState))
   };
 
+
   useEffect(()=>{
     if(SCHEDULEDAILYAllowedDaysState.status){      
       if(SCHEDULEDAILYAllowedDaysState.status === 'succeeded'){
         window.alert(`${SCHEDULEDAILYAllowedDaysState.status.charAt(0).toUpperCase()}${SCHEDULEDAILYAllowedDaysState.status.slice(1)}`)
+        dispatch(SCHEDULESHIFTEditActionFailureCleanup());
         setTimeout(()=>{
           window.location.reload();
         }, 400)
       }else if (SCHEDULEDAILYAllowedDaysState.status === 'failed'){
         window.alert(`${SCHEDULEDAILYAllowedDaysState.error}`)
-        dispatch(SCHEDULEDAILYCreateActionFailureCleanup());
+        dispatch(SCHEDULESHIFTEditActionFailureCleanup());
       }
     };
 
     if(SCHEDULEDAILYAllowedDaysState.status === 'loading' || SCHEDULEDAILYAllowedDaysState.status === 'succeeded'){
+      dispatch(SCHEDULESHIFTEditActionFailureCleanup());
       return
     } else {
+      dispatch(SCHEDULESHIFTEditActionFailureCleanup());
       setInitialEditState({
         id: singleSCHEDULEDAILYDetailsData.id,
         business_date: singleSCHEDULEDAILYDetailsData.business_date,
         is_restday: singleSCHEDULEDAILYDetailsData.is_restday,
         emp_no: singleSCHEDULEDAILYDetailsData.emp_no,
-        schedule_shift_code: singleSCHEDULEDAILYDetailsData.schedule_shift_code?.id || 0,
+        schedule_shift_code: singleSCHEDULEDAILYDetailsData.schedule_shift_code?.id || null,
         sched_default: singleSCHEDULEDAILYDetailsData.sched_default,
       });
     };
-  }, [SCHEDULEDAILYAllowedDaysState.status, singleSCHEDULEDAILYDetailsData]);
+  }, [SCHEDULEDAILYAllowedDaysState.status]);
 
 
   useEffect(()=> {

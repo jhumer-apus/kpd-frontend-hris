@@ -15,6 +15,8 @@ import { SpecificEmployee } from './forms/SpecificEmployee';
 import { APILink } from '@/store/configureStore';
 import EmployeeExportToCsvButton from './local-components/export-to-csv-employee';
 import dayjs from 'dayjs';
+import ExportToCSVButton from '@/public-components/ExportToCSVButton';
+import axios from 'axios';
 
 const columns: GridColDef[] = [
   {
@@ -55,10 +57,12 @@ const columns: GridColDef[] = [
       return params.row.date_hired ? dayjs(date).format(`${globalDate}`) : '-';
     }, 
   },
-  { field: 'branch_code', headerName: 'Branch Code', width: 150 },
-  { field: 'mobile_phone', headerName: 'Mobile Number', width: 150 },
-  { field: `user`, headerName: 'Has HRIS Access', width: 150, valueGetter: (params: GridValueGetterParams) => `${params.row.user?.is_active ? 'Active' : 'No Access'}` },
+  { field: 'branch_code', headerName: 'Branch', width: 150, valueGetter: (params: GridValueGetterParams) => params.row.branch_data.branch_name },
+  // { field: 'mobile_phone', headerName: 'Mobile Number', width: 150 },
+  // { field: `user`, headerName: 'Has HRIS Access', width: 150, valueGetter: (params: GridValueGetterParams) => `${params.row.user?.is_active ? 'Active' : 'No Access'}` },
   { field: 'bio_id', headerName: 'Biometrics ID', width: 150 },
+  { field: 'approver1', headerName: 'Approver 1', width: 150 },
+  { field: 'approver2', headerName: 'Approver 2', width: 150 }
 ];
 
 const style = {
@@ -80,6 +84,7 @@ export default function DataTable() {
   const dispatch = useDispatch();
   const { register, handleSubmit, setValue, formState: { errors } } = useForm<EMPLOYEESViewInterface>();
   const { employees_list, specific_employee_info } = useSelector((state: RootState) => state.employees);
+  const [exportData, setExportData] = useState<any[]>([]);
   const [type, setType] = useState("staticInfo");
 
   // Specific Employee Modal Form 
@@ -146,6 +151,21 @@ export default function DataTable() {
         setSecondOptionModalEntranceDelay(false);
       }, 1200);
   }, [specific_employee_info])
+
+  useEffect(() => {
+    fetchExportData()
+  },[])
+
+  const fetchExportData = async () => {
+    await axios
+            .get(`${APILink}export_employees/`)
+            .then(res => 
+              {
+                const data = Array.isArray(res.data) ? res.data: []
+                setExportData(curr => data)
+              }
+            )
+  }
   
   return (
     <Fragment>
@@ -170,7 +190,14 @@ export default function DataTable() {
             <UserProfile/>
             </Box>
         </Modal>
-        <EmployeeExportToCsvButton data={employees_list} />
+
+        <div className='mb-4'>
+          <ExportToCSVButton
+            data={exportData}
+            isDisable={exportData.length == 0? true: false}
+          />
+        </div>
+        {/* <EmployeeExportToCsvButton data={employees_list} /> */}
         {/* <Button 
           className='mb-4 flex gap-2'
           variant='outlined'
@@ -223,7 +250,7 @@ export default function DataTable() {
           aria-describedby="parent-modal-description"
           className='overflow-auto'
         >
-          <SpecificEmployee modalEntranceDelay={modalEntranceDelay} secondOptionModalEntranceDelay={secondOptionModalEntranceDelay} loadingEffect={handleModalEntranceDelay}/>
+          <SpecificEmployee handleClose={handleClose} modalEntranceDelay={modalEntranceDelay} secondOptionModalEntranceDelay={secondOptionModalEntranceDelay} loadingEffect={handleModalEntranceDelay}/>
         </Modal>
       </div>
     </Fragment>

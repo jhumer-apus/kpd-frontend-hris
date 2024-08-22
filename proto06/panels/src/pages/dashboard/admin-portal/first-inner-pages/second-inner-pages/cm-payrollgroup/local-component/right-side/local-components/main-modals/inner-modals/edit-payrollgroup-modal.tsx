@@ -3,7 +3,7 @@ import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
 import { PAYROLLGROUPViewInterface } from '@/types/types-pages';
-import { Button, TextField, Typography } from '@mui/material';
+import { Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
 import dayjs from 'dayjs';
@@ -109,7 +109,7 @@ export default function AllowedDaysPAYROLLGROUPModal(props: AllowedDaysPAYROLLGR
               <div className='flex flex-col justify-center items-center gap-5'>
                 <TextField
                 sx={{width: '90%'}}
-                  label='Branch Name'
+                  label='Payroll Name'
                   type='text'
                   required
                   value={singlePAYROLLGROUPDetailsData.name}
@@ -123,7 +123,32 @@ export default function AllowedDaysPAYROLLGROUPModal(props: AllowedDaysPAYROLLGR
                     })
                   }}
                 />
-                <TextField
+                <FormControl sx={{width: '90%'}} >
+                    <InputLabel id="frequency">Payment Frequency</InputLabel>
+                    <Select
+                        sx={{width: '100%'}} 
+                        required 
+                        labelId="frequency"
+                        label="Payment Frequency"
+                        aria-required  
+                        placeholder='1 - Monthly | 2 - Bi-Monthly | 3 - Daily'
+                        // variant='outlined' 
+                        type="number"
+                        value={singlePAYROLLGROUPDetailsData?.payroll_freq}
+                        onChange={(event: any) => {
+                            const value = parseInt(event.target.value)
+                            setSinglePAYROLLGROUPDetailsData((prevState)=> ({
+                                ...prevState,
+                                payroll_freq: value
+                            }));
+                        }}
+                    >
+                        <MenuItem value={1}>1 - Monthly</MenuItem>
+                        <MenuItem value={2}>2 - Bi-Monthly</MenuItem>
+                        <MenuItem value={3}>3 - Daily</MenuItem>
+                    </Select>    
+                </FormControl>
+                {/* <TextField
                 sx={{width: '90%'}}
                   label='Pay Frequency(Per Month)'
                   placeholder='1 - Monthly | 2 - Bi-Monthly | 3 - Daily'
@@ -139,9 +164,9 @@ export default function AllowedDaysPAYROLLGROUPModal(props: AllowedDaysPAYROLLGR
                       })
                     })
                   }}
-                />
+                /> */}
                 <TextField
-                sx={{width: '90%'}}
+                  sx={{width: '90%'}}
                   label='Description (optional)'
                   type='text'
                   multiline

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -27,6 +27,7 @@ import AllCityMunicipality from '@/public-components/forms/address/AllCityMunici
 
 //HELPERS
 import { beautifyJSON } from '@/helpers/utils';
+import CityMunicipality from '@/public-components/forms/address/CityMunicipality';
 
 
 const style = {
@@ -54,7 +55,9 @@ interface CreateHolidayModalInterface {
 const holiday_location = ['City', 'Province', 'National'];
 
 export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
+    //REDUX
     const dispatch = useDispatch();
+    const user = useSelector((state:RootState) => state.auth.employee_detail)
     const {open, handleClose} = props;
     const createHoliday = useSelector((state: RootState)=> state.procedurals?.HolidayCreate);
     const [createHolidayForm, setCreateHolidayForm] = useState<any>({
@@ -125,6 +128,9 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
             holiday_description: createHolidayForm.holiday_description,
             holiday_type: createHolidayForm.holiday_type,
             holiday_location: createHolidayForm.holiday_location,
+            province_ref: null,
+            city_ref: null,
+            added_by: user?.emp_no as number
             // province_ref: (createHolidayForm.holiday_location=="Province" && createHolidayForm.province.id) ||
             //             (createHolidayForm.holiday_location=="City" && createHolidayForm.city.id) ||
             //             (createHolidayForm.holiday_location=="" && createHolidayForm.province.id),
@@ -138,6 +144,7 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
                 break
 
             case "City":
+                holidayData.province_ref = createHolidayForm.province.id
                 holidayData.city_ref = createHolidayForm.city.id
                 break
 
@@ -173,6 +180,36 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
             return;
         }
     }, [createHoliday.status])
+
+    const addressElement = (): ReactElement | null => {
+
+        
+        if (createHolidayForm.holiday_location == "Province") {
+
+            return (
+                <Province 
+                    updateAddress={updateAddress}
+                    name="province"
+                />
+            )
+        } else if (createHolidayForm.holiday_location == "City") {
+
+            return (
+                <>
+                    <Province 
+                        updateAddress={updateAddress}
+                        name="province"
+                    />
+                    <CityMunicipality
+                        updateAddress={updateAddress}
+                        currentProvinceCode={createHolidayForm.province.code}
+                        name='city'
+                    />
+                </>
+            )
+        }
+        return null
+    }
     return (
         <div>
             <Modal
@@ -234,8 +271,8 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
                     sx={{ width: "100%" }}
                     renderInput={(params) => <TextField {...params} required label="Holiday Location" />}
                 />
-
-                {createHolidayForm.holiday_location == "Province" && 
+                {addressElement()}
+                {/* {createHolidayForm.holiday_location == "Province" && 
                     <Province 
                         updateAddress={updateAddress}
                         name="province"
@@ -246,7 +283,7 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
                         state={createHolidayForm}
                         setState={setCreateHolidayForm}
                     />
-                }
+                } */}
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                         value={createHolidayForm['holiday_date']}

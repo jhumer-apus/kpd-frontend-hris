@@ -38,7 +38,11 @@ export const ProceduralLEAVECREDITPageColumns: GridColDef[] =
       );
     }  
   },
-  { field: 'leave_name', headerName: 'Leave Credit Name',  width: 200 },
+  { field: 'leave_type_data', headerName: 'Leave Credit Name',  width: 200,
+    valueGetter: (params: GridValueGetterParams) => {
+      return params.row.leave_type_data?.name;
+    },
+  },
 ];
   
 export default {

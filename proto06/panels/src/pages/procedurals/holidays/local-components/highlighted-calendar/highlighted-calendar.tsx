@@ -26,9 +26,9 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[],
   let badgeContent: React.ReactNode = null;
   if (isSelected) {
     if (holidayType === 'LH') {
-      badgeContent = <div style={{width: "10px", height: "10px", borderRadius: "20px", background: HolidayColor._legal}}/>;
+      badgeContent = <div style={{width: "10px", height: "10px", borderRadius: "20px", background: HolidayColor._legal_hex}}/>;
     } else if (holidayType === 'SH') {
-      badgeContent = <div style={{width: "10px", height: "10px", borderRadius: "20px", background: HolidayColor._special}}/>; // Moon symbol for SH
+      badgeContent = <div style={{width: "10px", height: "10px", borderRadius: "20px", background: HolidayColor._special_hex}}/>; // Moon symbol for SH
     }
   }
   return (
@@ -62,13 +62,14 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
     })
       .then((response) => {
         //Added this to filter the data from the response
-        const filteredData: HolidayGetType[] = response.data.filter((holiday: HolidayGetType) => {
+        const data = response.data
+        const filteredData: HolidayGetType[] = Array.isArray(data)? response.data.filter((holiday: HolidayGetType) => {
             const holidayDate = dayjs(holiday.holiday_date);
             return (
               holidayDate.format('YYYY-MM') === formattedDate &&
               holidayDate.isSame(date, 'month')
             );
-        });
+        }) : [];
         const holidayTypes: Record<string, string> = filteredData.reduce((types: Record<string, string>, holiday: HolidayGetType,) => {
             const holidayDate = dayjs(holiday.holiday_date).format('YYYY-MM-DD');
             types[holidayDate] = holiday.holiday_type;

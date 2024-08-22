@@ -88,7 +88,7 @@ export default function EditEMPHISTORYModal(props: EditEMPHISTORYModalInterface)
         setSingleEMPHISTORYOpenModal(false)
       }else if (EMPHISTORYEditState.status === 'failed'){
         window.alert(`${EMPHISTORYEditState.error}`)
-        dispatch(EMPHISTORYCreateActionFailureCleanup());
+        dispatch(EMPHISTORYEditActionFailureCleanup());
       }
     };
 

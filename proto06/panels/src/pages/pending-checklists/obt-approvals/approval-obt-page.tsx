@@ -6,8 +6,9 @@ import { Typography } from "@material-tailwind/react";
 import { ApprovalOBTPageDescriptions, ApprovalOBTPageColumns } from '@/data/pages-data/your-approvals-data/obt-data';
 import ViewOBTSingleModal from './local-components/main-modals/view-obt-single-modal';
 import { OBTViewFilterEmployeeInitialState, OBTViewInterface, } from '@/types/types-pages';
-import { OBTViewAction } from '@/store/actions/procedurals';
+import { OBTViewAction, OBTViewFilterApproverAction } from '@/store/actions/procedurals';
 import { globalServerErrorMsg } from '@/store/configureStore';
+import { HandleModalAction } from '@/store/actions/components';
 
 
 export default function ApprovalOBTPage() {
@@ -15,11 +16,13 @@ export default function ApprovalOBTPage() {
   const [singleOBTDetailsData, setSingleOBTDetailsData] = useState<OBTViewInterface>(OBTViewFilterEmployeeInitialState);
   const dispatch = useDispatch();
   const { OBTViewFilterApprover } = useSelector((state: RootState) => state.procedurals);
+  const user = useSelector((state: RootState) => state.auth.employee_detail);
+  const viewObtModal = useSelector((state: RootState) => state.component.viewObtModal);
   const { data, status, error } = OBTViewFilterApprover;
   const OBTViewData = data as OBTViewInterface[];
 
   useEffect(()=> {
-    dispatch(OBTViewAction())
+    dispatch(OBTViewFilterApproverAction({emp_no: user?.emp_no}))
   }, []);
 
   return (
@@ -47,7 +50,11 @@ export default function ApprovalOBTPage() {
           pageSizeOptions={[25, 50, 75, 100]}
           onRowClick={(e) => {
             setSingleOBTDetailsData(e.row);
-            setSingleOBTOpenModal(true);
+            // setSingleOBTOpenModal(true);
+            dispatch(HandleModalAction({
+              name: "viewObtModal",
+              value: true
+            }))
           }}
           disableRowSelectionOnClick 
           localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}

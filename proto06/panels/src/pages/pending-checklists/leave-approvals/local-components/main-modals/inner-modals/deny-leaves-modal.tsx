@@ -6,10 +6,13 @@ import { LEAVEViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pag
 import SinglePayslip from './leaves-modal-component';
 import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { APILink, RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
-import { LEAVEEditAction } from '@/store/actions/procedurals';
-import { clearFields } from '@/helpers/utils';
+import { LEAVEEditAction, LEAVEViewFilterApproverAction } from '@/store/actions/procedurals';
+import { beautifyJSON, clearFields } from '@/helpers/utils';
+import axios from 'axios';
+import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
+import { useState } from 'react';
 
 
 
@@ -27,36 +30,91 @@ export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
   const {denyLEAVEOpenModal, setDenyLEAVEOpenModal, singleLEAVEDetailsData, setSingleLEAVEDetailsData} = props;
   const DateNow = new Date();
   const denyDate = dayjs(DateNow).format('MMM-DD-YY LT');
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const apiDenyLeave = async (payload:any) => {
+
+    setIsLoading(curr => true)
+
+    await axios.put(`${APILink}leave_new/${singleLEAVEDetailsData.id}/`,payload)
+      .then(res => {
+
+        dispatch(LEAVEViewFilterApproverAction({
+          emp_no: state?.emp_no
+        }))
+        
+        dispatch(HandleAlertAction({
+          open:true,
+          status:"success",
+          message:"Deny Leave Successfully"
+        }))
+
+        dispatch(HandleModalAction({
+          name: "viewLeaveModal",
+          value: false
+        }))
+
+        setIsLoading(curr => false)
+      })
+
+      .catch((err:any) => {
+
+        dispatch(LEAVEViewFilterApproverAction({
+          emp_no: state?.emp_no
+        }))
+
+        dispatch(HandleAlertAction({
+          open:true,
+          status:"error",
+          message: beautifyJSON(err.response.data)
+        }))
+
+        dispatch(HandleModalAction({
+          name: "viewLeaveModal",
+          value: false
+        }))
+
+        setIsLoading(curr => false)
+      })
+  }
+
 
   const denyLEAVE = () => { 
+    const payload = {
+      ...singleLEAVEDetailsData,
+      approver_emp_no: state?.emp_no,
+      status: "disapprove",
+      leave_reason_disapproval: `${singleLEAVEDetailsData.leave_reason_disapproval}`,
+      added_by: state?.emp_no
+    }
+    
     if(singleLEAVEDetailsData.leave_reason_disapproval){
-        return(
-          setSingleLEAVEDetailsData((prevState)=> {
-            dispatch(LEAVEEditAction({
-              ...prevState,
-              leave_reason_disapproval: `${prevState.leave_reason_disapproval}  <Updated: ${denyDate}>`
-            }))  
-            return({
-              ...prevState,
-              leave_reason_disapproval: `${prevState.leave_reason_disapproval} <Updated: ${denyDate}>`
-            })
-          })
-        )
+
+        apiDenyLeave(payload)
+        setSingleLEAVEDetailsData((curr:any) => ({
+          ...payload
+        }))
+
       } else {
-        window.alert('Please insert reason');
+
+        dispatch(HandleAlertAction({
+          open:true,
+          status:"error",
+          message:"Please insert reason"
+        }))
       }
     }
 
-    React.useEffect(()=>{
-      if(LEAVEDenyData.status === 'succeeded' && denyLEAVEOpenModal){
-        window.alert(`${LEAVEDenyData.status.charAt(0).toUpperCase()}${LEAVEDenyData.status.slice(1)}`)
-        setTimeout(()=>{
-          window.location.reload();
-        }, 800)
-      } else if(LEAVEDenyData.status === 'failed' && denyLEAVEOpenModal){
-        window.alert(LEAVEDenyData.error)
-      }
-    }, [LEAVEDenyData.status])
+    // React.useEffect(()=>{
+    //   if(LEAVEDenyData.status === 'succeeded' && denyLEAVEOpenModal){
+    //     window.alert(`${LEAVEDenyData.status.charAt(0).toUpperCase()}${LEAVEDenyData.status.slice(1)}`)
+    //     setTimeout(()=>{
+    //       window.location.reload();
+    //     }, 800)
+    //   } else if(LEAVEDenyData.status === 'failed' && denyLEAVEOpenModal){
+    //     window.alert(LEAVEDenyData.error)
+    //   }
+    // }, [LEAVEDenyData.status])
   return (
     <React.Fragment>
       <Transition in={denyLEAVEOpenModal} timeout={400}>
@@ -124,8 +182,9 @@ export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
                 />
               </div>
               <div className='flex justify-around'>
-                <Button variant={'contained'} onClick={denyLEAVE}>Submit</Button>
+                <Button disabled={isLoading} variant={'contained'} onClick={denyLEAVE}>Submit</Button>
                 <Button 
+                  disabled={isLoading}
                   variant={'outlined'} 
                   onClick={()=>{
                   clearFields(setSingleLEAVEDetailsData, ['leave_reason_disapproval'], [null])

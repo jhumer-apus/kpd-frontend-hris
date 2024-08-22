@@ -14,10 +14,11 @@ import jsPDF from 'jspdf';
 import dayjs from 'dayjs';
 
 // import GeneratePDFButton from './local-components/additional-features/generate-pdf-button';
-import { UAViewAction } from '@/store/actions/procedurals';
+import { UAViewAction, UAViewFilterApproverAction, UAViewFilterEmployeeAction } from '@/store/actions/procedurals';
 import { GridColDef, GridValueGetterParams, GridCellParams, GridValueFormatterParams } from "@mui/x-data-grid";
 import GeneratePDFButton from './local-components/additional-features/generate-pdf-button';
 import { globalServerErrorMsg } from '@/store/configureStore';
+import { HandleModalAction } from '@/store/actions/components';
 
 
 
@@ -43,11 +44,12 @@ export default function ApprovalUAPage() {
   });
   const dispatch = useDispatch();
   const { UAViewFilterApprover, UAViewFilterEmployeeAndUA } = useSelector((state: RootState) => state.procedurals);
+  const user = useSelector((state: RootState) => state.auth.employee_detail);
   const { data, status, error } = UAViewFilterApprover;
   const UAViewData = data as UAViewInterface[];
 
   useEffect(()=> {
-    dispatch(UAViewAction())
+    dispatch(UAViewFilterApproverAction({emp_no: user?.emp_no}))
   }, []);
 
   const printableArea = () => {
@@ -58,7 +60,6 @@ export default function ApprovalUAPage() {
       return 600
     }
   };
-
   return (
     <Fragment>
       <div className="my-10 flex flex-wrap justify-between items-start gap-6">
@@ -84,7 +85,11 @@ export default function ApprovalUAPage() {
           pageSizeOptions={[25, 50, 75, 100]}
           onRowClick={(e) => {
             setSingleUADetailsData(e.row);
-            setSingleUAOpenModal(true);
+            // setSingleUAOpenModal(true);
+            dispatch(HandleModalAction({
+              name:"viewUaModal",
+              value:true
+            }))
           }}
           disableRowSelectionOnClick 
           localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}

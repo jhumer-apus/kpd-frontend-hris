@@ -4,6 +4,9 @@ import ModalDialog from '@mui/joy/ModalDialog';
 import { Transition } from 'react-transition-group';
 import { OVERTIMEViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages';
 import OVERTIMEModalComponent from './inner-modals/overtime-modal-component';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/store/configureStore';
+import { HandleModalAction } from '@/store/actions/components';
 
 
 interface ViewOVERTIMESingleModalInterface {
@@ -14,16 +17,23 @@ interface ViewOVERTIMESingleModalInterface {
 }
 
 export default function ViewOVERTIMESingleModal(props: ViewOVERTIMESingleModalInterface) {
-    const {singleOVERTIMEOpenModal, setSingleOVERTIMEOpenModal, setSingleOVERTIMEDetailsData, singleOVERTIMEDetailsData} = props;
+  const {singleOVERTIMEOpenModal, setSingleOVERTIMEOpenModal, setSingleOVERTIMEDetailsData, singleOVERTIMEDetailsData} = props;
   const [scroll, setScroll] = React.useState<boolean>(true);
+  
+  const viewOtModal = useSelector((state:RootState) => state.component.viewOtModal);
+  const dispatch = useDispatch()
+  
   return (
     <React.Fragment>
-      <Transition in={singleOVERTIMEOpenModal} timeout={400}>
+      <Transition in={viewOtModal} timeout={400}>
       {(state: string) => (
       <Modal
         open={!['exited', 'exiting'].includes(state)}
         onClose={() => {
-          setSingleOVERTIMEOpenModal(false);
+          dispatch(HandleModalAction({
+            name: "viewOtModal",
+            value: false
+          }))
         }}
         slotProps={{
             backdrop: {

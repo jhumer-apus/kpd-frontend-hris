@@ -7,7 +7,7 @@ import { Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { APILink, RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
-import { LEAVECREDITEditAction, LEAVECREDITViewAction } from '@/store/actions/procedurals';
+import { LEAVECREDITEditAction, LEAVECREDITEditActionFailureCleanup, LEAVECREDITViewAction } from '@/store/actions/procedurals';
 import { beautifyJSON, clearFields } from '@/helpers/utils';
 import axios from 'axios';
 import useFetchQuery from '@/custom-hooks/use-fetch-query';
@@ -134,8 +134,8 @@ export default function AllowedDaysLEAVECREDITModal(props: AllowedDaysLEAVECREDI
 
       }  else if (LEAVECREDITAllowedDaysState.status == 'failed') {
 
-
         window.alert(LEAVECREDITAllowedDaysState?.error)
+        dispatch(LEAVECREDITEditActionFailureCleanup())
         setAllowedDaysLEAVECREDITOpenModal(false)
       }
     }
@@ -216,7 +216,8 @@ export default function AllowedDaysLEAVECREDITModal(props: AllowedDaysLEAVECREDI
                           inputProps:{
                               min:0,
                               max:singleLEAVECREDITDetailsData.credit_max,
-                              type:"number"
+                              type:"number",
+                              step: 0.01,
                           }
                           
                       }}
@@ -231,7 +232,6 @@ export default function AllowedDaysLEAVECREDITModal(props: AllowedDaysLEAVECREDI
                               )
                           })
                       }}
-                      
                   />
                   <TextField
                       sx={{width: '100%'}} 

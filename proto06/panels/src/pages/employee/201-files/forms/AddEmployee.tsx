@@ -109,6 +109,7 @@ export const UserProfile = () => {
       fetchDepartments()
       fetchDivisions()
       fetchUniqueEmployeeNumber()
+      fetchApprovers()
     }, [])
 
     useEffect(() => {
@@ -123,7 +124,7 @@ export const UserProfile = () => {
     // },[employeeData.department_code])
 
     // FETCH SELECTS INFORMATION
-    const {data: ranks, status, error} = useFetchQuery(`${APILink}/rank/`, null)
+    const {data: ranks, status, error} = useFetchQuery(`${APILink}rank/`, null)
     
     const fetchPayrollGroups = () => {
       axios.get(`${APILink}payrollgroup`).then((response:any) => {
@@ -217,14 +218,11 @@ export const UserProfile = () => {
       })
     }
 
-    const fetchApprovers = (department: number) => {
+    const fetchApprovers = () => {
+
       setDropDownData((curr:any) => ({...curr, approvers: []}));
 
-      axios.get(`${APILink}approvers/`,{
-        params:{
-          department: department
-        }
-      }).then((response:any) => {
+      axios.get(`${APILink}approvers/`).then((response:any) => {
 
         const responseApprovers = response.data.map((approver:any) => {
           return {
@@ -233,10 +231,33 @@ export const UserProfile = () => {
           }
         })
 
+        console.log(responseApprovers)
+
         setDropDownData((curr:any) => ({...curr, approvers: responseApprovers}));
 
       })
     }
+
+    // const fetchApprovers = (department: number) => {
+    //   setDropDownData((curr:any) => ({...curr, approvers: []}));
+
+    //   axios.get(`${APILink}approvers/`,{
+    //     params:{
+    //       department: department
+    //     }
+    //   }).then((response:any) => {
+
+    //     const responseApprovers = response.data.map((approver:any) => {
+    //       return {
+    //         emp_no: approver.emp_no,
+    //         full_name: approver.full_name
+    //       }
+    //     })
+
+    //     setDropDownData((curr:any) => ({...curr, approvers: responseApprovers}));
+
+    //   })
+    // }
 
     const fetchUniqueEmployeeNumber = async() => {
       await axios.get(`${APILink}new_emp_no`).then((res:AxiosResponse) => {
@@ -450,7 +471,7 @@ export const UserProfile = () => {
       other_duties_responsibilities: employeeData.other_duties_responsibilities ?? "",
       payroll_no: employeeData.payroll_no ?? "",
       date_hired: employeeData.date_hired ?? "",
-      // date_resigned: employeeData.date_resigned,
+      // date_separation: employeeData.date_separation,
       accnt_no: employeeData.accnt_no ?? "",
       emp_salary_basic: employeeData.emp_salary_basic ?? "",
       emp_salary_type: "5",
@@ -481,7 +502,7 @@ export const UserProfile = () => {
       // philhealth_data: null,
       permanent_address: employeeData.permanent_address,
       current_address: employeeData.current_address,
-      // date_resigned: null,
+      // date_separation: null,
       // date_added: '',
       // tax_code: null,
       // pagibig_code: null,
@@ -1246,7 +1267,7 @@ export const UserProfile = () => {
                 onChange={(e:any) => 
                   {
                     
-                    fetchApprovers(e.target.value)
+                    // fetchApprovers(e.target.value)
                     setEmployeeData(curr => 
                     (
                       {
@@ -1356,16 +1377,16 @@ export const UserProfile = () => {
         </div>
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
           <FormControl className='w-full'>
-            <InputLabel htmlFor="odr">Other Duty Responsibilities: (optional)</InputLabel>
+            <InputLabel htmlFor="odr">Other Duty and Responsibilities: (optional)</InputLabel>
             <OutlinedInput
               id="odr"
               className='w-full'
               onChange={handleChangeUserData}
               name="other_duties_responsibilities"
-              label="Other Duty Responsibilities: (optional)"
+              label="Other Duty and Responsibilities: (optional)"
               type='text'              
             />
-            {/* {errors.other_duties_responsibilities && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Other Duty Responsibilities is required.</sub>} */}
+            {/* {errors.other_duties_responsibilities && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Other Duty and Responsibilities is required.</sub>} */}
           </FormControl>
 
           <FormControl className='w-full'>

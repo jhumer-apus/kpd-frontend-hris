@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import styles from './custom-styles/Carousel.module.scss';
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,8 @@ import dayjs from "dayjs";
 import { UnderDevelopmentMsg } from "@/pages/dashboard/hris-portal/local-components/projects-card";
 import { ACTIVEANNOUNCEMENTViewAction, ANNOUNCEMENTViewAction } from "@/store/actions/payroll-eoy";
 import { APILink } from "@/store/configureStore";
+import skyfreightIcon from '@/img/skyfreight_icon.png';
+import { Avatar } from "@material-tailwind/react";
 
 
 const CarouselUI = ({ items }: any) => {
@@ -28,20 +30,20 @@ const CarouselUI = ({ items }: any) => {
 
         dispatch(ACTIVEANNOUNCEMENTViewAction(
             {
-                rank: employee_detail?.rank_code?? 1, 
-                dept: employee_detail?.department_code?? 1, 
+                rank: Number(employee_detail?.rank_code) ?? 1, 
+                dept: Number(employee_detail?.department_code) ?? 1, 
                 pin: true
             }))
     }, [])
 
     const noAnnouncementsFound = [
-        {
-          imageUrl2: "/img/team-1.jpeg",
-          date: "",
-          altText: "Image 1",
-          message: "In accordance with the Black Nazarene. There will be a holiday for Manila Area on Jan. 09, 2024..",
-          posted_by: "Admin "
-        },
+        // {
+        //   imageUrl2: "/img/team-1.jpeg",
+        //   date: "",
+        //   altText: "Image 1",
+        //   message: "In accordance with the Black Nazarene. There will be a holiday for Manila Area on Jan. 09, 2024..",
+        //   posted_by: "Admin "
+        // },
         {
           imageUrl2: "/img/team-2.jpeg",
           date: "",
@@ -49,13 +51,13 @@ const CarouselUI = ({ items }: any) => {
           message: "There is no pinned announcement found. Check the announcement page/tab.",
           posted_by: "Admin "
         },
-        {
-          imageUrl2: "/img/team-3.jpeg",
-          date: "",
-          altText: "Image 3",
-          message: "There is no pinned announcement found. Check the announcement page/tab.",
-          posted_by: "Admin "
-        },
+        // {
+        //   imageUrl2: "/img/team-3.jpeg",
+        //   date: "",
+        //   altText: "Image 3",
+        //   message: "There is no pinned announcement found. Check the announcement page/tab.",
+        //   posted_by: "Admin "
+        // },
       ];
 
     const activeAnnouncement = Array.isArray(state.data) ? state?.data?.map((item, index)=> {
@@ -78,46 +80,49 @@ const CarouselUI = ({ items }: any) => {
                 // className={styles.leftSide}
                 className="w-full"
             >
-                <div className={styles.greetingsBar}>{greetings}, {employee_detail?.gender?.includes("F")? 'Ms.': 'Mr.'} {employee_detail?.last_name}!</div>
+                <div className="flex items-center">
+                    <Avatar src="/img/skyfreight_icon.png" size="sm" placeholder={undefined} />
+                    <div className={styles.greetingsBar}>{greetings}, {employee_detail?.gender?.includes("F")? 'Ms.': 'Mr.'} {employee_detail?.last_name}!</div>
+                </div>
                 <div className={styles.newsWrap}> 
                     {/* <span className="italic">Announcements</span> */}
                     {/* <UnderDevelopmentMsg/> */}
                     <Carousel showThumbs={false} infiniteLoop useKeyboardArrows autoPlay swipeable={true} showStatus={false} showIndicators={false}>
-                        {activeAnnouncement.length > 0 ?  
-                        activeAnnouncement.map((item, index) => (
-                            <div className={styles.carouselWrap} key={index}>
-                                <div className={styles.date}>
-                                    {item.date}
+                            {activeAnnouncement.length > 0 ?  
+                            activeAnnouncement.map((item, index) => (
+                                <div className={styles.carouselWrap} key={index}>
+                                    <div className={styles.date}>
+                                        {item.date}
+                                    </div>
+                                    <div 
+                                        className={`${styles.caption} shadow-2xl`}
+                                    >
+                                        {item?.message} 
+                                    </div>
+                                    <div className={styles.personInfo}>
+                                        <img className={styles.personPic} src={`${APILink.replace('/api/v1/', '')}${item.imageUrl}`} alt={item.altText} />
+                                        <div className={styles.person}>{item?.posted_by}</div>
+                                    </div>
                                 </div>
-                                <div 
-                                    className={`${styles.caption} shadow-2xl`}
-                                >
-                                    {item?.message} 
+                            ))
+                            : 
+                            noAnnouncementsFound.map((item, index) => (
+                                <div className={styles.carouselWrap} key={index}>
+                                    <div className={styles.date}>
+                                        {item.date}
+                                    </div>
+                                    <div 
+                                        className={`${styles.caption} shadow-2xl`}
+                                    >
+                                        {item?.message}
+                                    </div>
+                                    <div className={styles.personInfo}>
+                                        <img className={styles.personPic} src={item.imageUrl2} alt={item.altText} />
+                                        <div className={styles.person}>{item?.posted_by}</div>
+                                    </div>
                                 </div>
-                                <div className={styles.personInfo}>
-                                    <img className={styles.personPic} src={`${APILink.replace('/api/v1/', '')}${item.imageUrl}`} alt={item.altText} />
-                                    <div className={styles.person}>{item?.posted_by}</div>
-                                </div>
-                            </div>
-                        ))
-                        : 
-                        noAnnouncementsFound.map((item, index) => (
-                            <div className={styles.carouselWrap} key={index}>
-                                <div className={styles.date}>
-                                    {item.date}
-                                </div>
-                                <div 
-                                    className={`${styles.caption} shadow-2xl`}
-                                >
-                                    {item?.message}
-                                </div>
-                                <div className={styles.personInfo}>
-                                    <img className={styles.personPic} src={item.imageUrl2} alt={item.altText} />
-                                    <div className={styles.person}>{item?.posted_by}</div>
-                                </div>
-                            </div>
-                        ))
-                    }
+                            ))
+                        }
                     </Carousel>
                 </div>
             </div>

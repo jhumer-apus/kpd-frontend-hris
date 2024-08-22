@@ -8,6 +8,8 @@ import { Typography } from '@mui/joy';
 import { TAXCreateInterface } from '@/types/types-payroll-variables';
 import { TAXCreateAction, TAXCreateActionFailureCleanup, TAXViewAction } from '@/store/actions/payroll-variables';
 import PaymentFrequencyAutoComplete from './inner-ui-components/payment-frequency-autocomplete';
+import { cleanTextNumber } from '@/helpers/utils';
+import EmployeeListField from '@/public-components/EmployeeListField';
 
 interface CreateTAXModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -22,7 +24,7 @@ function PVMTAXCreate(props: CreateTAXModalInterface) {
         tin_no: '',
         tax_form: '',
         tax_description: '',
-        tax_percentage: NaN,
+        tax_percentage: null,
         payment_frequency: NaN,
         emp_no: NaN,
         added_by: NaN,
@@ -60,26 +62,46 @@ function PVMTAXCreate(props: CreateTAXModalInterface) {
         }
     }, [TAXCreatestate.status])
 
+    const handleChangeEmpField = (e:any, newValue:any) => {
+        if(newValue) {
+            setCreateTAX((prevState)=> 
+                (
+                    {
+                        ...prevState,
+                        emp_no: newValue.emp_no
+                    }
+                )
+            )
+        }
+    }
+
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain' level="h6">Create a 'Tax/TIN' Data</Typography>
             <div className='flex flex-col gap-6 overflow-auto w-3/4'>
                     <div className='flex flex-col gap-6 pt-4'>
-                        <EmployeeAutoComplete createTAX={createTAX} setCreateTAX={setCreateTAX}/>
+                        {/* <EmployeeAutoComplete createTAX={createTAX} setCreateTAX={setCreateTAX}/> */}
+                        <EmployeeListField 
+                            label="For Employee No.:" 
+                            handleChange={handleChangeEmpField} 
+                            currentValue={createTAX.emp_no} 
+                        />
                     </div>
                     <div className='flex flex-col gap-6'>
                         <TextField
                             required 
-                            defaultValue="0"
                             sx={{width: '100%'}} 
                             label='TIN Number'
                             placeholder='Input 12 Digit number'
                             aria-required  
                             variant='outlined' 
-                            type="number"
                             value={createTAX?.tin_no}
+                            inputProps={{
+                                maxLength:12,
+                                minLength:9
+                            }}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = parseInt(event.target.value)
+                                const value = cleanTextNumber(event.target.value)
                                 setCreateTAX((prevState)=> {
                                     return (
                                         {
@@ -136,15 +158,14 @@ function PVMTAXCreate(props: CreateTAXModalInterface) {
                             label='Tax Percentage (number only, no sign %)'
                             aria-required  
                             variant='outlined' 
-                            type="number"
-                            value={createTAX?.tax_percentage}
+                            value={createTAX?.tax_percentage ?? ''}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = parseFloat(event.target.value)
-                                setCreateTAX((prevState)=> {
+                                const value = parseFloat(cleanTextNumber(event.target.value))
+                                setCreateTAX((prevState:any)=> {
                                     return (
                                         {
                                             ...prevState,
-                                            tax_percentage: value
+                                            tax_percentage: value || null
                                         }
                                     )
                                 })

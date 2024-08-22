@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
-import { Button } from '@mui/material';
+import { Button, FormControl, InputLabel, Menu } from '@mui/material';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, globalReducerFailed, globalReducerSuccess } from '@/store/configureStore';
@@ -7,6 +7,8 @@ import { Typography } from '@mui/joy';
 import { PAYROLLGROUPCreateInterface } from '@/types/types-pages';
 import { PAYROLLGROUPCreateAction, PAYROLLGROUPCreateActionFailureCleanup, PAYROLLGROUPViewAction } from '@/store/actions/categories';
 import { Select, MenuItem } from '@mui/material';
+import { HandleAlertAction } from '@/store/actions/components';
+import { beautifyJSON } from '@/helpers/utils';
 interface CreatePAYROLLGROUPModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
 }
@@ -23,7 +25,11 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
         used_account: 0,
         added_by: NaN,
     });
-    const onClickSubmit = () => {
+    const onClickSubmit = (e:any) => {
+        e.preventDefault()
+        if(validatePayroll(createPAYROLLGROUP)){
+            return
+        }
         dispatch(PAYROLLGROUPCreateAction(createPAYROLLGROUP))
     };
 
@@ -40,16 +46,61 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
         }
     }, [curr_user]) 
 
+    const resetForm = () => {
+        setCreatePAYROLLGROUP((curr:any) => ({
+            name: "",
+            payroll_description: "",
+            payroll_freq: null,
+            used_account: 0,
+            added_by: curr_user,
+        }))
+    }
+
+    const validatePayroll = (payload:any) => {
+
+        const errors:any = {}
+
+        // if(!payload.payroll_description) 
+        //     errors['Description'] = "Description is Required"
+
+        if(!payload.name) 
+            errors['Payroll Name'] = "Payroll Name is Required"
+
+        if(!payload.payroll_freq)
+            errors['Payment Frequency'] = "Payment Frequency is Required"
+
+        if(Object.keys(errors).length > 0) {
+            dispatch(HandleAlertAction({
+                open:true,
+                status:"error",
+                message: beautifyJSON(errors)
+            }))
+            return true
+        }
+        return false
+    }
+
     useEffect(()=>{
         if(PAYROLLGROUPCreatestate.status === `${globalReducerSuccess}`){
-            window.alert('Request Successful');
+            resetForm()
+            dispatch(HandleAlertAction({
+                open:true,
+                status:"success",
+                message:"Create Payroll Successful"
+            }))
             // window.location.reload();
             dispatch(PAYROLLGROUPViewAction());
             setTimeout(()=>{
                 dispatch(PAYROLLGROUPCreateActionFailureCleanup());
             }, 200)
         }else if(PAYROLLGROUPCreatestate.status === `${globalReducerFailed}`){
-            window.alert(`Request Failed, ${PAYROLLGROUPCreatestate.error}`)
+            dispatch(HandleAlertAction({
+                open:true,
+                status:"error",
+                // message:beautifyJSON(PAYROLLGROUPCreatestate?.error)
+                message:PAYROLLGROUPCreatestate?.error
+            }))
+            // window.alert(`Request Failed, ${PAYROLLGROUPCreatestate.error}`)
             setTimeout(()=> {
                 dispatch(PAYROLLGROUPCreateActionFailureCleanup());
             }, 200)
@@ -59,7 +110,7 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a Payroll Group Data</Typography>
-            <div className='flex flex-col gap-3 w-3/4 items-center'>
+            <form onSubmit={onClickSubmit} className='flex flex-col gap-3 w-3/4 items-center'>
                 <TextField
                     required 
                     sx={{width: '100%'}} 
@@ -81,7 +132,6 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
                     }}
                 />
                 <TextField
-                    required 
                     sx={{width: '100%'}} 
                     label='Description'
                     aria-required  
@@ -103,36 +153,38 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
                     }}
                     
                 />
-                        
-              <TextField
-                required 
-                sx={{width: '100%'}} 
-                label="Pay Frequency (Per Month)"
-                aria-required  
-                placeholder='1 - Monthly | 2 - Bi-Monthly | 3 - Daily'
-                variant='outlined' 
-                type="number"
-                value={createPAYROLLGROUP?.payroll_freq}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    const value = parseInt(event.target.value)
-                    setCreatePAYROLLGROUP((prevState)=> ({
-                        ...prevState,
-                        payroll_freq: value
-                    }));
-                }}
-                select
-            >
-                <MenuItem value={1}>1 - Monthly</MenuItem>
-                <MenuItem value={2}>2 - Bi-Monthly</MenuItem>
-                <MenuItem value={3}>3 - Daily</MenuItem>
-            </TextField>    
+                <FormControl fullWidth>
+                    <InputLabel id="frequency">Payment Frequency</InputLabel>
+                    <Select
+                        required 
+                        sx={{width: '100%'}} 
+                        labelId="frequency"
+                        label="Payment Frequency"
+                        aria-required  
+                        placeholder='1 - Monthly | 2 - Bi-Monthly | 3 - Daily'
+                        // variant='outlined' 
+                        type="number"
+                        value={createPAYROLLGROUP?.payroll_freq}
+                        onChange={(event: any) => {
+                            const value = parseInt(event.target.value)
+                            setCreatePAYROLLGROUP((prevState)=> ({
+                                ...prevState,
+                                payroll_freq: value
+                            }));
+                        }}
+                    >
+                        <MenuItem value={1}>1 - Monthly</MenuItem>
+                        <MenuItem value={2}>2 - Bi-Monthly</MenuItem>
+                        <MenuItem value={3}>3 - Daily</MenuItem>
+                    </Select>    
+                </FormControl>
 
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
-                        <Button variant='contained' onClick={onClickSubmit}>Create PAYROLLGROUP</Button>
+                        <Button variant='contained' type="submit">Create PAYROLLGROUP</Button>
                     </div>
                 </div>
-            </div>
+            </form>
         </React.Fragment>
     );
 }

@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from 'react';
 
 //LIBRARIES
-import { DataGrid, GridRowsProp, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { DataGrid, GridRowsProp, GridColDef, GridValueGetterParams, GridToolbar, GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid';
 import { Button } from "@material-tailwind/react";
 import axios from 'axios';
 import dayjs from 'dayjs';
@@ -20,6 +20,10 @@ import InputForm from '../../../public-components/forms/InputForm';
 
 //HELPERS
 import { fetchCutOffPeriods } from '@/helpers/ApiCalls'
+import { useDispatch } from 'react-redux';
+import { HandleModalAction } from '@/store/actions/components';
+import ViewOvertimeModal from '@/public-components/modals/ViewOvertimeModal';
+import { GridExportToolbar } from '@/public-components/GridExportToolbar';
 
 export default function ViewEmployeeLeaves() {
     
@@ -61,10 +65,10 @@ export default function ViewEmployeeLeaves() {
         setIsFetchReportError(false)
         setIsLoading(true);
 
-        await axios.get(`${APILink}ot`,{
+        await axios.get(`${APILink}overtime_report`,{
             params:{
                 cutoff: selectedCutOff?.id,
-                status: "APD"
+                // status: "APD"
             }
         }).then(response => {
 
@@ -126,6 +130,7 @@ export default function ViewEmployeeLeaves() {
         return {
             "Employee No.": obj.emp_no,
             "Employee Name": obj.emp_name,
+            "OT Business Date": obj.ot_business_date,
             "Date Start": obj.ot_date_from,
             "Date End": obj.ot_date_to,
             "OT Type": obj.ot_type,
@@ -134,7 +139,7 @@ export default function ViewEmployeeLeaves() {
 
     }):[]
 
-  
+    
 
     
     const columns: GridColDef[] = [
@@ -152,6 +157,14 @@ export default function ViewEmployeeLeaves() {
             width: 150,
             valueGetter: (params: GridValueGetterParams) => {
                 return params.row.emp_name as string;
+            },
+        },
+        {
+            field: 'ot_business_date', 
+            headerName: 'Business Date', 
+            width: 150,
+            valueGetter: (params: GridValueGetterParams) => {
+                return params.row.ot_business_date;
             },
         },
         {
@@ -238,7 +251,29 @@ export default function ViewEmployeeLeaves() {
     // const csvHeader = columns.map(column => column.headerName);
 
     
-  
+    const [selectedRow, setSelectedRow] = useState<any>(null)
+    const dispatch = useDispatch()
+    const openViewModal = () => {
+        dispatch(HandleModalAction({
+            name: "viewOvertimeModal",
+            value: true
+          }))
+    }
+    
+    const csvFileName = `Employee Overtime ${(selectedCutOff?.cleanDateFrom && selectedCutOff?.cleanDateTo) ? selectedCutOff?.cleanDateFrom +" - "+ selectedCutOff?.cleanDateTo: "" } `
+
+    const CustomToolbar = ()  => {
+        return (
+          <GridToolbarContainer>
+            <GridToolbarExport 
+                printOptions={{ disableToolbarButton: true }}   
+                csvOptions={{
+                    fileName: csvFileName,
+                }}/>
+          </GridToolbarContainer>
+        );
+    }
+
     return (
         <Fragment>
             <div className="my-10">
@@ -301,24 +336,27 @@ export default function ViewEmployeeLeaves() {
                 <div className="my-6 h-[500PX] w-full">
                     {/* add a loading interface here to indicate that the report needed is loading */}
                     <DataGrid
-                    rows={dataRows}
-                    columns={columns}
-                    initialState={{
-                        pagination: {
-                        paginationModel: { page: 0, pageSize: 100 },
-                        },
-                    }}
-                    pageSizeOptions={[25, 50, 75, 100]}
-                    // onRowClick={(e) => {
-                    //     setSingleUSERDetailsData(e.row);
-                    //     setSingleUSEROpenModal(true);
-                    // }}
-                    // disableRowSelectionOnClick 
-                    localeText={{ noRowsLabel: isFetchReportError? 'Something Went Wrong': isLoading? 'Loading Data...': 'No Data'}}
+                        rows={dataRows}
+                        columns={columns}
+                        initialState={{
+                            pagination: {
+                            paginationModel: { page: 0, pageSize: 100 },
+                            },
+                        }}
+                        pageSizeOptions={[25, 50, 75, 100]}
+                        onRowClick={(e) => {
+                            openViewModal()
+                            setSelectedRow(curr => e.row)
+                        }}
+                        // disableRowSelectionOnClick 
+                        localeText={{ noRowsLabel: isFetchReportError? 'Something Went Wrong': isLoading? 'Loading Data...': 'No Data'}}
+                        // slots={{ toolbar: CustomToolbar }}
                     />
 
 
                 </div>
+
+                <ViewOvertimeModal emp_no={selectedRow?.emp_no} ot_id={selectedRow?.id}/>
             </div>
         </Fragment>
     )

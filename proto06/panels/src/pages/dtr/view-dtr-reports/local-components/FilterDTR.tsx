@@ -52,7 +52,7 @@ export default function FilterDTR(props: Props) {
     //USE EFFECTS
     useEffect(() => {
 
-        viewType=="merged" && debounceFetchCutOffPeriods()
+        ['merged', 'cutoff'].includes(viewType) && debounceFetchCutOffPeriods()
 
     },[filter.year, viewType])
 
@@ -178,7 +178,8 @@ export default function FilterDTR(props: Props) {
 
                 dispatch(viewCutoffDtrSummary(
                     {
-                      emp_no: filter.emp_no
+                        cutoff_id: filter.cutoff_id? parseInt(filter.cutoff_id): null,
+                        emp_no: filter.emp_no
                     }
                   ));
                 break;
@@ -223,71 +224,63 @@ export default function FilterDTR(props: Props) {
 
     let renderElement: JSX.Element | null;
     
-    switch(viewType) {
+    if(viewType == 'logs') {
+        renderElement = (
+            <div className='flex flex-col md:flex-row gap-4 w-fit my-2 md:items-center'>
+                {textFieldYear}
+                <Autocomplete
+                    disablePortal
+                    id="months"
+                    options={monthOptions}
+                    defaultValue={currentMonth}
+                    getOptionLabel={(option:any) => `${option.name?? ""}`}
+                    onChange={handleChangeMonth}
+                    className='md:w-80'
+                    disabled={isCutOffPeriodLoading}
+                    renderInput={(params) => <TextField {...params} label="Month" />}
+                />
+                <Button className='w-20 h-fit py-4' onClick={handleViewDTR}>View</Button>
+            </div>
+        )
 
-        case 'logs':
-
+    } else if(['merged', 'cutoff'].includes(viewType)) {
+        if(cutoffPeriods.length> 0) {
             renderElement = (
                 <div className='flex flex-col md:flex-row gap-4 w-fit my-2 md:items-center'>
                     {textFieldYear}
                     <Autocomplete
                         disablePortal
-                        id="months"
-                        options={monthOptions}
-                        defaultValue={currentMonth}
-                        getOptionLabel={(option:any) => `${option.name}`}
-                        onChange={handleChangeMonth}
+                        id="cutoff"
+                        options={cutoffPeriods}
+                        getOptionLabel={(option:any) => option?.cleanDateFrom? `${option.cleanDateFrom} - ${option.cleanDateTo}`: ''}
+                        onChange={handleChangeCutoffId}
                         className='md:w-80'
                         disabled={isCutOffPeriodLoading}
-                        renderInput={(params) => <TextField {...params} label="Month" />}
+                        renderInput={(params) => <TextField {...params} label="Cutoff Periods" />}
                     />
                     <Button className='w-20 h-fit py-4' onClick={handleViewDTR}>View</Button>
                 </div>
             )
-            break;
+        } 
+        else {
+            renderElement = (
+                <div className='flex space-x-4 w-fit my-2'>
+                    {textFieldYear}
+                    <TextField
+                        className='md:w-80'
+                        type="text"
+                        label="Cutoff Periods"
+                        variant="outlined"
+                        placeholder="No cut off available on a selected year"
+                        disabled
+                    />
+                    <Button className='w-20 h-fit py-4' disabled onClick={handleViewDTR}>View</Button>
+                </div>
+            )
+        }
 
-        case 'merged':
-            
-            if(cutoffPeriods.length> 0) {
-                renderElement = (
-                    <div className='flex flex-col md:flex-row gap-4 w-fit my-2 md:items-center'>
-                        {textFieldYear}
-                        <Autocomplete
-                            disablePortal
-                            id="cutoff"
-                            options={cutoffPeriods}
-                            getOptionLabel={(option:any) => option? `${option.cleanDateFrom} - ${option.cleanDateTo}`: 'No option'}
-                            onChange={handleChangeCutoffId}
-                            className='md:w-80'
-                            disabled={isCutOffPeriodLoading}
-                            renderInput={(params) => <TextField {...params} label="Cutoff Periods" />}
-                        />
-                        <Button className='w-20 h-fit py-4' onClick={handleViewDTR}>View</Button>
-                    </div>
-                )
-            } 
-            else{
-                renderElement = (
-                    <div className='flex space-x-4 w-fit my-2'>
-                        {textFieldYear}
-                        <TextField
-                            className='md:w-80'
-                            type="text"
-                            label="Cutoff Periods"
-                            variant="outlined"
-                            placeholder="No cut off available on a selected year"
-                            disabled
-                        />
-                        <Button className='w-20 h-fit py-4' disabled onClick={handleViewDTR}>View</Button>
-                    </div>
-                )
-            }
-            break
-
-        default:
-            renderElement = null
-            break
-
+    } else {
+        renderElement = null
     }
 
 

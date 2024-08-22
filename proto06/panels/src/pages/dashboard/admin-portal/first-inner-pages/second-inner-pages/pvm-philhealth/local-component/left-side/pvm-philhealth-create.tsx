@@ -7,6 +7,7 @@ import EmployeeAutoComplete from './inner-ui-components/employee-autocomplete';
 import { Typography } from '@mui/joy';
 import { PHILHEALTHCreateInterface } from '@/types/types-payroll-variables';
 import { PHILHEALTHCreateAction, PHILHEALTHCreateActionFailureCleanup, PHILHEALTHViewAction } from '@/store/actions/payroll-variables';
+import EmployeeListField from '@/public-components/EmployeeListField';
 
 
 interface CreatePHILHEALTHModalInterface {
@@ -57,12 +58,30 @@ function PVMPHILHEALTHCreate(props: CreatePHILHEALTHModalInterface) {
         }
     }, [PHILHEALTHCreatestate.status])
 
+    const handleChangeEmpField = (e:any, newValue:any) => {
+        if(newValue) {
+            setCreatePHILHEALTH((prevState)=> 
+                (
+                    {
+                        ...prevState,
+                        emp_no: newValue.emp_no
+                    }
+                )
+            )
+        }
+    }
+
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain' level="h6">Create a 'Philhealth' Data</Typography>
             <div className='flex flex-col gap-6 overflow-auto w-3/4'>
                     <div className='flex flex-col gap-6 pt-4'>
-                        <EmployeeAutoComplete createPHILHEALTH={createPHILHEALTH} setCreatePHILHEALTH={setCreatePHILHEALTH}/>
+                        {/* <EmployeeAutoComplete createPHILHEALTH={createPHILHEALTH} setCreatePHILHEALTH={setCreatePHILHEALTH}/> */}
+                        <EmployeeListField 
+                            label="For Employee No.:" 
+                            handleChange={handleChangeEmpField} 
+                            currentValue={createPHILHEALTH.emp_no} 
+                        />
                     </div>
                     <div className='flex flex-col gap-6'>
                         <TextField

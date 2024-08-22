@@ -74,6 +74,7 @@ const viewFilterMergedDtrLogsApiCall = async (payload:any) => {
 const viewCutoffDtrSummaryApiCall = async (payload:any) => {
 
     const emp_no = payload.emp_no
+    const cutoff_id = payload?.cutoff_id
 
     if(emp_no){
 
@@ -82,7 +83,11 @@ const viewCutoffDtrSummaryApiCall = async (payload:any) => {
 
     } else{
 
-      const response = await axios.get(`${APILink}dtr_cutoff_summary`);
+      const response = await axios.get(`${APILink}dtr_cutoff_summary`,{
+        params: {
+          cutoff_code: cutoff_id
+        }
+      });
       return response.data;
 
     }

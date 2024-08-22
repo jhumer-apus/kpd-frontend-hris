@@ -8,7 +8,7 @@ import OBTTypeAutoComplete from './inner-ui-components/obt-type-autocomplete';
 import DateFromToOBTCreate from './inner-ui-components/date-from-to-field';
 import { Typography } from '@mui/joy';
 import { OBTCreateInterface } from '@/types/types-pages';
-import { OBTCreateAction, OBTCreateActionFailureCleanup } from '@/store/actions/procedurals';
+import { OBTCreateAction, OBTCreateActionFailureCleanup, OBTViewFilterEmployeeAction } from '@/store/actions/procedurals';
 
 //STORE
 import { APILink } from '@/store/configureStore';
@@ -16,6 +16,7 @@ import { APILink } from '@/store/configureStore';
 //LIBRARIES
 import axios, {AxiosResponse, AxiosError} from 'axios'
 import { beautifyJSON } from '@/helpers/utils';
+import { HandleAlertAction } from '@/store/actions/components';
 
 interface CreateOBTModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -55,28 +56,36 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
     
         await axios.post(`${APILink}reset_password_email/`, body).then(res => {
     
-          window.alert(`Application has been sent to the approver through email`)
+            dispatch(HandleAlertAction({
+                open:true,
+                status:"success",
+                message:"Application has been sent to the approver through email"
+            }))
     
         }).catch(err => {
     
-          console.log(err)
-          window.alert("Failed to email the approver")
+            console.log(err)
+            dispatch(HandleAlertAction({
+                open:true,
+                status:"error",
+                message:"Failed to email the approver"
+            }))
     
         })
     }
-    useEffect(()=>{
-        if(OBTCreatestate.status === 'succeeded'){
-            setIsSubmittingRequest(false)
-            window.alert('Request Successful');
-            window.location.reload();
-        }else if(OBTCreatestate.status === 'failed'){
-            setIsSubmittingRequest(false)
-            window.alert(`Request Failed, ${OBTCreatestate.error}`)
-            setTimeout(()=> {
-                dispatch(OBTCreateActionFailureCleanup());
-            }, 1000)
-        }
-    }, [OBTCreatestate.status])
+    // useEffect(()=>{
+    //     if(OBTCreatestate.status === 'succeeded'){
+    //         setIsSubmittingRequest(false)
+    //         window.alert('Request Successful');
+    //         window.location.reload();
+    //     }else if(OBTCreatestate.status === 'failed'){
+    //         setIsSubmittingRequest(false)
+    //         window.alert(`Request Failed, ${OBTCreatestate.error}`)
+    //         setTimeout(()=> {
+    //             dispatch(OBTCreateActionFailureCleanup());
+    //         }, 1000)
+    //     }
+    // }, [OBTCreatestate.status])
 
     const fileOBTPost = async() => {
 
@@ -90,14 +99,26 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
             added_by: userData?.emp_no,
         }
         await axios.post(`${APILink}obt/`, payload).then((res:AxiosResponse) => {
+
             setIsSubmittingRequest(false)
-            window.alert("Request Successful")
+            dispatch(OBTViewFilterEmployeeAction({emp_no: userData?.emp_no}))
+            dispatch(HandleAlertAction({
+                open:true,
+                status:"success",
+                message:"File OBT Successfully"
+            }))
+
             sendEmail(createOBT.emp_no, res.data.id)
 
-        }).catch((err:AxiosError) => {
+        }).catch((err:any) => {
+
             setIsSubmittingRequest(false)
-            console.log(err)
-            window.alert(beautifyJSON(err.response?.data))
+            dispatch(HandleAlertAction({
+                open:true,
+                status:"error",
+                message:beautifyJSON(err.response?.data)
+            }))
+
         })
     }
     

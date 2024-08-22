@@ -75,8 +75,8 @@ export default function HolidaysPage() {
                     <div className='flex justify-between'>
                     <Typography variant={'h6'} style={{alignItems: 'center', display: 'flex', paddingLeft: '10px'}}>List of Holidays</Typography>
                     <div>
-                      <Typography className='flex my-2'><p style={{background: HolidayColor._legal, borderRadius: '100px', width: '25px'}}></p>&nbsp;&nbsp;Regular Holiday</Typography>
-                      <Typography className='flex mb-2'><p style={{background: HolidayColor._special, borderRadius: '100px', width: '25px'}}></p>&nbsp;&nbsp;Special Holiday</Typography>  
+                      <Typography className='flex my-2'><p style={{background: HolidayColor._legal_hex, borderRadius: '100px', width: '25px'}}></p>&nbsp;&nbsp;Regular Holiday</Typography>
+                      <Typography className='flex mb-2'><p style={{background: HolidayColor._special_hex, borderRadius: '100px', width: '25px'}}></p>&nbsp;&nbsp;Special Holiday</Typography>  
                     </div>
                     </div>
                     <ListOfHolidaysComponent value={value} setValue={setValue}/>

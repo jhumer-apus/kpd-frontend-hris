@@ -89,7 +89,7 @@ export default function EditEMPSEMINARSModal(props: EditEMPSEMINARSModalInterfac
         setSingleEMPSEMINARSOpenModal(false)
       }else if (EMPSEMINARSEditState.status === 'failed'){
         window.alert(`${EMPSEMINARSEditState.error}`)
-        dispatch(EMPSEMINARSCreateActionFailureCleanup());
+        dispatch(EMPSEMINARSEditActionFailureCleanup());
       }
     };
 

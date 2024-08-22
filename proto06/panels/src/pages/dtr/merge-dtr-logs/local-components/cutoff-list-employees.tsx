@@ -9,6 +9,7 @@ import {Button} from "@mui/material";
 import { RootState } from "@/store/configureStore";
 import { CutoffListMergeSelectionState } from "@/types/types-pages";
 import CircularStatic from "../local-progress/circular-progress";
+import { HandleAlertAction } from "@/store/actions/components";
 
 const columns = [
   {
@@ -97,13 +98,24 @@ export default function CutOffListEmployees(props: CutOffListEmployees) {
   };
   useEffect(()=>{
     if(page_state.status === 'succeeded'){
-      window.alert(`${page_state.status.charAt(0).toUpperCase()}${page_state.status.slice(1)}`)
+      dispatch(HandleAlertAction({
+        open:true,
+        status: "success",
+        message: "Merge DTR Succesful"
+      }))
+      // window.alert(`${page_state.status.charAt(0).toUpperCase()}${page_state.status.slice(1)}`)
       // setTimeout(()=>{
       //   window.location.reload(); //no need to reload
       // }, 800)
-    } else if(page_state.status === 'failed'){
-      window.alert(page_state.error)
       dispatch(mergeCutoffListAndEmployeeFailureCleanup())
+    } else if(page_state.status === 'failed'){
+      dispatch(HandleAlertAction({
+        open:true,
+        status: "error",
+        message: page_state.error
+      }))
+      // window.alert(page_state.error)
+      // dispatch(mergeCutoffListAndEmployeeFailureCleanup())
     }
   }, [page_state.status])
 

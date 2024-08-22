@@ -182,7 +182,7 @@ export const LEAVEViewFilterEmployeeAndLEAVEActionProgress = createAction<number
 export const LEAVEViewFilterEmployeeAndLEAVEActionFailure = createAction<string>("LEAVE_VIEW_FILTER_EMPLOYEE_AND_LEAVE_ACTION_FAILURE");
 export const LEAVEViewFilterEmployeeAndLEAVEActionFailureCleanup = createAction("LEAVE_VIEW_FILTER_EMPLOYEE_AND_LEAVE_ACTION_FAILURE_CLEANUP");
 
-
+export const LEAVEViewAllFilterApproverAction = createAction<{data: any[]}>("LEAVE_VIEW_ALL_FILTER_APPROVER_ACTION");
 export const LEAVEViewFilterApproverAction = createAction<{emp_no: number}>("LEAVE_VIEW_FILTER_APPROVER_ACTION");
 export const LEAVEViewFilterApproverActionSuccess = createAction("LEAVE_VIEW_FILTER_APPROVER_ACTION_SUCCESS", (SuccessMessage: LEAVEViewInterface[]) => { 
     return({ payload: {SuccessMessage} })});

@@ -6,9 +6,13 @@ import { UAViewInterface, ViewPayrollPayPerEmployee } from '@/types/types-pages'
 import SinglePayslip from './ua-modal-component';
 import { Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/configureStore';
+import { APILink, RootState } from '@/store/configureStore';
 import dayjs from 'dayjs';
-import { UAEditAction } from '@/store/actions/procedurals';
+import { UAEditAction, UAViewAction } from '@/store/actions/procedurals';
+import axios from 'axios';
+import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
+import { beautifyJSON } from '@/helpers/utils';
+import { useState } from 'react';
 
 
 
@@ -24,48 +28,97 @@ export default function ApproveUAModal(props: ApproveUAModalInterface) {
   const state = useSelector((state: RootState)=> state.auth.employee_detail);
   const UAApproveState = useSelector((state: RootState)=> state.procedurals.UAEdit)
   const {approveUAOpenModal, setApproveUAOpenModal, singleUADetailsData, setSingleUADetailsData} = props;
-
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  
   const approveUA = () => { 
     const DateNow = new Date();
     const approvedDate = dayjs(DateNow).format('YYYY-MM-DDTHH:mm:ss');
-    if(state?.emp_no === singleUADetailsData.ua_approver1_empno || ((state?.rank_code as number) > singleUADetailsData?.applicant_rank) || state?.rank_hierarchy == 6){
-      setSingleUADetailsData((prevState)=> {
-        dispatch(UAEditAction({
-          ...prevState,
-          ua_date_approved1: approvedDate
-        }))
-        return({
-          ...prevState,
-          ua_date_approved1: approvedDate
-        })
-      })
-    } else if(state?.emp_no === singleUADetailsData.ua_approver2_empno){
-      setSingleUADetailsData((prevState)=> {
-        dispatch(UAEditAction({
-          ...prevState,
-          ua_date_approved2: approvedDate
-        }))
-        return({
-          ...prevState,
-          leave_date_approved2: approvedDate
-        })
-      })
-    } else {
-      window.alert('You are not one of the approvers.')
+    
+    const payload = {
+      ...singleUADetailsData,
+      approver_emp_no: state?.emp_no,
+      status: "approve",
+      ua_reason_disapproval: null,
+      added_by: state?.emp_no
     }
+    
+    if(state?.emp_no === singleUADetailsData.ua_approver1_empno || ((state?.rank_code as number) > singleUADetailsData?.applicant_rank) || state?.rank_hierarchy == 6){
+      
+      payload.ua_date_approved1 = approvedDate
+      setSingleUADetailsData((curr:any) => ({
+        ...payload
+      }))
+      apiApproveUa(payload)
 
+    } else if(state?.emp_no === singleUADetailsData.ua_approver2_empno){
+      
+      payload.ua_date_approved2 = approvedDate
+      setSingleUADetailsData((curr:any) => ({
+        ...payload
+      }))
+      apiApproveUa(payload)
+
+    } else {
+
+      dispatch(HandleAlertAction({
+        open:true,
+        status:"error",
+        message: "You are not one of the approvers"
+      }))
+
+    }
   }
 
-  React.useEffect(()=>{
-    if(UAApproveState.status === 'succeeded' && approveUAOpenModal){
-      window.alert(`${UAApproveState.status.charAt(0).toUpperCase()}${UAApproveState.status.slice(1)}`)
-      setTimeout(()=>{
-        window.location.reload();
-      }, 800)
-    } else if(UAApproveState.status === 'failed' && approveUAOpenModal){
-      window.alert(`Error: ${UAApproveState.error}`)
-    }
-  }, [UAApproveState.status])
+  const apiApproveUa = async (payload:any) => {
+
+    setIsLoading(curr => true)
+
+    await axios.put(`${APILink}ua_new/${singleUADetailsData.id}/`, payload)
+        
+      .then(res => {
+
+        dispatch(UAViewAction({emp_no: state?.emp_no}))
+        dispatch(HandleAlertAction({
+            open:true,
+            status:"success",
+            message:"Approve Unaccounted Attendance Successfully"
+        }))
+
+        dispatch(HandleModalAction({
+          name: "viewUaModal",
+          value: false
+        }))
+
+        setIsLoading(curr => false)
+      })
+      .catch((err:any) => {
+
+        dispatch(UAViewAction({emp_no: state?.emp_no}))
+        dispatch(HandleAlertAction({
+          open:true,
+          status:"error",
+          message: beautifyJSON(err.response.data)
+        }))
+
+        dispatch(HandleModalAction({
+          name: "viewUaModal",
+          value: false
+        }))
+
+        setIsLoading(curr => false)
+      })
+  }
+
+  // React.useEffect(()=>{
+  //   if(UAApproveState.status === 'succeeded' && approveUAOpenModal){
+  //     window.alert(`${UAApproveState.status.charAt(0).toUpperCase()}${UAApproveState.status.slice(1)}`)
+  //     setTimeout(()=>{
+  //       window.location.reload();
+  //     }, 800)
+  //   } else if(UAApproveState.status === 'failed' && approveUAOpenModal){
+  //     window.alert(`Error: ${UAApproveState.error}`)
+  //   }
+  // }, [UAApproveState.status])
   
   return (
     <React.Fragment>
@@ -115,8 +168,8 @@ export default function ApproveUAModal(props: ApproveUAModalInterface) {
                 <Typography>Are you sure you want to approve this UA?</Typography>
               </div>
               <div className='flex justify-around'>
-                <Button variant={'contained'} onClick={approveUA}>Submit</Button>
-                <Button variant={'outlined'} onClick={()=>{setApproveUAOpenModal(false)}}>Cancel</Button>
+                <Button disabled={isLoading} variant={'contained'} onClick={approveUA}>Submit</Button>
+                <Button disabled={isLoading} variant={'outlined'} onClick={()=>{setApproveUAOpenModal(false)}}>Cancel</Button>
               </div>
             </div>
           </div>

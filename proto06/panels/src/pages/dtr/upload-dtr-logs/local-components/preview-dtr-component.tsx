@@ -13,17 +13,17 @@ const columns = [
     width: 142,
   },
   {
-    field: "time_in",
-    headerName: "Time In"
+    field: "work_status",
+    headerName: "Status"
   },
-  {
-    field: "time_out",
-    headerName: "Time Out"
-  },
-  {
-    field: "branch",
-    headerName: "Branch"
-  },
+  // {
+  //   field: "time_out",
+  //   headerName: "Time Out"
+  // },
+  // {
+  //   field: "branch",
+  //   headerName: "Branch"
+  // },
 ];
 
 interface PreviewDtrType {

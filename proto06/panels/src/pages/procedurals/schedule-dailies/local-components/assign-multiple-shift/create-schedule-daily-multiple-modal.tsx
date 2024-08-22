@@ -25,24 +25,29 @@ import FormLabel from '@mui/material/FormLabel';
 import EmployeeAutoCompleteLeft from '../employee-autocomplete/employee-autocomplete-left';
 import LimitTags from './inner-local-component/inner-schedule-daily-multiple-modal';
 import MultiEmployeeAutoCompleteLeft from './inner-local-component/inner-schedule-daily-multiple-modal';
+import EmployeeListField from '@/public-components/EmployeeListField';
 
 
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  p: 4,
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 3,
-  width: 400,
-  overflow: 'auto',
-  height: 800
-//   height: '100%',
-};
+// const style = {
+//   position: 'absolute' as 'absolute',
+//   top: '50%',
+//   left: '50%',
+//   transform: 'translate(-50%, -50%)',
+//   bgcolor: 'background.paper',
+//   boxShadow: 24,
+//   p: 4,
+//   display: 'flex',
+//   flexDirection: 'column',
+//   gap: 3,
+//   width: 400,
+//   overflow: 'auto',
+// //   height: '100%',
+// };
+
+const modalStyle = {
+    // height: "400px",
+    overflowY:"auto"
+}
 
 interface CreateSCHEDULEDAILYMultipleModalInterface {
     open2?: boolean,
@@ -110,15 +115,30 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
         }
     }
 
+    const handleChangeEmpField = (e:any, newValue:any) => {
+        if(newValue) {
+            console.log(newValue)
+            setCreateSCHEDULEDAILYForm((prevState:any)=> 
+                (
+                    {
+                        ...prevState,
+                        emp_no: newValue.map((emp:any) => emp.emp_no)
+                    }
+                )
+            )
+        }
+    }
+
     return (
         <div>
             <Modal
-            open={open2 ?? false}
-            onClose={handleClose2}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
+                open={open2 ?? false}
+                onClose={handleClose2}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+                className='overflow-y-auto'
             >
-            <Box sx={style}>
+            <Box className="bg-white flex flex-col gap-4 w-96 m-auto p-4  overflow-auto my-8">
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                     Assign Daily Schedule to Multiple Employees
                 </Typography>
@@ -159,7 +179,13 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
                     />
                 </LocalizationProvider>
                 {/* <EmployeeAutoCompleteLeft createSCHEDULEDAILY={createSCHEDULEDAILYForm} setCreateSCHEDULEDAILY={setCreateSCHEDULEDAILYForm}/> */}
-                <MultiEmployeeAutoCompleteLeft createSCHEDULEDAILY={createSCHEDULEDAILYForm} setCreateSCHEDULEDAILY={setCreateSCHEDULEDAILYForm}/>
+                {/* <MultiEmployeeAutoCompleteLeft createSCHEDULEDAILY={createSCHEDULEDAILYForm} setCreateSCHEDULEDAILY={setCreateSCHEDULEDAILYForm}/> */}
+                <EmployeeListField 
+                    label="For Employee No.:" 
+                    handleChange={handleChangeEmpField} 
+                    currentValue={createSCHEDULEDAILYForm.emp_no}
+                    multiple={true}
+                />
                 
                 {/* <FormControl>
                     <FormLabel id="demo-controlled-radio-buttons-group">Is Restday</FormLabel>

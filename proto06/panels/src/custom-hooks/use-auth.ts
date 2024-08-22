@@ -35,11 +35,21 @@ export function useAuth() {
   // }, [status])
 
   const fetchEmployeeDetails = async(token:string, user:any)  => {
+
     setLoading(true)
-    axios.get(`${APILink}employees/${user.emp_no}`).then(res => {
+
+    await axios.get(`${APILink}employees/${user.emp_no}`).then(res => {
+      
       const employeeDetail = res.data
       dispatch(userLoginActionSuccess(token, user, employeeDetail));
       setLoading(false);
+
+    }).catch(err => {
+
+      Cookies.remove('token');
+      Cookies.remove('user');
+      setLoading(false);
+
     })
   }
 

@@ -8,6 +8,8 @@ import { Typography } from '@mui/joy';
 import { PAGIBIGCreateInterface } from '@/types/types-payroll-variables';
 import { PAGIBIGCreateAction, PAGIBIGCreateActionFailureCleanup, PAGIBIGViewAction } from '@/store/actions/payroll-variables';
 import DeductionsPAGIBIGCreateModal from './local-components/main-modals/pvm-pagibig-create-modal-left';
+import { cleanTextNumber } from '@/helpers/utils';
+import EmployeeListField from '@/public-components/EmployeeListField';
 
 
 
@@ -65,12 +67,30 @@ function PVMPAGIBIGCreate(props: CreatePAGIBIGModalInterface) {
         }
     }, [PAGIBIGCreatestate.status])
 
+    const handleChangeEmpField = (e:any, newValue:any) => {
+        if(newValue) {
+            setCreatePAGIBIG((prevState)=> 
+                (
+                    {
+                        ...prevState,
+                        emp_no: newValue.emp_no
+                    }
+                )
+            )
+        }
+    }
+
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain' level="h6">Create a 'Pagibig' Data</Typography>
             <div className='flex flex-col gap-6 overflow-auto w-3/4'>
                     <div className='flex flex-col gap-6 pt-4'>
-                        <EmployeeAutoComplete createPAGIBIG={createPAGIBIG} setCreatePAGIBIG={setCreatePAGIBIG}/>
+                        <EmployeeListField 
+                            label="For Employee No.:" 
+                            handleChange={handleChangeEmpField} 
+                            currentValue={createPAGIBIG.emp_no} 
+                        />
+                        {/* <EmployeeAutoComplete createPAGIBIG={createPAGIBIG} setCreatePAGIBIG={setCreatePAGIBIG}/> */}
                     </div>
                     <div className='flex flex-col gap-6'>
                         <TextField
@@ -80,15 +100,24 @@ function PVMPAGIBIGCreate(props: CreatePAGIBIGModalInterface) {
                             placeholder='Input 12 digit number'
                             aria-required  
                             variant='outlined' 
-                            type="text"
+                            inputProps={{
+                                maxLength:"12",
+                                type:"text",
+                                pattern: "\\d*"
+                            }}
                             value={createPAGIBIG?.pagibig_no}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = String(event.target.value)
-                                setCreatePAGIBIG((prevState)=> {
+
+                                let value:string | number = event.target.value;
+
+                                // Filter out non-numeric characters and enforce maximum length
+                                value = cleanTextNumber(value)
+
+                                setCreatePAGIBIG((prevState:any)=> {
                                     return (
                                         {
                                             ...prevState,
-                                            pagibig_no: value
+                                            pagibig_no: String(value)
                                         }
                                     )
                                 })
