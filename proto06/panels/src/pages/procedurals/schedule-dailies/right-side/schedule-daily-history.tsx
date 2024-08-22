@@ -48,12 +48,12 @@ export default function ProceduralSCHEDULEDAILYPageHistory(props: ProceduralSCHE
       dispatch(SCHEDULEDAILYViewFilterEmployeeAction({emp_no: currEmployee}))
   }, [currEmployee]);
 
-  const filterSelectedRows = (arrayRowId: GridRowSelectionModel, details: GridCallbackDetails) => {
-    const filteredRows = SCHEDULEDAILYViewData.filter((data:any, index:number) => {
-      if(arrayRowId.includes(data.id)) return data
-    })
-    setSelectedRows(curr => filteredRows)
-  }
+  // const filterSelectedRows = (arrayRowId: GridRowSelectionModel, details: GridCallbackDetails) => {
+  //   const filteredRows = SCHEDULEDAILYViewData.filter((data:any, index:number) => {
+  //     if(arrayRowId.includes(data.id)) return data
+  //   })
+  //   setSelectedRows(curr => filteredRows)
+  // }
 
   const editOpenModal = () => {
       dispatch(HandleModalAction({
@@ -79,7 +79,7 @@ export default function ProceduralSCHEDULEDAILYPageHistory(props: ProceduralSCHE
         // style={{ width: '100%' }} 
         className="w-full"
       >
-        <Button className='mb-2 px-4 py-2' disabled={selectedRows.length == 0} onClick={() => editOpenModal()}>Edit</Button>
+        <Button className='mb-2 px-4 py-2' onClick={() => editOpenModal()}>Bulk Update Schedule</Button>
         <DataGrid
           autoHeight
           // autoPageSize
@@ -98,11 +98,11 @@ export default function ProceduralSCHEDULEDAILYPageHistory(props: ProceduralSCHE
             setSingleSCHEDULEDAILYOpenModal(true);
           }}
           disableRowSelectionOnClick
-          checkboxSelection
-          onRowSelectionModelChange={filterSelectedRows}
+          // checkboxSelection
+          // onRowSelectionModelChange={filterSelectedRows}
           localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
           />
-        <EditBulkEmployeeSched emp_nos={selectedRows} />
+        <EditBulkEmployeeSched />
       </div>
     </Fragment>
   );
