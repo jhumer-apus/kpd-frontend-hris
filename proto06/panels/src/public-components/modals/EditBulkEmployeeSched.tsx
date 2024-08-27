@@ -7,14 +7,16 @@ import AutocompleteForm from "../forms/AutoCompleteForm";
 import axios from "axios";
 import { Typography } from "@material-tailwind/react";
 import EmployeeListField from "../EmployeeListField";
+import { SCHEDULEDAILYViewFilterEmployeeAction } from "@/store/actions/procedurals";
 
 interface Props {
-    selectedRows: any[]
+    selectedRows: any[],
+    emp_no: number | null
 }
 
 export default function EditBulkEmployeeSched(props: Props) {
 
-    const { selectedRows:selectedSchedShifts } = props
+    const { selectedRows:selectedSchedShifts, emp_no } = props
 
     const dispatch = useDispatch()
     const { editBulkEmployeeSchedModal } = useSelector((state:RootState) => state.component)
@@ -28,7 +30,7 @@ export default function EditBulkEmployeeSched(props: Props) {
     })
 
     const [shiftData, setShiftData] = useState<any>({
-        emp_no: null,
+        emp_no: emp_no,
         emp_schedule_daily: selectedSchedShifts,
         schedule_shift_code: null,
         is_restday: true,
@@ -74,15 +76,15 @@ export default function EditBulkEmployeeSched(props: Props) {
         }))
     }
 
-    const handleChangeEmployee = (e:any, newValue:any) => {
-        if(newValue) {
-            setShiftData((curr:any) => ({
-                ...curr,
-                emp_no: newValue?.emp_no
-            }))
-        }
-        fetchEmployeeSchedule(newValue?.emp_no)
-    }
+    // const handleChangeEmployee = (e:any, newValue:any) => {
+    //     if(newValue) {
+    //         setShiftData((curr:any) => ({
+    //             ...curr,
+    //             emp_no: newValue?.emp_no
+    //         }))
+    //     }
+    //     fetchEmployeeSchedule(newValue?.emp_no)
+    // }
     const handleChange = (e: any) => {
         setShiftData((curr:any) => ({
             ...curr,
@@ -91,14 +93,14 @@ export default function EditBulkEmployeeSched(props: Props) {
     }
 
     const updateEmployeesSchedule = async (payload:any) => {
-        await axios.put(`${APILink}update_schedules/${shiftData?.emp_no}/`, payload)
+        await axios.put(`${APILink}update_schedules/${emp_no}/`, payload)
             .then(res => {
                 dispatch(HandleAlertAction({
                     open:true,
                     status:"success",
                     message:"Update Employee Schedule Successfully"
                 }))
-
+                dispatch(SCHEDULEDAILYViewFilterEmployeeAction({emp_no: emp_no as number}))
                 handleClose()
             })
     }
@@ -108,6 +110,7 @@ export default function EditBulkEmployeeSched(props: Props) {
 
         const payload = {
             ...shiftData,
+            emp_no: emp_no,
             emp_schedule_daily: selectedSchedShifts,
             is_restday: shiftData?.is_restday?? false,
             added_by: currUser?.emp_no
@@ -117,7 +120,7 @@ export default function EditBulkEmployeeSched(props: Props) {
         if(!payload.emp_no)  setError((curr:any) => ({...curr, emp_no:true}))
         if(!payload.is_restday)  setError((curr:any) => ({...curr, is_restday:true}))
 
-            Object.keys(error).length > 0 && Object.keys(error).forEach(key=> {
+        error && typeof error === 'object' && Object.keys(error).length > 0 && Object.keys(error).forEach(key=> {
             if(error[key]) {
                 return
             }
@@ -137,14 +140,14 @@ export default function EditBulkEmployeeSched(props: Props) {
                 <form onSubmit={handleSubmit} className='modal-content flex flex-col gap-4 w-[300px] h-full'>
                     <Typography variant="h5" className="bg-blue-50 p-2 mb-4">Bulk Update Employees Schedule</Typography>
 
-                    <FormControl required error={error?.emp_no}>
+                    {/* <FormControl required error={error?.emp_no}>
                         <EmployeeListField 
                             label="Select Employee"
                             handleChange={handleChangeEmployee} 
                             currentValue={shiftData?.emp_no}
                         />
                         {error?.emp_no && <FormHelperText id="emp_no">Please select an employee</FormHelperText>}
-                    </FormControl>
+                    </FormControl> */}
 
                     <FormControl required error={error?.schedule_shift_code}>
                         <AutocompleteForm 

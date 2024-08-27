@@ -102,7 +102,10 @@ export default function ProceduralSCHEDULEDAILYPageHistory(props: ProceduralSCHE
           onRowSelectionModelChange={filterSelectedRows}
           localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  `${globalServerErrorMsg}` : 'Data Loaded - Showing 0 Results'}` }}
           />
-        <EditBulkEmployeeSched selectedRows={selectedRows}/>
+        <EditBulkEmployeeSched 
+          selectedRows={selectedRows}
+          emp_no={currEmployee}
+        />
       </div>
     </Fragment>
   );
