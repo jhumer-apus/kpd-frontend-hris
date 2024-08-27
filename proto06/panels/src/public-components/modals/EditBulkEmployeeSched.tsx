@@ -8,7 +8,13 @@ import axios from "axios";
 import { Typography } from "@material-tailwind/react";
 import EmployeeListField from "../EmployeeListField";
 
-export default function EditBulkEmployeeSched() {
+interface Props {
+    selectedRows: any[]
+}
+
+export default function EditBulkEmployeeSched(props: Props) {
+
+    const { selectedRows:selectedSchedShifts } = props
 
     const dispatch = useDispatch()
     const { editBulkEmployeeSchedModal } = useSelector((state:RootState) => state.component)
@@ -23,7 +29,7 @@ export default function EditBulkEmployeeSched() {
 
     const [shiftData, setShiftData] = useState<any>({
         emp_no: null,
-        emp_schedule_daily:[],
+        emp_schedule_daily: selectedSchedShifts,
         schedule_shift_code: null,
         is_restday: true,
         added_by: currUser?.emp_no
@@ -48,18 +54,18 @@ export default function EditBulkEmployeeSched() {
             .then(res => setScheduleShifts(curr => Array.isArray(res.data) ? res.data: []))
     }
 
-    const fetchEmployeeSchedule = async (emp_no: number) => {
-        await axios
-            .get(`${APILink}schedule_daily/${emp_no}/`)
-            .then(res => {
-                setShiftData((curr:any)=> (
-                    {
-                        ...curr,
-                        emp_schedule_daily: Array.isArray(res.data) ? res.data.map(shift => shift.id): []
-                    }
-                ))
-            })
-    }
+    // const fetchEmployeeSchedule = async (emp_no: number) => {
+    //     await axios
+    //         .get(`${APILink}schedule_daily/${emp_no}/`)
+    //         .then(res => {
+    //             setShiftData((curr:any)=> (
+    //                 {
+    //                     ...curr,
+    //                     emp_schedule_daily: Array.isArray(res.data) ? res.data.map(shift => shift.id): []
+    //                 }
+    //             ))
+    //         })
+    // }
 
     const handleChangeShift = (e:any, newValue:any) => {
         setShiftData((curr:any) => ({
@@ -102,6 +108,7 @@ export default function EditBulkEmployeeSched() {
 
         const payload = {
             ...shiftData,
+            emp_schedule_daily: selectedSchedShifts,
             is_restday: shiftData?.is_restday?? false,
             added_by: currUser?.emp_no
         }
