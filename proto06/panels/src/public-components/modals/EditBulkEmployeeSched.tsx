@@ -110,7 +110,7 @@ export default function EditBulkEmployeeSched(props: Props) {
 
         const payload = {
             ...shiftData,
-            schedule_shift_code: shiftData?.schedule_shift_code ?? null,
+            schedule_shift_code: shiftData?.is_restday? null: (shiftData?.schedule_shift_code ?? null),
             emp_no: emp_no,
             emp_schedule_daily: selectedSchedShifts,
             is_restday: shiftData?.is_restday?? false,
