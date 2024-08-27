@@ -33,7 +33,7 @@ export default function EditBulkEmployeeSched(props: Props) {
         emp_no: emp_no,
         emp_schedule_daily: selectedSchedShifts,
         schedule_shift_code: null,
-        is_restday: true,
+        is_restday: false,
         added_by: currUser?.emp_no
     })
 
@@ -110,6 +110,7 @@ export default function EditBulkEmployeeSched(props: Props) {
 
         const payload = {
             ...shiftData,
+            schedule_shift_code: shiftData?.schedule_shift_code ?? null,
             emp_no: emp_no,
             emp_schedule_daily: selectedSchedShifts,
             is_restday: shiftData?.is_restday?? false,
@@ -117,7 +118,7 @@ export default function EditBulkEmployeeSched(props: Props) {
         }
 
         if(!payload.schedule_shift_code)  setError((curr:any) => ({...curr, schedule_shift_code:true}))
-        if(!payload.emp_no)  setError((curr:any) => ({...curr, emp_no:true}))
+        if(!payload.is_restday && !payload.emp_no)  setError((curr:any) => ({...curr, emp_no:true}))
         if(!payload.is_restday)  setError((curr:any) => ({...curr, is_restday:true}))
 
         error && typeof error === 'object' && Object.keys(error).length > 0 && Object.keys(error).forEach(key=> {
@@ -148,19 +149,6 @@ export default function EditBulkEmployeeSched(props: Props) {
                         />
                         {error?.emp_no && <FormHelperText id="emp_no">Please select an employee</FormHelperText>}
                     </FormControl> */}
-
-                    <FormControl required error={error?.schedule_shift_code}>
-                        <AutocompleteForm 
-                            id="sched_shifts"
-                            options={scheduleShifts} 
-                            label="Schedule Shifts"
-                            getOptionLabel={(option:any) => option?.name?? ""} 
-                            handleChange={handleChangeShift} 
-                            optionTitle={"name"} 
-                            defaultValueId={shiftData?.schedule_shift_code} 
-                        />
-                        {error?.schedule_shift_code && <FormHelperText id="sched-shift">Sched Shifts is required</FormHelperText>}
-                    </FormControl>
                     <FormGroup>
                         <FormControlLabel 
                             name="is_restday"
@@ -169,6 +157,19 @@ export default function EditBulkEmployeeSched(props: Props) {
                             onChange={handleChange}
                         />
                     </FormGroup>
+                    <FormControl required error={error?.schedule_shift_code}>
+                        <AutocompleteForm 
+                            id="sched_shifts"
+                            options={scheduleShifts} 
+                            label="Schedule Shifts"
+                            getOptionLabel={(option:any) => option?.name?? ""} 
+                            handleChange={handleChangeShift} 
+                            optionTitle={"name"} 
+                            defaultValueId={shiftData?.schedule_shift_code}
+                            disabled={shiftData?.is_restday}
+                        />
+                        {!shiftData?.is_restday && error?.schedule_shift_code && <FormHelperText id="sched-shift">Sched Shifts is required</FormHelperText>}
+                    </FormControl>
                     <div>
                         <Button onClick={() => handleClose()}>Cancel</Button>
                         <Button type="submit">Update</Button>

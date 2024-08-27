@@ -9,11 +9,12 @@ interface Props {
     handleChange: (e:any, newValue: string | null) => void
     optionTitle: string
     defaultValueId: number | null
+    disabled: boolean
 
 }
 export default function AutocompleteForm(props: Props) {
 
-    const { id, label, options, getOptionLabel, handleChange, optionTitle, defaultValueId} = props
+    const { id, label, options, getOptionLabel, handleChange, optionTitle, defaultValueId, disabled} = props
 
     const categorizeOptions = options.map((option) => {
         const firstLetter = option[optionTitle][0].toUpperCase();
@@ -36,6 +37,7 @@ export default function AutocompleteForm(props: Props) {
             renderInput={(params) => <TextField {...params} label={label || ""} />}
             isOptionEqualToValue={isOptionEqualToValue}
             value={findValue}
+            disabled={disabled}
         />
       );
 }
