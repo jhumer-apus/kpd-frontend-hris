@@ -34,6 +34,7 @@ export default function ViewOBTModal (props: Props) {
         obt_location: null,
         obt_date_from: null,
         obt_date_to: null,
+        obt_business_date: null,
         obt_approval_status: null,
         obt_total_hours: 0,
         obt_reason_disapproval: "",
@@ -252,6 +253,15 @@ export default function ViewOBTModal (props: Props) {
                                     readOnly: true,
                                 }}
                                 value={details.obt_date_approved2? dayjs(details.obt_date_approved2).format("YYYY-MM-DD hh:mm"): ""}
+                            />
+                        </Grid>
+
+                        <Grid item xs={6}>
+                            <TextField 
+                                sx={{width: '100%'}} 
+                                label='Business Date:' 
+                                value={details?.obt_business_date? dayjs(details?.obt_business_date).format('MM-DD-YYYY') : ""} 
+                                InputProps={{readOnly: true,}} 
                             />
                         </Grid>
 
