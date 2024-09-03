@@ -87,7 +87,7 @@ function OBTModalUI(props: OBTModalUIInterface) {
         <React.Fragment>
             <ApproveOBTModal singleOBTDetailsData={singleOBTDetailsData} setSingleOBTDetailsData={setSingleOBTDetailsData} approveOBTOpenModal={approveOBTOpenModal} setApproveOBTOpenModal={setApproveOBTOpenModal}/>
             <DenyOBTModal singleOBTDetailsData={singleOBTDetailsData} setSingleOBTDetailsData={setSingleOBTDetailsData} denyOBTOpenModal={denyOBTOpenModal} setDenyOBTOpenModal={setDenyOBTOpenModal}/>
-            <div className='flex gap-10 overflow-auto relative'>
+            <div className='flex flex-col md:flex-row gap-10 overflow-auto relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Date & Time Filed:' value={ThisProps.obt_date_filed ? dayjs(ThisProps.obt_date_filed).format(`${globalDateTime}`) : '-'} InputProps={{readOnly: false,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Total hrs:' value={(ThisProps.obt_total_hours / 60).toFixed(2) || '-'} InputProps={{readOnly: true,}} variant='standard'/>
@@ -112,15 +112,15 @@ function OBTModalUI(props: OBTModalUIInterface) {
                     {/* <TextField sx={{width: '100%', minWidth: '160px'}} label='Employee #:' value={ThisProps.emp_no || '-'} InputProps={{readOnly: true,}} variant='filled'/>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='OBT Type:' value={ThisProps.obt_type || '-'} InputProps={{readOnly: true,}} variant='standard'/> */}
                     <TextField sx={{width: '100%', minWidth: '160px'}} focused={!!ThisProps.obt_reason_disapproval} color={'error'} label='Reason for Disapproval:' value={ThisProps.obt_reason_disapproval || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
-                    {ThisProps.obt_approval_status === 'APD' && <img src={ '/img/stampApproved2.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
-                    {ThisProps.obt_approval_status === 'DIS' && <img src={ '/img/stampRejected.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
+                    {ThisProps.obt_approval_status === 'APD' && <img src={ '/img/stampApproved2.png' } className='h-32 md:absolute bottom-0 right-0'></img>}
+                    {ThisProps.obt_approval_status === 'DIS' && <img src={ '/img/stampRejected.png' } className='h-32 md:absolute bottom-0 right-0'></img>}
                 </div>
 
             </div>
             {(ThisProps.obt_approval_status?.includes('1') || ThisProps.obt_approval_status?.includes('2')) && 
                 <div className='flex flex-col justify-center items-center'>
                 <div className='flex justify-center mt-6' container-name='obt_buttons_container'>
-                    <div className='flex justify-between' style={{width:'300px'}} container-name='obt_buttons'>
+                    <div className='flex justify-between md:flex-row flex-col gap-4 md:w-96' container-name='obt_buttons'>
                         <Button disabled={!userIsApprover} variant='contained' onClick={()=> onClickModal(0)}>Approve OBT</Button>
                         <Button disabled={!userIsApprover} variant='outlined' onClick={()=> onClickModal(1)}>Deny OBT</Button>
                     </div>

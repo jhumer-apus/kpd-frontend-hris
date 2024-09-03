@@ -107,7 +107,7 @@ function ProceduralLEAVECREDITCreate(props: CreateLEAVECREDITModalInterface) {
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a Leave Credit Data</Typography>
             <Typography sx={{ textAlign: 'center'}}>After Creating a Leave for an Employee, Edit on the right and put "Max Credit"</Typography>
             <form onSubmit={onClickSubmit} className='flex flex-col gap-6 overflow-auto relative'>
-                <div className='flex gap-6 pt-4'>
+                <div className='flex md:flex-row flex-col gap-6 pt-4'>
                     <div className='flex flex-col gap-6'>
                         {/* <EmployeeAutoComplete createLEAVECREDIT={createLEAVECREDIT} setCreateLEAVECREDIT={setCreateLEAVECREDIT}/> */}
                         <EmployeeListField 
