@@ -2,18 +2,25 @@ import useFetchQuery from "@/custom-hooks/use-fetch-query";
 import { APILink } from "@/store/configureStore";
 import { Autocomplete, Button, FormControl, OutlinedInput, TextField, Typography } from "@mui/material";
 import { convertCompilerOptionsFromJson } from "typescript";
+import DatePickerForm from "../forms/DatePickerForm";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { Fragment } from "react";
 
 interface Props {
     handleChangeField: (event: React.ChangeEvent<HTMLInputElement>) => void;
     handleSubmitAdd: (event: React.FormEvent<HTMLFormElement>) => void;
+    setRelative: any;
 }
 
-export default function FormAddRelative({handleChangeField, handleSubmitAdd}:Props) {
+export default function FormAddRelative(props:Props) {
 
-    const {data:employees, status, error} = useFetchQuery(`${APILink}/employees/`, null)
+    const {handleChangeField, handleSubmitAdd, setRelative} = props
+
+    const {data:employees, status, error} = useFetchQuery(`${APILink}employees/`, null)
 
     return (
-        <>
+        <Fragment>
             <Typography variant="h6">Add New Relative</Typography><br></br>
             <form onSubmit={handleSubmitAdd} autoComplete="off" className="flex flex-col gap-4">
                 <Autocomplete
@@ -24,14 +31,14 @@ export default function FormAddRelative({handleChangeField, handleSubmitAdd}:Pro
                     getOptionLabel={(option:any) => `${option? option?.emp_no + ' - ' + option?.emp_full_name: ''}`}
                     loading={status == 'loading'}
                     renderInput={(params) => <TextField {...params} label="Employee" />}
-                    isOptionEqualToValue={(option, value) => option?.emp_no == value?.emp_no}
-                    onChange={(e: any, newValue: string | null) => {
+                    // isOptionEqualToValue={(option, value) => option?.id == value?.id}
+                    onChange={(e: any, newValue: any) => {
                         handleChangeField({
                             ...e, 
                             target: {
                                 ...e.target, 
                                 name: "emp_no",
-                                value: newValue?.emp_no
+                                value: newValue?.emp_no ?? ""
                             }
                         })
                     }}
@@ -81,14 +88,10 @@ export default function FormAddRelative({handleChangeField, handleSubmitAdd}:Pro
                 <FormControl
                     className='w-full'
                 >
-                    <OutlinedInput 
-                        placeholder="Age"
-                        type="number"
-                        inputProps={{
-                            min:"0"
-                        }}
-                        name="age"
-                        onChange={handleChangeField}
+                    <DatePickerForm 
+                        label="Birth Date"
+                        setState={setRelative} 
+                        customKey="birthday"
                     />
                 </FormControl>
 
@@ -105,6 +108,6 @@ export default function FormAddRelative({handleChangeField, handleSubmitAdd}:Pro
                 
                 <Button  variant="outlined" type="submit">Add</Button>
             </form>
-        </>
+        </Fragment>
     )
 }

@@ -8,16 +8,20 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { UPDATE_RELATIVES } from '@/store/actions/personal-history';
 import TableRelatives from '@/public-components/personal-history/TableRelatives';
+import dayjs, { Dayjs } from 'dayjs';
 
 interface relativeType {
-    emp_no: string | number | null,
+    emp_no: CurrEmpNo,
     firstName: string | null,
     middleName: string | null,
     lastName: string | null,
     suffix: string | null,
-    age: number | null,
+    birthday: Date | Dayjs | null,
     relationship: string | null
 }
+
+type CurrEmpNo = number | string | null | undefined
+
 export default function FamilyBackground() {
 
     //REDUX
@@ -31,11 +35,11 @@ export default function FamilyBackground() {
         middleName: null,
         lastName: null,
         suffix: null,
-        age: null,
+        birthday: null,
         relationship: null
     })
 
-    const [currViewEmpNo, setCurrViewEmpNo] = useState< number | null >(user?.emp_no as number)
+    const [currViewEmpNo, setCurrViewEmpNo] = useState< number | string | null| undefined >(user?.emp_no)
     const [isLoading, setIsLoading] = useState<boolean>(false)
     
     //FUNCTIONS 
@@ -46,24 +50,25 @@ export default function FamilyBackground() {
     }
 
     const addRelative = async () => {
+
         const payload = {
             emp_no: relative?.emp_no,
             added_by: user?.emp_no,
             family_bg: [
                 {
-                    first_name: relative.firstName,
-                    middle_name: relative.middleName,
-                    last_name: relative.lastName,
-                    suffix: relative.suffix,
-                    age: relative.age,
-                    relation: relative.relationship
+                    first_name: relative.firstName ?? "",
+                    middle_name: relative.middleName ?? "",
+                    last_name: relative.lastName ?? "",
+                    suffix: relative.suffix ?? "",
+                    birthday: relative.birthday? dayjs(relative.birthday).format("YYYY-MM-DD"): "",
+                    relation: relative.relationship ?? ""
                 }
                 
             ]
         }
-        await axios.post(`${APILink}/family_bg/`, payload)
+        await axios.post(`${APILink}family_bg/`, payload)
             .then((res:any) => {
-                    setCurrViewEmpNo(payload?.emp_no)
+                    setCurrViewEmpNo(curr => payload?.emp_no)
                     payload?.emp_no && fetchRelatives(payload.emp_no)
                 }
             )
@@ -77,7 +82,7 @@ export default function FamilyBackground() {
         }))
     }
 
-    const fetchRelatives = async (emp_no:string | number | null) => {
+    const fetchRelatives = async (emp_no: CurrEmpNo) => {
         if(emp_no) {
             setIsLoading(true)
             dispatch(UPDATE_RELATIVES([]))
@@ -86,7 +91,7 @@ export default function FamilyBackground() {
                 emp_no: emp_no
             }
 
-            await axios.get(`${APILink}/family_bg`, {params: payload})
+            await axios.get(`${APILink}family_bg`, {params: payload})
                 .then(res => {
 
                     const data: any[] = Array.isArray(res.data) ? res.data : [];
@@ -99,10 +104,7 @@ export default function FamilyBackground() {
                     setIsLoading(false)
 
                 })
-
         }
-
-        
     }
 
     return (
@@ -112,8 +114,9 @@ export default function FamilyBackground() {
             >
                 <CardContent>
                     <FormAddRelative 
-                        handleChangeField={handleChangeField} 
+                        handleChangeField={handleChangeField}
                         handleSubmitAdd={handleSubmitAdd} 
+                        setRelative={setRelative}                    
                     />
                 </CardContent>
             </Card>
@@ -124,7 +127,7 @@ export default function FamilyBackground() {
                 <CardContent>
                     <TableRelatives 
                         fetchRelatives={fetchRelatives}
-                        currEmpNo={currViewEmpNo}
+                        currEmpNo={relative?.emp_no?? currViewEmpNo}
                         isTableLoading={isLoading}
                     />
                 </CardContent>

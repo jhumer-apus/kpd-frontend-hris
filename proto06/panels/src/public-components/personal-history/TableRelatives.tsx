@@ -4,14 +4,17 @@ import { APILink, RootState } from "@/store/configureStore";
 import { Typography } from "@material-tailwind/react";
 import { Autocomplete, Button, TextField } from "@mui/material";
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
+import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 interface Props {
-    currEmpNo: number | null,
+    currEmpNo: CurrEmpNo,
     isTableLoading: boolean,
-    fetchRelatives: (emp_no: number) => Promise<void>
+    fetchRelatives: (emp_no: CurrEmpNo) => Promise<void>
 }
+
+type CurrEmpNo = number | string | null | undefined
 
 export default function TableRelatives(props: Props) {
 
@@ -19,23 +22,29 @@ export default function TableRelatives(props: Props) {
     const { currEmpNo, isTableLoading, fetchRelatives } = props
 
     //STATES
-    const [currEmpSelected, setCurrEmpSelected] = useState<number | null>(currEmpNo)
+    const [currEmpSelected, setCurrEmpSelected] = useState<CurrEmpNo>(currEmpNo)
 
     //REDUX
     const relativesState = useSelector((state:RootState) => state.personalHistory.relatives)
 
     //HOOKS
-    const {data:employees, status: employeeStatus, error: employeeErr} = useFetchQuery(`${APILink}/employees/`, null)
+    const {data:employees, status: employeeStatus, error: employeeErr} = useFetchQuery(`${APILink}employees/`, null)
 
     //USE EFFECTS
     useEffect(() => {
         fetchRelatives(currEmpSelected)
     }, [])
 
+    useEffect(() => {
+        setCurrEmpSelected(curr => currEmpNo)
+    }, [currEmpNo])
+
     //FUNCTIONS
-    const selectedValue = (currEmpSelected: number | null) => {
-        return Array.isArray(employees) ? employees.find((emp:any) => emp.emp_no == currEmpSelected): null
+    const selectedValue = (currEmpSelected: CurrEmpNo) => {
+        return Array.isArray(employees) ? employees.find((emp:any) => emp.emp_no == currEmpSelected?? currEmpNo): null
     }
+    console.log(currEmpNo)
+    console.log(selectedValue(currEmpSelected))
     
     //STATIC
     const columns: GridColDef[] = [
@@ -48,11 +57,11 @@ export default function TableRelatives(props: Props) {
             },
         },
         {
-            field: 'age',
-            headerName: 'Age',
+            field: 'birthday',
+            headerName: 'Birthday',
             flex:1,
             valueGetter: (params: GridValueGetterParams): string => {
-                return `${params.row.age}`;
+                return `${dayjs(params.row.birthday).format("MMM DD, YYYY")}`;
             },
         },
         {
