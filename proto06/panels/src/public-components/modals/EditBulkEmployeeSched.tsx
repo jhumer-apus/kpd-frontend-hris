@@ -7,8 +7,16 @@ import AutocompleteForm from "../forms/AutoCompleteForm";
 import axios from "axios";
 import { Typography } from "@material-tailwind/react";
 import EmployeeListField from "../EmployeeListField";
+import { SCHEDULEDAILYViewFilterEmployeeAction } from "@/store/actions/procedurals";
 
-export default function EditBulkEmployeeSched() {
+interface Props {
+    selectedRows: any[],
+    emp_no: number | null
+}
+
+export default function EditBulkEmployeeSched(props: Props) {
+
+    const { selectedRows:selectedSchedShifts, emp_no } = props
 
     const dispatch = useDispatch()
     const { editBulkEmployeeSchedModal } = useSelector((state:RootState) => state.component)
@@ -22,10 +30,10 @@ export default function EditBulkEmployeeSched() {
     })
 
     const [shiftData, setShiftData] = useState<any>({
-        emp_no: null,
-        emp_schedule_daily:[],
+        emp_no: emp_no,
+        emp_schedule_daily: selectedSchedShifts,
         schedule_shift_code: null,
-        is_restday: true,
+        is_restday: false,
         added_by: currUser?.emp_no
     })
 
@@ -48,18 +56,18 @@ export default function EditBulkEmployeeSched() {
             .then(res => setScheduleShifts(curr => Array.isArray(res.data) ? res.data: []))
     }
 
-    const fetchEmployeeSchedule = async (emp_no: number) => {
-        await axios
-            .get(`${APILink}schedule_daily/${emp_no}/`)
-            .then(res => {
-                setShiftData((curr:any)=> (
-                    {
-                        ...curr,
-                        emp_schedule_daily: Array.isArray(res.data) ? res.data.map(shift => shift.id): []
-                    }
-                ))
-            })
-    }
+    // const fetchEmployeeSchedule = async (emp_no: number) => {
+    //     await axios
+    //         .get(`${APILink}schedule_daily/${emp_no}/`)
+    //         .then(res => {
+    //             setShiftData((curr:any)=> (
+    //                 {
+    //                     ...curr,
+    //                     emp_schedule_daily: Array.isArray(res.data) ? res.data.map(shift => shift.id): []
+    //                 }
+    //             ))
+    //         })
+    // }
 
     const handleChangeShift = (e:any, newValue:any) => {
         setShiftData((curr:any) => ({
@@ -68,15 +76,15 @@ export default function EditBulkEmployeeSched() {
         }))
     }
 
-    const handleChangeEmployee = (e:any, newValue:any) => {
-        if(newValue) {
-            setShiftData((curr:any) => ({
-                ...curr,
-                emp_no: newValue?.emp_no
-            }))
-        }
-        fetchEmployeeSchedule(newValue?.emp_no)
-    }
+    // const handleChangeEmployee = (e:any, newValue:any) => {
+    //     if(newValue) {
+    //         setShiftData((curr:any) => ({
+    //             ...curr,
+    //             emp_no: newValue?.emp_no
+    //         }))
+    //     }
+    //     fetchEmployeeSchedule(newValue?.emp_no)
+    // }
     const handleChange = (e: any) => {
         setShiftData((curr:any) => ({
             ...curr,
@@ -85,14 +93,14 @@ export default function EditBulkEmployeeSched() {
     }
 
     const updateEmployeesSchedule = async (payload:any) => {
-        await axios.put(`${APILink}update_schedules/${shiftData?.emp_no}/`, payload)
+        await axios.put(`${APILink}update_schedules/${emp_no}/`, payload)
             .then(res => {
                 dispatch(HandleAlertAction({
                     open:true,
                     status:"success",
                     message:"Update Employee Schedule Successfully"
                 }))
-
+                dispatch(SCHEDULEDAILYViewFilterEmployeeAction({emp_no: emp_no as number}))
                 handleClose()
             })
     }
@@ -102,15 +110,18 @@ export default function EditBulkEmployeeSched() {
 
         const payload = {
             ...shiftData,
+            schedule_shift_code: shiftData?.is_restday? null: (shiftData?.schedule_shift_code ?? null),
+            emp_no: emp_no,
+            emp_schedule_daily: selectedSchedShifts,
             is_restday: shiftData?.is_restday?? false,
             added_by: currUser?.emp_no
         }
 
         if(!payload.schedule_shift_code)  setError((curr:any) => ({...curr, schedule_shift_code:true}))
-        if(!payload.emp_no)  setError((curr:any) => ({...curr, emp_no:true}))
+        if(!payload.is_restday && !payload.emp_no)  setError((curr:any) => ({...curr, emp_no:true}))
         if(!payload.is_restday)  setError((curr:any) => ({...curr, is_restday:true}))
 
-            Object.keys(error).length > 0 && Object.keys(error).forEach(key=> {
+        error && typeof error === 'object' && Object.keys(error).length > 0 && Object.keys(error).forEach(key=> {
             if(error[key]) {
                 return
             }
@@ -127,30 +138,17 @@ export default function EditBulkEmployeeSched() {
                 aria-describedby="modal-modal-description"
                 // className='overflow-auto'
             >
-                <form onSubmit={handleSubmit} className='modal-content flex flex-col gap-4 w-[300px]'>
+                <form onSubmit={handleSubmit} className='modal-content flex flex-col gap-4 w-[300px] h-full'>
                     <Typography variant="h5" className="bg-blue-50 p-2 mb-4">Bulk Update Employees Schedule</Typography>
 
-                    <FormControl required error={error?.emp_no}>
+                    {/* <FormControl required error={error?.emp_no}>
                         <EmployeeListField 
                             label="Select Employee"
                             handleChange={handleChangeEmployee} 
                             currentValue={shiftData?.emp_no}
                         />
                         {error?.emp_no && <FormHelperText id="emp_no">Please select an employee</FormHelperText>}
-                    </FormControl>
-
-                    <FormControl required error={error?.schedule_shift_code}>
-                        <AutocompleteForm 
-                            id="sched_shifts"
-                            options={scheduleShifts} 
-                            label="Schedule Shifts"
-                            getOptionLabel={(option:any) => option?.name?? ""} 
-                            handleChange={handleChangeShift} 
-                            optionTitle={"name"} 
-                            defaultValueId={shiftData?.schedule_shift_code} 
-                        />
-                        {error?.schedule_shift_code && <FormHelperText id="sched-shift">Sched Shifts is required</FormHelperText>}
-                    </FormControl>
+                    </FormControl> */}
                     <FormGroup>
                         <FormControlLabel 
                             name="is_restday"
@@ -159,6 +157,19 @@ export default function EditBulkEmployeeSched() {
                             onChange={handleChange}
                         />
                     </FormGroup>
+                    <FormControl required error={error?.schedule_shift_code}>
+                        <AutocompleteForm 
+                            id="sched_shifts"
+                            options={scheduleShifts} 
+                            label="Schedule Shifts"
+                            getOptionLabel={(option:any) => option?.name?? ""} 
+                            handleChange={handleChangeShift} 
+                            optionTitle={"name"} 
+                            defaultValueId={shiftData?.schedule_shift_code}
+                            disabled={shiftData?.is_restday}
+                        />
+                        {!shiftData?.is_restday && error?.schedule_shift_code && <FormHelperText id="sched-shift">Sched Shifts is required</FormHelperText>}
+                    </FormControl>
                     <div>
                         <Button onClick={() => handleClose()}>Cancel</Button>
                         <Button type="submit">Update</Button>

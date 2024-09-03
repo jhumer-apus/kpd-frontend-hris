@@ -33,6 +33,7 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
         obt_type: null,
         obt_location: '',
         obt_remarks: null,
+        obt_business_date: null,
         obt_date_from: null,
         obt_date_to: null,
         added_by: userData?.emp_no,
@@ -94,6 +95,7 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
             obt_type: createOBT.obt_type,
             obt_location: createOBT.obt_location,
             obt_remarks: createOBT.obt_remarks,
+            obt_business_date: createOBT.obt_business_date,
             obt_date_from: createOBT.obt_date_from,
             obt_date_to: createOBT.obt_date_to,
             added_by: userData?.emp_no,
@@ -122,7 +124,6 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
         })
     }
     
-    console.log(OBTCreatestate.status, "124124create_obt")
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '2px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create an Official Business Time/Trip Data</Typography>
@@ -153,6 +154,14 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
                         /> */}
                     </div>
                     <div className='flex flex-col gap-3' style={{width: '100%'}}>
+                        {/* <div>
+                            <DatePicker
+                                label="Business Date"
+                                // value={createOVERTIME?.ot_business_date}
+                                onChange={(newValue:any) => handleChangeDate("ot_business_date", newValue)}
+                                sx={{ width: '100%' }} 
+                            />
+                        </div> */}
                         <DateFromToOBTCreate createOBT={createOBT} setCreateOBT={setCreateOBT}/>
                         <TextField 
                             required
