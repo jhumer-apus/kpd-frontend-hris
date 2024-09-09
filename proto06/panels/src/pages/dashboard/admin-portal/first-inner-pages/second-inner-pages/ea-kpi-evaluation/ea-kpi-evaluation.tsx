@@ -22,7 +22,7 @@ export default function EAKPIEVAL() {
     const PaperStyle = {
         padding: "20px",
         height: "700px",
-        width: `${matches? '100%' : '630px'}`,
+        // width: `${matches? '100%' : '630px'}`,
         overflow: 'auto'
     }
     
