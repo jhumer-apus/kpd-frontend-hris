@@ -299,6 +299,8 @@ export interface OVERTIMECreateInterface {
 export interface OVERTIMEViewInterface extends OVERTIMECreateInterface { 
     id: number,
     ot_reason_disapproval: string | null,
+    approver1_name: string | null,
+    approver2_name: string | null,
     ot_date_approved1: string | null;
     ot_date_approved2: string | null;
     ot_approver1_empno: number | null;
