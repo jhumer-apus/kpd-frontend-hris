@@ -37,8 +37,8 @@ function OBTModalUI(props: OBTModalUIInterface) {
                     <TextField sx={{width: '100%'}} label='Total hrs:' value={(ThisProps.obt_total_hours / 60).toFixed(2) || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Cutoff Period' value={data?.cuttOffPeriod || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     {/* <TextField sx={{width: '100%'}} label='Cutoff Code:' value={data?.cuttOffPeriod || '-'} InputProps={{readOnly: true,}} variant='standard'/> */}
-                    <TextField sx={{width: '100%'}} label='Approver1:' value={ThisProps.obt_approver1_empno || 'Any Higher Ranking Officer'} InputProps={{readOnly: true,}} variant='standard'/>
-                    <TextField sx={{width: '100%'}} label='Approver2:' value={ThisProps.obt_approver2_empno || '-'} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%'}} label='Approver1:' value={ThisProps?.obt_approver1_empno? `${ThisProps?.obt_approver1_empno} - ${ThisProps?.approver1_name}`: ""} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%'}} label='Approver2:' value={ThisProps?.obt_approver2_empno? `${ThisProps?.obt_approver2_empno} - ${ThisProps?.approver2_name}`: ""} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Location:' value={ThisProps.obt_location || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={2}/>
                     <TextField sx={{width: '100%'}} label='OBT Description:' value={ThisProps.obt_remarks || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
                 </div>

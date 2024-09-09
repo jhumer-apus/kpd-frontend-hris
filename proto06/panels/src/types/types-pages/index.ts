@@ -344,10 +344,12 @@ export interface LEAVEViewInterface extends LEAVECreateInterface {
     applicant_rank: number;
     emp_name:string,
     leave_file_path:string|null;
-    added_by: string | number | null | undefined;
+    // added_by: string | number | null | undefined;
     is_sl: boolean,
     is_vl: boolean,
-    is_el: boolean
+    is_el: boolean,
+    approver1_name: string | null,
+    approver2_name: string | null
 }
 
 export interface LEAVEEditInterface extends LEAVEViewInterface {}
