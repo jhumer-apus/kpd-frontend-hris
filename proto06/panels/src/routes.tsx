@@ -525,24 +525,24 @@ const JSXRouteWrapper = () => {
                   },
                 ]
               },
-              // {
-              //   id: 12200,
-              //   icon: <InsertChartOutlinedIcon {...icon} />,
-              //   name: "KPI Appraisals",
-              //   path: "/employees/KPI-Appraisals",
-              //   element:<EmployeesAppraisalPage/>,
-              //   hasSubItems: true,
-              //   subItems: [
-              //     {
-              //       id: 121000,
-              //       icon: <UserCircleIcon {...icon} />,
-              //       name: "201 Files",
-              //       path: "/employees/KPI-Appraisals/:emp_no",
-              //       element: <APPRAISALDETAILSPage/>, 
-              //       hasSubItems: false,
-              //     },
-              //   ]
-              // },
+              {
+                id: 12200,
+                icon: <InsertChartOutlinedIcon {...icon} />,
+                name: "KPI Appraisals",
+                path: "/employees/KPI-Appraisals",
+                element:<EmployeesAppraisalPage/>,
+                hasSubItems: true,
+                subItems: [
+                  {
+                    id: 121000,
+                    icon: <UserCircleIcon {...icon} />,
+                    name: "201 Files",
+                    path: "/employees/KPI-Appraisals/:emp_no",
+                    element: <APPRAISALDETAILSPage/>, 
+                    hasSubItems: false,
+                  },
+                ]
+              },
               {
                 id: 12400,
                 icon: <AutoStoriesOutlinedIcon {...icon} />,
@@ -788,15 +788,15 @@ const JSXRouteWrapper = () => {
                 badgeAccessor: 'UAViewFilterApprover',
                 hasSubItems: false,
               },
-              // {
-              //   id: 14500,
-              //   icon: <RuleFolderOutlinedIcon {...icon} />,
-              //   name: "KPI Confirmations",
-              //   path: "/pending-checklists/KPI-Confirmations",
-              //   element: <AppraisalConfirmationKPICOREPage/>, 
-              //   badgeAccessor: 'UAViewFilterApprover',
-              //   hasSubItems: false,
-              // },
+              {
+                id: 14500,
+                icon: <RuleFolderOutlinedIcon {...icon} />,
+                name: "KPI Confirmations",
+                path: "/pending-checklists/KPI-Confirmations",
+                element: <AppraisalConfirmationKPICOREPage/>, 
+                badgeAccessor: 'UAViewFilterApprover',
+                hasSubItems: false,
+              },
               // {
               //   id: 14600,
               //   icon: <AddLocationAltIcon {...icon} />,
