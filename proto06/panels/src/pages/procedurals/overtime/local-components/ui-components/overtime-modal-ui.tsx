@@ -84,8 +84,10 @@ function OVERTIMEModalUI(props: OVERTIMEModalUIInterface) {
                     <TextField sx={{width: '100%'}} label='Total hrs:' value={(ThisProps.ot_total_hours / 60).toFixed(2) || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Cutoff Period:' value={data.cuttOffPeriod || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     {/* <TextField sx={{width: '100%'}} label='Cutoff Code:' value={ThisProps.cutoff_code || '-'} InputProps={{readOnly: true,}} variant='standard'/> */}
-                    <TextField sx={{width: '100%'}} label='Approver1:' value={ThisProps.ot_approver1_empno || 'Any Higher Ranking Officer'} InputProps={{readOnly: true,}} variant='standard'/>
-                    <TextField sx={{width: '100%'}} label='Approver2:' value={ThisProps.ot_approver2_empno || '-'} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%'}} label='Approver1:' value={ThisProps?.ot_approver1_empno? `${ThisProps?.ot_approver1_empno} - ${ThisProps?.approver1_name}`: ""} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%'}} label='Approver2:' value={ThisProps?.ot_approver2_empno? `${ThisProps?.ot_approver2_empno} - ${ThisProps?.approver2_name}`: ""} InputProps={{readOnly: true,}} variant='standard'/>
+                    {/* <TextField sx={{width: '100%'}} label='Approver1:' value={ThisProps.ot_approver1_empno || 'Any Higher Ranking Officer'} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%'}} label='Approver2:' value={ThisProps.ot_approver2_empno || '-'} InputProps={{readOnly: true,}} variant='standard'/> */}
                     <TextField sx={{width: '100%'}} label='OVERTIME Description:' value={ThisProps.ot_remarks || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
                 </div>
                 <div className='flex gap-6 flex-col'>

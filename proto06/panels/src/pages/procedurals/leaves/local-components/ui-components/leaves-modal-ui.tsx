@@ -142,8 +142,10 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
                     <TextField sx={{width: '100%'}} label='Total hrs:' value={(ThisProps.leave_total_hours / 60).toFixed(2) || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Cutoff Period:' value={data.cuttOffPeriod || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     {/* <TextField sx={{width: '100%'}} label='Cutoff Code:' value={ThisProps.cutoff_code || '-'} InputProps={{readOnly: true,}} variant='standard'/> */}
-                    <TextField sx={{width: '100%'}} label='Approver1:' value={ThisProps.leave_approver1_empno || 'Any Higher Ranking Officer'} InputProps={{readOnly: true,}} variant='standard'/>
-                    <TextField sx={{width: '100%'}} label='Approver2:' value={ThisProps.leave_approver2_empno || '-'} InputProps={{readOnly: true,}} variant='standard'/>
+                    {/* <TextField sx={{width: '100%'}} label='Approver1:' value={ThisProps.leave_approver1_empno || 'Any Higher Ranking Officer'} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%'}} label='Approver2:' value={ThisProps.leave_approver2_empno || '-'} InputProps={{readOnly: true,}} variant='standard'/> */}
+                    <TextField sx={{width: '100%'}} label='Approver1:' value={ThisProps?.leave_approver1_empno? `${ThisProps?.leave_approver1_empno} - ${ThisProps?.approver1_name}`: ""} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%'}} label='Approver2:' value={ThisProps?.leave_approver2_empno? `${ThisProps?.leave_approver2_empno} - ${ThisProps?.approver2_name}`: ""} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='LEAVE Description:' value={leaveType.is_sl? cleanRemarks(ThisProps.leave_remarks): ThisProps.leave_remarks || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
 
                 </div>

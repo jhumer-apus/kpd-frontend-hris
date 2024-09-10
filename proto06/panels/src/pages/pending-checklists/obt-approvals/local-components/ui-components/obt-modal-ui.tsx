@@ -182,7 +182,7 @@ function OBTModalUI(props: OBTModalUIInterface) {
         <React.Fragment>
             <ApproveOBTModal setSingleOBTOpenModal={setSingleOBTOpenModal} singleOBTDetailsData={singleOBTDetailsData} setSingleOBTDetailsData={setSingleOBTDetailsData} approveOBTOpenModal={approveOBTOpenModal} setApproveOBTOpenModal={setApproveOBTOpenModal}/>
             <DenyOBTModal singleOBTDetailsData={singleOBTDetailsData} setSingleOBTDetailsData={setSingleOBTDetailsData} denyOBTOpenModal={denyOBTOpenModal} setDenyOBTOpenModal={setDenyOBTOpenModal}/>
-            <div className='flex gap-10 overflow-auto relative'>
+            <div className='flex flex-col md:flex-row gap-10 overflow-auto relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Date & Time Filed:' value={ThisProps.obt_date_filed ? dayjs(ThisProps.obt_date_filed).format(`${globalDateTime}`) : '-'} InputProps={{readOnly: false,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Total hrs:' value={(ThisProps.obt_total_hours / 60).toFixed(2) || '-'} InputProps={{readOnly: true,}} variant='standard'/>
@@ -215,7 +215,7 @@ function OBTModalUI(props: OBTModalUIInterface) {
             </div>
             <div className='flex flex-col justify-center items-center'>
             <div className='flex justify-center mt-6' container-name='obt_buttons_container'>
-                <div className='flex justify-between' style={{width:'300px'}} container-name='obt_buttons'>
+                <div className='flex md:justify-between md:flex-row flex-col gap-4 px-12 md:p-0 md:w-96' container-name='obt_buttons'>
                     <Button disabled={approvalState.buttonDisabled} variant='contained' onClick={()=> onClickModal(0)}>Approve OBT</Button>
                     <Button disabled={approvalState.buttonDisabled} variant='outlined' onClick={()=> onClickModal(1)}>Deny OBT</Button>
                 </div>

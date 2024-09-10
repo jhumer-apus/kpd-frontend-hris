@@ -146,6 +146,7 @@ import OtherForms from "./pages/forms/other-forms/other-forms";
 import ExitForms from "./pages/forms/exit-forms/exit-forms";
 import ManageEmploymentStatusTypes from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-employment-status-type/manage-emp-status-type";
 import FamilyBackground from "./pages/employee/family-background";
+import OBTtypes from "./pages/procedurals/obt-types";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -908,6 +909,14 @@ const JSXRouteWrapper = () => {
                   name: "Leave Types",
                   path: "/procedurals/leave-types",
                   element:<ProceduralLEAVETYPEPage/>,
+                  hasSubItems: false,
+                },
+                {
+                  id: 15600,
+                  icon: <AppsOutlinedIcon {...icon} />,
+                  name: "OBT Types",
+                  path: "/procedurals/obt-types",
+                  element: <OBTtypes />,
                   hasSubItems: false,
                 },
                 {
