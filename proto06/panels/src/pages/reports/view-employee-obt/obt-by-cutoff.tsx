@@ -191,7 +191,7 @@ export default function ViewEmployeeObt() {
             headerName: 'OBT Hours', 
             width: 150,
             valueGetter: (params: GridValueGetterParams) => {
-                return convertMinuteToHours(params.row.obt_total_hours)
+                return (!params.row.obt_total_hours || Number.isNaN(params.row.obt_total_hours))? "-" : convertMinuteToHours(params.row.obt_total_hours)
             },
         },
 

@@ -241,6 +241,7 @@ export interface OBTCreateInterface {
     emp_no: number | null;
     obt_type: string | null;
     obt_location: string | null;
+    obt_type_id: number | null;
     obt_remarks: string | null;
     obt_business_date: string | null;
     obt_date_from: Dayjs | string | null;

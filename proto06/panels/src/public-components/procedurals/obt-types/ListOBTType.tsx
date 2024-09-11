@@ -3,6 +3,11 @@ import { Typography } from "@material-tailwind/react";
 import { DataGrid, GridActionsCellItem, GridColDef } from "@mui/x-data-grid";
 import { Fragment, useState } from "react";
 import EditOBTType from "./EditOBTType";
+import ConfirmationModal from "@/public-components/modals/ConfirmationModal";
+import { APILink, RootState } from "@/store/configureStore";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { HandleAlertAction } from "@/store/actions/components";
 
 interface Props {
     rows: any[]
@@ -11,6 +16,8 @@ interface Props {
 export default function ListOBTType(props: Props) {
 
     const { rows = [], refreshTable } = props
+    const currUser = useSelector((state:RootState) => state.auth.employee_detail)
+    const dispatch = useDispatch()
 
     const [selectedRow, setSelectedRow] = useState<any>(
         {
@@ -38,7 +45,7 @@ export default function ListOBTType(props: Props) {
             field: 'obt_type_name',
             headerName: 'OBT Type',
             editable: true,
-            flex:1
+            width:400
         },
         {
             field: 'actions',
@@ -69,6 +76,45 @@ export default function ListOBTType(props: Props) {
             },
           },
     ];
+
+    const closeModal = () => {
+        setSelectedRow((curr:any) => (
+            {
+                id: "",
+                type: ""
+            }
+        ))
+    }
+
+    const deleteObtType = async () => {
+
+        await axios.delete(`${APILink}obt_type/${selectedRow.id}/`, {
+            params : {
+                added_by: currUser?.emp_no
+            }
+        })
+        .then(res => {
+            refreshTable()
+            dispatch(HandleAlertAction(
+                {
+                    open:true,
+                    status:"success",
+                    message:"Delete OBT Type Successfully"
+                }
+            ))
+            closeModal()
+        })
+        .catch(err => {
+            dispatch(HandleAlertAction(
+                {
+                    open:true,
+                    status:"error",
+                    message:"Fail to Delete OBT Type"
+                }
+            ))
+            closeModal()
+        })
+    }
     
     return (
         <Fragment>
@@ -86,6 +132,12 @@ export default function ListOBTType(props: Props) {
                 setSelectedRow={setSelectedRow} 
                 selectedRow={selectedRow}
                 refreshTable={refreshTable}
+            />
+            <ConfirmationModal 
+                onYes={() => deleteObtType()} 
+                message="Are you sure you want to delete this OBT Type?" 
+                handleClose={closeModal} 
+                open={selectedRow?.type == "delete"} 
             />
             <div className="h-[500px]">
                 <DataGrid

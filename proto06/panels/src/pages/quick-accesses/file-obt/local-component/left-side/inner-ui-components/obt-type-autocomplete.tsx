@@ -3,6 +3,8 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { OBTCreateInterface } from '@/types/types-pages';
 import { AutocompleteInputChangeReason } from '@mui/joy';
+import axios from 'axios';
+import { APILink } from '@/store/configureStore';
 
 interface OBTTypeAutoCompleteInterface{
     createOBT: OBTCreateInterface;
@@ -14,6 +16,12 @@ interface OBTTypeAutoCompleteInterface{
 
 export default function OBTTypeAutoComplete(props: OBTTypeAutoCompleteInterface) {
     const { createOBT, setCreateOBT } = props;
+    const [obtTypes, setObtTypes] = useState<any[]>([])
+
+    const fetchObtTypes = async () => {
+        await axios.get(`${APILink}obt_type/`)
+            .then(res => setObtTypes((curr:any[]) => Array.isArray(res?.data)? res.data: []))
+    }
     const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string | null) => {
         setCreateOBT((prevState)=>{
             return(

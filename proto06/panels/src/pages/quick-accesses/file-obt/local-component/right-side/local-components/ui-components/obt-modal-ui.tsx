@@ -29,12 +29,14 @@ function OBTModalUI(props: OBTModalUIInterface) {
         })
     }
     
+    const obtTotalHours = (!ThisProps.obt_total_hours || Number.isNaN(ThisProps.obt_total_hours))? "-" : (ThisProps.obt_total_hours / 60).toFixed(2)
+
     return (
         <Fragment>
             <div className='flex gap-10 overflow-auto relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Date & Time Filed:' value={ThisProps.obt_date_filed ? dayjs(ThisProps.obt_date_filed).format(`${globalDateTime}`) : '-'} InputProps={{readOnly: false,}} variant='filled'/>
-                    <TextField sx={{width: '100%'}} label='Total hrs:' value={(ThisProps.obt_total_hours / 60).toFixed(2) || '-'} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%'}} label='Total hrs:' value={obtTotalHours} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Cutoff Period' value={data?.cuttOffPeriod || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     {/* <TextField sx={{width: '100%'}} label='Cutoff Code:' value={data?.cuttOffPeriod || '-'} InputProps={{readOnly: true,}} variant='standard'/> */}
                     <TextField sx={{width: '100%'}} label='Approver1:' value={ThisProps?.obt_approver1_empno? `${ThisProps?.obt_approver1_empno} - ${ThisProps?.approver1_name}`: ""} InputProps={{readOnly: true,}} variant='standard'/>
@@ -52,7 +54,7 @@ function OBTModalUI(props: OBTModalUIInterface) {
                 </div>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Employee #:' value={ThisProps.emp_no || '-'} InputProps={{readOnly: true,}} variant='filled'/>
-                    <TextField sx={{width: '100%', minWidth: '160px'}} label='OBT Type:' value={ThisProps.obt_type || '-'} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%', minWidth: '160px'}} label='OBT Type:' value={ThisProps.obt_type_name || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%', minWidth: '160px'}} focused={!!ThisProps.obt_reason_disapproval} color={'error'} label='Reason for Disapproval:' value={ThisProps.obt_reason_disapproval || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
                     {ThisProps.obt_approval_status === 'APD' && <img src={ '/img/stampApproved2.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
                     {ThisProps.obt_approval_status === 'DIS' && <img src={ '/img/stampRejected.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}

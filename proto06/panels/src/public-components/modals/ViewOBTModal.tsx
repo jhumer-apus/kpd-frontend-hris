@@ -31,6 +31,7 @@ export default function ViewOBTModal (props: Props) {
         emp_no: null,
         obt_date_filed: "",
         obt_type: null,
+        obt_type_name: "",
         obt_location: null,
         obt_date_from: null,
         obt_date_to: null,
@@ -43,7 +44,8 @@ export default function ViewOBTModal (props: Props) {
         obt_date_approved1: null,
         obt_date_approved2: null,
         cutoff_code: null,
-        co_name: null
+        co_name: null,
+        cutoff_name: ""
     })
 
     useEffect(() => {
@@ -70,6 +72,8 @@ export default function ViewOBTModal (props: Props) {
                 break;
         }
     }
+
+    const obtTotalHours = (!details.obt_total_hours || Number.isNaN(details.obt_total_hours))? "-" : (details.obt_total_hours / 60).toFixed(2)
     return (
         <Fragment>
             <Modal
@@ -132,7 +136,7 @@ export default function ViewOBTModal (props: Props) {
                                 InputProps={{
                                     readOnly: true,
                                 }}
-                                value={details.obt_type}
+                                value={details.obt_type_name}
                             />
                         </Grid>
 
@@ -180,7 +184,7 @@ export default function ViewOBTModal (props: Props) {
                                 InputProps={{
                                     readOnly: true,
                                 }}
-                                value={details.obt_total_hours/60}
+                                value={obtTotalHours}
                             />
                         </Grid>
 
