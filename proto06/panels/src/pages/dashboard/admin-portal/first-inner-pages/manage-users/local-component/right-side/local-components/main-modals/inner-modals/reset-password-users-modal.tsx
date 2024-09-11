@@ -39,6 +39,10 @@ export default function ResetPasswordUSERModal(props: ResetPasswordUSERModalInte
     is_temp: true
   })
 
+  const passwordValidation = () => {
+
+  }
+
   const resetPasswordUSERSubmit = () => { 
     if(primaryKey && curr_user){
       dispatch(USERResetPasswordAction({
@@ -151,13 +155,13 @@ export default function ResetPasswordUSERModal(props: ResetPasswordUSERModalInte
                       const value = event.target.value;
                       return({
                         ...prevState,
-                        new_password: value,
+                        new_password: value.replace(/ /g, ""),
                       })
                     })
                   }}
                 />
                 <TextField
-                sx={{width: '90%'}}
+                  sx={{width: '90%'}}
                   label='Repeat New Password'
                   type='text'
                   required
@@ -167,7 +171,7 @@ export default function ResetPasswordUSERModal(props: ResetPasswordUSERModalInte
                       const value = event.target.value;
                       return({
                         ...prevState,
-                        repeat_new_password: value,
+                        repeat_new_password: value.replace(/ /g, ""),
                       })
                     })
                   }}
