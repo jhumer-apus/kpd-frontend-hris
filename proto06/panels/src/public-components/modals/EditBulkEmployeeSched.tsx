@@ -108,6 +108,13 @@ export default function EditBulkEmployeeSched(props: Props) {
     const handleSubmit = (e:any) => {
         e.preventDefault()
 
+        const validateError:any = {
+            emp_no: false,
+            emp_schedule_daily:false,
+            schedule_shift_code: false,
+            is_restday: false,
+        }
+
         const payload = {
             ...shiftData,
             schedule_shift_code: shiftData?.is_restday? null: (shiftData?.schedule_shift_code ?? null),
@@ -117,16 +124,32 @@ export default function EditBulkEmployeeSched(props: Props) {
             added_by: currUser?.emp_no
         }
 
-        if(!payload.schedule_shift_code)  setError((curr:any) => ({...curr, schedule_shift_code:true}))
-        if(!payload.is_restday && !payload.emp_no)  setError((curr:any) => ({...curr, emp_no:true}))
-        if(!payload.is_restday)  setError((curr:any) => ({...curr, is_restday:true}))
+        // if(!payload.schedule_shift_code)  {
+        //     validateError.schedule_shift_code = true
+        //     setError((curr:any) => ({...curr, schedule_shift_code:true}))
+        // }
 
-        error && typeof error === 'object' && Object.keys(error).length > 0 && Object.keys(error).forEach(key=> {
-            if(error[key]) {
-                return
-            }
-        })
+        if(!payload.is_restday && !payload.schedule_shift_code) {
+            validateError.schedule_shift_code = true
+            setError((curr:any) => ({...curr, schedule_shift_code:true}))
+            return
+        }
 
+        // if(!payload.is_restday)  {
+        //     validateError.is_restday = true
+        //     setError((curr:any) => ({...curr, is_restday:true}))
+        //     return
+        // }
+
+
+        // validateError && typeof validateError === 'object' && Object.keys(validateError).length > 0 && Object.keys(validateError).forEach(key=> {
+
+        //     if(validateError[key]) {
+        //         return
+        //     }
+        // })
+
+        console.log("bypass")
         updateEmployeesSchedule(payload)
     }
     return (

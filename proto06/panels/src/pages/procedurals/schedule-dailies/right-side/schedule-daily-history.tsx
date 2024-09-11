@@ -79,7 +79,7 @@ export default function ProceduralSCHEDULEDAILYPageHistory(props: ProceduralSCHE
         // style={{ width: '100%' }} 
         className="w-full"
       >
-        <Button className='mb-2 px-4 py-2' onClick={() => editOpenModal()} disabled={selectedRows.length < 1}>Bulk Update Schedule</Button>
+        <Button className='mb-2 px-4 py-2' onClick={() => editOpenModal()} disabled={selectedRows.length < 2}>Bulk Update Schedule</Button>
         <DataGrid
           autoHeight
           // autoPageSize
