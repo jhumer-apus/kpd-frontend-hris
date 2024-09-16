@@ -420,14 +420,14 @@ const JSXRouteWrapper = () => {
                     element: <EmployeeAndApplicants/>,
                     hasSubItems: true,
                     subItems: [
-                      {
-                        id: 1160000,
-                        icon: null,
-                        name: "KPI Evaluation",
-                        path: "/Dashboards/Admin-Portal/Employee-And-Applicants/KPI-Evaluation",
-                        element: <EAKPIEVAL/>,
-                        hasSubItems: false,
-                      },
+                      // {
+                      //   id: 1160000,
+                      //   icon: null,
+                      //   name: "KPI Evaluation",
+                      //   path: "/Dashboards/Admin-Portal/Employee-And-Applicants/KPI-Evaluation",
+                      //   element: <EAKPIEVAL/>,
+                      //   hasSubItems: false,
+                      // },
                       {
                         id: 1160001,
                         icon: null,
@@ -444,14 +444,14 @@ const JSXRouteWrapper = () => {
                         element: <EAOFFBOARDINGSTATUS/>,
                         hasSubItems: false,
                       },
-                      {
-                        id: 1160003,
-                        icon: null,
-                        name: "KPI Questions",
-                        path: "/Dashboards/Admin-Portal/Employee-And-Applicants/KPI-Questions",
-                        element: <EAEVALQUESTIONS/>,
-                        hasSubItems: false,
-                      },
+                      // {
+                      //   id: 1160003,
+                      //   icon: null,
+                      //   name: "KPI Questions",
+                      //   path: "/Dashboards/Admin-Portal/Employee-And-Applicants/KPI-Questions",
+                      //   element: <EAEVALQUESTIONS/>,
+                      //   hasSubItems: false,
+                      // },
                       {
                         id: 1160004,
                         icon: null,
@@ -526,24 +526,24 @@ const JSXRouteWrapper = () => {
                   },
                 ]
               },
-              {
-                id: 12200,
-                icon: <InsertChartOutlinedIcon {...icon} />,
-                name: "KPI Appraisals",
-                path: "/employees/KPI-Appraisals",
-                element:<EmployeesAppraisalPage/>,
-                hasSubItems: true,
-                subItems: [
-                  {
-                    id: 121000,
-                    icon: <UserCircleIcon {...icon} />,
-                    name: "201 Files",
-                    path: "/employees/KPI-Appraisals/:emp_no",
-                    element: <APPRAISALDETAILSPage/>, 
-                    hasSubItems: false,
-                  },
-                ]
-              },
+              // {
+              //   id: 12200,
+              //   icon: <InsertChartOutlinedIcon {...icon} />,
+              //   name: "KPI Appraisals",
+              //   path: "/employees/KPI-Appraisals",
+              //   element:<EmployeesAppraisalPage/>,
+              //   hasSubItems: true,
+              //   subItems: [
+              //     {
+              //       id: 121000,
+              //       icon: <UserCircleIcon {...icon} />,
+              //       name: "201 Files",
+              //       path: "/employees/KPI-Appraisals/:emp_no",
+              //       element: <APPRAISALDETAILSPage/>, 
+              //       hasSubItems: false,
+              //     },
+              //   ]
+              // },
               {
                 id: 12400,
                 icon: <AutoStoriesOutlinedIcon {...icon} />,
@@ -715,14 +715,14 @@ const JSXRouteWrapper = () => {
               element: <YourSCHEDULEDAILYpage/>, 
               hasSubItems: false,
             },
-            {
-              id: 13600,
-              icon: <InsertChartOutlinedIcon {...icon} />,
-              name: "Your Evaluation",
-              path: "/quick-accesses/Your-Evaluation",
-              element: <YourKPICOREPage/>, 
-              hasSubItems: false,
-            },
+            // {
+            //   id: 13600,
+            //   icon: <InsertChartOutlinedIcon {...icon} />,
+            //   name: "Your Evaluation",
+            //   path: "/quick-accesses/Your-Evaluation",
+            //   element: <YourKPICOREPage/>, 
+            //   hasSubItems: false,
+            // },
           ]
         },
         ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee) ? [
@@ -789,33 +789,33 @@ const JSXRouteWrapper = () => {
                 badgeAccessor: 'UAViewFilterApprover',
                 hasSubItems: false,
               },
-              {
-                id: 14500,
-                icon: <RuleFolderOutlinedIcon {...icon} />,
-                name: "KPI Confirmations",
-                path: "/pending-checklists/KPI-Confirmations",
-                element: <AppraisalConfirmationKPICOREPage/>, 
-                badgeAccessor: 'UAViewFilterApprover',
-                hasSubItems: false,
-              },
-              {
-                id: 14600,
-                icon: <AddLocationAltIcon {...icon} />,
-                name: "Onboarding CF",
-                path: "/pending-checklists/Onboarding-Confirmations",
-                element: <OnboardingCF/>, 
-                badgeAccessor: 'UAViewFilterApprover',
-                hasSubItems: false,
-              },
-              {
-                id: 14700,
-                icon: <AlarmOffIcon {...icon} />,
-                name: "Offboarding CF",
-                path: "/pending-checklists/Offboarding-Confirmations",
-                element: <OffboardingCF/>, 
-                badgeAccessor: 'UAViewFilterApprover',
-                hasSubItems: false,
-              },
+              // {
+              //   id: 14500,
+              //   icon: <RuleFolderOutlinedIcon {...icon} />,
+              //   name: "KPI Confirmations",
+              //   path: "/pending-checklists/KPI-Confirmations",
+              //   element: <AppraisalConfirmationKPICOREPage/>, 
+              //   badgeAccessor: 'UAViewFilterApprover',
+              //   hasSubItems: false,
+              // },
+              // {
+              //   id: 14600,
+              //   icon: <AddLocationAltIcon {...icon} />,
+              //   name: "Onboarding CF",
+              //   path: "/pending-checklists/Onboarding-Confirmations",
+              //   element: <OnboardingCF/>, 
+              //   badgeAccessor: 'UAViewFilterApprover',
+              //   hasSubItems: false,
+              // },
+              // {
+              //   id: 14700,
+              //   icon: <AlarmOffIcon {...icon} />,
+              //   name: "Offboarding CF",
+              //   path: "/pending-checklists/Offboarding-Confirmations",
+              //   element: <OffboardingCF/>, 
+              //   badgeAccessor: 'UAViewFilterApprover',
+              //   hasSubItems: false,
+              // },
             ]
           }
         ] : [],
