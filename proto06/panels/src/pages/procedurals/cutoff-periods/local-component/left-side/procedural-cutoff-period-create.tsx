@@ -182,10 +182,11 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
                             id="payroll_group"
                             options={dropDownData.payroll_groups}
                             label={"Payroll Group"}
-                            getOptionLabel={(option: any) => option?.name?? ""}
+                            getOptionLabel={(option: any) => option?.name ?? ""}
                             handleChange={handleChangePayrollGroup}
-                            optionTitle='name' 
-                            defaultValueId={createCUTOFFPERIOD.payroll_group_code}                    
+                            optionTitle='name'
+                            defaultValueId={createCUTOFFPERIOD.payroll_group_code} 
+                            disabled={false}                        
                         />
                         {/* <TextField
                             required 

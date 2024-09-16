@@ -17,6 +17,8 @@ import { APILink } from '@/store/configureStore';
 import axios, {AxiosResponse, AxiosError} from 'axios'
 import { beautifyJSON } from '@/helpers/utils';
 import { HandleAlertAction } from '@/store/actions/components';
+import AutocompleteForm from '@/public-components/forms/AutoCompleteForm';
+import { NULL } from 'sass';
 
 interface CreateOBTModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -28,17 +30,24 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
     const [isSubmittingRequest, setIsSubmittingRequest] = useState<boolean>(false);
     const OBTCreatestate = useSelector((state: RootState)=> state.procedurals.OBTCreate);
     const userData = useSelector((state: RootState) => state.auth.employee_detail);
+    const [obtTypes, setObtTypes] = useState<any[]>([])
+
     const [createOBT, setCreateOBT] = useState<OBTCreateInterface>({
         emp_no: NaN,
         obt_type: null,
         obt_location: '',
+        obt_type_id: null,
         obt_remarks: null,
+        obt_business_date: null,
         obt_date_from: null,
         obt_date_to: null,
         added_by: userData?.emp_no,
     });
+
+    useEffect(() => {
+        fetchObtTypes()
+    }, [])
     const onClickSubmit = () => {
-        console.log(createOBT)
         setIsSubmittingRequest(true)
         // dispatch(OBTCreateAction(createOBT))
         fileOBTPost()
@@ -64,7 +73,6 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
     
         }).catch(err => {
     
-            console.log(err)
             dispatch(HandleAlertAction({
                 open:true,
                 status:"error",
@@ -92,8 +100,10 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
         const payload = {
             emp_no: createOBT.emp_no,
             obt_type: createOBT.obt_type,
+            obt_type_id: createOBT?.obt_type_id,
             obt_location: createOBT.obt_location,
             obt_remarks: createOBT.obt_remarks,
+            obt_business_date: createOBT.obt_business_date,
             obt_date_from: createOBT.obt_date_from,
             obt_date_to: createOBT.obt_date_to,
             added_by: userData?.emp_no,
@@ -121,8 +131,22 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
 
         })
     }
-    
-    console.log(OBTCreatestate.status, "124124create_obt")
+
+    const fetchObtTypes = async () => {
+        await axios.get(`${APILink}obt_type/`)
+            .then(res => setObtTypes((curr:any[]) => Array.isArray(res?.data)? res.data: []))
+    }
+
+    const handleChangeOBTType = (e:any , newValue:any) => {
+        setCreateOBT(curr => (
+            {
+                ...curr,
+                obt_type: newValue?.obt_type_name || "",
+                obt_type_id: newValue?.id || "",
+                obt_remarks: newValue?.obt_type_name || "",
+            }
+        ))
+    }
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '2px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create an Official Business Time/Trip Data</Typography>
@@ -130,7 +154,17 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
                 <div className='flex flex-wrap gap-3 pt-4'>
                     <div className='flex flex-col gap-3' style={{width: '100%'}}>
                         <EmployeeAutoComplete createOBT={createOBT} setCreateOBT={setCreateOBT}  />
-                        <OBTTypeAutoComplete createOBT={createOBT} setCreateOBT={setCreateOBT}/>
+                        {/* <OBTTypeAutoComplete createOBT={createOBT} setCreateOBT={setCreateOBT}/> */}
+                        <AutocompleteForm 
+                            id="obt_types_field"
+                            options={obtTypes} 
+                            label="OBT Type" 
+                            getOptionLabel={(option) => option?.obt_type_name ?? ""} 
+                            handleChange={handleChangeOBTType} 
+                            optionTitle="obt_type_name" 
+                            defaultValueId={createOBT?.obt_type_id} 
+                            disabled={false} 
+                        />
                         {/* <TextField
                             required 
                             sx={{width: '100%'}} 
@@ -153,6 +187,14 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
                         /> */}
                     </div>
                     <div className='flex flex-col gap-3' style={{width: '100%'}}>
+                        {/* <div>
+                            <DatePicker
+                                label="Business Date"
+                                // value={createOVERTIME?.ot_business_date}
+                                onChange={(newValue:any) => handleChangeDate("ot_business_date", newValue)}
+                                sx={{ width: '100%' }} 
+                            />
+                        </div> */}
                         <DateFromToOBTCreate createOBT={createOBT} setCreateOBT={setCreateOBT}/>
                         <TextField 
                             required

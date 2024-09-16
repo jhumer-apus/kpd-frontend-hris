@@ -131,7 +131,7 @@ return (
                     const value = event.target.value;
                     return({
                       ...prevState,
-                      new_password: value,
+                      new_password: value.replace(/ /g, ""),
                     })
                   })
                 }}
@@ -147,7 +147,7 @@ return (
                     const value = event.target.value;
                     return({
                       ...prevState,
-                      repeat_new_password: value,
+                      repeat_new_password: value.replace(/ /g, ""),
                     })
                   })
                 }}

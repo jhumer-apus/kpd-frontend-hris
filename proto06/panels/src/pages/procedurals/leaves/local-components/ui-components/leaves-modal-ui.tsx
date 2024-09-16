@@ -136,14 +136,16 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
                 data={singleLEAVEDetailsData}
             />
 
-            <div className='flex gap-10 overflow-auto relative'>
+            <div className='flex md:flex-row flex-col gap-10 overflow-auto relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Date & Time Filed:' value={ThisProps.leave_date_filed ? dayjs(ThisProps.leave_date_filed).format(`${globalDateTime}`) : '-'} InputProps={{readOnly: false,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Total hrs:' value={(ThisProps.leave_total_hours / 60).toFixed(2) || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Cutoff Period:' value={data.cuttOffPeriod || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     {/* <TextField sx={{width: '100%'}} label='Cutoff Code:' value={ThisProps.cutoff_code || '-'} InputProps={{readOnly: true,}} variant='standard'/> */}
-                    <TextField sx={{width: '100%'}} label='Approver1:' value={ThisProps.leave_approver1_empno || 'Any Higher Ranking Officer'} InputProps={{readOnly: true,}} variant='standard'/>
-                    <TextField sx={{width: '100%'}} label='Approver2:' value={ThisProps.leave_approver2_empno || '-'} InputProps={{readOnly: true,}} variant='standard'/>
+                    {/* <TextField sx={{width: '100%'}} label='Approver1:' value={ThisProps.leave_approver1_empno || 'Any Higher Ranking Officer'} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%'}} label='Approver2:' value={ThisProps.leave_approver2_empno || '-'} InputProps={{readOnly: true,}} variant='standard'/> */}
+                    <TextField sx={{width: '100%'}} label='Approver1:' value={ThisProps?.leave_approver1_empno? `${ThisProps?.leave_approver1_empno} - ${ThisProps?.approver1_name}`: ""} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%'}} label='Approver2:' value={ThisProps?.leave_approver2_empno? `${ThisProps?.leave_approver2_empno} - ${ThisProps?.approver2_name}`: ""} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='LEAVE Description:' value={leaveType.is_sl? cleanRemarks(ThisProps.leave_remarks): ThisProps.leave_remarks || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
 
                 </div>
@@ -182,9 +184,9 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
                     {/* <TextField sx={{width: '100%', minWidth: '160px'}} focused={!!ThisProps.leave_reason_disapproval} color={'error'} label='Reason for Disapproval:' value={ThisProps.leave_reason_disapproval || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/> */}
 
                 </div>
-                {ThisProps.leave_approval_status === 'CX' && <img src={ '/img/stampCancel.png' } style={{width: '300px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
-                {ThisProps.leave_approval_status === 'APD' && <img src={ '/img/stampApproved2.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
-                {ThisProps.leave_approval_status === 'DIS' && <img src={ '/img/stampRejected.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
+                {ThisProps.leave_approval_status === 'CX' && <img src={ '/img/stampCancel.png' } className='h-32 md:absolute bottom-0 right-0'></img>}
+                {ThisProps.leave_approval_status === 'APD' && <img src={ '/img/stampApproved2.png' } className='h-32 md:absolute bottom-0 right-0'></img>}
+                {ThisProps.leave_approval_status === 'DIS' && <img src={ '/img/stampRejected.png' } className='h-32 md:absolute bottom-0 right-0'></img>}
             </div>
             {ThisProps.leave_approval_status === 'APD' && ([ThisProps.leave_approver1_empno, ThisProps.leave_approver2_empno].includes(curr_user?.emp_no)) &&
                 <div className='flex flex-col justify-center items-center my-4'>
@@ -194,7 +196,7 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
             {(ThisProps.leave_approval_status.includes('1') || ThisProps.leave_approval_status.includes('2')) && 
                 <div className='flex flex-col justify-center items-center'>
                     <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
-                        <div className='flex justify-between' style={{width:'400px'}} container-name='leave_buttons'>
+                        <div className='flex justify-between md:flex-row flex-col gap-4 md:w-96' container-name='leave_buttons'>
                             <Button disabled={!userIsApprover} variant='contained' onClick={()=> onClickModal(0)}>Approve LEAVE</Button>
                             <Button disabled={!userIsApprover} variant='outlined' onClick={()=> onClickModal(1)}>Deny LEAVE</Button>
                         </div> 

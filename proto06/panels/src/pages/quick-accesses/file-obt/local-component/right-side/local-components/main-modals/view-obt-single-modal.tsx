@@ -14,7 +14,7 @@ interface SinglePayslipInterface {
 }
 
 export default function ViewOBTSingleModal(props: SinglePayslipInterface) {
-    const {singleOBTOpenModal, setSingleOBTOpenModal, setSingleOBTDetailsData, singleOBTDetailsData} = props;
+  const {singleOBTOpenModal, setSingleOBTOpenModal, setSingleOBTDetailsData, singleOBTDetailsData} = props;
   const [scroll, setScroll] = React.useState<boolean>(true);
   return (
     <React.Fragment>

@@ -178,6 +178,7 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
         },
       ]
     )
+    
 
     //HOOKS
     // const {province, status, error} = useGetSpecificProvince(userData?.permanent_province_code)
@@ -353,6 +354,8 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
       })
     }
 
+    
+
     const handleInputChange = (e:any) => {
       const { name, value } = e.target;
       setUserData((curr:any) => ({
@@ -360,10 +363,6 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
         [name]: value
       }));
     };
-
-    // const fetchApprovers = () => {
-    //   axios.get()
-    // }
 
     const findRole = roles.find(role => role.id == curr_user?.user?.role)
     
@@ -1147,9 +1146,9 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
             readOnly: true,
           }} id="Employee Number" label="Employee Number" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={curr_user?.emp_no || '-' } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
-                  <TextField            InputProps={{
+                  {/* <TextField            InputProps={{
             readOnly: true,
-          }} id="Bio ID" label="Bio ID" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={curr_user?.bio_id || '-' } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+          }} id="Bio ID" label="Bio ID" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={curr_user?.bio_id || '-' } InputLabelProps={{ style: { fontWeight: 'bold' }}}  /> */}
 
                   <TextField            InputProps={{
             readOnly: true,
@@ -1244,11 +1243,11 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
           <TextField            
             InputProps={{
             readOnly: true,
-          }} id="Approver Number 1" label="Approver #1" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={userData.approver1 }  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+          }} id="Approver Number 1" label="Approver #1" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={`${userData?.approver1 ? userData?.approver1 + " - " + userData?.approver1_name: ""}`}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
             
             <TextField            InputProps={{
             readOnly: true,
-          }} id="Approver Number 2" label="Approver #2" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={userData.approver2 }  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
+          }} id="Approver Number 2" label="Approver #2" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={`${userData?.approver2 ? userData?.approver2 + " - " + userData?.approver2_name: ""}`}  InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
 
             <TextField            InputProps={{
             readOnly: true,

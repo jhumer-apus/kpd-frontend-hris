@@ -241,7 +241,9 @@ export interface OBTCreateInterface {
     emp_no: number | null;
     obt_type: string | null;
     obt_location: string | null;
+    obt_type_id: number | null;
     obt_remarks: string | null;
+    obt_business_date: string | null;
     obt_date_from: Dayjs | string | null;
     obt_date_to: Dayjs | string | null;
     added_by?: string | number | null
@@ -298,6 +300,8 @@ export interface OVERTIMECreateInterface {
 export interface OVERTIMEViewInterface extends OVERTIMECreateInterface { 
     id: number,
     ot_reason_disapproval: string | null,
+    approver1_name: string | null,
+    approver2_name: string | null,
     ot_date_approved1: string | null;
     ot_date_approved2: string | null;
     ot_approver1_empno: number | null;
@@ -343,10 +347,12 @@ export interface LEAVEViewInterface extends LEAVECreateInterface {
     applicant_rank: number;
     emp_name:string,
     leave_file_path:string|null;
-    added_by: string | number | null | undefined;
+    // added_by: string | number | null | undefined;
     is_sl: boolean,
     is_vl: boolean,
-    is_el: boolean
+    is_el: boolean,
+    approver1_name: string | null,
+    approver2_name: string | null
 }
 
 export interface LEAVEEditInterface extends LEAVEViewInterface {}

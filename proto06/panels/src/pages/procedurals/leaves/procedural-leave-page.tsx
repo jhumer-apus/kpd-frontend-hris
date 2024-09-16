@@ -37,9 +37,9 @@ export default function ProceduralLEAVEPage() {
   });
 
   const dispatch = useDispatch();
-  const isDepartmentManager = currUser?.rank_hierarchy == 2
+  const isDepartmentManagerRole = currUser?.user?.role == 2
   const { LEAVEView, LEAVEViewAllFilterApprover } = useSelector((state: RootState) => state.procedurals);
-  const { data, status, error } = isDepartmentManager? LEAVEViewAllFilterApprover: LEAVEView;
+  const { data, status, error } = isDepartmentManagerRole? LEAVEViewAllFilterApprover: LEAVEView;
   const LEAVEViewData = data as LEAVEViewInterface[];
 
   const fetchLeavesByApprover = async() => {
@@ -54,7 +54,7 @@ export default function ProceduralLEAVEPage() {
 
 
   useEffect(()=> {
-    isDepartmentManager
+    isDepartmentManagerRole
       ? fetchLeavesByApprover()
       : dispatch(LEAVEViewAction())
   }, []);

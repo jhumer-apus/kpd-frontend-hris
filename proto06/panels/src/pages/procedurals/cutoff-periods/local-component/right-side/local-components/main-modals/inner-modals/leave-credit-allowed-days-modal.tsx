@@ -162,10 +162,11 @@ export default function AllowedDaysCUTOFFPERIODModal(props: AllowedDaysCUTOFFPER
                       id="payroll_group"
                       options={dropDownData.payroll_groups}
                       label={"Payroll Group"}
-                      getOptionLabel={(option: any) => option?.name?? ""}
+                      getOptionLabel={(option: any) => option?.name ?? ""}
                       handleChange={handleChangePayrollGroup}
-                      optionTitle='name' 
-                      defaultValueId={singleCUTOFFPERIODDetailsData?.payroll_group_code}                    
+                      optionTitle='name'
+                      defaultValueId={singleCUTOFFPERIODDetailsData?.payroll_group_code} 
+                      disabled={false}                    
                     />
 
                     {/* <AutoCompleteForm 
