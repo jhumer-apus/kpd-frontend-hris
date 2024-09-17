@@ -8,6 +8,7 @@ import { APILink, RootState } from "@/store/configureStore";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { HandleAlertAction } from "@/store/actions/components";
+import axiosInstance from "@/helpers/axiosConfig";
 
 interface Props {
     rows: any[]
@@ -88,7 +89,7 @@ export default function ListOBTType(props: Props) {
 
     const deleteObtType = async () => {
 
-        await axios.delete(`${APILink}obt_type/${selectedRow.id}/`, {
+        await axiosInstance.delete(`obt_type/${selectedRow.id}/`, {
             params : {
                 added_by: currUser?.emp_no
             }

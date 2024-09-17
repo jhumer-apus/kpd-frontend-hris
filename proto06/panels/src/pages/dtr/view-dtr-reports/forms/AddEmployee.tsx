@@ -5,6 +5,7 @@ import { Input, Typography } from '@material-tailwind/react';
 import { useForm } from 'react-hook-form';
 import { EMPLOYEESViewInterface } from '@/types/types-store';
 import { APILink } from '@/store/configureStore';
+import axiosInstance from '@/helpers/axiosConfig';
 
 export const UserProfile = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<EMPLOYEESViewInterface>();
@@ -18,8 +19,8 @@ export const UserProfile = () => {
     }
 
     try {
-        const response = await axios.post(
-          `${APILink}employees/`,
+        const response = await axiosInstance.post(
+          `employees/`,
           formData,
           {
             headers: {

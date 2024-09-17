@@ -13,6 +13,7 @@ import { beautifyJSON, clearFields } from '@/helpers/utils';
 import axios from 'axios';
 import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
 import { useState } from 'react';
+import axiosInstance from '@/helpers/axiosConfig';
 
 
 
@@ -34,7 +35,7 @@ export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const fetchLeavesByApprover = async() => {
-    await axios.get(`${APILink}leave/`,{
+    await axiosInstance.get(`leave/`,{
       params:{
         approver: state?.emp_no
       }
@@ -47,7 +48,7 @@ export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
 
     setIsLoading(curr => true)
 
-    await axios.put(`${APILink}leave_new/${singleLEAVEDetailsData.id}/`,payload)
+    await axiosInstance.put(`leave_new/${singleLEAVEDetailsData.id}/`,payload)
       .then(res => {
 
         isDepartmentManager? fetchLeavesByApprover(): dispatch(LEAVEViewAction())

@@ -7,11 +7,12 @@ import * as _Action from '../actions/payroll-variables';
 import { Epic } from 'redux-observable';
 import store, { APILink } from '../configureStore';
 import * as _Interface from '@/types/types-payroll-variables';
+import axiosInstance from '@/helpers/axiosConfig';
 
 
 // TAX API SECTION // TAX API SECTION // TAX API SECTION // TAX API SECTION // TAX API SECTION
 const TAXEditApiCall = async (payload: _Interface.TAXEditInterface) => {
-  const response = await axios.put(`${APILink}tax/${payload.emp_no}/`,
+  const response = await axiosInstance.put(`tax/${payload.emp_no}/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -26,7 +27,7 @@ const TAXEditApiCall = async (payload: _Interface.TAXEditInterface) => {
 };
 
 const TAXCreateApiCall = async (payload: _Interface.TAXCreateInterface) => {
-  const response = await axios.post(`${APILink}tax/`,
+  const response = await axiosInstance.post(`tax/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -42,7 +43,7 @@ const TAXCreateApiCall = async (payload: _Interface.TAXCreateInterface) => {
 
 
 const TAXViewSpecificApiCall = async (payload: {emp_no: number}) => {
-  const response = await axios.get(`${APILink}tax/${payload.emp_no}/`,
+  const response = await axiosInstance.get(`tax/${payload.emp_no}/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -57,7 +58,7 @@ const TAXViewSpecificApiCall = async (payload: {emp_no: number}) => {
 
 
 const TAXViewApiCall = async () => {
-  const response = await axios.get(`${APILink}tax/`,
+  const response = await axiosInstance.get(`tax/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -159,7 +160,7 @@ export const TAXEditEpic: Epic = (action$, state$) =>
 
 // PAGIBIG API SECTION // PAGIBIG API SECTION // PAGIBIG API SECTION // PAGIBIG API SECTION // PAGIBIG API SECTION
 const PAGIBIGEditApiCall = async (payload: _Interface.PAGIBIGEditInterface) => {
-    const response = await axios.put(`${APILink}pagibig/${payload.emp_no}/`,
+    const response = await axiosInstance.put(`pagibig/${payload.emp_no}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -174,7 +175,7 @@ const PAGIBIGEditApiCall = async (payload: _Interface.PAGIBIGEditInterface) => {
   };
   
   const PAGIBIGCreateApiCall = async (payload: _Interface.PAGIBIGCreateInterface) => {
-    const response = await axios.post(`${APILink}pagibig/`,
+    const response = await axiosInstance.post(`pagibig/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -190,7 +191,7 @@ const PAGIBIGEditApiCall = async (payload: _Interface.PAGIBIGEditInterface) => {
   
   
   const PAGIBIGViewSpecificApiCall = async (payload: {emp_no: number}) => {
-    const response = await axios.get(`${APILink}pagibig/${payload.emp_no}/`,
+    const response = await axiosInstance.get(`pagibig/${payload.emp_no}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -205,7 +206,7 @@ const PAGIBIGEditApiCall = async (payload: _Interface.PAGIBIGEditInterface) => {
   
   
   const PAGIBIGViewApiCall = async () => {
-    const response = await axios.get(`${APILink}pagibig/`,
+    const response = await axiosInstance.get(`pagibig/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -306,7 +307,7 @@ const PAGIBIGEditApiCall = async (payload: _Interface.PAGIBIGEditInterface) => {
   
 // SSS API SECTION // SSS API SECTION // SSS API SECTION // SSS API SECTION // SSS API SECTION
 const SSSEditApiCall = async (payload: _Interface.SSSEditInterface) => {
-    const response = await axios.put(`${APILink}sss/${payload.emp_no}/`,
+    const response = await axiosInstance.put(`sss/${payload.emp_no}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -321,7 +322,7 @@ const SSSEditApiCall = async (payload: _Interface.SSSEditInterface) => {
   };
   
   const SSSCreateApiCall = async (payload: _Interface.SSSCreateInterface) => {
-    const response = await axios.post(`${APILink}sss/`,
+    const response = await axiosInstance.post(`sss/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -337,7 +338,7 @@ const SSSEditApiCall = async (payload: _Interface.SSSEditInterface) => {
   
   
   const SSSViewSpecificApiCall = async (payload: {emp_no: number}) => {
-    const response = await axios.get(`${APILink}sss/${payload.emp_no}/`,
+    const response = await axiosInstance.get(`sss/${payload.emp_no}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -352,7 +353,7 @@ const SSSEditApiCall = async (payload: _Interface.SSSEditInterface) => {
   
   
   const SSSViewApiCall = async () => {
-    const response = await axios.get(`${APILink}sss/`,
+    const response = await axiosInstance.get(`sss/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -453,7 +454,7 @@ const SSSEditApiCall = async (payload: _Interface.SSSEditInterface) => {
   
 // PHILHEALTH API SECTION // PHILHEALTH API SECTION // PHILHEALTH API SECTION // PHILHEALTH API SECTION // PHILHEALTH API SECTION
 const PHILHEALTHEditApiCall = async (payload: _Interface.PHILHEALTHEditInterface) => {
-    const response = await axios.put(`${APILink}philhealth/${payload.emp_no}/`,
+    const response = await axiosInstance.put(`philhealth/${payload.emp_no}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -468,7 +469,7 @@ const PHILHEALTHEditApiCall = async (payload: _Interface.PHILHEALTHEditInterface
   };
   
   const PHILHEALTHCreateApiCall = async (payload: _Interface.PHILHEALTHCreateInterface) => {
-    const response = await axios.post(`${APILink}philhealth/`,
+    const response = await axiosInstance.post(`philhealth/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -484,7 +485,7 @@ const PHILHEALTHEditApiCall = async (payload: _Interface.PHILHEALTHEditInterface
   
   
   const PHILHEALTHViewSpecificApiCall = async (payload: {emp_no: number}) => {
-    const response = await axios.get(`${APILink}philhealth/${payload.emp_no}/`,
+    const response = await axiosInstance.get(`philhealth/${payload.emp_no}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -499,7 +500,7 @@ const PHILHEALTHEditApiCall = async (payload: _Interface.PHILHEALTHEditInterface
   
   
   const PHILHEALTHViewApiCall = async () => {
-    const response = await axios.get(`${APILink}philhealth/`,
+    const response = await axiosInstance.get(`philhealth/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -609,7 +610,7 @@ const PHILHEALTHEditApiCall = async (payload: _Interface.PHILHEALTHEditInterface
 
 // CASHADVANCE API SECTION // CASHADVANCE API SECTION // CASHADVANCE API SECTION // CASHADVANCE API SECTION // CASHADVANCE API SECTION
 const CASHADVANCEEditApiCall = async (payload: _Interface.CASHADVANCEEditInterface) => {
-  const response = await axios.put(`${APILink}ca/${payload.emp_no}/${payload.id}/`,
+  const response = await axiosInstance.put(`ca/${payload.emp_no}/${payload.id}/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -624,7 +625,7 @@ const CASHADVANCEEditApiCall = async (payload: _Interface.CASHADVANCEEditInterfa
 };
 
 const CASHADVANCECreateApiCall = async (payload: _Interface.CASHADVANCECreateInterface) => {
-  const response = await axios.post(`${APILink}ca/`,
+  const response = await axiosInstance.post(`ca/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -639,7 +640,7 @@ const CASHADVANCECreateApiCall = async (payload: _Interface.CASHADVANCECreateInt
 };
 
 const CASHADVANCEViewSpecificEmployeeApiCall = async (payload: {emp_no: number}) => {
-  const response = await axios.get(`${APILink}ca/${payload.emp_no}/`,
+  const response = await axiosInstance.get(`ca/${payload.emp_no}/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -655,7 +656,7 @@ const CASHADVANCEViewSpecificEmployeeApiCall = async (payload: {emp_no: number})
 
 
 const CASHADVANCEViewSpecificApiCall = async (payload: {emp_no: number, ca_no: number}) => {
-  const response = await axios.get(`${APILink}ca/${payload.emp_no}/${payload.ca_no}`,
+  const response = await axiosInstance.get(`ca/${payload.emp_no}/${payload.ca_no}`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -670,7 +671,7 @@ const CASHADVANCEViewSpecificApiCall = async (payload: {emp_no: number, ca_no: n
 
 
 const CASHADVANCEViewApiCall = async () => {
-  const response = await axios.get(`${APILink}ca/`,
+  const response = await axiosInstance.get(`ca/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -792,7 +793,7 @@ export const CASHADVANCEEditEpic: Epic = (action$, state$) =>
 
 // ALLOWANCETYPE API SECTION // ALLOWANCETYPE API SECTION // ALLOWANCETYPE API SECTION // ALLOWANCETYPE API SECTION // ALLOWANCETYPE API SECTION
 const ALLOWANCETYPEEditApiCall = async (payload: _Interface.ALLOWANCETYPEEditInterface) => {
-    const response = await axios.put(`${APILink}allowance_type/${payload.id}/`,
+    const response = await axiosInstance.put(`allowance_type/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -807,7 +808,7 @@ const ALLOWANCETYPEEditApiCall = async (payload: _Interface.ALLOWANCETYPEEditInt
   };
   
   const ALLOWANCETYPECreateApiCall = async (payload: _Interface.ALLOWANCETYPECreateInterface) => {
-    const response = await axios.post(`${APILink}allowance_type/`,
+    const response = await axiosInstance.post(`allowance_type/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -823,7 +824,7 @@ const ALLOWANCETYPEEditApiCall = async (payload: _Interface.ALLOWANCETYPEEditInt
   
   
   const ALLOWANCETYPEViewSpecificApiCall = async (payload: {at_no: number}) => {
-    const response = await axios.get(`${APILink}allowance_type/${payload.at_no}/`,
+    const response = await axiosInstance.get(`allowance_type/${payload.at_no}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -838,7 +839,7 @@ const ALLOWANCETYPEEditApiCall = async (payload: _Interface.ALLOWANCETYPEEditInt
   
   
   const ALLOWANCETYPEViewApiCall = async () => {
-    const response = await axios.get(`${APILink}allowance_type/`,
+    const response = await axiosInstance.get(`allowance_type/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -939,7 +940,7 @@ const ALLOWANCETYPEEditApiCall = async (payload: _Interface.ALLOWANCETYPEEditInt
   
 // ALLOWANCEENTRY API SECTION // ALLOWANCEENTRY API SECTION // ALLOWANCEENTRY API SECTION // ALLOWANCEENTRY API SECTION // ALLOWANCEENTRY API SECTION
 const ALLOWANCEENTRYEditApiCall = async (payload: _Interface.ALLOWANCEENTRYEditInterface) => {
-    const response = await axios.put(`${APILink}allowance_entry/${payload.emp_no}/${payload.id}/`,
+    const response = await axiosInstance.put(`allowance_entry/${payload.emp_no}/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -954,7 +955,7 @@ const ALLOWANCEENTRYEditApiCall = async (payload: _Interface.ALLOWANCEENTRYEditI
   };
   
   const ALLOWANCEENTRYCreateApiCall = async (payload: _Interface.ALLOWANCEENTRYCreateInterface) => {
-    const response = await axios.post(`${APILink}allowance_entry/`,
+    const response = await axiosInstance.post(`allowance_entry/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -970,7 +971,7 @@ const ALLOWANCEENTRYEditApiCall = async (payload: _Interface.ALLOWANCEENTRYEditI
   
   
   const ALLOWANCEENTRYViewSpecificApiCall = async (payload: {ae_no: number}) => {
-    const response = await axios.get(`${APILink}allowance_entry/${payload.ae_no}/`,
+    const response = await axiosInstance.get(`allowance_entry/${payload.ae_no}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -985,7 +986,7 @@ const ALLOWANCEENTRYEditApiCall = async (payload: _Interface.ALLOWANCEENTRYEditI
   
   
   const ALLOWANCEENTRYViewApiCall = async () => {
-    const response = await axios.get(`${APILink}allowance_entry/`,
+    const response = await axiosInstance.get(`allowance_entry/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){

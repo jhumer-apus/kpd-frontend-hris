@@ -13,6 +13,7 @@ import axios from 'axios';
 import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
 import { beautifyJSON } from '@/helpers/utils';
 import { useState } from 'react';
+import axiosInstance from '@/helpers/axiosConfig';
 
 
 
@@ -34,7 +35,7 @@ export default function ApproveOBTModal(props: ApproveOBTModalInterface) {
 
     setIsLoading(curr => true)
 
-    await axios.put(`${APILink}obt_new/${singleOBTDetailsData.id}/`, payload)
+    await axiosInstance.put(`obt_new/${singleOBTDetailsData.id}/`, payload)
       .then(res => {
 
           dispatch(OBTViewAction({emp_no: state?.emp_no}))

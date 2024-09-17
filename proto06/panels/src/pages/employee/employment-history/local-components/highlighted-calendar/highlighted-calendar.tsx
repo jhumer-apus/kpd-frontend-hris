@@ -13,6 +13,7 @@ import { SCHEDULEDAILYViewInterface, SCHEDULESHIFTViewInterface } from '@/types/
 import { ScheduleDailyColor } from '@/types/index';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
+import axiosInstance from '@/helpers/axiosConfig';
 
 export interface HighlightedCalendarInterface {
   value: dayjs.Dayjs | null,
@@ -175,9 +176,9 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
     let formattedDate = date.format('YYYY-MM');
     setIsLoading(true);
     setHighlightedDays([]);
-    requestAbortController.current = axios.CancelToken.source();
+    requestAbortController.current = axiosInstance.CancelToken.source();
   
-    axios.get(`${APILink}schedule_daily/${currEmployee}/`, {
+    axiosInstance.get(`schedule_daily/${currEmployee}/`, {
       cancelToken: requestAbortController.current.token,
     })
       .then((response) => {
@@ -220,7 +221,7 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
         // setShortcutsItems(createShortcutItems(filteredData)); // Update shortcutsItems
       })
       .catch((error) => {
-        if (axios.isCancel(error)) {
+        if (axiosInstance.isCancel(error)) {
           // Ignore the error if it was caused by request cancellation
           return;
         }

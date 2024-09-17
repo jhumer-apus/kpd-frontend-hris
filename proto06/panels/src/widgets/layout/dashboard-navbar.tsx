@@ -57,7 +57,7 @@ export function DashboardNavbar() {
   const updatedImage = employee_detail?.employee_image;
   const handleLogout = () => {
     // Perform logout actions here
-    const removals = ['token', 'user', 'employee_detail'];
+    const removals = ['refresh_token', 'access_token', 'user', 'employee_detail'];
     removals.forEach((el) => {
       Cookies.remove(el);
     });

@@ -8,6 +8,7 @@ import DenyUAModal from '../main-modals/inner-modals/deny-ua-modal';
 import { useSelector } from 'react-redux';
 import { APILink, RootState, globalDateTime } from '@/store/configureStore';
 import axios from 'axios';
+import axiosInstance from '@/helpers/axiosConfig';
 
 interface UAModalUIInterface {
     singleUADetailsData: UAViewInterface;
@@ -37,7 +38,7 @@ function UAModalUI(props: UAModalUIInterface) {
     },[])
     
     const fetchCutOffPeriod = async () => {
-        await axios.get(`${APILink}cutoff_period/${ThisProps.cutoff_code}`).then(res => {
+        await axiosInstance.get(`cutoff_period/${ThisProps.cutoff_code}`).then(res => {
             setData(curr => ({
                 ...curr,
                 cutOffPeriod: res.data.co_name

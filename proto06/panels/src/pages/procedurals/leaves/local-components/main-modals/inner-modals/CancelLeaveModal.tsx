@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
 import { LEAVEViewAction, LEAVEViewAllFilterApproverAction } from '@/store/actions/procedurals';
 import useFetchFileApplicationByApprover from '@/custom-hooks/use-fetch-file-application-by-approver';
+import axiosInstance from '@/helpers/axiosConfig';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -65,7 +66,7 @@ export default function CancelLeaveModal(props: Props) {
     }
 
     const fetchLeavesByApprover = async() => {
-        await axios.get(`${APILink}leave/`,{
+        await axiosInstance.get(`leave/`,{
           params:{
             approver: currUser?.emp_no
           }
@@ -90,7 +91,7 @@ export default function CancelLeaveModal(props: Props) {
             added_by: currUser?.emp_no,
 
         }
-        await axios.put(`${APILink}leave_new/${data.id}/`, payload).then((res:AxiosResponse) => {
+        await axiosInstance.put(`leave_new/${data.id}/`, payload).then((res:AxiosResponse) => {
             
             isDepartmentManager? fetchLeavesByApprover(): dispatch(LEAVEViewAction())
 

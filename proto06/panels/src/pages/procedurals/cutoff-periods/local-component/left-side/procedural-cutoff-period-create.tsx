@@ -10,6 +10,7 @@ import { CUTOFFPERIODCreateAction, CUTOFFPERIODCreateActionFailureCleanup } from
 import CUTOFFPERIODCreditDateCreate from './inner-ui-components/cutoff-period-credit-date-field';
 import AutoCompleteForm from '@/public-components/forms/AutoCompleteForm';
 import axios from 'axios';
+import axiosInstance from '@/helpers/axiosConfig';
 
 interface CreateCUTOFFPERIODModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -56,13 +57,13 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
     }, [CUTOFFPERIODCreatestate.status])
 
     const fetchDropDownData = async () => {
-        await axios.get(`${APILink}payrollgroup/`).then(res => 
+        await axiosInstance.get(`payrollgroup/`).then(res => 
           setDropDownData((curr:any) => ({
             ...curr,
             payroll_groups: Array.isArray(res.data) ? res.data : []
           }))
         )
-        await axios.get(`${APILink}division/`).then(res => 
+        await axiosInstance.get(`division/`).then(res => 
           setDropDownData((curr:any) => ({
             ...curr,
             divisions: Array.isArray(res.data) ? res.data : []

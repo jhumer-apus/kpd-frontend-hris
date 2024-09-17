@@ -17,6 +17,7 @@ import axios, {AxiosResponse, AxiosError} from 'axios'
 import { APILink } from '@/store/configureStore';
 import { beautifyJSON } from '@/helpers/utils';
 import { HandleAlertAction } from '@/store/actions/components';
+import axiosInstance from '@/helpers/axiosConfig';
 
 interface CreateOVERTIMEModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -65,7 +66,7 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
           application_pk: app_pk
         }
     
-        await axios.post(`${APILink}reset_password_email/`, body).then(res => {
+        await axiosInstance.post(`reset_password_email/`, body).then(res => {
     
             dispatch(HandleAlertAction({
                 open:true,
@@ -98,7 +99,7 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
             ot_business_date: createOVERTIME.ot_business_date,
             added_by: userData?.emp_no,
         }
-        await axios.post(`${APILink}ot/`, payload)
+        await axiosInstance.post(`ot/`, payload)
             .then((res:any) => {
 
                 setIsSubmittingRequest(false)

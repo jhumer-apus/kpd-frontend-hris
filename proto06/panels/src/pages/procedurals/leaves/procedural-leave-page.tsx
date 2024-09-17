@@ -11,6 +11,7 @@ import { globalServerErrorMsg } from '@/store/configureStore';
 import useFetchFileApplicationByApprover from '@/custom-hooks/use-fetch-file-application-by-approver';
 import { HandleModalAction } from '@/store/actions/components';
 import axios from 'axios';
+import axiosInstance from '@/helpers/axiosConfig';
 
 export default function ProceduralLEAVEPage() {
   const currUser = useSelector((state: RootState) => state.auth.employee_detail);
@@ -43,7 +44,7 @@ export default function ProceduralLEAVEPage() {
   const LEAVEViewData = data as LEAVEViewInterface[];
 
   const fetchLeavesByApprover = async() => {
-    await axios.get(`${APILink}leave/`,{
+    await axiosInstance.get(`leave/`,{
       params:{
         approver: currUser?.emp_no
       }

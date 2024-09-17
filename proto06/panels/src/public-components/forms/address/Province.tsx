@@ -8,6 +8,7 @@ import InputLabel from '@mui/material/InputLabel';
 
 //REDUX
 import { APILink, RootState } from '@/store/configureStore';
+import axiosInstance from '@/helpers/axiosConfig';
 
 interface ProvinceInterface {
     id: number,
@@ -50,7 +51,7 @@ export default function Province(props: Props) {
     //FUNCTIONS
     const fetchProvinces = async() => {
 
-        await axios.get(`${APILink}province/`).then((res:AxiosResponse) => {
+        await axiosInstance.get(`province/`).then((res:AxiosResponse) => {
 
             const sortedProvince= res.data.sort((a:any, b:any) => a.name.localeCompare(b.name));
             setProvinces(curr => sortedProvince)

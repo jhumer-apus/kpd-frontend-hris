@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ViewEmploymentStatusType from "./ViewEmploymentStatusType";
+import axiosInstance from "@/helpers/axiosConfig";
 
 export default function EmploymentStatusTypesTable () {
 
@@ -20,7 +21,7 @@ export default function EmploymentStatusTypesTable () {
     },[])
 
     const fetchAllEmploymentStatus = async () => {
-      await axios.get(`${APILink}emp_status_type/`).then(res => {
+      await axiosInstance.get(`emp_status_type/`).then(res => {
         const data = Array.isArray(res.data) ? res.data: []
         dispatch(EMPLOYMENTSSTATUSViewAction(data))
       })

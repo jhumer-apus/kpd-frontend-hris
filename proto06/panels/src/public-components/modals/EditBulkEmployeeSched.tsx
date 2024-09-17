@@ -8,6 +8,7 @@ import axios from "axios";
 import { Typography } from "@material-tailwind/react";
 import EmployeeListField from "../EmployeeListField";
 import { SCHEDULEDAILYViewFilterEmployeeAction } from "@/store/actions/procedurals";
+import axiosInstance from "@/helpers/axiosConfig";
 
 interface Props {
     selectedRows: any[],
@@ -52,13 +53,13 @@ export default function EditBulkEmployeeSched(props: Props) {
 
     const fetchScheduleShifts = async () => {
         await axios
-            .get(`${APILink}schedule_shift/`)
+            .get(`schedule_shift/`)
             .then(res => setScheduleShifts(curr => Array.isArray(res.data) ? res.data: []))
     }
 
     // const fetchEmployeeSchedule = async (emp_no: number) => {
     //     await axios
-    //         .get(`${APILink}schedule_daily/${emp_no}/`)
+    //         .get(`schedule_daily/${emp_no}/`)
     //         .then(res => {
     //             setShiftData((curr:any)=> (
     //                 {
@@ -93,7 +94,7 @@ export default function EditBulkEmployeeSched(props: Props) {
     }
 
     const updateEmployeesSchedule = async (payload:any) => {
-        await axios.put(`${APILink}update_schedules/${emp_no}/`, payload)
+        await axiosInstance.put(`update_schedules/${emp_no}/`, payload)
             .then(res => {
                 dispatch(HandleAlertAction({
                     open:true,

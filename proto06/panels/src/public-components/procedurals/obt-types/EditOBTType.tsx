@@ -1,3 +1,4 @@
+import axiosInstance from "@/helpers/axiosConfig";
 import { beautifyJSON } from "@/helpers/utils";
 import { HandleAlertAction } from "@/store/actions/components";
 import { APILink, RootState } from "@/store/configureStore";
@@ -48,7 +49,7 @@ export default function ExportOBTType(props:Props) {
     const fetchSpecificObtType = async() => {
 
         if(selectedRow?.type == "edit") {
-            await axios.get(`${APILink}obt_type/${selectedRow?.id}/`)
+            await axiosInstance.get(`obt_type/${selectedRow?.id}/`)
                 .then(res => setData(
                     {
                         id: res?.data?.id || "",
@@ -87,7 +88,7 @@ export default function ExportOBTType(props:Props) {
         putObtType(payload)
     }
     const putObtType = async (payload:any) => {
-        await axios.put(`${APILink}obt_type/${selectedRow?.id}/`,payload)
+        await axiosInstance.put(`obt_type/${selectedRow?.id}/`,payload)
             .then(res => 
                 {
                     dispatch(HandleAlertAction(

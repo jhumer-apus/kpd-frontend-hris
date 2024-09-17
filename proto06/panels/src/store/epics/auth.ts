@@ -8,23 +8,26 @@ import { Epic } from 'redux-observable';
 import { APILink } from '../configureStore';
 import store from '../configureStore';
 
+import { fetchUserData, fetchUserDataSuccess, fetchUserDataFailure, } from '../actions/auth';
+import axiosInstance from '@/helpers/axiosConfig';
+
 const loginApiCall = async (username: string, password: string, twoFactorToken?: string) => {
-    // const response = await axios.post("https://bitverse-api.herokuapp.com/login", {
-    // const response = await axios.post("http://172.16.168.144:8888/login", {
+    // const response = await axiosInstance.post("https://bitverse-api.herokuapp.com/login", {
+    // const response = await axiosInstance.post("http://172.16.168.144:8888/login", {
     const response = await axios.post(`${APILink}login/`, 
-    {
-    username,
-    password,
-    ...(twoFactorToken ? { twoFactorToken } : {}),
-    },
-    {
-      onDownloadProgress: (progressEvent) => {
-        if(progressEvent.total){
-          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-          store.dispatch(userLoginActionProgress(progress));
+      {
+        username,
+        password,
+        ...(twoFactorToken ? { twoFactorToken } : {}),
+      },
+      {
+        onDownloadProgress: (progressEvent) => {
+          if(progressEvent.total){
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            store.dispatch(userLoginActionProgress(progress));
+          }
         }
-      }
-  }
+    }
   );
   return response.data;
 };
@@ -38,10 +41,16 @@ export const authEpic: Epic = (action$, state$) =>
       ).pipe(
         map((data) => {
           // Save the token in a secure cookie with an expiration time of 6 hour
-          Cookies.set('user', JSON.stringify(data.user), { expires: 6 / 24, secure: false });
-          Cookies.set('token', data.jwt, JSON.stringify(data.user), { expires: 6 / 24, secure: false });
+          const {access , refresh, user, employee_detail} = data
+          console.log(data)
+          Cookies.set('user', JSON.stringify(user), { expires: 6 / 24, secure: false });
+          Cookies.set('access_token', access, { expires: 6 / 24, secure: false });
+          Cookies.set('refresh_token', refresh, { expires: 6 / 24, secure: false });
+          Cookies.set('employee_detail', JSON.stringify(employee_detail), { expires: 6 / 24, secure: false });
           // Cookies.set('emp_deez', employeeDetailJson, { expires: 6 / 24, secure: false });
-          return userLoginActionSuccess(data.jwt, data.user, data.employee_detail);
+
+          
+          return userLoginActionSuccess(access, user, employee_detail);
         }),
         catchError((error) => {
           if (error.response && error.response.data && error.response.data?.['Error Message']) {
@@ -54,12 +63,10 @@ export const authEpic: Epic = (action$, state$) =>
     )
 );
 
-import { fetchUserData, fetchUserDataSuccess, fetchUserDataFailure, } from '../actions/auth';
-
 
 // New API call function
 const fetchUserDataApiCall = async (emp_no: Number) => {
-  const response = await axios.get(`${APILink}employees/${emp_no}/`);
+  const response = await axiosInstance.get(`employees/${emp_no}/`);
   return response.data;
 };
 

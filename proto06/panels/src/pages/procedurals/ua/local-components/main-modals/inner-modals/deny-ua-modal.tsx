@@ -13,6 +13,7 @@ import { beautifyJSON, clearFields } from '@/helpers/utils';
 import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
 import axios from 'axios';
 import { useState } from 'react';
+import axiosInstance from '@/helpers/axiosConfig';
 
 
 
@@ -63,7 +64,7 @@ export default function DenyUAModal(props: DenyUAModalInterface) {
 
     setIsLoading(curr => true)
     
-    await axios.put(`${APILink}ua_new/${singleUADetailsData.id}/`, payload)
+    await axiosInstance.put(`ua_new/${singleUADetailsData.id}/`, payload)
         .then(res => {
 
             dispatch(UAViewAction({emp_no: state?.emp_no}))

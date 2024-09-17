@@ -10,6 +10,7 @@ import { Select, Option } from "@material-tailwind/react";
 //REDUX
 import { APILink, RootState } from '@/store/configureStore';
 import useGetSpecificProvince from '@/custom-hooks/use-fetch-specific-province';
+import axiosInstance from '@/helpers/axiosConfig';
 
 interface CityMunicipalityInterface {
     id: number,
@@ -66,7 +67,7 @@ export default function SelectCityMunicipality(props:Props) {
 
         if(currentProvinceCode) {
 
-            await axios.get(`${APILink}city_municipality/`,{
+            await axiosInstance.get(`city_municipality/`,{
 
                 params: {
                     code: currentProvinceCode

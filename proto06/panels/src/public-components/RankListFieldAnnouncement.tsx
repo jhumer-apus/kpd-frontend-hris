@@ -31,7 +31,7 @@ export default function RankListFieldAnnouncement(props: Props) {
     // FUNCTIONS
     const fetchRanks = async() => {
         await axios
-            .get(`${APILink}ann_rank`)
+            .get(`ann_rank`)
             .then(res => setRanks((curr:any) => Array.isArray(res.data)? res.data: []))
             .catch(err => dispatch(HandleAlertAction({
                 open: true,

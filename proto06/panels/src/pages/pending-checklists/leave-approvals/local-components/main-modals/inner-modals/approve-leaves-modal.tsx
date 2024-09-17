@@ -13,6 +13,7 @@ import axios from 'axios';
 import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
 import { beautifyJSON } from '@/helpers/utils';
 import { useState } from 'react';
+import axiosInstance from '@/helpers/axiosConfig';
 
 
 
@@ -34,7 +35,7 @@ export default function ApproveLEAVEModal(props: ApproveLEAVEModalInterface) {
 
     setIsLoading(curr => true)
 
-    await axios.put(`${APILink}leave_new/${singleLEAVEDetailsData.id}/`, payload)
+    await axiosInstance.put(`leave_new/${singleLEAVEDetailsData.id}/`, payload)
       .then(res => {
 
         setIsLoading(curr => false)

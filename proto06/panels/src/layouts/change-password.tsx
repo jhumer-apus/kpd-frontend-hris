@@ -30,6 +30,7 @@ import {
 } from "@material-tailwind/react";
 import axios from 'axios'
 import { beautifyJSON } from '@/helpers/utils';
+import axiosInstance from "@/helpers/axiosConfig";
 
 // interface ResetPasswordUSERModalInterface {
 //   primaryKey: number,
@@ -59,7 +60,7 @@ const resetPasswordUSERSubmit = async () => {
         added_by: curr_user.emp_no || NaN
 
       }
-      await axios.post(`${APILink}reset-password/${passwordData.id}/`, passwordData)
+      await axiosInstance.post(`reset-password/${passwordData.id}/`, passwordData)
         .then(res => window.alert("success"))
         .then(res => handleLogout())
         .catch(err => window.alert(beautifyJSON(err.response.data)))
@@ -79,14 +80,14 @@ const resetPasswordUSERSubmit = async () => {
 
 const handleLogout = () => {
   // Perform logout actions here
-  const removals = ['token', 'user', 'employee_detail'];
+  const removals = ['access_token', 'refresh_token', 'user', 'employee_detail'];
   removals.forEach((el) => {
     Cookies.remove(el);
   });
   setTimeout(()=> {
     dispatch(userLogout());
   }, 200)
-  window.location.reload();
+
   window.location.replace('/')
 };
 

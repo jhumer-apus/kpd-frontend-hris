@@ -15,6 +15,7 @@ import axios from 'axios'
 
 //REDUX
 import { APILink } from '@/store/configureStore';
+import axiosInstance from '@/helpers/axiosConfig';
 
 interface OBTModalUIInterface {
     singleOBTDetailsData: OBTViewInterface;
@@ -75,7 +76,7 @@ function OBTModalUI(props: OBTModalUIInterface) {
     },[])
 
     const fetchCutOffPeriod = async () => {
-        await axios.get(`${APILink}cutoff_period/${ThisProps.cutoff_code}`).then(res => {
+        await axiosInstance.get(`cutoff_period/${ThisProps.cutoff_code}`).then(res => {
             setData(curr => ({
                 ...curr,
                 cuttOffPeriod: res.data.co_name

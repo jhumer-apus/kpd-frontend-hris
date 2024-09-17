@@ -1,3 +1,4 @@
+import axiosInstance from "@/helpers/axiosConfig";
 import CreateOBTType from "@/public-components/procedurals/obt-types/CreateOBTType";
 import ListOBTType from "@/public-components/procedurals/obt-types/ListOBTType";
 import { APILink } from "@/store/configureStore";
@@ -15,7 +16,7 @@ export default function OBTtypes() {
     },[])
 
     const fetchObtTypes = async () => {
-        await axios.get(`${APILink}obt_type/`)
+        await axiosInstance.get(`obt_type/`)
             .then(res => setObtTypes((curr:any[]) => Array.isArray(res?.data)? res.data: []))
     }
 

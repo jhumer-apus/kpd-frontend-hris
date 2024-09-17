@@ -1,3 +1,4 @@
+import axiosInstance from "@/helpers/axiosConfig";
 import { APILink } from "@/store/configureStore";
 import { Autocomplete, CircularProgress, TextField } from "@mui/material";
 import axios from "axios";
@@ -15,7 +16,7 @@ export default function EmployeeListField(props:Props) {
     const { label, currentValue, handleChange, multiple } = props
 
     const { data, isLoading, error, status } = useQuery('employees', async () => {
-        const res = await axios.get(`${APILink}active_emp/`)
+        const res = await axiosInstance.get(`active_emp/`)
         return res.data
     });
 

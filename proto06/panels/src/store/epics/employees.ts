@@ -7,17 +7,19 @@ import { getEmployeesList, getEmployeesListFailure, getEmployeesListSuccess } fr
 import { Epic } from 'redux-observable';
 import { getSpecificEmployeeInfo, getSpecificEmployeeInfoSuccess, getSpecificEmployeeInfoFailure } from '../actions/employees';
 import { APILink } from '../configureStore';
+import axiosInstance from '@/helpers/axiosConfig';
 
 const getEmployeesListApiCall = async () => {
 
-    // const response = await axios.post(`https://bitverse-api.herokuapp.com/login`, {
-    // const response = await axios.post(`http://172.16.168.144:8888/login`, {
-    const response = await axios.get(`${APILink}employees/`);
+    // const response = await axiosInstance.post(`https://bitverse-api.herokuapp.com/login`, {
+    // const response = await axiosInstance.post(`http://172.16.168.144:8888/login`, {
+    const response = await axiosInstance.get(`employees/`);
   return response.data;
 };
 
 const getSpecificEmployeesInfoApiCall = async (employee_id: number) => {
-  const response = await axios.get(`${APILink}employees/${employee_id}/`);
+  
+  const response = await axiosInstance.get(`employees/${employee_id}/`);
   return response.data;
 };
 

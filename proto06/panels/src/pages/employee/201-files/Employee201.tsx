@@ -158,7 +158,7 @@ export default function DataTable() {
 
   const fetchExportData = async () => {
     await axios
-            .get(`${APILink}export_employees/`)
+            .get(`export_employees/`)
             .then(res => 
               {
                 const data = Array.isArray(res.data) ? res.data: []

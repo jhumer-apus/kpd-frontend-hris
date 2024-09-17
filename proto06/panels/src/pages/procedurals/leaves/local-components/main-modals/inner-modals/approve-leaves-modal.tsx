@@ -14,6 +14,7 @@ import { HandleAlertAction, HandleModalAction } from '@/store/actions/components
 import { beautifyJSON } from '@/helpers/utils';
 import useFetchFileApplicationByApprover from '@/custom-hooks/use-fetch-file-application-by-approver';
 import { useState } from 'react';
+import axiosInstance from '@/helpers/axiosConfig';
 
 
 
@@ -33,7 +34,7 @@ export default function ApproveLEAVEModal(props: ApproveLEAVEModalInterface) {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const fetchLeavesByApprover = async() => {
-    await axios.get(`${APILink}leave/`,{
+    await axiosInstance.get(`leave/`,{
       params:{
         approver: state?.emp_no
       }
@@ -46,7 +47,7 @@ export default function ApproveLEAVEModal(props: ApproveLEAVEModalInterface) {
 
     setIsLoading(curr => true)
 
-    await axios.put(`${APILink}leave_new/${singleLEAVEDetailsData.id}/`, payload)
+    await axiosInstance.put(`leave_new/${singleLEAVEDetailsData.id}/`, payload)
       .then(res => {
 
         isDepartmentManager? fetchLeavesByApprover(): dispatch(LEAVEViewAction())

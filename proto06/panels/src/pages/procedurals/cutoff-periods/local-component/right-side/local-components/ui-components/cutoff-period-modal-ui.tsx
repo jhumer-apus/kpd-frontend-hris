@@ -8,6 +8,7 @@ import AllowedDaysCUTOFFPERIODModal from '../main-modals/inner-modals/leave-cred
 import { useSelector } from 'react-redux';
 import { APILink, RootState } from '@/store/configureStore';
 import axios from 'axios';
+import axiosInstance from '@/helpers/axiosConfig';
 
 interface CUTOFFPERIODModalUIInterface {
     singleCUTOFFPERIODDetailsData: CUTOFFPERIODViewInterface;
@@ -38,7 +39,7 @@ function CUTOFFPERIODModalUI(props: CUTOFFPERIODModalUIInterface) {
 
     const fetchPayrollGroup = async () => {
         if(singleCUTOFFPERIODDetailsData?.payroll_group_code) {
-            await axios.get(`${APILink}payrollgroup/${singleCUTOFFPERIODDetailsData.payroll_group_code}/`).then(res => {
+            await axiosInstance.get(`payrollgroup/${singleCUTOFFPERIODDetailsData.payroll_group_code}/`).then(res => {
                 setSingleCUTOFFPERIODDetailsData(curr => ({
                     ...curr,
                     payroll_group_name: res?.data?.name
@@ -49,7 +50,7 @@ function CUTOFFPERIODModalUI(props: CUTOFFPERIODModalUIInterface) {
 
     const fetchDivision = async () => {
         if(singleCUTOFFPERIODDetailsData?.division_code) {
-            await axios.get(`${APILink}division/${singleCUTOFFPERIODDetailsData?.division_code}/`).then(res => {
+            await axiosInstance.get(`division/${singleCUTOFFPERIODDetailsData?.division_code}/`).then(res => {
                 setSingleCUTOFFPERIODDetailsData(curr => ({
                     ...curr,
                     division_name: res?.data?.div_name

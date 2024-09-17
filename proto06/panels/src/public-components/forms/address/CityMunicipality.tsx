@@ -9,6 +9,7 @@ import InputLabel from '@mui/material/InputLabel';
 //REDUX
 import { APILink, RootState } from '@/store/configureStore';
 import useGetSpecificProvince from '@/custom-hooks/use-fetch-specific-province';
+import axiosInstance from '@/helpers/axiosConfig';
 
 interface CityMunicipalityInterface {
     id: number,
@@ -61,7 +62,7 @@ export default function CityMunicipality(props:Props) {
     const fetchCities = async() => {
 
         if(currentProvinceCode) {
-            await axios.get(`${APILink}city_municipality/`,{
+            await axiosInstance.get(`city_municipality/`,{
 
                 params: {
                     code: currentProvinceCode

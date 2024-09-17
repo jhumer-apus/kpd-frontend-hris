@@ -1,3 +1,4 @@
+import axiosInstance from "@/helpers/axiosConfig";
 import EmployeeListField from "@/public-components/EmployeeListField";
 import { EMPLOYMENTSSTATUSViewAction } from "@/store/actions/categories";
 import { APILink, RootState } from "@/store/configureStore";
@@ -41,7 +42,7 @@ export default function CreateEmploymentStatusType() {
     }
 
     const createEmpStatusType = async (payload:CreateEmpStatusType) => {
-        await axios.post(`${APILink}emp_status_type/`, payload).then(res => {
+        await axiosInstance.post(`emp_status_type/`, payload).then(res => {
             fetchAllEmploymentStatus()
             setCreateType((curr:CreateEmpStatusType) => (
                 {
@@ -53,7 +54,7 @@ export default function CreateEmploymentStatusType() {
     }
 
     const fetchAllEmploymentStatus = async () => {
-        await axios.get(`${APILink}emp_status_type/`).then(res => {
+        await axiosInstance.get(`emp_status_type/`).then(res => {
           const data = Array.isArray(res.data) ? res.data: []
           dispatch(EMPLOYMENTSSTATUSViewAction(data))
         })

@@ -31,7 +31,7 @@ export default function DepartmentListFieldAnnouncement(props: Props) {
     // FUNCTIONS
     const fetchDepartments = async() => {
         await axios
-            .get(`${APILink}ann_department`)
+            .get(`ann_department`)
             .then(res => setDepartments((curr:any) => Array.isArray(res.data)? res.data: []))
             .catch(err => dispatch(HandleAlertAction({
                 open: true,

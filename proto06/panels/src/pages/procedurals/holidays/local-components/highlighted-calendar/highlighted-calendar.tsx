@@ -12,6 +12,7 @@ import './highlighted-calendar.scss';
 import { APILink } from '@/store/configureStore';
 import { HolidayGetType } from '@/types/types-pages';
 import { HolidayColor } from '../list-of-holidays/list-of-holidays';
+import axiosInstance from '@/helpers/axiosConfig';
 
 export interface HighlightedCalendarInterface {
   value: dayjs.Dayjs | null,
@@ -55,9 +56,9 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
     const formattedDate = date.format('YYYY-MM');
     setIsLoading(true);
     setHighlightedDays([]);
-    requestAbortController.current = axios.CancelToken.source();
+    requestAbortController.current = axiosInstance.CancelToken.source();
   
-    axios.get(`${APILink}holiday/`, {
+    axiosInstance.get(`holiday/`, {
       cancelToken: requestAbortController.current.token,
     })
       .then((response) => {
@@ -83,7 +84,7 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
         setIsLoading(false);
       })
       .catch((error) => {
-        if (axios.isCancel(error)) {
+        if (axiosInstance.isCancel(error)) {
           // Ignore the error if it was caused by request cancellation
           return;
         }

@@ -13,6 +13,7 @@ import Province from "@/public-components/forms/address/Province";
 import AllCityMunicipality from "@/public-components/forms/address/AllCityMunicipality";
 import { beautifyJSON } from "@/helpers/utils";
 import { useSelector } from "react-redux";
+import axiosInstance from "@/helpers/axiosConfig";
 interface Props {
     holidayId:any
     isOpenModal: boolean
@@ -65,7 +66,7 @@ export default function EditHolidayModal(props:Props) {
         
         if(holidayId) {
 
-            await axios.get(`${APILink}holiday/${holidayId}/`).then((res:AxiosResponse) => {
+            await axiosInstance.get(`holiday/${holidayId}/`).then((res:AxiosResponse) => {
 
                 console.log(res.data)
                 setHolidayDetails((curr:any) => res.data)
@@ -91,7 +92,7 @@ export default function EditHolidayModal(props:Props) {
     }
 
     // const fetchProvince = async() => {
-    //     await axios.get(`${APILink}province/${holidayDetails.province_ref}/`).then((res:AxiosResponse) => {
+    //     await axiosInstance.get(`province/${holidayDetails.province_ref}/`).then((res:AxiosResponse) => {
     //         setAddress((curr:any) => ({
     //             ...curr,
     //             province:{
@@ -104,7 +105,7 @@ export default function EditHolidayModal(props:Props) {
     // }
 
     // const fetchCity = async() => {
-    //     await axios.get(`${APILink}city_municipality/${holidayDetails.city_ref}/`).then((res:AxiosResponse) => {
+    //     await axiosInstance.get(`city_municipality/${holidayDetails.city_ref}/`).then((res:AxiosResponse) => {
     //         setAddress((curr:any) => ({
     //             ...curr,
     //             city:{
@@ -157,7 +158,7 @@ export default function EditHolidayModal(props:Props) {
     }
     const updateHoliday = async(payload:any) => {
 
-        await axios.put(`${APILink}holiday/${holidayDetails.id}/`, payload).then((res:AxiosResponse) => {
+        await axiosInstance.put(`holiday/${holidayDetails.id}/`, payload).then((res:AxiosResponse) => {
 
             window.alert('Update Holiday Detail Successful')
             setIsOpenModal((curr:boolean) => false)
