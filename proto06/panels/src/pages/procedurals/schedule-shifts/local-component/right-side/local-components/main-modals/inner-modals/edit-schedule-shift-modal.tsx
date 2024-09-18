@@ -280,7 +280,7 @@ export default function EditSCHEDULESHIFTModal(props: EditSCHEDULESHIFTModalInte
                                   defaultValue={dayjs(singleSCHEDULESHIFTDetailsData?.lunch_break_end, "HH:mm:ss")}
                                   // minTime={singleSCHEDULESHIFTDetailsData?.lunch_break_start ? dayjs(singleSCHEDULESHIFTDetailsData?.lunch_break_start, "HH:mm:ss"): null}
                                   // maxTime={singleSCHEDULESHIFTDetailsData?.time_out ? dayjs(singleSCHEDULESHIFTDetailsData.time_out, "HH:mm:ss"): null}
-                                  disabled={!singleSCHEDULESHIFTDetailsData?.lunch_break_end}
+                                  disabled={!singleSCHEDULESHIFTDetailsData?.lunch_break_start}
                                   onChange={(newValue) => handleChangeTime("lunch_break_end", dayjs(newValue).format("HH:mm:ss"))}
                               />
                               
