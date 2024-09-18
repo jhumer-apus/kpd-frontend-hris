@@ -42,7 +42,7 @@ export const authEpic: Epic = (action$, state$) =>
         map((data) => {
           // Save the token in a secure cookie with an expiration time of 6 hour
           const {access , refresh, user, employee_detail} = data
-          console.log(data)
+
           Cookies.set('user', JSON.stringify(user), { expires: 6 / 24, secure: false });
           Cookies.set('access_token', access, { expires: 6 / 24, secure: false });
           Cookies.set('refresh_token', refresh, { expires: 6 / 24, secure: false });
@@ -53,8 +53,10 @@ export const authEpic: Epic = (action$, state$) =>
           return userLoginActionSuccess(access, user, employee_detail);
         }),
         catchError((error) => {
-          if (error.response && error.response.data && error.response.data?.['Error Message']) {
-            return of(userLoginActionFailure(error.response.data?.['Error Message'])); // Extract error message from the response
+
+          console.log(error)
+          if (error.response && error.response.data && error.response?.data) {
+            return of(userLoginActionFailure(error.response.data?.detail || "Error Logging In Please Contact IT Support")); // Extract error message from the response
           } else {
             return of(userLoginActionFailure(error.message)); // If there is no custom error message, use the default one
           }

@@ -22,9 +22,6 @@ axiosInstance.interceptors.request.use(
     let accessToken = Cookies.get('access_token');
     const refreshToken = Cookies.get('refresh_token');
 
-    console.log('Access Token:', accessToken);
-    console.log('Refresh Token:', refreshToken);
-
     if (accessToken) {
       // Attach access token to headers
       config.headers.Authorization = `Bearer ${accessToken}`;
@@ -34,21 +31,20 @@ axiosInstance.interceptors.request.use(
         const response = await axios.post(`${APILink}refresh/`, { refresh: refreshToken });
         const { access, refresh } = response.data;
 
-        console.log("Token refreshed:", response.data);
 
         // Update access token in the headers and cookies
         config.headers.Authorization = `Bearer ${access}`;
-        Cookies.set('access_token', access);
-        Cookies.set('refresh_token', refresh);
+        Cookies.set('access_token', access, { expires: 6 / 24, secure: false });
+        Cookies.set('refresh_token', refresh, { expires: 6 / 24, secure: false });
       } catch (error) {
         console.error('Error refreshing access token:', error);
         // If refresh fails, logout
-        logout();
+        // logout();
       }
     } else {
       // If no tokens are found, logout
       console.log('No tokens found, logging out.');
-      logout();
+      // logout();
     }
 
     return config;
@@ -64,7 +60,6 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => {
     // Log response data for debugging
-    console.log('Response:', response);
     return response;
   },
   async (error) => {
@@ -79,26 +74,23 @@ axiosInstance.interceptors.response.use(
 
         if (refreshToken) {
           // Attempt to refresh tokens if refresh token is available
-          const response = await axios.post(`${import.meta.env.VITE_APILINK}/refresh/`, { refresh: refreshToken });
+          const response = await axios.post(`${import.meta.env.VITE_APILINK}refresh/`, { refresh: refreshToken });
           const { access, refresh } = response.data;
-          console.log("Token refreshed after 401:", response.data);
-
-          // Store new tokens in cookies
-          Cookies.set('access_token', access);
-          Cookies.set('refresh_token', refresh);
 
           // Retry original request with new access token
           originalRequest.headers.Authorization = `Bearer ${access}`;
 
+          if(access && refresh) {
+            Cookies.set('access_token', access, { expires: 6 / 24, secure: false });
+            Cookies.set('refresh_token', refresh, { expires: 6 / 24, secure: false });
+          }
+
           // Retry the original request with new token
           return axios(originalRequest);
-        } else {
-          // If no refresh token is available, logout
-          logout();
         }
       } catch (err) {
         console.error('Error refreshing token after 401:', err);
-        logout(); // Force logout if token refresh fails
+        // logout(); // Force logout if token refresh fails
         return Promise.reject(err);
       }
     }
