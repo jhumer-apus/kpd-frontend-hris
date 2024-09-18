@@ -36,6 +36,8 @@ import { useSelector } from "react-redux";
 import { APILink, RootState } from "@/store/configureStore";
 import { useEffect } from "react";
 import { UnderDevelopmentMsg } from "@/pages/dashboard/hris-portal/local-components/projects-card";
+import axiosInstance from "@/helpers/axiosConfig";
+import { HandleAlertAction } from "@/store/actions/components";
 
 
 export function DashboardNavbar() {
@@ -55,17 +57,35 @@ export function DashboardNavbar() {
   const [layout, page, innermostpage, firstInner, secondInner ] = pathname.split("/").filter((el) => el !== "");  
   
   const updatedImage = employee_detail?.employee_image;
-  const handleLogout = () => {
+  const handleLogout = async () => {
     // Perform logout actions here
-    const removals = ['refresh_token', 'access_token', 'user', 'employee_detail'];
-    removals.forEach((el) => {
-      Cookies.remove(el);
-    });
-    setTimeout(()=> {
-      dispatchV2(userLogout());
-    }, 200)
-    window.location.reload();
-    window.location.replace('/')
+
+    const refreshToken = Cookies.get("refresh_token")
+
+    await axiosInstance.post(`logout/`, { refresh: refreshToken}).then(res => {
+
+      const removals = ['refresh_token', 'access_token', 'user', 'employee_detail'];
+
+      removals.forEach((el) => {Cookies.remove(el)});
+      dispatchV2(userLogout())
+
+      // setTimeout(()=> {
+      //   dispatchV2(userLogout());
+      // }, 200)
+      // window.location.reload();
+      window.location.replace('/')
+
+    }).catch(err => {
+      
+      dispatchV2(HandleAlertAction(
+        {
+          open:true,
+          status: "error",
+          message: "Error Logging Out Please Contact Your IT Support"
+        }
+      ))
+    })
+    
   };
   return (
     <Navbar

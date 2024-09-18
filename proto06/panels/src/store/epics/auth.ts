@@ -43,10 +43,10 @@ export const authEpic: Epic = (action$, state$) =>
           // Save the token in a secure cookie with an expiration time of 6 hour
           const {access , refresh, user, employee_detail} = data
 
-          Cookies.set('user', JSON.stringify(user), { expires: 6 / 24, secure: false });
-          Cookies.set('access_token', access, { expires: 6 / 24, secure: false });
-          Cookies.set('refresh_token', refresh, { expires: 6 / 24, secure: false });
-          Cookies.set('employee_detail', JSON.stringify(employee_detail), { expires: 6 / 24, secure: false });
+          Cookies.set('user', JSON.stringify(user), { expires: 6 / 24, secure: true });
+          Cookies.set('access_token', access, { expires: 6 / 24, secure: true });
+          Cookies.set('refresh_token', refresh, { expires: 6 / 24, secure: true });
+          Cookies.set('employee_detail', JSON.stringify(employee_detail), { expires: 6 / 24, secure: true });
           // Cookies.set('emp_deez', employeeDetailJson, { expires: 6 / 24, secure: false });
 
           
@@ -83,7 +83,7 @@ export const fetchUserDataEpic: Epic = (action$, state$) =>
           Cookies.set('emp_', JSON.stringify(data), { expires: 6 / 24, secure: true });
           // Cookies.set('token', data.jwt, { expires: 6 / 24, secure: false});
           // Cookies.set('emp_deetz', JSON.stringify(data.employee_detail), { expires: 6 / 24, secure: false })
-          Cookies.set('user', JSON.stringify(data.user), { expires: 6 / 24, secure: false });
+          Cookies.set('user', JSON.stringify(data.user), { expires: 6 / 24, secure: true });
           return fetchUserDataSuccess(data);
         }),
         catchError((error) => {

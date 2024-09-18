@@ -34,8 +34,8 @@ axiosInstance.interceptors.request.use(
 
         // Update access token in the headers and cookies
         config.headers.Authorization = `Bearer ${access}`;
-        Cookies.set('access_token', access, { expires: 6 / 24, secure: false });
-        Cookies.set('refresh_token', refresh, { expires: 6 / 24, secure: false });
+        Cookies.set('access_token', access, { expires: 6 / 24, secure: true });
+        Cookies.set('refresh_token', refresh, { expires: 6 / 24, secure: true });
       } catch (error) {
         console.error('Error refreshing access token:', error);
         // If refresh fails, logout
@@ -81,8 +81,8 @@ axiosInstance.interceptors.response.use(
           originalRequest.headers.Authorization = `Bearer ${access}`;
 
           if(access && refresh) {
-            Cookies.set('access_token', access, { expires: 6 / 24, secure: false });
-            Cookies.set('refresh_token', refresh, { expires: 6 / 24, secure: false });
+            Cookies.set('access_token', access, { expires: 6 / 24, secure: true });
+            Cookies.set('refresh_token', refresh, { expires: 6 / 24, secure: true });
           }
 
           // Retry the original request with new token

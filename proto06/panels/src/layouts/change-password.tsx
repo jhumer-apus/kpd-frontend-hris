@@ -31,6 +31,7 @@ import {
 import axios from 'axios'
 import { beautifyJSON } from '@/helpers/utils';
 import axiosInstance from "@/helpers/axiosConfig";
+import { HandleAlertAction, HandleModalAction } from "@/store/actions/components";
 
 // interface ResetPasswordUSERModalInterface {
 //   primaryKey: number,
@@ -78,17 +79,32 @@ const resetPasswordUSERSubmit = async () => {
 
 }
 
-const handleLogout = () => {
-  // Perform logout actions here
-  const removals = ['access_token', 'refresh_token', 'user', 'employee_detail'];
-  removals.forEach((el) => {
-    Cookies.remove(el);
-  });
-  setTimeout(()=> {
-    dispatch(userLogout());
-  }, 200)
+const handleLogout = async () => {
 
-  window.location.replace('/')
+  const refreshToken = Cookies.get("refresh_token")
+
+  await axiosInstance.post(`logout/`, { refresh: refreshToken}).then(res => {
+
+    const removals = ['refresh_token', 'access_token', 'user', 'employee_detail'];
+
+    removals.forEach((el) => {Cookies.remove(el)});
+    dispatch(userLogout())
+
+    // setTimeout(()=> {
+    //   dispatchV2(userLogout());
+    // }, 200)
+    // window.location.reload();
+    window.location.replace('/')
+
+  }).catch(err => {
+    dispatch(HandleAlertAction(
+      {
+        open:true,
+        status: "error",
+        message: "Error Logging Out Please Contact Your IT Support"
+      }
+    ))
+  })
 };
 
 useEffect(()=>{
