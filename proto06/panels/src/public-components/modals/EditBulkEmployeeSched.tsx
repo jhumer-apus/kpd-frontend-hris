@@ -52,8 +52,7 @@ export default function EditBulkEmployeeSched(props: Props) {
     },[editBulkEmployeeSchedModal])
 
     const fetchScheduleShifts = async () => {
-        await axios
-            .get(`schedule_shift/`)
+        await axiosInstance.get(`schedule_shift/`)
             .then(res => setScheduleShifts(curr => Array.isArray(res.data) ? res.data: []))
     }
 
