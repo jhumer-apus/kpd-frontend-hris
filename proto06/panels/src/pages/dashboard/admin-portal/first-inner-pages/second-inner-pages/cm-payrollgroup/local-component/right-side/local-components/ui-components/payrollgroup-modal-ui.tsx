@@ -44,7 +44,7 @@ function PAYROLLGROUPModalUI(props: PAYROLLGROUPModalUIInterface) {
                 setAllowedDaysPAYROLLGROUPOpenModal={setAllowedDaysPAYROLLGROUPOpenModal}
                 setSinglePAYROLLGROUPOpenModal={setSinglePAYROLLGROUPOpenModal}
             />
-            <div className='flex overflow-auto justify-around gap-4 relative'>
+            <div className='flex flex-col md:flex-row overflow-auto justify-around gap-4 relative'>
                 <div className='flex gap-3 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Payroll Group ID:' value={ThisProps.id ? ThisProps.id : '-'} InputProps={{readOnly: true,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Accounts Linked' value={(ThisProps?.used_account || "-")} InputProps={{readOnly: true,}} variant='standard'/>
@@ -61,7 +61,7 @@ function PAYROLLGROUPModalUI(props: PAYROLLGROUPModalUIInterface) {
             </div>
             <div className='flex flex-col justify-center items-center'>
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
-                    <div className='flex justify-between' style={{width:'200px', marginTop: '20px'}} container-name='leave_buttons'>
+                    <div className='flex justify-between mt-10' container-name='leave_buttons'>
                         <Button variant='contained' onClick={()=> onClickModal(1)}>Edit Details</Button>
                     </div>
                 </div>
