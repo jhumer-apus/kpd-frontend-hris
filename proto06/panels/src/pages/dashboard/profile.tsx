@@ -429,10 +429,10 @@ import axiosInstance from "@/helpers/axiosConfig";
       // console.log(userData.middle_name)
       const formData = new FormData ();
 
-      formData.append('permanent_province_code', address?.permanent_province?.id)
-      formData.append('permanent_city_code', address?.permanent_city?.id)
-      formData.append('current_province_code', address?.current_province?.id)
-      formData.append('current_city_code', address?.current_city?.id)
+      // formData.append('permanent_province_code', address?.permanent_province?.id)
+      // formData.append('permanent_city_code', address?.permanent_city?.id)
+      // formData.append('current_province_code', address?.current_province?.id)
+      // formData.append('current_city_code', address?.current_city?.id)
 
       const finalUserData = {
         ...userData,
@@ -470,7 +470,7 @@ import axiosInstance from "@/helpers/axiosConfig";
 
       }
 
-      formData.append('added_by', curr_user?.emp_no)
+      // formData.append('added_by', curr_user?.emp_no)
 
       await axiosInstance.put(`update_personal_profile/${finalUserData.emp_no}/`, formData).then(res => {
 
@@ -482,7 +482,7 @@ import axiosInstance from "@/helpers/axiosConfig";
 
         setIsSubmittingRequest(false)
         setIsEdit(false)
-        console.log(err)
+        console.error(err)
         window.alert(`Error: ${beautifyJSON(err.response?.data)}`);
 
       });

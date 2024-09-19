@@ -529,6 +529,11 @@ export const UserProfile = () => {
       const response = await axiosInstance.post(
         `employees/`,
         formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
 
       ).then(response => {
 
