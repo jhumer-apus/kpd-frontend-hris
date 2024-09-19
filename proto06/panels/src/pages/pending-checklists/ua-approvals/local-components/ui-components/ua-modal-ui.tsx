@@ -176,7 +176,7 @@ function UAModalUI(props: UAModalUIInterface) {
         <React.Fragment>
             <ApproveUAModal singleUADetailsData={singleUADetailsData} setSingleUADetailsData={setSingleUADetailsData} approveUAOpenModal={approveUAOpenModal} setApproveUAOpenModal={setApproveUAOpenModal}/>
             <DenyUAModal singleUADetailsData={singleUADetailsData} setSingleUADetailsData={setSingleUADetailsData} denyUAOpenModal={denyUAOpenModal} setDenyUAOpenModal={setDenyUAOpenModal}/>
-            <div className='flex gap-10 overflow-auto relative'>
+            <div className='flex md:flex-row flex-col gap-10 overflow-auto relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Date & Time Filed:' value={ThisProps.ua_date_filed ? dayjs(ThisProps.ua_date_filed).format(`${globalDateTime}`) : '-'} InputProps={{readOnly: false,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Total hrs:' value={(ThisProps.ua_total_hours / 60).toFixed(2) || '-'} InputProps={{readOnly: true,}} variant='standard'/>
@@ -200,13 +200,13 @@ function UAModalUI(props: UAModalUIInterface) {
                     <TextField sx={{width: '100%', minWidth: '160px'}} focused={!!ThisProps.ua_reason_disapproval} color={'error'} label='Reason for Disapproval:' value={ThisProps.ua_reason_disapproval || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
 
                 </div>
-                {ThisProps.ua_approval_status === 'APD' && <img src={ '/img/stampApproved2.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
-                {ThisProps.ua_approval_status === 'DIS' && <img src={ '/img/stampRejected.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
+                {ThisProps.ua_approval_status === 'APD' && <img src={ '/img/stampApproved2.png' } className='h-32 md:absolute bottom-0 right-0'></img>}
+                {ThisProps.ua_approval_status === 'DIS' && <img src={ '/img/stampRejected.png' } className='h-32 md:absolute bottom-0 right-0'></img>}
             </div>
 
             <div className='flex flex-col justify-center items-center'>
             <div className='flex justify-center mt-6' container-name='ua_buttons_container'>
-                <div className='flex justify-between' style={{width:'400px'}} container-name='ua_buttons'>
+                <div className='flex justify-between md:flex-row flex-col gap-4 md:w-96' style={{width:'400px'}} container-name='ua_buttons'>
                     <Button disabled={approvalState.buttonDisabled} variant='contained' onClick={()=> onClickModal(0)}>Approve UA</Button>
                     <Button disabled={approvalState.buttonDisabled} variant='outlined' onClick={()=> onClickModal(1)}>Deny UA</Button>
                 </div>
