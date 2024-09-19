@@ -167,7 +167,7 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a Branch Data</Typography>
-            <form onSubmit={onClickSubmit} className='flex flex-col gap-3 overflow-auto relative w-[400px]'>
+            <form onSubmit={onClickSubmit} className='flex flex-col gap-3 overflow-auto relative md:w-[400px] w-full'>
                 {/* <div className='flex gap-3 pt-4'> */}
                     <div className='flex flex-col gap-3 pt-4'>
                         <EmployeeListField 

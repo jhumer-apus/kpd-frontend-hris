@@ -43,7 +43,7 @@ function RANKModalUI(props: RANKModalUIInterface) {
                 setAllowedDaysRANKOpenModal={setAllowedDaysRANKOpenModal}
                 setSingleRANKOpenModal={setSingleRANKOpenModal}
             />
-            <div className='flex overflow-auto justify-around relative gap-6'>
+            <div className='flex flex-col md:flex-row overflow-auto justify-around relative gap-6'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Position ID:' value={ThisProps.id ? ThisProps.id : '-'} InputProps={{readOnly: true,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Date Added:' value={ThisProps.date_added? dayjs(ThisProps.date_added).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>

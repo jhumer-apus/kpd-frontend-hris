@@ -43,7 +43,7 @@ function BRANCHModalUI(props: BRANCHModalUIInterface) {
                 setAllowedDaysBRANCHOpenModal={setAllowedDaysBRANCHOpenModal}
                 setSingleBRANCHOpenModal={setSingleBRANCHOpenModal}
             />
-            <div className='flex gap-10 overflow-auto relative'>
+            <div className='flex flex-col md:flex-row gap-10 overflow-auto relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Branch ID:' value={ThisProps.id ? ThisProps.id : '-'} InputProps={{readOnly: true,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Branch Email' value={(ThisProps?.branch_email || "-")} InputProps={{readOnly: true,}} variant='standard'/>
