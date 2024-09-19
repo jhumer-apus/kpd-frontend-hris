@@ -1,4 +1,5 @@
 import { fetchCutOffPeriods } from '@/helpers/ApiCalls';
+import axiosInstance from '@/helpers/axiosConfig';
 import { HandleModalAction } from '@/store/actions/components';
 import { APILink, RootState } from '@/store/configureStore';
 import { Textarea, Typography } from '@material-tailwind/react';
@@ -59,7 +60,7 @@ export default function ViewLeaveModal (props: Props) {
     },[emp_no, leave_id])
 
     const fetchData = async () => {
-        await axios.get(`${APILink}leave/${emp_no}/${leave_id}/`).then(res => setDetails(curr => res.data))
+        await axiosInstance.get(`leave/${emp_no}/${leave_id}/`).then(res => setDetails(curr => res.data))
     }
 
 

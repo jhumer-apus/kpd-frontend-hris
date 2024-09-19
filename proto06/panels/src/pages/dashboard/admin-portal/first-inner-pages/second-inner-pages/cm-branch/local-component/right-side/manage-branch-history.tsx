@@ -50,7 +50,7 @@ export default function ManageBRANCHPageHistory() {
     //FUNCTIONS
     // const fetchProvinces = async() => {
 
-    //   await axios.get(`${APILink}province/${BRANCHViewData.branch_province}`).then((res:AxiosResponse) => {
+    //   await axiosInstance.get(`province/${BRANCHViewData.branch_province}`).then((res:AxiosResponse) => {
 
     //       setAddress(curr => ({
     //         ...curr,
@@ -67,7 +67,7 @@ export default function ManageBRANCHPageHistory() {
 
     // const fetchCities = async() => {
 
-    //   await axios.get(`${APILink}city_municipality/${BRANCHViewData.branch_city}`).then((res:AxiosResponse) => {
+    //   await axiosInstance.get(`city_municipality/${BRANCHViewData.branch_city}`).then((res:AxiosResponse) => {
     //       BRANCHView
     //       setAddress(curr => ({
     //         ...curr,

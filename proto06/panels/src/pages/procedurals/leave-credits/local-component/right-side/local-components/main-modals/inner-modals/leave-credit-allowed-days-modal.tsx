@@ -30,7 +30,7 @@ export default function AllowedDaysLEAVECREDITModal(props: AllowedDaysLEAVECREDI
   const dispatch = useDispatch();
   const LEAVECREDITAllowedDaysState = useSelector((state: RootState)=> state.procedurals.LEAVECREDITEdit)
   const {allowedDaysLEAVECREDITOpenModal, setAllowedDaysLEAVECREDITOpenModal, singleLEAVECREDITDetailsData, setSingleLEAVECREDITDetailsData} = props;
-  const {data:leaveTypeData, error: leaveTypeError, status: leaveTypeStatus} = useFetchQuery(`${APILink}leave_type/${singleLEAVECREDITDetailsData.leave_type_code}`, null)
+  const {data:leaveTypeData, error: leaveTypeError, status: leaveTypeStatus} = useFetchQuery(`leave_type/${singleLEAVECREDITDetailsData.leave_type_code}`, null)
   
   const [previousState, setPreviousState] = useState<any>(null)
   //for rollback
@@ -146,7 +146,7 @@ export default function AllowedDaysLEAVECREDITModal(props: AllowedDaysLEAVECREDI
   //     ...singleLEAVECREDITDetailsData
   //   }
   //   console.log(payload)
-  //   await axios.put(`${APILink}leave_credit/${singleLEAVECREDITDetailsData.emp_no}/${singleLEAVECREDITDetailsData.id}/`, payload).then(res => {
+  //   await axiosInstance.put(`leave_credit/${singleLEAVECREDITDetailsData.emp_no}/${singleLEAVECREDITDetailsData.id}/`, payload).then(res => {
       
   //     window.alert("Request Succesful")
   //     window.location.reload()

@@ -1,3 +1,4 @@
+import axiosInstance from '@/helpers/axiosConfig';
 import { APILink, RootState } from '@/store/configureStore';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -15,7 +16,7 @@ export default function useFetchFileApplicationByApprover(url: string) {
 
     const fetchFileApplicationByApprover = async() => {
         
-        await axios.get(url,{
+        await axiosInstance.get(url,{
 
             params:{
                 approver: currUser?.user?.emp_no

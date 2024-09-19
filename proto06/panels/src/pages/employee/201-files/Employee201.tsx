@@ -17,6 +17,7 @@ import EmployeeExportToCsvButton from './local-components/export-to-csv-employee
 import dayjs from 'dayjs';
 import ExportToCSVButton from '@/public-components/ExportToCSVButton';
 import axios from 'axios';
+import axiosInstance from '@/helpers/axiosConfig';
 
 const columns: GridColDef[] = [
   {
@@ -157,8 +158,7 @@ export default function DataTable() {
   },[])
 
   const fetchExportData = async () => {
-    await axios
-            .get(`${APILink}export_employees/`)
+    await axiosInstance.get(`export_employees/`)
             .then(res => 
               {
                 const data = Array.isArray(res.data) ? res.data: []

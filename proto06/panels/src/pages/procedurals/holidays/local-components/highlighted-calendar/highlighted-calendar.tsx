@@ -12,6 +12,7 @@ import './highlighted-calendar.scss';
 import { APILink } from '@/store/configureStore';
 import { HolidayGetType } from '@/types/types-pages';
 import { HolidayColor } from '../list-of-holidays/list-of-holidays';
+import axiosInstance from '@/helpers/axiosConfig';
 
 export interface HighlightedCalendarInterface {
   value: dayjs.Dayjs | null,
@@ -46,7 +47,7 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[],
 
 export default function HighlightedCalendar(props: HighlightedCalendarInterface) {
   const { value } = props;
-  const requestAbortController = React.useRef<CancelTokenSource  | null>(null);
+  const requestAbortController = React.useRef<AbortController | null>(null);
   const [isLoading, setIsLoading] = React.useState(false);
   const [highlightedDays, setHighlightedDays] = React.useState<number[]>([]);
   const [holidayTypes, setHolidayTypes] = React.useState<Record<string, string>>({}); 
@@ -55,10 +56,15 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
     const formattedDate = date.format('YYYY-MM');
     setIsLoading(true);
     setHighlightedDays([]);
-    requestAbortController.current = axios.CancelToken.source();
+    if (requestAbortController.current) {
+      requestAbortController.current.abort();
+    }
+
+    const controller = new AbortController();
+    requestAbortController.current = controller;
   
-    axios.get(`${APILink}holiday/`, {
-      cancelToken: requestAbortController.current.token,
+    axiosInstance.get(`holiday/`, {
+      signal: controller.signal,
     })
       .then((response) => {
         //Added this to filter the data from the response
@@ -83,26 +89,26 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
         setIsLoading(false);
       })
       .catch((error) => {
-        if (axios.isCancel(error)) {
+        if (error.name == 'CanceledError') {
           // Ignore the error if it was caused by request cancellation
+          console.log('Request was canceled');
           return;
         }
         // Handle other errors
         console.error('Error:', error);
+        setIsLoading(false);
       });
   };
 
   React.useEffect(() => {
     fetchHighlightedDays(initialValue);
     // abort request on unmount
-    return () => requestAbortController.current?.cancel();
+    return () => requestAbortController.current?.abort();
   }, []);
 
   const handleMonthChange = (date: Dayjs) => {
     if (requestAbortController.current) {
-      // This is to make sure that we are aborting useless requests
-      // because it is possible to switch between months pretty quickly
-      requestAbortController.current.cancel();
+      requestAbortController.current.abort();
     }
     setIsLoading(true);
     setHighlightedDays([]);

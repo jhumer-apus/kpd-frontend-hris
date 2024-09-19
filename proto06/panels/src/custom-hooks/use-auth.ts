@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import { APILink, RootState } from '@/store/configureStore';
 import { userLoginActionSuccess, userLogout } from '@/store/actions/auth';
 import axios from 'axios'
+import axiosInstance from '@/helpers/axiosConfig';
 
 export function useAuth() {
   const dispatch = useDispatch();
@@ -11,15 +12,15 @@ export function useAuth() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const token = Cookies.get('token');
-    const userCookie = JSON.parse(Cookies.get('user') || '{}');
-    const employeeCookie = JSON.parse(Cookies.get('emp_deetz') || '{}');
-    if (token) {
-      fetchEmployeeDetails(token, userCookie)
-      // dispatch(userLoginActionSuccess(token, userCookie, employeeCookie));
-    } else {
-      dispatch(userLogout());
-    }
+    // const token = Cookies.get('access_token');
+    // const userCookie = JSON.parse(Cookies.get('user') || '{}');
+    // const employeeCookie = JSON.parse(Cookies.get('emp_deetz') || '{}');
+
+    // fetchEmployeeDetails(token, userCookie)
+    fetchEmployeeDetails()
+    // dispatch(userLoginActionSuccess(token, userCookie, employeeCookie));
+    dispatch(userLogout());
+    
 
     // setTimeout(() => {
     //     setLoading(false);
@@ -34,23 +35,32 @@ export function useAuth() {
   //   }
   // }, [status])
 
-  const fetchEmployeeDetails = async(token:string, user:any)  => {
+  const fetchEmployeeDetails = async()  => {
 
     setLoading(true)
 
-    await axios.get(`${APILink}employees/${user.emp_no}`).then(res => {
-      
-      const employeeDetail = res.data
-      dispatch(userLoginActionSuccess(token, user, employeeDetail));
-      setLoading(false);
 
-    }).catch(err => {
 
-      Cookies.remove('token');
-      Cookies.remove('user');
-      setLoading(false);
+      const user:any = Cookies.get('user')
 
-    })
+      if(!user) {
+        setLoading(false);
+        return
+      }
+
+
+      const userObject = JSON.parse(user)
+      const accessToken:any = Cookies.get('access_token')
+
+      await axiosInstance.get(`employees/${userObject?.emp_no}`).then(res => {
+        
+        const employeeDetail = res.data
+  
+        dispatch(userLoginActionSuccess(accessToken, user, employeeDetail));
+        setLoading(false);
+  
+      }).catch(err => setLoading(false))
+    
   }
 
   return { isAuthenticated, loading, user };

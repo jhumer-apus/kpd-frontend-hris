@@ -14,6 +14,7 @@ import axios from 'axios'
 
 //REDUX
 import { APILink } from '@/store/configureStore';
+import axiosInstance from '@/helpers/axiosConfig';
 interface UAModalUIInterface {
     singleUADetailsData: UAViewInterface;
     multiplePayslipMode?: boolean;
@@ -63,7 +64,7 @@ function UAModalUI(props: UAModalUIInterface) {
     },[])
 
     const fetchCutOffPeriod = async () => {
-        await axios.get(`${APILink}cutoff_period/${ThisProps.cutoff_code}`).then(res => {
+        await axiosInstance.get(`cutoff_period/${ThisProps.cutoff_code}`).then(res => {
             setData(curr => ({
                 ...curr,
                 cuttOffPeriod: res.data.co_name

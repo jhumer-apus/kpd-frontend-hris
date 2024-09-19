@@ -30,6 +30,8 @@ import {
 } from "@material-tailwind/react";
 import axios from 'axios'
 import { beautifyJSON } from '@/helpers/utils';
+import axiosInstance from "@/helpers/axiosConfig";
+import { HandleAlertAction, HandleModalAction } from "@/store/actions/components";
 
 // interface ResetPasswordUSERModalInterface {
 //   primaryKey: number,
@@ -59,7 +61,7 @@ const resetPasswordUSERSubmit = async () => {
         added_by: curr_user.emp_no || NaN
 
       }
-      await axios.post(`${APILink}reset-password/${passwordData.id}/`, passwordData)
+      await axiosInstance.post(`reset-password/${passwordData.id}/`, passwordData)
         .then(res => window.alert("success"))
         .then(res => handleLogout())
         .catch(err => window.alert(beautifyJSON(err.response.data)))
@@ -77,17 +79,32 @@ const resetPasswordUSERSubmit = async () => {
 
 }
 
-const handleLogout = () => {
-  // Perform logout actions here
-  const removals = ['token', 'user', 'employee_detail'];
-  removals.forEach((el) => {
-    Cookies.remove(el);
-  });
-  setTimeout(()=> {
-    dispatch(userLogout());
-  }, 200)
-  window.location.reload();
-  window.location.replace('/')
+const handleLogout = async () => {
+
+  const refreshToken = Cookies.get("refresh_token")
+
+  await axiosInstance.post(`logout/`, { refresh: refreshToken}).then(res => {
+
+    const removals = ['refresh_token', 'access_token', 'user', 'employee_detail'];
+
+    removals.forEach((el) => {Cookies.remove(el)});
+    dispatch(userLogout())
+
+    // setTimeout(()=> {
+    //   dispatchV2(userLogout());
+    // }, 200)
+    // window.location.reload();
+    window.location.replace('/')
+
+  }).catch(err => {
+    dispatch(HandleAlertAction(
+      {
+        open:true,
+        status: "error",
+        message: "Error Logging Out Please Contact Your IT Support"
+      }
+    ))
+  })
 };
 
 useEffect(()=>{

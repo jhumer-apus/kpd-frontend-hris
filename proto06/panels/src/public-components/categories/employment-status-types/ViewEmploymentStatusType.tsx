@@ -1,3 +1,4 @@
+import axiosInstance from "@/helpers/axiosConfig";
 import ButtonElement from "@/public-components/forms/ButtonElement";
 import DatePickerForm from "@/public-components/forms/DatePickerForm";
 import { EMPLOYMENTSSTATUSViewAction } from "@/store/actions/categories";
@@ -49,7 +50,7 @@ export default function ViewEmploymentStatusType(props: Props) {
             ...details,
             added_by: currUser?.emp_no
         }
-        await axios.put(`${APILink}emp_status_type/${details.id}/`, payload)
+        await axiosInstance.put(`emp_status_type/${details.id}/`, payload)
             .then(res => {
                 fetchAllEmploymentStatus()
                 handleClose()
@@ -57,7 +58,7 @@ export default function ViewEmploymentStatusType(props: Props) {
     }
 
     const fetchAllEmploymentStatus = async () => {
-        await axios.get(`${APILink}emp_status_type/`).then(res => {
+        await axiosInstance.get(`emp_status_type/`).then(res => {
           const data = Array.isArray(res.data) ? res.data: []
           dispatch(EMPLOYMENTSSTATUSViewAction(data))
         })

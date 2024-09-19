@@ -35,7 +35,7 @@ export default function ProceduralOvertimePage() {
   const dispatch = useDispatch();
   const { OVERTIMEView } = useSelector((state: RootState) => state.procedurals);
   const currUser = useSelector((state: RootState) => state.auth.employee_detail);
-  const { data, status, error } = currUser?.user?.role == 2? useFetchFileApplicationByApprover(`${APILink}ot`): OVERTIMEView;
+  const { data, status, error } = currUser?.user?.role == 2? useFetchFileApplicationByApprover(`ot`): OVERTIMEView;
   // const { data, status, error } = OVERTIMEView;
   const OVERTIMEViewData = data as OVERTIMEViewInterface[];
 

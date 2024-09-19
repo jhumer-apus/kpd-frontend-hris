@@ -24,6 +24,7 @@ import { useDispatch } from 'react-redux';
 import { HandleModalAction } from '@/store/actions/components';
 import ViewOvertimeModal from '@/public-components/modals/ViewOvertimeModal';
 import { GridExportToolbar } from '@/public-components/GridExportToolbar';
+import axiosInstance from '@/helpers/axiosConfig';
 
 export default function ViewEmployeeLeaves() {
     
@@ -65,7 +66,7 @@ export default function ViewEmployeeLeaves() {
         setIsFetchReportError(false)
         setIsLoading(true);
 
-        await axios.get(`${APILink}overtime_report`,{
+        await axiosInstance.get(`overtime_report`,{
             params:{
                 cutoff: selectedCutOff?.id,
                 // status: "APD"

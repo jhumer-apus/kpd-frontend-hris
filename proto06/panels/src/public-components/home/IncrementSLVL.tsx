@@ -17,6 +17,7 @@ import { APILink, RootState } from "@/store/configureStore";
 
 //COMPONENTS
 import ResetEL from "./ResetEL";
+import axiosInstance from "@/helpers/axiosConfig";
 
 export default function IncrementSLVL () {
 
@@ -45,7 +46,7 @@ export default function IncrementSLVL () {
 
     const callIsIncrementedVLSL = async () => {
 
-        await axios.get(`${APILink}inc_vl_sl`).then(response => {
+        await axiosInstance.get(`inc_vl_sl`).then(response => {
 
             const result = response.data.is_incremented_sl_vl
             setIsVLSLIncremented(curr => result)
@@ -60,7 +61,7 @@ export default function IncrementSLVL () {
     
     const incrementSLVL = async() => {
 
-        await axios.post(`${APILink}inc_vl_sl/`, {
+        await axiosInstance.post(`inc_vl_sl/`, {
 
             added_by: currUser?.emp_no
 

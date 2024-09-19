@@ -23,6 +23,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { beautifyJSON } from '@/helpers/utils';
 import dayjs from 'dayjs';
 import { HandleAlertAction } from '@/store/actions/components';
+import axiosInstance from '@/helpers/axiosConfig';
 
 
 interface CreateLEAVEModalInterface {
@@ -155,7 +156,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
     const submitNewFileLeave = async (formData:FormData) => {
 
         setIsSubmittingRequest(true)
-        await axios.post(`${APILink}leave/`, formData).then((res:AxiosResponse) => {
+        await axiosInstance.post(`leave/`, formData).then((res:AxiosResponse) => {
 
             setIsSubmittingRequest(false)
             fetchLeaveCredits(userData?.emp_no)
@@ -235,7 +236,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
     }
 
     // const getRemeainingLeaveCredits = async () => {
-    //     axios.get(`${APILink}leave_credit/${userData?.emp_no}`).then(res => {
+    //     axiosInstance.get(`leave_credit/${userData?.emp_no}`).then(res => {
 
     //         if(res && res.data && res.data.length > 0) {
 
@@ -304,7 +305,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         }
     }
     const fetchSpecificLeave = async (leave_id: number) => {
-        await axios.get(`${APILink}leave_type/${leave_id}/`).then(res => {
+        await axiosInstance.get(`leave_type/${leave_id}/`).then(res => {
             setLeaveType(curr => ({
                 name: res.data.name,
                 is_vl: res.data.is_vl,
@@ -318,7 +319,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
     const fetchLeaveCredits = async (emp_no:number | string) => {
         if(emp_no) {
 
-            await axios.get(`${APILink}leave_credit/${emp_no}`).then((res:AxiosResponse) => {
+            await axiosInstance.get(`leave_credit/${emp_no}`).then((res:AxiosResponse) => {
 
                 const leaveCredits =  Array.isArray(res.data)? res.data: []
                 setLeaveCredits((curr:any) => leaveCredits)
@@ -342,7 +343,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                     application_pk: leave_id
                   }
                   
-                  axios.post(`${APILink}reset_password_email/`, body)
+                  axiosInstance.post(`reset_password_email/`, body)
             })
 
             dispatch(HandleAlertAction({

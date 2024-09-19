@@ -19,7 +19,7 @@ export default function ProceduralOBTPage() {
   const dispatch = useDispatch();
   const { OBTView } = useSelector((state: RootState) => state.procedurals);
   const currUser = useSelector((state: RootState) => state.auth.employee_detail);
-  const { data, status, error } = currUser?.user?.role == 2? useFetchFileApplicationByApprover(`${APILink}obt`): OBTView;
+  const { data, status, error } = currUser?.user?.role == 2? useFetchFileApplicationByApprover(`obt`): OBTView;
   // const { data, status, error } = OBTView;
   const OBTViewData = data as OBTViewInterface[];
 

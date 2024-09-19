@@ -14,6 +14,7 @@ import { ScheduleDailyColor } from '@/types/index';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import { HolidayColor } from '@/pages/procedurals/holidays/local-components/list-of-holidays/list-of-holidays';
+import axiosInstance from '@/helpers/axiosConfig';
 
 export interface HighlightedCalendarInterface {
   value: dayjs.Dayjs | null,
@@ -191,7 +192,7 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[],
 
 export default function HighlightedCalendar(props: HighlightedCalendarInterface) {
   const { value, currEmployee } = props;
-  const requestAbortController = useRef<CancelTokenSource  | null>(null);
+  const requestAbortController = useRef<AbortController  | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [highlightedDays, setHighlightedDays] = useState<number[]>([]);
   const [scheduleDaily, setScheduleDaily] = useState<Record<string, Record<string, string | number | boolean | SCHEDULESHIFTViewInterface>>>({}); 
@@ -200,11 +201,13 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
     let formattedDate = date.format('YYYY-MM');
     setIsLoading(true);
     setHighlightedDays([]);
-    requestAbortController.current = axios.CancelToken.source();
+
+    const controller = new AbortController()
+    requestAbortController.current = controller;
     
     console.log(currEmployee)
-    axios.get(`${APILink}schedule_daily/${currEmployee}/`, {
-      cancelToken: requestAbortController.current.token,
+    axiosInstance.get(`schedule_daily/${currEmployee}/`, {
+      signal: controller.signal
     })
       .then((response) => {
 
@@ -252,13 +255,14 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
        
       })
       .catch((error) => {
-        setIsLoading(false);
-        if (axios.isCancel(error)) {
+        if (error?.name == "CanceledError") {
           // Ignore the error if it was caused by request cancellation
+          console.log('Request was canceled');
           return;
         }
         // Handle other errors
         console.error('Error:', error);
+        setIsLoading(false);
       });
   };
 
@@ -266,12 +270,12 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
   useEffect(() => {
     fetchHighlightedDays(initialValue);
     // abort request on unmount
-    return () => requestAbortController.current?.cancel();
+    return () => requestAbortController.current?.abort();
   }, [currEmployee]);
 
   const handleMonthChange = (date: Dayjs) => {
     if (requestAbortController.current) {
-      requestAbortController.current.cancel();
+      requestAbortController.current.abort();
     }
     setIsLoading(true);
     setHighlightedDays([]);

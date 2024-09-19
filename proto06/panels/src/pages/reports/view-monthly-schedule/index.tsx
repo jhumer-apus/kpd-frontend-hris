@@ -13,6 +13,7 @@ import { globalServerErrorMsg } from '@/store/configureStore';
 import ExportToCsvButton from './local-components/export-to-csv-button';
 import SelectForm from '../../../public-components/forms/SelectForm';
 import InputForm from '../../../public-components/forms/InputForm';
+import axiosInstance from '@/helpers/axiosConfig';
 
 interface EmployeeData {
     id: number;
@@ -106,7 +107,7 @@ export default function ViewMonthlySchedule() {
         setIsFetchReportError(false)
         setIsLoading(true);
 
-        await axios.get(`${APILink}schedule_daily/?month=${thisMonth}&year=${thisYear}`).then(response => {
+        await axiosInstance.get(`schedule_daily/?month=${thisMonth}&year=${thisYear}`).then(response => {
 
             const data = response.data ? response.data: []
             organizeRowsAndColumns(data, thisYear, thisMonth)

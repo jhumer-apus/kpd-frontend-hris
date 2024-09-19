@@ -1,3 +1,4 @@
+import axiosInstance from "@/helpers/axiosConfig";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -12,7 +13,7 @@ export default function useFetchQuery (url:string, payload: object | null | unde
 
     const fetchQuery = async () => {
 
-        await axios.get(url, payload).then(res => {
+        await axiosInstance.get(url, payload).then(res => {
 
             setData((curr:any) => res.data)
 

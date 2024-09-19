@@ -16,6 +16,7 @@ import { useNavigate }  from 'react-router-dom';
 import { APILink } from '@/store/configureStore';
 import { HandleAlertAction } from '@/store/actions/components';
 import { useDispatch } from 'react-redux';
+import axiosInstance from '@/helpers/axiosConfig';
 
 const PaperStyle = {
     padding: "20px",
@@ -79,8 +80,8 @@ export default function UploadDtrLogs() {
               formData.append('file', file);
           
               try {
-                const response = await axios.post(
-                  `${APILink}upload_dtr_logs/`,
+                const response = await axiosInstance.post(
+                  `upload_dtr_logs/`,
                   formData,
                   {
                     headers: {

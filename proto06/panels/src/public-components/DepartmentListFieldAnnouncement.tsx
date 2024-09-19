@@ -1,3 +1,4 @@
+import axiosInstance from "@/helpers/axiosConfig";
 import { HandleAlertAction } from "@/store/actions/components";
 import { APILink } from "@/store/configureStore";
 import { Autocomplete, TextField } from "@mui/material";
@@ -30,8 +31,7 @@ export default function DepartmentListFieldAnnouncement(props: Props) {
 
     // FUNCTIONS
     const fetchDepartments = async() => {
-        await axios
-            .get(`${APILink}ann_department`)
+        await axiosInstance.get(`ann_department`)
             .then(res => setDepartments((curr:any) => Array.isArray(res.data)? res.data: []))
             .catch(err => dispatch(HandleAlertAction({
                 open: true,

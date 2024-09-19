@@ -19,6 +19,7 @@ import { beautifyJSON } from '@/helpers/utils';
 import { HandleAlertAction } from '@/store/actions/components';
 import AutocompleteForm from '@/public-components/forms/AutoCompleteForm';
 import { NULL } from 'sass';
+import axiosInstance from '@/helpers/axiosConfig';
 
 interface CreateOBTModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -63,7 +64,7 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
           application_pk: app_pk
         }
     
-        await axios.post(`${APILink}reset_password_email/`, body).then(res => {
+        await axiosInstance.post(`reset_password_email/`, body).then(res => {
     
             dispatch(HandleAlertAction({
                 open:true,
@@ -108,7 +109,7 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
             obt_date_to: createOBT.obt_date_to,
             added_by: userData?.emp_no,
         }
-        await axios.post(`${APILink}obt/`, payload).then((res:AxiosResponse) => {
+        await axiosInstance.post(`obt/`, payload).then((res:AxiosResponse) => {
 
             setIsSubmittingRequest(false)
             dispatch(OBTViewFilterEmployeeAction({emp_no: userData?.emp_no}))
@@ -133,7 +134,7 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
     }
 
     const fetchObtTypes = async () => {
-        await axios.get(`${APILink}obt_type/`)
+        await axiosInstance.get(`obt_type/`)
             .then(res => setObtTypes((curr:any[]) => Array.isArray(res?.data)? res.data: []))
     }
 

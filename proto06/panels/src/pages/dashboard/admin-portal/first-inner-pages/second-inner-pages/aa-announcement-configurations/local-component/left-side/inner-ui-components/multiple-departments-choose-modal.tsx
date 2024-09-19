@@ -39,7 +39,7 @@ export default function MultiDepartmentAutoCompleteLeft(props: DepartmentAutoCom
     //     dispatch(DEPARTMENTViewAction());
     // }, []);
 
-    const {data:departments, status, error} = useFetchQuery(`${APILink}ann_department/`, null)
+    const {data:departments, status, error} = useFetchQuery(`ann_department/`, null)
 
     // useEffect(()=> {
     //     if(selectedDepartmentId){

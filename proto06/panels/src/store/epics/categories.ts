@@ -154,11 +154,12 @@ import {
     RANKViewInterface,
     RankDataInterface,
 } from '@/types/types-pages';
+import axiosInstance from '@/helpers/axiosConfig';
 
 
 // BRANCH API SECTION // BRANCH API SECTION // BRANCH API SECTION // BRANCH API SECTION // BRANCH API SECTION
 const BRANCHEditApiCall = async (payload: BRANCHEditInterface) => {
-  const response = await axios.put(`${APILink}branch/${payload.id}/`,
+  const response = await axiosInstance.put(`branch/${payload.id}/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -173,7 +174,7 @@ const BRANCHEditApiCall = async (payload: BRANCHEditInterface) => {
 };
 
 const BRANCHCreateApiCall = async (payload: BRANCHCreateInterface) => {
-  const response = await axios.post(`${APILink}branch/`,
+  const response = await axiosInstance.post(`branch/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -189,7 +190,7 @@ const BRANCHCreateApiCall = async (payload: BRANCHCreateInterface) => {
 
 
 const BRANCHViewSpecificApiCall = async (payload: {branch_id: number}) => {
-  const response = await axios.get(`${APILink}branch/${payload.branch_id}/`,
+  const response = await axiosInstance.get(`branch/${payload.branch_id}/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -204,7 +205,7 @@ const BRANCHViewSpecificApiCall = async (payload: {branch_id: number}) => {
 
 
 const BRANCHViewApiCall = async () => {
-  const response = await axios.get(`${APILink}branch/`,
+  const response = await axiosInstance.get(`branch/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -305,7 +306,7 @@ export const BRANCHEditEpic: Epic = (action$, state$) =>
 
 // DEPARTMENT API SECTION // DEPARTMENT API SECTION // DEPARTMENT API SECTION // DEPARTMENT API SECTION // DEPARTMENT API SECTION
 const DEPARTMENTEditApiCall = async (payload: DEPARTMENTEditInterface) => {
-  const response = await axios.put(`${APILink}department/${payload.id}/`,
+  const response = await axiosInstance.put(`department/${payload.id}/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -320,7 +321,7 @@ const DEPARTMENTEditApiCall = async (payload: DEPARTMENTEditInterface) => {
 };
 
 const DEPARTMENTCreateApiCall = async (payload: DEPARTMENTCreateInterface) => {
-  const response = await axios.post(`${APILink}department/`,
+  const response = await axiosInstance.post(`department/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -336,7 +337,7 @@ const DEPARTMENTCreateApiCall = async (payload: DEPARTMENTCreateInterface) => {
 
 
 const DEPARTMENTViewSpecificApiCall = async (payload: {department_id: number}) => {
-  const response = await axios.get(`${APILink}department/${payload.department_id}/`,
+  const response = await axiosInstance.get(`department/${payload.department_id}/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -351,7 +352,7 @@ const DEPARTMENTViewSpecificApiCall = async (payload: {department_id: number}) =
 
 
 const DEPARTMENTViewApiCall = async () => {
-  const response = await axios.get(`${APILink}department/`,
+  const response = await axiosInstance.get(`department/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -453,7 +454,7 @@ export const DEPARTMENTEditEpic: Epic = (action$, state$) =>
 
 // DIVISION API SECTION // DIVISION API SECTION // DIVISION API SECTION // DIVISION API SECTION // DIVISION API SECTION
 const DIVISIONEditApiCall = async (payload: DIVISIONEditInterface) => {
-    const response = await axios.put(`${APILink}division/${payload.id}/`,
+    const response = await axiosInstance.put(`division/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -468,7 +469,7 @@ const DIVISIONEditApiCall = async (payload: DIVISIONEditInterface) => {
   };
   
   const DIVISIONCreateApiCall = async (payload: DIVISIONCreateInterface) => {
-    const response = await axios.post(`${APILink}division/`,
+    const response = await axiosInstance.post(`division/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -484,7 +485,7 @@ const DIVISIONEditApiCall = async (payload: DIVISIONEditInterface) => {
   
   
   const DIVISIONViewSpecificApiCall = async (payload: {division_id: number}) => {
-    const response = await axios.get(`${APILink}division/${payload.division_id}/`,
+    const response = await axiosInstance.get(`division/${payload.division_id}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -499,7 +500,7 @@ const DIVISIONEditApiCall = async (payload: DIVISIONEditInterface) => {
   
   
   const DIVISIONViewApiCall = async () => {
-    const response = await axios.get(`${APILink}division/`,
+    const response = await axiosInstance.get(`division/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -600,7 +601,7 @@ const DIVISIONEditApiCall = async (payload: DIVISIONEditInterface) => {
   
 // PAYROLLGROUP API SECTION // PAYROLLGROUP API SECTION // PAYROLLGROUP API SECTION // PAYROLLGROUP API SECTION // PAYROLLGROUP API SECTION
 const PAYROLLGROUPEditApiCall = async (payload: PAYROLLGROUPEditInterface) => {
-    const response = await axios.put(`${APILink}payrollgroup/${payload.id}/`,
+    const response = await axiosInstance.put(`payrollgroup/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -615,7 +616,7 @@ const PAYROLLGROUPEditApiCall = async (payload: PAYROLLGROUPEditInterface) => {
 };
   
 const PAYROLLGROUPCreateApiCall = async (payload: PAYROLLGROUPCreateInterface) => {
-const response = await axios.post(`${APILink}payrollgroup/`,
+const response = await axiosInstance.post(`payrollgroup/`,
 payload,
 {
     onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -631,7 +632,7 @@ return response.data;
 
 
 const PAYROLLGROUPViewSpecificApiCall = async (payload: {payrollgroup_id: number}) => {
-const response = await axios.get(`${APILink}payrollgroup/${payload.payrollgroup_id}/`,
+const response = await axiosInstance.get(`payrollgroup/${payload.payrollgroup_id}/`,
 {
     onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -646,7 +647,7 @@ return response.data;
 
 
 const PAYROLLGROUPViewApiCall = async () => {
-const response = await axios.get(`${APILink}payrollgroup/`,
+const response = await axiosInstance.get(`payrollgroup/`,
 {
     onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -746,7 +747,7 @@ action$.pipe(
 
 // POSITION API SECTION // POSITION API SECTION // POSITION API SECTION // POSITION API SECTION // POSITION API SECTION
 const POSITIONEditApiCall = async (payload: POSITIONEditInterface) => {
-    const response = await axios.put(`${APILink}position/${payload.id}/`,
+    const response = await axiosInstance.put(`position/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -761,7 +762,7 @@ const POSITIONEditApiCall = async (payload: POSITIONEditInterface) => {
 };
   
 const POSITIONCreateApiCall = async (payload: POSITIONCreateInterface) => {
-const response = await axios.post(`${APILink}position/`,
+const response = await axiosInstance.post(`position/`,
 payload,
 {
     onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -777,7 +778,7 @@ return response.data;
 
 
 const POSITIONViewSpecificApiCall = async (payload: {position_id: number}) => {
-const response = await axios.get(`${APILink}position/${payload.position_id}/`,
+const response = await axiosInstance.get(`position/${payload.position_id}/`,
 {
     onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -792,7 +793,7 @@ return response.data;
 
 
 const POSITIONViewApiCall = async () => {
-const response = await axios.get(`${APILink}position/`,
+const response = await axiosInstance.get(`position/`,
 {
     onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -894,7 +895,7 @@ action$.pipe(
 
 // RANK API SECTION // RANK API SECTION // RANK API SECTION // RANK API SECTION // RANK API SECTION
 const RANKEditApiCall = async (payload: RANKEditInterface) => {
-    const response = await axios.put(`${APILink}rank/${payload.id}/`,
+    const response = await axiosInstance.put(`rank/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -909,7 +910,7 @@ const RANKEditApiCall = async (payload: RANKEditInterface) => {
 };
   
 const RANKCreateApiCall = async (payload: RANKCreateInterface) => {
-const response = await axios.post(`${APILink}rank/`,
+const response = await axiosInstance.post(`rank/`,
 payload,
 {
     onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -925,7 +926,7 @@ return response.data;
 
 
 const RANKViewSpecificApiCall = async (payload: {rank_id: number}) => {
-const response = await axios.get(`${APILink}rank/${payload.rank_id}/`,
+const response = await axiosInstance.get(`rank/${payload.rank_id}/`,
 {
     onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -940,7 +941,7 @@ return response.data;
 
 
 const RANKViewApiCall = async () => {
-const response = await axios.get(`${APILink}rank/`,
+const response = await axiosInstance.get(`rank/`,
 {
     onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){

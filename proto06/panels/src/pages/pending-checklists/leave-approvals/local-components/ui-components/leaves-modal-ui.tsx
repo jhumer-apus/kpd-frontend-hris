@@ -22,6 +22,7 @@ import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 
 //HELPERS
 import { getNumberOfSickLeaves, cleanRemarks } from '@/helpers/SickLeavesRemarks';
+import axiosInstance from '@/helpers/axiosConfig';
 
 interface LEAVEModalUIInterface {
     singleLEAVEDetailsData: LEAVEViewInterface;
@@ -191,7 +192,7 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
     },[])
 
     const fetchCutOffPeriod = async () => {
-        await axios.get(`${APILink}cutoff_period/${ThisProps.cutoff_code}`).then(res => {
+        await axiosInstance.get(`cutoff_period/${ThisProps.cutoff_code}`).then(res => {
             setData(curr => ({
                 ...curr,
                 cuttOffPeriod: res.data.co_name
@@ -213,7 +214,7 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
     }
 
     const fetchSpecificLeave = async (leave_id: number) => {
-        await axios.get(`${APILink}leave_type/${leave_id}/`).then(res => {
+        await axiosInstance.get(`leave_type/${leave_id}/`).then(res => {
             setLeaveType(curr => ({
                 name: res.data.name,
                 is_vl: res.data.is_vl,

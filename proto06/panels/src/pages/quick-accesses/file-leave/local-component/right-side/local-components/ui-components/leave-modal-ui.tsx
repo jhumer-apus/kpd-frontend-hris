@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import {Button, TextField} from '@mui/material';
 import { APILink, globalDateTime } from '@/store/configureStore';
 import axios from 'axios';
+import axiosInstance from '@/helpers/axiosConfig';
 
 interface LEAVEModalUIInterface {
     singleLEAVEDetailsData: LEAVEViewInterface;
@@ -21,7 +22,7 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
     },[])
     
     const fetchCutOffPeriod = async () => {
-        await axios.get(`${APILink}cutoff_period/${ThisProps.cutoff_code}`).then(res => {
+        await axiosInstance.get(`cutoff_period/${ThisProps.cutoff_code}`).then(res => {
             setData(curr => ({
                 ...curr,
                 cutOffPeriod: res.data.co_name

@@ -37,6 +37,7 @@ import { EMPLOYEESViewInterface } from '@/types/types-store';
 import FormData from 'form-data';
 import { beautifyJSON } from '@/helpers/utils';
 import dayjs from 'dayjs';
+import axiosInstance from '@/helpers/axiosConfig';
 
 
 type initialState = {
@@ -81,8 +82,8 @@ export const SpecificEmployee = (props: initialState) => {
 
     const fetchData = async function (formData: FormData) {
         try {
-            const response = await axios.put(
-              `${APILink}employees/${userData?.emp_no}/`,
+            const response = await axiosInstance.put(
+              `employees/${userData?.emp_no}/`,
               formData,
               {
                 headers: {
