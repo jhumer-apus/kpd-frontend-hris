@@ -56,7 +56,7 @@ export const authEpic: Epic = (action$, state$) =>
 
           console.log(error)
           if (error.response && error.response.data && error.response?.data) {
-            return of(userLoginActionFailure(error.response.data?.detail || "Error Logging In Please Contact IT Support")); // Extract error message from the response
+            return of(userLoginActionFailure(error.response.data?.detail || error.response.data["Error Message"] || "Error Logging In Please Contact IT Support")); // Extract error message from the response
           } else {
             return of(userLoginActionFailure(error.message)); // If there is no custom error message, use the default one
           }

@@ -10,11 +10,11 @@ const axiosInstance = axios.create({
 });
 
 // Logout function: clears tokens and redirects to login
-const logout = () => {
-  Cookies.remove('access_token');
-  Cookies.remove('refresh_token');
-  // window.location.href = '/login'; // Redirect to login page
-};
+// const logout = () => {
+//   Cookies.remove('access_token');
+//   Cookies.remove('refresh_token');
+//   // window.location.href = '/login'; // Redirect to login page
+// };
 
 // Request interceptor
 axiosInstance.interceptors.request.use(
