@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from 'react';
 
 //LIBRARIES
-import { DataGrid, GridRowsProp, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { DataGrid, GridRowsProp, GridColDef, GridValueGetterParams, GridFilterModel } from '@mui/x-data-grid';
 import { Button } from "@material-tailwind/react";
 import axios from 'axios';
 import * as React from 'react';
@@ -184,6 +184,11 @@ export default function ViewEmployeeLeaves() {
 
     ];
 
+    const onFilterChange = React.useCallback((filterModel: GridFilterModel) => {
+        // Here you save the data you need from the filter model
+        console.log(filterModel)
+      }, []);
+
     
     // const options= [
     //     {
@@ -311,6 +316,8 @@ export default function ViewEmployeeLeaves() {
                     <DataGrid
                     rows={dataRows}
                     columns={columns}
+                    filterMode="server"
+                    onFilterModelChange={onFilterChange}
                     initialState={{
                         pagination: {
                         paginationModel: { page: 0, pageSize: 100 },
