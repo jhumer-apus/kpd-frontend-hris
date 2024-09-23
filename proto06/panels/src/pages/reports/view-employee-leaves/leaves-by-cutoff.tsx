@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from 'react';
 
 //LIBRARIES
-import { DataGrid, GridRowsProp, GridColDef, GridValueGetterParams, GridFilterModel } from '@mui/x-data-grid';
+import { DataGrid, GridRowsProp, GridColDef, GridValueGetterParams, GridFilterModel, getGridNumericOperators } from '@mui/x-data-grid';
 import { Button } from "@material-tailwind/react";
 import axios from 'axios';
 import * as React from 'react';
@@ -180,6 +180,9 @@ export default function ViewEmployeeLeaves() {
             field: 'leave_number_days', 
             headerName: 'Day/s', 
             width: 150,
+            filterOperators: getGridNumericOperators().filter(
+                (operator) => operator.value === '>' || operator.value === '<',
+              ),
         }
 
     ];
@@ -251,7 +254,16 @@ export default function ViewEmployeeLeaves() {
             value: true
           }))
     }
-  
+    
+    // const filterModel = {
+    //     items: [
+    //       {
+    //         columnField: 'leave_type_name',
+    //         operatorValue: 'range',
+    //         value: [20, 40],
+    //       },
+    //     ],
+    // }
     return (
         <Fragment>
             <div className="my-10">
@@ -314,22 +326,26 @@ export default function ViewEmployeeLeaves() {
                 <div className="my-6 h-[500PX] w-full">
                     {/* add a loading interface here to indicate that the report needed is loading */}
                     <DataGrid
-                    rows={dataRows}
-                    columns={columns}
-                    filterMode="server"
-                    onFilterModelChange={onFilterChange}
-                    initialState={{
-                        pagination: {
-                        paginationModel: { page: 0, pageSize: 100 },
-                        },
-                    }}
-                    pageSizeOptions={[25, 50, 75, 100]}
-                    onRowClick={(e) => {
-                        openViewModal()
-                        setSelectedRow(curr => e.row)
-                    }}
-                    // disableRowSelectionOnClick 
-                    localeText={{ noRowsLabel: isFetchReportError? 'Something Went Wrong': isLoading? 'Loading Data...': 'No Data'}}
+                        // filterModel={filterModel}\        disableColumnFilter
+                        disableColumnFilter
+                        disableColumnSelector
+                        disableDensitySelector
+                        rows={dataRows}
+                        columns={columns}
+                        filterMode="server"
+                        onFilterModelChange={onFilterChange}
+                        initialState={{
+                            pagination: {
+                            paginationModel: { page: 0, pageSize: 100 },
+                            },
+                        }}
+                        pageSizeOptions={[25, 50, 75, 100]}
+                        onRowClick={(e) => {
+                            openViewModal()
+                            setSelectedRow(curr => e.row)
+                        }}
+                        // disableRowSelectionOnClick 
+                        localeText={{ noRowsLabel: isFetchReportError? 'Something Went Wrong': isLoading? 'Loading Data...': 'No Data'}}
                     />
 
 
