@@ -54,6 +54,7 @@ export const useFetchDTRData = (filter:any) => {
                     loading:false
                 }))
             }).catch(err => {
+                console.error(err)
                 setDtr(curr => ({
                     data: [],
                     type: "logs",
@@ -84,6 +85,7 @@ export const useFetchDTRData = (filter:any) => {
                     loading:false
                 }))
             }).catch(err => {
+                console.error(err)
                 setDtr(curr => ({
                     data: [],
                     type: "merged",
@@ -114,6 +116,7 @@ export const useFetchDTRData = (filter:any) => {
                         loading:false
                     }))
                 }).catch(err => {
+                    console.error(err)
                     setDtr(curr => ({
                         data: [],
                         type: "cutoff",
@@ -135,6 +138,7 @@ export const useFetchDTRData = (filter:any) => {
                         loading:false
                     }))
                 }).catch(err => {
+                    console.error(err)
                     setDtr(curr => ({
                         data: [],
                         type: "cutoff",

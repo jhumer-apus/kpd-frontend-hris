@@ -83,7 +83,7 @@ export default function ViewEmployeeObt() {
             "Date Start": obj.obt_date_from,
             "Date End": obj.obt_date_to,
             "OBT Type": obj.obt_type,
-            "OBT Location": obj.obt_location,
+            "OBT Location": obj.obt_remarks,
             "OBT Hours": convertMinuteToHours(obj.obt_total_hours),
         }
 

@@ -33,7 +33,6 @@ export default function ViewOBTModal (props: Props) {
         obt_date_filed: "",
         obt_type: null,
         obt_type_name: "",
-        obt_location: null,
         obt_date_from: null,
         obt_date_to: null,
         obt_business_date: null,
@@ -173,7 +172,7 @@ export default function ViewOBTModal (props: Props) {
                                 InputProps={{
                                     readOnly: true,
                                 }}
-                                value={details.obt_location}
+                                value={details.obt_remarks}
                             />
                         </Grid>
 

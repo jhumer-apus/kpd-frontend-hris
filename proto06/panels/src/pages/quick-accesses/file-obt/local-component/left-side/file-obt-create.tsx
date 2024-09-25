@@ -36,7 +36,7 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
     const [createOBT, setCreateOBT] = useState<OBTCreateInterface>({
         emp_no: NaN,
         obt_type: null,
-        obt_location: '',
+        obt_remarks: '',
         obt_type_id: null,
         obt_remarks: null,
         obt_business_date: null,
@@ -48,7 +48,8 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
     useEffect(() => {
         fetchObtTypes()
     }, [])
-    const onClickSubmit = () => {
+    const onClickSubmit = (e:any) => {
+        e.preventDefault()
         setIsSubmittingRequest(true)
         // dispatch(OBTCreateAction(createOBT))
         fileOBTPost()
@@ -102,7 +103,6 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
             emp_no: createOBT.emp_no,
             obt_type: createOBT.obt_type,
             obt_type_id: createOBT?.obt_type_id,
-            obt_location: createOBT.obt_location,
             obt_remarks: createOBT.obt_remarks,
             obt_business_date: createOBT.obt_business_date,
             obt_date_from: createOBT.obt_date_from,
@@ -144,14 +144,14 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
                 ...curr,
                 obt_type: newValue?.obt_type_name || "",
                 obt_type_id: newValue?.id || "",
-                obt_remarks: newValue?.obt_type_name || "",
+                // obt_remarks: newValue?.obt_type_name || "",
             }
         ))
     }
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '2px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create an Official Business Time/Trip Data</Typography>
-            <div className='flex flex-col gap-3 overflow-auto relative'>
+            <form onSubmit={onClickSubmit} className='flex flex-col gap-3 overflow-auto relative'>
                 <div className='flex flex-wrap gap-3 pt-4'>
                     <div className='flex flex-col gap-3' style={{width: '100%'}}>
                         <EmployeeAutoComplete createOBT={createOBT} setCreateOBT={setCreateOBT}  />
@@ -207,17 +207,17 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
                                     maxLength:300
                                 }
                             }
-                            helperText={`${createOBT?.obt_location?.length?? 0}/300`}
+                            helperText={`${createOBT?.obt_remarks?.length?? 0}/300`}
                             variant='outlined' 
                             multiline rows={2}
-                            value={createOBT?.obt_location}
+                            value={createOBT?.obt_remarks}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 // event.target.value
                                 setCreateOBT((prevState)=> {
                                     return (
                                         {
                                             ...prevState,
-                                            obt_location: event.target.value
+                                            obt_remarks: event.target.value
                                         }
                                     )
                                 })
@@ -229,7 +229,8 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
                     <div className='flex justify-between' style={{width:'100%'}} container-name='obt_buttons'>
                         <Button 
                             variant='contained' 
-                            onClick={onClickSubmit}
+                            // onClick={onClickSubmit}
+                            type="submit"
                             disabled={isSubmittingRequest}
                         >
                             Create OBT
@@ -237,7 +238,7 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
                         {/* <Button variant='outlined' onClick={()=> setOpen(false)}>Cancel</Button> */}
                     </div>
                 </div>
-            </div>
+            </form>
         </React.Fragment>
     );
 }
