@@ -23,11 +23,13 @@ import {
 
 //HELPERS
 import { fetchCutOffPeriods } from '@/helpers/ApiCalls'
+import { useFetchDTRData } from '@/custom-hooks/use-fetch-dtr-data';
 
 interface Props { 
     viewType: "logs" | "merged" | "cutoff"
     filter: any
     setFilter: React.Dispatch<React.SetStateAction<any>>
+    onView: () => void
 }
 
 interface OptionInterface {
@@ -38,7 +40,7 @@ interface OptionInterface {
 export default function FilterDTR(props: Props) {
 
     //PROPS
-    const { viewType, filter, setFilter } = props
+    const { viewType, filter, setFilter, onView } = props
 
     //REDUX
     const dispatch = useDispatch();
@@ -48,6 +50,7 @@ export default function FilterDTR(props: Props) {
     //STATES
     const [cutoffPeriods, setCutOffPeriods] = useState<any[]>([]);
     const [isCutOffPeriodLoading, setIsCutOffPeriodLoading] = useState<boolean>(false);
+
 
     //USE EFFECTS
     useEffect(() => {
@@ -150,51 +153,51 @@ export default function FilterDTR(props: Props) {
         }))
     }
 
-    const handleViewDTR = () => {
+    // const handleViewDTR = () => {
 
-        switch(viewType) {
+    //     switch(viewType) {
 
-            case 'logs':
-                dispatch(viewFilterDtrLogs(
-                    {
-                        month:filter.month,
-                        year:filter.year,
-                        emp_no: filter.emp_no
-                    }
-                ))
-                break;
+    //         case 'logs':
+    //             dispatch(viewFilterDtrLogs(
+    //                 {
+    //                     month:filter.month,
+    //                     year:filter.year,
+    //                     emp_no: filter.emp_no
+    //                 }
+    //             ))
+    //             break;
 
-            case 'merged':  
+    //         case 'merged':  
 
-                dispatch(viewFilterMergedDtrLogs(
-                    {
-                        cutoff_id: filter.cutoff_id? parseInt(filter.cutoff_id): null,
-                        emp_no: filter.emp_no
-                    }
-                ))
-                break;
+    //             dispatch(viewFilterMergedDtrLogs(
+    //                 {
+    //                     cutoff_id: filter.cutoff_id? parseInt(filter.cutoff_id): null,
+    //                     emp_no: filter.emp_no
+    //                 }
+    //             ))
+    //             break;
 
-            case 'cutoff':
+    //         case 'cutoff':
 
-                dispatch(viewCutoffDtrSummary(
-                    {
-                        cutoff_id: filter.cutoff_id? parseInt(filter.cutoff_id): null,
-                        emp_no: filter.emp_no
-                    }
-                  ));
-                break;
+    //             dispatch(viewCutoffDtrSummary(
+    //                 {
+    //                     cutoff_id: filter.cutoff_id? parseInt(filter.cutoff_id): null,
+    //                     emp_no: filter.emp_no
+    //                 }
+    //               ));
+    //             break;
 
-            default: 
-                dispatch(viewFilterDtrLogs(
-                    {
-                        month:filter.month,
-                        year:filter.year,
-                        emp_no: filter.emp_no
-                    }
-                ))
-                break;
-        }
-    }
+    //         default: 
+    //             dispatch(viewFilterDtrLogs(
+    //                 {
+    //                     month:filter.month,
+    //                     year:filter.year,
+    //                     emp_no: filter.emp_no
+    //                 }
+    //             ))
+    //             break;
+    //     }
+    // }
 
     
 
@@ -239,7 +242,7 @@ export default function FilterDTR(props: Props) {
                     disabled={isCutOffPeriodLoading}
                     renderInput={(params) => <TextField {...params} label="Month" />}
                 />
-                <Button className='w-20 h-fit py-4' onClick={handleViewDTR}>View</Button>
+                <Button className='w-20 h-fit py-4' onClick={() => onView()}>View</Button>
             </div>
         )
 
@@ -258,7 +261,7 @@ export default function FilterDTR(props: Props) {
                         disabled={isCutOffPeriodLoading}
                         renderInput={(params) => <TextField {...params} label="Cutoff Periods" />}
                     />
-                    <Button className='w-20 h-fit py-4' onClick={handleViewDTR}>View</Button>
+                    <Button className='w-20 h-fit py-4' onClick={() => onView()}>View</Button>
                 </div>
             )
         } 
@@ -274,7 +277,7 @@ export default function FilterDTR(props: Props) {
                         placeholder="No cut off available on a selected year"
                         disabled
                     />
-                    <Button className='w-20 h-fit py-4' disabled onClick={handleViewDTR}>View</Button>
+                    <Button className='w-20 h-fit py-4' disabled onClick={() => onView()}>View</Button>
                 </div>
             )
         }
