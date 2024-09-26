@@ -32,6 +32,7 @@ const colsMinToHours = [
   "rd_reghol_nd_total_hours",
   "rd_reghol_nd_total_hours",
   "rd_reghol_nd_ot_total_hours",
+  "lates_total",
   "undertime_total"
 ]
 

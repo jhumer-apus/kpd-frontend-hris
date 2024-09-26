@@ -54,6 +54,7 @@ import { validateImage } from '@/helpers/validator/employee_information';
 import SelectProvince from '@/public-components/forms/address/SelectProvince';
 import SelectCityMunicipality from '@/public-components/forms/address/SelectCityMunicipality';
 import useFetchQuery from '@/custom-hooks/use-fetch-query';
+import axiosInstance from '@/helpers/axiosConfig';
 
 interface DropDownData {
     branches: any[],
@@ -245,10 +246,10 @@ export const SpecificEmployee = (props: initialState) => {
         }
       }
       
-    const {data: ranks, status, error} = useFetchQuery(`${APILink}rank/`, null)
+    const {data: ranks, status, error} = useFetchQuery(`rank/`, null)
     
     const fetchPayrollGroups = () => {
-        axios.get(`${APILink}payrollgroup`).then((response:any) => {
+        axiosInstance.get(`payrollgroup`).then((response:any) => {
             const responsePayrollGroups = response.data.map((payroll:any) => {
             return {
                 id: payroll.id.toString(),
@@ -260,7 +261,7 @@ export const SpecificEmployee = (props: initialState) => {
     }
 
     const fetchBranches = () => {
-        axios.get(`${APILink}branch`).then((response:any) => {
+        axiosInstance.get(`branch`).then((response:any) => {
             const responseBranches = response.data.map((branch:any) => {
             return {
                 id: branch.id.toString(),
@@ -273,7 +274,7 @@ export const SpecificEmployee = (props: initialState) => {
 
     const fetchDepartments = () => {
 
-    axios.get(`${APILink}department/`).then((response:any) => {
+    axiosInstance.get(`department/`).then((response:any) => {
         
         const responseDepartments = response.data.map((department:any) => {
             return {
@@ -286,7 +287,7 @@ export const SpecificEmployee = (props: initialState) => {
     }
 
     const fetchEmploymentStatus = () => {
-        axios.get(`${APILink}emp_status_type/`).then((response:any) => {
+        axiosInstance.get(`emp_status_type/`).then((response:any) => {
             const responseEmploymentStatuses = response.data.map((employmentStatus:any) => {
             return {
                 id: employmentStatus.id.toString(),
@@ -298,7 +299,7 @@ export const SpecificEmployee = (props: initialState) => {
     }
 
     const fetchPositions = () => {
-        axios.get(`${APILink}position/`).then((response:any) => {
+        axiosInstance.get(`position/`).then((response:any) => {
             const responsePositions = response.data.map((position:any) => {
             return {
                 id: position.id.toString(),
@@ -314,7 +315,7 @@ export const SpecificEmployee = (props: initialState) => {
 
         setDropDownData((curr:any) => ({...curr, approvers: []}));
 
-        axios.get(`${APILink}approvers/`).then((response:any) => {
+        axiosInstance.get(`approvers/`).then((response:any) => {
   
             const responseApprovers = response.data.map((approver:any) => {
                 return {
@@ -331,7 +332,7 @@ export const SpecificEmployee = (props: initialState) => {
 
     //     setDropDownData((curr:any) => ({...curr, approvers: []}));
 
-    //     axios.get(`${APILink}approvers/`,{
+    //     axiosInstance.get(`approvers/`,{
     //       params:{
     //         department: department
     //       }
@@ -350,7 +351,7 @@ export const SpecificEmployee = (props: initialState) => {
     //   }
 
       const fetchDivisions = () => {
-        axios.get(`${APILink}division/`).then((response:any) => {
+        axiosInstance.get(`division/`).then((response:any) => {
           const responseDivisions = response.data.map((division:any) => {
             return {
               id: division.id,
@@ -364,8 +365,8 @@ export const SpecificEmployee = (props: initialState) => {
 
     const fetchData = async function (formData: FormData) {
         try {
-            const response = await axios.put(
-              `${APILink}employees/${userData?.emp_no}/`,
+            const response = await axiosInstance.put(
+              `employees/${userData?.emp_no}/`,
               formData,
               {
                 headers: {

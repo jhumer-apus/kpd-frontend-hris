@@ -13,6 +13,7 @@ import { HandleAlertAction, HandleModalAction } from '@/store/actions/components
 import axios from 'axios';
 import { beautifyJSON } from '@/helpers/utils';
 import { useState } from 'react';
+import axiosInstance from '@/helpers/axiosConfig';
 
 
 
@@ -72,7 +73,7 @@ export default function ApproveOVERTIMEModal(props: ApproveOVERTIMEModalInterfac
 
     setIsLoading(curr => true)
 
-    await axios.put(`${APILink}ot_new/${singleOVERTIMEDetailsData.id}/`, payload)
+    await axiosInstance.put(`ot_new/${singleOVERTIMEDetailsData.id}/`, payload)
 
       .then(res => {
 

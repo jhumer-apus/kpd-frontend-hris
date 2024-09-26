@@ -14,6 +14,7 @@ import { globalServerErrorMsg } from '@/store/configureStore';
 import ExportToCsvButton from '../../../public-components/ExportToCSVButton';
 import SelectForm from '../../../public-components/forms/SelectForm';
 import InputForm from '../../../public-components/forms/InputForm';
+import axiosInstance from '@/helpers/axiosConfig';
 
 interface Rows {
     emp_name: string,
@@ -43,7 +44,7 @@ export default function ViewPerfectAttendance() {
         setIsLoading(true)
         setDataRows((curr:Rows[]) => [])
 
-        await axios.get(`${APILink}perfect/`, {
+        await axiosInstance.get(`perfect/`, {
             params: {
                 month: month,
                 year: year

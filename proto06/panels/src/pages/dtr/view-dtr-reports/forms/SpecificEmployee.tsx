@@ -41,6 +41,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import axiosInstance from '@/helpers/axiosConfig';
 
 
 type initialState = {
@@ -110,8 +111,8 @@ export const SpecificEmployee = (props: initialState) => {
 
     const fetchData = async function (formData: FormData) {
         try {
-            const response = await axios.put(
-              `${APILink}employees/${userData?.emp_no}/`,
+            const response = await axiosInstance.put(
+              `employees/${userData?.emp_no}/`,
               formData,
               {
                 headers: {

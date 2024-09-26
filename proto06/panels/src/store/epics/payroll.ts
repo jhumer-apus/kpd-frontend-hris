@@ -19,9 +19,10 @@ import {
 import { Epic } from 'redux-observable';
 import store, { APILink } from '../configureStore';
 import { ProcessPayroll } from '@/types/types-pages';
+import axiosInstance from '@/helpers/axiosConfig';
 
 const processPayrollApiCall = async (payload: ProcessPayroll): Promise<string> => {
-  const response = await axios.post(`${APILink}create_payrolls/`,
+  const response = await axiosInstance.post(`create_payrolls/`,
   payload, 
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -36,7 +37,7 @@ const processPayrollApiCall = async (payload: ProcessPayroll): Promise<string> =
 };
 
 const viewPayrollListApiCall = async () => {
-    const response = await axios.get(`${APILink}payroll/`, 
+    const response = await axiosInstance.get(`payroll/`, 
     {
         onDownloadProgress: (progressEvent) => {
           if(progressEvent.total){
@@ -50,7 +51,7 @@ const viewPayrollListApiCall = async () => {
 };
 
 const viewSpecificPayrollListApiCall = async (payload: {emp_no: number}) => {
-  const response = await axios.get(`${APILink}payroll/${payload.emp_no}`, 
+  const response = await axiosInstance.get(`payroll/${payload.emp_no}`, 
   {
       onDownloadProgress: (progressEvent) => {
         if(progressEvent.total){

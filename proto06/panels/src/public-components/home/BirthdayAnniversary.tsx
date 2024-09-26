@@ -19,6 +19,7 @@ import dayjs from 'dayjs';
 import ShowAnnouncementModal from '../announcement-tabs/ShowAnnouncementModal';
 import { MegaphoneIcon } from '@heroicons/react/24/outline';
 import { useSelector } from 'react-redux';
+import axiosInstance from '@/helpers/axiosConfig';
 
 interface Props {
 
@@ -140,7 +141,7 @@ export default function BirthdayAnniversary(props: Props) {
 
         setIsLoading(true)
 
-        await axios.get(`${APILink}birthdays`).then(res => {
+        await axiosInstance.get(`birthdays`).then(res => {
 
             const resData = Array.isArray(res.data)? res.data: []
 
@@ -165,7 +166,7 @@ export default function BirthdayAnniversary(props: Props) {
 
         setIsLoading(true)
 
-        await axios.get(`${APILink}anniversary`).then(res => {
+        await axiosInstance.get(`anniversary`).then(res => {
 
             const resData = Array.isArray(res.data)? res.data: []
 
@@ -189,7 +190,7 @@ export default function BirthdayAnniversary(props: Props) {
     const fetchAnnouncements = async () => {
 
         console.log(user?.department_code)
-        await axios.get(`${APILink}act_announcement/`, {
+        await axiosInstance.get(`act_announcement/`, {
             params: {
                 pin: false,
                 department: user?.department_code ?? 1,

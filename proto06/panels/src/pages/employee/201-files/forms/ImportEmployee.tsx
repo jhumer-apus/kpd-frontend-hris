@@ -5,6 +5,7 @@ import { Typography } from '@material-tailwind/react';
 import { APILink } from '@/store/configureStore';
 import { beautifyJSON } from '@/helpers/utils';
 import { BeautifyObject } from '@/types/index';
+import axiosInstance from '@/helpers/axiosConfig';
 
 type ImportEmployee = {
   file: any;
@@ -28,8 +29,8 @@ export const ImportEmployee = () => {
         formData.append('file', file);
     
         try {
-          const response = await axios.post(
-            `${APILink}import_employee/`,
+          const response = await axiosInstance.post(
+            `import_employee/`,
             formData,
             {
               headers: {

@@ -14,6 +14,7 @@ import axios from 'axios'
 
 //REDUX
 import { APILink } from '@/store/configureStore';
+import axiosInstance from '@/helpers/axiosConfig';
 
 interface OVERTIMEModalUIInterface {
     singleOVERTIMEDetailsData: OVERTIMEViewInterface;
@@ -167,7 +168,7 @@ function OVERTIMEModalUI(props: OVERTIMEModalUIInterface) {
     },[])
 
     const fetchCutOffPeriod = async () => {
-        await axios.get(`${APILink}cutoff_period/${ThisProps.cutoff_code}`).then(res => {
+        await axiosInstance.get(`cutoff_period/${ThisProps.cutoff_code}`).then(res => {
             setData(curr => ({
                 ...curr,
                 cuttOffPeriod: res.data.co_name

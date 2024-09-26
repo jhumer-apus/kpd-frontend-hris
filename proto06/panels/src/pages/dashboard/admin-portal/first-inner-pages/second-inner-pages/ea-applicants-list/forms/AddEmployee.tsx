@@ -8,6 +8,7 @@ import { APILink } from '@/store/configureStore';
 import { beautifyJSON } from '@/helpers/utils';
 import { getEmployeesList, getEmployeesListFailureCleanup } from '@/store/actions/employees';
 import { useDispatch } from 'react-redux';
+import axiosInstance from '@/helpers/axiosConfig';
 
 export const UserProfile = () => {
     const dispatch = useDispatch();
@@ -21,8 +22,8 @@ export const UserProfile = () => {
         formData.append(key, data[key as keyof EMPLOYEESViewInterface]);
     }
     try {
-        const response = await axios.post(
-          `${APILink}employees/`,
+        const response = await axiosInstance.post(
+          `employees/`,
           formData,
           {
             headers: {

@@ -25,6 +25,7 @@ import { fetchCutOffPeriods } from '@/helpers/ApiCalls'
 import { useDispatch } from 'react-redux';
 import { HandleModalAction } from '@/store/actions/components';
 import ViewLeaveModal from '@/public-components/modals/ViewLeaveModal';
+import axiosInstance from '@/helpers/axiosConfig';
 
 
 
@@ -50,7 +51,7 @@ export default function ViewEmployeeLeaves() {
         setIsFetchReportError(false)
         setIsLoading(true);
 
-        await axios.get(`${APILink}leave_report`, {
+        await axiosInstance.get(`leave_report`, {
             params: {
                 cutoff: selectedCutOff?.id,
                 // status: "APD"

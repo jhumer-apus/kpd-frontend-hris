@@ -23,6 +23,7 @@ import { fetchCutOffPeriods } from '@/helpers/ApiCalls'
 import ViewOBTModal from '@/public-components/modals/ViewOBTModal';
 import { HandleModalAction } from '@/store/actions/components';
 import { useDispatch } from 'react-redux';
+import axiosInstance from '@/helpers/axiosConfig';
 
 export default function ViewEmployeeObt() {
 
@@ -60,7 +61,7 @@ export default function ViewEmployeeObt() {
         setIsFetchReportError(false)
         setIsLoading(true);
 
-        await axios.get(`${APILink}obt_report`, {
+        await axiosInstance.get(`obt_report`, {
             params:{
                 cutoff: selectedCutOff?.id,
                 // status: "APD"
@@ -139,7 +140,7 @@ export default function ViewEmployeeObt() {
             "Date Start": obj.obt_date_from,
             "Date End": obj.obt_date_to,
             "OBT Type": obj.obt_type,
-            "OBT Location": obj.obt_location,
+            "OBT Location": obj.obt_remarks,
             "OBT Hours": convertMinuteToHours(obj.obt_total_hours),
         }
 

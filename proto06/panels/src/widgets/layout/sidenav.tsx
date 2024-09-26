@@ -151,7 +151,7 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
           return(
           <ul key={key} className="mb-4 flex flex-col gap-1">
             {title && (
-              <li className="mx-3.5 mt-4 mb-2">
+              <li key={key} className="mx-3.5 mt-4 mb-2">
                 <Typography
                   variant="small"
                   color={sidenavType === "dark" ? "white" : "blue-gray"}
@@ -162,11 +162,11 @@ export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
                 </Typography>
               </li>
             )}
-            {pages.map(({ id, icon, name, path, hasSubItems, subItems }) => 
+            {pages.map(({ id, icon, name, path, hasSubItems, subItems }, index) => 
             { if(hasSubItems){
               return(
                 <Fragment>
-                    <li key={name}>
+                    <li key={index}>
                         <CollapsibleSection
                           header={
                             <Button

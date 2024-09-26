@@ -39,11 +39,12 @@ import {
     USERResetPasswordInterface,
     USERViewInterface,
 } from '@/types/types-pages';
+import axiosInstance from '@/helpers/axiosConfig';
 
 
 // USER API SECTION // USER API SECTION // USER API SECTION // USER API SECTION // USER API SECTION
 const USERResetPasswordApiCall = async (payload: USERResetPasswordInterface) => {
-    const response = await axios.post(`${APILink}reset-password/${payload.id}/`,
+    const response = await axiosInstance.post(`reset-password/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -61,7 +62,7 @@ const USERResetPasswordApiCall = async (payload: USERResetPasswordInterface) => 
 
 
 const USEREditApiCall = async (payload: USEREditInterface) => {
-  const response = await axios.put(`${APILink}user/${payload.id}/`,
+  const response = await axiosInstance.put(`user/${payload.id}/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -76,7 +77,7 @@ const USEREditApiCall = async (payload: USEREditInterface) => {
 };
 
 const USERCreateApiCall = async (payload: USERCreateInterface) => {
-  const response = await axios.post(`${APILink}user/`,
+  const response = await axiosInstance.post(`user/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -92,7 +93,7 @@ const USERCreateApiCall = async (payload: USERCreateInterface) => {
 
 
 const USERViewSpecificApiCall = async (payload: {user_id: number}) => {
-  const response = await axios.get(`${APILink}user/${payload.user_id}/`,
+  const response = await axiosInstance.get(`user/${payload.user_id}/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -107,7 +108,7 @@ const USERViewSpecificApiCall = async (payload: {user_id: number}) => {
 
 
 const USERViewApiCall = async () => {
-  const response = await axios.get(`${APILink}user/`,
+  const response = await axiosInstance.get(`user/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){

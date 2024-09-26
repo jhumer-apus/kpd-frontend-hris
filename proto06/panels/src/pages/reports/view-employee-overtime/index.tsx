@@ -13,6 +13,7 @@ import { globalServerErrorMsg } from '@/store/configureStore';
 import ExportToCsvButton from '../../../public-components/ExportToCSVButton';
 import SelectForm from '../../../public-components/forms/SelectForm';
 import InputForm from '../../../public-components/forms/InputForm';
+import axiosInstance from '@/helpers/axiosConfig';
 
 export default function ViewEmployeeLeaves() {
     
@@ -33,7 +34,7 @@ export default function ViewEmployeeLeaves() {
         setIsFetchReportError(false)
         setIsLoading(true);
 
-        await axios.get(`${APILink}ot?month=${month}&year=${year}&status=APD`).then(response => {
+        await axiosInstance.get(`ot?month=${month}&year=${year}&status=APD`).then(response => {
 
             const approvedOvertime = response.data;
             setDataRows(curr => approvedOvertime);

@@ -18,6 +18,7 @@ import { create } from 'lodash';
 //LIBRARIES
 import axios, {AxiosResponse, AxiosError} from 'axios'
 import EmployeeListField from '@/public-components/EmployeeListField';
+import axiosInstance from '@/helpers/axiosConfig';
 
 interface CreateUSERModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -99,7 +100,7 @@ function ManageUSERCreate(props: CreateUSERModalInterface) {
           application_pk: null
         }
     
-        await axios.post(`${APILink}reset_password_email/`, body).then((res:AxiosResponse) => {
+        await axiosInstance.post(`reset_password_email/`, body).then((res:AxiosResponse) => {
     
           window.alert(`New password has been sent to Employee Number: ${body.emp_no}`)
     

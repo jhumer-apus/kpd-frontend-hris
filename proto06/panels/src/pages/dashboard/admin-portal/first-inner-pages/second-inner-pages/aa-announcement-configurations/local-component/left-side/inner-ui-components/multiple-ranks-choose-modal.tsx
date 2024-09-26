@@ -36,7 +36,7 @@ export default function MultiRankAutoCompleteLeft(props: RankAutoCompleteInterfa
     const [selectedRankId, setSelectedRankId] = useState<number[]>([]);
 
 
-    const {data:rankList, status, error} = useFetchQuery(`${APILink}ann_rank/`, null)
+    const {data:rankList, status, error} = useFetchQuery(`ann_rank/`, null)
 
     // useEffect(()=> {
     //     dispatch(RANKViewAction());

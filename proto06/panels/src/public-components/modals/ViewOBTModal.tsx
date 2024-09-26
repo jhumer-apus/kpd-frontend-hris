@@ -1,4 +1,5 @@
 import { fetchCutOffPeriods } from '@/helpers/ApiCalls';
+import axiosInstance from '@/helpers/axiosConfig';
 import { HandleModalAction } from '@/store/actions/components';
 import { APILink, RootState } from '@/store/configureStore';
 import { Textarea, Typography } from '@material-tailwind/react';
@@ -32,7 +33,6 @@ export default function ViewOBTModal (props: Props) {
         obt_date_filed: "",
         obt_type: null,
         obt_type_name: "",
-        obt_location: null,
         obt_date_from: null,
         obt_date_to: null,
         obt_business_date: null,
@@ -53,7 +53,7 @@ export default function ViewOBTModal (props: Props) {
     },[emp_no, obt_id])
 
     const fetchData = async () => {
-        await axios.get(`${APILink}obt/${emp_no}/${obt_id}/`).then(res => setDetails(curr => res.data))
+        await axiosInstance.get(`obt/${emp_no}/${obt_id}/`).then(res => setDetails(curr => res.data))
     }
 
 
@@ -172,7 +172,7 @@ export default function ViewOBTModal (props: Props) {
                                 InputProps={{
                                     readOnly: true,
                                 }}
-                                value={details.obt_location}
+                                value={details.obt_remarks}
                             />
                         </Grid>
 

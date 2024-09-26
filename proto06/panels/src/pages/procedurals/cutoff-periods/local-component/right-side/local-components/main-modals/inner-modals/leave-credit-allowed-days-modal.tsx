@@ -15,6 +15,7 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { CUTOFFPERIODCreateInterface } from '@/types/types-pages';
 import axios from 'axios';
 import AutoCompleteForm from '@/public-components/forms/AutoCompleteForm';
+import axiosInstance from '@/helpers/axiosConfig';
 
 
 
@@ -65,13 +66,13 @@ export default function AllowedDaysCUTOFFPERIODModal(props: AllowedDaysCUTOFFPER
 
 
   const fetchDropDownData = async () => {
-    await axios.get(`${APILink}payrollgroup/`).then(res => 
+    await axiosInstance.get(`payrollgroup/`).then(res => 
       setDropDownData((curr:any) => ({
         ...curr,
         payroll_groups: Array.isArray(res.data) ? res.data : []
       }))
     )
-    await axios.get(`${APILink}division/`).then(res => 
+    await axiosInstance.get(`division/`).then(res => 
       setDropDownData((curr:any) => ({
         ...curr,
         divisions: Array.isArray(res.data) ? res.data : []

@@ -14,6 +14,7 @@ import UAReasons from '../forms/UAReasons';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { beautifyJSON } from '@/helpers/utils';
 import { HandleAlertAction } from '@/store/actions/components';
+import axiosInstance from '@/helpers/axiosConfig';
 
 interface CreateUAModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -61,7 +62,7 @@ function QuickAccessUACreate(props: CreateUAModalInterface) {
             ua_date_to: createUA.ua_date_to,
             added_by: userData?.emp_no,
         }
-        await axios.post(`${APILink}ua/`, payload).then((res:AxiosResponse) => {
+        await axiosInstance.post(`ua/`, payload).then((res:AxiosResponse) => {
 
             setIsSubmittingRequest(false)
             sendEmail(createUA.emp_no, res.data.id)
@@ -93,7 +94,7 @@ function QuickAccessUACreate(props: CreateUAModalInterface) {
           application_pk: app_pk
         }
     
-        await axios.post(`${APILink}reset_password_email/`, body).then(res => {
+        await axiosInstance.post(`reset_password_email/`, body).then(res => {
         
             dispatch(HandleAlertAction({
                 open:true,

@@ -1,3 +1,4 @@
+import axiosInstance from "@/helpers/axiosConfig";
 import { beautifyJSON } from "@/helpers/utils";
 import { HandleAlertAction } from "@/store/actions/components";
 import { APILink, RootState } from "@/store/configureStore";
@@ -49,7 +50,7 @@ export default function CreateOBTType(props:Props) {
     }
 
     const postObtType = async(payload: any) => {
-        await axios.post(`${APILink}obt_type/`, payload)
+        await axiosInstance.post(`obt_type/`, payload)
             .then(res => {
                     dispatch(HandleAlertAction(
                         {

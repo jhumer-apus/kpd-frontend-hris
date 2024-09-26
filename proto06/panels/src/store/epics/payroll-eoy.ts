@@ -6,13 +6,14 @@ import { of, from } from 'rxjs';
 import axios, { AxiosProgressEvent } from 'axios';
 import { beautifyJSON } from '@/helpers/utils';
 import store, { APILink } from '../configureStore';
+import axiosInstance from '@/helpers/axiosConfig';
 
 
 
 
 // ASSETACCOUNT API SECTION // ASSETACCOUNT API SECTION // ASSETACCOUNT API SECTION // ASSETACCOUNT API SECTION // ASSETACCOUNT API SECTION
 const ASSETACCOUNTEditApiCall = async (payload: _Interface.ASSETACCOUNTEditInterface) => {
-    const response = await axios.put(`${APILink}asset_account/${payload.id}/`,
+    const response = await axiosInstance.put(`asset_account/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -27,7 +28,7 @@ const ASSETACCOUNTEditApiCall = async (payload: _Interface.ASSETACCOUNTEditInter
   };
   
   const ASSETACCOUNTCreateApiCall = async (payload: _Interface.ASSETACCOUNTCreateInterface) => {
-    const response = await axios.post(`${APILink}asset_account/`,
+    const response = await axiosInstance.post(`asset_account/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -42,7 +43,7 @@ const ASSETACCOUNTEditApiCall = async (payload: _Interface.ASSETACCOUNTEditInter
   };
   
   const ASSETACCOUNTViewSpecificEmployeeApiCall = async (payload: {emp_no: number }) => {
-    const response = await axios.get(`${APILink}asset_account/${payload.emp_no}/`,
+    const response = await axiosInstance.get(`asset_account/${payload.emp_no}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -57,7 +58,7 @@ const ASSETACCOUNTEditApiCall = async (payload: _Interface.ASSETACCOUNTEditInter
   
   
   const ASSETACCOUNTViewSpecificApiCall = async (payload: {asset_account_id: number, emp_no: number }) => {
-    const response = await axios.get(`${APILink}asset_account/${payload.emp_no}/${payload.asset_account_id}/`,
+    const response = await axiosInstance.get(`asset_account/${payload.emp_no}/${payload.asset_account_id}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -72,7 +73,7 @@ const ASSETACCOUNTEditApiCall = async (payload: _Interface.ASSETACCOUNTEditInter
   
   
   const ASSETACCOUNTViewApiCall = async () => {
-    const response = await axios.get(`${APILink}asset_account/`,
+    const response = await axiosInstance.get(`asset_account/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -196,7 +197,7 @@ const ASSETACCOUNTEditApiCall = async (payload: _Interface.ASSETACCOUNTEditInter
 
 // ASSETLIST API SECTION // ASSETLIST API SECTION // ASSETLIST API SECTION // ASSETLIST API SECTION // ASSETLIST API SECTION
 const ASSETLISTEditApiCall = async (payload: _Interface.ASSETLISTEditInterface) => {
-    const response = await axios.put(`${APILink}asset_list/${payload.id}/`,
+    const response = await axiosInstance.put(`asset_list/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -211,7 +212,7 @@ const ASSETLISTEditApiCall = async (payload: _Interface.ASSETLISTEditInterface) 
   };
   
   const ASSETLISTCreateApiCall = async (payload: _Interface.ASSETLISTCreateInterface) => {
-    const response = await axios.post(`${APILink}asset_list/`,
+    const response = await axiosInstance.post(`asset_list/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -227,7 +228,7 @@ const ASSETLISTEditApiCall = async (payload: _Interface.ASSETLISTEditInterface) 
   
   
   const ASSETLISTViewSpecificApiCall = async (payload: {asset_list_id: number}) => {
-    const response = await axios.get(`${APILink}asset_list/${payload.asset_list_id}/`,
+    const response = await axiosInstance.get(`asset_list/${payload.asset_list_id}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -242,7 +243,7 @@ const ASSETLISTEditApiCall = async (payload: _Interface.ASSETLISTEditInterface) 
   
   
   const ASSETLISTViewApiCall = async () => {
-    const response = await axios.get(`${APILink}asset_list/`,
+    const response = await axiosInstance.get(`asset_list/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -346,7 +347,7 @@ const ASSETLISTEditApiCall = async (payload: _Interface.ASSETLISTEditInterface) 
 
 // ANNOUNCEMENT API SECTION // ANNOUNCEMENT API SECTION // ANNOUNCEMENT API SECTION // ANNOUNCEMENT API SECTION // ANNOUNCEMENT API SECTION
 const ANNOUNCEMENTEditApiCall = async (payload: _Interface.ANNOUNCEMENTEditInterface) => {
-  const response = await axios.put(`${APILink}announcement/${payload.id}/`,
+  const response = await axiosInstance.put(`announcement/${payload.id}/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -361,7 +362,7 @@ const ANNOUNCEMENTEditApiCall = async (payload: _Interface.ANNOUNCEMENTEditInter
 };
   
 const ANNOUNCEMENTCreateApiCall = async (payload: _Interface.ANNOUNCEMENTCreateInterface) => {
-  const response = await axios.post(`${APILink}announcement/`,
+  const response = await axiosInstance.post(`announcement/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -377,7 +378,7 @@ const ANNOUNCEMENTCreateApiCall = async (payload: _Interface.ANNOUNCEMENTCreateI
 
   
 const ANNOUNCEMENTViewSpecificApiCall = async (payload: {announcement_id: number}) => {
-  const response = await axios.get(`${APILink}announcement/${payload.announcement_id}/`,
+  const response = await axiosInstance.get(`announcement/${payload.announcement_id}/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -392,7 +393,7 @@ const ANNOUNCEMENTViewSpecificApiCall = async (payload: {announcement_id: number
 
 
 const ANNOUNCEMENTViewApiCall = async () => {
-  const response = await axios.get(`${APILink}announcement/`,
+  const response = await axiosInstance.get(`announcement/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -492,7 +493,7 @@ export const ANNOUNCEMENTEditEpic: Epic = (action$, state$) =>
 
 //ACTIVEANNOUNCEMENT API SECTION
 const ACTIVEANNOUNCEMENTViewApiCall = async (payload: {dept: number, rank: number, pin: boolean }) => {
-  const response = await axios.get(`${APILink}act_announcement/?department=${payload?.dept}&rank=${payload.rank}&pin=${payload.pin}`,
+  const response = await axiosInstance.get(`act_announcement/?department=${payload?.dept}&rank=${payload.rank}&pin=${payload.pin}`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -528,7 +529,7 @@ export const ACTIVEANNOUNCEMENTViewEpic: Epic = (action$, state$) =>
 
 
 const ANNRANKViewApiCall = async () => {
-  const response = await axios.get(`${APILink}ann_rank/`,
+  const response = await axiosInstance.get(`ann_rank/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -563,7 +564,7 @@ export const ANNRANKViewEpic: Epic = (action$, state$) =>
 );
 
 const ANNDEPARTMENTViewApiCall = async () => {
-  const response = await axios.get(`${APILink}ann_department/`,
+  const response = await axiosInstance.get(`ann_department/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -602,7 +603,7 @@ export const ANNDEPARTMENTViewEpic: Epic = (action$, state$) =>
 
 // TAXCOLLECTED API SECTION // TAXCOLLECTED API SECTION // TAXCOLLECTED API SECTION // TAXCOLLECTED API SECTION // TAXCOLLECTED API SECTION
   const TAXCOLLECTEDViewSpecificEmployeeApiCall = async (payload: {emp_no: number}) => {
-    const response = await axios.get(`${APILink}tax_collected/${payload.emp_no}/`,
+    const response = await axiosInstance.get(`tax_collected/${payload.emp_no}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -617,7 +618,7 @@ export const ANNDEPARTMENTViewEpic: Epic = (action$, state$) =>
   
   
   const TAXCOLLECTEDViewApiCall = async () => {
-    const response = await axios.get(`${APILink}tax_collected/`,
+    const response = await axiosInstance.get(`tax_collected/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -675,7 +676,7 @@ export const ANNDEPARTMENTViewEpic: Epic = (action$, state$) =>
 
 // PAY13TH API SECTION // PAY13TH API SECTION // PAY13TH API SECTION // PAY13TH API SECTION // PAY13TH API SECTION
   const PAY13THCreateApiCall = async (payload: _Interface.PAY13THCreateInterface) => {
-    const response = await axios.post(`${APILink}createpay13/`,
+    const response = await axiosInstance.post(`createpay13/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -691,7 +692,7 @@ export const ANNDEPARTMENTViewEpic: Epic = (action$, state$) =>
   
   
   const PAY13THViewSpecificApiCall = async (payload: {emp_no: number}) => {
-    const response = await axios.get(`${APILink}pay13/${payload.emp_no}/`,
+    const response = await axiosInstance.get(`pay13/${payload.emp_no}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -706,7 +707,7 @@ export const ANNDEPARTMENTViewEpic: Epic = (action$, state$) =>
   
   
   const PAY13THViewApiCall = async () => {
-    const response = await axios.get(`${APILink}pay13/`,
+    const response = await axiosInstance.get(`pay13/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -785,7 +786,7 @@ export const ANNDEPARTMENTViewEpic: Epic = (action$, state$) =>
 
 // BONUSLIST API SECTION // BONUSLIST API SECTION // BONUSLIST API SECTION // BONUSLIST API SECTION // BONUSLIST API SECTION
 const BONUSLISTEditApiCall = async (payload: _Interface.BONUSLISTEditInterface) => {
-  const response = await axios.put(`${APILink}bonus_list/${payload.id}/`,
+  const response = await axiosInstance.put(`bonus_list/${payload.id}/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -800,7 +801,7 @@ const BONUSLISTEditApiCall = async (payload: _Interface.BONUSLISTEditInterface) 
 };
 
 const BONUSLISTCreateApiCall = async (payload: _Interface.BONUSLISTCreateInterface) => {
-  const response = await axios.post(`${APILink}bonus_list/`,
+  const response = await axiosInstance.post(`bonus_list/`,
   payload,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -816,7 +817,7 @@ const BONUSLISTCreateApiCall = async (payload: _Interface.BONUSLISTCreateInterfa
 
 
 const BONUSLISTViewSpecificApiCall = async (payload: {bl_id: number}) => {
-  const response = await axios.get(`${APILink}bonus_list/${payload.bl_id}/`,
+  const response = await axiosInstance.get(`bonus_list/${payload.bl_id}/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -831,7 +832,7 @@ const BONUSLISTViewSpecificApiCall = async (payload: {bl_id: number}) => {
 
 
 const BONUSLISTViewApiCall = async () => {
-  const response = await axios.get(`${APILink}bonus_list/`,
+  const response = await axiosInstance.get(`bonus_list/`,
   {
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         if(progressEvent.total){
@@ -932,7 +933,7 @@ export const BONUSLISTEditEpic: Epic = (action$, state$) =>
 
 // BONUSENTRY API SECTION // BONUSENTRY API SECTION // BONUSENTRY API SECTION // BONUSENTRY API SECTION // BONUSENTRY API SECTION
 const BONUSENTRYEditApiCall = async (payload: _Interface.BONUSENTRYEditInterface) => {
-    const response = await axios.put(`${APILink}bonus_entry/${payload.emp_no}/${payload.id}/`,
+    const response = await axiosInstance.put(`bonus_entry/${payload.emp_no}/${payload.id}/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -947,7 +948,7 @@ const BONUSENTRYEditApiCall = async (payload: _Interface.BONUSENTRYEditInterface
   };
   
   const BONUSENTRYCreateApiCall = async (payload: _Interface.BONUSENTRYCreateInterface) => {
-    const response = await axios.post(`${APILink}bonus_entry/`,
+    const response = await axiosInstance.post(`bonus_entry/`,
     payload,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -962,7 +963,7 @@ const BONUSENTRYEditApiCall = async (payload: _Interface.BONUSENTRYEditInterface
   };
   
   const BONUSENTRYViewSpecificEmployeeApiCall = async (payload: {emp_no: number }) => {
-    const response = await axios.get(`${APILink}bonus_entry/${payload.emp_no}/`,
+    const response = await axiosInstance.get(`bonus_entry/${payload.emp_no}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -977,7 +978,7 @@ const BONUSENTRYEditApiCall = async (payload: _Interface.BONUSENTRYEditInterface
   
   
   const BONUSENTRYViewSpecificApiCall = async (payload: {be_id: number, emp_no: number }) => {
-    const response = await axios.get(`${APILink}bonus_entry/${payload.emp_no}/${payload.be_id}/`,
+    const response = await axiosInstance.get(`bonus_entry/${payload.emp_no}/${payload.be_id}/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){
@@ -992,7 +993,7 @@ const BONUSENTRYEditApiCall = async (payload: _Interface.BONUSENTRYEditInterface
   
   
   const BONUSENTRYViewApiCall = async () => {
-    const response = await axios.get(`${APILink}bonus_entry/`,
+    const response = await axiosInstance.get(`bonus_entry/`,
     {
         onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
           if(progressEvent.total){

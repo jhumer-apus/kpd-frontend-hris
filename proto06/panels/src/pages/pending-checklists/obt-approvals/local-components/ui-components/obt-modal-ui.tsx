@@ -16,6 +16,7 @@ import axios from 'axios'
 
 //REDUX
 import { APILink } from '@/store/configureStore';
+import axiosInstance from '@/helpers/axiosConfig';
 
 interface OBTModalUIInterface {
     singleOBTDetailsData: OBTViewInterface;
@@ -71,7 +72,7 @@ function OBTModalUI(props: OBTModalUIInterface) {
     },[])
 
     const fetchCutOffPeriod = async () => {
-        await axios.get(`${APILink}cutoff_period/${ThisProps.cutoff_code}`).then(res => {
+        await axiosInstance.get(`cutoff_period/${ThisProps.cutoff_code}`).then(res => {
             setData(curr => ({
                 ...curr,
                 cuttOffPeriod: res.data.co_name
@@ -194,7 +195,9 @@ function OBTModalUI(props: OBTModalUIInterface) {
                     <TextField sx={{width: '100%'}} label='Approver2:' value={ThisProps?.obt_approver2_empno? `${ThisProps?.obt_approver2_empno} - ${ThisProps?.approver2_name}`: ""} InputProps={{readOnly: true,}} variant='standard'/>
                     {/* <TextField sx={{width: '100%'}} label='Approver1:' value={ThisProps.obt_approver1_empno || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Approver2:' value={ThisProps.obt_approver2_empno || '-'} InputProps={{readOnly: true,}} variant='standard'/> */}
-                    <TextField sx={{width: '100%'}} label='OBT Description:' value={ThisProps.obt_remarks || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
+                    {/* <TextField sx={{width: '100%'}} label='OBT Description:' value={ThisProps.obt_remarks || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/> */}
+                    <TextField sx={{width: '100%'}} label='Location:' value={ThisProps.obt_remarks || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={2}/>
+
                 </div>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px', color: 'green'}} label='Status:' value={ThisProps.obt_approval_status || '-'} InputProps={{readOnly: true,}} color={ThisProps.obt_approval_status === 'APD' ? 'success' : ThisProps.obt_approval_status === 'DIS' ? 'error' : 'warning'} variant='filled' focused/>
@@ -203,7 +206,7 @@ function OBTModalUI(props: OBTModalUIInterface) {
                     <TextField sx={{width: '100%'}} label='Date Until:' value={ThisProps.obt_date_to? dayjs(ThisProps.obt_date_to).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Date Approved: #1' value={ThisProps.obt_date_approved1? dayjs(ThisProps.obt_date_approved1).format('MM-DD-YYYY LT') : '-'} focused={!!ThisProps.obt_date_approved1} color={ThisProps.obt_date_approved1 ? 'success' : 'warning'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='Date Approved: #2' value={ThisProps.obt_date_approved2? dayjs(ThisProps.obt_date_approved2).format('MM-DD-YYYY LT') : '-'} focused={!!ThisProps.obt_date_approved2} color={ThisProps.obt_date_approved2 ? 'success' : 'warning'} InputProps={{readOnly: true,}} variant='standard'/>
-                    <TextField sx={{width: '100%'}} label='Location:' value={ThisProps.obt_location || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={2}/>
+                    {/* <TextField sx={{width: '100%'}} label='Location:' value={ThisProps.obt_remarks || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={2}/> */}
                 </div>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Employee Name:' value={ThisProps.emp_name || '-'} InputProps={{readOnly: true,}} variant='filled'/>

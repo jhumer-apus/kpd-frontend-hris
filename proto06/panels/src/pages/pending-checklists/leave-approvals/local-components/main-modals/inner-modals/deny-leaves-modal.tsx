@@ -13,6 +13,7 @@ import { beautifyJSON, clearFields } from '@/helpers/utils';
 import axios from 'axios';
 import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
 import { useState } from 'react';
+import axiosInstance from '@/helpers/axiosConfig';
 
 
 
@@ -36,7 +37,7 @@ export default function DenyLEAVEModal(props: DenyLEAVEModalInterface) {
 
     setIsLoading(curr => true)
 
-    await axios.put(`${APILink}leave_new/${singleLEAVEDetailsData.id}/`,payload)
+    await axiosInstance.put(`leave_new/${singleLEAVEDetailsData.id}/`,payload)
       .then(res => {
 
         dispatch(LEAVEViewFilterApproverAction({

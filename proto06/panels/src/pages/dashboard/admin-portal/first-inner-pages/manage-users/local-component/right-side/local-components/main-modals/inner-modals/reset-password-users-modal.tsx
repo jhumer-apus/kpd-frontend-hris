@@ -11,6 +11,7 @@ import { clearFields } from '@/helpers/utils';
 
 //LIBRARIES
 import axios from 'axios'
+import axiosInstance from '@/helpers/axiosConfig';
 
 
 
@@ -66,7 +67,7 @@ export default function ResetPasswordUSERModal(props: ResetPasswordUSERModalInte
       application_pk: null
     }
 
-    await axios.post(`${APILink}reset_password_email/`, body).then(res => {
+    await axiosInstance.post(`reset_password_email/`, body).then(res => {
 
       window.alert(`New password has been sent to Employee Number: ${emp_no}`)
 

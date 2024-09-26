@@ -13,6 +13,7 @@ import { globalServerErrorMsg } from '@/store/configureStore';
 import ExportToCsvButton from '../../../public-components/ExportToCSVButton';
 import SelectForm from '../../../public-components/forms/SelectForm';
 import InputForm from '../../../public-components/forms/InputForm';
+import axiosInstance from '@/helpers/axiosConfig';
 
 export default function ViewEmployeeObt() {
 
@@ -32,7 +33,7 @@ export default function ViewEmployeeObt() {
         setIsFetchReportError(false)
         setIsLoading(true);
 
-        await axios.get(`${APILink}obt/?month=${month}&year=${year}&status=APD`).then(response => {
+        await axiosInstance.get(`obt/?month=${month}&year=${year}&status=APD`).then(response => {
 
             setDataRows(curr => response.data);
             setIsLoading(false)
@@ -82,7 +83,7 @@ export default function ViewEmployeeObt() {
             "Date Start": obj.obt_date_from,
             "Date End": obj.obt_date_to,
             "OBT Type": obj.obt_type,
-            "OBT Location": obj.obt_location,
+            "OBT Location": obj.obt_remarks,
             "OBT Hours": convertMinuteToHours(obj.obt_total_hours),
         }
 

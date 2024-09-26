@@ -12,12 +12,13 @@ import { UnderDevelopmentMsg } from "@/pages/dashboard/hris-portal/local-compone
 import { useNavigate } from "react-router-dom";
 // import './custom-styles/StatisticsCard.css'
 import axios from 'axios';
+import axiosInstance from "@/helpers/axiosConfig";
 
 
 
 const downloadFile = async (url: string, fileName: string) => {
   try {
-    const response = await axios.get(url, { responseType: 'blob' });
+    const response = await axiosInstance.get(url, { responseType: 'blob' });
     const blob = new Blob([response.data], { type: response.headers['content-type'] });
     const link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);

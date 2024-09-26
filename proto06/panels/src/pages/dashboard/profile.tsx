@@ -50,12 +50,13 @@
   import dayjs from "dayjs";
   import useGetSpecificProvince from "@/custom-hooks/use-fetch-specific-province";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import axiosInstance from "@/helpers/axiosConfig";
 
   const apiUrl = 'https://bitversecorporation.pythonanywhere.com/api/v1/'; // Replace with your actual API endpoint
 
   // async function getAllUserData() {
   //   try {
-  //     const response = await axios.get(`${APILink}`);
+  //     const response = await axiosInstance.get(``);
   //     const userData = response.data;
   //     return userData;
   //   } catch (error) {
@@ -277,7 +278,7 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
     // FETCH SELECT DATA
     // const  fetchUserData = () => {
-    //   axios.get(`${APILink}employees/${curr_user?.emp_no}`).then(res => {
+    //   axiosInstance.get(`employees/${curr_user?.emp_no}`).then(res => {
     //     setUserData((curr:any) => (
     //       {
     //         ...res.data,
@@ -292,7 +293,7 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
       return foundEmpStatus?.name
     }
     const fetchPayrollGroups = () => {
-      axios.get(`${APILink}payrollgroup`).then((response:any) => {
+      axiosInstance.get(`payrollgroup`).then((response:any) => {
           const responsePayrollGroups = response.data.map((payroll:any) => {
           return {
               id: payroll.id.toString(),
@@ -304,7 +305,7 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
     }
   
     const fetchBranches = () => {
-      axios.get(`${APILink}branch`).then((response:any) => {
+      axiosInstance.get(`branch`).then((response:any) => {
           const responseBranches = response.data.map((branch:any) => {
           return {
               id: branch.id.toString(),
@@ -317,7 +318,7 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
   
     const fetchDepartments = () => {
 
-    axios.get(`${APILink}department/`).then((response:any) => {
+    axiosInstance.get(`department/`).then((response:any) => {
         
         const responseDepartments = response.data.filter((obj:any) => obj.dept_branch_code == userData?.branch_code).map((department:any) => {
         return {
@@ -330,7 +331,7 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
       }
   
     const fetchEmploymentStatus = () => {
-      axios.get(`${APILink}emp_status_type/`).then((response:any) => {
+      axiosInstance.get(`emp_status_type/`).then((response:any) => {
           const responseEmploymentStatuses = response.data.map((employmentStatus:any) => {
           return {
               id: employmentStatus.id.toString(),
@@ -342,7 +343,7 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
     }
   
     const fetchPositions = () => {
-      axios.get(`${APILink}position/`).then((response:any) => {
+      axiosInstance.get(`position/`).then((response:any) => {
           const responsePositions = response.data.map((position:any) => {
           return {
               id: position.id.toString(),
@@ -428,10 +429,10 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
       // console.log(userData.middle_name)
       const formData = new FormData ();
 
-      formData.append('permanent_province_code', address?.permanent_province?.id)
-      formData.append('permanent_city_code', address?.permanent_city?.id)
-      formData.append('current_province_code', address?.current_province?.id)
-      formData.append('current_city_code', address?.current_city?.id)
+      // formData.append('permanent_province_code', address?.permanent_province?.id)
+      // formData.append('permanent_city_code', address?.permanent_city?.id)
+      // formData.append('current_province_code', address?.current_province?.id)
+      // formData.append('current_city_code', address?.current_city?.id)
 
       const finalUserData = {
         ...userData,
@@ -469,9 +470,9 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
       }
 
-      formData.append('added_by', curr_user?.emp_no)
+      // formData.append('added_by', curr_user?.emp_no)
 
-      await axios.put(`${APILink}update_personal_profile/${finalUserData.emp_no}/`, formData).then(res => {
+      await axiosInstance.put(`update_personal_profile/${finalUserData.emp_no}/`, formData).then(res => {
 
         setIsSubmittingRequest(false)
         setIsEdit(false)
@@ -481,7 +482,7 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
         setIsSubmittingRequest(false)
         setIsEdit(false)
-        console.log(err)
+        console.error(err)
         window.alert(`Error: ${beautifyJSON(err.response?.data)}`);
 
       });

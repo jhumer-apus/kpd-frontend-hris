@@ -8,6 +8,7 @@ import DenyUAModal from '../main-modals/inner-modals/deny-ua-modal';
 import { useSelector } from 'react-redux';
 import { APILink, RootState, globalDateTime } from '@/store/configureStore';
 import axios from 'axios';
+import axiosInstance from '@/helpers/axiosConfig';
 
 interface UAModalUIInterface {
     singleUADetailsData: UAViewInterface;
@@ -37,7 +38,7 @@ function UAModalUI(props: UAModalUIInterface) {
     },[])
     
     const fetchCutOffPeriod = async () => {
-        await axios.get(`${APILink}cutoff_period/${ThisProps.cutoff_code}`).then(res => {
+        await axiosInstance.get(`cutoff_period/${ThisProps.cutoff_code}`).then(res => {
             setData(curr => ({
                 ...curr,
                 cutOffPeriod: res.data.co_name
@@ -49,7 +50,7 @@ function UAModalUI(props: UAModalUIInterface) {
         <Fragment>
             <ApproveUAModal singleUADetailsData={singleUADetailsData} setSingleUADetailsData={setSingleUADetailsData} approveUAOpenModal={approveUAOpenModal} setApproveUAOpenModal={setApproveUAOpenModal}/>
             <DenyUAModal singleUADetailsData={singleUADetailsData} setSingleUADetailsData={setSingleUADetailsData} denyUAOpenModal={denyUAOpenModal} setDenyUAOpenModal={setDenyUAOpenModal}/>
-            <div className='flex gap-10 overflow-auto relative'>
+            <div className='flex md:flex-row flex-col gap-10 overflow-auto relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Date & Time Filed:' value={ThisProps.ua_date_filed ? dayjs(ThisProps.ua_date_filed).format(`${globalDateTime}`) : '-'} InputProps={{readOnly: false,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Total hrs:' value={(ThisProps.ua_total_hours / 60).toFixed(2) || '-'} InputProps={{readOnly: true,}} variant='standard'/>
@@ -73,20 +74,20 @@ function UAModalUI(props: UAModalUIInterface) {
                 {ThisProps.ua_approval_status === 'APD' && <img src={ '/img/stampApproved2.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
                 {ThisProps.ua_approval_status === 'DIS' && <img src={ '/img/stampRejected.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
             </div>
-            {(ThisProps.ua_approval_status.includes('1') || ThisProps.ua_approval_status.includes('2')) && 
+            {/* {(ThisProps.ua_approval_status.includes('1') || ThisProps.ua_approval_status.includes('2')) && 
             <div className='flex flex-col justify-center items-center'>
-            <div className='flex justify-center mt-6' container-name='ua_buttons_container'>
-                <div className='flex justify-between' style={{width:'400px'}} container-name='ua_buttons'>
-                    <Button disabled={!userIsApprover} variant='contained' onClick={()=> onClickModal(0)}>Approve UA</Button>
-                    <Button disabled={!userIsApprover} variant='outlined' onClick={()=> onClickModal(1)}>Deny UA</Button>
+                <div className='flex justify-center mt-6' container-name='ua_buttons_container'>
+                    <div className='flex justify-between' style={{width:'400px'}} container-name='ua_buttons'>
+                        <Button disabled={!userIsApprover} variant='contained' onClick={()=> onClickModal(0)}>Approve UA</Button>
+                        <Button disabled={!userIsApprover} variant='outlined' onClick={()=> onClickModal(1)}>Deny UA</Button>
+                    </div>
+                    
                 </div>
-                
+                { !userIsApprover &&
+                    <i className='w-6/12 text-center mt-4 ' style={{color: 'gray', marginBottom: '-200px'}}>You are not listed as one of the approverss</i>
+                }
             </div>
-            { !userIsApprover &&
-                <i className='w-6/12 text-center mt-4 ' style={{color: 'gray', marginBottom: '-200px'}}>You are not listed as one of the approverss</i>
-            }
-            </div>
-            }
+            } */}
 
 
         </Fragment>

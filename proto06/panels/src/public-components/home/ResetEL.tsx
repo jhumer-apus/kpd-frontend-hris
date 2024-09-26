@@ -14,6 +14,7 @@ import {
 
 //STORE
 import { APILink, RootState } from "@/store/configureStore";
+import axiosInstance from "@/helpers/axiosConfig";
 
 
 export default function ResetEL () {
@@ -44,7 +45,7 @@ export default function ResetEL () {
 
     const callIsResetEL = async () => {
 
-        await axios.get(`${APILink}reset_el/`).then(response => {
+        await axiosInstance.get(`reset_el/`).then(response => {
 
             const result = response.data.is_reset_el
             setIsELReset(curr => result)
@@ -59,7 +60,7 @@ export default function ResetEL () {
     
     const resetEL = async() => {
 
-        await axios.post(`${APILink}reset_el/`, {
+        await axiosInstance.post(`reset_el/`, {
 
             added_by: currUser?.emp_no
 

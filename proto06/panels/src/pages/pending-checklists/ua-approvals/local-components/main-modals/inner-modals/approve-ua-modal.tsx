@@ -13,6 +13,7 @@ import axios from 'axios';
 import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
 import { beautifyJSON } from '@/helpers/utils';
 import { useEffect, useState } from 'react';
+import axiosInstance from '@/helpers/axiosConfig';
 
 
 
@@ -75,7 +76,7 @@ export default function ApproveUAModal(props: ApproveUAModalInterface) {
 
     setIsLoading(curr => true)
 
-    await axios.put(`${APILink}ua_new/${singleUADetailsData.id}/`, payload)
+    await axiosInstance.put(`ua_new/${singleUADetailsData.id}/`, payload)
         .then(res => {
             dispatch(UAViewFilterApproverAction({emp_no: state?.emp_no}))
             dispatch(HandleAlertAction({

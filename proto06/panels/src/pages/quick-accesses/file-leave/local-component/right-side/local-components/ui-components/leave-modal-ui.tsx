@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import {Button, TextField} from '@mui/material';
 import { APILink, globalDateTime } from '@/store/configureStore';
 import axios from 'axios';
+import axiosInstance from '@/helpers/axiosConfig';
 
 interface LEAVEModalUIInterface {
     singleLEAVEDetailsData: LEAVEViewInterface;
@@ -21,7 +22,7 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
     },[])
     
     const fetchCutOffPeriod = async () => {
-        await axios.get(`${APILink}cutoff_period/${ThisProps.cutoff_code}`).then(res => {
+        await axiosInstance.get(`cutoff_period/${ThisProps.cutoff_code}`).then(res => {
             setData(curr => ({
                 ...curr,
                 cutOffPeriod: res.data.co_name
@@ -45,7 +46,7 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
 
     return (
         <Fragment>
-            <div className='flex gap-10 overflow-auto relative'>
+            <div className='flex md:flex-row flex-col gap-10 overflow-auto relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Date & Time Filed:' value={ThisProps.leave_date_filed ? dayjs(ThisProps.leave_date_filed).format(`${globalDateTime}`) : '-'} InputProps={{readOnly: false,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Total hrs:' value={(ThisProps.leave_total_hours / 60).toFixed(2) || '-'} InputProps={{readOnly: true,}} variant='standard'/>
@@ -81,9 +82,9 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
 
                     {/* <TextField sx={{width: '100%', minWidth: '160px'}} focused={!!ThisProps.leave_reason_disapproval} color={'error'} label='Reason for Disapproval:' value={ThisProps.leave_reason_disapproval || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/> */}
                 </div>
-                {ThisProps.leave_approval_status === 'APD' && <img src={ '/img/stampApproved2.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
-                {ThisProps.leave_approval_status === 'DIS' && <img src={ '/img/stampRejected.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
-                {ThisProps.leave_approval_status === 'CX' && <img src={ '/img/stampCancel.png' } style={{height: '100px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
+                {ThisProps.leave_approval_status === 'APD' && <img src={ '/img/stampApproved2.png' } className='h-32 md:absolute bottom-0 right-0'></img>}
+                {ThisProps.leave_approval_status === 'DIS' && <img src={ '/img/stampRejected.png' } className='h-32 md:absolute bottom-0 right-0'></img>}
+                {ThisProps.leave_approval_status === 'CX' && <img src={ '/img/stampCancel.png' } className='h-32 md:absolute bottom-0 right-0'></img>}
             </div>
         </Fragment>
     );

@@ -16,6 +16,7 @@ import AlertMessage from '@/public-components/AlertMessage';
 import { AlertType } from '@/types/index';
 import { HandleAlertAction, HandleModalAction } from '@/store/actions/components';
 import { beautifyJSON } from '@/helpers/utils';
+import axiosInstance from '@/helpers/axiosConfig';
 
 
 
@@ -39,7 +40,7 @@ export default function ApproveOBTModal(props: ApproveOBTModalInterface) {
   const apiApproveOBT = async (payload:any) => {
     setIsLoading(curr => true)
 
-    await axios.put(`${APILink}obt_new/${singleOBTDetailsData.id}/`, payload)
+    await axiosInstance.put(`obt_new/${singleOBTDetailsData.id}/`, payload)
       .then(res => {
 
           dispatch(OBTViewFilterApproverAction({emp_no: state?.emp_no}))

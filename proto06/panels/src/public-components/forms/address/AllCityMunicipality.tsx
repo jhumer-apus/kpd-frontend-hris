@@ -8,6 +8,7 @@ import InputLabel from '@mui/material/InputLabel';
 
 //REDUX
 import { APILink, RootState } from '@/store/configureStore';
+import axiosInstance from '@/helpers/axiosConfig';
 
 interface CityMunicipalityInterface {
     id: number,
@@ -45,7 +46,7 @@ export default function AllCityMunicipality(props:Props) {
 
     const fetchAllCities = async () => {
 
-        await axios.get(`${APILink}city_municipality/`).then((res:AxiosResponse) => {
+        await axiosInstance.get(`city_municipality/`).then((res:AxiosResponse) => {
             const sortedCities = res.data.sort((a:any, b:any) => a.name.localeCompare(b.name));
             setCities(curr => sortedCities)
 

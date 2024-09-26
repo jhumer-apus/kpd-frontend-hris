@@ -43,7 +43,7 @@ function POSITIONModalUI(props: POSITIONModalUIInterface) {
                 setAllowedDaysPOSITIONOpenModal={setAllowedDaysPOSITIONOpenModal}
                 setSinglePOSITIONOpenModal={setSinglePOSITIONOpenModal}
             />
-            <div className='flex overflow-auto justify-around relative'>
+            <div className='flex flex-col md:flex-row  gap-4 overflow-auto justify-around relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Position ID:' value={ThisProps.id ? ThisProps.id : '-'} InputProps={{readOnly: true,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Date Added:' value={ThisProps.date_added? dayjs(ThisProps.date_added).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
@@ -56,7 +56,7 @@ function POSITIONModalUI(props: POSITIONModalUIInterface) {
             </div>
             <div className='flex flex-col justify-center items-center'>
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
-                    <div className='flex justify-between' style={{width:'200px', marginTop: '20px'}} container-name='leave_buttons'>
+                    <div className='flex bg-red-100 mt-10' container-name='leave_buttons'>
                         <Button variant='contained' onClick={()=> onClickModal(1)}>Edit Details</Button>
                     </div>
                 </div>

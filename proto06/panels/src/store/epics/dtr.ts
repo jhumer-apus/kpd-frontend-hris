@@ -39,14 +39,15 @@ import { Epic } from 'redux-observable';
 import { CutoffListMergeSelectionState } from '@/types/types-pages';
 import store from '../configureStore';
 import { beautifyJSON } from '@/helpers/utils';
+import axiosInstance from '@/helpers/axiosConfig';
 
 const viewAllDtrLogsApiCall = async () => {
-    const response = await axios.get(`${APILink}dtr/`);
+    const response = await axiosInstance.get(`dtr/`);
     return response.data;
 };
 
 const viewFilterDtrLogsApiCall = async (payload:any) => {
-  const response = await axios.get(`${APILink}dtr/`, {
+  const response = await axiosInstance.get(`dtr/`, {
     params: {
       month: payload.month,
       year: payload.year,
@@ -57,12 +58,12 @@ const viewFilterDtrLogsApiCall = async (payload:any) => {
 };
 
 const viewMergedDtrLogsApiCall = async () => {
-  const response = await axios.get(`${APILink}dtr_summary/`);
+  const response = await axiosInstance.get(`dtr_summary/`);
   return response.data;
 };
 
 const viewFilterMergedDtrLogsApiCall = async (payload:any) => {
-  const response = await axios.get(`${APILink}dtr_summary/`, {
+  const response = await axiosInstance.get(`dtr_summary/`, {
     params: {
       cutoff: payload.cutoff_id,
       emp_no: payload.emp_no
@@ -78,12 +79,12 @@ const viewCutoffDtrSummaryApiCall = async (payload:any) => {
 
     if(emp_no){
 
-      const response = await axios.get(`${APILink}dtr_cutoff_summary/${emp_no}`);
+      const response = await axiosInstance.get(`dtr_cutoff_summary/${emp_no}`);
       return response.data;
 
     } else{
 
-      const response = await axios.get(`${APILink}dtr_cutoff_summary`,{
+      const response = await axiosInstance.get(`dtr_cutoff_summary`,{
         params: {
           cutoff_code: cutoff_id
         }
@@ -95,7 +96,7 @@ const viewCutoffDtrSummaryApiCall = async (payload:any) => {
 };
 
 const getCutoffDTRListApiCall = async () => {
-  const response = await axios.get(`${APILink}cutoff_period/`);
+  const response = await axiosInstance.get(`cutoff_period/`);
   return response.data;
 };
 
@@ -103,7 +104,7 @@ const getCutoffDTRListEmployeeApiCall = async (cutoff_code: number) => {
   if(Number.isNaN(cutoff_code)){
     return;
   }
-  const response = await axios.get(`${APILink}dtr_summary/cutoff_period/${cutoff_code}/`
+  const response = await axiosInstance.get(`dtr_summary/cutoff_period/${cutoff_code}/`
   , {
     onDownloadProgress: (progressEvent) => {
       if(progressEvent.total){
@@ -117,9 +118,9 @@ const getCutoffDTRListEmployeeApiCall = async (cutoff_code: number) => {
 
 const mergeCutoffListAndEmployeeApiCall = async ( {emp_no, cutoff_code} : CutoffListMergeSelectionState ) => {
 
-  // const response = await axios.post(`https://bitverse-api.herokuapp.com/login`, {
-  // const response = await axios.post(`http://172.16.168.144:8888/login`, {
-  const response = await axios.post(`${APILink}mergedtr/`, {
+  // const response = await axiosInstance.post(`https://bitverse-api.herokuapp.com/login`, {
+  // const response = await axiosInstance.post(`http://172.16.168.144:8888/login`, {
+  const response = await axiosInstance.post(`mergedtr/`, {
   emp_no,
   cutoff_code,
   }
@@ -138,7 +139,7 @@ return response.data.message;
 
 
 const summarizeCutoffListAndEmployeeApiCall = async ( {emp_no, cutoff_code} : CutoffListMergeSelectionState ) => {
-  const response = await axios.post(`${APILink}create_summary/`, {
+  const response = await axiosInstance.post(`create_summary/`, {
   emp_no,
   cutoff_code,
   }
