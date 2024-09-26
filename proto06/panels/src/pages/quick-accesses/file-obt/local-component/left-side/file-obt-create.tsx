@@ -31,7 +31,12 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
     const [isSubmittingRequest, setIsSubmittingRequest] = useState<boolean>(false);
     const OBTCreatestate = useSelector((state: RootState)=> state.procedurals.OBTCreate);
     const userData = useSelector((state: RootState) => state.auth.employee_detail);
-    const [obtTypes, setObtTypes] = useState<any[]>([])
+    const [obtTypes, setObtTypes] = useState<any>(
+        {
+            data: [],
+            loading: false
+        }
+    )
 
     const [createOBT, setCreateOBT] = useState<OBTCreateInterface>({
         emp_no: NaN,
@@ -133,8 +138,30 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
     }
 
     const fetchObtTypes = async () => {
+
+        
+        setObtTypes((curr:any) => (
+            {
+                data: [],
+                loading: true
+            }
+        ))
+
+
         await axiosInstance.get(`obt_type/`)
-            .then(res => setObtTypes((curr:any[]) => Array.isArray(res?.data)? res.data: []))
+            .then(res => setObtTypes((curr:any) => (
+                {
+                    data: Array.isArray(res?.data)? res.data: [],
+                    loading: false
+                }
+            ))).catch(err => {
+                setObtTypes((curr:any) => (
+                    {
+                        data: [],
+                        loading: false
+                    }
+                ))
+            })
     }
 
     const handleChangeOBTType = (e:any , newValue:any) => {
@@ -157,13 +184,14 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
                         {/* <OBTTypeAutoComplete createOBT={createOBT} setCreateOBT={setCreateOBT}/> */}
                         <AutocompleteForm 
                             id="obt_types_field"
-                            options={obtTypes} 
+                            options={obtTypes.data} 
                             label="OBT Type" 
                             getOptionLabel={(option) => option?.obt_type_name ?? ""} 
                             handleChange={handleChangeOBTType} 
                             optionTitle="obt_type_name" 
                             defaultValueId={createOBT?.obt_type_id} 
-                            disabled={false} 
+                            disabled={false}
+                            loading={obtTypes.loading}
                         />
                         {/* <TextField
                             required 
