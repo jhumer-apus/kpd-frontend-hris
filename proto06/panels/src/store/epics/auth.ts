@@ -50,7 +50,7 @@ export const authEpic: Epic = (action$, state$) =>
           Cookies.set('user', JSON.stringify(user), { expires: 6 / 24, secure: isSecure });
           Cookies.set('access_token', access, { expires: 6 / 24, secure: isSecure });
           Cookies.set('refresh_token', refresh, { expires: 6 / 24, secure: isSecure });
-          Cookies.set('employee_detail', JSON.stringify(employee_detail), { expires: 6 / 24, secure: isSecure });
+          // Cookies.set('employee_detail', JSON.stringify(employee_detail), { expires: 6 / 24, secure: isSecure });
           // Cookies.set('emp_deez', employeeDetailJson, { expires: 6 / 24, secure: isSecure });
 
           

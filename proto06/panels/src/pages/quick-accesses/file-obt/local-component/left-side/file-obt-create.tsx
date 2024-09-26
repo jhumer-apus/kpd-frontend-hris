@@ -38,7 +38,6 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
         obt_type: null,
         obt_remarks: '',
         obt_type_id: null,
-        obt_remarks: null,
         obt_business_date: null,
         obt_date_from: null,
         obt_date_to: null,

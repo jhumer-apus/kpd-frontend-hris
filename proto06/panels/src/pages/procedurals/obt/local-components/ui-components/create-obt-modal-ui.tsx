@@ -28,7 +28,6 @@ function CreateOBTModal(props: CreateOBTModalInterface) {
         emp_no: NaN,
         obt_type: null,
         obt_remarks: '',
-        obt_remarks: null,
         obt_date_from: null,
         obt_date_to: null,
     });
