@@ -83,17 +83,13 @@ const handleLogout = async () => {
 
   const refreshToken = Cookies.get("refresh_token")
 
+  const removals = ['refresh_token', 'access_token', 'user', 'employee_detail'];
+  removals.forEach((el) => {Cookies.remove(el)});
+
   await axiosInstance.post(`logout/`, { refresh: refreshToken}).then(res => {
 
-    const removals = ['refresh_token', 'access_token', 'user', 'employee_detail'];
-
-    removals.forEach((el) => {Cookies.remove(el)});
     dispatch(userLogout())
 
-    // setTimeout(()=> {
-    //   dispatchV2(userLogout());
-    // }, 200)
-    // window.location.reload();
     window.location.replace('/')
 
   }).catch(err => {
