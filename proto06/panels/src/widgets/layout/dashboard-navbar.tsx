@@ -58,6 +58,7 @@ export function DashboardNavbar() {
   
   const updatedImage = employee_detail?.employee_image;
   const handleLogout = async () => {
+
     // Perform logout actions here
 
     const refreshToken = Cookies.get("refresh_token")
@@ -79,7 +80,8 @@ export function DashboardNavbar() {
 
     const removals = ['refresh_token', 'access_token', 'user', 'employee_detail'];
     removals.forEach((el) => {Cookies.remove(el)});
-    window.location.replace('/')
+    navigate("/");
+    // window.location.replace('/')
 
     
   };
