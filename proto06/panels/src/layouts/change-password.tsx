@@ -83,14 +83,11 @@ const handleLogout = async () => {
 
   const refreshToken = Cookies.get("refresh_token")
 
-  const removals = ['refresh_token', 'access_token', 'user', 'employee_detail'];
-  removals.forEach((el) => {Cookies.remove(el)});
-
   await axiosInstance.post(`logout/`, { refresh: refreshToken}).then(res => {
 
     dispatch(userLogout())
 
-    window.location.replace('/')
+    // window.location.replace('/')
 
   }).catch(err => {
     dispatch(HandleAlertAction(
@@ -101,6 +98,10 @@ const handleLogout = async () => {
       }
     ))
   })
+
+  const removals = ['refresh_token', 'access_token', 'user', 'employee_detail'];
+  removals.forEach((el) => {Cookies.remove(el)});
+  window.location.replace('/')
 };
 
 useEffect(()=>{

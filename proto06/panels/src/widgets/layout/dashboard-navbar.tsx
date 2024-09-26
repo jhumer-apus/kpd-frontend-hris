@@ -62,13 +62,9 @@ export function DashboardNavbar() {
 
     const refreshToken = Cookies.get("refresh_token")
 
-    const removals = ['refresh_token', 'access_token', 'user', 'employee_detail'];
-    removals.forEach((el) => {Cookies.remove(el)});
-
     await axiosInstance.post(`logout/`, { refresh: refreshToken}).then(res => {
 
       dispatchV2(userLogout())
-      window.location.replace('/')
 
     }).catch(err => {
       
@@ -80,6 +76,11 @@ export function DashboardNavbar() {
         }
       ))
     })
+
+    const removals = ['refresh_token', 'access_token', 'user', 'employee_detail'];
+    removals.forEach((el) => {Cookies.remove(el)});
+    window.location.replace('/')
+
     
   };
   return (
