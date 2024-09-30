@@ -126,6 +126,9 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
     // const userIsApprover = (curr_user?.emp_no === ThisProps.leave_approver1_empno || curr_user?.emp_no === ThisProps.leave_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleLEAVEDetailsData?.applicant_rank));
     const isHrSuperAdmin = ((curr_user?.rank_hierarchy as number) == 5) || ((curr_user?.rank_code as number) == 6) || (INTERNAL_USER_ROLE.HR_Super_Admin == curr_user?.user?.role)
     const userIsApprover = ((curr_user?.emp_no == ThisProps.leave_approver1_empno || curr_user?.emp_no == ThisProps.leave_approver2_empno || isHrSuperAdmin) && ![ThisProps.leave_approver1_empno, ThisProps.leave_approver2_empno].includes(ThisProps.emp_no) && curr_user?.emp_no != ThisProps.emp_no);
+    
+    const isUserCanCancel = ThisProps.leave_approval_status === 'APD' && ([ThisProps.leave_approver1_empno, ThisProps.leave_approver2_empno].includes(curr_user?.emp_no) || isHrSuperAdmin)
+
     return (
         <React.Fragment>
             <ApproveLEAVEModal singleLEAVEDetailsData={singleLEAVEDetailsData} setSingleLEAVEDetailsData={setSingleLEAVEDetailsData} approveLEAVEOpenModal={approveLEAVEOpenModal} setApproveLEAVEOpenModal={setApproveLEAVEOpenModal}/>
@@ -190,7 +193,7 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
                 {ThisProps.leave_approval_status === 'APD' && <img src={ '/img/stampApproved2.png' } className='h-32 md:absolute bottom-0 right-0'></img>}
                 {ThisProps.leave_approval_status === 'DIS' && <img src={ '/img/stampRejected.png' } className='h-32 md:absolute bottom-0 right-0'></img>}
             </div>
-            {ThisProps.leave_approval_status === 'APD' && ([ThisProps.leave_approver1_empno, ThisProps.leave_approver2_empno].includes(curr_user?.emp_no)) &&
+            {isUserCanCancel &&
                 <div className='flex flex-col justify-center items-center my-4'>
                     <Button variant='contained' className="w-fit" onClick={()=> setIsCancelModalOpen(true)}>CANCEL APPROVED</Button>
                 </div>
