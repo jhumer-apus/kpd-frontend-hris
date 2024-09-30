@@ -16,6 +16,7 @@ import axios from 'axios'
 //REDUX
 import { APILink } from '@/store/configureStore';
 import axiosInstance from '@/helpers/axiosConfig';
+import { INTERNAL_USER_ROLE } from '@/types/types-store';
 
 interface OBTModalUIInterface {
     singleOBTDetailsData: OBTViewInterface;
@@ -63,7 +64,9 @@ function OBTModalUI(props: OBTModalUIInterface) {
 
     // const userIsApprover = curr_user?.emp_no === ThisProps.obt_approver1_empno || curr_user?.emp_no === ThisProps.obt_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleOBTDetailsData?.applicant_rank);
 
-    const userIsApprover = curr_user?.emp_no === ThisProps.obt_approver1_empno || curr_user?.emp_no === ThisProps.obt_approver2_empno || ((curr_user?.rank_hierarchy as number) == 5) || ((curr_user?.rank_code as number) == 6);
+    const isHrSuperAdmin = ((curr_user?.rank_hierarchy as number) == 5) || ((curr_user?.rank_code as number) == 6) || (INTERNAL_USER_ROLE.HR_Super_Admin == curr_user?.user?.role)
+
+    const userIsApprover = curr_user?.emp_no === ThisProps.obt_approver1_empno || curr_user?.emp_no === ThisProps.obt_approver2_empno || isHrSuperAdmin;
 
     useEffect(() => {
 

@@ -14,6 +14,7 @@ import axios from 'axios'
 //REDUX
 import { APILink } from '@/store/configureStore';
 import axiosInstance from '@/helpers/axiosConfig';
+import { INTERNAL_USER_ROLE } from '@/types/types-store';
 
 interface OVERTIMEModalUIInterface {
     singleOVERTIMEDetailsData: OVERTIMEViewInterface;
@@ -73,7 +74,7 @@ function OVERTIMEModalUI(props: OVERTIMEModalUIInterface) {
         })
     }
     // const userIsApprover = curr_user?.emp_no === ThisProps.ot_approver1_empno || curr_user?.emp_no === ThisProps.ot_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleOVERTIMEDetailsData?.applicant_rank);
-    const isHrSuperAdmin = ((curr_user?.rank_hierarchy as number) == 5) || ((curr_user?.rank_code as number) == 6)
+    const isHrSuperAdmin = ((curr_user?.rank_hierarchy as number) == 5) || ((curr_user?.rank_code as number) == 6) || (INTERNAL_USER_ROLE.HR_Super_Admin == curr_user?.user?.role)
     const userIsApprover = curr_user?.emp_no === ThisProps.ot_approver1_empno || curr_user?.emp_no === ThisProps.ot_approver2_empno || isHrSuperAdmin;
     return (
         <React.Fragment>

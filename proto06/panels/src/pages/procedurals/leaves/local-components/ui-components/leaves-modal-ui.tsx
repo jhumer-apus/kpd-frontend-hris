@@ -26,6 +26,7 @@ import { APILink } from '@/store/configureStore';
 //COMPONENTS 
 import CancelLeaveModal from '../main-modals/inner-modals/CancelLeaveModal';
 import axiosInstance from '@/helpers/axiosConfig';
+import { INTERNAL_USER_ROLE } from '@/types/types-store';
 
 interface LEAVEModalUIInterface {
     singleLEAVEDetailsData: LEAVEViewInterface;
@@ -123,7 +124,7 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
     }
 
     // const userIsApprover = (curr_user?.emp_no === ThisProps.leave_approver1_empno || curr_user?.emp_no === ThisProps.leave_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleLEAVEDetailsData?.applicant_rank));
-    const isHrSuperAdmin = ((curr_user?.rank_hierarchy as number) == 5) || ((curr_user?.rank_code as number) == 6)
+    const isHrSuperAdmin = ((curr_user?.rank_hierarchy as number) == 5) || ((curr_user?.rank_code as number) == 6) || (INTERNAL_USER_ROLE.HR_Super_Admin == curr_user?.user?.role)
     const userIsApprover = ((curr_user?.emp_no == ThisProps.leave_approver1_empno || curr_user?.emp_no == ThisProps.leave_approver2_empno || isHrSuperAdmin) && ![ThisProps.leave_approver1_empno, ThisProps.leave_approver2_empno].includes(ThisProps.emp_no) && curr_user?.emp_no != ThisProps.emp_no);
     return (
         <React.Fragment>
