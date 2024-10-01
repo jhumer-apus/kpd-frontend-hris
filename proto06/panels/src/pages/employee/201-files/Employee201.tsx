@@ -18,6 +18,7 @@ import dayjs from 'dayjs';
 import ExportToCSVButton from '@/public-components/ExportToCSVButton';
 import axios from 'axios';
 import axiosInstance from '@/helpers/axiosConfig';
+import ViewEmployee from '@/public-components/employees/ViewEmployee';
 
 const columns: GridColDef[] = [
   {
@@ -88,19 +89,28 @@ export default function DataTable() {
   const [exportData, setExportData] = useState<any[]>([]);
   const [type, setType] = useState("staticInfo");
 
+
   // Specific Employee Modal Form 
   // States: 
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
+  const [viewEmployee, setViewEmployee] = useState(
+    {
+      emp_no: "",
+      open: false,
+    }
+  )
+
+
   const [modalEntranceDelay, setModalEntranceDelay] = useState(false);
   const [secondOptionModalEntranceDelay, setSecondOptionModalEntranceDelay] = useState(false);
-  function handleOpen(){
-    setOpen(true);
-  };
+  // function handleOpen(){
+  //   setOpen(true);
+  // };
 
-  function handleClose(){
-    setOpen(false);
-    setType("staticInfo");
-  };
+  // function handleClose(){
+  //   setOpen(false);
+  //   setType("staticInfo");
+  // };
 
   // Add Employee Modal Form
   // States:
@@ -233,25 +243,34 @@ export default function DataTable() {
           pageSizeOptions={[25, 30, 35, 40]}
           // checkboxSelection
           onRowClick={(e) => {
-            handleOpen()
+            setViewEmployee(curr => (
+              {
+                ...curr, 
+                open: true,
+                emp_no: e.row?.emp_no
+              })
+            )
             setModalEntranceDelay(true)
             setSecondOptionModalEntranceDelay(true)
-            dispatchSpecificEmployeeInfo(e.row?.emp_no)
+            // dispatchSpecificEmployeeInfo(e.row?.emp_no)
           }}
           style={{ cursor: 'pointer'}}
           localeText={{ noRowsLabel: 'Loading...' }} // To do: can optimize after reducer optimized
         />
-        <Modal
-          open={open}
-          onClose={
-            handleClose
-          }
+        <ViewEmployee 
+          open={viewEmployee.open} 
+          handleClose={() => setViewEmployee(curr => ({...curr, open:false}))}
+          emp_no={viewEmployee.emp_no}
+        />
+        {/* <Modal
+          open={false}
+          onClose={() => setViewEmployee(curr => ({...curr, open:false}))}
           aria-labelledby="parent-modal-title"
           aria-describedby="parent-modal-description"
           className='overflow-auto'
         >
           <SpecificEmployee handleClose={handleClose} modalEntranceDelay={modalEntranceDelay} secondOptionModalEntranceDelay={secondOptionModalEntranceDelay} loadingEffect={handleModalEntranceDelay}/>
-        </Modal>
+        </Modal> */}
       </div>
     </Fragment>
 
