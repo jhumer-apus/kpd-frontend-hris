@@ -1,10 +1,12 @@
-import { Modal, Tab, Tabs, Typography } from "@mui/material";
-import { Fragment, useEffect, useState } from "react";
+import { Button, Modal, Tab, Tabs, Typography } from "@mui/material";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import StaticInfo from "./information/StaticInfo";
 import PersonalInfo from "./information/PersonalInfo";
 import axiosInstance from "@/helpers/axiosConfig";
 import { useDispatch } from "react-redux";
 import { HandleAlertAction } from "@/store/actions/components";
+import { XMarkIcon } from "@heroicons/react/24/solid";
+import EmploymentInfo from "./information/EmploymentInfo";
 
 interface Props {
     open: boolean,
@@ -26,45 +28,48 @@ export default function ViewEmployee(props: Props) {
         fetchEmployeeData()
     },[emp_no])
 
-    const tabs = [
-        {
-            id: "static-info",
-            label: "Static Info",
-            component: <StaticInfo />
-        },
-        {
-            id: "personal-info",
-            label: "Personal Info",
-            component: <PersonalInfo />
-        },
-        {
-            id: "employment-info",
-            label: "Employment Info",
-            component: <div>Tab 3</div>
-        },
-    ]
+    const tabs = useMemo(() => 
+        [
+            {
+                id: "static-info",
+                label: "Static Info",
+                component: <StaticInfo />
+            },
+            {
+                id: "personal-info",
+                label: "Personal Info",
+                component: <PersonalInfo />
+            },
+            {
+                id: "employment-info",
+                label: "Employment Info",
+                component: <EmploymentInfo />
+            },
+        ]
+    ,[employeeData])
 
     const fetchEmployeeData = async () => {
 
-        await axiosInstance.get(`employees/${emp_no}/`).then(res => {
+        if(!emp_no) return
 
-            setEmployeeData(curr => (res?.data))
-
-        }).catch(err => {
-            
-            dispatch(HandleAlertAction({
-                open: true,
-                status: "error",
-                message: "Something Went Wrong"
-            }))
-        })
+        await axiosInstance.get(`employees/${emp_no}/`)
+            .then(res => {
+                setEmployeeData(curr => (res?.data))
+            })
+            .catch(err => {
+                dispatch(HandleAlertAction({
+                    open: true,
+                    status: "error",
+                    message: "Something Went Wrong"
+                }))
+            })
     }
 
     const handleChange = (e:any, newValue:number) => {
         setTabIndex(curr => newValue)
     }
 
-    const modalContentClass = "bg-white md:w-11/12 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-8 border-none outline-none w-full h-full md:h-[90vh] overflow-auto"
+    const modalContentClass = "rounded-xl bg-white md:w-11/12 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border-none outline-none w-full h-full md:h-[90vh] overflow-auto"
     return (
         <Fragment>
             <Modal
@@ -72,11 +77,16 @@ export default function ViewEmployee(props: Props) {
                 onClose={handleClose}
                 aria-labelledby="View Employee"
                 aria-describedby="View Employee Information"
-                className='overflow-auto'
+                className='overflow-auto relative'
             >   
                 
                 <div className={modalContentClass}>
-                    <header className="bg-indigo-900 p-8 text-white shadow-2xl">
+                    <header className="bg-indigo-900 p-12 text-white shadow-2xl">
+                        <div id="close-wrapper" className="absolute right-1 top-1 w-fit">
+                            <Button className="w-fit" onClick={() => handleClose()}>
+                                <XMarkIcon className="w-8 text-white"/>
+                            </Button>
+                        </div>
                         <div id="profile-picture-wrapper" className="rounded-full w-28 h-28 bg-red-100 m-auto my-2">
                             <img src=""/>
                         </div>
@@ -85,7 +95,7 @@ export default function ViewEmployee(props: Props) {
                             <Typography variant="h6" component="h6" className="font-bold text-center">Employee #: 9989</Typography>
                         </div>
                     </header>
-                    <div className="m-auto w-full mt-4">
+                    <div className="m-auto w-full p-4">
                         <Tabs 
                             value={tabIndex} 
                             onChange={handleChange}
@@ -101,7 +111,7 @@ export default function ViewEmployee(props: Props) {
                             }
                         </Tabs>
                     </div>
-                    <section className="p-4">
+                    <section className="p-8">
                         {tabs[tabIndex].component}
                     </section>
                 </div>

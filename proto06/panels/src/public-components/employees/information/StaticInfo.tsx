@@ -1,4 +1,5 @@
-import { TextField, Typography } from "@mui/material";
+import InputField from "@/public-components/forms/InputField";
+import { Typography } from "@mui/material";
 
 export default function StaticInfo() {
     return (
@@ -7,80 +8,60 @@ export default function StaticInfo() {
                 <div id="account-logs-wrapper">
                     <Typography variant="h6" component="h6" className="font-bold">Account Logs</Typography><br></br>
                     <div className="flex gap-8 flex-col md:flex-wrap md:flex-row">
-                        <TextField 
+                        <InputField 
                             label="Biomentric ID:" 
                             variant="outlined" 
-                            InputProps={{
-                                readOnly: true,
-                            }}
+                            readOnly
                         />
-                        <TextField 
-                            label="Account Active Status:" 
+                        <InputField 
+                            label="Account Active Status:"
                             variant="outlined" 
-                            InputProps={{
-                                readOnly: true,
-                            }}
+                            readOnly
                         />
-                        <TextField 
+                        <InputField 
                             label="Active Lock Status:" 
                             variant="outlined" 
-                            InputProps={{
-                                readOnly: true,
-                            }}
+                            readOnly
                         />  
-                        <TextField 
+                        <InputField 
                             label="Last Login:" 
                             variant="outlined" 
-                            InputProps={{
-                                readOnly: true,
-                            }}
+                            readOnly
                         /> 
-                        <TextField 
+                        <InputField 
                             label="Date Added:" 
                             variant="outlined" 
-                            InputProps={{
-                                readOnly: true,
-                            }}
+                            readOnly
                         />
-                        <TextField 
+                        <InputField 
                             label="Date Password Changed:" 
                             variant="outlined" 
-                            InputProps={{
-                                readOnly: true,
-                            }}
+                            readOnly
                         />
                     </div>
                 </div>
                 <div id="Account Details">
                     <Typography variant="h6" component="h6" className="font-bold">Account Details</Typography><br></br>
                     <div className="flex gap-8 flex-col md:flex-wrap md:flex-row">
-                        <TextField 
+                        <InputField 
                             label="Employee No:" 
                             variant="outlined" 
-                            InputProps={{
-                                readOnly: true,
-                            }}
+                            readOnly
                         /> 
-                        <TextField 
+                        <InputField 
                             label="Username:" 
                             variant="outlined" 
-                            InputProps={{
-                                readOnly: true,
-                            }}
+                            readOnly
                         /> 
-                        <TextField 
+                        <InputField 
                             label="Role:" 
                             variant="outlined" 
-                            InputProps={{
-                                readOnly: true,
-                            }}
+                            readOnly
                         />
-                        <TextField 
+                        <InputField 
                             label="Account Email:" 
                             variant="outlined" 
-                            InputProps={{
-                                readOnly: true,
-                            }}
+                            readOnly
                         /> 
                     </div>
                 </div>
