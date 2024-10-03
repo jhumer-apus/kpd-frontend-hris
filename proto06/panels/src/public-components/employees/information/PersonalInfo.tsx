@@ -1,6 +1,7 @@
 import { useOptionData } from "@/custom-hooks/use-option-data";
 import CityMunicipality from "@/public-components/forms/address/CityMunicipality";
 import Province from "@/public-components/forms/address/Province";
+import ProvinceField from "@/public-components/forms/address/ProvinceField";
 import AutocompleteForm from "@/public-components/forms/AutoCompleteForm";
 import DatePickerField from "@/public-components/forms/DatePickerField";
 import InputField from "@/public-components/forms/InputField";
@@ -50,7 +51,7 @@ export default function PersonalInfo(props: Props) {
             approver2: "",
             // permanent_province_code: "",
             // permanent_city_code: "",
-            // permanent_address: "",
+            permanent_address: "",
             // current_province_code: "",
             // current_city_code: "",
             current_address: "",
@@ -62,12 +63,22 @@ export default function PersonalInfo(props: Props) {
             url_google_map: "",
             employee_type: "",
             added_by: currUser?.emp_no,
-            permanent: {
+            permanentProvince: {
                 id: "",
                 name: "",
                 code: ""
             },
-            current: {
+            currentProvince: {
+                id: "",
+                name: "",
+                code: ""
+            },
+            permanentCity: {
+                id: "",
+                name: "",
+                code: ""
+            },
+            currentCity: {
                 id: "",
                 name: "",
                 code: ""
@@ -103,11 +114,11 @@ export default function PersonalInfo(props: Props) {
                 separation_type: employeeData?.separation_type || "",
                 approver1: employeeData?.approver1 || "",
                 approver2: employeeData?.approver2 || "",
-                permanent_province_code: employeeData?.permanent_province_code || "",
-                permanent_city_code: employeeData?.permanent_city_code || "",
+                // permanent_province_code: employeeData?.permanent_province_code || "",
+                // permanent_city_code: employeeData?.permanent_city_code || "",
                 permanent_address: employeeData?.permanent_address || "",
-                current_province_code: employeeData?.current_province?.id || "",
-                current_city_code: employeeData?.current_city_code || "",
+                // current_province_code: employeeData?.current_province?.id || "",
+                // current_city_code: employeeData?.current_city_code || "",
                 current_address: employeeData?.current_address || "",
                 branch_code: employeeData?.branch_code || "",
                 department_code: employeeData?.department_code || "",
@@ -116,7 +127,27 @@ export default function PersonalInfo(props: Props) {
                 employment_status: employeeData?.employment_status || "",
                 url_google_map: employeeData?.url_google_map || "",
                 employee_type: employeeData?.employee_type || "",
-                added_by: currUser?.emp_no
+                added_by: currUser?.emp_no,
+                permanentProvince: {
+                    id: employeeData.permanent_province_code,
+                    name: "",
+                    code: ""
+                },
+                currentProvince: {
+                    id: employeeData.current_province_code,
+                    name: "",
+                    code: ""
+                },
+                permanentCity: {
+                    id: employeeData.permanent_city_code,
+                    name: "",
+                    code: ""
+                },
+                currentCity: {
+                    id: employeeData.current_city_code,
+                    name: "",
+                    code: ""
+                }
             }
         ))
     },[employeeData])
@@ -124,11 +155,6 @@ export default function PersonalInfo(props: Props) {
     useEffect(() => {
         console.table(personalInfo)
     }, [personalInfo])
-
-    const handleUpdateAddress = (name: string, newValue: any) => {
-        console.log(name)
-        console.log(newValue)
-    }
 
     const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -149,6 +175,15 @@ export default function PersonalInfo(props: Props) {
         ))
 
     };
+
+    const handleChangeAddress = (name:string, newValue:any) => {
+        setPersonalInfo((curr:any) => (
+            {
+                ...curr,
+                [name]: newValue,
+            }
+        ))
+    }
     
 
     return (
@@ -342,12 +377,18 @@ export default function PersonalInfo(props: Props) {
                             <Typography variant="subtitle1" className="font-bold">Current Address</Typography><br></br>
                             <div id="permanent-address-wrapper" className="flex gap-8 flex-col md:flex-row w-full">
                                 <div className="w-full md:w-80">
-                                    <Province 
+                                    <ProvinceField 
+                                        valueId={personalInfo.currentProvince.id} 
+                                        label={"Province"} 
+                                        name="currentProvince"
+                                        handleChange={handleChangeAddress} 
+                                    />
+                                    {/* <Province 
                                         updateAddress={handleUpdateAddress} 
                                         name="Province" 
                                         defaultProvinceId={null}
                                         isReadOnly={!isEdit}
-                                    />
+                                    /> */}
                                 </div>
                                 <div className="w-full md:w-80">
                                     <CityMunicipality 

@@ -1,9 +1,12 @@
 import axiosInstance from "@/helpers/axiosConfig";
-import { Autocomplete } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Autocomplete, CircularProgress, TextField } from "@mui/material";
+import { Fragment, useEffect, useMemo, useState } from "react";
 
 interface Props {
     valueId: number,
+    label: string,
+    name: string
+    handleChange: (name:string , newValue: ProvinceData) => void
 }
 
 type ProvinceInterface = {
@@ -19,7 +22,7 @@ type ProvinceData = {
 
 export default function ProvinceField(props: Props) {
 
-    const { valueId } = props
+    const { valueId, label, name, handleChange } = props
 
     const [provinces, setProvinces] = useState<ProvinceInterface>(
         {
@@ -32,19 +35,8 @@ export default function ProvinceField(props: Props) {
         fetchProvinces()
     },[])
 
-    const categorizeProvinces = provinces.data.map((option) => {
-        const firstLetter = provinces.data?.name[0].toUpperCase();
-        return {
-          firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
-          ...option,
-        };
-    });
-
-    const isOptionEqualToValue = (option: any, value: any) => option.id == value.id
-    // const findValue = options.find(option => option.id == defaultValueId) ?? ""
 
     const fetchProvinces = async () => {
-
         await axiosInstance.get(`province/`).then(res => {
             setProvinces((curr:any) => (
                 {
@@ -58,31 +50,41 @@ export default function ProvinceField(props: Props) {
         })
     }
 
+    const isOptionEqualToValue = (option: any, value: any) => option.id == value.id
+    const findValue = useMemo(() => provinces.data.find(option => option.id == valueId) ?? "", [provinces.data, valueId])
+
+    const categorizeProvinces = useMemo(() => provinces.data.map((option) => {
+        const firstLetter = option?.name[0].toUpperCase();
+        return {
+            firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
+            ...option,
+        };
+    }), [provinces.data]);
+
     return (
         <Autocomplete
-            options={categorizeOptions.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
+            options={categorizeProvinces.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
             groupBy={(option) => option.firstLetter}
-            getOptionLabel={(option) => getOptionLabel(option)}
-            onChange={(e:any, newValue: string | null) => handleChange(e, newValue)}
+            getOptionLabel={(option) => option?.name || ""}
+            onChange={(e:any, newValue:any) => handleChange(name, newValue)}
             className="w-full"
+            isOptionEqualToValue={isOptionEqualToValue}
+            value={findValue}
             renderInput={(params) => (
                 <TextField
                   {...params}
-                  label={label}
+                  label={label ?? "Province"}
                   InputProps={{
                     ...params.InputProps,
                     endAdornment: (
                     <Fragment>
-                        {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                        {provinces.loading ? <CircularProgress color="inherit" size={20} /> : null}
                         {params.InputProps.endAdornment}
                     </Fragment>
                     ),
                   }}
                 />
               )}
-            isOptionEqualToValue={isOptionEqualToValue}
-            value={findValue}
-            disabled={disabled}
         />
     )
 }
