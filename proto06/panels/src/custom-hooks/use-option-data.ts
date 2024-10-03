@@ -11,6 +11,16 @@ type APIOptions  = {
     loading: boolean
 }
 
+type AutoCompleteAPIOptions = APIOptions & {
+    data: AutoCompleteType[]
+}
+
+type AutoCompleteType = {
+    id: string | number
+    name: string
+}
+
+
 export const useOptionData = () => {
 
     const [positions, setPositions] = useState<APIOptions>(
@@ -41,8 +51,21 @@ export const useOptionData = () => {
         }
     )
 
-    
-    const [employmentStatus, setEmploymentStatus] = useState<APIOptions>(
+    const [employmentStatus, setEmploymentStatus] = useState<AutoCompleteAPIOptions>(
+        {
+            data: [],
+            loading: false,
+        }
+    )
+
+    const [approvers, setApprovers] = useState<AutoCompleteAPIOptions>(
+        {
+            data: [],
+            loading: false,
+        }
+    )
+
+    const [payrollGroup, setPayrollGroup] = useState<AutoCompleteAPIOptions>(
         {
             data: [],
             loading: false,
@@ -135,6 +158,25 @@ export const useOptionData = () => {
             value: "terminated",
             label: "Terminated"
         }
+    ]
+
+    const employeeType = [
+        {
+            value: "Compressed",
+            label: "Compressed"
+        },
+        {
+            value: "Normal",
+            label: "Normal"
+        },
+        {
+            value: "Field",
+            label: "Field"
+        },
+        {
+            value: "Field-Auto",
+            label: "Field-Auto"
+        },
     ]
 
     // AXIOS API OPTIONS
@@ -318,6 +360,79 @@ export const useOptionData = () => {
             })
     }
 
+    const fetchApprovers = async () => {
+
+        setApprovers(curr => (
+            {
+                data: [],
+                loading: true
+            }
+        ))
+
+        await axiosInstance.get('approvers/')
+            .then(res => {
+                const mappedApprovers = Array.isArray(res.data) ? res.data.map(approver=> (
+                    {
+                        id: approver.emp_no,
+                        name: approver.full_name
+                    }
+                )) : []
+
+                setApprovers(curr => (
+                    {
+                        data: mappedApprovers,
+                        loading: false
+                    }
+                ))
+            })
+            .catch(err => {
+                console.error(err)
+                setApprovers(curr => (
+                    {
+                        data: [],
+                        loading: false
+                    }
+                ))
+            })
+    }
+
+    const fetchPayrollGroup = async () => {
+
+        setPayrollGroup(curr => (
+            {
+                data: [],
+                loading: true
+            }
+        ))
+
+        await axiosInstance.get('payrollgroup/')
+            .then(res => {
+                const mappedPayrollGroup = Array.isArray(res.data) ? res.data.map(payroll => (
+                    {
+                        id: payroll.id,
+                        name: payroll.name
+                    }
+                )) : []
+
+                setPayrollGroup(curr => (
+                    {
+                        data: mappedPayrollGroup,
+                        loading: false
+                    }
+                ))
+            })
+            .catch(err => {
+                console.error(err)
+                setPayrollGroup(curr => (
+                    {
+                        data: [],
+                        loading: false
+                    }
+                ))
+            })
+    }
+
+
     return {
         sex,
         civilStatus,
@@ -328,10 +443,15 @@ export const useOptionData = () => {
         fetchDepartments,
         fetchRanks,
         fetchEmploymentStatus,
+        fetchApprovers,
+        fetchPayrollGroup,
         positions,
         branches,
         departments,
         ranks,
-        employmentStatus
+        employmentStatus,
+        employeeType,
+        approvers,
+        payrollGroup
     }
 }

@@ -1,4 +1,5 @@
 import { useOptionData } from "@/custom-hooks/use-option-data";
+import AutocompleteForm from "@/public-components/forms/AutoCompleteForm";
 import DatePickerField from "@/public-components/forms/DatePickerField";
 import InputField from "@/public-components/forms/InputField";
 import SelectField from "@/public-components/forms/SelectField";
@@ -14,11 +15,14 @@ export default function EmploymentInfo() {
         ranks,
         employmentStatus,
         separationType,
+        employeeType,
+        approvers,
         fetchDepartments,  
         fetchPositions, 
         fetchBranches,
         fetchRanks,
-        fetchEmploymentStatus
+        fetchEmploymentStatus,
+        fetchApprovers,
     } = useOptionData()
 
     useEffect(() => {
@@ -27,7 +31,12 @@ export default function EmploymentInfo() {
         fetchDepartments()
         fetchRanks()
         fetchEmploymentStatus()
+        fetchApprovers()
     },[])
+
+    const handleChangeAutoComplete = (e:any, newValue:any) => {
+        console.log(newValue)
+    }
 
     return (
         <div>
@@ -108,7 +117,49 @@ export default function EmploymentInfo() {
                             inputProps={{ readOnly: false }} 
                             options={employmentStatus.data}
                             // disabled
-                        />   
+                        />
+                        <SelectField 
+                            className="w-full md:w-[300px]"
+                            labelId="employee_type"
+                            id="employee_type"
+                            label="Employee Type"
+                            inputProps={{ readOnly: false }} 
+                            options={employeeType}
+                            // disabled
+                        />
+
+                        <div id="approver1-wrapper" className="w-full md:w-96">
+                            <AutocompleteForm 
+                                id="approver1" 
+                                options={approvers.data} 
+                                label="Approver 1" 
+                                getOptionLabel={(option: any) => option? `${option?.id} - ${option?.name}`: ""} 
+                                handleChange={handleChangeAutoComplete} 
+                                optionTitle='name' 
+                                defaultValueId={null} 
+                                disabled={false} 
+                            />
+                        </div>
+
+                        <div id="approver2-wrapper" className="w-full md:w-96">
+                            <AutocompleteForm 
+                                id="approver2" 
+                                options={approvers.data} 
+                                label="Approver 2" 
+                                getOptionLabel={(option: any) => option? `${option?.id} - ${option?.name}`: ""} 
+                                handleChange={handleChangeAutoComplete} 
+                                optionTitle='name' 
+                                defaultValueId={null} 
+                                disabled={false} 
+                            />
+                        </div>
+
+                        <InputField 
+                            label="Other Duty And Responsibilities:" 
+                            variant="outlined"
+                            className="w-full"
+                            readOnly
+                        />
                     </div>
                 </div>
                 {/* <div id="Payroll">

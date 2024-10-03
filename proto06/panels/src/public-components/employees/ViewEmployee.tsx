@@ -1,12 +1,14 @@
 import { Button, Modal, Tab, Tabs, Typography } from "@mui/material";
 import { Fragment, useEffect, useMemo, useState } from "react";
-import StaticInfo from "./information/StaticInfo";
-import PersonalInfo from "./information/PersonalInfo";
-import axiosInstance from "@/helpers/axiosConfig";
 import { useDispatch } from "react-redux";
 import { HandleAlertAction } from "@/store/actions/components";
 import { XMarkIcon } from "@heroicons/react/24/solid";
+import axiosInstance from "@/helpers/axiosConfig";
+
+import StaticInfo from "./information/StaticInfo";
+import PersonalInfo from "./information/PersonalInfo";
 import EmploymentInfo from "./information/EmploymentInfo";
+import PayrollInfo from "./information/PayrollInfo";
 
 interface Props {
     open: boolean,
@@ -38,12 +40,17 @@ export default function ViewEmployee(props: Props) {
             {
                 id: "personal-info",
                 label: "Personal Info",
-                component: <PersonalInfo />
+                component: <PersonalInfo employeeData={employeeData} />
             },
             {
                 id: "employment-info",
                 label: "Employment Info",
                 component: <EmploymentInfo />
+            },
+            {
+                id: "payroll-info",
+                label: "Payroll Info",
+                component: <PayrollInfo />
             },
         ]
     ,[employeeData])
