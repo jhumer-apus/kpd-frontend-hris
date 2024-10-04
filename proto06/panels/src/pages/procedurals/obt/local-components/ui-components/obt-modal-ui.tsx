@@ -17,6 +17,8 @@ import axios from 'axios'
 import { APILink } from '@/store/configureStore';
 import axiosInstance from '@/helpers/axiosConfig';
 import { INTERNAL_USER_ROLE } from '@/types/types-store';
+import CancelLeaveModal from '@/pages/procedurals/leaves/local-components/main-modals/inner-modals/CancelApplicationModal';
+import CancelOBTModal from '../main-modals/inner-modals/CancelOBTModal';
 
 interface OBTModalUIInterface {
     singleOBTDetailsData: OBTViewInterface;
@@ -27,6 +29,8 @@ interface OBTModalUIInterface {
 function OBTModalUI(props: OBTModalUIInterface) {
     const [ approveOBTOpenModal, setApproveOBTOpenModal ] = useState(false);
     const [ denyOBTOpenModal, setDenyOBTOpenModal ] = useState(false);
+    const [ isCancelModalOpen, setIsCancelModalOpen] = useState<boolean>(false);
+
     const { setSingleOBTDetailsData, singleOBTDetailsData } = props;
     const ThisProps = props.singleOBTDetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
@@ -88,10 +92,27 @@ function OBTModalUI(props: OBTModalUIInterface) {
     }
 
     const obtTotalHours = (!ThisProps.obt_total_hours || Number.isNaN(ThisProps.obt_total_hours))? "-" : (ThisProps.obt_total_hours / 60).toFixed(2)
+    const isUserCanCancel = ThisProps.obt_approval_status === 'APD' && ([ThisProps.obt_approver1_empno, ThisProps.obt_approver2_empno].includes(curr_user?.emp_no) || isHrSuperAdmin)
+    
     return (
         <React.Fragment>
-            <ApproveOBTModal singleOBTDetailsData={singleOBTDetailsData} setSingleOBTDetailsData={setSingleOBTDetailsData} approveOBTOpenModal={approveOBTOpenModal} setApproveOBTOpenModal={setApproveOBTOpenModal}/>
-            <DenyOBTModal singleOBTDetailsData={singleOBTDetailsData} setSingleOBTDetailsData={setSingleOBTDetailsData} denyOBTOpenModal={denyOBTOpenModal} setDenyOBTOpenModal={setDenyOBTOpenModal}/>
+            <ApproveOBTModal 
+                singleOBTDetailsData={singleOBTDetailsData} 
+                setSingleOBTDetailsData={setSingleOBTDetailsData} 
+                approveOBTOpenModal={approveOBTOpenModal}
+                setApproveOBTOpenModal={setApproveOBTOpenModal}
+            />
+            <DenyOBTModal 
+                singleOBTDetailsData={singleOBTDetailsData} 
+                setSingleOBTDetailsData={setSingleOBTDetailsData} 
+                denyOBTOpenModal={denyOBTOpenModal}
+                setDenyOBTOpenModal={setDenyOBTOpenModal}
+            />
+            <CancelOBTModal 
+                isCancelModalOpen={isCancelModalOpen}
+                setIsCancelModalOpen={setIsCancelModalOpen}
+                data={singleOBTDetailsData}
+            />
             <div className='flex flex-col md:flex-row gap-10 overflow-auto relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Date & Time Filed:' value={ThisProps.obt_date_filed ? dayjs(ThisProps.obt_date_filed).format(`${globalDateTime}`) : '-'} InputProps={{readOnly: false,}} variant='filled'/>
@@ -124,6 +145,14 @@ function OBTModalUI(props: OBTModalUIInterface) {
                 </div>
 
             </div>
+
+            {isUserCanCancel &&
+                <div className='flex flex-col justify-center items-center my-4'>
+                    <Button variant='contained' className="w-fit" onClick={()=> setIsCancelModalOpen(true)}>CANCEL APPROVED</Button>
+                </div>
+            }
+
+
             {(ThisProps.obt_approval_status?.includes('1') || ThisProps.obt_approval_status?.includes('2')) && 
                 <div className='flex flex-col justify-center items-center'>
                 <div className='flex justify-center mt-6' container-name='obt_buttons_container'>

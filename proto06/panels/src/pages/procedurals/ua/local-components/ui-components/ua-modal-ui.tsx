@@ -16,6 +16,7 @@ import axios from 'axios'
 import { APILink } from '@/store/configureStore';
 import axiosInstance from '@/helpers/axiosConfig';
 import { INTERNAL_USER_ROLE } from '@/types/types-store';
+import CancelUAModal from '../main-modals/inner-modals/CancelUAModal';
 
 interface UAModalUIInterface {
     singleUADetailsData: UAViewInterface;
@@ -26,6 +27,8 @@ interface UAModalUIInterface {
 function UAModalUI(props: UAModalUIInterface) {
     const [ approveUAOpenModal, setApproveUAOpenModal ] = useState(false);
     const [ denyUAOpenModal, setDenyUAOpenModal ] = useState(false);
+    const [ isCancelModalOpen, setIsCancelModalOpen] = useState<boolean>(false);
+
     const { setSingleUADetailsData, singleUADetailsData } = props;
     const ThisProps = props.singleUADetailsData;
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail);
@@ -77,10 +80,27 @@ function UAModalUI(props: UAModalUIInterface) {
         })
     }
 
+    const isUserCanCancel = ThisProps.ua_approval_status === 'APD' && ([ThisProps.ua_approver1_empno, ThisProps.ua_approver2_empno].includes(curr_user?.emp_no) || isHrSuperAdmin)
+
     return (
         <React.Fragment>
-            <ApproveUAModal singleUADetailsData={singleUADetailsData} setSingleUADetailsData={setSingleUADetailsData} approveUAOpenModal={approveUAOpenModal} setApproveUAOpenModal={setApproveUAOpenModal}/>
-            <DenyUAModal singleUADetailsData={singleUADetailsData} setSingleUADetailsData={setSingleUADetailsData} denyUAOpenModal={denyUAOpenModal} setDenyUAOpenModal={setDenyUAOpenModal}/>
+            <ApproveUAModal 
+                singleUADetailsData={singleUADetailsData} 
+                setSingleUADetailsData={setSingleUADetailsData} 
+                approveUAOpenModal={approveUAOpenModal} 
+                setApproveUAOpenModal={setApproveUAOpenModal}
+            />
+            <DenyUAModal 
+                singleUADetailsData={singleUADetailsData} 
+                setSingleUADetailsData={setSingleUADetailsData} 
+                denyUAOpenModal={denyUAOpenModal} 
+                setDenyUAOpenModal={setDenyUAOpenModal}
+            />
+            <CancelUAModal 
+                isCancelModalOpen={isCancelModalOpen}
+                setIsCancelModalOpen={setIsCancelModalOpen}
+                data={singleUADetailsData}
+            />
             <div className='flex md:flex-row flex-col gap-10 overflow-auto relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Date & Time Filed:' value={ThisProps.ua_date_filed ? dayjs(ThisProps.ua_date_filed).format(`${globalDateTime}`) : '-'} InputProps={{readOnly: false,}} variant='filled'/>
@@ -108,6 +128,11 @@ function UAModalUI(props: UAModalUIInterface) {
                 {ThisProps.ua_approval_status === 'APD' && <img src={ '/img/stampApproved2.png' } className='h-32 md:absolute bottom-0 right-0'></img>}
                 {ThisProps.ua_approval_status === 'DIS' && <img src={ '/img/stampRejected.png' } className='h-32 md:absolute bottom-0 right-0'></img>}
             </div>
+            {isUserCanCancel &&
+                <div className='flex flex-col justify-center items-center my-4'>
+                    <Button variant='contained' className="w-fit" onClick={()=> setIsCancelModalOpen(true)}>CANCEL APPROVED</Button>
+                </div>
+            }
             {(ThisProps.ua_approval_status.includes('1') || ThisProps.ua_approval_status.includes('2') ) && 
             <div className='flex flex-col justify-center items-center'>
             <div className='flex justify-center mt-6' container-name='ua_buttons_container'>

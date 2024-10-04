@@ -81,7 +81,7 @@ export const OBTViewFilterEmployeeAndOBTActionProgress = createAction<number>("O
 export const OBTViewFilterEmployeeAndOBTActionFailure = createAction<string>("OBT_VIEW_FILTER_EMPLOYEE_AND_OBT_ACTION_FAILURE");
 export const OBTViewFilterEmployeeAndOBTActionFailureCleanup = createAction("OBT_VIEW_FILTER_EMPLOYEE_AND_OBT_ACTION_FAILURE_CLEANUP");
 
-
+export const OBTViewAllFilterApproverAction = createAction<{data: any[]}>("OBT_VIEW_ALL_FILTER_APPROVER_ACTION");
 export const OBTViewFilterApproverAction = createAction<{emp_no: number}>("OBT_VIEW_FILTER_APPROVER_ACTION");
 export const OBTViewFilterApproverActionSuccess = createAction("OBT_VIEW_FILTER_APPROVER_ACTION_SUCCESS", (SuccessMessage: OBTViewInterface[]) => { 
     return({ payload: {SuccessMessage} })});
@@ -132,7 +132,7 @@ export const OVERTIMEViewFilterEmployeeAndOVERTIMEActionProgress = createAction<
 export const OVERTIMEViewFilterEmployeeAndOVERTIMEActionFailure = createAction<string>("OVERTIME_VIEW_FILTER_EMPLOYEE_AND_OVERTIME_ACTION_FAILURE");
 export const OVERTIMEViewFilterEmployeeAndOVERTIMEActionFailureCleanup = createAction("OVERTIME_VIEW_FILTER_EMPLOYEE_AND_OVERTIME_ACTION_FAILURE_CLEANUP");
 
-
+export const OVERTIMEViewAllFilterApproverAction = createAction<{data: any[]}>("OVERTIME_VIEW_ALL_FILTER_APPROVER_ACTION");
 export const OVERTIMEViewFilterApproverAction = createAction<{emp_no: number}>("OVERTIME_VIEW_FILTER_APPROVER_ACTION");
 export const OVERTIMEViewFilterApproverActionSuccess = createAction("OVERTIME_VIEW_FILTER_APPROVER_ACTION_SUCCESS", (SuccessMessage: OVERTIMEViewInterface[]) => { 
     return({ payload: {SuccessMessage} })});
@@ -239,7 +239,7 @@ export const UAViewFilterEmployeeAndUAActionProgress = createAction<number>("UA_
 export const UAViewFilterEmployeeAndUAActionFailure = createAction<string>("UA_VIEW_FILTER_EMPLOYEE_AND_UA_ACTION_FAILURE");
 export const UAViewFilterEmployeeAndUAActionFailureCleanup = createAction("UA_VIEW_FILTER_EMPLOYEE_AND_UA_ACTION_FAILURE_CLEANUP");
 
-
+export const UAViewAllFilterApproverAction = createAction<{data: any[]}>("UA_VIEW_ALL_FILTER_APPROVER_ACTION");
 export const UAViewFilterApproverAction = createAction<{emp_no: number}>("UA_VIEW_FILTER_APPROVER_ACTION");
 export const UAViewFilterApproverActionSuccess = createAction("UA_VIEW_FILTER_APPROVER_ACTION_SUCCESS", (SuccessMessage: UAViewInterface[]) => { 
     return({ payload: {SuccessMessage} })});
