@@ -146,11 +146,11 @@ function OBTModalUI(props: OBTModalUIInterface) {
 
             </div>
 
-            {isUserCanCancel &&
+            {/* {isUserCanCancel &&
                 <div className='flex flex-col justify-center items-center my-4'>
                     <Button variant='contained' className="w-fit" onClick={()=> setIsCancelModalOpen(true)}>CANCEL APPROVED</Button>
                 </div>
-            }
+            } */}
 
 
             {(ThisProps.obt_approval_status?.includes('1') || ThisProps.obt_approval_status?.includes('2')) && 

@@ -128,11 +128,11 @@ function UAModalUI(props: UAModalUIInterface) {
                 {ThisProps.ua_approval_status === 'APD' && <img src={ '/img/stampApproved2.png' } className='h-32 md:absolute bottom-0 right-0'></img>}
                 {ThisProps.ua_approval_status === 'DIS' && <img src={ '/img/stampRejected.png' } className='h-32 md:absolute bottom-0 right-0'></img>}
             </div>
-            {isUserCanCancel &&
+            {/* {isUserCanCancel &&
                 <div className='flex flex-col justify-center items-center my-4'>
                     <Button variant='contained' className="w-fit" onClick={()=> setIsCancelModalOpen(true)}>CANCEL APPROVED</Button>
                 </div>
-            }
+            } */}
             {(ThisProps.ua_approval_status.includes('1') || ThisProps.ua_approval_status.includes('2') ) && 
             <div className='flex flex-col justify-center items-center'>
             <div className='flex justify-center mt-6' container-name='ua_buttons_container'>

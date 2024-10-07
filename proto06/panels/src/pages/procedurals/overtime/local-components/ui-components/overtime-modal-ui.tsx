@@ -127,11 +127,11 @@ function OVERTIMEModalUI(props: OVERTIMEModalUIInterface) {
                 {ThisProps.ot_approval_status === 'DIS' && <img src={ '/img/stampRejected.png' } className='h-32 md:absolute bottom-0 right-0'></img>}
             </div>
 
-            {isUserCanCancel &&
+            {/* {isUserCanCancel &&
                 <div className='flex flex-col justify-center items-center my-4'>
                     <Button variant='contained' className="w-fit" onClick={()=> setIsCancelModalOpen(true)}>CANCEL APPROVED</Button>
                 </div>
-            }
+            } */}
 
             {(ThisProps.ot_approval_status.includes('1') || ThisProps.ot_approval_status.includes('2')) && 
             <div className='flex flex-col justify-center items-center'>
