@@ -68,7 +68,8 @@ function OBTModalUI(props: OBTModalUIInterface) {
 
     // const userIsApprover = curr_user?.emp_no === ThisProps.obt_approver1_empno || curr_user?.emp_no === ThisProps.obt_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleOBTDetailsData?.applicant_rank);
 
-    const isHrSuperAdmin = ((curr_user?.rank_hierarchy as number) == 5) || ((curr_user?.rank_code as number) == 6) || (INTERNAL_USER_ROLE.HR_Super_Admin == curr_user?.user?.role)
+    const isHrSuperAdmin = ((curr_user?.rank_hierarchy as number) == 5) || ((curr_user?.rank_code as number) == 6) 
+    // || (INTERNAL_USER_ROLE.HR_Super_Admin == curr_user?.user?.role)
 
     const userIsApprover = curr_user?.emp_no === ThisProps.obt_approver1_empno || curr_user?.emp_no === ThisProps.obt_approver2_empno || isHrSuperAdmin;
 
@@ -146,11 +147,11 @@ function OBTModalUI(props: OBTModalUIInterface) {
 
             </div>
 
-            {/* {isUserCanCancel &&
+            {isUserCanCancel &&
                 <div className='flex flex-col justify-center items-center my-4'>
                     <Button variant='contained' className="w-fit" onClick={()=> setIsCancelModalOpen(true)}>CANCEL APPROVED</Button>
                 </div>
-            } */}
+            }
 
 
             {(ThisProps.obt_approval_status?.includes('1') || ThisProps.obt_approval_status?.includes('2')) && 

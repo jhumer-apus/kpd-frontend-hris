@@ -76,7 +76,8 @@ function OVERTIMEModalUI(props: OVERTIMEModalUIInterface) {
         })
     }
     // const userIsApprover = curr_user?.emp_no === ThisProps.ot_approver1_empno || curr_user?.emp_no === ThisProps.ot_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleOVERTIMEDetailsData?.applicant_rank);
-    const isHrSuperAdmin = ((curr_user?.rank_hierarchy as number) == 5) || ((curr_user?.rank_code as number) == 6) || (INTERNAL_USER_ROLE.HR_Super_Admin == curr_user?.user?.role)
+    const isHrSuperAdmin = ((curr_user?.rank_hierarchy as number) == 5) || ((curr_user?.rank_code as number) == 6) 
+    // || (INTERNAL_USER_ROLE.HR_Super_Admin == curr_user?.user?.role)
     const userIsApprover = curr_user?.emp_no === ThisProps.ot_approver1_empno || curr_user?.emp_no === ThisProps.ot_approver2_empno || isHrSuperAdmin;
 
     const isUserCanCancel = ThisProps.ot_approval_status === 'APD' && ([ThisProps.ot_approver1_empno, ThisProps.ot_approver2_empno].includes(curr_user?.emp_no) || isHrSuperAdmin)
