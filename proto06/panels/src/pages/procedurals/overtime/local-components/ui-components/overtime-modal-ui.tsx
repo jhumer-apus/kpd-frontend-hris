@@ -15,6 +15,7 @@ import axios from 'axios'
 import { APILink } from '@/store/configureStore';
 import axiosInstance from '@/helpers/axiosConfig';
 import { INTERNAL_USER_ROLE } from '@/types/types-store';
+import CancelOTModal from '../main-modals/inner-modals/CancelOTModal';
 
 interface OVERTIMEModalUIInterface {
     singleOVERTIMEDetailsData: OVERTIMEViewInterface;
@@ -24,6 +25,7 @@ interface OVERTIMEModalUIInterface {
 
 function OVERTIMEModalUI(props: OVERTIMEModalUIInterface) {
     const [ approveOVERTIMEOpenModal, setApproveOVERTIMEOpenModal ] = useState(false);
+    const [ isCancelModalOpen, setIsCancelModalOpen] = useState<boolean>(false);
     const [ denyOVERTIMEOpenModal, setDenyOVERTIMEOpenModal ] = useState(false);
     const { setSingleOVERTIMEDetailsData, singleOVERTIMEDetailsData } = props;
     const ThisProps = props.singleOVERTIMEDetailsData;
@@ -74,12 +76,27 @@ function OVERTIMEModalUI(props: OVERTIMEModalUIInterface) {
         })
     }
     // const userIsApprover = curr_user?.emp_no === ThisProps.ot_approver1_empno || curr_user?.emp_no === ThisProps.ot_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleOVERTIMEDetailsData?.applicant_rank);
-    const isHrSuperAdmin = ((curr_user?.rank_hierarchy as number) == 5) || ((curr_user?.rank_code as number) == 6) || (INTERNAL_USER_ROLE.HR_Super_Admin == curr_user?.user?.role)
+    const isHrSuperAdmin = ((curr_user?.rank_hierarchy as number) == 5) || ((curr_user?.rank_code as number) == 6) 
+    // || (INTERNAL_USER_ROLE.HR_Super_Admin == curr_user?.user?.role)
     const userIsApprover = curr_user?.emp_no === ThisProps.ot_approver1_empno || curr_user?.emp_no === ThisProps.ot_approver2_empno || isHrSuperAdmin;
+
+    const isUserCanCancel = ThisProps.ot_approval_status === 'APD' && ([ThisProps.ot_approver1_empno, ThisProps.ot_approver2_empno].includes(curr_user?.emp_no) || isHrSuperAdmin)
+
+
     return (
         <React.Fragment>
             <ApproveOVERTIMEModal singleOVERTIMEDetailsData={singleOVERTIMEDetailsData} setSingleOVERTIMEDetailsData={setSingleOVERTIMEDetailsData} approveOVERTIMEOpenModal={approveOVERTIMEOpenModal} setApproveOVERTIMEOpenModal={setApproveOVERTIMEOpenModal}/>
-            <DenyOVERTIMEModal singleOVERTIMEDetailsData={singleOVERTIMEDetailsData} setSingleOVERTIMEDetailsData={setSingleOVERTIMEDetailsData} denyOVERTIMEOpenModal={denyOVERTIMEOpenModal} setDenyOVERTIMEOpenModal={setDenyOVERTIMEOpenModal}/>
+            <DenyOVERTIMEModal 
+                singleOVERTIMEDetailsData={singleOVERTIMEDetailsData} 
+                setSingleOVERTIMEDetailsData={setSingleOVERTIMEDetailsData} 
+                denyOVERTIMEOpenModal={denyOVERTIMEOpenModal} 
+                setDenyOVERTIMEOpenModal={setDenyOVERTIMEOpenModal}
+            />
+            <CancelOTModal 
+                isCancelModalOpen={isCancelModalOpen}
+                setIsCancelModalOpen={setIsCancelModalOpen}
+                data={singleOVERTIMEDetailsData}
+            />
             <div className='flex gap-10 md:flex-row flex-col overflow-auto relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Date & Time Filed:' value={ThisProps.ot_date_filed ? dayjs(ThisProps.ot_date_filed).format(`${globalDateTime}`) : '-'} InputProps={{readOnly: false,}} variant='filled'/>
@@ -104,12 +121,29 @@ function OVERTIMEModalUI(props: OVERTIMEModalUIInterface) {
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Employee Name:' value={ThisProps.emp_name || '-'} InputProps={{readOnly: true,}} variant='filled'/>
                     {/* <TextField sx={{width: '100%', minWidth: '160px'}} label='Employee #:' value={ThisProps.emp_no || '-'} InputProps={{readOnly: true,}} variant='filled'/> */}
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='OVERTIME Type:' value={ThisProps.ot_type || '-'} InputProps={{readOnly: true,}} variant='standard'/>
-                    <TextField sx={{width: '100%', minWidth: '160px'}} focused={!!ThisProps.ot_reason_disapproval} color={'error'} label='Reason for Disapproval:' value={ThisProps.ot_reason_disapproval || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
+                    
+                    {
+                        ThisProps.ot_approval_status === 'DIS' &&
+                        <TextField sx={{width: '100%', minWidth: '160px'}} focused={!!ThisProps.ot_reason_disapproval} color={'error'} label='Reason for Disapproval:' value={ThisProps.ot_reason_disapproval || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
+                    }
+                    {
+                        ThisProps.ot_approval_status === 'CX' &&
+                        <TextField sx={{width: '100%', minWidth: '160px'}} focused={!!ThisProps.ot_reason_cancelled} color={'error'} label='Cancel Reason:' value={ThisProps.ot_reason_cancelled || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
+                    }
+
 
                 </div>
                 {ThisProps.ot_approval_status === 'APD' && <img src={ '/img/stampApproved2.png' } className='h-32 md:absolute bottom-0 right-0'></img>}
                 {ThisProps.ot_approval_status === 'DIS' && <img src={ '/img/stampRejected.png' } className='h-32 md:absolute bottom-0 right-0'></img>}
+                {ThisProps.ot_approval_status === 'CX' && <img src={ '/img/stampCancel.png' } className='h-32 md:absolute bottom-0 right-0'></img>}
             </div>
+
+            {isUserCanCancel &&
+                <div className='flex flex-col justify-center items-center my-4'>
+                    <Button variant='contained' className="w-fit" onClick={()=> setIsCancelModalOpen(true)}>CANCEL APPROVED</Button>
+                </div>
+            }
+
             {(ThisProps.ot_approval_status.includes('1') || ThisProps.ot_approval_status.includes('2')) && 
             <div className='flex flex-col justify-center items-center'>
             <div className='flex justify-center mt-6' container-name='ot_buttons_container'>

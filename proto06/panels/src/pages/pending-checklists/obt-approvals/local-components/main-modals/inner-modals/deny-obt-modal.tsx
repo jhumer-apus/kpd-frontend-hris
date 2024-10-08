@@ -82,6 +82,7 @@ export default function DenyOBTModal(props: DenyOBTModalInterface) {
       approver_emp_no: state?.emp_no,
       status: "disapprove",
       obt_reason_disapproval: `${singleOBTDetailsData.obt_reason_disapproval}`,
+      obt_reason_cancelled: null,
       added_by: state?.emp_no
     }
     

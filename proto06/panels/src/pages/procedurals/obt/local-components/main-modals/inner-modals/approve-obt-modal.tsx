@@ -81,6 +81,7 @@ export default function ApproveOBTModal(props: ApproveOBTModalInterface) {
       approver_emp_no: state?.emp_no,
       status: "approve",
       obt_reason_disapproval: null,
+      obt_reason_cancelled: null,
       added_by: state?.emp_no
     }
 

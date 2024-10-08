@@ -33,7 +33,7 @@ export const ProceduralUAPageColumns: GridColDef[] =
 
         cellColor = '#ff9100'; // Orange
 
-      } else if ( status==='DIS' ){
+      } else if ( ['DIS', 'CX'].includes(status) ){
 
         cellColor = '#aa2e25'; // Red
 
