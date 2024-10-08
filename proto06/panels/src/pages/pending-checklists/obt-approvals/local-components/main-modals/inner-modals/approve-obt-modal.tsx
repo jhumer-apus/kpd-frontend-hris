@@ -85,6 +85,7 @@ export default function ApproveOBTModal(props: ApproveOBTModalInterface) {
       ...singleOBTDetailsData,
       status: "approve",
       approver_emp_no: state?.emp_no,
+      obt_reason_cancelled: null
     }
 
     if(state?.emp_no === singleOBTDetailsData.obt_approver1_empno  || ((state?.rank_code as number) > singleOBTDetailsData?.applicant_rank)){
