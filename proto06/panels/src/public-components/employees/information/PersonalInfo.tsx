@@ -285,6 +285,7 @@ export default function PersonalInfo(props: Props) {
                     status: "success",
                     message:"Update Personal Information Successfully"
                 }))
+                setIsEdit(curr => false)
             })
             .catch(err => {
                 dispatch(HandleAlertAction({
@@ -430,6 +431,7 @@ export default function PersonalInfo(props: Props) {
                             label="Emergency Contact Person:"
                             name="emergency_contact_person"
                             value={personalInfo.emergency_contact_person}
+                            onChange={handleValueChange}
                             readOnly={!isEdit}            
                         />
 

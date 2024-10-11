@@ -19,6 +19,7 @@ import ExportToCSVButton from '@/public-components/ExportToCSVButton';
 import axios from 'axios';
 import axiosInstance from '@/helpers/axiosConfig';
 import ViewEmployee from '@/public-components/employees/ViewEmployee';
+import { EmployeeProvider } from '@/context/employee/EmployeeContext';
 
 const columns: GridColDef[] = [
   {
@@ -177,6 +178,7 @@ export default function DataTable() {
             )
   }
   
+
   return (
     <Fragment>
       <div className="my-4 flex flex-wrap items-center gap-4">
@@ -257,11 +259,14 @@ export default function DataTable() {
           style={{ cursor: 'pointer'}}
           localeText={{ noRowsLabel: 'Loading...' }} // To do: can optimize after reducer optimized
         />
-        <ViewEmployee 
-          open={viewEmployee.open} 
-          handleClose={() => setViewEmployee(curr => ({...curr, open:false}))}
-          emp_no={viewEmployee.emp_no}
-        />
+        <EmployeeProvider>
+          <ViewEmployee 
+            open={viewEmployee.open} 
+            handleClose={() => setViewEmployee(curr => ({...curr, open:false}))}
+            emp_no={viewEmployee.emp_no}
+          />
+        </EmployeeProvider>
+
         {/* <Modal
           open={false}
           onClose={() => setViewEmployee(curr => ({...curr, open:false}))}

@@ -1,5 +1,5 @@
 import { Button, Modal, Tab, Tabs, Typography } from "@mui/material";
-import { Fragment, useEffect, useMemo, useState } from "react";
+import { Fragment, useContext, useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { HandleAlertAction } from "@/store/actions/components";
 import { XMarkIcon } from "@heroicons/react/24/solid";
@@ -10,6 +10,7 @@ import PersonalInfo from "./information/PersonalInfo";
 import EmploymentInfo from "./information/EmploymentInfo";
 import PayrollInfo from "./information/PayrollInfo";
 import { APILink } from "@/store/configureStore";
+import { EmployeeContext } from "@/context/employee/EmployeeContext";
 
 interface Props {
     open: boolean,
@@ -22,14 +23,12 @@ type Tabs = "static-info" | "static-info" | "employment-info"
 export default function ViewEmployee(props: Props) {
 
     const {open, handleClose, emp_no} = props
+    const employeeContext = useContext(EmployeeContext);
+    const { employeeData, fetchEmployeeData} = employeeContext
 
     const [tabIndex, setTabIndex] = useState<number>(0)
+ 
     const dispatch = useDispatch()
-    const [employeeData, setEmployeeData] = useState<any>(null)
-    
-    useEffect(() => {
-        fetchEmployeeData()
-    },[emp_no])
 
     const tabs = useMemo(() => 
         [
@@ -56,22 +55,6 @@ export default function ViewEmployee(props: Props) {
         ]
     ,[employeeData])
 
-    const fetchEmployeeData = async () => {
-
-        if(!emp_no) return
-
-        await axiosInstance.get(`employees/${emp_no}/`)
-            .then(res => {
-                setEmployeeData(curr => (res?.data))
-            })
-            .catch(err => {
-                dispatch(HandleAlertAction({
-                    open: true,
-                    status: "error",
-                    message: "Something Went Wrong"
-                }))
-            })
-    }
 
     const handleChange = (e:any, newValue:number) => {
         setTabIndex(curr => newValue)
