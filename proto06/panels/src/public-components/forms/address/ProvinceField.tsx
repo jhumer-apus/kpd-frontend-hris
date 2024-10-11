@@ -6,7 +6,7 @@ interface Props {
     valueId: number,
     label: string,
     name: string
-    handleChange: (name:string , newValue: ProvinceData) => void
+    handleChange: (name:string , newValue: ProvinceData | string) => void
 }
 
 type ProvinceInterface = {
@@ -15,7 +15,7 @@ type ProvinceInterface = {
 }
 
 type ProvinceData = {
-    id: number,
+    id: number | string,
     name: string,
     code: string
 }
@@ -49,9 +49,13 @@ export default function ProvinceField(props: Props) {
             console.error(err)
         })
     }
-
     const isOptionEqualToValue = (option: any, value: any) => option.id == value.id
-    const findValue = useMemo(() => provinces.data.find(option => option.id == valueId) ?? "", [provinces.data, valueId])
+    const findValue = useMemo(() => {
+    
+        const foundValue = provinces.data.find(option => option.id == valueId) ?? ""
+        if(foundValue) handleChange(name, foundValue)
+        return foundValue
+    }, [provinces.data, valueId])
 
     const categorizeProvinces = useMemo(() => provinces.data.map((option) => {
         const firstLetter = option?.name[0].toUpperCase();
@@ -72,19 +76,19 @@ export default function ProvinceField(props: Props) {
             value={findValue}
             renderInput={(params) => (
                 <TextField
-                  {...params}
-                  label={label ?? "Province"}
-                  InputProps={{
+                    {...params}
+                    label={label ?? "Province"}
+                    InputProps={{
                     ...params.InputProps,
                     endAdornment: (
-                    <Fragment>
-                        {provinces.loading ? <CircularProgress color="inherit" size={20} /> : null}
-                        {params.InputProps.endAdornment}
-                    </Fragment>
-                    ),
-                  }}
+                        <Fragment>
+                            {provinces.loading ? <CircularProgress color="inherit" size={20} /> : null}
+                            {params.InputProps.endAdornment}
+                        </Fragment>
+                        ),
+                    }}
                 />
-              )}
+            )}
         />
     )
 }

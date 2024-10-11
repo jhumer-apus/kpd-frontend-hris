@@ -2,29 +2,32 @@ import axiosInstance from "@/helpers/axiosConfig";
 import { Autocomplete, CircularProgress, TextField } from "@mui/material";
 import { Fragment, useEffect, useMemo, useState } from "react";
 
-interface Props {
-    valueId: number,
-    label: string,
-    name: string
-    handleChange: (name:string , newValue: ProvinceData) => void
+interface CityDataInterface {
+    id: number | string,
+    name: string,
+    province_code: string
 }
 
-type ProvinceInterface = {
-    data: ProvinceData[],
+interface CityInterface {
+    data: CityDataInterface[],
     loading: boolean
 }
 
-type ProvinceData = {
-    id: number,
-    name: string,
-    code: string
+interface Props {
+    valueId: number,
+    provinceCode: string | number
+    label: string,
+    name: string
+    disabled: boolean
+    handleChange: (name:string , newValue: CityDataInterface | string) => void
 }
 
-export default function CityField(props: Props) {
 
-    const { valueId, label, name, handleChange } = props
+export default function CityField(props:Props) {
 
-    const [cities, setCities] = useState<ProvinceInterface>(
+    const { valueId, label, name, provinceCode, disabled, handleChange } = props
+
+    const [cities, setCities] = useState<CityInterface>(
         {
             data: [],
             loading: false
@@ -33,58 +36,90 @@ export default function CityField(props: Props) {
 
     useEffect(() => {
         fetchCities()
-    },[])
-
+    },[provinceCode])
 
     const fetchCities = async () => {
-        await axiosInstance.get(`province/`).then(res => {
-            setCities((curr:any) => (
-                {
-                    data: Array.isArray(res.data) ? res.data: [],
-                    loading: false
+
+        setCities(curr => (
+            {
+                data: [],
+                loading: true
+            }
+        ))
+
+        await axiosInstance.get(`city_municipality/`, 
+            {
+                params: {
+                    code: provinceCode
                 }
-            ))
-        })
-        .catch(err => {
-            console.error(err)
-        })
+            }
+        )
+            .then(res => {
+                Array.isArray(res.data) 
+                    ? setCities(curr => (
+                        {
+                            data: res.data,
+                            loading: false
+                        }
+                    ))
+                    : setCities(curr => (
+                        {
+                            data: [],
+                            loading: false
+                        }
+                    ))
+            })
+            .catch(err => {
+                console.error(err)
+                setCities(curr => (
+                    {
+                        data: [],
+                        loading: false
+                    }
+                ))
+            })
     }
 
-    const isOptionEqualToValue = (option: any, value: any) => option.id == value.id
-    const findValue = useMemo(() => cities.data.find(option => option.id == valueId) ?? "", [provinces.data, valueId])
-
-    const categorizeProvinces = useMemo(() => provinces.data.map((option) => {
+    const categorizeCities = useMemo(() => cities.data.map((option) => {
         const firstLetter = option?.name[0].toUpperCase();
         return {
             firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
             ...option,
         };
-    }), [provinces.data]);
+    }), [cities.data]);
+
+    const isOptionEqualToValue = (option: any, value: any) => option.id == value.id
+    const findValue = useMemo(() => {
+        const foundValue = cities.data.find(option => option.id == valueId) ?? ""
+        if(foundValue) handleChange(name, foundValue)
+        return foundValue
+    }, [cities.data, valueId])
 
     return (
         <Autocomplete
-            options={categorizeProvinces.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
+            options={categorizeCities.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
             groupBy={(option) => option.firstLetter}
             getOptionLabel={(option) => option?.name || ""}
             onChange={(e:any, newValue:any) => handleChange(name, newValue)}
             className="w-full"
             isOptionEqualToValue={isOptionEqualToValue}
             value={findValue}
+            disabled={disabled}
             renderInput={(params) => (
                 <TextField
-                  {...params}
-                  label={label ?? "Province"}
-                  InputProps={{
+                    {...params}
+                    label={label ?? "City/Municipality"}
+                    InputProps={{
                     ...params.InputProps,
                     endAdornment: (
-                    <Fragment>
-                        {provinces.loading ? <CircularProgress color="inherit" size={20} /> : null}
-                        {params.InputProps.endAdornment}
-                    </Fragment>
-                    ),
-                  }}
+                        <Fragment>
+                            {cities.loading ? <CircularProgress color="inherit" size={20} /> : null}
+                            {params.InputProps.endAdornment}
+                        </Fragment>
+                        ),
+                    }}
                 />
-              )}
+            )}
         />
     )
 }
