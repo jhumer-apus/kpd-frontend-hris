@@ -9,6 +9,7 @@ import StaticInfo from "./information/StaticInfo";
 import PersonalInfo from "./information/PersonalInfo";
 import EmploymentInfo from "./information/EmploymentInfo";
 import PayrollInfo from "./information/PayrollInfo";
+import { APILink } from "@/store/configureStore";
 
 interface Props {
     open: boolean,
@@ -24,7 +25,7 @@ export default function ViewEmployee(props: Props) {
 
     const [tabIndex, setTabIndex] = useState<number>(0)
     const dispatch = useDispatch()
-    const [employeeData, setEmployeeData] = useState(null)
+    const [employeeData, setEmployeeData] = useState<any>(null)
     
     useEffect(() => {
         fetchEmployeeData()
@@ -94,8 +95,11 @@ export default function ViewEmployee(props: Props) {
                                 <XMarkIcon className="w-8 text-white"/>
                             </Button>
                         </div>
-                        <div id="profile-picture-wrapper" className="rounded-full w-28 h-28 bg-red-100 m-auto my-2">
-                            <img src=""/>
+                        <div id="profile-picture-wrapper" className="w-fit m-auto">
+                            <img 
+                                src={APILink + employeeData?.employee_image}
+                                className="w-32 h-32 object-cover rounded-full"
+                            />
                         </div>
                         <div className="">
                             <Typography variant="h6" component="h6" className="font-bold text-center">Batak Si Boy</Typography>

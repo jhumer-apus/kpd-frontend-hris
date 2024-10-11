@@ -150,6 +150,44 @@ export default function PersonalInfo(props: Props) {
         ))
     }
 
+    const validateProfilePic = (file:File) => {
+        const MAX_FILE_SIZE_MB = 3;
+        if (file) {
+            if (file.size <= MAX_FILE_SIZE_MB * 1024 * 1024) {
+
+                setPersonalInfo((curr:any) => ({...curr, employee_image:file}))
+
+                const reader = new FileReader();
+                reader.onload = () => {
+                    setPersonalInfo((curr:any) => (
+                        {
+                            ...curr,
+                            previewProfilePic: reader.result
+                        }
+                    ));
+                };
+                reader.readAsDataURL(file);
+        
+            } else {
+                
+                setPersonalInfo((curr:any) => (
+                    {
+                        ...curr,
+                        previewProfilePic: null
+                    }
+                ));
+
+                dispatch(HandleAlertAction({
+                    open:true,
+                    status: "error",
+                    message: "Image should be not more than 3MB"
+                }))
+
+        
+            }
+        }
+    }
+
     const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
         const { name, value, files } = e.target;
@@ -159,10 +197,7 @@ export default function PersonalInfo(props: Props) {
                 if(!files) {
                     return
                 }
-                setPersonalInfo((prevState:any) => ({
-                    ...prevState,
-                    [name]: files[0],
-                }));
+                validateProfilePic(files[0])
                 break;
 
 
@@ -232,6 +267,8 @@ export default function PersonalInfo(props: Props) {
             current_city_code: currentCity.id
         }
 
+        console.log(personalInfo)
+
         const formData = new FormData()
         for(const key in payload) {
             formData.append(key, payload[key])
@@ -265,7 +302,11 @@ export default function PersonalInfo(props: Props) {
                 <div id="personal-details-wrapper">
                     <Typography variant="h6" component="h6" className="font-bold">Personal Details</Typography><br></br>
                     <div id='profile-pic-wrapper' className="w-fit">
-                        <img src={APILink + personalInfo.employee_image} width={150} height={150} className="border-gray-200 border-2 rounded-full m-auto" alt="profile picture"/><br></br>
+                        <img 
+                            src={personalInfo?.previewProfilePic? personalInfo?.previewProfilePic: APILink + personalInfo.employee_image} 
+                            className="border-gray-200 border-2 w-28 h-28 rounded-full m-auto object-cover" 
+                            alt="profile picture"
+                        /><br></br>
                         <label className="bg-indigo-900 text-white cursor-pointer">
                             <input onChange={handleValueChange} name="employee_image" type="file" className="hidden"/>
                             <div className="bg-indigo-900 flex gap-2 p-2 w-fit rounded-lg">Update Profile Picture <CloudArrowUpIcon className="h-6 w-6" /></div>
@@ -462,7 +503,7 @@ export default function PersonalInfo(props: Props) {
                                         valueId={personalInfo.currentCity.id} 
                                         provinceCode={personalInfo.currentProvince.code} 
                                         label="City/Municipality" 
-                                        name="permanentCity" 
+                                        name="currentCity" 
                                         disabled={!personalInfo.currentProvince.code} 
                                         handleChange={handleChangeAddress}
                                     />
