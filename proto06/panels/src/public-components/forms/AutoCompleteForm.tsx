@@ -29,7 +29,7 @@ export default function AutocompleteForm(props: Props) {
     const findValue = options.find(option => option.id == defaultValueId) ?? ""
     return (
         <Autocomplete
-            id={id}
+            id={id} 
             options={categorizeOptions.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
             groupBy={(option) => option.firstLetter}
             getOptionLabel={(option) => getOptionLabel(option)}
@@ -37,6 +37,7 @@ export default function AutocompleteForm(props: Props) {
             className="w-full"
             renderInput={(params) => (
                 <TextField
+                  name="test"
                   {...params}
                   label={label}
                   InputProps={{

@@ -209,17 +209,15 @@ export default function PersonalInfo() {
             case "emergency_contact_number":
                 formatValue = mobileNoFormat(value)
                 break
+
             default: 
-                setPersonalInfo((prevState:any) => ({
-                    ...prevState,
-                    [name]: value,
-                }));
+                formatValue = value
                 break;
         }
 
         setPersonalInfo((prevState:any) => ({
             ...prevState,
-            [name]: value,
+            [name]: formatValue,
         }));
     };
 
@@ -246,7 +244,16 @@ export default function PersonalInfo() {
     const submit = (e:any) => {
         e.preventDefault()
 
-        const {permanentProvince, currentProvince, permanentCity, currentCity, ...restPersonalInfo} = personalInfo
+        const {
+            permanentProvince, 
+            currentProvince, 
+            permanentCity, 
+            currentCity, 
+            mobile_phone, 
+            emergency_contact_number,
+            birthday, 
+            ...restPersonalInfo
+        } = personalInfo
 
         const isFile = validateImage(personalInfo?.employee_image);
 
@@ -274,6 +281,9 @@ export default function PersonalInfo() {
         const payload = {
             ...employeeData,
             ...restPersonalInfo,
+            birthday: dayjs(birthday).format('YYYY-MM-DDThh:mm:ss'),
+            mobile_phone: `0${mobile_phone}`,
+            emergency_contact_number: `0${emergency_contact_number}`,
             permanent_province_code: permanentProvince.id,
             permanent_city_code: permanentCity.id,
             current_province_code: currentProvince.id,
