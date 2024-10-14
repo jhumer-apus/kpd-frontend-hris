@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useContext, useEffect, useState } from 'react';
 import { DataGrid, GridColDef, GridValueGetterParams, GridCellParams } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
 import { getEmployeesList } from '@/store/actions/employees';
@@ -19,7 +19,7 @@ import ExportToCSVButton from '@/public-components/ExportToCSVButton';
 import axios from 'axios';
 import axiosInstance from '@/helpers/axiosConfig';
 import ViewEmployee from '@/public-components/employees/ViewEmployee';
-import { EmployeeProvider } from '@/context/employee/EmployeeContext';
+import { EmployeeContext, EmployeeProvider } from '@/context/employee/EmployeeContext';
 
 const columns: GridColDef[] = [
   {
@@ -89,17 +89,15 @@ export default function DataTable() {
   const { employees_list, specific_employee_info } = useSelector((state: RootState) => state.employees);
   const [exportData, setExportData] = useState<any[]>([]);
   const [type, setType] = useState("staticInfo");
+  const employeeContext = useContext(EmployeeContext);
 
+  const {employeeData, fetchEmployeeData, test} = employeeContext
 
+  
   // Specific Employee Modal Form 
   // States: 
   // const [open, setOpen] = useState(false);
-  const [viewEmployee, setViewEmployee] = useState(
-    {
-      emp_no: "",
-      open: false,
-    }
-  )
+  const [viewEmployee, setViewEmployee] = useState<boolean>(false)
 
 
   const [modalEntranceDelay, setModalEntranceDelay] = useState(false);
@@ -177,7 +175,6 @@ export default function DataTable() {
               }
             )
   }
-  
 
   return (
     <Fragment>
@@ -245,13 +242,8 @@ export default function DataTable() {
           pageSizeOptions={[25, 30, 35, 40]}
           // checkboxSelection
           onRowClick={(e) => {
-            setViewEmployee(curr => (
-              {
-                ...curr, 
-                open: true,
-                emp_no: e.row?.emp_no
-              })
-            )
+            setViewEmployee(curr => true)
+            fetchEmployeeData(e.row?.emp_no)
             setModalEntranceDelay(true)
             setSecondOptionModalEntranceDelay(true)
             // dispatchSpecificEmployeeInfo(e.row?.emp_no)
@@ -259,13 +251,11 @@ export default function DataTable() {
           style={{ cursor: 'pointer'}}
           localeText={{ noRowsLabel: 'Loading...' }} // To do: can optimize after reducer optimized
         />
-        <EmployeeProvider>
-          <ViewEmployee 
-            open={viewEmployee.open} 
-            handleClose={() => setViewEmployee(curr => ({...curr, open:false}))}
-            emp_no={viewEmployee.emp_no}
-          />
-        </EmployeeProvider>
+
+        <ViewEmployee 
+          open={viewEmployee} 
+          handleClose={() => setViewEmployee(curr => false)}
+        />
 
         {/* <Modal
           open={false}

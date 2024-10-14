@@ -1,5 +1,7 @@
+import { EmployeeContext } from "@/context/employee/EmployeeContext";
 import { useOptionData } from "@/custom-hooks/use-option-data";
 import axiosInstance from "@/helpers/axiosConfig";
+import { mobileNoFormat } from "@/helpers/utils";
 import { validateImage } from "@/helpers/validator/employee_information";
 import CityField from "@/public-components/forms/address/CityField";
 import ProvinceField from "@/public-components/forms/address/ProvinceField";
@@ -14,18 +16,17 @@ import { Button, FormControl, InputAdornment, InputLabel, MenuItem, OutlinedInpu
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs, { Dayjs } from "dayjs";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-interface Props {
-    employeeData: any
-}
 
-export default function PersonalInfo(props: Props) {
+export default function PersonalInfo() {
 
-    const { employeeData } = props
+
     const currUser = useSelector((state:RootState) => state.auth.employee_detail)
+    const employeeContext = useContext(EmployeeContext);
+    const { employeeData, fetchEmployeeData} = employeeContext
     const dispatch = useDispatch()
     const [personalInfo, setPersonalInfo] = useState<any>(
         {
@@ -103,13 +104,13 @@ export default function PersonalInfo(props: Props) {
                 birth_place: employeeData?.birth_place || "",
                 civil_status: employeeData?.civil_status || "",
                 gender: employeeData?.gender || "",
-                mobile_phone: employeeData?.mobile_phone || "",
+                mobile_phone: employeeData?.mobile_phone? mobileNoFormat(employeeData?.mobile_phone) : "",
                 blood_type: employeeData?.blood_type || "",
                 graduated_school: employeeData?.graduated_school || "",
                 profession: employeeData?.profession || "",
                 license_no: employeeData?.license_no || "",
                 emergency_contact_person: employeeData?.emergency_contact_person || "",
-                emergency_contact_number: employeeData?.emergency_contact_number || "",
+                emergency_contact_number: employeeData?.emergency_contact_number? mobileNoFormat(employeeData?.emergency_contact_number): "",
                 other_duties_responsibilities: employeeData?.other_duties_responsibilities || "",
                 date_hired: employeeData?.date_hired ? dayjs(employeeData?.date_hired).format('YYYY-MM-DDThh:mm:ss'): "",
                 date_separation: employeeData?.date_separation ? dayjs(employeeData?.date_separation).format('YYYY-MM-DDThh:mm:ss'): "",
@@ -192,15 +193,22 @@ export default function PersonalInfo(props: Props) {
 
         const { name, value, files } = e.target;
 
+        let formatValue = '';
         switch (name) {
             case "employee_image":
                 if(!files) {
                     return
                 }
                 validateProfilePic(files[0])
-                break;
+                return
+            
+            case "mobile_phone":
+                formatValue = mobileNoFormat(value)
+                break
 
-
+            case "emergency_contact_number":
+                formatValue = mobileNoFormat(value)
+                break
             default: 
                 setPersonalInfo((prevState:any) => ({
                     ...prevState,
@@ -208,6 +216,11 @@ export default function PersonalInfo(props: Props) {
                 }));
                 break;
         }
+
+        setPersonalInfo((prevState:any) => ({
+            ...prevState,
+            [name]: value,
+        }));
     };
 
     const handleDateChange = (name:string, newValue: Dayjs | null) => {
@@ -267,18 +280,16 @@ export default function PersonalInfo(props: Props) {
             current_city_code: currentCity.id
         }
 
-        console.log(personalInfo)
-
         const formData = new FormData()
         for(const key in payload) {
             formData.append(key, payload[key])
         }
 
-        updatePersonalInfo(formData)
+        updatePersonalInfo(formData, payload?.emp_no)
     }
 
-    const updatePersonalInfo = async (formData: FormData) => {
-        await axiosInstance.put(`employees/${currUser?.emp_no}/`, formData)
+    const updatePersonalInfo = async (formData: FormData, emp_no:string | number) => {
+        await axiosInstance.put(`employees/${emp_no}/`, formData)
             .then(res => {
                 dispatch(HandleAlertAction({
                     open:true,
@@ -286,8 +297,10 @@ export default function PersonalInfo(props: Props) {
                     message:"Update Personal Information Successfully"
                 }))
                 setIsEdit(curr => false)
+                fetchEmployeeData(emp_no)
             })
             .catch(err => {
+                console.log(err)
                 dispatch(HandleAlertAction({
                     open:true,
                     status: "error",
@@ -304,13 +317,13 @@ export default function PersonalInfo(props: Props) {
                     <Typography variant="h6" component="h6" className="font-bold">Personal Details</Typography><br></br>
                     <div id='profile-pic-wrapper' className="w-fit">
                         <img 
-                            src={personalInfo?.previewProfilePic? personalInfo?.previewProfilePic: APILink + personalInfo.employee_image} 
+                            src={personalInfo?.previewProfilePic? personalInfo?.previewProfilePic: `${APILink}${employeeData?.employee_image}`} 
                             className="border-gray-200 border-2 w-28 h-28 rounded-full m-auto object-cover" 
                             alt="profile picture"
                         /><br></br>
                         <label className="bg-indigo-900 text-white cursor-pointer">
-                            <input onChange={handleValueChange} name="employee_image" type="file" className="hidden"/>
-                            <div className="bg-indigo-900 flex gap-2 p-2 w-fit rounded-lg">Update Profile Picture <CloudArrowUpIcon className="h-6 w-6" /></div>
+                            <input onChange={handleValueChange} name="employee_image" type="file" className="hidden" disabled={!isEdit}/>
+                            <div className={`${isEdit? "bg-indigo-900":"bg-gray-400"} bg-black flex gap-2 p-2 w-fit rounded-lg`}>Update Profile Picture <CloudArrowUpIcon className="h-6 w-6" /></div>
                         </label>
                     </div><br></br>
                     <div className="flex gap-8 flex-col md:flex-wrap md:flex-row">
@@ -321,6 +334,7 @@ export default function PersonalInfo(props: Props) {
                             value={personalInfo.first_name}
                             onChange={handleValueChange}
                             readOnly={!isEdit}
+                            required
                         />
                         <InputField 
                             label="Middle Name:"
@@ -337,6 +351,7 @@ export default function PersonalInfo(props: Props) {
                             value={personalInfo.last_name}
                             onChange={handleValueChange}
                             readOnly={!isEdit}
+                            required
                         />
                         <InputField 
                             label="Suffix:" 
@@ -406,7 +421,8 @@ export default function PersonalInfo(props: Props) {
                             name="mobile_phone"
                             value={personalInfo.mobile_phone}
                             onChange={handleValueChange}
-                            readOnly={!isEdit}                 
+                            readOnly={!isEdit}
+                            required            
                         />
 
                         <InputField 
@@ -423,7 +439,8 @@ export default function PersonalInfo(props: Props) {
                             name="emergency_contact_number"
                             value={personalInfo.emergency_contact_number}
                             onChange={handleValueChange}          
-                            readOnly={!isEdit}         
+                            readOnly={!isEdit}
+                            required       
                         />
 
                         <InputField 
@@ -432,7 +449,8 @@ export default function PersonalInfo(props: Props) {
                             name="emergency_contact_person"
                             value={personalInfo.emergency_contact_person}
                             onChange={handleValueChange}
-                            readOnly={!isEdit}            
+                            readOnly={!isEdit}
+                            required         
                         />
 
                         <InputField 
@@ -441,7 +459,7 @@ export default function PersonalInfo(props: Props) {
                             name="license_no"
                             value={personalInfo.license_no}             
                             onChange={handleValueChange}
-                            readOnly={!isEdit}              
+                            readOnly={!isEdit}            
                         />
 
                         <InputField 
@@ -452,6 +470,7 @@ export default function PersonalInfo(props: Props) {
                             value={personalInfo.birth_place}             
                             onChange={handleValueChange}
                             readOnly={!isEdit}
+                            required
                         />
 
                         <div className="w-full">
@@ -484,6 +503,7 @@ export default function PersonalInfo(props: Props) {
                                         name="permanent_address"
                                         onChange={handleValueChange}
                                         readOnly={!isEdit}
+                                        required
                                     />
                                 </div>
                             </div>
@@ -519,6 +539,7 @@ export default function PersonalInfo(props: Props) {
                                         value={personalInfo.current_address}
                                         onChange={handleValueChange}
                                         readOnly={!isEdit}
+                                        required
                                     />
                                 </div>
                             </div>
@@ -543,6 +564,7 @@ export default function PersonalInfo(props: Props) {
                             )}
                             onChange={handleValueChange}
                             readOnly={!isEdit}
+                            required
                         />
                     </div>
                 </div>
@@ -558,6 +580,7 @@ export default function PersonalInfo(props: Props) {
                             onChange={handleValueChange}
                             value={personalInfo.profession}
                             readOnly={!isEdit}
+                            required
                         /> 
                         <InputField 
                             label="School Graduated:" 
@@ -567,6 +590,7 @@ export default function PersonalInfo(props: Props) {
                             onChange={handleValueChange}
                             value={personalInfo.graduated_school}
                             readOnly={!isEdit}
+                            required
                         /> 
                     </div>
                 </div>

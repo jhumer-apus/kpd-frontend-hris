@@ -15,20 +15,17 @@ import { EmployeeContext } from "@/context/employee/EmployeeContext";
 interface Props {
     open: boolean,
     handleClose: () => void
-    emp_no: number | string
 }
 
 type Tabs = "static-info" | "static-info" | "employment-info"
 
 export default function ViewEmployee(props: Props) {
 
-    const {open, handleClose, emp_no} = props
+    const {open, handleClose} = props
     const employeeContext = useContext(EmployeeContext);
     const { employeeData, fetchEmployeeData} = employeeContext
 
     const [tabIndex, setTabIndex] = useState<number>(0)
- 
-    const dispatch = useDispatch()
 
     const tabs = useMemo(() => 
         [
@@ -40,7 +37,7 @@ export default function ViewEmployee(props: Props) {
             {
                 id: "personal-info",
                 label: "Personal Info",
-                component: <PersonalInfo employeeData={employeeData} />
+                component: <PersonalInfo />
             },
             {
                 id: "employment-info",
@@ -60,7 +57,9 @@ export default function ViewEmployee(props: Props) {
         setTabIndex(curr => newValue)
     }
 
+
     const modalContentClass = "rounded-xl bg-white md:w-11/12 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border-none outline-none w-full h-full md:h-[90vh] overflow-auto"
+
     return (
         <Fragment>
             <Modal
@@ -80,13 +79,13 @@ export default function ViewEmployee(props: Props) {
                         </div>
                         <div id="profile-picture-wrapper" className="w-fit m-auto">
                             <img 
-                                src={APILink + employeeData?.employee_image}
+                                src={`${APILink}${employeeData?.employee_image}`}
                                 className="w-32 h-32 object-cover rounded-full"
                             />
                         </div>
                         <div className="">
-                            <Typography variant="h6" component="h6" className="font-bold text-center">Batak Si Boy</Typography>
-                            <Typography variant="h6" component="h6" className="font-bold text-center">Employee #: 9989</Typography>
+                            <Typography variant="h6" component="h6" className="font-bold text-center">{employeeData?.emp_full_name}</Typography>
+                            <Typography variant="h6" component="h6" className="font-bold text-center">Employee No: {employeeData?.emp_no}</Typography>
                         </div>
                     </header>
                     <div className="m-auto w-full p-4">
