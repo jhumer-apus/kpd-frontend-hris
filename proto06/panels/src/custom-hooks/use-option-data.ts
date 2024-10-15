@@ -1,4 +1,5 @@
 import axiosInstance from "@/helpers/axiosConfig"
+import { INTERNAL_USER_ROLE } from "@/types/types-store";
 import React, { useState } from 'react'; // This ensures JSX elements are recognized
 
 interface Option {
@@ -176,6 +177,29 @@ export const useOptionData = () => {
         {
             value: "Field-Auto",
             label: "Field-Auto"
+        },
+    ]
+
+    const roles: Option[] = [
+        {
+            value: INTERNAL_USER_ROLE.HR_Super_Admin.toString(),
+            label: "HR Super Admin"
+        },
+        {
+            value: INTERNAL_USER_ROLE.HR_Director_Manager.toString(),
+            label: "HR Director / Manager"
+        },
+        {
+            value: INTERNAL_USER_ROLE.HR_Staff.toString(),
+            label: "HR Staff"
+        },
+        {
+            value: INTERNAL_USER_ROLE.Manager.toString(),
+            label: "Department Manager / Director"
+        },
+        {
+            value: INTERNAL_USER_ROLE.Employee.toString(),
+            label: "Employee"
         },
     ]
 
@@ -438,6 +462,7 @@ export const useOptionData = () => {
         civilStatus,
         bloodTypes,
         separationType,
+        roles,
         fetchPositions,
         fetchBranches,
         fetchDepartments,

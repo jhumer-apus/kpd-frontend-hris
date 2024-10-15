@@ -59,7 +59,7 @@ export default function ViewEmployee(props: Props) {
 
 
     const modalContentClass = "rounded-xl bg-white md:w-11/12 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border-none outline-none w-full h-full md:h-[90vh] overflow-auto"
-
+    const profilePic = employeeData?.employee_image? `${APILink}${employeeData?.employee_image}`: ""
     return (
         <Fragment>
             <Modal
@@ -79,8 +79,9 @@ export default function ViewEmployee(props: Props) {
                         </div>
                         <div id="profile-picture-wrapper" className="w-fit m-auto">
                             <img 
-                                src={`${APILink}${employeeData?.employee_image}`}
+                                src={profilePic}
                                 className="w-32 h-32 object-cover rounded-full"
+                                alt="Profile Picture"
                             />
                         </div>
                         <div className="">

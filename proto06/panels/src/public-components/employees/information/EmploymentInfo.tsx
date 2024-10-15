@@ -194,6 +194,7 @@ export default function EmploymentInfo() {
                         <InputField 
                             label="Employment Duration:" 
                             variant="outlined"
+                            name="employment_duration"
                             value={employmentInfo?.employment_duration}
                             onChange={handleValueChange}
                             readOnly
@@ -201,9 +202,10 @@ export default function EmploymentInfo() {
 
                         <SelectField 
                             className="w-full md:w-[300px]"
-                            labelId="positions"
-                            id="positions"
-                            label="Positions"
+                            labelId="position"
+                            id="position"
+                            label="Position"
+                            name="position_code"
                             loading={positions.loading}
                             inputProps={{ readOnly: false }} 
                             options={positions.data}
@@ -217,6 +219,7 @@ export default function EmploymentInfo() {
                             labelId="branches"
                             id="branches"
                             label="Branches"
+                            name="branch_code"
                             loading={branches.loading}
                             inputProps={{ readOnly: false }} 
                             options={branches.data}
@@ -230,6 +233,7 @@ export default function EmploymentInfo() {
                             labelId="departments"
                             id="departments"
                             label="Departments"
+                            name="department_code"
                             loading={departments.loading}
                             inputProps={{ readOnly: false }} 
                             options={departments.data}
@@ -243,6 +247,7 @@ export default function EmploymentInfo() {
                             labelId="ranks"
                             id="ranks"
                             label="Rank"
+                            name="rank_code"
                             loading={ranks.loading}
                             inputProps={{ readOnly: false }} 
                             options={ranks.data}
@@ -255,6 +260,7 @@ export default function EmploymentInfo() {
                             labelId="employment_status"
                             id="employment_status"
                             label="Employment Status"
+                            name="employment_status"
                             loading={employmentStatus.loading}
                             inputProps={{ readOnly: false }} 
                             options={employmentStatus.data}
@@ -267,6 +273,7 @@ export default function EmploymentInfo() {
                             labelId="employee_type"
                             id="employee_type"
                             label="Employee Type"
+                            name="employee_type"
                             inputProps={{ readOnly: false }} 
                             options={employeeType}
                             value={employmentInfo?.employee_type}

@@ -310,7 +310,7 @@ export default function PersonalInfo() {
                 fetchEmployeeData(emp_no)
             })
             .catch(err => {
-                console.log(err)
+                console.error(err)
                 dispatch(HandleAlertAction({
                     open:true,
                     status: "error",
