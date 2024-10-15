@@ -1,5 +1,5 @@
 import axiosInstance from "@/helpers/axiosConfig"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 type DTR = {
     data: any[],
@@ -17,7 +17,9 @@ export const useFetchDTRData = (filter:any) => {
         }
     )
 
-
+    useEffect(() => {
+        console.log(dtr)
+    },[dtr])
 
     const controllerRef = useRef<AbortController | null>(null);
 
@@ -37,6 +39,7 @@ export const useFetchDTRData = (filter:any) => {
 
             setDtr((curr:DTR) => ({
                 ...curr,
+                data: [],
                 loading: true
             }))
 
@@ -100,6 +103,7 @@ export const useFetchDTRData = (filter:any) => {
 
             setDtr((curr:DTR) => ({
                 ...curr,
+                data:[],
                 loading: true
             }))
 
