@@ -177,3 +177,5 @@ export const clearFields = <T>(setState: SetState<T>, fields: (keyof T)[], value
 export const cleanTextNumber = (val:string) => {
   return val.replace(/\D/g, '')
 }
+
+export const mobileNoFormat = (number:string) => number.replace(/^0/, '')

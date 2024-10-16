@@ -14,7 +14,7 @@ import axiosInstance from '@/helpers/axiosConfig';
 const loginApiCall = async (username: string, password: string, twoFactorToken?: string) => {
     // const response = await axiosInstance.post("https://bitverse-api.herokuapp.com/login", {
     // const response = await axiosInstance.post("http://172.16.168.144:8888/login", {
-    const response = await axios.post(`${APILink}login/`, 
+    const response = await axios.post(`${APILink}/api/v1/login/`, 
       {
         username,
         password,

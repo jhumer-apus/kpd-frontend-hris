@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 
 // Create an Axios instance
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_APILINK, // API base URL
+  baseURL: import.meta.env.VITE_APILINK + "/api/v1/", // API base URL
   timeout: 0, // Set a reasonable timeout (30 seconds)
   // headers: { 'Content-Type': 'application/json' },
 });
@@ -30,7 +30,7 @@ axiosInstance.interceptors.request.use(
     } else if (refreshToken) {
       // No access token but refresh token exists: attempt to refresh tokens
       try {
-        const response = await axios.post(`${APILink}refresh/`, { refresh: refreshToken });
+        const response = await axios.post(`${APILink}'/api/v1/refresh/`, { refresh: refreshToken });
         const { access, refresh } = response.data;
 
 
@@ -79,7 +79,7 @@ axiosInstance.interceptors.response.use(
 
         if (refreshToken) {
           // Attempt to refresh tokens if refresh token is available
-          const response = await axios.post(`${import.meta.env.VITE_APILINK}refresh/`, { refresh: refreshToken });
+          const response = await axios.post(`${import.meta.env.VITE_APILINK}/api/v1/refresh/`, { refresh: refreshToken });
           const { access, refresh } = response.data;
 
           // Retry original request with new access token

@@ -147,6 +147,7 @@ import ExitForms from "./pages/forms/exit-forms/exit-forms";
 import ManageEmploymentStatusTypes from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-employment-status-type/manage-emp-status-type";
 import FamilyBackground from "./pages/employee/family-background";
 import OBTtypes from "./pages/procedurals/obt-types";
+import { EmployeeProvider } from "./context/employee/EmployeeContext";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -513,7 +514,9 @@ const JSXRouteWrapper = () => {
                 icon: <PersonOutlineOutlinedIcon {...icon} />,
                 name: "201 Files",
                 path: "/employees/201-files",
-                element: <DataTable/>, 
+                element: <EmployeeProvider>
+                            <DataTable/>
+                          </EmployeeProvider>, 
                 hasSubItems: true,
                 subItems: [
                   {
