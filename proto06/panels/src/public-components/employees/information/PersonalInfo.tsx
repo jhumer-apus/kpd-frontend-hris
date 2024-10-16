@@ -563,13 +563,15 @@ export default function PersonalInfo() {
                             value={personalInfo.url_google_map}
                             endAdornment={(
                                 <InputAdornment position="end">
+                                    {personalInfo?.url_google_map && (
                                     <a 
-                                        href={personalInfo?.url_google_map} 
+                                        href={personalInfo.url_google_map} 
                                         target="_blank" 
                                         rel="noopener noreferrer"
                                     >
                                         <MapPinIcon className="text-gray-500 w-10 cursor-pointer hover:text-indigo-900" />
                                     </a>
+                                    )}
                                 </InputAdornment>
                             )}
                             onChange={handleValueChange}
