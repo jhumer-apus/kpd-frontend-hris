@@ -29,10 +29,10 @@ export default function PayrollInfo() {
             accnt_no: employeeData?.accnt_no || "",
             insurance_life: employeeData?.insurance_life || "",
             ecola: employeeData?.ecola || "",
-            tin: employeeData?.tax_data?.tin_no || "",
-            pagibig_no: employeeData?.pagibig_data?.pagibig_no || "",
-            sss_no: employeeData?.sss_data?.sss_no || "",
-            ph_no: employeeData?.philhealth_data?.ph_no || "",
+            tin: employeeData?.tin|| "",
+            pagibig_no: employeeData?.pagibig_no || "",
+            sss_no: employeeData?.sss_no || "",
+            philhealth_no: employeeData?.philhealth_no || "",
             hmo: employeeData?.hmo || ""
         }
     )
@@ -52,17 +52,21 @@ export default function PayrollInfo() {
                 accnt_no: employeeData?.accnt_no || "",
                 insurance_life: employeeData?.insurance_life || "",
                 ecola: employeeData?.ecola || "",
-                tin: employeeData?.tax_data?.tin_no || "",
-                pagibig_no: employeeData?.pagibig_data?.pagibig_no || "",
-                sss_no: employeeData?.sss_data?.sss_no || "",
-                philhealth_no: employeeData?.philhealth_data?.ph_no || "",
+                tin: employeeData?.tin|| "",
+                pagibig_no: employeeData?.pagibig_no || "",
+                sss_no: employeeData?.sss_no || "",
+                philhealth_no: employeeData?.philhealth_no || "",
                 hmo: employeeData?.hmo || ""
             }
         ))
     }
 
-    const handleChangeAutoComplete = (e:any, newValue:any) => {
-        console.log(newValue)
+    const handleChangeAutoComplete = (name:string, newValue:any) => {
+        setPayrollInfo((curr:any) => (
+            {
+                [name]: newValue?.id ?? ""
+            }
+        ))
     }
 
                         
@@ -99,7 +103,7 @@ export default function PayrollInfo() {
                 dispatch(HandleAlertAction({
                     open:true,
                     status: "error",
-                    message: err?.res?.message ?? "Failed to update payroll info"
+                    message: err?.response?.data?.["Error Message"] ?? "Failed to update payroll info"
                 }))
             })
     }
@@ -107,8 +111,6 @@ export default function PayrollInfo() {
     const handleValueChange = (e:any) => {
         const { name, value } = e.target
 
-        console.log(name)
-        console.log(value)
         setPayrollInfo((curr:any) => (
             {
                 ...curr,
@@ -163,7 +165,7 @@ export default function PayrollInfo() {
                                 options={payrollGroup.data} 
                                 label="Payroll Group" 
                                 getOptionLabel={(option: any) => option? `${option?.id} - ${option?.name}`: ""} 
-                                handleChange={handleChangeAutoComplete} 
+                                handleChange={(e:any, newValue:any) => handleChangeAutoComplete("payroll_group_code", newValue)} 
                                 optionTitle='name' 
                                 defaultValueId={payrollInfo?.payroll_group_code} 
                                 disabled={!isEdit} 
@@ -223,11 +225,19 @@ export default function PayrollInfo() {
                             value={payrollInfo.tin}
                             onChange={handleValueChange}
                             readOnly={!isEdit}
+                            inputProps={{
+                                minLength:9,
+                                maxLength:12,
+                            }} 
                         />
                         <InputField 
                             label="HDMF Pag-ibig:"
                             variant="outlined"
                             name="pagibig_no"
+                            inputProps={{
+                                minLength:12,
+                                maxLength:12,
+                            }} 
                             value={payrollInfo.pagibig_no}
                             onChange={handleValueChange}
                             readOnly={!isEdit}
@@ -240,6 +250,10 @@ export default function PayrollInfo() {
                             value={payrollInfo.sss_no}
                             onChange={handleValueChange}
                             readOnly={!isEdit}
+                            inputProps={{
+                                minLength:10,
+                                maxLength:10,
+                            }} 
                         />
 
                         <InputField 
@@ -249,6 +263,10 @@ export default function PayrollInfo() {
                             value={payrollInfo.philhealth_no}
                             onChange={handleValueChange}
                             readOnly={!isEdit}
+                            inputProps={{
+                                minLength:12,
+                                maxLength:12,
+                            }} 
                         />
 
                         <InputField 
