@@ -77,10 +77,10 @@ export default function ViewEmployee(props: Props) {
                                 <XMarkIcon className="w-8 text-white"/>
                             </Button>
                         </div>
-                        <div id="profile-picture-wrapper" className="w-fit m-auto">
+                        <div id="profile-picture-wrapper" className="w-fit m-auto rounded-full border-8 border-green-500">
                             <img 
                                 src={profilePic}
-                                className="w-32 h-32 object-cover rounded-full"
+                                className="w-32 h-32 object-cover rounded-full shadow-2xl "
                                 alt="Profile Picture"
                             />
                         </div>
