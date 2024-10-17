@@ -29,7 +29,8 @@ const columns = [
       const first_name = params.row.first_name;
       const middle_name = params.row.middle_name;
       const last_name = params.row.last_name;
-      return `${first_name}${middle_name? ` ${middle_name} ` : ' '}${last_name}`;
+
+      return `${last_name}, ${first_name} ${middle_name? middle_name: ''}`;
     }
   },
   {
