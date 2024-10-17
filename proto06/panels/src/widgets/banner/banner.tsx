@@ -8,7 +8,6 @@ import dayjs from "dayjs";
 import { UnderDevelopmentMsg } from "@/pages/dashboard/hris-portal/local-components/projects-card";
 import { ACTIVEANNOUNCEMENTViewAction, ANNOUNCEMENTViewAction } from "@/store/actions/payroll-eoy";
 import { APILink } from "@/store/configureStore";
-import skyfreightIcon from '@/img/skyfreight_icon.png';
 import { Avatar } from "@material-tailwind/react";
 
 
@@ -81,7 +80,7 @@ const CarouselUI = ({ items }: any) => {
                 className="w-full"
             >
                 <div className="flex items-center">
-                    <Avatar src="/img/skyfreight_icon.png" size="sm" placeholder={undefined} />
+                    <Avatar src={import.meta.env.VITE_ICON_PATH?? "/img/bitverse-icon.png"} size="sm" placeholder={undefined} />
                     <div className={styles.greetingsBar}>{greetings}, {employee_detail?.gender?.includes("F")? 'Ms.': 'Mr.'} {employee_detail?.last_name}!</div>
                 </div>
                 <div className={styles.newsWrap}> 
