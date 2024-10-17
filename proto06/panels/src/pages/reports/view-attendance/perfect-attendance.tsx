@@ -56,7 +56,7 @@ export default function ViewPerfectAttendance() {
                     id: index,
                     emp_image: emp.employee_image,
                     emp_no: emp.emp_no,
-                    emp_name: `${emp.first_name??""} ${emp.middle_name?? ""} ${emp.last_name??""}`,
+                    emp_name: `${emp.emp_full_name}`,
                     department_name: emp.department_data?.dept_name?? "Unknown",
                     division_name: emp.division_data?.div_name?? "Unknown",
                     position_name: emp.position_data?.pos_name?? "Unknown",

@@ -42,15 +42,15 @@ const columns: GridColDef[] = [
   { field: 'emp_no', headerName: 'Employee #', width: 120 },
   { field: 'first_name', headerName: 'First Name', width: 150 },
   { field: 'last_name', headerName: 'Last Name', width: 150 },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params: GridValueGetterParams) =>
-      `${params.row.first_name || ''} ${params.row.last_name || ''}`,
-  },
+  // {
+  //   field: 'fullName',
+  //   headerName: 'Full name',
+  //   description: 'This column has a value getter and is not sortable.',
+  //   sortable: false,
+  //   width: 160,
+  //   valueGetter: (params: GridValueGetterParams) =>
+  //     `${params.row.first_name || ''} ${params.row.last_name || ''}`,
+  // },
   { 
     field: 'date_hired', 
     headerName: 'Date Hired', 

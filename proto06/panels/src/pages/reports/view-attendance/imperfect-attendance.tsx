@@ -57,7 +57,7 @@ export default function ViewImperfectAttendance() {
                     id: index,
                     emp_image: emp.employee.employee_image,
                     emp_no: emp.employee.emp_no,
-                    emp_name: `${emp.employee.first_name??""} ${emp.middle_name?? ""} ${emp.last_name??""}`,
+                    emp_name: `${emp?.employee?.emp_full_name}`,
                     department_name: emp.employee.department_data?.dept_name?? "Unknown",
                     division_name: emp.employee.division_data?.div_name?? "Unknown",
                     position_name: emp.employee.position_data?.pos_name?? "Unknown",

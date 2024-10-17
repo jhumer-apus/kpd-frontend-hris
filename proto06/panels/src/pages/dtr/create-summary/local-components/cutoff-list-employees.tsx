@@ -44,7 +44,8 @@ const columns = [
   },
   {
     field: "department_code",
-    headerName: "Department"
+    headerName: "Department",
+    valueGetter:(params:any) => params.row?.department_data?.dept_name || ""
   },
   // {
   //   field: "payroll_group_code",
