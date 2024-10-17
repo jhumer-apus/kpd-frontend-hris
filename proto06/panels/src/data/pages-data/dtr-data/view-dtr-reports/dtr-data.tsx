@@ -45,10 +45,10 @@ const convertHoursToMins = (mins:number): { hours: number, remainingMins: number
 
 return {
     logs: [
-      { field: 'id', headerName: 'Entry ID', width: 120 },
-      { field: 'emp_no', headerName: 'Employee #', width: 120 },
-      { field: 'emp_name', headerName: 'Name', width: 200 },
-      { field: 'flag1_in_out', headerName: 'Entry Type', width: 120, 
+      { field: 'id', headerName: 'Entry ID', flex: 1, minWidth: 120},
+      { field: 'emp_no', headerName: 'Employee #', flex: 1, minWidth: 120},
+      { field: 'emp_name', headerName: 'Name',  flex: 1, minWidth: 120},
+      { field: 'flag1_in_out', headerName: 'Entry Type',  flex: 1, minWidth: 120,
         valueGetter: (params: GridValueGetterParams) => {
           const entryType = params.row.flag1_in_out? "Duty Out": "Duty In";
           return entryType;
@@ -57,7 +57,8 @@ return {
       {
         field: 'datetime_bio_date',
         headerName: 'Entry Date',
-        width: 150,
+        flex: 1, 
+        minWidth: 120,
         description: 'This column has a value getter and is not sortable. Use Filter instead, by clicking on the three dots beside this header.',
         sortable: true,
         valueGetter: (params: GridValueGetterParams) => {
@@ -68,7 +69,8 @@ return {
       {
         field: 'datetime_bio_time',
         headerName: 'Time',
-        width: 150,
+        flex: 1, 
+        minWidth: 120,
         description: 'This column has a value getter and is not sortable. Use Filter instead, by clicking on the three dots beside this header.',
         sortable: true,
         valueGetter: (params: GridValueGetterParams) => {
@@ -76,7 +78,7 @@ return {
           return params.row.datetime_bio ? dayjs(shio).format(`${globalTime}`) : '-';
         },
       },
-      { field: 'is_processed', headerName: 'Process Status', width: 140,
+      { field: 'is_processed', headerName: 'Process Status', flex: 1, minWidth: 120, 
         valueGetter: (params: GridValueGetterParams) => {
           const processStatus = params.row.is_processed? "Completed": "In Progress"
           return processStatus;
@@ -84,21 +86,22 @@ return {
       },
 
       ...((currUser?.rank_code??0) > 3 ? [
-          { field: 'bio_id', headerName: 'Biometrics ID', width: 140 },
+          { field: 'bio_id', headerName: 'Biometrics ID',  flex: 1, minWidth: 120},
           // { field: 'branch_code', headerName: 'Branch Code', width: 120 }
         ]: []
       )
     
     ],
     merged: [
-      { field: 'id', headerName: 'Entry ID', width: 120 },
-      { field: 'emp_no', headerName: 'Employee #', width: 120 },
-      { field: 'emp_name', headerName: 'Name', width: 200 },
-      { field: 'business_date', headerName: 'Business Date', width: 120 },
+      { field: 'id', headerName: 'Entry ID',  flex: 1, minWidth: 120},
+      { field: 'emp_no', headerName: 'Employee #',  flex: 1, minWidth: 120},
+      { field: 'emp_name', headerName: 'Name',  flex: 1, minWidth: 120},
+      { field: 'business_date', headerName: 'Business Date',  flex: 1, minWidth: 120},
       {
         field: 'duty_in',
         headerName: 'Time In',
-        width: 130,
+        flex: 1, 
+        minWidth: 120,
         description: 'This column has a value getter and is not sortable. Use Filter instead, by clicking on the three dots beside this header.',
         sortable: false,
         valueGetter: (params: GridValueGetterParams) => {
@@ -110,7 +113,8 @@ return {
       {
         field: 'duty_out',
         headerName: 'Time Out',
-        width: 130,
+        flex: 1, 
+        minWidth: 120,
         description: 'This column has a value getter and is not sortable. Use Filter instead, by clicking on the three dots beside this header.',
         sortable: false,
         valueGetter: (params: GridValueGetterParams) => {
@@ -120,21 +124,22 @@ return {
         },
       },
       ...((currUser?.rank_code??0) > 3 ? [
-        { field: 'lates', headerName: 'Lates(mins)', width: 120 },
-        { field: 'undertime', headerName: 'Undertime(mins)', width: 120 },
+        { field: 'lates', headerName: 'Lates(mins)',  flex: 1, minWidth: 120},
+        { field: 'undertime', headerName: 'Undertime(mins)',  flex: 1, minWidth: 120},
         {
           field: 'total_hours',
           headerName: 'Total Hours',
-          width: 120,
+          flex: 1, 
+          minWidth: 120,
           valueGetter: (params: GridValueGetterParams) => {
             const convertedMinsToHours = parseFloat((params.row.total_hours / 60).toFixed(2));
             return convertedMinsToHours;
           },
         },
-        { field: 'shift_name', headerName: 'Shift Name', width: 130 },
-        { field: 'sched_timein', headerName: 'Scheduled In', width: 130 },
-        { field: 'sched_timeout', headerName: 'Scheduled Out', width: 130 },
-        { field: 'nd_total_hours', headerName: 'Night Differential', width: 150, 
+        { field: 'shift_name', headerName: 'Shift Name',  flex: 1, minWidth: 120},
+        { field: 'sched_timein', headerName: 'Scheduled In',  flex: 1, minWidth: 120},
+        { field: 'sched_timeout', headerName: 'Scheduled Out',  flex: 1, minWidth: 120},
+        { field: 'nd_total_hours', headerName: 'Night Differential', flex: 1, minWidth: 120,  
           valueGetter: (params: GridValueGetterParams) => {
             const convertedMinsToHours = parseFloat((params.row.nd_total_hours / 60).toFixed(2));
             return convertedMinsToHours;
@@ -144,89 +149,107 @@ return {
 
     ],
     cutoff: [
-      { field: 'id', headerName: 'Data ID', width: 100 },
-      { field: 'emp_no', headerName: 'Emp. #', width: 100 },
-      { field: 'emp_name', headerName: 'Name', width: 200 },
-      { field: 'business_date_from', headerName: 'Cutoff From', width: 120 },
-      { field: 'business_date_to', headerName: 'Cutoff To', width: 120 },
+      { field: 'id', headerName: 'Data ID',  flex: 1, minWidth: 120},
+      { field: 'emp_no', headerName: 'Emp. #', flex: 1, minWidth: 120},
+      { field: 'emp_name', headerName: 'Name',  flex: 1, minWidth: 120},
+      { field: 'business_date_from', headerName: 'Cutoff From',  flex: 1, minWidth: 120},
+      { field: 'business_date_to', headerName: 'Cutoff To',  flex: 1, minWidth: 120},
       { 
         field: 'paid_leaves_total', 
         headerName: 'Paid Leaves',
+        flex: 1, 
+        minWidth: 120,
         description: 'This column has a value getter and sorting may sometimes not accurately filter. Use Filter instead, by clicking on the three dots beside this header.',
         sortable: true, // Can turn to 'false' if there is bug in sorting.
         valueGetter: (params: GridValueGetterParams) => {
           return `${params.row.paid_leaves_total} day(s)`;
         },  
-        width: 110 
+        
       },
       ...(isDepartmentManager? [
         { 
           field: 'allowance_time_total_hours', 
           headerName: 'Allowance Time Total Hours',
+          flex: 1, 
+          minWidth: 120,
           description: 'This column has a value getter and sorting may sometimes not accurately filter. Use Filter instead, by clicking on the three dots beside this header.',
           sortable: true, // Can turn to 'false' if there is bug in sorting.
           valueGetter: (params: GridValueGetterParams) => {
             return `${(params.row.reg_ot_total_hours??0) + (params.row.nd_ot_total_hours??0)} min(s)`;
           }, 
-          width: 120 
+          
         },
       ]: [
         { 
           field: 'reg_ot_total_hours', 
           headerName: 'Reg. OT',
+          flex: 1, 
+          minWidth: 120,
           description: 'This column has a value getter and sorting may sometimes not accurately filter. Use Filter instead, by clicking on the three dots beside this header.',
           sortable: true, // Can turn to 'false' if there is bug in sorting.
           valueGetter: (params: GridValueGetterParams) => {
             return `${params.row.reg_ot_total_hours} min(s)`;
           }, 
-          width: 120 
+           
         }
       ]),
       { 
         field: 'sp_holiday_total', 
-        headerName: 'SP. Holidays', 
+        headerName: 'SP. Holidays',
+        flex: 1, 
+        minWidth: 120,
         valueGetter: (params: GridValueGetterParams) => {
           return `${params.row.sp_holiday_total} day(s)`;
         }, 
-        width: 120 
+        
       },
       { 
         field: 'reg_holiday_total', 
-        headerName: 'REG. Holidays', 
+        headerName: 'REG. Holidays',
+        flex: 1, 
+        minWidth: 120,
         valueGetter: (params: GridValueGetterParams) => {
           return `${params.row.reg_holiday_total} day(s)`;
         }, 
-        width: 120 
+        
       },
       ...(!["Field", "Field-Auto"].includes(currUser?.employee_type) && [2,3].includes(currUser?.rank_code)) ? [
         { 
           field: 'lates_total', 
-          headerName: 'Lates', 
+          headerName: 'Lates',
+          flex: 1, 
+          minWidth: 120,
           valueGetter: (params: GridValueGetterParams) => {
             return `${params.row.lates_total} min(s)`;
           }, 
-          width: 110 
+          
         },
         { 
           field: 'undertime_total', 
-          headerName: 'Undertime', 
+          headerName: 'Undertime',
+          flex: 1, 
+          minWidth: 120, 
           valueGetter: (params: GridValueGetterParams) => {
             return `${params.row.undertime_total} min(s)`;
           }, 
-          width: 110 
+           
         }
       ]: [],
       { 
         field: 'absent_total', 
-        headerName: 'Absences', 
+        headerName: 'Absences',
+        flex: 1, 
+        minWidth: 120, 
         valueGetter: (params: GridValueGetterParams) => {
           return `${params.row.absent_total} day(s)`;
         }, 
-        width: 110 
+         
       },
       { 
         field: 'total_hours', 
-        headerName: 'Total Hrs', 
+        headerName: 'Total Hrs',
+        flex: 1, 
+        minWidth: 120, 
         valueGetter: (params: GridValueGetterParams) => {
           const totalHours = params.row.total_hours;
           const { hours, remainingMins } = convertHoursToMins(totalHours);
@@ -234,18 +257,20 @@ return {
           // return `${params.row.total_hours} min(s)`;
         }, 
         sortable: true,
-        width: 200
+        
       },
       { 
         field: 'is_processed', 
-        headerName: 'Processed', 
-        width: 110 
+        headerName: 'Processed',
+        flex: 1, 
+        minWidth: 120,
       },
       ...(!["Field", "Field-Auto"].includes(currUser?.employee_type) && [2,3].includes(currUser?.rank_code)) ? [
         { 
           field: 'nd_total_hours', 
-          headerName: 'Night Differential', 
-          width: 150 
+          headerName: 'Night Differential',
+          flex: 1, 
+          minWidth: 120,         
         },
       ] : [],
     ],

@@ -235,7 +235,10 @@ export default function ViewDtrReports() {
         {(!isBasicEmployee && !isDepartmentManager) &&
           <div className='flex justify-between gap-6'>
             {/* <ExportToCsvButton data={exportDtrData} /> */}
-            <ExportToCsvButton data={exportDtrData} />
+            <ExportToCsvButton 
+              data={exportDtrData}
+              excludedColumn={[""]}
+            />
             {(currUser?.rank_code??0) > 3 && 
               <PrintTableButton printing={printing} setIsPrinting={setIsPrinting}/>
             }
@@ -251,6 +254,7 @@ export default function ViewDtrReports() {
 
       <div style={{ height: `${printing? `${printableArea()}px` : '660px'}`}} id="printable-area">
         <DataGrid
+          className='w-full'
           rows={dtr.data ?? []}
           columns={dynamicDTRColumns()[dtrType]}
           initialState={{

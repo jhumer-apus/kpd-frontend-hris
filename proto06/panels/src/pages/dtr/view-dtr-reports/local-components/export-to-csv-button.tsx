@@ -7,6 +7,7 @@ import { convertMinutesToHHMM } from '@/helpers/utils';
 
 interface ExportToCsvButtonInterface {
     data: DtrData
+    excludedColumn: string[] | [] | null
 }
 const colsMinToHours = [
   "total_hours",
@@ -37,13 +38,14 @@ const colsMinToHours = [
 ]
 
 function ExportToCsvButton(props: ExportToCsvButtonInterface)  {
-    const {data} = props;
+    const {data, excludedColumn = []} = props;
     
     const convertToCSV = (data: DtrData) => {
         const replacer = (key: string, value: any) => value === null ? '' : value;
         if(data){
           const header = Object.keys(data[0]);
-          const cleanHeader = header.map(col => {
+          const filterHeader = header.filter(col => !excludedColumn?.includes(col))
+          const cleanHeader = filterHeader.map(col => {
             const colArr = col.split("_")
             const colCap = colArr.map(title => capitalize(title))
             return  colCap.join(" ")
