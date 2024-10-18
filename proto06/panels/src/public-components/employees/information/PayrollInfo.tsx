@@ -1,6 +1,7 @@
 import { EmployeeContext } from "@/context/employee/EmployeeContext";
 import { useOptionData } from "@/custom-hooks/use-option-data";
 import axiosInstance from "@/helpers/axiosConfig";
+import { cleanTextNumber } from "@/helpers/utils";
 import AutocompleteForm from "@/public-components/forms/AutoCompleteForm";
 import InputField from "@/public-components/forms/InputField";
 import { HandleAlertAction } from "@/store/actions/components";
@@ -111,7 +112,11 @@ export default function PayrollInfo() {
     }
 
     const handleValueChange = (e:any) => {
-        const { name, value } = e.target
+        let { name, value } = e.target
+        
+        if(["tin", "pagibig_no", "pagibig_mp2_no", "sss_no", "philhealth_no"].includes(name)) {
+            value = cleanTextNumber(value)
+        }
 
         setPayrollInfo((curr:any) => (
             {
