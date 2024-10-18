@@ -314,7 +314,7 @@ export default function PersonalInfo() {
                 dispatch(HandleAlertAction({
                     open:true,
                     status: "error",
-                    message: err?.res?.message ?? "Failed to update personal information"
+                    message: err?.response?.data?.["Error Message"] ?? "Failed to update personal information"
                 }))
             })
     }
@@ -425,8 +425,10 @@ export default function PersonalInfo() {
                                     +63
                                 </InputAdornment>
                             )}
-                            maxLength="10"
-                            minLength="10"
+                            inputProps={{
+                                maxLength:10,
+                                minLength:10
+                            }}
                             pattern='^[0-9]+$'
                             name="mobile_phone"
                             value={personalInfo.mobile_phone}
@@ -443,8 +445,10 @@ export default function PersonalInfo() {
                                     +63
                                 </InputAdornment>
                             )}
-                            maxLength="10"
-                            minLength="10"
+                            inputProps={{
+                                maxLength:10,
+                                minLength:10
+                            }}
                             pattern='^[0-9]+$'
                             name="emergency_contact_number"
                             value={personalInfo.emergency_contact_number}
@@ -488,7 +492,7 @@ export default function PersonalInfo() {
                             <div id="permanent-address-wrapper" className="flex gap-8 flex-col md:flex-row w-full">
                                 <div className="w-full md:w-80">
                                     <ProvinceField 
-                                        valueId={personalInfo.permanentProvince.id} 
+                                        valueId={personalInfo?.permanentProvince?.id} 
                                         label="Province" 
                                         name="permanentProvince"
                                         handleChange={handleChangeAddress} 
@@ -496,11 +500,11 @@ export default function PersonalInfo() {
                                 </div>
                                 <div className="w-full md:w-80">
                                     <CityField 
-                                        valueId={personalInfo.permanentCity.id} 
-                                        provinceCode={personalInfo.permanentProvince.code} 
+                                        valueId={personalInfo?.permanentCity?.id} 
+                                        provinceCode={personalInfo?.permanentProvince?.code} 
                                         label="City/Municipality" 
                                         name="permanentCity" 
-                                        disabled={!personalInfo.permanentProvince.code} 
+                                        disabled={!personalInfo?.permanentProvince?.code} 
                                         handleChange={handleChangeAddress}
                                     />
                                 </div>
@@ -524,7 +528,7 @@ export default function PersonalInfo() {
                             <div id="permanent-address-wrapper" className="flex gap-8 flex-col md:flex-row w-full">
                                 <div className="w-full md:w-80">
                                     <ProvinceField 
-                                        valueId={personalInfo.currentProvince.id} 
+                                        valueId={personalInfo?.currentProvince?.id} 
                                         label="Province"
                                         name="currentProvince"
                                         handleChange={handleChangeAddress} 
@@ -532,11 +536,11 @@ export default function PersonalInfo() {
                                 </div>
                                 <div className="w-full md:w-80">
                                     <CityField 
-                                        valueId={personalInfo.currentCity.id} 
-                                        provinceCode={personalInfo.currentProvince.code} 
+                                        valueId={personalInfo?.currentCity?.id} 
+                                        provinceCode={personalInfo?.currentProvince?.code} 
                                         label="City/Municipality" 
                                         name="currentCity" 
-                                        disabled={!personalInfo.currentProvince.code} 
+                                        disabled={!personalInfo?.currentProvince?.code} 
                                         handleChange={handleChangeAddress}
                                     />
                                 </div>

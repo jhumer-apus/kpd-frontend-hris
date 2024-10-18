@@ -155,7 +155,7 @@ export default function EmploymentInfo() {
                 dispatch(HandleAlertAction({
                     open:true,
                     status: "error",
-                    message: err?.res?.message ?? "Failed to update employment information"
+                    message: err?.response?.data?.["Error Message"] ?? "Failed to update employment information"
                 }))
             })
     }

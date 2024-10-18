@@ -120,7 +120,7 @@ export default function StaticInfo() {
                 dispatchRedux(HandleAlertAction({
                     open:true,
                     status: "error",
-                    message: err?.res?.message ?? "Failed to update account details"
+                    message: err?.response?.data?.["Error Message"] ?? "Failed to update account details"
                 }))
             })
     }
