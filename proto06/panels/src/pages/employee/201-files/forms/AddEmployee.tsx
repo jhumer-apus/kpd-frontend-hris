@@ -5,7 +5,7 @@ import { Typography } from '@material-tailwind/react';
 import { useForm } from 'react-hook-form';
 import { EMPLOYEESViewInterface } from '@/types/types-store';
 import { APILink, RootState, app_status } from '@/store/configureStore';
-import { beautifyJSON } from '@/helpers/utils';
+import { beautifyJSON, cleanTextNumber } from '@/helpers/utils';
 import InputLabel from '@mui/material/InputLabel';
 
 //LIBRARIES
@@ -326,10 +326,17 @@ export const UserProfile = () => {
     }
 
   const handleChangeUserData = (e:any) => {
+
+    let { name, value } = e.target
+    
+    if(["tin", "pagibig_no", "pagibig_mp2_no", "sss_no", "philhealth_no"].includes(name)) {
+      value = cleanTextNumber(value)
+    }
+    
     setEmployeeData((curr:any) => (
       {
         ...curr,
-        [e.target.name]: e.target.value
+        [name]: value
       }
     ))
   }
