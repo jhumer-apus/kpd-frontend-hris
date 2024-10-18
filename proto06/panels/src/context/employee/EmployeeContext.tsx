@@ -6,7 +6,6 @@ import { useDispatch } from 'react-redux';
 interface EmployeeContextType {
   employeeData: any;
   fetchEmployeeData: (emp_no: string | number) =>  Promise<void>;
-  test: () => void
 }
 
 interface EmployeeProviderProps {
@@ -16,7 +15,6 @@ interface EmployeeProviderProps {
 export const EmployeeContext = createContext<EmployeeContextType>({
     employeeData: null,
     fetchEmployeeData: async (emp_no: string | number): Promise<void> =>  {},
-    test: () => console.log("test context")
 });
 
 const EmployeeProvider: React.FC<EmployeeProviderProps> = ({children}) => {
@@ -46,7 +44,7 @@ const EmployeeProvider: React.FC<EmployeeProviderProps> = ({children}) => {
     },[employeeData])
     
     return (
-        <EmployeeContext.Provider value={{employeeData, fetchEmployeeData,  test}}>
+        <EmployeeContext.Provider value={{employeeData, fetchEmployeeData}}>
             {children}
         </EmployeeContext.Provider>
     )

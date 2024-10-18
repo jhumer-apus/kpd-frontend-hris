@@ -92,7 +92,7 @@ export default function EmploymentInfo() {
         setEmploymentInfo((curr:any) => (
             {
                 ...curr,
-                [name]: newValue.id
+                [name]: newValue?.id ?? ""
             }
         ))
     }

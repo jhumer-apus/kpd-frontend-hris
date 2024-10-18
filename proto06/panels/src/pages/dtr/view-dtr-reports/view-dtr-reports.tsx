@@ -209,6 +209,28 @@ export default function ViewDtrReports() {
   const isBasicEmployee = role && role == 1
   const isDepartmentManager = role && role == 2
 
+  // const excludedColumn = [
+  //   "nd_total_hours",
+  //   "reg_ot_total_hours",
+  //   "nd_ot_total_hours",
+  //   "sp_holiday_nd_total_hours",
+  //   "sp_holiday_reg_ot_hours",
+  //   "sp_holiday_nd_ot_hours",
+  //   "reg_holiday_nd_total_hours",
+  //   "reg_holiday_reg_ot_hours",
+  //   "reg_holiday_nd_ot_hours",
+  //   "rd_nd_total_hours",
+  //   "rd_reg_ot_total_hours",
+  //   "rd_nd_ot_total_hours",
+  //   "rd_sphol_nd_total_hours",
+  //   "rd_sphol_reg_ot_total_hours",
+  //   "rd_sphol_nd_ot_total_hours",
+  //   "rd_reghol_nd_total_hours",
+  //   "rd_reghol_reg_ot_total_hours",
+  //   "rd_reghol_nd_ot_total_hours",
+  // ]
+
+
   return (
     <Fragment>
       <div className="my-10 flex flex-wrap justify-between items-start gap-6">
@@ -237,7 +259,7 @@ export default function ViewDtrReports() {
             {/* <ExportToCsvButton data={exportDtrData} /> */}
             <ExportToCsvButton 
               data={exportDtrData}
-              excludedColumn={[""]}
+              excludedColumn={[]}
             />
             {(currUser?.rank_code??0) > 3 && 
               <PrintTableButton printing={printing} setIsPrinting={setIsPrinting}/>

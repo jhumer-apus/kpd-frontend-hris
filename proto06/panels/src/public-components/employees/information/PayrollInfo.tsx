@@ -20,8 +20,6 @@ export default function PayrollInfo() {
     const isCurrUserHrStaff = currUser?.rank_code == 4
     const isViewedBaseEmployee = employeeData?.rank_code == 2
 
-    console.log(employeeData)
-
     const { payrollGroup, fetchPayrollGroup } = useOptionData()
     const [payrollInfo, setPayrollInfo] = useState<any>(
         {
