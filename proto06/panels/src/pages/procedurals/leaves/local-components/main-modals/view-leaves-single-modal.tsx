@@ -7,6 +7,8 @@ import LEAVEModalComponent from './inner-modals/leaves-modal-component';
 import { HandleModalAction } from '@/store/actions/components';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
+import { XMarkIcon } from '@heroicons/react/24/solid';
+import { Button, IconButton } from '@mui/material';
 
 
 interface ViewLEAVESingleModalInterface {

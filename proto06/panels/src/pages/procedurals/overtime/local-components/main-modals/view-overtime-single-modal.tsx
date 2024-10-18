@@ -7,6 +7,8 @@ import OVERTIMEModalComponent from './inner-modals/overtime-modal-component';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { HandleModalAction } from '@/store/actions/components';
+import { IconButton } from '@mui/material';
+import { XMarkIcon } from '@heroicons/react/24/solid';
 
 
 interface ViewOVERTIMESingleModalInterface {
