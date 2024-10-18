@@ -29,6 +29,8 @@ export default function PayrollInfo() {
             ecola: employeeData?.ecola || "",
             tin: employeeData?.tin|| "",
             pagibig_no: employeeData?.pagibig_no || "",
+            pagibig_mp2_no: employeeData?.pagibig_mp2_no || "",
+            pagibig_mp2_amount: employeeData?.pagibig_mp2_amount || "",
             sss_no: employeeData?.sss_no || "",
             philhealth_no: employeeData?.philhealth_no || "",
             hmo: employeeData?.hmo || ""
@@ -52,6 +54,8 @@ export default function PayrollInfo() {
                 ecola: employeeData?.ecola || "",
                 tin: employeeData?.tin|| "",
                 pagibig_no: employeeData?.pagibig_no || "",
+                pagibig_mp2_no: employeeData?.pagibig_mp2_no || "",
+                pagibig_mp2_amount: employeeData?.pagibig_mp2_amount || "",
                 sss_no: employeeData?.sss_no || "",
                 philhealth_no: employeeData?.philhealth_no || "",
                 hmo: employeeData?.hmo || ""
@@ -208,7 +212,6 @@ export default function PayrollInfo() {
                                     ₱
                                 </InputAdornment>
                             )}
-                            // readOnly
                         />
                     </div>
                 </div>
@@ -239,6 +242,36 @@ export default function PayrollInfo() {
                             value={payrollInfo.pagibig_no}
                             onChange={handleValueChange}
                             readOnly={!isEdit}
+                        />
+
+                        <InputField 
+                            label="Pag-ibig MP2 No:"
+                            variant="outlined"
+                            name="pagibig_mp2_no"
+                            inputProps={{
+                                minLength:12,
+                                maxLength:12,
+                            }} 
+                            value={payrollInfo.pagibig_mp2_no}
+                            onChange={handleValueChange}
+                            readOnly={!isEdit}
+                        />
+
+                        <InputField 
+                            label="Pag-ibig MP2 Amount:"
+                            variant="outlined"
+                            name="pagibig_mp2_amount"
+                            type="number"
+                            step="0.01"
+                            min={500}
+                            value={payrollInfo?.pagibig_mp2_amount}
+                            onChange={handleValueChange}
+                            readOnly={!isEdit}
+                            startAdornment={(
+                                <InputAdornment position="start">
+                                    ₱
+                                </InputAdornment>
+                            )}
                         />
 
                         <InputField 

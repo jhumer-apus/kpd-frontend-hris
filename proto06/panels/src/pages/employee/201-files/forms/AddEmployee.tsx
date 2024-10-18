@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios, {AxiosResponse, AxiosError} from 'axios';
-import { Button } from '@mui/material';
+import { Button, InputAdornment } from '@mui/material';
 import { Typography } from '@material-tailwind/react';
 import { useForm } from 'react-hook-form';
 import { EMPLOYEESViewInterface } from '@/types/types-store';
@@ -494,6 +494,12 @@ export const UserProfile = () => {
       employment_status: employeeData.employment_status ?? "",
       employee_type: employeeData.employee_type ?? "",
       url_google_map: employeeData.url_google_map ?? "",
+      tin: employeeData?.tin ?? "",
+      pagibig_no: employeeData?.pagibig_no ?? "",
+      sss_no: employeeData?.sss_no ?? "",
+      philhealth_no: employeeData?.philhealth_no ?? "",
+      pagibig_mp2_no: employeeData?.pagibig_mp2_no ?? "",
+      pagibig_mp2_amount: employeeData?.pagibig_mp2_amount ?? "",
       added_by: currUser?.emp_no,
       // rank_hierarchy: 0,
       // user: null,
@@ -968,34 +974,109 @@ export const UserProfile = () => {
 
         {/* sss,pagibig, tax, philhealth */}
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
-          {/* <div style={{position: 'relative', width: '100%'}}>
-            <OutlinedInput
-              label="Tax #:"
-              type='text'
-                              />
-            {errors.tax_code && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Tax # is required.</sub>}
+          <div style={{position: 'relative', width: '100%'}}>
+            <FormControl className='w-full'>
+              <InputLabel htmlFor="tin">TIN:</InputLabel>
+              <OutlinedInput
+                id="tin"
+                label="TIN:"
+                type='text'
+                name="tin"
+                onChange={handleChangeUserData}
+                inputProps={{
+                  minLength:9,
+                  maxLength:12
+                }}
+              />
+            </FormControl>
+
+            {/* {errors.tin && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Tax # is required.</sub>} */}
           </div>
           <div style={{position: 'relative', width: '100%'}}>
-            <OutlinedInput
-              label="Pagibig ID:"
-              type='text'
-                              />
-            {errors.pagibig_code && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Pagibig ID is required.</sub>}
+            <FormControl className='w-full'>
+              <InputLabel htmlFor="pagibig_no">Pagibig No:</InputLabel>
+              <OutlinedInput
+                label="Pagibig No:"
+                type='text'
+                name="pagibig_no"
+                onChange={handleChangeUserData}
+                inputProps={{
+                  minLength:12,
+                  maxLength:12
+                }}
+              />
+            </FormControl>
+            {/* {errors.pagibig_no && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Pagibig ID is required.</sub>} */}
           </div>
           <div style={{position: 'relative', width: '100%'}}>
-            <OutlinedInput
-              label="SSS ID:"
-              type='text'
-                              />
-            {errors.sssid_code && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>SSS ID is required.</sub>}
+            <FormControl className='w-full'>
+              <InputLabel htmlFor="pagibig_mp2_no">Pagibig MP2 No:</InputLabel>
+              <OutlinedInput
+                label="Pagibig MP2 No:"
+                type='text'
+                name="pagibig_mp2_no"
+                onChange={handleChangeUserData}
+                inputProps={{
+                  minLength:12,
+                  maxLength:12
+                }}
+              />
+            </FormControl>
+            {/* {errors.pagibig_no && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Pagibig ID is required.</sub>} */}
           </div>
           <div style={{position: 'relative', width: '100%'}}>
-            <OutlinedInput
-              label="Philhealth ID:"
-              type='text'
-                              />
-            {errors.philhealth_code && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Philhealth ID is required.</sub>}
-          </div> */}
+            <FormControl className='w-full'>
+              <InputLabel htmlFor="pagibig_mp2_amount">Pagibig MP2 Amount:</InputLabel>
+              <OutlinedInput
+                label="Pagibig MP2 Amount:"
+                type='number'
+                name="pagibig_mp2_amount"
+                onChange={handleChangeUserData}
+                inputProps={{
+                  steps:"0.01",
+                  min:500
+                }}
+                startAdornment={(
+                  <InputAdornment position="start">
+                      ₱
+                  </InputAdornment>
+              )}
+              />
+            </FormControl>
+            {/* {errors.pagibig_no && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Pagibig ID is required.</sub>} */}
+          </div>
+          <div style={{position: 'relative', width: '100%'}}>
+            <FormControl className='w-full'>
+              <InputLabel htmlFor="sss_no">SSS No:</InputLabel>
+              <OutlinedInput
+                label="SSS No:"
+                type='text'
+                name="sss_no"
+                onChange={handleChangeUserData}
+                inputProps={{
+                  minLength:10,
+                  maxLength:10
+                }}
+              />
+            </FormControl>
+            {/* {errors.sssid_code && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>SSS ID is required.</sub>} */}
+          </div>
+          <div style={{position: 'relative', width: '100%'}}>
+            <FormControl className='w-full'>
+              <InputLabel htmlFor="philhealth_no">Philhealth No:</InputLabel>
+              <OutlinedInput
+                label="Philhealth No:"
+                type='text'
+                name="philhealth_no"
+                onChange={handleChangeUserData}
+                inputProps={{
+                  minLength:12,
+                  maxLength:12
+                }}
+              />
+            </FormControl>
+            {/* {errors.philhealth_code && <sub style={{position: 'absolute', bottom: '-9px', left: '2px', fontSize: '12px'}}>Philhealth ID is required.</sub>} */}
+          </div>
         </div>
 
 
