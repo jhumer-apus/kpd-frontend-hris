@@ -203,7 +203,7 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
     const viewImages = () => {
 
         if(ThisProps.leave_file_path) {
-            const imageUrl = `${APILink.replace('/api/v1/','/media/')}${ThisProps.leave_file_path}`;
+            const imageUrl = `${APILink.replace('/api/v1/','')}/media/${ThisProps.leave_file_path}`;
             // Open a new tab/window with the images
             window.open(imageUrl, '_blank');
 
