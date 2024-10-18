@@ -293,6 +293,7 @@ export default function EmploymentInfo() {
                                 disabled={!isEdit}
                                 loading={approvers.loading}
                                 stateKey="approver1"
+                                disableClearable
                             />
                         </div>
 

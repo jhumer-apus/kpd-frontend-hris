@@ -12,6 +12,7 @@ interface Props {
     loading: boolean
     optionNameKey: string
     stateKey: string
+    [key: string]: any;
 
 }
 export default function AutocompleteField(props: Props) {
