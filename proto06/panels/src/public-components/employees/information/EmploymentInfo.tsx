@@ -28,6 +28,7 @@ export default function EmploymentInfo() {
             date_separation: null,
             separation_type: "",
             employment_duration: "",
+            department_code: "",
             position_code: "",
             branch_code: "",
             rank_code: "",
@@ -76,6 +77,7 @@ export default function EmploymentInfo() {
                 date_separation: employeeData?.date_separation? dayjs(employeeData.date_separation): null,
                 separation_type: employeeData?.separation_type,
                 employment_duration: employeeData?.employment_duration,
+                department_code: employeeData?.department_code,
                 position_code: employeeData?.position_code,
                 branch_code: employeeData?.branch_code,
                 rank_code: employeeData?.rank_code,
@@ -227,12 +229,11 @@ export default function EmploymentInfo() {
                             onChange={handleValueChange}
                             disabled={!isEdit}
                         />
-
                         <SelectField 
                             className="w-full md:w-[300px]"
-                            labelId="departments"
-                            id="departments"
-                            label="Departments"
+                            labelId="department"
+                            id="department"
+                            label="Department"
                             name="department_code"
                             loading={departments.loading}
                             inputProps={{ readOnly: false }} 

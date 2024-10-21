@@ -29,6 +29,7 @@ export default function PayrollInfo() {
             insurance_life: employeeData?.insurance_life || "",
             ecola: employeeData?.ecola || "",
             tin: employeeData?.tin|| "",
+            emp_salary_basic: employeeData?.emp_salary_basic || "",
             pagibig_no: employeeData?.pagibig_no || "",
             pagibig_mp2_no: employeeData?.pagibig_mp2_no || "",
             pagibig_mp2_amount: employeeData?.pagibig_mp2_amount || "",
@@ -54,6 +55,7 @@ export default function PayrollInfo() {
                 insurance_life: employeeData?.insurance_life || "",
                 ecola: employeeData?.ecola || "",
                 tin: employeeData?.tin|| "",
+                emp_salary_basic: employeeData?.emp_salary_basic || "",
                 pagibig_no: employeeData?.pagibig_no || "",
                 pagibig_mp2_no: employeeData?.pagibig_mp2_no || "",
                 pagibig_mp2_amount: employeeData?.pagibig_mp2_amount || "",
@@ -146,15 +148,25 @@ export default function PayrollInfo() {
                 type="number"
                 step="0.01"
                 name="emp_salary_basic"
-                value={payrollInfo.emp_salary_basic}
+                value={payrollInfo?.emp_salary_basic}
                 onChange={handleValueChange}
                 readOnly={!isEdit}
+                startAdornment={(
+                    <InputAdornment position="start">
+                        ₱
+                    </InputAdornment>
+                )}
             />
             <InputField
                 label="Monthly Salary"
                 type="number"
                 step="0.01"
                 value={monthlySalaryComputation(payrollInfo?.emp_salary_basic ?? 0)}
+                startAdornment={(
+                    <InputAdornment position="start">
+                        ₱
+                    </InputAdornment>
+                )}
                 readOnly
             />
         </div>
