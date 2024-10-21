@@ -47,7 +47,7 @@ function ProceduralSCHEDULESHIFTCreate(props: CreateSCHEDULESHIFTModalInterface)
             ...createSCHEDULESHIFT,
             added_by: user?.emp_no
         }
-        if(validate(payload)) return
+        // if(validate(payload)) return
         dispatch(SCHEDULESHIFTCreateAction(payload))
     };
 

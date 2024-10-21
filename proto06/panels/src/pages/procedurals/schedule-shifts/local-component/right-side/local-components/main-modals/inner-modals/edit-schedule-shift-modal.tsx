@@ -84,23 +84,23 @@ export default function EditSCHEDULESHIFTModal(props: EditSCHEDULESHIFTModalInte
       return true
     }
 
-    if(!payload.lunch_break_start) {
-      dispatch(HandleAlertAction({
-          open: true,
-          status: "error",
-          message: "Lunch break time start is required!"
-      }))
-      return true
-    }
+    // if(!payload.lunch_break_start) {
+    //   dispatch(HandleAlertAction({
+    //       open: true,
+    //       status: "error",
+    //       message: "Lunch break time start is required!"
+    //   }))
+    //   return true
+    // }
 
-    if(!payload.lunch_break_end) {
-      dispatch(HandleAlertAction({
-          open: true,
-          status: "error",
-          message: "Lunch break time end is required!"
-      }))
-        return true
-    }
+    // if(!payload.lunch_break_end) {
+    //   dispatch(HandleAlertAction({
+    //       open: true,
+    //       status: "error",
+    //       message: "Lunch break time end is required!"
+    //   }))
+    //     return true
+    // }
     return false
   }
 
