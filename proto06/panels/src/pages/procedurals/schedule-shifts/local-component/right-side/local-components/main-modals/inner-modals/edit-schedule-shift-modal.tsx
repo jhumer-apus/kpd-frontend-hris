@@ -273,7 +273,7 @@ export default function EditSCHEDULESHIFTModal(props: EditSCHEDULESHIFTModalInte
                                   defaultValue={dayjs(singleSCHEDULESHIFTDetailsData?.lunch_break_start, "HH:mm:ss")} 
                                   // minTime={singleSCHEDULESHIFTDetailsData?.time_in ? dayjs(singleSCHEDULESHIFTDetailsData.time_in, "HH:mm:ss"): null}
                                   // maxTime={singleSCHEDULESHIFTDetailsData?.time_out ? dayjs(singleSCHEDULESHIFTDetailsData.time_out, "HH:mm:ss"): null}
-                                  onChange={(newValue) => handleChangeTime("lunch_break_start", dayjs(newValue).format("HH:mm:ss"))}
+                                  onChange={(newValue) => handleChangeTime("lunch_break_start", newValue? dayjs(newValue).format("HH:mm:ss"): null)}
                               />
                               <DesktopTimePicker 
                                   label="Time End" 
@@ -281,7 +281,7 @@ export default function EditSCHEDULESHIFTModal(props: EditSCHEDULESHIFTModalInte
                                   // minTime={singleSCHEDULESHIFTDetailsData?.lunch_break_start ? dayjs(singleSCHEDULESHIFTDetailsData?.lunch_break_start, "HH:mm:ss"): null}
                                   // maxTime={singleSCHEDULESHIFTDetailsData?.time_out ? dayjs(singleSCHEDULESHIFTDetailsData.time_out, "HH:mm:ss"): null}
                                   disabled={!singleSCHEDULESHIFTDetailsData?.lunch_break_start}
-                                  onChange={(newValue) => handleChangeTime("lunch_break_end", dayjs(newValue).format("HH:mm:ss"))}
+                                  onChange={(newValue) => handleChangeTime("lunch_break_end", newValue? dayjs(newValue).format("HH:mm:ss"): null)}
                               />
                               
                           </div>
