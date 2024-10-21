@@ -204,7 +204,7 @@ function ProceduralSCHEDULESHIFTCreate(props: CreateSCHEDULESHIFTModalInterface)
                                 defaultValue={null}
                                 // minTime={createSCHEDULESHIFT.lunch_break_start ? dayjs(createSCHEDULESHIFT.lunch_break_start): null}
                                 // maxTime={createSCHEDULESHIFT.time_out ? dayjs(createSCHEDULESHIFT.time_out, "HH:mm:ss"): null}
-                                disabled={!createSCHEDULESHIFT.lunch_break_start}
+                                // disabled={!createSCHEDULESHIFT.lunch_break_start}
                                 onChange={(newValue) => handleChangeTime("lunch_break_end", newValue? dayjs(newValue).format("HH:mm:ss"): null)}
                             />
                             
