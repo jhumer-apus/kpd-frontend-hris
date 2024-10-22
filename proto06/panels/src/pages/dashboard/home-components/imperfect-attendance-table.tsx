@@ -44,7 +44,7 @@ export default function ImperfectAttendanceTable<T, Status>(props: Imperfect_Att
     },
     
     { field: 'Department_ID', headerName: 'Department ID', width: 120 },
-    { field: 'Division_ID', headerName: 'Division ID', width: 120 },
+    // { field: 'Division_ID', headerName: 'Division ID', width: 120 },
     // {
     //   field: 'datetime_bio_time',
     //   headerName: 'Time',
