@@ -99,7 +99,7 @@ export default function ViewImperfectAttendance() {
         { field: 'emp_no', headerName: 'Employee No:', width: 120},
         { field: 'emp_name', headerName: 'Employee Name:', width: 200},
         { field: 'department_name', headerName: 'Department', width: 120},
-        { field: 'division_name', headerName: 'Division', width: 120},
+        // { field: 'division_name', headerName: 'Division', width: 120},
         { field: 'position_name', headerName: 'Position', width: 120},
         { field: 'late', headerName: 'Lates', width: 120},
         { field: 'undertime', headerName: 'Undertime', width: 120},

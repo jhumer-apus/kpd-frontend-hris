@@ -44,7 +44,7 @@ export default function PerfectAttendanceTable<T, Status>(props: Perfect_Attenda
     },
     
     { field: 'Department_ID', headerName: 'Department ID', width: 120 },
-    { field: 'Division_ID', headerName: 'Division ID', width: 120 },
+    // { field: 'Division_ID', headerName: 'Division ID', width: 120 },
     // {
     //   field: 'datetime_bio_time',
     //   headerName: 'Time',
