@@ -56,7 +56,7 @@ export default function ViewPerfectAttendance() {
                     id: index,
                     emp_image: emp.employee_image,
                     emp_no: emp.emp_no,
-                    emp_name: `${emp.first_name??""} ${emp.middle_name?? ""} ${emp.last_name??""}`,
+                    emp_name: `${emp.emp_full_name}`,
                     department_name: emp.department_data?.dept_name?? "Unknown",
                     division_name: emp.division_data?.div_name?? "Unknown",
                     position_name: emp.position_data?.pos_name?? "Unknown",
@@ -94,15 +94,14 @@ export default function ViewPerfectAttendance() {
         { field: 'emp_no', headerName: 'Employee No:', width: 120},
         { field: 'emp_name', headerName: 'Employee Name:', width: 200},
         { field: 'department_name', headerName: 'Department', width: 120},
-        { field: 'division_name', headerName: 'Division', width: 120},
-        { field: 'position_name', headerName: 'Position', width: 120}
+        { field: 'position_name', headerName: 'Position', width: 120},
+        // { field: 'division_name', headerName: 'Division', width: 120},
         // {
         //   field: 'datetime_bio_time',
         //   headerName: 'Time',
         //   width: 150,
         //   description: 'This column has a value getter and is not sortable. Use Filter instead, by clicking on the three dots beside this header.',
         //   sortable: true,
-
         // },
     ];
 

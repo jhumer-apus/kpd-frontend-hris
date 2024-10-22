@@ -50,6 +50,8 @@ function LEAVECREDITModalUI(props: LEAVECREDITModalUIInterface) {
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Employee #:' value={ThisProps.emp_no || '-'} InputProps={{readOnly: true,}} variant='filled'/>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='LEAVECREDIT Type:' value={ThisProps.leave_type_code || '-'} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%', minWidth: '160px'}} label='Employee Name:' value={ThisProps.emp_name || '-'} InputProps={{readOnly: true,}} variant='standard'/>
+
                 </div>
             </div>
             <div className='flex flex-col justify-center items-center'>

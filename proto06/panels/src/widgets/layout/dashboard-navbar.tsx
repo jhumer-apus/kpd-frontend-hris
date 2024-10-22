@@ -57,36 +57,22 @@ export function DashboardNavbar() {
   const [layout, page, innermostpage, firstInner, secondInner ] = pathname.split("/").filter((el) => el !== "");  
   
   const updatedImage = employee_detail?.employee_image;
+
   const handleLogout = async () => {
-    // Perform logout actions here
 
     const refreshToken = Cookies.get("refresh_token")
 
     await axiosInstance.post(`logout/`, { refresh: refreshToken}).then(res => {
-
-      const removals = ['refresh_token', 'access_token', 'user', 'employee_detail'];
-
-      removals.forEach((el) => {Cookies.remove(el)});
-      dispatchV2(userLogout())
-
-      // setTimeout(()=> {
-      //   dispatchV2(userLogout());
-      // }, 200)
-      // window.location.reload();
-      window.location.replace('/')
-
+      console.log(res)
     }).catch(err => {
-      
-      dispatchV2(HandleAlertAction(
-        {
-          open:true,
-          status: "error",
-          message: "Error Logging Out Please Contact Your IT Support"
-        }
-      ))
+      console.error(err)
     })
-    
+
+    const removals = ['refresh_token', 'access_token', 'user', 'employee_detail'];
+    removals.forEach((el) => {Cookies.remove(el)});
+    dispatchV2(userLogout())
   };
+
   return (
     <Navbar
       color={fixedNavbar ? "white" : "transparent"}

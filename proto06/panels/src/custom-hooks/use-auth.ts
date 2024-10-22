@@ -63,7 +63,7 @@ export function useAuth() {
     
   }
 
-  return { isAuthenticated, loading, user };
+  return { isAuthenticated, loading, user, employee_detail };
 }
 
 

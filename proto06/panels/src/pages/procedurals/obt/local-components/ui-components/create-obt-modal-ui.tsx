@@ -27,8 +27,7 @@ function CreateOBTModal(props: CreateOBTModalInterface) {
     const [createOBT, setCreateOBT] = useState<OBTCreateInterface>({
         emp_no: NaN,
         obt_type: null,
-        obt_location: '',
-        obt_remarks: null,
+        obt_remarks: '',
         obt_date_from: null,
         obt_date_to: null,
     });
@@ -85,14 +84,14 @@ function CreateOBTModal(props: CreateOBTModalInterface) {
                             label='Location:'  
                             variant='outlined' 
                             multiline rows={4}
-                            value={createOBT?.obt_location}
+                            value={createOBT?.obt_remarks}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 // event.target.value
                                 setCreateOBT((prevState)=> {
                                     return (
                                         {
                                             ...prevState,
-                                            obt_location: event.target.value
+                                            obt_remarks: event.target.value
                                         }
                                     )
                                 })

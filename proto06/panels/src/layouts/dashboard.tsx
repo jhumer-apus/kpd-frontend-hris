@@ -39,7 +39,7 @@ export function Dashboard() {
         // brandImg={
         //   sidenavType === "dark" ? "/img/logo-ct.png" : "/img/logo-ct-dark.png"
         // }
-        brandImg="/img/skyfreight_icon.png"
+        brandImg={import.meta.env.VITE_ICON_PATH ?? "/img/bitverse-icon.png"}
       />
       <div className="p-4 xl:ml-80">
         <DashboardNavbar />

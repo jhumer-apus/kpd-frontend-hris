@@ -7,6 +7,8 @@ import UAModalComponent from './inner-modals/ua-modal-component';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
 import { HandleModalAction } from '@/store/actions/components';
+import { IconButton } from '@mui/material';
+import { XMarkIcon } from '@heroicons/react/24/solid';
 
 
 interface ViewUASingleModalInterface {

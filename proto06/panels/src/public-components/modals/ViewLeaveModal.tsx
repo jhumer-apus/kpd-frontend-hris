@@ -115,7 +115,7 @@ export default function ViewLeaveModal (props: Props) {
     const viewImages = () => {
 
         if(details.leave_file_path) {
-            const imageUrl = `${APILink.replace('/api/v1/','/media/')}${details.leave_file_path}`;
+            const imageUrl = `${APILink.replace('/api/v1/','')}/media/${details.leave_file_path}`;
             // Open a new tab/window with the images
     
             window.open(imageUrl, '_blank');

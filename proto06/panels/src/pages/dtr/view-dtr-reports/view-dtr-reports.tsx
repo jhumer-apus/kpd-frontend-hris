@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 // import { RootState } from '@/store/reducers';
 import { RootState } from '@/store/configureStore';
 import { getSpecificEmployeeInfo } from '@/store/actions/employees';
-import { Modal, Box, } from '@mui/material';
+import { Modal, Box, Select, MenuItem, } from '@mui/material';
 
 import {
   Typography,
@@ -20,11 +20,14 @@ import PrintTableButton from './local-components/print-table-button';
 import ExportToCsvButton from './local-components/export-to-csv-button';
 
 //LIBRARIES 
-import { Select, Option, Input } from "@material-tailwind/react";
+import { Option, Input } from "@material-tailwind/react";
 import dayjs from 'dayjs';
 
 //COMPONENTS
 import FilterDTR from './local-components/FilterDTR';
+import axiosInstance from '@/helpers/axiosConfig';
+import { useFetchDTRData } from '@/custom-hooks/use-fetch-dtr-data';
+
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -40,13 +43,15 @@ const style = {
   pb: 3,
 };
 
+type DTRType = "logs" | "merged" | "cutoff"
+
 
 export default function ViewDtrReports() {
   const [printing, setIsPrinting] = useState(false);
   const dispatch = useDispatch();
   const { specific_employee_info } = useSelector((state: RootState) => state.employees);
   const currUser = useSelector((state: RootState) => state.auth.employee_detail)
-  const { spButtonIndex, spButtonStr, spButtonError, dtrStatus, dtrError, dtrData } = useDtrState();
+  // const { spButtonIndex, spButtonStr, spButtonError, dtrStatus, dtrError, dtrData } = useDtrState();
   const [type, setType] = useState("staticInfo");
   const [exportDtrData, setExportDtrData] = useState<any>([])
 
@@ -64,8 +69,11 @@ export default function ViewDtrReports() {
       emp_no: currUser?.user?.role? (currUser?.user?.role < 3? currUser?.emp_no: null): null,
       cutoff_id: null
   })
+
+  const { dtr, fetchDtrData } = useFetchDTRData(filter)
+  const [dtrType, setDtrType] = useState<DTRType>("logs")
   
-  const [viewType, setViewType] = useState<"logs" | "merged" | "cutoff">('logs')
+  // const [viewType, setViewType] = useState<"logs" | "merged" | "cutoff">('logs')
 
   function handleOpen(){
     setOpen(true);
@@ -79,44 +87,51 @@ export default function ViewDtrReports() {
 
   useEffect(() => {
     // dispatch(viewFilterDtrLogs({month:1,year:2024}))
-    if(spButtonIndex !== null && spButtonIndex === 1 ) {
 
-      // dispatch(viewMergedDtrLogs());
-      dispatch(viewFilterMergedDtrLogs(
-        {
-            cutoff_id: null,
-            emp_no: filter.emp_no
-        }
-    ))
-      setViewType('merged')
+    // if(spButtonIndex !== null && spButtonIndex === 1 ) {
 
-    } else if (spButtonIndex !== null && spButtonIndex === 2 ) {
+    //   // dispatch(viewMergedDtrLogs());
+    //   dispatch(viewFilterMergedDtrLogs(
+    //     {
+    //         cutoff_id: null,
+    //         emp_no: filter.emp_no
+    //     }
+    // ))
+    //   // setViewType('merged')
 
-      dispatch(viewCutoffDtrSummary(
-        {
-          emp_no: filter.emp_no
-        }
-      ));
+    // } else if (spButtonIndex !== null && spButtonIndex === 2 ) {
+
+    //   dispatch(viewCutoffDtrSummary(
+    //     {
+    //       emp_no: filter.emp_no
+    //     }
+    //   ));
       
-      setViewType('cutoff')
+    //   // setViewType('cutoff')
 
-    } else {
+    // } else {
 
-      dispatch(viewFilterDtrLogs(
-        {
-          month:filter.month,
-          year:filter.year,
-          emp_no:filter.emp_no
-        }
-      ))
-      setViewType('logs')
-      // dispatch(viewAllDtrLogs());
-    }
-  }, [spButtonIndex]);
+    //   dispatch(viewFilterDtrLogs(
+    //     {
+    //       month:filter.month,
+    //       year:filter.year,
+    //       emp_no:filter.emp_no
+    //     }
+    //   ))
+    //   // setViewType('logs')
+    //   // dispatch(viewAllDtrLogs());
+    // }
+
+    fetchDtrData[dtrType]()
+  }, [dtrType]);
+
+  const viewDtr = (type: DTRType) => {
+    fetchDtrData[type]()
+  }
 
   useEffect(()=> {
 
-    const exportDtrData = Array.isArray(dtrData)? dtrData.map(dtr => {
+    const exportDtrData = Array.isArray(dtr.data)? dtr.data.map(dtr => {
 
       //Filter columns for basic employee only using destructuring
       if((currUser?.rank_code??0) <= 3) {
@@ -139,7 +154,7 @@ export default function ViewDtrReports() {
     console.log(exportDtrData)
     setExportDtrData((curr:any) => exportDtrData)
 
-  },[dtrData])
+  },[dtr])
 
   function dispatchSpecificEmployeeInfo(employee_number: number){
     return dispatch(getSpecificEmployeeInfo({employee_id: employee_number}));   
@@ -168,8 +183,8 @@ export default function ViewDtrReports() {
 
   const printableArea = () => {
     // Calculate px; solves printable area bug, Do not easily modify
-    if(dtrData?.length && dtrData?.length >= 11){
-      return dtrData?.length / 25 * 1400
+    if(dtr.data?.length && dtr.data?.length >= 11){
+      return dtr.data?.length / 25 * 1400
     } else {
       return 700
     }
@@ -182,28 +197,70 @@ export default function ViewDtrReports() {
     dispatchSpecificEmployeeInfo(e.row?.emp_no)
   };
 
+  const handleSelectType = (e:any) => {
+    setDtrType(curr => e.target.value)
+  }
 
 
-    const role = currUser?.user?.role;
+
+  const role = currUser?.user?.role;
 
 
-    const isBasicEmployee = role && role == 1
-    const isDepartmentManager = role && role == 2
+  const isBasicEmployee = role && role == 1
+  const isDepartmentManager = role && role == 2
+
+  // const excludedColumn = [
+  //   "nd_total_hours",
+  //   "reg_ot_total_hours",
+  //   "nd_ot_total_hours",
+  //   "sp_holiday_nd_total_hours",
+  //   "sp_holiday_reg_ot_hours",
+  //   "sp_holiday_nd_ot_hours",
+  //   "reg_holiday_nd_total_hours",
+  //   "reg_holiday_reg_ot_hours",
+  //   "reg_holiday_nd_ot_hours",
+  //   "rd_nd_total_hours",
+  //   "rd_reg_ot_total_hours",
+  //   "rd_nd_ot_total_hours",
+  //   "rd_sphol_nd_total_hours",
+  //   "rd_sphol_reg_ot_total_hours",
+  //   "rd_sphol_nd_ot_total_hours",
+  //   "rd_reghol_nd_total_hours",
+  //   "rd_reghol_reg_ot_total_hours",
+  //   "rd_reghol_nd_ot_total_hours",
+  // ]
+
 
   return (
     <Fragment>
       <div className="my-10 flex flex-wrap justify-between items-start gap-6">
         <div>
-        <SplitButton options={viewDTROptions}/>
-        <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400"}}>
-          <i>{viewDTRDescriptions[spButtonIndex === null ? 0 : spButtonIndex]}</i>
-        </Typography>
+          {/* <SplitButton options={viewDTROptions}/> */}
+          <Select
+            // labelId="demo-simple-select-label"
+            // id="demo-simple-select"
+            value={dtrType}
+            // label="View Type"
+            placeholder="DTR Types"
+            onChange={handleSelectType}
+            className='my-2'
+          >
+            <MenuItem value="logs">{viewDTROptions.logs}</MenuItem>
+            <MenuItem value="merged">{viewDTROptions.merged}</MenuItem>
+            <MenuItem value="cutoff">{viewDTROptions.cutoff}</MenuItem>
+          </Select>
+          <Typography style={{width: "100%", fontSize: "12px", fontWeight: "400"}}>
+            <i>{viewDTRDescriptions[dtrType]}</i>
+          </Typography>
         </div>
         {isBasicEmployee}
         {(!isBasicEmployee && !isDepartmentManager) &&
           <div className='flex justify-between gap-6'>
             {/* <ExportToCsvButton data={exportDtrData} /> */}
-            <ExportToCsvButton data={exportDtrData} />
+            <ExportToCsvButton 
+              data={exportDtrData}
+              excludedColumn={[]}
+            />
             {(currUser?.rank_code??0) > 3 && 
               <PrintTableButton printing={printing} setIsPrinting={setIsPrinting}/>
             }
@@ -211,15 +268,17 @@ export default function ViewDtrReports() {
         }
       </div>
       <FilterDTR 
-        viewType={viewType}
+        viewType={dtrType}
         filter={filter}
         setFilter={setFilter}
+        onView={() => viewDtr(dtrType)}
       />
 
       <div style={{ height: `${printing? `${printableArea()}px` : '660px'}`}} id="printable-area">
         <DataGrid
-          rows={dtrData ?? []}
-          columns={dynamicDTRColumns()[spButtonIndex === null ? 0 : spButtonIndex]}
+          className='w-full'
+          rows={dtr.data ?? []}
+          columns={dynamicDTRColumns()[dtrType]}
           initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 100 },
@@ -229,8 +288,9 @@ export default function ViewDtrReports() {
           // onRowClick={(e) => {
           //   spButtonIndex === 2 ? gridRowClick(e) : null
           // }}
-          style={{ cursor: spButtonIndex === 2 ? 'pointer': 'default'}}
-          localeText={{ noRowsLabel: `${dtrStatus === 'loading' ? `${dtrStatus?.toUpperCase()}...` : dtrStatus === 'failed' ?  `${dtrError}` : 'Data Loaded - Showing 0 Results'}` }}
+          // style={{ cursor: spButtonIndex === 2 ? 'pointer': 'default'}}
+          loading={dtr.loading}
+          localeText={{ noRowsLabel: `Data Loaded - Showing 0 Results` }}
         />
         <Modal
           open={open}

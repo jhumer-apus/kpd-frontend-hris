@@ -43,6 +43,7 @@ export const ProceduralLEAVECREDITPageColumns: GridColDef[] =
       return params.row.leave_type_data?.name;
     },
   },
+  { field: 'emp_name', headerName: 'Employee Name',  flex:1},
 ];
   
 export default {

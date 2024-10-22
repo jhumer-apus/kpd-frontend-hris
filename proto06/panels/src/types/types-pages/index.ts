@@ -240,7 +240,6 @@ export type HolidayGetType = {
 export interface OBTCreateInterface {
     emp_no: number | null;
     obt_type: string | null;
-    obt_location: string | null;
     obt_type_id: number | null;
     obt_remarks: string | null;
     obt_business_date: string | null;
@@ -273,7 +272,6 @@ export const OBTViewFilterEmployeeInitialState: OBTViewInterface = {
     obt_date_approved2: null,
     obt_date_filed: '',
     obt_type: '',
-    obt_location: '',
     obt_remarks: null,
     obt_date_from: '',
     obt_date_to: '',
@@ -300,6 +298,7 @@ export interface OVERTIMECreateInterface {
 export interface OVERTIMEViewInterface extends OVERTIMECreateInterface { 
     id: number,
     ot_reason_disapproval: string | null,
+    ot_reason_cancelled: string | null,
     approver1_name: string | null,
     approver2_name: string | null,
     ot_date_approved1: string | null;

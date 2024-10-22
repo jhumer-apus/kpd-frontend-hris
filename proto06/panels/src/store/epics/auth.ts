@@ -14,7 +14,7 @@ import axiosInstance from '@/helpers/axiosConfig';
 const loginApiCall = async (username: string, password: string, twoFactorToken?: string) => {
     // const response = await axiosInstance.post("https://bitverse-api.herokuapp.com/login", {
     // const response = await axiosInstance.post("http://172.16.168.144:8888/login", {
-    const response = await axios.post(`${APILink}login/`, 
+    const response = await axios.post(`${APILink}/api/v1/login/`, 
       {
         username,
         password,
@@ -41,13 +41,17 @@ export const authEpic: Epic = (action$, state$) =>
       ).pipe(
         map((data) => {
           // Save the token in a secure cookie with an expiration time of 6 hour
+
+          const isSecure = import.meta.env.VITE_APP_STATUS != "development"
+
+          console.log(" Is Secure:" + isSecure)
           const {access , refresh, user, employee_detail} = data
 
-          Cookies.set('user', JSON.stringify(user), { expires: 6 / 24, secure: true });
-          Cookies.set('access_token', access, { expires: 6 / 24, secure: true });
-          Cookies.set('refresh_token', refresh, { expires: 6 / 24, secure: true });
-          Cookies.set('employee_detail', JSON.stringify(employee_detail), { expires: 6 / 24, secure: true });
-          // Cookies.set('emp_deez', employeeDetailJson, { expires: 6 / 24, secure: false });
+          Cookies.set('user', JSON.stringify(user), { expires: 6 / 24, secure: isSecure });
+          Cookies.set('access_token', access, { expires: 6 / 24, secure: isSecure });
+          Cookies.set('refresh_token', refresh, { expires: 6 / 24, secure: isSecure });
+          // Cookies.set('employee_detail', JSON.stringify(employee_detail), { expires: 6 / 24, secure: isSecure });
+          // Cookies.set('emp_deez', employeeDetailJson, { expires: 6 / 24, secure: isSecure });
 
           
           return userLoginActionSuccess(access, user, employee_detail);
@@ -80,10 +84,13 @@ export const fetchUserDataEpic: Epic = (action$, state$) =>
     switchMap((action: ReturnType<typeof fetchUserData>) =>
       from(fetchUserDataApiCall(action.payload.emp_no)).pipe(
         map((data) => {
-          Cookies.set('emp_', JSON.stringify(data), { expires: 6 / 24, secure: true });
+
+          const isSecure = import.meta.env.VITE_APP_STATUS != "development"
+
+          Cookies.set('emp_', JSON.stringify(data), { expires: 6 / 24, secure: isSecure });
           // Cookies.set('token', data.jwt, { expires: 6 / 24, secure: false});
           // Cookies.set('emp_deetz', JSON.stringify(data.employee_detail), { expires: 6 / 24, secure: false })
-          Cookies.set('user', JSON.stringify(data.user), { expires: 6 / 24, secure: true });
+          Cookies.set('user', JSON.stringify(data.user), { expires: 6 / 24, secure: isSecure });
           return fetchUserDataSuccess(data);
         }),
         catchError((error) => {

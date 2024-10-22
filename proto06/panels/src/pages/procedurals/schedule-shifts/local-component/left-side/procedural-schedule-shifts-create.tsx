@@ -47,7 +47,7 @@ function ProceduralSCHEDULESHIFTCreate(props: CreateSCHEDULESHIFTModalInterface)
             ...createSCHEDULESHIFT,
             added_by: user?.emp_no
         }
-        if(validate(payload)) return
+        // if(validate(payload)) return
         dispatch(SCHEDULESHIFTCreateAction(payload))
     };
 
@@ -195,7 +195,7 @@ function ProceduralSCHEDULESHIFTCreate(props: CreateSCHEDULESHIFTModalInterface)
                                 defaultValue={null} 
                                 // minTime={createSCHEDULESHIFT.time_in ? dayjs(createSCHEDULESHIFT.time_in, 'HH:mm:ss'): null}
                                 // maxTime={createSCHEDULESHIFT.time_out ? dayjs(createSCHEDULESHIFT.time_out, 'HH:mm:ss'): null}
-                                onChange={(newValue) => handleChangeTime("lunch_break_start", dayjs(newValue).format("HH:mm:ss"))}
+                                onChange={(newValue) => handleChangeTime("lunch_break_start", newValue? dayjs(newValue).format("HH:mm:ss"): null)}
                                 
        
                             />
@@ -204,8 +204,8 @@ function ProceduralSCHEDULESHIFTCreate(props: CreateSCHEDULESHIFTModalInterface)
                                 defaultValue={null}
                                 // minTime={createSCHEDULESHIFT.lunch_break_start ? dayjs(createSCHEDULESHIFT.lunch_break_start): null}
                                 // maxTime={createSCHEDULESHIFT.time_out ? dayjs(createSCHEDULESHIFT.time_out, "HH:mm:ss"): null}
-                                disabled={!createSCHEDULESHIFT.lunch_break_start}
-                                onChange={(newValue) => handleChangeTime("lunch_break_end", dayjs(newValue).format("HH:mm:ss"))}
+                                // disabled={!createSCHEDULESHIFT.lunch_break_start}
+                                onChange={(newValue) => handleChangeTime("lunch_break_end", newValue? dayjs(newValue).format("HH:mm:ss"): null)}
                             />
                             
                         </div>

@@ -261,6 +261,9 @@ import {
     SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionFailureCleanup,
     SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionProgress,
     SCHEDULEDAILYViewFilterEmployeeAndSCHEDULEDAILYActionSuccess,
+    UAViewAllFilterApproverAction,
+    OVERTIMEViewAllFilterApproverAction,
+    OBTViewAllFilterApproverAction,
     
 } from '../actions/procedurals';
 // import '../actions/procedurals.ts'; // TO DO: Optimize importing all from one ts file. 
@@ -949,6 +952,8 @@ const proceduralsSlice = createSlice({
       .addCase(OBTViewFilterEmployeeAndOBTActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OBTViewFilterEmployeeAndOBT"))
       .addCase(OBTViewFilterEmployeeAndOBTActionProgress, (state, action) => setProgressState(state, action.payload, "OBTViewFilterEmployeeAndOBT"))
       .addCase(OBTViewFilterEmployeeAndOBTActionFailure, (state, action) => setFailureState(state, action.payload, "OBTViewFilterEmployeeAndOBT"))
+
+      .addCase(OBTViewAllFilterApproverAction, (state, action) => setSuccessState(state, action.payload.data, "OBTViewAllFilterApprover"))
       .addCase(OBTViewFilterApproverAction, setLoadingState("OBTViewFilterApprover"))
       .addCase(OBTViewFilterApproverActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OBTViewFilterApprover"))
       .addCase(OBTViewFilterApproverActionProgress, (state, action) => setProgressState(state, action.payload, "OBTViewFilterApprover"))
@@ -968,6 +973,7 @@ const proceduralsSlice = createSlice({
       .addCase(OVERTIMEViewActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OVERTIMEView"))
       .addCase(OVERTIMEViewActionProgress, (state, action) => setProgressState(state, action.payload, "OVERTIMEView"))
       .addCase(OVERTIMEViewActionFailure, (state, action) => setFailureState(state, action.payload, "OVERTIMEView"))
+
       .addCase(OVERTIMEViewFilterEmployeeAction, setLoadingState("OVERTIMEViewFilterEmployee"))
       .addCase(OVERTIMEViewFilterEmployeeActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OVERTIMEViewFilterEmployee"))
       .addCase(OVERTIMEViewFilterEmployeeActionProgress, (state, action) => setProgressState(state, action.payload, "OVERTIMEViewFilterEmployee"))
@@ -976,6 +982,8 @@ const proceduralsSlice = createSlice({
       .addCase(OVERTIMEViewFilterEmployeeAndOVERTIMEActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OVERTIMEViewFilterEmployeeAndOVERTIME"))
       .addCase(OVERTIMEViewFilterEmployeeAndOVERTIMEActionProgress, (state, action) => setProgressState(state, action.payload, "OVERTIMEViewFilterEmployeeAndOVERTIME"))
       .addCase(OVERTIMEViewFilterEmployeeAndOVERTIMEActionFailure, (state, action) => setFailureState(state, action.payload, "OVERTIMEViewFilterEmployeeAndOVERTIME"))
+
+      .addCase(OVERTIMEViewAllFilterApproverAction, (state, action) => setSuccessState(state, action.payload.data, "OVERTIMEViewAllFilterApprover"))
       .addCase(OVERTIMEViewFilterApproverAction, setLoadingState("OVERTIMEViewFilterApprover"))
       .addCase(OVERTIMEViewFilterApproverActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "OVERTIMEViewFilterApprover"))
       .addCase(OVERTIMEViewFilterApproverActionProgress, (state, action) => setProgressState(state, action.payload, "OVERTIMEViewFilterApprover"))
@@ -1031,6 +1039,8 @@ const proceduralsSlice = createSlice({
       .addCase(UAViewFilterEmployeeAndUAActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "UAViewFilterEmployeeAndUA"))
       .addCase(UAViewFilterEmployeeAndUAActionProgress, (state, action) => setProgressState(state, action.payload, "UAViewFilterEmployeeAndUA"))
       .addCase(UAViewFilterEmployeeAndUAActionFailure, (state, action) => setFailureState(state, action.payload, "UAViewFilterEmployeeAndUA"))
+
+      .addCase(UAViewAllFilterApproverAction, (state, action) => setSuccessState(state, action.payload.data, "OVERTIMEViewAllFilterApprover"))
       .addCase(UAViewFilterApproverAction, setLoadingState("UAViewFilterApprover"))
       .addCase(UAViewFilterApproverActionSuccess, (state, action) => setSuccessState(state, action.payload.SuccessMessage, "UAViewFilterApprover"))
       .addCase(UAViewFilterApproverActionProgress, (state, action) => setProgressState(state, action.payload, "UAViewFilterApprover"))

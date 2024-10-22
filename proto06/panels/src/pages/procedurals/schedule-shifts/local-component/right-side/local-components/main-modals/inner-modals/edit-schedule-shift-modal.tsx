@@ -84,23 +84,23 @@ export default function EditSCHEDULESHIFTModal(props: EditSCHEDULESHIFTModalInte
       return true
     }
 
-    if(!payload.lunch_break_start) {
-      dispatch(HandleAlertAction({
-          open: true,
-          status: "error",
-          message: "Lunch break time start is required!"
-      }))
-      return true
-    }
+    // if(!payload.lunch_break_start) {
+    //   dispatch(HandleAlertAction({
+    //       open: true,
+    //       status: "error",
+    //       message: "Lunch break time start is required!"
+    //   }))
+    //   return true
+    // }
 
-    if(!payload.lunch_break_end) {
-      dispatch(HandleAlertAction({
-          open: true,
-          status: "error",
-          message: "Lunch break time end is required!"
-      }))
-        return true
-    }
+    // if(!payload.lunch_break_end) {
+    //   dispatch(HandleAlertAction({
+    //       open: true,
+    //       status: "error",
+    //       message: "Lunch break time end is required!"
+    //   }))
+    //     return true
+    // }
     return false
   }
 
@@ -273,15 +273,15 @@ export default function EditSCHEDULESHIFTModal(props: EditSCHEDULESHIFTModalInte
                                   defaultValue={dayjs(singleSCHEDULESHIFTDetailsData?.lunch_break_start, "HH:mm:ss")} 
                                   // minTime={singleSCHEDULESHIFTDetailsData?.time_in ? dayjs(singleSCHEDULESHIFTDetailsData.time_in, "HH:mm:ss"): null}
                                   // maxTime={singleSCHEDULESHIFTDetailsData?.time_out ? dayjs(singleSCHEDULESHIFTDetailsData.time_out, "HH:mm:ss"): null}
-                                  onChange={(newValue) => handleChangeTime("lunch_break_start", dayjs(newValue).format("HH:mm:ss"))}
+                                  onChange={(newValue) => handleChangeTime("lunch_break_start", newValue? dayjs(newValue).format("HH:mm:ss"): null)}
                               />
                               <DesktopTimePicker 
                                   label="Time End" 
                                   defaultValue={dayjs(singleSCHEDULESHIFTDetailsData?.lunch_break_end, "HH:mm:ss")}
                                   // minTime={singleSCHEDULESHIFTDetailsData?.lunch_break_start ? dayjs(singleSCHEDULESHIFTDetailsData?.lunch_break_start, "HH:mm:ss"): null}
                                   // maxTime={singleSCHEDULESHIFTDetailsData?.time_out ? dayjs(singleSCHEDULESHIFTDetailsData.time_out, "HH:mm:ss"): null}
-                                  disabled={!singleSCHEDULESHIFTDetailsData?.lunch_break_start}
-                                  onChange={(newValue) => handleChangeTime("lunch_break_end", dayjs(newValue).format("HH:mm:ss"))}
+                                  // disabled={!singleSCHEDULESHIFTDetailsData?.lunch_break_start}
+                                  onChange={(newValue) => handleChangeTime("lunch_break_end", newValue? dayjs(newValue).format("HH:mm:ss"): null)}
                               />
                               
                           </div>
