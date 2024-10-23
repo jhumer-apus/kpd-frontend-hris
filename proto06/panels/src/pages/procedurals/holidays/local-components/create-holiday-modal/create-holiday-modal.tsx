@@ -82,7 +82,7 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
     });
 
     const reseter = () => {
-        setCreateHolidayForm((prev: any) => ({
+        setCreateHolidayForm(() => ({
             holiday_date: null,
             holiday_description: '',
             holiday_type: '',
