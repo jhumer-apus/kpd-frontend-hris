@@ -219,7 +219,10 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
         <div>
             <Modal
                 open={open ?? false}
-                onClose={handleClose}
+                onClose={() => {
+                    handleClose();
+                    createHolidayForm['holiday_date'] = null;
+                }}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
