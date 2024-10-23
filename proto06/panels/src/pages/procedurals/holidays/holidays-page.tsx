@@ -31,11 +31,6 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
   },
 }));
 
-
-
-
-
-
 export default function HolidaysPage() {
   const theme = useTheme();
   const [value, setValue] = React.useState<dayjs.Dayjs | null>(dayjs());
@@ -43,7 +38,6 @@ export default function HolidaysPage() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
 
     return (
         <Fragment>

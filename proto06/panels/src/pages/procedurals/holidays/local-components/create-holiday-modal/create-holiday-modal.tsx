@@ -77,8 +77,8 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
             name: '',
             code: ''
         },
-
     })
+
     const [value, setValue] = React.useState<string | null>(holiday_location[0]);
     const [inputValue, setInputValue] = React.useState('');
 
@@ -122,7 +122,7 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
         return false
     }
     const submitNewHoliday = () => {
-        
+
         const holidayData: HolidayGetType = {
             holiday_date: createHolidayForm.holiday_date,
             holiday_description: createHolidayForm.holiday_description,
@@ -168,6 +168,7 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
         dispatch(HolidayCreate(holidayData));
 
     };
+
     useEffect(()=>{
         if(createHoliday.status && createHoliday.status === 'succeeded'){
             window.alert("Holiday has been successfully created");
@@ -214,7 +215,10 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
         <div>
             <Modal
             open={open ?? false}
-            onClose={handleClose}
+            onClose={() => {
+                handleClose();
+                createHolidayForm['holiday_date'] = null;
+            }}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
             >
@@ -240,7 +244,7 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
                         <MenuItem value="SH">Special Non-working Holiday</MenuItem>
                         <MenuItem value="LH">Regular Holiday</MenuItem>
                     </Select>
-                </FormControl>
+                </FormControl >
                 {/* <Autocomplete
                     noOptionsText={'Loading... Please Wait.'}
                     inputValue={createHolidayForm['holiday_type']}
