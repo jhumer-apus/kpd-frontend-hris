@@ -72,8 +72,7 @@ export default function ViewPerfectAttendance() {
             setIsFetchReportError(true)
             setIsLoading(false)
         })
-    } 
-
+    }
 
     //COLUMNS
     const columns: GridColDef[] = [
