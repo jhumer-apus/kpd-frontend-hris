@@ -79,8 +79,8 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
             name: '',
             code: ''
         },
-
     })
+
     const [value, setValue] = React.useState<string | null>(holiday_location[0]);
     const [inputValue, setInputValue] = React.useState('');
 
@@ -124,7 +124,7 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
         return false
     }
     const submitNewHoliday = () => {
-        
+
         const holidayData: HolidayGetType = {
             holiday_date: createHolidayForm.holiday_date,
             holiday_description: createHolidayForm.holiday_description,
@@ -170,6 +170,7 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
         dispatch(HolidayCreate(holidayData));
 
     };
+
     useEffect(()=>{
         if(createHoliday.status && createHoliday.status === 'succeeded'){
             window.alert("Holiday has been successfully created");
@@ -217,6 +218,7 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
     return (
         <div>
             <Modal
+<<<<<<< HEAD
                 open={open ?? false}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
@@ -258,6 +260,87 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
                         inputValue={createHolidayForm['holiday_type']}
                         onInputChange={(event, newInputValue) => {
                                 setCreateHolidayForm((prevState)=> ({
+=======
+            open={open ?? false}
+            onClose={() => {
+                handleClose();
+                createHolidayForm['holiday_date'] = null;
+            }}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            >
+            <Box sx={style}>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                    Create an HRIS Holiday
+                </Typography>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                    Make sure to double check all the fields and entry.
+                </Typography>
+                <FormControl className='w-full'>
+                    <InputLabel htmlFor="holiday_type">Holiday Type:*</InputLabel>
+                    <Select
+                        onChange={(e:any) => setCreateHolidayForm((curr:any) => ({
+                        ...curr,
+                        holiday_type: e.target.value
+                        }))}
+                        placeholder="Holiday Type*"
+                        name="holiday_type"
+                        variant="outlined"
+                        label="Holiday Type*"
+                    >
+                        <MenuItem value="SH">Special Non-working Holiday</MenuItem>
+                        <MenuItem value="LH">Regular Holiday</MenuItem>
+                    </Select>
+                </FormControl >
+                {/* <Autocomplete
+                    noOptionsText={'Loading... Please Wait.'}
+                    inputValue={createHolidayForm['holiday_type']}
+                    onInputChange={(event, newInputValue) => {
+                            setCreateHolidayForm((prevState)=> ({
+                            ...prevState,
+                            holiday_type: newInputValue
+                        }))
+                    }}
+                    disablePortal
+                    id="holiday_type"
+                    options={['SH', 'LH']}
+                    sx={{ width: "100%" }}
+                    renderInput={(params) => <TextField {...params} required label="Holiday Type" />}
+                /> */}
+                <Autocomplete
+                    noOptionsText={'Loading... Please Wait.'}
+                    inputValue={createHolidayForm['holiday_location']}
+                    onInputChange={(event, newInputValue) => {
+                            setCreateHolidayForm((prevState:any)=> ({
+                            ...prevState,
+                            holiday_location: newInputValue
+                        }))
+                    }}
+                    disablePortal
+                    id="holiday_location"
+                    options={holiday_location}
+                    sx={{ width: "100%" }}
+                    renderInput={(params) => <TextField {...params} required label="Holiday Location" />}
+                />
+                {addressElement()}
+                {/* {createHolidayForm.holiday_location == "Province" && 
+                    <Province 
+                        updateAddress={updateAddress}
+                        name="province"
+                    />
+                }
+                {createHolidayForm.holiday_location == "City" && 
+                    <AllCityMunicipality
+                        state={createHolidayForm}
+                        setState={setCreateHolidayForm}
+                    />
+                } */}
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                        value={createHolidayForm['holiday_date']}
+                        onChange={(newValue) => {
+                            setCreateHolidayForm((prevState:any)=> ({
+>>>>>>> osama_branch
                                 ...prevState,
                                 holiday_type: newInputValue
                             }))
