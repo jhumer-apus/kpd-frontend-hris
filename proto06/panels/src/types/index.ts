@@ -46,3 +46,17 @@ export interface ApprovalStateInterface {
     buttonDisabled: boolean,
     message1Show: boolean,
 }
+
+export type PageParamsMeta = {
+    page:number,
+    field: string | null,
+    value: string | number | null,
+}
+
+export type PageResponseMeta = {
+    next: string | null,
+    previous: string | null,
+    page: number,
+    total_rows: number,
+    data: any[]
+}

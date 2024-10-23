@@ -1,5 +1,5 @@
-import { Fragment, useContext, useEffect, useState } from 'react';
-import { DataGrid, GridColDef, GridValueGetterParams, GridCellParams } from '@mui/x-data-grid';
+import { Fragment, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { DataGrid, GridColDef, GridValueGetterParams, GridCellParams, getGridStringOperators, GridFilterModel, GridSortModel, GridPaginationModel, GridCallbackDetails } from '@mui/x-data-grid';
 import { useSelector, useDispatch } from 'react-redux';
 import { getEmployeesList } from '@/store/actions/employees';
 import { RootState, globalDate } from '@/store/configureStore';
@@ -20,6 +20,7 @@ import axios from 'axios';
 import axiosInstance from '@/helpers/axiosConfig';
 import ViewEmployee from '@/public-components/employees/ViewEmployee';
 import { EmployeeContext, EmployeeProvider } from '@/context/employee/EmployeeContext';
+import { PageParamsMeta } from '@/types/index';
 
 const columns: GridColDef[] = [
   {
@@ -82,11 +83,29 @@ const style = {
   borderRadius: '10px'
 };
 
+interface EmployeeListResponse {
+  page: number,
+  next: string | null,
+  previous: string | null, 
+  total_rows: number,
+  data: any []
+}
+
 
 export default function DataTable() {
   const dispatch = useDispatch();
   const { register, handleSubmit, setValue, formState: { errors } } = useForm<EMPLOYEESViewInterface>();
   const { employees_list, specific_employee_info } = useSelector((state: RootState) => state.employees);
+  const [employeeList, setEmployeeList] = useState<EmployeeListResponse>(
+    {
+      page: 1,
+      next: null,
+      previous: null,
+      total_rows: 0,
+      data: []
+    }
+  )
+
   const [exportData, setExportData] = useState<any[]>([]);
   const [type, setType] = useState("staticInfo");
   const employeeContext = useContext(EmployeeContext);
@@ -176,6 +195,48 @@ export default function DataTable() {
             )
   }
 
+  const customizedColumn = useMemo(() => 
+    columns.map(col => (
+      {
+        ...col,
+        filterOperators: getGridStringOperators().filter(operator => operator.value == "contains")
+      }
+    ))
+  ,[columns])
+
+  const onFilterChange = useCallback((filterModel: GridFilterModel) => {
+    // Here you save the data you need from the filter model
+    console.log(filterModel)
+  }, []);
+  const handleSortModelChange = useCallback((sortModel: GridSortModel) => {
+    // Here you save the data you need from the sort model
+    console.log(sortModel)
+  }, []);
+
+  const fetchEmployees = async (meta:PageParamsMeta) => {
+    const { page, field, value } = meta
+    await axiosInstance.get(`employees/`, {
+      params: {
+        page: page,
+        field: field,
+        value: value
+      }
+    }).then((res:any) => {
+      setEmployeeList((curr) => (
+        {
+          next: res.meta.next,
+          previous: res.meta.previous,
+          page: res.meta.page,
+          total_rows: res.meta.total_rows,
+          data: res.data
+        }
+      ))
+    })
+  }
+  const handleChangePagination = (model: GridPaginationModel, details: GridCallbackDetails) => {
+    console.log(model)
+  }
+
   return (
     <Fragment>
       <div className="my-4 flex flex-wrap items-center gap-4">
@@ -233,13 +294,20 @@ export default function DataTable() {
       <div style={{ height: 600, width: '100%' }}>
         <DataGrid
           rows={employees_list ?? []}
-          columns={columns}
+          columns={customizedColumn}
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 25 },
+              paginationModel: { page: 0, pageSize: 10 },
             },
           }}
-          pageSizeOptions={[25, 30, 35, 40]}
+          paginationModel={{
+            page: employeeList.page,
+            pageSize: 10
+          }}
+          // paginationModel={paginationModel}
+          paginationMode="server"
+          onPaginationModelChange={handleChangePagination}
+          rowCount={total_rows}
           // checkboxSelection
           onRowClick={(e) => {
             setViewEmployee(curr => true)
@@ -248,6 +316,8 @@ export default function DataTable() {
             setSecondOptionModalEntranceDelay(true)
             // dispatchSpecificEmployeeInfo(e.row?.emp_no)
           }}
+          onFilterModelChange={onFilterChange}
+          onSortModelChange={handleSortModelChange}
           style={{ cursor: 'pointer'}}
           localeText={{ noRowsLabel: 'Loading...' }} // To do: can optimize after reducer optimized
         />
