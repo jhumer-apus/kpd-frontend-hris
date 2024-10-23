@@ -152,10 +152,10 @@ export default function StaticInfo() {
                 <div id="account-logs-wrapper">
                     <Typography variant="h6" component="h6" className="font-bold">Account Logs</Typography><br></br>
                     <div className="flex gap-8 flex-col md:flex-wrap md:flex-row">
-                        <InputField 
+                        <InputField
                             label="Biomentric ID:" 
                             variant="outlined"
-                            value={stateEmployee.bio_id}
+                            value={stateEmployee?.bio_id}
                             onChange={(e:any) => handleChange(e, "EMPLOYMENT")}
                             name="bio_id"
                             readOnly={!isEdit}
