@@ -79,10 +79,28 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
             name: '',
             code: ''
         },
-    })
+    });
 
-    const [value, setValue] = React.useState<string | null>(holiday_location[0]);
-    const [inputValue, setInputValue] = React.useState('');
+    const reseter = () => {
+        setCreateHolidayForm((prev: any) => ({
+            holiday_date: null,
+            holiday_description: '',
+            holiday_type: '',
+            holiday_location: '',
+            province_ref: null,
+            city_ref: null,
+            province: {
+                id: '',
+                name: '',
+                code: ''
+            },
+            city: {
+                id: '',
+                name: '',
+                code: ''
+            },
+        }));
+    };
 
     const updateAddress = (name:string, newValue:any) => {
 
@@ -221,7 +239,7 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
                 open={open ?? false}
                 onClose={() => {
                     handleClose();
-                    createHolidayForm['holiday_date'] = null;
+                    reseter();
                 }}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
@@ -232,7 +250,7 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
                             aria-label="close"
                             onClick={() => {
                                 handleClose();
-                                createHolidayForm['holiday_date'] = null;
+                                reseter();
                             }}
                         >
                             <XMarkIcon className="w-8 text-black"/>
@@ -260,50 +278,35 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
                             <MenuItem value="LH">Regular Holiday</MenuItem>
                         </Select>
                     </FormControl>
-                    {/* <Autocomplete
-                        noOptionsText={'Loading... Please Wait.'}
-                        inputValue={createHolidayForm['holiday_type']}
-                        onInputChange={(event, newInputValue) => {
-                                setCreateHolidayForm((prevState)=> ({
-                                ...prevState,
-                                holiday_type: newInputValue
-                            }))
-                        }}
-                        disablePortal
-                        id="holiday_type"
-                        options={['SH', 'LH']}
-                        sx={{ width: "100%" }}
-                        renderInput={(params) => <TextField {...params} required label="Holiday Type" />}
-                    /> */}
-                    <Autocomplete
-                        noOptionsText={'Loading... Please Wait.'}
-                        inputValue={createHolidayForm['holiday_location']}
-                        onInputChange={(event, newInputValue) => {
-                                setCreateHolidayForm((prevState:any)=> ({
-                                ...prevState,
-                                holiday_location: newInputValue
-                            }))
-                        }}
-                        disablePortal
-                        id="holiday_location"
-                        options={holiday_location}
-                        sx={{ width: "100%" }}
-                        renderInput={(params) => <TextField {...params} required label="Holiday Location" />}
+                <Autocomplete
+                    noOptionsText={'Loading... Please Wait.'}
+                    inputValue={createHolidayForm['holiday_location']}
+                    onInputChange={(event, newInputValue) => {
+                            setCreateHolidayForm((prevState:any)=> ({
+                            ...prevState,
+                            holiday_location: newInputValue
+                        }))
+                    }}
+                    disablePortal
+                    id="holiday_location"
+                    options={holiday_location}
+                    sx={{ width: "100%" }}
+                    renderInput={(params) => <TextField {...params} required label="Holiday Location" />}
+                />
+                {addressElement()}
+                {/* {createHolidayForm.holiday_location == "Province" && 
+                    <Province 
+                        updateAddress={updateAddress}
+                        name="province"
                     />
-                    {addressElement()}
-                    {/* {createHolidayForm.holiday_location == "Province" && 
-                        <Province 
-                            updateAddress={updateAddress}
-                            name="province"
-                        />
-                    }
-                    {createHolidayForm.holiday_location == "City" && 
-                        <AllCityMunicipality
-                            state={createHolidayForm}
-                            setState={setCreateHolidayForm}
-                        />
-                    } */}
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                }
+                {createHolidayForm.holiday_location == "City" && 
+                    <AllCityMunicipality
+                        state={createHolidayForm}
+                        setState={setCreateHolidayForm}
+                    />
+                } */}
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
                             value={createHolidayForm['holiday_date']}
                             onChange={(newValue) => {
@@ -321,7 +324,7 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
                         />
                     </LocalizationProvider>
                     <TextField
-                        value={createHolidayForm['holiday_description']}
+                        // value={createHolidayForm['holiday_description']}
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                             // To do: Debounce this Input
                             setCreateHolidayForm((prevState:any)=> ({
