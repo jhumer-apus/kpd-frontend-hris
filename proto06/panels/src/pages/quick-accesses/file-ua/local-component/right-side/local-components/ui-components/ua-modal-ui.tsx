@@ -45,6 +45,8 @@ function UAModalUI(props: UAModalUIInterface) {
             }))
         })
     }
+
+    console.log(window.innerWidth);
     const userIsApprover = curr_user?.emp_no === ThisProps.ua_approver1_empno || curr_user?.emp_no === ThisProps.ua_approver2_empno || ((curr_user?.rank_data?.hierarchy as number) > singleUADetailsData?.applicant_rank);
     return (
         <Fragment>
@@ -71,8 +73,10 @@ function UAModalUI(props: UAModalUIInterface) {
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Employee #:' value={ThisProps.emp_no || '-'} InputProps={{readOnly: true,}} variant='filled'/>
                     <TextField sx={{width: '100%', minWidth: '160px'}} focused={!!ThisProps.ua_reason_disapproval} color={'error'} label='Reason for Disapproval:' value={ThisProps.ua_reason_disapproval || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
                 </div>
-                {ThisProps.ua_approval_status === 'APD' && <img src={ '/img/stampApproved2.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
-                {ThisProps.ua_approval_status === 'DIS' && <img src={ '/img/stampRejected.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
+                <div id='stamp-mobile-container'>
+                    {ThisProps.ua_approval_status === 'APD' && <img className='stamp-mobile' src={ '/img/stampApproved2.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
+                    {ThisProps.ua_approval_status === 'DIS' && <img className='stamp-mobile' src={ '/img/stampRejected.png' } style={{height: '200px', bottom: '0', right: '0', transform: 'rotate(0)', position: 'absolute'}}></img>}
+                </div>
             </div>
             {/* {(ThisProps.ua_approval_status.includes('1') || ThisProps.ua_approval_status.includes('2')) && 
             <div className='flex flex-col justify-center items-center'>

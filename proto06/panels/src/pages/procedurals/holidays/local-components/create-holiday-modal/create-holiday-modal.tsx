@@ -79,8 +79,8 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
             name: '',
             code: ''
         },
-
     })
+
     const [value, setValue] = React.useState<string | null>(holiday_location[0]);
     const [inputValue, setInputValue] = React.useState('');
 
@@ -124,7 +124,7 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
         return false
     }
     const submitNewHoliday = () => {
-        
+
         const holidayData: HolidayGetType = {
             holiday_date: createHolidayForm.holiday_date,
             holiday_description: createHolidayForm.holiday_description,
@@ -170,6 +170,7 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
         dispatch(HolidayCreate(holidayData));
 
     };
+
     useEffect(()=>{
         if(createHoliday.status && createHoliday.status === 'succeeded'){
             window.alert("Holiday has been successfully created");
@@ -218,7 +219,10 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
         <div>
             <Modal
                 open={open ?? false}
-                onClose={handleClose}
+                onClose={() => {
+                    handleClose();
+                    createHolidayForm['holiday_date'] = null;
+                }}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
@@ -226,7 +230,10 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
                     <div className='absolute top-1 right-1'>
                         <IconButton  
                             aria-label="close"
-                            onClick={() => handleClose()}
+                            onClick={() => {
+                                handleClose();
+                                createHolidayForm['holiday_date'] = null;
+                            }}
                         >
                             <XMarkIcon className="w-8 text-black"/>
                         </IconButton>
@@ -253,50 +260,35 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
                             <MenuItem value="LH">Regular Holiday</MenuItem>
                         </Select>
                     </FormControl>
-                    {/* <Autocomplete
-                        noOptionsText={'Loading... Please Wait.'}
-                        inputValue={createHolidayForm['holiday_type']}
-                        onInputChange={(event, newInputValue) => {
-                                setCreateHolidayForm((prevState)=> ({
-                                ...prevState,
-                                holiday_type: newInputValue
-                            }))
-                        }}
-                        disablePortal
-                        id="holiday_type"
-                        options={['SH', 'LH']}
-                        sx={{ width: "100%" }}
-                        renderInput={(params) => <TextField {...params} required label="Holiday Type" />}
-                    /> */}
-                    <Autocomplete
-                        noOptionsText={'Loading... Please Wait.'}
-                        inputValue={createHolidayForm['holiday_location']}
-                        onInputChange={(event, newInputValue) => {
-                                setCreateHolidayForm((prevState:any)=> ({
-                                ...prevState,
-                                holiday_location: newInputValue
-                            }))
-                        }}
-                        disablePortal
-                        id="holiday_location"
-                        options={holiday_location}
-                        sx={{ width: "100%" }}
-                        renderInput={(params) => <TextField {...params} required label="Holiday Location" />}
+                <Autocomplete
+                    noOptionsText={'Loading... Please Wait.'}
+                    inputValue={createHolidayForm['holiday_location']}
+                    onInputChange={(event, newInputValue) => {
+                            setCreateHolidayForm((prevState:any)=> ({
+                            ...prevState,
+                            holiday_location: newInputValue
+                        }))
+                    }}
+                    disablePortal
+                    id="holiday_location"
+                    options={holiday_location}
+                    sx={{ width: "100%" }}
+                    renderInput={(params) => <TextField {...params} required label="Holiday Location" />}
+                />
+                {addressElement()}
+                {/* {createHolidayForm.holiday_location == "Province" && 
+                    <Province 
+                        updateAddress={updateAddress}
+                        name="province"
                     />
-                    {addressElement()}
-                    {/* {createHolidayForm.holiday_location == "Province" && 
-                        <Province 
-                            updateAddress={updateAddress}
-                            name="province"
-                        />
-                    }
-                    {createHolidayForm.holiday_location == "City" && 
-                        <AllCityMunicipality
-                            state={createHolidayForm}
-                            setState={setCreateHolidayForm}
-                        />
-                    } */}
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                }
+                {createHolidayForm.holiday_location == "City" && 
+                    <AllCityMunicipality
+                        state={createHolidayForm}
+                        setState={setCreateHolidayForm}
+                    />
+                } */}
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
                             value={createHolidayForm['holiday_date']}
                             onChange={(newValue) => {

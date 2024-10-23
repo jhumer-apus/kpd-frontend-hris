@@ -91,7 +91,7 @@ export default function DataTable() {
   const [type, setType] = useState("staticInfo");
   const employeeContext = useContext(EmployeeContext);
 
-  const {employeeData, fetchEmployeeData, test} = employeeContext
+  const {employeeData, fetchEmployeeData} = employeeContext
 
   
   // Specific Employee Modal Form 
