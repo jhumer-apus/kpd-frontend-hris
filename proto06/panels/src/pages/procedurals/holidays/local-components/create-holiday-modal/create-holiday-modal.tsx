@@ -230,7 +230,10 @@ export default function CreateHolidayModal(props: CreateHolidayModalInterface) {
                     <div className='absolute top-1 right-1'>
                         <IconButton  
                             aria-label="close"
-                            onClick={() => handleClose()}
+                            onClick={() => {
+                                handleClose();
+                                createHolidayForm['holiday_date'] = null;
+                            }}
                         >
                             <XMarkIcon className="w-8 text-black"/>
                         </IconButton>
