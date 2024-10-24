@@ -551,7 +551,6 @@ export interface SCHEDULEDAILYCreateInterface extends SCHEDULEDAILYGeneric{
     schedule_shift_code: number;
     day_off: string[];
     added_by?:number | string | null
-
 }
 
 export interface SCHEDULEDAILYViewInterface extends SCHEDULEDAILYGeneric { 

@@ -77,6 +77,19 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
         dispatch(SCHEDULEDAILYCreateAction(createSCHEDULEDAILYForm));
     };
 
+    const formReseter = () => {
+        setCreateSCHEDULEDAILYForm({
+            schedule_shift_code: NaN,
+            business_date_from: null,
+            business_date_to: null,
+            emp_no: [],
+            is_restday: false,
+            sched_default: false,
+            day_off: [],
+            added_by: currUser?.emp_no
+        });
+    }
+
     useEffect(() => {
 
         if(createSCHEDULEDAILY?.status === 'succeeded') {
@@ -133,12 +146,15 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
         <div>
             <Modal
                 open={open2 ?? false}
-                onClose={handleClose2}
+                onClose={() => {
+                    handleClose2();
+                    formReseter();
+                }}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
-                className='overflow-y-auto'
+                className='overflow-y-auto w-full'
             >
-            <Box className="bg-white flex flex-col gap-4 w-96 m-auto p-4  overflow-auto my-8">
+            <Box className="bg-white flex flex-col gap-4 w-80 md:w-96 m-auto p-4 overflow-auto my-8 rounded-xl">
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                     Assign Daily Schedule to Multiple Employees
                 </Typography>
