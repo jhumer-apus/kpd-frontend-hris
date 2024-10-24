@@ -1,7 +1,7 @@
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { Typography } from "@material-tailwind/react";
 import { DataGrid, GridActionsCellItem, GridColDef } from "@mui/x-data-grid";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import EditOBTType from "./EditOBTType";
 import ConfirmationModal from "@/public-components/modals/ConfirmationModal";
 import { APILink, RootState } from "@/store/configureStore";
@@ -19,6 +19,13 @@ export default function ListOBTType(props: Props) {
     const { rows = [], refreshTable } = props
     const currUser = useSelector((state:RootState) => state.auth.employee_detail)
     const dispatch = useDispatch()
+    const [loadingg, setLoading] = useState<boolean>(true);
+
+    console.log(rows);
+
+    useEffect(() => {
+        setLoading(false);
+    }, [props.rows]);
 
     const [selectedRow, setSelectedRow] = useState<any>(
         {
@@ -155,11 +162,7 @@ export default function ListOBTType(props: Props) {
                     //     setSingleLEAVECREDITOpenModal(true);
                     // }}
                     disableRowSelectionOnClick 
-                    localeText={
-                        { 
-                            noRowsLabel: "No Data Available"
-                        }
-                    }
+                    localeText={{noRowsLabel: `${loadingg == false && rows.length == 0 ? 'No results found' : 'Loading...'}`}}
                 />
             </div>
         </Fragment>

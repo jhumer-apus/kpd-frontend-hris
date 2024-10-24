@@ -3,6 +3,7 @@ import CreateOBTType from "@/public-components/procedurals/obt-types/CreateOBTTy
 import ListOBTType from "@/public-components/procedurals/obt-types/ListOBTType";
 import { APILink } from "@/store/configureStore";
 import { Box, Grid, Paper } from "@mui/material";
+import { siLK } from "@mui/material/locale";
 import axios from "axios";
 import { Fragment, useEffect, useState } from "react";
 
@@ -12,14 +13,17 @@ export default function OBTtypes() {
     const [obtTypes, setObtTypes] = useState<any[]>([])
 
     useEffect(() => {
-        fetchObtTypes()
+        fetchObtTypes();
     },[])
 
     const fetchObtTypes = async () => {
         await axiosInstance.get(`obt_type/`)
-            .then(res => setObtTypes((curr:any[]) => Array.isArray(res?.data)? res.data: []))
+            .then((response) => setObtTypes(() => Array.isArray(response.data) ? response.data : []))
+            // .then(res => setObtTypes((curr:any[]) => Array.isArray(res?.data)? res.data: []))
+            .catch(err => console.log(err))
     }
 
+    console.log(obtTypes);
 
     return (
         <Fragment>
