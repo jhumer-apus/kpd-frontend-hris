@@ -106,6 +106,13 @@ export default function DataTable() {
     }
   )
 
+  const [searchParams, setSearchParams] = useState({
+    field: null,
+    value: null,
+    page: null
+  })
+
+
   const [exportData, setExportData] = useState<any[]>([]);
   const [type, setType] = useState("staticInfo");
   const employeeContext = useContext(EmployeeContext);
@@ -204,17 +211,10 @@ export default function DataTable() {
     ))
   ,[columns])
 
-  const onFilterChange = useCallback((filterModel: GridFilterModel) => {
-    // Here you save the data you need from the filter model
-    console.log(filterModel)
-  }, []);
-  const handleSortModelChange = useCallback((sortModel: GridSortModel) => {
-    // Here you save the data you need from the sort model
-    console.log(sortModel)
-  }, []);
+  const fetchEmployees = async (page:number, field:string, value:string | number | null) => {
 
-  const fetchEmployees = async (meta:PageParamsMeta) => {
-    const { page, field, value } = meta
+    // const { page, field, value } = meta
+
     await axiosInstance.get(`employees/`, {
       params: {
         page: page,
@@ -233,9 +233,39 @@ export default function DataTable() {
       ))
     })
   }
+
+
   const handleChangePagination = (model: GridPaginationModel, details: GridCallbackDetails) => {
-    console.log(model)
+
+    setSearchParams((curr:any) => (
+      {
+        ...curr,
+        page: model.page
+      }
+    ))
+
   }
+
+  const onFilterChange = useCallback((filterModel: GridFilterModel) => {
+
+
+    setSearchParams((curr:any) => (
+      {
+        ...curr,
+        field: filterModel.field
+      }
+    ))
+
+  }, []);
+  const handleSortModelChange = useCallback((sortModel: GridSortModel) => {
+    // Here you save the data you need from the sort model
+    console.log(sortModel)
+  }, []);
+
+  useEffect(() => {
+    fetchEmployees(searchParams.page, searchParams.field, searchParams.value)
+  },[searchParams])
+
 
   return (
     <Fragment>
@@ -307,7 +337,7 @@ export default function DataTable() {
           // paginationModel={paginationModel}
           paginationMode="server"
           onPaginationModelChange={handleChangePagination}
-          rowCount={total_rows}
+          rowCount={employeeList.total_rows}
           // checkboxSelection
           onRowClick={(e) => {
             setViewEmployee(curr => true)
