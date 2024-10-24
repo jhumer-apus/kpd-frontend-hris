@@ -9,23 +9,19 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { HandleAlertAction } from "@/store/actions/components";
 import axiosInstance from "@/helpers/axiosConfig";
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 interface Props {
-    rows: any[]
-    refreshTable: () => void
+    rows: any[],
+    refreshTable: () => void,
+    isLoadingg: boolean,
 }
 export default function ListOBTType(props: Props) {
 
-    const { rows = [], refreshTable } = props
+    const { rows = [], refreshTable, isLoadingg } = props
     const currUser = useSelector((state:RootState) => state.auth.employee_detail)
     const dispatch = useDispatch()
-    const [loadingg, setLoading] = useState<boolean>(true);
-
-    console.log(rows);
-
-    useEffect(() => {
-        setLoading(false);
-    }, [props.rows]);
 
     const [selectedRow, setSelectedRow] = useState<any>(
         {
@@ -123,6 +119,8 @@ export default function ListOBTType(props: Props) {
             closeModal()
         })
     }
+
+    console.log(isLoadingg);
     
     return (
         <Fragment>
@@ -162,7 +160,8 @@ export default function ListOBTType(props: Props) {
                     //     setSingleLEAVECREDITOpenModal(true);
                     // }}
                     disableRowSelectionOnClick 
-                    localeText={{noRowsLabel: `${loadingg == false && rows.length == 0 ? 'No results found' : 'Loading...'}`}}
+                    loading={isLoadingg}
+                    localeText={{noRowsLabel: `${isLoadingg == false && rows.length == 0 ? 'No results found' : 'Loading...'}`}}
                 />
             </div>
         </Fragment>

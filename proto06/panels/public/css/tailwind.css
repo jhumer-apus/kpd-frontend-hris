@@ -41,6 +41,29 @@
   }
 }
 
+/* mobiles responsive sa holidays cards */
+@media only screen and (min-width: 300px) and (max-width: 500px) {
+  .cardHolidayBody {
+    flex-direction: column-reverse
+  }
+
+  .cardHolidayText {
+    width: 100%;
+    text-align: left;
+    padding-top: 10px;
+  }
+
+  .cardHolidayType {
+    margin-bottom: 20px !important;
+  }
+  
+  /* still on progress */
+  .holidayCalendar {
+    width: inherit;
+    /* border: 2px solid green; */
+  }
+}
+
 .modal-content {
   @apply bg-white fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-8 border-none outline-none max-w-[100%] overflow-auto max-h-[700px] rounded-lg;
 }

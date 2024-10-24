@@ -41,7 +41,7 @@ export default function HolidaysPage() {
 
     return (
         <Fragment>
-        <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
+        <Grid container direction={matches ? 'column' : 'row'} spacing={2} className='!m-0'>
             <Grid item xs={6}>
                 <Paper elevation={3} style={PaperStyle}>
                     <Typography variant={'h6'}>
@@ -65,13 +65,13 @@ export default function HolidaysPage() {
                 </Paper>
             </Grid>
             <Grid item xs={6}>
-                <Paper elevation={3} style={PaperStyle}>
-                    <div className='flex justify-between'>
-                    <Typography variant={'h6'} style={{alignItems: 'center', display: 'flex', paddingLeft: '10px'}}>List of Holidays</Typography>
-                    <div>
-                      <Typography className='flex my-2'><p style={{background: HolidayColor._legal_hex, borderRadius: '100px', width: '25px'}}></p>&nbsp;&nbsp;Regular Holiday</Typography>
-                      <Typography className='flex mb-2'><p style={{background: HolidayColor._special_hex, borderRadius: '100px', width: '25px'}}></p>&nbsp;&nbsp;Special Holiday</Typography>  
-                    </div>
+                <Paper elevation={3} style={PaperStyle} className='pb-24'>
+                    <div className='flex justify-between flex-col sm:flex-row pl-2'>
+                      <Typography variant={'h6'} style={{alignItems: 'center', display: 'flex', paddingLeft: '10px'}}>List of Holidays</Typography>
+                      <div className='pr-5'>
+                        <Typography className='flex my-2 pl-2'><p style={{background: HolidayColor._legal_hex, borderRadius: '100px', width: '25px'}}></p>&nbsp;&nbsp;Regular Holiday</Typography>
+                        <Typography className='flex mb-2 pl-2'><p style={{background: HolidayColor._special_hex, borderRadius: '100px', width: '25px'}}></p>&nbsp;&nbsp;Special Holiday</Typography>  
+                      </div>
                     </div>
                     <ListOfHolidaysComponent value={value} setValue={setValue}/>
                 </Paper>

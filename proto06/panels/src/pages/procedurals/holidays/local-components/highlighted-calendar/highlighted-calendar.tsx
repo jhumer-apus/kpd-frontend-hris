@@ -121,25 +121,25 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
         <div style={{maxWidth: '520px'}}>
             {/* <p className='absolute'>This Month's Holiday</p> */}
             <StaticDatePicker
-            defaultValue={initialValue}
-            value={value}
-            loading={isLoading}
-            onMonthChange={handleMonthChange}
-            orientation={'portrait'}
-            renderLoading={() => <DayCalendarSkeleton />}
-            slots={{
-            day: ServerDay,
-            }}
-            slotProps={{
-            day: {
-                highlightedDays,
-                holidayTypes,
-            } as any,
-            // shortcuts: {
-            //     items: shortcutsItems,
-            // },
-            }}
-            className="custom-static-datepicker"
+              defaultValue={initialValue}
+              value={value}
+              loading={isLoading}
+              onMonthChange={handleMonthChange}
+              orientation={'portrait'}
+              renderLoading={() => <DayCalendarSkeleton />}
+              slots={{
+              day: ServerDay,
+              }}
+              slotProps={{
+              day: {
+                  highlightedDays,
+                  holidayTypes,
+              } as any,
+              // shortcuts: {
+              //     items: shortcutsItems,
+              // },
+              }}
+              className="custom-static-datepicker holidayCalendar"
             />
         </div>
     </LocalizationProvider>
