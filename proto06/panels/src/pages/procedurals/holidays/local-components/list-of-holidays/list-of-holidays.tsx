@@ -74,8 +74,8 @@ function ListOfHolidaysComponent(props: HighlightedCalendarInterface) {
                         >
                             <span>{React.createElement( holiday_type === 'SH'? AvTimerOutlinedIcon : AccountBalanceOutlinedIcon , {className: 'w-6 h-6 text-white'})}</span>
                         </CardHeader>
-                        <CardBody className="p-4 text-right">
-                            <Typography variant="body2" className="font-normal text-blue-gray-600">
+                        <CardBody className="flex items-end flex-col p-4">
+                            <Typography variant="body2" className="font-normal text-blue-gray-600 w-9/12 text-right">
                             {holiday_description ? holiday_description + ' - ' : ''}{holiday_type === 'SH' ? 'Special Non-Working Holiday': 'Regular Holiday'}
                             </Typography>
                             <Typography variant="h4" color="blue-gray">

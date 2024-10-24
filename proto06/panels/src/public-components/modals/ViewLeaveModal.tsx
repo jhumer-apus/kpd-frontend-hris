@@ -133,18 +133,19 @@ export default function ViewLeaveModal (props: Props) {
                 aria-describedby="modal-modal-description"
                 // className='overflow-auto'
             >
-                <div className='modal-content'>
+                <div className='modal-content relative'>
                     <div className='flex items-center gap-4'>
                         <Typography variant="h5" component="h2">Leave Application Details</Typography>
                         {renderStamp()}
                     </div>
                     <br></br>
-                    <Grid className="" container spacing={2}>
 
-                        <Grid item xs={6}>
+                    <div className='flex flex-col overflow-auto justify-around gap-4 relative md:flex-row p-2'>
+                        <div className='flex gap-6 flex-col'>
                             <TextField
+                                sx={{width: '100%', minWidth: '160px'}}
                                 InputLabelProps={{ shrink: true }}
-                                className='w-72'
+                                // className='w-80'
                                 label="Employee Name"
                                 InputProps={{
                                     readOnly: true,
@@ -152,163 +153,156 @@ export default function ViewLeaveModal (props: Props) {
                                 value={details.emp_name}
                             />
 
-                        </Grid>
-
-                        <Grid item xs={6}>
                             <TextField
                                 InputLabelProps={{ shrink: true }}
-                                className='w-72'
+                                // className='w-80'
                                 label="Employee No"
                                 InputProps={{
                                     readOnly: true,
                                 }}
                                 value={details.emp_no}
+                                sx={{width: '100%'}}
                             />
-                        </Grid>
 
-                        <Grid item xs={6}>
                             <TextField
                                 InputLabelProps={{ shrink: true }}
-                                className='w-72'
+                                // className='w-80'
                                 label="Leave Type"
                                 InputProps={{
                                     readOnly: true,
                                 }}
                                 value={details.leave_type_name}
+                                sx={{width: '100%'}}
                             />
-                        </Grid>
 
-                        
-                        <Grid item xs={6}>
                             <TextField
                                 InputLabelProps={{ shrink: true }}
-                                className='w-72'
+                                // className='w-72'
                                 label="Total Hours"
                                 InputProps={{
                                     readOnly: true,
                                 }}
                                 value={details.leave_total_hours/60}
+                                sx={{width: '100%'}}
                             />
-                        </Grid>
 
-                        <Grid item xs={6}>
-                            <TextField
-                                InputLabelProps={{ shrink: true }}
-                                className='w-72'
-                                label="Date & Time Started"
-                                InputProps={{
-                                    readOnly: true,
-                                }}
-                                value={dayjs(details.leave_date_from).format("YYYY-MM-DD hh:mm")}
-                            />
-                        </Grid>
-
-                        <Grid item xs={6}>
-                            <TextField
-                                InputLabelProps={{ shrink: true }}
-                                className='w-72'
-                                label="Date & Time Ended"
-                                InputProps={{
-                                    readOnly: true,
-                                }}
-                                value={dayjs(details.leave_date_to).format("YYYY-MM-DD hh:mm")}
-                            />
-                        </Grid>
-
-                        <Grid item xs={6}>
-                            <TextField 
-                                InputLabelProps={{ shrink: true }}
-                                className='w-72'
-                                label="Cut Off Period"
-                                InputProps={{
-                                    readOnly: true,
-                                }}
-                                value={details.cutoff_name}
-                            />
-                        </Grid>
-
-                        <Grid item xs={6}>
-                            <TextField
-                                InputLabelProps={{ shrink: true }}
-                                className='w-72'
-                                label="Approval Status"
-                                InputProps={{
-                                    readOnly: true,
-                                }}
-                                value={details.leave_approval_status}
-                            />
-                        </Grid>
-
-                        <Grid item xs={6}>
-                            <TextField
-                                InputLabelProps={{ shrink: true }}
-                                className='w-72'
-                                label="Approver 1"
-                                InputProps={{
-                                    readOnly: true,
-                                }}
-                                value={details.leave_approver1_empno}
-                            />
-                        </Grid>
-
-                        <Grid item xs={6}>
-                            <TextField
-                                InputLabelProps={{ shrink: true }}
-                                className='w-72'
-                                label="Approver 1 Approved Date"
-                                InputProps={{
-                                    readOnly: true,
-                                }}
-                                value={details.leave_date_approved1? dayjs(details.leave_date_approved1).format("YYYY-MM-DD hh:mm"): ""}
-                            />
-                        </Grid>
-
-                        <Grid item xs={6}>
-                            <TextField
-                                InputLabelProps={{ shrink: true }}
-                                className='w-72'
-                                label="Approver 2"
-                                InputProps={{
-                                    readOnly: true,
-                                }}
-                                value={details.leave_approver2_empno}
-                            />
-                        </Grid>
-
-                        <Grid item xs={6}>
-                            <TextField
-                                InputLabelProps={{ shrink: true }}
-                                className='w-72'
-                                label="Approver 2 Approved Date"
-                                InputProps={{
-                                    readOnly: true,
-                                }}
-                                value={details.leave_date_approved2? dayjs(details.leave_date_approved2).format("YYYY-MM-DD hh:mm"): ""}
-                            />
-                        </Grid>
-
-                        <Grid item xs={6}>
                             <Textarea
                                 shrink={true}
                                 label="Leave Description"
                                 readOnly
                                 value={details.leave_remarks}
+                                sx={{width: '100%'}}
                             />
-                        </Grid>
+                        </div>
 
-                        <Grid item xs={6}>
+                        <div className='flex gap-6 flex-col'>
+
+                            <TextField
+                                InputLabelProps={{ shrink: true }}
+                                // className='w-72'
+                                label="Date & Time Started"
+                                InputProps={{
+                                    readOnly: true,
+                                }}
+                                value={dayjs(details.leave_date_from).format("YYYY-MM-DD hh:mm")}
+                                sx={{width: '100%', minWidth: '160px'}}
+                            />
+
+                            <TextField
+                                InputLabelProps={{ shrink: true }}
+                                // className='w-72'
+                                label="Date & Time Ended"
+                                InputProps={{
+                                    readOnly: true,
+                                }}
+                                value={dayjs(details.leave_date_to).format("YYYY-MM-DD hh:mm")}
+                                sx={{width: '100%'}}
+                            />
+
+                            <TextField 
+                                InputLabelProps={{ shrink: true }}
+                                // className='w-72'
+                                label="Cut Off Period"
+                                InputProps={{
+                                    readOnly: true,
+                                }}
+                                value={details.cutoff_name}
+                                sx={{width: '100%'}}
+
+                            />
+
+                            <TextField
+                                InputLabelProps={{ shrink: true }}
+                                // className='w-72'
+                                label="Approval Status"
+                                InputProps={{
+                                    readOnly: true,
+                                }}
+                                value={details.leave_approval_status}
+                                sx={{width: '100%'}}
+
+                            />
 
                             {renderRejectedReasons()}
 
-                        </Grid>
-                        
-                    </Grid>
-                    {((details.is_sl  && !details.is_vl && !details.is_el) || details.leave_type_name=="Sick Leave") && 
-                        <Button onClick={viewImages}>View Supporting Image</Button>
-                    }
+                        </div>
+
+                        <div className='flex gap-6 flex-col'>
+                            <TextField
+                                InputLabelProps={{ shrink: true }}
+                                // className='w-72'
+                                label="Approver 1"
+                                InputProps={{
+                                    readOnly: true,
+                                }}
+                                value={details.leave_approver1_empno}
+                                sx={{width: '100%', minWidth: '160px'}}
+
+
+                            />
+
+                            <TextField
+                                InputLabelProps={{ shrink: true }}
+                                // className='w-72'
+                                label="Approver 1 Approved Date"
+                                InputProps={{
+                                    readOnly: true,
+                                }}
+                                value={details.leave_date_approved1? dayjs(details.leave_date_approved1).format("YYYY-MM-DD hh:mm"): ""}
+                                sx={{width: '100%'}}
+
+                            />
+
+                            <TextField
+                                InputLabelProps={{ shrink: true }}
+                                // className='w-72'
+                                label="Approver 2"
+                                InputProps={{
+                                    readOnly: true,
+                                }}
+                                value={details.leave_approver2_empno}
+                                sx={{width: '100%'}}
+
+                            />
+
+                            <TextField
+                                InputLabelProps={{ shrink: true }}
+                                // className='w-72'
+                                label="Approver 2 Approved Date"
+                                InputProps={{
+                                    readOnly: true,
+                                }}
+                                value={details.leave_date_approved2? dayjs(details.leave_date_approved2).format("YYYY-MM-DD hh:mm"): ""}
+                                sx={{width: '100%'}}
+
+                            />
+                            <div className='text-center h-full flex justify-center item-center'>
+                                {((details.is_sl  && !details.is_vl && !details.is_el) || details.leave_type_name=="Sick Leave") && 
+                                <Button onClick={viewImages}>View Supporting Image</Button>}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                
             </Modal>
         </Fragment>
     )

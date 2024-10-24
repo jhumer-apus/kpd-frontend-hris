@@ -32,7 +32,6 @@ function USERModalUI(props: USERModalUIInterface) {
             case 1: setEditUSEROpenModal(true);
             break;
         }   
-        
     };
 
     return (
@@ -51,7 +50,7 @@ function USERModalUI(props: USERModalUIInterface) {
                 setResetPasswordUSEROpenModal={setResetPasswordUSEROpenModal}
                 setSingleUSEROpenModal={setSingleUSEROpenModal}
             />
-            <div className='flex overflow-auto justify-around gap-4 relative'>
+            <div className='flex flex-col overflow-auto justify-around gap-4 relative md:flex-row'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Primary Key (ID):' value={ThisProps.id ? ThisProps.id : '-'} InputProps={{readOnly: true,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Role #:' value={(ThisProps?.role || "-")} InputProps={{readOnly: true,}} variant='standard'/>
