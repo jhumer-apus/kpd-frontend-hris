@@ -73,7 +73,18 @@
   .holidaySectionOneContainer {
     height: auto !important;
   }
+
 }
+
+@media only screen and (min-width: 320px) and (max-width: 720px) {
+    /* addtion for admin portal since i cant find solution with current setup */
+    .adminPortalCardsContainer {
+      display: flex !important;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+} 
 
 .modal-content {
   @apply bg-white fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-8 border-none outline-none max-w-[100%] overflow-auto max-h-[700px] rounded-lg;
