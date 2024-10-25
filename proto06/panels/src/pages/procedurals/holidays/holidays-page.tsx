@@ -42,29 +42,29 @@ export default function HolidaysPage() {
     return (
         <Fragment>
         <Grid container direction={matches ? 'column' : 'row'} spacing={2} className='!m-0'>
-            <Grid item xs={6}>
-                <Paper elevation={3} style={PaperStyle}>
+            <Grid item xs={6} className='!pl-0'>
+                <Paper elevation={3} style={PaperStyle} className='holidaySectionOneContainer'>
                     <Typography variant={'h6'}>
                       HRIS Calendar of Holidays
                     </Typography>
                     <div className='flex justify-center align-center'>
                       <HighlightedCalendar value={value} setValue={setValue}/>
                     </div>
-                    <div className='flex justify-around'>
-                    <Typography variant={'paragraph'}>
-                      <p>Click the list to view date</p>
-                      <p>or + Create Holiday to add</p>
-                    </Typography>
-                    <Typography>
-                      <Button variant='contained' onClick={handleOpen}>
-                        + Create Holiday
-                      </Button>
-                      <CreateHolidayModal open={open} setOpen={setOpen} handleOpen={handleOpen} handleClose={handleClose}/>
-                    </Typography>
+                    <div className='flex justify-around items-center flex-col sm:flex-row'>
+                      <Typography variant={'paragraph'} className='mb-5 sm:mb-0'>
+                        <p>Click the list to view date</p>
+                        <p>or + Create Holiday to add</p>
+                      </Typography>
+                      <Typography>
+                        <Button variant='contained' onClick={handleOpen}>
+                          + Create Holiday
+                        </Button>
+                        <CreateHolidayModal open={open} setOpen={setOpen} handleOpen={handleOpen} handleClose={handleClose}/>
+                      </Typography>
                     </div>
                 </Paper>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={6} className='!pl-0'>
                 <Paper elevation={3} style={PaperStyle} className='pb-24'>
                     <div className='flex justify-between flex-col sm:flex-row pl-2'>
                       <Typography variant={'h6'} style={{alignItems: 'center', display: 'flex', paddingLeft: '10px'}}>List of Holidays</Typography>

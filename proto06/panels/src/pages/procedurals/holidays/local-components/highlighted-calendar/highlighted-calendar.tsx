@@ -43,7 +43,6 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[],
     </Badge>
   );
 };
-  
 
 export default function HighlightedCalendar(props: HighlightedCalendarInterface) {
   const { value } = props;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
+import React, { useEffect, useState, Dispatch, SetStateAction, ChangeEvent } from 'react';
 import { Button } from '@mui/material';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,6 +31,16 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
         division_code: null, 
     });
 
+    // remove after debugging -osama
+    console.log(createCUTOFFPERIOD);
+
+    window.addEventListener("orientationchange", () => {
+        setCreateCUTOFFPERIOD((prev) => ({
+            ...prev, 
+            
+        }));
+    });
+
     const [dropDownData, setDropDownData] = useState<any>({
         payroll_groups: [],
         divisions: []
@@ -41,7 +51,7 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
     };
 
     useEffect(() => {
-        fetchDropDownData()
+        fetchDropDownData();
     },[])
 
     useEffect(()=>{
@@ -71,19 +81,28 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
         )
     }
 
-    const handleChangePayrollGroup = (e:any, newValue:any) => {
-        setCreateCUTOFFPERIOD(curr => ({
-          ...curr,
-          payroll_group_code: newValue?.id
-        }))
-      }
+    // const handleChangePayrollGroup = (e:any, newValue:any) => {
+    //     setCreateCUTOFFPERIOD(curr => ({
+    //       ...curr,
+    //       payroll_group_code: newValue?.id
+    //     }))
+    //   }
     
-      const handleChangeDivision = (e:any, newValue:any) => {
-        setCreateCUTOFFPERIOD(curr => ({
-          ...curr,
-          division_code: newValue?.id
+    //   const handleChangeDivision = (e:any, newValue:any) => {
+    //     setCreateCUTOFFPERIOD(curr => ({
+    //       ...curr,
+    //       division_code: newValue?.id
+    //     }))
+    //   }
+
+    // handles all the form elements to avoid multile methods for each fields. /osama
+    const handleChanges = (e: ChangeEvent<HTMLInputElement>): void => {
+        let { name, value } = e.target;
+        setCreateCUTOFFPERIOD((curr) => ({
+            ...curr,
+            [name]: value
         }))
-      }
+    }
 
     return (
         <React.Fragment>
@@ -97,18 +116,9 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
                             label='Total Regular Days (Non-Holiday):'  
                             variant='outlined' 
                             type="number"
+                            name='reg_days_total'
                             value={createCUTOFFPERIOD?.reg_days_total}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = parseInt(event.target.value)
-                                setCreateCUTOFFPERIOD((prevState)=> {
-                                    return (
-                                        {
-                                            ...prevState,
-                                            reg_days_total: value
-                                        }
-                                    )
-                                })
-                            }}
+                            onChange={handleChanges}
                         />
                         <TextField
                             required 
@@ -116,18 +126,9 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
                             label='Cutoff Name(Max 25 char)'  
                             variant='outlined' 
                             // type="number"
+                            name='co_name'
                             value={`${createCUTOFFPERIOD?.co_name ?? ''}`}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = event.target.value
-                                setCreateCUTOFFPERIOD((prevState)=> {
-                                    return (
-                                        {
-                                            ...prevState,
-                                            co_name: value
-                                        }
-                                    )
-                                })
-                            }}
+                            onChange={handleChanges}
                         />
                         {/* <TextField
                             required 
@@ -164,17 +165,8 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
                             variant='outlined' 
                             multiline rows={5}
                             value={`${createCUTOFFPERIOD?.co_description ?? ''}`}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                const value = event.target.value
-                                setCreateCUTOFFPERIOD((prevState)=> {
-                                    return(
-                                        {
-                                            ...prevState,
-                                            co_description: value
-                                        }
-                                    )
-                                })
-                            }} 
+                            name='co_description'
+                            onChange={handleChanges} 
                         />
                     </div>
                     <div className='flex flex-col gap-6'>
@@ -184,7 +176,7 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
                             options={dropDownData.payroll_groups}
                             label={"Payroll Group"}
                             getOptionLabel={(option: any) => option?.name ?? ""}
-                            handleChange={handleChangePayrollGroup}
+                            handleChange={handleChanges}
                             optionTitle='name'
                             defaultValueId={createCUTOFFPERIOD.payroll_group_code} 
                             disabled={false}                        

@@ -120,8 +120,6 @@ export default function ListOBTType(props: Props) {
         })
     }
 
-    console.log(isLoadingg);
-    
     return (
         <Fragment>
             <div className="my-2 flex flex-wrap justify-between items-start gap-6">

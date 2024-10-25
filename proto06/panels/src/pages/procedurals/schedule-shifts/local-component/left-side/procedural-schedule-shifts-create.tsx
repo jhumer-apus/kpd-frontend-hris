@@ -20,7 +20,6 @@ import { DesktopDateTimePicker, DesktopTimePicker } from '@mui/x-date-pickers';
 import { HandleAlertAction } from '@/store/actions/components';
 
 
-
 interface CreateSCHEDULESHIFTModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
 }
@@ -40,6 +39,7 @@ function ProceduralSCHEDULESHIFTCreate(props: CreateSCHEDULESHIFTModalInterface)
         lunch_break_end: null,
         added_by: user?.emp_no
     });
+
     const onClickSubmit = (e:any) => {
         e.preventDefault()
 
