@@ -31,7 +31,7 @@ export default function DateFromToOVERTIMECreate(props: DateFromToOVERTIMECreate
             <div>
                 <DatePicker
                     label="Business Date"
-                    // value={createOVERTIME?.ot_business_date}
+                    // value={dayjs(createOVERTIME?.ot_business_date)}
                     onChange={(newValue:any) => handleChangeDate("ot_business_date", newValue)}
                     sx={{ width: '100%' }} 
                 />
@@ -39,7 +39,7 @@ export default function DateFromToOVERTIMECreate(props: DateFromToOVERTIMECreate
             <div title="Make sure this field is logical. (i.e, `Date & Time From` should come first and not the `Date & Time To`)">
                 <DateTimePicker
                     label="Date & Time From"
-                    value={createOVERTIME?.ot_date_from}
+                    value={dayjs(createOVERTIME?.ot_date_from)}
                     onChange={(newValue) => {
                         const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
                         return (
@@ -59,7 +59,7 @@ export default function DateFromToOVERTIMECreate(props: DateFromToOVERTIMECreate
             <div title="Make sure this field is logical. (i.e, `Date & Time From` should come first and not the `Date & Time To`)">
                 <DateTimePicker
                     label="Date & Time To"
-                    value={createOVERTIME?.ot_date_to}
+                    value={dayjs(createOVERTIME?.ot_date_to)}
                     onChange={(newValue) => {
                         const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
                         return(

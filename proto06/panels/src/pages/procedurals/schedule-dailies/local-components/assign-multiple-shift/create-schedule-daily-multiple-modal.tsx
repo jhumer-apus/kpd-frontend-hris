@@ -164,7 +164,7 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
                 <SCHEDULESHIFTFetchAutoCompleteOnSCHEDULEDAILYPage createSCHEDULEDAILY={createSCHEDULEDAILYForm} setCreateSCHEDULEDAILY={setCreateSCHEDULEDAILYForm}/>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
-                        value={createSCHEDULEDAILYForm.business_date_from}
+                        value={dayjs(createSCHEDULEDAILYForm.business_date_from)}
                         onChange={(newValue) => {
                             setCreateSCHEDULEDAILYForm((prevState)=> ({
                                 ...prevState,
@@ -179,7 +179,7 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
                         }}
                     />
                     <DatePicker
-                        value={createSCHEDULEDAILYForm.business_date_to}
+                        value={dayjs(createSCHEDULEDAILYForm.business_date_to)}
                         onChange={(newValue) => {
                             setCreateSCHEDULEDAILYForm((prevState)=> ({
                                 ...prevState,

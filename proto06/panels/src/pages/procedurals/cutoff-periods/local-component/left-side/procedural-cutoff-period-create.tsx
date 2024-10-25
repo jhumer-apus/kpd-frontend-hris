@@ -28,17 +28,11 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
         reg_days_total: null,
         credit_date: null,
         payroll_group_code: null,
-        division_code: null, 
+        division_code: null,
     });
 
     // remove after debugging -osama
     console.log(createCUTOFFPERIOD);
-
-    // window.addEventListener("orientationchange", () => {
-    //     setCreateCUTOFFPERIOD((prev) => ({
-    //         ...prev
-    //     }));
-    // });
 
     const [dropDownData, setDropDownData] = useState<any>({
         payroll_groups: [],
@@ -100,8 +94,8 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
     // handles all the form elements to avoid multile methods for each fields. /osama
     const handleChanges = (e: ChangeEvent<HTMLInputElement>): void => {
         let { name, value } = e.target;
-        setCreateCUTOFFPERIOD((curr) => ({
-            ...curr,
+        setCreateCUTOFFPERIOD((prevState) => ({
+            ...prevState,
             [name]: value
         }))
     }
