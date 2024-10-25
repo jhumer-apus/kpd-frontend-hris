@@ -34,12 +34,11 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
     // remove after debugging -osama
     console.log(createCUTOFFPERIOD);
 
-    window.addEventListener("orientationchange", () => {
-        setCreateCUTOFFPERIOD((prev) => ({
-            ...prev, 
-            
-        }));
-    });
+    // window.addEventListener("orientationchange", () => {
+    //     setCreateCUTOFFPERIOD((prev) => ({
+    //         ...prev
+    //     }));
+    // });
 
     const [dropDownData, setDropDownData] = useState<any>({
         payroll_groups: [],
@@ -73,6 +72,9 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
             payroll_groups: Array.isArray(res.data) ? res.data : []
           }))
         )
+
+        // unnecesarry query since theres no more division category
+        // comment query below -osama 
         await axiosInstance.get(`division/`).then(res => 
           setDropDownData((curr:any) => ({
             ...curr,
@@ -81,12 +83,12 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
         )
     }
 
-    // const handleChangePayrollGroup = (e:any, newValue:any) => {
-    //     setCreateCUTOFFPERIOD(curr => ({
-    //       ...curr,
-    //       payroll_group_code: newValue?.id
-    //     }))
-    //   }
+    const handleChangePayrollGroup = (e: any, newValue: any) => {
+        setCreateCUTOFFPERIOD(curr => ({
+          ...curr,
+          payroll_group_code: newValue?.id
+        }))
+    }
     
     //   const handleChangeDivision = (e:any, newValue:any) => {
     //     setCreateCUTOFFPERIOD(curr => ({
@@ -176,7 +178,7 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
                             options={dropDownData.payroll_groups}
                             label={"Payroll Group"}
                             getOptionLabel={(option: any) => option?.name ?? ""}
-                            handleChange={handleChanges}
+                            handleChange={handleChangePayrollGroup}
                             optionTitle='name'
                             defaultValueId={createCUTOFFPERIOD.payroll_group_code} 
                             disabled={false}                        
