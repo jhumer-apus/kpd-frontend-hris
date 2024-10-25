@@ -262,9 +262,9 @@ export default function DataTable() {
     console.log(sortModel)
   }, []);
 
-  useEffect(() => {
-    fetchEmployees(searchParams.page, searchParams.field, searchParams.value)
-  },[searchParams])
+  // useEffect(() => {
+  //   fetchEmployees(searchParams.page, searchParams.field, searchParams.value)
+  // },[searchParams])
 
 
   return (
