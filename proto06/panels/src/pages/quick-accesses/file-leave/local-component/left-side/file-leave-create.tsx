@@ -24,6 +24,7 @@ import { beautifyJSON } from '@/helpers/utils';
 import dayjs from 'dayjs';
 import { HandleAlertAction } from '@/store/actions/components';
 import axiosInstance from '@/helpers/axiosConfig';
+import { validateImage } from '@/helpers/validator/employee_information';
 
 
 interface CreateLEAVEModalInterface {
@@ -104,6 +105,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
     const validateLeaveCredit = () => {
 
         let errors:any = {}
+        !validateImage(createLEAVE?.uploaded_file) && (errors["Supporting Document"] = "Supporting Document is not an image")
         !createLEAVE.emp_no && (errors["Employee Number"] = "Employee Number is Required")
         !createLEAVE.leave_credit?.id && (createLEAVE.leave_credit?.id == undefined) && (errors["Leave Type"] = "Leave Type is Required")
         !createLEAVE.leave_remarks && (errors["Leave Description"] = "Leave Description is Required")
