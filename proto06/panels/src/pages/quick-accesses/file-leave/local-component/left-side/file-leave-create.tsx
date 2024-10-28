@@ -71,7 +71,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         emergency_reasons: null,
         option:null
     });
-    
+
     useEffect(() => {
         console.log(leaveType)
     }, [leaveType])
@@ -152,6 +152,10 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         submitNewFileLeave(formData)
         // dispatch(LEAVECreateAction(formData))
     };
+
+    // remove after debugging
+    console.log('hello');
+    
 
     const submitNewFileLeave = async (formData:FormData) => {
 

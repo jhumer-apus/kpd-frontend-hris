@@ -18,7 +18,7 @@ export default function CUTOFFPERIODCreditDateCreate(props: CUTOFFPERIODCreditDa
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
             label="Cutoff Credit(Pay) Date"
-            value={createCUTOFFPERIOD?.credit_date}
+            value={dayjs(createCUTOFFPERIOD?.credit_date)}
             onChange={(newValue) => {
                 const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
                 return (

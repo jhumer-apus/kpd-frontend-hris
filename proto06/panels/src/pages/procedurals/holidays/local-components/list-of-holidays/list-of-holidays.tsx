@@ -50,7 +50,7 @@ function ListOfHolidaysComponent(props: HighlightedCalendarInterface) {
         }
     }
     return (
-        <div style={{height: '90%', overflowY: 'auto', padding: '6px'}}>
+        <div style={{height: '85%', overflowY: 'auto', padding: '6px'}}>
             <ul className='flex flex-col items-center justify-center'>
             {ListOfHolidaysState?.data? ListOfHolidaysState?.data?.map(({ id, holiday_date, holiday_description, holiday_type, holiday_location }, index) => (
                 <li style={{width: '95%'}} key={`${index}_li_list_holiday`}>
@@ -74,11 +74,11 @@ function ListOfHolidaysComponent(props: HighlightedCalendarInterface) {
                         >
                             <span>{React.createElement( holiday_type === 'SH'? AvTimerOutlinedIcon : AccountBalanceOutlinedIcon , {className: 'w-6 h-6 text-white'})}</span>
                         </CardHeader>
-                        <CardBody className="p-4 text-right">
-                            <Typography variant="body2" className="font-normal text-blue-gray-600">
+                        <CardBody className="flex items-end flex-col p-4 border-2 cardHolidayBody">
+                            <Typography variant="body2" className="font-normal text-blue-gray-600 w-9/12 text-right cardHolidayText">
                             {holiday_description ? holiday_description + ' - ' : ''}{holiday_type === 'SH' ? 'Special Non-Working Holiday': 'Regular Holiday'}
                             </Typography>
-                            <Typography variant="h4" color="blue-gray">
+                            <Typography variant="h4" color="blue-gray" className='cardHolidayType'>
                             {holiday_type == 'LH'? 'RH': 'SH'}
                             </Typography>
                         </CardBody>

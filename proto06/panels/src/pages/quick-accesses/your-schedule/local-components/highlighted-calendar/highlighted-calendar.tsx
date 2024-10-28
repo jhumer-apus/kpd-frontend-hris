@@ -291,7 +291,7 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
                 day: ServerDay,
               }}
               slotProps={{
-              day: {
+              day: {  
                   highlightedDays,
                   scheduleDaily,
               } as any,

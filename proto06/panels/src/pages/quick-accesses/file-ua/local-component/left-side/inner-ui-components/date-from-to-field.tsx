@@ -18,7 +18,7 @@ export default function DateFromToUACreate(props: DateFromToUACreateInterface) {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
             label="Date From"
-            value={createUA?.ua_date_from}
+            value={dayjs(createUA ?.ua_date_from)}
             onChange={(newValue) => {
                 const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
                 return (
@@ -58,7 +58,7 @@ export default function DateFromToUACreate(props: DateFromToUACreateInterface) {
 
             <DateTimePicker
             label="Date To"
-            value={createUA?.ua_date_to}
+            value={dayjs(createUA?.ua_date_to)}
             onChange={(newValue) => {
                 const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
                 return(

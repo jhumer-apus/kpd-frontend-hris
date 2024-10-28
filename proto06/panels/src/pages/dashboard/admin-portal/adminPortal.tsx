@@ -31,20 +31,21 @@ export function AdminPortal() {
 
   return (
     <div className="mt-12">
-      <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-3">
+      {/* adminPortalCardsContainer manual code para sa pag flex sa 320 screen size. -osama */}
+      <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-3  adminPortalCardsContainer">
         {adminPortalData.map(({ icon, title, footer, value, ...rest }, index) => (
           <div style={{
             transition: 'transform 0.5s ease, opacity 0.5s ease',
             transform: !isVisible[`${value}${index}`] ? 'translateY(0)' : 'translateY(-100%)',
             opacity: !isVisible[`${value}${index}`] ? 1 : 0,
-          }} data-type={index}>
+          }} data-type={index} className=" xs:w-[80%] sm:!w-[90%] xl:!w-full">
             <EasyAccessCard
               value={value}
               onClickHandler={handleOnClick}
               onClickDetails={`${value}${index}`}
               key={title}
               {...rest}
-              title={title}
+              title={title} 
               icon={React.createElement(icon, {
                 className: "w-6 h-6 text-white",
               })}

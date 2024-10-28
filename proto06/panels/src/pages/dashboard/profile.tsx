@@ -1131,10 +1131,10 @@ import axiosInstance from "@/helpers/axiosConfig";
                   />
  
 
-                  <TextField            InputProps={{
+                  {/* <TextField            InputProps={{
             readOnly: true,
           }} id="Email Address" label="Email Address" variant="outlined" style={{ width: '100%', marginBottom: '20px' }} value={curr_user?.email_address || '-' } InputLabelProps={{ style: { fontWeight: 'bold' }}}  />
- 
+  */}
 
                   <TextField            InputProps={{
             readOnly: true,

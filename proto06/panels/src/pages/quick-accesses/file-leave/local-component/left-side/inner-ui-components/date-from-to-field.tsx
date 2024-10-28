@@ -19,19 +19,15 @@ export default function DateFromToLEAVECreate(props: DateFromToLEAVECreateInterf
             <div title="Make sure this field is logical. (i.e, `Date From` should come first and not the `Date To`)">
             <DatePicker
             label="Date Start"
-            value={createLEAVE?.leave_date_from}
+            // issue solved - datepicker ay nag eexpect ng dayjs na value            
+            value={dayjs(createLEAVE.leave_date_from)}
+            // value={createLEAVE?.leave_date_from}
             onChange={(newValue) => {
                 const formattedDate = dayjs(newValue).format('YYYY-MM-DD');
-                return (
-                    setCreateLEAVE((prevState)=>{
-                        return(
-                            {
-                                ...prevState,
-                                leave_date_from: formattedDate
-                            }
-                        )
-                    })
-                )
+                setCreateLEAVE((prevState) => ({
+                    ...prevState,
+                    leave_date_from: formattedDate
+                }))
             }}
             sx={{ width: '100%' }}
             />
@@ -39,19 +35,15 @@ export default function DateFromToLEAVECreate(props: DateFromToLEAVECreateInterf
             <div title="Make sure this field is logical. (i.e, `Date From` should come first and not the `Date To`)">
             <DatePicker
             label="Date End"
-            value={createLEAVE?.leave_date_to}
+            // issue solved - datepicker ay nag eexpect ng dayjs na value            
+            value={dayjs(createLEAVE.leave_date_from)}
+            // value={createLEAVE?.leave_date_to}
             onChange={(newValue) => {
                 const formattedDate = dayjs(newValue).format('YYYY-MM-DD');
-                return(
-                    setCreateLEAVE((prevState)=>{
-                        return(
-                            {
-                                ...prevState,
-                                leave_date_to: formattedDate
-                            }
-                        )
-                    })
-                )
+                setCreateLEAVE((prevState) => ({
+                    ...prevState,
+                    leave_date_to: formattedDate
+                }))
             }}
             sx={{ width: '100%' }}
             />

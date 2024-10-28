@@ -9,17 +9,29 @@ import { Fragment, useEffect, useState } from "react";
 
 export default function OBTtypes() {
 
-    const [obtTypes, setObtTypes] = useState<any[]>([])
+    const [obtTypes, setObtTypes] = useState<any[]>([]);
+    const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchObtTypes()
-    },[])
+        fetchObtTypes();
+    }, [])
 
     const fetchObtTypes = async () => {
+        setLoading(true);                
         await axiosInstance.get(`obt_type/`)
-            .then(res => setObtTypes((curr:any[]) => Array.isArray(res?.data)? res.data: []))
+            .then((response) => setObtTypes(() => {
+                if (Array.isArray(response.data)) {
+                    setLoading(false);                
+                    return response.data;
+                } 
+                setLoading(false);                
+                return [];
+            }))
+            // .then(res => setObtTypes((curr:any[]) => Array.isArray(res?.data)? res.data: []))
+            .catch(err => console.log(err))
     }
 
+    // console.log(obtTypes);
 
     return (
         <Fragment>
@@ -28,7 +40,7 @@ export default function OBTtypes() {
                     <CreateOBTType refreshOBTList={fetchObtTypes}/>
                 </Paper>
                 <Paper elevation={3} className="w-full p-8 h-[600px]">
-                    <ListOBTType rows={obtTypes} refreshTable={fetchObtTypes} />
+                    <ListOBTType rows={obtTypes} refreshTable={fetchObtTypes} isLoadingg={isLoading}/>
                 </Paper>
             </div>
         </Fragment>

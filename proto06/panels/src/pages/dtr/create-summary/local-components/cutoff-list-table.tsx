@@ -51,11 +51,11 @@ const columns = [
     headerName: "PG Code",
     width: 80,
   },
-  {
-    field: "division_code",
-    headerName: "Div Code",
-    width: 80,
-  },
+  // {
+  //   field: "division_code",
+  //   headerName: "Div Code",
+  //   width: 80,
+  // },
   {
     field: "co_is_processed",
     headerName: "Processed"
