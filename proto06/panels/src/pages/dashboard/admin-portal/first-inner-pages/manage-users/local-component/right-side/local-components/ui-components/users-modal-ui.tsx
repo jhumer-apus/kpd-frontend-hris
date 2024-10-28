@@ -74,8 +74,8 @@ function USERModalUI(props: USERModalUIInterface) {
                 </div>
             </div>
             <div className='flex flex-col justify-center items-center'>
-                <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
-                    <div className='flex justify-between' style={{width:'400px', marginTop: '20px'}} container-name='leave_buttons'>
+                <div className='flex justify-center mt-6 w-[100%]' container-name='leave_buttons_container'>
+                    <div className='flex justify-between flex-col sm:flex-row mt-5 w-[50%] xs:w-[70%] gap-5' container-name='leave_buttons'>
                         <Button variant='contained' onClick={()=> onClickModal(1)}>Edit Details</Button>
                         <Button variant='outlined' color={'error'} onClick={()=> onClickModal(0)}>Reset Password</Button>
                     </div>
