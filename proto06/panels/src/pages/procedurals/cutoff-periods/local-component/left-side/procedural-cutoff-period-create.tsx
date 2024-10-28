@@ -91,17 +91,6 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
     //     }))
     //   }
 
-    const handleDays = (e: ChangeEvent<HTMLInputElement>): void => {
-        let { name, value }: any = e.target;
-        value = parseInt(value);
-        console.log(typeof value);
-        console.log(value);
-        setCreateCUTOFFPERIOD((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }));
-    }
-
     // handles all the form elements to avoid multile methods for each fields. /osama
     const handleChanges = (e: ChangeEvent<HTMLInputElement>): void => {
         let { name, value }: any = e.target;
