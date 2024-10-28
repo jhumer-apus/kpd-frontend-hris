@@ -33,11 +33,6 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
   },
 }));
 
-
-
-
-
-
 export default function ProceduralSCHEDULEDAILYpage() {
   const dispatch = useDispatch();
   const allScheduleState = useSelector((state: RootState) => state.employeeAndApplicants.ALLSCHEDULEViewSpecific);

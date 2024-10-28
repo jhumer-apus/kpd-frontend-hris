@@ -30,7 +30,7 @@ export default function DateFromToOBTCreate(props: DateFromToOBTCreateInterface)
             <div>
                 <DatePicker
                     label="Business Date"
-                    // value={createOVERTIME?.ot_business_date}
+                    value={dayjs(createOBT?.obt_business_date)}
                     onChange={(newValue:any) => handleChangeDate("obt_business_date", newValue)}
                     sx={{ width: '100%' }} 
                 />

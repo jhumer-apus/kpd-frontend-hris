@@ -38,7 +38,7 @@ const style = {
   gap: 3,
   width: 400,
   overflow: 'auto',
-  height: 800
+  height: 800,
 //   height: '100%',
 };
 
@@ -54,16 +54,29 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
     const {open2, handleClose2} = props;
     const createSCHEDULEDAILY = useSelector((state: RootState)=> state.procedurals.SCHEDULEDAILYCreate);
     const [createSCHEDULEDAILYForm, setCreateSCHEDULEDAILYForm] = useState<SCHEDULEDAILYCreateInterface>({
-        schedule_shift_code: NaN,
+        schedule_shift_code: 0,
         business_date_from: null,
         business_date_to: null,
         emp_no: [],
         is_restday: false,
         sched_default: false,
+        day_off: [],
     })
     const submitNewSCHEDULEDAILY = () => {
         dispatch(SCHEDULEDAILYCreateAction(createSCHEDULEDAILYForm));
     };
+
+    const reseter = () => {
+        setCreateSCHEDULEDAILYForm({
+            schedule_shift_code: NaN,
+            business_date_from: null,
+            business_date_to: null,
+            emp_no: [],
+            is_restday: false,
+            sched_default: false,
+            day_off: [],
+        });
+    }
 
     useEffect(()=>{
         if(createSCHEDULEDAILY?.status === 'succeeded'){
@@ -76,11 +89,17 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
             dispatch(SCHEDULEDAILYCreateActionFailureCleanup())
         }
     }, [createSCHEDULEDAILY?.status])
+
+    console.log(createSCHEDULEDAILYForm);
+        
     return (
         <div>
             <Modal
             open={open2 ?? false}
-            onClose={handleClose2}
+            onClose={() => {
+                handleClose2();
+                reseter();
+            }}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
             >

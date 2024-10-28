@@ -1,7 +1,7 @@
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { Typography } from "@material-tailwind/react";
 import { DataGrid, GridActionsCellItem, GridColDef } from "@mui/x-data-grid";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import EditOBTType from "./EditOBTType";
 import ConfirmationModal from "@/public-components/modals/ConfirmationModal";
 import { APILink, RootState } from "@/store/configureStore";
@@ -9,14 +9,17 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { HandleAlertAction } from "@/store/actions/components";
 import axiosInstance from "@/helpers/axiosConfig";
+import { globalServerErrorMsg } from '@/store/configureStore';
+
 
 interface Props {
-    rows: any[]
-    refreshTable: () => void
+    rows: any[],
+    refreshTable: () => void,
+    isLoadingg: boolean,
 }
 export default function ListOBTType(props: Props) {
 
-    const { rows = [], refreshTable } = props
+    const { rows = [], refreshTable, isLoadingg } = props
     const currUser = useSelector((state:RootState) => state.auth.employee_detail)
     const dispatch = useDispatch()
 
@@ -116,7 +119,7 @@ export default function ListOBTType(props: Props) {
             closeModal()
         })
     }
-    
+
     return (
         <Fragment>
             <div className="my-2 flex flex-wrap justify-between items-start gap-6">
@@ -155,11 +158,8 @@ export default function ListOBTType(props: Props) {
                     //     setSingleLEAVECREDITOpenModal(true);
                     // }}
                     disableRowSelectionOnClick 
-                    localeText={
-                        { 
-                            noRowsLabel: "No Data Available"
-                        }
-                    }
+                    loading={isLoadingg}
+                    localeText={{noRowsLabel: `${isLoadingg == false && rows.length == 0 ? 'No results found' : 'Loading...'}`}}
                 />
             </div>
         </Fragment>
