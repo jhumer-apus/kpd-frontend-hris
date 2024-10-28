@@ -36,7 +36,7 @@ export default function DateFromToLEAVECreate(props: DateFromToLEAVECreateInterf
             <DatePicker
             label="Date End"
             // issue solved - datepicker ay nag eexpect ng dayjs na value            
-            value={dayjs(createLEAVE.leave_date_from)}
+            value={dayjs(createLEAVE.leave_date_to)}
             // value={createLEAVE?.leave_date_to}
             onChange={(newValue) => {
                 const formattedDate = dayjs(newValue).format('YYYY-MM-DD');
