@@ -38,8 +38,8 @@ export default function YourSCHEDULEDAILYpage() {
 
     return (
         <Fragment>
-        <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
-            <Grid item xs={6}>
+        <Grid container direction={matches ? 'column' : 'row'} spacing={2} className='!m-0'>
+            <Grid item xs={6} className='!pl-0'>
                 <Paper 
                   elevation={3} 
                   // style={PaperStyle}
@@ -69,7 +69,7 @@ export default function YourSCHEDULEDAILYpage() {
                     </div>
                 </Paper>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={6} className='!pl-0'>
                 {/* <Paper elevation={3} style={PaperStyle}> */}
                   <Paper className='p-4 h-fit'>
                     <div className='flex justify-between'>
