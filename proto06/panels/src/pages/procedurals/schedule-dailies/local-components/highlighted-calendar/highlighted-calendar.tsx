@@ -284,7 +284,7 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <div>
+        <div style={{maxWidth: '520px'}}>
             {/* <p className='absolute'>This Month's ScheduleDaily</p> */}
             <StaticDatePicker
               defaultValue={initialValue}
@@ -309,7 +309,7 @@ export default function HighlightedCalendar(props: HighlightedCalendarInterface)
                 // },
                 }
               }
-              className="custom-static-datepicker"
+              className="custom-static-datepicker scheduleCalendar"
             />
         </div>
     </LocalizationProvider>

@@ -154,7 +154,7 @@ export default function CreateSCHEDULEDAILYMultipleModal(props: CreateSCHEDULEDA
                 aria-describedby="modal-modal-description"
                 className='overflow-y-auto w-full'
             >
-            <Box className="bg-white flex flex-col gap-4 w-80 md:w-96 m-auto p-4 overflow-auto my-8 rounded-xl">
+            <Box className="bg-white flex flex-col gap-4 xs:w-[90%] sm:!w-[60%] md:!w-[30%] lg:!w-[-35%] m-auto p-4 overflow-auto my-8 rounded-xl">
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                     Assign Daily Schedule to Multiple Employees
                 </Typography>

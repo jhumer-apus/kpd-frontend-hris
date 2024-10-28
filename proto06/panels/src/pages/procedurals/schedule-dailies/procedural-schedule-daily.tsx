@@ -78,8 +78,8 @@ export default function ProceduralSCHEDULEDAILYpage() {
   return (
     <Fragment>
       {/* <div style={{border: '1px solid red'}}><ExportToCsv/></div> */}
-      <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
-        <Grid item xs={6}>
+      <Grid container direction={matches ? 'column' : 'row'} spacing={2} className='!m-0'>
+        <Grid item xs={6} className='!pl-0'>
           <Paper elevation={3} style={PaperStyle}>
             <div className='flex flex-wrap justify-between'>
               <div className='flex flex-col'>
@@ -103,8 +103,8 @@ export default function ProceduralSCHEDULEDAILYpage() {
             <div className='flex justify-center align-center'>
               <HighlightedCalendar value={value} setValue={setValue} currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/>
             </div>
-            <div className='flex justify-around'>
-            <Typography variant={'paragraph'}>
+            <div className='flex justify-around items-center flex-col sm:flex-row'>
+            <Typography variant={'paragraph'} className='mb-5 sm:mb-0'>
               <p>Click the list to view date</p>
               <p>or + Assign Shift to add</p>
             </Typography>
@@ -119,7 +119,7 @@ export default function ProceduralSCHEDULEDAILYpage() {
             </div>
           </Paper>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={6} className='!pl-0'>
           <Paper elevation={3} style={PaperStyle}>
             <div className='flex justify-between'>
             <Typography variant={'h6'} style={{alignItems: 'center', display: 'flex'}}>Choose Employee to view Daily Schedule</Typography>

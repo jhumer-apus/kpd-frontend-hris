@@ -29,7 +29,7 @@ export default function ProceduralCUTOFFPERIODPage() {
     <Fragment>
         <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
             <Grid item xs>
-                <Paper elevation={3} style={PaperStyle}>
+                <Paper elevation={3} style={PaperStyle} className='!h-auto'>
                     <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
                         <ProceduralCUTOFFPERIODCreate/>
                     </Box>
