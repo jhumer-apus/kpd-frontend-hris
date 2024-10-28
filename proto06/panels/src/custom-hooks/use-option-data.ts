@@ -31,19 +31,43 @@ export const useOptionData = () => {
         }
     )
 
-    const [branches, setBranches] = useState<APIOptions>(
+    const branches:Option[] = [
         {
-            data: [],
-            loading: false,
-        }
-    )
+            value: "A",
+            label: "App Employee"
+        },
+        {
+            value: "M",
+            label: "M2B Employee"
+        },
+        {
+            value: "W",
+            label: "WAIS Employee"
+        },
+    ]
 
-    const [departments, setDepartments] = useState<APIOptions>(
+    const departments:Option[] = [
         {
-            data: [],
-            loading: false,
+            value: "1",
+            label: "Production"
+        },
+        {
+            value: "2",
+            label: "Delivery"
+        },
+        {
+            value: "3",
+            label: "Office Staff"
+        },
+        {
+            value: "4",
+            label: "Sales"
+        },
+        {
+            value: "5",
+            label: "Engineers"
         }
-    )
+    ]
 
     const [ranks, setRanks] = useState<APIOptions>(
         {

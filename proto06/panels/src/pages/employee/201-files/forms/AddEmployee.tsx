@@ -32,13 +32,14 @@ import { useSelector } from 'react-redux';
 import { update } from 'lodash';
 import useFetchQuery from '@/custom-hooks/use-fetch-query';
 import axiosInstance from '@/helpers/axiosConfig';
+import { useOptionData } from '@/custom-hooks/use-option-data';
 // import SelectForm from '@/public-components/forms/SelectForm'
 
 
 //INTERFACE
 interface DropDownData {
-  branches: any[],
-  departments: any[],
+  // branches: any[],
+  // departments: any[],
   payrollGroups: any[],
   employmentStatuses: any[],
   positions: any[],
@@ -90,8 +91,8 @@ export const UserProfile = () => {
     const [profileImage, setProfileImage] = useState<any>(null);
 
     const [dropDownData, setDropDownData] = useState<DropDownData>({
-      branches:[],
-      departments:[],
+      // branches:[],
+      // departments:[],
       payrollGroups:[],
       employmentStatuses:[],
       positions:[],
@@ -99,6 +100,8 @@ export const UserProfile = () => {
       divisions:[],
       ranks:[]
     })
+
+    const { branches, departments } = useOptionData()
 
 
     // USE EFFECTS
@@ -564,6 +567,7 @@ export const UserProfile = () => {
       });
   };
 
+  const initialEmployeeNumber = `${employeeData?.branch_code?? "0"}-${employeeData?.department_code?? "0"}00${dayjs(employeeData?.date_hired)?.format("YY")??"00"}`
   //STATIC
   const appStatus = app_status?? "production"
 
@@ -1157,17 +1161,59 @@ export const UserProfile = () => {
               </div> 
             )} */}
               <FormControl className='w-full'>
-                <InputLabel htmlFor="emp_no">Assigned employee No:* (max 7 digits)</InputLabel>
+                  <InputLabel htmlFor="branch">Branch: (required)</InputLabel>
+                  <Select
+                    onChange={(e:any) => setEmployeeData((curr:any) => ({
+                      ...curr,
+                      branch_code: e.target.value
+                    }))}
+                    placeholder="Select Branch"
+                    name="branch_code"
+                    variant="outlined"
+                    label="Branch: (required)"
+                    required
+                  >
+                    {branches.map((branch:any)=> (
+                      <MenuItem value={branch?.value}>{branch?.label}</MenuItem>
+                    ))}
+                  </Select>
+              </FormControl>
+              <FormControl className='w-full'>
+                  <InputLabel htmlFor="department">Department: (required)</InputLabel>
+                  <Select
+                    onChange={(e:any) => setEmployeeData((curr:any) => ({
+                      ...curr,
+                      department_code: e.target.value
+                    }))}
+                    placeholder="Select Department"
+                    name="department_code"
+                    variant="outlined"
+                    label="Department: (required)"
+                    required
+                  >
+                    {departments.map((department:any)=> (
+                      <MenuItem value={department?.value}>{department?.label}</MenuItem>
+                    ))}
+                  </Select>
+              </FormControl>
+              <FormControl className='w-full'>
+                <InputLabel htmlFor="emp_no">Assigned employee No:* (max 3 digits)</InputLabel>
                 <OutlinedInput
                   id="emp_no"
                   className='w-full'
                   onChange={handleChangeUserData}
                   name="emp_no"
-                  label="Assigned Employee No:* (max 7 digits)"
-                  value={employeeData.emp_no?? ""}
+                  label="Assigned Employee No:* (max 3 digits)"
+                  startAdornment={(
+                    <InputAdornment position="start">
+                        {initialEmployeeNumber}
+                    </InputAdornment>
+                  )}
+                  // value={employeeData.emp_no?? ""}
+                  disabled={!employeeData?.branch_code || !employeeData.department_code}
                   // defaultValue={employeeData.emp_no}
                   inputProps={{
-                    maxLength: 7
+                    maxLength: 3
                   }}      
                   required
                 />
@@ -1308,80 +1354,6 @@ export const UserProfile = () => {
                     ))
                     : <MenuItem disabled>No payrolls available</MenuItem>
                   }
-              </Select>
-            </FormControl>
-            <FormControl className='w-full'>
-
-            {/* <Autocomplete
-              // disableCloseOnSelect
-              noOptionsText={'Loading... Please Wait.'}
-              options={branches}
-              // groupBy={(option:any) => option.name}
-              getOptionLabel={(option:any) => option.name}
-              // onChange={(event, value) => setEmployeeData({ ...employeeData, branch_code: value?.id })}
-              // sx={{ width: 300 }}
-              // isOptionEqualToValue={isOptionEqualToValue}
-              renderInput={(params) => 
-                  {   
-                      return(
-                        <OutlinedInput
-                          {...params} label="Branch" 
-                        />
-                      )
-
-                  }
-
-              }
-            /> */}
-                <InputLabel htmlFor="branch">Branch: (required)</InputLabel>
-                <Select
-                  onChange={(e:any) => setEmployeeData(curr => ({
-                    ...curr,
-                    branch_code: e.target.value
-                  }))}
-                  placeholder="Select Branch"
-                  name="branch_code"
-                  variant="outlined"
-                  label="Branch: (required)"
-                  required
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  {dropDownData.branches.length > 0 ? dropDownData.branches.map((branch:any)=> (
-                    <MenuItem value={branch.id}>{branch.name}</MenuItem>
-                  )): (
-                    <MenuItem disabled>No branch available</MenuItem>
-                  )}
-                </Select>
-            </FormControl>
-            <FormControl className='w-full'>
-              <InputLabel htmlFor="department">Department: (required)</InputLabel>
-              <Select
-                onChange={(e:any) => 
-                  {
-                    
-                    // fetchApprovers(e.target.value)
-                    setEmployeeData(curr => 
-                    (
-                      {
-                        ...curr,
-                        department_code: e.target.value
-                      }
-                    )
-                  )}
-                }
-                placeholder="Select Department"
-                name="department_code"
-                variant="outlined"
-                label="Department: (required)"
-                required
-              >
-                {dropDownData.departments.length > 0 ? dropDownData.departments.map((department:any)=> (
-                  <MenuItem value={department.id}>{department.name}</MenuItem>
-                )): (
-                  <MenuItem disabled>No department available</MenuItem>
-                )}
               </Select>
             </FormControl>
             {/* <FormControl className='w-full'>
