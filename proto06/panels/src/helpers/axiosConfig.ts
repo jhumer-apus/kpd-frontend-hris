@@ -6,6 +6,7 @@ import Cookies from 'js-cookie';
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_APILINK + "/api/v1/", // API base URL
   timeout: 0, // Set a reasonable timeout (30 seconds)
+  withCredentials: true
   // headers: { 'Content-Type': 'application/json' },
 });
 

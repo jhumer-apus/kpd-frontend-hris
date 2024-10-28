@@ -105,7 +105,10 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
     const validateLeaveCredit = () => {
 
         let errors:any = {}
-        !validateImage(createLEAVE?.uploaded_file) && (errors["Supporting Document"] = "Supporting Document is not an image")
+        
+        if((leaveType.is_sl && !leaveType.is_vl && !leaveType.is_el) || leaveType.name=="Sick Leave"){
+            !validateImage(createLEAVE?.uploaded_file) && (errors["Supporting Document"] = "Supporting Document is not an image")
+        }
         !createLEAVE.emp_no && (errors["Employee Number"] = "Employee Number is Required")
         !createLEAVE.leave_credit?.id && (createLEAVE.leave_credit?.id == undefined) && (errors["Leave Type"] = "Leave Type is Required")
         !createLEAVE.leave_remarks && (errors["Leave Description"] = "Leave Description is Required")
