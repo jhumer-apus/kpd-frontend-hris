@@ -206,9 +206,9 @@ function UAModalUI(props: UAModalUIInterface) {
             </div>
 
             <div className='flex flex-col justify-center items-center'>
-            <div className='flex justify-center mt-6' container-name='ua_buttons_container'>
-                <div className='flex justify-between md:flex-row gap-4 md:w-96' style={{width:'400px'}} container-name='ua_buttons'>
-                    <Button disabled={approvalState.buttonDisabled} variant='contained' className='' onClick={()=> onClickModal(0)}>Approve UA</Button>
+            <div className='flex justify-center mt-6 w-full' container-name='ua_buttons_container'>
+                <div className='flex justify-between flex-col sm:flex-row xs:w-[70%] gap-5 md:w-96' container-name='ua_buttons'>
+                    <Button disabled={approvalState.buttonDisabled} variant='contained' onClick={()=> onClickModal(0)}>Approve UA</Button>
                     <Button disabled={approvalState.buttonDisabled} variant='outlined' onClick={()=> onClickModal(1)}>Deny UA</Button>
                 </div>
                 
