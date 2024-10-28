@@ -31,8 +31,8 @@ export function AdminPortal() {
 
   return (
     <div className="mt-12">
-      {/* adminPortalCardsContainer manual code para sa pag flex sa 320 screen size. -osama */}
-      <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-3  adminPortalCardsContainer">
+      {/* adminPortalCardsContainer manual code para sa pag flex sa 320 pa up screen size. -osama */}
+      <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-3 adminPortalCardsContainer">
         {adminPortalData.map(({ icon, title, footer, value, ...rest }, index) => (
           <div style={{
             transition: 'transform 0.5s ease, opacity 0.5s ease',

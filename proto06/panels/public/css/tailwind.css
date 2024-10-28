@@ -76,8 +76,8 @@
 
 }
 
+/* addtion for admin portal since i cant find solution with current setup :)) */
 @media only screen and (min-width: 320px) and (max-width: 720px) {
-    /* addtion for admin portal since i cant find solution with current setup */
     .adminPortalCardsContainer {
       display: flex !important;
       flex-direction: column;
