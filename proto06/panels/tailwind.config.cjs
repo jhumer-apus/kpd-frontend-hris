@@ -6,6 +6,7 @@ module.exports = withMT({
   theme: {
     screens: {
       xs: "320px",
+      'custom_breakpoint_500': "510px",
       sm: "640px",
       xl: "1280px",
     },
