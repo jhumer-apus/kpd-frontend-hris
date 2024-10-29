@@ -101,6 +101,15 @@ export default function EmploymentInfo() {
 
     const handleDateChange = (name:string, newValue: Dayjs | null) => {
 
+        switch(name) {
+            case "date_separation":
+                if(!newValue)
+                    setEmploymentInfo((prevState:any) => ({
+                        ...prevState,
+                        separation_type: "",
+                    }));
+        }
+
         setEmploymentInfo((curr:any) => (
             {
                 ...curr,
@@ -192,7 +201,7 @@ export default function EmploymentInfo() {
                             label="Separation Type"
                             inputProps={{ readOnly: false }} 
                             options={separationType} 
-                            value={employmentInfo?.seperation_type}
+                            value={employmentInfo?.separation_type}
                             name="separation_type"
                             onChange={handleValueChange}
                             disabled={!isEdit || !employmentInfo?.date_separation}
