@@ -195,7 +195,7 @@ export default function EmploymentInfo() {
                             value={employmentInfo?.seperation_type}
                             name="separation_type"
                             onChange={handleValueChange}
-                            disabled={!isEdit}
+                            disabled={!isEdit || !employmentInfo?.date_separation}
                         />
 
                         <InputField 
