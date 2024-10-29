@@ -15,6 +15,7 @@ const PaperStyle = {
 const Grid = styled(MuiGrid)(({ theme }) => ({
     width: '100%',
     height: "100%",
+    margin: 0,
     ...theme.typography.body2,
     '& [role="separator"]': {
       margin: theme.spacing(0, 2),

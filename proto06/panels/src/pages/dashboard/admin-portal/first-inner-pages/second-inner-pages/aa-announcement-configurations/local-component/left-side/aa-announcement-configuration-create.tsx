@@ -85,7 +85,7 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain' level="h6">Create an Announcement Data</Typography>
-            <form onSubmit={onClickSubmit} className='flex flex-col gap-6 overflow-auto w-full sm:!w-3/4'>
+            <form onSubmit={onClickSubmit} className='flex flex-col gap-6 overflow-auto w-full sm:w-3/4'>
                     <div className='flex flex-col gap-6 pt-10 w-full'>
                         <DateAssignedANNOUNCEMENTCreate createANNOUNCEMENT={createANNOUNCEMENT} setCreateANNOUNCEMENT={setCreateANNOUNCEMENT}/>
                     </div>

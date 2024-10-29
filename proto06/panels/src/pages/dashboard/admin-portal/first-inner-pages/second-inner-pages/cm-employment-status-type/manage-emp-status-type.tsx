@@ -15,6 +15,7 @@ const PaperStyle = {
 const Grid = styled(MuiGrid)(({ theme }) => ({
     width: '100%',
     height: "100%",
+    margin: 0,
     ...theme.typography.body2,
     '& [role="separator"]': {
       margin: theme.spacing(0, 2),
@@ -27,7 +28,7 @@ export default function ManageEmploymentStatusTypes() {
 
   return (
     <Fragment>
-        <Grid container direction={matches ? 'column' : 'row'} spacing={2} className='!m-0 !gap-3'>
+        <Grid container direction={matches ? 'column' : 'row'} spacing={2} className='!gap-3'>
             <Grid item xs className='!pl-0'>
                 <Paper elevation={3} style={PaperStyle} className='!h-auto'>
                     <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
