@@ -115,7 +115,7 @@ export default function BranchAutoComplete(props: BranchAutoCompleteInterface) {
             groupBy={(option:any) => option.firstLetter}
             getOptionLabel={(option) => option.branch_name}
             onChange={handleChange}
-            sx={{ width: 300 }}
+            sx={{ width: '100%'}}
             isOptionEqualToValue={isOptionEqualToValue}
             renderInput={(params) => 
                 {   

@@ -85,8 +85,8 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain' level="h6">Create an Announcement Data</Typography>
-            <form onSubmit={onClickSubmit} className='flex flex-col gap-6 overflow-auto w-3/4'>
-                    <div className='flex flex-col gap-6 pt-4'>
+            <form onSubmit={onClickSubmit} className='flex flex-col gap-6 overflow-auto w-full sm:!w-3/4'>
+                    <div className='flex flex-col gap-6 pt-10 w-full'>
                         <DateAssignedANNOUNCEMENTCreate createANNOUNCEMENT={createANNOUNCEMENT} setCreateANNOUNCEMENT={setCreateANNOUNCEMENT}/>
                     </div>
                     <div className='flex flex-col gap-6 pt-4'>
@@ -118,7 +118,7 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
                                 })
                             }}
                         />
-                        <div>
+                        <div className='flex flex-col justify-center items-center'>
                             <Typography>Pin announcement?</Typography>
                             <Stack direction="row" spacing={1} alignItems="center">
                                 <Typography>No</Typography>
@@ -212,8 +212,8 @@ function AAANNOUNCEMENTCreate(props: CreateANNOUNCEMENTModalInterface) {
                     {radioState && <MultiRankAutoCompleteLeft createANNOUNCEMENT={createANNOUNCEMENT} setCreateANNOUNCEMENT={setCreateANNOUNCEMENT}/>}                
                     {radioState && <MultiDepartmentAutoCompleteLeft createANNOUNCEMENT={createANNOUNCEMENT} setCreateANNOUNCEMENT={setCreateANNOUNCEMENT}/>}                
                     
-                    <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
-                        <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
+                    <div className='flex justify-center mt-6 mb-6' container-name='leave_buttons_container'>
+                        <div className='flex justify-center ' style={{width:'100%'}} container-name='leave_buttons'>
                             <Button variant='contained' type="submit">Create ANNOUNCEMENT</Button>
                         </div>
                     </div>

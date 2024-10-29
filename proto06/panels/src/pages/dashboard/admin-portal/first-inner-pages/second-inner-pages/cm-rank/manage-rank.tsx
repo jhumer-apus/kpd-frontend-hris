@@ -27,7 +27,7 @@ export default function ManageRANK() {
 
   return (
     <Fragment>
-        <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
+        <Grid container direction={matches ? 'column' : 'row'} spacing={2} className='!m-0'>
             {/* <Grid item xs>
                 <Paper elevation={3} style={PaperStyle}>
                     <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
@@ -35,7 +35,7 @@ export default function ManageRANK() {
                     </Box>
                 </Paper>
             </Grid> */}
-            <Grid item xs>
+            <Grid item xs className='!pl-0'>
                 <Paper elevation={3} style={PaperStyle}>
                     <ManageRANKPageHistory/>
                 </Paper>

@@ -27,15 +27,15 @@ export default function ManageUSERS() {
 
   return (
     <Fragment>
-        <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
-            <Grid item xs>
-                <Paper elevation={3} style={PaperStyle}>
+        <Grid container direction={matches ? 'column' : 'row'} spacing={2} className='!m-0'>
+            <Grid item xs className='!pl-0'>
+                <Paper elevation={3} style={PaperStyle} className='!h-auto'>
                     <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
                         <ManageUSERSCreate/>
                     </Box>
                 </Paper>
             </Grid>
-            <Grid item xs>
+            <Grid item xs className='!pl-0'>
                 <Paper elevation={3} style={PaperStyle}>
                     <ManageUSERSPageHistory/>
                 </Paper>
