@@ -1118,7 +1118,7 @@ export const UserProfile = () => {
                   name="date_hired"
                   onChange={(newValue) => setEmployeeData((curr:any) => ({
                     ...curr,
-                    date_hired: dayjs(newValue).format('YYYY-MM-DD')
+                    date_hired: dayjs(newValue as Date).format('YYYY-MM-DD')
                   }))}
                 />
               </LocalizationProvider>
@@ -1238,7 +1238,7 @@ export const UserProfile = () => {
               <InputLabel htmlFor="rank">Rank: (required)</InputLabel>
               <Select
                 key={ranks && ranks.length> 0? "ranks": "noRanks"}
-                onChange={(e:any) => setEmployeeData(curr => ({
+                onChange={(e:any) => setEmployeeData((curr:any) => ({
                   ...curr,
                   rank_code: e.target.value
                 }))}
@@ -1341,7 +1341,7 @@ export const UserProfile = () => {
             <FormControl className='w-full'>
               <InputLabel htmlFor="payroll_group">Payroll Group: (required)</InputLabel>
               <Select
-                  onChange={(e:any) => setEmployeeData(curr => ({...curr, payroll_group_code: e.target.value}))}
+                  onChange={(e:any) => setEmployeeData((curr:any) => ({...curr, payroll_group_code: e.target.value}))}
                   placeholder="Select Payroll Group"
                   name="payroll_group_code"
                   variant="outlined"
@@ -1428,7 +1428,7 @@ export const UserProfile = () => {
           <FormControl className='w-full'>
             <InputLabel htmlFor="employment_status">Employment Status: (required)</InputLabel>
             <Select
-                onChange={(e:any) => setEmployeeData(curr => ({...curr, employment_status: e.target.value}))}
+                onChange={(e:any) => setEmployeeData((curr:any) => ({...curr, employment_status: e.target.value}))}
                 placeholder="Select Employment Status"
                 name="employment_status"
                 variant="outlined"
@@ -1482,7 +1482,7 @@ export const UserProfile = () => {
             <FormControl className='w-full'>
               <InputLabel htmlFor="approver1">Approver #1 (required, employee number)</InputLabel>
               <Select
-                onChange={(e:any) => setEmployeeData(curr => ({
+                onChange={(e:any) => setEmployeeData((curr:any) => ({
                   ...curr,
                   approver1: e.target.value
                 }))}
