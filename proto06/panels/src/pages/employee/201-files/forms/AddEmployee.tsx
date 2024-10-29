@@ -799,14 +799,18 @@ export const UserProfile = () => {
 
         <div className="my-4 mb-6 flex flex-wrap xl:flex-nowrap items-center gap-6 xl:gap-4">
           <FormControl className='w-full'>
-              <InputLabel htmlFor="mobile_phone">Mobile Phone #:* (required, 09123456789)</InputLabel>
+              <InputLabel htmlFor="mobile_phone">Mobile Phone #:* (required, 9123456789)</InputLabel>
               <OutlinedInput
                 id="mobile_phone"
                 className='w-full'
                 onChange={handleChangeUserData}
                 name="mobile_phone"
                 label="Mobile Phone #:* (required, 09123456789)"
-                     
+                startAdornment={(
+                  <InputAdornment position="start">
+                      +63
+                  </InputAdornment>
+              )}
                 inputProps={{
                   maxLength:11,
                   minLength:11
@@ -863,7 +867,7 @@ export const UserProfile = () => {
           <FormControl className='w-full'>
               <InputLabel htmlFor="civil_status">Civil Status: (required)</InputLabel>
               <Select
-                  onChange={(e:any) => setEmployeeData(curr => ({...curr, civil_status: e.target.value}))}
+                  onChange={(e:any) => setEmployeeData((curr:any) => ({...curr, civil_status: e.target.value}))}
                   placeholder="Select Civil Status"
                   name="civil_status"
                   variant="outlined"
@@ -922,7 +926,7 @@ export const UserProfile = () => {
                 name="birthday"
                 onChange={(newValue) => setEmployeeData((curr:any) => ({
                   ...curr,
-                  birthday: dayjs(newValue).format('YYYY-MM-DD')
+                  birthday: dayjs(newValue as Date).format('YYYY-MM-DD')
                 }))}
               />
             </LocalizationProvider>
@@ -1300,6 +1304,12 @@ export const UserProfile = () => {
                   type:"number",
                   steps:"0.01"
                 }}
+                startAdornment={(
+                  <InputAdornment position="start">
+                      
+                    ₱
+                  </InputAdornment>
+                )}
                      
                 required           
               />
@@ -1319,6 +1329,12 @@ export const UserProfile = () => {
                   readOnly: true,
                   // step:"0.01"
                 }}
+                startAdornment={(
+                  <InputAdornment position="start">
+                      
+                    ₱
+                  </InputAdornment>
+                )}
                 value={monthlySalaryComputation(employeeData.emp_salary_basic ?? 0)}          
               />
             </FormControl>
@@ -1473,6 +1489,12 @@ export const UserProfile = () => {
                   step:"0.01" ,
                   type:'number'
                 }}
+
+                startAdornment={(
+                  <InputAdornment position="start">
+                    ₱
+                  </InputAdornment>
+                )}
               />
             </FormControl>
         </div>
@@ -1563,6 +1585,11 @@ export const UserProfile = () => {
               }}
               label="Insurance Life: (optional)"
               type="number"
+              startAdornment={(
+                <InputAdornment position="start">
+                  ₱
+                </InputAdornment>
+              )}
                            
             />
           </FormControl>
@@ -1581,6 +1608,11 @@ export const UserProfile = () => {
                   step:"0.01",
                   min:"0"
                 }}
+                startAdornment={(
+                  <InputAdornment position="start"> 
+                    ₱
+                  </InputAdornment>
+                )}
                               
               />
           </FormControl>
