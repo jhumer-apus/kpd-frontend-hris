@@ -176,9 +176,14 @@ export default function EmploymentInfo() {
                         />
                         <DatePickerField 
                             label="Date Separated"
-                            value={employmentInfo?.date_separation? dayjs(employmentInfo?.date_seperation): null}
+                            value={employmentInfo?.date_separation? dayjs(employmentInfo?.date_separation): null}
                             onChange={(newValue: Dayjs | null) => handleDateChange("date_separation", newValue)}
                             disabled={!isEdit}
+                            slotProps={{
+                                actionBar: {
+                                  actions: ['clear', 'accept']
+                                }
+                            }}
                         />
                         <SelectField 
                             className="w-full md:w-52"
