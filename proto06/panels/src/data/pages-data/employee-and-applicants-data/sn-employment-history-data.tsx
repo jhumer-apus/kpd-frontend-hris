@@ -6,7 +6,6 @@ export const EMPHISTORYPageDescriptions = [
   "On this table, you will find the employment history of an employee and their details each.",
 ];
 
-
 export const EMPHISTORYPageColumns: GridColDef[] = 
 [
   {
