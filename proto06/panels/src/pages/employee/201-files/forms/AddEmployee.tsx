@@ -335,6 +335,8 @@ export const UserProfile = () => {
     if(["tin", "pagibig_no", "pagibig_mp2_no", "sss_no", "philhealth_no"].includes(name)) {
       value = cleanTextNumber(value)
     }
+
+    if (name == "emp_no") value = `${initialEmployeeNumber}${value}`
     
     setEmployeeData((curr:any) => (
       {
@@ -568,6 +570,8 @@ export const UserProfile = () => {
   };
 
   const initialEmployeeNumber = `${employeeData?.branch_code?? "0"}-${employeeData?.department_code?? "0"}00${dayjs(employeeData?.date_hired)?.format("YY")??"00"}`
+
+  console.log(employeeData?.emp_no)
   //STATIC
   const appStatus = app_status?? "production"
 
