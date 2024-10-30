@@ -24,6 +24,7 @@ import {
 //HELPERS
 import { fetchCutOffPeriods } from '@/helpers/ApiCalls'
 import { useFetchDTRData } from '@/custom-hooks/use-fetch-dtr-data';
+import { Checkbox, FormControlLabel } from '@mui/material';
 
 interface Props { 
     viewType: "logs" | "merged" | "cutoff"
@@ -153,53 +154,12 @@ export default function FilterDTR(props: Props) {
         }))
     }
 
-    // const handleViewDTR = () => {
-
-    //     switch(viewType) {
-
-    //         case 'logs':
-    //             dispatch(viewFilterDtrLogs(
-    //                 {
-    //                     month:filter.month,
-    //                     year:filter.year,
-    //                     emp_no: filter.emp_no
-    //                 }
-    //             ))
-    //             break;
-
-    //         case 'merged':  
-
-    //             dispatch(viewFilterMergedDtrLogs(
-    //                 {
-    //                     cutoff_id: filter.cutoff_id? parseInt(filter.cutoff_id): null,
-    //                     emp_no: filter.emp_no
-    //                 }
-    //             ))
-    //             break;
-
-    //         case 'cutoff':
-
-    //             dispatch(viewCutoffDtrSummary(
-    //                 {
-    //                     cutoff_id: filter.cutoff_id? parseInt(filter.cutoff_id): null,
-    //                     emp_no: filter.emp_no
-    //                 }
-    //               ));
-    //             break;
-
-    //         default: 
-    //             dispatch(viewFilterDtrLogs(
-    //                 {
-    //                     month:filter.month,
-    //                     year:filter.year,
-    //                     emp_no: filter.emp_no
-    //                 }
-    //             ))
-    //             break;
-    //     }
-    // }
-
-    
+    const handleChange = (e:any) => {
+        const { name, value } = e.target
+        if(name == "approvers-view") {
+            console.log(e.target.checked)
+        }
+    }
 
     const currentMonth = monthOptions.find(month => parseInt(month.value) == filter.month);
 
@@ -289,8 +249,11 @@ export default function FilterDTR(props: Props) {
 
 
     return (
-        <div className='flex gap-4 items-center my-2'>
-            {renderElement}
+        <div>
+            {/* <FormControlLabel control={<Checkbox name="approvers-view" onChange={handleChange}/>} label="Approvers View" /> */}
+            <div className='flex gap-4 items-center my-2'>
+                {renderElement}
+            </div>
         </div>
     )
 }

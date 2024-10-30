@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 // import { RootState } from '@/store/reducers';
 import { RootState } from '@/store/configureStore';
 import { getSpecificEmployeeInfo } from '@/store/actions/employees';
-import { Modal, Box, Select, MenuItem, } from '@mui/material';
+import { Modal, Box, Select, MenuItem, FormControlLabel, Checkbox, } from '@mui/material';
 
 import {
   Typography,
@@ -86,42 +86,6 @@ export default function ViewDtrReports() {
 
 
   useEffect(() => {
-    // dispatch(viewFilterDtrLogs({month:1,year:2024}))
-
-    // if(spButtonIndex !== null && spButtonIndex === 1 ) {
-
-    //   // dispatch(viewMergedDtrLogs());
-    //   dispatch(viewFilterMergedDtrLogs(
-    //     {
-    //         cutoff_id: null,
-    //         emp_no: filter.emp_no
-    //     }
-    // ))
-    //   // setViewType('merged')
-
-    // } else if (spButtonIndex !== null && spButtonIndex === 2 ) {
-
-    //   dispatch(viewCutoffDtrSummary(
-    //     {
-    //       emp_no: filter.emp_no
-    //     }
-    //   ));
-      
-    //   // setViewType('cutoff')
-
-    // } else {
-
-    //   dispatch(viewFilterDtrLogs(
-    //     {
-    //       month:filter.month,
-    //       year:filter.year,
-    //       emp_no:filter.emp_no
-    //     }
-    //   ))
-    //   // setViewType('logs')
-    //   // dispatch(viewAllDtrLogs());
-    // }
-
     fetchDtrData[dtrType]()
   }, [dtrType]);
 
@@ -235,12 +199,8 @@ export default function ViewDtrReports() {
     <Fragment>
       <div className="my-10 flex flex-wrap justify-between items-start gap-6">
         <div>
-          {/* <SplitButton options={viewDTROptions}/> */}
           <Select
-            // labelId="demo-simple-select-label"
-            // id="demo-simple-select"
             value={dtrType}
-            // label="View Type"
             placeholder="DTR Types"
             onChange={handleSelectType}
             className='my-2'
@@ -256,7 +216,6 @@ export default function ViewDtrReports() {
         {isBasicEmployee}
         {(!isBasicEmployee && !isDepartmentManager) &&
           <div className='flex justify-between gap-6'>
-            {/* <ExportToCsvButton data={exportDtrData} /> */}
             <ExportToCsvButton 
               data={exportDtrData}
               excludedColumn={[]}
@@ -267,6 +226,7 @@ export default function ViewDtrReports() {
           </div>
         }
       </div>
+
       <FilterDTR 
         viewType={dtrType}
         filter={filter}
