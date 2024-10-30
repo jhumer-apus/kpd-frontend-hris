@@ -72,8 +72,6 @@ export default function ViewDtrReports() {
 
   const { dtr, fetchDtrData } = useFetchDTRData(filter)
   const [dtrType, setDtrType] = useState<DTRType>("logs")
-  
-  // const [viewType, setViewType] = useState<"logs" | "merged" | "cutoff">('logs')
 
   function handleOpen(){
     setOpen(true);
