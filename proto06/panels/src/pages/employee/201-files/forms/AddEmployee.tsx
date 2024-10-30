@@ -90,9 +90,11 @@ export const UserProfile = () => {
     })
     const [profileImage, setProfileImage] = useState<any>(null);
 
+
+
     const [dropDownData, setDropDownData] = useState<DropDownData>({
-      // branches:[],
-      // departments:[],
+      branches:[],
+      departments:[],
       payrollGroups:[],
       employmentStatuses:[],
       positions:[],
@@ -100,9 +102,6 @@ export const UserProfile = () => {
       divisions:[],
       ranks:[]
     })
-
-    const { branches, departments } = useOptionData()
-
 
     // USE EFFECTS
     useEffect(() => {
@@ -335,8 +334,6 @@ export const UserProfile = () => {
     if(["tin", "pagibig_no", "pagibig_mp2_no", "sss_no", "philhealth_no"].includes(name)) {
       value = cleanTextNumber(value)
     }
-
-    if (name == "emp_no") value = `${initialEmployeeNumber}${value}`
     
     setEmployeeData((curr:any) => (
       {
