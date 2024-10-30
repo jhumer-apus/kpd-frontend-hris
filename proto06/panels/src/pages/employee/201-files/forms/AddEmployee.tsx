@@ -1169,16 +1169,16 @@ export const UserProfile = () => {
               </div> 
             )} */}
               <FormControl className='w-full'>
-                  <InputLabel htmlFor="branch">Branch: (required)</InputLabel>
+                  <InputLabel htmlFor="company">Company: (required)</InputLabel>
                   <Select
                     onChange={(e:any) => setEmployeeData((curr:any) => ({
                       ...curr,
                       branch_code: e.target.value
                     }))}
-                    placeholder="Select Branch"
+                    placeholder="Select Company"
                     name="branch_code"
                     variant="outlined"
-                    label="Branch: (required)"
+                    label="Company: (required)"
                     required
                   >
                     {branches.map((branch:any)=> (
