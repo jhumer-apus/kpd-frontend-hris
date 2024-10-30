@@ -12,7 +12,7 @@ import EMPSEMINARSCreate from './left-side/create-emp-training-seminars';
 
 const PaperStyle: CSSProperties = {
   padding: "20px",
-  height: "800px",
+  height: "auto",
   // overflowY: 'auto'
 }
 
@@ -24,11 +24,6 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
     margin: theme.spacing(0, 2),
   },
 }));
-
-
-
-
-
 
 export default function EMPSEMINARSPageV2() {
   const dispatch = useDispatch();
