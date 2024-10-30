@@ -588,7 +588,7 @@ export const UserProfile = () => {
       });
   };
 
-  const initialEmployeeNumber = `${employeeData?.branch_code?? "0"}-${employeeData?.department_code?? "0"}00${dayjs(employeeData?.date_hired)?.format("YY")??"00"}`
+  const initialEmployeeNumber = `${branches.data.find(branch => branch.value == employeeData.branch_code)?.start ?? "0"}-${employeeData?.department_code?? "0"}00${dayjs(employeeData?.date_hired)?.format("YY")??"00"}`
 
   console.log(employeeData?.emp_no)
   //STATIC
@@ -1200,7 +1200,7 @@ export const UserProfile = () => {
                     label="Company: (required)"
                     required
                   >
-                    {branches.map((branch:any)=> (
+                    {branches.data.map((branch:any)=> (
                       <MenuItem value={branch?.value}>{branch?.label}</MenuItem>
                     ))}
                   </Select>
@@ -1218,7 +1218,7 @@ export const UserProfile = () => {
                     label="Department: (required)"
                     required
                   >
-                    {departments.map((department:any)=> (
+                    {departments.data.map((department:any)=> (
                       <MenuItem value={department?.value}>{department?.label}</MenuItem>
                     ))}
                   </Select>
@@ -1395,29 +1395,7 @@ export const UserProfile = () => {
                   }
               </Select>
             </FormControl>
-            <FormControl className='w-full'>
-
-            {/* <Autocomplete
-              // disableCloseOnSelect
-              noOptionsText={'Loading... Please Wait.'}
-              options={branches}
-              // groupBy={(option:any) => option.name}
-              getOptionLabel={(option:any) => option.name}
-              // onChange={(event, value) => setEmployeeData({ ...employeeData, branch_code: value?.id })}
-              // sx={{ width: 300 }}
-              // isOptionEqualToValue={isOptionEqualToValue}
-              renderInput={(params) => 
-                  {   
-                      return(
-                        <OutlinedInput
-                          {...params} label="Branch" 
-                        />
-                      )
-
-                  }
-
-              }
-            /> */}
+            {/* <FormControl className='w-full'>
                 <InputLabel htmlFor="branch">Branch: (required)</InputLabel>
                 <Select
                   onChange={(e:any) => setEmployeeData((curr:any) => ({
@@ -1439,8 +1417,8 @@ export const UserProfile = () => {
                     <MenuItem disabled>No branch available</MenuItem>
                   )}
                 </Select>
-            </FormControl>
-            <FormControl className='w-full'>
+            </FormControl> */}
+            {/* <FormControl className='w-full'>
               <InputLabel htmlFor="department">Department: (required)</InputLabel>
               <Select
                 onChange={(e:any) => 
@@ -1468,7 +1446,7 @@ export const UserProfile = () => {
                   <MenuItem disabled>No department available</MenuItem>
                 )}
               </Select>
-            </FormControl>
+            </FormControl> */}
             {/* <FormControl className='w-full'>
               <InputLabel htmlFor="division">Division:</InputLabel>
               <Select

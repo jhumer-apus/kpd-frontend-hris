@@ -13,7 +13,7 @@ type APIOptions  = {
 }
 
 type AutoCompleteAPIOptions = APIOptions & {
-    data: AutoCompleteType[]
+    data: AutoCompleteType[] | Option[]
 }
 
 type AutoCompleteType = {
@@ -255,7 +255,8 @@ export const useOptionData = () => {
                 const mappedBranches = Array.isArray(res.data) ? res.data.map(branch => (
                     {
                         value: branch.id,
-                        label: branch.branch_name
+                        label: branch.name,
+                        start: branch.start
                     }
                 )) : []
 
@@ -291,7 +292,7 @@ export const useOptionData = () => {
                 const mappedDepartments = Array.isArray(res.data) ? res.data.map(dept => (
                     {
                         value: dept.id,
-                        label: dept.dept_name
+                        label: dept.name
                     }
                 )) : []
 
@@ -367,7 +368,7 @@ export const useOptionData = () => {
                     }
                 )) : []
 
-                setEmploymentStatus(curr => (
+                setEmploymentStatus((curr:any) => (
                     {
                         data: mappedStatus ,
                         loading: false
@@ -403,7 +404,7 @@ export const useOptionData = () => {
                     }
                 )) : []
 
-                setApprovers(curr => (
+                setApprovers((curr:any) => (
                     {
                         data: mappedApprovers,
                         loading: false
