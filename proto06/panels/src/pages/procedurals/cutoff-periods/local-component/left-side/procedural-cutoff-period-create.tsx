@@ -93,7 +93,9 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
 
     // handles all the form elements to avoid multile methods for each fields. /osama
     const handleChanges = (e: ChangeEvent<HTMLInputElement>): void => {
-        let { name, value } = e.target;
+        let { name, value }: any = e.target;
+        console.log(e.target);
+        name === 'reg_days_total' ? value = parseInt(value) : '';
         setCreateCUTOFFPERIOD((prevState) => ({
             ...prevState,
             [name]: value
@@ -104,7 +106,7 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a Cutoff Period Data</Typography>
             <div className='flex flex-col gap-6 overflow-auto relative'>
-                <div className='flex gap-6 pt-4'>
+                <div className='flex flex-col gap-6 pt-10 xs:flex-row'>
                     <div className='flex flex-col gap-6'>
                         <TextField
                             required 

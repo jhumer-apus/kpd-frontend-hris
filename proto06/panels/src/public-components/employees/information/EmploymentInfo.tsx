@@ -101,6 +101,15 @@ export default function EmploymentInfo() {
 
     const handleDateChange = (name:string, newValue: Dayjs | null) => {
 
+        switch(name) {
+            case "date_separation":
+                if(!newValue)
+                    setEmploymentInfo((prevState:any) => ({
+                        ...prevState,
+                        separation_type: "",
+                    }));
+        }
+
         setEmploymentInfo((curr:any) => (
             {
                 ...curr,
@@ -176,9 +185,14 @@ export default function EmploymentInfo() {
                         />
                         <DatePickerField 
                             label="Date Separated"
-                            value={employmentInfo?.date_separation? dayjs(employmentInfo?.date_seperation): null}
+                            value={employmentInfo?.date_separation? dayjs(employmentInfo?.date_separation): null}
                             onChange={(newValue: Dayjs | null) => handleDateChange("date_separation", newValue)}
                             disabled={!isEdit}
+                            slotProps={{
+                                actionBar: {
+                                  actions: ['clear', 'accept']
+                                }
+                            }}
                         />
                         <SelectField 
                             className="w-full md:w-52"
@@ -187,10 +201,10 @@ export default function EmploymentInfo() {
                             label="Separation Type"
                             inputProps={{ readOnly: false }} 
                             options={separationType} 
-                            value={employmentInfo?.seperation_type}
+                            value={employmentInfo?.separation_type}
                             name="separation_type"
                             onChange={handleValueChange}
-                            disabled={!isEdit}
+                            disabled={!isEdit || !employmentInfo?.date_separation}
                         />
 
                         <InputField 
