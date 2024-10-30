@@ -32,6 +32,7 @@ import { useSelector } from 'react-redux';
 import { update } from 'lodash';
 import useFetchQuery from '@/custom-hooks/use-fetch-query';
 import axiosInstance from '@/helpers/axiosConfig';
+import { useOptionData } from '@/custom-hooks/use-option-data';
 // import SelectForm from '@/public-components/forms/SelectForm'
 
 
@@ -88,27 +89,51 @@ export const UserProfile = () => {
       }
     })
     const [profileImage, setProfileImage] = useState<any>(null);
+    const {
+      sex,
+      civilStatus,
+      bloodTypes,
+      separationType,
+      roles,
+      fetchPositions,
+      fetchBranches,
+      fetchDepartments,
+      fetchRanks,
+      fetchEmploymentStatus,
+      fetchApprovers,
+      fetchPayrollGroup,
+      positions,
+      branches,
+      departments,
+      ranks,
+      employmentStatus,
+      employeeType,
+      approvers,
+      payrollGroup
 
-    const [dropDownData, setDropDownData] = useState<DropDownData>({
-      branches:[],
-      departments:[],
-      payrollGroups:[],
-      employmentStatuses:[],
-      positions:[],
-      approvers:[],
-      divisions:[],
-      ranks:[]
-    })
+    } = useOptionData();
+
+    // const [dropDownData, setDropDownData] = useState<DropDownData>({
+    //   branches:[],
+    //   departments:[],
+    //   payrollGroups:[],
+    //   employmentStatuses:[],
+    //   positions:[],
+    //   approvers:[],
+    //   divisions:[],
+    //   ranks:[]
+    // })
 
 
     // USE EFFECTS
     useEffect(() => {
       fetchBranches()
-      fetchPayrollGroups()
+      fetchPayrollGroup()
       fetchEmploymentStatus()
       fetchPositions()
       fetchDepartments()
-      fetchDivisions()
+      fetchRanks()
+      // fetchDivision()
       fetchUniqueEmployeeNumber()
       fetchApprovers()
     }, [])
@@ -125,53 +150,37 @@ export const UserProfile = () => {
     // },[employeeData.department_code])
 
     // FETCH SELECTS INFORMATION
-    const {data: ranks, status, error} = useFetchQuery(`rank/`, null)
+    // const {data: ranks, status, error} = useFetchQuery(`rank/`, null)
     
-    const fetchPayrollGroups = () => {
-      axiosInstance.get(`payrollgroup`).then((response:any) => {
-        const responsePayrollGroups = response.data.map((payroll:any) => {
-          return {
-            id: payroll.id,
-            name: payroll.name
-          }
-        })
-        setDropDownData((curr:any) => ({...curr, payrollGroups: responsePayrollGroups}));
-      })
-    }
+    // const fetchPayrollGroups = () => {
+    //   axiosInstance.get(`payrollgroup`).then((response:any) => {
+    //     const responsePayrollGroups = response.data.map((payroll:any) => {
+    //       return {
+    //         id: payroll.id,
+    //         name: payroll.name
+    //       }
+    //     })
+    //     setDropDownData((curr:any) => ({...curr, payrollGroups: responsePayrollGroups}));
+    //   })
+    // }
 
-    const fetchBranches = () => {
-      axiosInstance.get(`branch`).then((response:any) => {
-        const responseBranches = response.data.map((branch:any) => {
-          return {
-            id: branch.id,
-            name: branch.branch_name
-          }
-        })
-        setDropDownData((curr:any) => ({...curr, branches: responseBranches}));
-      })
-    }
+    // const fetchBranches = () => {
+    //   axiosInstance.get(`branch`).then((response:any) => {
+    //     const responseBranches = response.data.map((branch:any) => {
+    //       return {
+    //         id: branch.id,
+    //         name: branch.branch_name
+    //       }
+    //     })
+    //     setDropDownData((curr:any) => ({...curr, branches: responseBranches}));
+    //   })
+    // }
 
-    const fetchDepartments = () => {
-
-      axiosInstance.get(`department/`).then((response:any) => {
-        
-        const responseDepartments = response.data.map((department:any) => {
-          return {
-            id: department.id,
-            name: department.dept_name
-          }
-        })
-        setDropDownData((curr:any) => ({...curr, departments: responseDepartments}));
-      })
-    }
-
-    // const fetchDepartments = (id:number) => {
+    // const fetchDepartments = () => {
 
     //   axiosInstance.get(`department/`).then((response:any) => {
         
-    //     const responseDepartments = response.data
-    //     .filter((department:any) => department.dept_branch_code == id)
-    //     .map((department:any) => {
+    //     const responseDepartments = response.data.map((department:any) => {
     //       return {
     //         id: department.id,
     //         name: department.dept_name
@@ -181,72 +190,65 @@ export const UserProfile = () => {
     //   })
     // }
 
-    const fetchEmploymentStatus = () => {
-      axiosInstance.get(`emp_status_type/`).then((response:any) => {
-        const responseEmploymentStatuses = response.data.map((employmentStatus:any) => {
-          return {
-            id: employmentStatus.id,
-            name: employmentStatus.name
-          }
-        })
-        setDropDownData((curr:any) => ({...curr, employmentStatuses: responseEmploymentStatuses}));
-      })
-    }
+    // // const fetchDepartments = (id:number) => {
 
-    const fetchPositions = () => {
-      axiosInstance.get(`position/`).then((response:any) => {
-        const responsePositions = response.data.map((position:any) => {
-          return {
-            id: position.id,
-            name: position.pos_name
-          }
-        })
+    // //   axiosInstance.get(`department/`).then((response:any) => {
+        
+    // //     const responseDepartments = response.data
+    // //     .filter((department:any) => department.dept_branch_code == id)
+    // //     .map((department:any) => {
+    // //       return {
+    // //         id: department.id,
+    // //         name: department.dept_name
+    // //       }
+    // //     })
+    // //     setDropDownData((curr:any) => ({...curr, departments: responseDepartments}));
+    // //   })
+    // // }
 
-        setDropDownData((curr:any) => ({...curr, positions: responsePositions}));
-      })
-    }
+    // const fetchEmploymentStatus = () => {
+    //   axiosInstance.get(`emp_status_type/`).then((response:any) => {
+    //     const responseEmploymentStatuses = response.data.map((employmentStatus:any) => {
+    //       return {
+    //         id: employmentStatus.id,
+    //         name: employmentStatus.name
+    //       }
+    //     })
+    //     setDropDownData((curr:any) => ({...curr, employmentStatuses: responseEmploymentStatuses}));
+    //   })
+    // }
 
-    const fetchDivisions = () => {
-      axiosInstance.get(`division/`).then((response:any) => {
-        const responseDivisions = response.data.map((division:any) => {
-          return {
-            id: division.id,
-            name: division. div_name
-          }
-        })
-        setDropDownData((curr:any) => ({...curr, divisions: responseDivisions}));
+    // const fetchPositions = () => {
+    //   axiosInstance.get(`position/`).then((response:any) => {
+    //     const responsePositions = response.data.map((position:any) => {
+    //       return {
+    //         id: position.id,
+    //         name: position.pos_name
+    //       }
+    //     })
 
-      })
-    }
+    //     setDropDownData((curr:any) => ({...curr, positions: responsePositions}));
+    //   })
+    // }
 
-    const fetchApprovers = () => {
+    // const fetchDivisions = () => {
+    //   axiosInstance.get(`division/`).then((response:any) => {
+    //     const responseDivisions = response.data.map((division:any) => {
+    //       return {
+    //         id: division.id,
+    //         name: division. div_name
+    //       }
+    //     })
+    //     setDropDownData((curr:any) => ({...curr, divisions: responseDivisions}));
 
-      setDropDownData((curr:any) => ({...curr, approvers: []}));
+    //   })
+    // }
 
-      axiosInstance.get(`approvers/`).then((response:any) => {
+    // const fetchApprovers = () => {
 
-        const responseApprovers = response.data.map((approver:any) => {
-          return {
-            emp_no: approver.emp_no,
-            full_name: approver.full_name
-          }
-        })
-
-        console.log(responseApprovers)
-
-        setDropDownData((curr:any) => ({...curr, approvers: responseApprovers}));
-
-      })
-    }
-
-    // const fetchApprovers = (department: number) => {
     //   setDropDownData((curr:any) => ({...curr, approvers: []}));
 
-    //   axiosInstance.get(`approvers/`,{
-    //     params:{
-    //       department: department
-    //     }
-    //   }).then((response:any) => {
+    //   axiosInstance.get(`approvers/`).then((response:any) => {
 
     //     const responseApprovers = response.data.map((approver:any) => {
     //       return {
@@ -255,10 +257,33 @@ export const UserProfile = () => {
     //       }
     //     })
 
+    //     console.log(responseApprovers)
+
     //     setDropDownData((curr:any) => ({...curr, approvers: responseApprovers}));
 
     //   })
     // }
+
+    // // const fetchApprovers = (department: number) => {
+    // //   setDropDownData((curr:any) => ({...curr, approvers: []}));
+
+    // //   axiosInstance.get(`approvers/`,{
+    // //     params:{
+    // //       department: department
+    // //     }
+    // //   }).then((response:any) => {
+
+    // //     const responseApprovers = response.data.map((approver:any) => {
+    // //       return {
+    // //         emp_no: approver.emp_no,
+    // //         full_name: approver.full_name
+    // //       }
+    // //     })
+
+    // //     setDropDownData((curr:any) => ({...curr, approvers: responseApprovers}));
+
+    // //   })
+    // // }
 
     const fetchUniqueEmployeeNumber = async() => {
       await axiosInstance.get(`new_emp_no`).then((res:AxiosResponse) => {
@@ -268,7 +293,7 @@ export const UserProfile = () => {
                   bio_id: res.data.new_emp_no
               }))
           }
-      ).catch((err:AxiosError) => {
+      ).catch((err:any) => {
           console.log(err)
           window.alert(beautifyJSON(err))
       })
@@ -855,7 +880,7 @@ export const UserProfile = () => {
           <FormControl className='w-full'>
               <InputLabel htmlFor="civil_status">Civil Status: (required)</InputLabel>
               <Select
-                  onChange={(e:any) => setEmployeeData(curr => ({...curr, civil_status: e.target.value}))}
+                  onChange={(e:any) => setEmployeeData((curr:any) => ({...curr, civil_status: e.target.value}))}
                   placeholder="Select Civil Status"
                   name="civil_status"
                   variant="outlined"
@@ -914,7 +939,7 @@ export const UserProfile = () => {
                 name="birthday"
                 onChange={(newValue) => setEmployeeData((curr:any) => ({
                   ...curr,
-                  birthday: dayjs(newValue).format('YYYY-MM-DD')
+                  birthday: dayjs(newValue as Date).format('YYYY-MM-DD')
                 }))}
               />
             </LocalizationProvider>
@@ -1114,7 +1139,7 @@ export const UserProfile = () => {
                   name="date_hired"
                   onChange={(newValue) => setEmployeeData((curr:any) => ({
                     ...curr,
-                    date_hired: dayjs(newValue).format('YYYY-MM-DD')
+                    date_hired: dayjs(newValue as Date).format('YYYY-MM-DD')
                   }))}
                 />
               </LocalizationProvider>
@@ -1191,8 +1216,8 @@ export const UserProfile = () => {
               <FormControl className='w-full'>
               <InputLabel htmlFor="rank">Rank: (required)</InputLabel>
               <Select
-                key={ranks && ranks.length> 0? "ranks": "noRanks"}
-                onChange={(e:any) => setEmployeeData(curr => ({
+                key={ranks && ranks.data.length> 0? "ranks": "noRanks"}
+                onChange={(e:any) => setEmployeeData((curr:any) => ({
                   ...curr,
                   rank_code: e.target.value
                 }))}
@@ -1202,8 +1227,8 @@ export const UserProfile = () => {
                 label="Rank: (required)"
                 required
             >   
-              {ranks && ranks.map((rank:any) => (
-                <MenuItem value={rank.id}>{rank.rank_name}</MenuItem>
+              {ranks && ranks.data.map((rank:any) => (
+                <MenuItem value={rank.value}>{rank.label}</MenuItem>
               ))}
                 {/* <MenuItem value="1">Announcer</MenuItem> */}
                 {/* {appStatus == "development" && <MenuItem value="7">Development</MenuItem>} */}
@@ -1295,7 +1320,7 @@ export const UserProfile = () => {
             <FormControl className='w-full'>
               <InputLabel htmlFor="payroll_group">Payroll Group: (required)</InputLabel>
               <Select
-                  onChange={(e:any) => setEmployeeData(curr => ({...curr, payroll_group_code: e.target.value}))}
+                  onChange={(e:any) => setEmployeeData((curr:any) => ({...curr, payroll_group_code: e.target.value}))}
                   placeholder="Select Payroll Group"
                   name="payroll_group_code"
                   variant="outlined"
@@ -1303,7 +1328,7 @@ export const UserProfile = () => {
                   required
                 >
                   {
-                    dropDownData.payrollGroups.length > 0 ? dropDownData.payrollGroups.map((payroll:any) => (
+                    payrollGroup.data.length > 0 ? payrollGroup.data.map((payroll:any) => (
                       <MenuItem value={payroll.id}>{payroll.name}</MenuItem>
                     ))
                     : <MenuItem disabled>No payrolls available</MenuItem>
@@ -1335,7 +1360,7 @@ export const UserProfile = () => {
             /> */}
                 <InputLabel htmlFor="branch">Branch: (required)</InputLabel>
                 <Select
-                  onChange={(e:any) => setEmployeeData(curr => ({
+                  onChange={(e:any) => setEmployeeData((curr:any) => ({
                     ...curr,
                     branch_code: e.target.value
                   }))}
@@ -1348,8 +1373,8 @@ export const UserProfile = () => {
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  {dropDownData.branches.length > 0 ? dropDownData.branches.map((branch:any)=> (
-                    <MenuItem value={branch.id}>{branch.name}</MenuItem>
+                  {branches.data.length > 0 ? branches.data.map((branch:any)=> (
+                    <MenuItem value={branch.value}>{branch.label}</MenuItem>
                   )): (
                     <MenuItem disabled>No branch available</MenuItem>
                   )}
@@ -1362,7 +1387,7 @@ export const UserProfile = () => {
                   {
                     
                     // fetchApprovers(e.target.value)
-                    setEmployeeData(curr => 
+                    setEmployeeData((curr:any) => 
                     (
                       {
                         ...curr,
@@ -1377,8 +1402,8 @@ export const UserProfile = () => {
                 label="Department: (required)"
                 required
               >
-                {dropDownData.departments.length > 0 ? dropDownData.departments.map((department:any)=> (
-                  <MenuItem value={department.id}>{department.name}</MenuItem>
+                {departments.data.length > 0 ? departments.data.map((department:any)=> (
+                  <MenuItem value={department.value}>{department.label}</MenuItem>
                 )): (
                   <MenuItem disabled>No department available</MenuItem>
                 )}
@@ -1456,15 +1481,15 @@ export const UserProfile = () => {
           <FormControl className='w-full'>
             <InputLabel htmlFor="employment_status">Employment Status: (required)</InputLabel>
             <Select
-                onChange={(e:any) => setEmployeeData(curr => ({...curr, employment_status: e.target.value}))}
+                onChange={(e:any) => setEmployeeData((curr:any) => ({...curr, employment_status: e.target.value}))}
                 placeholder="Select Employment Status"
                 name="employment_status"
                 variant="outlined"
                 label="Employment status: (required)"
                 required
               >
-                {dropDownData.employmentStatuses.map((employmentStatus:any) => (
-                  <MenuItem value={employmentStatus.id}>{employmentStatus.name}</MenuItem>
+                {employmentStatus.data.map((empStat:any) => (
+                  <MenuItem value={empStat.value}>{empStat.label}</MenuItem>
                 ))}
             </Select>
           </FormControl>
@@ -1510,7 +1535,7 @@ export const UserProfile = () => {
             <FormControl className='w-full'>
               <InputLabel htmlFor="approver1">Approver #1 (required, employee number)</InputLabel>
               <Select
-                onChange={(e:any) => setEmployeeData(curr => ({
+                onChange={(e:any) => setEmployeeData((curr:any) => ({
                   ...curr,
                   approver1: e.target.value
                 }))}
@@ -1520,8 +1545,8 @@ export const UserProfile = () => {
                 label="Approver #1 (required, employee number)"
                 required
               >
-                {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> (
-                  <MenuItem value={approver.emp_no}>{approver.full_name}</MenuItem>
+                {approvers.data.length > 0 ? approvers.data.map((approver:any)=> (
+                  <MenuItem value={approver.id}>{approver.name}</MenuItem>
                   )): (
                   <MenuItem disabled>No Approvers available on the selected department</MenuItem>
                 )}
@@ -1530,7 +1555,7 @@ export const UserProfile = () => {
             <FormControl className='w-full'>
               <InputLabel htmlFor="approver2">Approver #2 (optional, employee number)</InputLabel>
               <Select
-                onChange={(e:any) => setEmployeeData(curr => ({
+                onChange={(e:any) => setEmployeeData((curr:any) => ({
                   ...curr,
                   approver2: e.target.value
                 }))}
@@ -1542,10 +1567,10 @@ export const UserProfile = () => {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {dropDownData.approvers.length > 0 ? dropDownData.approvers.map((approver:any)=> 
+                {approvers.data.length > 0 ? approvers.data.map((approver:any)=> 
                   (
                     // ![employeeData.approver1, employeeData.approver2].includes(approver.emp_no) && <MenuItem value={approver.emp_no}>{approver.full_name}</MenuItem>
-                    <MenuItem value={approver.emp_no}>{approver.full_name}</MenuItem>
+                    <MenuItem value={approver.id}>{approver.name}</MenuItem>
                   )): (
                   <MenuItem disabled>No Approvers available on the selected department</MenuItem>
                   )
@@ -1557,7 +1582,7 @@ export const UserProfile = () => {
           <FormControl className='w-full'>
               <InputLabel htmlFor="position">Position: (required)</InputLabel>
               <Select
-                onChange={(e:any) => setEmployeeData(curr => ({
+                onChange={(e:any) => setEmployeeData((curr:any) => ({
                   ...curr,
                   position_code: e.target.value
                 }))}
@@ -1567,8 +1592,8 @@ export const UserProfile = () => {
                 label="Position: (required)"
                 required
               >
-                {dropDownData.positions.length > 0 ? dropDownData.positions.map((pos:any)=> (
-                  <MenuItem value={pos.id}>{pos.name}</MenuItem>
+                {positions.data.length > 0 ? positions.data.map((pos:any)=> (
+                  <MenuItem value={pos.value}>{pos.label}</MenuItem>
                 )): (
                   <MenuItem disabled>No positions available</MenuItem>
                 )}
