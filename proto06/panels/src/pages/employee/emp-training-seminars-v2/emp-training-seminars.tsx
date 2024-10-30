@@ -25,11 +25,6 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
   },
 }));
 
-
-
-
-
-
 export default function EMPSEMINARSPageV2() {
   const dispatch = useDispatch();
   const theme = useTheme();

@@ -163,10 +163,7 @@ export default function ViewDtrReports() {
     setDtrType(curr => e.target.value)
   }
 
-
-
   const role = currUser?.user?.role;
-
 
   const isBasicEmployee = role && role == 1
   const isDepartmentManager = role && role == 2
@@ -191,7 +188,6 @@ export default function ViewDtrReports() {
   //   "rd_reghol_reg_ot_total_hours",
   //   "rd_reghol_nd_ot_total_hours",
   // ]
-
 
   return (
     <Fragment>

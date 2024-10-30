@@ -69,7 +69,6 @@ export const authEpic: Epic = (action$, state$) =>
     )
 );
 
-
 // New API call function
 const fetchUserDataApiCall = async (emp_no: Number) => {
   const response = await axiosInstance.get(`employees/${emp_no}/`);
