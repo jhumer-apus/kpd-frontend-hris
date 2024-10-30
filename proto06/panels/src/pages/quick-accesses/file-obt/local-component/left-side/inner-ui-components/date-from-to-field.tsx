@@ -38,7 +38,7 @@ export default function DateFromToOBTCreate(props: DateFromToOBTCreateInterface)
             <div title="Make sure this field is logical. (i.e, `Date From` should come first and not the `Date To`)">
             <DateTimePicker
                 label="Date From"
-                // value={dayjs(createOBT?.obt_date_from)}
+                value={dayjs(createOBT?.obt_date_from)}
                 onChange={(newValue:any) => {
                     const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
                     return (
@@ -58,7 +58,7 @@ export default function DateFromToOBTCreate(props: DateFromToOBTCreateInterface)
             <div title="Make sure this field is logical. (i.e, `Date From` should come first and not the `Date To`)">
             <DateTimePicker
                 label="Date To"
-                // value={dayjs(createOBT?.obt_date_to)}
+                value={dayjs(createOBT?.obt_date_to)}
                 onChange={(newValue:any) => {
                     const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
                     return(

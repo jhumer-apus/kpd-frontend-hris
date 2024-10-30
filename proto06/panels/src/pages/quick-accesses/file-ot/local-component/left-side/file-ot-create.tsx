@@ -86,6 +86,17 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
         })
     }
 
+    const formReseter = (): void => {
+        setCreateOVERTIME({
+            emp_no: NaN,
+            ot_type: 'After Duty',
+            ot_remarks: null,
+            ot_date_from: null,
+            ot_date_to: null,
+            added_by: userData?.emp_no,
+        })
+    }
+    
     const fileOTPost = async() => {
 
         setIsSubmittingRequest(true)
@@ -110,6 +121,7 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
                     message: `File ${userData?.rank_hierarchy == 2? 'Allowance Time': 'Overtime'} Successfully`
                 }))
                 sendEmail(createOVERTIME.emp_no, res.data.id)
+                formReseter();
 
             })
             .catch((err:any) => {

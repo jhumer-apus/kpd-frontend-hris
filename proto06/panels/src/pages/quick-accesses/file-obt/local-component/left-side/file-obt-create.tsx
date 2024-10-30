@@ -52,12 +52,26 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
     useEffect(() => {
         fetchObtTypes()
     }, [])
+
     const onClickSubmit = (e:any) => {
         e.preventDefault()
         setIsSubmittingRequest(true)
         // dispatch(OBTCreateAction(createOBT))
         fileOBTPost()
     };
+
+    const formReseter = () => {
+        setCreateOBT({
+            emp_no: NaN,
+            obt_type: null,
+            obt_remarks: '',
+            obt_type_id: null,
+            obt_business_date: null,
+            obt_date_from: null,
+            obt_date_to: null,
+            added_by: userData?.emp_no,
+        })
+    }
 
     const sendEmail = async (emp_no:string | number, app_pk: number) => {
 
@@ -124,7 +138,7 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
             }))
 
             sendEmail(createOBT.emp_no, res.data.id)
-
+            formReseter();
         }).catch((err:any) => {
 
             setIsSubmittingRequest(false)

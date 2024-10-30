@@ -156,6 +156,19 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
     // remove after debugging
     console.log('hello');
     
+    const formReseter = (): void => {
+        setCreateLEAVE({
+            emp_no: NaN,
+            leave_credit: null,
+            leave_remarks: null,
+            leave_date_from: null,
+            leave_date_to: null,
+            added_by: userData?.emp_no,
+            uploaded_file: "",
+            emergency_reasons: null,
+            option:null
+        })
+    }
 
     const submitNewFileLeave = async (formData:FormData) => {
 
@@ -172,6 +185,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
             }))
             
             sendEmail(createLEAVE.emp_no, res.data.leave_ids)
+            formReseter();
 
         }).catch((err:any) => {
 
