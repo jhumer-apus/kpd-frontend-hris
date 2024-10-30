@@ -175,7 +175,7 @@ export default function EditEMPSEMINARSModal(props: EditEMPSEMINARSModalInterfac
             size='sm'
         > 
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <Typography variant='h6' className='border-b-2 border-green-700'>Editing Employment History Details</Typography>
+              <Typography variant='h6' className='border-b-2 border-green-700'>Editing Training and Seminar Details</Typography>
               <div>
                 {/* <Box sx={CircularProgressStyle}>
                     <span style={{marginLeft: "50%", marginTop: "20%"}}><CircularProgress /></span>
