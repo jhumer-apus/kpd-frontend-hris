@@ -61,16 +61,15 @@ function QuickAccessOBTCreate(props: CreateOBTModalInterface) {
     };
 
     const formReseter = () => {
-        setCreateOBT({
-            emp_no: NaN,
+        setCreateOBT((prevState) => ({
+            ...prevState,
             obt_type: null,
             obt_remarks: '',
             obt_type_id: null,
             obt_business_date: null,
             obt_date_from: null,
             obt_date_to: null,
-            added_by: userData?.emp_no,
-        })
+        }))
     }
 
     const sendEmail = async (emp_no:string | number, app_pk: number) => {

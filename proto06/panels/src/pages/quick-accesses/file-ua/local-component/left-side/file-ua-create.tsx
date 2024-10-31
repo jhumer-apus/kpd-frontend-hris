@@ -53,13 +53,12 @@ function QuickAccessUACreate(props: CreateUAModalInterface) {
     // }, [UACreatestate.status])
 
     const formReseter = (): void => {
-        setCreateUA({
-            emp_no: NaN,
+        setCreateUA((prevState) => ({
+            ...prevState,
             ua_description: null,
             ua_date_from: null,
             ua_date_to: null,
-            added_by: userData?.emp_no,
-        })
+        }));
     }
 
     const fileUAPost = async() => {

@@ -64,7 +64,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
     const [createLEAVE, setCreateLEAVE] = useState<LEAVECreateInterface>({
         emp_no: NaN,
         leave_credit: null,
-        leave_remarks: null,
+        leave_remarks: '',
         leave_date_from: null,
         leave_date_to: null,
         added_by: userData?.emp_no,
@@ -162,18 +162,19 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
     console.log('hello');
     
     const formReseter = (): void => {
-        setCreateLEAVE({
-            emp_no: NaN,
+        setCreateLEAVE((prevState) => ({
+            ...prevState,
             leave_credit: null,
-            leave_remarks: null,
+            leave_remarks: '',
             leave_date_from: null,
             leave_date_to: null,
-            added_by: userData?.emp_no,
             uploaded_file: "",
             emergency_reasons: null,
             option:null
-        })
+        }))
     }
+
+    console.log(createLEAVE);
 
     const submitNewFileLeave = async (formData:FormData) => {
 
@@ -191,7 +192,6 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
             
             sendEmail(createLEAVE.emp_no, res.data.leave_ids)
             formReseter();
-
         }).catch((err:any) => {
 
             setIsSubmittingRequest(false)
@@ -439,11 +439,10 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                             renderInput={(params) => 
                                 {   
                                     return(
-                                        <TextField {...params} label="Leave Types" />
+                                        <TextField {...params} label="Leave Types"  value={createLEAVE.leave_credit}/>
                                     )
 
                                 }
-
                             }
                         />
 
@@ -464,7 +463,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                             label='LEAVE Description:'  
                             variant='outlined' 
                             multiline rows={2}
-                            value={createLEAVE?.leave_remarks}
+                            value={createLEAVE.leave_remarks}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 // event.target.value
                                 setCreateLEAVE((prevState)=> {

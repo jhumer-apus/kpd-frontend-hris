@@ -87,14 +87,13 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
     }
 
     const formReseter = (): void => {
-        setCreateOVERTIME({
-            emp_no: NaN,
+        setCreateOVERTIME((prevState) => ({
+            ...prevState,
             ot_type: 'After Duty',
             ot_remarks: null,
             ot_date_from: null,
             ot_date_to: null,
-            added_by: userData?.emp_no,
-        })
+        }))
     }
     
     const fileOTPost = async() => {
@@ -151,8 +150,6 @@ function QuickAccessOVERTIMECreate(props: CreateOVERTIMEModalInterface) {
                             multiline rows={1}
                             value={"After Duty"}
                             disabled
-                            
-                            
                         />
                         <TextField
                             required 
