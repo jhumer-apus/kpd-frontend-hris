@@ -133,7 +133,7 @@ export const UserProfile = () => {
       fetchDepartments()
       fetchRanks()
       // fetchDivision()
-      fetchUniqueEmployeeNumber()
+      // fetchUniqueEmployeeNumber()
       fetchApprovers()
     }, [])
 
@@ -284,19 +284,19 @@ export const UserProfile = () => {
     // //   })
     // // }
 
-    const fetchUniqueEmployeeNumber = async() => {
-      await axiosInstance.get(`new_emp_no`).then((res:AxiosResponse) => {
-              setEmployeeData((curr:any) => ({
-                  ...curr,
-                  emp_no: res.data.new_emp_no,
-                  bio_id: res.data.new_emp_no
-              }))
-          }
-      ).catch((err:any) => {
-          console.log(err)
-          window.alert(beautifyJSON(err))
-      })
-  }
+  //   const fetchUniqueEmployeeNumber = async() => {
+  //     await axiosInstance.get(`new_emp_no`).then((res:AxiosResponse) => {
+  //             setEmployeeData((curr:any) => ({
+  //                 ...curr,
+  //                 emp_no: res.data.new_emp_no,
+  //                 bio_id: res.data.new_emp_no
+  //             }))
+  //         }
+  //     ).catch((err:any) => {
+  //         console.log(err)
+  //         window.alert(beautifyJSON(err))
+  //     })
+  // }
 
     // const fetchApprovers = () => {
     //   axiosInstance.get(`position/`).then((response:any) => {
@@ -489,7 +489,7 @@ export const UserProfile = () => {
       civil_status: employeeData.civil_status ?? "",
       gender: employeeData.gender ?? "",
       address: employeeData.address ?? "",
-      mobile_phone: employeeData.mobile_phone ?? "",
+      mobile_phone: employeeData.mobile_phone ? `0${employeeData.mobile_phone}`: "",
       email_address: employeeData.email_address ?? "",
       bio_id: employeeData.bio_id ?? "",
       telephone: employeeData.telephone ?? "",
@@ -498,7 +498,7 @@ export const UserProfile = () => {
       profession: employeeData.profession ?? "",
       license_no: employeeData.license_no ?? "",
       emergency_contact_person: employeeData.emergency_contact_person ?? "",
-      emergency_contact_number: employeeData.emergency_contact_number ?? "",
+      emergency_contact_number: employeeData.emergency_contact_number ? `0${employeeData.emergency_contact_number}`: "",
       hmo: employeeData.hmo ?? "",
       other_duties_responsibilities: employeeData.other_duties_responsibilities ?? "",
       payroll_no: employeeData.payroll_no ?? "",
@@ -831,8 +831,8 @@ export const UserProfile = () => {
                   </InputAdornment>
               )}
                 inputProps={{
-                  maxLength:11,
-                  minLength:11
+                  maxLength:10,
+                  minLength:10
                 }}        
               />
           </FormControl>
@@ -874,10 +874,15 @@ export const UserProfile = () => {
                 name="emergency_contact_number"
                 label="Emergency Contact #: (optional)"
                 inputProps={{
-                  maxLength:11,
-                  minLength:11,
+                  maxLength:10,
+                  minLength:10,
                   pattern: '^[0-9]+$'
                 }}
+                startAdornment={(
+                  <InputAdornment position="start">
+                      +63
+                  </InputAdornment>
+                )}
                 type='tel'                               
               />
           </FormControl>

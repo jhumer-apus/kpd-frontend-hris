@@ -232,10 +232,10 @@ export default function EmploymentInfo() {
 
                         <SelectField 
                             className="w-full md:w-[300px]"
-                            labelId="branches"
-                            id="branches"
-                            label="Branches"
-                            name="branch_code"
+                            labelId="company"
+                            id="company"
+                            label="Company"
+                            name="company"
                             loading={branches.loading}
                             inputProps={{ readOnly: false }} 
                             options={branches.data}
