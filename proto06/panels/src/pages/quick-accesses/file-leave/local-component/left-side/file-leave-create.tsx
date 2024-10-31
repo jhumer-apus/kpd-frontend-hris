@@ -122,6 +122,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         }
         return false
     }
+
     const onClickSubmit = (e:any) => {
 
         e.preventDefault()
@@ -157,9 +158,6 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         submitNewFileLeave(formData)
         // dispatch(LEAVECreateAction(formData))
     };
-
-    // remove after debugging
-    console.log('hello');
     
     const formReseter = (): void => {
         setCreateLEAVE((prevState) => ({
@@ -401,7 +399,6 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '2px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a Leave Data</Typography>
 
-            
             {/* <div className='my-4'>
                 <Typography fontSize="xl" fontWeight="lg">
                     Remaining Leave Credits
@@ -435,13 +432,15 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                                 }))
                             })}
                             sx={{ width: '100%' }}
+                            value={createLEAVE.leave_credit}
                             // isOptionEqualToValue={isOptionEqualToValue}
                             renderInput={(params) => 
                                 {   
-                                    return(
-                                        <TextField {...params} label="Leave Types"  value={createLEAVE.leave_credit}/>
+                                    return (
+                                        <>
+                                            <TextField {...params} label="Leave Types"/>
+                                        </>
                                     )
-
                                 }
                             }
                         />
