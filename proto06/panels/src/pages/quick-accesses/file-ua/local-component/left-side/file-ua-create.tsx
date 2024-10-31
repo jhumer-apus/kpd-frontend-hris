@@ -52,6 +52,16 @@ function QuickAccessUACreate(props: CreateUAModalInterface) {
     //     }
     // }, [UACreatestate.status])
 
+    const formReseter = (): void => {
+        setCreateUA({
+            emp_no: NaN,
+            ua_description: null,
+            ua_date_from: null,
+            ua_date_to: null,
+            added_by: userData?.emp_no,
+        })
+    }
+
     const fileUAPost = async() => {
 
         const payload = {
@@ -72,6 +82,8 @@ function QuickAccessUACreate(props: CreateUAModalInterface) {
                 status:"success",
                 message:"File UA Successfully"
             }))
+
+            formReseter();
 
         }).catch((err:any) => {
 

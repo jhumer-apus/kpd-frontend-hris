@@ -58,7 +58,7 @@ function ANNOUNCEMENTModalUI(props: ANNOUNCEMENTModalUIInterface) {
             {/* <div className='flex justify-center my-8' container-name='leave_buttons'>
                 <Button variant='contained' onClick={()=> onClickModal(1)}>Edit Details</Button>
             </div> */}
-            <div className='flex overflow-auto justify-around gap-4 relative'>
+            <div className='flex flex-col sm:flex-row overflow-auto justify-around gap-4 relative'>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='Announcement ID:' value={ThisProps.id ? ThisProps.id : '-'} InputProps={{readOnly: true,}} variant='filled'/>
                     <TextField sx={{width: '100%'}} label='Message:' multiline rows={5} value={(ThisProps?.message ? `${ThisProps?.message}` : '-')} InputProps={{readOnly: true,}} variant='outlined'/>

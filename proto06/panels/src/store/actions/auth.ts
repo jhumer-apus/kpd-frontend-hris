@@ -13,14 +13,13 @@ export const userLogout = createAction('USER_LOGOUT');
 export const userLoginActionSuccess = createAction(
     "USER_LOGIN_SUCCESS",
     (jwt: string, user: USERViewInterface, employee_detail: EMPLOYEESViewInterface) => ({ payload: { jwt, user, employee_detail } })
-  );
-
+);
 
 // New actions
 export const fetchUserData = createAction<{emp_no: Number}>('FETCH_USER_DATA');
 export const fetchUserDataSuccess = createAction(
   'FETCH_USER_DATA_SUCCESS',
   (employee_detail: EMPLOYEESViewInterface) => ({ payload: { employee_detail } })
-  );
+);
 export const fetchUserDataFailure = createAction('FETCH_USER_DATA_FAILURE');
 

@@ -15,6 +15,7 @@ const PaperStyle = {
 const Grid = styled(MuiGrid)(({ theme }) => ({
     width: '100%',
     height: "100%",
+    margin: 0,
     ...theme.typography.body2,
     '& [role="separator"]': {
       margin: theme.spacing(0, 2),
@@ -35,7 +36,7 @@ export default function ManageRANK() {
                     </Box>
                 </Paper>
             </Grid> */}
-            <Grid item xs>
+            <Grid item xs className='!pl-0'>
                 <Paper elevation={3} style={PaperStyle}>
                     <ManageRANKPageHistory/>
                 </Paper>

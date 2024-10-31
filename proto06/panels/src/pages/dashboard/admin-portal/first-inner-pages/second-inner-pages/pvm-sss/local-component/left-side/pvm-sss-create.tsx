@@ -80,8 +80,8 @@ function PVMSSSCreate(props: CreateSSSModalInterface) {
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain' level="h6">Create an 'SSS' Data</Typography>
-            <div className='flex flex-col gap-6 overflow-auto w-3/4'>
-                    <div className='flex flex-col gap-6 pt-4'>
+            <div className='flex flex-col gap-6 overflow-auto w-full sm:w-3/4'>
+                    <div className='flex flex-col gap-6 pt-4 mt-6'>
                         {/* <EmployeeAutoComplete createSSS={createSSS} setCreateSSS={setCreateSSS}/> */}
                         <EmployeeListField 
                             label="For Employee No.:" 
@@ -133,7 +133,7 @@ function PVMSSSCreate(props: CreateSSSModalInterface) {
                         />
                         <DeductionsSSSCreateModal setCreateSSSDetailsData={setCreateSSS} createSSSDetailsData={createSSS} createSSSOpenModal={createSSSOpenModal} setCreateSSSOpenModal={setCreateSSSOpenModal}/>
                     </div>
-                <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
+                <div className='flex justify-center mt-6 mb-6' container-name='leave_buttons_container'>
                     <div className='flex flex-wrap gap-4 justify-between' style={{width:'100%'}} container-name='leave_buttons'>
                         <Button variant='contained' onClick={onClickSubmit}>Create SSS</Button>
                         <Button variant='outlined' color='warning' onClick={()=> setCreateSSSOpenModal(true)}>Apply Monthly Loan Deduction</Button>

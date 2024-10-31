@@ -131,7 +131,7 @@ function ManageUSERCreate(props: CreateUSERModalInterface) {
                 // className='flex flex-col gap-3 relative p-4'
                 className='flex flex-col gap-3 md:w-[500px]'
             >
-                    <div className='flex flex-col pt-4 w-full'>
+                    <div className='flex flex-col pt-4 mt-6 w-full'>
                         {/* <EmployeeAutoComplete createUSER={createUSER} setCreateUSER={setCreateUSER}/> */}
                         <EmployeeListField 
                             label='HRIS Access For:'
@@ -187,7 +187,7 @@ function ManageUSERCreate(props: CreateUSERModalInterface) {
                         />
                         <RoleAutoComplete createUSER={createUSER} setCreateUSER={setCreateUSER}/>
                     </div>
-                <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
+                <div className='flex justify-center mt-6 mb-6' container-name='leave_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
                         <Button type="submit" variant='contained' onClick={onClickSubmit}>Create USER</Button>
                     </div>

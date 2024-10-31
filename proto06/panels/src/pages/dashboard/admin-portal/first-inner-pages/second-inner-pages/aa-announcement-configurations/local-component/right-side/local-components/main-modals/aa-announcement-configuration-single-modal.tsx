@@ -14,7 +14,7 @@ interface SingleANNOUNCEMENTInterface {
 }
 
 export default function ViewANNOUNCEMENTSingleModal(props: SingleANNOUNCEMENTInterface) {
-    const {singleANNOUNCEMENTOpenModal, setSingleANNOUNCEMENTOpenModal, setSingleANNOUNCEMENTDetailsData, singleANNOUNCEMENTDetailsData} = props;
+  const {singleANNOUNCEMENTOpenModal, setSingleANNOUNCEMENTOpenModal, setSingleANNOUNCEMENTDetailsData, singleANNOUNCEMENTDetailsData} = props;
   const [scroll, setScroll] = useState<boolean>(true);
   return (
     <Fragment>
@@ -73,7 +73,7 @@ export default function ViewANNOUNCEMENTSingleModal(props: SingleANNOUNCEMENTInt
 
 // Styles
 const ANNOUNCEMENTModalArea = {
-  height: '110mm',
+  height: '130mm',
   width: '210mm',
   margin: '0 auto',
   background: 'white',

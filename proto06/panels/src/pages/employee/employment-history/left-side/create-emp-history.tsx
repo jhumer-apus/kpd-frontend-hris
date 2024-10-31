@@ -80,7 +80,7 @@ function EMPHISTORYCreate(props: CreateEMPHISTORYModalInterface) {
         <React.Fragment>
             <Typography style={{ border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '2px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)' }} variant='plain'>Create an Employment History Data</Typography>
             <div className='flex flex-col gap-3 overflow-auto relative'>
-                <div className='flex flex-wrap gap-3 pt-4'>
+                <div className='flex flex-wrap gap-3 pt-4 mt-6'>
                     <div className='flex flex-col gap-3' style={{ width: '100%' }}>
                         {/* <EmployeeAutoCompleteFull currEmployee={props.currEmployee} createEMPHISTORY={createEMPHISTORY} setCreateEMPHISTORY={setCreateEMPHISTORY} /> */}
                         <EmployeeListField 

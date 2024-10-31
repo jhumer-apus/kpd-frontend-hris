@@ -105,8 +105,8 @@ function ManageDEPARTMENTCreate(props: CreateDEPARTMENTModalInterface) {
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a Department Data</Typography>
-            <form onSubmit={onClickSubmit} className='flex flex-col gap-3 overflow-auto relative'>
-                    <div className='flex flex-col gap-3 pt-4'>
+            <form onSubmit={onClickSubmit} className='flex flex-col gap-3 overflow-auto relative w-full sm:w-3/4'>
+                    <div className='flex flex-col gap-3 pt-4 mt-6'>
                         <EmployeeAutoComplete  
                             currentEmpNo={createDEPARTMENT.dept_lead} 
                             createDEPARTMENT={createDEPARTMENT} 
@@ -141,7 +141,7 @@ function ManageDEPARTMENTCreate(props: CreateDEPARTMENTModalInterface) {
                             setCreateDEPARTMENT={setCreateDEPARTMENT}
                         />
                     </div>
-                <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
+                <div className='flex justify-center mt-6 mb-6' container-name='leave_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
                         <Button variant='contained' type="submit">Create DEPARTMENT</Button>
                     </div>

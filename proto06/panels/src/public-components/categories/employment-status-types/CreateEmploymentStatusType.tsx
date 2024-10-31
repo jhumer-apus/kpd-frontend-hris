@@ -63,7 +63,7 @@ export default function CreateEmploymentStatusType() {
     return (
         <Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a Employment Status Data</Typography>
-            <form onSubmit={onSubmit} className='flex flex-col gap-3 overflow-auto relative'>
+            <form onSubmit={onSubmit} className='flex flex-col gap-3 overflow-auto relative mt-10'>
                     {/* <div className='flex flex-col gap-3 pt-4'>
                         <EmployeeListField 
                             label={""} 
@@ -83,7 +83,7 @@ export default function CreateEmploymentStatusType() {
                             value={createType.name}
                         />
                     </div>
-                <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
+                <div className='flex justify-center mt-6 mb-6' container-name='leave_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
                         <Button variant='contained' type="submit">Create Employment Status Type</Button>
                     </div>
