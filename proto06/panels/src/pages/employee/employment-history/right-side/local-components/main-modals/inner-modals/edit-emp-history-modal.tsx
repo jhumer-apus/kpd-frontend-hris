@@ -162,13 +162,14 @@ export default function EditEMPHISTORYModal(props: EditEMPHISTORYModalInterface)
             layout={'center'}
             sx={{
               ...EditEMPHISTORYArea,
-                opacity: 0,
-                transition: `opacity 300ms`,
-                ...{
-                  entering: { opacity: 1 },
-                  entered: { opacity: 1 },
-                }[state],
-                overflow: 'auto',
+              opacity: 0,
+              transition: `opacity 300ms`,
+              ...{
+                entering: { opacity: 1 },
+                entered: { opacity: 1 },
+              }[state],
+              overflow: 'auto',
+              height: 'auto',
             }}
             size='sm'
         > 
@@ -178,7 +179,7 @@ export default function EditEMPHISTORYModal(props: EditEMPHISTORYModalInterface)
                 {/* <Box sx={CircularProgressStyle}>
                     <span style={{marginLeft: "50%", marginTop: "20%"}}><CircularProgress /></span>
                 </Box> */}
-                <div className='flex flex-col gap-10 overflow-auto relative mt-4 p-4'>
+                <div className='flex flex-col gap-10 overflow-auto relative mt-2 p-4'>
                     <DatePicker
                       label="Date Promoted:"
                       value={dayjs(initialEditState.date_promoted)}
@@ -242,11 +243,11 @@ export default function EditEMPHISTORYModal(props: EditEMPHISTORYModalInterface)
                     />
                 </div>
                 <div className='flex flex-col justify-center items-center'>
-                  <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
-                      <div className='flex justify-between' style={{width:'200px', marginTop: '20px'}} container-name='leave_buttons'>
-                          <Button variant={'contained'} onClick={EditEMPHISTORY}>Submit</Button>
-                          <Button variant={'outlined'} onClick={()=>{setEditEMPHISTORYOpenModal(false)}}>Cancel</Button>
-                      </div>
+                  <div className='flex justify-center' container-name='leave_buttons_container'>
+                    <div className='flex justify-between' style={{width:'200px', marginTop: '20px'}} container-name='leave_buttons'>
+                      <Button variant={'contained'} onClick={EditEMPHISTORY}>Submit</Button>
+                      <Button variant={'outlined'} onClick={()=>{setEditEMPHISTORYOpenModal(false)}}>Cancel</Button>
+                    </div>
                   </div>
                 </div>
               </div>
