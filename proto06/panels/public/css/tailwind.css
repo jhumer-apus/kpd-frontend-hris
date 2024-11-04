@@ -73,6 +73,17 @@
     width: inherit;
   }
 
+  .MuiDataGrid-filterForm {
+    width: inherit;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+  }
+
+  .MuiDataGrid-filterFormOperatorInput, .MuiDataGrid-filterFormColumnInput, .MuiDataGrid-filterFormValueInput {
+    width: 100% !important;
+  }
 }
 
 /* // media queries for holidays calender mobile screen / osama */

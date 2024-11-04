@@ -96,6 +96,7 @@ export default function ManageBRANCHPageHistory() {
       </div>
       <div style={{ height: '600px', width: '100%' }}>
         <DataGrid
+          className='overflow-auto'
           rows={BRANCHViewData? BRANCHViewData as BRANCHViewInterface[]:[]}
           columns={ManageBRANCHPageColumns}
           initialState={{
