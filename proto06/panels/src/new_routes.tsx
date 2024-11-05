@@ -19,6 +19,7 @@ const Routesss = () => {
   console.log('jsx routewrapper', JSXRouteWrapper().routes);
 
   const routes_adminPortal = routesAdmin();
+  console.log('combined routes', [routesAdmin(), routesEmployee()]);
 
   // keep in mind pag butang hin property na if naka login ba or biling iba na approach na maupay
 

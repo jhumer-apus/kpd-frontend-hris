@@ -17,9 +17,7 @@ const icon = { className: "w-5 h-5 text-inherit" };
 export const routesEmployee = () => {
   const state = useSelector((state: RootState) => state.auth.employee_detail);
 
-  return [{
-    layout: 'home',
-    pages: [
+  return [
       {
         id: 12000,
         icon: null,
@@ -93,5 +91,4 @@ export const routesEmployee = () => {
       },  
       // add la didi ubos if mayda ig dudugang
     ]
-  }]
 }

@@ -162,7 +162,7 @@ const JSXRouteWrapper = () => {
   const isHrStaff = state?.user?.role !== INTERNAL_USER_ROLE.HR_Staff
   const isHrDirectorManager = state?.user?.role !== INTERNAL_USER_ROLE.HR_Director_Manager
   const isHrSuperAdmin = state?.user?.role !== INTERNAL_USER_ROLE.HR_Super_Admin
- 
+
   const routes: Array<IRoute> = [
     {
       id: 10000,
