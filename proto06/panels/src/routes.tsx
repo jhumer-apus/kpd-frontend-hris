@@ -162,7 +162,7 @@ const JSXRouteWrapper = () => {
   const isHrStaff = state?.user?.role !== INTERNAL_USER_ROLE.HR_Staff
   const isHrDirectorManager = state?.user?.role !== INTERNAL_USER_ROLE.HR_Director_Manager
   const isHrSuperAdmin = state?.user?.role !== INTERNAL_USER_ROLE.HR_Super_Admin
-
+ 
   const routes: Array<IRoute> = [
     {
       id: 10000,
@@ -177,6 +177,7 @@ const JSXRouteWrapper = () => {
             path: "/Dashboards",
             element: <strong style={{height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px'}} className="text-red-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">YOU SHALL NOT PASS!!</strong>,
             hasSubItems: true,
+            // function 
             subItems: [
               // HIDDEN BECAUSE OF REDUNDANCY
               // {
@@ -195,6 +196,7 @@ const JSXRouteWrapper = () => {
                 element: <AdminPortal/>,
                 hasSubItems: true,
                 subItems: 
+                // function param na route
                 [
                   {
                     id: 111000,
