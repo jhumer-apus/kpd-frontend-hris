@@ -21,7 +21,7 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
     const [createPAYROLLGROUP, setCreatePAYROLLGROUP] = useState<PAYROLLGROUPCreateInterface>({
         name: "",
         payroll_description: "",
-        payroll_freq: NaN,
+        payroll_type: NaN,
         used_account: 0,
         added_by: NaN,
     });
@@ -50,7 +50,7 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
         setCreatePAYROLLGROUP((curr:any) => ({
             name: "",
             payroll_description: "",
-            payroll_freq: null,
+            payroll_type: null,
             used_account: 0,
             added_by: curr_user,
         }))
@@ -66,8 +66,8 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
         if(!payload.name) 
             errors['Payroll Name'] = "Payroll Name is Required"
 
-        if(!payload.payroll_freq)
-            errors['Payment Frequency'] = "Payment Frequency is Required"
+        if(!payload.payroll_type)
+            errors['Payment Type'] = "Payment Type is Required"
 
         if(Object.keys(errors).length > 0) {
             dispatch(HandleAlertAction({
@@ -154,27 +154,27 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
                     
                 />
                 <FormControl fullWidth>
-                    <InputLabel id="frequency">Payment Frequency</InputLabel>
+                    <InputLabel id="type">Payment Type</InputLabel>
                     <Select
                         required 
                         sx={{width: '100%'}} 
-                        labelId="frequency"
-                        label="Payment Frequency"
+                        labelId="type"
+                        label="Payment Type"
                         aria-required  
-                        placeholder='1 - Monthly | 2 - Bi-Monthly | 3 - Daily'
+                        placeholder='1 - Monthly | 2 - Semi-Monthly | 3 - Daily'
                         // variant='outlined' 
                         type="number"
-                        value={createPAYROLLGROUP?.payroll_freq}
+                        value={createPAYROLLGROUP?.payroll_type}
                         onChange={(event: any) => {
                             const value = parseInt(event.target.value)
                             setCreatePAYROLLGROUP((prevState)=> ({
                                 ...prevState,
-                                payroll_freq: value
+                                payroll_type: value
                             }));
                         }}
                     >
                         <MenuItem value={1}>1 - Monthly</MenuItem>
-                        <MenuItem value={2}>2 - Bi-Monthly</MenuItem>
+                        <MenuItem value={2}>2 - Semi-Monthly</MenuItem>
                         <MenuItem value={3}>3 - Daily</MenuItem>
                     </Select>    
                 </FormControl>

@@ -593,6 +593,9 @@ export interface BRANCHViewInterface extends BRANCHGenericInterface{
 }
 
 export interface BRANCHCreateInterface extends BRANCHGenericInterface{
+    approver1: number | string,
+    approver2: number | string,
+    approver3: number | string,
     added_by?: number,
 }
 
@@ -640,7 +643,7 @@ export interface DIVISIONEditInterface extends DIVISIONGenericInterface, DIVISIO
 export interface PAYROLLGROUPGenericInterface {
     name: string,
     payroll_description: string | null,
-    payroll_freq: number | null,
+    payroll_type: number | null,
 }
 
 export interface PAYROLLGROUPViewInterface extends PAYROLLGROUPGenericInterface{

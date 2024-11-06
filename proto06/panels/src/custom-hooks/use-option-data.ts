@@ -12,8 +12,9 @@ type APIOptions  = {
     loading: boolean
 }
 
-type AutoCompleteAPIOptions = APIOptions & {
-    data: AutoCompleteType[]
+type AutoCompleteAPIOptions = {
+    data: AutoCompleteType[] | Option[]
+    loading: boolean
 }
 
 type AutoCompleteType = {
@@ -70,6 +71,13 @@ export const useOptionData = () => {
         {
             data: [],
             loading: false,
+        }
+    )
+
+    const [cutoffs, setCutOffs] = useState<AutoCompleteAPIOptions>(
+        {
+            data:[],
+            loading: false
         }
     )
 
@@ -366,7 +374,7 @@ export const useOptionData = () => {
                     }
                 )) : []
 
-                setEmploymentStatus(curr => (
+                setEmploymentStatus((curr:any) => (
                     {
                         data: mappedStatus ,
                         loading: false
@@ -438,7 +446,7 @@ export const useOptionData = () => {
                     }
                 )) : []
 
-                setPayrollGroup(curr => (
+                setPayrollGroup((curr:AutoCompleteAPIOptions) => (
                     {
                         data: mappedPayrollGroup,
                         loading: false
@@ -448,6 +456,48 @@ export const useOptionData = () => {
             .catch(err => {
                 console.error(err)
                 setPayrollGroup(curr => (
+                    {
+                        data: [],
+                        loading: false
+                    }
+                ))
+            })
+    }
+
+    const fetchCutOffs = async (year:number) => {
+
+        setCutOffs(curr => (
+            {
+                data: [],
+                loading: true
+            }
+        ))
+
+        await axiosInstance.get('cutoff_period/',
+            {
+                params: {
+                    year: year
+                }
+            }
+        )
+            .then(res => {
+                const mappedCutOffs = Array.isArray(res.data) ? res.data.map(cutoff => (
+                    {
+                        id: cutoff.id,
+                        name: cutoff.name
+                    }
+                )) : []
+
+                setCutOffs((curr:any) => (
+                    {
+                        data: mappedCutOffs,
+                        loading: false
+                    }
+                ))
+            })
+            .catch(err => {
+                console.error(err)
+                setCutOffs(curr => (
                     {
                         data: [],
                         loading: false
@@ -470,6 +520,8 @@ export const useOptionData = () => {
         fetchEmploymentStatus,
         fetchApprovers,
         fetchPayrollGroup,
+        fetchCutOffs,
+        cutoffs,
         positions,
         branches,
         departments,

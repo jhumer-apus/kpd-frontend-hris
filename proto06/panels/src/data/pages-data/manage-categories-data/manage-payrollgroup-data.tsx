@@ -21,8 +21,8 @@ export const ManagePAYROLLGROUPPageColumns: GridColDef[] =
     width: 180,
   },
   { 
-    field: 'payroll_freq', 
-    headerName: 'Pay Frequency', 
+    field: 'payroll_type', 
+    headerName: 'Pay Type', 
     width: 150,
     valueGetter: (params: GridValueGetterParams) => paymentFrequency[params?.row?.payroll_freq]
   },

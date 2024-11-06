@@ -15,9 +15,16 @@ import CityMunicipality from '@/public-components/forms/address/CityMunicipality
 //HELPERS
 import { beautifyJSON } from '@/helpers/utils';
 import EmployeeListField from '@/public-components/EmployeeListField';
+import axiosInstance from '@/helpers/axiosConfig';
+import AutocompleteField from '@/public-components/forms/AutoCompleteField';
 
 interface CreateBRANCHModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
+}
+
+interface Employees {
+    loading: boolean,
+    data: any[]
 }
 
 function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
@@ -26,12 +33,19 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail?.emp_no);
     const BRANCHCreatestate = useSelector((state: RootState)=> state.categories.BRANCHCreate);
     const [formKey, setFormKey] = useState<number>(1)
+    const [employees, setEmployees] = useState<Employees>({
+        loading: false,
+        data: []
+    })
     const [createBRANCH, setCreateBRANCH] = useState<any>({
         branch_name: "",
         branch_address: "",
         branch_email: "",
         branch_contact_number: "",
         branch_oic: NaN,
+        approver1: "",
+        approver2: "",
+        approver3: "",
         province: {
             id: null,
             name: null,
@@ -98,10 +112,11 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
             branch_oic: createBRANCH?.branch_oic,
             branch_province: createBRANCH.province?.id,
             branch_city: createBRANCH.city?.id,
+            approver1: createBRANCH.approver1,
+            approver2: createBRANCH.approver2,
+            approver3: createBRANCH.approver3,
             added_by: curr_user,
         }
-
-        console.log(branchData)
 
         if(validateBranch(branchData)) { //If has errors
             return
@@ -116,7 +131,37 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
             ...curr,
             [name]: newValue
         }))
-      
+    }
+
+    const fetchEmployees = async () => {
+
+        setEmployees((curr:Employees) => (
+            {
+                loading: true,
+                data: []
+            }
+        ))
+
+        await axiosInstance
+                .get('employees/')
+                .then(res => {
+
+                    setEmployees(curr => (
+                        {
+                            loading: false,
+                            data: Array.isArray(res?.data)? res?.data : []
+                        }
+                    ))
+                })
+                .catch(err => {
+                    setEmployees(curr => (
+                        {
+                            loading: false,
+                            data: []
+                        }
+                    ))
+                    console.error(err)
+                })
     }
 
     useEffect(()=> {
@@ -131,6 +176,10 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
             })
         }
     }, [curr_user]) 
+
+    useEffect(() => {
+        fetchEmployees()
+    },[])
 
     useEffect(()=>{
         if(BRANCHCreatestate.status === 'succeeded'){
@@ -161,6 +210,15 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                 )
             )
         }
+    }
+
+    const handleChangeAutocomplete = (key:string, newValue:any) => {
+        setCreateBRANCH((curr:any) => (
+            {
+                ...curr,
+                [key]: newValue?.emp_no?? ""
+            }
+        ))
     }
 
 
@@ -227,7 +285,7 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                             value={createBRANCH?.branch_address}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value = event.target.value
-                                setCreateBRANCH((prevState)=> {
+                                setCreateBRANCH((prevState:any)=> {
                                     return (
                                         {
                                             ...prevState,
@@ -246,7 +304,7 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                             value={createBRANCH?.branch_email}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value = event.target.value
-                                setCreateBRANCH((prevState)=> {
+                                setCreateBRANCH((prevState:any)=> {
                                     return (
                                         {
                                             ...prevState,
@@ -265,7 +323,7 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                             value={createBRANCH?.branch_contact_number}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value = event.target.value
-                                setCreateBRANCH((prevState)=> {
+                                setCreateBRANCH((prevState:any)=> {
                                     return (
                                         {
                                             ...prevState,
@@ -274,6 +332,44 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
                                     )
                                 })
                             }}
+                        />
+
+                        <AutocompleteField 
+                            id="approver1"
+                            options={[]} 
+                            label="Approver 1"
+                            getOptionLabel={(option:any)=> option?.full_name ?? ""} 
+                            handleChange={handleChangeAutocomplete} 
+                            value={createBRANCH.approver1}
+                            disabled={false}
+                            loading={employees.loading} 
+                            optionNameKey='full_name'
+                            stateKey='approver1'                           
+                        />
+
+                        <AutocompleteField 
+                            id="approver2"
+                            options={[]} 
+                            label="Approver 2"
+                            getOptionLabel={(option:any)=> option?.full_name ?? ""} 
+                            handleChange={handleChangeAutocomplete} 
+                            value={createBRANCH.approver2}
+                            disabled={false}
+                            loading={employees.loading} 
+                            optionNameKey='full_name'
+                            stateKey='approver2'                           
+                        />
+                        <AutocompleteField 
+                            id="approver3"
+                            options={[]} 
+                            label="Approver 3"
+                            getOptionLabel={(option:any)=> option?.full_name ?? ""} 
+                            handleChange={handleChangeAutocomplete} 
+                            value={createBRANCH.approver3}
+                            disabled={false}
+                            loading={employees.loading} 
+                            optionNameKey='full_name'
+                            stateKey='approver3'                           
                         />
                     </div>
                 {/* </div> */}

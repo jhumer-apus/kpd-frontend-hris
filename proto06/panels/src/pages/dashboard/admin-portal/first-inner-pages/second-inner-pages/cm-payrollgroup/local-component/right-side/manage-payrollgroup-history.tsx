@@ -18,7 +18,7 @@ export default function ManagePAYROLLGROUPPageHistory() {
     date_deleted: null,
     name: '',
     payroll_description: '',
-    payroll_freq: NaN,
+    payroll_type: NaN,
     used_account: NaN,
   });
   const dispatch = useDispatch();
