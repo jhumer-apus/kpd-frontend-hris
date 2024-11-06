@@ -1,45 +1,45 @@
-import AdminPortal from "./pages/dashboard/admin-portal/adminPortal";
-import CategoriesManagement from "./pages/dashboard/admin-portal/first-inner-pages/categories-management";
-import ManageBRANCH from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-branch/manage-branch";
-import ManageDEPARTMENT from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-department/manage-department";
-import ManageDIVISION from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-division/manage-division";
-import ManagePAYROLLGROUP from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-payrollgroup/manage-payrollgroup";
-import ManagePOSITION from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-position/manage-position";
-import ManageRANK from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-rank/manage-rank";
-import ManageEmploymentStatusTypes from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-employment-status-type/manage-emp-status-type";
-import ManageUSERS from "./pages/dashboard/admin-portal/first-inner-pages/manage-users/manage-users";
-import PayrollVariablesMonthly from "./pages/dashboard/admin-portal/first-inner-pages/payroll-variables-monthly";
-import PVMTAX from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-tax/pvm-tax";
-import PVMPAGIBIG from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-pagibig/pvm-pagibig";
-import PVMSSS from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-sss/pvm-sss";
-import PVMPHILHEALTH from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-philhealth/pvm-philhealth";
-import PVMCASHADVANCE from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-cash-advance/pvm-cash-advance";
-import PVMALLOWANCEENTRY from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-allowance-entry/pvm-allowance-entry";
-import PVMALLOWANCETYPE from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-allowance-type/pvm-allowance-type";
-import PayrollEOY from "./pages/dashboard/admin-portal/first-inner-pages/payroll-eoy";
-import EOYTAXCOLLECTEDPage from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/eoy-tax-collected/eoy-tax-collected-page";
-import EOYPAY13TH from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/eoy-pay-13th/eoy-pay-13th";
-import EOYBONUSLIST from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/eoy-bonus-list/eoy-bonus-list";
-import EOYBonusEntry from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/eoy-bonus-entry/eoy-bonus-entry";
-import AssetAndAnnouncement from "./pages/dashboard/admin-portal/first-inner-pages/asset-and-announcement";
-import AAASSETACCOUNT from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/aa-asset-account/aa-asset-account";
-import AAASSETLIST from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/aa-asset-list/aa-asset-list";
-import AAANNOUNCEMENT from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/aa-announcement-configurations/aa-announcement-configuration";
-import EmployeeAndApplicants from "./pages/dashboard/admin-portal/first-inner-pages/employee-and-applicants";
-import EAKPIEVAL from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-kpi-evaluation/ea-kpi-evaluation";
-import EAONBOARDINGSTATUS from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-initialize-onboarding/ea-initialize-onboarding";
-import EAOFFBOARDINGSTATUS from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-initialize-offboarding/ea-initialize-offboarding";
-import EAEVALQUESTIONS from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-kpi-questions/ea-eval-questions";
-import EACORECOMPE from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-core-competencies/ea-core-competencies";
-import EAONBOARDINGREQUIREMENTS from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-onboarding-requirements/ea-onboarding-requirements";
-import EAOFFBOARDINGREQUIREMENTS from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-offboarding-requirements/ea-offboarding-requirements";
-import EAAPPLICANTSLIST from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-applicants-list/ea-applicants-list";
-import EAJOBPOSTINGS from "./pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-job-postings/ea-job-postings";
+import AdminPortal from "../pages/dashboard/admin-portal/adminPortal";
+import CategoriesManagement from "../pages/dashboard/admin-portal/first-inner-pages/categories-management";
+import ManageBRANCH from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-branch/manage-branch";
+import ManageDEPARTMENT from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-department/manage-department";
+import ManageDIVISION from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-division/manage-division";
+import ManagePAYROLLGROUP from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-payrollgroup/manage-payrollgroup";
+import ManagePOSITION from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-position/manage-position";
+import ManageRANK from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-rank/manage-rank";
+import ManageEmploymentStatusTypes from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-employment-status-type/manage-emp-status-type";
+import ManageUSERS from "../pages/dashboard/admin-portal/first-inner-pages/manage-users/manage-users";
+import PayrollVariablesMonthly from "../pages/dashboard/admin-portal/first-inner-pages/payroll-variables-monthly";
+import PVMTAX from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-tax/pvm-tax";
+import PVMPAGIBIG from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-pagibig/pvm-pagibig";
+import PVMSSS from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-sss/pvm-sss";
+import PVMPHILHEALTH from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-philhealth/pvm-philhealth";
+import PVMCASHADVANCE from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-cash-advance/pvm-cash-advance";
+import PVMALLOWANCEENTRY from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-allowance-entry/pvm-allowance-entry";
+import PVMALLOWANCETYPE from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/pvm-allowance-type/pvm-allowance-type";
+import PayrollEOY from "../pages/dashboard/admin-portal/first-inner-pages/payroll-eoy";
+import EOYTAXCOLLECTEDPage from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/eoy-tax-collected/eoy-tax-collected-page";
+import EOYPAY13TH from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/eoy-pay-13th/eoy-pay-13th";
+import EOYBONUSLIST from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/eoy-bonus-list/eoy-bonus-list";
+import EOYBonusEntry from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/eoy-bonus-entry/eoy-bonus-entry";
+import AssetAndAnnouncement from "../pages/dashboard/admin-portal/first-inner-pages/asset-and-announcement";
+import AAASSETACCOUNT from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/aa-asset-account/aa-asset-account";
+import AAASSETLIST from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/aa-asset-list/aa-asset-list";
+import AAANNOUNCEMENT from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/aa-announcement-configurations/aa-announcement-configuration";
+import EmployeeAndApplicants from "../pages/dashboard/admin-portal/first-inner-pages/employee-and-applicants";
+import EAKPIEVAL from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-kpi-evaluation/ea-kpi-evaluation";
+import EAONBOARDINGSTATUS from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-initialize-onboarding/ea-initialize-onboarding";
+import EAOFFBOARDINGSTATUS from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-initialize-offboarding/ea-initialize-offboarding";
+import EAEVALQUESTIONS from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-kpi-questions/ea-eval-questions";
+import EACORECOMPE from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-core-competencies/ea-core-competencies";
+import EAONBOARDINGREQUIREMENTS from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-onboarding-requirements/ea-onboarding-requirements";
+import EAOFFBOARDINGREQUIREMENTS from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-offboarding-requirements/ea-offboarding-requirements";
+import EAAPPLICANTSLIST from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-applicants-list/ea-applicants-list";
+import EAJOBPOSTINGS from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-job-postings/ea-job-postings";
 import { HomeIcon } from "@heroicons/react/24/solid";
 
 const icon = { className: "w-5 h-5 text-inherit" };
 
-export const routesAdmin = () => {
+export const routesAdmin = (currentUser: String) => {
   // pag mayda na ternary operator pag butang hin empty array ha ubos
 
   return  {

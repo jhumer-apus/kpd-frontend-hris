@@ -1,21 +1,23 @@
 import { useSelector } from "react-redux";
-import { RootState } from "./store/configureStore";
+import { RootState } from "../store/configureStore";
 import { INTERNAL_USER_ROLE } from "@/types/types-store";
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import { EmployeeProvider } from "./context/employee/EmployeeContext";
-import DataTable from "./pages/employee/201-files/Employee201";
+import { EmployeeProvider } from "../context/employee/EmployeeContext";
+import DataTable from "../pages/employee/201-files/Employee201";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import AutoStoriesOutlinedIcon from '@mui/icons-material/AutoStoriesOutlined';
-import EmploymentHistoryPage from "./pages/employee/employment-history/employment-history";
+import EmploymentHistoryPage from "../pages/employee/employment-history/employment-history";
 import Diversity3OutlinedIcon from '@mui/icons-material/Diversity3Outlined';
-import EMPSEMINARSPageV2 from "./pages/employee/emp-training-seminars-v2/emp-training-seminars";
-import EmploymentHistoryPageEmpView from "./pages/employee/employment-history-emp-view/employment-history-emp-view";
-import EMPSEMINARSPageV2EmpView from "./pages/employee/emp-training-seminars-v2-emp-view/emp-training-seminars-emp-view";
+import EMPSEMINARSPageV2 from "../pages/employee/emp-training-seminars-v2/emp-training-seminars";
+import EmploymentHistoryPageEmpView from "../pages/employee/employment-history-emp-view/employment-history-emp-view";
+import EMPSEMINARSPageV2EmpView from "../pages/employee/emp-training-seminars-v2-emp-view/emp-training-seminars-emp-view";
 
 const icon = { className: "w-5 h-5 text-inherit" };
 
-export const routesEmployee = () => {
+export const routesEmployee = (currentUser: any) => {
   const state = useSelector((state: RootState) => state.auth.employee_detail);
+
+  console.log('routes employeee', currentUser);
 
   return {
     id: 12000,

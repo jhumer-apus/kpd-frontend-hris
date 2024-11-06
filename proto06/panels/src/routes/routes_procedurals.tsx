@@ -1,31 +1,31 @@
 import { useSelector } from "react-redux"
-import { RootState } from "./store/configureStore"
-import { INTERNAL_USER_ROLE } from "./types/types-store";
+import { RootState } from "../store/configureStore"
+import { INTERNAL_USER_ROLE } from "../types/types-store";
 import SurfingOutlinedIcon from "@mui/icons-material/SurfingOutlined";
-import HolidaysPage from "./pages/procedurals/holidays/holidays-page";
+import HolidaysPage from "../pages/procedurals/holidays/holidays-page";
 import ApprovalOutlinedIcon from "@mui/icons-material/AppBlockingOutlined";
-import ProceduralOBTPage from "./pages/procedurals/obt/procedural-obt-page";
+import ProceduralOBTPage from "../pages/procedurals/obt/procedural-obt-page";
 import AlarmOnOutlinedIcon from "@mui/icons-material/AlarmAddOutlined";
-import ProceduralOvertimePage from "./pages/procedurals/overtime/procedural-overtime-page";
+import ProceduralOvertimePage from "../pages/procedurals/overtime/procedural-overtime-page";
 import AppRegistrationOutlinedIcon from "@mui/icons-material/AppRegistrationOutlined";
-import ProceduralLEAVEPage from "./pages/procedurals/leaves/procedural-leave-page";
+import ProceduralLEAVEPage from "../pages/procedurals/leaves/procedural-leave-page";
 import BadgeOutlinedIcon from "@mui/icons-material/BrandingWatermarkOutlined";
-import ProceduralUAPage from "./pages/procedurals/ua/procedural-ua-page";
+import ProceduralUAPage from "../pages/procedurals/ua/procedural-ua-page";
 import AppsOutageOutlinedIcon from "@mui/icons-material/AppsOutageOutlined";
-import ProceduralLEAVECREDITPage from "./pages/procedurals/leave-credits/procedural-leave-credit-page";
+import ProceduralLEAVECREDITPage from "../pages/procedurals/leave-credits/procedural-leave-credit-page";
 import AppsOutlinedIcon from "@mui/icons-material/AppsOutageOutlined";
-import ProceduralLEAVETYPEPage from "./pages/procedurals/leave-types/procedural-leave-type-page";
-import OBTtypes from "./pages/procedurals/obt-types";
+import ProceduralLEAVETYPEPage from "../pages/procedurals/leave-types/procedural-leave-type-page";
+import OBTtypes from "../pages/procedurals/obt-types";
 import AssignmentIndOutlinedIcon from "@mui/icons-material/AssignmentIndOutlined";
-import ProceduralCUTOFFPERIODPage from "./pages/procedurals/cutoff-periods/procedural-cutoff-period-page";
+import ProceduralCUTOFFPERIODPage from "../pages/procedurals/cutoff-periods/procedural-cutoff-period-page";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
-import ProceduralSCHEDULESHIFTSPage from "./pages/procedurals/schedule-shifts/procedural-schedule-shifts-page";
+import ProceduralSCHEDULESHIFTSPage from "../pages/procedurals/schedule-shifts/procedural-schedule-shifts-page";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
-import ProceduralSCHEDULEDAILYpage from "./pages/procedurals/schedule-dailies/procedural-schedule-daily";
+import ProceduralSCHEDULEDAILYpage from "../pages/procedurals/schedule-dailies/procedural-schedule-daily";
 
 const icon = { className: "w-5 h-5 text-inherit" };
 
-export const routesProcedurals = () => {
+export const routesProcedurals = (currentUser: any) => {
   const state = useSelector((state: RootState) => state.auth.employee_detail);
 
   // if current user dri hi employee  

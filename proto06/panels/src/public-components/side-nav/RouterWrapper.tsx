@@ -9,7 +9,7 @@ import CollapsibleSection from "@/widgets/layout/custom-effects/CollapsibleSecti
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/configureStore";
 import { LEAVEViewInterface, OBTViewInterface, OVERTIMEViewInterface, UAViewInterface } from "@/types/types-pages";
-import Routesss from "@/new_routes";
+import Routesss from "@/routes/new_routes";
 
 const RouterWrapper = () => {
   const routes = Routesss();

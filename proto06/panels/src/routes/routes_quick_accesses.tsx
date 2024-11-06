@@ -1,20 +1,20 @@
 import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
-import FileOBTPage from './pages/quick-accesses/file-obt/file-obt-page';
+import FileOBTPage from '../pages/quick-accesses/file-obt/file-obt-page';
 import DifferenceOutlinedIcon from '@mui/icons-material/DifferenceOutlined';
-import FileOVERTIMEPage from './pages/quick-accesses/file-ot/file-ot-page';
+import FileOVERTIMEPage from '../pages/quick-accesses/file-ot/file-ot-page';
 import SettingsAccessibilitySharpIcon from '@mui/icons-material/SettingsAccessibilitySharp';
-import FileLEAVEPage from './pages/quick-accesses/file-leave/file-leave-page';
+import FileLEAVEPage from '../pages/quick-accesses/file-leave/file-leave-page';
 import CloudSyncSharpIcon from '@mui/icons-material/CloudSyncSharp';
-import FileUAPage from './pages/quick-accesses/file-ua/file-ua-page';
+import FileUAPage from '../pages/quick-accesses/file-ua/file-ua-page';
 import HistoryToggleOffOutlinedIcon from '@mui/icons-material/HistoryToggleOffOutlined';
-import YourSCHEDULEDAILYpage from './pages/quick-accesses/your-schedule/your-schedule-daily';
+import YourSCHEDULEDAILYpage from '../pages/quick-accesses/your-schedule/your-schedule-daily';
 import { useSelector } from 'react-redux';
-import { RootState } from './store/configureStore';
-import { INTERNAL_USER_ROLE } from "./types/types-store";
+import { RootState } from '../store/configureStore';
+import { INTERNAL_USER_ROLE } from "../types/types-store";
 
 const icon = { className: "w-5 h-5 text-inherit" };
 
-export const routesQuickAccess = () => {
+export const routesQuickAccess = (currentUser: any) => {
   const state = useSelector((state: RootState) => state.auth.employee_detail);
   const isBasicEmployee = state?.user?.role == INTERNAL_USER_ROLE.Employee;
   const isDepartmentManager = state?.user?.role == INTERNAL_USER_ROLE.Manager;

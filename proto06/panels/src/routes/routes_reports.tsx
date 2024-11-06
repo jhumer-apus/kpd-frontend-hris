@@ -1,20 +1,20 @@
 import { useSelector } from "react-redux";
-import { INTERNAL_USER_ROLE } from "./types/types-store";
-import { RootState } from "./store/configureStore";
+import { INTERNAL_USER_ROLE } from "../types/types-store";
+import { RootState } from "../store/configureStore";
 import { DocumentIcon } from "@heroicons/react/24/solid";
-import ViewMonthlySchedule from "./pages/reports/view-monthly-schedule";
-import ViewEmployeeLeaves from "./pages/reports/view-employee-leaves";
-import ViewEmployeeOvertime from "./pages/reports/view-employee-overtime/ot-by-cutoff";
-import ViewEmployeeObt from "./pages/reports/view-employee-obt";
-import ViewPerfectAttendance from "./pages/reports/view-attendance/perfect-attendance";
-import ViewImperfectAttendance from "./pages/reports/view-attendance/imperfect-attendance";
+import ViewMonthlySchedule from "../pages/reports/view-monthly-schedule";
+import ViewEmployeeLeaves from "../pages/reports/view-employee-leaves";
+import ViewEmployeeOvertime from "../pages/reports/view-employee-overtime/ot-by-cutoff";
+import ViewEmployeeObt from "../pages/reports/view-employee-obt";
+import ViewPerfectAttendance from "../pages/reports/view-attendance/perfect-attendance";
+import ViewImperfectAttendance from "../pages/reports/view-attendance/imperfect-attendance";
 
 const icon = { className: "w-5 h-5 text-inherit" };
 
-export const routesReports = () => {
+export const routesReports = (currentUser: any) => {
   const state = useSelector((state: RootState) => state.auth.employee_detail);
 
-  return state?.user?.role !== INTERNAL_USER_ROLE.Employee && state?.user?.role !== INTERNAL_USER_ROLE.Manager ?
+  return currentUser !== INTERNAL_USER_ROLE.Employee && state?.user?.role !== INTERNAL_USER_ROLE.Manager ?
     {
       id: 19000,
       icon: null,

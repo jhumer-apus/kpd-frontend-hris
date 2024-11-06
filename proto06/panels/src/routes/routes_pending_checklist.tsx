@@ -1,18 +1,18 @@
 import { useSelector } from "react-redux";
-import { RootState } from "./store/configureStore";
-import { INTERNAL_USER_ROLE } from "./types/types-store";
+import { RootState } from "../store/configureStore";
+import { INTERNAL_USER_ROLE } from "../types/types-store";
 import NoCrashOutlinedIcon from '@mui/icons-material/NoCrashOutlined';
-import ApprovalOBTPage from "./pages/pending-checklists/obt-approvals/approval-obt-page";
+import ApprovalOBTPage from "../pages/pending-checklists/obt-approvals/approval-obt-page";
 import CreditScoreOutlinedIcon from '@mui/icons-material/CreditScoreOutlined';
-import ApprovalOvertimePage from "./pages/pending-checklists/ot-approvals/approval-overtime-page";
+import ApprovalOvertimePage from "../pages/pending-checklists/ot-approvals/approval-overtime-page";
 import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
-import ApprovalLEAVEPage from "./pages/pending-checklists/leave-approvals/approval-leave-page";
+import ApprovalLEAVEPage from "../pages/pending-checklists/leave-approvals/approval-leave-page";
 import PublishedWithChangesOutlinedIcon from '@mui/icons-material/PublishedWithChangesOutlined';
-import ApprovalUAPage from "./pages/pending-checklists/ua-approvals/approval-ua-page";
+import ApprovalUAPage from "../pages/pending-checklists/ua-approvals/approval-ua-page";
 
 const icon = { className: "w-5 h-5 text-inherit" };
 
-export const routesPendingChecklist = () => {
+export const routesPendingChecklist = (currentUser: any) => {
   const state = useSelector((state: RootState) => state.auth.employee_detail);
 
   return state?.user?.role !== INTERNAL_USER_ROLE.Employee ? 

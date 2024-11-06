@@ -1,18 +1,18 @@
 import { useSelector } from "react-redux"
-import { RootState } from "./store/configureStore"
-import { INTERNAL_USER_ROLE } from "./types/types-store";
+import { RootState } from "../store/configureStore"
+import { INTERNAL_USER_ROLE } from "../types/types-store";
 import SummarizeIcon from "@mui/icons-material/Summarize";
-import ViewDtrReports from "./pages/dtr/view-dtr-reports/view-dtr-reports";
+import ViewDtrReports from "../pages/dtr/view-dtr-reports/view-dtr-reports";
 import UploadFileIcon from "@mui/icons-material/UploadFile"; 
-import UploadDtrLogs from "./pages/dtr/upload-dtr-logs/upload-dtr-logs";
+import UploadDtrLogs from "../pages/dtr/upload-dtr-logs/upload-dtr-logs";
 import MergeIcon from "@mui/icons-material/Merge"; 
-import MergeDtrLogs from "./pages/dtr/merge-dtr-logs/merge-dtr-logs";
+import MergeDtrLogs from "../pages/dtr/merge-dtr-logs/merge-dtr-logs";
 import TableViewIcon from "@mui/icons-material/TableView"; 
-import CreateSummaryPage from "./pages/dtr/create-summary/create-summary";
+import CreateSummaryPage from "../pages/dtr/create-summary/create-summary";
 
 const icon = { className: "w-5 h-5 text-inherit" };
 
-export const routesDTR = () => {
+export const routesDTR = (currentUser: any) => {
   const state = useSelector((state: RootState) => state.auth.employee_detail);
   
   const isAdmin = state?.user?.role !== INTERNAL_USER_ROLE.Employee && state?.user?.role !== INTERNAL_USER_ROLE.Manager;

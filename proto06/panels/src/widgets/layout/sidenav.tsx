@@ -16,7 +16,6 @@ import { RootState } from "@/store/configureStore";
 import { UAViewFilterApproverAction, LEAVEViewFilterApproverAction, OVERTIMEViewFilterApproverAction, OBTViewFilterApproverAction } from "@/store/actions/procedurals";
 import { KPICOREViewAction, OFFBOARDINGSTATUSViewAction, ONBOARDINGSTATUSViewAction } from "@/store/actions/employee-and-applicants";
 import { INTERNAL_USER_ROLE } from "@/types/types-store";
-import Routesss from "@/new_routes";
 import RouterWrapper from "@/public-components/side-nav/RouterWrapper";
 
 export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
