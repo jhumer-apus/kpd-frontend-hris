@@ -124,7 +124,6 @@ import EmploymentHistoryPage from "./pages/employee/employment-history/employmen
 import AutoStoriesOutlinedIcon from '@mui/icons-material/AutoStoriesOutlined';
 import Diversity3OutlinedIcon from '@mui/icons-material/Diversity3Outlined';
 
-
 import ViewMonthlySchedule from "./pages/reports/view-monthly-schedule";
 // import ViewEmployeeLeaves from "./pages/reports/view-employee-leaves";
 import ViewEmployeeLeaves from "./pages/reports/view-employee-leaves/leaves-by-cutoff";

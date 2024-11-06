@@ -42,289 +42,288 @@ const icon = { className: "w-5 h-5 text-inherit" };
 export const routesAdmin = () => {
   // pag mayda na ternary operator pag butang hin empty array ha ubos
 
-  return [
-    {
-      icon: null,
-      name: "Dashboards",
-      path: "/Dashboards",
-      element: <strong style={{height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px'}} className="text-red-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">YOU SHALL NOT PASS!!</strong>,
-      hasSubItems: true,
-      subItems: [
-        {
-          icon: <HomeIcon {...icon} />,
-          name: "Admin Portal",
-          path: "/Dashboards/Admin-Portal",
-          element: <AdminPortal/>,
-          hasSubItems: true,
-          subItems: 
-          // function param na route
-          [
-            {
-              icon: null,
-              name: "Categories",
-              path: "/Dashboards/Admin-Portal/Categories",
-              element: <CategoriesManagement/>,
-              hasSubItems: true,
-              subItems: [
-                {
-                  icon: null,
-                  name: "Branch",
-                  path: "/Dashboards/Admin-Portal/Categories/Branch",
-                  element: <ManageBRANCH />,
-                  hasSubItems: false,
-                },
-                {
-                  icon: null,
-                  name: "Department",
-                  path: "/Dashboards/Admin-Portal/Categories/Department",
-                  element: <ManageDEPARTMENT/>,
-                  hasSubItems: false,
-                },
-                {
-                  icon: null,
-                  name: "Division",
-                  path: "/Dashboards/Admin-Portal/Categories/Division",
-                  element: <ManageDIVISION/>,
-                  hasSubItems: false,
-                },
-                {
-                  icon: null,
-                  name: "Payroll Group",
-                  path: "/Dashboards/Admin-Portal/Categories/Payrollgroup",
-                  element: <ManagePAYROLLGROUP/>,
-                  hasSubItems: false,
-                },
-                {
-                  icon: null,
-                  name: "Position",
-                  path: "/Dashboards/Admin-Portal/Categories/Position",
-                  element: <ManagePOSITION/>,
-                  hasSubItems: false,
-                },
-                {
-                  icon: null,
-                  name: "Rank",
-                  path: "/Dashboards/Admin-Portal/Categories/Rank",
-                  element: <ManageRANK/>,
-                  hasSubItems: false,
-                },
-                {
-                  icon: null,
-                  name: "Employment Status Type",
-                  path: "/Dashboards/Admin-Portal/Categories/Employment-Status-Type",
-                  element: <ManageEmploymentStatusTypes />,
-                  hasSubItems: false,
-                },
-              ]
-            },
-            {
-              icon: null,
-              name: "Users",
-              path: "/Dashboards/Admin-Portal/Users",
-              element: <ManageUSERS/>,
-              hasSubItems: false,
-              subItems: []
-            },
-            {
-              icon: null,
-              name: "PVM",
-              path: "/Dashboards/Admin-Portal/Payroll-Variables-Monthly",
-              element: <PayrollVariablesMonthly/>,
-              hasSubItems: true,
-              subItems: [
-                {
-                  icon: null,
-                  name: "Tax",
-                  path: "/Dashboards/Admin-Portal/Payroll-Variables-Monthly/Tax",
-                  element: <PVMTAX/>,
-                  hasSubItems: false,
-                },
-                {
-                  icon: null,
-                  name: "PAGIBIG",
-                  path: "/Dashboards/Admin-Portal/Payroll-Variables-Monthly/Pagibig",
-                  element: <PVMPAGIBIG/>,
-                  hasSubItems: false,
-                },
-                {
-                  icon: null,
-                  name: "SSS",
-                  path: "/Dashboards/Admin-Portal/Payroll-Variables-Monthly/SSS",
-                  element: <PVMSSS/>,
-                  hasSubItems: false,
-                },
-                {
-                  icon: null,
-                  name: "Philhealth",
-                  path: "/Dashboards/Admin-Portal/Payroll-Variables-Monthly/Philhealth",
-                  element: <PVMPHILHEALTH/>,
-                  hasSubItems: false,
-                },
-                {
-                  icon: null,
-                  name: "Cash Advance",
-                  path: "/Dashboards/Admin-Portal/Payroll-Variables-Monthly/Cash-Advance",
-                  element: <PVMCASHADVANCE/>,
-                  hasSubItems: false,
-                },
-                {
-                  icon: null,
-                  name: "Allowance Entry",
-                  path: "/Dashboards/Admin-Portal/Payroll-Variables-Monthly/Allowance-Entry",
-                  element: <PVMALLOWANCEENTRY/>,
-                  hasSubItems: false,
-                },
-                {
-                  icon: null,
-                  name: "Allowance Type",
-                  path: "/Dashboards/Admin-Portal/Payroll-Variables-Monthly/Allowance-Type",
-                  element: <PVMALLOWANCETYPE/>,
-                  hasSubItems: false,
-                },
-              ]
-            },
-            {
-              icon: null,
-              name: "EOY",
-              path: "/Dashboards/Admin-Portal/Payroll-EOY",
-              element: <PayrollEOY/>,
-              hasSubItems: true,
-              subItems: [
-                {
-                  icon: null,
-                  name: "Tax Collected",
-                  path: "/Dashboards/Admin-Portal/Payroll-EOY/Tax-Collected",
-                  element: <EOYTAXCOLLECTEDPage/>,
-                  hasSubItems: false,
-                },
-                {
-                  icon: null,
-                  name: "13th Month Pay",
-                  path: "/Dashboards/Admin-Portal/Payroll-EOY/13th-Month-pay",
-                  element: <EOYPAY13TH/>,
-                  hasSubItems: false,
-                },
-                {
-                  icon: null,
-                  name: "Bonus List",
-                  path: "/Dashboards/Admin-Portal/Payroll-EOY/Bonus-List",
-                  element: <EOYBONUSLIST/>,
-                  hasSubItems: false,
-                },
-                {
-                  icon: null,
-                  name: "Bonus Entries",
-                  path: "/Dashboards/Admin-Portal/Payroll-EOY/Bonus-Entries",
-                  element: <EOYBonusEntry/>,
-                  hasSubItems: false,
-                },
-              ]
-            },
-            {
-              icon: null,
-              name: "AAA",
-              path: "/Dashboards/Admin-Portal/Assets-And-Announcement",
-              element: <AssetAndAnnouncement/>,
-              hasSubItems: true,
-              subItems: [
-                {
-                  icon: null,
-                  name: "Asset Account",
-                  path: "/Dashboards/Admin-Portal/Assets-And-Announcement/Asset-Account",
-                  element: <AAASSETACCOUNT/>,
-                  hasSubItems: false,
-                },
-                {
-                  icon: null,
-                  name: "Asset List",
-                  path: "/Dashboards/Admin-Portal/Assets-And-Announcement/Asset-List",
-                  element: <AAASSETLIST/>,
-                  hasSubItems: false,
-                },
-                {
-                  icon: null,
-                  name: "Announcements",
-                  path: "/Dashboards/Admin-Portal/Assets-And-Announcement/Announcement-Configurations",
-                  element: <AAANNOUNCEMENT/>,
-                  hasSubItems: false,
-                },
-              ]
-            },
-            {
-              icon: null,
-              name: "Employee & Applicant Variables",
-              path: "/Dashboards/Admin-Portal/Employee-And-Applicants",
-              element: <EmployeeAndApplicants/>,
-              hasSubItems: true,
-              subItems: [
-                {
-                  icon: null,
-                  name: "KPI Evaluation",
-                  path: "/Dashboards/Admin-Portal/Employee-And-Applicants/KPI-Evaluation",
-                  element: <EAKPIEVAL/>,
-                  hasSubItems: false,
-                },
-                {
-                  icon: null,
-                  name: "Initialize Onboarding",
-                  path: "/Dashboards/Admin-Portal/Employee-And-Applicants/Initialize-Onboarding",
-                  element: <EAONBOARDINGSTATUS/>,
-                  hasSubItems: false,
-                },
-                {
-                  icon: null,
-                  name: "Initialize Offboarding",
-                  path: "/Dashboards/Admin-Portal/Employee-And-Applicants/Initialize-Offboarding",
-                  element: <EAOFFBOARDINGSTATUS/>,
-                  hasSubItems: false,
-                },
-                {
-                  icon: null,
-                  name: "KPI Questions",
-                  path: "/Dashboards/Admin-Portal/Employee-And-Applicants/KPI-Questions",
-                  element: <EAEVALQUESTIONS/>,
-                  hasSubItems: false,
-                },
-                {
-                  icon: null,
-                  name: "Core Competencies",
-                  path: "/Dashboards/Admin-Portal/Employee-And-Applicants/Core-Competencies",
-                  element: <EACORECOMPE/>,
-                  hasSubItems: false,
-                },
-                {
-                  icon: null,
-                  name: "Onboarding Requirements",
-                  path: "/Dashboards/Admin-Portal/Employee-And-Applicants/Onboarding-Requirements",
-                  element: <EAONBOARDINGREQUIREMENTS/>,
-                  hasSubItems: false,
-                },
-                {
-                  icon: null,
-                  name: "Offboarding",
-                  path: "/Dashboards/Admin-Portal/Employee-And-Applicants/Offboarding-Requirements",
-                  element: <EAOFFBOARDINGREQUIREMENTS/>,
-                  hasSubItems: false,
-                },
-                {
-                  icon: null,
-                  name: "Applicants",
-                  path: "/Dashboards/Admin-Portal/Employee-And-Applicants/Applicants",
-                  element: <EAAPPLICANTSLIST/>,
-                  hasSubItems: false,
-                },
-                {
-                  icon: null,
-                  name: "Job Posting",
-                  path: "/Dashboards/Admin-Portal/Employee-And-Applicants/Job-Posting",
-                  element: <EAJOBPOSTINGS/>,
-                  hasSubItems: false,
-                },
-              ]
-            },
-          ]
-        },
-      ]
-    },
-  ]
+  return  {
+    id: 11000,
+    icon: null,
+    name: "Dashboards",
+    path: "/Dashboards",
+    element: <strong style={{height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px'}} className="text-red-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">YOU SHALL NOT PASS!!</strong>,
+    hasSubItems: true,
+    subItems: [
+      {
+        icon: <HomeIcon {...icon} />,
+        name: "Admin Portal",
+        path: "/Dashboards/Admin-Portal",
+        element: <AdminPortal/>,
+        hasSubItems: true,
+        subItems: 
+        // function param na route
+        [
+          {
+            icon: null,
+            name: "Categories",
+            path: "/Dashboards/Admin-Portal/Categories",
+            element: <CategoriesManagement/>,
+            hasSubItems: true,
+            subItems: [
+              {
+                icon: null,
+                name: "Branch",
+                path: "/Dashboards/Admin-Portal/Categories/Branch",
+                element: <ManageBRANCH />,
+                hasSubItems: false,
+              },
+              {
+                icon: null,
+                name: "Department",
+                path: "/Dashboards/Admin-Portal/Categories/Department",
+                element: <ManageDEPARTMENT/>,
+                hasSubItems: false,
+              },
+              {
+                icon: null,
+                name: "Division",
+                path: "/Dashboards/Admin-Portal/Categories/Division",
+                element: <ManageDIVISION/>,
+                hasSubItems: false,
+              },
+              {
+                icon: null,
+                name: "Payroll Group",
+                path: "/Dashboards/Admin-Portal/Categories/Payrollgroup",
+                element: <ManagePAYROLLGROUP/>,
+                hasSubItems: false,
+              },
+              {
+                icon: null,
+                name: "Position",
+                path: "/Dashboards/Admin-Portal/Categories/Position",
+                element: <ManagePOSITION/>,
+                hasSubItems: false,
+              },
+              {
+                icon: null,
+                name: "Rank",
+                path: "/Dashboards/Admin-Portal/Categories/Rank",
+                element: <ManageRANK/>,
+                hasSubItems: false,
+              },
+              {
+                icon: null,
+                name: "Employment Status Type",
+                path: "/Dashboards/Admin-Portal/Categories/Employment-Status-Type",
+                element: <ManageEmploymentStatusTypes />,
+                hasSubItems: false,
+              },
+            ]
+          },
+          {
+            icon: null,
+            name: "Users",
+            path: "/Dashboards/Admin-Portal/Users",
+            element: <ManageUSERS/>,
+            hasSubItems: false,
+            subItems: []
+          },
+          {
+            icon: null,
+            name: "PVM",
+            path: "/Dashboards/Admin-Portal/Payroll-Variables-Monthly",
+            element: <PayrollVariablesMonthly/>,
+            hasSubItems: true,
+            subItems: [
+              {
+                icon: null,
+                name: "Tax",
+                path: "/Dashboards/Admin-Portal/Payroll-Variables-Monthly/Tax",
+                element: <PVMTAX/>,
+                hasSubItems: false,
+              },
+              {
+                icon: null,
+                name: "PAGIBIG",
+                path: "/Dashboards/Admin-Portal/Payroll-Variables-Monthly/Pagibig",
+                element: <PVMPAGIBIG/>,
+                hasSubItems: false,
+              },
+              {
+                icon: null,
+                name: "SSS",
+                path: "/Dashboards/Admin-Portal/Payroll-Variables-Monthly/SSS",
+                element: <PVMSSS/>,
+                hasSubItems: false,
+              },
+              {
+                icon: null,
+                name: "Philhealth",
+                path: "/Dashboards/Admin-Portal/Payroll-Variables-Monthly/Philhealth",
+                element: <PVMPHILHEALTH/>,
+                hasSubItems: false,
+              },
+              {
+                icon: null,
+                name: "Cash Advance",
+                path: "/Dashboards/Admin-Portal/Payroll-Variables-Monthly/Cash-Advance",
+                element: <PVMCASHADVANCE/>,
+                hasSubItems: false,
+              },
+              {
+                icon: null,
+                name: "Allowance Entry",
+                path: "/Dashboards/Admin-Portal/Payroll-Variables-Monthly/Allowance-Entry",
+                element: <PVMALLOWANCEENTRY/>,
+                hasSubItems: false,
+              },
+              {
+                icon: null,
+                name: "Allowance Type",
+                path: "/Dashboards/Admin-Portal/Payroll-Variables-Monthly/Allowance-Type",
+                element: <PVMALLOWANCETYPE/>,
+                hasSubItems: false,
+              },
+            ]
+          },
+          {
+            icon: null,
+            name: "EOY",
+            path: "/Dashboards/Admin-Portal/Payroll-EOY",
+            element: <PayrollEOY/>,
+            hasSubItems: true,
+            subItems: [
+              {
+                icon: null,
+                name: "Tax Collected",
+                path: "/Dashboards/Admin-Portal/Payroll-EOY/Tax-Collected",
+                element: <EOYTAXCOLLECTEDPage/>,
+                hasSubItems: false,
+              },
+              {
+                icon: null,
+                name: "13th Month Pay",
+                path: "/Dashboards/Admin-Portal/Payroll-EOY/13th-Month-pay",
+                element: <EOYPAY13TH/>,
+                hasSubItems: false,
+              },
+              {
+                icon: null,
+                name: "Bonus List",
+                path: "/Dashboards/Admin-Portal/Payroll-EOY/Bonus-List",
+                element: <EOYBONUSLIST/>,
+                hasSubItems: false,
+              },
+              {
+                icon: null,
+                name: "Bonus Entries",
+                path: "/Dashboards/Admin-Portal/Payroll-EOY/Bonus-Entries",
+                element: <EOYBonusEntry/>,
+                hasSubItems: false,
+              },
+            ]
+          },
+          {
+            icon: null,
+            name: "AAA",
+            path: "/Dashboards/Admin-Portal/Assets-And-Announcement",
+            element: <AssetAndAnnouncement/>,
+            hasSubItems: true,
+            subItems: [
+              {
+                icon: null,
+                name: "Asset Account",
+                path: "/Dashboards/Admin-Portal/Assets-And-Announcement/Asset-Account",
+                element: <AAASSETACCOUNT/>,
+                hasSubItems: false,
+              },
+              {
+                icon: null,
+                name: "Asset List",
+                path: "/Dashboards/Admin-Portal/Assets-And-Announcement/Asset-List",
+                element: <AAASSETLIST/>,
+                hasSubItems: false,
+              },
+              {
+                icon: null,
+                name: "Announcements",
+                path: "/Dashboards/Admin-Portal/Assets-And-Announcement/Announcement-Configurations",
+                element: <AAANNOUNCEMENT/>,
+                hasSubItems: false,
+              },
+            ]
+          },
+          {
+            icon: null,
+            name: "Employee & Applicant Variables",
+            path: "/Dashboards/Admin-Portal/Employee-And-Applicants",
+            element: <EmployeeAndApplicants/>,
+            hasSubItems: true,
+            subItems: [
+              {
+                icon: null,
+                name: "KPI Evaluation",
+                path: "/Dashboards/Admin-Portal/Employee-And-Applicants/KPI-Evaluation",
+                element: <EAKPIEVAL/>,
+                hasSubItems: false,
+              },
+              {
+                icon: null,
+                name: "Initialize Onboarding",
+                path: "/Dashboards/Admin-Portal/Employee-And-Applicants/Initialize-Onboarding",
+                element: <EAONBOARDINGSTATUS/>,
+                hasSubItems: false,
+              },
+              {
+                icon: null,
+                name: "Initialize Offboarding",
+                path: "/Dashboards/Admin-Portal/Employee-And-Applicants/Initialize-Offboarding",
+                element: <EAOFFBOARDINGSTATUS/>,
+                hasSubItems: false,
+              },
+              {
+                icon: null,
+                name: "KPI Questions",
+                path: "/Dashboards/Admin-Portal/Employee-And-Applicants/KPI-Questions",
+                element: <EAEVALQUESTIONS/>,
+                hasSubItems: false,
+              },
+              {
+                icon: null,
+                name: "Core Competencies",
+                path: "/Dashboards/Admin-Portal/Employee-And-Applicants/Core-Competencies",
+                element: <EACORECOMPE/>,
+                hasSubItems: false,
+              },
+              {
+                icon: null,
+                name: "Onboarding Requirements",
+                path: "/Dashboards/Admin-Portal/Employee-And-Applicants/Onboarding-Requirements",
+                element: <EAONBOARDINGREQUIREMENTS/>,
+                hasSubItems: false,
+              },
+              {
+                icon: null,
+                name: "Offboarding",
+                path: "/Dashboards/Admin-Portal/Employee-And-Applicants/Offboarding-Requirements",
+                element: <EAOFFBOARDINGREQUIREMENTS/>,
+                hasSubItems: false,
+              },
+              {
+                icon: null,
+                name: "Applicants",
+                path: "/Dashboards/Admin-Portal/Employee-And-Applicants/Applicants",
+                element: <EAAPPLICANTSLIST/>,
+                hasSubItems: false,
+              },
+              {
+                icon: null,
+                name: "Job Posting",
+                path: "/Dashboards/Admin-Portal/Employee-And-Applicants/Job-Posting",
+                element: <EAJOBPOSTINGS/>,
+                hasSubItems: false,
+              },
+            ]
+          },
+        ]
+      },
+    ]
+  }
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import PropTypes from "prop-types";
+import PropTypes, { element } from "prop-types";
 import { Link } from "react-router-dom";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
@@ -21,8 +21,8 @@ import RouterWrapper from "@/public-components/side-nav/RouterWrapper";
 
 export function Sidenav({ brandImg, brandName, routes }: SideNavProps) {
   // remove after debugging
-  Routesss();
-  const dispatchRedux = useDispatch();
+  // console.log('diplsaying routess', Routesss());
+  const dispatchRedux = useDispatch();  
   const currUserState = useSelector((state: RootState)=> state.auth.employee_detail);
   const proceduralState = useSelector((state: RootState)=> state.procedurals);
   const EAState = useSelector((state:RootState) => state.employeeAndApplicants)

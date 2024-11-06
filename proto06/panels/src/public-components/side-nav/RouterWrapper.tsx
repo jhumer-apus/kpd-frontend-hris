@@ -12,8 +12,7 @@ import { LEAVEViewInterface, OBTViewInterface, OVERTIMEViewInterface, UAViewInte
 import Routesss from "@/new_routes";
 
 const RouterWrapper = () => {
-  console.log(JSXRouteWrapper().routes);
-  console.log(Routesss());
+  const routes = Routesss();
   
   const proceduralState = useSelector((state: RootState)=> state.procedurals);
   const [controller, dispatch] = useMaterialTailwindController();
@@ -42,6 +41,131 @@ const RouterWrapper = () => {
 
   return (
     <div style={{margin: '1rem'}}data-name="list">
+      {routes.map(({ layout, title, pages }, index) => {
+  if (layout === "auth") return null;
+  return (
+      // {function && element}
+    <ul key={index} className="mb-4 flex flex-col gap-1">
+      {/* title property is undefined */}
+      {/* line 163 to 174 idk the usage */}
+      {title && (
+        <li key={index} className="mx-3.5 mt-4 mb-2">
+          <Typography
+            variant="small"
+            color={sidenavType === "dark" ? "white" : "blue-gray"}
+            className="font-black uppercase opacity-75"
+            key={`${index}_li_sidenav`}
+          >
+            {title}
+          </Typography>
+        </li>
+      )}
+      {pages.map(({ id, icon, name, path, hasSubItems, subItems }, index) => { 
+        if (hasSubItems) {
+          return (
+            <>
+              <li key={index}>
+                <CollapsibleSection
+                  header={
+                    <Button
+                      variant={ "gradient" }
+                      color={ sidenavType === "dark" ? "indigo" : "blue-gray" }
+                      className="flex items-center gap-4 px-4 capitalize"
+                      fullWidth
+                    >
+                      {icon}
+                      <Typography
+                        color="inherit"
+                        className="font-medium capitalize flex justify-between w-full"
+                      >
+                        <p className="flex justify-center items-center">{name}</p>
+                        {name === 'Pending Checklists' && ( arrayLengthChecker(name) > 0 ) && <p 
+                          className="flex justify-center items-center" 
+                          style={{
+                            fontSize: '12px',
+                            height: '30px', 
+                            width: '30px', 
+                            background: 'rgb(98 0 255)',
+                            borderRadius: '30px', 
+                            textAlign: 'center',
+                          }}
+                        >
+                        {arrayLengthChecker(name)}
+                        </p>}
+                      </Typography>
+                    </Button>
+                  }
+                >
+                {subItems?.map(({ icon, name, path, badgeAccessor }) => (
+                  <NavLink to={`/${layout}${path}`} data-link={path}>
+                  {({ isActive }) => (
+                    <li key={name}>
+                      <Button
+                        variant={isActive ? "gradient" : "text"}
+                        color={ isActive ? sidenavColor : sidenavType === "dark" ? "white" : "blue-gray" }
+                        className="flex items-center gap-4 px-4 capitalize"
+                        fullWidth
+                        button-toggle="toggleable"
+                      >
+                        {icon}
+                        <Typography
+                          color="inherit"
+                          className="font-medium capitalize text-start flex justify-between"
+                          style={{width: '100%'}}
+                        >
+                          <p className="flex justify-center items-center">{name}</p> 
+                          {approvalNames.includes(name) && arrayLengthChecker(name) !== 0 && 
+                            <p 
+                              className="flex justify-center items-center" 
+                              style={{
+                                fontSize: '12px',
+                                height: '30px', 
+                                width: '30px', 
+                                background: '#7509eb',
+                                mixBlendMode: 'difference', 
+                                borderRadius: '30px', 
+                                textAlign: 'center',
+                              }}
+                            >
+                              {arrayLengthChecker(name)}
+                            </p>}
+                        </Typography>
+                        </Button>
+                      </li>
+                    )}
+                  </NavLink>
+                ))}
+                </CollapsibleSection>
+              </li>
+            </>
+          );
+        } else {
+          return (
+            <li key={name}>
+              <NavLink to={`/${layout}${path}`}>
+                {({ isActive }) => (
+                  <Button
+                    variant={ isActive ? "gradient" : "text" }
+                    color={ isActive ? sidenavColor : sidenavType === "dark" ? "white" : "blue-gray" }
+                    className="flex items-center gap-4 px-4 capitalize"
+                    fullWidth
+                  >
+                    {icon}
+                    <Typography
+                      color="inherit"
+                      className="font-medium capitalize"
+                    >
+                    {name}
+                    </Typography>
+                  </Button>
+                )}
+              </NavLink>
+            </li>
+          )
+        }}
+      )}
+    </ul>
+)})}
     </div>
   );
 }
@@ -49,128 +173,3 @@ const RouterWrapper = () => {
 export default RouterWrapper;
 
 
-// {JSXRouteWrapper().routes.map(({ layout, title, pages }, index) => {
-//   if (layout === "auth") return null;
-//   return (
-//       // {function && element}
-//     <ul key={index} className="mb-4 flex flex-col gap-1">
-//       {/* title property is undefined */}
-//       {/* line 163 to 174 idk the usage */}
-//       {title && (
-//         <li key={index} className="mx-3.5 mt-4 mb-2">
-//           <Typography
-//             variant="small"
-//             color={sidenavType === "dark" ? "white" : "blue-gray"}
-//             className="font-black uppercase opacity-75"
-//             key={`${index}_li_sidenav`}
-//           >
-//             {title}
-//           </Typography>
-//         </li>
-//       )}
-//       {pages.map(({ id, icon, name, path, hasSubItems, subItems }, index) => { 
-//         if (hasSubItems) {
-//           return (
-//             <>
-//               <li key={index}>
-//                 <CollapsibleSection
-//                   header={
-//                     <Button
-//                       variant={ "gradient" }
-//                       color={ sidenavType === "dark" ? "indigo" : "blue-gray" }
-//                       className="flex items-center gap-4 px-4 capitalize"
-//                       fullWidth
-//                     >
-//                       {icon}
-//                       <Typography
-//                         color="inherit"
-//                         className="font-medium capitalize flex justify-between w-full"
-//                       >
-//                         <p className="flex justify-center items-center">{name}</p>
-//                         {name === 'Pending Checklists' && ( arrayLengthChecker(name) > 0 ) && <p 
-//                           className="flex justify-center items-center" 
-//                           style={{
-//                             fontSize: '12px',
-//                             height: '30px', 
-//                             width: '30px', 
-//                             background: 'rgb(98 0 255)',
-//                             borderRadius: '30px', 
-//                             textAlign: 'center',
-//                           }}
-//                         >
-//                         {arrayLengthChecker(name)}
-//                         </p>}
-//                       </Typography>
-//                     </Button>
-//                   }
-//                 >
-//                 {subItems?.map(({ icon, name, path, badgeAccessor }) => (
-//                   <NavLink to={`/${layout}${path}`} data-link={path}>
-//                   {({ isActive }) => (
-//                     <li key={name}>
-//                       <Button
-//                         variant={isActive ? "gradient" : "text"}
-//                         color={ isActive ? sidenavColor : sidenavType === "dark" ? "white" : "blue-gray" }
-//                         className="flex items-center gap-4 px-4 capitalize"
-//                         fullWidth
-//                         button-toggle="toggleable"
-//                       >
-//                         {icon}
-//                         <Typography
-//                           color="inherit"
-//                           className="font-medium capitalize text-start flex justify-between"
-//                           style={{width: '100%'}}
-//                         >
-//                           <p className="flex justify-center items-center">{name}</p> 
-//                           {approvalNames.includes(name) && arrayLengthChecker(name) !== 0 && 
-//                             <p 
-//                               className="flex justify-center items-center" 
-//                               style={{
-//                                 fontSize: '12px',
-//                                 height: '30px', 
-//                                 width: '30px', 
-//                                 background: '#7509eb',
-//                                 mixBlendMode: 'difference', 
-//                                 borderRadius: '30px', 
-//                                 textAlign: 'center',
-//                               }}
-//                             >
-//                               {arrayLengthChecker(name)}
-//                             </p>}
-//                         </Typography>
-//                         </Button>
-//                       </li>
-//                     )}
-//                   </NavLink>
-//                 ))}
-//                 </CollapsibleSection>
-//               </li>
-//             </>
-//           );
-//         } else {
-//           return (
-//             <li key={name}>
-//               <NavLink to={`/${layout}${path}`}>
-//                 {({ isActive }) => (
-//                   <Button
-//                     variant={ isActive ? "gradient" : "text" }
-//                     color={ isActive ? sidenavColor : sidenavType === "dark" ? "white" : "blue-gray" }
-//                     className="flex items-center gap-4 px-4 capitalize"
-//                     fullWidth
-//                   >
-//                     {icon}
-//                     <Typography
-//                       color="inherit"
-//                       className="font-medium capitalize"
-//                     >
-//                     {name}
-//                     </Typography>
-//                   </Button>
-//                 )}
-//               </NavLink>
-//             </li>
-//           )
-//         }}
-//       )}
-//     </ul>
-// )})}
