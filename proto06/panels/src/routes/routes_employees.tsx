@@ -15,6 +15,9 @@ const icon = { className: "w-5 h-5 text-inherit" };
 export const routesEmployee = (currentUserRole: number) => {
   // either useSelector on every sidenav item or use params approach instead
   // const state = useSelector((state: RootState) => state.auth.employee_detail);
+  
+  const employee = INTERNAL_USER_ROLE.Employee;
+  const manager = INTERNAL_USER_ROLE.Manager;
 
   return {
     id: 12000,
@@ -24,7 +27,7 @@ export const routesEmployee = (currentUserRole: number) => {
     element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-orange-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">EMPLOYEE ELEMENTS UNDER DEVELOPMENT</strong>,
     hasSubItems: true,
     subItems: [
-      ...(currentUserRole !== INTERNAL_USER_ROLE.Employee && currentUserRole !== INTERNAL_USER_ROLE.Manager ) ?
+      ...(currentUserRole !== employee && currentUserRole !== manager) ?
       [
         {
           id: 12100,
@@ -63,24 +66,25 @@ export const routesEmployee = (currentUserRole: number) => {
           hasSubItems: false,
         },
       ] : [],
-      ...(currentUserRole === INTERNAL_USER_ROLE.Employee || currentUserRole === INTERNAL_USER_ROLE.Manager ) ? [
-      {
-        id: 12400,
-        icon: <AutoStoriesOutlinedIcon {...icon} />,
-        name: "Employment History",
-        path: "/employees/Employment-History-E1",
-        element:<EmploymentHistoryPageEmpView/>,
-        hasSubItems: false,
-      },
-      {
-        id: 12500,
-        icon: <Diversity3OutlinedIcon {...icon} />,
-        name: "Training & Seminars",
-        path: "/employees/Training-and-Seminars-E1",
-        element:<EMPSEMINARSPageV2EmpView/>,
-        hasSubItems: false,
-      },
-    ] : [],
+
+      ...(currentUserRole === employee || currentUserRole === manager ) ? [
+        {
+          id: 12400,
+          icon: <AutoStoriesOutlinedIcon {...icon} />,
+          name: "Employment History",
+          path: "/employees/Employment-History-E1",
+          element:<EmploymentHistoryPageEmpView/>,
+          hasSubItems: false,
+        },
+        {
+          id: 12500,
+          icon: <Diversity3OutlinedIcon {...icon} />,
+          name: "Training & Seminars",
+          path: "/employees/Training-and-Seminars-E1",
+          element:<EMPSEMINARSPageV2EmpView/>,
+          hasSubItems: false,
+        },
+      ] : [],
     ]
   }
 }

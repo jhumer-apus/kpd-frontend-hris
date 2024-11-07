@@ -26,6 +26,8 @@ import ProceduralSCHEDULEDAILYpage from "../pages/procedurals/schedule-dailies/p
 const icon = { className: "w-5 h-5 text-inherit" };
 
 export const routesProcedurals = (currentUserRole: number) => {
+
+  const manager = INTERNAL_USER_ROLE.Manager;
   
   return currentUserRole !== INTERNAL_USER_ROLE.Employee ? 
     {
@@ -38,7 +40,7 @@ export const routesProcedurals = (currentUserRole: number) => {
       subItems: [
         // cannot compile all the objects that would be return true for this condition since it will affect the order of layout in the sidenav. 
         // NOTE if layout can be changed we can just put all the objects that would return true to this condition scope
-        ...(currentUserRole !== INTERNAL_USER_ROLE.Manager) ? [
+        ...(currentUserRole !== manager) ? [
           {
             id: 15100,
             icon: <SurfingOutlinedIcon {...icon}/>,
@@ -80,7 +82,7 @@ export const routesProcedurals = (currentUserRole: number) => {
           hasSubItems: false,
         },
 
-        ...(currentUserRole !== INTERNAL_USER_ROLE.Manager) ? [
+        ...(currentUserRole !== manager) ? [
           {
             id: 15500,
             icon: <AppsOutageOutlinedIcon {...icon} />,

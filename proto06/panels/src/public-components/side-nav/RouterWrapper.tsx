@@ -9,17 +9,18 @@ import CollapsibleSection from "@/widgets/layout/custom-effects/CollapsibleSecti
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/configureStore";
 import { LEAVEViewInterface, OBTViewInterface, OVERTIMEViewInterface, UAViewInterface } from "@/types/types-pages";
-import Routesss from "@/routes/compiled_routes";
+import { compiledRoutes } from "@/routes/compiled_routes";
 
 const RouterWrapper = () => {
-  const routes = Routesss();
-  
   const proceduralState = useSelector((state: RootState)=> state.procedurals);
   const [controller, dispatch] = useMaterialTailwindController();
   const { UAViewFilterApprover, LEAVEViewFilterApprover, OVERTIMEViewFilterApprover, OBTViewFilterApprover } = proceduralState;
   const { sidenavColor, sidenavType, openSidenav } = controller;
   
   const approvalNames = ['OBT Approvals', 'OT Approvals', 'LEAVE Approvals', 'UA Approvals', 'KPI Confirmations', 'Onboarding CF', 'Offboarding CF'];
+
+  // view compiledRoutes for route reference
+  const routes = compiledRoutes();
 
   const arrayLengthChecker = (key: string) => {
     type objectChecker = {

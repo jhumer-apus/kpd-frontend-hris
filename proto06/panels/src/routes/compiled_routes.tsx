@@ -19,7 +19,7 @@ import { IRoute } from "../types";
 
 const icon = { className: "w-5 h-5 text-inherit" };
 
-const Routesss = () => {
+export const compiledRoutes = () => {
   const state: any = useSelector((state: RootState) => state.auth.employee_detail);
   
   // Available sidenavroutes 
@@ -30,9 +30,7 @@ const Routesss = () => {
 
   allRoutes.map((route) => { 
     let routee = route(state.user.role);
-    if (Object.keys(routee).length !== 0) {
-      `${sideNavRoutes.push(routee)}`;
-    }
+    if (Object.keys(routee).length !== 0) `${sideNavRoutes.push(routee)}`;
   });
 
   const routes: Array<IRoute> = [ 
@@ -67,5 +65,3 @@ const Routesss = () => {
 
   return routes;
 }
-
-export default Routesss;
