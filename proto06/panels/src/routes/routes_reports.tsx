@@ -11,10 +11,9 @@ import ViewImperfectAttendance from "../pages/reports/view-attendance/imperfect-
 
 const icon = { className: "w-5 h-5 text-inherit" };
 
-export const routesReports = (currentUser: any) => {
-  const state = useSelector((state: RootState) => state.auth.employee_detail);
+export const routesReports = (currentUserRole: number) => {
 
-  return currentUser !== INTERNAL_USER_ROLE.Employee && state?.user?.role !== INTERNAL_USER_ROLE.Manager ?
+  return currentUserRole !== INTERNAL_USER_ROLE.Employee && currentUserRole !== INTERNAL_USER_ROLE.Manager ?
     {
       id: 19000,
       icon: null,
@@ -72,5 +71,5 @@ export const routesReports = (currentUser: any) => {
           hasSubItems: false,
         }
       ]
-    } : [];
+    } : {};
 }

@@ -36,13 +36,14 @@ import EAOFFBOARDINGREQUIREMENTS from "../pages/dashboard/admin-portal/first-inn
 import EAAPPLICANTSLIST from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-applicants-list/ea-applicants-list";
 import EAJOBPOSTINGS from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-job-postings/ea-job-postings";
 import { HomeIcon } from "@heroicons/react/24/solid";
+import { INTERNAL_USER_ROLE } from "@/types/types-store";
 
 const icon = { className: "w-5 h-5 text-inherit" };
 
-export const routesAdmin = (currentUser: String) => {
-  // pag mayda na ternary operator pag butang hin empty array ha ubos
+export const routesAdmin = (currentUserRole: number) => {
+  // pag mayda na ternary operator pag butang hin empty array ha ubos  
 
-  return  {
+  return currentUserRole !== INTERNAL_USER_ROLE.Employee && currentUserRole !== INTERNAL_USER_ROLE.Manager ? {
     id: 11000,
     icon: null,
     name: "Dashboards",
@@ -325,5 +326,5 @@ export const routesAdmin = (currentUser: String) => {
         ]
       },
     ]
-  }
+  } : {}
 }

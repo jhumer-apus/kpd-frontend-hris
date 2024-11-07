@@ -12,15 +12,13 @@ import CreateSummaryPage from "../pages/dtr/create-summary/create-summary";
 
 const icon = { className: "w-5 h-5 text-inherit" };
 
-export const routesDTR = (currentUser: any) => {
-  const state = useSelector((state: RootState) => state.auth.employee_detail);
-  
-  const isAdmin = state?.user?.role !== INTERNAL_USER_ROLE.Employee && state?.user?.role !== INTERNAL_USER_ROLE.Manager;
+export const routesDTR = (currentUserRole: number) => {
+  const isAdmin = currentUserRole !== INTERNAL_USER_ROLE.Employee && currentUserRole !== INTERNAL_USER_ROLE.Manager;
 
   return {
     id: 16000,
     icon: null,
-    name: isAdmin? "Admin DTR" : "DTR",
+    name: isAdmin ? "Admin DTR" : "DTR",
     path: "/DTR",
     element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-pink-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">DTR PAGE ELEMENTS UNDER DEVELOPMENT</strong>,
     hasSubItems: true,
@@ -33,7 +31,7 @@ export const routesDTR = (currentUser: any) => {
         element: <ViewDtrReports/>,
         hasSubItems: false,
       },
-      ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee && state?.user?.role !== INTERNAL_USER_ROLE.Manager) ? [
+      ...(currentUserRole !== INTERNAL_USER_ROLE.Employee && currentUserRole !== INTERNAL_USER_ROLE.Manager) ? [
         {
           id: 16200,
           icon: <UploadFileIcon {...icon} />,
@@ -58,8 +56,7 @@ export const routesDTR = (currentUser: any) => {
           element: <CreateSummaryPage/>,
           hasSubItems: false,
         },
-      ]:[]
-      
+      ] : []
     ]
   }
 }

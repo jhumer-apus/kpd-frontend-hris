@@ -14,10 +14,9 @@ import { INTERNAL_USER_ROLE } from "../types/types-store";
 
 const icon = { className: "w-5 h-5 text-inherit" };
 
-export const routesQuickAccess = (currentUser: any) => {
-  const state = useSelector((state: RootState) => state.auth.employee_detail);
-  const isBasicEmployee = state?.user?.role == INTERNAL_USER_ROLE.Employee;
-  const isDepartmentManager = state?.user?.role == INTERNAL_USER_ROLE.Manager;
+export const routesQuickAccess = (currentUserRole: number) => {
+  const isBasicEmployee = currentUserRole == INTERNAL_USER_ROLE.Employee;
+  const isDepartmentManager = currentUserRole == INTERNAL_USER_ROLE.Manager;
   
   return {
     id: 13000,

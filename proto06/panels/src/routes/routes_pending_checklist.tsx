@@ -12,10 +12,9 @@ import ApprovalUAPage from "../pages/pending-checklists/ua-approvals/approval-ua
 
 const icon = { className: "w-5 h-5 text-inherit" };
 
-export const routesPendingChecklist = (currentUser: any) => {
-  const state = useSelector((state: RootState) => state.auth.employee_detail);
+export const routesPendingChecklist = (currentUserRole: number) => {
 
-  return state?.user?.role !== INTERNAL_USER_ROLE.Employee ? 
+  return currentUserRole !== INTERNAL_USER_ROLE.Employee ? 
     {
       id: 14000,
       icon: null,

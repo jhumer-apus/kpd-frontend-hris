@@ -14,10 +14,9 @@ import EMPSEMINARSPageV2EmpView from "../pages/employee/emp-training-seminars-v2
 
 const icon = { className: "w-5 h-5 text-inherit" };
 
-export const routesEmployee = (currentUser: any) => {
-  const state = useSelector((state: RootState) => state.auth.employee_detail);
-
-  console.log('routes employeee', currentUser);
+export const routesEmployee = (currentUserRole: number) => {
+  // either useSelector on every sidenav item or use params approach instead
+  // const state = useSelector((state: RootState) => state.auth.employee_detail);
 
   return {
     id: 12000,
@@ -31,7 +30,8 @@ export const routesEmployee = (currentUser: any) => {
       // para ma sabtan if it user kay admin sugad.
       // observer ha iba na component if same kay didto an admil portal mayda bangin asya gin tutukoy ni sir na repetative na asya gusto niya himo.on nala na property pero tat gusto kay ig arrange nala tas sulod tanan ha usa na routes
 
-      ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee && state?.user?.role !== INTERNAL_USER_ROLE.Manager ) ?
+      // ...(currentUserRole !== INTERNAL_USER_ROLE.Employee && state?.user?.role !== INTERNAL_USER_ROLE.Manager ) ?
+      ...(currentUserRole !== INTERNAL_USER_ROLE.Employee && currentUserRole !== INTERNAL_USER_ROLE.Manager ) ?
       [
         {
           id: 12100,
@@ -70,7 +70,7 @@ export const routesEmployee = (currentUser: any) => {
           hasSubItems: false,
         },
       ] : [],
-        ...(state?.user?.role === INTERNAL_USER_ROLE.Employee || state?.user?.role === INTERNAL_USER_ROLE.Manager ) ? [
+        ...(currentUserRole === INTERNAL_USER_ROLE.Employee || currentUserRole === INTERNAL_USER_ROLE.Manager ) ? [
         {
           id: 12400,
           icon: <AutoStoriesOutlinedIcon {...icon} />,
@@ -90,5 +90,4 @@ export const routesEmployee = (currentUser: any) => {
       ] : [],
     ]
   }
-  // add la didi ubos if mayda ig dudugang
 }

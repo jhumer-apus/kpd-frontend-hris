@@ -25,12 +25,9 @@ import ProceduralSCHEDULEDAILYpage from "../pages/procedurals/schedule-dailies/p
 
 const icon = { className: "w-5 h-5 text-inherit" };
 
-export const routesProcedurals = (currentUser: any) => {
-  const state = useSelector((state: RootState) => state.auth.employee_detail);
-
-  // if current user dri hi employee  
-  // keep in mind na inin na condition kay under ini ghp didi an forms
-  return state?.user?.role !== INTERNAL_USER_ROLE.Employee ? 
+export const routesProcedurals = (currentUserRole: number) => {
+  
+  return currentUserRole !== INTERNAL_USER_ROLE.Employee ? 
     {
       id: 15000,
       icon: null,
@@ -39,8 +36,9 @@ export const routesProcedurals = (currentUser: any) => {
       element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-orange-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">EMPLOYEE ELEMENTS UNDER DEVELOPMENT</strong>,
       hasSubItems: true,
       subItems: [
-        // if current user dri hi manager
-        ...(state?.user?.role !== INTERNAL_USER_ROLE.Manager) ? [
+        // cannot compile all the objects that would be return true for this condition since it will affect the order of layout in the sidenav. 
+        // NOTE if layout can be changed we can just put all the objects that would return true to this condition scope
+        ...(currentUserRole !== INTERNAL_USER_ROLE.Manager) ? [
         {
           id: 15100,
           icon: <SurfingOutlinedIcon {...icon}/>,
@@ -48,7 +46,7 @@ export const routesProcedurals = (currentUser: any) => {
           path: "/procedurals/holidays",
           element: <HolidaysPage/>, 
           hasSubItems: false,
-        }]: [],
+        }] : [],
         {
           id: 15200,
           icon: <ApprovalOutlinedIcon  {...icon} />,
@@ -81,9 +79,7 @@ export const routesProcedurals = (currentUser: any) => {
           element: <ProceduralUAPage/>,
           hasSubItems: false,
         },
-
-        // if current user dri hi manager
-        ...(state?.user?.role !== INTERNAL_USER_ROLE.Manager) ? [
+        ...(currentUserRole !== INTERNAL_USER_ROLE.Manager) ? [
         {
           id: 15500,
           icon: <AppsOutageOutlinedIcon {...icon} />,
@@ -115,28 +111,25 @@ export const routesProcedurals = (currentUser: any) => {
           path: "/procedurals/cutoff-periods",
           element:<ProceduralCUTOFFPERIODPage/>,
           hasSubItems: false,
-        }]: [],
-
-        // if current user dri hi manager
-        ...(state?.user?.role !== INTERNAL_USER_ROLE.Manager)? [
-          {
-            id: 15900,
-            icon: <CalendarTodayOutlinedIcon {...icon} />,
-            name: "Schedule Shifts",
-            path: "/procedurals/schedule-shifts",
-            element: <ProceduralSCHEDULESHIFTSPage/>,
-            hasSubItems: false,
-          },
-          {
-            id: 15110,
-            icon: <CalendarMonthOutlinedIcon {...icon} />,
-            name: "Daily Schedules",
-            path: "/procedurals/schedule-dailies",
-            element: <ProceduralSCHEDULEDAILYpage/>,
-            hasSubItems: false,
-          },
-        ] : []
+        }] : [],
+        ...(currentUserRole !== INTERNAL_USER_ROLE.Manager) ? [
+        {
+          id: 15900,
+          icon: <CalendarTodayOutlinedIcon {...icon} />,
+          name: "Schedule Shifts",
+          path: "/procedurals/schedule-shifts",
+          element: <ProceduralSCHEDULESHIFTSPage/>,
+          hasSubItems: false,
+        },
+        {
+          id: 15110,
+          icon: <CalendarMonthOutlinedIcon {...icon} />,
+          name: "Daily Schedules",
+          path: "/procedurals/schedule-dailies",
+          element: <ProceduralSCHEDULEDAILYpage/>,
+          hasSubItems: false,
+        }] : [],
       ]
     }
-  : []; 
+  : {}; 
 }

@@ -11,10 +11,9 @@ import ExitForms from "../pages/forms/exit-forms/exit-forms";
 
 const icon = { className: "w-5 h-5 text-inherit" };
 
-export const routesForms = (currentUser: any) => {
-  const state = useSelector((state: RootState) => state.auth.employee_detail);
+export const routesForms = (currentUserRole: number) => {
 
-  return state?.user?.role !== INTERNAL_USER_ROLE.Manager ? 
+  return currentUserRole !== INTERNAL_USER_ROLE.Manager && currentUserRole !== INTERNAL_USER_ROLE.Employee ? 
     {
       id: 18000,
       icon: null,
@@ -72,5 +71,5 @@ export const routesForms = (currentUser: any) => {
           hasSubItems: false,
         },
       ]
-    } : [];
+    } : {};
 }
