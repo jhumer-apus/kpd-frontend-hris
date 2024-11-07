@@ -1,5 +1,3 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../store/configureStore";
 import { INTERNAL_USER_ROLE } from "../types/types-store";
 import NoCrashOutlinedIcon from '@mui/icons-material/NoCrashOutlined';
 import ApprovalOBTPage from "../pages/pending-checklists/obt-approvals/approval-obt-page";

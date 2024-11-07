@@ -41,7 +41,6 @@ import { INTERNAL_USER_ROLE } from "@/types/types-store";
 const icon = { className: "w-5 h-5 text-inherit" };
 
 export const routesAdmin = (currentUserRole: number) => {
-  // pag mayda na ternary operator pag butang hin empty array ha ubos  
 
   return currentUserRole !== INTERNAL_USER_ROLE.Employee && currentUserRole !== INTERNAL_USER_ROLE.Manager ? {
     id: 11000,
@@ -58,7 +57,6 @@ export const routesAdmin = (currentUserRole: number) => {
         element: <AdminPortal/>,
         hasSubItems: true,
         subItems: 
-        // function param na route
         [
           {
             icon: null,

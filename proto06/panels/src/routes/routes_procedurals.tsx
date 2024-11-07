@@ -39,14 +39,14 @@ export const routesProcedurals = (currentUserRole: number) => {
         // cannot compile all the objects that would be return true for this condition since it will affect the order of layout in the sidenav. 
         // NOTE if layout can be changed we can just put all the objects that would return true to this condition scope
         ...(currentUserRole !== INTERNAL_USER_ROLE.Manager) ? [
-        {
-          id: 15100,
-          icon: <SurfingOutlinedIcon {...icon}/>,
-          name: "Holidays",
-          path: "/procedurals/holidays",
-          element: <HolidaysPage/>, 
-          hasSubItems: false,
-        }] : [],
+          {
+            id: 15100,
+            icon: <SurfingOutlinedIcon {...icon}/>,
+            name: "Holidays",
+            path: "/procedurals/holidays",
+            element: <HolidaysPage/>, 
+            hasSubItems: false,
+          }] : [],
         {
           id: 15200,
           icon: <ApprovalOutlinedIcon  {...icon} />,
@@ -79,56 +79,56 @@ export const routesProcedurals = (currentUserRole: number) => {
           element: <ProceduralUAPage/>,
           hasSubItems: false,
         },
+
         ...(currentUserRole !== INTERNAL_USER_ROLE.Manager) ? [
-        {
-          id: 15500,
-          icon: <AppsOutageOutlinedIcon {...icon} />,
-          name: "Leave Credits",
-          path: "/procedurals/leave-credits",
-          element:<ProceduralLEAVECREDITPage/>,
-          hasSubItems: false,
-        },
-        {
-          id: 15600,
-          icon: <AppsOutlinedIcon {...icon} />,
-          name: "Leave Types",
-          path: "/procedurals/leave-types",
-          element:<ProceduralLEAVETYPEPage/>,
-          hasSubItems: false,
-        },
-        {
-          id: 15600,
-          icon: <AppsOutlinedIcon {...icon} />,
-          name: "OBT Types",
-          path: "/procedurals/obt-types",
-          element: <OBTtypes />,
-          hasSubItems: false,
-        },
-        {
-          id: 15700,
-          icon: <AssignmentIndOutlinedIcon {...icon} />,
-          name: "Cutoff Periods",
-          path: "/procedurals/cutoff-periods",
-          element:<ProceduralCUTOFFPERIODPage/>,
-          hasSubItems: false,
-        }] : [],
-        ...(currentUserRole !== INTERNAL_USER_ROLE.Manager) ? [
-        {
-          id: 15900,
-          icon: <CalendarTodayOutlinedIcon {...icon} />,
-          name: "Schedule Shifts",
-          path: "/procedurals/schedule-shifts",
-          element: <ProceduralSCHEDULESHIFTSPage/>,
-          hasSubItems: false,
-        },
-        {
-          id: 15110,
-          icon: <CalendarMonthOutlinedIcon {...icon} />,
-          name: "Daily Schedules",
-          path: "/procedurals/schedule-dailies",
-          element: <ProceduralSCHEDULEDAILYpage/>,
-          hasSubItems: false,
-        }] : [],
+          {
+            id: 15500,
+            icon: <AppsOutageOutlinedIcon {...icon} />,
+            name: "Leave Credits",
+            path: "/procedurals/leave-credits",
+            element:<ProceduralLEAVECREDITPage/>,
+            hasSubItems: false,
+          },
+          {
+            id: 15600,
+            icon: <AppsOutlinedIcon {...icon} />,
+            name: "Leave Types",
+            path: "/procedurals/leave-types",
+            element:<ProceduralLEAVETYPEPage/>,
+            hasSubItems: false,
+          },
+          {
+            id: 15600,
+            icon: <AppsOutlinedIcon {...icon} />,
+            name: "OBT Types",
+            path: "/procedurals/obt-types",
+            element: <OBTtypes />,
+            hasSubItems: false,
+          },
+          {
+            id: 15700,
+            icon: <AssignmentIndOutlinedIcon {...icon} />,
+            name: "Cutoff Periods",
+            path: "/procedurals/cutoff-periods",
+            element:<ProceduralCUTOFFPERIODPage/>,
+            hasSubItems: false,
+          }, 
+          {
+            id: 15900,
+            icon: <CalendarTodayOutlinedIcon {...icon} />,
+            name: "Schedule Shifts",
+            path: "/procedurals/schedule-shifts",
+            element: <ProceduralSCHEDULESHIFTSPage/>,
+            hasSubItems: false,
+          },
+          {
+            id: 15110,
+            icon: <CalendarMonthOutlinedIcon {...icon} />,
+            name: "Daily Schedules",
+            path: "/procedurals/schedule-dailies",
+            element: <ProceduralSCHEDULEDAILYpage/>,
+            hasSubItems: false,
+          }] : [],
       ]
     }
   : {}; 

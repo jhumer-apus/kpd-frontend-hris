@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { ChooseDashboard } from '../pages';
 import JSXRouteWrapper from '@/routes';
-import Routesss from '@/routes/new_routes';
+import Routesss from '@/routes/compiled_routes';
 import { Route, Navigate } from 'react-router-dom';
 
 

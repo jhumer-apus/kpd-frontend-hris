@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/configureStore";
 
 // dashboard routes
-import { routesAdmin } from "./routes_admin";
-import { routesEmployee } from "./routes_employee";
+import { routesAdmin } from "./routes_dashboards";
+import { routesEmployee } from "./routes_employees";
 import { routesQuickAccess } from "./routes_quick_accesses";
 import { routesPendingChecklist } from "./routes_pending_checklist";
 import { routesProcedurals } from "./routes_procedurals";
@@ -12,7 +12,6 @@ import { routesForms } from "./routes_forms";
 import { routesDTR } from "./routes_dtr";
 import { routesReports } from "./routes_reports";
 
-import { INTERNAL_USER_ROLE } from "../types/types-store";
 import { UserPlusIcon, ArrowRightOnRectangleIcon } from "@heroicons/react/24/solid";
 import { SignIn, SignUp } from "../pages/auth";
 import JSXRouteWrapper from "../routes";
@@ -23,15 +22,16 @@ const icon = { className: "w-5 h-5 text-inherit" };
 const Routesss = () => {
   const state: any = useSelector((state: RootState) => state.auth.employee_detail);
   
+  // Available sidenavroutes 
   let sideNavRoutes: any = [];
 
-  // All sidenav routes
+  // Compiled Routes
   const allRoutes = [routesAdmin, routesEmployee, routesQuickAccess, routesPendingChecklist, routesProcedurals, routesForms, routesDTR, routesReports];
 
   allRoutes.map((route) => { 
-    let demo = route(state.user.role);
-    if (Object.keys(demo).length !== 0) {
-      `${sideNavRoutes.push(demo)}`;
+    let routee = route(state.user.role);
+    if (Object.keys(routee).length !== 0) {
+      `${sideNavRoutes.push(routee)}`;
     }
   });
 
@@ -39,7 +39,7 @@ const Routesss = () => {
     {
       id: 10000,
       layout: 'home',
-      pages: state.user.role !== INTERNAL_USER_ROLE.Employee && state.user.role !== INTERNAL_USER_ROLE.Manager ? sideNavRoutes : [],
+      pages: sideNavRoutes,
     }, 
     {
       id: 9000,

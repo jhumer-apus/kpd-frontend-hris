@@ -8,8 +8,6 @@ import CloudSyncSharpIcon from '@mui/icons-material/CloudSyncSharp';
 import FileUAPage from '../pages/quick-accesses/file-ua/file-ua-page';
 import HistoryToggleOffOutlinedIcon from '@mui/icons-material/HistoryToggleOffOutlined';
 import YourSCHEDULEDAILYpage from '../pages/quick-accesses/your-schedule/your-schedule-daily';
-import { useSelector } from 'react-redux';
-import { RootState } from '../store/configureStore';
 import { INTERNAL_USER_ROLE } from "../types/types-store";
 
 const icon = { className: "w-5 h-5 text-inherit" };
@@ -37,7 +35,7 @@ export const routesQuickAccess = (currentUserRole: number) => {
       {
         id: 13200,
         icon: <DifferenceOutlinedIcon {...icon} />,
-        name: isDepartmentManager? "File Allowance Time": "File OT",
+        name: isDepartmentManager ? "File Allowance Time": "File OT",
         path: `/quick-accesses/${isDepartmentManager? "file-allowance-time": "file-ot"}`,
         element: <FileOVERTIMEPage/>, 
         hasSubItems: false,
