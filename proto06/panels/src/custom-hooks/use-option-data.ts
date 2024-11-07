@@ -81,6 +81,13 @@ export const useOptionData = () => {
         }
     )
 
+    const [employees, setEmployees] = useState<AutoCompleteAPIOptions>(
+        {
+            data: [],
+            loading: false
+        }
+    )
+
     const bloodTypes: Option[] = [
         {
             value: "A+",
@@ -484,7 +491,7 @@ export const useOptionData = () => {
                 const mappedCutOffs = Array.isArray(res.data) ? res.data.map(cutoff => (
                     {
                         id: cutoff.id,
-                        name: cutoff.name
+                        name: cutoff.co_name
                     }
                 )) : []
 
@@ -498,6 +505,42 @@ export const useOptionData = () => {
             .catch(err => {
                 console.error(err)
                 setCutOffs(curr => (
+                    {
+                        data: [],
+                        loading: false
+                    }
+                ))
+            })
+    }
+
+    const fetchEmployees = async () => {
+
+        setEmployees(curr => (
+            {
+                data: [],
+                loading: true
+            }
+        ))
+
+        await axiosInstance.get('employees/')
+            .then(res => {
+                const mappedEmployees = Array.isArray(res.data) ? res.data.map(employee => (
+                    {
+                        id: employee.id,
+                        name: employee.emp_full_name
+                    }
+                )) : []
+
+                setEmployees((curr:any) => (
+                    {
+                        data: mappedEmployees,
+                        loading: false
+                    }
+                ))
+            })
+            .catch(err => {
+                console.error(err)
+                setEmployees(curr => (
                     {
                         data: [],
                         loading: false
@@ -521,6 +564,7 @@ export const useOptionData = () => {
         fetchApprovers,
         fetchPayrollGroup,
         fetchCutOffs,
+        fetchEmployees,
         cutoffs,
         positions,
         branches,
@@ -529,6 +573,7 @@ export const useOptionData = () => {
         employmentStatus,
         employeeType,
         approvers,
-        payrollGroup
+        payrollGroup,
+        employees
     }
 }

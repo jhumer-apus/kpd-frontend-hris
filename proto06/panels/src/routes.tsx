@@ -23,7 +23,6 @@ import UploadDtrLogs from "./pages/dtr/upload-dtr-logs/upload-dtr-logs";
 import MergeDtrLogs from "./pages/dtr/merge-dtr-logs/merge-dtr-logs";
 import CreateSummaryPage from "./pages/dtr/create-summary/create-summary";
 import ViewPayroll from "./pages/payroll/view-all-payroll/view-all-payroll";
-import ProcessPayrollPage from "./pages/payroll/process-payroll/process-payroll";
 import ApprovalOutlinedIcon from '@mui/icons-material/ApprovalOutlined';
 import AlarmOnOutlinedIcon from '@mui/icons-material/AlarmOnOutlined';
 import AppRegistrationOutlinedIcon from '@mui/icons-material/AppRegistrationOutlined';
@@ -148,6 +147,7 @@ import ManageEmploymentStatusTypes from "./pages/dashboard/admin-portal/first-in
 import FamilyBackground from "./pages/employee/family-background";
 import OBTtypes from "./pages/procedurals/obt-types";
 import { EmployeeProvider } from "./context/employee/EmployeeContext";
+import ProcessPayroll from "./pages/payroll/process-payroll";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -1117,49 +1117,49 @@ const JSXRouteWrapper = () => {
         },
         
         ...(state?.user?.role !== INTERNAL_USER_ROLE.Employee && state?.user?.role !== INTERNAL_USER_ROLE.Manager ) ? [
-          // {
-          //   id: 19000,
-          //   icon: null,
-          //   name: "Payroll",
-          //   path: "/payroll",
-          //   element: null,
-          //   hasSubItems: true,
-          //   subItems: [
-          //     {
-          //       id: 19100,
-          //       icon: <DocumentIcon {...icon} />,
-          //       name: "View All Payroll",
-          //       path: "/payroll/view-all-payroll",
-          //       element: <ViewPayroll/>,
-          //       hasSubItems: false,
-          //     },
-          //     {
-          //       id: 19200,
-          //       icon: <DocumentIcon {...icon} />,
-          //       name: "Process Payroll",
-          //       path: "/payroll/process-payroll",
-          //       element: <ProcessPayrollPage/>,
-          //       hasSubItems: false,
-          //     },
-          //     {
-          //       id: 19300,
-          //       icon: <DocumentIcon {...icon} />,
-          //       name: "Payslip Sample",
-          //       path: "/payroll/payslip-sample",
-          //       element: <TestView/>,
-          //       hasSubItems: false,
-          //     },
+          {
+            id: 19000,
+            icon: null,
+            name: "Payroll",
+            path: "/payroll",
+            element: null,
+            hasSubItems: true,
+            subItems: [
+              // {
+              //   id: 19100,
+              //   icon: <DocumentIcon {...icon} />,
+              //   name: "View All Payroll",
+              //   path: "/payroll/view-all-payroll",
+              //   element: <ViewPayroll/>,
+              //   hasSubItems: false,
+              // },
+              {
+                id: 19200,
+                icon: <DocumentIcon {...icon} />,
+                name: "Process Payroll",
+                path: "/payroll/process-payroll",
+                element: <ProcessPayroll/>,
+                hasSubItems: false,
+              },
+              {
+                id: 19300,
+                icon: <DocumentIcon {...icon} />,
+                name: "Payslip Sample",
+                path: "/payroll/payslip-sample",
+                element: <TestView/>,
+                hasSubItems: false,
+              },
 
-          //     {
-          //       id: 19100,
-          //       icon: <DocumentIcon {...icon} />,
-          //       name: "View Specific Payroll",
-          //       path: "/payroll/view-specific-payroll",
-          //       element: <ViewSpecificPayroll/>,
-          //       hasSubItems: false,
-          //     },
-          //   ]
-          // }
+              {
+                id: 19100,
+                icon: <DocumentIcon {...icon} />,
+                name: "View Specific Payroll",
+                path: "/payroll/view-specific-payroll",
+                element: <ViewSpecificPayroll/>,
+                hasSubItems: false,
+              },
+            ]
+          }
           
         ] : [],
 

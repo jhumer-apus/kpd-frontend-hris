@@ -17,7 +17,7 @@ export default function EmployeeListField(props:Props) {
 
     const { data, isLoading, error, status } = useQuery('employees', async () => {
         const res = await axiosInstance.get(`active_emp/`)
-        return res.data
+        return Array.isArray(res?.data) ? res.data: []
     });
 
     const equalityTest = (option:any, value:any) => {
