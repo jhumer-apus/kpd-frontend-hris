@@ -7,7 +7,7 @@ interface Props {
     label: string | null
     getOptionLabel: (option:any) => string
     handleChange: (key:string, newValue: string | null) => void
-    value: number | null
+    value: string | number | null
     disabled: boolean
     loading: boolean
     optionNameKey: string

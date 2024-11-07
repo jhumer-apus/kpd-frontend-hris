@@ -1,70 +1,129 @@
 import { useOptionData } from "@/custom-hooks/use-option-data"
+import axiosInstance from "@/helpers/axiosConfig"
 import CutOffPeriodByYearField from "@/public-components/forms/CutOffPeriodByYearField"
 import YearField from "@/public-components/forms/YearField"
-import { DataGrid } from "@mui/x-data-grid"
+import EmployeesTable from "@/public-components/payrolls/EmployeesTable"
+import { HandleAlertAction } from "@/store/actions/components"
+import { RootState } from "@/store/configureStore"
+import { Button } from "@mui/material"
 import dayjs from "dayjs"
 import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 
 
 export default function ProcessPayroll() {
 
-    const { cutoffs, employees, fetchCutOffs, fetchEmployees } = useOptionData()
+    const currUser = useSelector((state:RootState) => state.auth.employee_detail)
+    const dispatch = useDispatch()
 
-    const [filter, setFilter] = useState<any>(
+    const [year, setYear] = useState<string>(dayjs().format('YYYY'))
+    const [data, setData] = useState<any>(
         {
-            year: dayjs().format('YYYY'),
-            cutOffID: null
+            cutoff_id: null,
+            emp_no: []
         }
     )
 
-    const handleChangeFilter = (e:any) => {
-        const { name, value } = e.target 
-        setFilter((curr:any) => (
+    const handleChangeYear = (e:any) => {
+        setYear(curr => e.target.value)
+    }
+
+    const handleChangeCutoff = (key:string, newValue:any) => {
+
+        console.log(newValue)
+        setData((curr:any) => (
             {
                 ...curr,
-                [name]: value
+                [key]: newValue?.id ?? ""
             }
         ))
     }
 
-    useEffect(() => {
-        fetchEmployees()
-    },[])
+    const onSelectedEmployees = (selectedEmployees: any) => {
+        console.log(selectedEmployees)
+    }
 
-    const columns = [
-        {
-            field: "emp_no",
-            headerName: "Employee No."
-        },
-        {
-            field: "emp_no",
-            headerName: "Employee No."
-        },
-    ]
+    const onProcess = () => {
+
+        validate()
+        
+        const payload = {
+            cutoff_id: data.cutoff_id,
+            emp_no: data.emp_no,
+            added_by: currUser?.emp_no
+        }
+
+        processPayroll(payload)
+    }
+
+    const processPayroll = async (payload:any) => {
+        await 
+            axiosInstance
+                .post(`create_pay/`, payload)
+                .then(res => {
+                    dispatch(HandleAlertAction({
+                        open: true,
+                        status: "success",
+                        message: "Payroll Processed Successfully"
+                    }))
+                })
+                .catch(err => {
+                    console.error(err?.res?.data)
+                    dispatch(HandleAlertAction({
+                        open: true,
+                        status: "error",
+                        message: err?.res?.data
+                    }))
+                })
+    }
+
+    const validate = () => {
+        let errors:any = {
+            cutoff_id: null,
+            emp_no: null
+        }
+
+        if(!data.cutoff_id) 
+            errors.cutoff_id = "Please Select Cut Off Period"
+        
+        if(data.emp_no.length == 0)
+            errors.emp_no = "Please Select 1 or more Employees"
+
+        for(const err in errors) {
+            if(errors[err]) {
+                dispatch(HandleAlertAction(
+                    {
+                        open: true,
+                        status: "error",
+                        message: errors[err]
+                    }
+                ))
+                break
+            }
+        } 
+    }
 
     return (
         <div>
             <div id="payroll-process-wrapper" className="mt-20">
                 <div className="flex gap-4">
                     <YearField 
-                        handleChange={handleChangeFilter}
-                        name="year"
-                        className="w-56"
+                        handleChange={handleChangeYear}
+                        className="w-32"
                     />
-                    <CutOffPeriodByYearField 
-                        handleChange={handleChangeFilter}
-                        year={filter.year} 
-                        defaultId={filter?.cutOffID}
+                    <CutOffPeriodByYearField
+                        handleChange={handleChangeCutoff}
+                        year={parseInt(year)} 
+                        defaultId={data?.cutoff_id}
+                        stateKey="cutoff_id"
                         className="w-64"             
                     />
+                    <Button variant="contained" onClick={() => onProcess()}>Process</Button>
                 </div>
                 <br></br>
-                <div>
-                    <DataGrid 
-                        columns={[]} 
-                        rows={[]}
-                    />
-                </div>
+                <EmployeesTable 
+                    onSelectedRow={onSelectedEmployees} 
+                />
             </div>
         </div>
     )

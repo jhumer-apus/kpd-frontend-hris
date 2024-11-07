@@ -43,21 +43,20 @@ function BRANCHModalUI(props: BRANCHModalUIInterface) {
                 setAllowedDaysBRANCHOpenModal={setAllowedDaysBRANCHOpenModal}
                 setSingleBRANCHOpenModal={setSingleBRANCHOpenModal}
             />
-            <div className='flex flex-col md:flex-row gap-10 overflow-auto relative'>
-                <div className='flex gap-6 flex-col'>
-                    <TextField sx={{width: '100%', minWidth: '160px'}} label='Branch ID:' value={ThisProps.id ? ThisProps.id : '-'} InputProps={{readOnly: true,}} variant='filled'/>
-                    <TextField sx={{width: '100%'}} label='Branch Email' value={(ThisProps?.branch_email || "-")} InputProps={{readOnly: true,}} variant='standard'/>
-                    <TextField sx={{width: '100%'}} label='Branch Contact #' value={(ThisProps?.branch_contact_number || 0)} InputProps={{readOnly: true,}} variant='standard'/>
-                </div>
-                <div className='flex gap-6 flex-col'>
-                    <TextField sx={{width: '100%', minWidth: '160px', color: 'green'}} label='Branch Name' value={ThisProps.branch_name || '-'} InputProps={{readOnly: true,}} variant='filled' focused/>
-                    <TextField sx={{width: '100%'}} label='Date Added:' value={ThisProps.date_added? dayjs(ThisProps.date_added).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
-                    <TextField sx={{width: '100%'}} label='Date Deactivated:' value={ThisProps.date_deleted? dayjs(ThisProps.date_deleted).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
-                </div>
-                <div className='flex gap-6 flex-col'>
-                    <TextField sx={{width: '100%', minWidth: '160px'}} label='Branch OIC' value={ThisProps.branch_oic || '-'} InputProps={{readOnly: true,}} variant='filled'/>
-                    <TextField sx={{width: '100%', minWidth: '160px'}} multiline rows={3} label='Branch Address' value={branchAddress || '-'} InputProps={{readOnly: true,}} variant='standard'/>
-                </div>
+            <div className='flex flex-col gap-8 overflow-auto relative'>
+     
+                {/* <TextField sx={{width: '100%', minWidth: '160px'}} label='Branch ID:' value={ThisProps.id ? ThisProps.id : '-'} InputProps={{readOnly: true,}} variant='filled'/> */}
+                <TextField sx={{width: '100%', minWidth: '160px', color: 'green'}} label='Branch Name' value={ThisProps.branch_name || '-'} InputProps={{readOnly: true,}} variant='filled' focused/>     
+                <TextField sx={{width: '100%'}} label='Branch Email' value={(ThisProps?.branch_email || "-")} InputProps={{readOnly: true,}} variant='standard'/>
+                <TextField sx={{width: '100%'}} label='Branch Contact #' value={(ThisProps?.branch_contact_number || 0)} InputProps={{readOnly: true,}} variant='standard'/>
+                <TextField sx={{width: '100%'}} label='Date Added:' value={ThisProps.date_added? dayjs(ThisProps.date_added).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
+                <TextField sx={{width: '100%', minWidth: '160px'}} label='Branch OIC' value={ThisProps.branch_oic || '-'} InputProps={{readOnly: true,}} variant='standard'/>
+                <TextField sx={{width: '100%', minWidth: '160px'}} multiline rows={3} label='Branch Address' value={branchAddress || '-'} InputProps={{readOnly: true,}} variant='standard'/>
+        
+                <TextField sx={{width: '100%', minWidth: '160px'}} label='Approver 1' value={ThisProps?.approver1 || '-'} InputProps={{readOnly: true,}} variant='standard'/>
+                <TextField sx={{width: '100%', minWidth: '160px'}} label='Approver 2' value={ThisProps?.approver2 || '-'} InputProps={{readOnly: true,}} variant='standard'/>
+                <TextField sx={{width: '100%', minWidth: '160px'}} label='Approver 3' value={ThisProps?.approver3 || '-'} InputProps={{readOnly: true,}} variant='standard'/>
+
             </div>
             <div className='flex flex-col justify-center items-center'>
                 <div className='flex justify-center mt-6' container-name='leave_buttons_container'>

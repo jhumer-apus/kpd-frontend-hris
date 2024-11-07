@@ -148,6 +148,7 @@ import FamilyBackground from "./pages/employee/family-background";
 import OBTtypes from "./pages/procedurals/obt-types";
 import { EmployeeProvider } from "./context/employee/EmployeeContext";
 import ProcessPayroll from "./pages/payroll/process-payroll";
+import PayrollPendingApproval from "./pages/payroll/pending-approval";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -1125,14 +1126,14 @@ const JSXRouteWrapper = () => {
             element: null,
             hasSubItems: true,
             subItems: [
-              // {
-              //   id: 19100,
-              //   icon: <DocumentIcon {...icon} />,
-              //   name: "View All Payroll",
-              //   path: "/payroll/view-all-payroll",
-              //   element: <ViewPayroll/>,
-              //   hasSubItems: false,
-              // },
+              {
+                id: 19100,
+                icon: <DocumentIcon {...icon} />,
+                name: "View All Payroll",
+                path: "/payroll/view-all-payroll",
+                element: <ViewPayroll/>,
+                hasSubItems: false,
+              },
               {
                 id: 19200,
                 icon: <DocumentIcon {...icon} />,
@@ -1156,6 +1157,15 @@ const JSXRouteWrapper = () => {
                 name: "View Specific Payroll",
                 path: "/payroll/view-specific-payroll",
                 element: <ViewSpecificPayroll/>,
+                hasSubItems: false,
+              },
+
+              {
+                id: 19400,
+                icon: <DocumentIcon {...icon} />,
+                name: "Pending Approval",
+                path: "/payroll/pending-approval",
+                element: <PayrollPendingApproval/>,
                 hasSubItems: false,
               },
             ]

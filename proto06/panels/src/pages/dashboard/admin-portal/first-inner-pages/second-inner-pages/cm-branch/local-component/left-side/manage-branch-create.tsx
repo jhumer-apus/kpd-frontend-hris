@@ -17,6 +17,7 @@ import { beautifyJSON } from '@/helpers/utils';
 import EmployeeListField from '@/public-components/EmployeeListField';
 import axiosInstance from '@/helpers/axiosConfig';
 import AutocompleteField from '@/public-components/forms/AutoCompleteField';
+import { useOptionData } from '@/custom-hooks/use-option-data';
 
 interface CreateBRANCHModalInterface {
     setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -33,10 +34,8 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
     const curr_user = useSelector((state: RootState)=> state.auth.employee_detail?.emp_no);
     const BRANCHCreatestate = useSelector((state: RootState)=> state.categories.BRANCHCreate);
     const [formKey, setFormKey] = useState<number>(1)
-    const [employees, setEmployees] = useState<Employees>({
-        loading: false,
-        data: []
-    })
+
+    const { employees, fetchEmployees } = useOptionData()
     const [createBRANCH, setCreateBRANCH] = useState<any>({
         branch_name: "",
         branch_address: "",
@@ -131,37 +130,6 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
             ...curr,
             [name]: newValue
         }))
-    }
-
-    const fetchEmployees = async () => {
-
-        setEmployees((curr:Employees) => (
-            {
-                loading: true,
-                data: []
-            }
-        ))
-
-        await axiosInstance
-                .get('employees/')
-                .then(res => {
-
-                    setEmployees(curr => (
-                        {
-                            loading: false,
-                            data: Array.isArray(res?.data)? res?.data : []
-                        }
-                    ))
-                })
-                .catch(err => {
-                    setEmployees(curr => (
-                        {
-                            loading: false,
-                            data: []
-                        }
-                    ))
-                    console.error(err)
-                })
     }
 
     useEffect(()=> {

@@ -72,8 +72,8 @@ export default function ViewBRANCHSingleModal(props: SingleBRANCHInterface) {
 
 // Styles
 const BRANCHModalArea = {
-  height: '110mm',
-  width: '210mm',
+  height: 'auto',
+  width: '110mm',
   margin: '0 auto',
   background: 'white',
   boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.1)',

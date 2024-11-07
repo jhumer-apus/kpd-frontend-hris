@@ -10,7 +10,7 @@ interface Props {
 }
 export default function CutOffPeriodByYearField (props: Props) {
 
-    const { handleChange, year, defaultId, ...restProps } = props
+    const { handleChange, year, defaultId, stateKey="", ...restProps } = props
     const { cutoffs, fetchCutOffs } = useOptionData()
 
     useEffect(() => {
@@ -27,8 +27,8 @@ export default function CutOffPeriodByYearField (props: Props) {
             value={defaultId} 
             disabled={false} 
             loading={cutoffs.loading} 
-            optionNameKey="name" 
-            stateKey="cutOffID"
+            optionNameKey="name"
+            stateKey={stateKey}
             {...restProps}
         />
     )

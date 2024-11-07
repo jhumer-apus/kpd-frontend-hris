@@ -81,7 +81,7 @@ export const useOptionData = () => {
         }
     )
 
-    const [employees, setEmployees] = useState<AutoCompleteAPIOptions>(
+    const [employees, setEmployees] = useState<any>(
         {
             data: [],
             loading: false
@@ -515,7 +515,7 @@ export const useOptionData = () => {
 
     const fetchEmployees = async () => {
 
-        setEmployees(curr => (
+        setEmployees((curr:any) => (
             {
                 data: [],
                 loading: true
@@ -524,23 +524,17 @@ export const useOptionData = () => {
 
         await axiosInstance.get('employees/')
             .then(res => {
-                const mappedEmployees = Array.isArray(res.data) ? res.data.map(employee => (
-                    {
-                        id: employee.id,
-                        name: employee.emp_full_name
-                    }
-                )) : []
 
                 setEmployees((curr:any) => (
                     {
-                        data: mappedEmployees,
+                        data: Array.isArray(res.data) ? res.data : [],
                         loading: false
                     }
                 ))
             })
             .catch(err => {
                 console.error(err)
-                setEmployees(curr => (
+                setEmployees((curr:any) => (
                     {
                         data: [],
                         loading: false

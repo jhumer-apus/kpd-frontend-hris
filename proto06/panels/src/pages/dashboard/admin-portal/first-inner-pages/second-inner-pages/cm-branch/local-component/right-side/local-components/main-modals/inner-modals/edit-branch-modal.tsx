@@ -12,6 +12,8 @@ import { clearFields } from '@/helpers/utils';
 import Province from '@/public-components/forms/address/Province';
 import CityMunicipality from '@/public-components/forms/address/CityMunicipality';
 import EmployeeListField from '@/public-components/EmployeeListField';
+import AutocompleteField from '@/public-components/forms/AutoCompleteField';
+import { useOptionData } from '@/custom-hooks/use-option-data';
 
 
 
@@ -27,6 +29,8 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
   const dispatch = useDispatch();
   const BRANCHEditState = useSelector((state: RootState)=> state.categories.BRANCHEdit)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
+  const { employees, fetchEmployees } = useOptionData()
+
   const [address, setAddress] = useState({
     province: {
       id: null,
@@ -111,6 +115,15 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
     } else {
       updateBranch("branch_oic", null)
     }
+  }
+
+  const handleChangeAutocomplete = (key:string, newValue:any) => {
+    setSingleBRANCHDetailsData((curr:any) => (
+        {
+            ...curr,
+            [key]: newValue?.emp_no?? ""
+        }
+    ))
   }
 
   return (
@@ -259,13 +272,61 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
                     })
                   }}
                 />
+                <AutocompleteField 
+                  id="approver1"
+                  className="w-full"
+                  options={[]} 
+                  label="Approver 1"
+                  getOptionLabel={(option:any)=> option?.full_name ?? ""} 
+                  handleChange={handleChangeAutocomplete} 
+                  value={singleBRANCHDetailsData.approver1}
+                  disabled={false}
+                  loading={employees.loading} 
+                  optionNameKey='full_name'
+                  stateKey='approver1'                           
+                />
+
+                <AutocompleteField 
+                    id="approver2"
+                    className="w-full"
+                    options={[]} 
+                    label="Approver 2"
+                    getOptionLabel={(option:any)=> option?.full_name ?? ""} 
+                    handleChange={handleChangeAutocomplete} 
+                    value={singleBRANCHDetailsData.approver2}
+                    disabled={false}
+                    loading={employees.loading} 
+                    optionNameKey='full_name'
+                    stateKey='approver2'                           
+                />
+                <AutocompleteField 
+                    id="approver3"
+                    className="w-full"
+                    options={[]} 
+                    label="Approver 3"
+                    getOptionLabel={(option:any)=> option?.full_name ?? ""} 
+                    handleChange={handleChangeAutocomplete} 
+                    value={singleBRANCHDetailsData.approver3}
+                    disabled={false}
+                    loading={employees.loading} 
+                    optionNameKey='full_name'
+                    stateKey='approver3'                           
+                />
               </div>
-              <div className='flex justify-around'>
-                <Button variant={'contained'} onClick={allowedDaysBRANCH}>Submit</Button>
+
+              
+              <div className='flex flex-col md:flex-row gap-4 m-auto my-4'>
+                <Button 
+                  variant={'contained'} 
+                  onClick={allowedDaysBRANCH}
+                  className='w-40'
+                >
+                  Submit
+                </Button>
                 <Button 
                   variant={'outlined'} 
+                  className='w-40'
                   onClick={()=>{
-                    // Edit Fields Are Should Not Have ClearFields // 
                     // clearFields(setSingleBRANCHDetailsData, ['branch_name', 'branch_oic', 'branch_contact_number', 'branch_email', 'branch_address'], ['', NaN, '', '', ''])
                     setAllowedDaysBRANCHOpenModal(false)
                     }}

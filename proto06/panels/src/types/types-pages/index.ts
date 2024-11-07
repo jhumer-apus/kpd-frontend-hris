@@ -582,8 +582,11 @@ export interface BRANCHGenericInterface {
     branch_city: number | null,
     branch_province: number | null,
     branch_oic: number,
-    branch_province: number | null,
-    branch_city: number | null
+    approver1: number | string | null,
+    approver2: number | string | null,
+    approver3: number | string | null,
+    city_name: string,
+    province_name: string
 }
 
 export interface BRANCHViewInterface extends BRANCHGenericInterface{
@@ -593,9 +596,9 @@ export interface BRANCHViewInterface extends BRANCHGenericInterface{
 }
 
 export interface BRANCHCreateInterface extends BRANCHGenericInterface{
-    approver1: number | string,
-    approver2: number | string,
-    approver3: number | string,
+    approver1: number | string | null,
+    approver2: number | string | null,
+    approver3: number | string | null,
     added_by?: number,
 }
 

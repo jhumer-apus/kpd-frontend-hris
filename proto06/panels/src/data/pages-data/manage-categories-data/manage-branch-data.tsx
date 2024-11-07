@@ -23,9 +23,10 @@ export const ManageBRANCHPageColumns: GridColDef[] =
     width: 150,
   },
   { field: 'branch_oic', headerName: 'Branch OIC:', width: 120 },
-  { field: 'id', headerName: 'Branch ID', width: 100,
-
-  },
+  { field: 'id', headerName: 'Branch ID', width: 100},
+  { field: 'approver1', headerName: 'Approver 1', width: 150},
+  { field: 'approver2', headerName: 'Approver 2', width: 150},
+  { field: 'approver3', headerName: 'Approver 3', width: 150},
   { field: 'branch_address', headerName: 'Branch Address',  width: 500, 
     valueGetter: (params: GridValueGetterParams) => {
       const branch_address = `${params.row.province_name}, ${params.row.city_name}, ${params.row.branch_address}`
