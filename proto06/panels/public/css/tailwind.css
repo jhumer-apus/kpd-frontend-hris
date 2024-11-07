@@ -112,6 +112,10 @@
   .sign-in-outer-container {
     height: auto;
   }
+
+  .editHoliday {
+    height: 450px;
+  }
 }
 
 .modal-content {

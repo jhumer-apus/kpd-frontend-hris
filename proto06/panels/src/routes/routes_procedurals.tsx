@@ -38,7 +38,7 @@ export const routesProcedurals = (currentUserRole: number) => {
       element: <strong style={{fontSize: '24px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-orange-500 py-1 px-3 bg-transparent hover:bg-violet-600 transition-all duration-200">EMPLOYEE ELEMENTS UNDER DEVELOPMENT</strong>,
       hasSubItems: true,
       subItems: [
-        // cannot compile all the objects that would be return true for this condition since it will affect the order of layout in the sidenav. 
+        // cannot compile all the objects that would return true for this condition since it will affect the order of the layout in the sidenav. 
         // NOTE if layout can be changed we can just put all the objects that would return true to this condition scope
         ...(currentUserRole !== manager) ? [
           {

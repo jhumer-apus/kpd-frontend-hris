@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { ChooseDashboard } from '../pages';
 import JSXRouteWrapper from '@/routes';
-import Routesss from '@/routes/compiled_routes';
+import { compiledRoutes} from '@/routes/compiled_routes';
 import { Route, Navigate } from 'react-router-dom';
 
 
@@ -29,7 +29,7 @@ function UseDashboardRoute() {
   //   )
   // })));
 
-  const routes = Routesss();
+  const routes = compiledRoutes();
   
   const FirstInnerRoutePath = routes.map((object)=> object.layout !== "auth" && object.pages.map((value)=> value.hasSubItems && value.subItems?.map((innerValue)=> {
     return (

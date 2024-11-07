@@ -51,6 +51,7 @@ export const routesAdmin = (currentUserRole: number) => {
     hasSubItems: true,
     subItems: [
       {
+        id: 11200,
         icon: <HomeIcon {...icon} />,
         name: "Admin Portal",
         path: "/Dashboards/Admin-Portal",
@@ -59,6 +60,7 @@ export const routesAdmin = (currentUserRole: number) => {
         subItems: 
         [
           {
+            id: 111000,
             icon: null,
             name: "Categories",
             path: "/Dashboards/Admin-Portal/Categories",
@@ -66,6 +68,7 @@ export const routesAdmin = (currentUserRole: number) => {
             hasSubItems: true,
             subItems: [
               {
+                id: 1120000,
                 icon: null,
                 name: "Branch",
                 path: "/Dashboards/Admin-Portal/Categories/Branch",
@@ -73,6 +76,7 @@ export const routesAdmin = (currentUserRole: number) => {
                 hasSubItems: false,
               },
               {
+                id: 1120001,
                 icon: null,
                 name: "Department",
                 path: "/Dashboards/Admin-Portal/Categories/Department",
@@ -80,6 +84,7 @@ export const routesAdmin = (currentUserRole: number) => {
                 hasSubItems: false,
               },
               {
+                id: 1120002,
                 icon: null,
                 name: "Division",
                 path: "/Dashboards/Admin-Portal/Categories/Division",
@@ -87,6 +92,7 @@ export const routesAdmin = (currentUserRole: number) => {
                 hasSubItems: false,
               },
               {
+                id: 1120003,
                 icon: null,
                 name: "Payroll Group",
                 path: "/Dashboards/Admin-Portal/Categories/Payrollgroup",
@@ -94,6 +100,7 @@ export const routesAdmin = (currentUserRole: number) => {
                 hasSubItems: false,
               },
               {
+                id: 1120004,
                 icon: null,
                 name: "Position",
                 path: "/Dashboards/Admin-Portal/Categories/Position",
@@ -101,6 +108,7 @@ export const routesAdmin = (currentUserRole: number) => {
                 hasSubItems: false,
               },
               {
+                id: 1120005,
                 icon: null,
                 name: "Rank",
                 path: "/Dashboards/Admin-Portal/Categories/Rank",
@@ -108,6 +116,7 @@ export const routesAdmin = (currentUserRole: number) => {
                 hasSubItems: false,
               },
               {
+                id: 1120006,
                 icon: null,
                 name: "Employment Status Type",
                 path: "/Dashboards/Admin-Portal/Categories/Employment-Status-Type",
@@ -117,6 +126,7 @@ export const routesAdmin = (currentUserRole: number) => {
             ]
           },
           {
+            id: 112000,
             icon: null,
             name: "Users",
             path: "/Dashboards/Admin-Portal/Users",
@@ -125,6 +135,7 @@ export const routesAdmin = (currentUserRole: number) => {
             subItems: []
           },
           {
+            id: 113000,
             icon: null,
             name: "PVM",
             path: "/Dashboards/Admin-Portal/Payroll-Variables-Monthly",
@@ -132,6 +143,7 @@ export const routesAdmin = (currentUserRole: number) => {
             hasSubItems: true,
             subItems: [
               {
+                id: 1120000,
                 icon: null,
                 name: "Tax",
                 path: "/Dashboards/Admin-Portal/Payroll-Variables-Monthly/Tax",
@@ -139,6 +151,7 @@ export const routesAdmin = (currentUserRole: number) => {
                 hasSubItems: false,
               },
               {
+                id: 1120001,
                 icon: null,
                 name: "PAGIBIG",
                 path: "/Dashboards/Admin-Portal/Payroll-Variables-Monthly/Pagibig",
@@ -146,6 +159,7 @@ export const routesAdmin = (currentUserRole: number) => {
                 hasSubItems: false,
               },
               {
+                id: 1120002,
                 icon: null,
                 name: "SSS",
                 path: "/Dashboards/Admin-Portal/Payroll-Variables-Monthly/SSS",
@@ -153,6 +167,7 @@ export const routesAdmin = (currentUserRole: number) => {
                 hasSubItems: false,
               },
               {
+                id: 1120003,
                 icon: null,
                 name: "Philhealth",
                 path: "/Dashboards/Admin-Portal/Payroll-Variables-Monthly/Philhealth",
@@ -160,6 +175,7 @@ export const routesAdmin = (currentUserRole: number) => {
                 hasSubItems: false,
               },
               {
+                id: 1120004,
                 icon: null,
                 name: "Cash Advance",
                 path: "/Dashboards/Admin-Portal/Payroll-Variables-Monthly/Cash-Advance",
@@ -167,6 +183,7 @@ export const routesAdmin = (currentUserRole: number) => {
                 hasSubItems: false,
               },
               {
+                id: 1120005,
                 icon: null,
                 name: "Allowance Entry",
                 path: "/Dashboards/Admin-Portal/Payroll-Variables-Monthly/Allowance-Entry",
@@ -174,6 +191,7 @@ export const routesAdmin = (currentUserRole: number) => {
                 hasSubItems: false,
               },
               {
+                id: 1120006,
                 icon: null,
                 name: "Allowance Type",
                 path: "/Dashboards/Admin-Portal/Payroll-Variables-Monthly/Allowance-Type",
@@ -183,6 +201,7 @@ export const routesAdmin = (currentUserRole: number) => {
             ]
           },
           {
+            id: 114000,
             icon: null,
             name: "EOY",
             path: "/Dashboards/Admin-Portal/Payroll-EOY",
@@ -190,6 +209,7 @@ export const routesAdmin = (currentUserRole: number) => {
             hasSubItems: true,
             subItems: [
               {
+                id: 1140000,
                 icon: null,
                 name: "Tax Collected",
                 path: "/Dashboards/Admin-Portal/Payroll-EOY/Tax-Collected",
@@ -197,6 +217,7 @@ export const routesAdmin = (currentUserRole: number) => {
                 hasSubItems: false,
               },
               {
+                id: 1140001,
                 icon: null,
                 name: "13th Month Pay",
                 path: "/Dashboards/Admin-Portal/Payroll-EOY/13th-Month-pay",
@@ -204,6 +225,7 @@ export const routesAdmin = (currentUserRole: number) => {
                 hasSubItems: false,
               },
               {
+                id: 1140002,
                 icon: null,
                 name: "Bonus List",
                 path: "/Dashboards/Admin-Portal/Payroll-EOY/Bonus-List",
@@ -211,6 +233,7 @@ export const routesAdmin = (currentUserRole: number) => {
                 hasSubItems: false,
               },
               {
+                id: 1140003,
                 icon: null,
                 name: "Bonus Entries",
                 path: "/Dashboards/Admin-Portal/Payroll-EOY/Bonus-Entries",
@@ -220,6 +243,7 @@ export const routesAdmin = (currentUserRole: number) => {
             ]
           },
           {
+            id: 115000,
             icon: null,
             name: "AAA",
             path: "/Dashboards/Admin-Portal/Assets-And-Announcement",
@@ -227,6 +251,7 @@ export const routesAdmin = (currentUserRole: number) => {
             hasSubItems: true,
             subItems: [
               {
+                id: 1150000,
                 icon: null,
                 name: "Asset Account",
                 path: "/Dashboards/Admin-Portal/Assets-And-Announcement/Asset-Account",
@@ -234,6 +259,7 @@ export const routesAdmin = (currentUserRole: number) => {
                 hasSubItems: false,
               },
               {
+                id: 1150001,
                 icon: null,
                 name: "Asset List",
                 path: "/Dashboards/Admin-Portal/Assets-And-Announcement/Asset-List",
@@ -241,6 +267,7 @@ export const routesAdmin = (currentUserRole: number) => {
                 hasSubItems: false,
               },
               {
+                id: 1150002,
                 icon: null,
                 name: "Announcements",
                 path: "/Dashboards/Admin-Portal/Assets-And-Announcement/Announcement-Configurations",
@@ -250,6 +277,7 @@ export const routesAdmin = (currentUserRole: number) => {
             ]
           },
           {
+            id: 116000,
             icon: null,
             name: "Employee & Applicant Variables",
             path: "/Dashboards/Admin-Portal/Employee-And-Applicants",
@@ -257,6 +285,7 @@ export const routesAdmin = (currentUserRole: number) => {
             hasSubItems: true,
             subItems: [
               {
+                id: 1160000,
                 icon: null,
                 name: "KPI Evaluation",
                 path: "/Dashboards/Admin-Portal/Employee-And-Applicants/KPI-Evaluation",
@@ -264,6 +293,7 @@ export const routesAdmin = (currentUserRole: number) => {
                 hasSubItems: false,
               },
               {
+                id: 1160001,
                 icon: null,
                 name: "Initialize Onboarding",
                 path: "/Dashboards/Admin-Portal/Employee-And-Applicants/Initialize-Onboarding",
@@ -271,6 +301,7 @@ export const routesAdmin = (currentUserRole: number) => {
                 hasSubItems: false,
               },
               {
+                id: 1160002,
                 icon: null,
                 name: "Initialize Offboarding",
                 path: "/Dashboards/Admin-Portal/Employee-And-Applicants/Initialize-Offboarding",
@@ -278,6 +309,7 @@ export const routesAdmin = (currentUserRole: number) => {
                 hasSubItems: false,
               },
               {
+                id: 1160003,
                 icon: null,
                 name: "KPI Questions",
                 path: "/Dashboards/Admin-Portal/Employee-And-Applicants/KPI-Questions",
@@ -285,6 +317,7 @@ export const routesAdmin = (currentUserRole: number) => {
                 hasSubItems: false,
               },
               {
+                id: 1160004,
                 icon: null,
                 name: "Core Competencies",
                 path: "/Dashboards/Admin-Portal/Employee-And-Applicants/Core-Competencies",
@@ -292,6 +325,7 @@ export const routesAdmin = (currentUserRole: number) => {
                 hasSubItems: false,
               },
               {
+                id: 1160005,
                 icon: null,
                 name: "Onboarding Requirements",
                 path: "/Dashboards/Admin-Portal/Employee-And-Applicants/Onboarding-Requirements",
@@ -299,6 +333,7 @@ export const routesAdmin = (currentUserRole: number) => {
                 hasSubItems: false,
               },
               {
+                id: 1160006,
                 icon: null,
                 name: "Offboarding",
                 path: "/Dashboards/Admin-Portal/Employee-And-Applicants/Offboarding-Requirements",
@@ -306,6 +341,7 @@ export const routesAdmin = (currentUserRole: number) => {
                 hasSubItems: false,
               },
               {
+                id: 1160007,
                 icon: null,
                 name: "Applicants",
                 path: "/Dashboards/Admin-Portal/Employee-And-Applicants/Applicants",
@@ -313,6 +349,7 @@ export const routesAdmin = (currentUserRole: number) => {
                 hasSubItems: false,
               },
               {
+                id: 1160008,
                 icon: null,
                 name: "Job Posting",
                 path: "/Dashboards/Admin-Portal/Employee-And-Applicants/Job-Posting",

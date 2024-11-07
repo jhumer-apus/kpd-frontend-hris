@@ -74,7 +74,7 @@ export default function YourSCHEDULEDAILYpage() {
                   <Paper className='p-4 h-fit'>
                     <div className='flex justify-between'>
                     <Typography variant={'h6'} style={{alignItems: 'center', display: 'flex'}}>Daily Schedule Table History</Typography>
-                    <EmployeeAutoCompleteRight currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/>
+                    {/* <EmployeeAutoCompleteRight currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/> */}
                     </div>
                     <ProceduralSCHEDULEDAILYPageHistory currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/>
                 </Paper>

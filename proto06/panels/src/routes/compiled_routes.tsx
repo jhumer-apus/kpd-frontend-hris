@@ -2,7 +2,7 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../store/configureStore";
 
-// dashboard routes
+// SideNav routes
 import { routesAdmin } from "./routes_dashboards";
 import { routesEmployee } from "./routes_employees";
 import { routesQuickAccess } from "./routes_quick_accesses";
