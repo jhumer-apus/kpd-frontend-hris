@@ -50,17 +50,23 @@ export default function PayrollsTable(props: Props) {
         {
             field: "emp_no",
             headerName: "Employee no.",
-            flex:1
+            flex:1,
+            minWidth: 150,
+            cellClassName: 'w-150 md:w-0',
         },
         {
             field: "work_days_total",
             headerName: "Total Work Days",
-            flex:1
+            flex:1,
+            minWidth: 150,
+            cellClassName: 'w-150 md:w-0',
         },
         {
             field: "work_days_total_pay",
             headerName: "Total Work Pay",
-            flex:1
+            flex:1,
+            minWidth: 150,
+            cellClassName: 'w-150 md:w-0',
         }
     ]
 
@@ -179,7 +185,7 @@ export default function PayrollsTable(props: Props) {
                     {/* MAIN CONTENT */}
                     <Typography variant="h4" className="text-center">List Of Payrolls</Typography>
                     <div className="p-8">
-                        <div className="flex gap-4">
+                        <div className="flex flex-col md:flex-row gap-4">
                             <Button variant="outlined" onClick={() => setConfirmModal(curr => ({...curr, showDisapproveModal:true}))}>Disapprove</Button>
                             <Button variant="contained" onClick={() => setConfirmModal(curr => ({...curr, showApproveModal:true}))}>Approve</Button>
                         </div>

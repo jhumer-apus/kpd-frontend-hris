@@ -18,17 +18,23 @@ export default function EmployeesTable(props: Props) {
         {
             field: "emp_no",
             headerName: "Employee No.",
-            flex: 1
+            flex: 1,
+            minWidth: 150,
+            cellClassName: 'w-150 md:w-0',
         },
         {
             field: "emp_full_name",
             headerName: "Full Name",
-            flex: 1
+            flex: 1,
+            minWidth: 150,
+            cellClassName: 'w-150 md:w-0',
         },
         {
             field: "branch",
             headerName: "Branch",
             flex: 1,
+            minWidth: 150,
+            cellClassName: 'w-150 md:w-0',
             valueGetter: (params:any) => {
                 return params.row.branch_data.branch_name
             }

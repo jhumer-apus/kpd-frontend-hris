@@ -117,17 +117,17 @@ export default function ProcessPayroll() {
     return (
         <div>
             <div id="payroll-process-wrapper" className="mt-20">
-                <div className="flex gap-4">
+                <div className="flex flex-col sm:flex-row gap-4">
                     <YearField 
                         handleChange={handleChangeYear}
-                        className="w-32"
+                        className="w-full sm:w-32"
                     />
                     <CutOffPeriodByYearField
                         handleChange={handleChangeCutoff}
                         year={parseInt(year)} 
                         defaultId={data?.cutoff_id}
                         stateKey="cutoff_id"
-                        className="w-64"             
+                        className="w-full sm:w-64"             
                     />
                     <Button variant="contained" onClick={() => onProcess()}>Process</Button>
                 </div>

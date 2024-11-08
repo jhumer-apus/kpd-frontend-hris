@@ -52,7 +52,7 @@ export default function PayrollApprovalsTable(props: Props) {
         {
             field: 'status',
             headerName: "Status",
-            width: 150,
+            width: 130,
         },
         {
             field: 'branch_name',
