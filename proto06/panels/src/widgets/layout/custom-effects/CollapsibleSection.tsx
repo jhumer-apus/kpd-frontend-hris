@@ -46,7 +46,7 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({ children
 
     checkDataLink();
     setCurrentPath(location.pathname);
-  }, [currentPath, window.location.pathname]);
+  }, [currentPath]);
 
   const collapseSection = (element: HTMLElement) => {
     const sectionHeight = element.scrollHeight;

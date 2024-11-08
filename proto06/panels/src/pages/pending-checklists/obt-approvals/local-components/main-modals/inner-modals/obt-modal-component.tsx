@@ -10,7 +10,7 @@ interface OBTModalComponentInterface {
     scroll: boolean,
     setScroll: Dispatch<SetStateAction<boolean>>,
     setSingleOBTDetailsData: React.Dispatch<React.SetStateAction<OBTViewInterface>>;
-    setSingleOBTOpenModal:any
+    setSingleOBTOpenModal: Dispatch<SetStateAction<boolean>>;
 };
 
 const OBTModalComponent = ((props:OBTModalComponentInterface) => {

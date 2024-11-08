@@ -20,6 +20,7 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
     '& [role="separator"]': {
       margin: theme.spacing(0, 2),
     },
+    columnGap: '15px',
 }));
 
 export default function ProceduralLEAVECREDITPage() {
@@ -28,15 +29,15 @@ export default function ProceduralLEAVECREDITPage() {
 
   return (
     <Fragment>
-        <Grid container direction={matches ? 'column' : 'row'} spacing={2} className='gap-2'>
-            <Grid item xs={3.9} className='!p-0'>
+        <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
+            <Grid item xs className='!p-0'>
                 <Paper elevation={3} style={PaperStyle}>
                     <Box sx={{ width: '100%', height: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center'}}>
                         <ProceduralLEAVECREDITCreate/>
                     </Box>
                 </Paper>
             </Grid>
-            <Grid item xs={8} className='!p-0'>
+            <Grid item xs className='!p-0'>
                 <Paper elevation={3} style={PaperStyle}>
                     <ProceduralLEAVECREDITPageHistory/>
                 </Paper>

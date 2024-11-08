@@ -249,7 +249,7 @@ export default function EditHolidayModal(props:Props) {
             }}
             className="flex justify-center items-center"
         >
-            <Box className="flex items-center bg-white flex-col p-4 h-auto w-[90%] sm:w-[60%] rounded-lg overflow-auto editHoliday">
+            <Box className="flex items-center bg-white flex-col p-4 h-auto w-[90%] sm:w-auto rounded-lg overflow-auto editHoliday">
                 <div className="m-auto w-fit">
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         Edit Holiday
