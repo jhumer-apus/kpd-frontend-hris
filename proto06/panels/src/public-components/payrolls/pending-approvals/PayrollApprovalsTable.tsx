@@ -6,6 +6,7 @@ import { DataGrid, GridActionsCellItem, GridColDef } from "@mui/x-data-grid";
 import dayjs from "dayjs";
 import { useState } from "react";
 import PayrollsTable from "./PayrollsTable";
+import ViewPayrollApprover from "./ViewPayrollApprover";
 
 interface Props {
     rows: any[]
@@ -17,6 +18,7 @@ export default function PayrollApprovalsTable(props: Props) {
 
     const {payrollList, fetchPayrollList, loading:loadingPayrolls} = usePayrollList()
     const [showPayrollList, setShowPayrollList] = useState<boolean>(false)
+    const [showPayrollApprover, setShowPayrollApprover] = useState<boolean>(false)
     const [selectedPayrollApprover, setSelectedPayrollApprover] = useState<any>(null)
 
     const columns: GridColDef[] = [
@@ -34,7 +36,7 @@ export default function PayrollApprovalsTable(props: Props) {
                     sx={{
                       color: 'primary.main',
                     }}
-                    // onClick={(e:any) => handleClick(id, "edit")}
+                    onClick={(e:any) => viewPayrollApprover(row)}
                   />,
                   <GridActionsCellItem
                     icon={<ClipboardDocumentListIcon className="transition-all h-6 w-6 text-gray-600 hover:h-8 hover:w-8" />}
@@ -114,8 +116,17 @@ export default function PayrollApprovalsTable(props: Props) {
         fetchPayrollList(selectedRow.id)
     }
 
+    const viewPayrollApprover = (selectedRow:any) => {
+        setSelectedPayrollApprover(selectedRow)
+        setShowPayrollApprover(curr => true)
+    }
+
     const handleClosePayrollList = () => {
         setShowPayrollList(curr => false)
+    }
+
+    const handleClosePayrollApprover = () => {
+        setShowPayrollApprover(curr => false)
     }
     
     return (
@@ -137,6 +148,11 @@ export default function PayrollApprovalsTable(props: Props) {
                 handleClose={handleClosePayrollList}
                 payrollApproverId={selectedPayrollApprover?.id}
                 refreshPayrollApprovers={refreshPayrollApprovers}
+            />
+            <ViewPayrollApprover 
+                open={showPayrollApprover} 
+                handleClose={handleClosePayrollApprover} 
+                data={selectedPayrollApprover} 
             />
         </div>
     )

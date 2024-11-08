@@ -14,17 +14,6 @@ interface Props {
 export default function DisapproveReasonModal(props:Props) {
 
     const { open, handleClose, title, message, onContinue, onInputChange } = props
-    
-    const style = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        minWidth: 400,
-        bgcolor: 'background.paper',
-        boxShadow: 24,
-        p: 4,
-    };
 
     return (
         <Fragment>
@@ -34,7 +23,7 @@ export default function DisapproveReasonModal(props:Props) {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={style}>
+                <Box className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:w-[500px] w-10/12 bg-white shadow-2xl p-4">
                     <form onSubmit={onContinue}>
                         <Typography id="modal-modal-title" variant="h6" component="h2">
                             {title}

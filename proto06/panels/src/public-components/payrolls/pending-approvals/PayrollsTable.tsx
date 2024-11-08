@@ -105,6 +105,12 @@ export default function PayrollsTable(props: Props) {
                 .put(`payroll_approver/${payrollApproverId}/`, payload)
                 .then(res => {
                     refreshPayrollApprovers()
+                    setConfirmModal(curr => (
+                        {
+                            showApproveModal: false,
+                            showDisapproveModal:false
+                        }
+                    ))
                     dispatch(HandleAlertAction(
                         {
                             open:true,
@@ -115,6 +121,12 @@ export default function PayrollsTable(props: Props) {
                 })
                 .catch(err => {
                     console.error(err?.response)
+                    setConfirmModal(curr => (
+                        {
+                            showApproveModal: false,
+                            showDisapproveModal:false
+                        }
+                    ))
                     dispatch(HandleAlertAction(
                         {
                             open:true,
@@ -148,8 +160,12 @@ export default function PayrollsTable(props: Props) {
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
+                sx={{
+                    overflow: "auto",
+                    paddingBottom: "20px"
+                }}
             >
-                <Box className="mt-20 h-full w-11/12 bg-white m-auto rounded-lg p-4">
+                <Box className="m-auto mt-10 bg-white shadow-2xl p-4 overflow-auto w-11/12">
 
                     <div className="flex justify-end">
                         <IconButton  
@@ -169,11 +185,15 @@ export default function PayrollsTable(props: Props) {
                         </div>
                         <div id="payrolls-table-wrapper" className="h-[500px] mt-8">
                             <p>Click row to view full details</p>
-                            <DataGrid 
+                            <DataGrid
                                 rows={payrollList} 
                                 columns={columns}
                                 onRowClick={(params) => onSelectedRow(params.row)}
                                 loading={loading}
+                                sx={{
+                                    height: "100%",
+                                    width: '100%'
+                                }}
                             />
                         </div>
                     </div>
@@ -201,7 +221,11 @@ export default function PayrollsTable(props: Props) {
                         onInputChange={disapproveReasonChange} 
                     />
 
-                    {/* <Payslip data={selectedPayroll} /> */}
+                    {/* <Payslip 
+                        data={selectedPayroll} 
+                        open={showPayroll} 
+                        handleClose={handleClosePayroll} 
+                    /> */}
                 </Box>
             </Modal>
         </Fragment>

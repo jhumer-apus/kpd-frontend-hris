@@ -26,7 +26,7 @@ export const ProceduralCUTOFFPERIODPageColumns: GridColDef[] =
   },
   // { field: 'division_code', headerName: 'Division:', width: 100,
   // },
-  { field: 'co_name', headerName: 'Cutoff Name',  width: 210 },
+  { field: 'name', headerName: 'Cutoff Name',  width: 210 },
 ];
   
 export default {

@@ -1,4 +1,4 @@
-import { useEffect, SetStateAction } from "react";
+import { useEffect, SetStateAction, Fragment } from "react";
 import { Box } from "@mui/material";
 import { DataGrid, GridValueGetterParams, GridRowSelectionModel, GridCallbackDetails } from "@mui/x-data-grid";
 import { DTRCutoffListEmployees, previewDtrCsvItem } from "@/types/types-pages";
@@ -122,33 +122,33 @@ export default function CutOffListEmployees(props: CutOffListEmployees) {
   }, [page_state.status])
 
   return (
-    <>
+    <Fragment>
       <div className='flex justify-between items-center'>
-      <b className="flex items-center">Choose Employees to Merge:</b>
-      <div className="flex justify-between">
-      <CircularStatic status={page_state.status ? page_state.status : ""}/>
-      <Button onClick={initializeMerge} variant={'contained'}> Initialize Merge</Button>
-      </div>
+        <b className="flex items-center">Choose Employees to Merge:</b>
+        <div className="flex justify-between">
+          <CircularStatic status={page_state.status ? page_state.status : ""}/>
+          <Button onClick={initializeMerge} variant={'contained'}> Initialize Merge</Button>
+        </div>
       </div>
       <div style={{ height: '600px' , width: '100%' }}>
-      <DataGrid
-        // autoHeight
-        rows={employees ? employees : []}
-        columns={columns}
-        // hideFooter
-        sx={{ mt: 1 }}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 25 },
-          },
-        }}
-        checkboxSelection
-        onRowSelectionModelChange={handleSelection}
-        // rowSelectionModel={ !selectedRows?.emp_no ? selectedRows?.emp_no : [] }
-        pageSizeOptions={[25, 50, 75, 100]}
-        localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'Choose a cutoff period to display employee list': 'SUCCEEDED...'}` }}
-      />
+        <DataGrid
+          // autoHeight
+          rows={employees ? employees : []}
+          columns={columns}
+          // hideFooter
+          sx={{ mt: 1 }}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 25 },
+            },
+          }}
+          checkboxSelection
+          onRowSelectionModelChange={handleSelection}
+          // rowSelectionModel={ !selectedRows?.emp_no ? selectedRows?.emp_no : [] }
+          pageSizeOptions={[25, 50, 75, 100]}
+          localeText={{ noRowsLabel: `${status === 'loading' ? `${status?.toUpperCase()}...` : status === 'failed' ?  'No cutoff lists found. Contact your administrator/support.' : (status === null || status === undefined) ? 'Choose a cutoff period to display employee list': 'SUCCEEDED...'}` }}
+        />
       </div>
-    </>
+    </Fragment>
   );
 }

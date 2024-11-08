@@ -19,23 +19,23 @@ const columns = [
     width: 80,
   },
   {
-    field: "co_name",
+    field: "name",
     headerName: "Cutoff Name",
     width: 142,
   },
   {
-    field: "co_date_from",
+    field: "datetime_from",
     headerName: "From",
     valueGetter: (params: GridValueGetterParams) => {
-      const date = new Date(params.row.co_date_from);
+      const date = new Date(params.row.datetime_from);
       return date.toLocaleDateString();
     }
   },
   {
-    field: "co_date_to",
+    field: "datetime_to",
     headerName: "Until",
     valueGetter: (params: GridValueGetterParams) => {
-      const date = new Date(params.row.co_date_to);
+      const date = new Date(params.row.datetime_to);
       return date.toLocaleDateString();
     }
   },

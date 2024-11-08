@@ -26,11 +26,11 @@ export default function usePayrollList() {
                     setLoading(curr => false)
                 })
                 .catch(err => {
-                    console.error(err?.res?.data)
+                    console.error(err?.response?.data)
                     dispatch(HandleAlertAction({
                         open:true,
                         status:"error",
-                        message:err?.res?.data
+                        message:err?.response?.data?.["Error Message"]
                     }))
                     setPayrollList(curr => [])
                     setLoading(curr => false)

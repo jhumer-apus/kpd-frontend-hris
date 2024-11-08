@@ -1,7 +1,8 @@
 import axiosInstance from "@/helpers/axiosConfig"
 import ConfirmationModal from "@/public-components/modals/ConfirmationModal"
 import { HandleAlertAction } from "@/store/actions/components"
-import { Box, Button, Modal, TextField, Typography } from "@mui/material"
+import { XMarkIcon } from "@heroicons/react/24/solid"
+import { Box, Button, IconButton, Modal, TextField, Typography } from "@mui/material"
 import { Fragment, useState } from "react"
 import { useDispatch } from "react-redux"
 
@@ -27,6 +28,14 @@ export default function ViewPayroll(props: Props) {
                 aria-describedby="modal-modal-description"
             >
                 <Box className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-2xl p-4 overflow-auto w-11/12 md:w-[500px] max-h-[80vh]">
+                    <div className="flex justify-end">
+                        <IconButton  
+                            aria-label="close"
+                            onClick={() => handleClose()}
+                        >
+                            <XMarkIcon className="w-8 text-black"/>
+                        </IconButton>
+                    </div>
                     <Typography id="modal-modal-title" variant="h6" component="h2" className="text-center">
                         PAYROLL
                     </Typography>
