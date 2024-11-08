@@ -65,7 +65,6 @@ export default function EditEMPHISTORYModal(props: EditEMPHISTORYModalInterface)
   const nullValues = Object.values(singleEMPHISTORYDetailsData).filter(
     value => typeof value === null
   );
-    console.log(EditEMPHISTORYOpenModal, "h123")
   const EditEMPHISTORY = () => { 
 
     setEditEMPHISTORYOpenModal(false)
@@ -104,8 +103,6 @@ export default function EditEMPHISTORYModal(props: EditEMPHISTORYModalInterface)
       });
     };
   }, [EMPHISTORYEditState.status, singleEMPHISTORYDetailsData]);
-
-  console.log(EMPHISTORYEditState.status, "huh?")
 
   useEffect(()=> {
 

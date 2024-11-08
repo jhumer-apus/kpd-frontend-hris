@@ -62,7 +62,7 @@ function EMPHISTORYModalUI(props: EMPHISTORYModalUIInterface) {
             <div className='flex flex-col justify-center items-center'>
                 <div className='flex justify-center items-center mt-10 w-full' container-name='leave_buttons_container'>
                     <div className='flex justify-between flex-col gap-3 sm:flex-row w-[90%]' container-name='leave_buttons'>
-                        <Button variant='contained' onClick={()=> onClickModal(1)}>Edit Daily Schedule</Button>
+                        <Button variant='contained' onClick={()=> onClickModal(1)}>Edit Details</Button>
                         <Button variant='outlined' color={"error"} onClick={() => onClickModal(0)}>Delete</Button>
                     </div>
                 </div>

@@ -21,6 +21,7 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
       margin: theme.spacing(0, 2),
     },
     columnGap: '15px',
+    rowGap: '15px',
 }));
 
 export default function ProceduralLEAVECREDITPage() {
