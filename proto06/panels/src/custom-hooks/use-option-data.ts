@@ -491,7 +491,7 @@ export const useOptionData = () => {
                 const mappedCutOffs = Array.isArray(res.data) ? res.data.map(cutoff => (
                     {
                         id: cutoff.id,
-                        name: cutoff.co_name
+                        name: cutoff.name
                     }
                 )) : []
 

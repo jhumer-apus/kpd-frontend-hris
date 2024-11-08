@@ -19,18 +19,17 @@ export const dynamicPayrollColumns: Array<GridColDef[]> =
       headerName: 'Credit Date',
       width: 120,
       valueGetter: (params: GridValueGetterParams) => {
-        const date = new Date(params.row.cutoff.credit_date);
-        return dayjs(date).format(`${globalDate}`);
+        return params.row?.cutoff?.credit_date ? dayjs(params.row.cutoff.credit_date).format("MMM DD, YYYY"): ""
       },
     },
-    { field: 'emp_cname', headerName: 'Employee Name', width: 160 },
+    { field: 'emp_no', headerName: 'Employee No', width: 160 },
     {
       field: 'net_pay',
       headerName: 'Net Pay',
       width: 120,
       valueFormatter: (params: GridValueFormatterParams) => {
         const netpay = params.value as number;
-        return netpay.toLocaleString(undefined, {
+        return netpay?.toLocaleString(undefined, {
           style: 'currency',
           currency: 'PHP',
         })

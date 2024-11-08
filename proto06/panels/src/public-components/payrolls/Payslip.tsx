@@ -1,15 +1,16 @@
 import React from 'react';
-import { ViewPayrollPayPerEmployee } from '@/types/types-pages';
 import { convertDaysToHHMM, convertMinutesToHHMM,  } from '@/helpers/utils';
 
 interface PaySlipUI {
-    payslipData?: ViewPayrollPayPerEmployee;
+    data: any;
     multiplePayslipMode?: boolean;
 }
 
-function TestView(props: PaySlipUI) {
-    const ThisProps = props.payslipData;
+export default function Payslip(props: PaySlipUI) {
+    const { data } = props
     const dateNow = new Date();
+
+    const 
     return (
         <div style={paySlipArea}>
             <div className='flex border align-center border-black justify-between overflow-x-auto text-xs ' style={{marginTop: !props.multiplePayslipMode? '50px': '', marginLeft: !props.multiplePayslipMode? '20px':'' }}>
@@ -17,25 +18,25 @@ function TestView(props: PaySlipUI) {
                     <div>
                         <div>
                             <span className='text-xl block border-t text-center border-l border-black font-bold bg-gray-300'>
-                                SAMPLE COMPANY NAME                            
+                                KP Development                         
                             </span>
                             <div className='flex border-black border-t border-l border-b'>
                                 <div className='w-28'>
                                     <p className='pl-1'>Department:</p>
                                 </div>
                                 <div>
-                                    <p className='text-start pr-1'>{ThisProps?.cutoff?.division_code !== undefined? ThisProps?.cutoff?.division_code : `...`}</p>
+                                    <p className='text-start pr-1'>{data?.cutoff?.division_code !== undefined? data?.cutoff?.division_code : `...`}</p>
                                 </div>
                             </div>
                         </div>
                         <div className='flex border-black border-l border-t border-b'>
                             <div className='gap-2 w-28'>
-                                <p className='pl-1'>Employee Name:</p>
-                                <p className='pl-1'>Workdays total:</p>
+                                <p className='pl-1'>Employee No:</p>
+                                <p className='pl-1'>Total Workdays:</p>
                             </div>
                             <div className='gap-2'>
-                                <p className='text-start pr-1'>{ThisProps?.emp_cname || `...`}</p>
-                                <p className='text-start pr-1'>{ThisProps?.work_days_total?.toFixed(2) || `...`}</p>
+                                <p className='text-start pr-1'>{data?.emp_no || ``}</p>
+                                <p className='text-start pr-1'>{data?.work_days_total?.toFixed(2) || ``}</p>
                             </div>
                         </div>
                         <div className='flex border-black border-l justify-between border-t border-b'>
@@ -53,13 +54,13 @@ function TestView(props: PaySlipUI) {
                             </div>
                             <div>
                             {/* ₱ */}
-                                <p className='text-end pr-1'> {((ThisProps?.daily_salary_basic * ThisProps?.work_days_total) || 0).toFixed(2)}</p>
-                                <p className='text-end pr-1'> {((ThisProps?.daily_salary_allowance * ThisProps?.work_days_total || 0)).toFixed(2)}</p>
-                                <p className='text-end pr-1'> {(ThisProps?.ot_amount_a || 0).toFixed(2)}</p>
-                                <p className='text-end pr-1'> {(ThisProps?.nd_amount_a || 0).toFixed(2)}</p>
-                                <p className='text-end pr-1'> {(ThisProps?.reg_holiday_amount_a + ThisProps?.sp_holiday_amount_a || 0).toFixed(2)}</p>
-                                <p className='text-end pr-1'>-{(ThisProps?.absent_amount + ThisProps?.utime_amount_d || 0).toFixed(2)}</p>
-                                <p className='text-end pr-1'>{(ThisProps?.leaves_amount_a || 0).toFixed(2)}</p>
+                                <p className='text-end pr-1'> {((data?.daily_salary_basic * data?.work_days_total) || 0).toFixed(2)}</p>
+                                <p className='text-end pr-1'> {data?.allowance_pay?.toFixed(2) || 0.00}</p>
+                                <p className='text-end pr-1'> {(data?.ot_pay || 0).toFixed(2) || 0.00}</p>
+                                <p className='text-end pr-1'> {(data?.nd_pay || 0).toFixed(2) || 0.00}</p>
+                                <p className='text-end pr-1'> {(data?.reg_holiday_working_pay + data?.sp_holiday_working_pay || 0).toFixed(2)}</p>
+                                <p className='text-end pr-1'>-{(data?.absent_deduct + data?.undertime_deduct || 0).toFixed(2)}</p>
+                                <p className='text-end pr-1'>{(data?.leaves_amount_a || 0).toFixed(2)}</p>
                                 <p className='text-end pr-1'>0</p>
                                 <p className='text-end pr-1'>0</p>
                                 <p className='text-end pr-1'>0</p>
@@ -71,8 +72,8 @@ function TestView(props: PaySlipUI) {
                                 <p className='pl-1'>Undertime/Late:(hh:mm)</p>
                             </div>
                             <div>
-                                <p className='text-end pr-1'>{(ThisProps?.gross_pay || 0).toFixed(2)}</p>
-                                <p className='text-end pr-1'>{convertMinutesToHHMM(ThisProps?.dtr_cutoff?.undertime_total + ThisProps?.dtr_cutoff?.lates_total || 0)}</p>
+                                <p className='text-end pr-1'>{(data?.gross_pay || 0).toFixed(2)}</p>
+                                <p className='text-end pr-1'>{convertMinutesToHHMM(data?.undertime_total + data?.lates_total || 0)}</p>
                             </div>
                         </div>
                         <div className='flex border-black border-l justify-between border-b'>
@@ -82,9 +83,9 @@ function TestView(props: PaySlipUI) {
                                 <p className='pl-1'>ND 01:</p>
                             </div>
                             <div>
-                                <p className='text-end pr-1'>{convertMinutesToHHMM(ThisProps?.dtr_cutoff?.total_hours || 0)}</p>
-                                <p className='text-end pr-1'>{convertMinutesToHHMM(ThisProps?.dtr_cutoff?.reg_ot_total || 0)}</p>
-                                <p className='text-end pr-1'>{convertMinutesToHHMM(ThisProps?.dtr_cutoff?.nd_ot_total || 0)}</p>
+                                <p className='text-end pr-1'>{convertMinutesToHHMM(data?.total_hours || 0)}</p>
+                                <p className='text-end pr-1'>{convertMinutesToHHMM(data?.reg_ot_total || 0)}</p>
+                                <p className='text-end pr-1'>{convertMinutesToHHMM(data?.nd_ot_total || 0)}</p>
                             </div>
                             <div className='gap-2 w-20'>
                                 <p className='pl-1'>LH OT:</p>
@@ -94,8 +95,8 @@ function TestView(props: PaySlipUI) {
                                 <p className='pl-1'>RD LH OT:</p>
                             </div>
                             <div>
-                                <p className='text-end pr-1'>{convertMinutesToHHMM(ThisProps?.dtr_cutoff?.reg_ot_total || 0)}</p>
-                                <p className='text-end pr-1'>{convertMinutesToHHMM(ThisProps?.dtr_cutoff?.sp_holiday_total_hours || 0)}</p>
+                                <p className='text-end pr-1'>{convertMinutesToHHMM(data?.reg_ot_total || 0)}</p>
+                                <p className='text-end pr-1'>{convertMinutesToHHMM(data?.sp_holiday_total_hours || 0)}</p>
                                 <p className='text-end pr-1'>0:00</p>
                                 <p className='text-end pr-1'>0:00</p>
                                 <p className='text-end pr-1'>0:00</p>
@@ -123,8 +124,8 @@ function TestView(props: PaySlipUI) {
                                 <p className='pl-1'>Cutoff Period:</p>
                             </div>
                             <div className='gap-2'>
-                                <p className='text-start pr-1'>{ThisProps?.salary_type || `...`}</p>
-                                <p className='text-start pr-1'>{ThisProps?.cutoff?.co_name || `...`}</p>
+                                <p className='text-start pr-1'>{data?.salary_type || `...`}</p>
+                                <p className='text-start pr-1'>{data?.cutoff?.co_name || `...`}</p>
                             </div>
                         </div>
                         <div className='flex border-black justify-between border-t border-r border-b'>
@@ -136,11 +137,11 @@ function TestView(props: PaySlipUI) {
                                 <p className='pl-1'>Other Deductions:</p>
                             </div>
                             <div>
-                                <p className='text-end pr-1'>-{((ThisProps?.sss_calloan_d + ThisProps?.sss_cashloan_d + ThisProps?.sssc_amount_d) || 0).toFixed(2)}</p>
-                                <p className='text-end pr-1'>-{((ThisProps?.philhealthc_amount_d) || 0).toFixed(2)}</p>
-                                <p className='text-end pr-1'>-{((ThisProps?.pagibigc_amount_d + ThisProps?.pagibig_calloan_d + ThisProps?.pagibig_hloan_d + ThisProps?.pagibig_cloan_d) || 0).toFixed(2)}</p>
-                                <p className='text-end pr-1'>-{((ThisProps?.tax_amount_d) || 0).toFixed(2)}</p>
-                                <p className='text-end pr-1'>-{((ThisProps?.other_d + ThisProps?.cash_advance_amount_d + ThisProps?.insurance_d) || 0).toFixed(2)}</p>
+                                <p className='text-end pr-1'>-{((data?.sss_cal_loan + data?.sss_cash_loan + data?.sss_contrib) || 0).toFixed(2)}</p>
+                                <p className='text-end pr-1'>-{((data?.philhealth_contrib) || 0).toFixed(2)}</p>
+                                <p className='text-end pr-1'>-{((data?.pagibig_cal_loan + data?.pagibig_cash_loan + data?.pagibig_house_loan) || 0).toFixed(2)}</p>
+                                <p className='text-end pr-1'>-{((data?.tax_contrib) || 0).toFixed(2)}</p>
+                                <p className='text-end pr-1'>-{(data?.cash_advance_deduct || 0).toFixed(2)}</p>
                                 <p className='text-end pr-1 invisible'>.</p>
                                 <p className='text-end pr-1 invisible'>.</p>
                                 <p className='text-end pr-1 invisible'>.</p>
@@ -159,10 +160,10 @@ function TestView(props: PaySlipUI) {
                                 <p className='pl-1'>RDLHP:</p>
                             </div>
                             <div>
-                                <p className='text-end pr-1 italic'>-{((ThisProps?.absent_amount + ThisProps?.cash_advance_amount_d + ThisProps?.insurance_d + ThisProps?.lates_amount_d + ThisProps?.other_d + ThisProps?.pagibig_calloan_d + ThisProps?.pagibig_cloan_d + ThisProps?.pagibig_hloan_d + ThisProps?.pagibigc_amount_d + ThisProps?.philhealthc_amount_d + ThisProps?.sss_calloan_d + ThisProps?.sss_cashloan_d + ThisProps?.sssc_amount_d + ThisProps?.tax_amount_d + ThisProps?.utime_amount_d) || 0).toFixed(2)}</p>
-                                <p className='text-end pr-1 font-bold underline bg-gray-300'>₱{((ThisProps?.net_pay) || 0).toFixed(2)}</p>
-                                <p className='text-end pr-1'>{((ThisProps?.reg_holiday_amount_a) || 0).toFixed(2)}</p>
-                                <p className='text-end pr-1'>{((ThisProps?.sp_holiday_amount_a) || 0).toFixed(2)}</p>
+                                <p className='text-end pr-1 italic'>-{((data?.absent_amount + data?.cash_advance_amount_d + data?.insurance_d + data?.lates_amount_d + data?.other_d + data?.pagibig_calloan_d + data?.pagibig_cloan_d + data?.pagibig_hloan_d + data?.pagibigc_amount_d + data?.philhealthc_amount_d + data?.sss_calloan_d + data?.sss_cashloan_d + data?.sssc_amount_d + data?.tax_amount_d + data?.utime_amount_d) || 0).toFixed(2)}</p>
+                                <p className='text-end pr-1 font-bold underline bg-gray-300'>₱{((data?.net_pay) || 0).toFixed(2)}</p>
+                                <p className='text-end pr-1'>{((data?.reg_holiday_amount_a) || 0).toFixed(2)}</p>
+                                <p className='text-end pr-1'>{((data?.sp_holiday_amount_a) || 0).toFixed(2)}</p>
                                 <p className='text-end pr-1'>0</p>
                                 <p className='text-end pr-1'>0</p>
                                 <p className='text-end pr-1'>0</p>
@@ -188,11 +189,11 @@ function TestView(props: PaySlipUI) {
                             </div>
                             <div>
                                 <p className='text-start pr-1 font-bold italic my-1'>Employer's Copy</p>
-                                <p className='text-start pr-1 mb-1'>{ThisProps?.emp_no || `...`}</p>
-                                <p className='text-start pr-1 mb-1'>{ThisProps?.cutoff?.division_code !== undefined? ThisProps?.cutoff?.division_code : `...`} <p className='hidden'>_to request as division string</p></p>
-                                <p className='text-start pr-1 mb-1'>{ThisProps?.salary_type || `...`}</p>
-                                <p className='text-start pr-1 mb-1'>{ThisProps?.cutoff?.division_code || `...`}</p>
-                                <p className='text-start pr-1 mb-1 bg-gray-300'>₱{(ThisProps?.net_pay || 0).toFixed(2)}</p>
+                                <p className='text-start pr-1 mb-1'>{data?.emp_no || `...`}</p>
+                                <p className='text-start pr-1 mb-1'>{data?.cutoff?.division_code !== undefined? data?.cutoff?.division_code : `...`} <p className='hidden'>_to request as division string</p></p>
+                                <p className='text-start pr-1 mb-1'>{data?.salary_type || `...`}</p>
+                                <p className='text-start pr-1 mb-1'>{data?.cutoff?.division_code || `...`}</p>
+                                <p className='text-start pr-1 mb-1 bg-gray-300'>₱{(data?.net_pay || 0).toFixed(2)}</p>
                             </div>
                         </div>
                         <div className='h-8'></div>
@@ -201,7 +202,7 @@ function TestView(props: PaySlipUI) {
                                 <p className='text-start pl-1 mb-4'>Received By:</p>
                             </div>
                             <div>
-                                <p className='text-start pr-1 mb-0 border-b border-black'>{ThisProps?.emp_cname || `...`}</p>
+                                <p className='text-start pr-1 mb-0 border-b border-black'>{data?.emp_cname || `...`}</p>
                                 <p className='text-center pr-1 text-xs italic'>Signature</p>
                             </div>
                         </div>
@@ -215,9 +216,6 @@ function TestView(props: PaySlipUI) {
         </div>
     )
 }
-
-export default TestView;
-
 
 const paySlipArea = {
     height: '148.5mm',

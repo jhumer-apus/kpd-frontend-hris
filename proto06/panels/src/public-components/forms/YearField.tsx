@@ -10,11 +10,11 @@ export default function YearField(props: Props) {
 
     const { handleChange, ...restProps } = props
 
-    const currentYear = parseInt(dayjs().format('YYYY'))
+    const currentYear = dayjs().format('YYYY')
 
     const getListOfYears = useMemo(() => {
         const listOfYears = []
-        for(let year = currentYear; 1900 < year; year--) {
+        for(let year = parseInt(currentYear); 1900 < year; year--) {
             listOfYears.push(
                 {
                     value: year.toString(),
@@ -29,6 +29,7 @@ export default function YearField(props: Props) {
         <Fragment>
             <SelectField
                 label="Year"
+                defaultValue={currentYear}
                 options={getListOfYears}
                 onChange={handleChange}
                 {...restProps}

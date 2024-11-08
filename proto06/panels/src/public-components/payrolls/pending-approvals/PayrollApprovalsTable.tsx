@@ -10,12 +10,14 @@ import PayrollsTable from "./PayrollsTable";
 interface Props {
     rows: any[]
     loading: boolean,
+    refreshPayrollApprovers: () => void
 }
 export default function PayrollApprovalsTable(props: Props) {
-    const { rows, loading:loadingPendingPayrolls } = props
+    const { rows, loading:loadingPendingPayrolls, refreshPayrollApprovers } = props
 
     const {payrollList, fetchPayrollList, loading:loadingPayrolls} = usePayrollList()
     const [showPayrollList, setShowPayrollList] = useState<boolean>(false)
+    const [selectedPayrollApprover, setSelectedPayrollApprover] = useState<any>(null)
 
     const columns: GridColDef[] = [
         {
@@ -51,12 +53,12 @@ export default function PayrollApprovalsTable(props: Props) {
             width: 150,
         },
         {
-            field: 'branch_id',
+            field: 'branch_name',
             headerName: "Branch",
             width: 150,
         },
         {
-            field: 'cutoff_id',
+            field: 'cutoff_name',
             headerName: "Cut Off",
             width: 150,
         },
@@ -79,16 +81,25 @@ export default function PayrollApprovalsTable(props: Props) {
             field: 'approved1_date',
             headerName: "Date Approver 1",
             width: 150,
+            valueGetter: (params) => {
+                return params?.row?.approved1_date? dayjs(params.row.approved1_date).format("MMM DD, YYYY"): ""
+            }
         },
         {
             field: 'approved2_date',
             headerName: "Date Approver 2",
             width: 150,
+            valueGetter: (params) => {
+                return params?.row?.approved2_date? dayjs(params.row.approved2_date).format("MMM DD, YYYY"): ""
+            }
         },
         {
             field: 'approved3_date',
             headerName: "Date Approver 3",
             width: 200,
+            valueGetter: (params) => {
+                return params?.row?.approved3_date? dayjs(params.row.approved3_date).format("MMM DD, YYYY"): ""
+            }
         },
         {
             field: 'disapproved_by',
@@ -99,6 +110,7 @@ export default function PayrollApprovalsTable(props: Props) {
 
     const viewPayrollList = (selectedRow:any) => {
         setShowPayrollList(curr => true)
+        setSelectedPayrollApprover(selectedRow)
         fetchPayrollList(selectedRow.id)
     }
 
@@ -119,9 +131,12 @@ export default function PayrollApprovalsTable(props: Props) {
                 // onRowClick={(params) => onSelectedRow(params?.row)}
             />
             <PayrollsTable 
-                payrollList={payrollList} 
+                payrollList={payrollList}
+                loading={loadingPayrolls}
                 open={showPayrollList}
                 handleClose={handleClosePayrollList}
+                payrollApproverId={selectedPayrollApprover?.id}
+                refreshPayrollApprovers={refreshPayrollApprovers}
             />
         </div>
     )

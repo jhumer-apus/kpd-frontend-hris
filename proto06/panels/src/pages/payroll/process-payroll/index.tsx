@@ -30,7 +30,6 @@ export default function ProcessPayroll() {
 
     const handleChangeCutoff = (key:string, newValue:any) => {
 
-        console.log(newValue)
         setData((curr:any) => (
             {
                 ...curr,
@@ -40,12 +39,18 @@ export default function ProcessPayroll() {
     }
 
     const onSelectedEmployees = (selectedEmployees: any) => {
-        console.log(selectedEmployees)
+        const listOfEmployeeNo = selectedEmployees.map((emp:any) => emp.emp_no)
+        setData((curr:any) => (
+            {
+                ...curr,
+                emp_no:listOfEmployeeNo
+            }
+        ))
     }
 
     const onProcess = () => {
 
-        validate()
+        if(validate().isError) return
         
         const payload = {
             cutoff_id: data.cutoff_id,
@@ -68,11 +73,11 @@ export default function ProcessPayroll() {
                     }))
                 })
                 .catch(err => {
-                    console.error(err?.res?.data)
+                    console.error(err?.response)
                     dispatch(HandleAlertAction({
                         open: true,
                         status: "error",
-                        message: err?.res?.data
+                        message: err?.response?.data?.["Error Message"]
                     }))
                 })
     }
@@ -98,9 +103,15 @@ export default function ProcessPayroll() {
                         message: errors[err]
                     }
                 ))
-                break
+                return {
+                    isError:true
+                }
             }
         } 
+
+        return {
+            isError:false
+        }
     }
 
     return (

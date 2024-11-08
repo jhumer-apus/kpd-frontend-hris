@@ -29,7 +29,8 @@ export default function PayrollPendingApproval() {
             axiosInstance
                 .get(`payroll_approver`, {
                     params: {
-                        approver: currUser?.emp_no
+                        approver: currUser?.emp_no,
+                        status: "P"
                     }
                 })
                 .then(res => {
@@ -53,6 +54,7 @@ export default function PayrollPendingApproval() {
             <PayrollApprovalsTable 
                 rows={payrollApprovers.data} 
                 loading={payrollApprovers.loading}
+                refreshPayrollApprovers={fetchPayrollByApprovers}
             />
         </div>
     )
