@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import { HandleAlertAction } from "@/store/actions/components";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import axiosInstance from "@/helpers/axiosConfig";
-
 import StaticInfo from "./information/StaticInfo";
 import PersonalInfo from "./information/PersonalInfo";
 import EmploymentInfo from "./information/EmploymentInfo";

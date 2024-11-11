@@ -18,23 +18,20 @@ import EMPHISTORYCreate from './left-side/create-emp-history';
 
 const PaperStyle: CSSProperties = {
   padding: "20px",
-  height: "800px",
+  height: "auto",
   // overflowY: 'auto'
 }
 
 const Grid = styled(MuiGrid)(({ theme }) => ({
   width: '100%',
   height: "100%",
+  margin: 0,
   ...theme.typography.body2,
   '& [role="separator"]': {
     margin: theme.spacing(0, 2),
   },
+  columnGap: '15px',
 }));
-
-
-
-
-
 
 export default function EmploymentHistoryPage() {
   const dispatch = useDispatch();
@@ -49,8 +46,6 @@ export default function EmploymentHistoryPage() {
     year: +(dayjs(new Date()).format('YYYY'))
   });
 
-
-
   useEffect(()=>{
     dispatch(ALLSCHEDULEViewSpecificAction(filterState))
   }, [])
@@ -59,14 +54,14 @@ export default function EmploymentHistoryPage() {
     <Fragment>
       {/* <div style={{border: '1px solid red'}}><ExportToCsv/></div> */}
       <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
-        <Grid item xs={6}>
+        <Grid item xs={5.8} className='!pl-0'>
           <Paper elevation={3} style={PaperStyle}>
-            <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
+            <Box sx={{ width: '100%', height: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
               <EMPHISTORYCreate currEmployee={currEmployee} setCurrEmployee={setCurrEmployee}/>
             </Box>
           </Paper>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={6} className='!pl-0'>
           <Paper elevation={3} style={PaperStyle}>
             <div className='flex justify-between'>
             <Typography variant={'h6'} style={{alignItems: 'center', display: 'flex'}}>Employment History of Emp # </Typography>

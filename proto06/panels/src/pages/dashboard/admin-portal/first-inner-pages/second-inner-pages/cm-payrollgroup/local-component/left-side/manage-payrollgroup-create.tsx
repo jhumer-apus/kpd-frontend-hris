@@ -110,7 +110,7 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a Payroll Group Data</Typography>
-            <form onSubmit={onClickSubmit} className='flex flex-col gap-3 w-3/4 items-center'>
+            <form onSubmit={onClickSubmit} className='flex flex-col gap-3  w-full sm:w-3/4 items-center mt-6 pt-3'>
                 <TextField
                     required 
                     sx={{width: '100%'}} 
@@ -179,7 +179,7 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
                     </Select>    
                 </FormControl>
 
-                <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
+                <div className='flex justify-center mt-6 mb-6' container-name='leave_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
                         <Button variant='contained' type="submit">Create PAYROLLGROUP</Button>
                     </div>

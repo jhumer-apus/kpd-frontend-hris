@@ -34,7 +34,6 @@ axiosInstance.interceptors.request.use(
         const response = await axios.post(`${APILink}'/api/v1/refresh/`, { refresh: refreshToken });
         const { access, refresh } = response.data;
 
-
         // Update access token in the headers and cookies
         config.headers.Authorization = `Bearer ${access}`;
         Cookies.set('access_token', access, { expires: 6 / 24, secure: isSecure });

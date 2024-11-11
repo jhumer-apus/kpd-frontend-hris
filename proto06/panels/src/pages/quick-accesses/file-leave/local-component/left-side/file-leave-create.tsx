@@ -64,7 +64,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
     const [createLEAVE, setCreateLEAVE] = useState<LEAVECreateInterface>({
         emp_no: NaN,
         leave_credit: null,
-        leave_remarks: null,
+        leave_remarks: '',
         leave_date_from: null,
         leave_date_to: null,
         added_by: userData?.emp_no,
@@ -72,10 +72,6 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         emergency_reasons: null,
         option:null
     });
-
-    useEffect(() => {
-        console.log(leaveType)
-    }, [leaveType])
 
     useEffect(() => {
 
@@ -122,6 +118,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         }
         return false
     }
+
     const onClickSubmit = (e:any) => {
 
         e.preventDefault()
@@ -153,14 +150,22 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         //     }
         // }
         
-        console.log(formData)
         submitNewFileLeave(formData)
         // dispatch(LEAVECreateAction(formData))
     };
-
-    // remove after debugging
-    console.log('hello');
     
+    const formReseter = (): void => {
+        setCreateLEAVE((prevState) => ({
+            ...prevState,
+            leave_credit: null,
+            leave_remarks: '',
+            leave_date_from: null,
+            leave_date_to: null,
+            uploaded_file: "",
+            emergency_reasons: null,
+            option:null
+        }))
+    }
 
     const submitNewFileLeave = async (formData:FormData) => {
 
@@ -177,7 +182,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
             }))
             
             sendEmail(createLEAVE.emp_no, res.data.leave_ids)
-
+            formReseter();
         }).catch((err:any) => {
 
             setIsSubmittingRequest(false)
@@ -387,7 +392,6 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '2px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a Leave Data</Typography>
 
-            
             {/* <div className='my-4'>
                 <Typography fontSize="xl" fontWeight="lg">
                     Remaining Leave Credits
@@ -421,15 +425,16 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                                 }))
                             })}
                             sx={{ width: '100%' }}
+                            value={createLEAVE.leave_credit}
                             // isOptionEqualToValue={isOptionEqualToValue}
                             renderInput={(params) => 
                                 {   
-                                    return(
-                                        <TextField {...params} label="Leave Types" />
+                                    return (
+                                        <>
+                                            <TextField {...params} label="Leave Types"/>
+                                        </>
                                     )
-
                                 }
-
                             }
                         />
 
@@ -450,7 +455,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
                             label='LEAVE Description:'  
                             variant='outlined' 
                             multiline rows={2}
-                            value={createLEAVE?.leave_remarks}
+                            value={createLEAVE.leave_remarks}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 // event.target.value
                                 setCreateLEAVE((prevState)=> {

@@ -8,13 +8,14 @@ import AAANNOUNCEMENTCreate from './local-component/left-side/aa-announcement-co
 
 const PaperStyle = {
     padding: "20px",
-    height: "900px",
+    height: 'auto',
     overflow: 'auto'
 }
 
 const Grid = styled(MuiGrid)(({ theme }) => ({
     width: '100%',
     height: "100%",
+    margin: 0,
     ...theme.typography.body2,
     '& [role="separator"]': {
       margin: theme.spacing(0, 2),
@@ -27,15 +28,20 @@ export default function AAANNOUNCEMENT() {
 
   return (
     <Fragment>
-        <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
-            <Grid item xs>
+        <Grid 
+            container 
+            direction={matches ? 'column' : 'row'} 
+            spacing={4} 
+            className='!gap-3'
+        >
+            <Grid item xs className='!pl-0'>
                 <Paper elevation={3} style={PaperStyle}>
                     <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
                         <AAANNOUNCEMENTCreate/>
                     </Box>
                 </Paper>
             </Grid>
-            <Grid item xs>
+            <Grid item xs className='!pl-0'>
                 <Paper elevation={3} style={PaperStyle}>
                     <AAANNOUNCEMENTPageHistory/>
                 </Paper>

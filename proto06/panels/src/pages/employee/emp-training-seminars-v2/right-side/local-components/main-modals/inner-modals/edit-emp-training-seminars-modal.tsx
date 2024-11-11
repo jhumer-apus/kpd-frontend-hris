@@ -66,8 +66,7 @@ export default function EditEMPSEMINARSModal(props: EditEMPSEMINARSModalInterfac
   const nullValues = Object.values(singleEMPSEMINARSDetailsData).filter(
     value => typeof value === null
   );
-    console.log(EditEMPSEMINARSOpenModal, "h123")
-  const EditEMPSEMINARS = () => { 
+    const EditEMPSEMINARS = () => { 
 
     setEditEMPSEMINARSOpenModal(false)
 
@@ -106,8 +105,6 @@ export default function EditEMPSEMINARSModal(props: EditEMPSEMINARSModalInterfac
       });
     };
   }, [EMPSEMINARSEditState.status, singleEMPSEMINARSDetailsData]);
-
-  console.log(EMPSEMINARSEditState.status, "huh?")
 
   useEffect(()=> {
 
@@ -175,7 +172,7 @@ export default function EditEMPSEMINARSModal(props: EditEMPSEMINARSModalInterfac
             size='sm'
         > 
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <Typography variant='h6' className='border-b-2 border-green-700'>Editing Employment History Details</Typography>
+              <Typography variant='h6' className='border-b-2 border-green-700'>Editing Training and Seminar Details</Typography>
               <div>
                 {/* <Box sx={CircularProgressStyle}>
                     <span style={{marginLeft: "50%", marginTop: "20%"}}><CircularProgress /></span>

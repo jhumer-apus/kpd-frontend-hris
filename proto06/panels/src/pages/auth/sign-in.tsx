@@ -47,7 +47,7 @@ export function SignIn() {
 
   return (
     <div 
-      className="m-auto w-full"
+      className="m-auto w-full pt-10"
       id="signin-wrapper"
     >
       {/* <img
@@ -57,7 +57,7 @@ export function SignIn() {
       {/* <div 
         className="absolute inset-0 z-0 h-full w-full bg-black/50" 
       /> */}
-      <form onSubmit={onSubmit} className="max-w-[400px] m-auto">
+      <form onSubmit={onSubmit} className="w-[300px] sm:w-[400px] m-auto">
         <Card 
           // className="absolute top-2/4 left-2/4 w-full max-w-[24rem] -translate-y-2/4 -translate-x-2/4"
           className=""

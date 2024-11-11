@@ -20,10 +20,12 @@ const PaperStyle = {
 const Grid = styled(MuiGrid)(({ theme }) => ({
     width: '100%',
     height: "100%",
+    margin: 0,
     ...theme.typography.body2,
     '& [role="separator"]': {
       margin: theme.spacing(0, 2),
     },
+    columnGap: '15px',
 }));
 
 export default function CreateSummaryPage() {
@@ -46,13 +48,13 @@ export default function CreateSummaryPage() {
     return (
       <Fragment>
           <form>
-          <Grid container direction={matches ? 'column' : 'row'} spacing={2}>
-              <Grid item xs={6}>
+          <Grid container direction={matches ? 'column' : 'row'} spacing={2}> 
+              <Grid item xs={5.8} className='!pl-0'>
                   <Paper elevation={3} style={PaperStyle}>
                       <CutOffListTable selectedRows={selectedRows} setSelectedRows={setSelectedRows}/>
                   </Paper>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={6} className='!pl-0'>
                   <Paper elevation={3} style={PaperStyle}>
                       <CutOffListEmployees employees={employees} selectedRows={selectedRows} setSelectedRows={setSelectedRows}/>
                   </Paper>

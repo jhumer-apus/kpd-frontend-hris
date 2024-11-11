@@ -105,9 +105,9 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
     return (
         <React.Fragment>
             <Typography style={{border: '2px solid rgb(25, 118, 210)', width: '100%', textAlign: 'center', padding: '6px', background: 'rgb(245,247,248)', boxShadow: '4px 4px 10px rgb(200, 200, 222)'}} variant='plain'>Create a Cutoff Period Data</Typography>
-            <div className='flex flex-col gap-6 overflow-auto relative'>
-                <div className='flex flex-col gap-6 pt-10 xs:flex-row'>
-                    <div className='flex flex-col gap-6'>
+            <div className='flex flex-col justify-center items-center gap-6 overflow-auto relative w-full'>
+                <div className='flex flex-col justify-center items-center w-full gap-6 pt-10 custom_breakpoint_500:flex-row'>
+                    <div className='flex flex-col gap-6 !w-full'>
                         <TextField
                             required 
                             sx={{width: '100%'}} 
@@ -167,7 +167,7 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
                             onChange={handleChanges} 
                         />
                     </div>
-                    <div className='flex flex-col gap-6'>
+                    <div className='flex flex-col gap-6 !w-full'>
                         <CUTOFFPERIODDateCreate createCUTOFFPERIOD={createCUTOFFPERIOD} setCreateCUTOFFPERIOD={setCreateCUTOFFPERIOD}/>
                         <AutoCompleteForm 
                             id="payroll_group"
@@ -201,7 +201,7 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
                         <CUTOFFPERIODCreditDateCreate createCUTOFFPERIOD={createCUTOFFPERIOD} setCreateCUTOFFPERIOD={setCreateCUTOFFPERIOD}/>
                     </div>
                 </div>
-                <div className='flex justify-center mt-6' container-name='leave_buttons_container'>
+                <div className='flex justify-center mt-6 mb-6' container-name='leave_buttons_container'>
                     <div className='flex justify-between' style={{width:'100%'}} container-name='leave_buttons'>
                         <Button variant='contained' onClick={onClickSubmit}>Create CUTOFF PERIOD</Button>
                     </div>
