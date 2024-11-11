@@ -8,7 +8,7 @@ import InputField from "@/public-components/forms/InputField";
 import SelectField from "@/public-components/forms/SelectField";
 import { HandleAlertAction } from "@/store/actions/components";
 import { RootState } from "@/store/configureStore";
-import { Button, FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material";
+import { Button, FormControl, InputAdornment, InputLabel, MenuItem, Select, Typography } from "@mui/material";
 import dayjs, { Dayjs } from "dayjs";
 import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,6 +24,7 @@ export default function EmploymentInfo() {
 
     const [employmentInfo, setEmploymentInfo] = useState<any>(
         {
+            emp_no: "",
             date_hired: null,
             date_separation: null,
             separation_type: "",
@@ -73,6 +74,8 @@ export default function EmploymentInfo() {
     const resetEmploymentInfo = () => {
         setEmploymentInfo((curr:any) => (
             {
+                id: employeeData?.id,
+                emp_no: employeeData?.emp_no?.slice(-3),
                 date_hired: employeeData?.date_hired ? dayjs(employeeData.date_hired): null,
                 date_separation: employeeData?.date_separation? dayjs(employeeData.date_separation): null,
                 separation_type: employeeData?.separation_type,
@@ -147,11 +150,11 @@ export default function EmploymentInfo() {
             formData.append(key, payload[key])
         }
 
-        updateEmploymentInfo(formData, payload?.emp_no)
+        updateEmploymentInfo(formData, payload)
     }
 
-    const updateEmploymentInfo = async (formData: FormData, emp_no: string | number) => {
-        await axiosInstance.put(`employees/${emp_no}/`, formData)
+    const updateEmploymentInfo = async (formData: FormData, payload:any) => {
+        await axiosInstance.put(`employees/${payload?.id}/`, formData)
             .then(res => {
                 dispatch(HandleAlertAction({
                     open:true,
@@ -159,7 +162,7 @@ export default function EmploymentInfo() {
                     message:"Update Employment Information Successfully"
                 }))
                 setIsEdit(curr => false)
-                fetchEmployeeData(emp_no)
+                fetchEmployeeData(payload?.emp_no)
             })
             .catch(err => {
                 console.log(err)
@@ -171,12 +174,59 @@ export default function EmploymentInfo() {
             })
     }
 
+    const initialEmployeeNumber = `${branches.data.find(branch => branch.value == employeeData.branch_code)?.start ?? "0"}-${employeeData?.department_code?? "0"}00${dayjs(employeeData?.date_hired)?.format("YY")??"00"}`
+
     return (
         <div>
             <form onSubmit={submit} className="flex flex-col gap-8">
                 <div id="employment-status-wrapper">
                     <Typography variant="h6" component="h6" className="font-bold">Employment Details</Typography><br></br>
                     <div className="flex flex-col md:flex-row md:flex-wrap gap-8">
+                        <SelectField 
+                            className="w-full md:w-[300px]"
+                            labelId="company"
+                            id="company"
+                            label="Company"
+                            name="company"
+                            loading={branches.loading}
+                            inputProps={{ readOnly: false }} 
+                            options={branches.data}
+                            value={employmentInfo?.branch_code}
+                            onChange={handleValueChange}
+                            disabled={!isEdit}
+                        />
+
+                        <SelectField 
+                            className="w-full md:w-[300px]"
+                            labelId="department"
+                            id="department"
+                            label="Department"
+                            name="department_code"
+                            loading={departments.loading}
+                            inputProps={{ readOnly: false }} 
+                            options={departments.data}
+                            value={employmentInfo?.department_code}
+                            onChange={handleValueChange}
+                            disabled={!isEdit}
+                        />
+
+                        <InputField
+                            required
+                            label="Employee No:" 
+                            variant="outlined"
+                            value={employmentInfo?.emp_no || ""}
+                            startAdornment={(
+                                <InputAdornment position="start">
+                                    {initialEmployeeNumber}
+                                </InputAdornment>
+                            )}
+                            onChange={handleValueChange}
+                            inputProps={{
+                                maxLength: 3
+                            }} 
+                            name="emp_no"
+                            readOnly={!isEdit}
+                        />
                         <DatePickerField 
                             label="Date Hired"
                             value={employmentInfo?.date_hired? dayjs(employmentInfo?.date_hired): null}
@@ -226,33 +276,6 @@ export default function EmploymentInfo() {
                             inputProps={{ readOnly: false }} 
                             options={positions.data}
                             value={employmentInfo?.position_code}
-                            onChange={handleValueChange}
-                            disabled={!isEdit}
-                        />
-
-                        <SelectField 
-                            className="w-full md:w-[300px]"
-                            labelId="company"
-                            id="company"
-                            label="Company"
-                            name="company"
-                            loading={branches.loading}
-                            inputProps={{ readOnly: false }} 
-                            options={branches.data}
-                            value={employmentInfo?.branch_code}
-                            onChange={handleValueChange}
-                            disabled={!isEdit}
-                        />
-                        <SelectField 
-                            className="w-full md:w-[300px]"
-                            labelId="department"
-                            id="department"
-                            label="Department"
-                            name="department_code"
-                            loading={departments.loading}
-                            inputProps={{ readOnly: false }} 
-                            options={departments.data}
-                            value={employmentInfo?.department_code}
                             onChange={handleValueChange}
                             disabled={!isEdit}
                         />

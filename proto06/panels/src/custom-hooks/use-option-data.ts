@@ -7,6 +7,15 @@ interface Option {
     label: React.ReactNode; // Use React.ReactNode for JSX elements
 }
 
+interface BranchOption extends Option { 
+    start: string
+}
+
+interface BranchAPIOptions {
+    data: BranchOption[],
+    loading: boolean
+}
+
 type APIOptions  = {
     data: Option[],
     loading: boolean
@@ -31,7 +40,7 @@ export const useOptionData = () => {
         }
     )
 
-    const [branches, setBranches] = useState<APIOptions>(
+    const [branches, setBranches] = useState<BranchAPIOptions>(
         {
             data: [],
             loading: false,
