@@ -37,6 +37,7 @@ import EAAPPLICANTSLIST from "../pages/dashboard/admin-portal/first-inner-pages/
 import EAJOBPOSTINGS from "../pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/ea-job-postings/ea-job-postings";
 import { HomeIcon } from "@heroicons/react/24/solid";
 import { INTERNAL_USER_ROLE } from "@/types/types-store";
+import ManageViolationType from "@/pages/dashboard/admin-portal/first-inner-pages/second-inner-pages/cm-violation-type";
 
 const icon = { className: "w-5 h-5 text-inherit" };
 
@@ -121,6 +122,14 @@ export const routesAdmin = (currentUserRole: number) => {
                 name: "Employment Status Type",
                 path: "/Dashboards/Admin-Portal/Categories/Employment-Status-Type",
                 element: <ManageEmploymentStatusTypes />,
+                hasSubItems: false,
+              },
+              {
+                id: 1120007,
+                icon: null,
+                name: "Violation Type",
+                path: "/Dashboards/Admin-Portal/Categories/Violation-Type",
+                element: <ManageViolationType />,
                 hasSubItems: false,
               },
             ]
