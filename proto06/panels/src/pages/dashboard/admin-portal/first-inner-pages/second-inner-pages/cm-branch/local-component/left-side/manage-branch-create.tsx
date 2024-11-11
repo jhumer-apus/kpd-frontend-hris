@@ -69,6 +69,9 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
         !data.branch_name && (error["Branch Name"] = "Branch Name is required!")
         !data.branch_province && (error["Branch Province"] = "Branch Province is required!")
         !data.branch_city && (error["Branch City"]= "Branch City is required!")
+        !data.approver1 && (error["Approver 1"]= "Approver 1 is required!")
+        !data.approver2 && (error["Approver 2"]= "Approver 2 is required!")
+        !data.approver3 && (error["Approver 3"]= "Approver 3 is required!")
 
         if (Object.keys(error).length > 0) {
             window.alert(beautifyJSON(error))
@@ -84,6 +87,9 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
             branch_address: "",
             branch_email: "",
             branch_contact_number: "",
+            approver1: "",
+            approver2: "",
+            approver3: "",
             branch_oic: NaN,
             province: {
                 id: null,

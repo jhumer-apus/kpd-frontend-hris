@@ -22,6 +22,11 @@ export default function ManageBRANCHPageHistory() {
     branch_address: '',
     branch_email: '',
     branch_contact_number: '',
+    branch_city: null,
+    branch_province: null,
+    approver1: "",
+    approver2: "",
+    approver3: "",
     branch_oic: NaN,
   });
   
