@@ -23,8 +23,8 @@ function ProceduralCUTOFFPERIODCreate(props: CreateCUTOFFPERIODModalInterface) {
     const [createCUTOFFPERIOD, setCreateCUTOFFPERIOD] = useState<CUTOFFPERIODCreateInterface>({
         co_name: null,
         co_description: null,
-        co_date_from: null,
-        co_date_to: null,
+        datetime_from: null,
+        datetime_to: null,
         reg_days_total: null,
         credit_date: null,
         payroll_group_code: null,

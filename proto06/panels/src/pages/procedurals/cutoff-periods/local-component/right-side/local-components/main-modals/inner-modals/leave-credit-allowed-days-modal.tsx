@@ -224,7 +224,7 @@ export default function AllowedDaysCUTOFFPERIODModal(props: AllowedDaysCUTOFFPER
                 <div className='flex gap-5 flex-col'>
                     <DateTimePicker
                       label="Date Range From:"
-                      value={dayjs(singleCUTOFFPERIODDetailsData.co_date_from)}
+                      value={dayjs(singleCUTOFFPERIODDetailsData.datetime_from)}
                       onChange={(newValue) => {
                           const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
                           return (
@@ -232,7 +232,7 @@ export default function AllowedDaysCUTOFFPERIODModal(props: AllowedDaysCUTOFFPER
                                   return(
                                       {
                                           ...prevState,
-                                          co_date_from: formattedDate
+                                          datetime_from: formattedDate
                                       }
                                   )
                               })
@@ -241,7 +241,7 @@ export default function AllowedDaysCUTOFFPERIODModal(props: AllowedDaysCUTOFFPER
                     />
                     <DateTimePicker
                       label="Date Range Until:"
-                      value={dayjs(singleCUTOFFPERIODDetailsData.co_date_to)}
+                      value={dayjs(singleCUTOFFPERIODDetailsData.datetime_to)}
                       onChange={(newValue) => {
                           const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
                           return (
@@ -249,7 +249,7 @@ export default function AllowedDaysCUTOFFPERIODModal(props: AllowedDaysCUTOFFPER
                                   return(
                                       {
                                           ...prevState,
-                                          co_date_to: formattedDate
+                                          datetime_to: formattedDate
                                       }
                                   )
                               })

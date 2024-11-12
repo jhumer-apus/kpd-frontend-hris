@@ -76,8 +76,8 @@ function CUTOFFPERIODModalUI(props: CUTOFFPERIODModalUIInterface) {
                 </div>
                 <div className='flex gap-6 flex-col'>
                     <TextField sx={{width: '100%', minWidth: '160px', color: 'green'}} label='Cutoff Code ID' value={ThisProps.id || 'No Cutoff Period ID'} InputProps={{readOnly: true,}} variant='filled' focused/>
-                    <TextField sx={{width: '100%'}} label='Date Range From:' value={ThisProps.co_date_from? dayjs(ThisProps.co_date_from).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
-                    <TextField sx={{width: '100%'}} label='Date Range Until:' value={ThisProps.co_date_to? dayjs(ThisProps.co_date_to).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%'}} label='Date Range From:' value={ThisProps.datetime_from? dayjs(ThisProps.datetime_from).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
+                    <TextField sx={{width: '100%'}} label='Date Range Until:' value={ThisProps.datetime_to? dayjs(ThisProps.datetime_to).format('MM-DD-YYYY - HH:mm a') : '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     <TextField sx={{width: '100%'}} label='# of Regular (Non-Holiday) days' value={(ThisProps.reg_days_total || 0)} focused={!!ThisProps.reg_days_total} color={(ThisProps.reg_days_total || 0) > 1? 'success' : 'warning'} InputProps={{readOnly: true,}} variant='standard'/>
                 </div>
                 <div className='flex gap-6 flex-col'>

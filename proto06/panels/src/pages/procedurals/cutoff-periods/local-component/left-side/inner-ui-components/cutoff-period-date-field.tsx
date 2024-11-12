@@ -27,13 +27,13 @@ export default function CUTOFFPERIODDateCreate(props: DateFromToCUTOFFPERIODCrea
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
                 label="Cutoff Date From"
-                value={dayjs(createCUTOFFPERIOD?.co_date_from)}
-                onChange={(value) => handleChanges('co_date_from', value)}                
+                value={dayjs(createCUTOFFPERIOD?.datetime_from)}
+                onChange={(value) => handleChanges('datetime_from', value)}                
             />
             <DateTimePicker
                 label="Cutoff Date Until"
-                value={dayjs(createCUTOFFPERIOD?.co_date_to)}
-                onChange={(value) => handleChanges('co_date_to', value)}
+                value={dayjs(createCUTOFFPERIOD?.datetime_to)}
+                onChange={(value) => handleChanges('datetime_to', value)}
             />
         </LocalizationProvider>
     );

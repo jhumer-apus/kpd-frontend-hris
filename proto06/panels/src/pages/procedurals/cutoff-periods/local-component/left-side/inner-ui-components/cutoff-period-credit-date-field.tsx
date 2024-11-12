@@ -35,7 +35,7 @@ export default function CUTOFFPERIODCreditDateCreate(props: CUTOFFPERIODCreditDa
             />
             {/* <DateTimePicker
             label="Cutoff Date Until"
-            value={createCUTOFFPERIOD?.co_date_to}
+            value={createCUTOFFPERIOD?.datetime_to}
             onChange={(newValue) => {
                 const formattedDate = dayjs(newValue).format('YYYY-MM-DDTHH:mm:ss');
                 return(
@@ -43,7 +43,7 @@ export default function CUTOFFPERIODCreditDateCreate(props: CUTOFFPERIODCreditDa
                         return(
                             {
                                 ...prevState,
-                                co_date_to: formattedDate
+                                datetime_to: formattedDate
                             }
                         )
                     })

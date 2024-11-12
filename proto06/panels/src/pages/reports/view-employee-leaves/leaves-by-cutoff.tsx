@@ -101,8 +101,8 @@ export default function ViewEmployeeLeaves() {
             const cleanCutOffs = res.data.map((cutoff:any) => {
                 return {
                     ...cutoff,
-                    cleanDateFrom: readableFormatDate(cutoff.co_date_from),
-                    cleanDateTo: readableFormatDate(cutoff.co_date_to)
+                    cleanDateFrom: readableFormatDate(cutoff.datetime_from),
+                    cleanDateTo: readableFormatDate(cutoff.datetime_to)
                 }
             })
 

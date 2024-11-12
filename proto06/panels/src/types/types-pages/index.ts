@@ -34,8 +34,8 @@ export type DTRCutoffListType = {
     id: number;
     co_name: string;
     co_description: string;
-    co_date_from: string;
-    co_date_to: string;
+    datetime_from: string;
+    datetime_to: string;
     reg_days_total: number;
     co_is_processed: boolean;
     credit_date: string;
@@ -138,8 +138,8 @@ export const PaySlipDataInitialState: ViewPayrollPayPerEmployee = {
         id: 0,
         co_name: '',
         co_description: '',
-        co_date_from: '',
-        co_date_to: '',
+        datetime_from: '',
+        datetime_to: '',
         reg_days_total: 0,
         co_is_processed: false,
         credit_date: '',
@@ -497,8 +497,8 @@ export interface LEAVETYPEEditInterface extends LEAVETYPEViewInterface {}
 export interface CUTOFFPERIODCreateInterface {
     co_name: string | null;
     co_description: string | null;
-    co_date_from: string | null;
-    co_date_to: string | null;
+    datetime_from: string | null;
+    datetime_to: string | null;
     reg_days_total: number | null;
     credit_date: string | null;
     payroll_group_code: number | null;
