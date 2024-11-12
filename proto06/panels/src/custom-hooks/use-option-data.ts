@@ -69,7 +69,7 @@ export const useOptionData = () => {
         }
     )
 
-    const [approvers, setApprovers] = useState<AutoCompleteAPIOptions>(
+    const [approvers, setApprovers] = useState<any>(
         {
             data: [],
             loading: false,
@@ -397,7 +397,7 @@ export const useOptionData = () => {
 
     const fetchApprovers = async () => {
 
-        setApprovers(curr => (
+        setApprovers((curr:any) => (
             {
                 data: [],
                 loading: true
@@ -408,7 +408,8 @@ export const useOptionData = () => {
             .then(res => {
                 const mappedApprovers = Array.isArray(res.data) ? res.data.map(approver=> (
                     {
-                        id: approver.emp_no,
+                        id: approver.emp_id,
+                        emp_no: approver.emp_no,
                         name: approver.full_name
                     }
                 )) : []
@@ -422,7 +423,7 @@ export const useOptionData = () => {
             })
             .catch(err => {
                 console.error(err)
-                setApprovers(curr => (
+                setApprovers((curr:any) => (
                     {
                         data: [],
                         loading: false

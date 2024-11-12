@@ -118,8 +118,6 @@ export const beautifyJSON = (jsonObj: BeautifyObject) => {
       beautifiedString += `${formattedKey} : ${value}\n`;
     }
   }
-
-  console.log(beautifiedString.trim())
   return beautifiedString.trim();
 }
 
