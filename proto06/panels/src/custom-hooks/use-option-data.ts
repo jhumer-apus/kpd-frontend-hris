@@ -408,8 +408,8 @@ export const useOptionData = () => {
             .then(res => {
                 const mappedApprovers = Array.isArray(res.data) ? res.data.map(approver=> (
                     {
-                        id: approver.emp_id,
-                        emp_no: approver.emp_no,
+                        id: approver.emp_no,
+                        // emp_no: approver.emp_no,
                         name: approver.full_name
                     }
                 )) : []

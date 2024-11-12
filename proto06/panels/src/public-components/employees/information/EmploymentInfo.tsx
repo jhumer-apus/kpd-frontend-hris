@@ -331,7 +331,7 @@ export default function EmploymentInfo() {
                                 id="approver1"
                                 options={approvers.data}
                                 label="Approver 1"
-                                getOptionLabel={(option:any) => option?.id? `${option.emp_no} - ${option.name}`: ""}
+                                getOptionLabel={(option:any) => option?.id? `${option.id} - ${option.name}`: ""}
                                 handleChange={handleChangeAutoComplete}
                                 value={employmentInfo?.approver1}
                                 optionNameKey="name"
@@ -347,7 +347,7 @@ export default function EmploymentInfo() {
                                 id="approver2"
                                 options={approvers.data}
                                 label="Approver 2"
-                                getOptionLabel={(option: any) => option?.id? `${option.emp_no} - ${option.name}`: ""}
+                                getOptionLabel={(option: any) => option?.id? `${option.id} - ${option.name}`: ""}
                                 handleChange={handleChangeAutoComplete}
                                 value={employmentInfo?.approver2}
                                 optionNameKey="name"
