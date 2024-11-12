@@ -51,10 +51,9 @@ export function useAuth() {
 
       const userObject = JSON.parse(user)
 
-      console.log(userObject)
       const accessToken:any = Cookies.get('access_token')
 
-      await axiosInstance.get(`employees/${userObject?.emp_no}`).then(res => {
+      await axiosInstance.get(`employees/${userObject?.emp_id}`).then(res => {
         
         const employeeDetail = res.data
   

@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 
 interface EmployeeContextType {
   employeeData: any;
-  fetchEmployeeData: (emp_no: string | number) =>  Promise<void>;
+  fetchEmployeeData: (id: number) =>  Promise<void>;
 }
 
 interface EmployeeProviderProps {
@@ -23,9 +23,9 @@ const EmployeeProvider: React.FC<EmployeeProviderProps> = ({children}) => {
     const dispatch = useDispatch()
 
     const test = () => console.log("helloooo")
-    const fetchEmployeeData = async (emp_no: string | number): Promise<void> => {
+    const fetchEmployeeData = async (id: number): Promise<void> => {
         // console.log("clicked fetch employee data")
-        await axiosInstance.get(`employees/${emp_no}/`)
+        await axiosInstance.get(`employees/${id}/`)
             .then(res => {
                 setEmployeeData((curr:any) => res.data)
             })

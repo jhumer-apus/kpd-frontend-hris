@@ -243,7 +243,7 @@ export default function DataTable() {
           // checkboxSelection
           onRowClick={(e) => {
             setViewEmployee(curr => true)
-            fetchEmployeeData(e.row?.emp_no)
+            fetchEmployeeData(e.row?.id)
             setModalEntranceDelay(true)
             setSecondOptionModalEntranceDelay(true)
             // dispatchSpecificEmployeeInfo(e.row?.emp_no)

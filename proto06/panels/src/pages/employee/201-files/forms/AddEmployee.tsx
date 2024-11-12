@@ -458,12 +458,12 @@ export const UserProfile = () => {
     // Validate image if its file
     const isFile = validateImage(employeeData.employee_image)
 
-    if(employeeData.employee_image == (null || undefined)) {
+    if(!employeeData?.employee_image) {
 
       window.alert("Profile Picture is required")
       return
 
-    }else if(!isFile) {
+    } else if(!isFile) {
 
       window.alert("Profile Picture should be image")
       return
@@ -471,7 +471,7 @@ export const UserProfile = () => {
 
     const formData = new FormData();
 
-    const finalData: EMPLOYEESViewInterface = {
+    const finalData: any = {
       // user: USERViewInterface | null
       employee_image: employeeData.employee_image,
       age: employeeData.age,

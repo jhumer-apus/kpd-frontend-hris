@@ -1,6 +1,7 @@
 import { EmployeeContext } from "@/context/employee/EmployeeContext";
 import { useOptionData } from "@/custom-hooks/use-option-data";
 import axiosInstance from "@/helpers/axiosConfig";
+import { getLast3Char } from "@/helpers/utils";
 import AutocompleteField from "@/public-components/forms/AutoCompleteField";
 import AutocompleteForm from "@/public-components/forms/AutoCompleteForm";
 import DatePickerField from "@/public-components/forms/DatePickerField";
@@ -24,6 +25,7 @@ export default function EmploymentInfo() {
 
     const [employmentInfo, setEmploymentInfo] = useState<any>(
         {
+            id: null,
             emp_no: "",
             date_hired: null,
             date_separation: null,
@@ -75,7 +77,7 @@ export default function EmploymentInfo() {
         setEmploymentInfo((curr:any) => (
             {
                 id: employeeData?.id,
-                emp_no: employeeData?.emp_no?.slice(-3),
+                emp_no: getLast3Char(employeeData?.emp_no),
                 date_hired: employeeData?.date_hired ? dayjs(employeeData.date_hired): null,
                 date_separation: employeeData?.date_separation? dayjs(employeeData.date_separation): null,
                 separation_type: employeeData?.separation_type,
@@ -154,7 +156,12 @@ export default function EmploymentInfo() {
     }
 
     const updateEmploymentInfo = async (formData: FormData, payload:any) => {
-        await axiosInstance.put(`employees/${payload?.id}/`, formData)
+
+        const { id, emp_no } = payload
+
+        console.log(id)
+
+        await axiosInstance.put(`employees/${id}/`, formData)
             .then(res => {
                 dispatch(HandleAlertAction({
                     open:true,
@@ -162,7 +169,7 @@ export default function EmploymentInfo() {
                     message:"Update Employment Information Successfully"
                 }))
                 setIsEdit(curr => false)
-                fetchEmployeeData(payload?.emp_no)
+                fetchEmployeeData(id)
             })
             .catch(err => {
                 console.log(err)
@@ -174,7 +181,7 @@ export default function EmploymentInfo() {
             })
     }
 
-    const initialEmployeeNumber = `${branches.data.find(branch => branch.value == employeeData.branch_code)?.start ?? "0"}-${employeeData?.department_code?? "0"}00${dayjs(employeeData?.date_hired)?.format("YY")??"00"}`
+    const initialEmployeeNumber = `${branches.data.find(branch => branch.value == employmentInfo.branch_code)?.start ?? "0"}-${employmentInfo?.department_code?? "0"}00${dayjs(employmentInfo?.date_hired)?.format("YY")??"00"}`
 
     return (
         <div>
@@ -182,12 +189,18 @@ export default function EmploymentInfo() {
                 <div id="employment-status-wrapper">
                     <Typography variant="h6" component="h6" className="font-bold">Employment Details</Typography><br></br>
                     <div className="flex flex-col md:flex-row md:flex-wrap gap-8">
+                        <DatePickerField 
+                            label="Date Hired"
+                            value={employmentInfo?.date_hired? dayjs(employmentInfo?.date_hired): null}
+                            onChange={(newValue: Dayjs | null) => handleDateChange("date_hired", newValue)}
+                            disabled={!isEdit}
+                        />
                         <SelectField 
                             className="w-full md:w-[300px]"
                             labelId="company"
                             id="company"
                             label="Company"
-                            name="company"
+                            name="branch_code"
                             loading={branches.loading}
                             inputProps={{ readOnly: false }} 
                             options={branches.data}
@@ -226,12 +239,6 @@ export default function EmploymentInfo() {
                             }} 
                             name="emp_no"
                             readOnly={!isEdit}
-                        />
-                        <DatePickerField 
-                            label="Date Hired"
-                            value={employmentInfo?.date_hired? dayjs(employmentInfo?.date_hired): null}
-                            onChange={(newValue: Dayjs | null) => handleDateChange("date_hired", newValue)}
-                            disabled={!isEdit}
                         />
                         <DatePickerField 
                             label="Date Separated"

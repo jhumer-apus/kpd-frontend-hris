@@ -151,6 +151,8 @@ export const checkDevice = () => {
   )
 }
 
+export const getLast3Char = (string: string) => string.slice(-3)
+
 
 type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 /**
