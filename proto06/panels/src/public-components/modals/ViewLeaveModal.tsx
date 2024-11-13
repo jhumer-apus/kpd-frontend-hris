@@ -52,7 +52,8 @@ export default function ViewLeaveModal (props: Props) {
         leave_uploaded_file: null,
         leave_approver1_empno: 9988,
         leave_approver2_empno: null,
-        cutoff_name: ""
+        cutoff_name: "",
+        emergency_reasons: ""
     })
 
     useEffect(() => {
@@ -240,10 +241,14 @@ export default function ViewLeaveModal (props: Props) {
                                 }}
                                 value={details.leave_approval_status}
                                 sx={{width: '100%'}}
-
                             />
 
-                            {renderRejectedReasons()}
+                            {(details.is_el || details.leave_type_name=="Emergency Leave") && 
+                                <Textarea 
+                                    label='Emergency Reason' 
+                                    value={details.emergency_reasons || ""} 
+                                />
+                            }
 
                         </div>
 
@@ -296,6 +301,7 @@ export default function ViewLeaveModal (props: Props) {
                                 sx={{width: '100%'}}
 
                             />
+                            {renderRejectedReasons()}
                             <div className='text-center h-full flex justify-center item-center'>
                                 {((details.is_sl  && !details.is_vl && !details.is_el) || details.leave_type_name=="Sick Leave") && 
                                 <Button onClick={viewImages}>View Supporting Image</Button>}

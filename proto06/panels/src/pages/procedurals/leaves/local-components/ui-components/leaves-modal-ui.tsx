@@ -179,6 +179,14 @@ function LEAVEModalUI(props: LEAVEModalUIInterface) {
                     <TextField sx={{width: '100%', minWidth: '160px'}} label='LEAVE Type:' value={ThisProps.leave_type_name || '-'} InputProps={{readOnly: true,}} variant='standard'/>
                     {/* <TextField sx={{width: '100%', minWidth: '160px'}} label='Employee #:' value={ThisProps.emp_no || '-'} InputProps={{readOnly: true,}} variant='filled'/> */}
                     {/* <TextField sx={{width: '100%', minWidth: '160px'}} label='LEAVE Type:' value={ThisProps.leave_type || '-'} InputProps={{readOnly: true,}} variant='standard'/> */}
+                    {(ThisProps.is_el || ThisProps.leave_type_name=="Emergency Leave") && 
+                        <TextField 
+                            sx={{width: '100%'}} 
+                            label='Emergency Reason' 
+                            value={ThisProps.emergency_reasons} 
+                            variant='standard'
+                        />
+                    }
                     {
                         ThisProps.leave_approval_status == 'DIS' &&
                         <TextField sx={{width: '100%', minWidth: '160px'}} focused={!!ThisProps.leave_reason_disapproval} color={'error'} label='Reason for Disapproval:' value={ThisProps.leave_reason_disapproval || '-'} InputProps={{readOnly: true,}} variant='outlined' multiline rows={4}/>
