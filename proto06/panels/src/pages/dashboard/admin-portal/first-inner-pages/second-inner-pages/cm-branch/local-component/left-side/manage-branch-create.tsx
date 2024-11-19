@@ -35,7 +35,12 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
     const BRANCHCreatestate = useSelector((state: RootState)=> state.categories.BRANCHCreate);
     const [formKey, setFormKey] = useState<number>(1)
 
-    const { employees, fetchEmployees } = useOptionData()
+    const { 
+        employees,
+        approvers,
+        fetchEmployees,
+        fetchApprovers
+    } = useOptionData()
     const [createBRANCH, setCreateBRANCH] = useState<any>({
         branch_name: "",
         branch_address: "",
@@ -153,6 +158,7 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
 
     useEffect(() => {
         fetchEmployees()
+        fetchApprovers()
     },[])
 
     useEffect(()=>{
@@ -190,7 +196,7 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
         setCreateBRANCH((curr:any) => (
             {
                 ...curr,
-                [key]: newValue?.emp_no?? ""
+                [key]: newValue?.id?? ""
             }
         ))
     }
@@ -310,39 +316,39 @@ function ManageBRANCHCreate(props: CreateBRANCHModalInterface) {
 
                         <AutocompleteField 
                             id="approver1"
-                            options={[]} 
+                            options={approvers.data} 
                             label="Approver 1"
-                            getOptionLabel={(option:any)=> option?.full_name ?? ""} 
+                            getOptionLabel={(option:any)=> option?.name ?? ""} 
                             handleChange={handleChangeAutocomplete} 
                             value={createBRANCH.approver1}
                             disabled={false}
-                            loading={employees.loading} 
-                            optionNameKey='full_name'
+                            loading={approvers.loading} 
+                            optionNameKey='name'
                             stateKey='approver1'                           
                         />
 
                         <AutocompleteField 
                             id="approver2"
-                            options={[]} 
+                            options={approvers.data} 
                             label="Approver 2"
-                            getOptionLabel={(option:any)=> option?.full_name ?? ""} 
+                            getOptionLabel={(option:any)=> option?.name ?? ""} 
                             handleChange={handleChangeAutocomplete} 
                             value={createBRANCH.approver2}
                             disabled={false}
-                            loading={employees.loading} 
-                            optionNameKey='full_name'
+                            loading={approvers.loading} 
+                            optionNameKey='name'
                             stateKey='approver2'                           
                         />
                         <AutocompleteField 
                             id="approver3"
-                            options={[]} 
+                            options={approvers.data} 
                             label="Approver 3"
-                            getOptionLabel={(option:any)=> option?.full_name ?? ""} 
+                            getOptionLabel={(option:any)=> option?.name ?? ""} 
                             handleChange={handleChangeAutocomplete} 
                             value={createBRANCH.approver3}
                             disabled={false}
-                            loading={employees.loading} 
-                            optionNameKey='full_name'
+                            loading={approvers.loading} 
+                            optionNameKey='name'
                             stateKey='approver3'                           
                         />
                     </div>

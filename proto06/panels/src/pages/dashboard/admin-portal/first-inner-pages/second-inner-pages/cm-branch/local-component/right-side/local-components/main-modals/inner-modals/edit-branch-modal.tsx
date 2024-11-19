@@ -29,7 +29,12 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
   const dispatch = useDispatch();
   const BRANCHEditState = useSelector((state: RootState)=> state.categories.BRANCHEdit)
   const curr_user = useSelector((state: RootState) => state.auth.employee_detail?.emp_no);
-  const { employees, fetchEmployees } = useOptionData()
+  const { 
+      employees,
+      approvers,
+      fetchEmployees,
+      fetchApprovers
+    } = useOptionData()
 
   const [address, setAddress] = useState({
     province: {
@@ -81,6 +86,10 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
     
   }
 
+  useEffect(() => {
+    fetchApprovers()
+  }, [])
+
   useEffect(()=>{
  
       if(BRANCHEditState.status === `${globalReducerSuccess}`){
@@ -121,7 +130,7 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
     setSingleBRANCHDetailsData((curr:any) => (
         {
             ...curr,
-            [key]: newValue?.emp_no?? ""
+            [key]: newValue?.id?? ""
         }
     ))
   }
@@ -275,41 +284,41 @@ export default function AllowedDaysBRANCHModal(props: AllowedDaysBRANCHModalInte
                 <AutocompleteField 
                   id="approver1"
                   className="w-full"
-                  options={[]} 
+                  options={approvers.data} 
                   label="Approver 1"
-                  getOptionLabel={(option:any)=> option?.full_name ?? ""} 
+                  getOptionLabel={(option:any)=> option?.name ?? ""} 
                   handleChange={handleChangeAutocomplete} 
                   value={singleBRANCHDetailsData.approver1}
                   disabled={false}
-                  loading={employees.loading} 
-                  optionNameKey='full_name'
+                  loading={approvers.loading} 
+                  optionNameKey='name'
                   stateKey='approver1'                           
                 />
 
                 <AutocompleteField 
                     id="approver2"
                     className="w-full"
-                    options={[]} 
+                    options={approvers.data} 
                     label="Approver 2"
-                    getOptionLabel={(option:any)=> option?.full_name ?? ""} 
+                    getOptionLabel={(option:any)=> option?.name ?? ""} 
                     handleChange={handleChangeAutocomplete} 
                     value={singleBRANCHDetailsData.approver2}
                     disabled={false}
-                    loading={employees.loading} 
-                    optionNameKey='full_name'
+                    loading={approvers.loading} 
+                    optionNameKey='name'
                     stateKey='approver2'                           
                 />
                 <AutocompleteField 
                     id="approver3"
                     className="w-full"
-                    options={[]} 
+                    options={approvers.data} 
                     label="Approver 3"
-                    getOptionLabel={(option:any)=> option?.full_name ?? ""} 
+                    getOptionLabel={(option:any)=> option?.name ?? ""} 
                     handleChange={handleChangeAutocomplete} 
                     value={singleBRANCHDetailsData.approver3}
                     disabled={false}
-                    loading={employees.loading} 
-                    optionNameKey='full_name'
+                    loading={approvers.loading} 
+                    optionNameKey='name'
                     stateKey='approver3'                           
                 />
               </div>
