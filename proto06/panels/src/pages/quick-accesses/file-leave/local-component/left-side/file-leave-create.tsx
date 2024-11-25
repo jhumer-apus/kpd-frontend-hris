@@ -315,7 +315,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         },
         {
             id:6,
-            name:"Accident (documentary evidence)"
+            name:"Accident (should provide documentary evidence)"
         },
         {
             id:7,
@@ -323,7 +323,7 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
         },
         {
             id:8,
-            name:"Security Issues (documentary evidence)"
+            name:"Security Issues (should provide documentary evidence)"
         },
     ]
 
