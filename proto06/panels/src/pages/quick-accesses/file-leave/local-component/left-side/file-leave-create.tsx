@@ -313,6 +313,18 @@ function QuickAccessLEAVECreate(props: CreateLEAVEModalInterface) {
             id:5,
             name:"Burial of Immediate Family"
         },
+        {
+            id:6,
+            name:"Accident (should provide documentary evidence)"
+        },
+        {
+            id:7,
+            name:"Personal medical emergencies"
+        },
+        {
+            id:8,
+            name:"Security Issues (should provide documentary evidence)"
+        },
     ]
 
     const handleChangeEmergencyReasons = (e:any, value:EmergencyReasons | null) => {
