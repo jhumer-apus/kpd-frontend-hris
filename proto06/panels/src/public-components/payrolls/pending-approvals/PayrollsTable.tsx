@@ -17,12 +17,12 @@ interface Props {
     open: boolean
     handleClose: () => void
     loading: boolean
-    payrollApproverId: number
+    payrollApprover: any
     refreshPayrollApprovers: () => void
 }
 export default function PayrollsTable(props: Props) {
     
-    const { payrollList, open, handleClose, loading, payrollApproverId, refreshPayrollApprovers } = props
+    const { payrollList, open, handleClose, loading, payrollApprover, refreshPayrollApprovers } = props
 
     const dispatch = useDispatch()
     const currUser = useSelector((state:RootState) => state.auth.employee_detail)
@@ -108,7 +108,7 @@ export default function PayrollsTable(props: Props) {
     const updatePayrollApprover = async(payload:any) => {
         await
             axiosInstance
-                .put(`payroll_approver/${payrollApproverId}/`, payload)
+                .put(`payroll_approver/${payrollApprover?.id}/`, payload)
                 .then(res => {
                     refreshPayrollApprovers()
                     setConfirmModal(curr => (
@@ -186,8 +186,20 @@ export default function PayrollsTable(props: Props) {
                     <Typography variant="h4" className="text-center">List Of Payrolls</Typography>
                     <div className="p-8">
                         <div className="flex flex-col md:flex-row gap-4">
-                            <Button variant="outlined" onClick={() => setConfirmModal(curr => ({...curr, showDisapproveModal:true}))}>Disapprove</Button>
-                            <Button variant="contained" onClick={() => setConfirmModal(curr => ({...curr, showApproveModal:true}))}>Approve</Button>
+                            <Button 
+                                variant="outlined" 
+                                onClick={() => setConfirmModal(curr => ({...curr, showDisapproveModal:true}))}
+                                disabled={!["APD", "DIS"].includes(payrollApprover?.status)}
+                            >
+                                Disapprove
+                            </Button>
+                            <Button 
+                                variant="contained" 
+                                onClick={() => setConfirmModal(curr => ({...curr, showApproveModal:true}))}
+                                disabled={!["APD", "DIS"].includes(payrollApprover?.status)}
+                            >
+                                Approve
+                            </Button>
                         </div>
                         <div id="payrolls-table-wrapper" className="h-[500px] mt-8">
                             <p>Click row to view full details</p>

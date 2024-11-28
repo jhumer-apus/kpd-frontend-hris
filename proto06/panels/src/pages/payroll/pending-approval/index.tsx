@@ -30,7 +30,7 @@ export default function PayrollPendingApproval() {
                 .get(`payroll_approver`, {
                     params: {
                         approver: currUser?.emp_no,
-                        status: "P"
+                        status: ""
                     }
                 })
                 .then(res => {

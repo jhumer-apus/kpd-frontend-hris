@@ -146,7 +146,7 @@ export default function PayrollApprovalsTable(props: Props) {
                 loading={loadingPayrolls}
                 open={showPayrollList}
                 handleClose={handleClosePayrollList}
-                payrollApproverId={selectedPayrollApprover?.id}
+                payrollApprover={selectedPayrollApprover}
                 refreshPayrollApprovers={refreshPayrollApprovers}
             />
             <ViewPayrollApprover 
