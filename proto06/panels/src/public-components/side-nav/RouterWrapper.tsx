@@ -10,6 +10,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/configureStore";
 import { LEAVEViewInterface, OBTViewInterface, OVERTIMEViewInterface, UAViewInterface } from "@/types/types-pages";
 import { compiledRoutes } from "@/routes/compiled_routes";
+import { usePayrollApprovalList } from "@/custom-hooks/payrolls/use-payroll-approval-list";
+import { useEffect } from "react";
+import { Badge } from "@mui/material";
 
 const RouterWrapper = () => {
   const proceduralState = useSelector((state: RootState)=> state.procedurals);
@@ -17,15 +20,25 @@ const RouterWrapper = () => {
   const { UAViewFilterApprover, LEAVEViewFilterApprover, OVERTIMEViewFilterApprover, OBTViewFilterApprover } = proceduralState;
   const { sidenavColor, sidenavType, openSidenav } = controller;
   
-  const approvalNames = ['OBT Approvals', 'OT Approvals', 'LEAVE Approvals', 'UA Approvals', 'KPI Confirmations', 'Onboarding CF', 'Offboarding CF'];
+  const approvalNames = ['OBT Approvals', 'OT Approvals', 'LEAVE Approvals', 'UA Approvals', 'KPI Confirmations', 'Onboarding CF', 'Offboarding CF', 'Pending Approval'];
 
   // view compiledRoutes for route reference
   const routes = compiledRoutes();
+
+  const { payrollApprovers, fetchPayrollByApprovers} = usePayrollApprovalList()
+
+  // Fetch data for notification for each module
+  useEffect(() => {
+    fetchPayrollByApprovers()
+  },[])
 
   const arrayLengthChecker = (key: string) => {
     type objectChecker = {
       [key: string]: number;
     }
+
+    const payrollApproversCount = Array.isArray(payrollApprovers.data)? payrollApprovers.data.length : 0
+
     const keyProcessor: objectChecker = {
       'OBT Approvals': (OBTViewFilterApprover?.data as OBTViewInterface[])?.length,
       'OT Approvals': (OVERTIMEViewFilterApprover?.data as OVERTIMEViewInterface[])?.length,
@@ -35,7 +48,9 @@ const RouterWrapper = () => {
         + (OVERTIMEViewFilterApprover?.data as OVERTIMEViewInterface[])?.length 
         + (LEAVEViewFilterApprover?.data as LEAVEViewInterface[])?.length 
         + (UAViewFilterApprover?.data as UAViewInterface[])?.length,
-      'default': 0
+      'default': 0,
+      "Pending Approval": payrollApproversCount,
+      "Payroll": payrollApproversCount
     };
     return keyProcessor[key] || keyProcessor['default']
   };
@@ -79,7 +94,7 @@ const RouterWrapper = () => {
                         className="font-medium capitalize flex justify-between w-full"
                       >
                         <p className="flex justify-center items-center">{name}</p>
-                        {name === 'Pending Checklists' && ( arrayLengthChecker(name) > 0 ) && <p 
+                        {((['Pending Checklists', 'Payroll'].includes(name)) && ( arrayLengthChecker(name) > 0 )) && <p 
                           className="flex justify-center items-center" 
                           style={{
                             fontSize: '12px',
@@ -93,7 +108,7 @@ const RouterWrapper = () => {
                           {arrayLengthChecker(name)}
                         </p>}
                       </Typography>
-                    </Button>
+                    </Button> 
                   }
                 >
                 {subItems?.map(({ icon, name, path, badgeAccessor }) => (
