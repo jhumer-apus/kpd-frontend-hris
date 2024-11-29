@@ -62,8 +62,8 @@ export default function PayrollsTable(props: Props) {
             cellClassName: 'w-150 md:w-0',
         },
         {
-            field: "work_days_total_pay",
-            headerName: "Total Work Pay",
+            field: "net_pay_after_loan",
+            headerName: "Net Pay After Loan (₱)",
             flex:1,
             minWidth: 150,
             cellClassName: 'w-150 md:w-0',
@@ -189,14 +189,14 @@ export default function PayrollsTable(props: Props) {
                             <Button 
                                 variant="outlined" 
                                 onClick={() => setConfirmModal(curr => ({...curr, showDisapproveModal:true}))}
-                                disabled={!["APD", "DIS"].includes(payrollApprover?.status)}
+                                disabled={["APD", "DIS"].includes(payrollApprover?.status)}
                             >
                                 Disapprove
                             </Button>
                             <Button 
                                 variant="contained" 
                                 onClick={() => setConfirmModal(curr => ({...curr, showApproveModal:true}))}
-                                disabled={!["APD", "DIS"].includes(payrollApprover?.status)}
+                                disabled={["APD", "DIS"].includes(payrollApprover?.status)}
                             >
                                 Approve
                             </Button>

@@ -46,7 +46,6 @@ export default function PayrollApprovalsTable(props: Props) {
                     color="inherit"
                   />,
                 ];
-            
             },
           },
         {
@@ -64,21 +63,6 @@ export default function PayrollApprovalsTable(props: Props) {
             headerName: "Cut Off",
             width: 150,
         },
-        // {
-        //     field: 'approver1',
-        //     headerName: "Approver 1",
-        //     width: 150,
-        // },
-        // {
-        //     field: 'approver2',
-        //     headerName: "Approver 2",
-        //     width: 150,
-        // },
-        // {
-        //     field: 'approver3',
-        //     headerName: "Approver 3",
-        //     width: 150,
-        // },
         {
             field: 'approved1_date',
             headerName: "Date Approver 1",

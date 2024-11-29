@@ -50,6 +50,13 @@ export default function PayrollApprover(props: Props) {
                             }}
                         />
                         <TextField
+                            label="Payroll Total"
+                            value={data?.payroll_total}
+                            inputProps={{
+                                readOnly:true
+                            }}
+                        />
+                        <TextField
                             label="Approver 1"
                             value={data?.approver1_name}
                             inputProps={{
