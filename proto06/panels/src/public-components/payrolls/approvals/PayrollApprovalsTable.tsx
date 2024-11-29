@@ -14,7 +14,7 @@ interface Props {
     refreshPayrollApprovers: () => void
 }
 export default function PayrollApprovalsTable(props: Props) {
-    const { rows, loading:loadingPendingPayrolls, refreshPayrollApprovers } = props
+    const { rows, loading:loadingApprovals, refreshPayrollApprovers } = props
 
     const {payrollList, fetchPayrollList, loading:loadingPayrolls} = usePayrollList()
     const [showPayrollList, setShowPayrollList] = useState<boolean>(false)
@@ -115,19 +115,19 @@ export default function PayrollApprovalsTable(props: Props) {
     
     return (
         <div className="h-[500px] mt-4">
-            <Typography variant="h6" className="text-gray-700">
-                Select Pending Payrolls
-            </Typography>
+            {/* <Typography variant="h6" className="text-gray-700">
+                Select  Payrolls
+            </Typography> */}
             <DataGrid 
                 columns={columns}
                 rows={rows}
-                loading={loadingPendingPayrolls}
-                localeText={{noRowsLabel: "No Pending Approvals"}}
+                loading={loadingPayrolls}
+                localeText={{noRowsLabel: "No  Approvals"}}
                 // onRowClick={(params) => onSelectedRow(params?.row)}
             />
             <PayrollsTable 
                 payrollList={payrollList}
-                loading={loadingPayrolls}
+                loading={loadingApprovals}
                 open={showPayrollList}
                 handleClose={handleClosePayrollList}
                 payrollApprover={selectedPayrollApprover}

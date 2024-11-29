@@ -16,6 +16,7 @@ import { UserPlusIcon, ArrowRightOnRectangleIcon } from "@heroicons/react/24/sol
 import { SignIn, SignUp } from "../pages/auth";
 import JSXRouteWrapper from "../routes";
 import { IRoute } from "../types";
+import { routesPayroll } from "./routes_payroll";
 
 const icon = { className: "w-5 h-5 text-inherit" };
 
@@ -26,7 +27,7 @@ export const compiledRoutes = () => {
   let sideNavRoutes: any = [];
 
   // Compiled Routes
-  const allRoutes = [routesAdmin, routesEmployee, routesQuickAccess, routesPendingChecklist, routesProcedurals, routesForms, routesDTR, routesReports];
+  const allRoutes = [routesAdmin, routesEmployee, routesQuickAccess, routesPendingChecklist, routesProcedurals, routesForms, routesDTR, routesPayroll, routesReports];
 
   allRoutes.map((route) => { 
     let routee = route(state.user.role);

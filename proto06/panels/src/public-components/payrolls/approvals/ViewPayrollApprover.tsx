@@ -51,7 +51,7 @@ export default function PayrollApprover(props: Props) {
                         />
                         <TextField
                             label="Payroll Total"
-                            value={data?.payroll_total}
+                            value={data?.payroll_total?.toLocaleString()}
                             inputProps={{
                                 readOnly:true
                             }}

@@ -10,7 +10,7 @@ import { HandleAlertAction } from "@/store/actions/components"
 import { RootState } from "@/store/configureStore"
 import DisapproveReasonModal from "@/public-components/modals/DisapproveReasonModal"
 import ConfirmationModal from "@/public-components/modals/ConfirmationModal"
-import Payslip from "../Payslip"
+import Payslip from "./Payslip"
 
 interface Props {
     payrollList: any[]
@@ -111,12 +111,7 @@ export default function PayrollsTable(props: Props) {
                 .put(`payroll_approver/${payrollApprover?.id}/`, payload)
                 .then(res => {
                     refreshPayrollApprovers()
-                    setConfirmModal(curr => (
-                        {
-                            showApproveModal: false,
-                            showDisapproveModal:false
-                        }
-                    ))
+                    handleCloseModal()
                     dispatch(HandleAlertAction(
                         {
                             open:true,
@@ -127,12 +122,7 @@ export default function PayrollsTable(props: Props) {
                 })
                 .catch(err => {
                     console.error(err?.response)
-                    setConfirmModal(curr => (
-                        {
-                            showApproveModal: false,
-                            showDisapproveModal:false
-                        }
-                    ))
+                    handleCloseModal()
                     dispatch(HandleAlertAction(
                         {
                             open:true,
@@ -150,14 +140,20 @@ export default function PayrollsTable(props: Props) {
         }))
     }
 
-    const handleCloseDisapproveModal = () => {
+    const handleCloseModal = () => {
         setData((curr:any) => (
             {
                 ...curr,
                 disapproved_reason: null
             }
         ))
-        setConfirmModal(curr => ({...curr, showDisapproveModal:false}))
+        setConfirmModal(curr => (
+            {
+                ...curr, 
+                showDisapproveModal:false,
+                showApproveModal: false
+            }
+        ))
     }
     return(
         <Fragment>
@@ -232,7 +228,7 @@ export default function PayrollsTable(props: Props) {
                     />
                     <DisapproveReasonModal 
                         open={confirmModal?.showDisapproveModal}
-                        handleClose={() => handleCloseDisapproveModal()} 
+                        handleClose={() => handleCloseModal()} 
                         title="Are You Sure You Want To Disapprove Payrolls?" 
                         message="Please state your reason for disapproving payrolls" 
                         onContinue={onDisapprove} 

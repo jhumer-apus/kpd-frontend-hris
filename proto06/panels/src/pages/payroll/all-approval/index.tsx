@@ -3,9 +3,9 @@ import PayrollApprovalsTable from "@/public-components/payrolls/approvals/Payrol
 import ViewPayroll from "@/public-components/payrolls/approvals/ViewPayroll"
 import { RootState } from "@/store/configureStore"
 import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 
-export default function PayrollPendingApproval() {
+export default function AllApproval() {
 
     const currUser = useSelector((state:RootState) => state.auth.employee_detail)
 
@@ -30,7 +30,6 @@ export default function PayrollPendingApproval() {
                 .get(`payroll_approver`, {
                     params: {
                         approver: currUser?.emp_no,
-                        status: "P"
                     }
                 })
                 .then(res => {
