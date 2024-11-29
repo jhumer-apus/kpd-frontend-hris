@@ -211,7 +211,6 @@ export default function PayrollsTable(props: Props) {
                             />
                         </div>
                     </div>
-
                     {/* MODAL VIEW FOR SPECIFIC PAYROLL DATA */}
                     <ViewPayroll 
                         payrollData={selectedPayroll}
