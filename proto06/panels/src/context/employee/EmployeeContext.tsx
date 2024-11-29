@@ -24,7 +24,7 @@ const EmployeeProvider: React.FC<EmployeeProviderProps> = ({children}) => {
 
     const test = () => console.log("helloooo")
     const fetchEmployeeData = async (emp_no: string | number): Promise<void> => {
-        console.log("clicked fetch employee data")
+        // console.log("clicked fetch employee data")
         await axiosInstance.get(`employees/${emp_no}/`)
             .then(res => {
                 setEmployeeData((curr:any) => res.data)
@@ -39,10 +39,6 @@ const EmployeeProvider: React.FC<EmployeeProviderProps> = ({children}) => {
             })
     }
 
-    useEffect(()=>{
-        console.log(employeeData)
-    },[employeeData])
-    
     return (
         <EmployeeContext.Provider value={{employeeData, fetchEmployeeData}}>
             {children}
