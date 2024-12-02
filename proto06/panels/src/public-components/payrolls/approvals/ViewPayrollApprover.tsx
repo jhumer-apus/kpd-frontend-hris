@@ -11,8 +11,7 @@ interface Props {
 export default function PayrollApprover(props: Props) {
 
     const { open, handleClose, data } = props
-
-    console.table(data)
+    
     return (
         <Fragment>
             <Modal
@@ -50,8 +49,8 @@ export default function PayrollApprover(props: Props) {
                             }}
                         />
                         <TextField
-                            label="Payroll Total"
-                            value={data?.payroll_total?.toLocaleString()}
+                            label="Payroll Total (₱)"
+                            value={Number(data?.payroll_total)?.toLocaleString()}
                             inputProps={{
                                 readOnly:true
                             }}

@@ -64,6 +64,13 @@ export default function PayrollApprovalsTable(props: Props) {
             width: 150,
         },
         {
+            field: 'payroll_total',
+            headerName: "Payroll Total (₱)",
+            width: 180,
+            valueFormatter: (params) => Number(params.value)?.toLocaleString()
+
+        },
+        {
             field: 'approved1_date',
             headerName: "Date Approver 1",
             width: 150,

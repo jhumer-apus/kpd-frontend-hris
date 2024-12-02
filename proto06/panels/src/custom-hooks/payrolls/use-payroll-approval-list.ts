@@ -23,7 +23,7 @@ export const usePayrollApprovalList = () => {
             axiosInstance
                 .get(`payroll_approver`, {
                     params: {
-                        // approver: currUser?.emp_no,
+                        approver: currUser?.emp_no,
                         status: status
                     }
                 })

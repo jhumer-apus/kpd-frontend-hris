@@ -67,6 +67,7 @@ export default function PayrollsTable(props: Props) {
             flex:1,
             minWidth: 150,
             cellClassName: 'w-150 md:w-0',
+            valueFormatter: (params) => Number(params.value).toLocaleString()
         }
     ]
 

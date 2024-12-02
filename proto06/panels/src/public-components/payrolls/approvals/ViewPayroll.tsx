@@ -3,7 +3,7 @@ import ConfirmationModal from "@/public-components/modals/ConfirmationModal"
 import { HandleAlertAction } from "@/store/actions/components"
 import { XMarkIcon } from "@heroicons/react/24/solid"
 import { Box, Button, IconButton, Modal, TextField, Typography } from "@mui/material"
-import { Fragment, useState } from "react"
+import { Fragment, useMemo, useState } from "react"
 import { useDispatch } from "react-redux"
 
 interface Props {
@@ -17,7 +17,20 @@ interface Props {
 export default function ViewPayroll(props: Props) {
 
     const { payrollData, open, handleClose } = props
-    // const [openConfirmModal, setOpenConfirmModal] = useState<boolean>(false)
+
+    const formattedData = useMemo(() => {
+        if (payrollData) {
+          return Object.keys(payrollData).reduce((acc, key) => {
+            let value = payrollData[key];
+            if (typeof value === "number") {
+              value = value.toLocaleString();
+            }
+            acc[key] = value;
+            return acc;
+          }, {} as Record<string, any>);
+        }
+        return {}; 
+    }, [payrollData]);
 
     return (
         <Fragment>
@@ -43,126 +56,126 @@ export default function ViewPayroll(props: Props) {
                     <div className="flex flex-col gap-4">
                         <TextField
                             label="Employee No."
-                            value={payrollData?.emp_no}
+                            value={formattedData?.emp_no}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Daily Salary(₱)"
-                            value={payrollData?.daily_salary}
+                            value={formattedData?.daily_salary}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Total Work Days"
-                            value={payrollData?.work_days_total}
+                            value={formattedData?.work_days_total}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Total Work Pay(₱)"
-                            value={payrollData?.work_days_total_pay}
+                            value={formattedData?.work_days_total_pay}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Night Differential Pay(₱)"
-                            value={payrollData?.nd_pay}
+                            value={formattedData?.nd_pay}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Overtime Pay(₱)"
-                            value={payrollData?.ot_pay}
+                            value={formattedData?.ot_pay}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Night Differential Overtime Pay(₱)"
-                            value={payrollData?.nd_ot_pay}
+                            value={formattedData?.nd_ot_pay}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Total Special Holiday Days"
-                            value={payrollData?.sp_holiday_days_total}
+                            value={formattedData?.sp_holiday_days_total}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Special Holiday Working Pay(₱)"
-                            value={payrollData?.sp_holiday_working_pay}
+                            value={formattedData?.sp_holiday_working_pay}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Special Holiday Night Differential Working Pay(₱)"
-                            value={payrollData?.sp_holiday_nd_working_pay}
+                            value={formattedData?.sp_holiday_nd_working_pay}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Special Holiday Overtime Pay(₱)"
-                            value={payrollData?.sp_holiday_ot_pay}
+                            value={formattedData?.sp_holiday_ot_pay}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Special Holiday Night Differential Overtime Pay(₱)"
-                            value={payrollData?.sp_holiday_nd_ot_pay}
+                            value={formattedData?.sp_holiday_nd_ot_pay}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Total Regular Holiday Days"
-                            value={payrollData?.reg_holiday_days_total}
+                            value={formattedData?.reg_holiday_days_total}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Regular Holiday Working Pay(₱)"
-                            value={payrollData?.reg_holiday_working_pay}
+                            value={formattedData?.reg_holiday_working_pay}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Regular Holiday Night Differential Working Pay(₱)"
-                            value={payrollData?.reg_holiday_nd_working_pay}
+                            value={formattedData?.reg_holiday_nd_working_pay}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Regular Holiday Overtime Pay(₱)"
-                            value={payrollData?.reg_holiday_ot_pay}
+                            value={formattedData?.reg_holiday_ot_pay}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Regular Holiday Night Differential Overtime Pay(₱)"
-                            value={payrollData?.reg_holiday_nd_ot_pay}
+                            value={formattedData?.reg_holiday_nd_ot_pay}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Regular Holiday Night Differential Overtime Pay(₱)"
-                            value={payrollData?.reg_holiday_nd_ot_pay}
+                            value={formattedData?.reg_holiday_nd_ot_pay}
                             inputProps={{
                                 readOnly:true
                             }}
@@ -174,133 +187,133 @@ export default function ViewPayroll(props: Props) {
                         {/* gov contribution */}
                         <TextField
                             label="Late Deduction(₱)"
-                            value={payrollData?.late_deduct}
+                            value={formattedData?.late_deduct}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Overbreak Deduct(₱)"
-                            value={payrollData?.overbreak_deduct}
+                            value={formattedData?.overbreak_deduct}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Undertime Deduction(₱)"
-                            value={payrollData?.undertime_deduct}
+                            value={formattedData?.undertime_deduct}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Total Absent Days"
-                            value={payrollData?.absent_days_total}
+                            value={formattedData?.absent_days_total}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Absent Deduction(₱)"
-                            value={payrollData?.absent_deduct}
+                            value={formattedData?.absent_deduct}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Bonus Pay(₱)"
-                            value={payrollData?.bonus_pay}
+                            value={formattedData?.bonus_pay}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Allowance Pay(₱)"
-                            value={payrollData?.allowance_pay}
+                            value={formattedData?.allowance_pay}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Gross Pay Without Deduction(₱)"
-                            value={payrollData?.gross_pay_without_deduct}
+                            value={formattedData?.gross_pay_without_deduct}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Gross Pay(₱)"
-                            value={payrollData?.gross_pay}
+                            value={formattedData?.gross_pay}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Pagibig Contribution(₱)"
-                            value={payrollData?.pagibig_contrib}
+                            value={formattedData?.pagibig_contrib}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Philhealth Contribution(₱)"
-                            value={payrollData?.philhealth_contrib}
+                            value={formattedData?.philhealth_contrib}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="SSS Contribution(₱)"
-                            value={payrollData?.sss_contrib}
+                            value={formattedData?.sss_contrib}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Government Contribution(₱)"
-                            value={payrollData?.government_contrib}
+                            value={formattedData?.government_contrib}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Net Pay After Tax(₱)"
-                            value={payrollData?.net_pay_after_tax}
+                            value={formattedData?.net_pay_after_tax}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                          <TextField
                             label="Cash Advance Deduct(₱)"
-                            value={payrollData?.cash_advance_deduct}
+                            value={formattedData?.cash_advance_deduct}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Pagibig Cash Loan(₱)"
-                            value={payrollData?.pagibig_cash_loan}
+                            value={formattedData?.pagibig_cash_loan}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Pagibig House Loan(₱)"
-                            value={payrollData?.pagibig_house_loan}
+                            value={formattedData?.pagibig_house_loan}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="SSS Cash Loan(₱)"
-                            value={payrollData?.sss_cash_loan}
+                            value={formattedData?.sss_cash_loan}
                             inputProps={{
                                 readOnly:true
                             }}
                         />
                         <TextField
                             label="Net Pay After Loan(₱)"
-                            value={payrollData?.net_pay_after_loan}
+                            value={formattedData?.net_pay_after_loan}
                             inputProps={{
                                 readOnly:true
                             }}
