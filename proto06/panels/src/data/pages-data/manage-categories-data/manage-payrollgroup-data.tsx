@@ -15,6 +15,7 @@ const paymentFrequency:any = {
 
 export const ManagePAYROLLGROUPPageColumns: GridColDef[] = 
 [
+  { field: 'id', headerName: 'ID', width: 80},
   {
     field: 'name',
     headerName: 'Payroll Group Name',
@@ -24,11 +25,8 @@ export const ManagePAYROLLGROUPPageColumns: GridColDef[] =
     field: 'payroll_type', 
     headerName: 'Pay Type', 
     width: 150,
-    valueGetter: (params: GridValueGetterParams) => paymentFrequency[params?.row?.payroll_freq]
   },
-  { field: 'id', headerName: 'Paygrp ID', width: 120,
-  },
-  { field: 'used_account', headerName: 'Accounts Linked',  width: 120 },
+  // { field: 'used_account', headerName: 'Accounts Linked',  width: 120 },
 ];
   
 export default {

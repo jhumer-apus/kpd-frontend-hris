@@ -645,7 +645,7 @@ export interface DIVISIONEditInterface extends DIVISIONGenericInterface, DIVISIO
 // ============================================
 export interface PAYROLLGROUPGenericInterface {
     name: string,
-    payroll_description: string | null,
+    description: string | null,
     payroll_type: number | null,
 }
 

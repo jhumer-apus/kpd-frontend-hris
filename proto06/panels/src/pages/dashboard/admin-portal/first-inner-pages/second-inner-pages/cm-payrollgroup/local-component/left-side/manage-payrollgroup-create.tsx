@@ -20,7 +20,7 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
     const PAYROLLGROUPCreatestate = useSelector((state: RootState)=> state.categories.PAYROLLGROUPCreate);
     const [createPAYROLLGROUP, setCreatePAYROLLGROUP] = useState<PAYROLLGROUPCreateInterface>({
         name: "",
-        payroll_description: "",
+        description: "",
         payroll_type: NaN,
         used_account: 0,
         added_by: NaN,
@@ -139,14 +139,14 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
                     type="text"
                     multiline
                     rows={2}
-                    value={createPAYROLLGROUP?.payroll_description}
+                    value={createPAYROLLGROUP?.description}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         const value = event.target.value
                         setCreatePAYROLLGROUP((prevState)=> {
                             return (
                                 {
                                     ...prevState,
-                                    payroll_description: value
+                                    description: value
                                 }
                             )
                         })
@@ -154,28 +154,28 @@ function ManagePAYROLLGROUPCreate(props: CreatePAYROLLGROUPModalInterface) {
                     
                 />
                 <FormControl fullWidth>
-                    <InputLabel id="type">Payment Type</InputLabel>
+                    <InputLabel id="type">Payroll Type</InputLabel>
                     <Select
                         required 
                         sx={{width: '100%'}} 
                         labelId="type"
-                        label="Payment Type"
+                        label="Payroll Type"
                         aria-required  
-                        placeholder='1 - Monthly | 2 - Semi-Monthly | 3 - Daily'
+                        placeholder='Payroll Type'
                         // variant='outlined' 
-                        type="number"
                         value={createPAYROLLGROUP?.payroll_type}
                         onChange={(event: any) => {
-                            const value = parseInt(event.target.value)
+                            const value = event.target.value
                             setCreatePAYROLLGROUP((prevState)=> ({
                                 ...prevState,
                                 payroll_type: value
                             }));
                         }}
                     >
-                        <MenuItem value={1}>1 - Monthly</MenuItem>
-                        <MenuItem value={2}>2 - Semi-Monthly</MenuItem>
-                        <MenuItem value={3}>3 - Daily</MenuItem>
+                        <MenuItem value="Monthly">Monthly</MenuItem>
+                        <MenuItem value="Semi-Monthly">Semi-Monthly</MenuItem>
+                        <MenuItem value="Weekly">Weekly</MenuItem>
+                        {/* <MenuItem value="Daily">Daily</MenuItem> */}
                     </Select>    
                 </FormControl>
 

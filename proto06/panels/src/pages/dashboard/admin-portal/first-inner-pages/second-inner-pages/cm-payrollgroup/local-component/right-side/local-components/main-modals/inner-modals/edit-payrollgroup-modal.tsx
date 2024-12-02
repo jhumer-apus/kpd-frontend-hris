@@ -124,28 +124,26 @@ export default function AllowedDaysPAYROLLGROUPModal(props: AllowedDaysPAYROLLGR
                   }}
                 />
                 <FormControl sx={{width: '90%'}} >
-                    <InputLabel id="frequency">Payment Frequency</InputLabel>
+                    <InputLabel id="payroll_type">Payroll Type</InputLabel>
                     <Select
                         sx={{width: '100%'}} 
                         required 
-                        labelId="frequency"
-                        label="Payment Frequency"
+                        labelId="payroll_type"
+                        label="Payroll Type"
                         aria-required  
-                        placeholder='1 - Monthly | 2 - Bi-Monthly | 3 - Daily'
-                        // variant='outlined' 
-                        type="number"
-                        value={singlePAYROLLGROUPDetailsData?.payroll_freq}
+                        value={singlePAYROLLGROUPDetailsData?.payroll_type}
                         onChange={(event: any) => {
-                            const value = parseInt(event.target.value)
+                            const value = event.target.value
                             setSinglePAYROLLGROUPDetailsData((prevState)=> ({
                                 ...prevState,
-                                payroll_freq: value
+                                payroll_type: value
                             }));
                         }}
                     >
-                        <MenuItem value={1}>1 - Monthly</MenuItem>
-                        <MenuItem value={2}>2 - Bi-Monthly</MenuItem>
-                        <MenuItem value={3}>3 - Daily</MenuItem>
+                        <MenuItem value="Monthly">Monthly</MenuItem>
+                        <MenuItem value="Semi-Monthly">Semi-Monthly</MenuItem>
+                        <MenuItem value="Weekly">Weekly</MenuItem>
+                        {/* <MenuItem value="Daily">Daily</MenuItem> */}
                     </Select>    
                 </FormControl>
                 {/* <TextField
@@ -172,13 +170,13 @@ export default function AllowedDaysPAYROLLGROUPModal(props: AllowedDaysPAYROLLGR
                   multiline
                   rows={3}
                   variant='outlined'
-                  value={singlePAYROLLGROUPDetailsData.payroll_description}
+                  value={singlePAYROLLGROUPDetailsData.description}
                   onChange={(event: ChangeEvent<HTMLInputElement>)=> {
                     setSinglePAYROLLGROUPDetailsData((prevState)=> {
                       const value = event.target.value;
                       return({
                         ...prevState,
-                        payroll_description: value,
+                        description: value,
                       })
                     })
                   }}
